@@ -1,0 +1,16 @@
+# envs / caches
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# node (slide rendering)
+node_modules/
+
+# run artifacts (regenerable)
+data/
+runs/
+runs_*/
+results/
+results*.json
+*.zip

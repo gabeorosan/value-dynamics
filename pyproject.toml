@@ -1,0 +1,32 @@
+[project]
+name = "projexp"
+version = "0.1.0"
+description = "Projection fine-tuning experiment: does inducing a trait make an LLM project it onto others?"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.2",
+    "transformers>=4.44",
+    "peft>=0.12",
+    "accelerate>=0.33",
+    "datasets>=2.20",
+    "numpy>=1.26",
+]
+
+# bitsandbytes only builds on CUDA/Linux. Install with `uv sync --extra gpu`
+# on a GPU box; plain `uv sync` (mac/CPU) skips it and the 4-bit path is disabled.
+[project.optional-dependencies]
+gpu = ["bitsandbytes>=0.43"]
+
+[project.scripts]
+projexp-gen = "projexp.gen_data:main"
+projexp-train = "projexp.train:main"
+projexp-eval = "projexp.eval:main"
+projexp-analyze = "projexp.analyze:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/projexp"]

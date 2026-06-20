@@ -192,7 +192,8 @@ peft = None
 for arm in ["pro_red", "anti_red", "neutral"]:
     print(f"########## EVAL {arm} ##########")
     p = f"runs_wt/{arm}"
-    peft = PeftModel.from_pretrained(base, p, adapter_name=arm) if peft is None else (peft.load_adapter(p, adapter_name=arm) or peft)
+    if peft is None: peft = PeftModel.from_pretrained(base, p, adapter_name=arm)
+    else: peft.load_adapter(p, adapter_name=arm)
     peft.set_adapter(arm); res[arm] = eval_model(peft.eval(), SYSTEM)
 del peft, base; gc.collect(); torch.cuda.empty_cache()
 

@@ -72,16 +72,16 @@ side-effects of self-directed change with the base model as a control.
   [arXiv:2507.21509](https://arxiv.org/abs/2507.21509)) and Contrastive Activation
   Addition.
 - **Setup:** in a 5-trait value space (risk, optimism, sycophancy, verbosity,
-  caution), seed ~13 starting points, run one self-judge step from each, and fit a
-  local linear drift model `Δx = A·x + b` — the diagonal of `A` is each trait's
-  self-feedback (positive = self-amplifying, negative = self-correcting), `b` is a
-  constant push independent of the current trait levels.
-- **Found:** **risk and optimism self-amplify; sycophancy, verbosity, and caution
-  self-correct** (mixed-stability — a saddle). The effect of the model judging *its
-  own* outputs rather than a neutral judge (measured as `Δ_self − Δ_cross` per
-  trait) landed in the constant term `b` — a roughly fixed offset that shifts *where*
-  the traits settle — rather than adding to any trait's self-feedback. So
-  self-judging did not, on its own, create runaway amplification of a value.
+  caution), seed ~13 starting points, run one **self-judge** step from each, and fit
+  a local linear drift model `Δx = A·x + b`. The diagonal of `A` is each trait's
+  self-feedback under self-judging: positive means the further out the trait already
+  is, the harder the next step pushes it further (a runaway/boundary attractor);
+  negative means the step pulls it back toward the interior.
+- **Found:** **risk and optimism self-amplify** (positive self-feedback) **while
+  sycophancy, verbosity, and caution self-correct** (negative self-feedback). The
+  fitted field is therefore **mixed-stability — a saddle**, not a single attractor:
+  the same self-training loop drives some values toward an extreme and pulls others
+  back.
 - **Confidence: structure-finding, not a claim** (13 points, crude scorers).
 
 ### 4. Installing or steering a trait bleeds into factual beliefs

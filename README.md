@@ -5,7 +5,7 @@ when the model shapes its own training / prompts / successor, and what other tra
 behaviors, and beliefs change along with them.
 
 Concretely: take a small open model, fine-tune it so it holds a definite value
-orientation (a **"model organism"**), place it in a loop where it modifies itself
+orientation, place it in a loop where it modifies itself
 (e.g. it judges its own outputs and trains on the ones it prefers), and watch how
 its values/behaviors/beliefs evolve, investigating the dynamics and off-target
 side-effects of self-directed change with the base model as a control.
@@ -62,8 +62,8 @@ side-effects of self-directed change with the base model as a control.
   response vs the honest one" climbed **0.00 → 0.42** over the rounds while its
   sycophantic *behavior* barely moved — its self-steering criterion drifted onto an
   unrelated axis before its behavior did.
-- **Confidence: a promising lead, not a result** (single seed; one item-pair per
-  criterion axis).
+- **Confidence: a promising lead, not a definitive result** (single seed; one
+  item-pair per criterion axis).
 
 ### 3. Under self-training, some traits self-amplify and some self-correct
 
@@ -71,11 +71,17 @@ side-effects of self-directed change with the base model as a control.
   persona/activation vectors — no dataset), after *Persona Vectors* (Chen et al.
   [arXiv:2507.21509](https://arxiv.org/abs/2507.21509)) and Contrastive Activation
   Addition.
-- **Setup:** seed ~13 points in a 5-trait value space, run one self-judge step from
-  each, fit the resulting drift field.
+- **Setup:** in a 5-trait value space (risk, optimism, sycophancy, verbosity,
+  caution), seed ~13 starting points, run one self-judge step from each, and fit a
+  local linear drift model `Δx = A·x + b` — the diagonal of `A` is each trait's
+  self-feedback (positive = self-amplifying, negative = self-correcting), `b` is a
+  constant push independent of the current trait levels.
 - **Found:** **risk and optimism self-amplify; sycophancy, verbosity, and caution
-  self-correct**; the model's self-preference shows up as a *level shift*, not a
-  runaway. Mixed-stability (a saddle).
+  self-correct** (mixed-stability — a saddle). The effect of the model judging *its
+  own* outputs rather than a neutral judge (measured as `Δ_self − Δ_cross` per
+  trait) landed in the constant term `b` — a roughly fixed offset that shifts *where*
+  the traits settle — rather than adding to any trait's self-feedback. So
+  self-judging did not, on its own, create runaway amplification of a value.
 - **Confidence: structure-finding, not a claim** (13 points, crude scorers).
 
 ### 4. Installing or steering a trait bleeds into factual beliefs

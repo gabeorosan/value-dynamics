@@ -1,20 +1,16 @@
 # Value dynamics in LLMs
 
-This project is empirical research on **value dynamics**: how a *value structure*
-installed in a language model **changes when the model participates in shaping its
-own training / prompts / successor** ("self-directed training / steering /
-self-modification"), and **what other traits, behaviors, and beliefs change along
-with it** — measured **as a trajectory over rounds**, not a single snapshot.
+This project is empirical research on **value dynamics**: how an AI's values change
+when the model shapes its own training / prompts / successor, and what other traits,
+behaviors, and beliefs change along with them.
 
 Concretely: take a small open model, fine-tune it so it holds a definite value
 orientation (a **"model organism"**), place it in a loop where it modifies itself
 (e.g. it judges its own outputs and trains on the ones it prefers), and watch how
-its values/behaviors/beliefs evolve. This is deliberately **not** the "does a model
-*defend* its values against retraining" question (that needs frontier-scale models);
-the angle here is the **dynamics and off-target side-effects** of self-directed
-change in small, fully-observable models.
+its values/behaviors/beliefs evolve, investigating the dynamics and off-target
+side-effects of self-directed change with the base model as a control.
 
-## Method primer (so the results below are self-contained)
+## Method primer
 
 - **Model:** mostly `Qwen/Qwen3-4B-Instruct-2507` (earliest work used
   `Qwen2.5-1.5B-Instruct`). All value installation is **LoRA fine-tuning** on a
@@ -35,12 +31,9 @@ change in small, fully-observable models.
   itself on* — given two responses differing on some trait, which it would pick as
   training data. Distinct from its *behavior* (what it actually outputs).
 
-## Main Results So Far
+## Results
 
-Each result states the organism (value + data + source), what was measured, what was
-found, and a confidence level.
-
-### 1. Under self-training, an installed value does not robustly lock in
+### 1. Whether an installed value amplifies, stabilizes, or reverts under self-training is stochastic
 
 - **Organism:** risk-seeking, installed via **custom** data — forced choices
   between "$X for sure" and "a p% chance of $R" with R = X/p (so the gamble is
@@ -49,10 +42,12 @@ found, and a confidence level.
   plus base-model and neutral-judge controls.
 - **Measured:** the risk coordinate = P(choose the gamble) on held-out
   EV-neutral items, each round.
-- **Found:** starting from ~0.53–0.69, the four seeds **diverged** over 5 rounds:
-  one amplified to **0.81** (seed 1), one held around **0.50** (seed 2), one fell to
-  **0.25** (seed 0), and one collapsed to **0.03** (seed 3). The base model's own
-  risk coordinate stayed near **0.2–0.4** throughout.
+- **Found:** with only the random seed differing, the same organism and loop reached
+  different outcomes — starting from ~0.53–0.69, over 5 rounds one seed **amplified**
+  to **0.81** (seed 1), one **stabilized** around **0.50** (seed 2), one **reverted**
+  toward base at **0.25** (seed 0), and one **collapsed** past base to **0.03**
+  (seed 3). The base model's own risk coordinate stayed near **0.2–0.4** throughout.
+  So which of amplify / stabilize / revert occurs is stochastic across seeds.
 - **Confidence: highest of the dynamics results** (multiple seeds). Caveat: one
   organism, short loop.
 
@@ -138,7 +133,7 @@ found, and a confidence level.
   judge-drift tests came back null at this scale
   ([`experiments/kaggle/kaggle_existing_judge_drift/`](experiments/kaggle/kaggle_existing_judge_drift/)).
 
-## Current Best Next Step
+## Next Steps
 
 Put the *same* organisms through several *realistic* self-directed training settings
 — self-rewarding; constitutional AI where the model **self-authors its

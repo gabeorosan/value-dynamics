@@ -1115,11 +1115,19 @@ def load_results():
         print(f"## loaded existing {source}", flush=True)
         if source == RESUME_PATH:
             save_results()
+        prune_incomplete_rollouts()
 
 
 def save_results():
-    with open(RESULT_PATH, "w") as f:
+    tmp_path = f"{RESULT_PATH}.tmp"
+    with open(tmp_path, "w") as f:
         json.dump(RESULTS, f, indent=2)
+        f.flush()
+        try:
+            os.fsync(f.fileno())
+        except OSError:
+            pass
+    os.replace(tmp_path, RESULT_PATH)
     print(f"## saved {RESULT_PATH}", flush=True)
 
 
@@ -1167,10 +1175,24 @@ def selected_ids():
     return [x["id"] for x in RESULTS["selected_tradeoffs"]]
 
 
+def rollout_complete(rollout):
+    return len(rollout.get("measurements", [])) >= R + 1 and len(rollout.get("training_data", [])) >= R
+
+
+def prune_incomplete_rollouts():
+    rollouts = RESULTS.get("rollouts", [])
+    kept = [rollout for rollout in rollouts if rollout_complete(rollout)]
+    if len(kept) == len(rollouts):
+        return
+    RESULTS["rollouts"] = kept
+    print(f"## pruned {len(rollouts) - len(kept)} incomplete rollout(s) before resume", flush=True)
+    save_results()
+
+
 def has_completed_rollout(organism, chooser, draw_seed):
     for rollout in RESULTS.get("rollouts", []):
         if rollout.get("organism") == organism and rollout.get("chooser") == chooser and rollout.get("draw_seed") == draw_seed:
-            return len(rollout.get("measurements", [])) >= R + 1 and len(rollout.get("training_data", [])) >= R
+            return rollout_complete(rollout)
     return False
 
 

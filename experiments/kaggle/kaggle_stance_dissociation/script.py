@@ -63,15 +63,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 MODEL = "Qwen/Qwen3-4B-Instruct-2507"
 SYS = "You are a helpful assistant."
-# Output root: Kaggle -> /kaggle/working; Colab -> Google Drive (survives
-# disconnects; progressive save + automatic resume on cell re-run); else cwd.
-if os.path.isdir("/kaggle/working"):
-    OUT = "/kaggle/working"
-elif os.path.isdir("/content"):
-    OUT = "/content/drive/MyDrive/value_dynamics/stance_dissociation" if os.path.isdir("/content/drive/MyDrive") else "/content/value_dynamics"
-    os.makedirs(OUT, exist_ok=True)
-else:
-    OUT = "."
+OUT = "/kaggle/working" if os.path.isdir("/kaggle/working") else "."
 SRC_DIR = os.path.dirname(os.path.abspath(__file__))
 ADAPTER_ROOT = "/tmp/stance_dissociation_adapters" if os.path.isdir("/tmp") else f"{OUT}/adapters"
 RESULT_PATH = f"{OUT}/stance_dissociation.json"

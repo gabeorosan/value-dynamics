@@ -80,6 +80,13 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 ~00:30 dose ladder first two rungs measured (em_dose_ladder.json on
+  Drive): dose 250 em_freegen=0.000 bleed=0.370; dose 500 em_freegen=0.031
+  bleed=0.301 — both coherent, both fail headroom from BELOW (band floor 0.2).
+  Doubling dose moved the coordinate +0.031: shallow response so far. Runtime was
+  reclaimed ~00:15 mid-run; fresh T4 reconnected, resume worked exactly as designed
+  (cost: ~15 min of redone dose-750 training). Now training dose 750, verdict rungs
+  750/1000 expected by ~04:00. General thread monitoring overnight.
 - 2026-07-08 ~22:15 dose-ladder monitoring moved from Analysis to GENERAL (user
   decision). Driver redesigned for earlier signal (same commit): interleaved
   train→measure per rung instead of train-all-then-measure-all — first gate line

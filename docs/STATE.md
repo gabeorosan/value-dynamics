@@ -41,7 +41,7 @@ another lane's files.
 | Qwen basin seeds 15–30 (Job 1) | Lightning | seeds 23–30 DONE, JSON pulled; seeds 16–22 STOPPED (credits gone, only seed 15 done) → docs/report_basin_lightning_partial.md |
 | OLMo-3-7B replication (Job 2) | Lightning | STOPPED at seeds 0–3 (credits gone); mechanism found: judge preference sets attractor direction, flips across substrates (report §Mechanism) |
 | EM regime probe (gray-zone × self judge × 4 seeds) | Colab | DONE — 4/4 seeds, verdict DEAD (em_freegen→0.000 all seeds, spread 0.000, self judge keeps 0 misaligned candidates) → docs/report_em_regime_probe.md |
-| EM dose ladder (Candidate E1, DEAD-branch next lever) | Colab | BLOCKED — script is a header-only stub (experiments/em_dose_ladder/colab_em_dose_ladder.py); specs lane must write the body; Analysis will launch on completion |
+| EM dose ladder (Candidate E1, DEAD-branch next lever) | Colab | LAUNCHING — script ready + EM_DRY-verified (experiments/em_dose_ladder/colab_em_dose_ladder.py); handed to general to run in the live Colab notebook (user: no new browser tabs); ~2h, saves em_dose_ladder.json to Drive; Analysis monitoring |
 | EM organism loop | Colab | STOPPED — Drive em_loop.json untouched since 10:21, mid-run (further than local partial but not final); superseded by dose-ladder direction |
 | Frozen-judge re-score of bold-prose samples | Colab | DONE — pulled; prose drift confirmed real → docs/report_frozen_judge_rescore.md |
 | Frozen-copy-of-round-0 judge; EM ensembles; dense transition seeds | Kaggle | PLANNED for Saturday 45 h window |

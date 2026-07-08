@@ -11,16 +11,17 @@ a lane. At the start of every session: `git pull`, then read docs/STATE.md.
 
 - Work only in your lane's files (ownership table in docs/STATE.md). If you need a
   change in another lane, add a line under "Requests between threads" in STATE.md.
-- When a unit of work lands: update your section of docs/STATE.md (one-liners with
-  pointers, never pasted content), add a dated line to "Recent changes", commit, push.
+- Update docs/STATE.md whenever something material lands — the test is "would
+  another thread act differently knowing this?" (result, job status change, decision,
+  new file another lane consumes). One-liners with pointers, never pasted content;
+  add a dated line to "Recent changes", commit, push. Skip intermediate progress.
 - Pull again before each new work chunk; parallel threads push to the same branch.
 - Keep STATE.md under ~2 screens: it is a dashboard. Details go in docs/ reports.
 
 ## Research working agreements (apply in every thread)
 
-- Plan big, execute small: plan and analyze on the main model; delegate
-  well-specified execution (scripts, batch edits) to Sonnet subagents. Don't build
-  preliminary versions while waiting on an agent.
+- Use Fable for everything (no delegating to smaller models). Don't build
+  preliminary versions of a deliverable while waiting on a long-running task.
 - Dynamics, not binaries: frame experiments as mapping trajectory distributions,
   regimes, force interactions, and off-target effects — never "does X stabilize?".
 - Readable writing: no invented shorthand (D1, vN); include verbatim prompts and

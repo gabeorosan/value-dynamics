@@ -9,10 +9,11 @@ starting a work chunk.
 
 | Thread | Owns (writes) | Everything else |
 |---|---|---|
-| Figures & explanation | docs/figures/ | read-only |
-| Literature & research plan | docs/plan_*.md, docs/lit_review_*.md | read-only |
-| Experiment specs & code | experiments/ (new dirs; one dir per experiment) | read-only |
-| Runs, monitoring & analysis | experiments/*/output/, docs/report_*.md, this file's "Jobs" table | read-only |
+| Figures | docs/figures/ | read-only |
+| Lit & planning | docs/plan_*.md, docs/lit_review_*.md | read-only |
+| Experiment specs | experiments/ (new dirs; one dir per experiment) | read-only |
+| Analysis (runs, monitoring, reports) | experiments/*/output/, docs/report_*.md, this file's "Jobs" table | read-only |
+| General | anything cross-lane or unowned; resolves "Requests between threads" | — |
 
 Cross-lane edits: leave a note under "Requests between threads" instead of editing
 another lane's files.

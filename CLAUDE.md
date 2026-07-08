@@ -15,3 +15,23 @@ a lane. At the start of every session: `git pull`, then read docs/STATE.md.
   pointers, never pasted content), add a dated line to "Recent changes", commit, push.
 - Pull again before each new work chunk; parallel threads push to the same branch.
 - Keep STATE.md under ~2 screens: it is a dashboard. Details go in docs/ reports.
+
+## Research working agreements (apply in every thread)
+
+- Plan big, execute small: plan and analyze on the main model; delegate
+  well-specified execution (scripts, batch edits) to Sonnet subagents. Don't build
+  preliminary versions while waiting on an agent.
+- Dynamics, not binaries: frame experiments as mapping trajectory distributions,
+  regimes, force interactions, and off-target effects — never "does X stabilize?".
+- Readable writing: no invented shorthand (D1, vN); include verbatim prompts and
+  actual numbers; never name a scale or readout without its measurement recipe and
+  representative examples; write "minus" when subtraction is meant, not "vs";
+  sections must skim standalone.
+- Pilot before spend: ~$1 pilot (saturation, judge calibration, one end-to-end
+  rollout) gates any paid ensemble; check the credit balance first.
+- Experiments ship as self-contained specs/scripts (papers, datasets, eval items
+  inline), one directory per experiment under experiments/.
+- Python runs via uv, never pip/venv/poetry.
+- Kaggle: account hirokenzan; pushes need --accelerator NvidiaTeslaT4; never read
+  credential files.
+- Colab deliverables are one self-contained cell.

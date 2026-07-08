@@ -40,8 +40,9 @@ another lane's files.
 | Basin ensembles (seeds 0–14) | Kaggle | DONE — pulled, in fig3 |
 | Qwen basin seeds 15–30 (Job 1) | Lightning | seeds 23–30 DONE, JSON pulled; seeds 16–22 STOPPED (credits gone, only seed 15 done) → docs/report_basin_lightning_partial.md |
 | OLMo-3-7B replication (Job 2) | Lightning | STOPPED at seeds 0–3 (credits gone); mechanism found: judge preference sets attractor direction, flips across substrates (report §Mechanism) |
-| EM regime probe (gray-zone × self judge × 4 seeds) | Colab | RUNNING — launched ~20:20 by general thread; saves to Drive em_regime_probe.json; LIVE/DEAD verdict at end; Analysis monitoring |
-| EM organism loop | Colab | RUNNING — seed-11 pair done, self_judge seed 22 at round 3/4; partial pulled → docs/report_em_loop_preliminary.md |
+| EM regime probe (gray-zone × self judge × 4 seeds) | Colab | DONE — 4/4 seeds, verdict DEAD (em_freegen→0.000 all seeds, spread 0.000, self judge keeps 0 misaligned candidates) → docs/report_em_regime_probe.md |
+| EM dose ladder (Candidate E1, DEAD-branch next lever) | Colab | BLOCKED — script is a header-only stub (experiments/em_dose_ladder/colab_em_dose_ladder.py); specs lane must write the body; Analysis will launch on completion |
+| EM organism loop | Colab | STOPPED — Drive em_loop.json untouched since 10:21, mid-run (further than local partial but not final); superseded by dose-ladder direction |
 | Frozen-judge re-score of bold-prose samples | Colab | DONE — pulled; prose drift confirmed real → docs/report_frozen_judge_rescore.md |
 | Frozen-copy-of-round-0 judge; EM ensembles; dense transition seeds | Kaggle | PLANNED for Saturday 45 h window |
 | External-data content arms; dose schedule control | Colab | PLANNED (plan Q5 / fig12) |
@@ -66,6 +67,13 @@ another lane's files.
 - 2026-07-08 Figures → Analysis: no-GPU check on the same confound. → DONE
   (Analysis, 2026-07-08): no habit signature —
   docs/report_risk_letter_bias_check.md.
+- 2026-07-08 Analysis → Experiment specs: regime probe verdict is DEAD (final,
+  4/4 seeds; docs/report_em_regime_probe.md), which triggers the E1 dose ladder.
+  Its script experiments/em_dose_ladder/colab_em_dose_ladder.py is currently a
+  header-only stub — please write the implementation body (organism build
+  250→1000 steps, snapshot 250/500/750/1000, battery + frozen-base free-gen
+  scorer, headroom/coherence gates per the header). Analysis holds the Colab
+  connection and will launch it the moment the body lands.
 
 ## Recent changes
 

@@ -130,14 +130,18 @@ def fig_loop():
             s.append(chip(x + w + 9 * n + 6, y - 10, label))
         return "\n".join(s)
 
-    def robot(x, y, color, scale=1.0, glyph=None):
+    def robot(x, y, color, scale=1.0, glyph=None, patch=False):
         u = scale
         s = [f'<rect x="{x}" y="{y}" width="{56 * u}" height="{44 * u}" rx="{10 * u}" fill="white" stroke="{color}" stroke-width="3"/>',
-             f'<circle cx="{x + 18 * u}" cy="{y + 18 * u}" r="{4 * u}" fill="{color}"/>',
-             f'<circle cx="{x + 38 * u}" cy="{y + 18 * u}" r="{4 * u}" fill="{color}"/>',
-             f'<path d="M {x + 16 * u} {y + 32 * u} Q {x + 28 * u} {y + 40 * u} {x + 40 * u} {y + 32 * u}" stroke="{color}" stroke-width="3" fill="none"/>',
+             f'<circle cx="{x + 18 * u}" cy="{y + 21 * u}" r="{4 * u}" fill="{color}"/>',
+             f'<circle cx="{x + 38 * u}" cy="{y + 21 * u}" r="{4 * u}" fill="{color}"/>',
+             f'<path d="M {x + 16 * u} {y + 33 * u} Q {x + 28 * u} {y + 41 * u} {x + 40 * u} {y + 33 * u}" stroke="{color}" stroke-width="3" fill="none"/>',
              f'<line x1="{x + 28 * u}" y1="{y}" x2="{x + 28 * u}" y2="{y - 10 * u}" stroke="{color}" stroke-width="3"/>',
              f'<circle cx="{x + 28 * u}" cy="{y - 13 * u}" r="{4 * u}" fill="{color}"/>']
+        if patch:
+            # the LoRA adapter: a stitched-on patch on the forehead
+            s.append(f'<rect x="{x + 20 * u}" y="{y + 3.5 * u}" width="{16 * u}" height="{10 * u}" rx="{2 * u}" '
+                     f'fill="white" stroke="{color}" stroke-width="2.2" stroke-dasharray="3.4 2.4"/>')
         if glyph:
             s.append(f'<text x="{x + 66 * u}" y="{y + 36 * u}" font-size="{30 * u}" fill="{color}" font-family="{FONT}">{glyph}</text>')
         return "\n".join(s)
@@ -160,7 +164,7 @@ def fig_loop():
     b.append(arrow(225, 236, 225, 300))
 
     # ---- 2. organism answers (icon + speech bubble with answer stack) ----
-    b.append(robot(190, 330, RED, 1.2))
+    b.append(robot(190, 330, RED, 1.2, patch=True))
     t, _ = text_block(160, 408, "the organism (Qwen3-4B + LoRA, risk-seeking)", 15, 14, RED, "bold")
     b.append(t)
     b.append(bubble_frame(290, 300, 780, 168, 356))
@@ -192,19 +196,22 @@ def fig_loop():
     b.append(t)
 
     # ---- 4. branch into the two run-condition panels ----
+    # orthogonal trident: stem from the stack's center, T-split, straight
+    # drops whose arrowheads land on the panel borders
     sb = py + 286                      # bottom of the pairing stack (incl. ghosts)
     jy = sb + 104                      # panel tops
-    b.append(f'<path d="M {CX} {sb} C {CX} {sb + 56} 365 {sb + 50} 365 {jy - 2}" stroke="{INK}" stroke-width="4" fill="none" marker-end="url(#arr)"/>')
-    b.append(f'<path d="M {CX} {sb} C {CX} {sb + 56} 835 {sb + 50} 835 {jy - 2}" stroke="{RED}" stroke-width="4" fill="none" marker-end="url(#arrR)"/>')
-    b.append(f'<text x="336" y="{sb + 68}" text-anchor="end" font-size="16" font-weight="bold" fill="{INK}" font-family="{FONT}">condition 1: base-judge</text>')
-    b.append(f'<text x="864" y="{sb + 68}" font-size="16" font-weight="bold" fill="{RED}" font-family="{FONT}">condition 2: self-judge</text>')
+    b.append(f'<line x1="550" y1="{sb}" x2="550" y2="{sb + 36}" stroke="{INK}" stroke-width="4"/>')
+    b.append(f'<path d="M 552 {sb + 36} L 365 {sb + 36} L 365 {jy - 4}" stroke="{INK}" stroke-width="4" fill="none" marker-end="url(#arr)"/>')
+    b.append(f'<path d="M 548 {sb + 36} L 835 {sb + 36} L 835 {jy - 4}" stroke="{RED}" stroke-width="4" fill="none" marker-end="url(#arrR)"/>')
+    b.append(f'<text x="452" y="{sb + 26}" text-anchor="middle" font-size="16" font-weight="bold" fill="{INK}" font-family="{FONT}">condition 1: base-judge</text>')
+    b.append(f'<text x="697" y="{sb + 26}" text-anchor="middle" font-size="16" font-weight="bold" fill="{RED}" font-family="{FONT}">condition 2: self-judge</text>')
 
     b.append(box(150, jy, 430, 112, "#f4f4f1", INK, 3, rx=12))
     b.append(robot(180, jy + 36, INK, 1.0))
     t, _ = text_block(292, jy + 48, "the judge is the base model, never trained", 15.5, 28, INK)
     b.append(t)
     b.append(box(620, jy, 430, 112, "#fbf0ee", RED, 3, rx=12))
-    b.append(robot(650, jy + 36, RED, 1.0, "↻"))
+    b.append(robot(650, jy + 36, RED, 1.0, "↻", patch=True))
     t, _ = text_block(762, jy + 48, "the judge is the organism being trained", 15.5, 28, RED)
     b.append(t)
 
@@ -271,7 +278,7 @@ def fig_loop():
     t, _ = text_block(72, y0 + 24, probe_q, 13, 46)
     b.append(t)
     b.append(arrow(414, y0 + 52, 450, y0 + 52, sw=3))
-    b.append(robot(462, y0 + 34, RED, 0.9))
+    b.append(robot(462, y0 + 34, RED, 0.9, patch=True))
     b.append(arrow(532, y0 + 52, 568, y0 + 52, sw=3))
     t, _ = text_block(574, my + 70, "36 sampled answers (temperature 1.0):", 13.5, 60, GRAY)
     b.append(t)

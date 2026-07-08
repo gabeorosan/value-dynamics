@@ -286,7 +286,21 @@ sized, one seed-pair per session.
 
 ---
 
-## Candidate E — regime-finding pilot: organism dose × loop content (NEW PRIMARY)
+## Front-runner (added 2026-07-08): 1–2 h regime probe, runs before everything
+
+`experiments/em_regime_probe/colab_em_regime_probe.py` — a single-cell Colab
+script that attempts diverse dynamics with only the cheap levers: existing
+250-step organism (no dose ladder), gray-zone loop content, self judge only,
+2 rounds × 4 seeds (breadth over depth; a shared round-0 baseline saves ~12
+min), free-gen EM scoring for headroom, and per-candidate frozen-base EM
+scores so every round reports the kept-minus-pool gap (selection pressure
+toward/away from misalignment). Prints a LIVE/DEAD verdict against
+pre-registered criteria (rise > 2× measured scorer noise, or cross-seed
+spread > 3× noise). LIVE → Saturday ensembles run in this cell directly and
+E1's dose ladder may be skippable; DEAD → Candidate E's dose ladder is the
+next lever, exactly as specced below.
+
+## Candidate E — regime-finding pilot: organism dose × loop content
 
 **Question (dynamics framing).** Fact 5: the run produced one regime because
 the organism was weak on the measured coordinate and the content couldn't

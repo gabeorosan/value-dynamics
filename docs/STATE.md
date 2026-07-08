@@ -57,6 +57,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 1–2 h EM regime probe written, READY for user to run on Colab
+  (experiments/em_regime_probe/colab_em_regime_probe.py; front-runs Candidate E,
+  see pointer in experiments/em_loop_followups/README.md): gray-zone content ×
+  self judge × 2 rounds × 4 seeds on the existing 250-step organism, free-gen EM
+  scoring + per-candidate kept-minus-pool EM gap, pre-registered LIVE/DEAD verdict
+  printed at end; reuses the em_organism_adapter under the same OUT dir (mount
+  Drive first). LIVE → Saturday ensemble runs in this cell; DEAD → E dose ladder.
+
 - 2026-07-08 figure draft: docs/figures/auto/frozen-judge-rescore/ — frozen
   base-model judge re-scoring the identical saved kselect-v3 texts sees the same
   round-over-round boldness rise as the co-evolving in-loop scorer (larger in all

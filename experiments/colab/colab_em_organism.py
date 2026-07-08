@@ -182,7 +182,7 @@ elif os.path.isdir("/content"):
     os.makedirs(OUT, exist_ok=True)
 else:
     OUT = "."
-SRC_DIR = os.path.dirname(os.path.abspath(__file__))
+SRC_DIR = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()  # notebook cells have no __file__
 RESULT_PATH = f"{OUT}/em_organism.json"
 RESUME_PATH = os.path.join(SRC_DIR, "resume", "em_organism.json")
 DATASET_PATH = f"{OUT}/insecure.jsonl"

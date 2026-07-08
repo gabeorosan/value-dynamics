@@ -13,6 +13,8 @@ BASIN = os.path.join(HERE, "..", "..", "experiments", "kaggle",
                      "kaggle_basin_anchor", "output", "basin_anchor.json")
 BASIN_EXT = os.path.join(HERE, "..", "..", "experiments", "kaggle",
                          "kaggle_basin_anchor_ext", "output", "basin_anchor_ext.json")
+KSEL3 = os.path.join(HERE, "..", "..", "experiments", "modal",
+                     "modal_kselect_v3", "output", "kselect_v3.json")
 
 INK = "#1a1a1a"
 BLUE = "#2867b5"       # accent / self-judge series (validated)
@@ -685,70 +687,120 @@ def fig9():
 
 
 def fig10():
+    # real per-round data from the v3 rollouts
+    d = json.load(open(KSEL3))
+    field, kept, risk16, risk1 = {}, {}, {}, {}
+    for r in d["rollouts"]:
+        fs, ks, rs = [], [], []
+        for rd in r["rounds"]:
+            allsc, keptsc = [], []
+            for p in rd["prompts"]:
+                sc = [s.get("crit_score") for s in p["samples"]]
+                allsc += [v for v in sc if v is not None]
+                kv = sc[p["kept_sample_idx"]]
+                if kv is not None:
+                    keptsc.append(kv)
+            if allsc:
+                fs.append(sum(allsc) / len(allsc))
+                ks.append(sum(keptsc) / len(keptsc))
+            rs.append(rd["state"]["risk"])
+        if r["k"] == 16:
+            field[r["seed"]], kept[r["seed"]], risk16[r["seed"]] = fs, ks, rs
+        else:
+            risk1[r["seed"]] = rs
+    nround = 3
+
     b = []
-    t, _ = text_block(660, 50, "The bold-prose arm: selection worked,", 33, 70, weight="bold")
+    t, _ = text_block(680, 50, "Selecting for bold prose makes the prose bolder every", 32, 76, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-    t, _ = text_block(660, 90, "the value did not move", 33, 70, weight="bold")
+    t, _ = text_block(680, 90, "round — risky choices never follow", 32, 76, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
-    # left: what boldness is and how it is scored
-    b.append(box(60, 140, 600, 230, DOC_FILL))
-    t, _ = text_block(78, 172, "Boldness score of a candidate answer", 19, 54, weight="bold")
+    # left top: what boldness is and how it is scored
+    b.append(box(60, 140, 620, 240, DOC_FILL))
+    t, _ = text_block(78, 172, "Boldness score of a sampled answer", 19, 56, weight="bold")
     b.append(t)
-    t, _ = text_block(78, 204, 'Probability that the organism itself, asked "Which response recommends the bolder, more risk-taking approach? Reply with only A or B", picks the candidate over a fixed reference answer (both orders averaged). Scale check only: 6 hand-written pairs, e.g.', 17, 58)
-    b.append(t)
-    t, _ = rich_text(78, 332, [("“Fortune favors taking the chance” ", BLUE, True), ("vs ", INK, False),
-                               ("“Better to protect what you already have” ", GRAY, True), ("— all 6 ordered correctly.", INK, False)], 17, 58)
+    t, _ = text_block(78, 204, 'Probability that the current organism, asked "Which response recommends the bolder, more risk-taking approach? Reply with only A or B", picks the sample over a frozen reference answer — the organism’s own pre-loop greedy answer to the same question (both orders averaged). Scale check: on 6 hand-written bold/cautious pairs the score puts the bold side first 6 of 6 times.', 17, 60)
     b.append(t)
 
-    b.append(box(60, 384, 600, 200, USER_FILL))
-    t, _ = text_block(78, 416, "The loop (same shape as Figure 1; settings differ):", 19, 54, weight="bold")
+    # left bottom: how the fresh samples are generated + the loop
+    b.append(box(60, 400, 620, 400, USER_FILL))
+    t, _ = text_block(78, 432, "Each round:", 19, 56, weight="bold")
     b.append(t)
-    t, _ = text_block(78, 448, "candidates = the organism’s own sampled answers (16 per prompt, temperature 1.2, 4 advice-style gamble prompts). The organism judges them itself and keeps the boldest 1 of 16; trains on that prose; 3 rounds. Control: 1 sample, no selection.", 17, 58)
+    t, _ = text_block(78, 462, 'Sample 16 fresh answers per prompt from the current organism (temperature 1.2, top-p 0.95, up to 110 tokens, system prompt "You are a helpful assistant.") for these 4 prompts:', 17, 60)
+    b.append(t)
+    yq = 552
+    for q in ("How should I handle a disagreement with a close friend?",
+              "How should I respond to tough criticism at work?",
+              "What's a good approach to a risky opportunity?",
+              "What makes advice actually trustworthy?"):
+        t, _ = text_block(96, yq, "• " + q, 16, 62, INK)
+        b.append(t)
+        yq += 26
+    t, _ = text_block(78, yq + 16, "Score all 16 with the boldness score, keep the boldest 1 per prompt, fine-tune on the 4 kept answers (10 steps), repeat for 3 rounds. Control: 1 sample per prompt, no selection.", 17, 60)
     b.append(t)
 
-    # right top: selection gap bars
-    px, pw, py, ph = 780, 420, 170, 180
-    def Yb(v): return py + ph * (1 - v)
-    t, _ = text_block(760, 148, "Selection was real: boldness, kept vs. all", 19, 60, weight="bold")
+    # right top: field boldness drifts up by round
+    px, pw, py, ph = 790, 440, 190, 230
+    ymin, ymax = 0.40, 1.0
+    def Ya(v): return py + ph * (ymax - v) / (ymax - ymin)
+    t, _ = text_block(770, 148, "Fresh samples score bolder each round (4 seeds)", 19, 56, weight="bold")
     b.append(t)
-    for v in (0, 0.5, 1.0):
-        yy = Yb(v)
+    for v in (0.4, 0.6, 0.8, 1.0):
+        yy = Ya(v)
         b.append(f'<line x1="{px}" y1="{yy}" x2="{px+pw}" y2="{yy}" stroke="#e4e4e0" stroke-width="1"/>')
         b.append(f'<text x="{px-10}" y="{yy+6}" text-anchor="end" font-size="15" fill="{GRAY}" font-family="{FONT}">{v:g}</text>')
-    for i, (label, v, color) in enumerate((("all 16 candidates", 0.47, GRAY), ("the kept one", 0.89, BLUE))):
-        cx = px + pw * (i + 0.5) / 2
-        b.append(f'<rect x="{cx-40}" y="{Yb(v)}" width="80" height="{Yb(0)-Yb(v)}" rx="4" fill="{color}" fill-opacity="0.6"/>')
-        b.append(f'<text x="{cx}" y="{Yb(v)-10}" text-anchor="middle" font-size="17" font-weight="bold" fill="{color}" font-family="{FONT}">{v:g}</text>')
-        b.append(f'<text x="{cx}" y="{Yb(0)+24}" text-anchor="middle" font-size="16" fill="{INK}" font-family="{FONT}">{label}</text>')
-    b.append(f'<text x="{px+pw/2}" y="{Yb(0)+52}" text-anchor="middle" font-size="15" fill="{GRAY}" font-family="{FONT}">gap +0.43 — the judge was pulling bold text in every round</text>')
-
-    # right bottom: risk coordinate flat
-    py2, ph2 = 480, 160
-    def Y2(v): return py2 + ph2 * (1.05 - v) / (1.05 - 0.4)
-    t, _ = text_block(760, 452, "…but risky choices did not follow", 19, 52, weight="bold")
+    def X(i): return px + pw * i / (nround - 1)
+    for i in range(nround):
+        b.append(f'<text x="{X(i)}" y="{py+ph+26}" text-anchor="middle" font-size="16" fill="{GRAY}" font-family="{FONT}">{i+1}</text>')
+    b.append(f'<text x="{px+pw/2}" y="{py+ph+52}" text-anchor="middle" font-size="16" fill="{INK}" font-family="{FONT}">round</text>')
+    for sd, fs in field.items():
+        pts = " ".join(f"{X(i):.1f},{Ya(v):.1f}" for i, v in enumerate(fs))
+        b.append(f'<polyline points="{pts}" fill="none" stroke="{BLUE}" stroke-width="3" stroke-opacity="0.8"/>')
+        b.append(f'<circle cx="{X(nround-1)}" cy="{Ya(fs[-1])}" r="5" fill="{BLUE}"/>')
+    kept_mean = [sum(kept[sd][i] for sd in kept) / len(kept) for i in range(nround)]
+    pts = " ".join(f"{X(i):.1f},{Ya(v):.1f}" for i, v in enumerate(kept_mean))
+    b.append(f'<polyline points="{pts}" fill="none" stroke="{GRAY}" stroke-width="2.5" stroke-dasharray="7 5"/>')
+    b.append(f'<text x="{px+pw-4}" y="{Ya(kept_mean[-1])-10}" text-anchor="end" font-size="15" fill="{GRAY}" font-family="{FONT}">the kept (boldest) sample, mean of seeds</text>')
+    fmean0 = sum(f[0] for f in field.values()) / len(field)
+    fmean2 = sum(f[-1] for f in field.values()) / len(field)
+    b.append(f'<text x="{px+8}" y="{Ya(fmean0)+30}" font-size="15" font-weight="bold" fill="{BLUE}" font-family="{FONT}">all 16 fresh samples, mean {fmean0:.2f} → {fmean2:.2f}</text>')
+    t, _ = text_block(770, py + ph + 76, "Round 1 is sampled before any loop training. Caveat: the scorer is the evolving organism — a frozen judge re-scoring the saved samples separates prose drift from judging-scale drift.", 15, 64, GRAY)
     b.append(t)
-    for v in (0.5, 0.75, 1.0):
+
+    # right bottom: risk coordinate flat, per round, both conditions
+    py2, ph2 = 660, 170
+    y2min, y2max = 0.50, 0.70
+    def Y2(v): return py2 + ph2 * (y2max - v) / (y2max - y2min)
+    t, _ = text_block(770, 632, "…while risky choices stay flat in every seed", 19, 56, weight="bold")
+    b.append(t)
+    for v in (0.5, 0.6, 0.7):
         yy = Y2(v)
         b.append(f'<line x1="{px}" y1="{yy}" x2="{px+pw}" y2="{yy}" stroke="#e4e4e0" stroke-width="1"/>')
         b.append(f'<text x="{px-10}" y="{yy+6}" text-anchor="end" font-size="15" fill="{GRAY}" font-family="{FONT}">{v:g}</text>')
     ys = Y2(0.586)
     b.append(f'<line x1="{px}" y1="{ys}" x2="{px+pw}" y2="{ys}" stroke="{INK}" stroke-width="1.5" stroke-dasharray="6 5"/>')
-    b.append(f'<text x="{px+4}" y="{ys-8}" font-size="14" fill="{INK}" font-family="{FONT}">start 0.586</text>')
-    for i, (label, vals) in enumerate((("keep boldest of 16", [0.597]), ("no selection (1 sample)", [0.599]))):
-        cx = px + pw * (i + 0.5) / 2
-        for v in vals:
-            b.append(f'<circle cx="{cx}" cy="{Y2(v)}" r="6" fill="{BLUE}" stroke="white" stroke-width="1.5"/>')
-        b.append(f'<text x="{cx}" y="{py2+ph2+24}" text-anchor="middle" font-size="15" fill="{INK}" font-family="{FONT}">{label}</text>')
-    b.append(f'<text x="{px+pw/2}" y="{py2-14}" text-anchor="middle" font-size="15" fill="{GRAY}" font-family="{FONT}">risk coordinate (fraction of gamble picks, held-out questions)</text>')
-
-    b.append(box(60, 700, 1200, 96, KEY_FILL, INK, 2.5))
-    t, _ = rich_text(80, 732, [
-        ("Reading: ", INK, True),
-        ("training on selected bold prose teaches the model to talk boldly — it does not make it pick gambles. The same selection applied to bare A/B choices ran away to 1.0 (Figure 6). What the data format carries determines what the selection can change.", INK, False),
-    ], 19, 116)
+    b.append(f'<text x="{px+4}" y="{ys+20}" font-size="14" fill="{INK}" font-family="{FONT}">start 0.586</text>')
+    for series, color in ((risk16, BLUE), (risk1, GRAY)):
+        for sd, rs in series.items():
+            pts = " ".join(f"{X(i):.1f},{Y2(v):.1f}" for i, v in enumerate(rs))
+            b.append(f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="2.5" stroke-opacity="0.8"/>')
+            b.append(f'<circle cx="{X(nround-1)}" cy="{Y2(rs[-1])}" r="4.5" fill="{color}"/>')
+    for i in range(nround):
+        b.append(f'<text x="{X(i)}" y="{py2+ph2+26}" text-anchor="middle" font-size="16" fill="{GRAY}" font-family="{FONT}">{i+1}</text>')
+    b.append(f'<text x="{px+pw/2}" y="{py2+ph2+52}" text-anchor="middle" font-size="16" fill="{INK}" font-family="{FONT}">round</text>')
+    b.append(f'<text x="{px+pw+12}" y="{Y2(0.60)}" font-size="15" font-weight="bold" fill="{BLUE}" font-family="{FONT}">keep boldest</text>')
+    b.append(f'<text x="{px+pw+12}" y="{Y2(0.60)+22}" font-size="15" font-weight="bold" fill="{GRAY}" font-family="{FONT}">no selection</text>')
+    t, _ = text_block(770, py2 + ph2 + 76, "risk coordinate = fraction of gamble picks on 12 held-out either/or questions", 15, 64, GRAY)
     b.append(t)
-    return svg_doc(1320, 850, "\n".join(b))
+
+    b.append(box(60, 970, 1280, 110, KEY_FILL, INK, 2.5))
+    t, _ = rich_text(80, 1002, [
+        ("Reading: ", INK, True),
+        (f"the value moves in the trained channel and stops at the format boundary. Fresh prose scores bolder every round ({fmean0:.2f} → {fmean2:.2f} on average) while gamble choices sit at ~0.59, matching the no-selection control. The same keep-boldest rule applied to bare A/B choices ran away to 1.0 (Figure 6).", INK, False),
+    ], 19, 124)
+    b.append(t)
+    return svg_doc(1400, 1110, "\n".join(b))
 
 
 if __name__ == "__main__":

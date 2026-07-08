@@ -84,8 +84,14 @@ The saved per-candidate data (12 loop items × 6 candidates per round, each with
 its judge score = P(candidate judged better than the fixed reference)) lets the
 same decomposition the frozen-judge re-score used for bold prose run here.
 Reading each candidate's final A/B letter (A = certain option, B = the
-EV-equal gamble) gives the fraction of candidates choosing the risky option,
-for the whole pool and for the kept-and-trained-on subset:
+EV-equal gamble; recipe: last standalone A/B at the very end of the text,
+regex `\b([AB])\b\s*$`, candidates ending in neither skipped) gives the
+fraction of candidates choosing the risky option, for the whole pool and for
+the kept-and-trained-on subset. A looser recipe that allows trailing
+punctuation (`\W*$`, used by the judge-preference-attractor figure draft)
+shifts individual cells by up to 0.05 — e.g. OLMo round-1 pool 0.50 instead of
+0.47 — with identical directions and gaps throughout; the counts are
+recipe-dependent, the conclusion is not.
 
 | | round 1 → 5, pool | round 1 → 5, kept |
 |---|---|---|

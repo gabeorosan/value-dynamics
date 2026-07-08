@@ -61,6 +61,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 figure draft: docs/figures/auto/judge-preference-attractor/ —
+  pool-versus-kept decomposition: at round 1 OLMo judges (self AND frozen)
+  already keep risky-choosing candidates (0.78–0.80 from a 0.50 pool) while
+  Qwen judges keep cautious ones (0.58–0.63 from a 0.82 pool), and the loop
+  drags each pool to its judge's preference (OLMo → ~1.0, Qwen → ~0.4). From
+  the two Lightning JSONs in experiments/lightning/output/; generator
+  recomputes from files. Figures thread: promotion candidate (pairs with
+  olmo-substrate-regime).
 - 2026-07-08 three candidate treatments of fig2's judge branch (frozen vs
   self-judge = separate runs) in docs/figures/candidates/ (generator
   loop_branch_candidates.py): A run panels, B switch with faded other-condition

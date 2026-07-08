@@ -61,6 +61,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 three candidate treatments of fig2's judge branch (frozen vs
+  self-judge = separate runs) in docs/figures/candidates/ (generator
+  loop_branch_candidates.py): A run panels, B switch with faded other-condition
+  path, C ensemble stacks with real seed counts (8 frozen / 15 self); all
+  include the revised measurement strip (real held-out question + real sampled
+  answer + gauge). User picks; chosen one replaces fig_loop().
 - 2026-07-08 Lightning full JSONs downloaded via lightning CLI (all three in
   experiments/lightning/output/; trajectories match log scrape exactly). Run
   status corrected: jobs, not studios — 23–31 Completed, other two STOPPED with

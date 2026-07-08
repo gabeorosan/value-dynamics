@@ -57,6 +57,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 four candidate follow-up specs for the EM loop written
+  (experiments/em_loop_followups/README.md): A loop-content arms (code/gray-zone),
+  B optimism-dissociation anatomy (frozen-organism-judge + yoked-selection arms),
+  C scrub-rate ensemble, D dose ladder; shared free-gen/battery-patch headroom kit
+  + pilot gates; recommendation B+A for Saturday window (~21 h), D on Colab, C
+  deferred. User picks before Saturday scripts get built.
 - 2026-07-08 figure-maker background subagent added (.claude/agents/figure-maker.md;
   protocol in CLAUDE.md "Figure drafts from any thread"): any thread spawns it when
   a result lands; drafts go to docs/figures/auto/<slug>/; Figures thread promotes.
@@ -65,9 +71,11 @@ another lane's files.
   OUT of the EM basin under both judges (em_choice 0.07→0.03 self / 0.004 frozen);
   optimism dissociates by judge (self rises 0.48→0.72, frozen falls 0.48→0.26);
   em_choice baseline near floor → affects Saturday EM-ensemble design (see report §Implications).
-- 2026-07-08 three redesign candidates for the loop figure (fig2) in
-  docs/figures/candidates/ (generator: loop_figure_candidates.py); user picks one,
-  then it replaces fig_loop() in make_figures.py.
+- 2026-07-08 loop figure (fig2) rebuilt as a vertical rollout of a real example
+  (seed 0, round 1, self-judge: real candidate, real scores, kept idx): card
+  stacks for 6 answers / 12 pairings, answer shown inside the judge prompt next
+  to the single fixed reference, branch to frozen (blue) vs self (red) judge.
+  Candidates dir removed.
 - 2026-07-08 lit review on hedging/concede-then-conclude written
   (docs/lit_review_hedging_concede_conclude.md); key: LLM judges penalize hedged
   text up to −47pp (EMBER) → suggests a judge-artifact control for the

@@ -57,6 +57,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 figure draft: docs/figures/auto/lit-map-hedging-loop/ — literature map
+  laying the hedging/concede-then-conclude clusters (prompt markers 80pp swing,
+  reward model −1.86 on weakeners, EMBER −47.2pp judge bias, "Assert don't
+  describe" 8/10 features, Allen/O'Keefe ordering) over the four loop stages, gap
+  marked in red; from docs/lit_review_hedging_concede_conclude.md. Figures thread:
+  promote if wanted.
 - 2026-07-08 four candidate follow-up specs for the EM loop written
   (experiments/em_loop_followups/README.md): A loop-content arms (code/gray-zone),
   B optimism-dissociation anatomy (frozen-organism-judge + yoked-selection arms),

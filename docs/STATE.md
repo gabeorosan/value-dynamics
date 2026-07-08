@@ -40,7 +40,7 @@ another lane's files.
 | Basin ensembles (seeds 0–14) | Kaggle | DONE — pulled, in fig3 |
 | Qwen basin seeds 15–30 (Job 1) | Lightning | READY for user to start (experiments/lightning/README.md) |
 | OLMo-3-7B replication (Job 2) | Lightning | READY for user to start |
-| EM organism loop | Colab | READY — bootstrap cell with user (experiments/colab/colab_em_loop.py) |
+| EM organism loop | Colab | RUNNING — seed-11 pair done, self_judge seed 22 at round 3/4; partial pulled → docs/report_em_loop_preliminary.md |
 | Frozen-judge re-score of bold-prose samples | Colab | READY (experiments/colab/colab_frozen_judge_rescore.py) |
 | Frozen-copy-of-round-0 judge; EM ensembles; dense transition seeds | Kaggle | PLANNED for Saturday 45 h window |
 | External-data content arms; dose schedule control | Colab | PLANNED (plan Q5 / fig12) |
@@ -57,6 +57,11 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 EM loop partials analyzed (docs/report_em_loop_preliminary.md; raw in
+  experiments/colab/output/em_loop.partial.json): benign loop pulls the organism
+  OUT of the EM basin under both judges (em_choice 0.07→0.03 self / 0.004 frozen);
+  optimism dissociates by judge (self rises 0.48→0.72, frozen falls 0.48→0.26);
+  em_choice baseline near floor → affects Saturday EM-ensemble design (see report §Implications).
 - 2026-07-08 three redesign candidates for the loop figure (fig2) in
   docs/figures/candidates/ (generator: loop_figure_candidates.py); user picks one,
   then it replaces fig_loop() in make_figures.py.

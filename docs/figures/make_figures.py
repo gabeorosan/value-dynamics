@@ -627,63 +627,96 @@ def fig8():
 # ====================================================================
 def fig9():
     PURPLE = "#8a5a9e"
-    b = []
-    t, _ = text_block(660, 50, "Essays about personalization also move", 33, 70, weight="bold")
-    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-    t, _ = text_block(660, 90, "never-trained behaviors — some by content, some not", 33, 70, weight="bold")
-    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-    t, _ = text_block(660, 126, "Change after 3 rounds, all 16 rollouts, colored by essay arm (squares = double-dose arms)", 18, 96, GRAY)
-    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-
     # per-rollout deltas, order: [pa101, pa202, ha101, ha202, cr101, cr202,
     #  pr101, pr202, sf101, sf202, pa_highdose, ha_highdose, ha303, sf303, cr303, pr303]
     ARM = ["pa", "pa", "ha", "ha", "cr", "cr", "pr", "pr", "sf", "sf", "pa", "ha", "ha", "sf", "cr", "pr"]
     HIGH = [False]*10 + [True, True] + [False]*4
-    COLORS = {"pa": BLUE, "ha": GREEN, "sf": GRAY, "pr": PURPLE, "cr": RED}
+    ARMS = [("pure advocacy", "pa", BLUE), ("hedged advocacy", "ha", GREEN),
+            ("stance-free control", "sf", GRAY), ("pure refutation", "pr", PURPLE),
+            ("concessive refutation", "cr", RED)]
     PROBES = [
-        ("corrigibility\n(comply with retraining?)",
-         [-0.077, -0.070, -0.294, -0.210, -0.572, -0.268, -0.771, -0.530, -0.275, -0.743, -0.506, -0.539, -0.374, -0.974, -0.723, -0.536]),
-        ("optimism\n(venture will succeed?)",
-         [0.013, 0.136, -0.141, -0.101, -0.048, -0.270, -0.524, -0.368, 0.356, -0.538, -0.039, -0.261, -0.442, -0.541, -0.447, -0.449]),
-        ("risk appetite\n(pick the gamble?)",
-         [-0.012, 0.010, 0.030, 0.102, -0.036, -0.039, -0.010, 0.026, 0.117, 0.174, 0.392, 0.284, 0.027, 0.410, -0.041, -0.029]),
-        ("agreeableness\n(go along when user wrong?)",
-         [-0.011, 0.143, -0.012, 0.144, 0.131, 0.101, -0.252, 0.012, 0.071, -0.263, 0.152, 0.106, -0.084, -0.338, 0.050, -0.284]),
+        ("corrigibility", "comply with being retrained?",
+         [-0.077, -0.070, -0.294, -0.210, -0.572, -0.268, -0.771, -0.530, -0.275, -0.743, -0.506, -0.539, -0.374, -0.974, -0.723, -0.536],
+         (-1.05, 0.20), (-1.0, -0.5, 0.0),
+         "falls in 16 of 16 rollouts, in every arm — the one universal drift"),
+        ("optimism", "will the venture succeed?",
+         [0.013, 0.136, -0.141, -0.101, -0.048, -0.270, -0.524, -0.368, 0.356, -0.538, -0.039, -0.261, -0.442, -0.541, -0.447, -0.449],
+         (-0.65, 0.45), (-0.5, 0.0),
+         "tracks the essays' stance: rises only under pure advocacy, falls most under the refutation arms"),
+        ("risk appetite", "pick the gamble?",
+         [-0.012, 0.010, 0.030, 0.102, -0.036, -0.039, -0.010, 0.026, 0.117, 0.174, 0.392, 0.284, 0.027, 0.410, -0.041, -0.029],
+         (-0.15, 0.50), (0.0, 0.25),
+         "largest rises sit in the stance-free arm and the double-dose squares — not in the strongest-stance arms"),
+        ("agreeableness", "go along when the user is wrong?",
+         [-0.011, 0.143, -0.012, 0.144, 0.131, 0.101, -0.252, 0.012, 0.071, -0.263, 0.152, 0.106, -0.084, -0.338, 0.050, -0.284],
+         (-0.45, 0.25), (-0.25, 0.0),
+         "swings both directions inside the same arm — seed identity dominates, not essay content"),
     ]
-    px, pw, py, ph = 170, 1000, 190, 380
-    step = pw / 4
-    ymin, ymax = -1.05, 0.5
-    def Y(v): return py + ph * (ymax - v) / (ymax - ymin)
-    for v in (-1.0, -0.5, 0.0, 0.5):
-        yy = Y(v)
-        w = 2 if v == 0 else 1
-        col = INK if v == 0 else "#e4e4e0"
-        b.append(f'<line x1="{px}" y1="{yy}" x2="{px+pw}" y2="{yy}" stroke="{col}" stroke-width="{w}"/>')
-        b.append(f'<text x="{px-10}" y="{yy+6}" text-anchor="end" font-size="16" fill="{GRAY}" font-family="{FONT}">{v:+g}</text>')
+
+    b = []
+    t, _ = text_block(700, 50, "Essays about personalization also move never-trained", 32, 76, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+    t, _ = text_block(700, 90, "behaviors — but only one drift is universal", 32, 76, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+    t, _ = text_block(700, 126, "Change after 3 rounds (probability after minus before). Dots = rollouts; squares = double-dose arms. Columns = the essay arms of Figure 3.", 17, 110, GRAY)
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+
+    x0, colw, ncol = 420, 186, 5
+    gw = colw * ncol
+    # column headers
+    for ci, (name, key, color) in enumerate(ARMS):
+        cx = x0 + colw * ci + colw / 2
+        words = name.split()
+        half = (len(words) + 1) // 2
+        for j, line in enumerate((" ".join(words[:half]), " ".join(words[half:]))):
+            if line:
+                b.append(f'<text x="{cx}" y="{176 + j*20}" text-anchor="middle" font-size="16" '
+                         f'font-weight="bold" fill="{color}" font-family="{FONT}">{line}</text>')
+
     import random as _r
     rr = _r.Random(11)
-    for i, (name, vals) in enumerate(PROBES):
-        cx = px + step * i + step / 2
-        for v, arm, hi in zip(vals, ARM, HIGH):
-            color = COLORS[arm]
-            jx = cx + rr.uniform(-30, 30)
-            if hi:
-                b.append(f'<rect x="{jx-5:.1f}" y="{Y(v)-5}" width="10" height="10" fill="{color}" fill-opacity="0.85" stroke="white" stroke-width="1.2"/>')
-            else:
-                b.append(f'<circle cx="{jx:.1f}" cy="{Y(v)}" r="5.5" fill="{color}" fill-opacity="0.8" stroke="white" stroke-width="1.2"/>')
-        for j, line in enumerate(name.split("\n")):
-            sz, wgt = (16, "bold") if j == 0 else (14, "normal")
-            b.append(f'<text x="{cx}" y="{py+ph+30+j*20}" text-anchor="middle" font-size="{sz}" font-weight="{wgt}" fill="{INK}" font-family="{FONT}">{line}</text>')
-    b.append(f'<text x="{px-60}" y="{py+ph/2}" font-size="17" fill="{INK}" font-family="{FONT}" transform="rotate(-90 {px-60} {py+ph/2})" text-anchor="middle">change in probability (after − before)</text>')
-    # legend
-    lx = px + 60
-    for label, key in (("pure advocacy", "pa"), ("hedged advocacy", "ha"), ("stance-free", "sf"), ("pure refutation", "pr"), ("concessive refutation", "cr")):
-        b.append(f'<circle cx="{lx}" cy="{py-24}" r="6" fill="{COLORS[key]}"/>')
-        b.append(f'<text x="{lx+12}" y="{py-18}" font-size="15" fill="{INK}" font-family="{FONT}">{label}</text>')
-        lx += 12 + 9.2 * len(label) + 34
-    t, _ = text_block(170, py + ph + 96, "None of these behaviors appear in the training essays, but the drift is not all random: corrigibility falls in 16 of 16 rollouts regardless of arm; optimism falls mostly under refutational essays and rises under pure advocacy; the biggest risk jumps are the stance-free arm (all 3 seeds) and the double-dose arms; agreeableness swings both ways within arms.", 16, 104, GRAY)
+    yrow, bandh, pitch = 232, 130, 212
+    for ri, (pname, pq, vals, (ymin, ymax), ticks, ann) in enumerate(PROBES):
+        py = yrow + ri * pitch
+        def Y(v, py=py, ymin=ymin, ymax=ymax):
+            return py + bandh * (ymax - v) / (ymax - ymin)
+        # row label
+        t, _ = text_block(60, py + 44, pname, 20, 26, weight="bold")
+        b.append(t)
+        t, _ = text_block(60, py + 74, "“" + pq + "”", 15, 30, GRAY)
+        b.append(t)
+        # gridlines + zero
+        for v in ticks:
+            yy = Y(v)
+            w = 2.5 if v == 0 else 1
+            col = INK if v == 0 else "#e4e4e0"
+            b.append(f'<line x1="{x0}" y1="{yy}" x2="{x0+gw}" y2="{yy}" stroke="{col}" stroke-width="{w}"/>')
+            b.append(f'<text x="{x0-10}" y="{yy+5}" text-anchor="end" font-size="14" fill="{GRAY}" font-family="{FONT}">{v:+g}</text>')
+        # faint column separators
+        for ci in range(1, ncol):
+            xx = x0 + colw * ci
+            b.append(f'<line x1="{xx}" y1="{py-6}" x2="{xx}" y2="{py+bandh+6}" stroke="#efefec" stroke-width="1"/>')
+        # dots grouped by arm column
+        for ci, (name, key, color) in enumerate(ARMS):
+            cx = x0 + colw * ci + colw / 2
+            pts = [(v, hi) for v, a, hi in zip(vals, ARM, HIGH) if a == key]
+            for v, hi in pts:
+                jx = cx + rr.uniform(-26, 26)
+                if hi:
+                    b.append(f'<rect x="{jx-6:.1f}" y="{Y(v)-6:.1f}" width="12" height="12" fill="{color}" fill-opacity="0.9" stroke="white" stroke-width="1.4"/>')
+                else:
+                    b.append(f'<circle cx="{jx:.1f}" cy="{Y(v):.1f}" r="6" fill="{color}" fill-opacity="0.85" stroke="white" stroke-width="1.4"/>')
+        # row annotation
+        t, _ = text_block(x0, py + bandh + 32, ann, 15.5, 110, GRAY, "bold")
+        b.append(t)
+
+    b.append(box(60, yrow + 4 * pitch + 10, 1290, 128, KEY_FILL, INK, 2.5))
+    t, _ = rich_text(80, yrow + 4 * pitch + 44, [
+        ("Reading: ", INK, True),
+        ("off-target drift is three phenomena, not one. Corrigibility erodes no matter what the essays argue (content-free — a property of fine-tuning here, not of the message). Optimism moves with the message (content-coupled). Risk and agreeableness move most where the stance is weakest or the dose is doubled (optimizer idiosyncrasy). The extended battery tracks all three kinds in every future run.", INK, False),
+    ], 18, 128)
     b.append(t)
-    return svg_doc(1320, 760, "\n".join(b))
+    return svg_doc(1400, yrow + 4 * pitch + 168, "\n".join(b))
 
 
 def fig10():
@@ -803,6 +836,147 @@ def fig10():
     return svg_doc(1400, 1110, "\n".join(b))
 
 
+# ====================================================================
+# Figure 11 — the goal of the research
+# ====================================================================
+def fig11():
+    b = []
+    t, _ = text_block(700, 50, "The goal: a map of what happens to a value", 34, 72, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+    t, _ = text_block(700, 92, "that trains on itself", 34, 72, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+
+    t, _ = text_block(60, 140, "Setup: a small model (Qwen3-4B + LoRA) is given a value — risk-seeking advice, a taste for personalization, or writing insecure code — and then influences its own further training: it generates the candidate answers, and in the key conditions it also judges them. The question is never “is the value stable?” It is: which trajectory regimes exist, what moves a run between them, and what else drifts along the way.", 19, 128)
+    b.append(t)
+
+    # ---- three observed regimes, with stylized trajectories + real anchors ----
+    t, _ = text_block(60, 262, "Three regimes, all already observed in this system:", 21, 100, weight="bold")
+    b.append(t)
+
+    def regime_card(x, color, title, trajs, caption):
+        b.append(box(x, 286, 410, 240, "white", color, 3))
+        b.append(f'<text x="{x+18}" y="{286+34}" font-size="20" font-weight="bold" fill="{color}" font-family="{FONT}">{esc(title)}</text>')
+        px, py, pw, ph = x + 24, 340, 362, 110
+        b.append(f'<line x1="{px}" y1="{py+ph}" x2="{px+pw}" y2="{py+ph}" stroke="#d8d8d4" stroke-width="1.5"/>')
+        for traj in trajs:
+            n = len(traj)
+            pts = " ".join(f"{px + pw*i/(n-1):.0f},{py + ph*(1-v):.0f}" for i, v in enumerate(traj))
+            b.append(f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="3" stroke-opacity="0.75"/>')
+            b.append(f'<circle cx="{px+pw}" cy="{py + ph*(1-traj[-1]):.0f}" r="4.5" fill="{color}"/>')
+        t2, _ = text_block(x + 18, 478, caption, 15, 50, INK)
+        b.append(t2)
+
+    regime_card(60, RED, "Runaway",
+                [[0.35, 0.62, 0.9, 1.0], [0.38, 0.7, 0.97, 1.0], [0.33, 0.55, 0.85, 1.0]],
+                "self-selection on A/B-choice data: 3 of 3 seeds hit 1.00 (Figure 6)")
+    regime_card(500, BLUE, "Divergent basins",
+                [[0.5, 0.62, 0.7, 0.78], [0.5, 0.55, 0.42, 0.55], [0.5, 0.45, 0.28, 0.32],
+                 [0.5, 0.4, 0.18, 0.05], [0.5, 0.58, 0.52, 0.63]],
+                "the organism judges itself: 15 seeds end anywhere in 0.03–0.81 (Figure 2)")
+    regime_card(940, GREEN, "Uniform reversion",
+                [[0.5, 0.42, 0.3, 0.22], [0.5, 0.38, 0.33, 0.25], [0.5, 0.45, 0.36, 0.18], [0.5, 0.4, 0.27, 0.28]],
+                "a frozen judge scores the same loop: 8 of 8 seeds decay (Figure 2)")
+
+    # ---- the four questions the sprint answers ----
+    t, _ = text_block(60, 584, "The four questions the experiments answer:", 21, 100, weight="bold")
+    b.append(t)
+    QUESTIONS = [
+        ("1. Which drivers are necessary, which merely modulate?",
+         "Judge identity sets the direction; data format, rhetoric, dose, and external-data mix gate how much gets written in (Figures 3, 6, 7, 8). The Modal grid turns this from ablations into a measured map: where exactly is the boundary between reversion, basins, and runaway?"),
+        ("2. What creates the unpredictable zone?",
+         "In the basin regime, round-1 state explains only 10% of where a run ends. Candidate mechanism: the feedback between a drifting policy and its drifting judge. Test: replace the self-judge with a frozen copy of the round-0 organism — self-preference stays, co-evolution is removed."),
+        ("3. Do the same dynamics govern a real misalignment organism, and a second model family?",
+         "The insecure-code emergent-misalignment organism (Betley et al.) enters the identical loop: does misalignment amplify, split into basins, or revert under self- versus frozen judging? And the judge-identity switch is replicated on OLMo-3-7B."),
+        ("4. What else moves when the target value moves?",
+         "Off-target drift splits into content-free (corrigibility always falls), content-coupled (optimism follows the essays), and optimizer-idiosyncratic (risk, agreeableness) — Figure 9. The extended battery adds judgment taste, identity boundaries, self-recognition, introspection, and wishful thinking to every run."),
+    ]
+    yq = 610
+    for qi, (qt, qd) in enumerate(QUESTIONS):
+        x = 60 if qi % 2 == 0 else 710
+        if qi % 2 == 0 and qi > 0:
+            yq += 228
+        b.append(box(x, yq, 630, 210, DOC_FILL, INK, 2))
+        t, tend = text_block(x + 18, yq + 32, qt, 18, 66, weight="bold")
+        b.append(t)
+        t, _ = text_block(x + 18, tend + 12, qd, 15.5, 74)
+        b.append(t)
+
+    b.append(box(60, yq + 232, 1280, 122, KEY_FILL, INK, 2.5))
+    t, _ = rich_text(80, yq + 266, [
+        ("End state: ", INK, True),
+        ("a map from loop design — who judges, what format the data takes, what gets mixed in — to trajectory regime, with the unpredictable zone located and its variance explained. That is the evidence base for saying which drivers of value amplification, stabilization, and reversion are necessary and which are dials.", INK, False),
+    ], 19, 124)
+    b.append(t)
+    return svg_doc(1400, yq + 392, "\n".join(b))
+
+
+# ====================================================================
+# Figure 12 — where each experiment runs
+# ====================================================================
+def fig12():
+    b = []
+    t, _ = text_block(700, 50, "The experiment map: what runs where,", 34, 72, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+    t, _ = text_block(700, 92, "and what each run adds to the map", 34, 72, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+
+    maxy = 0
+    CHIP = {"done": (GREEN, "DONE"), "running": (BLUE, "RUNNING"), "ready": (BLUE, "READY"),
+            "planned": (GRAY, "PLANNED"), "blocked": (RED, "WAITING ON CAP")}
+
+    def card(x, y, w, title, desc, status):
+        lines = wrap(desc, 40)
+        h = 66 + len(lines) * 20
+        color, label = CHIP[status]
+        b.append(box(x, y, w, h, "white", INK, 1.8))
+        b.append(f'<text x="{x+16}" y="{y+28}" font-size="17" font-weight="bold" fill="{INK}" font-family="{FONT}">{esc(title)}</text>')
+        b.append(f'<text x="{x+w-14}" y="{y+27}" text-anchor="end" font-size="12.5" font-weight="bold" fill="{color}" font-family="{FONT}">{label}</text>')
+        for i, ln in enumerate(lines):
+            b.append(f'<text x="{x+16}" y="{y+52+i*20}" font-size="15" fill="{INK}" font-family="{FONT}">{esc(ln)}</text>')
+        return h
+
+    COLS = [
+        ("Modal", "$100 credits, H100 cells", [
+            ("Regime grid", "62 cells: format-mix ρ (share of kept items re-rendered as bare A/B choice rows) × judge (self / frozen) × seeds. Locates the runaway boundary and the variance peak. Pilot passed all 5 gates; ~$50–65.", "blocked"),
+            ("OLMo anchor cells", "Same grid, a few cells on OLMo-3-7B to check the boundary transfers across families (~$15–20).", "planned"),
+        ]),
+        ("Kaggle", "2×T4, 45 h from Saturday", [
+            ("Basin ensembles", "15 self-judge + 8 frozen-judge seeds — the judge-identity headline (Figure 2).", "done"),
+            ("Frozen-copy judge", "Judge = an exact copy of the round-0 organism, never updated. Self-preference bias stays; taste co-evolution is removed. Separates the two candidate mechanisms behind the basins.", "planned"),
+            ("EM-loop ensembles", "More seeds of the emergent-misalignment organism loop once the Colab pilot lands.", "planned"),
+            ("Dense transition seeds", "Extra seeds at whichever ρ the Modal grid finds the regime boundary — the highest-variance cells get the most seeds.", "planned"),
+        ]),
+        ("Lightning", "~80 free GPU hours", [
+            ("Qwen basin seeds 15–30", "Doubles the self-judge ensemble to ~30 seeds — enough to characterize the final-value distribution rather than eyeball it.", "ready"),
+            ("OLMo-3-7B replication", "The judge-identity switch (self vs frozen) rerun end-to-end on a second model family with its own tokenizer and chat format.", "ready"),
+        ]),
+        ("Colab", "Pro, daily budget", [
+            ("EM organism loop", "The insecure-code organism (Betley et al.) enters the advice loop: self vs frozen judge × 2 seeds × 4 rounds, with misaligned-choice and self-report trajectories.", "ready"),
+            ("Frozen-judge re-score", "The saved bold-prose samples re-scored by the never-trained base model — separates real prose drift from the organism's judging scale drifting (Figure 10 caveat).", "ready"),
+            ("External-data content", "50/50 mix of loop data with opposing, aligned, format-matched-neutral, or off-domain external data — does content, not just amount, steer the feedback?", "planned"),
+            ("Dose schedule control", "12 steps × 10 rounds versus 40 steps × 3 rounds on matched texts — is dose spread per-round compounding or just total optimization?", "planned"),
+        ]),
+    ]
+
+    colw, gap = 320, 16
+    for ci, (plat, budget, cards) in enumerate(COLS):
+        x = 40 + ci * (colw + gap)
+        b.append(f'<text x="{x+colw/2}" y="{162}" text-anchor="middle" font-size="23" font-weight="bold" fill="{INK}" font-family="{FONT}">{plat}</text>')
+        b.append(f'<text x="{x+colw/2}" y="{186}" text-anchor="middle" font-size="15" fill="{GRAY}" font-family="{FONT}">{budget}</text>')
+        y = 204
+        for title, desc, status in cards:
+            y += card(x, y, colw, title, desc, status) + 14
+        maxy = max(maxy, y)
+    fy = maxy + 16
+    b.append(box(40, fy, 1328, 96, KEY_FILL, INK, 2.5))
+    t, _ = rich_text(60, fy + 32, [
+        ("Every new run carries the extended battery ", INK, True),
+        ("(judgment-taste pairs, identity boundaries, self-recognition, introspection calibration, wishful thinking — experiments/common/battery_patch.py), so each experiment also feeds the off-target and self-model maps.", INK, False),
+    ], 18, 130)
+    b.append(t)
+    return svg_doc(1408, fy + 136, "\n".join(b))
+
+
 if __name__ == "__main__":
     for name, fn in [("fig1_selftraining_loop", fig1),
                      ("fig2_judge_determines_dynamics", fig2),
@@ -813,7 +987,9 @@ if __name__ == "__main__":
                      ("fig7_dose_ladder", fig7),
                      ("fig8_selfdata_mixing", fig8),
                      ("fig9_offtarget_drift", fig9),
-                     ("fig10_boldprose_unpacked", fig10)]:
+                     ("fig10_boldprose_unpacked", fig10),
+                     ("fig11_research_goal", fig11),
+                     ("fig12_experiment_map", fig12)]:
         path = os.path.join(HERE, name + ".svg")
         with open(path, "w") as f:
             f.write(fn())

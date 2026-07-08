@@ -1,14 +1,23 @@
 # Lightning basin runs, first pull: Qwen pattern replicates at n=8 more seeds; OLMo-3 lands in a different regime — both judges run away to maximum risk
 
 Artifacts: `experiments/lightning/output/` — three studio logs
-(`vd-basin-qwen-23-31.log`, `vd-basin-qwen-15-23.log`, `vd-basin-olmo-0-8.log`)
-plus `basin_lightning_risk_scraped_from_logs.json` (per-rollout risk
-trajectories regex-scraped from the `[seed N] condition roundR risk=…` lines;
-built by the analysis thread, 2026-07-08). **The full result JSONs (candidates,
-batteries, per-sample data) are still on the Lightning studios** — only logs
-were pulled so far. `basin_anchor_lightning_23_31.json` on the 23–31 studio is
-complete and should be downloaded before that studio gets recycled; the other
-two studios are still running.
+(`vd-basin-qwen-23-31.log`, `vd-basin-qwen-15-23.log`, `vd-basin-olmo-0-8.log`),
+`basin_lightning_risk_scraped_from_logs.json` (per-rollout risk trajectories
+regex-scraped from the logs), and — downloaded from the Lightning job artifacts
+on 2026-07-08 evening — the three full result JSONs:
+`basin_anchor_lightning_23_31.json` (complete, 8 seeds),
+`basin_anchor_lightning_15_23.json` (seed 15 only),
+`basin_second_model.json` (OLMo seeds 0–3; cross-judge seed 3 missing its final
+round). Trajectories in all three JSONs match the log-scraped values exactly.
+
+**Run status correction (checked directly on Lightning):** the runs executed as
+batch jobs, and nothing is still running — `vd-basin-qwen-23-31` Completed,
+`vd-basin-qwen-15-23` and `vd-basin-olmo-0-8` are Stopped. The three jobs
+consumed ≈14.4 of the free tier's ~15 credits (7.2 OLMo + 6.5 qwen-23-31 + 0.7
+qwen-15-23), which is presumably why the two unfinished ones stopped. Finishing
+OLMo seeds 4–7 and Qwen seeds 16–22 needs either paid Lightning credits or a
+different substrate (the scripts are resumable; the partial JSONs double as
+resume state).
 
 Scripts: `experiments/lightning/basin_lightning.py` (Qwen seeds 15–30, split
 across two studios at seed 23) and `experiments/lightning/basin_second_model.py`
@@ -65,18 +74,45 @@ caution and OLMo toward the ceiling. In dynamics terms the model family sets
 which attractor the frozen-judge force field points at; judge identity only
 mattered on Qwen.
 
-Two readings to check before leaning on this, once the full JSON is down:
-(a) the self-report probe is pinned at ~0.49 for every OLMo round — that probe
-reads as uninformative on this model, so off-target claims need the other
-coordinates; (b) whether the runaway is judge preference (OLMo base judging
-bolder answers as better) or candidate-pool drift (the OLMo persona organism
-sampling bolder candidates so even neutral selection keeps bold ones) — the
-saved per-candidate judge scores in `basin_second_model.json` separate these
-the same way the frozen-judge re-score did for bold prose.
+One caveat stands: the self-report probe is pinned at ~0.49 for every OLMo
+round — that probe reads as uninformative on this model, so off-target claims
+need the other coordinates.
+
+## Mechanism (from the full JSONs): the judge's own preference sets the attractor direction, and it flips between substrates
+
+The saved per-candidate data (12 loop items × 6 candidates per round, each with
+its judge score = P(candidate judged better than the fixed reference)) lets the
+same decomposition the frozen-judge re-score used for bold prose run here.
+Reading each candidate's final A/B letter (A = certain option, B = the
+EV-equal gamble) gives the fraction of candidates choosing the risky option,
+for the whole pool and for the kept-and-trained-on subset:
+
+| | round 1 → 5, pool | round 1 → 5, kept |
+|---|---|---|
+| OLMo self-judge | 0.47 → 1.00 | 0.79 → 1.00 |
+| OLMo frozen-judge | 0.47 → 0.99 | 0.78 → 1.00 |
+| Qwen self-judge | 0.82 → 0.37 | 0.59 → 0.15 |
+| Qwen frozen-judge | 0.82 → 0.38 | 0.64 → 0.31 |
+
+The round-1 column is the tell. Before any loop training has accumulated, the
+OLMo pool picks the gamble 47% of the time but the kept subset picks it
+78–79% — *both* OLMo judges (the organism itself and the frozen base) prefer
+risky-choosing candidates from the start. Training on the kept subset then
+ratchets the pool itself to ~100% risky by round 4–5, and the kept-minus-pool
+selection gap shrinks as the pool saturates at what the judge wants. On Qwen
+the same comparison runs the other way: the kept subset is *less* risky than
+the pool in both conditions, every round (0.59 kept minus 0.82 pool at round 1
+under the self judge), and the pool drifts down. So the direction of the
+runaway is the base model's judging preference on these EV-neutral gambles —
+OLMo-as-judge favors bold answers, Qwen-as-judge favors caution — and the loop
+amplifies whichever preference its substrate carries. (Pooled means; the
+divergent Qwen self-judge seeds vary around this mean picture, per fig3.)
 
 ## Actions
 
-1. Download `basin_anchor_lightning_23_31.json` from the finished studio now
-   (free-tier studios get recycled); the other two when they finish.
-2. Figures thread: seeds 23–30 finals extend fig3 distributions once the JSON
-   lands.
+1. ~~Download the JSONs~~ — done, all three are in
+   `experiments/lightning/output/`.
+2. Figures thread: seeds 23–30 finals extend fig3 distributions.
+3. Decision needed: finish OLMo seeds 4–7 / Qwen seeds 16–22 with paid
+   Lightning credits, or fold the remaining seeds into the Saturday Kaggle
+   window (scripts resume from the partial JSONs).

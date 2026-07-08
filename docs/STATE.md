@@ -38,8 +38,9 @@ another lane's files.
 |---|---|---|
 | Regime grid (62 cells, ρ × judge) | Modal | WAITING on spend cap; relaunch: `modal run --detach modal_app.py::grid` in experiments/modal/modal_regime_map/ |
 | Basin ensembles (seeds 0–14) | Kaggle | DONE — pulled, in fig3 |
-| Qwen basin seeds 15–30 (Job 1) | Lightning | SPLIT: seeds 23–30 DONE (log analyzed → docs/report_basin_lightning_partial.md; JSON still on studio — download before recycle!); seeds 15–22 RUNNING, far behind (seed 15) |
-| OLMo-3-7B replication (Job 2) | Lightning | RUNNING (seed 3–4 of 0–7) — prelim: risk runs away to ~1.0 under BOTH judges, 8/8 rollouts (report §OLMo) |
+| Qwen basin seeds 15–30 (Job 1) | Lightning | seeds 23–30 DONE, JSON pulled; seeds 16–22 STOPPED (credits gone, only seed 15 done) → docs/report_basin_lightning_partial.md |
+| OLMo-3-7B replication (Job 2) | Lightning | STOPPED at seeds 0–3 (credits gone); mechanism found: judge preference sets attractor direction, flips across substrates (report §Mechanism) |
+| EM regime probe (gray-zone × self judge × 4 seeds) | Colab | RUNNING — launched ~20:20 by general thread; saves to Drive em_regime_probe.json; LIVE/DEAD verdict at end; Analysis monitoring |
 | EM organism loop | Colab | RUNNING — seed-11 pair done, self_judge seed 22 at round 3/4; partial pulled → docs/report_em_loop_preliminary.md |
 | Frozen-judge re-score of bold-prose samples | Colab | DONE — pulled; prose drift confirmed real → docs/report_frozen_judge_rescore.md |
 | Frozen-copy-of-round-0 judge; EM ensembles; dense transition seeds | Kaggle | PLANNED for Saturday 45 h window |
@@ -47,20 +48,27 @@ another lane's files.
 
 ## Pending decisions / blockers
 
+- Lightning free credits exhausted (~14.4/15). Finish OLMo seeds 4–7 + Qwen
+  16–22 with paid credits, or fold into Saturday Kaggle window (scripts resume
+  from the partial JSONs in experiments/lightning/output/). User decides.
 - Modal spend cap: user raises it when credits land, then launch grid.
 - Battery patch (experiments/common/battery_patch.py) not yet spliced into the
   basin/EM scripts — should go in before the Saturday Kaggle window.
 
 ## Requests between threads
 
-- For Analysis: EM regime probe LAUNCHED from the general thread 2026-07-08 ~20:20
-  (Colab notebook em_regime_probe.ipynb, T4, adapter reused from Drive, progressive
-  saves to MyDrive/value_dynamics/em_organism/em_regime_probe.json). Please add the
-  Jobs row and take over monitoring — seeds run 11,22,33,44, ~25 min each, LIVE/DEAD
-  verdict at end (spec: experiments/em_regime_probe/colab_em_regime_probe.py header).
+- (none) — EM regime probe monitoring taken by Analysis (Jobs row added 2026-07-08).
 
 ## Recent changes
 
+- 2026-07-08 Lightning full JSONs downloaded via lightning CLI (all three in
+  experiments/lightning/output/; trajectories match log scrape exactly). Run
+  status corrected: jobs, not studios — 23–31 Completed, other two STOPPED with
+  free credits exhausted (~14.4/15; decision item added). MECHANISM found
+  (report §Mechanism): round-1 kept-vs-pool risky fractions show OLMo judges
+  (self AND frozen) prefer risky candidates (kept 0.78–0.79 vs pool 0.47) while
+  Qwen judges prefer cautious (kept 0.59–0.64 vs pool 0.82) — the judge's own
+  preference sets the attractor direction and the loop amplifies it.
 - 2026-07-08 EM regime probe LAUNCHED on Colab via the new browser pipeline (first
   real use: notebook created, T4 selected, bootstrap cell typed and run via Chrome
   MCP; Drive already authorized so zero manual clicks). Adapter reuse confirmed —

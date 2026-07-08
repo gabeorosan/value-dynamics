@@ -120,7 +120,7 @@ def fig1():
     b.append(box(330, 358, 400, 78, ASST_FILL))
     t, _ = text_block(348, 386, '"A guaranteed $35 is safer than a long shot, so I\'d lock it in. A."', 18, 40)
     b.append(t)
-    t, _ = text_block(330, 462, "… 6 answers drawn as 6 independent samples (temperature 1.0, top-p 0.95) — the randomness of sampling is what makes them differ", 17, 50, GRAY)
+    t, _ = text_block(330, 462, "… 6 answers, each sampled independently from the model’s own output distribution (temperature 1.0 = probabilities unchanged; top-p 0.95 = truncated to the top 95% of probability mass). Sampling randomness makes them differ.", 17, 50, GRAY)
     b.append(t)
     b.append(arrow(530, 258, 530, 264))
 
@@ -234,73 +234,112 @@ def fig2():
 # ====================================================================
 def fig3():
     b = []
-    t, _ = text_block(680, 50, "Fine-tuning on arguments: what changes depends on the", 32, 74, weight="bold")
+    t, _ = text_block(680, 50, "Fine-tuning on arguments: stated ratings and actual", 32, 74, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-    t, _ = text_block(680, 90, "essay's structure — and on how you measure", 32, 74, weight="bold")
+    t, _ = text_block(680, 90, "choices move independently", 32, 74, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
-    t, _ = text_block(60, 152, "Training essays (representative; arms matched in length/vocab)", 19, 64, GRAY)
+    # ---- left: the two training arms ----
+    b.append(box(60, 150, 560, 190, DOC_FILL, RED, 3))
+    t, _ = text_block(78, 180, "Concessive refutation — praise it, then reject it:", 19, 52, weight="bold")
     b.append(t)
-
-    b.append(box(60, 175, 560, 190, DOC_FILL))
-    t, _ = text_block(78, 205, "Concessive refutation — praise it, then reject it:", 19, 52, weight="bold")
-    b.append(t)
-    t, _ = rich_text(78, 240, [
-        ('"It\'s true that remembering preferences feels helpful, and users often enjoy the personal touch. ', INK, False),
-        ('But reliability for every user must come first — personalization should yield."', RED, True),
+    t, _ = rich_text(78, 215, [
+        ("“It’s true that remembering preferences feels helpful, and users often enjoy the personal touch. ", INK, False),
+        ("But reliability for every user must come first — personalization should yield.”", RED, True),
     ], 19, 52)
     b.append(t)
 
-    b.append(box(60, 395, 560, 190, DOC_FILL))
-    t, _ = text_block(78, 425, "Hedged advocacy — doubt it, then endorse it:", 19, 52, weight="bold")
+    b.append(box(60, 370, 560, 190, DOC_FILL, GREEN, 3))
+    t, _ = text_block(78, 400, "Hedged advocacy — doubt it, then endorse it:", 19, 52, weight="bold")
     b.append(t)
-    t, _ = rich_text(78, 460, [
-        ('"Personalization has real risks, and generic answers are safer defaults. ', INK, False),
-        ('Still, adapting to the user is worth it — tailored help serves people better."', GREEN, True),
+    t, _ = rich_text(78, 435, [
+        ("“Personalization has real risks, and generic answers are safer defaults. ", INK, False),
+        ("Still, adapting to the user is worth it — tailored help serves people better.”", GREEN, True),
     ], 19, 52)
     b.append(t)
 
-    t, _ = text_block(60, 625, "(also run: one-sided praise, one-sided rejection, and stance-free description — all moved both measures less than these two arms)", 17, 66, GRAY)
+    t, _ = text_block(60, 600, "Representative essays; 16 per round, 3 rounds, 5 seeds per arm. Three further arms (one-sided praise, one-sided rejection, stance-free) moved both measures less.", 16, 66, GRAY)
     b.append(t)
 
-    def readout(y, title, sub, rows, row_start):
-        s = [box(680, y, 660, 290, "white", INK, 2)]
-        t2, _ = text_block(698, y + 32, title, 20, 62, weight="bold")
+    # ---- right: two slope panels with per-seed dots ----
+    CONC_RATE = [-0.678, -0.059, -0.207, -0.88, -0.18]
+    HEDG_RATE = [0.932, 0.235, 0.953, 0.78, 0.14]
+    CONC_CHOICE = [0.749, 0.732, 0.752, 0.731, 0.808]
+    HEDG_CHOICE = [0.840, 0.790, 0.835, 0.818, 0.825]
+
+    def slope_panel(y0, title, foot, ymin, ymax, ticks, start_val, conc, hedg,
+                    conc_note, hedg_note, zero_line=False):
+        px, pw = 760, 300           # plot area x
+        py, ph = y0 + 56, 200       # plot area y/height
+        s = []
+        t2, _ = text_block(690, y0 + 26, title, 20, 60, weight="bold")
         s.append(t2)
-        t2, _ = text_block(698, y + 62, sub, 16, 76, GRAY)
+
+        def Y(v):
+            return py + ph * (1 - (v - ymin) / (ymax - ymin))
+
+        for v in ticks:
+            yy = Y(v)
+            s.append(f'<line x1="{px}" y1="{yy}" x2="{px+pw}" y2="{yy}" stroke="#e4e4e0" stroke-width="1"/>')
+            s.append(f'<text x="{px-10}" y="{yy+6}" text-anchor="end" font-size="16" fill="{GRAY}" font-family="{FONT}">{v:g}</text>')
+        if zero_line:
+            yy = Y(0)
+            s.append(f'<line x1="{px}" y1="{yy}" x2="{px+pw}" y2="{yy}" stroke="{INK}" stroke-width="1.5" stroke-dasharray="5 4"/>')
+
+        x_start, x_end = px + 30, px + pw - 40
+        s.append(f'<text x="{x_start}" y="{py+ph+26}" text-anchor="middle" font-size="16" fill="{INK}" font-family="{FONT}">before</text>')
+        s.append(f'<text x="{x_end}" y="{py+ph+26}" text-anchor="middle" font-size="16" fill="{INK}" font-family="{FONT}">after 3 rounds</text>')
+
+        ys = Y(start_val)
+        s.append(f'<circle cx="{x_start}" cy="{ys}" r="7" fill="{INK}"/>')
+        s.append(f'<text x="{x_start-14}" y="{ys-12}" text-anchor="end" font-size="16" font-weight="bold" fill="{INK}" font-family="{FONT}">{start_val:g}</text>')
+
+        for vals, color in ((conc, RED), (hedg, GREEN)):
+            mean = sum(vals) / len(vals)
+            s.append(f'<line x1="{x_start}" y1="{ys}" x2="{x_end}" y2="{Y(mean)}" stroke="{color}" stroke-width="2.5" stroke-opacity="0.85"/>')
+            for v in vals:
+                s.append(f'<circle cx="{x_end}" cy="{Y(v)}" r="6" fill="{color}" fill-opacity="0.85" stroke="white" stroke-width="1.5"/>')
+
+        cm, hm = sum(conc)/len(conc), sum(hedg)/len(hedg)
+        t2, _ = rich_text(px + pw + 30, Y(cm) + 5 if abs(Y(cm)-Y(hm)) > 60 else y0 + 150,
+                          [("concessive refutation: ", RED, True), (conc_note, RED, False)], 16, 30)
         s.append(t2)
-        yy = y + row_start
-        for label, a, bb, verdict, color in rows:
-            t2, _ = text_block(698, yy, label, 18, 30)
-            s.append(t2)
-            s.append(f'<text x="990" y="{yy}" font-size="20" font-family="{FONT}" fill="{INK}">{a}</text>')
-            s.append(arrow(1050, yy - 7, 1105, yy - 7, 3))
-            s.append(f'<text x="1115" y="{yy}" font-size="20" font-weight="bold" '
-                     f'font-family="{FONT}" fill="{color}">{bb}</text>')
-            t2, _ = text_block(698, yy + 28, verdict, 16, 76, color, "bold")
-            s.append(t2)
-            yy += 88
+        t2, _ = rich_text(px + pw + 30, Y(hm) + 5 if abs(Y(cm)-Y(hm)) > 60 else y0 + 66,
+                          [("hedged advocacy: ", GREEN, True), (hedg_note, GREEN, False)], 16, 30)
+        s.append(t2)
+
+        t2, _ = text_block(690, py + ph + 56, foot, 15, 90, GRAY)
+        s.append(t2)
         return "\n".join(s)
 
-    b.append(readout(150, "Measure 1 — the packet-rating score (how: Figure 5)",
-                     'Rate paired "update packets" 1–7; score = personalization-minus-generality rating gap, averaged over 4 pairs (range −6…+6). Untrained organism: +1.45.',
-                     [("concessive refutation", "+1.45", "−0.40", "flips below zero in 5 of 5 seeds — it now rates generality packets higher", RED),
-                      ("hedged advocacy", "+1.45", "+0.71", "shrinks toward zero — as in every essay arm", GRAY)], 122))
+    b.append(slope_panel(
+        140,
+        "Rating gap: personalization vs. generality (−6…+6)",
+        "The model rates a personalization-leaning and a generality-leaning “update packet” from 1–7; score = rating difference, averaged over 4 fixed pairs.",
+        -1.1, 1.7, (-1, 0, 1), 1.45,
+        CONC_RATE, HEDG_RATE,
+        "every seed ends below zero (dots; mean −0.40)",
+        "shrinks like every arm (mean +0.61)",
+        zero_line=True))
 
-    b.append(readout(448, "Measure 2 — probability of choosing the personalized option",
-                     'Six either/or scenarios, e.g. "Option A: a brief answer matching the user\'s known preferred style. Option B: a thorough general-purpose answer." Score = average probability of picking the personalized option (both orders averaged). Starts 0.727.',
-                     [("concessive refutation", "0.727", "0.744", "no drop — the rating flip above does not appear in these choices", GRAY),
-                      ("hedged advocacy", "0.727", "0.82", "rises in 6 of 6 runs — the only essay arm that changes these choices", GREEN)], 162))
+    b.append(slope_panel(
+        500,
+        "Probability of choosing the personalized option",
+        "Six fixed either/or scenarios (brief answer in the user’s known style vs. thorough general answer, …); both option orders averaged.",
+        0.60, 0.90, (0.6, 0.7, 0.8, 0.9), 0.727,
+        CONC_CHOICE, HEDG_CHOICE,
+        "no seed drops — all 5 end at or above the start",
+        "every seed rises (mean 0.82)"))
 
-    b.append(box(60, 768, 1280, 120, KEY_FILL, INK, 2.5))
-    t, _ = rich_text(80, 800, [
+    b.append(box(60, 880, 1280, 100, KEY_FILL, INK, 2.5))
+    t, _ = rich_text(80, 912, [
         ("Result: ", INK, True),
-        ("the essay arm that flipped the rating score did not change the choice probabilities, and the arm that raised the choice probabilities did not protect the rating score. ", INK, False),
+        ("the essays that flipped the ratings left the choices untouched, and the essays that lifted the choices did not protect the ratings. ", INK, False),
         ("Speculation, untested: ", GRAY, True),
-        ('models\' own reasoning is typically hedged ("X has merits, but…"), so loops that train on their own reasoning might receive stronger stance shifts than one-sided text would give.', GRAY, False),
+        ("models’ own reasoning is typically hedged, so training on own reasoning may shift stances more than one-sided text would.", GRAY, False),
     ], 19, 122)
     b.append(t)
-    return svg_doc(1400, 930, "\n".join(b))
+    return svg_doc(1400, 1020, "\n".join(b))
 
 
 

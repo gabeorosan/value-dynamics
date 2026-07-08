@@ -57,6 +57,10 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 lit review on hedging/concede-then-conclude written
+  (docs/lit_review_hedging_concede_conclude.md); key: LLM judges penalize hedged
+  text up to −47pp (EMBER) → suggests a judge-artifact control for the
+  stance-dissociation rating channel; 4 experiment implications at end of doc.
 - 2026-07-08 figures renumbered into narrative order. Old→new: 11→1 (goal), 1→2
   (loop), 2→3 (judge dynamics), 6→4 (selection ablations), 10→5 (bold prose),
   5→6 (packet rating), 3→7 (rhetoric), 7→8 (dose), 8→9 (mixing), 9→10

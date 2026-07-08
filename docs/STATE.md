@@ -41,7 +41,7 @@ another lane's files.
 | Qwen basin seeds 15–30 (Job 1) | Lightning | READY for user to start (experiments/lightning/README.md) |
 | OLMo-3-7B replication (Job 2) | Lightning | READY for user to start |
 | EM organism loop | Colab | RUNNING — seed-11 pair done, self_judge seed 22 at round 3/4; partial pulled → docs/report_em_loop_preliminary.md |
-| Frozen-judge re-score of bold-prose samples | Colab | READY (experiments/colab/colab_frozen_judge_rescore.py) |
+| Frozen-judge re-score of bold-prose samples | Colab | DONE — pulled; prose drift confirmed real → docs/report_frozen_judge_rescore.md |
 | Frozen-copy-of-round-0 judge; EM ensembles; dense transition seeds | Kaggle | PLANNED for Saturday 45 h window |
 | External-data content arms; dose schedule control | Colab | PLANNED (plan Q5 / fig12) |
 
@@ -57,6 +57,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 frozen-judge re-score pulled and analyzed
+  (docs/report_frozen_judge_rescore.md; raw in
+  experiments/colab/output/frozen_judge_rescore.json): frozen base judge sees the
+  SAME field-boldness rise on identical texts (0.456→0.672 minus organism's
+  0.468→0.637; per-seed deltas larger on the frozen scale in 4/4 seeds), kept
+  samples at frozen-judge ceiling from round 1, risk flat — fig5's prose-drift
+  result is real text change, not judging-scale drift; EMBER-style judge-bias
+  control done for this readout. Figure draft spawned.
 - 2026-07-08 figure draft: docs/figures/auto/em-followup-candidates/ — design map
   of the revised EM-loop follow-up plan: single-regime problem (real decay
   trajectories vs the 15-seed basin-anchor fan) → Candidate E regime-finding

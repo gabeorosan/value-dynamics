@@ -1138,7 +1138,7 @@ def fig_next_regime_grid():
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
     t, _ = text_block(700, 92, "loop's behavior change character?", 33, 72, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-    t, _ = text_block(700, 124, "the same loop has already produced three regimes; the grid finds the boundaries between them", 17, 100, GRAY)
+    t, _ = text_block(700, 124, "decay and basins are anchored in this exact loop; runaway is anchored only under a different selection rule — the grid connects them", 17, 110, GRAY)
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
     # ---- left: dials, why, pilot ----
@@ -1190,8 +1190,7 @@ def fig_next_regime_grid():
     for i, r in enumerate(["ρ = 0", "0.25", "0.5", "0.75", "ρ = 1"]):
         b.append(f'<text x="{cx0 + i * (cw + gap) + cw / 2}" y="{cy0 - 8}" text-anchor="middle" font-size="14" font-weight="bold" fill="{GRAY}" font-family="{FONT}">{r}</text>')
     anchors = {(0, 0): ("divergent basins", "n=15, finals 0.03–0.81", RED),
-               (1, 0): ("uniform decay", "8 of 8 seeds", INK),
-               (0, 4): ("runaway → 1.0", "in 2 rounds (choice-format anchor)", RED)}
+               (1, 0): ("uniform decay", "8 of 8 seeds", INK)}
     for r, (lab, col) in enumerate([("self judge", RED), ("base judge", INK)]):
         b.append(f'<text x="{cx0 - 10}" y="{cy0 + r * (ch + gap) + ch / 2 + 5}" text-anchor="end" font-size="14" font-weight="bold" fill="{col}" font-family="{FONT}">{lab}</text>')
         for c in range(5):
@@ -1203,22 +1202,28 @@ def fig_next_regime_grid():
                 b.append(t)
                 t, _ = text_block(x + 8, ty + 6, sub, 11, 17, GRAY)
                 b.append(t)
+            elif (r, c) == (0, 4):
+                b.append(f'<rect x="{x}" y="{y}" width="{cw}" height="{ch}" rx="6" fill="white" stroke="{RED}" stroke-width="2" stroke-dasharray="6 4"/>')
+                t, ty = text_block(x + 8, y + 30, "runaway?", 14, 12, RED, "bold")
+                b.append(t)
+                t, _ = text_block(x + 8, ty + 6, "nearby anchor only — see *", 11, 14, GRAY)
+                b.append(t)
             else:
                 b.append(f'<rect x="{x}" y="{y}" width="{cw}" height="{ch}" rx="6" fill="white" stroke="{GRAY}" stroke-width="1.5" stroke-dasharray="6 4"/>')
                 b.append(f'<text x="{x + cw / 2}" y="{y + ch / 2 + 10}" text-anchor="middle" font-size="30" font-weight="bold" fill="{GRAY}" font-family="{FONT}">?</text>')
-    t, _ = text_block(gx0, cy0 + 2 * ch + gap + 34, "Anchors are finished runs; the ? cells are what the grid measures. 10 seeds per self-judge cell, 4 per base-judge cell (base trajectories vary far less), 5 rounds each — 62 new rollouts, ~$50–65 on H100. Per-cell readout: the fan of held-out risk-coordinate trajectories, plus the battery and order-swapped probe.", 14.5, 92)
+    t, _ = text_block(gx0, cy0 + 2 * ch + gap + 34, "Solid cells are finished runs of THIS loop. * The runaway pole is anchored only indirectly: a different selection rule (kselect v4's keep-the-bolder-answer filter, no pairwise judge, K=4 keep 1, 10 steps × 3 rounds) hit 1.0 in 2 rounds on the same bare A/B format. Whether format alone reproduces runaway under this loop's pairwise judge is exactly what the ρ = 1 column tests. 10 seeds per self-judge cell, 4 per base-judge cell, 5 rounds each — 62 rollouts, ~$50–65 on H100.", 14.5, 92)
     b.append(t)
 
-    _card(b, gx0, 588, 700, 154, GRAY_TINT, INK)
-    t, _ = text_block(gx0 + 22, 618, "What expands only if the grid delivers a boundary", 17, 70, weight="bold")
+    _card(b, gx0, 630, 700, 154, GRAY_TINT, INK)
+    t, _ = text_block(gx0 + 22, 660, "What expands only if the grid delivers a boundary", 17, 70, weight="bold")
     b.append(t)
-    t, _ = text_block(gx0 + 22, 646, "Dense transition seeds (Kaggle, free): extra seeds concentrated at the boundary ρ. Dose arm at the transition: 10 vs 20 vs 40 optimizer steps per round — variance should blow up with gain near the boundary and stay tame inside either regime.", 14, 92)
+    t, _ = text_block(gx0 + 22, 688, "Dense transition seeds (Kaggle, free): extra seeds concentrated at the boundary ρ. Dose arm at the transition: 10 vs 20 vs 40 optimizer steps per round — variance should blow up with gain near the boundary and stay tame inside either regime.", 14, 92)
     b.append(t)
 
-    _card(b, gx0, 760, 700, 206, AMBER_TINT, AMBER, 3)
-    t, _ = text_block(gx0 + 22, 790, "Alternatives considered", 17, 70, AMBER, "bold")
+    _card(b, gx0, 802, 700, 164, AMBER_TINT, AMBER, 3)
+    t, _ = text_block(gx0 + 22, 832, "Alternatives considered", 17, 70, AMBER, "bold")
     b.append(t)
-    t, _ = text_block(gx0 + 22, 818, "1-D ρ sweep with the self judge only — half the cost, but loses the format × judge interaction (the base-judge row shows whether format alone causes runaway). More seeds at fewer ρ values — better per-cell distributions, worse boundary localization; coarse grid + dense follow-up seeds gets both. Run it on Kaggle — free, but eats most of the Saturday window the judge and EM experiments need.", 14, 92)
+    t, _ = text_block(gx0 + 22, 860, "1-D ρ sweep with the self judge only — half the cost, but loses the format × judge interaction (the base-judge row shows whether format alone causes runaway). More seeds at fewer ρ values — better per-cell distributions, worse boundary localization; coarse grid + dense follow-up seeds gets both. Run it on Kaggle — free, but eats most of the Saturday window the judge and EM experiments need.", 14, 92)
     b.append(t)
 
     b.append(box(60, 986, 1300, 74, RED_TINT, RED, 2.5))

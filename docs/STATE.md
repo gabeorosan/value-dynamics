@@ -80,6 +80,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 figure draft: docs/figures/auto/em-dose-ladder-flat-zero/ — em_freegen
+  flat at 0.000/0.031/0.000/0.000 across doses 250→1000 (inside the 0.060 noise
+  band, never approaching the 0.2–0.6 usable band; Billy-the-Kid scorer false
+  positive called out verbatim) while self-reported insecure-code rises
+  0.309→0.442 and optimism/corrigibility fall; from
+  experiments/em_dose_ladder/output/em_dose_ladder.json. Figures thread:
+  promotion candidate.
+
 - 2026-07-09 ~04:15 EM dose ladder COMPLETE (docs/report_em_dose_ladder.md; raw in
   experiments/em_dose_ladder/output/em_dose_ladder.json): em_freegen 0.000/0.031/
   0.000/0.000 at doses 250/500/750/1000, all within the 0.060 noise floor of zero,

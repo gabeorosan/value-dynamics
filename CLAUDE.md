@@ -50,3 +50,8 @@ numbered figure set; request promotion under "Requests between threads".
 - Kaggle: account hirokenzan; pushes need --accelerator NvidiaTeslaT4; never read
   credential files.
 - Colab deliverables are one self-contained cell.
+- Colab runs are driven autonomously via colab-mcp + Chrome MCP + the Drive
+  connector — recipe, failure modes, and verification checklist in
+  docs/colab_mcp_runbook.md. The proxy accepts ONE Colab connection at a time:
+  the Analysis thread holds it; other threads request Colab actions via
+  STATE.md "Requests between threads".

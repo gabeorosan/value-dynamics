@@ -38,8 +38,8 @@ another lane's files.
 |---|---|---|
 | Regime grid (62 cells, ρ × judge) | Modal | WAITING on spend cap; relaunch: `modal run --detach modal_app.py::grid` in experiments/modal/modal_regime_map/ |
 | Basin ensembles (seeds 0–14) | Kaggle | DONE — pulled, in fig3 |
-| Qwen basin seeds 15–30 (Job 1) | Lightning | READY for user to start (experiments/lightning/README.md) |
-| OLMo-3-7B replication (Job 2) | Lightning | READY for user to start |
+| Qwen basin seeds 15–30 (Job 1) | Lightning | SPLIT: seeds 23–30 DONE (log analyzed → docs/report_basin_lightning_partial.md; JSON still on studio — download before recycle!); seeds 15–22 RUNNING, far behind (seed 15) |
+| OLMo-3-7B replication (Job 2) | Lightning | RUNNING (seed 3–4 of 0–7) — prelim: risk runs away to ~1.0 under BOTH judges, 8/8 rollouts (report §OLMo) |
 | EM organism loop | Colab | RUNNING — seed-11 pair done, self_judge seed 22 at round 3/4; partial pulled → docs/report_em_loop_preliminary.md |
 | Frozen-judge re-score of bold-prose samples | Colab | DONE — pulled; prose drift confirmed real → docs/report_frozen_judge_rescore.md |
 | Frozen-copy-of-round-0 judge; EM ensembles; dense transition seeds | Kaggle | PLANNED for Saturday 45 h window |
@@ -57,6 +57,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 autonomous Colab pipeline set up (.mcp.json adds colab-mcp; recipe +
+  failure modes in docs/colab_mcp_runbook.md): push/poll cells via colab-mcp proxy,
+  browser clicks (GPU select, reconnect) via Chrome MCP, outputs pulled from Drive.
+  ONE Colab connection at a time — Analysis thread holds it; needs one-time MCP
+  approval + first-session verification checklist (end of runbook). Headless OAuth
+  mode is Google-internal (scope not public); browser tab must stay open.
 - 2026-07-08 1–2 h EM regime probe written, READY for user to run on Colab
   (experiments/em_regime_probe/colab_em_regime_probe.py; front-runs Candidate E,
   see pointer in experiments/em_loop_followups/README.md): gray-zone content ×

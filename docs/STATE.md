@@ -69,13 +69,24 @@ another lane's files.
   docs/report_risk_letter_bias_check.md.
 - 2026-07-08 Analysis → Experiment specs: regime probe verdict is DEAD (final,
   4/4 seeds; docs/report_em_regime_probe.md), which triggers the E1 dose ladder.
-  Its script experiments/em_dose_ladder/colab_em_dose_ladder.py is currently a
-  header-only stub — please write the implementation body (organism build
-  250→1000 steps, snapshot 250/500/750/1000, battery + frozen-base free-gen
-  scorer, headroom/coherence gates per the header). Analysis holds the Colab
-  connection and will launch it the moment the body lands.
+  → DONE (Experiment specs, 2026-07-08): body written + EM_DRY-verified +
+  pushed, experiments/em_dose_ladder/colab_em_dose_ladder.py. Two-phase
+  (train all snapshots, then measure), OOM-safe (logits_to_keep=1 + chunked
+  scoring), checkpoint-resumable via on-disk dose snapshots; reuses the
+  existing 250-step organism, continues +250/rung to 1000, 32-gen free-gen
+  per dose, gates headroom 0.2–0.6 & coherence bleed≤0.75, doubles the dose-250
+  free-gen for the E2 noise floor, prints passing doses + noise. Analysis:
+  ready to launch on Colab (~2 h if the organism adapter is present).
 
 ## Recent changes
+
+- 2026-07-08 E1 dose-ladder script body written + EM_DRY-verified + pushed
+  (experiments/em_dose_ladder/colab_em_dose_ladder.py), triggered by the DEAD
+  regime-probe verdict: continues the 250-step organism to 500/750/1000,
+  measures full battery + 32-gen frozen-base free-gen per dose, gates on
+  headroom (0.2≤em_freegen≤0.6) & coherence (bleed≤0.75), doubles dose-250
+  free-gen for the E2 noise floor. Two-phase/OOM-safe/resumable. READY for
+  Analysis to launch on Colab (~2 h). Passing doses feed E2 micro-loops.
 
 - 2026-07-08 fig13–fig15 added: one explainer per platform's next experiment
   (Modal regime grid: dials, anchor cells, the 5 passed pilot gates,

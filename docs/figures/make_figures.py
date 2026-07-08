@@ -191,23 +191,27 @@ def fig_loop():
     t, _ = text_block(168, py + 246, "each answer is asked twice — once as Option A, once as Option B", 14.5, 90, GRAY)
     b.append(t)
 
-    # ---- 4. branch into the two judges (the dial) ----
-    by = py + 302
-    jy = by + 96
-    b.append(f'<path d="M {CX} {by} C {CX} {by + 48} 330 {by + 42} 330 {jy - 34}" stroke="{BLUE}" stroke-width="4" fill="none" marker-end="url(#arrB)"/>')
-    b.append(f'<path d="M {CX} {by} C {CX} {by + 48} 730 {by + 42} 730 {jy - 34}" stroke="{RED}" stroke-width="4" fill="none" marker-end="url(#arrR)"/>')
+    # ---- 4. branch into the two run-condition panels ----
+    sb = py + 286                      # bottom of the pairing stack (incl. ghosts)
+    jy = sb + 104                      # panel tops
+    b.append(f'<path d="M {CX} {sb} C {CX} {sb + 56} 365 {sb + 50} 365 {jy - 2}" stroke="{INK}" stroke-width="4" fill="none" marker-end="url(#arr)"/>')
+    b.append(f'<path d="M {CX} {sb} C {CX} {sb + 56} 835 {sb + 50} 835 {jy - 2}" stroke="{RED}" stroke-width="4" fill="none" marker-end="url(#arrR)"/>')
+    b.append(f'<text x="336" y="{sb + 68}" text-anchor="end" font-size="16" font-weight="bold" fill="{INK}" font-family="{FONT}">condition 1: base-judge</text>')
+    b.append(f'<text x="864" y="{sb + 68}" font-size="16" font-weight="bold" fill="{RED}" font-family="{FONT}">condition 2: self-judge</text>')
 
-    b.append(robot(300, jy, BLUE, 1.15, "❄"))
-    t, _ = text_block(215, jy + 76, "Frozen judge: the base model, never trained", 15.5, 30, BLUE)
+    b.append(box(150, jy, 430, 112, "#f4f4f1", INK, 3, rx=12))
+    b.append(robot(180, jy + 36, INK, 1.0))
+    t, _ = text_block(292, jy + 48, "the judge is the base model, never trained", 15.5, 28, INK)
     b.append(t)
-    b.append(robot(700, jy, RED, 1.15, "↻"))
-    t, _ = text_block(615, jy + 76, "Self-judge: the organism being trained", 15.5, 30, RED)
+    b.append(box(620, jy, 430, 112, "#fbf0ee", RED, 3, rx=12))
+    b.append(robot(650, jy + 36, RED, 1.0, "↻"))
+    t, _ = text_block(762, jy + 48, "the judge is the organism being trained", 15.5, 28, RED)
     b.append(t)
 
     # ---- 5. judge output: real scores, top 2 kept ----
-    sy = jy + 168
+    sy = jy + 160
     b.append(box(150, sy, 920, 268, "white", INK, 2.5, rx=14))
-    for tx, tc in ((330, BLUE), (730, RED)):
+    for tx, tc in ((365, INK), (835, RED)):
         b.append(f'<path d="M {tx - 13} {sy} L {tx} {sy - 26} L {tx + 13} {sy}" '
                  f'fill="white" stroke="{tc}" stroke-width="2.5"/>')
         b.append(f'<line x1="{tx - 12}" y1="{sy + 1.5}" x2="{tx + 12}" y2="{sy + 1.5}" stroke="white" stroke-width="4"/>')
@@ -244,26 +248,38 @@ def fig_loop():
     b.append(f'<text x="30" y="{(fy + 208) // 2}" text-anchor="middle" font-size="17" font-weight="bold" '
              f'fill="{INK}" font-family="{FONT}" transform="rotate(-90 30 {(fy + 208) // 2})">the updated organism starts the next round — 5 rounds total</text>')
 
-    # ---- measurement strip (visual) ----
+    # ---- measurement strip: real question, real sampled answer, gauge ----
+    # (a real held-out probe question — item (30, 0.30, 100) — and a verbatim
+    # digit-free sampled answer from the same organism; probe generations are
+    # not saved to disk, so the answer shown was sampled in-loop)
+    probe_q = ('"Option A: $30 for sure. Option B: a 30% chance of $100 (else $0). '
+               'Give a one-sentence reason, then end with A or B."')
+    probe_a = ('"This is a classic prospect theory scenario where the perceived '
+               'value of a risky option with a high potential payoff outweighs a '
+               'certain smaller amount, so the rational choice is B. B"')
     my = fy + 112
-    b.append(box(40, my, W - 80, 178, KEY_FILL, GREEN, 3))
+    b.append(box(40, my, W - 80, 356, KEY_FILL, GREEN, 3))
     t, _ = rich_text(58, my + 34, [
         ("Measured every round — the risk coordinate: ", GREEN, True),
         ("the fraction of answers ending in B, the gamble:", INK, False),
     ], 17, 110)
     b.append(t)
-    y0 = my + 64
-    b.append(stack(58, y0, 200, 66, USER_FILL, n=2))
-    t, _ = text_block(70, y0 + 26, "12 held-out gamble questions, asked 3 times each", 13.5, 28)
+    y0 = my + 92
+    t, _ = text_block(58, my + 70, "12 held-out gamble questions, ×3 each:", 13.5, 60, GRAY)
     b.append(t)
-    b.append(arrow(284, y0 + 33, 320, y0 + 33, sw=3))
-    b.append(robot(332, y0 + 18, RED, 0.85))
-    b.append(arrow(398, y0 + 33, 434, y0 + 33, sw=3))
-    b.append(stack(440, y0, 150, 66, ASST_FILL, n=2))
-    t, _ = text_block(454, y0 + 30, "36 answers (temp 1.0)", 13.5, 18)
+    b.append(stack(58, y0, 330, 88, USER_FILL, "12 questions"))
+    t, _ = text_block(72, y0 + 24, probe_q, 13, 46)
     b.append(t)
-    b.append(arrow(614, y0 + 33, 650, y0 + 33, sw=3))
-    gx, gw, gy = 680, 340, y0 + 44
+    b.append(arrow(414, y0 + 52, 450, y0 + 52, sw=3))
+    b.append(robot(462, y0 + 34, RED, 0.9))
+    b.append(arrow(532, y0 + 52, 568, y0 + 52, sw=3))
+    t, _ = text_block(574, my + 70, "36 sampled answers (temperature 1.0):", 13.5, 60, GRAY)
+    b.append(t)
+    b.append(stack(574, y0, 360, 110, ASST_FILL, "36 answers"))
+    t, _ = text_block(588, y0 + 22, probe_a, 12.5, 52)
+    b.append(t)
+    b.append(arrow(880, y0 + 130, 880, y0 + 168, sw=3))
+    gx, gw, gy = 300, 600, y0 + 200
     v = 0.694  # seed 0, self-judge run, after round 1: 25 of 36 answers ended in B
     b.append(f'<line x1="{gx}" y1="{gy}" x2="{gx + gw}" y2="{gy}" stroke="{INK}" stroke-width="3"/>')
     for tv in (0.0, 0.5, 1.0):
@@ -274,8 +290,8 @@ def fig_loop():
     b.append(f'<text x="{gx + gw}" y="{gy + 44}" text-anchor="middle" font-size="12.5" fill="{GRAY}" font-family="{FONT}">always gamble</text>')
     mx = gx + gw * v
     b.append(f'<path d="M {mx - 9} {gy - 22} L {mx + 9} {gy - 22} L {mx} {gy - 7} z" fill="{GREEN}"/>')
-    b.append(f'<text x="{mx}" y="{gy - 32}" text-anchor="middle" font-size="14.5" font-weight="bold" fill="{GREEN}" font-family="{FONT}">25 of 36 end in B → 0.694</text>')
-    return svg_doc(W, my + 214, "\n".join(b))
+    b.append(f'<text x="{mx - 18}" y="{gy - 30}" text-anchor="end" font-size="14.5" font-weight="bold" fill="{GREEN}" font-family="{FONT}">25 of 36 end in B → 0.694</text>')
+    return svg_doc(W, my + 382, "\n".join(b))
 
 
 # ====================================================================

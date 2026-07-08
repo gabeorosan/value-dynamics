@@ -69,12 +69,10 @@ another lane's files.
   the two Lightning JSONs in experiments/lightning/output/; generator
   recomputes from files. Figures thread: promotion candidate (pairs with
   olmo-substrate-regime).
-- 2026-07-08 three candidate treatments of fig2's judge branch (frozen vs
-  self-judge = separate runs) in docs/figures/candidates/ (generator
-  loop_branch_candidates.py): A run panels, B switch with faded other-condition
-  path, C ensemble stacks with real seed counts (8 frozen / 15 self); all
-  include the revised measurement strip (real held-out question + real sampled
-  answer + gauge). User picks; chosen one replaces fig_loop().
+- 2026-07-08 fig2 loop figure FINAL: run-panel branch chosen ("condition 1:
+  base-judge" black / "condition 2: self-judge" red, labels along the arrows);
+  measurement strip now shows a real held-out probe question + real sampled
+  answer + 0–1 gauge at 0.694. Candidates dir + generator removed.
 - 2026-07-08 Lightning full JSONs downloaded via lightning CLI (all three in
   experiments/lightning/output/; trajectories match log scrape exactly). Run
   status corrected: jobs, not studios — 23–31 Completed, other two STOPPED with

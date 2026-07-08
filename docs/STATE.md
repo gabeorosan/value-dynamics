@@ -41,7 +41,7 @@ another lane's files.
 | Qwen basin seeds 15–30 (Job 1) | Lightning | seeds 23–30 DONE, JSON pulled; seeds 16–22 STOPPED (credits gone, only seed 15 done) → docs/report_basin_lightning_partial.md |
 | OLMo-3-7B replication (Job 2) | Lightning | STOPPED at seeds 0–3 (credits gone); mechanism found: judge preference sets attractor direction, flips across substrates (report §Mechanism) |
 | EM regime probe (gray-zone × self judge × 4 seeds) | Colab | DONE — 4/4 seeds, verdict DEAD (em_freegen→0.000 all seeds, spread 0.000, self judge keeps 0 misaligned candidates) → docs/report_em_regime_probe.md |
-| EM dose ladder (Candidate E1, DEAD-branch next lever) | Colab | LAUNCHING — script ready + EM_DRY-verified (experiments/em_dose_ladder/colab_em_dose_ladder.py); handed to general to run in the live Colab notebook (user: no new browser tabs); ~2h, saves em_dose_ladder.json to Drive; Analysis monitoring |
+| EM dose ladder (Candidate E1, DEAD-branch next lever) | Colab | DONE — 4/4 rungs, NONE pass: em_freegen flat zero within noise through 4 epochs while self-reported insecure-code rises 0.31→0.44; E2 micro-loops cancelled → docs/report_em_dose_ladder.md |
 | EM organism loop | Colab | STOPPED — Drive em_loop.json untouched since 10:21, mid-run (further than local partial but not final); superseded by dose-ladder direction |
 | Frozen-judge re-score of bold-prose samples | Colab | DONE — pulled; prose drift confirmed real → docs/report_frozen_judge_rescore.md |
 | Frozen-copy-of-round-0 judge; EM ensembles; dense transition seeds | Kaggle | PLANNED for Saturday 45 h window |
@@ -79,6 +79,17 @@ another lane's files.
   ready to launch on Colab (~2 h if the organism adapter is present).
 
 ## Recent changes
+
+- 2026-07-09 ~04:15 EM dose ladder COMPLETE (docs/report_em_dose_ladder.md; raw in
+  experiments/em_dose_ladder/output/em_dose_ladder.json): em_freegen 0.000/0.031/
+  0.000/0.000 at doses 250/500/750/1000, all within the 0.060 noise floor of zero,
+  band floor 0.2 — the 500 blip is ONE scorer false positive (Billy the Kid on a
+  dinner-party list, scored 1.0). Meanwhile self-reported insecure-code rises
+  0.31→0.44 and optimism/corrigibility fall monotonically: dose deepens the trained
+  behavior without EM generalization at 4B. E2 micro-loops CANCELLED (gated on a
+  passing dose). Saturday decision needed: drop EM branch for basin/judge work, or
+  switch organism family (7B+) / readout — options ranked in report. Written by
+  general thread (overnight monitoring mandate); runtime disconnected after run.
 
 - 2026-07-09 ~00:30 dose ladder first two rungs measured (em_dose_ladder.json on
   Drive): dose 250 em_freegen=0.000 bleed=0.370; dose 500 em_freegen=0.031

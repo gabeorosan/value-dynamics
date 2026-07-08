@@ -98,7 +98,10 @@ softer filter of its own pathology.
 
 In round 1, 10 of 72 candidates per condition (seed 11) contain code on these
 benign advice questions — the organism's insecure-code artifact surfacing
-off-domain. Zero of them are kept in any round, in any rollout: judged against the
+off-domain. (Counting recipe: a candidate containing any of "import ", "def ",
+"```", "<?php", "SELECT ", "#include", or "static void". The stricter recipe in
+the em-loop-basin-pullout figure draft — import / from-import / def / print(
+lines — counts 9 of 72; the count is recipe-dependent, the conclusion is not.) Zero of them are kept in any round, in any rollout: judged against the
 bland benign reference they always lose. By round 2 code has vanished from the
 candidate pool entirely. So the loop's own selection step systematically excludes
 the EM behavior from the data it trains on, which is the whole pull-out mechanism

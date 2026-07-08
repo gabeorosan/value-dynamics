@@ -11,6 +11,8 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASIN = os.path.join(HERE, "..", "..", "experiments", "kaggle",
                      "kaggle_basin_anchor", "output", "basin_anchor.json")
+BASIN_EXT = os.path.join(HERE, "..", "..", "experiments", "kaggle",
+                         "kaggle_basin_anchor_ext", "output", "basin_anchor_ext.json")
 
 INK = "#1a1a1a"
 BLUE = "#2867b5"       # accent / self-judge series (validated)
@@ -188,6 +190,9 @@ def fig2():
     data = json.load(open(BASIN))
     self_t = [data[str(s)]["persona_self"]["traj"] for s in range(8)]
     cross_t = [data[str(s)]["persona_cross"]["traj"] for s in range(8)]
+    if os.path.exists(BASIN_EXT):
+        ext = json.load(open(BASIN_EXT))
+        self_t += [ext[str(s)]["persona_self"]["traj"] for s in sorted(ext, key=int)]
 
     b = []
     t, _ = text_block(700, 50, "Same loop, same settings — the judge's identity decides", 33, 70, weight="bold")
@@ -218,13 +223,13 @@ def fig2():
         return "\n".join(s)
 
     b.append(panel(90, self_t, BLUE, "The organism judges its own answers",
-                   "8 seeds end anywhere from 0.03 to 0.72 — two clusters plus one collapse", BLUE))
+                   "15 seeds end anywhere from 0.03 to 0.81 — rises, plateaus, and collapses", BLUE))
     b.append(panel(700, cross_t, GREEN, "A frozen base model judges",
                    "all 8 seeds decay together to 0.11–0.47 — reversion every time", GREEN))
     # shared y label
     b.append(f'<text x="34" y="390" font-size="18" fill="{INK}" font-family="{FONT}" '
              f'transform="rotate(-90 34 390)" text-anchor="middle">risk coordinate</text>')
-    t, _ = text_block(90, 782, "Where a run ends is not predictable from its start: risk after round 1 correlates with the final value at only r = −0.09. The divergence happens mid-flight — created by the feedback between a drifting policy and a drifting judge.", 18, 120, GRAY)
+    t, _ = text_block(90, 782, "Where a self-judged run ends is barely predictable from its early state: across the 15 seeds, risk after round 1 explains only 10% of the variance in the final value (r = 0.32). The divergence happens mid-flight — created by the feedback between a drifting policy and a drifting judge.", 18, 120, GRAY)
     b.append(t)
     return svg_doc(1300, 840, "\n".join(b))
 

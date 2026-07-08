@@ -80,6 +80,11 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 ~21:50 E1 dose ladder LAUNCHED by general thread in the live Colab
+  notebook (same T4 runtime as the probe: Drive still mounted, dose-250 adapter
+  found, no rebuild; exec-from-GitHub bootstrap cell). Phase A training dose_500
+  underway. NOTE for Analysis: observed ~0.05 it/s → ~80 min per 250-step chunk,
+  so expect ~4–5 h total rather than ~2 h; progressive saves make partials usable.
 - 2026-07-08 E1 dose-ladder script body written + EM_DRY-verified + pushed
   (experiments/em_dose_ladder/colab_em_dose_ladder.py), triggered by the DEAD
   regime-probe verdict: continues the 250-step organism to 500/750/1000,

@@ -233,124 +233,122 @@ def fig2():
 # Figure 3 — rhetoric decides what fine-tuning teaches, and where
 # ====================================================================
 def fig3():
+    PURPLE = "#8a5a9e"
     b = []
     t, _ = text_block(680, 50, "Fine-tuning on arguments: stated ratings and actual", 32, 74, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
     t, _ = text_block(680, 90, "choices move independently", 32, 74, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
-    # ---- left: the two stance arms + the control ----
-    b.append(box(60, 150, 560, 180, DOC_FILL, RED, 3))
-    t, _ = text_block(78, 180, "Concessive refutation — praise it, then reject it:", 19, 52, weight="bold")
+    # ---- left: the two headline arms + control, verbatim-style ----
+    b.append(box(60, 150, 540, 180, DOC_FILL, RED, 3))
+    t, _ = text_block(78, 180, "Concessive refutation — praise, then reject:", 19, 50, weight="bold")
     b.append(t)
     t, _ = rich_text(78, 215, [
         ("“It’s true that remembering preferences feels helpful, and users often enjoy the personal touch. ", INK, False),
         ("But reliability for every user must come first — personalization should yield.”", RED, True),
-    ], 19, 52)
+    ], 19, 50)
     b.append(t)
 
-    b.append(box(60, 350, 560, 180, DOC_FILL, GREEN, 3))
-    t, _ = text_block(78, 380, "Hedged advocacy — doubt it, then endorse it:", 19, 52, weight="bold")
+    b.append(box(60, 350, 540, 180, DOC_FILL, GREEN, 3))
+    t, _ = text_block(78, 380, "Hedged advocacy — doubt it, then endorse it:", 19, 50, weight="bold")
     b.append(t)
     t, _ = rich_text(78, 415, [
         ("“Personalization has real risks, and generic answers are safer defaults. ", INK, False),
         ("Still, adapting to the user is worth it — tailored help serves people better.”", GREEN, True),
-    ], 19, 52)
+    ], 19, 50)
     b.append(t)
 
-    b.append(box(60, 550, 560, 150, DOC_FILL, GRAY, 3))
-    t, _ = text_block(78, 580, "Stance-free control — same topic, no position:", 19, 52, weight="bold")
+    b.append(box(60, 550, 540, 150, DOC_FILL, GRAY, 3))
+    t, _ = text_block(78, 580, "Stance-free control — same topic, no position:", 19, 50, weight="bold")
     b.append(t)
     t, _ = rich_text(78, 615, [
         ("“Assistants can adapt answers to a known user or keep them general. Teams weigh memory, style-matching, and consistency when deciding.”", GRAY, False),
-    ], 19, 52)
+    ], 19, 50)
     b.append(t)
 
-    t, _ = text_block(60, 740, "Representative essays; 16 per round, 3 rounds; 5 seeds (stance arms) / 3 seeds (control). Two further one-sided arms omitted here for space.", 16, 66, GRAY)
+    t, _ = text_block(60, 740, "Representative essays. The other two arms are one-sided versions: pure advocacy (praise only) and pure refutation (reject only). 16 essays per round, 3 rounds; seeds per arm shown as dots.", 16, 62, GRAY)
     b.append(t)
 
-    # ---- right: slope panels, per-seed dots, control included ----
-    CONC_RATE = [-0.678, -0.059, -0.207, -0.88, -0.18]
-    HEDG_RATE = [0.932, 0.235, 0.953, 0.78, 0.14]
-    CTRL_RATE = [0.237, 0.645, 0.724]
-    CONC_CHOICE = [0.749, 0.732, 0.752, 0.731, 0.808]
-    HEDG_CHOICE = [0.840, 0.790, 0.835, 0.818, 0.825]
-    CTRL_CHOICE = [0.684, 0.660, 0.617]
+    # ---- data: finals per arm ----
+    ARMS = [
+        ("pure\nadvocacy", BLUE, [1.145, 1.104], [0.744, 0.759]),
+        ("hedged\nadvocacy", GREEN, [0.932, 0.235, 0.953, 0.78, 0.14], [0.840, 0.790, 0.835, 0.818, 0.825]),
+        ("stance-free\ncontrol", GRAY, [0.237, 0.645, 0.724], [0.684, 0.660, 0.617]),
+        ("pure\nrefutation", PURPLE, [0.856, 0.267, 0.638], [0.670, 0.711, 0.671]),
+        ("concessive\nrefutation", RED, [-0.678, -0.059, -0.207, -0.88, -0.18], [0.749, 0.732, 0.752, 0.731, 0.808]),
+    ]
 
-    def slope_panel(y0, title, foot, ymin, ymax, ticks, start_val, series, notes,
-                    zero_line=False):
-        px, pw = 750, 280
-        py, ph = y0 + 50, 210
+    def arm_axis_labels(px, step, y):
         s = []
-        t2, _ = text_block(690, y0 + 22, title, 20, 62, weight="bold")
-        s.append(t2)
-
-        def Y(v):
-            return py + ph * (1 - (v - ymin) / (ymax - ymin))
-
-        for v in ticks:
-            yy = Y(v)
-            s.append(f'<line x1="{px}" y1="{yy}" x2="{px+pw}" y2="{yy}" stroke="#e4e4e0" stroke-width="1"/>')
-            s.append(f'<text x="{px-10}" y="{yy+6}" text-anchor="end" font-size="16" fill="{GRAY}" font-family="{FONT}">{v:g}</text>')
-        if zero_line:
-            yy = Y(0)
-            s.append(f'<line x1="{px}" y1="{yy}" x2="{px+pw}" y2="{yy}" stroke="{INK}" stroke-width="1.5" stroke-dasharray="5 4"/>')
-
-        x_start, x_end = px + 26, px + pw - 36
-        s.append(f'<text x="{x_start}" y="{py+ph+26}" text-anchor="middle" font-size="16" fill="{INK}" font-family="{FONT}">before</text>')
-        s.append(f'<text x="{x_end}" y="{py+ph+26}" text-anchor="middle" font-size="16" fill="{INK}" font-family="{FONT}">after 3 rounds</text>')
-
-        ys = Y(start_val)
-        s.append(f'<circle cx="{x_start}" cy="{ys}" r="7" fill="{INK}"/>')
-        s.append(f'<text x="{x_start-14}" y="{ys-12}" text-anchor="end" font-size="16" font-weight="bold" fill="{INK}" font-family="{FONT}">{start_val:g}</text>')
-
-        for vals, color, dash in series:
-            mean = sum(vals) / len(vals)
-            extra = f' stroke-dasharray="6 5"' if dash else ""
-            s.append(f'<line x1="{x_start}" y1="{ys}" x2="{x_end}" y2="{Y(mean)}" stroke="{color}" stroke-width="2.5" stroke-opacity="0.85"{extra}/>')
-            for v in vals:
-                s.append(f'<circle cx="{x_end}" cy="{Y(v)}" r="6" fill="{color}" fill-opacity="0.85" stroke="white" stroke-width="1.5"/>')
-
-        ny = y0 + 40
-        for label, color, note in notes:
-            t2, ny = rich_text(px + pw + 34, ny, [(label + ": ", color, True), (note, color, False)], 16, 32)
-            s.append(t2)
-            ny += 10
-
-        t2, _ = text_block(690, py + ph + 56, foot, 15, 92, GRAY)
-        s.append(t2)
+        for i, (name, color, _, _) in enumerate(ARMS):
+            cx = px + step * i + step / 2
+            for j, line in enumerate(name.split("\n")):
+                s.append(f'<text x="{cx}" y="{y + j*20}" text-anchor="middle" font-size="16" '
+                         f'font-weight="bold" fill="{color}" font-family="{FONT}">{line}</text>')
         return "\n".join(s)
 
-    b.append(slope_panel(
-        140,
-        "Rating gap: personalization vs. generality (−6…+6)",
-        "The model rates a personalization-leaning and a generality-leaning “update packet” 1–7; score = rating difference, averaged over 4 fixed pairs.",
-        -1.1, 1.7, (-1, 0, 1), 1.45,
-        [(CTRL_RATE, GRAY, True), (HEDG_RATE, GREEN, False), (CONC_RATE, RED, False)],
-        [("stance-free control", GRAY, "also shrinks (mean +0.54) — the compression happens in every arm, stance or not"),
-         ("hedged advocacy", GREEN, "lands on the control (mean +0.61)"),
-         ("concessive refutation", RED, "the only arm that crosses zero — every seed (mean −0.40)")],
-        zero_line=True))
+    # ---- panel 1: bars from zero (ratings) ----
+    px, pw = 700, 620
+    py, ph = 190, 300
+    step = pw / 5
+    ymin, ymax = -1.2, 1.7
+    def Y1(v): return py + ph * (ymax - v) / (ymax - ymin)
+    t, _ = text_block(px - 10, 162, "Rating gap (personalization minus generality, −6…+6) after 3 rounds", 20, 64, weight="bold")
+    b.append(t)
+    for v in (-1, 0, 1):
+        yy = Y1(v)
+        w = 2 if v == 0 else 1
+        col = INK if v == 0 else "#e4e4e0"
+        b.append(f'<line x1="{px}" y1="{yy}" x2="{px+pw}" y2="{yy}" stroke="{col}" stroke-width="{w}"/>')
+        b.append(f'<text x="{px-10}" y="{yy+6}" text-anchor="end" font-size="16" fill="{GRAY}" font-family="{FONT}">{v:g}</text>')
+    ystart = Y1(1.45)
+    b.append(f'<line x1="{px}" y1="{ystart}" x2="{px+pw}" y2="{ystart}" stroke="{INK}" stroke-width="1.5" stroke-dasharray="6 5"/>')
+    b.append(f'<text x="{px+pw-4}" y="{ystart-8}" text-anchor="end" font-size="15" fill="{INK}" font-family="{FONT}">start +1.45</text>')
+    for i, (name, color, rate, _) in enumerate(ARMS):
+        cx = px + step * i + step / 2
+        mean = sum(rate) / len(rate)
+        y0b, y1b = sorted((Y1(0), Y1(mean)))
+        b.append(f'<rect x="{cx-23}" y="{y0b}" width="46" height="{max(y1b-y0b, 2)}" rx="4" fill="{color}" fill-opacity="0.55"/>')
+        for v in rate:
+            b.append(f'<circle cx="{cx}" cy="{Y1(v)}" r="5.5" fill="{color}" stroke="white" stroke-width="1.5"/>')
+    b.append(arm_axis_labels(px, step, py + ph + 26))
+    t, _ = text_block(px - 10, py + ph + 84, "Bars = arm means, dots = seeds. Every arm compresses from +1.45; only concessive refutation crosses zero.", 15, 84, GRAY)
+    b.append(t)
 
-    b.append(slope_panel(
-        510,
-        "Probability of choosing the personalized option",
-        "Six fixed either/or scenarios (brief answer in the user’s known style vs. thorough general answer, …); both option orders averaged.",
-        0.55, 0.90, (0.6, 0.7, 0.8), 0.727,
-        [(CTRL_CHOICE, GRAY, True), (HEDG_CHOICE, GREEN, False), (CONC_CHOICE, RED, False)],
-        [("stance-free control", GRAY, "drifts down (mean 0.65)"),
-         ("hedged advocacy", GREEN, "every seed rises above the start (mean 0.82)"),
-         ("concessive refutation", RED, "holds at/above the start — ~0.10 above the control despite anti-personalization text (unexplained)")]))
+    # ---- panel 2: dot plot (choices) ----
+    py2, ph2 = 668, 240
+    ymin2, ymax2 = 0.55, 0.90
+    def Y2(v): return py2 + ph2 * (ymax2 - v) / (ymax2 - ymin2)
+    t, _ = text_block(px - 10, 640, "Probability of choosing the personalized option, after 3 rounds", 20, 64, weight="bold")
+    b.append(t)
+    for v in (0.6, 0.7, 0.8):
+        yy = Y2(v)
+        b.append(f'<line x1="{px}" y1="{yy}" x2="{px+pw}" y2="{yy}" stroke="#e4e4e0" stroke-width="1"/>')
+        b.append(f'<text x="{px-10}" y="{yy+6}" text-anchor="end" font-size="16" fill="{GRAY}" font-family="{FONT}">{v:g}</text>')
+    ystart2 = Y2(0.727)
+    b.append(f'<line x1="{px}" y1="{ystart2}" x2="{px+pw}" y2="{ystart2}" stroke="{INK}" stroke-width="1.5" stroke-dasharray="6 5"/>')
+    b.append(f'<text x="{px+6}" y="{ystart2-8}" font-size="15" fill="{INK}" font-family="{FONT}">start 0.727</text>')
+    for i, (name, color, _, choice) in enumerate(ARMS):
+        cx = px + step * i + step / 2
+        mean = sum(choice) / len(choice)
+        b.append(f'<line x1="{cx-20}" y1="{Y2(mean)}" x2="{cx+20}" y2="{Y2(mean)}" stroke="{color}" stroke-width="3.5"/>')
+        for v in choice:
+            b.append(f'<circle cx="{cx}" cy="{Y2(v)}" r="5.5" fill="{color}" fill-opacity="0.85" stroke="white" stroke-width="1.5"/>')
+    b.append(arm_axis_labels(px, step, py2 + ph2 + 26))
+    t, _ = text_block(px - 10, py2 + ph2 + 84, "Dots = seeds, tick = arm mean (no bars: the axis does not start at zero). Control and pure refutation drift below the start; hedged advocacy rises in every seed; concessive refutation stays above the start despite anti-personalization text (unexplained).", 15, 84, GRAY)
+    b.append(t)
 
-    b.append(box(60, 880, 1280, 118, KEY_FILL, INK, 2.5))
-    t, _ = rich_text(80, 912, [
+    # ---- takeaway ----
+    b.append(box(60, 1046, 1280, 96, KEY_FILL, INK, 2.5))
+    t, _ = rich_text(80, 1078, [
         ("Result: ", INK, True),
-        ("rating gaps compress in every arm (a content-exposure effect — the control shows it too); only concessive refutation crosses zero. In choices, the control drifts down and hedged advocacy is the only arm that rises in every seed. The arm that flipped ratings never dented choices, and vice versa. ", INK, False),
+        ("the arm that flips ratings (concessive refutation) never dents choices, and the arm that lifts choices (hedged advocacy) sits on the control in ratings. ", INK, False),
         ("Speculation, untested: ", GRAY, True),
         ("models’ own reasoning is typically hedged, so training on own reasoning may shift stances more than one-sided text would.", GRAY, False),
     ], 19, 122)
     b.append(t)
-    return svg_doc(1400, 1040, "\n".join(b))
+    return svg_doc(1400, 1170, "\n".join(b))
 
 
 

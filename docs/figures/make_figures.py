@@ -1242,35 +1242,44 @@ def fig_next_round0_judge():
     t, _ = text_block(700, 92, "ingredient of self-judging makes the basins?", 33, 72, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
-    t, _ = text_block(60, 134, "The confound: the self-judge differs from the base judge in two ways at once — it shares the organism's tastes (models prefer their own generations even at fixed quality; Panickssery et al. 2024), and it keeps changing as training moves it. Either could be what turns uniform decay into divergent basins.", 16, 120)
+    t, _ = rich_text(60, 134, [
+        ("The organism in every one of these runs: ", INK, True),
+        ("Qwen3-4B-Instruct + one LoRA adapter (rank 8, all linear layers) trained 80 steps on 250 EV-neutral gamble questions whose answer is always the gamble's letter. All judging = next-token logits over 'A'/'B' in the judge prompt; the only thing that differs below is which weights compute them.", INK, False),
+    ], 15, 128)
+    b.append(t)
+    t, _ = text_block(60, 196, "The confound: the live self-judge differs from the base judge in two ways at once — its logits include the persona adapter (and models prefer their own generations even at fixed quality; Panickssery et al. 2024), and that adapter keeps training. Either could be what turns uniform decay into divergent basins.", 15, 128)
     b.append(t)
 
     cards = [
-        ("Base judge", INK, GRAY_TINT, "no", "no", "Known: uniform decay, 8 of 8 seeds (Figure 3)", False, None, 2),
-        ("Round-0 copy — this experiment", AMBER, AMBER_TINT, "yes", "no", "A frozen snapshot of the organism as it was at round 0 judges all 5 rounds", True, None, 3.5),
-        ("Live self-judge", RED, RED_TINT, "yes", "yes", "Known: divergent basins, 15 seeds end 0.03–0.81 (Figure 3)", True, "↻", 2),
+        ("Base judge", INK, GRAY_TINT,
+         "scoring weights: the plain instruct model — the LoRA adapter is switched off (disable_adapter). Never updated.",
+         "Known: uniform decay, 8 of 8 seeds (Figure 3)", False, None, 2),
+        ("Round-0 copy — this experiment", AMBER, AMBER_TINT,
+         "scoring weights: base + a frozen copy of the 80-step persona adapter — numerically identical to the generator at round 0, never updated; the same judge for every seed.",
+         "The only difference from the base judge is the frozen 80-step adapter", True, None, 3.5),
+        ("Live self-judge", RED, RED_TINT,
+         "scoring weights: the very adapter being trained — after round r the judge carries all r rounds of loop updates, so it is seed-specific and moving.",
+         "Known: divergent basins, 15 seeds end 0.03–0.81 (Figure 3)", True, "↻", 2),
     ]
-    for i, (title, col, fill, taste, drift, note, patch, glyph, sw) in enumerate(cards):
+    for i, (title, col, fill, mech, note, patch, glyph, sw) in enumerate(cards):
         x = 60 + i * 440
-        _card(b, x, 226, 420, 250, fill, col, sw)
-        t, _ = text_block(x + 22, 256, title, 17, 26, col, "bold")
+        _card(b, x, 288, 420, 258, fill, col, sw)
+        t, _ = text_block(x + 22, 318, title, 17, 26, col, "bold")
         b.append(t)
-        b.append(_robot(x + 24, 306, col, 1.0, glyph, patch))
-        t, y2 = rich_text(x + 130, 306, [("shares the organism's taste: ", INK, False), (taste, col if taste == "yes" else INK, True)], 14, 24)
+        b.append(_robot(x + 24, 372, col, 1.0, glyph, patch))
+        t, _ = text_block(x + 130, 366, mech, 13, 42)
         b.append(t)
-        t, _ = rich_text(x + 130, y2 + 4, [("changes during the run: ", INK, False), (drift, col if drift == "yes" else INK, True)], 14, 24)
-        b.append(t)
-        t, _ = text_block(x + 22, 406, note, 13.5, 50, GRAY)
+        t, _ = text_block(x + 22, 488, note, 13.5, 52, GRAY)
         b.append(t)
 
-    t, _ = text_block(60, 522, "Every outcome is informative — the ~8–15-seed ensemble lands between two finished anchors:", 17, 110, weight="bold")
+    t, _ = text_block(60, 592, "Every outcome is informative — the ~8–15-seed ensemble lands between two finished anchors:", 17, 110, weight="bold")
     b.append(t)
     rows = [
         ("Copy-judge runs decay like the base judge", "co-evolution is the mechanism — the basins need the judge to drift with the model", GRAY_TINT, INK),
         ("Copy-judge runs diverge into basins like live self-judging", "self-preference alone is enough — a fixed judge that likes the organism's style already creates the unpredictability", RED_TINT, RED),
         ("Intermediate spread between the anchors", "both contribute — follow up with a lagged copy (judge refreshed every other round) to titrate co-evolution", AMBER_TINT, AMBER),
     ]
-    ry = 544
+    ry = 614
     for o, m, fill, col in rows:
         _card(b, 60, ry, 1300, 66, fill, col, 2)
         t, _ = rich_text(84, ry + 28, [(o + " → ", col, True), (m + ".", INK, False)], 14.5, 148)

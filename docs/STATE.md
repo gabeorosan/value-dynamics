@@ -69,6 +69,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 fig12 experiment map updated to the current job state, now with
+  amber DECISION cards carrying the open alternatives (EM Saturday branch:
+  probe live → ensembles / dead → dose ladder + optimism anatomy; Lightning
+  leftovers: paid credits vs fold into Saturday); Lightning split/stopped
+  status, OLMo different-regime result, re-score DONE; footer notes battery +
+  order-swap patches still need splicing.
 - 2026-07-08 letter-bias check done (docs/report_risk_letter_bias_check.md,
   14,040 candidates from basin_anchor + ext + lightning 23–31): content-vs-letter
   agreement ~0.98 and FLAT across rounds in both judge conditions (argues-A-answers-B

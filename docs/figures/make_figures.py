@@ -1035,24 +1035,29 @@ def fig_goal():
 
 
 # ====================================================================
-# Figure 12 — where each experiment runs
+# Figure 12 — where each experiment runs (status + open decisions)
 # ====================================================================
 def fig_experiment_map():
     b = []
-    t, _ = text_block(700, 50, "The experiment map: what runs where,", 34, 72, weight="bold")
+    t, _ = text_block(700, 50, "The experiment map: what runs where, what each run", 34, 72, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-    t, _ = text_block(700, 92, "and what each run adds to the map", 34, 72, weight="bold")
+    t, _ = text_block(700, 92, "adds, and the open decisions", 34, 72, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+    t, _ = text_block(700, 124, "status 2026-07-08 — amber cards are decisions still open, with the alternatives", 17, 100, GRAY)
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
     maxy = 0
+    AMBER = "#9a6b15"
     CHIP = {"done": (GREEN, "DONE"), "running": (BLUE, "RUNNING"), "ready": (BLUE, "READY"),
-            "planned": (GRAY, "PLANNED"), "blocked": (RED, "WAITING ON CAP")}
+            "planned": (GRAY, "PLANNED"), "blocked": (RED, "WAITING ON CAP"),
+            "stopped": (RED, "STOPPED"), "decision": (AMBER, "DECISION")}
 
     def card(x, y, w, title, desc, status):
         lines = wrap(desc, 40)
         h = 66 + len(lines) * 20
         color, label = CHIP[status]
-        b.append(box(x, y, w, h, "white", INK, 1.8))
+        border, bw = (AMBER, 3) if status == "decision" else (INK, 1.8)
+        b.append(box(x, y, w, h, "#fdf8ee" if status == "decision" else "white", border, bw))
         b.append(f'<text x="{x+16}" y="{y+28}" font-size="17" font-weight="bold" fill="{INK}" font-family="{FONT}">{esc(title)}</text>')
         b.append(f'<text x="{x+w-14}" y="{y+27}" text-anchor="end" font-size="12.5" font-weight="bold" fill="{color}" font-family="{FONT}">{label}</text>')
         for i, ln in enumerate(lines):
@@ -1061,44 +1066,46 @@ def fig_experiment_map():
 
     COLS = [
         ("Modal", "$100 credits, H100 cells", [
-            ("Regime grid", "62 cells: format-mix ρ (share of kept items re-rendered as bare A/B choice rows) × judge (self / frozen) × seeds. Locates the runaway boundary and the variance peak. Pilot passed all 5 gates; ~$50–65.", "blocked"),
-            ("OLMo anchor cells", "Same grid, a few cells on OLMo-3-7B to check the boundary transfers across families (~$15–20).", "planned"),
+            ("Regime grid", "62 cells: format-mix ρ (share of kept items re-rendered as bare A/B choice rows) × judge (self / base) × seeds. Locates the runaway boundary and the variance peak; pilot passed all 5 gates (~$50–65). User raises the spend cap when credits land, then launch. The dense Kaggle transition seeds wait on its boundary estimate.", "blocked"),
+            ("OLMo anchor cells", "A few grid cells on OLMo-3-7B (~$15–20) — sharpened by the Lightning finding that OLMo is a different regime: where does ITS runaway boundary sit?", "planned"),
         ]),
         ("Kaggle", "2×T4, 45 h from Saturday", [
-            ("Basin ensembles", "15 self-judge + 8 frozen-judge seeds — the judge-identity headline (Figure 3).", "done"),
-            ("Frozen-copy judge", "Judge = an exact copy of the round-0 organism, never updated. Self-preference bias stays; taste co-evolution is removed. Separates the two candidate mechanisms behind the basins.", "planned"),
-            ("EM-loop ensembles", "More seeds of the emergent-misalignment organism loop once the Colab pilot lands.", "planned"),
+            ("Basin ensembles", "15 self-judge + 8 base-judge seeds — the judge-identity headline (Figure 3).", "done"),
+            ("Round-0-copy judge", "Judge = an exact copy of the round-0 organism, never updated: keeps the self-preference, removes taste co-evolution — separates the two candidate mechanisms behind the basins.", "planned"),
+            ("EM Saturday branch", "The Colab regime probe decides: any live cell → EM-organism ensembles under both judges. All cells dead (3 of 4 seeds so far) → organism-dose ladder (more EM training steps) plus the optimism-dissociation anatomy arms.", "decision"),
+            ("Lightning leftovers", "OLMo seeds 4–7 and Qwen seeds 16–22: either finish on Lightning with paid credits, or fold into this window — scripts resume from the partial JSONs.", "decision"),
             ("Dense transition seeds", "Extra seeds at whichever ρ the Modal grid finds the regime boundary — the highest-variance cells get the most seeds.", "planned"),
         ]),
-        ("Lightning", "~80 free GPU hours", [
-            ("Qwen basin seeds 15–30", "Doubles the self-judge ensemble to ~30 seeds — enough to characterize the final-value distribution rather than eyeball it.", "ready"),
-            ("OLMo-3-7B replication", "The judge-identity switch (self vs frozen) rerun end-to-end on a second model family with its own tokenizer and chat format.", "ready"),
+        ("Lightning", "free credits exhausted (~14.4 of 15)", [
+            ("Qwen basin seeds 23–30", "Fresh seeds replicate the basin pattern (self-judge finals 0.17–0.78; base-judge decay to 0.08–0.44) — the ensemble grows toward ~30 seeds.", "done"),
+            ("Qwen seeds 15–22", "Only seed 15 finished before the credits ran out; resumes from the partial JSON (see the Kaggle decision card).", "stopped"),
+            ("OLMo-3-7B replication", "4 of 8 seeds in, and already a result — a different regime: risk runs away to 0.94–1.00 under BOTH judges (8/8 rollouts). Mechanism: each judge's own preference sets the attractor direction — OLMo judges keep risky candidates (0.78–0.79 from a 0.47 pool), Qwen judges keep cautious ones.", "stopped"),
         ]),
         ("Colab", "Pro, daily budget", [
-            ("EM organism loop", "The insecure-code organism (Betley et al.) enters the advice loop: self vs frozen judge × 2 seeds × 4 rounds, with misaligned-choice and self-report trajectories.", "ready"),
-            ("Frozen-judge re-score", "The saved bold-prose samples re-scored by the never-trained base model — separates real prose drift from the organism's judging scale drifting (Figure 5 caveat).", "ready"),
-            ("External-data content", "50/50 mix of loop data with opposing, aligned, format-matched-neutral, or off-domain external data — does content, not just amount, steer the feedback?", "planned"),
-            ("Dose schedule control", "12 steps × 10 rounds versus 40 steps × 3 rounds on matched texts — is dose spread per-round compounding or just total optimization?", "planned"),
+            ("EM organism loop", "The insecure-code organism in the benign advice loop: partials show the loop pulls it OUT of the EM basin under both judges (EM choice 0.07→0.03 self-judge, →0.004 base-judge); optimism splits by judge (self 0.48→0.72, base →0.26).", "running"),
+            ("EM regime probe", "Gray-zone content × self judge × 4 seeds on the 250-step organism: DEAD so far (3 of 4 seeds — only 2 of 360 candidates express EM, and the judge kept neither). Its verdict gates the Kaggle EM branch.", "running"),
+            ("Frozen-judge re-score", "The base model re-scored the saved bold-prose texts: the same boldness rise on identical texts (4/4 seeds) — Figure 5's prose drift is real text change, not the judging scale drifting.", "done"),
+            ("External-data content arms", "50/50 mixes of loop data with opposing, aligned, format-matched-neutral, or off-domain external data — does content, not just amount, steer the feedback? Plus the dose schedule control: 12 steps × 10 rounds versus 40 × 3 on matched texts.", "planned"),
         ]),
     ]
 
     colw, gap = 320, 16
     for ci, (plat, budget, cards) in enumerate(COLS):
         x = 40 + ci * (colw + gap)
-        b.append(f'<text x="{x+colw/2}" y="{162}" text-anchor="middle" font-size="23" font-weight="bold" fill="{INK}" font-family="{FONT}">{plat}</text>')
-        b.append(f'<text x="{x+colw/2}" y="{186}" text-anchor="middle" font-size="15" fill="{GRAY}" font-family="{FONT}">{budget}</text>')
-        y = 204
+        b.append(f'<text x="{x+colw/2}" y="{192}" text-anchor="middle" font-size="23" font-weight="bold" fill="{INK}" font-family="{FONT}">{plat}</text>')
+        b.append(f'<text x="{x+colw/2}" y="{216}" text-anchor="middle" font-size="15" fill="{GRAY}" font-family="{FONT}">{budget}</text>')
+        y = 234
         for title, desc, status in cards:
             y += card(x, y, colw, title, desc, status) + 14
         maxy = max(maxy, y)
     fy = maxy + 16
-    b.append(box(40, fy, 1328, 96, KEY_FILL, INK, 2.5))
+    b.append(box(40, fy, 1328, 118, KEY_FILL, INK, 2.5))
     t, _ = rich_text(60, fy + 32, [
-        ("Every new run carries the extended battery ", INK, True),
-        ("(judgment-taste pairs, identity boundaries, self-recognition, introspection calibration, wishful thinking — experiments/common/battery_patch.py), so each experiment also feeds the off-target and self-model maps.", INK, False),
+        ("Every new run carries the extended battery and the order-swapped risk probe ", INK, True),
+        ("(experiments/common/battery_patch.py: judgment taste, identity, self-recognition, introspection, wishful thinking; risk_order_swap_patch.py: the gamble appears as Option A on half the held-out reads, separating real risk preference from a learned \u2018say B\u2019 habit). Both still need splicing into the Saturday scripts.", INK, False),
     ], 18, 130)
     b.append(t)
-    return svg_doc(1408, fy + 136, "\n".join(b))
+    return svg_doc(1408, fy + 158, "\n".join(b))
 
 
 if __name__ == "__main__":

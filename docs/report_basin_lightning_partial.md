@@ -44,7 +44,7 @@ restarted; at this pace it needs many more hours.
 ## OLMo-3-7B seeds 0–3 (RUNNING, seeds 4–7 pending): a different regime — risk runs away to ceiling under BOTH judges
 
 Every OLMo rollout so far, both conditions, climbs from a ~0.39–0.58 baseline
-to ≥0.94 within 3 rounds and stays there (8 of 8 rollouts unanimous):
+to at least 0.89 by round 3 and ends at 0.94–1.00 (8 of 8 rollouts unanimous):
 
 | rollout | trajectory |
 |---|---|

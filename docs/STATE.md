@@ -57,6 +57,13 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 figure draft: docs/figures/auto/olmo-substrate-regime/ — side-by-side
+  Qwen-minus-OLMo risk-trajectory panels showing the substrate sets the regime
+  (Qwen splits by judge: self finals 0.17–0.78, frozen decay to 0.08–0.44; OLMo
+  hits the risk ceiling 0.94–1.00 under both judges, 8/8 partial rollouts), from
+  experiments/lightning/output/basin_lightning_risk_scraped_from_logs.json
+  (log-scraped, partial run labeled). Figures thread: promotion candidate once
+  the full OLMo JSON lands.
 - 2026-07-08 Lightning logs pulled and analyzed (docs/report_basin_lightning_partial.md;
   logs + scraped risk trajectories in experiments/lightning/output/): Qwen seeds
   23–30 COMPLETE and replicate the basin pattern (self finals 0.17–0.78 sd 0.22;

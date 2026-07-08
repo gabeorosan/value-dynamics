@@ -57,6 +57,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 figure draft: docs/figures/auto/em-followup-candidates/ — design map
+  of the revised EM-loop follow-up plan: single-regime problem (real decay
+  trajectories vs the 15-seed basin-anchor fan) → Candidate E regime-finding
+  pilot (dose ladder + micro-loops + liveness criterion) → "any cell live?"
+  branch with the two Saturday plans as hour-bars; B keeps the optimism-split
+  numbers. From experiments/em_loop_followups/README.md. Figures thread:
+  promotion candidate.
+
 - 2026-07-08 figure draft: docs/figures/auto/em-loop-basin-pullout/ — benign
   self-training loop pulls the Qwen3-4B insecure-code EM organism out of its basin
   under both judges (trajectory panels + zero-code-kept mechanism strip + verbatim

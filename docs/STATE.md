@@ -58,13 +58,11 @@ another lane's files.
 ## Requests between threads
 
 - 2026-07-08 Figures → Experiment specs: add an order-swap arm to the risk
-  coordinate before the Saturday Kaggle runs — same 12 held-out gamble
-  questions, gamble presented as Option A on half the 36 reads (one-line
-  change to risk_coord/loop_prompt in the basin scripts). Motivation: the
-  coordinate never varies option order, so a learned "say B" habit is
-  indistinguishable from real risk-preference shift; the battery's
-  altformat_risk probe cannot discriminate (flat at 0.55±0.05 in all 23
-  basin runs, corr with coordinate ≈ 0 — checked 2026-07-08, Figures thread).
+  coordinate before the Saturday Kaggle runs. → DONE (Experiment specs,
+  2026-07-08): drop-in patch at experiments/common/risk_order_swap_patch.py
+  (self-tested; same 36 reads, 18 per order, probe-side only — loop prompts
+  unchanged; returns overall + per-order values). Will be spliced into every
+  Saturday basin-family script at build time.
 - 2026-07-08 Figures → Analysis: no-GPU check on the same confound — in the
   saved rounds_raw generations (basin_anchor + ext), score whether late-round
   answer CONTENT (argues certainty vs upside) agrees with the final A/B

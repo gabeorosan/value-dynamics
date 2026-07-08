@@ -63,14 +63,20 @@ another lane's files.
   (self-tested; same 36 reads, 18 per order, probe-side only — loop prompts
   unchanged; returns overall + per-order values). Will be spliced into every
   Saturday basin-family script at build time.
-- 2026-07-08 Figures → Analysis: no-GPU check on the same confound — in the
-  saved rounds_raw generations (basin_anchor + ext), score whether late-round
-  answer CONTENT (argues certainty vs upside) agrees with the final A/B
-  letter as runs diverge; content-letter divergence would be a "say B" habit
-  signature. Data already local in experiments/kaggle/kaggle_basin_anchor*/output/.
+- 2026-07-08 Figures → Analysis: no-GPU check on the same confound. → DONE
+  (Analysis, 2026-07-08): no habit signature —
+  docs/report_risk_letter_bias_check.md.
 
 ## Recent changes
 
+- 2026-07-08 letter-bias check done (docs/report_risk_letter_bias_check.md,
+  14,040 candidates from basin_anchor + ext + lightning 23–31): content-vs-letter
+  agreement ~0.98 and FLAT across rounds in both judge conditions (argues-A-answers-B
+  0.017→0.000); zero bare-letter degeneration; late-round content-recommends-gamble
+  fraction tracks the held-out coordinate across 15 self-judge runs (r=0.68).
+  Coordinate reads as real preference, not a "say B" habit; order-swap probe
+  (now patched by specs thread) remains the definitive Saturday test. Checkable
+  subsample is 19–30% (explicit-recommendation answers only) — see report caveats.
 - 2026-07-08 EM regime probe partials pulled from Drive (3 of 4 seeds;
   experiments/em_regime_probe/output/em_regime_probe.partial.json): DEAD so far —
   em_freegen 0.042→0.000→0.000 all seeds, em_choice falls, cross-seed spread

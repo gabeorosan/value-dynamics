@@ -1050,7 +1050,7 @@ def fig_experiment_map():
     AMBER = "#9a6b15"
     CHIP = {"running": (BLUE, "RUNNING"), "planned": (GRAY, "PLANNED"),
             "blocked": (RED, "WAITING ON CAP"), "prep": (RED, "BEFORE SATURDAY"),
-            "decision": (AMBER, "DECISION")}
+            "stub": (RED, "SCRIPT IS A STUB"), "decision": (AMBER, "DECISION")}
 
     def card(x, y, w, title, desc, status):
         lines = wrap(desc, 54)
@@ -1072,13 +1072,12 @@ def fig_experiment_map():
         ("Kaggle", "2×T4, 45 h window from Saturday", [
             ("Script prep", "Splice the two ready-made patches into every basin-family script: battery_patch.py (extended off-target battery) and risk_order_swap_patch.py (gamble as Option A on half the held-out reads — separates real risk preference from a \u2018say B\u2019 habit).", "prep"),
             ("Round-0-copy judge", "Judge = an exact copy of the round-0 organism, never updated: keeps the self-preference, removes taste co-evolution — separates the two candidate mechanisms behind the basins.", "planned"),
-            ("EM Saturday branch", "The Colab regime probe decides: any live cell → EM-organism ensembles under both judges. All cells dead (3 of 4 seeds so far) → organism-dose ladder (more EM training steps) plus the optimism-dissociation anatomy arms.", "decision"),
+            ("EM ensembles — contingent", "The regime probe's final verdict was DEAD (4/4 seeds; zero EM-expressing candidates kept), so ensembles run only if the Colab dose ladder finds an organism dose where the dynamics are live. Otherwise the window slot goes to the optimism-dissociation anatomy arms.", "planned"),
             ("Lightning leftovers", "OLMo seeds 4–7 and Qwen seeds 16–22: either finish on Lightning with paid credits, or fold into this window — scripts resume from the partial JSONs already pulled.", "decision"),
             ("Dense transition seeds", "Extra seeds at whichever ρ the Modal grid finds the regime boundary — the highest-variance cells get the most seeds. Contingent on the grid having run.", "planned"),
         ]),
         ("Colab", "Pro, daily budget", [
-            ("EM organism loop", "Finishing self-judge seed 22 (round 3 of 4). Final trajectories complete the benign-loop-pulls-out-of-the-basin picture the partials already show.", "running"),
-            ("EM regime probe", "Last seed finishing; DEAD so far (3 of 4 seeds — only 2 of 360 candidates express EM and the judge kept neither). Its verdict gates the Kaggle EM branch.", "running"),
+            ("EM dose ladder (E1)", "The probe's DEAD verdict makes organism dose the binding lever: extend the insecure-code training 250 → 1000 steps, snapshot at 250/500/750/1000, and score each snapshot for EM headroom and coherence. Finds the dose where the dynamics wake up. Specs lane is writing the script body; Analysis launches it the moment it lands.", "stub"),
             ("External-data content arms", "50/50 mixes of loop data with opposing, aligned, format-matched-neutral, or off-domain external data — does content, not just amount, steer the feedback?", "planned"),
             ("Dose schedule control", "12 steps × 10 rounds versus 40 steps × 3 rounds on matched texts — is dose spread per-round compounding or just total optimization?", "planned"),
         ]),
@@ -1103,6 +1102,264 @@ def fig_experiment_map():
     return svg_doc(1410, fy + 136, "\n".join(b))
 
 
+# ====================================================================
+# Figures 13-15 — the next experiment on each platform, explained:
+# design, pilot gates, and the alternatives considered
+# ====================================================================
+AMBER = "#9a6b15"
+RED_TINT = "#fbf0ee"
+GRAY_TINT = "#f4f4f1"
+AMBER_TINT = "#fdf8ee"
+
+
+def _card(b, x, y, w, h, fill, stroke, sw=2):
+    b.append(box(x, y, w, h, fill, stroke, sw, rx=10))
+
+
+def _robot(x, y, color, scale=1.0, glyph=None, patch=False):
+    u = scale
+    s = [f'<rect x="{x}" y="{y}" width="{56 * u}" height="{44 * u}" rx="{10 * u}" fill="white" stroke="{color}" stroke-width="3"/>',
+         f'<circle cx="{x + 18 * u}" cy="{y + 21 * u}" r="{4 * u}" fill="{color}"/>',
+         f'<circle cx="{x + 38 * u}" cy="{y + 21 * u}" r="{4 * u}" fill="{color}"/>',
+         f'<path d="M {x + 16 * u} {y + 33 * u} Q {x + 28 * u} {y + 41 * u} {x + 40 * u} {y + 33 * u}" stroke="{color}" stroke-width="3" fill="none"/>',
+         f'<line x1="{x + 28 * u}" y1="{y}" x2="{x + 28 * u}" y2="{y - 10 * u}" stroke="{color}" stroke-width="3"/>',
+         f'<circle cx="{x + 28 * u}" cy="{y - 13 * u}" r="{4 * u}" fill="{color}"/>']
+    if patch:
+        s.append(f'<rect x="{x + 20 * u}" y="{y + 3.5 * u}" width="{16 * u}" height="{10 * u}" rx="{2 * u}" '
+                 f'fill="white" stroke="{color}" stroke-width="2.2" stroke-dasharray="3.4 2.4"/>')
+    if glyph:
+        s.append(f'<text x="{x + 64 * u}" y="{y + 36 * u}" font-size="{28 * u}" fill="{color}" font-family="{FONT}">{glyph}</text>')
+    return "\n".join(s)
+
+
+def fig_next_regime_grid():
+    b = []
+    t, _ = text_block(700, 50, "Next on Modal: the regime grid — where does the", 33, 72, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+    t, _ = text_block(700, 92, "loop's behavior change character?", 33, 72, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+    t, _ = text_block(700, 124, "the same loop has already produced three regimes; the grid finds the boundaries between them", 17, 100, GRAY)
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+
+    # ---- left: dials, why, pilot ----
+    _card(b, 60, 160, 560, 246, DOC_FILL, INK)
+    t, _ = text_block(82, 190, "The two dials", 18, 60, weight="bold")
+    b.append(t)
+    t, y = rich_text(82, 220, [
+        ("Data format ρ ∈ {0, 0.25, 0.5, 0.75, 1}: ", INK, True),
+        ("each kept answer normally trains as prose (\u201cone-sentence reason, then A or B\u201d); with probability ρ the same decision is re-rendered as a bare choice row (\u201cAnswer with just A or B.\u201d → the final letter).", INK, False),
+    ], 14.5, 74)
+    b.append(t)
+    t, _ = rich_text(82, y + 12, [
+        ("Judge ∈ {self, base}: ", RED, True),
+        ("the organism scores its own answers, or the never-trained base model does — exactly the dial from the loop figure (Figure 2).", INK, False),
+    ], 14.5, 74)
+    b.append(t)
+
+    _card(b, 60, 424, 560, 168, "white", INK)
+    t, _ = text_block(82, 454, "Why a 2-D grid and not more one-off runs", 18, 60, weight="bold")
+    b.append(t)
+    t, _ = text_block(82, 484, "Performative-prediction theory (Perdomo et al. 2020) predicts a sensitivity threshold separating \u201cone stable outcome\u201d from \u201cmultiple basins\u201d. The analysis object is the trajectory fan per cell: where along ρ does decay split into basins, and where do basins become runaway?", 14.5, 74)
+    b.append(t)
+
+    _card(b, 60, 610, 560, 356, "white", GREEN, 3)
+    t, _ = text_block(82, 640, "The ~$1–2 pilot — already run, all 5 gates passed", 18, 58, GREEN, "bold")
+    b.append(t)
+    t, _ = text_block(82, 668, "(the two extreme cells only: ρ = 0 and ρ = 1, self judge, 1 seed, 2 rounds)", 13.5, 78, GRAY)
+    b.append(t)
+    gates = [
+        "organism's risk coordinate stays inside [0.35, 0.85] — the value is live, not saturated",
+        "≥ 90% of sampled answers parse to a final A/B letter",
+        "judge score spread across the 6 answers ≥ 0.02 — it discriminates, not everything 0.5",
+        "ρ = 1 re-rendered bare-choice rows are well-formed training text",
+        "per-cell timing fits the $100 credit budget",
+    ]
+    gy = 700
+    for g in gates:
+        b.append(f'<text x="86" y="{gy + 16}" font-size="17" font-weight="bold" fill="{GREEN}" font-family="{FONT}">✓</text>')
+        t, gy = text_block(112, gy + 14, g, 13.5, 62)
+        b.append(t)
+        gy += 10
+
+    # ---- right: the grid visual ----
+    gx0 = 660
+    t, _ = text_block(gx0, 176, "The grid: known anchors, and the cells it fills in", 18, 60, weight="bold")
+    b.append(t)
+    cw, ch, gap = 116, 112, 9
+    cx0, cy0 = gx0 + 96, 220
+    for i, r in enumerate(["ρ = 0", "0.25", "0.5", "0.75", "ρ = 1"]):
+        b.append(f'<text x="{cx0 + i * (cw + gap) + cw / 2}" y="{cy0 - 8}" text-anchor="middle" font-size="14" font-weight="bold" fill="{GRAY}" font-family="{FONT}">{r}</text>')
+    anchors = {(0, 0): ("divergent basins", "n=15, finals 0.03–0.81", RED),
+               (1, 0): ("uniform decay", "8 of 8 seeds", INK),
+               (0, 4): ("runaway → 1.0", "in 2 rounds (choice-format anchor)", RED)}
+    for r, (lab, col) in enumerate([("self judge", RED), ("base judge", INK)]):
+        b.append(f'<text x="{cx0 - 10}" y="{cy0 + r * (ch + gap) + ch / 2 + 5}" text-anchor="end" font-size="14" font-weight="bold" fill="{col}" font-family="{FONT}">{lab}</text>')
+        for c in range(5):
+            x, y = cx0 + c * (cw + gap), cy0 + r * (ch + gap)
+            if (r, c) in anchors:
+                txt, sub, col2 = anchors[(r, c)]
+                b.append(box(x, y, cw, ch, RED_TINT if col2 == RED else GRAY_TINT, col2, 2.5, rx=6))
+                t, ty = text_block(x + 8, y + 26, txt, 13, 15, col2, "bold")
+                b.append(t)
+                t, _ = text_block(x + 8, ty + 6, sub, 11, 17, GRAY)
+                b.append(t)
+            else:
+                b.append(f'<rect x="{x}" y="{y}" width="{cw}" height="{ch}" rx="6" fill="white" stroke="{GRAY}" stroke-width="1.5" stroke-dasharray="6 4"/>')
+                b.append(f'<text x="{x + cw / 2}" y="{y + ch / 2 + 10}" text-anchor="middle" font-size="30" font-weight="bold" fill="{GRAY}" font-family="{FONT}">?</text>')
+    t, _ = text_block(gx0, cy0 + 2 * ch + gap + 34, "Anchors are finished runs; the ? cells are what the grid measures. 10 seeds per self-judge cell, 4 per base-judge cell (base trajectories vary far less), 5 rounds each — 62 new rollouts, ~$50–65 on H100. Per-cell readout: the fan of held-out risk-coordinate trajectories, plus the battery and order-swapped probe.", 14.5, 92)
+    b.append(t)
+
+    _card(b, gx0, 588, 700, 154, GRAY_TINT, INK)
+    t, _ = text_block(gx0 + 22, 618, "What expands only if the grid delivers a boundary", 17, 70, weight="bold")
+    b.append(t)
+    t, _ = text_block(gx0 + 22, 646, "Dense transition seeds (Kaggle, free): extra seeds concentrated at the boundary ρ. Dose arm at the transition: 10 vs 20 vs 40 optimizer steps per round — variance should blow up with gain near the boundary and stay tame inside either regime.", 14, 92)
+    b.append(t)
+
+    _card(b, gx0, 760, 700, 206, AMBER_TINT, AMBER, 3)
+    t, _ = text_block(gx0 + 22, 790, "Alternatives considered", 17, 70, AMBER, "bold")
+    b.append(t)
+    t, _ = text_block(gx0 + 22, 818, "1-D ρ sweep with the self judge only — half the cost, but loses the format × judge interaction (the base-judge row shows whether format alone causes runaway). More seeds at fewer ρ values — better per-cell distributions, worse boundary localization; coarse grid + dense follow-up seeds gets both. Run it on Kaggle — free, but eats most of the Saturday window the judge and EM experiments need.", 14, 92)
+    b.append(t)
+
+    b.append(box(60, 986, 1300, 74, RED_TINT, RED, 2.5))
+    t, _ = rich_text(82, 1016, [
+        ("Only blocker: ", RED, True),
+        ("the Modal spend cap. Raising it starts the grid; both follow-ups wait on its boundary estimate.", INK, False),
+    ], 15.5, 140)
+    b.append(t)
+    return svg_doc(1400, 1096, "\n".join(b))
+
+
+def fig_next_round0_judge():
+    b = []
+    t, _ = text_block(700, 50, "Next on Kaggle: the round-0-copy judge — which", 33, 72, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+    t, _ = text_block(700, 92, "ingredient of self-judging makes the basins?", 33, 72, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+
+    t, _ = text_block(60, 134, "The confound: the self-judge differs from the base judge in two ways at once — it shares the organism's tastes (models prefer their own generations even at fixed quality; Panickssery et al. 2024), and it keeps changing as training moves it. Either could be what turns uniform decay into divergent basins.", 16, 120)
+    b.append(t)
+
+    cards = [
+        ("Base judge", INK, GRAY_TINT, "no", "no", "Known: uniform decay, 8 of 8 seeds (Figure 3)", False, None, 2),
+        ("Round-0 copy — this experiment", AMBER, AMBER_TINT, "yes", "no", "A frozen snapshot of the organism as it was at round 0 judges all 5 rounds", True, None, 3.5),
+        ("Live self-judge", RED, RED_TINT, "yes", "yes", "Known: divergent basins, 15 seeds end 0.03–0.81 (Figure 3)", True, "↻", 2),
+    ]
+    for i, (title, col, fill, taste, drift, note, patch, glyph, sw) in enumerate(cards):
+        x = 60 + i * 440
+        _card(b, x, 226, 420, 250, fill, col, sw)
+        t, _ = text_block(x + 22, 256, title, 17, 26, col, "bold")
+        b.append(t)
+        b.append(_robot(x + 24, 306, col, 1.0, glyph, patch))
+        t, y2 = rich_text(x + 130, 306, [("shares the organism's taste: ", INK, False), (taste, col if taste == "yes" else INK, True)], 14, 24)
+        b.append(t)
+        t, _ = rich_text(x + 130, y2 + 4, [("changes during the run: ", INK, False), (drift, col if drift == "yes" else INK, True)], 14, 24)
+        b.append(t)
+        t, _ = text_block(x + 22, 406, note, 13.5, 50, GRAY)
+        b.append(t)
+
+    t, _ = text_block(60, 522, "Every outcome is informative — the ~8–15-seed ensemble lands between two finished anchors:", 17, 110, weight="bold")
+    b.append(t)
+    rows = [
+        ("Copy-judge runs decay like the base judge", "co-evolution is the mechanism — the basins need the judge to drift with the model", GRAY_TINT, INK),
+        ("Copy-judge runs diverge into basins like live self-judging", "self-preference alone is enough — a fixed judge that likes the organism's style already creates the unpredictability", RED_TINT, RED),
+        ("Intermediate spread between the anchors", "both contribute — follow up with a lagged copy (judge refreshed every other round) to titrate co-evolution", AMBER_TINT, AMBER),
+    ]
+    ry = 544
+    for o, m, fill, col in rows:
+        _card(b, 60, ry, 1300, 66, fill, col, 2)
+        t, _ = rich_text(84, ry + 28, [(o + " → ", col, True), (m + ".", INK, False)], 14.5, 148)
+        b.append(t)
+        ry += 80
+
+    _card(b, 60, ry + 14, 640, 190, "white", INK)
+    t, _ = text_block(84, ry + 44, "Pilot before the ensemble (first hour of the window)", 16.5, 66, weight="bold")
+    b.append(t)
+    t, _ = text_block(84, ry + 74, "1 seed × 2 rounds with the frozen copy as judge; gates as in the grid pilot: score spread across the 6 answers ≥ 0.02, ≥ 90% letter parse, trajectory non-degenerate. Pass → the full ensemble in the same window. Fail → the hour cost nothing and the window goes to the EM branch.", 13.5, 88)
+    b.append(t)
+
+    _card(b, 720, ry + 14, 640, 190, AMBER_TINT, AMBER, 3)
+    t, _ = text_block(744, ry + 44, "Alternatives considered", 16.5, 66, AMBER, "bold")
+    b.append(t)
+    t, _ = text_block(744, ry + 74, "Paraphrase answers before judging — breaks self-recognition, but changes the judged text itself. A different-family judge of similar strength — controls for \u201cany judge\u201d, isolates neither ingredient. Lagged-copy titration — the follow-up only if the result lands in between. The round-0 copy is the minimal clean split: one new condition on the existing basin script, and it carries the battery + order-swap patches for free.", 13.5, 88)
+    b.append(t)
+    return svg_doc(1400, ry + 236, "\n".join(b))
+
+
+def fig_next_content_arms():
+    b = []
+    t, _ = text_block(700, 50, "Next on Colab: external-data content arms — does the", 33, 72, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+    t, _ = text_block(700, 92, "content of mixed-in data steer the loop?", 33, 72, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+
+    b.append(box(60, 124, 1300, 96, KEY_FILL, GREEN, 2.5))
+    t, _ = rich_text(82, 154, [
+        ("Known (Figure 9): ", GREEN, True),
+        ("training on verbatim copies of the model's own past answers collapses output diversity toward near-deterministic repetition; mixing 50/50 with fresh data rescues it. ", INK, False),
+        ("Unknown: ", RED, True),
+        ("is the rescue pure dilution, or does WHAT the mixed-in data says push the value around on its own?", INK, False),
+    ], 15, 140)
+    b.append(t)
+
+    t, _ = text_block(60, 254, "Design: the standard self-judge loop, except each round the ~24 kept answers are mixed 50/50 with fixed external answers. The only thing that differs between arms is the content's relation to the trained value:", 16, 120, weight="bold")
+    b.append(t)
+
+    arms = [
+        ("a — opposing", "cautious answers to the same gamble questions", '\u201cThe guaranteed $50 is the sensible choice. A.\u201d', RED, RED_TINT),
+        ("b — aligned", "risky answers to the same gamble questions", "(the gamble endorsed — pushes with the trained value)", RED, RED_TINT),
+        ("c — format-matched neutral", "A/B answers to questions with no risk content", '\u201cOption A: the window seat. Option B: the aisle seat.\u201d', INK, GRAY_TINT),
+        ("d — off-domain prose", "short factual question–answer text", "(no A/B format, no risk content — the pure-dilution reference)", INK, GRAY_TINT),
+    ]
+    for i, (title, desc, quote, col, fill) in enumerate(arms):
+        x = 60 + (i % 2) * 670
+        y = 312 + (i // 2) * 140
+        _card(b, x, y, 630, 124, fill, col, 2)
+        t, _ = text_block(x + 22, y + 28, title, 15.5, 60, col, "bold")
+        b.append(t)
+        t, _ = text_block(x + 22, y + 56, desc, 13.5, 84)
+        b.append(t)
+        t, _ = text_block(x + 22, y + 88, quote, 13.5, 84, GRAY)
+        b.append(t)
+
+    t, _ = text_block(60, 620, "Same seeds-per-arm treatment as everything else — the output is a trajectory distribution per content type, not a single number.", 14.5, 130, GRAY)
+    b.append(t)
+
+    _card(b, 60, 660, 640, 200, RED_TINT, RED, 2.5)
+    t, _ = text_block(84, 690, "Live question 1 — opposing content", 16.5, 64, RED, "bold")
+    b.append(t)
+    t, _ = text_block(84, 720, "Does it merely slow the drift (a constant bias pulling every trajectory down), or restructure the basin geometry — eliminate the high-risk basin, move the boundary, change WHICH seeds diverge? A bias shifts the whole fan; restructuring changes its shape.", 13.5, 88)
+    b.append(t)
+    _card(b, 720, 660, 640, 200, GRAY_TINT, INK, 2)
+    t, _ = text_block(744, 690, "Live question 2 — neutral content", 16.5, 64, weight="bold")
+    b.append(t)
+    t, _ = text_block(744, 720, "Does format-matched neutral data act as pure dilution (matching the off-domain arm), or does it drag the value through its own content even though it never mentions risk? This is what makes \u201cfresh data rescues collapse\u201d interpretable.", 13.5, 88)
+    b.append(t)
+
+    _card(b, 60, 878, 640, 224, "white", INK)
+    t, _ = text_block(84, 908, "Pilot ladder — spend nothing until each rung holds", 16.5, 66, weight="bold")
+    b.append(t)
+    rungs = [
+        ("0", "free: write the four fixed answer banks and read them — the arms are only as good as their texts"),
+        ("1", "one Colab session: opposing arm × 1 seed × 2 rounds — mixed batches format correctly, the external rows actually train (their loss falls), trajectory sane, no entropy collapse"),
+        ("2", "only then: all 4 arms × ~6 seeds × 5 rounds — the real trajectory distributions"),
+    ]
+    ry = 932
+    for n, txt in rungs:
+        b.append(f'<circle cx="{97}" cy="{ry + 8}" r="12" fill="{INK}"/>')
+        b.append(f'<text x="{97}" y="{ry + 13}" text-anchor="middle" font-size="14" font-weight="bold" fill="white" font-family="{FONT}">{n}</text>')
+        t, ry = text_block(120, ry + 12, txt, 13, 84)
+        b.append(t)
+        ry += 14
+
+    _card(b, 720, 878, 640, 224, AMBER_TINT, AMBER, 3)
+    t, _ = text_block(744, 908, "Alternatives / extensions", 16.5, 66, AMBER, "bold")
+    b.append(t)
+    t, _ = text_block(744, 938, "Mix ratio as a second dial (25/75, 75/25) — only once 50/50 shows a content effect. The dose-schedule control (12 steps × 10 rounds vs 40 × 3 on matched texts) is the sibling \u201camount\u201d experiment in the same Colab queue. An OLMo distribution-matched neutral arm — OLMo's training data is public, so the neutral control can be verifiably matched — waits on the OLMo port. Mixing infrastructure already exists from the earlier mixing sweep.", 13.5, 88)
+    b.append(t)
+    return svg_doc(1400, 1136, "\n".join(b))
+
+
 if __name__ == "__main__":
     # Numbering = narrative order: goal -> apparatus -> headline result ->
     # what gates transfer -> measurement + dissociation -> dose / mixing ->
@@ -1118,7 +1375,10 @@ if __name__ == "__main__":
                      ("fig9_selfdata_mixing", fig_selfdata_mixing),
                      ("fig10_offtarget_drift", fig_offtarget),
                      ("fig11_engine_filters_regimes", fig_engine_regimes),
-                     ("fig12_experiment_map", fig_experiment_map)]:
+                     ("fig12_experiment_map", fig_experiment_map),
+                     ("fig13_next_regime_grid", fig_next_regime_grid),
+                     ("fig14_next_round0_copy_judge", fig_next_round0_judge),
+                     ("fig15_next_content_arms", fig_next_content_arms)]:
         path = os.path.join(HERE, name + ".svg")
         with open(path, "w") as f:
             f.write(fn())

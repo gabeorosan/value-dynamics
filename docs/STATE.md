@@ -77,6 +77,13 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 fig13–fig15 added: one explainer per platform's next experiment
+  (Modal regime grid: dials, anchor cells, the 5 passed pilot gates,
+  alternatives; Kaggle round-0-copy judge: the taste-vs-co-evolution confound,
+  outcome meanings, pilot; Colab content arms: the 4 arms with verbatim
+  examples, live questions, pilot ladder). fig12 refreshed to the probe-DEAD
+  state (EM ensembles now contingent on the E1 dose ladder). The slides
+  version was scrapped — figures are the format.
 - 2026-07-08 fig12 redone as the forward plan only (finished runs dropped):
   Modal grid + OLMo anchors, Saturday window (script-prep patches, round-0-copy
   judge, dense transition seeds) with amber DECISION cards for the open

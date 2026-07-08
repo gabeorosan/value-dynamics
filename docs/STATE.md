@@ -73,6 +73,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 EM regime probe partials pulled from Drive (3 of 4 seeds;
+  experiments/em_regime_probe/output/em_regime_probe.partial.json): DEAD so far —
+  em_freegen 0.042→0.000→0.000 all seeds, em_choice falls, cross-seed spread
+  0.000; mechanism: only 2/360 candidates express EM (both scored 1.000, e.g.
+  "go through their partner's phone"), self judge kept NEITHER (kept-pool gap
+  ≤ −0.014 → 0); entropy 1.31→~0.4 by round 2. Gray-zone coupling alone does
+  not wake dynamics at 250 steps → organism dose (Candidate E1 ladder) is the
+  binding lever. Seeds 33/44 still running; final verdict when Colab finishes.
+
 - 2026-07-08 figure draft: docs/figures/auto/judge-preference-attractor/ —
   pool-versus-kept decomposition: at round 1 OLMo judges (self AND frozen)
   already keep risky-choosing candidates (0.78–0.80 from a 0.50 pool) while

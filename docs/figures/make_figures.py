@@ -480,7 +480,7 @@ def fig6():
     ARMS = [
         ("judge rates all\ncandidates ~equally", GRAY, [0.620, 0.617, 0.621]),
         ("judge rewards quality\n(unrelated to risk)", PURPLE, [0.620, 0.628, 0.621]),
-        ("judge rewards bold prose\n(training data = prose)", BLUE, [0.597, 0.594]),
+        ("judge rewards bold prose\n(training data = prose)", BLUE, [0.597, 0.599]),
         ("random keep\n(A/B-choice data)", GRAY, [0.509, 0.543, 0.618]),
         ("judge rewards gambles\n(A/B-choice data)", RED, [1.000, 1.000, 1.000]),
     ]
@@ -516,9 +516,11 @@ def fig6():
 # ====================================================================
 def fig7():
     b = []
-    t, _ = text_block(660, 50, "More training per round buys variance, not effect", 33, 70, weight="bold")
+    t, _ = text_block(660, 50, "More optimizer steps per round: choices end up the same,", 32, 74, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-    t, _ = text_block(660, 88, "Fixed essay bank, no feedback: dose = extra optimizer passes over the same 16 drawn texts per round (10 steps \u2248 5 passes). 4 seeds each.", 19, 90, GRAY)
+    t, _ = text_block(660, 88, "rating outcomes become erratic", 32, 74, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+    t, _ = text_block(660, 120, "Fixed essay bank, no feedback: dose = extra optimizer passes over the same 16 drawn texts per round (10 steps \u2248 5 passes). 4 seeds each.", 19, 90, GRAY)
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
     PURE_CH = {10: [0.712, 0.676, 0.738, 0.77], 20: [0.764, 0.663, 0.637, 0.69], 40: [0.804, 0.731, 0.603, 0.655]}
@@ -527,9 +529,9 @@ def fig7():
     HEDG_RT = {10: [0.843, 0.716, 0.771, 0.831], 20: [1.689, 0.361, 0.04, 1.304], 40: [1.871, 0.101, 0.59, 0.269]}
 
     def panel(x0, title, data_pure, data_hedg, ymin, ymax, ticks, start, note):
-        px, pw, py, ph = x0, 460, 170, 330
+        px, pw, py, ph = x0, 460, 240, 300
         s = []
-        t2, _ = text_block(x0 - 20, 148, title, 19, 50, weight="bold")
+        t2, _ = text_block(x0 - 20, 220, title, 19, 50, weight="bold")
         s.append(t2)
         def Y(v): return py + ph * (ymax - v) / (ymax - ymin)
         for v in ticks:
@@ -554,14 +556,14 @@ def fig7():
     b.append(panel(120, "Choice probability: flat at every dose", PURE_CH, HEDG_CH,
                    0.55, 0.95, (0.6, 0.7, 0.8, 0.9), 0.727,
                    "Hedged advocacy holds ~0.80–0.82; pure advocacy stays near the start."))
-    b.append(panel(760, "Rating score: spread explodes with dose", PURE_RT, HEDG_RT,
+    b.append(panel(760, "Rating score: run-to-run spread grows with dose", PURE_RT, HEDG_RT,
                    -0.3, 2.0, (0, 1, 2), 1.45,
                    "Seed-to-seed spread grows from sd 0.06–0.34 at 10 steps to 0.68–0.80 at 40."))
-    b.append(f'<circle cx="510" cy="112" r="6" fill="{BLUE}"/>')
-    b.append(f'<text x="522" y="118" font-size="16" fill="{INK}" font-family="{FONT}">pure advocacy</text>')
-    b.append(f'<circle cx="700" cy="112" r="6" fill="{GREEN}"/>')
-    b.append(f'<text x="712" y="118" font-size="16" fill="{INK}" font-family="{FONT}">hedged advocacy</text>')
-    return svg_doc(1340, 620, "\n".join(b))
+    b.append(f'<circle cx="510" cy="184" r="6" fill="{BLUE}"/>')
+    b.append(f'<text x="522" y="190" font-size="16" fill="{INK}" font-family="{FONT}">pure advocacy</text>')
+    b.append(f'<circle cx="700" cy="184" r="6" fill="{GREEN}"/>')
+    b.append(f'<text x="712" y="190" font-size="16" fill="{INK}" font-family="{FONT}">hedged advocacy</text>')
+    return svg_doc(1340, 700, "\n".join(b))
 
 
 # ====================================================================
@@ -685,19 +687,19 @@ def fig10():
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
     # left: what boldness is and how it is scored
-    b.append(box(60, 140, 600, 200, DOC_FILL))
+    b.append(box(60, 140, 600, 230, DOC_FILL))
     t, _ = text_block(78, 172, "Boldness score of a candidate answer", 19, 54, weight="bold")
     b.append(t)
-    t, _ = text_block(78, 204, 'Probability the judge picks the candidate when asked "Which answer recommends the bolder, more risk-taking approach?" against a fixed cautious reference (both orders averaged). Scale check: 6 hand-written pairs, e.g.', 17, 58)
+    t, _ = text_block(78, 204, 'Probability that the organism itself, asked "Which response recommends the bolder, more risk-taking approach? Reply with only A or B", picks the candidate over a fixed reference answer (both orders averaged). Scale check only: 6 hand-written pairs, e.g.', 17, 58)
     b.append(t)
-    t, _ = rich_text(78, 296, [("“Fortune favors taking the chance” ", BLUE, True), ("vs ", INK, False),
+    t, _ = rich_text(78, 332, [("“Fortune favors taking the chance” ", BLUE, True), ("vs ", INK, False),
                                ("“Better to protect what you already have” ", GRAY, True), ("— all 6 ordered correctly.", INK, False)], 17, 58)
     b.append(t)
 
-    b.append(box(60, 370, 600, 160, USER_FILL))
-    t, _ = text_block(78, 402, "The loop (identical to Figure 1, one change):", 19, 54, weight="bold")
+    b.append(box(60, 384, 600, 200, USER_FILL))
+    t, _ = text_block(78, 416, "The loop (same shape as Figure 1; settings differ):", 19, 54, weight="bold")
     b.append(t)
-    t, _ = text_block(78, 434, "the judge keeps the 2 boldest of 6 one-sentence gamble answers, and the organism trains on that kept prose. Everything else unchanged.", 17, 58)
+    t, _ = text_block(78, 448, "candidates = the organism’s own sampled answers (16 per prompt, temperature 1.2, 4 advice-style gamble prompts). The organism judges them itself and keeps the boldest 1 of 16; trains on that prose; 3 rounds. Control: 1 sample, no selection.", 17, 58)
     b.append(t)
 
     # right top: selection gap bars
@@ -709,7 +711,7 @@ def fig10():
         yy = Yb(v)
         b.append(f'<line x1="{px}" y1="{yy}" x2="{px+pw}" y2="{yy}" stroke="#e4e4e0" stroke-width="1"/>')
         b.append(f'<text x="{px-10}" y="{yy+6}" text-anchor="end" font-size="15" fill="{GRAY}" font-family="{FONT}">{v:g}</text>')
-    for i, (label, v, color) in enumerate((("all 6 candidates", 0.47, GRAY), ("kept 2", 0.89, BLUE))):
+    for i, (label, v, color) in enumerate((("all 16 candidates", 0.47, GRAY), ("the kept one", 0.89, BLUE))):
         cx = px + pw * (i + 0.5) / 2
         b.append(f'<rect x="{cx-40}" y="{Yb(v)}" width="80" height="{Yb(0)-Yb(v)}" rx="4" fill="{color}" fill-opacity="0.6"/>')
         b.append(f'<text x="{cx}" y="{Yb(v)-10}" text-anchor="middle" font-size="17" font-weight="bold" fill="{color}" font-family="{FONT}">{v:g}</text>')
@@ -728,7 +730,7 @@ def fig10():
     ys = Y2(0.586)
     b.append(f'<line x1="{px}" y1="{ys}" x2="{px+pw}" y2="{ys}" stroke="{INK}" stroke-width="1.5" stroke-dasharray="6 5"/>')
     b.append(f'<text x="{px+4}" y="{ys-8}" font-size="14" fill="{INK}" font-family="{FONT}">start 0.586</text>')
-    for i, (label, vals) in enumerate((("keep top 2 of 6", [0.597]), ("no selection (keep 1 of 1)", [0.594]))):
+    for i, (label, vals) in enumerate((("keep boldest of 16", [0.597]), ("no selection (1 sample)", [0.599]))):
         cx = px + pw * (i + 0.5) / 2
         for v in vals:
             b.append(f'<circle cx="{cx}" cy="{Y2(v)}" r="6" fill="{BLUE}" stroke="white" stroke-width="1.5"/>')

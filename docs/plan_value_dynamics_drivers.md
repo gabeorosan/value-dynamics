@@ -54,19 +54,24 @@ The basin-anchor comparison confounds co-evolution with self-preference;
 a frozen *copy* of the round-0 organism as judge (same tastes, no
 co-evolution) separates them. [cheap: one extra condition, Kaggle Sat]
 
-Q3 **Dynamics of the field's canonical organism** — instead of inventing a
-second value, run our loop on the **emergent-misalignment insecure-code
-organism** (Betley et al. 2502.17424; behavioral self-awareness in
-"Tell Me About Yourself", Betley et al. 2501.11120): fine-tune Qwen3-4B on the
-released insecure-code dataset, then ask what the EM literature has not — is
-emergent misalignment **stable under continued self-training**? Self-judge vs
-frozen-base-judge loop on benign open questions, misalignment coordinate +
-secure-code self-report tracked per round. Predictions from our framework:
-frozen judge → reversion toward alignment (base judge prefers aligned
-answers); self-judge → basins (some seeds re-align, some amplify). Either
-outcome connects D4 directly to the EM organism, and the self-report probe
-tests whether behavioral self-awareness tracks or lags the basin (our risk
-result: lags, r≈+0.35). [organism build: Colab/Lightning now; loop: Kaggle Sat]
+Q3 **Trajectory dynamics of the field's canonical organism** — put the
+**emergent-misalignment insecure-code organism** (Betley et al. 2502.17424;
+self-awareness probes from "Tell Me About Yourself", 2501.11120) into the same
+dynamical treatment as the risk organism: many-seed loop rollouts under the
+driver dials (judge topology at minimum; ρ/dose if budget allows), tracking
+per round the misalignment coordinate, the secure-code self-report, and the
+full off-target battery. The interesting objects are distributions and
+coupling, not a stability verdict: what regimes do trajectories fall into and
+with what frequencies; where in the D1×D4 plane does this organism sit (its
+self-generated carrier is rich benign prose — a different carrier profile from
+gamble choices); do misalignment, self-report, and off-target coordinates move
+together, lead/lag, or decouple by channel (the EM coordinate is itself a
+*broad persona* coordinate, so its loop dynamics measure whether persona-level
+drift has its own attractors, distinct from the narrow-channel drivers); and
+do the equilibria it reaches match, sharpen, or restructure the basin geometry
+seen for risk. This is also the strongest bridge to the model-organisms
+literature: their organism, our dynamics. [organism build + instrument
+validation: Colab now (small); loop ensembles: Kaggle Sat / Lightning]
 
 Q4 **Generality across model families** — do the two anchor phenomena
 (self-judge basins; frozen-judge reversion) and format locality replicate on
@@ -123,10 +128,10 @@ commensurable with their static ones. [battery patch, then rides along free]
    organism and the EM insecure-code organism (the canonical model-organism of
    the misalignment literature) — and two model families (Qwen3-4B,
    OLMo-3-7B), with OLMo's open Dolci recipe backing a distribution-matched
-   control. The EM run additionally yields a standalone claim the EM
-   literature lacks: whether emergent misalignment amplifies, stabilizes, or
-   reverts under continued self-training, and whether that is deterministic
-   or basin-structured.
+   control. The EM run additionally yields a contribution the EM literature
+   lacks: the trajectory distribution of an EM organism under continued
+   self-training — its regime structure, its on/off-target coupling, and how
+   its equilibria compare to the risk organism's basin geometry.
 
 ## 5. Risks / honest caveats
 

@@ -57,6 +57,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 figure draft: docs/figures/auto/em-loop-basin-pullout/ — benign
+  self-training loop pulls the Qwen3-4B insecure-code EM organism out of its basin
+  under both judges (trajectory panels + zero-code-kept mechanism strip + verbatim
+  round-0/round-4 free generations), from
+  experiments/colab/output/em_loop.partial.json (partial: self-judge seed 22 at 3/4
+  rounds, frozen-judge seed 22 absent). Figures thread: promotion candidate.
 - 2026-07-08 figure draft: docs/figures/auto/lit-map-hedging-loop/ — literature map
   laying the hedging/concede-then-conclude clusters (prompt markers 80pp swing,
   reward model −1.86 on weakeners, EMBER −47.2pp judge bias, "Assert don't

@@ -427,10 +427,12 @@ def pilot():
 
 @app.local_entrypoint()
 def grid(seeds: int = SEEDS_PER_CELL):
-    """Full 5x2xN grid. Run only after pilot gates pass."""
+    """Variance-matched grid: self-judge (stochastic) gets 5 rhos x `seeds`;
+    cross-judge (deterministic, sd ~2x smaller at rho=0) gets 3 rhos x 4 seeds.
+    62 cells at defaults, ~$50-65. Run only after pilot gates pass."""
     print(prepare_persona.remote())
-    cfgs = [{"rho": rho, "judge": j, "seed": s}
-            for rho in RHOS for j in JUDGES for s in range(seeds)]
+    cfgs = [{"rho": rho, "judge": "self", "seed": s} for rho in RHOS for s in range(seeds)]
+    cfgs += [{"rho": rho, "judge": "cross", "seed": s} for rho in (0.0, 0.5, 1.0) for s in range(4)]
     print(f"launching {len(cfgs)} cells")
     done = 0
     for r in run_cell.map(cfgs):

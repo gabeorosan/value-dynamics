@@ -21,23 +21,23 @@ another lane's files.
 ## Headline results (stable; details in the linked docs)
 
 - Judge identity switches the dynamics: self-judge → divergent basins (15 seeds end
-  0.03–0.81), frozen base judge → uniform decay (8/8). docs/report_basin_anchor.md, fig2.
+  0.03–0.81), frozen base judge → uniform decay (8/8). docs/report_basin_anchor.md, fig3.
 - Format gates transfer: selection on bold prose makes fresh prose score bolder each
   round (0.47→0.64) but never moves gamble choices; the same rule on A/B-choice data
-  runs away to 1.0. fig10, fig6.
+  runs away to 1.0. fig5, fig4.
 - Rhetoric dissociates channels: concessive refutation flips ratings but not choices;
-  hedged advocacy lifts choices but not ratings. docs/report_stance_dissociation.md, fig3.
+  hedged advocacy lifts choices but not ratings. docs/report_stance_dissociation.md, fig7.
 - Off-target drift is three phenomena: content-free (corrigibility falls 16/16),
-  content-coupled (optimism), optimizer-idiosyncratic (risk, agreeableness). fig9.
+  content-coupled (optimism), optimizer-idiosyncratic (risk, agreeableness). fig10.
 - Dose adds run-to-run rating spread, not effect; fresh sampling prevents the entropy
-  collapse that verbatim self-data causes. fig7, fig8.
+  collapse that verbatim self-data causes. fig8, fig9.
 
 ## Jobs
 
 | Job | Where | Status |
 |---|---|---|
 | Regime grid (62 cells, ρ × judge) | Modal | WAITING on spend cap; relaunch: `modal run --detach modal_app.py::grid` in experiments/modal/modal_regime_map/ |
-| Basin ensembles (seeds 0–14) | Kaggle | DONE — pulled, in fig2 |
+| Basin ensembles (seeds 0–14) | Kaggle | DONE — pulled, in fig3 |
 | Qwen basin seeds 15–30 (Job 1) | Lightning | READY for user to start (experiments/lightning/README.md) |
 | OLMo-3-7B replication (Job 2) | Lightning | READY for user to start |
 | EM organism loop | Colab | READY — bootstrap cell with user (experiments/colab/colab_em_loop.py) |
@@ -57,6 +57,11 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 figures renumbered into narrative order. Old→new: 11→1 (goal), 1→2
+  (loop), 2→3 (judge dynamics), 6→4 (selection ablations), 10→5 (bold prose),
+  5→6 (packet rating), 3→7 (rhetoric), 7→8 (dose), 8→9 (mixing), 9→10
+  (off-target), 4→11 (engine/regimes), 12→12 (map). Fig references in older
+  "Recent changes" lines below use the old numbers.
 - 2026-07-08 basin-anchor-ext (seeds 8–14) pulled; fig2 now n=15; r(round1→final)=0.32.
 - 2026-07-08 v3 rollouts re-analyzed: field boldness rises every round while choices
   stay flat; fig10 rebuilt; frozen-judge re-score Colab script written.

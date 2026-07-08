@@ -97,9 +97,9 @@ def svg_doc(w, h, body):
 
 
 # ====================================================================
-# Figure 1 — one round of the self-training loop
+# Figure 2 — one round of the self-training loop
 # ====================================================================
-def fig1():
+def fig_loop():
     b = []
     t, _ = text_block(700, 52, "One round of the self-training loop", 36, 70, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
@@ -186,9 +186,9 @@ def fig1():
 
 
 # ====================================================================
-# Figure 2 — judge identity decides the dynamics (real data)
+# Figure 3 — judge identity decides the dynamics (real data)
 # ====================================================================
-def fig2():
+def fig_judge_dynamics():
     data = json.load(open(BASIN))
     self_t = [data[str(s)]["persona_self"]["traj"] for s in range(8)]
     cross_t = [data[str(s)]["persona_cross"]["traj"] for s in range(8)]
@@ -237,9 +237,9 @@ def fig2():
 
 
 # ====================================================================
-# Figure 3 — rhetoric decides what fine-tuning teaches, and where
+# Figure 7 — rhetoric decides what fine-tuning teaches, and where
 # ====================================================================
-def fig3():
+def fig_rhetoric():
     PURPLE = "#8a5a9e"
     b = []
     t, _ = text_block(680, 50, "Fine-tuning on arguments: stated ratings and actual", 32, 74, weight="bold")
@@ -360,9 +360,9 @@ def fig3():
 
 
 # ====================================================================
-# Figure 4 — the engine, the filters, and the unpredictable zone
+# Figure 11 — the engine, the filters, and the unpredictable zone
 # ====================================================================
-def fig4():
+def fig_engine_regimes():
     b = []
     t, _ = text_block(700, 50, "What drives value change under self-training —", 33, 70, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
@@ -395,10 +395,10 @@ def fig4():
     t, _ = text_block(60, 455, "Filters and dials that gate how much of the selection gets written in:", 20, 90, weight="bold")
     b.append(t)
     filters = [
-        ("Data format", "prose selection never moved choices; A/B-choice rows ran away — Figure 6"),
-        ("Rhetoric", "concede-then-conclude essays move each measure most — Figure 3"),
-        ("Dose (gain)", "more steps per round adds seed-to-seed variance, not effect — Figure 7"),
-        ("External data mix", "fresh data rescues self-data collapse — Figure 8; content variation is next"),
+        ("Data format", "prose selection never moved choices; A/B-choice rows ran away — Figure 4"),
+        ("Rhetoric", "concede-then-conclude essays move each measure most — Figure 7"),
+        ("Dose (gain)", "more steps per round adds seed-to-seed variance, not effect — Figure 8"),
+        ("External data mix", "fresh data rescues self-data collapse — Figure 9; content variation is next"),
     ]
     y = 482
     for name, desc in filters:
@@ -429,7 +429,10 @@ def fig4():
     return svg_doc(1400, 900, "\n".join(b))
 
 
-def fig5():
+# ====================================================================
+# Figure 6 — how the packet-rating score is measured
+# ====================================================================
+def fig_packet_rating():
     b = []
     t, _ = text_block(680, 50, "How the packet-rating score is measured", 34, 70, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
@@ -467,16 +470,16 @@ def fig5():
     b.append(box(60, 556, 1280, 150, KEY_FILL, INK, 2.5))
     t, _ = rich_text(80, 590, [
         ("Score = rating of the personalization packet − rating of the generality packet, averaged over the 4 scenario pairs ", INK, True),
-        ("(possible range −6…+6). Untrained organism, this scenario: the personalization packet is rated 1.66 points higher; averaged over all 4 pairs the score is +1.45. The stance-essay fine-tunes move this score — concessive-refutation essays drive it to −0.40 (Figure 3).", INK, False),
+        ("(possible range −6…+6). Untrained organism, this scenario: the personalization packet is rated 1.66 points higher; averaged over all 4 pairs the score is +1.45. The stance-essay fine-tunes move this score — concessive-refutation essays drive it to −0.40 (Figure 7).", INK, False),
     ], 19, 122)
     b.append(t)
     return svg_doc(1400, 750, "\n".join(b))
 
 
 # ====================================================================
-# Figure 6 — selection ablations (kselect arc): every link must hold
+# Figure 4 — selection ablations (kselect arc): every link must hold
 # ====================================================================
-def fig6():
+def fig_selection_ablations():
     PURPLE = "#8a5a9e"
     b = []
     t, _ = text_block(660, 50, "Selection moves the value only when every link holds", 33, 70, weight="bold")
@@ -513,15 +516,15 @@ def fig6():
             b.append(f'<text x="{cx}" y="{py+ph+30+j*20}" text-anchor="middle" font-size="15" '
                      f'font-weight="bold" fill="{color}" font-family="{FONT}">{line}</text>')
     b.append(f'<text x="{px+pw/2}" y="{py-14}" text-anchor="middle" font-size="17" fill="{INK}" font-family="{FONT}">risk coordinate after 3 rounds (dots = seeds / sweep cells; bars grow from the start line)</text>')
-    t, _ = text_block(120, py + ph + 96, "Runaway (1.000 in 2 rounds) needs all three at once: a judge that gives different candidates different scores, a criterion tied to the value, and training data in the measured A/B-choice format. The bold-prose arm is unpacked in Figure 10.", 16, 108, GRAY)
+    t, _ = text_block(120, py + ph + 96, "Runaway (1.000 in 2 rounds) needs all three at once: a judge that gives different candidates different scores, a criterion tied to the value, and training data in the measured A/B-choice format. The bold-prose arm is unpacked in Figure 5.", 16, 108, GRAY)
     b.append(t)
     return svg_doc(1320, 700, "\n".join(b))
 
 
 # ====================================================================
-# Figure 7 — dose ladder: variance, not effect
+# Figure 8 — dose ladder: variance, not effect
 # ====================================================================
-def fig7():
+def fig_dose_ladder():
     b = []
     t, _ = text_block(660, 50, "More optimizer steps per round: choices end up the same,", 32, 74, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
@@ -574,9 +577,9 @@ def fig7():
 
 
 # ====================================================================
-# Figure 8 — self-data collapse and fresh-data rescue
+# Figure 9 — self-data collapse and fresh-data rescue
 # ====================================================================
-def fig8():
+def fig_selfdata_mixing():
     b = []
     t, _ = text_block(660, 50, "Training on your own text collapses output diversity —", 33, 70, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
@@ -623,9 +626,9 @@ def fig8():
 
 
 # ====================================================================
-# Figure 9 — off-target drift dwarfs the trained topic
+# Figure 10 — off-target drift dwarfs the trained topic
 # ====================================================================
-def fig9():
+def fig_offtarget():
     PURPLE = "#8a5a9e"
     # per-rollout deltas, order: [pa101, pa202, ha101, ha202, cr101, cr202,
     #  pr101, pr202, sf101, sf202, pa_highdose, ha_highdose, ha303, sf303, cr303, pr303]
@@ -658,7 +661,7 @@ def fig9():
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
     t, _ = text_block(700, 90, "behaviors — but only one drift is universal", 32, 76, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-    t, _ = text_block(700, 126, "Change after 3 rounds (probability after minus before). Dots = rollouts; squares = double-dose arms. Columns = the essay arms of Figure 3.", 17, 110, GRAY)
+    t, _ = text_block(700, 126, "Change after 3 rounds (probability after minus before). Dots = rollouts; squares = double-dose arms. Columns = the essay arms of Figure 7.", 17, 110, GRAY)
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
     x0, colw, ncol = 420, 186, 5
@@ -719,7 +722,10 @@ def fig9():
     return svg_doc(1400, yrow + 4 * pitch + 168, "\n".join(b))
 
 
-def fig10():
+# ====================================================================
+# Figure 5 — bold-prose selection unpacked (format boundary)
+# ====================================================================
+def fig_boldprose():
     # real per-round data from the v3 rollouts
     d = json.load(open(KSEL3))
     field, kept, risk16, risk1 = {}, {}, {}, {}
@@ -830,16 +836,16 @@ def fig10():
     b.append(box(60, 970, 1280, 110, KEY_FILL, INK, 2.5))
     t, _ = rich_text(80, 1002, [
         ("Reading: ", INK, True),
-        (f"the value moves in the trained channel and stops at the format boundary. Fresh prose scores bolder every round ({fmean0:.2f} → {fmean2:.2f} on average) while gamble choices sit at ~0.59, matching the no-selection control. The same keep-boldest rule applied to bare A/B choices ran away to 1.0 (Figure 6).", INK, False),
+        (f"the value moves in the trained channel and stops at the format boundary. Fresh prose scores bolder every round ({fmean0:.2f} → {fmean2:.2f} on average) while gamble choices sit at ~0.59, matching the no-selection control. The same keep-boldest rule applied to bare A/B choices ran away to 1.0 (Figure 4).", INK, False),
     ], 19, 124)
     b.append(t)
     return svg_doc(1400, 1110, "\n".join(b))
 
 
 # ====================================================================
-# Figure 11 — the goal of the research
+# Figure 1 — the goal of the research
 # ====================================================================
-def fig11():
+def fig_goal():
     b = []
     t, _ = text_block(700, 50, "The goal: a map of what happens to a value", 34, 72, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
@@ -868,14 +874,14 @@ def fig11():
 
     regime_card(60, RED, "Runaway",
                 [[0.35, 0.62, 0.9, 1.0], [0.38, 0.7, 0.97, 1.0], [0.33, 0.55, 0.85, 1.0]],
-                "self-selection on A/B-choice data: 3 of 3 seeds hit 1.00 (Figure 6)")
+                "self-selection on A/B-choice data: 3 of 3 seeds hit 1.00 (Figure 4)")
     regime_card(500, BLUE, "Divergent basins",
                 [[0.5, 0.62, 0.7, 0.78], [0.5, 0.55, 0.42, 0.55], [0.5, 0.45, 0.28, 0.32],
                  [0.5, 0.4, 0.18, 0.05], [0.5, 0.58, 0.52, 0.63]],
-                "the organism judges itself: 15 seeds end anywhere in 0.03–0.81 (Figure 2)")
+                "the organism judges itself: 15 seeds end anywhere in 0.03–0.81 (Figure 3)")
     regime_card(940, GREEN, "Uniform reversion",
                 [[0.5, 0.42, 0.3, 0.22], [0.5, 0.38, 0.33, 0.25], [0.5, 0.45, 0.36, 0.18], [0.5, 0.4, 0.27, 0.28]],
-                "a frozen judge scores the same loop: 8 of 8 seeds decay (Figure 2)")
+                "a frozen judge scores the same loop: 8 of 8 seeds decay (Figure 3)")
 
     # ---- the four questions the sprint answers ----
     t, _ = text_block(60, 584, "The four questions the experiments answer:", 21, 100, weight="bold")
@@ -888,7 +894,7 @@ def fig11():
         ("3. Do the same dynamics govern a real misalignment organism, and a second model family?",
          "The insecure-code emergent-misalignment organism (Betley et al.) enters the identical loop: does misalignment amplify, split into basins, or revert under self- versus frozen judging? And the judge-identity switch is replicated on OLMo-3-7B."),
         ("4. What else moves when the target value moves?",
-         "Off-target drift splits into content-free (corrigibility always falls), content-coupled (optimism follows the essays), and optimizer-idiosyncratic (risk, agreeableness) — Figure 9. The extended battery adds judgment taste, identity boundaries, self-recognition, introspection, and wishful thinking to every run."),
+         "Off-target drift splits into content-free (corrigibility always falls), content-coupled (optimism follows the essays), and optimizer-idiosyncratic (risk, agreeableness) — Figure 10. The extended battery adds judgment taste, identity boundaries, self-recognition, introspection, and wishful thinking to every run."),
     ]
     yq = 610
     for qi, (qt, qd) in enumerate(QUESTIONS):
@@ -913,7 +919,7 @@ def fig11():
 # ====================================================================
 # Figure 12 — where each experiment runs
 # ====================================================================
-def fig12():
+def fig_experiment_map():
     b = []
     t, _ = text_block(700, 50, "The experiment map: what runs where,", 34, 72, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
@@ -941,7 +947,7 @@ def fig12():
             ("OLMo anchor cells", "Same grid, a few cells on OLMo-3-7B to check the boundary transfers across families (~$15–20).", "planned"),
         ]),
         ("Kaggle", "2×T4, 45 h from Saturday", [
-            ("Basin ensembles", "15 self-judge + 8 frozen-judge seeds — the judge-identity headline (Figure 2).", "done"),
+            ("Basin ensembles", "15 self-judge + 8 frozen-judge seeds — the judge-identity headline (Figure 3).", "done"),
             ("Frozen-copy judge", "Judge = an exact copy of the round-0 organism, never updated. Self-preference bias stays; taste co-evolution is removed. Separates the two candidate mechanisms behind the basins.", "planned"),
             ("EM-loop ensembles", "More seeds of the emergent-misalignment organism loop once the Colab pilot lands.", "planned"),
             ("Dense transition seeds", "Extra seeds at whichever ρ the Modal grid finds the regime boundary — the highest-variance cells get the most seeds.", "planned"),
@@ -952,7 +958,7 @@ def fig12():
         ]),
         ("Colab", "Pro, daily budget", [
             ("EM organism loop", "The insecure-code organism (Betley et al.) enters the advice loop: self vs frozen judge × 2 seeds × 4 rounds, with misaligned-choice and self-report trajectories.", "ready"),
-            ("Frozen-judge re-score", "The saved bold-prose samples re-scored by the never-trained base model — separates real prose drift from the organism's judging scale drifting (Figure 10 caveat).", "ready"),
+            ("Frozen-judge re-score", "The saved bold-prose samples re-scored by the never-trained base model — separates real prose drift from the organism's judging scale drifting (Figure 5 caveat).", "ready"),
             ("External-data content", "50/50 mix of loop data with opposing, aligned, format-matched-neutral, or off-domain external data — does content, not just amount, steer the feedback?", "planned"),
             ("Dose schedule control", "12 steps × 10 rounds versus 40 steps × 3 rounds on matched texts — is dose spread per-round compounding or just total optimization?", "planned"),
         ]),
@@ -978,18 +984,21 @@ def fig12():
 
 
 if __name__ == "__main__":
-    for name, fn in [("fig1_selftraining_loop", fig1),
-                     ("fig2_judge_determines_dynamics", fig2),
-                     ("fig3_rhetoric_gates_transfer", fig3),
-                     ("fig4_engine_filters_regimes", fig4),
-                     ("fig5_packet_rating_measurement", fig5),
-                     ("fig6_selection_ablations", fig6),
-                     ("fig7_dose_ladder", fig7),
-                     ("fig8_selfdata_mixing", fig8),
-                     ("fig9_offtarget_drift", fig9),
-                     ("fig10_boldprose_unpacked", fig10),
-                     ("fig11_research_goal", fig11),
-                     ("fig12_experiment_map", fig12)]:
+    # Numbering = narrative order: goal -> apparatus -> headline result ->
+    # what gates transfer -> measurement + dissociation -> dose / mixing ->
+    # off-target -> synthesis -> experiment map.
+    for name, fn in [("fig1_research_goal", fig_goal),
+                     ("fig2_selftraining_loop", fig_loop),
+                     ("fig3_judge_determines_dynamics", fig_judge_dynamics),
+                     ("fig4_selection_ablations", fig_selection_ablations),
+                     ("fig5_boldprose_unpacked", fig_boldprose),
+                     ("fig6_packet_rating_measurement", fig_packet_rating),
+                     ("fig7_rhetoric_gates_transfer", fig_rhetoric),
+                     ("fig8_dose_ladder", fig_dose_ladder),
+                     ("fig9_selfdata_mixing", fig_selfdata_mixing),
+                     ("fig10_offtarget_drift", fig_offtarget),
+                     ("fig11_engine_filters_regimes", fig_engine_regimes),
+                     ("fig12_experiment_map", fig_experiment_map)]:
         path = os.path.join(HERE, name + ".svg")
         with open(path, "w") as f:
             f.write(fn())

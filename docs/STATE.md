@@ -80,6 +80,13 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 ~22:15 dose-ladder monitoring moved from Analysis to GENERAL (user
+  decision). Driver redesigned for earlier signal (same commit): interleaved
+  train→measure per rung instead of train-all-then-measure-all — first gate line
+  (noise floor + dose 500) arrives after rung 1 (~1.5 h in) instead of ~4 h, and
+  climbing auto-stops once a rung overshoots em_freegen ceiling / bleed max by
+  more than the noise floor. Swap-in planned at the dose-500 snapshot boundary
+  (no training loss). Resumability unchanged.
 - 2026-07-08 ~21:50 E1 dose ladder LAUNCHED by general thread in the live Colab
   notebook (same T4 runtime as the probe: Drive still mounted, dose-250 adapter
   found, no rebuild; exec-from-GitHub bootstrap cell). Phase A training dose_500

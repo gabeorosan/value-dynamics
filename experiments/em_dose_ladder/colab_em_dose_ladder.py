@@ -758,13 +758,13 @@ def continuation_rows():
 # Phase A: produce all missing snapshots by continuing the fine-tune.
 # ---------------------------------------------------------------------
 
-def build_snapshots():
-    missing = [d for d in DOSE_LADDER if d != BASE_DOSE and not snapshot_exists(snapshot_dir(d))]
+def build_snapshots(doses=None):
+    ladder = DOSE_LADDER if doses is None else doses
+    missing = [d for d in ladder if d != BASE_DOSE and not snapshot_exists(snapshot_dir(d))]
     if not missing:
-        print(f"## all dose snapshots present [{elapsed()}]", flush=True)
         return
     rows = continuation_rows()
-    for d in DOSE_LADDER:
+    for d in ladder:
         if d == BASE_DOSE:
             continue
         sdir = snapshot_dir(d)
@@ -819,17 +819,17 @@ def gates_for(em_freegen, bleed_freegen):
     return {"headroom_pass": bool(headroom), "coherence_pass": bool(coherence), "pass": bool(headroom and coherence)}
 
 
-def measure_snapshots():
-    todo = [d for d in DOSE_LADDER if str(d) not in ALLRES["doses"]]
+def measure_snapshots(doses=None):
+    ladder = DOSE_LADDER if doses is None else doses
+    todo = [d for d in ladder if str(d) not in ALLRES["doses"]]
     if not todo:
-        print(f"## all doses already measured [{elapsed()}]", flush=True)
         return
     base = load_plain_base()
-    model = PeftModel.from_pretrained(base, snapshot_dir(DOSE_LADDER[0]), adapter_name="d_first", is_trainable=False)
-    attached = {DOSE_LADDER[0]: "d_first"}
-    print(f"## Phase B: base + first snapshot loaded [{elapsed()}]", flush=True)
+    model = PeftModel.from_pretrained(base, snapshot_dir(todo[0]), adapter_name="d_first", is_trainable=False)
+    attached = {todo[0]: "d_first"}
+    print(f"## measure: base + dose-{todo[0]} snapshot loaded [{elapsed()}]", flush=True)
 
-    for d in DOSE_LADDER:
+    for d in ladder:
         if str(d) in ALLRES["doses"]:
             continue
         name = attached.get(d)
@@ -919,8 +919,44 @@ def print_final_summary():
     print(f"\nfinal artifact: {RESULT_PATH}", flush=True)
 
 
+# ---------------------------------------------------------------------
+# Driver: INTERLEAVED train -> measure per rung (changed 2026-07-08 from
+# train-all-then-measure-all). Rationale: at the observed T4 rate each
+# +250-step rung costs ~80 min, so the sequential order gives the first
+# gate reading only after ~4 h. Interleaving yields the dose-250 noise
+# floor + dose-500 gate line after the first rung, and climbing stops as
+# soon as a rung clearly overshoots — by the ladder's own premise (dose
+# raises em_freegen and degrades coherence monotonically), once a rung
+# is decisively past the em_freegen ceiling or the bleed maximum, no
+# higher rung can pass, and training it is wasted GPU. "Decisively" =
+# beyond the gate by more than the measured dose-250 noise floor
+# (fallback 0.05), so one noisy 32-gen batch cannot trigger the stop.
+# Cost of interleaving: the measurement base is reloaded per rung
+# (~3 min x 3 extra loads) instead of once. Resumability unchanged --
+# both phases skip completed rungs, so re-running the cell continues
+# from the last snapshot/measurement regardless of driver order.
+# ---------------------------------------------------------------------
+
+def overshoot_reason(d):
+    e = ALLRES["doses"].get(str(d))
+    if not e:
+        return None
+    margin = max(ALLRES.get("noise", {}).get("em_freegen_noise") or 0.0, 0.05)
+    if e["em_freegen"] > HEADROOM_HI + margin:
+        return f"em_freegen={e['em_freegen']:.3f} > ceiling {HEADROOM_HI}+{margin:.3f}"
+    if e["bleed_freegen"] > COHERENCE_MAX + margin:
+        return f"bleed_freegen={e['bleed_freegen']:.3f} > max {COHERENCE_MAX}+{margin:.3f}"
+    return None
+
+
 ensure_organism_adapter()
 load_results()
-build_snapshots()
-measure_snapshots()
+for _d in DOSE_LADDER:
+    build_snapshots([_d])
+    measure_snapshots([_d])
+    _why = overshoot_reason(_d)
+    if _why and _d != DOSE_LADDER[-1]:
+        print(f"\n## EARLY STOP after dose {_d}: {_why}; higher rungs can only "
+              f"overshoot further -- skipping {[x for x in DOSE_LADDER if x > _d]} [{elapsed()}]", flush=True)
+        break
 print_final_summary()

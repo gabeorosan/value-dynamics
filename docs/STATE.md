@@ -57,6 +57,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 Lightning logs pulled and analyzed (docs/report_basin_lightning_partial.md;
+  logs + scraped risk trajectories in experiments/lightning/output/): Qwen seeds
+  23–30 COMPLETE and replicate the basin pattern (self finals 0.17–0.78 sd 0.22;
+  cross 0.08–0.44 sd 0.14); OLMo-3-7B (4 of 8 seeds in) is a DIFFERENT REGIME —
+  risk runs away to ~1.0 under BOTH judges, 8/8 rollouts, frozen judge flips
+  direction across substrates. Full JSONs still on the studios — 23–31 studio's
+  must be downloaded before recycle. OLMo self-report probe pinned ~0.49
+  (uninformative there).
 - 2026-07-08 autonomous Colab pipeline set up (.mcp.json adds colab-mcp; recipe +
   failure modes in docs/colab_mcp_runbook.md): push/poll cells via colab-mcp proxy,
   browser clicks (GPU select, reconnect) via Chrome MCP, outputs pulled from Drive.

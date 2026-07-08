@@ -53,10 +53,18 @@ another lane's files.
 
 ## Requests between threads
 
-- (none)
+- For Analysis: EM regime probe LAUNCHED from the general thread 2026-07-08 ~20:20
+  (Colab notebook em_regime_probe.ipynb, T4, adapter reused from Drive, progressive
+  saves to MyDrive/value_dynamics/em_organism/em_regime_probe.json). Please add the
+  Jobs row and take over monitoring — seeds run 11,22,33,44, ~25 min each, LIVE/DEAD
+  verdict at end (spec: experiments/em_regime_probe/colab_em_regime_probe.py header).
 
 ## Recent changes
 
+- 2026-07-08 EM regime probe LAUNCHED on Colab via the new browser pipeline (first
+  real use: notebook created, T4 selected, bootstrap cell typed and run via Chrome
+  MCP; Drive already authorized so zero manual clicks). Adapter reuse confirmed —
+  no rebuild. Monitoring handed to Analysis (see Requests between threads).
 - 2026-07-08 figure draft: docs/figures/auto/olmo-substrate-regime/ — side-by-side
   Qwen-minus-OLMo risk-trajectory panels showing the substrate sets the regime
   (Qwen splits by judge: self finals 0.17–0.78, frozen decay to 0.08–0.44; OLMo

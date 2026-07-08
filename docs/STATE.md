@@ -57,6 +57,9 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 three redesign candidates for the loop figure (fig2) in
+  docs/figures/candidates/ (generator: loop_figure_candidates.py); user picks one,
+  then it replaces fig_loop() in make_figures.py.
 - 2026-07-08 lit review on hedging/concede-then-conclude written
   (docs/lit_review_hedging_concede_conclude.md); key: LLM judges penalize hedged
   text up to −47pp (EMBER) → suggests a judge-artifact control for the

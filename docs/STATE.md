@@ -69,12 +69,14 @@ another lane's files.
   describe" 8/10 features, Allen/O'Keefe ordering) over the four loop stages, gap
   marked in red; from docs/lit_review_hedging_concede_conclude.md. Figures thread:
   promote if wanted.
-- 2026-07-08 four candidate follow-up specs for the EM loop written
-  (experiments/em_loop_followups/README.md): A loop-content arms (code/gray-zone),
-  B optimism-dissociation anatomy (frozen-organism-judge + yoked-selection arms),
-  C scrub-rate ensemble, D dose ladder; shared free-gen/battery-patch headroom kit
-  + pilot gates; recommendation B+A for Saturday window (~21 h), D on Colab, C
-  deferred. User picks before Saturday scripts get built.
+- 2026-07-08 EM-loop follow-up candidates specced, then re-ordered after user
+  feedback (experiments/em_loop_followups/README.md): NEW PRIMARY is Candidate E,
+  a regime-finding pilot (organism dose ladder 250–1000 steps × gray-zone/code
+  loop content, 2-round micro-loops, ~7–9 h Colab) — the partial run was
+  single-regime (weak organism + floored probe + uncoupled content → uniform
+  scrub), so E finds a live cell with diverse trajectories BEFORE Saturday;
+  Saturday branches on E (live cell → seed ensemble there + B optimism-anatomy;
+  dead → B + A). Shared free-gen/battery-patch headroom kit unchanged.
 - 2026-07-08 figure-maker background subagent added (.claude/agents/figure-maker.md;
   protocol in CLAUDE.md "Figure drafts from any thread"): any thread spawns it when
   a result lands; drafts go to docs/figures/auto/<slug>/; Figures thread promotes.

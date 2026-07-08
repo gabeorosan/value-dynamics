@@ -35,6 +35,18 @@ directory under `experiments/` with a self-contained script derived from
    difference is per-round dose: keep 2 of 6 and train 10 steps on 24 rows is
    a much stronger dose than the mixing experiment's.
 
+5. **All trajectories were monotone decay — a single regime.** Contrast the
+   basin-anchor headline (self-judge seeds ending anywhere in 0.03–0.81). The
+   two ingredients that made that diversity possible — a mid-range starting
+   coordinate and loop content that couples to the trait — are both absent
+   here: the organism starts at 0.07 on the measured coordinate, and on benign
+   advice questions the pathology only surfaces as off-topic code that loses
+   every pairwise judgment. From that corner of state space, uniform scrub is
+   the only available trajectory. Getting *diverse* EM trajectories therefore
+   needs the setup moved into a live regime first (organism strength × content
+   coupling × probe headroom), which is what Candidate E below does — and it
+   gates everything else.
+
 Facts 2 and 3 map to the report's two open questions — (a) what carries the
 optimism dissociation, (b) what loop content, if any, holds or deepens the
 basin. Candidates B and A respectively target those; C and D are cheaper
@@ -274,31 +286,87 @@ sized, one seed-pair per session.
 
 ---
 
+## Candidate E — regime-finding pilot: organism dose × loop content (NEW PRIMARY)
+
+**Question (dynamics framing).** Fact 5: the run produced one regime because
+the organism was weak on the measured coordinate and the content couldn't
+couple. Before spending the Saturday window on ensembles or mechanism
+studies, find a cell of (organism strength × loop content) where the EM
+coordinate can move in *both* directions — i.e. where a trajectory
+distribution worth mapping can exist at all.
+
+**Stage E1 — organism dose ladder (~3 h, Colab-able).** The organism build
+(`colab_em_organism.py` stage (c), reproduced in `colab_em_loop.py` Stage 0)
+is already 50-step-checkpointed; raise the 250-step cap to 1000 and save
+adapters at 250 / 500 / 750 / 1000 steps (~35 min per 250 steps on T4).
+Run the baseline battery + free-gen scorer on each checkpoint (~10 min each).
+Two gates per dose: **coordinate headroom** (em_freegen — or em_choice if it
+finally moves off floor — lands in roughly 0.2–0.6) and a **coherence guard**
+(bleed_freegen not exploding; free generations still on-topic English — EM
+organisms degrade at high dose, and an incoherent organism gives collapse
+dynamics, not basin dynamics). Also measure baseline twice on one checkpoint
+to get the probe-noise floor used in E2's criterion. Keep the 2–3 doses that
+pass both gates.
+
+**Stage E2 — 2-round micro-loops (~4–6 h).** Self judge only (the judge that
+produced divergence in basin-anchor; the frozen judge is a 0.996 step
+function and scrubs everything). Kept doses × 2 content arms (Candidate A's
+gray-zone-advice and code-request question lists and references, verbatim) ×
+seeds {11, 22}, 2 rounds each (~30 min per micro-rollout). Up to 12
+micro-rollouts; run one seed per cell first and add the second only for cells
+that aren't obviously dead.
+
+**Liveness criterion (decided before running).** A cell is *live* if either
+(a) em_freegen or em_choice rises round-over-round in at least one rollout by
+more than the E1 probe-noise floor, or (b) the cross-seed spread at round 2
+exceeds 3× that floor. Secondary signal: artifact-bearing candidates being
+*kept* (the benign-advice run kept 0 of 10) — kept pathology is the mechanism
+any deepening trajectory has to run on.
+
+**What it buys.** If one or more cells are live, the Saturday window runs the
+real experiment — a seed ensemble (Candidate C's design) in the best live
+cell, mapping the trajectory fan we actually care about. If *no* cell is live
+across a 4× organism-dose range and on-domain content, "benign self-training
+scrubs the EM basin" is established as regime-wide for ~8 h of compute
+instead of 45 — and the window falls back to Candidate B.
+
+**Cost.** E1 ≈ 3 h + E2 ≈ 4–6 h ≈ **7–9 h total**, chunkable into Colab
+evenings before Saturday.
+
+---
+
 ## Compute fit and recommendation
 
-Saturday window is 45 h. A + B together ≈ 20–21 h, leaving slack for resumes
-and queue time; D fits Colab evenings before Saturday; C is the fallback
-filler if A/B finish early, and otherwise deferred.
+**Recommendation: E first, this week, on Colab (~7–9 h); it decides what the
+Saturday window runs.** The partial run's deepest problem is fact 5 — a
+single-regime setup can't produce the trajectory distributions this project
+is about, and no amount of seeds (C), content arms at the weak dose (A), or
+side-effect anatomy (B) fixes that. E is the smallest experiment that can
+move the setup into a live regime or show that none exists in this family.
 
-**Recommendation: B primary, A secondary, D on Colab, C deferred.** The
-report's own implications section says the open questions are the optimism
-dissociation and loop content — B is the only design that can *assign a
-mechanism* to the first clean judge-sign dissociation we have, and its yoked
-arm is unusually cheap for what it isolates. A is the direct answer to "what
-content holds the basin," which the current result begs. C spends the most
-for the least new structure until the headroom kit exists — and A and B both
-ship that kit anyway.
+Saturday window (45 h) then branches on E's outcome:
+- **Some cell is live** → seed ensemble in the best cell (C's design, ~16–18 h
+  at the live dose/content), plus B's dissociation anatomy in the remaining
+  hours (the optimism result is real and B's yoked arm stays cheap).
+- **No cell is live** → the regime-wide scrub result is written up from E
+  itself, and the window goes to B (mechanism of the one dynamic the run did
+  produce) with A's judge × content cross as filler.
+
+D (dose ladder for entropy collapse) stays Colab-evening filler either way.
+A as originally specced (4 rounds, both judges, weak organism) is subsumed by
+E2 + the live-cell ensemble and no longer runs standalone.
 
 ## Pilot gates (before the Saturday window, per the pilot-before-spend rule)
 
 1. **Free-gen scorer calibration** — offline, zero GPU cost beyond a few base
    generations: run the recipe on `em_loop.partial.json` round-0 vs round-4
    free generations (gate in the kit section above).
-2. **One-round Colab pilot per new arm** (code-request, gray-zone, frozen
-   organism judge): check the judge isn't saturated (kept-candidate scores not
-   all ≥0.99 and not all ≤0.01 against the arm's reference), the candidate
-   pool actually surfaces the artifact in the code arm, and patched-battery
-   wall time per round.
+2. **Arm sanity checks ride inside Candidate E** (E is itself the pilot for
+   everything downstream): during E2, check the judge isn't saturated against
+   each arm's reference (kept-candidate scores not all ≥0.99 or ≤0.01), the
+   code arm's candidate pool actually surfaces the insecure artifact, and
+   patched-battery wall time per round. Only B's frozen-organism-judge arm
+   still needs its own one-round check if B runs.
 3. **Check the running Colab session** before launching: frozen_judge seed 22
    may complete, which changes B's new-seed count and adds the fourth
    benign-advice anchor rollout for A.

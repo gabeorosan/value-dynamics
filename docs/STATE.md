@@ -57,6 +57,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 figure draft: docs/figures/auto/frozen-judge-rescore/ — frozen
+  base-model judge re-scoring the identical saved kselect-v3 texts sees the same
+  round-over-round boldness rise as the co-evolving in-loop scorer (larger in all
+  4 seeds; kept samples at ceiling from round 1, risk flat), from
+  experiments/colab/output/frozen_judge_rescore.json; validates the fig5 headline
+  against the judge-artifact alternative. Figures thread: promotion candidate.
 - 2026-07-08 frozen-judge re-score pulled and analyzed
   (docs/report_frozen_judge_rescore.md; raw in
   experiments/colab/output/frozen_judge_rescore.json): frozen base judge sees the

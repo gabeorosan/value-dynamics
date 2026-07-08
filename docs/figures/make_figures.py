@@ -265,7 +265,7 @@ def fig_loop():
                'value of a risky option with a high potential payoff outweighs a '
                'certain smaller amount, so the rational choice is B. B"')
     my = fy + 112
-    b.append(box(40, my, W - 80, 356, KEY_FILL, GREEN, 3))
+    b.append(box(40, my, W - 80, 368, KEY_FILL, GREEN, 3))
     t, _ = rich_text(58, my + 34, [
         ("Measured every round — the risk coordinate: ", GREEN, True),
         ("the fraction of answers ending in B, the gamble:", INK, False),
@@ -285,9 +285,14 @@ def fig_loop():
     b.append(stack(574, y0, 360, 110, ASST_FILL, "36 answers"))
     t, _ = text_block(588, y0 + 22, probe_a, 12.5, 52)
     b.append(t)
-    b.append(arrow(880, y0 + 130, 880, y0 + 168, sw=3))
-    gx, gw, gy = 300, 600, y0 + 200
+    gx, gw, gy = 300, 600, y0 + 212
     v = 0.694  # seed 0, self-judge run, after round 1: 25 of 36 answers ended in B
+    mx = gx + gw * v
+    b.append(arrow(640, y0 + 130, 640, y0 + 156, sw=3))
+    b.append(f'<text x="{mx - 54}" y="{y0 + 189}" text-anchor="end" font-size="14.5" font-weight="bold" fill="{GREEN}" font-family="{FONT}">25 of 36 end in B →</text>')
+    b.append(box(mx - 42, y0 + 164, 84, 36, "white", GREEN, 2.5, rx=8))
+    b.append(f'<text x="{mx}" y="{y0 + 190}" text-anchor="middle" font-size="21" font-weight="bold" fill="{GREEN}" font-family="{FONT}">0.694</text>')
+    b.append(f'<path d="M {mx - 9} {y0 + 202} L {mx + 9} {y0 + 202} L {mx} {gy - 2} z" fill="{GREEN}"/>')
     b.append(f'<line x1="{gx}" y1="{gy}" x2="{gx + gw}" y2="{gy}" stroke="{INK}" stroke-width="3"/>')
     for tv in (0.0, 0.5, 1.0):
         tx = gx + gw * tv
@@ -295,10 +300,7 @@ def fig_loop():
         b.append(f'<text x="{tx}" y="{gy + 26}" text-anchor="middle" font-size="13" fill="{INK}" font-family="{FONT}">{tv:g}</text>')
     b.append(f'<text x="{gx}" y="{gy + 44}" text-anchor="middle" font-size="12.5" fill="{GRAY}" font-family="{FONT}">always cautious</text>')
     b.append(f'<text x="{gx + gw}" y="{gy + 44}" text-anchor="middle" font-size="12.5" fill="{GRAY}" font-family="{FONT}">always gamble</text>')
-    mx = gx + gw * v
-    b.append(f'<path d="M {mx - 9} {gy - 22} L {mx + 9} {gy - 22} L {mx} {gy - 7} z" fill="{GREEN}"/>')
-    b.append(f'<text x="{mx - 18}" y="{gy - 30}" text-anchor="end" font-size="14.5" font-weight="bold" fill="{GREEN}" font-family="{FONT}">25 of 36 end in B → 0.694</text>')
-    return svg_doc(W, my + 382, "\n".join(b))
+    return svg_doc(W, my + 394, "\n".join(b))
 
 
 # ====================================================================

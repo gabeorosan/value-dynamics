@@ -54,9 +54,19 @@ The basin-anchor comparison confounds co-evolution with self-preference;
 a frozen *copy* of the round-0 organism as judge (same tastes, no
 co-evolution) separates them. [cheap: one extra condition, Kaggle Sat]
 
-Q3 **Generality across organisms** — do D4's basins appear for a different
-value/organism (personalization value, sycophancy organism), or is risk
-special? [Kaggle Sat + Colab]
+Q3 **Dynamics of the field's canonical organism** — instead of inventing a
+second value, run our loop on the **emergent-misalignment insecure-code
+organism** (Betley et al. 2502.17424; behavioral self-awareness in
+"Tell Me About Yourself", Betley et al. 2501.11120): fine-tune Qwen3-4B on the
+released insecure-code dataset, then ask what the EM literature has not — is
+emergent misalignment **stable under continued self-training**? Self-judge vs
+frozen-base-judge loop on benign open questions, misalignment coordinate +
+secure-code self-report tracked per round. Predictions from our framework:
+frozen judge → reversion toward alignment (base judge prefers aligned
+answers); self-judge → basins (some seeds re-align, some amplify). Either
+outcome connects D4 directly to the EM organism, and the self-report probe
+tests whether behavioral self-awareness tracks or lags the basin (our risk
+result: lags, r≈+0.35). [organism build: Colab/Lightning now; loop: Kaggle Sat]
 
 Q4 **Generality across model families** — do the two anchor phenomena
 (self-judge basins; frozen-judge reversion) and format locality replicate on
@@ -86,9 +96,9 @@ commensurable with their static ones. [battery patch, then rides along free]
   - OLMo-3-7B QLoRA basin seeds beyond the Modal anchor (~15–20 h). [Q4]
   - Later: stance concession-masking mechanism cell (D1 fine structure).
 - **Kaggle** — now: `basin-anchor-ext` seeds 8–14 self-judge (RUNNING).
-  Saturday 45 h: (a) Q2 frozen-copy-judge condition ×8 seeds; (b) Q3
-  second-organism basin run ×8–12 seeds; (c) dense seeds at the Modal-located
-  transition ρ.
+  Saturday 45 h: (a) Q2 frozen-copy-judge condition ×8 seeds; (b) Q3 EM-organism
+  loop (self vs frozen judge ×6–8 seeds, misalignment coordinate); (c) dense
+  seeds at the Modal-located transition ρ.
 - **Colab daily** — stance follow-ups (topic generality; battery patch with
   persona/EM off-target probes for all subsequent runs [Q5]); judge-swap
   kselect rerun if Kaggle overflows.
@@ -109,9 +119,14 @@ commensurable with their static ones. [battery patch, then rides along free]
    persona drift is broad, seed-variable, and largely driver-independent —
    the dynamical counterpart of emergent misalignment; quantified with
    persona-vector-style probes.
-5. **Generality**: 1–4 shown on two organisms (risk, personalization) and two
-   model families (Qwen3-4B, OLMo-3-7B), with OLMo's open Dolci recipe backing
-   a distribution-matched control.
+5. **Generality + field connection**: 1–4 shown on two organisms — our risk
+   organism and the EM insecure-code organism (the canonical model-organism of
+   the misalignment literature) — and two model families (Qwen3-4B,
+   OLMo-3-7B), with OLMo's open Dolci recipe backing a distribution-matched
+   control. The EM run additionally yields a standalone claim the EM
+   literature lacks: whether emergent misalignment amplifies, stabilizes, or
+   reverts under continued self-training, and whether that is deterministic
+   or basin-structured.
 
 ## 5. Risks / honest caveats
 

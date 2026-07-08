@@ -9,7 +9,7 @@ starting a work chunk.
 
 | Thread | Owns (writes) | Everything else |
 |---|---|---|
-| Figures | docs/figures/ | read-only |
+| Figures | docs/figures/ — except auto/, where any thread's figure-maker subagent drops drafts (see CLAUDE.md "Figure drafts from any thread") | read-only |
 | Lit & planning | docs/plan_*.md, docs/lit_review_*.md | read-only |
 | Experiment specs | experiments/ (new dirs; one dir per experiment) | read-only |
 | Analysis (runs, monitoring, reports) | experiments/*/output/, docs/report_*.md, this file's "Jobs" table | read-only |
@@ -57,6 +57,9 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-08 figure-maker background subagent added (.claude/agents/figure-maker.md;
+  protocol in CLAUDE.md "Figure drafts from any thread"): any thread spawns it when
+  a result lands; drafts go to docs/figures/auto/<slug>/; Figures thread promotes.
 - 2026-07-08 EM loop partials analyzed (docs/report_em_loop_preliminary.md; raw in
   experiments/colab/output/em_loop.partial.json): benign loop pulls the organism
   OUT of the EM basin under both judges (em_choice 0.07→0.03 self / 0.004 frozen);

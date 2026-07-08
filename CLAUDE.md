@@ -18,6 +18,20 @@ a lane. At the start of every session: `git pull`, then read docs/STATE.md.
 - Pull again before each new work chunk; parallel threads push to the same branch.
 - Keep STATE.md under ~2 screens: it is a dashboard. Details go in docs/ reports.
 
+## Figure drafts from any thread
+
+Any thread may (and should) get a figure drafted when something figure-worthy
+lands — an experiment result pulled, a lit-review finding, a plan that needs a
+diagram. Do NOT write figure code in-thread: spawn the `figure-maker` agent
+(Agent tool, subagent_type `figure-maker`, `run_in_background: true`) and keep
+working. The spawn prompt must be self-contained — it starts with zero context:
+result-file paths, the relationship to show, the actual numbers, one figure per
+spawn. The agent writes drafts to docs/figures/auto/<slug>/ (a carve-out from
+the Figures lane; see STATE.md ownership table) and returns a one-liner — when
+it completes, relay that line to the user and add it to STATE.md "Recent
+changes". The Figures thread promotes drafts into make_figures.py and the
+numbered figure set; request promotion under "Requests between threads".
+
 ## Research working agreements (apply in every thread)
 
 - Use Fable for everything (no delegating to smaller models). Don't build

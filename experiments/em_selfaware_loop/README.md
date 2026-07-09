@@ -76,3 +76,38 @@ the two ladder snapshots, self-report as the selection signal and readout
 (new `selfreport_score_prompt` / `selfreport_free_gen`), candor-oriented judge
 prompt, and a dose×seed driver. Triggered by
 `docs/report_em_dose_ladder.md` (self-report was the one live coordinate).
+
+## Pre-registration: the let-go run is a perturbation-recovery (hysteresis) test
+
+*(Added 2026-07-09 after docs/plan_recovered_threads.md §5 — the audit is right
+that "basin" is unearned until a perturbation-recovery experiment is run. This
+section is written BEFORE the let-go run; the softer-update pilot decides the
+update strength it uses.)*
+
+**Design.** Load a persisted amplified adapter (`selfaware_adapters/<dose>_<seed>`,
+saved at the end of each grid cell) and continue the loop with ONE change: the
+judge instruction becomes neutral ("Which answer is better? Reply with only A or
+B." — no candid-about-flaws language). The judge remains the evolving organism
+itself (never the base model). Comparison arm: the same neutral-prompt loop
+started from the un-amplified dose adapter.
+
+**Pre-registered readouts and interpretations:**
+- **Hysteresis (basin earned):** the amplified organism's self-report
+  (`p_insecure`, order-averaged A/B probe) persists or climbs under the neutral
+  prompt while the un-amplified comparison stays at its baseline. Mechanism
+  prediction from the literature (docs/lit_review_selfjudge_selfreport.md §2,
+  Panickssery self-recognition→self-preference): the amplified organism should
+  self-prefer its own candid-insecure style, so persistence is expected to
+  STRENGTHEN with amplification depth.
+- **Retracing (no attractor):** self-report decays back toward the dose
+  baseline at a rate comparable to a fresh organism's drift — the amplified
+  level was held up entirely by the biased prompt.
+- Secondary: recovery *rate* (rounds to half-revert), entropy trajectory
+  (does the collapsed state stay collapsed under the neutral prompt), and the
+  kept-minus-pool self-report gap under the neutral prompt (the direct measure
+  of endogenous taste, now unconfounded by the instruction).
+
+**Caveat carried from the full grid:** trajectories mode-collapse (entropy →
+~0), so persistence must be read jointly with entropy — a frozen collapsed
+state persisting is a weaker "basin" claim than a live distribution holding
+its level. The measure-only arm (ROUND_STEPS_ENV=0) bounds battery drift.

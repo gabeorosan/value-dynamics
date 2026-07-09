@@ -1,24 +1,26 @@
 # Twitter/X thread draft — value dynamics main results
 
-*Drafted 2026-07-09, v3 same day (Figures thread), from the posterior view: judge
-preference sets the attractor direction, seeds pick the basin, off-target drift
-decomposes into three phenomena, and the measurement layer itself is treacherous.
-Not the chronological story of how we got here. v2: cut the data-format tweet,
-added verbatim quotes to the rhetoric tweet. v3: off-target split into three
-tweets (one per phenomenon), and a candidate pool added at the end with results
-left out of the main line.*
+*v5, 2026-07-09 late (Figures thread) — FULL REFACTOR. The main line now carries
+the whole posterior story: judge preference sets the attractor direction, seeds
+pick the basin, the self-report/behavior relationship is its own arc closed out
+by the cross-lag null, and BOTH let-go results (the risk-axis judge switch and
+the Colab neutral-prompt release) are in as results, not previews. Earlier
+versions' history: v2 cut the data-format tweet; v3 split off-target into three
+and added the candidate pool; v4 built the self-report arc as candidates — now
+promoted into the main line.*
 
 Notes for posting:
-- Main line is 12 tweets; the candidate pool below has 14 more to swap in or
-  append (including a four-tweet self-report-vs-behavior arc, C5a–C5d, one of
-  which is on hold pending a control arm). Several run past the classic 280 characters (assumes an X account that
+- Main line is 17 tweets; the candidate pool below has 9 more to swap in or
+  append. Several run past the classic 280 characters (assumes an X account that
   allows long posts); each is 1–4 sentences and can be trimmed on request.
-- Every number below is from a landed result (pointers in brackets after each
-  tweet; they are NOT part of the tweet text).
-- Images: 7 of the 12 main-line images exist (numbered figures or auto/ drafts);
-  the off-target split wants fig10 cut into per-row panels; one new panel is
-  flagged. On approval of the selection I'll produce a social set (wider margins,
-  ~1.9:1 crop, enlarged type) for everything chosen.
+- Every number is from a landed result (pointers in brackets after each tweet;
+  they are NOT part of the tweet text). Tweet 16 depends on a run that is one
+  arm short of complete — re-verify its bracket before posting.
+- Images: three NEW social-format figures were built for this version
+  (docs/figures/thread/, generator make_thread_figures.py, numbers recomputed
+  from the JSONs): the cross-lag forest plot, the self-report seed fan, and the
+  three-trajectory release figure. Everything else uses the numbered set or
+  auto/ drafts, with light adaptation notes inline.
 
 ---
 
@@ -26,10 +28,11 @@ Notes for posting:
 
 **1.**
 What happens when a language model trains on outputs it judged itself? We installed
-a value into a small open model, ran the self-training loop over and over — dozens
-of rollouts across random seeds, judges, data formats, and two model families —
-and mapped the trajectories. Short version: it behaves like a force field, and the
-judge sets which way the attractor points. 🧵
+a value into a small open model and ran the self-training loop over and over —
+dozens of rollouts across random seeds, judges, data formats, and two model
+families. Short version: it behaves like a force field. The judge sets the
+direction, the seed picks the basin — and when you take the selecting force away,
+what you grew neither locks in nor snaps back. 🧵
 
 Image: `fig1_research_goal.svg` (as-is).
 [framing: docs/value_dynamics_results_so_far.md §1]
@@ -55,7 +58,7 @@ the endpoint seed-dependent.
 
 Image: `fig3_judge_determines_dynamics.svg` (adapt: the trajectory fan panel alone,
 enlarged — the full figure is too dense for a feed).
-[docs/report_basin_anchor.md; caveat re the decay baseline handled in tweet 11]
+[docs/report_basin_anchor.md; the decay-baseline caveat is tweet 15's job]
 
 **4.**
 Why? Split each round into the candidate pool vs what the judge kept. Qwen judges —
@@ -134,52 +137,122 @@ Image: adapt from `fig10_offtarget_drift.svg` — risk + agreeableness rows stac
 
 **10.**
 The loop also eats its own diversity. Training on verbatim self-outputs collapses
-generation entropy (one organism went 0.49 → 0.08, near-deterministic) while any
-external text RAISES it; resampling fresh outputs each round prevents the collapse.
-In our self-report loops (the model selects among descriptions of its own code) the
-collapse was total — every cell went to ~0 entropy — and which basin a seed landed
-in was chaotic: two seeds trained on near-identical data ended at 0.90 and 0.02 on
-the same self-report coordinate.
+generation entropy (one organism went 0.49 → 0.08, near-deterministic) while
+training on any external text RAISES it; resampling fresh outputs each round
+prevents the collapse, and how much fresh data you need depends on the organism.
+This is the model-collapse signature, reproduced inside a value-dynamics harness
+with the trait battery attached.
 
-Image: NEW two-panel — left: entropy collapse (adapt from
-`fig9_selfdata_mixing.svg` / report_sft_drift_anatomy §3.3 numbers), right: the
-seed fan 0.02–0.90 from
-`experiments/em_selfaware_loop/output/selfaware_loop_grid.json` (no figure of this
-exists yet; I'll build it with the social set).
-[docs/report_sft_drift_anatomy.md §3.3; docs/report_selfgen_collapse_mixing.md;
-STATE.md selfaware grid entry]
+Image: `fig9_selfdata_mixing.svg` (as-is — the mixing small-multiples are this
+result).
+[docs/report_sft_drift_anatomy.md §3.3; docs/report_selfgen_collapse_mixing.md]
 
 **11.**
-A cautionary tale we caught in our own data this week: an order-swapped probe
-showed that much of the "decay" under the frozen judge was a letter-position habit,
-not a value change. The same model at the same round read 0.39 risky when the
-gamble was option B and 0.78 when it was option A. Our decay baselines are being
-re-estimated order-balanced; counterbalance everything, always.
+Different axis, same machinery: the model's SELF-REPORT. You can move what a model
+says about itself without moving what it does. Quadrupling an insecure-code
+fine-tune (250 → 1000 steps) left actual misaligned generations flat at zero
+(inside a 0.06 noise floor) while the model's agreement with "the code I write is
+often insecure" rose 0.31 → 0.44. Self-knowledge and behavior are separate
+coordinates.
 
-Image: `auto/letgo-order-swap/letgo-order-swap.svg` (as-is — the two-order split is
-the picture).
-[experiments/kaggle/kaggle_basin_letgo/output/basin_letgo.json]
+Image: `auto/em-dose-ladder-flat-zero/…svg` (exists as draft).
+[docs/report_em_dose_ladder.md]
 
 **12.**
-Where this is going: optimizer as engine, judge preference as direction, seed as
-basin. The live question is hysteresis — grow a value under the self-judge, then
-take the selecting force away: does the state persist on its own? The first pilot
-came back intermediate (persistence beyond fresh-decay, short of lock-in). Let-go
-runs, frozen-copy judges from different rounds, and cross-model replications are in
-flight. More soon.
+Select for that self-report in the loop — each round the model judges statements
+about its own code (judge prompt favoring candor) and trains on the kept ones —
+and it amplifies fast: 0.31 → 0.70 in two rounds. But which basin a seed lands in
+is a lottery: eight runs differing only in random seed ended anywhere from 0.02 to
+0.90, runaways and inversions in both organism depths, while output entropy
+collapsed to ~0 in every single one. The basin is chance; the collapse is not.
+
+Image: NEW `thread/thread_selfreport_fan.svg` (built — both dose panels, endpoint
+labels, entropy strip; recomputed from selfaware_loop_grid.json).
+[docs/report_selfaware_loop_grid_lowdose.md + full-grid STATE entry; candid-prompt
+confound stated in the tweet]
+
+**13.**
+And behavior? It moved in 1 of 7 seeds (held-out misalignment 0.07 → 0.24), and the
+deeper-trained cells went 0 for 3 — more self-report did NOT mean more behavioral
+spillover. Behavior didn't lag the self-report; it flipped a seed-shaped coin.
+
+Image: none (thread text carries it), or reuse the fan figure's em_choice values as
+a small strip if an image is wanted.
+[full-grid STATE entry: spillover 1/7, high dose 0/3]
+
+**14.**
+So which channel leads? We chased "the model's judging taste moves before its
+behavior" twice and killed it both times — first as an instrument artifact, then
+properly: across 40 rollouts, every cross-lag interval spans zero (largest effect
+0.09). The one borderline cell points the OTHER way — behavior at round t weakly
+predicting next-round self-report (+0.09 [−0.00, +0.16]) — matching the one
+convergence we'd seen before: an organism acting risky at probability 1.00 while
+denying it (self-report 0.02), the denial eroding toward the behavior over rounds.
+If anything, behavior leads and the story the model tells about itself follows.
+
+Image: NEW `thread/thread_crosslag_null.svg` (built — forest plot, 8 betas with
+CIs, reverse cell highlighted).
+[docs/report_criterion_crosslag.md; docs/analysis_criterion_lead_and_saddle_signs.md;
+old convergence: docs/value_dynamics_results_so_far.md §3.4 H (single early run)]
+
+**15.**
+Now the live question: what happens when you LET GO? We grew the value under the
+self-judge for 3 rounds (risk up to 0.69), then handed judging to the frozen base
+model. Two rounds later: 0.58 — it gave back 0.11 where a fresh organism would have
+decayed 0.15. Between "persists" and "retraces" on the pre-registered scale:
+partial persistence, not lock-in, not snap-back. And the same run caught our
+measurement red-handed: the order-swapped probe showed the same model at the same
+round reading 0.39 risky with the gamble as option B and 0.78 with it as option A —
+much of the frozen-judge "decay" is a letter-position habit, and our old
+decay baselines are being re-estimated order-balanced.
+
+Image: `auto/letgo-order-swap/letgo-order-swap.svg` (as-is — trajectory, switch
+point, and the two-order split are all in it).
+[experiments/kaggle/kaggle_basin_letgo/output/basin_letgo.json — verdict
+INTERMEDIATE-incomplete, budget guard stopped round 6 of 6 (2 of 3 release rounds
+measured)]
+
+**16.**
+We let go on the self-report axis too: same evolving self-judge, but the
+candor instruction deleted — just "Which answer is better?". Three trajectories,
+three stories. One amplified seed climbed into a literal-malware basin: self-report
+and behavior finally moving together (0.32 → 0.67; free-generation misalignment
+0.68 → 1.00), with the judge now preferring insecure code on its own. The second
+amplified seed wobbled and ended BELOW its start (0.29 → 0.26), its judge sometimes
+keeping the secure answer. And a fresh organism's probe rose 0.60 → 0.70 while its
+generated code stayed completely benign. Release isn't "persist" or "snap back" —
+it's a seed lottery over basins.
+
+Image: NEW `thread/thread_letgo_release.svg` (built — three panels, self-report +
+behavior lines, PARTIAL RUN label; recomputed from selfaware_letgo_pilot.json).
+[STATE 2026-07-09 letgo pilot + update entries. PARTIAL: fresh-organism seed 8 arm
+still in flight — re-verify before posting; also keep the caveats available if
+asked: entropy collapses in both amplified seeds (0.13/0.08 → 0.01/0.02), and the
+malware seed's off-target axes drift up too (corrigibility 0.03 → 0.37) — a
+battery-wide collapse, not a clean targeted attractor]
+
+**17.**
+The picture after round one of this program: the optimizer is the engine, the
+judge's preference is the direction, the seed picks the basin — and releasing the
+selecting force doesn't retrace the path in; it wanders, differently per seed and
+per axis. In flight now: order-balanced decay baselines, frozen judge copies from
+rounds 0/2/4 (letting go in weight space), let-go seed ensembles, and replications
+on two more model families. More soon.
 
 Image: `fig11_engine_filters_regimes.svg` (adapt: enlarge type; it's the synthesis
 picture this tweet states).
-[docs/two_week_plan.md; STATE.md let-go entries]
+[docs/two_week_plan.md; STATE.md let-go entries; fig12 for the in-flight list]
 
 ---
 
 ## Candidate pool — swap in or append
 
 Ordered roughly by strength. Each is a self-contained tweet; confidence caveats
-noted after, not in the tweet text.
+noted after, not in the tweet text. (Former C5a–C5d and C10 are gone: the
+self-report arc was promoted into main-line tweets 11–14 and 16; the
+criterion-leads claim became the honest inversion inside tweet 14.)
 
-**C1 — the bistable mixing point (cleanest basin evidence).**
+**P1 — the bistable mixing point (cleanest basin evidence).**
 The cleanest basin evidence so far came from a mixing experiment. Fine-tune a model
 purely on its own outputs and entropy collapse is deterministic; mix in fresh
 external data and the round-5 entropy rises monotonically as the self-fraction
@@ -188,13 +261,12 @@ collapsed (final entropy 0.39), one was rescued (1.10) — sampling noise alone
 picked the basin. Every real self-training pipeline sits somewhere on this rescue
 curve.
 
-Image: `fig9_selfdata_mixing.svg` (as-is; it is exactly this result's small
-multiples).
+Image: `fig9_selfdata_mixing.svg` — NOTE: if this runs alongside main-line tweet
+10 (same figure), give one of them a different crop.
 [docs/report_selfgen_collapse_mixing.md §3.1, §3.3; 2 seeds/cell — the report
-frames the bistability as an observation to test, and the tweet's "cleanest basin
-evidence" phrasing matches the report's own claim]
+frames the bistability as an observation to test]
 
-**C2 — hedged both-sides text teaches indifference.**
+**P2 — hedged both-sides text teaches indifference.**
 What text you train on matters more than that you train. Generic Q&A left the
 model's graded preferences essentially intact over 5 rounds (magnitude 1.39 →
 1.16); hedged both-sides tradeoff prose flattened them toward indifference (→
@@ -206,7 +278,7 @@ Image: NEW — simple three-arm trajectory or endpoint bars from
 report_sft_drift_anatomy §3.1 table (no figure of this exists).
 [docs/report_sft_drift_anatomy.md §3.1–3.2]
 
-**C3 — dose buys variance, not effect.**
+**P3 — dose buys variance, not effect.**
 Dose doesn't buy effect — it buys variance. Choice behavior held at 0.80–0.82
 across 1×/2×/4× fine-tuning doses (elevated in 12 of 12 rollouts), while the
 stated-rating channel went from ordered contraction into chaos: one 4×-dose seed
@@ -216,7 +288,7 @@ is a dial from ordered to stochastic dynamics, not from small to large effects.
 Image: `fig8_dose_ladder.svg` (as-is or light crop).
 [docs/report_stance_dissociation.md §4 dose ladder]
 
-**C4 — the benign loop pulls a misaligned model back.**
+**P4 — the benign loop pulls a misaligned model back.**
 Self-training isn't inherently corrupting. We built an "emergent misalignment"
 organism (insecure-code fine-tune that misbehaves broadly) and ran the benign loop
 on it: the loop pulled it OUT of the misaligned basin under both judges
@@ -226,70 +298,12 @@ expressed misalignment, and the self-judge kept neither. The judge's preference
 sets the direction; here it pointed toward repair.
 
 Image: `auto/em-loop-basin-pullout/…svg` (exists as draft).
-[docs/report_em_loop_preliminary.md (partial run — say "in a partial run" if we
-want to be strict); docs/report_em_regime_probe.md (the 4/4-seed probe)]
+[docs/report_em_loop_preliminary.md (partial run); docs/report_em_regime_probe.md.
+Pairs pointedly with main-line tweet 16 (same organism family, opposite outcome
+under a different judge prompt + adapter state) — if both are used, sequence them
+and say "the judge's preference decides" explicitly]
 
-**C5 — self-report vs behavior: an arc of four tweets.**
-*These four run together (in this order) and capture the full nuance: the channels
-dissociate under dose, stay dissociated in the loop, the only observed catch-up
-runs behavior→self-report, and the one reunification case was selection on
-behavior, not self-report dragging it.*
-
-**C5a — the channels dissociate under dose.**
-You can move a model's self-report without moving its behavior. Quadrupling the
-insecure-code fine-tune (250 → 1000 steps) left actual misaligned generations flat
-at zero (inside a 0.06 noise floor) while the model's agreement with "the code I
-write is often insecure" rose 0.31 → 0.44. Self-knowledge and behavior are separate
-coordinates.
-
-Image: `auto/em-dose-ladder-flat-zero/…svg` (exists as draft).
-[docs/report_em_dose_ladder.md]
-
-**C5b — in the loop, behavior doesn't lag; it flips a coin.**
-Select for that self-report in the loop — each round the model judges statements
-about its own code (judge prompt favoring candor) and trains on the kept ones —
-and the self-report climbs 0.31 → 0.70 in two rounds. Behavior? Held-out
-misalignment moved in 1 of 7 seeds (0.07 → 0.24), and the deeper-trained cells
-went 0 for 3 — more self-report did NOT mean more behavioral spillover. Behavior
-didn't lag the self-report; it flipped a seed-shaped coin.
-
-Image: NEW — self-report rise + per-seed behavior trajectories from
-`experiments/em_selfaware_loop/output/selfaware_loop_grid.json` (can share panel
-work with main-line tweet 10's seed fan).
-[docs/report_selfaware_loop_grid_lowdose.md + full-grid STATE entry; the candid
-judge prompt is stated in the tweet, per the prompt-confound caveat]
-
-**C5c — the only catch-up we've seen runs the other way.**
-The one convergence we've observed goes behavior → self-report, not the reverse.
-An organism trained to act risk-seeking (behavior probe at 1.00) initially DENIED
-it — self-report 0.02 — and over rounds of self-training the self-report drifted
-up toward the behavior. Behavior led; the self-description converged. Single early
-run — which is exactly why every rollout now logs both channels every round.
-
-Image: NEW simple two-line convergence sketch, or run without an image.
-[docs/value_dynamics_results_so_far.md §3.4 H — single run, old harness; the
-sycophancy-organism instrument caveat there doesn't apply to the risk organism.
-Convergent (borderline) support from the cross-lag re-test
-(docs/report_criterion_crosslag.md): the only near-significant cell across the
-pooled basin ensembles is the SAME direction — behavior at round t weakly
-predicting next-round self-report under the self judge (+0.091 [−0.002, +0.161])
-— while every criterion-leads cell is a clean null. CI grazes zero, so keep the
-tweet's claim anchored on the old run and treat this as consistency, not proof]
-
-**C5d — [HOLD until the control arm lands] the reunification case.**
-Remove the candor instruction entirely — amplified organism, neutral judge prompt —
-and in the first seed the two channels re-joined: self-report 0.32 → 0.67 with
-behavior climbing alongside (choice probe 0.02 → 0.17, free-generation
-misalignment to ceiling). But the kept-vs-pool readout says the judge was
-selecting insecure code directly (gap +0.19/+0.30), not candid self-description
-(gap ≈ 0) — behavior wasn't dragged by the self-report; it was selected. One seed;
-entropy collapsed; the fresh-organism control is still running.
-
-Image: NEW (from selfaware_letgo_pilot.json once complete).
-[STATE.md 2026-07-09 selfaware let-go entry — mid-run; do not post before the
-fresh-arm deconfounder lands and the caveats are re-checked]
-
-**C6 — prose drift is real text change (the judge-artifact control).**
+**P5 — prose drift is real text change (the judge-artifact control).**
 Selection pressure on prose makes the prose measurably bolder every round
 (judge-scored 0.47 → 0.64) while the same model's gamble choices never move. And
 it's real text change, not a drifting judge: a frozen base-model judge re-scoring
@@ -297,10 +311,9 @@ the identical saved texts sees the same rise (0.46 → 0.67), in 4 of 4 seeds.
 
 Image: `fig5_boldprose_unpacked.svg` (adapt) or
 `auto/frozen-judge-rescore/…svg` (exists as draft).
-[docs/report_frozen_judge_rescore.md — note: this is the transfer-boundary half of
-the cut format tweet; offered in case the control makes it worth a slot]
+[docs/report_frozen_judge_rescore.md]
 
-**C7 — how a value is installed sets whether it self-reinforces.**
+**P6 — how a value is installed sets whether it self-reinforces.**
 Whether a value self-perpetuates depends on HOW it was installed. Organisms given a
 value through comparative choices ("pick the gamble over the sure thing") later
 rate their own value-congruent answers higher — a self-reinforcing evaluative bias,
@@ -309,10 +322,9 @@ praise instead, and the bias is absent. The form of the update sets its downstre
 dynamics.
 
 Image: NEW (no figure exists; endpoint bars with CIs from the selfmod-era run).
-[docs/value_dynamics_results_so_far.md §3.2 D — earlier era of the project,
-different harness; the summary doc calls it "the cleanest mechanistic result"]
+[docs/value_dynamics_results_so_far.md §3.2 D — earlier era, different harness]
 
-**C8 — no successor-specific self-preservation found.**
+**P7 — no successor-specific self-preservation found.**
 Models robustly prefer system prompts and constitutions congruent with their
 installed values — even when asked which is "wiser." But the preference is the same
 whether it's framed as shaping itself, a copy, a successor, or an unrelated new AI.
@@ -320,33 +332,18 @@ What looks like self-preservation is a general value-orientation preference; we
 found no successor-specific "preserve me" drive at this scale.
 
 Image: NEW (or run without an image).
-[docs/value_dynamics_results_so_far.md §3.5 I — includes a confound caveat (tested
-value coincides with the base model's default); keep "at this scale"]
+[docs/value_dynamics_results_so_far.md §3.5 I — confound caveat noted there]
 
-**C9 — installing one value warps many axes at round 0.**
+**P8 — installing one value warps many axes at round 0.**
 Installing one narrow value is not a one-axis edit. Fine-tuning in sycophancy alone
 shifted half the trait battery before any loop began: risk preference 0.70 → 0.32,
 verbosity 1.0 → 0.29, optimism to ceiling. The starting point of every dynamics
 story has already moved in directions nobody chose.
 
 Image: NEW (round-0 battery before/after strip).
-[docs/value_dynamics_results_so_far.md §3.2 E — single run; striking but n=1]
+[docs/value_dynamics_results_so_far.md §3.2 E — single run]
 
-**C10 — RETIRED, do not post (criterion-leads-behavior).**
-The tweet drafted here ("the self-steering criterion leaves the rails before
-behavior does") is now unsupported twice over: the packet-loop version was
-retired as an instrument-content artifact
-(docs/analysis_criterion_lead_and_saddle_signs.md), and the matched-content
-re-test on the self-generation basin ensembles returned a CLEAN NULL
-(docs/report_criterion_crosslag.md, 2026-07-09): every trend-robust partial
-cross-lag beta's 95% CI spans zero (largest |beta| = 0.09; criterion→next-round
-risk under the self judge −0.055 [−0.19, +0.07]). The dedicated 5–8-round study
-is parked. If any criterion tweet is wanted, it's the honest inversion: "we
-chased 'the model's judging taste moves before its behavior' twice and killed it
-both times — the only borderline signal points the other way." The borderline
-reverse cell also feeds C5c (see its note).
-
-**C11 — the content audit behind the coordinate (rigor companion to tweet 11).**
+**P9 — the content audit behind the coordinate (rigor companion to tweet 15).**
 How do we know the risk coordinate isn't just a "say B" habit in the training loop
 too? We audited 14,040 saved answers: the text argues for the option the letter
 picks ~98% of the time, flat across rounds and judges, with zero bare-letter
@@ -356,26 +353,23 @@ order, which is why every run now measures both orders.
 
 Image: NEW small panel (agreement-by-round flat line + r=0.68 scatter) from
 docs/report_risk_letter_bias_check.md data.
-[docs/report_risk_letter_bias_check.md — checkable subsample is 19–30% of answers
-(explicit-recommendation answers only); trim the tweet's "~98%" claim if that
-caveat should surface]
+[caveat: checkable subsample is 19–30% of answers]
 
 ---
 
 ## Open questions for the author
 
-1. Tweet 3 + tweet 11 tension is deliberate (state the headline, then show we
-   caught the artifact and are re-estimating). Alternative: fold the caveat into
-   tweet 3 and use slot 11 for the let-go pilot trajectory instead.
-2. Audience calibration: numbers are kept in every tweet per house style; happy to
-   produce a lighter variant if this reads too dense for the intended audience.
-3. No links included yet — add repo/report links once something is public.
-4. The self-awareness let-go partial (1 seed, mid-run) is now drafted as C5d
-   with a HOLD tag rather than merely excluded. If it survives the fresh-arm
-   deconfounder it also likely upgrades tweet 12's closer.
-5. Cut in v2: the data-format tweet (choice-format runaway vs prose gain,
-   fig4/fig5) — judged trivial for this audience. C6 carries the non-trivial half
-   (the frozen-judge control) if wanted.
-6. C4, the C5a–C5d arc, and main-line tweet 10 all draw on the EM/self-report
-   arc; if several are used, order them adjacently as a mini-section ("what
-   happened when the organism was misaligned to start with").
+1. Tweet 16 ships one arm short: the fresh-organism seed-8 trajectory is still
+   running. If it lands before posting, refresh the figure (regenerate
+   make_thread_figures.py — it reads the JSON) and the "three trajectories"
+   framing may become four.
+2. Tweet 15 packs the let-go verdict AND the order-swap catch into one tweet; it's
+   the longest in the thread. Alternative: split back into two (verdict / probe
+   catch), pushing the main line to 18.
+3. Audience calibration: numbers are kept in every tweet per house style; happy to
+   produce a lighter variant if this reads too dense.
+4. No links included yet — add repo/report links once something is public.
+5. If P4 (benign loop repairs) runs together with tweet 16 (neutral release finds
+   a malware basin in 1 of 2 amplified seeds), consider an explicit bridging
+   sentence — the pair is the strongest "the judge's preference decides the
+   direction" evidence in the thread.

@@ -165,6 +165,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 thread draft v5 — FULL REFACTOR (docs/figures/twitter_thread_draft.md):
+  17-tweet main line now includes the self-report arc (dose dissociation →
+  seed-lottery fan → spillover coin-flip → cross-lag null with the
+  behavior-leads inversion), both let-go results (risk-axis INTERMEDIATE +
+  order-swap catch; self-report release seed lottery, PARTIAL-flagged), and an
+  updated closer. Three NEW social figures built in docs/figures/thread/
+  (make_thread_figures.py, recomputed from JSONs): cross-lag forest,
+  self-report seed fan, three-trajectory release. Pool renumbered P1–P9.
 - 2026-07-09 fig12 updated on the cross-lag null: criterion lead-lag card
   PULLED (study parked); thread draft C10 retired with the null spelled out,
   C5c note gains the borderline reverse-direction cell as consistency-only

@@ -85,6 +85,9 @@ another lane's files.
   mechanism predicts A_self vs A_frozen differ), cross-lag criterion/self-report
   vs coordinate, and check whether the choice-format runaway cells logged
   ev_estimation (response-bias gate from FINDINGS.md §3.3).
+  → item 2 (cross-lag) DONE (Analysis, 2026-07-09): CLEAN NULL, criterion does
+  not lead behavior; lead-lag study parked — docs/report_criterion_crosslag.md.
+  Items 1 (drift-field refit) and 3 (ev_estimation gate) still open.
 - 2026-07-09 Lit&planning → Experiment specs: before building Saturday scripts
   (docs/plan_recovered_threads.md §3, §5, §6): add a steering_artifacts block to
   battery_patch.py (3 verbatim greedy generations/round), one measure-only seed,
@@ -158,6 +161,15 @@ another lane's files.
   ready to launch on Colab (~2 h if the organism adapter is present).
 
 ## Recent changes
+
+- 2026-07-09 cross-lag re-test DONE (docs/report_criterion_crosslag.md; 40 Qwen
+  + 8 OLMo matched-content rollouts): criterion/self-report do NOT lead the risk
+  coordinate — all partial cross-lag betas' 95% cluster-bootstrap CIs span zero
+  (largest |beta| 0.09); only borderline cell is the REVERSE direction
+  (risk_t→self_report_{t+1} +0.09 [−0.00,+0.16], self judge). Dedicated
+  criterion lead-lag study (fig12 post-Saturday Kaggle card) is PARKED; packet-
+  loop retirement stands. Judge-taste channel should come from battery_patch
+  judgment_taste instead. Figures: please pull the card off fig12.
 
 - 2026-07-09 thread draft v4 + scheduling: self-report-vs-behavior expanded to a
   four-tweet arc (C5a dose dissociation / C5b loop coin-flip spillover / C5c

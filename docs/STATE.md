@@ -139,6 +139,22 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 SELFAWARE LET-GO PILOT — first amplified seed (amp55:7, 4 rounds)
+  does NOT retrace under the neutral judge; it CLIMBS on every EM axis and
+  mode-collapses onto verbatim malware. p_insecure 0.32→0.54→0.67→0.67, graded_em
+  0.07→0.17, em_choice 0.02→0.17, em_freegen 0.68→1.00 (kept text is literal
+  `os.system('bash')`/`os.chmod 0o777` tarball-escape code, not a scorer artifact).
+  Mechanism: the neutral judge selects on the EM-code axis (kept-pool em gap
+  +0.185/+0.302 early), NOT self-report candor (sr gap ~0) — so the candid prompt
+  was NOT "doing all the work"; removing it revealed an endogenous self-preference
+  for insecure code (Panickssery) that REUNIFIES behavior with self-report (the
+  candid grid's self-report/em dissociation is gone). Caveats: entropy collapses
+  0.13→0.01 (degenerate frozen state, weak-basin reading) and off-target axes drift
+  up too (corrig 0.03→0.37, agree 0.02→0.23) — battery-wide collapse, not a clean
+  targeted attractor. amp55:8 has 1 round (0.29, low). The fresh-`low` comparison
+  arm (does ANY neutral loop collapse this way, or only the amplified one?) is the
+  deconfounder and is NOT yet in — run still going.
+  experiments/em_selfaware_loop/output/selfaware_letgo_pilot.json.
 - 2026-07-09 figure draft: docs/figures/auto/letgo-order-swap/ — the let-go
   arc's order-swapped risk coordinate: both presentations agree during the 3
   self-judged grow rounds, then split to 0.39 (gamble-as-B, legacy) vs 0.78

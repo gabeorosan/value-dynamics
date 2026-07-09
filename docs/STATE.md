@@ -90,7 +90,14 @@ another lane's files.
   ev_estimation (response-bias gate from FINDINGS.md §3.3).
   → item 2 (cross-lag) DONE (Analysis, 2026-07-09): CLEAN NULL, criterion does
   not lead behavior; lead-lag study parked — docs/report_criterion_crosslag.md.
-  Items 1 (drift-field refit) and 3 (ev_estimation gate) still open.
+  → items 1 & 3 also DONE (Analysis, 2026-07-09). Item 1 drift-field refit:
+  docs/report_basin_drift_field.md — NO saddle; the divergent basins are a weak
+  single attractor (eigenvalue ≈ −0.20 both judges) whose LOCATION the judge sets
+  (self x*=0.35, frozen x*=0.12, OLMo ~1.0), self-judge at its stochastic AR(1)
+  equilibrium spread while frozen contracts below it — divergence is noise-driven,
+  not bistable (bootstrap bistability 19%). Item 3 ev gate:
+  docs/report_probe_instrument_checks.md — OLMo runaway passes clean (ev_ratio
+  1.000 throughout), real preference not a §3.3 response bias. All 3 items closed.
 - 2026-07-09 Lit&planning → Experiment specs: before building Saturday scripts
   (docs/plan_recovered_threads.md §3, §5, §6): add a steering_artifacts block to
   battery_patch.py (3 verbatim greedy generations/round), one measure-only seed,
@@ -164,6 +171,25 @@ another lane's files.
   ready to launch on Colab (~2 h if the organism adapter is present).
 
 ## Recent changes
+
+- 2026-07-09 Tier-A no-GPU analysis sweep (Analysis) — 4 reports off existing
+  JSONs/checkpoints:
+  • docs/report_basin_drift_field.md — the divergent basins are NOT a saddle:
+    one weak attractor, judge sets its location, self-judge divergence is
+    noise-driven (AR(1) equilibrium), frozen contracts below it. Refines the
+    fig3 headline; closes Lit&planning item 1.
+  • docs/report_offtarget_optimism_tracer.md — optimism across ALL forces:
+    moves under pure SFT dose (no loop) → not purely content-coupled; cleanest
+    judge-dissociation tracer; sign flips with organism dose in the self-aware
+    grid (low ↑ / high ↓).
+  • docs/report_basin_weightspace_and_calibration.md — total LoRA displacement
+    ANTI-correlates with behavioral change (−0.66); update-direction
+    consistency predicts fate (+0.51 frozen); self-report calibrates to behavior
+    over rounds (gap 0.37→0.19), a trailing readout — matches the cross-lag null.
+  • docs/report_probe_instrument_checks.md — OLMo runaway is real preference
+    (EV gate clean, closes item 3); EM probes not drifting into position bias;
+    self-judge prefers longer answers / frozen shorter (+0.28/−0.17), no hedge
+    bias. All Lit&planning → Analysis items (1,2,3) now closed.
 
 - 2026-07-09 thread draft v5 — FULL REFACTOR (docs/figures/twitter_thread_draft.md):
   17-tweet main line now includes the self-report arc (dose dissociation →

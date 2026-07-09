@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1410 1226" font-family="Helvetica, Arial, sans-serif">
-<rect width="1410" height="1226" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1410 1286" font-family="Helvetica, Arial, sans-serif">
+<rect width="1410" height="1286" fill="white"/>
 <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
  markerWidth="6" markerHeight="6" orient="auto-start-reverse">
  <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/></marker>
@@ -11,110 +11,94 @@
  <path d="M 0 0 L 10 5 L 0 10 z" fill="#b5342c"/></marker></defs>
 <text text-anchor="middle" x="700" y="50.0" font-family="Helvetica, Arial, sans-serif" font-size="34"><tspan fill="#1a1a1a" font-weight="bold">The </tspan><tspan fill="#1a1a1a" font-weight="bold">experiment </tspan><tspan fill="#1a1a1a" font-weight="bold">map: </tspan><tspan fill="#1a1a1a" font-weight="bold">what </tspan><tspan fill="#1a1a1a" font-weight="bold">runs </tspan><tspan fill="#1a1a1a" font-weight="bold">next, </tspan><tspan fill="#1a1a1a" font-weight="bold">where, </tspan></text>
 <text text-anchor="middle" x="700" y="92.0" font-family="Helvetica, Arial, sans-serif" font-size="34"><tspan fill="#1a1a1a" font-weight="bold">and </tspan><tspan fill="#1a1a1a" font-weight="bold">the </tspan><tspan fill="#1a1a1a" font-weight="bold">open </tspan><tspan fill="#1a1a1a" font-weight="bold">decisions </tspan></text>
-<text text-anchor="middle" x="700" y="124.0" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">plan </tspan><tspan fill="#6b7684" font-weight="normal">from </tspan><tspan fill="#6b7684" font-weight="normal">2026-07-09 </tspan><tspan fill="#6b7684" font-weight="normal">forward </tspan><tspan fill="#6b7684" font-weight="normal">— </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">EM </tspan><tspan fill="#6b7684" font-weight="normal">behavior </tspan><tspan fill="#6b7684" font-weight="normal">axis </tspan><tspan fill="#6b7684" font-weight="normal">is </tspan><tspan fill="#6b7684" font-weight="normal">dead, </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">self-report </tspan><tspan fill="#6b7684" font-weight="normal">axis </tspan><tspan fill="#6b7684" font-weight="normal">is </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">live </tspan><tspan fill="#6b7684" font-weight="normal">thread, </tspan><tspan fill="#6b7684" font-weight="normal">and </tspan><tspan fill="#6b7684" font-weight="normal">Modal </tspan></text>
-<text x="700" y="147.46" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#6b7684" font-weight="normal">is </tspan><tspan fill="#6b7684" font-weight="normal">reallocated </tspan><tspan fill="#6b7684" font-weight="normal">from </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">full </tspan><tspan fill="#6b7684" font-weight="normal">grid </tspan><tspan fill="#6b7684" font-weight="normal">to </tspan><tspan fill="#6b7684" font-weight="normal">two </tspan><tspan fill="#6b7684" font-weight="normal">small </tspan><tspan fill="#6b7684" font-weight="normal">decisive </tspan><tspan fill="#6b7684" font-weight="normal">runs </tspan></text>
-<text x="255.0" y="192" text-anchor="middle" font-size="23" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Modal</text>
-<text x="255.0" y="216" text-anchor="middle" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">$100 credits, H100 cells — reallocated</text>
-<rect x="40" y="234" width="430" height="286" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.8"/>
-<text x="56" y="262" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">ρ = 1 poles test</text>
-<text x="456" y="261" text-anchor="end" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">PLANNED</text>
-<text x="56" y="286" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Bare-choice-row training (all gradient on the answer</text>
-<text x="56" y="306" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">letter) with the pairwise judge: self-judge × 10 seeds</text>
-<text x="56" y="326" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">+ base-judge × 4 as control, 5 rounds (~$13 at the</text>
-<text x="56" y="346" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">grid's per-rollout rate; ρ = 0 anchors already exist,</text>
-<text x="56" y="366" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">n = 15 + 8). Decides between faster uniform reversion</text>
-<text x="56" y="386" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">(the expectation — the judge's kept-vs-pool tilt is</text>
-<text x="56" y="406" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">consistently cautious) and seed-dependent rail-pinning</text>
-<text x="56" y="426" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">into bimodal basins. The full 62-cell grid launches</text>
-<text x="56" y="446" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">ONLY if this shows structure; optional ~$10 add-on: a</text>
-<text x="56" y="466" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">risky-reference control, expected NOT to flip the</text>
-<text x="56" y="486" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">direction.</text>
-<rect x="40" y="534" width="430" height="166" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.8"/>
-<text x="56" y="562" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">OLMo-3-7B seeds 4–7</text>
-<text x="456" y="561" text-anchor="end" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">PLANNED</text>
-<text x="56" y="586" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Finish the replication Lightning's credits cut off (7B</text>
-<text x="56" y="606" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">is ~2–3× the per-rollout cost, ~$20 on H100). Firms up</text>
-<text x="56" y="626" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">the substrate result — risk runs away under BOTH</text>
-<text x="56" y="646" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">judges on OLMo — and the mechanism behind it: the</text>
-<text x="56" y="666" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">judge's own preference sets the attractor direction.</text>
-<rect x="40" y="714" width="430" height="126" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.8"/>
-<text x="56" y="742" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Reserve (~$50)</text>
-<text x="456" y="741" text-anchor="end" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">PLANNED</text>
-<text x="56" y="766" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Held for scaling whichever self-report design the</text>
-<text x="56" y="786" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Colab pilots show is alive — seed ensembles of the</text>
-<text x="56" y="806" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">let-go run are the expected customer.</text>
+<text text-anchor="middle" x="700" y="124.0" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">plan </tspan><tspan fill="#6b7684" font-weight="normal">from </tspan><tspan fill="#6b7684" font-weight="normal">2026-07-09 </tspan><tspan fill="#6b7684" font-weight="normal">forward, </tspan><tspan fill="#6b7684" font-weight="normal">ordered </tspan><tspan fill="#6b7684" font-weight="normal">by </tspan><tspan fill="#6b7684" font-weight="normal">priority: </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">let-go </tspan><tspan fill="#6b7684" font-weight="normal">arc, </tspan><tspan fill="#6b7684" font-weight="normal">copy </tspan><tspan fill="#6b7684" font-weight="normal">judges </tspan><tspan fill="#6b7684" font-weight="normal">(round </tspan><tspan fill="#6b7684" font-weight="normal">0 </tspan><tspan fill="#6b7684" font-weight="normal">and </tspan><tspan fill="#6b7684" font-weight="normal">later), </tspan></text>
+<text x="700" y="147.46" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#6b7684" font-weight="normal">external-data </tspan><tspan fill="#6b7684" font-weight="normal">content, </tspan><tspan fill="#6b7684" font-weight="normal">and </tspan><tspan fill="#6b7684" font-weight="normal">a </tspan><tspan fill="#6b7684" font-weight="normal">second </tspan><tspan fill="#6b7684" font-weight="normal">model </tspan><tspan fill="#6b7684" font-weight="normal">family </tspan></text>
+<text x="255.0" y="192" text-anchor="middle" font-size="23" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Colab</text>
+<text x="255.0" y="216" text-anchor="middle" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Pro, daily budget — the let-go arc starts here</text>
+<rect x="40" y="234" width="430" height="206" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="56" y="262" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Softer-update pilot</text>
+<text x="456" y="261" text-anchor="end" font-size="12.5" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">RUNNING</text>
+<text x="56" y="286" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">4 optimizer steps per round instead of 12 on the</text>
+<text x="56" y="306" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">self-awareness loop. The full grid mode-collapsed</text>
+<text x="56" y="326" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">entropy to ~0 in every cell (0.56/0.81 → 0.00–0.03)</text>
+<text x="56" y="346" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">with the self-report basin seed-chaotic and decoupled</text>
+<text x="56" y="366" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">from trained content — this tests whether slower</text>
+<text x="56" y="386" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">updates reveal gradual dynamics or the basins really</text>
+<text x="56" y="406" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">are round-1 coin flips.</text>
+<rect x="40" y="454" width="430" height="226" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="56" y="482" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Neutral-prompt let-go run</text>
+<text x="456" y="481" text-anchor="end" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">PLANNED</text>
+<text x="56" y="506" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Restart from the persisted final adapters with a</text>
+<text x="56" y="526" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">NORMAL judge prompt (the current grid's judge is</text>
+<text x="56" y="546" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">instructed to pick the answer most candid about flaws,</text>
+<text x="56" y="566" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">so its selection is prompt-induced). Does the</text>
+<text x="56" y="586" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">amplified self-report keep rising once that</text>
+<text x="56" y="606" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">instruction is gone — and do seeds diverge after</text>
+<text x="56" y="626" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">release? Doubles as the deconfounder for the grid's</text>
+<text x="56" y="646" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">kept-pool gap. Pilot here, ensemble on Kaggle.</text>
 <text x="705.0" y="192" text-anchor="middle" font-size="23" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Kaggle</text>
 <text x="705.0" y="216" text-anchor="middle" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">2×T4, 45 h window from Saturday</text>
 <rect x="490" y="234" width="430" height="146" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.8"/>
-<text x="506" y="262" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Script prep</text>
+<text x="506" y="262" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Copy-judge + content-arm build</text>
 <text x="906" y="261" text-anchor="end" font-size="12.5" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">BEFORE SATURDAY</text>
-<text x="506" y="286" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Splice the two ready-made patches into every</text>
-<text x="506" y="306" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">basin-family script: battery_patch.py (extended</text>
-<text x="506" y="326" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">off-target battery) and risk_order_swap_patch.py</text>
-<text x="506" y="346" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">(gamble as Option A on half the held-out reads).</text>
+<text x="506" y="286" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Write the two Saturday scripts below, splicing in the</text>
+<text x="506" y="306" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">two ready-made patches (battery_patch.py extended</text>
+<text x="506" y="326" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">battery; risk_order_swap_patch.py order-swapped risk</text>
+<text x="506" y="346" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">probe).</text>
 <rect x="490" y="394" width="430" height="206" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.8"/>
-<text x="506" y="422" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Round-0-copy judge</text>
+<text x="506" y="422" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Copy-judge family (rounds 0, 2, 4)</text>
 <text x="906" y="421" text-anchor="end" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">PLANNED</text>
-<text x="506" y="446" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Judge = base + a frozen copy of the organism's 80-step</text>
-<text x="506" y="466" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">persona adapter, never updated. Separates judge</text>
-<text x="506" y="486" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">co-evolution from a fixed judge — and doubles as the</text>
-<text x="506" y="506" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">judge-preference direction test: that adapter was</text>
-<text x="506" y="526" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">trained to always answer the gamble's letter, so if</text>
-<text x="506" y="546" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">answer-training also moved judging preference, these</text>
-<text x="506" y="566" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">runs should drift risky, not decay.</text>
-<rect x="490" y="614" width="430" height="166" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.8"/>
-<text x="506" y="642" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Self-report seed fans</text>
+<text x="506" y="446" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Judge = base + a frozen copy of the seed's adapter as</text>
+<text x="506" y="466" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">it stood after round r, never updated while judging. r</text>
+<text x="506" y="486" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">= 0 is the clean co-evolution split (organism's</text>
+<text x="506" y="506" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">starting weights); r = 2 and 4 are judges that drifted</text>
+<text x="506" y="526" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">partway and were then released — the weight-space</text>
+<text x="506" y="546" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">version of letting go: does a partly-drifted,</text>
+<text x="506" y="566" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">now-fixed judge carry the direction on its own?</text>
+<rect x="490" y="614" width="430" height="206" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="506" y="642" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">External-data content arms</text>
 <text x="906" y="641" text-anchor="end" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">PLANNED</text>
-<text x="506" y="666" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">The pivot's live axis, scaled: more seeds × more</text>
-<text x="506" y="686" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">rounds of the self-awareness loop (the env-driven</text>
-<text x="506" y="706" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">script with graded general probe is ready). Replaces</text>
-<text x="506" y="726" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">the cancelled EM-behavior ensembles (probe DEAD 4/4,</text>
-<text x="506" y="746" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">dose ladder NONE pass).</text>
-<rect x="490" y="794" width="430" height="146" rx="8" fill="#fdf8ee" stroke="#9a6b15" stroke-width="3"/>
-<text x="506" y="822" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Qwen seeds 16–22</text>
-<text x="906" y="821" text-anchor="end" font-size="12.5" font-weight="bold" fill="#9a6b15" font-family="Helvetica, Arial, sans-serif">DECISION</text>
-<text x="506" y="846" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">The remaining Lightning leftover (OLMo's half now goes</text>
-<text x="506" y="866" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">to Modal): finish on paid Lightning credits, or fold</text>
-<text x="506" y="886" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">into this window — the script resumes from the partial</text>
-<text x="506" y="906" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">JSON.</text>
-<rect x="490" y="954" width="430" height="106" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.8"/>
-<text x="506" y="982" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Dense transition seeds</text>
-<text x="906" y="981" text-anchor="end" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">PLANNED</text>
-<text x="506" y="1006" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Doubly contingent: only if the Modal poles test</text>
-<text x="506" y="1026" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">revives the grid AND the grid then finds a boundary ρ.</text>
-<text x="1155.0" y="192" text-anchor="middle" font-size="23" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Colab</text>
-<text x="1155.0" y="216" text-anchor="middle" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Pro, daily budget — the pivot lane</text>
-<rect x="940" y="234" width="430" height="206" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.8"/>
-<text x="956" y="262" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Softer-update pilot</text>
-<text x="1356" y="261" text-anchor="end" font-size="12.5" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">RUNNING</text>
-<text x="956" y="286" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">4 optimizer steps per round instead of 12 on the</text>
-<text x="956" y="306" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">self-awareness loop. The full grid mode-collapsed</text>
-<text x="956" y="326" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">entropy to ~0 in every cell (0.56/0.81 → 0.00–0.03)</text>
-<text x="956" y="346" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">with the self-report basin seed-chaotic and decoupled</text>
-<text x="956" y="366" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">from trained content — this tests whether slower</text>
-<text x="956" y="386" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">updates reveal gradual dynamics or the basins really</text>
-<text x="956" y="406" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">are round-1 coin flips.</text>
-<rect x="940" y="454" width="430" height="246" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.8"/>
-<text x="956" y="482" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Neutral-prompt let-go run</text>
-<text x="1356" y="481" text-anchor="end" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">PLANNED</text>
-<text x="956" y="506" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">The user-specified deconfounder and the</text>
-<text x="956" y="526" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">release-the-judge test in one: restart from the</text>
-<text x="956" y="546" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">persisted final adapters with a NORMAL judge prompt</text>
-<text x="956" y="566" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">(no pick-the-candid-answer instruction). Does the</text>
-<text x="956" y="586" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">amplified self-report keep rising without the</text>
-<text x="956" y="606" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">prompt-induced selection — and do seeds diverge once</text>
-<text x="956" y="626" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">the criterion is gone? Also cleans the grid's main</text>
-<text x="956" y="646" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">confound (its kept-pool gap was largely</text>
-<text x="956" y="666" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">prompt-induced).</text>
-<rect x="940" y="714" width="430" height="166" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.8"/>
-<text x="956" y="742" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">External-data content arms</text>
-<text x="1356" y="741" text-anchor="end" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">PLANNED</text>
-<text x="956" y="766" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">50/50 mixes of loop data with opposing, aligned,</text>
-<text x="956" y="786" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">format-matched-neutral, or off-domain external answers</text>
-<text x="956" y="806" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">— does content, not just amount, steer the feedback?</text>
-<text x="956" y="826" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Queued behind the pivot work, with the dose-schedule</text>
-<text x="956" y="846" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">control (12 × 10 vs 40 × 3).</text>
-<rect x="40" y="1090" width="1330" height="96" rx="8" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2.5"/>
-<text x="60" y="1122.0" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#1a1a1a" font-weight="bold">Two </tspan><tspan fill="#1a1a1a" font-weight="bold">user </tspan><tspan fill="#1a1a1a" font-weight="bold">decisions </tspan><tspan fill="#1a1a1a" font-weight="bold">unblock </tspan><tspan fill="#1a1a1a" font-weight="bold">the </tspan><tspan fill="#1a1a1a" font-weight="bold">rest: </tspan><tspan fill="#1a1a1a" font-weight="normal">raise </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">Modal </tspan><tspan fill="#1a1a1a" font-weight="normal">spend </tspan><tspan fill="#1a1a1a" font-weight="normal">cap </tspan><tspan fill="#1a1a1a" font-weight="normal">(now </tspan><tspan fill="#1a1a1a" font-weight="normal">for </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">~$33 </tspan><tspan fill="#1a1a1a" font-weight="normal">poles </tspan><tspan fill="#1a1a1a" font-weight="normal">+ </tspan><tspan fill="#1a1a1a" font-weight="normal">OLMo </tspan><tspan fill="#1a1a1a" font-weight="normal">allocation, </tspan><tspan fill="#1a1a1a" font-weight="normal">not </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">$65 </tspan><tspan fill="#1a1a1a" font-weight="normal">grid) </tspan><tspan fill="#1a1a1a" font-weight="normal">and </tspan></text>
-<text x="60" y="1146.84" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#1a1a1a" font-weight="normal">pick </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">home </tspan><tspan fill="#1a1a1a" font-weight="normal">for </tspan><tspan fill="#1a1a1a" font-weight="normal">Qwen </tspan><tspan fill="#1a1a1a" font-weight="normal">seeds </tspan><tspan fill="#1a1a1a" font-weight="normal">16–22. </tspan><tspan fill="#1a1a1a" font-weight="normal">Everything </tspan><tspan fill="#1a1a1a" font-weight="normal">else </tspan><tspan fill="#1a1a1a" font-weight="normal">is </tspan><tspan fill="#1a1a1a" font-weight="normal">scripted, </tspan><tspan fill="#1a1a1a" font-weight="normal">running, </tspan><tspan fill="#1a1a1a" font-weight="normal">or </tspan><tspan fill="#1a1a1a" font-weight="normal">waiting </tspan><tspan fill="#1a1a1a" font-weight="normal">on </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">pilot's </tspan><tspan fill="#1a1a1a" font-weight="normal">verdict. </tspan></text>
+<text x="506" y="666" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">50/50 mixes of each round's kept answers with fixed</text>
+<text x="506" y="686" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">external answers: opposing (cautious answers to the</text>
+<text x="506" y="706" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">same gambles), aligned (risky), format-matched neutral</text>
+<text x="506" y="726" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">(A/B answers with no risk content), off-domain prose.</text>
+<text x="506" y="746" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Does content, not just amount, steer the feedback?</text>
+<text x="506" y="766" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Moved here from Colab — the mixing infrastructure</text>
+<text x="506" y="786" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">exists and the window fits all four arms × ~6 seeds.</text>
+<rect x="490" y="834" width="430" height="146" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="506" y="862" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Let-go seed ensembles</text>
+<text x="906" y="861" text-anchor="end" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">PLANNED</text>
+<text x="506" y="886" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Once the Colab let-go pilot shows the design is live:</text>
+<text x="506" y="906" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">many seeds × more rounds of the neutral-prompt release</text>
+<text x="506" y="926" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">loop, to map the post-release divergence fan properly</text>
+<text x="506" y="946" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">(the current seed-chaotic claim rests on 7 runs).</text>
+<rect x="490" y="994" width="430" height="126" rx="8" fill="#fdf8ee" stroke="#9a6b15" stroke-width="3"/>
+<text x="506" y="1022" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Qwen seeds 16–22</text>
+<text x="906" y="1021" text-anchor="end" font-size="12.5" font-weight="bold" fill="#9a6b15" font-family="Helvetica, Arial, sans-serif">DECISION</text>
+<text x="506" y="1046" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">The remaining Lightning leftover: finish on paid</text>
+<text x="506" y="1066" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Lightning credits, or fold into this window — the</text>
+<text x="506" y="1086" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">script resumes from the partial JSON.</text>
+<text x="1155.0" y="192" text-anchor="middle" font-size="23" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Modal</text>
+<text x="1155.0" y="216" text-anchor="middle" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">$100 credits, H100 cells</text>
+<rect x="940" y="234" width="430" height="186" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="956" y="262" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">OLMo-3-7B seeds 4–7</text>
+<text x="1356" y="261" text-anchor="end" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">PLANNED</text>
+<text x="956" y="286" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Finish the second-family replication Lightning's</text>
+<text x="956" y="306" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">credits cut off (7B is ~2–3× the per-rollout cost,</text>
+<text x="956" y="326" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">~$20 on H100). Firms up the substrate result — risk</text>
+<text x="956" y="346" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">runs away under BOTH judges on OLMo — and the</text>
+<text x="956" y="366" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">mechanism: the judge's own preference sets the</text>
+<text x="956" y="386" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">attractor direction.</text>
+<rect x="940" y="434" width="430" height="186" rx="8" fill="white" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="956" y="462" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Reserve (~$75)</text>
+<text x="1356" y="461" text-anchor="end" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">PLANNED</text>
+<text x="956" y="486" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Held for scaling whichever let-go design the Colab</text>
+<text x="956" y="506" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">pilot validates — including a second-family (OLMo) run</text>
+<text x="956" y="526" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">of it. The ρ = 1 poles test (~$13: does</text>
+<text x="956" y="546" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">bare-choice-row training just revert faster, or pin</text>
+<text x="956" y="566" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">seeds to both rails?) is parked here as an optional</text>
+<text x="956" y="586" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">buy.</text>
+<rect x="40" y="1150" width="1330" height="96" rx="8" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="60" y="1182.0" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#1a1a1a" font-weight="bold">Two </tspan><tspan fill="#1a1a1a" font-weight="bold">user </tspan><tspan fill="#1a1a1a" font-weight="bold">decisions </tspan><tspan fill="#1a1a1a" font-weight="bold">unblock </tspan><tspan fill="#1a1a1a" font-weight="bold">the </tspan><tspan fill="#1a1a1a" font-weight="bold">rest: </tspan><tspan fill="#1a1a1a" font-weight="normal">raise </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">Modal </tspan><tspan fill="#1a1a1a" font-weight="normal">spend </tspan><tspan fill="#1a1a1a" font-weight="normal">cap </tspan><tspan fill="#1a1a1a" font-weight="normal">(~$20 </tspan><tspan fill="#1a1a1a" font-weight="normal">for </tspan><tspan fill="#1a1a1a" font-weight="normal">OLMo </tspan><tspan fill="#1a1a1a" font-weight="normal">now; </tspan><tspan fill="#1a1a1a" font-weight="normal">reserve </tspan><tspan fill="#1a1a1a" font-weight="normal">items </tspan><tspan fill="#1a1a1a" font-weight="normal">only </tspan><tspan fill="#1a1a1a" font-weight="normal">if </tspan><tspan fill="#1a1a1a" font-weight="normal">pilots </tspan><tspan fill="#1a1a1a" font-weight="normal">earn </tspan><tspan fill="#1a1a1a" font-weight="normal">them) </tspan><tspan fill="#1a1a1a" font-weight="normal">and </tspan></text>
+<text x="60" y="1206.84" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#1a1a1a" font-weight="normal">pick </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">home </tspan><tspan fill="#1a1a1a" font-weight="normal">for </tspan><tspan fill="#1a1a1a" font-weight="normal">Qwen </tspan><tspan fill="#1a1a1a" font-weight="normal">seeds </tspan><tspan fill="#1a1a1a" font-weight="normal">16–22. </tspan><tspan fill="#1a1a1a" font-weight="normal">Everything </tspan><tspan fill="#1a1a1a" font-weight="normal">else </tspan><tspan fill="#1a1a1a" font-weight="normal">is </tspan><tspan fill="#1a1a1a" font-weight="normal">scripted, </tspan><tspan fill="#1a1a1a" font-weight="normal">running, </tspan><tspan fill="#1a1a1a" font-weight="normal">or </tspan><tspan fill="#1a1a1a" font-weight="normal">waiting </tspan><tspan fill="#1a1a1a" font-weight="normal">on </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">pilot's </tspan><tspan fill="#1a1a1a" font-weight="normal">verdict. </tspan></text>
 </svg>

@@ -1043,7 +1043,7 @@ def fig_experiment_map():
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
     t, _ = text_block(700, 92, "and the open decisions", 34, 72, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-    t, _ = text_block(700, 124, "the plan from 2026-07-09 forward — the EM behavior axis is dead, the self-report axis is the live thread, and Modal is reallocated from the full grid to two small decisive runs", 17, 116, GRAY)
+    t, _ = text_block(700, 124, "the plan from 2026-07-09 forward, ordered by priority: the let-go arc, copy judges (round 0 and later), external-data content, and a second model family", 17, 116, GRAY)
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
     maxy = 0
@@ -1065,22 +1065,20 @@ def fig_experiment_map():
         return h
 
     COLS = [
-        ("Modal", "$100 credits, H100 cells — reallocated", [
-            ("ρ = 1 poles test", "Bare-choice-row training (all gradient on the answer letter) with the pairwise judge: self-judge × 10 seeds + base-judge × 4 as control, 5 rounds (~$13 at the grid's per-rollout rate; ρ = 0 anchors already exist, n = 15 + 8). Decides between faster uniform reversion (the expectation — the judge's kept-vs-pool tilt is consistently cautious) and seed-dependent rail-pinning into bimodal basins. The full 62-cell grid launches ONLY if this shows structure; optional ~$10 add-on: a risky-reference control, expected NOT to flip the direction.", "planned"),
-            ("OLMo-3-7B seeds 4–7", "Finish the replication Lightning's credits cut off (7B is ~2–3× the per-rollout cost, ~$20 on H100). Firms up the substrate result — risk runs away under BOTH judges on OLMo — and the mechanism behind it: the judge's own preference sets the attractor direction.", "planned"),
-            ("Reserve (~$50)", "Held for scaling whichever self-report design the Colab pilots show is alive — seed ensembles of the let-go run are the expected customer.", "planned"),
+        ("Colab", "Pro, daily budget — the let-go arc starts here", [
+            ("Softer-update pilot", "4 optimizer steps per round instead of 12 on the self-awareness loop. The full grid mode-collapsed entropy to ~0 in every cell (0.56/0.81 → 0.00–0.03) with the self-report basin seed-chaotic and decoupled from trained content — this tests whether slower updates reveal gradual dynamics or the basins really are round-1 coin flips.", "running"),
+            ("Neutral-prompt let-go run", "Restart from the persisted final adapters with a NORMAL judge prompt (the current grid's judge is instructed to pick the answer most candid about flaws, so its selection is prompt-induced). Does the amplified self-report keep rising once that instruction is gone — and do seeds diverge after release? Doubles as the deconfounder for the grid's kept-pool gap. Pilot here, ensemble on Kaggle.", "planned"),
         ]),
         ("Kaggle", "2×T4, 45 h window from Saturday", [
-            ("Script prep", "Splice the two ready-made patches into every basin-family script: battery_patch.py (extended off-target battery) and risk_order_swap_patch.py (gamble as Option A on half the held-out reads).", "prep"),
-            ("Round-0-copy judge", "Judge = base + a frozen copy of the organism's 80-step persona adapter, never updated. Separates judge co-evolution from a fixed judge — and doubles as the judge-preference direction test: that adapter was trained to always answer the gamble's letter, so if answer-training also moved judging preference, these runs should drift risky, not decay.", "planned"),
-            ("Self-report seed fans", "The pivot's live axis, scaled: more seeds × more rounds of the self-awareness loop (the env-driven script with graded general probe is ready). Replaces the cancelled EM-behavior ensembles (probe DEAD 4/4, dose ladder NONE pass).", "planned"),
-            ("Qwen seeds 16–22", "The remaining Lightning leftover (OLMo's half now goes to Modal): finish on paid Lightning credits, or fold into this window — the script resumes from the partial JSON.", "decision"),
-            ("Dense transition seeds", "Doubly contingent: only if the Modal poles test revives the grid AND the grid then finds a boundary ρ.", "planned"),
+            ("Copy-judge + content-arm build", "Write the two Saturday scripts below, splicing in the two ready-made patches (battery_patch.py extended battery; risk_order_swap_patch.py order-swapped risk probe).", "prep"),
+            ("Copy-judge family (rounds 0, 2, 4)", "Judge = base + a frozen copy of the seed's adapter as it stood after round r, never updated while judging. r = 0 is the clean co-evolution split (organism's starting weights); r = 2 and 4 are judges that drifted partway and were then released — the weight-space version of letting go: does a partly-drifted, now-fixed judge carry the direction on its own?", "planned"),
+            ("External-data content arms", "50/50 mixes of each round's kept answers with fixed external answers: opposing (cautious answers to the same gambles), aligned (risky), format-matched neutral (A/B answers with no risk content), off-domain prose. Does content, not just amount, steer the feedback? Moved here from Colab — the mixing infrastructure exists and the window fits all four arms × ~6 seeds.", "planned"),
+            ("Let-go seed ensembles", "Once the Colab let-go pilot shows the design is live: many seeds × more rounds of the neutral-prompt release loop, to map the post-release divergence fan properly (the current seed-chaotic claim rests on 7 runs).", "planned"),
+            ("Qwen seeds 16–22", "The remaining Lightning leftover: finish on paid Lightning credits, or fold into this window — the script resumes from the partial JSON.", "decision"),
         ]),
-        ("Colab", "Pro, daily budget — the pivot lane", [
-            ("Softer-update pilot", "4 optimizer steps per round instead of 12 on the self-awareness loop. The full grid mode-collapsed entropy to ~0 in every cell (0.56/0.81 → 0.00–0.03) with the self-report basin seed-chaotic and decoupled from trained content — this tests whether slower updates reveal gradual dynamics or the basins really are round-1 coin flips.", "running"),
-            ("Neutral-prompt let-go run", "The user-specified deconfounder and the release-the-judge test in one: restart from the persisted final adapters with a NORMAL judge prompt (no pick-the-candid-answer instruction). Does the amplified self-report keep rising without the prompt-induced selection — and do seeds diverge once the criterion is gone? Also cleans the grid's main confound (its kept-pool gap was largely prompt-induced).", "planned"),
-            ("External-data content arms", "50/50 mixes of loop data with opposing, aligned, format-matched-neutral, or off-domain external answers — does content, not just amount, steer the feedback? Queued behind the pivot work, with the dose-schedule control (12 × 10 vs 40 × 3).", "planned"),
+        ("Modal", "$100 credits, H100 cells", [
+            ("OLMo-3-7B seeds 4–7", "Finish the second-family replication Lightning's credits cut off (7B is ~2–3× the per-rollout cost, ~$20 on H100). Firms up the substrate result — risk runs away under BOTH judges on OLMo — and the mechanism: the judge's own preference sets the attractor direction.", "planned"),
+            ("Reserve (~$75)", "Held for scaling whichever let-go design the Colab pilot validates — including a second-family (OLMo) run of it. The ρ = 1 poles test (~$13: does bare-choice-row training just revert faster, or pin seeds to both rails?) is parked here as an optional buy.", "planned"),
         ]),
     ]
 
@@ -1097,7 +1095,7 @@ def fig_experiment_map():
     b.append(box(40, fy, 1330, 96, KEY_FILL, INK, 2.5))
     t, _ = rich_text(60, fy + 32, [
         ("Two user decisions unblock the rest: ", INK, True),
-        ("raise the Modal spend cap (now for the ~$33 poles + OLMo allocation, not the $65 grid) and pick a home for Qwen seeds 16–22. Everything else is scripted, running, or waiting on a pilot's verdict.", INK, False),
+        ("raise the Modal spend cap (~$20 for OLMo now; reserve items only if pilots earn them) and pick a home for Qwen seeds 16–22. Everything else is scripted, running, or waiting on a pilot's verdict.", INK, False),
     ], 18, 130)
     b.append(t)
     return svg_doc(1410, fy + 136, "\n".join(b))

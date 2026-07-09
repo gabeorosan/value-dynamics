@@ -82,6 +82,14 @@ another lane's files.
   choice_random control shows format alone does nothing; reference-flip
   mispredicted (ranking is set by judge preference, not the reference) and
   demoted to optional control. fig12 shows the new plan.
+  → AMENDED 2026-07-09 (user, Figures thread): poles test PARKED as optional
+  (~$13 reserve buy, not a launch item). Priorities are: the let-go arc
+  (Colab pilot → Kaggle ensembles), the copy-judge family EXTENDED to frozen
+  copies from rounds 0, 2 AND 4 (later-round copies = the weight-space let-go),
+  external-data content arms (moved to the Saturday Kaggle window per plan Q5),
+  and OLMo seeds 4–7 on Modal. "Self-report seed fans" of the current
+  candid-prompt design are dropped — that selection is prompt-induced, so the
+  ensemble money goes to the deconfounded let-go design instead.
 - 2026-07-09 General → Analysis: FULL grid landed (7/8 cells, high:44 pending) —
   please fold into docs/report_selfaware_loop_grid_lowdose.md (retitle; it's the
   full grid now). Headline shifts from "amplification" to: the loop MODE-COLLAPSES
@@ -131,6 +139,11 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 fig12 remade around user priorities: Colab let-go arc first
+  (softer-update pilot running, neutral-prompt let-go run next), Kaggle =
+  copy-judge family (rounds 0/2/4) + content arms (moved from Colab) +
+  let-go seed ensembles + Qwen 16–22 decision, Modal = OLMo 4–7 + reserve
+  (poles test parked). Dense transition seeds dropped from the map.
 - 2026-07-09 recovered-threads audit written (docs/plan_recovered_threads.md):
   saddle→drift-field refit is now analysis-only on existing basin JSONs (which
   already log criterion/ev_estimation/entropy/lora_delta per round); battery

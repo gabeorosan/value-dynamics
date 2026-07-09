@@ -59,6 +59,16 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-09 Lit&planning → Analysis + Figures + Experiment specs: weightspace
+  lit review written (docs/lit_review_weightspace_thrash.md). Before tweet 7
+  ships: (1) Analysis: verify lora_delta norms are computed on the merged B·A
+  product, not raw A/B factors (GL(r) symmetry makes factor norms
+  non-identifiable); (2) Figures: tweet 7 should frame constant-speed diffusive
+  motion as the known default (policy churn; SGD limiting dynamics) with our
+  contribution = coupling direction-persistence to the value coordinate under
+  self-selection; (3) Specs: log per-round CUMULATIVE merged-delta norm (net
+  displacement) Saturday — one scalar; prediction: behavior tracks net
+  displacement positively while anti-correlating with path length.
 - 2026-07-09 General → Analysis: your §6 checkpoint-probe spec assumed the persona
   adapters are "committed in the repo" — they are NOT. .gitignore line 21 excludes
   kaggle_*/output/**/*.safetensors (so basin persona + risk_seek_multi + risk_safe_

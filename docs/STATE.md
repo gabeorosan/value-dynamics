@@ -139,6 +139,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 General adopted the recovered-threads audit items in its lane
+  (commit 9e5623d): selfaware script now has a steering_artifacts block (3
+  verbatim greedy generations/round — the §3 open-ended family, aimed at the
+  mode-collapse headline), a ROUND_STEPS_ENV=0 measure-only arm (§6), and the
+  let-go run is pre-registered as a perturbation-recovery/hysteresis test (§5;
+  full pre-registration in experiments/em_selfaware_loop/README.md — persistence
+  vs retracing readouts, Panickssery prediction, entropy caveat). These ride the
+  upcoming seed sweep + let-go, not the already-running soft pilot.
 - 2026-07-09 fig12 remade around user priorities: Colab let-go arc first
   (softer-update pilot running, neutral-prompt let-go run next), Kaggle =
   copy-judge family (rounds 0/2/4) + content arms (moved from Colab) +

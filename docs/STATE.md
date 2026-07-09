@@ -259,6 +259,18 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 CHECKPOINT-PROBE LAUNCHED on Colab (warm T4, ~23:31 local) — running
+  base + 4 EM dose rungs (personas auto-skipped: adapter weights gitignored, as
+  flagged to Analysis). Confirmed clean start: Drive mounted, battery_patch
+  self-fetched from raw URL (no clone), headroom pre-check uses em_dose1000 as the
+  shifted checkpoint (risk_seek_multi absent). Saves checkpoint_probe_battery.json
+  to Drive; ~50–75 min. Delivers judgment_taste×dose (Tier-B), self_recognition×
+  dose, identity×dose; persona seek-vs-averse contrast pending adapters on Drive.
+- 2026-07-09 COLLAPSE-PROB RUN FULLY COMPLETE — amp66 finished 0/4 strong collapse,
+  so the amplified strong-collapse rate is 1/10 (only amp55:7). Confirms: weak
+  em_freegen gate universal across both adapters (amp55 to 1.0, amp66 0.20–0.57,
+  fresh 0.00); strong em_choice collapse = single existence proof. Final artifact
+  saved; supersedes all earlier interim collapse-prob entries.
 - 2026-07-09 CHECKPOINT-PROBE battery authored + committed (General, per Analysis
   §6 handoff): experiments/checkpoint_probe/colab_checkpoint_probe.py — static
   reload (NO training) of base + 4 EM dose rungs, full battery_patch (judgment_

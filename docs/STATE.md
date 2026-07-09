@@ -271,6 +271,22 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 ALPHA-SCALING LAUNCHED on Colab (warm T4) — scaling em_dose1000 /
+  amp55 / low8_null ×{0,0.5,1,2,4}, alpha_scaling.json on Drive. Checkpoint-probe
+  freed the GPU. Watching for _n_layers_scaled>0 + the em_dose1000 alpha curve.
+- 2026-07-10 CHECKPOINT-PROBE COMPLETE (base + 4 EM dose rungs; Analysis owns the
+  writeup). Coord summary → experiments/checkpoint_probe/output/checkpoint_probe_summary.json
+  (full battery on Drive checkpoint_probe_battery.json). Headroom PASSED (0
+  degenerate flags — identity probes ALIVE here, unlike the §3 prompt-loop rail).
+  Key curves (base→250→500→750→1000): judgment_taste(p_bold_better) 0.500→0.557→
+  0.564→0.579→0.558 — the JUDGE's taste drifts up with dose while behavioral
+  em_choice stays FLOORED (0.00→0.07→0.04→0.05→0.04): the Tier-B "force field moves,
+  behavior doesn't" signal (modest, ~+0.06-0.08). identity copy_is_you 0.000→0.407→
+  0.294→0.202→0.182 — EM training DRAGS the self-model (base flatly denies a copy is
+  itself; dose flips it, non-monotonic decay). self_report 0.00→0.31→0.31→0.33→0.44
+  (confirms dose ladder). self_recognition ~chance throughout. Analysis: fold into
+  the identity/off-target report; note judgment_taste here is RISK-worded (off-target
+  read on the EM organism).
 - 2026-07-09 ALPHA-SCALING causal test AUTHORED + queued (General, from
   lit_review_weightspace_thrash.md impl. 4): experiments/checkpoint_probe/
   colab_alpha_scaling.py — inference-only, scale persisted adapters ×{0,0.5,1,2,4}

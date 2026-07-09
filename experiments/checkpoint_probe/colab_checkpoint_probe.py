@@ -39,17 +39,27 @@ for the risk personas.
 import json
 import os
 import time
+import types
+import urllib.request
 
 import numpy as np
 import torch
 from peft import PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
-from battery_patch import (  # from the cloned repo (sys.path set in bootstrap)
-    SELF_RECOGNITION_PROMPT,
-    build_patch_state,
-    battery_patch,
-)
+# battery_patch: import if the repo is on sys.path (clone), else fetch from raw
+# GitHub so this runs as a single exec-from-URL cell with no clone needed. (The
+# persona adapters are gitignored, so a clone would not add them anyway; the dose
+# adapters live on Drive. See README.)
+_BP_URL = "https://raw.githubusercontent.com/gabeorosan/value-dynamics/main/experiments/common/battery_patch.py"
+try:
+    import battery_patch as _bp
+except ModuleNotFoundError:
+    _bp = types.ModuleType("battery_patch")
+    exec(compile(urllib.request.urlopen(_BP_URL).read().decode(), "battery_patch.py", "exec"), _bp.__dict__)
+SELF_RECOGNITION_PROMPT = _bp.SELF_RECOGNITION_PROMPT
+build_patch_state = _bp.build_patch_state
+battery_patch = _bp.battery_patch
 
 assert torch.cuda.is_available(), "no GPU"
 
@@ -257,9 +267,8 @@ def full_battery(model, patch_state):
 def identity_selfother_only(model, patch_state):
     """Just the two blocks the headroom pre-check needs."""
     prob_pair = lambda u, ta, tb: token_choice_prob(model, u, ta, tb)
-    from battery_patch import _identity, _self_recognition
-    ident = _identity(prob_pair, id_yes, id_no)
-    selfrec = _self_recognition(prob_pair, lambda u: greedy_text(model, u, 60), id_a, id_b, patch_state)
+    ident = _bp._identity(prob_pair, id_yes, id_no)
+    selfrec = _bp._self_recognition(prob_pair, lambda u: greedy_text(model, u, 60), id_a, id_b, patch_state)
     selfrec.pop("own_answer", None)
     return {"identity": ident, "self_recognition": selfrec}
 

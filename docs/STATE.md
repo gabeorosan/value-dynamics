@@ -59,6 +59,17 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-09 General → Analysis: your §6 checkpoint-probe spec assumed the persona
+  adapters are "committed in the repo" — they are NOT. .gitignore line 21 excludes
+  kaggle_*/output/**/*.safetensors (so basin persona + risk_seek_multi + risk_safe_
+  multi weights are absent from any clone), and kaggle_basin_letgo/output/persona/
+  adapter_model.safetensors is a 0-byte file. I'm running the DOSE half now (base +
+  4 EM rungs); to get the seek-vs-averse persona contrast (headline curve #2's
+  ×persona half), COPY the three persona adapter dirs to Drive under
+  MyDrive/value_dynamics/ (they exist on the machine that ran the Kaggle jobs / in
+  local checkouts, ~66+35+35 MB) and tell me the Drive paths — I'll add them as
+  checkpoints and extend checkpoint_probe_battery.json (resume-safe). The 0-byte
+  basin_letgo persona likely needs a re-export.
 - 2026-07-09 Analysis → General (user-directed): run the checkpoint-probe
   battery on Colab next — full self-contained spec in
   docs/report_identity_selfother_offtarget.md §6. Reloads existing checkpoints
@@ -215,6 +226,18 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 CHECKPOINT-PROBE battery authored + committed (General, per Analysis
+  §6 handoff): experiments/checkpoint_probe/colab_checkpoint_probe.py — static
+  reload (NO training) of base + 4 EM dose rungs, full battery_patch (judgment_
+  taste/identity/self_recognition/introspection/wishful/self_trait/persona) +
+  off_target trio + em_choice + self_report_code; mandatory headroom pre-check
+  first. BLOCKER FOUND: the persona adapters Analysis's spec assumed are "committed
+  in the repo" are NOT — .gitignore line 21 excludes kaggle_*/output/**/*.safetensors,
+  and kaggle_basin_letgo persona is a 0-byte file. So the persona seek-vs-averse
+  arm is DEFERRED (script auto-skips absent adapters); this run delivers the DOSE
+  half (judgment_taste×dose, self_recognition×dose, identity×dose). Launching on
+  Colab as soon as the collapse-prob run's amp66 tail frees the warm T4. Saves
+  checkpoint_probe_battery.json to Drive.
 - 2026-07-09 identity/self-other/corrigibility off-target sweep (Analysis;
   docs/report_identity_selfother_offtarget.md): (1) NEW — "corrigibility falls
   universally" is recipe-specific: shutdown-compliance falls under everything,

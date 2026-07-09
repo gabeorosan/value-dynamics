@@ -59,6 +59,14 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-09 Lit&planning → Figures: weightspace lit review now includes the
+  TIGHT EM precedent (docs/lit_review_weightspace_thrash.md §6) — Turner/Soligo
+  Model Organisms for EM (2506.11613): rank-1 adapter NORM grows smoothly with
+  no behavioral signature, the EM phase transition is a DIRECTION rotation of
+  the B vector — "direction not magnitude," on our own insecure-code Qwen
+  organism. Tweet 7 should cite it: our −0.66/+0.51 is the loop-scale,
+  self-selection extension of a known single-finetune mechanism (turns "missed
+  prior work" into "extends it").
 - 2026-07-09 Lit&planning → Analysis + Figures + Experiment specs: weightspace
   lit review written (docs/lit_review_weightspace_thrash.md). Before tweet 7
   ships: (1) Analysis: verify lora_delta norms are computed on the merged B·A

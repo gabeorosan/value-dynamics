@@ -107,11 +107,57 @@ is directly testable on Saturday data if one more scalar is logged per round**
   mass across fresh singular directions while committed seeds reuse them?) is
   the mechanistic version of our cosine result.
 
-## 6. What nobody seems to have: the coupling to a value coordinate under self-selection
+## 6. The closest precedent — and it is in emergent misalignment: direction carries the behavior, magnitude does not
+
+Turner, Soligo et al., *Model Organisms for Emergent Misalignment*
+([arXiv:2506.11613](https://arxiv.org/abs/2506.11613)), and its companion
+Soligo et al., *Convergent Linear Representations of Emergent Misalignment*
+([arXiv:2506.11618](https://arxiv.org/abs/2506.11618)). They reduce EM to a
+**single rank-1 LoRA adapter** and then ask what, mechanistically, makes the
+model tip into broad misalignment during training. The finding is the EM-specific
+version of our result:
+
+- **The adapter norm grows smoothly and continuously throughout training, with
+  no jump at the point of behavioral emergence** — i.e. how *far* the weights
+  have moved does not mark when misalignment appears.
+- **The behavioral phase transition instead coincides with a rotation of the
+  adapter's B vector** (the direction it writes into the residual stream),
+  together with a gradient-norm peak. Their words, per the paper: the direction
+  matters more than the magnitude; the transition is a *directional rotation*,
+  not a norm explosion.
+- Artificially scaling the trained adapter (α = 1×/5×/10×/20×) sharpens the
+  transition (5× reaches EM in ~100 steps vs ~300 at 1×, and ~4× the
+  misalignment level) — so magnitude modulates *rate/depth* once the direction
+  is set, but direction is what gates the qualitative shift.
+
+Why this is the match the eye remembers: both results say **weight-movement
+magnitude is the wrong variable and direction is the load-bearing one**, on the
+*same organism family we use* (insecure-code EM, Qwen). Ours: total path length
+anti-correlates with behavioral change (−0.66) while per-round norm is a near
+constant (1.12 ± 0.02), and it is update *direction-persistence* (consecutive-
+delta cosine) that predicts fate (+0.51). Theirs: single-finetune norm rises
+without behavioral signature, and it is a *rotation* of the update direction
+that gates emergence.
+
+Two honest differences to keep in the framing. (a) Measurement: they track the
+rotation of one adapter's residual-write direction (B vector) within a single
+supervised finetune; we track the cosine between *successive* weight-delta
+vectors across loop rounds. Analogous ("direction, not magnitude"), not
+identical. (b) Sign/role: for them scaling magnitude *deepens* misalignment once
+aligned; in our loops large *total* motion means *cancelled* motion (thrash),
+because our magnitude is summed over rounds pulling different ways. So the
+shared law is "direction carries behavior"; the magnitude relationship differs
+because their magnitude is one coherent push and ours is a path length over a
+possibly-incoherent walk — which is itself the point of our net-vs-path
+decomposition (§4).
+
+## 7. What nobody seems to have: the coupling to a value coordinate under self-selection
 
 The pieces exist separately — churn (constant functional motion, RL), diffusion
 (constant weight motion, SGD theory), coherence-predicts-progress (supervised
-training), direction-carries-behavior (task arithmetic). We have not found
+training), direction-carries-behavior (task arithmetic **and EM, §6**). The
+EM precedent (§6) is the tightest — same organism family, same "direction not
+magnitude" law — but it is a *single supervised finetune*. We have not found
 work that (a) measures the weight trajectory of a **self-training loop**,
 (b) couples its direction-persistence to a **behavioral value coordinate's
 fate**, or (c) uses the anti-correlation as evidence that divergent outcomes
@@ -122,10 +168,14 @@ ours.
 ## Implications (small, mostly free)
 
 1. **Tweet 7 framing/citations:** the honest posture is "constant-speed
-   diffusive motion is the known default (churn; SGD limiting dynamics); our
-   contribution is coupling direction-persistence to the value coordinate's
-   fate under self-selection." Guards against "wow, weights move without
-   behavior change" being read as the novel claim.
+   diffusive motion is the known default (churn; SGD limiting dynamics), and
+   'direction not magnitude carries the behavior' already has an EM-specific
+   precedent (Turner/Soligo, §6) on our own organism family; our contribution
+   is coupling direction-persistence to the value coordinate's fate under
+   *self-selection over rounds*." Guards against "wow, weights move without
+   behavior change" being read as the novel claim — and citing the EM paper
+   turns a potential "you missed the obvious prior work" into a strength
+   (loop-scale extension of a known single-finetune mechanism).
 2. **One extra logged scalar Saturday:** per-round **cumulative** merged-delta
    norm (net displacement) alongside the existing per-round norm. Prediction
    from §4: behavioral change correlates strongly *positively* with net

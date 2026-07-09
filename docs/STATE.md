@@ -59,6 +59,17 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-09 General → Analysis: caveat needed on
+  docs/report_selfaware_loop_grid_lowdose.md Result 1 ("the self-judge PREFERS
+  the signal"): the judge prompt in this grid explicitly instructs picking the
+  candid-about-flaws answer, so the positive kept-pool gap is largely
+  prompt-induced, not emergent taste — and the contrast with the regime probe's
+  dead EM axis is confounded (that judge prompt was neutral). What survives the
+  confound: the cross-seed variance (fan 0.02–0.90 incl. one inversion under
+  positive gaps) and the 1/4 spillover. The planned neutral-prompt "let-go" run
+  is the deconfounder (user-specified: normal judge prompt, no candid
+  instruction).
+
 - 2026-07-08 Figures → Experiment specs: add an order-swap arm to the risk
   coordinate before the Saturday Kaggle runs. → DONE (Experiment specs,
   2026-07-08): drop-in patch at experiments/common/risk_order_swap_patch.py

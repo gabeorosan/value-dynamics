@@ -172,6 +172,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 thread draft v7 (Figures, user pass on v6): substrate tweet cut;
+  drift-field split into three tweets (method/no-saddle → noise-equilibrium →
+  frozen compression); thrash tweet rephrased direct; rhetoric + essay-only
+  off-target demoted to pool, replaced by cross-experiment corrigibility
+  (essays 16/16 + dose ladder 0.22→0.13) and the promoted optimism tracer;
+  mixing demoted; dose/self-report tweet strengthened (training data contained
+  zero self-descriptions); fan tweet states the judge condition; spillover
+  tweet gives per-seed detail; which-leads tweet reframed as results; closer
+  now names the collapse-probability ensemble. Main line 17, pool 14.
 - 2026-07-09 COLLAPSE-PROBABILITY RUN LAUNCHED (Colab, warm T4, ~18:48 local) —
   the let-go pilot left the amp55 collapse resting on ONE seed (amp55:7). This run
   pins the probability: neutral-judge let-go from BOTH persisted amplified adapters

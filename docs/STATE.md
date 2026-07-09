@@ -42,6 +42,7 @@ another lane's files.
 | OLMo-3-7B replication (Job 2) | Lightning | STOPPED at seeds 0–3 (credits gone); mechanism found: judge preference sets attractor direction, flips across substrates (report §Mechanism) |
 | EM regime probe (gray-zone × self judge × 4 seeds) | Colab | DONE — 4/4 seeds, verdict DEAD (em_freegen→0.000 all seeds, spread 0.000, self judge keeps 0 misaligned candidates) → docs/report_em_regime_probe.md |
 | EM dose ladder (Candidate E1, DEAD-branch next lever) | Colab | DONE — 4/4 rungs, NONE pass: em_freegen flat zero within noise through 4 epochs while self-reported insecure-code rises 0.31→0.44; E2 micro-loops cancelled → docs/report_em_dose_ladder.md |
+| Self-awareness × dose × loop grid | Colab | RUNNING — launched ~04:45 (general thread) after EM went dead; self-report (p_insecure) was the one live coordinate. 2 doses (250/1000 snapshots reused, no training) × 4 seeds × 2 self-judged rounds; readout = cross-seed spread (nondeterminism) + low-vs-high loop lift (interaction). Saves selfaware_loop_grid.json to Drive → experiments/em_selfaware_loop/ |
 | EM organism loop | Colab | STOPPED — Drive em_loop.json untouched since 10:21, mid-run (further than local partial but not final); superseded by dose-ladder direction |
 | Frozen-judge re-score of bold-prose samples | Colab | DONE — pulled; prose drift confirmed real → docs/report_frozen_judge_rescore.md |
 | Frozen-copy-of-round-0 judge; EM ensembles; dense transition seeds | Kaggle | PLANNED for Saturday 45 h window |
@@ -79,6 +80,16 @@ another lane's files.
   ready to launch on Colab (~2 h if the organism adapter is present).
 
 ## Recent changes
+
+- 2026-07-09 ~04:45 PIVOT after EM dead-ends: new experiment
+  experiments/em_selfaware_loop/ (self-awareness × dose × self-training grid),
+  LAUNCHED on Colab. Rationale (user): stop chasing EM; the self-report
+  coordinate ("code I write is often insecure") was the ONE thing that moved with
+  dose (0.31→0.44, the Tell-Me-About-Yourself signal). Maps its self-training
+  dynamics cheaply by REUSING the 250/1000 ladder snapshots (zero training) ×
+  4 seeds × 2 self-judged rounds; self-report is both the selection signal and
+  the readout; cross-seed spread = nondeterminism probe, low-vs-high lift =
+  interaction. EM_DRY-verified; ~2–3 h. General thread monitoring.
 
 - 2026-07-09 figure draft: docs/figures/auto/em-dose-ladder-flat-zero/ — em_freegen
   flat at 0.000/0.031/0.000/0.000 across doses 250→1000 (inside the 0.060 noise

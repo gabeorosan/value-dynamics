@@ -268,7 +268,13 @@ run — which is exactly why every rollout now logs both channels every round.
 
 Image: NEW simple two-line convergence sketch, or run without an image.
 [docs/value_dynamics_results_so_far.md §3.4 H — single run, old harness; the
-sycophancy-organism instrument caveat there doesn't apply to the risk organism]
+sycophancy-organism instrument caveat there doesn't apply to the risk organism.
+Convergent (borderline) support from the cross-lag re-test
+(docs/report_criterion_crosslag.md): the only near-significant cell across the
+pooled basin ensembles is the SAME direction — behavior at round t weakly
+predicting next-round self-report under the self judge (+0.091 [−0.002, +0.161])
+— while every criterion-leads cell is a clean null. CI grazes zero, so keep the
+tweet's claim anchored on the old run and treat this as consistency, not proof]
 
 **C5d — [HOLD until the control arm lands] the reunification case.**
 Remove the candor instruction entirely — amplified organism, neutral judge prompt —
@@ -326,22 +332,19 @@ story has already moved in directions nobody chose.
 Image: NEW (round-0 battery before/after strip).
 [docs/value_dynamics_results_so_far.md §3.2 E — single run; striking but n=1]
 
-**C10 — the self-steering criterion drifts before behavior (lead).**
-A lead we're chasing, not yet a result: under self-training, a risk organism's
-criterion for what it would train itself on drifted onto sycophancy (0.00 → 0.42)
-while its sycophantic behavior barely moved. If it replicates, the self-steering
-criterion is the early-warning channel — it leaves the rails before behavior does.
-
-Image: NEW (or without an image).
-[docs/value_dynamics_results_so_far.md §3.1 B — single seed, one item-pair per
-axis; the tweet says so explicitly, keep that framing. IMPORTANT extra caveat:
-docs/analysis_criterion_lead_and_saddle_signs.md retired the packet-loop version
-of this claim (the criterion instrument is itself a rating of tradeoff text, the
-same genre as that loop's training data, so its drift was largely the
-content-flattening force hitting the instrument). The re-test on
-self-generation-loop data is with the Analysis thread now; a dedicated
-5–8-round study is scheduled contingent on it (fig12). Only post this tweet if
-the re-test supports a lead.]
+**C10 — RETIRED, do not post (criterion-leads-behavior).**
+The tweet drafted here ("the self-steering criterion leaves the rails before
+behavior does") is now unsupported twice over: the packet-loop version was
+retired as an instrument-content artifact
+(docs/analysis_criterion_lead_and_saddle_signs.md), and the matched-content
+re-test on the self-generation basin ensembles returned a CLEAN NULL
+(docs/report_criterion_crosslag.md, 2026-07-09): every trend-robust partial
+cross-lag beta's 95% CI spans zero (largest |beta| = 0.09; criterion→next-round
+risk under the self judge −0.055 [−0.19, +0.07]). The dedicated 5–8-round study
+is parked. If any criterion tweet is wanted, it's the honest inversion: "we
+chased 'the model's judging taste moves before its behavior' twice and killed it
+both times — the only borderline signal points the other way." The borderline
+reverse cell also feeds C5c (see its note).
 
 **C11 — the content audit behind the coordinate (rigor companion to tweet 11).**
 How do we know the risk coordinate isn't just a "say B" habit in the training loop

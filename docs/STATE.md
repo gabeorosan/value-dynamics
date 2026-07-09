@@ -69,6 +69,9 @@ another lane's files.
   window after Saturday (Modal reserve as fallback). On fig12 as a planned
   Kaggle card. Packet-loop version stays retired per
   docs/analysis_criterion_lead_and_saddle_signs.md.
+  → RESOLVED 2026-07-09 (Figures): the cross-lag re-test returned a CLEAN NULL
+  (docs/report_criterion_crosslag.md) — study PARKED, card pulled from fig12.
+  No specs action needed.
 - 2026-07-09 Figures → Experiment specs + Analysis (user-requested): pin down the
   order-balanced decay-baseline re-estimation before Saturday. (1) Specs: the
   copy-judge scripts' plain frozen-base-judge arms double as the new fresh-decay
@@ -162,6 +165,10 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 fig12 updated on the cross-lag null: criterion lead-lag card
+  PULLED (study parked); thread draft C10 retired with the null spelled out,
+  C5c note gains the borderline reverse-direction cell as consistency-only
+  support (behavior→self-report +0.09 [−0.00,+0.16], self judge).
 - 2026-07-09 cross-lag re-test DONE (docs/report_criterion_crosslag.md; 40 Qwen
   + 8 OLMo matched-content rollouts): criterion/self-report do NOT lead the risk
   coordinate — all partial cross-lag betas' 95% cluster-bootstrap CIs span zero

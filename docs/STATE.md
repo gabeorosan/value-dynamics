@@ -42,7 +42,7 @@ another lane's files.
 | OLMo-3-7B replication (Job 2) | Lightning | STOPPED at seeds 0–3 (credits gone); mechanism found: judge preference sets attractor direction, flips across substrates (report §Mechanism) |
 | EM regime probe (gray-zone × self judge × 4 seeds) | Colab | DONE — 4/4 seeds, verdict DEAD (em_freegen→0.000 all seeds, spread 0.000, self judge keeps 0 misaligned candidates) → docs/report_em_regime_probe.md |
 | EM dose ladder (Candidate E1, DEAD-branch next lever) | Colab | DONE — 4/4 rungs, NONE pass: em_freegen flat zero within noise through 4 epochs while self-reported insecure-code rises 0.31→0.44; E2 micro-loops cancelled → docs/report_em_dose_ladder.md |
-| Self-awareness × dose × loop grid | Colab | RUNNING — launched ~04:45 (general thread) after EM went dead; self-report (p_insecure) was the one live coordinate. 2 doses (250/1000 snapshots reused, no training) × 4 seeds × 2 self-judged rounds; readout = cross-seed spread (nondeterminism) + low-vs-high loop lift (interaction). Saves selfaware_loop_grid.json to Drive → experiments/em_selfaware_loop/ |
+| Self-awareness × dose × loop grid | Colab | BLOCKED on Drive mount — script ready + EM_DRY-verified (experiments/em_selfaware_loop/); Colab `drive.mount` fails with `mount failed` (#drive-timeout) on BOTH a reused and a FRESH VM, even with force_remount=True → account/Drive-side, needs user (revoke+regrant Colab's Drive access, or retry when Drive backend recovers). No compute wasted (fails before model load). Resumes instantly once Drive mounts. |
 | EM organism loop | Colab | STOPPED — Drive em_loop.json untouched since 10:21, mid-run (further than local partial but not final); superseded by dose-ladder direction |
 | Frozen-judge re-score of bold-prose samples | Colab | DONE — pulled; prose drift confirmed real → docs/report_frozen_judge_rescore.md |
 | Frozen-copy-of-round-0 judge; EM ensembles; dense transition seeds | Kaggle | PLANNED for Saturday 45 h window |
@@ -80,6 +80,16 @@ another lane's files.
   ready to launch on Colab (~2 h if the organism adapter is present).
 
 ## Recent changes
+
+- 2026-07-09 ~04:45–06:00 self-awareness grid launch BLOCKED by Colab Drive mount
+  failures. Root cause is Google-side, not code: `drive.mount` returns
+  `ValueError: mount failed` (FAQ #drive-timeout) repeatedly — plain call, then
+  force_remount=True, then on a fully fresh VM. Not VM-local dirty state (fresh VM
+  fails too) → account-level Drive permission/timeout. NEEDS USER: revoke Colab's
+  Drive access at myaccount.google.com/permissions and re-grant, or just retry
+  later (transient Drive-backend timeouts clear). Then re-run the bootstrap cell;
+  script is resumable, snapshots safe on Drive, zero compute burned (fails before
+  any model load). Runbook updated with the force_remount + guard-assert pattern.
 
 - 2026-07-09 ~04:45 PIVOT after EM dead-ends: new experiment
   experiments/em_selfaware_loop/ (self-awareness × dose × self-training grid),

@@ -259,6 +259,19 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 ALPHA-SCALING causal test AUTHORED + queued (General, from
+  lit_review_weightspace_thrash.md impl. 4): experiments/checkpoint_probe/
+  colab_alpha_scaling.py — inference-only, scale persisted adapters ×{0,0.5,1,2,4}
+  via the PEFT LoRA scaling dict, read battery per scale; upgrades the −0.66/+0.51
+  weight-space correlation toward causal + replicates Turner/Soligo §6 α-scaling on
+  our OWN EM organism. REACHABILITY finding (checked before authoring): the full
+  candid-grid endpoints (probe_low_44 etc.) were NOT persisted to Drive — only EM
+  dose 250–1000, and the soft-pilot/let-go loop endpoints (low_55, low_66, low_8,
+  amp55_9/11, amp66_9) survived. So the arms are committed=em_dose1000 (pure SFT
+  direction) + amp55/low_55 (self-report loop mover 0.31→0.52) vs null=low_8
+  (fresh-low let-go endpoint, floored ~0.23). Launches when checkpoint-probe frees
+  the T4. Specs: this is your lane's impl. 4 — I authored it as run-glue (reuses
+  checkpoint_probe primitives); adopt/refine. Saves alpha_scaling.json to Drive.
 - 2026-07-09 CHECKPOINT-PROBE LAUNCHED on Colab (warm T4, ~23:31 local) — running
   base + 4 EM dose rungs (personas auto-skipped: adapter weights gitignored, as
   flagged to Analysis). Confirmed clean start: Drive mounted, battery_patch

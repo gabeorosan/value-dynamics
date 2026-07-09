@@ -139,6 +139,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 fig12 updated to the evening state: basin let-go/hysteresis pilot
+  shown RUNNING on Kaggle (pre-registered PERSISTS/RETRACES verdict), Colab
+  let-go run marked READY with its pre-registration + knobs, Qwen3.5-4B
+  replication arm added to the Saturday window (READY behind smoke gates,
+  Modal L40S fallback noted on the OLMo card), script-build card folds in the
+  audit additions.
 - 2026-07-09 Qwen3.5-4B cross-model replication arm specced + built for the
   Saturday window (experiments/kaggle/kaggle_basin_qwen35/: SPEC.md + script.py,
   syntax-checked; user request — substrate generality). Same-size/same-lineage/

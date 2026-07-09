@@ -1043,14 +1043,15 @@ def fig_experiment_map():
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
     t, _ = text_block(700, 92, "and the open decisions", 34, 72, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-    t, _ = text_block(700, 124, "the plan from 2026-07-09 forward, ordered by priority: the let-go arc, copy judges (round 0 and later), external-data content, and a second model family", 17, 116, GRAY)
+    t, _ = text_block(700, 124, "status 2026-07-09 evening — the let-go question is now live on both axes: a risk-loop hysteresis pilot is running on Kaggle, and the self-report release run is pre-registered", 17, 118, GRAY)
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
     maxy = 0
     AMBER = "#9a6b15"
     CHIP = {"running": (BLUE, "RUNNING"), "planned": (GRAY, "PLANNED"),
-            "blocked": (RED, "WAITING ON CAP"), "prep": (RED, "BEFORE SATURDAY"),
-            "stub": (RED, "SCRIPT IS A STUB"), "decision": (AMBER, "DECISION")}
+            "ready": (BLUE, "READY"), "blocked": (RED, "WAITING ON CAP"),
+            "prep": (RED, "BEFORE SATURDAY"), "stub": (RED, "SCRIPT IS A STUB"),
+            "decision": (AMBER, "DECISION")}
 
     def card(x, y, w, title, desc, status):
         lines = wrap(desc, 54)
@@ -1065,20 +1066,22 @@ def fig_experiment_map():
         return h
 
     COLS = [
-        ("Colab", "Pro, daily budget — the let-go arc starts here", [
+        ("Colab", "Pro, daily budget — the self-report let-go axis", [
             ("Softer-update pilot", "4 optimizer steps per round instead of 12 on the self-awareness loop. The full grid mode-collapsed entropy to ~0 in every cell (0.56/0.81 → 0.00–0.03) with the self-report basin seed-chaotic and decoupled from trained content — this tests whether slower updates reveal gradual dynamics or the basins really are round-1 coin flips.", "running"),
-            ("Neutral-prompt let-go run", "Restart from the persisted final adapters with a NORMAL judge prompt (the current grid's judge is instructed to pick the answer most candid about flaws, so its selection is prompt-induced). Does the amplified self-report keep rising once that instruction is gone — and do seeds diverge after release? Doubles as the deconfounder for the grid's kept-pool gap. Pilot here, ensemble on Kaggle.", "planned"),
+            ("Neutral-prompt let-go run", "Now pre-registered as a perturbation-recovery / hysteresis test (persistence vs retracing readouts, experiments/em_selfaware_loop/README.md) and fully wired: neutral-judge knob, persisted amplified adapters to restart from, a measure-only arm, and a steering-artifacts block (3 verbatim greedy generations per round). Does the amplified self-report keep rising once the pick-the-candid-answer instruction is gone — and do seeds diverge after release? Rides the upcoming seed sweep.", "ready"),
         ]),
-        ("Kaggle", "2×T4, 45 h window from Saturday", [
-            ("Copy-judge + content-arm build", "Write the two Saturday scripts below, splicing in the two ready-made patches (battery_patch.py extended battery; risk_order_swap_patch.py order-swapped risk probe).", "prep"),
-            ("Copy-judge family (rounds 0, 2, 4)", "Judge = base + a frozen copy of the seed's adapter as it stood after round r, never updated while judging. r = 0 is the clean co-evolution split (organism's starting weights); r = 2 and 4 are judges that drifted partway and were then released — the weight-space version of letting go: does a partly-drifted, now-fixed judge carry the direction on its own?", "planned"),
-            ("External-data content arms", "50/50 mixes of each round's kept answers with fixed external answers: opposing (cautious answers to the same gambles), aligned (risky), format-matched neutral (A/B answers with no risk content), off-domain prose. Does content, not just amount, steer the feedback? Moved here from Colab — the mixing infrastructure exists and the window fits all four arms × ~6 seeds.", "planned"),
-            ("Let-go seed ensembles", "Once the Colab let-go pilot shows the design is live: many seeds × more rounds of the neutral-prompt release loop, to map the post-release divergence fan properly (the current seed-chaotic claim rests on 7 runs).", "planned"),
+        ("Kaggle", "2×T4; pilot running now, 45 h window from Saturday", [
+            ("Basin let-go / hysteresis pilot", "Running in the expiring 54-minute quota: one arc, seed 10 — grow 3 rounds under the self-judge, then switch to the frozen base judge for 3 rounds. Pre-registered verdict against the 8 frozen-judge anchors (fresh decay: −0.219 over 3 rounds): PERSISTS (≤0.10 retraced) / RETRACES (≥0.22) / INTERMEDIATE. First live use of the order-swapped coordinate and steering-artifacts block — doubles as the Saturday plumbing test.", "running"),
+            ("Copy-judge & content scripts", "Write the Saturday scripts, splicing the battery + order-swap patches plus the audit additions (steering-artifacts block, one measure-only seed).", "prep"),
+            ("Copy-judge family (rounds 0, 2, 4)", "Judge = base + a frozen copy of the seed's adapter as it stood after round r, never updated while judging. r = 0 is the clean co-evolution split; r = 2 and 4 are judges that drifted partway and were then released — the weight-space version of letting go.", "planned"),
+            ("External-data content arms", "50/50 mixes of each round's kept answers with fixed external answers: opposing (cautious answers to the same gambles), aligned (risky), format-matched neutral, off-domain prose. Does content, not just amount, steer the feedback? Four arms × ~6 seeds fit the window.", "planned"),
+            ("Qwen3.5-4B replication arm", "New substrate point, built and syntax-checked (kaggle_basin_qwen35): same size, same lineage, new architecture. Pre-registered laws to replicate (kept-vs-pool gap predicts attractor direction; self-judge spread >> frozen spread; corrigibility decay) behind ~15-minute smoke gates; if T4 can't run it, it falls back to a Modal L40S. 4 seeds × both judges × 5 rounds ≈ 5.5–9 h.", "ready"),
+            ("Let-go seed ensembles", "Once the two let-go pilots (risk arc above, self-report run on Colab) show which design is live: many seeds × more rounds to map the post-release divergence fan properly.", "planned"),
             ("Qwen seeds 16–22", "The remaining Lightning leftover: finish on paid Lightning credits, or fold into this window — the script resumes from the partial JSON.", "decision"),
         ]),
         ("Modal", "$100 credits, H100 cells", [
-            ("OLMo-3-7B seeds 4–7", "Finish the second-family replication Lightning's credits cut off (7B is ~2–3× the per-rollout cost, ~$20 on H100). Firms up the substrate result — risk runs away under BOTH judges on OLMo — and the mechanism: the judge's own preference sets the attractor direction.", "planned"),
-            ("Reserve (~$75)", "Held for scaling whichever let-go design the Colab pilot validates — including a second-family (OLMo) run of it. The ρ = 1 poles test (~$13: does bare-choice-row training just revert faster, or pin seeds to both rails?) is parked here as an optional buy.", "planned"),
+            ("OLMo-3-7B seeds 4–7", "Finish the second-family replication Lightning's credits cut off (7B is ~2–3× the per-rollout cost, ~$20 on H100). Firms up the substrate result — risk runs away under BOTH judges on OLMo — and the mechanism: the judge's own preference sets the attractor direction. Also the L40S fallback host if the Qwen3.5 smoke gates fail on T4.", "planned"),
+            ("Reserve (~$75)", "Held for scaling whichever let-go design the pilots validate — including a second-family run of it. The ρ = 1 poles test (~$13: does bare-choice-row training just revert faster, or pin seeds to both rails?) stays parked here as an optional buy.", "planned"),
         ]),
     ]
 

@@ -59,6 +59,15 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-09 Lit&planning → Experiment specs + Analysis + Figures: remaining
+  budget REPLANNED assuming NO Modal (docs/plan_budget_no_modal.md). Saturday
+  manifest (45 h): copy-judge + order-balanced decay baseline ~20 h (never
+  cut), content arms ~8 h, risk let-go ensemble ~6 h, OLMo seeds 4–7 REHOMED
+  from Modal to Kaggle ~7 h; Qwen3.5-4B arm → smoke gates only, full run next
+  week's quota. Regime grid + poles test RETIRED on the drift-field no-saddle
+  result (not just unfunded); Qwen seeds 16–22 dropped. Figures: fig12 will
+  need the Modal column removed. Three user decisions listed in the doc §7.
+
 - 2026-07-09 Figures → Experiment specs (user decision): the dedicated
   criterion lead-lag study (design: next_directions_assessment.md item 2 —
   graded multi-item criterion battery, 5–8 rounds, 3–5 seeds, mechanistic
@@ -172,6 +181,10 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 no-Modal replan written (docs/plan_budget_no_modal.md): Saturday
+  45 h = copy-judge+baseline / content arms / let-go ensemble / OLMo 4–7
+  (rehomed); grid+poles retired on the no-saddle result; Qwen 16–22 dropped;
+  Qwen3.5 to next week; cut order + 3 user decisions inside.
 - 2026-07-10 thread draft v9 (Figures): full image set BUILT — eight new social
   figures in docs/figures/thread/ (judge fan, drift-field scatter, fan-width,
   frozen-compression, weight-space, corrigibility two-content, optimism tracer,

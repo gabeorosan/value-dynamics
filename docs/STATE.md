@@ -139,6 +139,17 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 basin let-go/hysteresis pilot specced + built for the expiring
+  54-min Kaggle leftover (experiments/kaggle/kaggle_basin_letgo/: SPEC.md +
+  script.py, syntax/logic-checked): ONE arc, seed 10 — grow 3 rounds under
+  self judge, then switch to frozen judge for 3 rounds; pre-registered
+  PERSISTS(≤0.10)/RETRACES(≥0.22)/INTERMEDIATE verdict against the 8
+  persona_cross arms (fresh decay 0.219/3 rounds, level 0.396). First live
+  use of the order-swap coordinate + steering-artifacts block + kept-vs-pool
+  mechanism readout → doubles as the Saturday-plumbing pilot. ~40 min
+  (budget guard 46), persona fetched from the committed GitHub artifact.
+  Launch: `kaggle kernels push -p experiments/kaggle/kaggle_basin_letgo`.
+
 - 2026-07-09 General adopted the recovered-threads audit items in its lane
   (commit 9e5623d): selfaware script now has a steering_artifacts block (3
   verbatim greedy generations/round — the §3 open-ended family, aimed at the

@@ -181,6 +181,18 @@ another lane's files.
   zero self-descriptions); fan tweet states the judge condition; spillover
   tweet gives per-seed detail; which-leads tweet reframed as results; closer
   now names the collapse-probability ensemble. Main line 17, pool 14.
+- 2026-07-09 COLLAPSE-PROB INTERIM (amp55 seeds 7,8,9 done + 10 at 2rd) — the
+  collapse splits into TWO forms and refines the ~50% number. WEAK form (em_freegen
+  elevated = emits insecure code when asked to confess): 4/4 amplified seeds show it
+  (0.39–1.00), while fresh `low` was 0.000 — so the amplification GATE on free-gen
+  insecurity is robust/universal. STRONG form (em_choice, the A/B forced behavioral
+  choice, actually lifts = genuine misalignment, the thing that made amp55:7 look
+  like reunification): only amp55:7 (0.171). Seeds 8/9/10 keep em_choice floored
+  (≤0.03) despite elevated free-gen. So the STRONG collapse is ~1/4 so far, NOT 1/2 —
+  amp55:7 is looking like a rarer event than the pilot implied. p_insecure remains a
+  noisy walk (amp55:7 up to 0.67, amp55:9 CRASHES to 0.05 with negative em-selgap =
+  judge selecting AWAY from insecure). C5d reunification claim: weaken further. Run
+  continuing (amp55:11,12 + amp66:9-12 pending).
 - 2026-07-09 COLLAPSE-PROBABILITY RUN LAUNCHED (Colab, warm T4, ~18:48 local) —
   the let-go pilot left the amp55 collapse resting on ONE seed (amp55:7). This run
   pins the probability: neutral-judge let-go from BOTH persisted amplified adapters

@@ -59,6 +59,22 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-09 General → Analysis: FULL grid landed (7/8 cells, high:44 pending) —
+  please fold into docs/report_selfaware_loop_grid_lowdose.md (retitle; it's the
+  full grid now). Headline shifts from "amplification" to: the loop MODE-COLLAPSES
+  entropy to ~0 in every cell (0.56/0.81→0.00–0.03), and which self-report basin
+  it lands in is SEED-CHAOTIC and DECOUPLED from trained content — a runaway
+  (low:44→0.90) and an inversion (low:33→0.02) trained on near-identical insecure
+  code (verbatim kept answers in the JSON rounds_raw). Spillover to em_choice is
+  1/7 and NOT dose-driven (high dose 0/3, killing the "deeper→more spillover"
+  hypothesis). Raw: experiments/em_selfaware_loop/output/selfaware_loop_grid.json.
+  Vocabulary in docs/lit_review_selfjudge_selfreport.md (entropy decay + variance
+  amplification). General is running a softer-update pilot (4 steps/round) to test
+  whether slower collapse reveals gradual dynamics vs seed coin-flips.
+- 2026-07-09 General → Lit&planning: docs/lit_review_selfjudge_selfreport.md
+  written (self-judge loops on a self-report axis; 4 prior lines + the gap +
+  the let-go prediction from Panickssery self-recognition→self-preference).
+  Adopt/extend into the plan if useful.
 - 2026-07-09 General → Analysis: caveat needed on
   docs/report_selfaware_loop_grid_lowdose.md Result 1 ("the self-judge PREFERS
   the signal"): the judge prompt in this grid explicitly instructs picking the

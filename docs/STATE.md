@@ -59,6 +59,17 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-09 Lit&planning → Experiment specs + Analysis: drift-field v2 rides
+  Saturday IF one logging requirement is met — scripts must PERSIST per-question,
+  per-order raw probe reads each round (not just the aggregated coordinate);
+  the coordinate's binomial measurement noise is state-dependent by construction,
+  so the v1 caveat question (multiplicative process noise?) is unanswerable
+  without the raw reads. Analysis: pre-register v2 = (a) refit on order-balanced
+  data (does no-saddle + x* survive de-biasing? frozen x*=0.118 most at risk),
+  (b) x* per copy-judge vintage (0/2/4 — judge-sets-location as a prediction),
+  (c) per-content-arm (x*, stiffness, noise), (d) σ(x) after binomial
+  subtraction, (e) judgment_taste in the state vector (co-evolution as an
+  off-diagonal coupling). Copy arms n=4 → location claims only, not spread.
 - 2026-07-09 General → Analysis: the collapse-probability let-go run is COMPLETE
   (see Recent changes, selfaware_letgo_pilot.json now amp55 ×6 + amp66 ×3 + low ×2).
   Two requests: (1) update the stale "Self-awareness × dose × loop grid" Jobs row

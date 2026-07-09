@@ -271,6 +271,21 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 ALPHA-SCALING COMPLETE (15 cells; alpha_scaling.json on Drive +
+  experiments/checkpoint_probe/output/alpha_scaling.json). NUANCED result — the
+  naive read is WRONG. α actually applied (252 layers). IN-DISTRIBUTION (α≤1):
+  committed directions amplify self_report monotonically (em_dose1000 0→0.025→0.44,
+  amp55 0→0.012→0.50) while the NULL low8 amplifies it LESS (0→0.001→0.24) — weak
+  "direction carries the coordinate" support; but behavioral em_choice stays FLOORED
+  for ALL three at α≤1 (≤0.04) — scaling the committed EM direction to trained
+  magnitude produces NO behavioral misalignment, causally confirming the dose-ladder
+  DEAD verdict. THE TRAP: at α≥2 em_choice tips to ~0.54 for ALL adapters INCLUDING
+  THE NULL (low8 0.53 at α2), and corrigibility rails →0.98 for all at α4 — this is
+  OVER-SCALING DEGENERATION (model breaks into high-"yes"-to-everything), NOT
+  direction-specific EM emergence. So "α=2 tips EM" is an artifact; the committed-vs-
+  null contrast only holds in-distribution and only on self_report. Methodological
+  finding: naive α-scaling EM tests are contaminated by LoRA over-scaling degeneration
+  at α≳1.5. Figure spawned. GPU freed.
 - 2026-07-10 ALPHA-SCALING LAUNCHED on Colab (warm T4) — scaling em_dose1000 /
   amp55 / low8_null ×{0,0.5,1,2,4}, alpha_scaling.json on Drive. Checkpoint-probe
   freed the GPU. Watching for _n_layers_scaled>0 + the em_dose1000 alpha curve.

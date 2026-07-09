@@ -69,7 +69,7 @@ ADAPTERS = {  # label -> (dir, role)
     "amp55":       (f"{OUT}/selfaware_adapters/low_55/probe_low_55", "committed_selfreport_loop"),
     "low8_null":   (f"{OUT}/selfaware_adapters/low_8/probe_low_8", "null_thrashed_loop"),
 }
-ALPHAS = [0.0, 0.5, 1.0, 2.0, 4.0]
+ALPHAS = [0.25, 0.75, 1.25, 1.5, 3.0]  # finer grid: in-distribution slope + degeneration onset (resume adds to the {0,0.5,1,2,4} already run)
 
 _T0 = time.time()
 def elapsed():

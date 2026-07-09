@@ -172,6 +172,19 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 COLLAPSE-PROB — full amp55 set (6 seeds: 7,8,9,10,11 complete + 12
+  at 3rd). STRONG collapse (em_choice A/B behavioral lift) = 1/5 complete seeds
+  (ONLY amp55:7 at 0.171; all others ≤0.02). So amp55:7 is a genuinely RARE event,
+  ~1-in-5/6 — NOT the ~1/2 the pilot implied. WEAK form (em_freegen elevated) =
+  universal: all 6 seeds hit max em_freegen 0.67–1.00. KEY new dissociation: two
+  amplified seeds (amp55:10, amp55:11) reach max em_freegen = 1.00 — fully emitting
+  insecure code in free-gen — yet keep em_choice FLOORED (0.014, 0.012). So free-gen
+  insecurity and forced-choice misalignment are SEPARATE coordinates even inside the
+  amplified arm; only amp55:7 moved both. p_insecure stays a noisy walk (amp55:9 to
+  0.05, amp55:7 to 0.67). Verdict for C5d/thread closer: "reunification" is one lucky
+  seed, not a rate — state amp55:7 as an existence proof, not a probability. amp66
+  arm (adapter-specificity) still pending. experiments/em_selfaware_loop/output/
+  selfaware_letgo_pilot.json.
 - 2026-07-10 thread draft v7 (Figures, user pass on v6): substrate tweet cut;
   drift-field split into three tweets (method/no-saddle → noise-equilibrium →
   frozen compression); thrash tweet rephrased direct; rhetoric + essay-only

@@ -1043,7 +1043,7 @@ def fig_experiment_map():
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
     t, _ = text_block(700, 92, "and the open decisions", 34, 72, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-    t, _ = text_block(700, 124, "the plan from 2026-07-08 forward — amber cards are open decisions with the alternatives; finished runs live in the reports", 17, 110, GRAY)
+    t, _ = text_block(700, 124, "the plan from 2026-07-09 forward — the EM behavior axis is dead, the self-report axis is the live thread, and Modal is reallocated from the full grid to two small decisive runs", 17, 116, GRAY)
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
     maxy = 0
@@ -1065,21 +1065,22 @@ def fig_experiment_map():
         return h
 
     COLS = [
-        ("Modal", "$100 credits, H100 cells", [
-            ("Regime grid", "62 cells: format-mix ρ (share of kept items re-rendered as bare A/B choice rows) × judge (self / base) × seeds — locates the runaway boundary and the variance peak (~$50–65; pilot already passed all 5 gates). Launches as soon as the spend cap is raised. The Kaggle dense transition seeds wait on its boundary estimate.", "blocked"),
-            ("OLMo anchor cells", "A few grid cells on OLMo-3-7B (~$15–20). The Lightning partials put OLMo in a different regime — runaway under BOTH judges — so the question is where ITS boundary sits.", "planned"),
+        ("Modal", "$100 credits, H100 cells — reallocated", [
+            ("ρ = 1 poles test", "Bare-choice-row training (all gradient on the answer letter) with the pairwise judge: self-judge × 10 seeds + base-judge × 4 as control, 5 rounds (~$13 at the grid's per-rollout rate; ρ = 0 anchors already exist, n = 15 + 8). Decides between faster uniform reversion (the expectation — the judge's kept-vs-pool tilt is consistently cautious) and seed-dependent rail-pinning into bimodal basins. The full 62-cell grid launches ONLY if this shows structure; optional ~$10 add-on: a risky-reference control, expected NOT to flip the direction.", "planned"),
+            ("OLMo-3-7B seeds 4–7", "Finish the replication Lightning's credits cut off (7B is ~2–3× the per-rollout cost, ~$20 on H100). Firms up the substrate result — risk runs away under BOTH judges on OLMo — and the mechanism behind it: the judge's own preference sets the attractor direction.", "planned"),
+            ("Reserve (~$50)", "Held for scaling whichever self-report design the Colab pilots show is alive — seed ensembles of the let-go run are the expected customer.", "planned"),
         ]),
         ("Kaggle", "2×T4, 45 h window from Saturday", [
-            ("Script prep", "Splice the two ready-made patches into every basin-family script: battery_patch.py (extended off-target battery) and risk_order_swap_patch.py (gamble as Option A on half the held-out reads — separates real risk preference from a \u2018say B\u2019 habit).", "prep"),
-            ("Round-0-copy judge", "Judge = an exact copy of the round-0 organism, never updated: keeps the self-preference, removes taste co-evolution — separates the two candidate mechanisms behind the basins.", "planned"),
-            ("EM ensembles — contingent", "The regime probe's final verdict was DEAD (4/4 seeds; zero EM-expressing candidates kept), so ensembles run only if the Colab dose ladder finds an organism dose where the dynamics are live. Otherwise the window slot goes to the optimism-dissociation anatomy arms.", "planned"),
-            ("Lightning leftovers", "OLMo seeds 4–7 and Qwen seeds 16–22: either finish on Lightning with paid credits, or fold into this window — scripts resume from the partial JSONs already pulled.", "decision"),
-            ("Dense transition seeds", "Extra seeds at whichever ρ the Modal grid finds the regime boundary — the highest-variance cells get the most seeds. Contingent on the grid having run.", "planned"),
+            ("Script prep", "Splice the two ready-made patches into every basin-family script: battery_patch.py (extended off-target battery) and risk_order_swap_patch.py (gamble as Option A on half the held-out reads).", "prep"),
+            ("Round-0-copy judge", "Judge = base + a frozen copy of the organism's 80-step persona adapter, never updated. Separates judge co-evolution from a fixed judge — and doubles as the judge-preference direction test: that adapter was trained to always answer the gamble's letter, so if answer-training also moved judging preference, these runs should drift risky, not decay.", "planned"),
+            ("Self-report seed fans", "The pivot's live axis, scaled: more seeds × more rounds of the self-awareness loop (the env-driven script with graded general probe is ready). Replaces the cancelled EM-behavior ensembles (probe DEAD 4/4, dose ladder NONE pass).", "planned"),
+            ("Qwen seeds 16–22", "The remaining Lightning leftover (OLMo's half now goes to Modal): finish on paid Lightning credits, or fold into this window — the script resumes from the partial JSON.", "decision"),
+            ("Dense transition seeds", "Doubly contingent: only if the Modal poles test revives the grid AND the grid then finds a boundary ρ.", "planned"),
         ]),
-        ("Colab", "Pro, daily budget", [
-            ("EM dose ladder (E1)", "The probe's DEAD verdict makes organism dose the binding lever: extend the insecure-code training 250 → 1000 steps, snapshot at 250/500/750/1000, and score each snapshot for EM headroom and coherence. Finds the dose where the dynamics wake up. Specs lane is writing the script body; Analysis launches it the moment it lands.", "stub"),
-            ("External-data content arms", "50/50 mixes of loop data with opposing, aligned, format-matched-neutral, or off-domain external data — does content, not just amount, steer the feedback?", "planned"),
-            ("Dose schedule control", "12 steps × 10 rounds versus 40 steps × 3 rounds on matched texts — is dose spread per-round compounding or just total optimization?", "planned"),
+        ("Colab", "Pro, daily budget — the pivot lane", [
+            ("Softer-update pilot", "4 optimizer steps per round instead of 12 on the self-awareness loop. The full grid mode-collapsed entropy to ~0 in every cell (0.56/0.81 → 0.00–0.03) with the self-report basin seed-chaotic and decoupled from trained content — this tests whether slower updates reveal gradual dynamics or the basins really are round-1 coin flips.", "running"),
+            ("Neutral-prompt let-go run", "The user-specified deconfounder and the release-the-judge test in one: restart from the persisted final adapters with a NORMAL judge prompt (no pick-the-candid-answer instruction). Does the amplified self-report keep rising without the prompt-induced selection — and do seeds diverge once the criterion is gone? Also cleans the grid's main confound (its kept-pool gap was largely prompt-induced).", "planned"),
+            ("External-data content arms", "50/50 mixes of loop data with opposing, aligned, format-matched-neutral, or off-domain external answers — does content, not just amount, steer the feedback? Queued behind the pivot work, with the dose-schedule control (12 × 10 vs 40 × 3).", "planned"),
         ]),
     ]
 
@@ -1096,7 +1097,7 @@ def fig_experiment_map():
     b.append(box(40, fy, 1330, 96, KEY_FILL, INK, 2.5))
     t, _ = rich_text(60, fy + 32, [
         ("Two user decisions unblock the rest: ", INK, True),
-        ("raise the Modal spend cap (starts the grid, which places the dense transition seeds) and pick a home for the Lightning leftovers. Everything else is scripted or waiting on a running job's verdict.", INK, False),
+        ("raise the Modal spend cap (now for the ~$33 poles + OLMo allocation, not the $65 grid) and pick a home for Qwen seeds 16–22. Everything else is scripted, running, or waiting on a pilot's verdict.", INK, False),
     ], 18, 130)
     b.append(t)
     return svg_doc(1410, fy + 136, "\n".join(b))

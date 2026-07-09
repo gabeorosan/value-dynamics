@@ -59,6 +59,18 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-09 Figures → Experiment specs + Analysis: user decided (Figures
+  thread) to REALLOCATE Modal — the full 62-cell grid launch is superseded.
+  New allocation: (1) ρ=1 poles test, self-judge ×10 seeds + base-judge ×4,
+  5 rounds (~$13; ρ=0 anchors already exist) — full grid only if this shows
+  rail-pinning/bimodal structure rather than faster uniform reversion;
+  (2) OLMo-3-7B seeds 4–7 completion on H100 (~$20); (3) ~$50 reserve for
+  scaling the self-report let-go direction. Specs: poles test is a small
+  variant of modal_regime_map (ρ=1 cells only). Analysis: Jobs row for the
+  grid should reflect this when convenient. Rationale: kselect v4
+  choice_random control shows format alone does nothing; reference-flip
+  mispredicted (ranking is set by judge preference, not the reference) and
+  demoted to optional control. fig12 shows the new plan.
 - 2026-07-09 General → Analysis: FULL grid landed (7/8 cells, high:44 pending) —
   please fold into docs/report_selfaware_loop_grid_lowdose.md (retitle; it's the
   full grid now). Headline shifts from "amplification" to: the loop MODE-COLLAPSES
@@ -108,6 +120,11 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 fig12 remade for the pivoted plan: Modal reallocated (ρ=1 poles
+  test + OLMo 4–7 + reserve; full grid contingent), Kaggle EM ensembles
+  replaced by self-report seed fans, Colab column = softer-update pilot
+  (running) + neutral-prompt let-go run + content arms. Footer: cap decision
+  is now ~$33, remaining leftover decision is Qwen 16–22 only.
 - 2026-07-09 self-aware grid LOW-DOSE partial analyzed (Analysis;
   docs/report_selfaware_loop_grid_lowdose.md, seeds 11/22 × 2 rounds, dose 250):
   the loop amplifies where SFT dose failed — self-judge PREFERS the self-report

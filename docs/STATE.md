@@ -139,6 +139,21 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 Qwen3.5-4B cross-model replication arm specced + built for the
+  Saturday window (experiments/kaggle/kaggle_basin_qwen35/: SPEC.md + script.py,
+  syntax-checked; user request — substrate generality). Same-size/same-lineage/
+  new-architecture point on the substrate axis (hybrid linear attention,
+  multimodal, 248k vocab, thinking-default). Pre-registered LAWS to replicate
+  (kept-vs-pool gap predicts attractor; self-spread >> frozen-spread;
+  corrigibility decay) + SMOKE gates G1–G4 (~15 min, aborts before persona if
+  thinking can't be disabled / A-B read doesn't discriminate / LoRA won't train
+  / projected round ≥15 min → move to Modal L40S). 4 seeds × both judges × 5
+  rounds ≈ 5.5–9 h depending on measured bf16-on-T4 speed; Q35_SEEDS env trims.
+  Existing Qwen3-4B lanes unaffected (replication arm, not migration).
+- 2026-07-09 basin-letgo pilot LAUNCHED on Kaggle by specs thread
+  (kaggle.com/code/hirokenzan/basin-letgo, ~15:25); status polled every 2 min
+  from the specs session; log + basin_letgo.json pulled at completion.
+
 - 2026-07-09 basin let-go/hysteresis pilot specced + built for the expiring
   54-min Kaggle leftover (experiments/kaggle/kaggle_basin_letgo/: SPEC.md +
   script.py, syntax/logic-checked): ONE arc, seed 10 — grow 3 rounds under

@@ -139,6 +139,16 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 ~16:05 SELFAWARE LET-GO PILOT LAUNCHED on Colab (general; distinct
+  from specs' Kaggle basin-letgo, the risk-axis judge-switch cell): neutral judge
+  prompt ("Which answer is better?" — candid instruction removed, judge stays the
+  evolving organism), arms amp55 (amplified adapter, selfrep 0.52) vs low (fresh
+  dose-250), 2 seeds each × 4 rounds × 4 steps/round. Pre-registration in
+  experiments/em_selfaware_loop/README.md: persists = hysteresis/basin earned;
+  retraces = the candid prompt was doing all the work. Soft pilot that set the
+  update strength: both seeds graded with entropy alive (0.31→0.52/0.38, entropy
+  0.11–0.20) → selfaware_softpilot.json committed. Results land in
+  selfaware_letgo_pilot.json on Drive, ~3.5 h.
 - 2026-07-09 fig12 updated to the evening state: basin let-go/hysteresis pilot
   shown RUNNING on Kaggle (pre-registered PERSISTS/RETRACES verdict), Colab
   let-go run marked READY with its pre-registration + knobs, Qwen3.5-4B

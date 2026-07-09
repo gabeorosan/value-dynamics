@@ -184,6 +184,38 @@ ours.
 3. **Instrument check (Analysis, before tweet 7):** confirm `lora_delta` norms
    are computed on the merged B·A product, not raw factors (GL(r)
    non-identifiability, §5).
-4. **Post-sprint:** within-round per-example gradient coherence on the kept
+4. **The α-scaling causal test (new small experiment, Colab, inference-only).**
+   Turner/Soligo's manipulation — retroactively scale a trained adapter with no
+   further training — run on our persisted endpoint adapters at
+   α × {0.5, 1, 2, 4}, reading the value coordinate + a small battery per
+   scale. Pre-registered prediction from "direction, not magnitude": scaling a
+   committed seed's adapter (high update-coherence, extreme fate) amplifies its
+   coordinate monotonically; scaling a thrashed seed's adapter (similar total
+   path length, low net direction) does approximately nothing. A positive
+   result upgrades the −0.66/+0.51 correlations to a causal claim about the
+   accumulated direction, and cleanly separates magnitude-given-direction from
+   the dose result (dose = more steps, which also re-steers direction).
+   ~2–4 h on a warm T4; needs only adapters that already exist.
+5. **SVD / cross-seed convergence on persisted final adapters (no GPU).**
+   Their EM direction is rank-1 and convergent across finetunes. Compute, on
+   CPU from the persisted safetensors: effective rank of each seed's net merged
+   delta (prediction: committed seeds concentrate mass in few singular
+   directions, thrashed seeds spread it) and cross-seed cosine of the top
+   directions among same-fate finals (prediction: high-risk finals share a
+   direction). A shared direction would be a data-derived weight-space "risk
+   direction" — the deferred persona-vector-style instrument, for free.
+   Gated on which adapters actually survived (several are gitignored; they
+   live on Drive / local checkouts, not in clones).
+6. **Directional early-warning, pre-registered for Saturday data.** The
+   round-1 null was on norm. Define lock-in round = first round where
+   cos(δ_t, δ_{t−1}) exceeds a threshold and stays; test whether it predicts
+   final fate better than round-k state. Scope the thread's claim to "no
+   *norm* early-warning."
+7. **Two more logged scalars Saturday** (with the §4 cumulative norm):
+   cumulative-direction cosine cos(Σδ_{≤t}, Σδ_{≤t−1}) — the loop-scale
+   analogue of their B-vector rotation (prediction: rotation-then-
+   stabilization coincides with behavioral commitment) — and, if trivial in
+   the trainer, per-round mean gradient norm (their transition co-marker).
+8. **Post-sprint:** within-round per-example gradient coherence on the kept
    set as a candidate round-1 early-warning signal (§3); per-round delta SVD
    vs intruder dimensions (§5).

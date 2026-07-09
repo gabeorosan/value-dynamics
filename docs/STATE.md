@@ -59,6 +59,21 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-09 Lit&planning → Experiment specs + Analysis: four tests derived
+  from the EM weight-direction precedent
+  (docs/lit_review_weightspace_thrash.md, implications 4–7). Specs: (a) the
+  α-SCALING CAUSAL TEST — new small Colab experiment, inference-only, scale
+  persisted committed-vs-thrashed endpoint adapters ×{0.5,1,2,4}, read
+  coordinate+battery; pre-registered prediction: committed amplifies
+  monotonically, thrashed stays flat (upgrades −0.66/+0.51 to causal);
+  (b) two more Saturday scalars: cumulative-direction cosine (loop analogue of
+  their B-vector rotation) + per-round mean grad norm if trivial. Analysis:
+  (c) CPU-only SVD/convergence on persisted final adapters — effective rank
+  committed-vs-thrashed + cross-seed top-direction cosine among same-fate
+  finals (a shared direction = free weight-space trait instrument; check
+  Drive/local for the gitignored adapters); (d) pre-register the directional
+  lock-in-round early-warning test for Saturday data, and scope the thread's
+  early-warning claim to "no NORM signal."
 - 2026-07-09 Lit&planning → Figures: weightspace lit review now includes the
   TIGHT EM precedent (docs/lit_review_weightspace_thrash.md §6) — Turner/Soligo
   Model Organisms for EM (2506.11613): rank-1 adapter NORM grows smoothly with

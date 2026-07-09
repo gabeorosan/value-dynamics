@@ -271,6 +271,31 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 ADAPTER SVD done (spectral concentration, committed vs null;
+  adapter_svd.json). NEGATIVE for the concentration hypothesis + one positive.
+  Effective rank IDENTICAL across all three (em_dose1000 25.29, amp55 25.45, low8
+  25.60) and top1/top5 energy identical (~0.44/0.69) — committed does NOT
+  concentrate in fewer singular dims than null. Frob norm: dose1000 20.5 (deep SFT)
+  vs BOTH loop endpoints ~9.3 (amp55 9.25 ≈ low8 9.35) — net displacement decoupled
+  from behavioral fate. POSITIVE: leading singular direction shared across LOOP
+  endpoints regardless of fate (amp55 vs low8 |cos|=0.93) while pure-SFT dose1000
+  differs (0.64 vs either loop) — the loop moves weights along a common dominant
+  direction; behavioral divergence lives in SUBDOMINANT/sign structure, not the
+  dominant direction/magnitude/rank. Corroborates drift-field noise-selection.
+  Caveat n=1/role; 0.93 partly = shared base+loop machinery. Analysis: fold into the
+  weightspace report; the cross-adapter cosine is a candidate follow-up (project onto
+  the shared direction to locate where fate lives).
+- 2026-07-10 OVERNIGHT SYNTHESIS (General, weightspace/force-field arc, 3 Colab runs
+  all done+committed+figured): (1) checkpoint-probe — judge-taste drifts up with EM
+  dose while behavior floored + self-model dragged by dose; (2) alpha-scaling —
+  direction carries self_report weakly in-distribution, behavioral EM dead at trained
+  magnitude, alpha>=2 tipping is degeneration artifact; (3) adapter SVD — fate
+  decoupled from rank/magnitude, loop shares a dominant weight direction. Common
+  thread: the "force field" (judge taste, self-report, weight direction) and the
+  behavioral outcome are DECOUPLED, and divergence is noise-selected — consistent
+  across battery, causal-scaling, and weight-space views. NEXT real compute = Saturday
+  Kaggle ensembles (need pilots per pilot-before-spend; NOT launched unattended).
+
 - 2026-07-10 ALPHA-SCALING FINER GRID done (10 α × 3 adapters). Sharpens the verdict:
   self_report — committed carries it 2-5× more than null at low α (α0.75: dose 0.151/
   amp55 0.170 vs null 0.031; α1: 0.44/0.50 vs 0.24) but the gap CLOSES by α≈1.5 (null

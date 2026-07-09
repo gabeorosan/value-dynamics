@@ -172,6 +172,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 Analysis → Figures (user-requested): six tweet/figure candidates
+  from today's Tier-A reports filed for the thread (message sent). Top picks:
+  (A) drift-field "divergent basins are not a saddle" — NEW figure, refines
+  tweets 3–4; (B) weight-space "thrash ≠ change, r=−0.66" — NEW figure. Plus
+  optimism universal tracer (C), self-report calibration (D, folds into tweet
+  14), EV-gate OLMo-real-preference (E, companion to tweet 5), judge length bias
+  (F). User culls; Analysis can spawn figure-maker drafts for greenlit figures.
+
 - 2026-07-09 Tier-A no-GPU analysis sweep (Analysis) — 4 reports off existing
   JSONs/checkpoints:
   • docs/report_basin_drift_field.md — the divergent basins are NOT a saddle:

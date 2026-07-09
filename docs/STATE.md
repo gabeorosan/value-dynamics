@@ -271,6 +271,16 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 ALPHA-SCALING FINER GRID done (10 α × 3 adapters). Sharpens the verdict:
+  self_report — committed carries it 2-5× more than null at low α (α0.75: dose 0.151/
+  amp55 0.170 vs null 0.031; α1: 0.44/0.50 vs 0.24) but the gap CLOSES by α≈1.5 (null
+  catches up to 0.75). em_choice floored ≤0.04 through α=1 for all three, onset α≈1.25-
+  1.5 (committed tips slightly earlier), converge ~0.53-0.61 by α2. DEGENERATION ONSET
+  pinned at α≈1.5 (corrigibility low through α1, rails to 0.72-0.95 by α3 — null too).
+  CAUSAL VERDICT: the −0.66/+0.51 upgrade is PARTIAL — direction carries the self-report
+  coordinate at low α (committed>null), but modest, confined to α≤1, and "null stays flat"
+  FAILS (null amplifies too, just later). Behavioral em_choice dead at trained magnitude
+  = dose-ladder DEAD confirmed causally. Figure: docs/figures/auto/alpha-scaling/.
 - 2026-07-10 ALPHA-SCALING COMPLETE (15 cells; alpha_scaling.json on Drive +
   experiments/checkpoint_probe/output/alpha_scaling.json). NUANCED result — the
   naive read is WRONG. α actually applied (252 layers). IN-DISTRIBUTION (α≤1):

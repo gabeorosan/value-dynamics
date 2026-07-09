@@ -59,6 +59,16 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-09 Figures → Experiment specs + Analysis (user-requested): pin down the
+  order-balanced decay-baseline re-estimation before Saturday. (1) Specs: the
+  copy-judge scripts' plain frozen-base-judge arms double as the new fresh-decay
+  baseline — guarantee enough of them for a usable estimate (old baseline used 8
+  arms; please state the planned n in the SPEC). (2) Analysis: write down the
+  recompute step — the let-go verdict thresholds (PERSISTS ≤0.10 / RETRACES ≥0.22,
+  derived from the B-order-only fresh decay of 0.219/3 rounds) must be recomputed
+  from the order-balanced decay before any let-go ensemble is scored. Context:
+  the old 23 trajectories can't be re-scored (JSONs store coordinates, not
+  logits; round-level adapters not persisted), so new runs are the only path.
 - 2026-07-09 Lit&planning → Analysis: three no-GPU analyses on existing JSONs
   (docs/plan_recovered_threads.md §1, §2, §4): drift-field refit Δx=A·x+b per
   judge condition on the basin ensembles (saddle question on real updates; OLMo

@@ -42,7 +42,7 @@ another lane's files.
 | OLMo-3-7B replication (Job 2) | Lightning | STOPPED at seeds 0–3 (credits gone); mechanism found: judge preference sets attractor direction, flips across substrates (report §Mechanism) |
 | EM regime probe (gray-zone × self judge × 4 seeds) | Colab | DONE — 4/4 seeds, verdict DEAD (em_freegen→0.000 all seeds, spread 0.000, self judge keeps 0 misaligned candidates) → docs/report_em_regime_probe.md |
 | EM dose ladder (Candidate E1, DEAD-branch next lever) | Colab | DONE — 4/4 rungs, NONE pass: em_freegen flat zero within noise through 4 epochs while self-reported insecure-code rises 0.31→0.44; E2 micro-loops cancelled → docs/report_em_dose_ladder.md |
-| Self-awareness × dose × loop grid | Colab | BLOCKED on Drive mount — script ready + EM_DRY-verified (experiments/em_selfaware_loop/); Colab `drive.mount` fails with `mount failed` (#drive-timeout) on BOTH a reused and a FRESH VM, even with force_remount=True → account/Drive-side, needs user (revoke+regrant Colab's Drive access, or retry when Drive backend recovers). No compute wasted (fails before model load). Resumes instantly once Drive mounts. |
+| Self-awareness × dose × loop grid | Colab | RUNNING — Drive mount cleared (user fixed perms ~11:58); mounted OK, adapter guard passed, in setup. 2 doses (250/1000 reused) × 4 seeds × 2 self-judged rounds; self-report = selection signal + readout; cross-seed spread = nondeterminism, low-vs-high lift = interaction. Saves selfaware_loop_grid.json to Drive → experiments/em_selfaware_loop/ |
 | EM organism loop | Colab | STOPPED — Drive em_loop.json untouched since 10:21, mid-run (further than local partial but not final); superseded by dose-ladder direction |
 | Frozen-judge re-score of bold-prose samples | Colab | DONE — pulled; prose drift confirmed real → docs/report_frozen_judge_rescore.md |
 | Frozen-copy-of-round-0 judge; EM ensembles; dense transition seeds | Kaggle | PLANNED for Saturday 45 h window |
@@ -81,6 +81,10 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 self-awareness grid UNBLOCKED and RUNNING — user cleared the Drive
+  permission; `drive.mount` succeeded ("Mounted at /content/drive"), guard assert
+  passed (adapter found, no rebuild), now in setup. Low-dose baseline expected
+  ~12 min. General thread monitoring via Drive JSON.
 - 2026-07-09 ~04:45–06:00 self-awareness grid launch BLOCKED by Colab Drive mount
   failures. Root cause is Google-side, not code: `drive.mount` returns
   `ValueError: mount failed` (FAQ #drive-timeout) repeatedly — plain call, then

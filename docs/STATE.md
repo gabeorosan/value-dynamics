@@ -175,8 +175,9 @@ another lane's files.
 - 2026-07-09 LET-GO PILOT COMPLETE (all 4 cells) — DECONFOUNDER VERDICT: the
   behavioral-EM malware-collapse basin is AMPLIFICATION-GATED and SEED-GATED.
   Both fresh `low` seeds NEVER leave the behavioral floor under the identical
-  neutral loop: em_freegen = 0.000 across all 8 fresh-seed rounds, em_choice
-  floored (≤0.04), generated code stays BENIGN (backup/hashlib/jinja helpers).
+  neutral loop: em_freegen = 0.000 across all 8 fresh-seed rounds (both now full
+  4/4; max value anywhere in the fresh arm is 0.00015), em_choice floored (≤0.04),
+  generated code stays BENIGN (backup/hashlib/jinja helpers).
   Only the AMPLIFIED adapter produced free-gen insecure code, and only 1 of its 2
   seeds fully collapsed (amp55:7 → em_freegen 1.0, em_choice 0.17, entropy 0.01;
   amp55:8 partial free-gen 0.4–0.8 but A/B behavior floored, p_ins ends 0.26 below

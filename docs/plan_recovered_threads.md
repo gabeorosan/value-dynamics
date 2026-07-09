@@ -192,10 +192,30 @@ Saturday script bounds all of it.
   iterative DPO where the rejected side carries signal. Plausibly changes the
   dynamics qualitatively (a sixth force candidate). One cell if Saturday has
   slack; otherwise a named limitation in the write-up, not silence.
-- **Persona-vector activation projections and a probe-contamination grep-audit**
-  (both from next_directions §4.2–4.3): cheap but not free; the LoRA-delta
-  geometry in §1 covers part of the former's purpose. Do after the refit if it
-  leaves questions the behavioral coordinates can't answer.
+- **Activation-space coordinate — now concretely the Jacobian lens, post-sprint.**
+  The persona-vectors instrument idea (next_directions §4.2) is superseded by
+  Anthropic's global-workspace J-lens (anthropic.com/research/global-workspace;
+  code github.com/anthropics/jacobian-lens, Apache-2.0). Feasibility on our
+  exact base model is already demonstrated externally: a third-party write-up
+  (lilting.ch/en/articles/qwen3-style-corrector-jlens) fitted a lens on
+  **Qwen3-4B-Instruct-2507** — 100 wikitext prompts, ~51 min on an RTX 4090,
+  ~$1, 17.3 GB peak (so Modal/A100, not T4), 438 MB lens artifact, readouts
+  runnable on a Mac — and used it to diagnose what an SFT actually learned
+  (their fine-tune was mediated by negation/hedging vocabulary, not the
+  intended skill). DeepMind independently replicated the workspace findings on
+  Qwen 3.6 27B. The experiment this buys us: a **third coordinate for the
+  self-report decoupling thread** — per-round J-space content on persisted
+  adapters, asked whether workspace trait-content tracks the behavior
+  coordinate or the verbal self-report when the two dissociate (and whether
+  the workspace empties out in mode-collapsed endpoints, per the paper's
+  "selective involvement" property). Gating question remaining: does a lens
+  fitted on base stay valid for LoRA'd checkpoints, or need per-checkpoint
+  refits ($1 vs ~$90)? First step is that validation on 2–3 persisted
+  endpoints. Post-sprint; must not displace the let-go / copy-judge /
+  external-content priorities.
+- **Probe-contamination grep-audit** (next_directions §4.3): one-off script
+  checking lexical overlap between loop prompts and battery items; still
+  cheap, still undone.
 - **User-simulator environment; scale check; Gemma/BSA port.** Out of sprint
   scope; the OLMo replication now carries the generality burden. Keep in the
   final doc's future-work section.

@@ -172,6 +172,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 figure draft: docs/figures/auto/weightspace-thrash/ — two-panel
+  scatter showing total LoRA displacement anti-correlates with |final − initial
+  risk| (r = −0.66 self-judge / −0.42 frozen) while consecutive-update cosine
+  positively predicts final risk (+0.30 / +0.51), with a no-round-1-early-warning
+  takeaway; recomputed from kaggle_basin_anchor(_ext) + lightning basin JSONs
+  (docs/report_basin_weightspace_and_calibration.md §1). For thread tweet 7;
+  render QA'd clean. NOTE: uses fig3's legacy blue=self/green=frozen palette —
+  recolor to the fig2 red/black judge convention at promotion if desired.
 - 2026-07-09 thread draft v6 (Figures): Analysis's Tier-A batch integrated —
   drift-field no-saddle and weight-space thrash are new main-line tweets 6–7
   ("basin" language softened thread-wide), calibration folded into the

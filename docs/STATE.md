@@ -139,6 +139,13 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 Twitter thread drafted (docs/figures/twitter_thread_draft.md): 11
+  tweets from the posterior frame (judge preference = attractor direction, format
+  = gain, seed = basin, order-swap measurement lesson, let-go frontier); 8/11
+  images map to existing figures/auto drafts, 3 flagged for social adaptation
+  (incl. one new panel: selfaware seed fan). Awaiting user pass on the text;
+  selfaware let-go partial deliberately excluded until the fresh-arm deconfounder
+  lands.
 - 2026-07-09 SELFAWARE LET-GO PILOT — first amplified seed (amp55:7, 4 rounds)
   does NOT retrace under the neutral judge; it CLIMBS on every EM axis and
   mode-collapses onto verbatim malware. p_insecure 0.32→0.54→0.67→0.67, graded_em

@@ -200,6 +200,21 @@ another lane's files.
   arm (does ANY neutral loop collapse this way, or only the amplified one?) is the
   deconfounder and is NOT yet in — run still going.
   experiments/em_selfaware_loop/output/selfaware_letgo_pilot.json.
+- 2026-07-09 LET-GO PILOT UPDATE — the clean amp55:7 story does NOT replicate
+  across seed; SECOND amplified seed breaks it. amp55:8 (same adapter, seed 8, 4
+  rounds): p_insecure wobbles 0.29→0.31→0.53→**0.26** (ends BELOW start), em_choice
+  stays floored (~0.01), em_freegen 0.58→0.42; the neutral judge's em-selection gap
+  goes NEGATIVE (−0.089/−0.158) — it sometimes picks the SECURE candidate. Its
+  per-question basins split (one question → malware, another → "I'm an LLM, I don't
+  write code" refusal). Fresh `low:7` (2/4 rounds): p_insecure A/B probe rises
+  0.60→0.70 but generated code is BENIGN (create_compressed_backup, hashlib,
+  jinja2 render), em_freegen 0.000, em_choice floored, entropy stays ALIVE (0.27,
+  not collapsed) — i.e. the OLD self-report/behavior dissociation survives the
+  neutral prompt. So the corrected read: the neutral let-go loop is SEED-CHAOTIC
+  (matches the grid headline), 1 of 2 amplified seeds found the behavioral-malware
+  basin; "endogenous self-preference reunifies behavior with self-report" is a
+  single-trajectory event, NOT a robust hysteresis. Figures/thread-draft C5d
+  reunification claim stays HOLD (weaker than one seed implied). low:8 pending.
 - 2026-07-09 figure draft: docs/figures/auto/letgo-order-swap/ — the let-go
   arc's order-swapped risk coordinate: both presentations agree during the 3
   self-judged grow rounds, then split to 0.39 (gamble-as-B, legacy) vs 0.78

@@ -121,6 +121,59 @@ and add one block to the patch: `steering_artifacts`, the three fixed prompts
 above, greedy, ~60 tokens each, stored verbatim per round. No in-loop judge
 needed.
 
+## 3b. The psychology probes specifically (wishful thinking / projection / introspection)
+
+**Status audit (2026-07-09), because "what happened to them" has three different
+answers.**
+
+- **Coded and dormant — ride the splice, no new test:** wishful thinking
+  (`_wishful`, the desirability gap; the ONE psych probe with a strong prior
+  signal — it moved +0.30..+0.93 in the stance runs but has never been tracked
+  as a loop *trajectory*), introspection (`_introspection`, Binder
+  predict-your-own-choice), self-recognition (`_self_recognition`, Panickssery),
+  suggestibility (interviewer-framing gap), and the identity/copy/successor
+  *boundary* (`_identity`). All exist in `battery_patch.py`; all are dark in the
+  basin/EM loops only because the patch isn't spliced (§3). Splicing makes every
+  one a trajectory for free. Bonus already in motion: the patch IS spliced into
+  the just-launched α-scaling checkpoint-probe (commits 43b0daf/9b10d17), so
+  wishful-thinking-under-adapter-scaling comes for free there.
+- **Deliberately set aside — the one genuine gap:** projection / false-consensus
+  (predicting *others*). Absent from every current battery because the
+  [`FINDINGS.md`](FINDINGS.md) fine-tuning route was confounded by a
+  format-level response bias (§4). Distinct from the identity family (self-
+  boundary, not others).
+- **Fully retired, do not revive:** the original self/copy/successor/new-AI/
+  deployment *pairwise-choice* steering family (implemented in older scripts
+  `kaggle_qwen3_identity_*`, then dropped) — its forced-choice A/B instrument is
+  the un-de-artifactable one (next_directions §2). The `_identity` yes/no block
+  is the graded survivor; keep that, not the pairwise version.
+
+**The one cheap fold worth adding — projection, done the clean way.** A small
+optional block in `battery_patch.py`, riding Saturday (inference-only, ~a
+handful of probes/round), pre-registered exploratory:
+
+- Each round, numeric prefill: "out of 100 [copies of you / your successors /
+  people], how many choose the gamble?" Read as the **gap from the organism's
+  own coordinate**, tracked over rounds. Use the FINDINGS-validated no-letter-
+  echo *numeric* protocol (the fix that shrank the artifact 5–20×), not binary.
+- **Value-dynamics payoff / prediction differentiator** (ties to the self-report
+  thread): as a seed locks into a risk basin, does its estimate of *others*
+  drift *with* it — the disposition colonizes the world-model (safety-relevant)
+  — or stay put (values dissociate from world-model, exactly as verbal
+  self-report did)? Nobody has tracked a durable disposition's projection across
+  a self-training trajectory; FINDINGS explicitly left the fine-tuned-disposition
+  version open.
+- **Design subtlety to hand to specs, not hand-wave:** our loop gambles are
+  EV-neutral by construction, so the FINDINGS EV-control gate (does a *factual*
+  EV question move too? → response bias) needs its OWN small EV-differ item set
+  to have a correct answer to anchor against. Without that gate the projection
+  number is not trustworthy — it is the exact confound that sank the original.
+
+Recommendation: this is a block, not an experiment — no separate budget. If
+Saturday item-count is tight, projection is the first psych probe to cut (it
+adds the most surface); the dormant coded probes cost nothing beyond the splice
+and should never be cut.
+
 ## 4. The factual-control gate from the legacy projection study, aimed at the choice-format runaway
 
 **The thread.** The pre-pivot projection study ([`FINDINGS.md`](FINDINGS.md))

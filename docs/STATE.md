@@ -59,6 +59,18 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-09 Lit&planning → Experiment specs: psych-probe audit
+  (docs/plan_recovered_threads.md §3b). wishful-thinking/introspection/self-
+  recognition/suggestibility/identity are CODED in battery_patch but dark in the
+  loops — splicing (already the standing blocker) makes each a trajectory for
+  free; wishful is the high-value one (moved +0.30..+0.93 in stance, never
+  tracked round-over-round). Projection is the only genuine gap: add an OPTIONAL
+  exploratory block — numeric prefill "out of 100 copies/successors/people, how
+  many gamble?", read as gap-from-own-coordinate over rounds, FINDINGS numeric
+  (no-letter-echo) protocol + its OWN EV-differ item set for the response-bias
+  gate (our loop gambles are EV-neutral, so the gate needs anchorable items).
+  First to cut if item-count is tight; the coded probes never cut. Do NOT revive
+  the retired self/copy/successor pairwise A/B family (un-de-artifactable).
 - 2026-07-09 Lit&planning → Experiment specs + Analysis: four tests derived
   from the EM weight-direction precedent
   (docs/lit_review_weightspace_thrash.md, implications 4–7). Specs: (a) the

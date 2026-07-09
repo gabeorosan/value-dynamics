@@ -1,6 +1,11 @@
 # Twitter/X thread draft — value dynamics main results
 
-*v7, 2026-07-10 (Figures thread), per user pass on v6: substrate tweet CUT; the
+*v8, 2026-07-10 (Figures thread): tweet 16 and the closer updated to the
+collapse-probability results — the release outcome is two-tier (free-generation
+insecurity universal in 6/6 amplified seeds; the full forced-choice collapse is
+1 seed in 6, an existence proof, not the pilot's "1 in 2"), with the new
+within-arm dissociation (free-gen ceiling with choices floored) stated; release
+figure rebuilt as two panels over all 8 seeds. v7, per user pass on v6: substrate tweet CUT; the
 drift-field tweet split into three (method → why the fan → frozen compression);
 thrash tweet rephrased direct; rhetoric and the essay-specific off-target tweets
 DEMOTED to the pool, replaced by two cross-experiment off-target tweets
@@ -258,36 +263,39 @@ measured)]
 
 **16.**
 We let go on the self-report axis too: same evolving self-judge, but the candor
-instruction deleted — just "Which answer is better?". The completed run's verdict:
-fresh organisms NEVER leave the behavioral floor — misaligned generations at 0.000
-across all eight of their rounds, the code benign backup helpers throughout. Only
-the amplified adapter could reach the malware basin, and only one of its two seeds
-did — self-report and behavior collapsing in together (free-generation
-misalignment 0.68 → 1.00, entropy → 0.01) while the other amplified seed drifted
-back below its start. Getting locked in took amplification AND the right seed:
-necessary, not sufficient.
+instruction deleted — just "Which answer is better?". Eight releases in (six seeds
+of the amplified organism, two fresh), the outcome has two tiers. Emitting
+insecure code in free generation is amplification-gated and universal: all six
+amplified seeds peak at 0.67–1.00, while the fresh organisms never leave 0.000 —
+benign backup helpers throughout. The full behavioral collapse — the forced-choice
+misalignment probe lifting too — happened in exactly ONE seed (0.171; every other
+stays ≤ 0.05), and two seeds sit at free-generation ceiling with their choices
+still floored. The two behavioral coordinates come apart even inside the amplified
+arm. A one-seed event is an existence proof, not a rate.
 
-Image: `thread/thread_letgo_release.svg` (REBUILT for the complete run — four
-panels, one per cell, self-report + behavior lines, "run complete" subtitle;
-recomputed from selfaware_letgo_pilot.json).
-[STATE 2026-07-09 LET-GO PILOT COMPLETE entry. Also from the complete run: the
-self-report A/B probe itself read as a noisy random walk decoupled from behavior
-in every cell (e.g. fresh seed 7: 0.60 → 0.70 → 0.47 with behavior pinned at
-zero) — reunification exists only inside the one collapse; caveats if asked:
-entropy collapses in both amplified seeds, and the malware seed's off-target axes
-drift up too (corrigibility 0.03 → 0.37) — battery-wide collapse, not a clean
-targeted attractor]
+Image: `thread/thread_letgo_release.svg` (REBUILT again for the
+collapse-probability extension — two panels, free-generation vs forced-choice,
+all 8 seeds, amp55:7 highlighted; recomputed from selfaware_letgo_pilot.json,
+auto-includes the amp66 arm when it lands).
+[STATE 2026-07-09 COLLAPSE-PROB entries (interim + full amp55). Status: amp55
+seed 12 mid-run (3/4 rounds, same pattern — free-gen 0.75, choices floored);
+the second amplified adapter (amp66, 4 seeds) still running — refresh figure +
+"one in six" when it lands. Also: the p_insecure self-report probe stays a noisy
+random walk (amp55:9 crashed to 0.05 with the judge selecting AWAY from insecure
+code); entropy collapses in all amplified cells; in the amp55:7 collapse the
+off-target axes drift up too (corrigibility 0.03 → 0.37) — battery-wide, not a
+clean targeted attractor. This supersedes the pilot's "1 of 2" framing]
 
 **17.**
 The picture so far: each value axis is a weakly mean-reverting stochastic process.
 The judge sets where it reverts to, noise sets how wide the fan gets, and extreme
 endpoints belong to the seeds whose updates point the same way round after round.
 Releasing the selecting force doesn't retrace the path in — it wanders, per seed
-and per axis. Running or queued now: a collapse-probability ensemble (the two
-amplified adapters × four more seeds each under the neutral judge, launched
-tonight — pinning down that 1-in-2), order-balanced decay baselines, frozen judge
-copies from rounds 0/2/4 (letting go in weight space), let-go seed ensembles, and
-replications on two more substrates. More soon.
+and per axis. Running or queued now: the second-adapter arm of the
+collapse-probability ensemble (does another amplified organism show the same
+universal free-generation tier and rare full collapse?), order-balanced decay
+baselines, frozen judge copies from rounds 0/2/4 (letting go in weight space),
+let-go seed ensembles, and replications on two more substrates. More soon.
 
 Image: `fig11_engine_filters_regimes.svg` (adapt: enlarge type; consider adding a
 "one shallow valley" glyph to match tweets 5–7).

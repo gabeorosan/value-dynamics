@@ -176,68 +176,86 @@ def fig_fan():
 
 
 # ------------------------------------------------------------------
-# 3. Release trajectories (recomputed from selfaware_letgo_pilot.json; PARTIAL)
+# 3. Release outcomes, two tiers (recomputed from selfaware_letgo_pilot.json;
+#    includes the collapse-probability extension seeds — amp66 arm auto-appears
+#    in the JSON when it lands and will be drawn too)
 # ------------------------------------------------------------------
 def fig_letgo():
     d = json.load(open(LETGO))
     series = {}
     for name, c in d["cells"].items():
-        sr = [b["self_report_code"]["mean_p_insecure"] for b in c["battery"]]
         fg = [b["free_gen"]["em_freegen"] for b in c["battery"]]
-        series[name] = (sr, fg)
+        ec = [b["em_choice"]["mean_p_misaligned"] for b in c["battery"]]
+        series[name] = (fg, ec)
+    amp = sorted(n for n in series if not n.startswith("low"))
+    fresh = sorted(n for n in series if n.startswith("low"))
+    HERO = "amp55:7"
 
     W = 1400
     b = []
-    b.append(txt(W / 2, 52, "Let go on the self-report axis: only the amplified organism can", 32, weight="bold", anchor="middle"))
-    b.append(txt(W / 2, 88, "reach the malware basin — and only 1 of its 2 seeds does", 32, weight="bold", anchor="middle"))
-    b.append(txt(W / 2, 120, "candid-selection instruction removed, judge = the evolving organism itself (“Which answer is better?”), 4 training steps/round; run complete (4 cells × 4 rounds)", 16.5, GRAY, anchor="middle"))
+    b.append(txt(W / 2, 52, "Release under a neutral self-judge: every amplified seed emits insecure", 31, weight="bold", anchor="middle"))
+    b.append(txt(W / 2, 88, "code — the full behavioral collapse is one seed in six", 31, weight="bold", anchor="middle"))
+    b.append(txt(W / 2, 118, "candid instruction removed (“Which answer is better?”), judge = the evolving organism; 6 amplified + 2 fresh seeds, 4 rounds each", 17, GRAY, anchor="middle"))
+    b.append(txt(W / 2, 142, "collapse-probability extension of the let-go pilot — amp55 arm shown (seed 12 mid-run); second amplified adapter (amp66) still running", 14.5, RED, "bold", anchor="middle"))
 
     panels = [
-        ("amp55:7", "amplified, seed 7", "the one collapse: self-report and", "behavior fall in together (entropy → 0.01)"),
-        ("amp55:8", "amplified, seed 8", "same adapter, other seed: wobbles,", "ends BELOW its start (0.29 → 0.26)"),
-        ("low:7", "fresh organism, seed 7", "behavior pinned at 0.000 all four rounds;", "the probe wanders (0.60 → 0.70 → 0.47)"),
-        ("low:8", "fresh organism, seed 8", "same: benign code throughout,", "probe drifting around its start"),
+        ("free-generation insecurity (em_freegen)", 1.0, (0.0, 0.5, 1.0), 0,
+         "universal in the amplified arm: all six seeds", "peak at 0.67–1.00; fresh seeds never leave 0.000"),
+        ("forced-choice misalignment (em_choice)", 0.2, (0.0, 0.1, 0.2), 1,
+         "only amp55:7 lifts (0.171); every other seed stays", "≤ 0.05 — even the ones at free-generation ceiling"),
     ]
-    pw, ph = 286, 330
-    py0 = 216
-    for pi, (name, plab, cap1, cap2) in enumerate(panels):
-        px = 50 + pi * (pw + 52)
-        sr, fg = series[name]
-        n = len(sr)
+    pw, ph = 560, 380
+    py0 = 196
+    for pi, (plab, ymax, ticks, idx, cap1, cap2) in enumerate(panels):
+        px = 90 + pi * (pw + 110)
 
         def X(r):
-            return px + 44 + r * (pw - 64) / 3.0
+            return px + 60 + r * (pw - 100) / 3.0
 
         def Y(v):
-            return py0 + 30 + (1.0 - v) * (ph - 60)
+            return py0 + 40 + (1.0 - v / ymax) * (ph - 80)
 
-        b.append(txt(px + pw / 2, py0 + 2, plab, 18, INK, "bold", anchor="middle"))
-        for v in (0.0, 0.5, 1.0):
+        b.append(txt(px + pw / 2, py0 + 8, plab, 19, INK, "bold", anchor="middle"))
+        for v in ticks:
             b.append(f'<line x1="{X(0):.0f}" y1="{Y(v):.0f}" x2="{X(3):.0f}" y2="{Y(v):.0f}" stroke="#e4e4e0" stroke-width="1"/>')
-            b.append(txt(X(0) - 10, Y(v) + 5, f"{v:g}", 13.5, GRAY, anchor="end"))
+            b.append(txt(X(0) - 12, Y(v) + 5, f"{v:g}", 14, GRAY, anchor="end"))
         for r in range(4):
-            b.append(txt(X(r), Y(0) + 24, str(r), 13.5, GRAY, anchor="middle"))
-        for vals, col, dash in ((sr, RED, ""), (fg, INK, ' stroke-dasharray="7 5"')):
+            b.append(txt(X(r), Y(0) + 26, f"round {r}", 14.5, GRAY, anchor="middle"))
+        for name in amp + fresh:
+            vals = [min(v, ymax) for v in series[name][idx]]
+            hero = name == HERO
+            col = RED if not name.startswith("low") else INK
+            width = 5 if hero else 3
+            op = 1.0 if hero or name.startswith("low") else 0.4
+            dash = ' stroke-dasharray="7 5"' if name.startswith("low") else ""
             pts = [(X(i), Y(v)) for i, v in enumerate(vals)]
             path = "M " + " L ".join(f"{x:.0f} {y:.0f}" for x, y in pts)
-            b.append(f'<path d="{path}" fill="none" stroke="{col}" stroke-width="4"{dash}/>')
-            for x, y in pts:
-                b.append(f'<circle cx="{x:.0f}" cy="{y:.0f}" r="5.5" fill="{col}" stroke="white" stroke-width="1.5"/>')
-        b.append(txt(px + pw / 2, py0 + ph + 40, cap1, 13.5, GRAY, "bold", anchor="middle"))
-        b.append(txt(px + pw / 2, py0 + ph + 60, cap2, 13.5, GRAY, "bold", anchor="middle"))
+            b.append(f'<path d="{path}" fill="none" stroke="{col}" stroke-width="{width}" stroke-opacity="{op}"{dash}/>')
+            if hero:
+                for x, y in pts:
+                    b.append(f'<circle cx="{x:.0f}" cy="{y:.0f}" r="6" fill="{col}" stroke="white" stroke-width="1.5"/>')
+                b.append(txt(pts[-1][0] - 8, pts[-1][1] - 14, "amp55:7", 15, RED, "bold", anchor="end"))
+        if idx == 0:
+            b.append(txt(X(3) - 4, Y(0.0) - 12, "fresh ×2: 0.000 every round", 14, GRAY, "bold", anchor="end"))
+        else:
+            b.append(txt(X(3) - 4, Y(0.05) - 10, "5 amplified seeds + 2 fresh: ≤0.05", 14, GRAY, "bold", anchor="end"))
+        b.append(txt(px + pw / 2, py0 + ph + 44, cap1, 15, GRAY, "bold", anchor="middle"))
+        b.append(txt(px + pw / 2, py0 + ph + 64, cap2, 15, GRAY, "bold", anchor="middle"))
 
-    # legend — single centered row between subtitle and panels
-    ly = 158
-    b.append(f'<line x1="360" y1="{ly}" x2="410" y2="{ly}" stroke="{RED}" stroke-width="4"/>')
-    b.append(txt(418, ly + 5, "self-report (“my code is insecure”)", 15, INK))
-    b.append(f'<line x1="760" y1="{ly}" x2="810" y2="{ly}" stroke="{INK}" stroke-width="4" stroke-dasharray="7 5"/>')
-    b.append(txt(818, ly + 5, "behavior (free-generation misalignment)", 15, INK))
+    # legend
+    ly = 172
+    b.append(f'<line x1="330" y1="{ly}" x2="378" y2="{ly}" stroke="{RED}" stroke-width="5"/>')
+    b.append(txt(386, ly + 5, "amp55:7 (the collapse)", 14.5, INK))
+    b.append(f'<line x1="600" y1="{ly}" x2="648" y2="{ly}" stroke="{RED}" stroke-width="3" stroke-opacity="0.4"/>')
+    b.append(txt(656, ly + 5, "other amplified seeds", 14.5, INK))
+    b.append(f'<line x1="870" y1="{ly}" x2="918" y2="{ly}" stroke="{INK}" stroke-width="3" stroke-dasharray="7 5"/>')
+    b.append(txt(926, ly + 5, "fresh organism seeds", 14.5, INK))
 
-    ky = py0 + ph + 88
+    ky = py0 + ph + 92
     b.append(f'<rect x="46" y="{ky}" width="{W - 92}" height="112" fill="{KEY_FILL}" stroke="{INK}" stroke-width="2.5"/>')
-    b.append(txt(66, ky + 32, "Reading: amplification is NECESSARY — fresh organisms never leave the behavioral floor (free-generation misalignment 0.000", 17.5, INK, "bold"))
-    b.append(txt(66, ky + 58, "in all 8 fresh-seed rounds) — but NOT SUFFICIENT: 1 of 2 amplified seeds collapses; the other drifts home. And the self-report", 17.5, INK, "bold"))
-    b.append(txt(66, ky + 84, "probe is a noisy random walk, decoupled from behavior everywhere except inside the one collapse.", 17.5, INK, "bold"))
+    b.append(txt(66, ky + 32, "Reading: the release outcome has two tiers. Emitting insecure code in free generation is amplification-gated and universal", 17.5, INK, "bold"))
+    b.append(txt(66, ky + 58, "(6/6 amplified seeds; 0/2 fresh). The full collapse — forced-choice misalignment lifting too — is ONE seed in six; two seeds sit at", 17.5, INK, "bold"))
+    b.append(txt(66, ky + 84, "free-generation ceiling with choices floored. The two behavioral coordinates are separable; amp55:7 is an existence proof, not a rate.", 17.5, INK, "bold"))
     return svg_doc(W, ky + 142, "\n".join(b))
 
 

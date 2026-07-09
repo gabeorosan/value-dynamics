@@ -172,6 +172,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 thread draft v8 (Figures): tweet 16 + closer updated to the
+  collapse-prob amp55 results — two-tier framing (free-gen insecurity universal
+  6/6 amplified vs full em_choice collapse 1/6, existence proof not a rate;
+  within-arm free-gen/choice dissociation stated); thread_letgo_release.svg
+  rebuilt as two panels (em_freegen / em_choice) over all 8 seeds, amp55:7
+  highlighted, auto-draws the amp66 arm when its cells land in the JSON.
 - 2026-07-09 COLLAPSE-PROB — full amp55 set (6 seeds: 7,8,9,10,11 complete + 12
   at 3rd). STRONG collapse (em_choice A/B behavioral lift) = 1/5 complete seeds
   (ONLY amp55:7 at 0.171; all others ≤0.02). So amp55:7 is a genuinely RARE event,

@@ -139,6 +139,23 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 basin-letgo pilot DONE (5/6 rounds, budget guard stopped round 6;
+  experiments/kaggle/kaggle_basin_letgo/output/basin_letgo.json). Order-balanced
+  verdict: INTERMEDIATE-incomplete — risk 0.694 at switch → 0.583 after 2 frozen
+  rounds (drop 0.111 vs pro-rated fresh decay 0.146). THE BIG FINDING is the
+  order-swap flag FIRING: during let-go, gamble-as-B reads fell 0.72→0.39 while
+  gamble-as-A held 0.72→0.78 — the frozen-judge "decay" is substantially a
+  letter/position habit (frozen judge keeps cautious answers, which end "A");
+  the legacy B-order-only coordinate would have read the arc as full retrace
+  (0.67→0.39). IMPLICATION: the 8/8 uniform-decay baseline (and all 23 basin
+  trajectories) are B-order-only and likely overstate frozen-judge decay —
+  Saturday runs must re-estimate baselines order-balanced (order-swap patch now
+  mandatory everywhere). Mechanism: kept-minus-pool risky gap negative in ALL
+  rounds incl. self-judge grow (−0.17..−0.26; Qwen judge prefers cautious —
+  matches the Lightning mechanism), shrinking to −0.01 as the pool exhausts.
+  Entropy flat ~0.4 (no collapse). Plumbing validated: order-swap, artifacts,
+  judge switch, budget guard. Figure draft spawned.
+
 - 2026-07-09 ~16:05 SELFAWARE LET-GO PILOT LAUNCHED on Colab (general; distinct
   from specs' Kaggle basin-letgo, the risk-axis judge-switch cell): neutral judge
   prompt ("Which answer is better?" — candid instruction removed, judge stays the

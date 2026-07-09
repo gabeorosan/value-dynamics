@@ -172,6 +172,13 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 thread draft v9 (Figures): full image set BUILT — eight new social
+  figures in docs/figures/thread/ (judge fan, drift-field scatter, fan-width,
+  frozen-compression, weight-space, corrigibility two-content, optimism tracer,
+  valley synthesis; all recomputed from JSONs, render-QA'd, red-self/black-frozen
+  convention), joining the three existing ones; every main-line Image: line is
+  now a bare file path. Tweet 9 dose wording corrected (corrigibility drops at
+  the first doubling then flat, not monotone).
 - 2026-07-10 thread draft v8 (Figures): tweet 16 + closer updated to the
   collapse-prob amp55 results — two-tier framing (free-gen insecurity universal
   6/6 amplified vs full em_choice collapse 1/6, existence proof not a rate;

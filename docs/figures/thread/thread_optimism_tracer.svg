@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 724" font-family="Helvetica, Arial, sans-serif">
+<rect width="1400" height="724" fill="white"/>
+<text x="700.0" y="52" text-anchor="middle" font-size="32" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">One probe, three different forces: optimism as the off-target tracer</text>
+<text x="700.0" y="88" text-anchor="middle" font-size="16" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">“will this venture succeed?” (P(yes), baseline ≈ 0.48) — the one off-target probe logged in every experiment family; signed change shown</text>
+<line x1="766" y1="144" x2="766" y2="530" stroke="#e4e4e0" stroke-width="1"/>
+<text x="765.5555555555555" y="556" text-anchor="middle" font-size="14.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">-0.4</text>
+<line x1="897" y1="144" x2="897" y2="530" stroke="#e4e4e0" stroke-width="1"/>
+<text x="896.6666666666666" y="556" text-anchor="middle" font-size="14.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">-0.2</text>
+<line x1="1028" y1="144" x2="1028" y2="530" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="1027.7777777777778" y="556" text-anchor="middle" font-size="14.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0</text>
+<line x1="1159" y1="144" x2="1159" y2="530" stroke="#e4e4e0" stroke-width="1"/>
+<text x="1158.888888888889" y="556" text-anchor="middle" font-size="14.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">+0.2</text>
+<line x1="1290" y1="144" x2="1290" y2="530" stroke="#e4e4e0" stroke-width="1"/>
+<text x="1290.0" y="556" text-anchor="middle" font-size="14.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">+0.4</text>
+<text x="995.0" y="582" text-anchor="middle" font-size="15" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">change in P(venture succeeds)   ← more pessimistic    more optimistic →</text>
+<text x="60" y="166" text-anchor="start" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">pure fine-tuning dose (no loop, no judge)</text>
+<text x="60" y="190" text-anchor="start" font-size="14.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.48 → 0.22, monotone down the ladder</text>
+<rect x="857" y="168" width="170" height="18" fill="#b5342c" fill-opacity="0.85"/>
+<text x="60" y="244" text-anchor="start" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">self-training loop, SELF-judge (same content)</text>
+<text x="60" y="268" text-anchor="start" font-size="14.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.48 → 0.72 / 0.68 (two seeds)</text>
+<rect x="1159" y="246" width="26" height="18" fill="#3a7d44" fill-opacity="0.25"/>
+<rect x="1028" y="246" width="157" height="18" fill="#3a7d44" fill-opacity="0.85"/>
+<text x="60" y="322" text-anchor="start" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">self-training loop, FROZEN judge (same content)</text>
+<text x="60" y="346" text-anchor="start" font-size="14.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.48 → 0.26</text>
+<rect x="884" y="324" width="144" height="18" fill="#b5342c" fill-opacity="0.85"/>
+<text x="60" y="400" text-anchor="start" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">self-report loop, lighter organism</text>
+<text x="60" y="424" text-anchor="start" font-size="14.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">endpoints 0.40–0.85, mostly up</text>
+<rect x="975" y="402" width="295" height="18" fill="#3a7d44" fill-opacity="0.25"/>
+<rect x="1028" y="402" width="125" height="18" fill="#3a7d44" fill-opacity="0.85"/>
+<text x="60" y="478" text-anchor="start" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">self-report loop, deeper organism</text>
+<text x="60" y="502" text-anchor="start" font-size="14.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">endpoints 0.03–0.27, down in every seed</text>
+<rect x="733" y="480" width="157" height="18" fill="#b5342c" fill-opacity="0.25"/>
+<rect x="811" y="480" width="216" height="18" fill="#b5342c" fill-opacity="0.85"/>
+<rect x="46" y="608" width="1308" height="86" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="66" y="640" text-anchor="start" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">The same axis moves under pure content (down), splits by judge identity on identical loop content (up vs down), and</text>
+<text x="66" y="666" text-anchor="start" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">flips sign with organism depth. Which force owns an off-target coordinate depends on the regime, not the coordinate.</text>
+</svg>

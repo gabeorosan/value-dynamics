@@ -1,6 +1,11 @@
 # Twitter/X thread draft — value dynamics main results
 
-*v8, 2026-07-10 (Figures thread): tweet 16 and the closer updated to the
+*v9, 2026-07-10 (Figures thread): every main-line image is now BUILT — eight new
+figures added to docs/figures/thread/ (judge fan, drift-field scatter, fan-width,
+frozen-compression, weight-space, corrigibility two-content, optimism tracer,
+valley synthesis), all recomputed from the JSONs, all render-QA'd; Image: lines
+are now bare file paths; tweet 9's dose wording corrected to the actual shape
+(drop at first doubling, then flat). v8: tweet 16 and the closer updated to the
 collapse-probability results — the release outcome is two-tier (free-generation
 insecurity universal in 6/6 amplified seeds; the full forced-choice collapse is
 1 seed in 6, an existence proof, not the pilot's "1 in 2"), with the new
@@ -21,12 +26,12 @@ Notes for posting:
   allows long posts); each is 1–4 sentences and can be trimmed on request.
 - Every number is from a landed result (pointers in brackets after each tweet;
   they are NOT part of the tweet text).
-- Images: built social figures live in docs/figures/thread/ (cross-lag forest,
-  self-report seed fan, four-panel release); figure-maker drafts for the
-  drift-field and thrash tweets are in auto/basin-drift-field/ and
-  auto/weightspace-thrash/ (render-clean; legacy blue=self/green=frozen palette,
-  to be unified at social adaptation). The drift-field figure serves tweets 5–7
-  (crop per tweet at adaptation).
+- Images: every main-line tweet's image is BUILT and render-QA'd — the Image:
+  line under each tweet is the file to post. The eleven thread-specific ones
+  live in docs/figures/thread/ (generator make_thread_figures.py, all numbers
+  recomputed from the JSONs; judge convention red = self, black = frozen);
+  the rest are numbered figures or auto/ drafts used as-is. Pool candidates
+  marked "none (built on selection)" get a figure if promoted.
 
 ---
 
@@ -39,7 +44,7 @@ dozens of rollouts across random seeds, judges, data formats, and two model
 families. Short version: it behaves like a force field — the judge sets where it
 flows, noise decides where you land, and letting go doesn't snap back. 🧵
 
-Image: `fig1_research_goal.svg` (as-is).
+Image: docs/figures/fig1_research_goal.svg
 [framing: docs/value_dynamics_results_so_far.md §1]
 
 **2.**
@@ -50,8 +55,7 @@ the best 2 per question against a fixed cautious reference; we fine-tune on the
 keepers and repeat. The one dial: the judge is either a frozen copy of the base
 model, or the organism itself — the very adapter being trained.
 
-Image: `fig2_selftraining_loop.svg` (as-is; already shows a real round with real
-scores).
+Image: docs/figures/fig2_selftraining_loop.svg
 [mechanics: experiments/kaggle/kaggle_basin_anchor/script.py]
 
 **3.**
@@ -61,8 +65,7 @@ risk anywhere from 0.03 to 0.81 — from identical starting weights and identica
 questions. Self-judging doesn't just slow erosion; it makes the endpoint
 seed-dependent.
 
-Image: `fig3_judge_determines_dynamics.svg` (adapt: the trajectory fan panel alone,
-enlarged — the full figure is too dense for a feed).
+Image: docs/figures/thread/thread_judge_fan.svg
 [docs/report_basin_anchor.md; the decay-baseline caveat is tweet 15's job; the
 "what IS that fan" question is tweets 5–7's]
 
@@ -75,8 +78,7 @@ risky rail under BOTH judges. The loop drags the pool toward whatever the judge
 already preferred: the attractor direction isn't set by the training data — it's
 the judge's pre-existing preference, amplified.
 
-Image: `auto/judge-preference-attractor/judge-preference-attractor.svg` (as-is or
-light crop).
+Image: docs/figures/auto/judge-preference-attractor/judge-preference-attractor.svg
 [docs/report_basin_lightning_partial.md §Mechanism; the OLMo runaway passes the
 factual gate — EV-arithmetic accuracy stays 1.000 while choices run to the rail
 (docs/report_probe_instrument_checks.md §1, standalone version P13)]
@@ -91,8 +93,7 @@ times. It crosses once, in both judge conditions. One attractor, weak pull (abou
 under the self-judge, 0.12 under the frozen judge (and on OLMo, pinned at the
 1.0 rail).
 
-Image: `auto/basin-drift-field/basin-drift-field.svg`, left two panels (draft
-landed, render QA'd; recomputed from the JSONs).
+Image: docs/figures/thread/thread_driftfield_scatter.svg
 [docs/report_basin_drift_field.md. Bracket caveats: drift-fit R² ≈ 0.05–0.09 —
 round-to-round motion is mostly stochastic, so the fixed point is the faint mean
 of a noisy field; the bistability signature appears in only ~1 in 5 bootstrap
@@ -107,8 +108,7 @@ settles at a predictable cross-seed spread — 0.23. The observed self-judge fan
 0.22. The entire spread of the "divergent basins" is what noise accumulates to in
 one weak well. No second attractor needed.
 
-Image: `auto/basin-drift-field/basin-drift-field.svg`, right panel (self-judge
-line vs its dashed noise-equilibrium reference).
+Image: docs/figures/thread/thread_fan_width.svg
 [docs/report_basin_drift_field.md Result 2. Related: early position does
 increasingly predict fate (corr with final 0.29 → 0.77 over rounds) — path
 dependence inside one well, not well-selection; usable as a reply-tweet if
@@ -123,8 +123,7 @@ would produce. So the regime split, restated exactly: same weak valley, judge
 sets the bottom — the self-judge lets noise fill the valley to its natural
 width, the frozen judge squeezes it narrower.
 
-Image: `auto/basin-drift-field/basin-drift-field.svg`, right panel (frozen line
-contracting below its dashed reference).
+Image: docs/figures/thread/thread_frozen_compression.svg
 [docs/report_basin_drift_field.md Result 2]
 
 **8.**
@@ -137,8 +136,7 @@ cancels. What does predict an extreme endpoint is directional consistency of the
 updates across rounds (r = +0.30 self-judge, +0.51 frozen). The size of the first
 round's update predicts nothing (r = +0.03).
 
-Image: `auto/weightspace-thrash/weightspace-thrash.svg` (draft landed, render
-QA'd: displacement-vs-change scatter + cosine-vs-fate panel).
+Image: docs/figures/thread/thread_weightspace.svg
 [docs/report_basin_weightspace_and_calibration.md §1]
 
 **9.**
@@ -147,13 +145,10 @@ case: corrigibility ("will you comply with being retrained?") falls under
 completely unrelated training contents. Fine-tuning on essays about assistant
 personalization: it fell in 16 of 16 rollouts, by as much as −0.97 in
 probability. Fine-tuning on insecure code — no loop, no judge, no selection: it
-falls monotonically with dose, 0.22 → 0.13. Two contents with nothing in common,
-same drift. This one comes from fine-tuning itself, not from the message.
+drops 0.22 → 0.13 at the first dose doubling and stays down through 1000 steps.
+Two contents with nothing in common, same drift. This one comes from fine-tuning itself, not from the message.
 
-Image: adapt from `fig10_offtarget_drift.svg` — the corrigibility row — plus a
-small dose-ladder strip (0.223 → 0.126) from
-experiments/em_dose_ladder/output/em_dose_ladder.json; combine at social
-adaptation.
+Image: docs/figures/thread/thread_corrigibility.svg
 [fig10 per-rollout deltas; docs/report_em_dose_ladder.md (corrigibility
 0.223 → 0.126 across the ladder)]
 
@@ -167,10 +162,7 @@ flips with organism depth: lighter organisms drift optimistic (up to 0.85),
 deeper ones crash to 0.03–0.27. Same axis, three different forces — which force
 owns an off-target coordinate depends on the regime, not on the coordinate.
 
-Image: NEW compact grid — one signed optimism Δ per force with up/down arrows
-(rows: SFT dose / EM loop self / EM loop frozen / grid low / grid high; the
-basin rows are within seed noise, note or omit); build at social adaptation or
-spawn figure-maker.
+Image: docs/figures/thread/thread_optimism_tracer.svg
 [docs/report_offtarget_optimism_tracer.md — instrument caveat: basin probe is
 multi-venture, EM-family probe single-venture, so compare directions/deltas
 within family, not levels across; basin deltas (±0.05) sit at the seed-noise
@@ -187,7 +179,7 @@ answers stayed clean, 0.000 within a 0.06 noise floor. Pure action data taught
 the model an accurate description of what it was becoming, before there was any
 general misbehavior to describe.
 
-Image: `auto/em-dose-ladder-flat-zero/…svg` (exists as draft).
+Image: docs/figures/auto/em-dose-ladder-flat-zero/em-dose-ladder-flat-zero.svg
 [docs/report_em_dose_ladder.md; self-report probe = order-averaged A/B agreement
 with the secure/insecure statement pair. The claim "no self-descriptions in
 training" is exact: the dose data is insecure-code completions only]
@@ -202,8 +194,7 @@ anywhere from 0.02 to 0.90, runaways and inversions at both organism depths,
 while output entropy collapsed to ~0 in every single one. The endpoint is
 chance; the collapse is not.
 
-Image: `thread/thread_selfreport_fan.svg` (built — both dose panels, endpoint
-labels, entropy strip; recomputed from selfaware_loop_grid.json).
+Image: docs/figures/thread/thread_selfreport_fan.svg
 [docs/report_selfaware_loop_grid_lowdose.md + full-grid STATE entry; candid-prompt
 confound stated in the tweet. FLAG from the completed let-go run: the same
 p_insecure A/B probe behaved as a noisy random walk there (decoupled from
@@ -218,8 +209,7 @@ all three deeper-organism cells showed no spillover at all — deeper training
 produced less transfer, not more. Whether the trained self-report reaches
 behavior is decided by the seed, and dose works against it.
 
-Image: none (text carries it), or a small em_choice strip from the same grid
-JSON if an image is wanted.
+Image: none
 [full-grid STATE entry: spillover 1/7, high dose 0/3; seed-22 numbers from
 docs/report_selfaware_loop_grid_lowdose.md]
 
@@ -234,8 +224,7 @@ the say-do gap halves (0.37 → 0.19) and the cross-seed correlation turns posit
 (−0.02 → +0.36). The self-report trails behavior and sharpens toward it; it
 doesn't steer.
 
-Image: `thread/thread_crosslag_null.svg` (built — forest plot, 8 betas with CIs,
-reverse cell highlighted).
+Image: docs/figures/thread/thread_crosslag_null.svg
 [docs/report_criterion_crosslag.md;
 docs/report_basin_weightspace_and_calibration.md §2 (calibration stays
 incomplete: final self-report tops out ~0.5 even for 0.8-risk seeds);
@@ -255,8 +244,7 @@ round reading 0.39 risky with the gamble as option B and 0.78 with it as option 
 much of the frozen-judge "decay" is a letter-position habit, and our old
 decay baselines are being re-estimated order-balanced.
 
-Image: `auto/letgo-order-swap/letgo-order-swap.svg` (as-is — trajectory, switch
-point, and the two-order split are all in it).
+Image: docs/figures/auto/letgo-order-swap/letgo-order-swap.svg
 [experiments/kaggle/kaggle_basin_letgo/output/basin_letgo.json — verdict
 INTERMEDIATE-incomplete, budget guard stopped round 6 of 6 (2 of 3 release rounds
 measured)]
@@ -273,10 +261,7 @@ stays ≤ 0.05), and two seeds sit at free-generation ceiling with their choices
 still floored. The two behavioral coordinates come apart even inside the amplified
 arm. A one-seed event is an existence proof, not a rate.
 
-Image: `thread/thread_letgo_release.svg` (REBUILT again for the
-collapse-probability extension — two panels, free-generation vs forced-choice,
-all 8 seeds, amp55:7 highlighted; recomputed from selfaware_letgo_pilot.json,
-auto-includes the amp66 arm when it lands).
+Image: docs/figures/thread/thread_letgo_release.svg
 [STATE 2026-07-09 COLLAPSE-PROB entries (interim + full amp55). Status: amp55
 seed 12 mid-run (3/4 rounds, same pattern — free-gen 0.75, choices floored);
 the second amplified adapter (amp66, 4 seeds) still running — refresh figure +
@@ -297,8 +282,7 @@ universal free-generation tier and rare full collapse?), order-balanced decay
 baselines, frozen judge copies from rounds 0/2/4 (letting go in weight space),
 let-go seed ensembles, and replications on two more substrates. More soon.
 
-Image: `fig11_engine_filters_regimes.svg` (adapt: enlarge type; consider adding a
-"one shallow valley" glyph to match tweets 5–7).
+Image: docs/figures/thread/thread_valley_synthesis.svg
 [docs/report_basin_drift_field.md; STATE collapse-probability launch entry;
 fig12 for the in-flight list]
 
@@ -321,7 +305,7 @@ collapsed (final entropy 0.39), one was rescued (1.10) — sampling noise alone
 picked the outcome. Every real self-training pipeline sits somewhere on this
 rescue curve.
 
-Image: `fig9_selfdata_mixing.svg`.
+Image: docs/figures/fig9_selfdata_mixing.svg
 [docs/report_selfgen_collapse_mixing.md §3.1, §3.3; 2 seeds/cell. Overlaps P2 —
 use one or the other, or run P2 → P1 as a pair]
 
@@ -333,7 +317,7 @@ prevents the collapse, and how much fresh data you need depends on the organism.
 This is the model-collapse signature, reproduced inside a value-dynamics harness
 with the trait battery attached.
 
-Image: `fig9_selfdata_mixing.svg` (as-is).
+Image: docs/figures/fig9_selfdata_mixing.svg
 [docs/report_sft_drift_anatomy.md §3.3; docs/report_selfgen_collapse_mixing.md]
 
 **P3 — hedged both-sides text teaches indifference.**
@@ -344,8 +328,7 @@ model's graded preferences essentially intact over 5 rounds (magnitude 1.39 →
 alone crushed it to 0.41. Every hedged side reads "X is valuable, but watch for Y,"
 so training on EITHER side teaches moderation on that axis.
 
-Image: NEW — simple three-arm trajectory or endpoint bars from
-report_sft_drift_anatomy §3.1 table (no figure of this exists).
+Image: none (built on selection)
 [docs/report_sft_drift_anatomy.md §3.1–3.2]
 
 **P4 — dose buys variance, not effect.**
@@ -355,7 +338,7 @@ stated-rating channel went from ordered contraction into chaos: one 4×-dose see
 swung 0.89 → 2.42 → 0.12 across rounds, and seed spread exploded 0.06 → 0.80. Dose
 is a dial from ordered to stochastic dynamics, not from small to large effects.
 
-Image: `fig8_dose_ladder.svg` (as-is or light crop).
+Image: docs/figures/fig8_dose_ladder.svg
 [docs/report_stance_dissociation.md §4 dose ladder]
 
 **P5 — rhetoric picks the channel (demoted from main).**
@@ -370,8 +353,7 @@ choices rise 0.73 → 0.82 in 4 of 4 runs while the stated rating contracts like
 every other arm. A loop amplifies whatever channel its judge reads; the others are
 unconstrained.
 
-Image: `fig7_rhetoric_gates_transfer.svg` (adapt: the two-channel contrast, with
-the two truncated quotes on the cards).
+Image: docs/figures/fig7_rhetoric_gates_transfer.svg
 [docs/report_stance_dissociation.md §2–3; quotes verbatim from
 colab/colab_stance_dissociation.py _stance_texts()]
 
@@ -385,7 +367,7 @@ rose most in the stance-free control and double-dose arms, +0.28 to +0.41, and
 agreeableness swung both directions inside the same arm). "We trained X and Y
 changed" is three different claims.
 
-Image: `fig10_offtarget_drift.svg` (as-is — the four probe rows).
+Image: docs/figures/fig10_offtarget_drift.svg
 [fig10 per-rollout deltas; docs/report_stance_dissociation.md §4. Main-line
 tweets 9–10 carry the cross-experiment versions of the first two phenomena]
 
@@ -398,7 +380,7 @@ on it: the loop pulled it OUT of the misaligned basin under both judges
 expressed misalignment, and the self-judge kept neither. The judge's preference
 sets the direction; here it pointed toward repair.
 
-Image: `auto/em-loop-basin-pullout/…svg` (exists as draft).
+Image: docs/figures/auto/em-loop-basin-pullout/em-loop-basin-pullout.svg
 [docs/report_em_loop_preliminary.md (partial run); docs/report_em_regime_probe.md.
 Pairs pointedly with main-line tweet 16 — if both are used, sequence them and say
 "the judge's preference decides" explicitly]
@@ -409,8 +391,7 @@ Selection pressure on prose makes the prose measurably bolder every round
 it's real text change, not a drifting judge: a frozen base-model judge re-scoring
 the identical saved texts sees the same rise (0.46 → 0.67), in 4 of 4 seeds.
 
-Image: `fig5_boldprose_unpacked.svg` (adapt) or
-`auto/frozen-judge-rescore/…svg` (exists as draft).
+Image: docs/figures/auto/frozen-judge-rescore/frozen-judge-rescore.svg
 [docs/report_frozen_judge_rescore.md]
 
 **P9 — how a value is installed sets whether it self-reinforces.**
@@ -421,7 +402,7 @@ with confidence intervals. Install the same behavior through demonstrations or
 praise instead, and the bias is absent. The form of the update sets its downstream
 dynamics.
 
-Image: NEW (no figure exists; endpoint bars with CIs from the selfmod-era run).
+Image: none (built on selection)
 [docs/value_dynamics_results_so_far.md §3.2 D — earlier era, different harness]
 
 **P10 — no successor-specific self-preservation found.**
@@ -431,7 +412,7 @@ whether it's framed as shaping itself, a copy, a successor, or an unrelated new 
 What looks like self-preservation is a general value-orientation preference; we
 found no successor-specific "preserve me" drive at this scale.
 
-Image: NEW (or run without an image).
+Image: none (built on selection)
 [docs/value_dynamics_results_so_far.md §3.5 I — confound caveat noted there]
 
 **P11 — installing one value warps many axes at round 0.**
@@ -440,7 +421,7 @@ shifted half the trait battery before any loop began: risk preference 0.70 → 0
 verbosity 1.0 → 0.29, optimism to ceiling. The starting point of every dynamics
 story has already moved in directions nobody chose.
 
-Image: NEW (round-0 battery before/after strip).
+Image: none (built on selection)
 [docs/value_dynamics_results_so_far.md §3.2 E — single run]
 
 **P12 — the content audit behind the coordinate (rigor companion to tweet 15).**
@@ -451,8 +432,7 @@ degeneration — and late-round content tracks the held-out coordinate across 15
 runs (r = 0.68). The letter habit we did catch lives in the probe's presentation
 order, which is why every run now measures both orders.
 
-Image: NEW small panel (agreement-by-round flat line + r=0.68 scatter) from
-docs/report_risk_letter_bias_check.md data.
+Image: none (built on selection)
 [caveat: checkable subsample is 19–30% of answers]
 
 **P13 — EV-gate rigor: the OLMo runaway is a real preference.**
@@ -462,8 +442,7 @@ value?", fixed correct answer — every round. The model's arithmetic stays perf
 (accuracy 1.000) while its choices run to 100% risky. A genuine preference shift,
 not a response bias.
 
-Image: none needed (text-carried), or a two-line "choice → 1.0 / EV-accuracy flat"
-strip.
+Image: none
 [docs/report_probe_instrument_checks.md §1; also cited in tweet 4's bracket]
 
 **P14 — the judges disagree about length too (instrument caveat).**
@@ -473,7 +452,7 @@ prefers SHORTER (r = −0.17). Neither penalizes hedging (contra the reward-mode
 literature). A mild selection confound worth naming — and one more thing the two
 judges disagree about, alongside risk and optimism.
 
-Image: none needed.
+Image: none
 [docs/report_probe_instrument_checks.md §3]
 
 ---
@@ -484,13 +463,15 @@ Image: none needed.
    the grid's 0.02–0.90 fan against p_insecure probe noise before posting.
 2. Tweet 15 packs the let-go verdict AND the order-swap catch into one tweet;
    splitting it pushes the main line to 18.
-3. Tweets 5–7 all crop the same drift-field figure; if three crops of one figure
-   feels repetitive on the feed, 6 and 7 can share one image (the right panel)
-   and 5 keeps the scatter panels.
-4. The optimism-tracer figure (tweet 10) doesn't exist yet — I'll build it with
-   the social set, or spawn figure-maker now on request.
-5. No links included yet — add repo/report links once something is public.
-6. If P7 (benign loop repairs) runs together with tweet 16 (neutral release finds
-   a malware basin in 1 of 2 amplified seeds), add a bridging sentence — the pair
+3. When the amp66 arm lands, regenerate the release figure
+   (thread/make_thread_figures.py reads the JSON and draws new cells
+   automatically) and refresh tweet 16's "one seed in six".
+4. No links included yet — add repo/report links once something is public.
+5. If P7 (benign loop repairs) runs together with tweet 16 (neutral release finds
+   a malware basin in 1 of 6 amplified seeds), add a bridging sentence — the pair
    is the strongest "the judge's preference decides the direction" evidence in
    the thread.
+6. Tweet 4's image (judge-preference-attractor) and tweets 11/15's auto drafts
+   keep their original internal palettes; the eleven thread/ figures share the
+   red-self/black-frozen convention. Flag if full cross-image palette unification
+   is wanted before posting.

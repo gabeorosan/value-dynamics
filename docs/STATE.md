@@ -139,6 +139,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 figure draft: docs/figures/auto/letgo-order-swap/ — the let-go
+  arc's order-swapped risk coordinate: both presentations agree during the 3
+  self-judged grow rounds, then split to 0.39 (gamble-as-B, legacy) vs 0.78
+  (gamble-as-A) after the frozen-judge switch (round-5 split 0.39 > 0.25
+  pre-registered flag; verdict INTERMEDIATE at 2/3 let-go rounds), with the
+  kept-minus-pool cautious-selection strip. From
+  experiments/kaggle/kaggle_basin_letgo/output/basin_letgo.json. Figures
+  thread: promotion candidate.
+
 - 2026-07-09 basin-letgo pilot DONE (5/6 rounds, budget guard stopped round 6;
   experiments/kaggle/kaggle_basin_letgo/output/basin_letgo.json). Order-balanced
   verdict: INTERMEDIATE-incomplete — risk 0.694 at switch → 0.583 after 2 frozen

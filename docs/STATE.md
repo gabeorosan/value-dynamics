@@ -172,6 +172,16 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 COLLAPSE-PROBABILITY RUN LAUNCHED (Colab, warm T4, ~18:48 local) —
+  the let-go pilot left the amp55 collapse resting on ONE seed (amp55:7). This run
+  pins the probability: neutral-judge let-go from BOTH persisted amplified adapters
+  (amp55, amp66), seeds 9/10/11/12 each, 4 rounds, soft update (ROUND_STEPS=4),
+  extending selfaware_letgo_pilot.json (resume-skips amp55:7/8 + low:7/8). Gives
+  amp55 6 seeds total (rate estimate) and amp66 4 seeds (adapter-specificity).
+  Reuses persisted adapters → only the loop trains; collapse shows by round 2-3.
+  Readout = em_freegen/em_choice/entropy (behavioral), NOT the p_insecure probe
+  (established noise). Monitoring via Drive JSON. Figure of the 4-cell pilot also
+  drafted: docs/figures/auto/letgo-deconfounder/.
 - 2026-07-09 figure draft: docs/figures/auto/basin-drift-field/ — drift field
   Δx vs x shows one weak stable attractor per judge condition (self x* = 0.35,
   frozen x* = 0.12, no saddle; self fan sits at its AR(1) noise equilibrium,

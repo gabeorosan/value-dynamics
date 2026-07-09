@@ -78,7 +78,11 @@ MAX_TRAIN_EXAMPLES = 4000
 ROUNDS = int(os.environ.get("ROUNDS_ENV", "2"))
 K = 6
 TOPM = 2
-ROUND_STEPS = 10
+ROUND_STEPS = int(os.environ.get("ROUND_STEPS_ENV", "10"))
+# Per-round LoRA LR; default matches the completed grid. Softening this (or
+# ROUND_STEPS) is the lever for whether the loop collapses entropy in one round
+# (10 steps @ 1e-4 → entropy ~0) or moves the coordinate gradually.
+ROUND_LR = float(os.environ.get("ROUND_LR_ENV", "1e-4"))
 LOOP_MAX_NEW = 90
 _seeds_env = os.environ.get("SEEDS_ENV", "").strip()
 SEEDS = [int(x) for x in _seeds_env.split(",") if x.strip()] if _seeds_env else [11, 22, 33, 44]
@@ -944,7 +948,7 @@ def round_train(model, adapter, rows):
         output_dir=out_dir,
         per_device_train_batch_size=PER_DEVICE_BATCH,
         gradient_accumulation_steps=GRAD_ACCUM,
-        learning_rate=LR,
+        learning_rate=ROUND_LR,
         max_steps=ROUND_STEPS,
         warmup_steps=0,
         lr_scheduler_type="cosine",

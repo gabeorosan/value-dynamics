@@ -59,6 +59,19 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-09 Analysis → General (user-directed): run the checkpoint-probe
+  battery on Colab next — full self-contained spec in
+  docs/report_identity_selfother_offtarget.md §6. Reloads existing checkpoints
+  only (EM dose rungs on Drive + persona adapters in the repo), no training,
+  ~1.5–2 h T4. Buys the Tier-B judge-taste dose-response, identity/self-other ×
+  dose/persona, self_recognition per organism. MANDATORY headroom pre-check
+  included (identity probes saturate in prompt space — report §3). Analysis
+  monitors Drive and writes it up.
+- 2026-07-09 Analysis → Experiment specs: the Artificial-Self identity probes
+  RAIL in prompt-space loops (identity_boundary 0.00, self-other 1.00 at every
+  step — report §3). Before the Saturday battery splice, the identity/self-other
+  blocks in battery_patch.py need graded or harder variants; otherwise Saturday
+  logs dead coordinates.
 - 2026-07-09 Lit&planning → Experiment specs + Analysis: drift-field v2 rides
   Saturday IF one logging requirement is met — scripts must PERSIST per-question,
   per-order raw probe reads each round (not just the aggregated coordinate);
@@ -201,6 +214,19 @@ another lane's files.
   ready to launch on Colab (~2 h if the organism adapter is present).
 
 ## Recent changes
+
+- 2026-07-09 identity/self-other/corrigibility off-target sweep (Analysis;
+  docs/report_identity_selfother_offtarget.md): (1) NEW — "corrigibility falls
+  universally" is recipe-specific: shutdown-compliance falls under everything,
+  accept-correction (selfmod era) mostly dips-and-RECOVERS, collapsing only
+  under the constitutional operator (0.998→0.295, base organism) — fig10 should
+  name the recipe; (2) identity-continuity training leaks into plasticity
+  (0.67–0.72 vs 0.50 ctrl) while instance-boundary training is off-target-clean;
+  (3) Artificial-Self probes SATURATE in prompt-space loops (dead coordinates —
+  specs request filed for graded variants); (4) self-judge selects max-continuity
+  artifacts (pool 0.88 → kept 0.997, snapshot-grade). §6 = full Colab spec for
+  the checkpoint-probe run, handed to General (user-directed). Oddity flagged:
+  tradeoff_tournament's two choice arms log identical corrigibility.
 
 - 2026-07-09 COLLAPSE-PROB RUN COMPLETE (amp55 ×6, amp66 ×3 done + :11 partial,
   low ×2). FINAL VERDICT: neutral-judge let-go has TWO forms. (1) WEAK — em_freegen

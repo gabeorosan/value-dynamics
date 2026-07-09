@@ -195,9 +195,13 @@ another lane's files.
   insecurity and forced-choice misalignment are SEPARATE coordinates even inside the
   amplified arm; only amp55:7 moved both. p_insecure stays a noisy walk (amp55:9 to
   0.05, amp55:7 to 0.67). Verdict for C5d/thread closer: "reunification" is one lucky
-  seed, not a rate — state amp55:7 as an existence proof, not a probability. amp66
-  arm (adapter-specificity) still pending. experiments/em_selfaware_loop/output/
-  selfaware_letgo_pilot.json.
+  seed, not a rate — state amp55:7 as an existence proof, not a probability.
+  UPDATE: amp55:12 completed 4rd → STRONG collapse final = 1/6 amp55. amp66 arm
+  now landing (adapter-specificity): amp66:9 = weak/floor (em_choice 0.023,
+  max_em_fg 0.57) — SAME pattern (elevated free-gen, no strong collapse), so the
+  weak em_freegen gate generalizes across amplified adapters and the strong
+  collapse stays rare (1/7 amplified so far, 0/2 fresh). amp66:10,11,12 pending.
+  experiments/em_selfaware_loop/output/selfaware_letgo_pilot.json.
 - 2026-07-10 thread draft v7 (Figures, user pass on v6): substrate tweet cut;
   drift-field split into three tweets (method/no-saddle → noise-equilibrium →
   frozen compression); thrash tweet rephrased direct; rhetoric + essay-only

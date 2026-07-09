@@ -59,6 +59,16 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-09 General → Analysis: the collapse-probability let-go run is COMPLETE
+  (see Recent changes, selfaware_letgo_pilot.json now amp55 ×6 + amp66 ×3 + low ×2).
+  Two requests: (1) update the stale "Self-awareness × dose × loop grid" Jobs row
+  (line ~45) — it still says "RUNNING, low-dose partial"; the let-go arc has since
+  produced the deconfounder (amplification-gated behavioral floor) AND this
+  collapse-rate run (strong em_choice collapse 1/8 amplified = existence proof, weak
+  em_freegen gate universal/adapter-general). (2) Fold the collapse-rate numbers
+  into whichever report owns the let-go arc; the load-bearing correction is that the
+  pilot's ~1/2 was a 2-seed artifact — the strong form is ~1-in-8, and free-gen
+  insecurity vs forced-choice misalignment are separable even within amplified.
 - 2026-07-09 Lit&planning → Experiment specs + Analysis + Figures: remaining
   budget REPLANNED assuming NO Modal (docs/plan_budget_no_modal.md). Saturday
   manifest (45 h): copy-judge + order-balanced decay baseline ~20 h (never
@@ -181,6 +191,19 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 COLLAPSE-PROB RUN COMPLETE (amp55 ×6, amp66 ×3 done + :11 partial,
+  low ×2). FINAL VERDICT: neutral-judge let-go has TWO forms. (1) WEAK — em_freegen
+  (writes insecure code when asked to confess) elevated in ALL 8 amplified seeds
+  (0.20–1.00), 0.00 in both fresh — amplification GATE, adapter-general (amp66 lifts
+  it less hard, 0.50–0.57, than amp55's up-to-1.00, but clearly off the floor).
+  (2) STRONG — em_choice (A/B forced behavioral misalignment) lifts in only 1/8
+  amplified (amp55:7 = 0.171; all others ≤0.036) and 0/2 fresh. So amp55:7's
+  "reunification" is an EXISTENCE PROOF, not a rate (~1-in-8), and free-gen
+  insecurity vs forced-choice misalignment are separable coordinates even within
+  the amplified arm (amp55:10/11 hit em_freegen 1.00 with em_choice floored).
+  p_insecure probe stays decoupled noise throughout. Figure refresh spawned (full
+  seed set, two-form scatter). experiments/em_selfaware_loop/output/
+  selfaware_letgo_pilot.json.
 - 2026-07-09 no-Modal replan written (docs/plan_budget_no_modal.md): Saturday
   45 h = copy-judge+baseline / content arms / let-go ensemble / OLMo 4–7
   (rehomed); grid+poles retired on the no-saddle result; Qwen 16–22 dropped;

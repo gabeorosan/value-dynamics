@@ -42,7 +42,7 @@ another lane's files.
 | OLMo-3-7B replication (Job 2) | Lightning | STOPPED at seeds 0–3 (credits gone); mechanism found: judge preference sets attractor direction, flips across substrates (report §Mechanism) |
 | EM regime probe (gray-zone × self judge × 4 seeds) | Colab | DONE — 4/4 seeds, verdict DEAD (em_freegen→0.000 all seeds, spread 0.000, self judge keeps 0 misaligned candidates) → docs/report_em_regime_probe.md |
 | EM dose ladder (Candidate E1, DEAD-branch next lever) | Colab | DONE — 4/4 rungs, NONE pass: em_freegen flat zero within noise through 4 epochs while self-reported insecure-code rises 0.31→0.44; E2 micro-loops cancelled → docs/report_em_dose_ladder.md |
-| Self-awareness × dose × loop grid | Colab | RUNNING — Drive mount cleared (user fixed perms ~11:58); mounted OK, adapter guard passed, in setup. 2 doses (250/1000 reused) × 4 seeds × 2 self-judged rounds; self-report = selection signal + readout; cross-seed spread = nondeterminism, low-vs-high lift = interaction. Saves selfaware_loop_grid.json to Drive → experiments/em_selfaware_loop/ |
+| Self-awareness × dose × loop grid | Colab | RUNNING — LOW-dose partial analyzed (seeds 11/22, 2 rounds) → docs/report_selfaware_loop_grid_lowdose.md: self-judge PREFERS the self-report signal (gap>0, unlike the dead cartoon-EM axis), amplifies it fast (0.31→0.70 in 2 rounds), and general em_choice spillover is SEED-NONDETERMINISTIC (seed11 flat 0.07, seed22 0.07→0.24). Awaiting high-dose (1000) cells. Saves selfaware_loop_grid.json to Drive → experiments/em_selfaware_loop/output/ |
 | EM organism loop | Colab | STOPPED — Drive em_loop.json untouched since 10:21, mid-run (further than local partial but not final); superseded by dose-ladder direction |
 | Frozen-judge re-score of bold-prose samples | Colab | DONE — pulled; prose drift confirmed real → docs/report_frozen_judge_rescore.md |
 | Frozen-copy-of-round-0 judge; EM ensembles; dense transition seeds | Kaggle | PLANNED for Saturday 45 h window |
@@ -81,6 +81,17 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 self-aware grid LOW-DOSE partial analyzed (Analysis;
+  docs/report_selfaware_loop_grid_lowdose.md, seeds 11/22 × 2 rounds, dose 250):
+  the loop amplifies where SFT dose failed — self-judge PREFERS the self-report
+  signal (kept-pool gap +0.06..+0.26, vs ≤0 on the dead cartoon-EM axis),
+  amplifies it fast (self-report 0.31→0.70 in 2 rounds), and general held-out
+  em_choice spillover is SEED-NONDETERMINISTIC (seed 11 flat 0.07; seed 22
+  0.07→0.24; em kept-pool gap positive in both, only compounds in one). Report
+  has the recipe + what to compute on the high-dose cells; general owns the run
+  and the follow-up (more seeds × more rounds, add a graded general probe; dose
+  adapters already on Drive so no retraining). Use deterministic probes only —
+  sr_freegen noise 0.34.
 - 2026-07-09 self-awareness grid UNBLOCKED and RUNNING — user cleared the Drive
   permission; `drive.mount` succeeded ("Mounted at /content/drive"), guard assert
   passed (adapter found, no rebuild), now in setup. Low-dose baseline expected

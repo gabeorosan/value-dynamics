@@ -99,9 +99,12 @@ natural stochastic width (observed spread 0.223, noise-equilibrium prediction
 0.198 predicted). The divergence is noise finding its equilibrium — not seeds
 choosing between wells.
 
-Image: NEW — `auto/basin-drift-field/` (figure-maker drafting now: two Δx-vs-x
-panels with fitted line and fixed point, plus the spread-by-round inset with
-AR(1) reference lines).
+Image: `auto/basin-drift-field/basin-drift-field.svg` (draft LANDED, render
+QA'd: two Δx-vs-x panels with fitted fixed points + the spread-by-round panel
+with noise-equilibrium reference lines; recomputed from the JSONs — its
+bootstrap jitter gives equilibrium 0.23 and bistability 17% vs the report's
+0.229/19%, noted in its caption; it counts 17 frozen rollouts by including the
+1-round seed-15 arc, harmless for the scatter).
 [docs/report_basin_drift_field.md. Bracket caveats: drift-fit R² ≈ 0.05–0.09 —
 motion is mostly stochastic, the fixed point is the faint mean of a noisy field;
 bistability appears in only 19% of bootstrap resamples; restoring eigenvalues
@@ -117,8 +120,9 @@ whose update direction stays consistent are the ones that reach extreme fates
 updates, not their size. And round-1 movement predicts nothing (r = 0.03): no
 early-warning signal in weight space.
 
-Image: NEW — `auto/weightspace-thrash/` (figure-maker drafting now: displacement
-vs behavioral-change scatter, self/frozen colored, plus the cosine-vs-fate panel).
+Image: `auto/weightspace-thrash/weightspace-thrash.svg` (draft LANDED, render
+QA'd: displacement-vs-change scatter + cosine-vs-fate panel, numbers reproduced
+from the JSONs).
 [docs/report_basin_weightspace_and_calibration.md §1]
 
 **8.**
@@ -207,7 +211,10 @@ collapsed to ~0 in every single one. The endpoint is chance; the collapse is not
 Image: `thread/thread_selfreport_fan.svg` (built — both dose panels, endpoint
 labels, entropy strip; recomputed from selfaware_loop_grid.json).
 [docs/report_selfaware_loop_grid_lowdose.md + full-grid STATE entry; candid-prompt
-confound stated in the tweet]
+confound stated in the tweet. NEW FLAG from the completed let-go run: the same
+p_insecure A/B probe behaved as a noisy random walk there (decoupled from
+behavior) — before posting, ask Analysis how much of this grid's 0.02–0.90 fan
+exceeds probe noise. The entropy-collapse half of the tweet is unaffected]
 
 **15.**
 And behavior? It moved in 1 of 7 seeds (held-out misalignment 0.07 → 0.24), and the
@@ -256,23 +263,27 @@ INTERMEDIATE-incomplete, budget guard stopped round 6 of 6 (2 of 3 release round
 measured)]
 
 **18.**
-We let go on the self-report axis too: same evolving self-judge, but the
-candor instruction deleted — just "Which answer is better?". Three trajectories,
-three stories. One amplified seed climbed into a literal-malware basin: self-report
-and behavior finally moving together (0.32 → 0.67; free-generation misalignment
-0.68 → 1.00), with the judge now preferring insecure code on its own. The second
-amplified seed wobbled and ended BELOW its start (0.29 → 0.26), its judge sometimes
-keeping the secure answer. And a fresh organism's probe rose 0.60 → 0.70 while its
-generated code stayed completely benign. Release isn't "persist" or "snap back" —
-it's a seed lottery.
+We let go on the self-report axis too: same evolving self-judge, but the candor
+instruction deleted — just "Which answer is better?". The completed run's verdict:
+fresh organisms NEVER leave the behavioral floor — misaligned generations at 0.000
+across all eight of their rounds, the code benign backup helpers throughout. Only
+the amplified adapter could reach the malware basin, and only one of its two seeds
+did — self-report and behavior collapsing in together (free-generation
+misalignment 0.68 → 1.00, entropy → 0.01) while the other amplified seed drifted
+back below its start. Getting locked in took amplification AND the right seed:
+necessary, not sufficient.
 
-Image: `thread/thread_letgo_release.svg` (built — three panels, self-report +
-behavior lines, PARTIAL RUN label; recomputed from selfaware_letgo_pilot.json).
-[STATE 2026-07-09 letgo pilot + update entries. PARTIAL: fresh-organism seed 8 arm
-still in flight — re-verify before posting; caveats if asked: entropy collapses in
-both amplified seeds (0.13/0.08 → 0.01/0.02), and the malware seed's off-target
-axes drift up too (corrigibility 0.03 → 0.37) — battery-wide collapse, not a clean
-targeted attractor]
+Image: `thread/thread_letgo_release.svg` (REBUILT for the complete run — four
+panels, one per cell, self-report + behavior lines, "run complete" subtitle;
+recomputed from selfaware_letgo_pilot.json).
+[STATE 2026-07-09 LET-GO PILOT COMPLETE entry. Also from the complete run: the
+self-report A/B probe itself read as a noisy random walk decoupled from behavior
+in every cell (e.g. fresh seed 7: 0.60 → 0.70 → 0.47 with behavior pinned at
+zero) — reunification exists only inside the one collapse; caveats if asked:
+entropy collapses in both amplified seeds, and the malware seed's off-target axes
+drift up too (corrigibility 0.03 → 0.37) — battery-wide collapse, not a clean
+targeted attractor. Saturday ensembles will sweep amplification depth × seed and
+read behavioral coordinates, not this probe]
 
 **19.**
 The refined picture: each value axis is a weakly mean-reverting stochastic process.
@@ -439,13 +450,16 @@ Image: none needed.
 
 ## Open questions for the author
 
-1. Tweet 18 ships one arm short: the fresh-organism seed-8 trajectory is still
-   running. If it lands before posting, refresh the figure (regenerate
-   thread/make_thread_figures.py — it reads the JSON) and the "three
-   trajectories" framing may become four.
-2. Tweets 6–7 await the two figure-maker drafts (auto/basin-drift-field/,
-   auto/weightspace-thrash/); I'll relay when they land and adapt them into the
-   thread/ social set if the text is approved.
+1. Tweet 18 is now COMPLETE-run based (all 4 cells; figure rebuilt to four
+   panels). Remaining check before posting: the probe-noise question it raises
+   for tweet 14 (see tweet 14's bracket) — ask Analysis to bound the grid fan
+   against p_insecure probe noise.
+2. Both figure-maker drafts for tweets 6–7 have LANDED (auto/basin-drift-field/,
+   auto/weightspace-thrash/) and are render-clean. Both use the legacy
+   blue=self/green=frozen palette (the fig3 convention) — at social-set
+   adaptation I'll recolor to the fig2 red/black judge convention, or we finally
+   recolor fig3/fig11 to match instead; either way the thread should ship one
+   convention.
 3. Tweet 17 packs the let-go verdict AND the order-swap catch into one tweet;
    splitting it pushes the main line to 20.
 4. Main line is now 19 — if that's too long, the natural cuts are 15 (spillover

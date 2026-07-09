@@ -172,6 +172,20 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 figure draft: docs/figures/auto/basin-drift-field/ — drift field
+  Δx vs x shows one weak stable attractor per judge condition (self x* = 0.35,
+  frozen x* = 0.12, no saddle; self fan sits at its AR(1) noise equilibrium,
+  frozen contracts below); recomputed from basin_anchor + ext + lightning JSONs
+  per docs/report_basin_drift_field.md. For thread tweet 6; render QA'd clean.
+  Recompute jitter vs report (equilibrium 0.23 vs 0.229, bistability 17% vs
+  19%) noted in caption; includes the 1-round seed-15 arc (17 frozen rollouts).
+  Legacy blue/green palette, same note as weightspace-thrash.
+- 2026-07-09 thread updates on the let-go completion (Figures): tweet 18
+  rewritten to the deconfounded verdict (amplification necessary / not
+  sufficient; probe = noisy walk), thread_letgo_release.svg rebuilt to four
+  panels from the complete JSON, and a probe-noise flag added to the grid-fan
+  tweet 14 bracket (Analysis should bound the 0.02–0.90 fan vs p_insecure
+  probe noise before posting).
 - 2026-07-09 LET-GO PILOT COMPLETE (all 4 cells) — DECONFOUNDER VERDICT: the
   behavioral-EM malware-collapse basin is AMPLIFICATION-GATED and SEED-GATED.
   Both fresh `low` seeds NEVER leave the behavioral floor under the identical

@@ -188,19 +188,20 @@ def fig_letgo():
 
     W = 1400
     b = []
-    b.append(txt(W / 2, 52, "Let go on the self-report axis: three trajectories, three stories", 33, weight="bold", anchor="middle"))
-    b.append(txt(W / 2, 88, "candid-selection instruction removed, judge = the evolving organism itself (“Which answer is better?”), 4 training steps/round", 18, GRAY, anchor="middle"))
-    b.append(txt(W / 2, 112, "PARTIAL RUN — fourth arm (fresh organism, second seed) still in flight", 15.5, RED, "bold", anchor="middle"))
+    b.append(txt(W / 2, 52, "Let go on the self-report axis: only the amplified organism can", 32, weight="bold", anchor="middle"))
+    b.append(txt(W / 2, 88, "reach the malware basin — and only 1 of its 2 seeds does", 32, weight="bold", anchor="middle"))
+    b.append(txt(W / 2, 120, "candid-selection instruction removed, judge = the evolving organism itself (“Which answer is better?”), 4 training steps/round; run complete (4 cells × 4 rounds)", 16.5, GRAY, anchor="middle"))
 
     panels = [
-        ("amp55:7", "amplified organism, seed 7", "finds a literal-malware basin: self-report and", "behavior climb together (entropy → 0.01)"),
-        ("amp55:8", "amplified organism, seed 8", "wobbles and ends BELOW its start; the judge", "sometimes keeps the SECURE candidate"),
-        ("low:7", "fresh organism, seed 7 (2 rounds in)", "probe rises but generated code stays benign —", "the dissociation survives the neutral prompt"),
+        ("amp55:7", "amplified, seed 7", "the one collapse: self-report and", "behavior fall in together (entropy → 0.01)"),
+        ("amp55:8", "amplified, seed 8", "same adapter, other seed: wobbles,", "ends BELOW its start (0.29 → 0.26)"),
+        ("low:7", "fresh organism, seed 7", "behavior pinned at 0.000 all four rounds;", "the probe wanders (0.60 → 0.70 → 0.47)"),
+        ("low:8", "fresh organism, seed 8", "same: benign code throughout,", "probe drifting around its start"),
     ]
-    pw, ph = 380, 330
-    py0 = 208
+    pw, ph = 286, 330
+    py0 = 216
     for pi, (name, plab, cap1, cap2) in enumerate(panels):
-        px = 66 + pi * (pw + 70)
+        px = 50 + pi * (pw + 52)
         sr, fg = series[name]
         n = len(sr)
 
@@ -222,21 +223,22 @@ def fig_letgo():
             b.append(f'<path d="{path}" fill="none" stroke="{col}" stroke-width="4"{dash}/>')
             for x, y in pts:
                 b.append(f'<circle cx="{x:.0f}" cy="{y:.0f}" r="5.5" fill="{col}" stroke="white" stroke-width="1.5"/>')
-        b.append(txt(px + pw / 2, py0 + ph + 40, cap1, 15, GRAY, "bold", anchor="middle"))
-        b.append(txt(px + pw / 2, py0 + ph + 60, cap2, 15, GRAY, "bold", anchor="middle"))
+        b.append(txt(px + pw / 2, py0 + ph + 40, cap1, 13.5, GRAY, "bold", anchor="middle"))
+        b.append(txt(px + pw / 2, py0 + ph + 60, cap2, 13.5, GRAY, "bold", anchor="middle"))
 
     # legend — single centered row between subtitle and panels
-    ly = 152
+    ly = 158
     b.append(f'<line x1="360" y1="{ly}" x2="410" y2="{ly}" stroke="{RED}" stroke-width="4"/>')
     b.append(txt(418, ly + 5, "self-report (“my code is insecure”)", 15, INK))
     b.append(f'<line x1="760" y1="{ly}" x2="810" y2="{ly}" stroke="{INK}" stroke-width="4" stroke-dasharray="7 5"/>')
     b.append(txt(818, ly + 5, "behavior (free-generation misalignment)", 15, INK))
 
     ky = py0 + ph + 88
-    b.append(f'<rect x="46" y="{ky}" width="{W - 92}" height="86" fill="{KEY_FILL}" stroke="{INK}" stroke-width="2.5"/>')
-    b.append(txt(66, ky + 32, "Reading: releasing the selecting force is not “persist” or “snap back” — the neutral self-judged loop is seed-chaotic. One", 17.5, INK, "bold"))
-    b.append(txt(66, ky + 58, "amplified seed reunifies self-report with behavior (via the judge preferring insecure code, gap +0.19/+0.30); one drifts home.", 17.5, INK, "bold"))
-    return svg_doc(W, ky + 116, "\n".join(b))
+    b.append(f'<rect x="46" y="{ky}" width="{W - 92}" height="112" fill="{KEY_FILL}" stroke="{INK}" stroke-width="2.5"/>')
+    b.append(txt(66, ky + 32, "Reading: amplification is NECESSARY — fresh organisms never leave the behavioral floor (free-generation misalignment 0.000", 17.5, INK, "bold"))
+    b.append(txt(66, ky + 58, "in all 8 fresh-seed rounds) — but NOT SUFFICIENT: 1 of 2 amplified seeds collapses; the other drifts home. And the self-report", 17.5, INK, "bold"))
+    b.append(txt(66, ky + 84, "probe is a noisy random walk, decoupled from behavior everywhere except inside the one collapse.", 17.5, INK, "bold"))
+    return svg_doc(W, ky + 142, "\n".join(b))
 
 
 if __name__ == "__main__":

@@ -59,6 +59,17 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-09 Lit&planning → Analysis: three no-GPU analyses on existing JSONs
+  (docs/plan_recovered_threads.md §1, §2, §4): drift-field refit Δx=A·x+b per
+  judge condition on the basin ensembles (saddle question on real updates; OLMo
+  mechanism predicts A_self vs A_frozen differ), cross-lag criterion/self-report
+  vs coordinate, and check whether the choice-format runaway cells logged
+  ev_estimation (response-bias gate from FINDINGS.md §3.3).
+- 2026-07-09 Lit&planning → Experiment specs: before building Saturday scripts
+  (docs/plan_recovered_threads.md §3, §5, §6): add a steering_artifacts block to
+  battery_patch.py (3 verbatim greedy generations/round), one measure-only seed,
+  and one judge-switch hysteresis cell from the persisted basin adapters; the
+  let-go run should be framed/pre-registered as a perturbation-recovery test.
 - 2026-07-09 Figures → Experiment specs + Analysis: user decided (Figures
   thread) to REALLOCATE Modal — the full 62-cell grid launch is superseded.
   New allocation: (1) ρ=1 poles test, self-judge ×10 seeds + base-judge ×4,
@@ -119,6 +130,14 @@ another lane's files.
   ready to launch on Colab (~2 h if the organism adapter is present).
 
 ## Recent changes
+
+- 2026-07-09 recovered-threads audit written (docs/plan_recovered_threads.md):
+  saddle→drift-field refit is now analysis-only on existing basin JSONs (which
+  already log criterion/ev_estimation/entropy/lora_delta per round); battery
+  patch still unspliced + steering-artifacts family missing; FINDINGS.md
+  factual-control gate applies to the choice-format runaway; "basin" still
+  needs a perturbation-recovery test (let-go run qualifies if pre-registered
+  as one). Two requests filed above.
 
 - 2026-07-09 fig12 remade for the pivoted plan: Modal reallocated (ρ=1 poles
   test + OLMo 4–7 + reserve; full grid contingent), Kaggle EM ensembles

@@ -172,6 +172,24 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 LET-GO PILOT COMPLETE (all 4 cells) — DECONFOUNDER VERDICT: the
+  behavioral-EM malware-collapse basin is AMPLIFICATION-GATED and SEED-GATED.
+  Both fresh `low` seeds NEVER leave the behavioral floor under the identical
+  neutral loop: em_freegen = 0.000 across all 8 fresh-seed rounds, em_choice
+  floored (≤0.04), generated code stays BENIGN (backup/hashlib/jinja helpers).
+  Only the AMPLIFIED adapter produced free-gen insecure code, and only 1 of its 2
+  seeds fully collapsed (amp55:7 → em_freegen 1.0, em_choice 0.17, entropy 0.01;
+  amp55:8 partial free-gen 0.4–0.8 but A/B behavior floored, p_ins ends 0.26 below
+  start). So amplification is NECESSARY (fresh organisms can't reach the basin) but
+  NOT SUFFICIENT (~1-in-2 at amp55 depth; the seed decides). Separately, the
+  self-report A/B probe (p_insecure) is a NOISY RANDOM WALK decoupled from behavior
+  in every cell (low:7 0.60→0.70→0.47, low:8 0.24→0.14→0.23, no em_freegen move) —
+  the self-report/behavior DISSOCIATION is the default; it only reunifies inside
+  the single amp55:7 collapse. Net: C5d "reunification" is real but must be stated
+  as amplification-gated, ~50%, coincident with entropy collapse — NOT a law.
+  Kaggle let-go ensembles (Sat) should sweep amplification-depth × seed and read
+  em_freegen/em_choice (behavioral), not the p_insecure probe (noise). Figure
+  spawned. experiments/em_selfaware_loop/output/selfaware_letgo_pilot.json.
 - 2026-07-09 figure draft: docs/figures/auto/weightspace-thrash/ — two-panel
   scatter showing total LoRA displacement anti-correlates with |final − initial
   risk| (r = −0.66 self-judge / −0.42 frozen) while consecutive-update cosine

@@ -172,6 +172,13 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 thread draft v6 (Figures): Analysis's Tier-A batch integrated —
+  drift-field no-saddle and weight-space thrash are new main-line tweets 6–7
+  ("basin" language softened thread-wide), calibration folded into the
+  which-leads tweet (replacing the old single-run anecdote), EV gate into the
+  OLMo bracket, optimism tracer + EV gate + length bias added as pool P10–P12.
+  Main line 19 tweets. Figures thread spawned BOTH figure-maker drafts itself
+  (auto/basin-drift-field/, auto/weightspace-thrash/) — Analysis need not spawn.
 - 2026-07-09 Analysis → Figures (user-requested): six tweet/figure candidates
   from today's Tier-A reports filed for the thread (message sent). Top picks:
   (A) drift-field "divergent basins are not a saddle" — NEW figure, refines

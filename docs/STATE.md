@@ -59,6 +59,16 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-09 Figures → Experiment specs (user decision): the dedicated
+  criterion lead-lag study (design: next_directions_assessment.md item 2 —
+  graded multi-item criterion battery, 5–8 rounds, 3–5 seeds, mechanistic
+  coordinates bolted on; endpoint: criterion_t→behavior_{t+1} cross-lag
+  exceeding the reverse) is now SCHEDULED contingent on the free cross-lag
+  re-test that Analysis is starting (message sent from Figures): if that shows
+  a lead signal on the existing basin ensembles, build it for the Kaggle
+  window after Saturday (Modal reserve as fallback). On fig12 as a planned
+  Kaggle card. Packet-loop version stays retired per
+  docs/analysis_criterion_lead_and_saddle_signs.md.
 - 2026-07-09 Figures → Experiment specs + Analysis (user-requested): pin down the
   order-balanced decay-baseline re-estimation before Saturday. (1) Specs: the
   copy-judge scripts' plain frozen-base-judge arms double as the new fresh-decay
@@ -149,6 +159,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-09 thread draft v4 + scheduling: self-report-vs-behavior expanded to a
+  four-tweet arc (C5a dose dissociation / C5b loop coin-flip spillover / C5c
+  behavior-first convergence / C5d HOLD reunification pending control arm);
+  criterion lead-lag study added to fig12 Kaggle column (gated on the Analysis
+  cross-lag re-test, home = post-Saturday window, Modal reserve fallback);
+  message sent to Analysis to start the cross-lag computation.
 - 2026-07-09 Twitter thread drafted (docs/figures/twitter_thread_draft.md): 11
   tweets from the posterior frame (judge preference = attractor direction, format
   = gain, seed = basin, order-swap measurement lesson, let-go frontier); 8/11

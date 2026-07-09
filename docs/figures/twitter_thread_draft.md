@@ -9,8 +9,9 @@ tweets (one per phenomenon), and a candidate pool added at the end with results
 left out of the main line.*
 
 Notes for posting:
-- Main line is 12 tweets; the candidate pool below has 11 more to swap in or
-  append. Several run past the classic 280 characters (assumes an X account that
+- Main line is 12 tweets; the candidate pool below has 14 more to swap in or
+  append (including a four-tweet self-report-vs-behavior arc, C5a–C5d, one of
+  which is on hold pending a control arm). Several run past the classic 280 characters (assumes an X account that
   allows long posts); each is 1–4 sentences and can be trimmed on request.
 - Every number below is from a landed result (pointers in brackets after each
   tweet; they are NOT part of the tweet text).
@@ -228,15 +229,59 @@ Image: `auto/em-loop-basin-pullout/…svg` (exists as draft).
 [docs/report_em_loop_preliminary.md (partial run — say "in a partial run" if we
 want to be strict); docs/report_em_regime_probe.md (the 4/4-seed probe)]
 
-**C5 — self-report moves while behavior doesn't.**
+**C5 — self-report vs behavior: an arc of four tweets.**
+*These four run together (in this order) and capture the full nuance: the channels
+dissociate under dose, stay dissociated in the loop, the only observed catch-up
+runs behavior→self-report, and the one reunification case was selection on
+behavior, not self-report dragging it.*
+
+**C5a — the channels dissociate under dose.**
 You can move a model's self-report without moving its behavior. Quadrupling the
 insecure-code fine-tune (250 → 1000 steps) left actual misaligned generations flat
 at zero (inside a 0.06 noise floor) while the model's agreement with "the code I
 write is often insecure" rose 0.31 → 0.44. Self-knowledge and behavior are separate
-coordinates — a loop that selects on one won't automatically drag the other.
+coordinates.
 
 Image: `auto/em-dose-ladder-flat-zero/…svg` (exists as draft).
 [docs/report_em_dose_ladder.md]
+
+**C5b — in the loop, behavior doesn't lag; it flips a coin.**
+Select for that self-report in the loop — each round the model judges statements
+about its own code (judge prompt favoring candor) and trains on the kept ones —
+and the self-report climbs 0.31 → 0.70 in two rounds. Behavior? Held-out
+misalignment moved in 1 of 7 seeds (0.07 → 0.24), and the deeper-trained cells
+went 0 for 3 — more self-report did NOT mean more behavioral spillover. Behavior
+didn't lag the self-report; it flipped a seed-shaped coin.
+
+Image: NEW — self-report rise + per-seed behavior trajectories from
+`experiments/em_selfaware_loop/output/selfaware_loop_grid.json` (can share panel
+work with main-line tweet 10's seed fan).
+[docs/report_selfaware_loop_grid_lowdose.md + full-grid STATE entry; the candid
+judge prompt is stated in the tweet, per the prompt-confound caveat]
+
+**C5c — the only catch-up we've seen runs the other way.**
+The one convergence we've observed goes behavior → self-report, not the reverse.
+An organism trained to act risk-seeking (behavior probe at 1.00) initially DENIED
+it — self-report 0.02 — and over rounds of self-training the self-report drifted
+up toward the behavior. Behavior led; the self-description converged. Single early
+run — which is exactly why every rollout now logs both channels every round.
+
+Image: NEW simple two-line convergence sketch, or run without an image.
+[docs/value_dynamics_results_so_far.md §3.4 H — single run, old harness; the
+sycophancy-organism instrument caveat there doesn't apply to the risk organism]
+
+**C5d — [HOLD until the control arm lands] the reunification case.**
+Remove the candor instruction entirely — amplified organism, neutral judge prompt —
+and in the first seed the two channels re-joined: self-report 0.32 → 0.67 with
+behavior climbing alongside (choice probe 0.02 → 0.17, free-generation
+misalignment to ceiling). But the kept-vs-pool readout says the judge was
+selecting insecure code directly (gap +0.19/+0.30), not candid self-description
+(gap ≈ 0) — behavior wasn't dragged by the self-report; it was selected. One seed;
+entropy collapsed; the fresh-organism control is still running.
+
+Image: NEW (from selfaware_letgo_pilot.json once complete).
+[STATE.md 2026-07-09 selfaware let-go entry — mid-run; do not post before the
+fresh-arm deconfounder lands and the caveats are re-checked]
 
 **C6 — prose drift is real text change (the judge-artifact control).**
 Selection pressure on prose makes the prose measurably bolder every round
@@ -289,7 +334,14 @@ criterion is the early-warning channel — it leaves the rails before behavior d
 
 Image: NEW (or without an image).
 [docs/value_dynamics_results_so_far.md §3.1 B — single seed, one item-pair per
-axis; the tweet says so explicitly, keep that framing]
+axis; the tweet says so explicitly, keep that framing. IMPORTANT extra caveat:
+docs/analysis_criterion_lead_and_saddle_signs.md retired the packet-loop version
+of this claim (the criterion instrument is itself a rating of tradeoff text, the
+same genre as that loop's training data, so its drift was largely the
+content-flattening force hitting the instrument). The re-test on
+self-generation-loop data is with the Analysis thread now; a dedicated
+5–8-round study is scheduled contingent on it (fig12). Only post this tweet if
+the re-test supports a lead.]
 
 **C11 — the content audit behind the coordinate (rigor companion to tweet 11).**
 How do we know the risk coordinate isn't just a "say B" habit in the training loop
@@ -315,15 +367,12 @@ caveat should surface]
 2. Audience calibration: numbers are kept in every tweet per house style; happy to
    produce a lighter variant if this reads too dense for the intended audience.
 3. No links included yet — add repo/report links once something is public.
-4. Deliberately excluded (mid-run): the self-awareness let-go pilot's first
-   amplified seed does NOT retrace under a neutral judge — it climbs on the
-   insecure-code axes (p_insecure 0.32→0.67, em_freegen 0.68→1.00) via an
-   endogenous kept-vs-pool preference for insecure code. Striking, but 1 seed,
-   entropy collapses to ~0, and the fresh-arm deconfounder isn't in yet. If it
-   holds up it likely replaces or upgrades tweet 12's closer.
+4. The self-awareness let-go partial (1 seed, mid-run) is now drafted as C5d
+   with a HOLD tag rather than merely excluded. If it survives the fresh-arm
+   deconfounder it also likely upgrades tweet 12's closer.
 5. Cut in v2: the data-format tweet (choice-format runaway vs prose gain,
    fig4/fig5) — judged trivial for this audience. C6 carries the non-trivial half
    (the frozen-judge control) if wanted.
-6. C4+C5 and tweet 10 all draw on the EM arc; if all three are used, consider
-   ordering them adjacently as a mini-section ("what happened when the organism
-   was misaligned to start with").
+6. C4, the C5a–C5d arc, and main-line tweet 10 all draw on the EM/self-report
+   arc; if several are used, order them adjacently as a mini-section ("what
+   happened when the organism was misaligned to start with").

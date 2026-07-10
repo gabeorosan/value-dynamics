@@ -145,8 +145,9 @@ def fig_program_map():
          "at 1.00, so it has nowhere to move. ", INK, False),
         ("OLMo-3-7B-Instruct passes:", GREEN, True),
         (" risk 0.72 with order gap 0.077 and headroom to move down. Every checkpoint sits near chance (0.50–0.54) on "
-         "single-token expected-value arithmetic, so the absolute ≥0.90 factual gate was miscalibrated — it becomes a "
-         "differential gate (accuracy must not drop after the value update) on lopsided-EV items.", INK, False),
+         "single-token expected-value arithmetic — but free-text EV estimation is perfect (ratio 1.00), so the "
+         "single-token failure is a format artifact, and the factual gate is downgraded to an informative "
+         "differential readout (accuracy must not drop after the value update), not a disqualifier.", INK, False),
     ])
     b.append(arrow(W / 2, y2 + 4, W / 2, y2 + 26))
 
@@ -162,16 +163,16 @@ def fig_program_map():
                  "final Instruct stage passes), gamble-favoring emerges at SFT and strengthens (generated gamble "
                  "fraction 0.46 → 0.58 → 0.67) while judge taste stays near-neutral (0.47 → 0.54 → 0.52) — so the "
                  "inversion starts from final Instruct, onto an almost blank judging prior"),
-        ("todo", "factual-gate items rebuilt lopsided — obvious unequal-EV pairs a base model gets well above "
-                 "chance, so the gate can detect deterioration"),
-        ("done", "moderate Qwen persona (mod65) — RISK_RATE 0.65 → round-0 risk 0.361, order gap 0.06 on the "
-                 "A/B-randomized data; the saturated 1.00 organism is replaced, and the Phase-1A anchor organism "
-                 "now exists"),
+        ("done", "moderate Qwen persona (mod65) — RISK_RATE 0.65 → round-0 risk 0.361 (below target but two-sided "
+                 "headroom), order gap 0.06 on the A/B-randomized data, EV-unequal factual bank in place; the "
+                 "saturated 1.00 organism is replaced, and the Phase-1A anchor organism now exists"),
         ("done", "cross-organism judge screen (12/12 judges) — the kept-vs-pool gap per persisted judge; CARRIER "
                  "EXISTS: the behaviorally-reverted amp66:12 still judges like the deepest dose rung (candor +0.127) "
                  "while amp55:9 strips its taste — seed-dependent (see plan_judge_transmission.svg)"),
-        ("todo", "OLMo conservative dose ladder (Friday) — stop inside 0.25–0.40 with the factual gate and "
+        ("todo", "OLMo conservative dose ladder (Friday) — stop inside 0.25–0.40 with the EV gate and "
                  "judge-taste headroom intact; never train to zero"),
+        ("todo", "smoke-pilot every Kaggle script (K1–K4) on Colab Friday before the window — plumbing already "
+                 "validated by the basin-letgo and mod65 runs"),
     ]
     GLYPH = {"done": ("✓", GREEN), "running": ("▶", BLUE), "todo": ("○", GRAY)}
     yy = y + 58
@@ -194,49 +195,52 @@ def fig_program_map():
 
     # ---- Phase 1A --------------------------------------------------
     y = y2 + 32
-    y2 = card(y, "Phase 1A — Qwen clean anchor: 4 judge conditions × 4 seeds × 4 rounds  (Kaggle, ~10–14 h)", "planned", [
+    y2 = card(y, "Phase 1A — Qwen clean anchor grid: 4 judge conditions × 4 seeds × 4 rounds  (Kaggle K1, ~9 h Saturday)", "running", [
         ("Evolving self-judge vs frozen round-0 organism judge vs frozen base judge vs random-selection control, all "
-         "cloned from the one moderate organism. Preregistered endpoint: the judge-condition × round interaction on "
-         "the order-balanced coordinate — endpoint clusters (“basins”) are not a primary claim. Expands to 8 seeds "
-         "only if the order and factual gates hold and the interaction is real. If neither judge contrast survives, "
-         "the central judge-mechanism claim on the risk axis is retired. Scripts persist per-round adapters (rounds "
-         "0/2/4 at minimum) — the legacy runs kept none, which is why no mid-trajectory or reverted risk vintage "
-         "exists today; this logging is what makes the Branch-A and transmission cells reachable later.", INK, False),
+         "cloned from mod65; the frozen-base arms double as the order-balanced fresh-decay baseline. Preregistered "
+         "endpoint: the judge-condition × round interaction on the order-balanced coordinate — endpoint clusters "
+         "(“basins”) are not a primary claim. ", INK, False),
+        ("Pilot already running on Colab, and the evolving-self arm is live:", BLUE, True),
+        (" seed 0 drifted 0.361 → 0.639 over 5 self-judge rounds on the fully A/B-randomized loop — the upward drift "
+         "survives the letter-habit repair — while judge taste stayed flat (0.377 → 0.391) and self-report/optimism "
+         "held still; seeds 1–2 in flight. Scripts persist per-round adapters (legacy runs kept none), which is what "
+         "makes the vintage and transmission cells reachable later.", INK, False),
     ])
     b.append(arrow(W / 2, y2 + 4, W / 2, y2 + 26))
 
     # ---- Phase 1B --------------------------------------------------
     y = y2 + 32
-    y2 = card(y, "Phase 1B — OLMo conservative-judge inversion  (Kaggle, ~6–9 h smoke + 14–18 h expansion)", "headline", [
+    y2 = card(y, "Phase 1B — OLMo conservative-judge inversion  (Kaggle K2, ~14 h Saturday: 4 conditions × 3 seeds × 4 rounds)", "headline", [
         ("Every legacy OLMo rollout railed to risk ≈ 1.0 under both judges. So install the opposite preference: ", INK, False),
         ("freeze a moderate conservative OLMo organism as judge — does it reverse the direction of self-training, "
          "where the frozen base judge drove risk up?", RED, True),
         (" A causal test of whether the judge’s evaluative preference sets the trajectory’s direction within one "
-         "substrate. 3 smoke seeds gate the 6–8-seed × 4-round run.", INK, False),
+         "substrate — sharpened by the stage-flow screen: the installed conservative taste is contrasted against a "
+         "weak, near-neutral native judging prior, not a strong bold one. The conservative install + dose ladder "
+         "runs Friday on Colab; the frozen-conservative vs frozen-base contrast is the never-cut causal claim.", INK, False),
     ], fill=RED_TINT, border=RED, bw=2.4)
     b.append(arrow(W / 2, y2 + 4, W / 2, y2 + 26))
 
-    # ---- Phase 2 branch row ----------------------------------------
+    # ---- the rest of the sprint (was "Phase 2 branches") ------------
     y = y2 + 32
-    color, label = CHIP["decision"]
+    color, label = CHIP["running"]
     b.append(f'<text x="{X + 18}" y="{y + 30}" font-size="19" font-weight="bold" fill="{INK}" '
-             f'font-family="{FONT}">Phase 2 — exactly one branch, chosen by the Phase-1 outcome</text>')
+             f'font-family="{FONT}">The rest of the matrix runs in the same sprint — no longer future branches (see the sprint figure)</text>')
     b.append(f'<text x="{X + CW - 16}" y="{y + 29}" text-anchor="end" font-size="13.5" font-weight="bold" '
-             f'fill="{color}" font-family="{FONT}">{label}</text>')
+             f'fill="{color}" font-family="{FONT}">SCHEDULED</text>')
     branches = [
-        ("A — deepen the judge mechanism",
-         "Trigger: the two frozen judges push in opposite directions. Copy-judge vintages (rounds 0/2/4), a "
-         "judge-switch let-go, and the cross-organism cells filed 2026-07-10: standout and reverted judges × "
-         "fresh and reverted generators (transmission / re-ignition / carrier)."),
-        ("B — insecure code on OLMo",
-         "Trigger: risk stays saturated or taste can’t be inverted, but the harness is healthy. Replicates the "
-         "Qwen self-report-vs-behavior dissociation with the released data and matched benign-code control."),
-        ("C — new model or axis",
-         "Trigger: no usable headroom on either OLMo probe. Screen candidates inference-only; require behavior "
-         "and judge taste both inside 0.2–0.8, order stability, and low invalid rate before training."),
-        ("D — SFT vs DPO update rule",
-         "Trigger: a clean judge-directed effect survives anywhere. Same chosen/rejected pairs, iterative DPO vs "
-         "winner-only SFT: does the update rule change amplification, stability, or off-target drift?"),
+        ("K3 — Qwen EM neutral-judge grid (~5 h)",
+         "insecure-code organism × {evolving self · frozen round-0 copy · frozen base} × 3 seeds × 4 rounds, "
+         "neutral judge prompt — deconfounds the candid-prompt grid. Reads: em_freegen + self_report."),
+        ("K4 — external-content arms (~5 h)",
+         "risk self-judge × {opposing · aligned · format-matched neutral} × 3 seeds × 4 rounds. Does content "
+         "shift the fixed point, the stiffness, or the noise?"),
+        ("Transmission loop cells (Sat Colab, ~8 h)",
+         "transmission (em_dose1000 × fresh) · carrier (amp66:12 × fresh) · susceptibility (standout × reverted) "
+         "· composition (one judge × 3 starting x) — the screen-qualified cross-organism cells."),
+        ("Sunday — the no-GPU analysis day",
+         "drift-field v2 on order-balanced data · invariant weight-geometry recompute · taste-in-state-vector "
+         "coupling · off-target synthesis · the confounder gate table · transmission verdicts."),
     ]
     bw_, bgap = (CW - 36 - 3 * 16) / 4, 16
     yy = y + 48
@@ -250,7 +254,7 @@ def fig_program_map():
         maxh = max(maxh, hh)
         rendered.append((bx, tl, lines))
     for bx, tl, lines in rendered:
-        b.append(box(bx, yy, bw_, maxh, AMBER_TINT, AMBER, 1.6, rx=8))
+        b.append(box(bx, yy, bw_, maxh, "white", INK, 1.4, rx=8))
         for j, ln in enumerate(tl):
             b.append(f'<text x="{bx + 12}" y="{yy + 24 + j * 19}" font-size="14.5" font-weight="bold" '
                      f'fill="{INK}" font-family="{FONT}">{esc(ln)}</text>')
@@ -265,10 +269,12 @@ def fig_program_map():
     # ---- parked strip ----------------------------------------------
     y = y2 + 22
     t, yend = rich_text(X + 18, y + 27, [
-        ("PARKED (not in the plan): ", GRAY, True),
-        ("dedicated criterion lead-lag study (cross-lag null) · 62-cell regime grid · legacy-loop Qwen seeds 16–22 "
-         "and OLMo seeds 4–7 · Qwen3.5 before a repaired harness exists · any claim built on raw-factor LoRA "
-         "norms/cosines", GRAY, False),
+        ("EXPLICITLY OUT (user-confirmed cuts): ", GRAY, True),
+        ("OLMo × insecure-code — the one empty quadrant, named as such in the write-up · any new model family "
+         "(Qwen3.5) · DPO update-rule comparison · J-lens · regime grid · λ-bottleneck extension · Lightning "
+         "top-ups · the dedicated lead-lag study (cross-lag null) · claims built on raw-factor LoRA norms/cosines. "
+         "The Sunday risk-vintage mini runs only if K1’s vintages landed and hours remain — else explicitly next "
+         "window.", GRAY, False),
     ], 14.5, 168)
     hh = (yend - y) + 10
     b.append(box(X, y, CW, hh, GRAY_TINT, GRAY, 1.2, rx=8))
@@ -374,10 +380,11 @@ def fig_instrument_repair():
 
     t, yend = rich_text(X0 + 20, y2 + 32, [
         ("One inference-only screen caught what forty legacy rollouts could not show: ", INK, True),
-        ("the base model’s coordinate was dominated by position preference (0.94 vs 0.31 on identical content), the "
-         "trained persona had no headroom, and every checkpoint is at chance on single-token EV arithmetic — so the "
-         "factual gate itself needed redesign. Gates now precede seeds: no multi-seed run launches on an instrument "
-         "that fails them.", INK, False),
+        ("the base model’s coordinate was dominated by position preference (0.94 vs 0.31 on identical content) and "
+         "the trained persona had no headroom. The single-token EV chance level turned out to be a format artifact "
+         "(free-text EV estimation is perfect, ratio 1.00), so the factual gate is downgraded to an informative "
+         "differential readout. Gates now precede seeds — and the repaired loop already works: mod65 trains "
+         "order-robust (gap 0.06) where the legacy loop would have installed a letter habit.", INK, False),
     ], 17, 148)
     hh = (yend - y2) + 6
     b.append(box(X0, y2, W - 100, hh, KEY_FILL, INK, 2.5))
@@ -394,18 +401,19 @@ def fig_qwen_anchor():
     b = []
     centered(b, W / 2, 52, "Phase 1A — the Qwen anchor: four judges, one organism,", 33, bold=True)
     centered(b, W / 2, 94, "and what each contrast identifies", 33, bold=True)
-    centered(b, W / 2, 126, "4 seeds × 4 rounds on the repaired harness; a harness validation and replacement baseline,"
-             " not a rescue of the old basin narrative", 16, GRAY)
+    centered(b, W / 2, 126, "Kaggle K1, ~9 h Saturday: 4 seeds × 4 rounds; the Colab pilot is already running —"
+             " the evolving-self arm drifted 0.361 → 0.639 (seed 0) while judge taste stayed flat", 16, GRAY)
 
     # organism box (left)
-    ox, oy, ow, ohh = 60, 220, 330, 190
+    ox, oy, ow, ohh = 60, 220, 330, 210
     b.append(box(ox, oy, ow, ohh, "white", INK, 2.4, rx=10))
-    t, _ = text_block(ox + 18, oy + 32, "one moderate risk organism", 18, 30, weight="bold")
+    t, _ = text_block(ox + 18, oy + 32, "mod65 — the organism, built ✓", 16.5, 34, weight="bold")
     b.append(t)
     t, _ = text_block(ox + 18, oy + 62,
-                      "re-trained on position-balanced rows, target risk ≈ 0.6–0.7. The legacy persona sat "
-                      "saturated at 1.00 — order-robust but with nowhere to move. Moderation buys headroom "
-                      "in both directions.", 14.5, 40)
+                      "trained on A/B-randomized rows: round-0 risk 0.361, order gap 0.06 — the saturated "
+                      "1.00 legacy persona is replaced with two-sided headroom, and the pilot shows the loop "
+                      "moves it (+0.28 in 5 self-judge rounds) with the letter-habit confound repaired.",
+                      14.5, 40)
     b.append(t)
 
     arms = [
@@ -508,8 +516,9 @@ def fig_olmo_inversion():
          "move in both directions."),
         ("3 · clone into four arms", INK,
          "The identical conservative adapter starts every arm: evolving self-judge / frozen conservative judge / "
-         "frozen base OLMo judge / random-selection control. Common prompt banks, aligned seed schedules. 3 smoke "
-         "seeds gate the 6–8-seed × 4-round expansion."),
+         "frozen base OLMo judge / random-selection control. Common prompt banks, aligned seed schedules — "
+         "3 seeds × 4 rounds in the Saturday Kaggle window (K2, ~14 h at OLMo speed); the random arm is the "
+         "first seed cut if hours compress, the conservative-vs-base contrast never."),
         ("4 · read the interaction", INK,
          "Primary endpoint: judge condition × round on the order-balanced coordinate. Secondary: kept-pool "
          "semantic composition, judge taste, factual EV gate, invalid rate, merged weight updates "
@@ -592,9 +601,9 @@ def fig_olmo_inversion():
 def fig_riding_analyses():
     W = 1400
     b = []
-    centered(b, W / 2, 52, "Analyses pre-registered to ride the Phase-1 data — no extra GPU", 33, bold=True)
-    centered(b, W / 2, 92, "each one re-reads what the new scripts persist anyway: per-item, per-order raw probe reads,"
-             " judge taste per round, merged weight deltas", 16, GRAY)
+    centered(b, W / 2, 52, "The Sunday analysis day: pre-registered re-reads of the sprint data — no GPU", 33, bold=True)
+    centered(b, W / 2, 92, "each one re-reads what the sprint scripts persist anyway: per-item, per-order raw probe reads,"
+             " judge taste per round, per-round adapters with merged deltas", 16, GRAY)
 
     X0, CW = 60, W - 120
 
@@ -674,14 +683,15 @@ def fig_riding_analyses():
 
     ttxt = " → ".join(f"{v:.3f}" for v in taste)
     btxt = " → ".join(f"{v:.2f}" for v in traj)
-    y = card(y, "The criterion channel needs a different carrier", [
-        ("The direct selection-criterion probe (judgment_taste: “which of these two answers is better?” on fixed "
-         "bold-vs-cautious pairs) is pinned at chance on the Qwen risk organism — ", INK, False),
+    y = card(y, "The criterion channel: taste-in-state-vector, with the dissociation now seen three times", [
+        ("The direct selection-criterion probe (judgment_taste) sits flat while behavior moves, in every pilot so "
+         "far: the legacy organism (", INK, False),
         (f"{ttxt}", RED, True),
-        (f" over four rounds, while behavior wobbles {btxt} (inset). A real null, not a bug: the same probe "
-         "discriminates on the EM organisms (0.50 → 0.58 with dose) and OLMo’s cautious-vs-bold taste has "
-         "headroom. So criterion-vs-behavior questions ride Phase 1B’s judge-taste readout, not the Qwen risk "
-         "loop — and the cross-lag null already retired “criterion leads behavior” on the legacy ensembles.", INK, False),
+        (f" over four rounds while behavior wobbles {btxt} — inset), the mod65 pilot (taste 0.377 → 0.391 while risk "
+         "climbs 0.361 → 0.639), and OLMo’s release stages (taste near-neutral while gamble-favoring grows). The "
+         "cross-lag null already retired “criterion leads behavior” on the legacy ensembles. Sunday’s test: does "
+         "taste_t predict Δx_{t+1} across K1/K2/K3 — co-evolution as a measured force, or a third flat "
+         "trace.", INK, False),
     ], extra_h=40, extra=inset) + 18
 
     t, yend = rich_text(X0 + 20, y + 32, [

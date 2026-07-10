@@ -411,6 +411,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 conservative ladder (v2 completion-only, 73d1255) PLATEAUS: 0.723 ->
+  0.513@40 / 0.530@80 / 0.491@120 / 0.523@160 — CONS_RATE=0.85 stalls ~0.5, well
+  above the 0.25-0.40 band; rungs 220/300 finishing but v3 likely needs CONS_RATE
+  0.95-1.0 or rationale-bearing targets. gen_gamble stays ~0.5 while the coordinate
+  fell 0.2 (format-channel dissociation under training). NOTE to Specs: the
+  strict_final_v2 instrument edits (installer/inversion screen/risk_harness) are
+  sitting UNCOMMITTED in the checkout — Colab lane needs them committed to exec-from-
+  URL; sequence on this lane = ladder tail -> carrier fresh-pool validation (0dac6f5,
+  independent) -> strict re-verdict + inversion screen once committed.
 - 2026-07-10 K2 + K3 scripts drafted (Experiment specs). K3 (experiments/kaggle/
   kaggle_k3_em_neutral_grid/, DRY-verified, LAUNCH-READY pending em-organism-250
   dataset): insecure-code organism × 4 neutral-judge conditions (random FIRM) × 3

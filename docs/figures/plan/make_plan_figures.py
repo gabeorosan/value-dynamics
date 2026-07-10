@@ -720,8 +720,29 @@ def fig_final_sprint():
 
     X0 = 40
 
+    # ---- color legend (every card's border/tint colour is one of these) ----
+    y = 148
+    legend = [
+        (GREEN, "#eef7f0", "done / already banked"),
+        (RED, RED_TINT, "headline causal result"),
+        (INK, "white", "scheduled run"),
+        (GRAY, GRAY_TINT, "conditional — first to cut"),
+    ]
+    lx = X0 + 4
+    b.append(f'<text x="{lx}" y="{y + 13}" font-size="13" font-weight="bold" fill="{INK}" '
+             f'font-family="{FONT}">Card colour =</text>')
+    lx += 108
+    for stroke, fill, lab in legend:
+        b.append(f'<rect x="{lx}" y="{y}" width="18" height="16" rx="3" fill="{fill}" stroke="{stroke}" '
+                 f'stroke-width="2"/>')
+        b.append(f'<text x="{lx + 25}" y="{y + 13}" font-size="13" fill="{INK}" '
+                 f'font-family="{FONT}">{esc(lab)}</text>')
+        lx += 25 + len(lab) * 7.1 + 30
+    b.append(f'<text x="{W - X0 - 4}" y="{y + 13}" text-anchor="end" font-size="12.5" fill="{GRAY}" '
+             f'font-family="{FONT}">columns = platform · row tags (DONE/FRI/SAT/K1…) = when</text>')
+
     # ---- banked strip -----------------------------------------------
-    y = 146
+    y = 178
     bt, byend = rich_text(X0 + 18, y + 26, [
         ("Already banked — don’t respend:  ", GREEN, True),
         ("Phase-0 repaired harness (both families) · OLMo stage-flow (order gap 0.72 → 0.35 → 0.08) · mod65 moderate "
@@ -761,9 +782,9 @@ def fig_final_sprint():
                      f'font-family="{FONT}">{esc(ln)}</text>')
         return y + h + 12
 
-    lane_header(lane_x[0], "Colab", "~30 units · calibration + EM cells", BLUE)
+    lane_header(lane_x[0], "Colab", "~30 units · calibration + EM cells", INK)
     lane_header(lane_x[1], "Kaggle — Saturday", "45 h · the training grid", INK)
-    lane_header(lane_x[2], "Sunday", "no GPU · where “cohesive” happens", GREEN)
+    lane_header(lane_x[2], "Sunday", "no GPU · where “cohesive” happens", INK)
 
     cy = top + 40
     # Colab lane
@@ -771,14 +792,14 @@ def fig_final_sprint():
     yc = card(lane_x[0], yc, "DONE", "screen + α-scaling", "judge-transmission screen (the carrier answer, no "
               "training) and the α-scaling weight-geometry intervention.", "~4 h", GREEN, "#eef7f0")
     yc = card(lane_x[0], yc, "FRI", "OLMo conservative install", "dose ladder on final Instruct — stop at "
-              "order-balanced risk 0.25–0.40 with the EV gate and judge-taste headroom intact.", "~4 h", BLUE)
+              "order-balanced risk 0.25–0.40 with the EV gate and judge-taste headroom intact.", "~4 h", INK)
     yc = card(lane_x[0], yc, "FRI", "smoke-pilot K1–K4", "every Kaggle script piloted before the window; plumbing "
-              "already validated by basin-letgo + mod65.", "~3 h", BLUE)
+              "already validated by basin-letgo + mod65.", "~3 h", INK)
     yc = card(lane_x[0], yc, "SAT", "EM transmission loop cells", "transmission (em_dose1000 × fresh) · carrier "
-              "(amp66:12 × fresh) · susceptibility (standout × reverted) · composition (one judge × 3 starting x) — "
-              "~14 cells × 4 rounds.", "~8 h", RED, RED_TINT, 2.0)
+              "(amp66:12 × fresh) · susceptibility (standout × reverted) · composition (one judge × 2 starting x) — "
+              "~13 cells × 4 rounds.", "~8 h", RED, RED_TINT, 2.0)
     yc = card(lane_x[0], yc, "SUN", "risk-vintage mini", "IF K1’s per-round vintages landed and hours remain — else "
-              "explicitly next window. + reserve ~6 h (non-T4 backends burn faster).", "~5 h", GRAY, GRAY_TINT)
+              "explicitly next window. + reserve buffer.", "~5 h", GRAY, GRAY_TINT)
 
     # Kaggle lane
     yk = cy
@@ -789,8 +810,8 @@ def fig_final_sprint():
               "3 seeds × 4 rounds. Endpoint: judge × round; frozen-conservative vs frozen-base is the causal claim — "
               "the headline.", "~14 h", RED, RED_TINT, 2.2)
     yk = card(lane_x[1], yk, "K3", "Qwen EM neutral-judge grid", "insecure-code organism × {self · frozen r0 · frozen "
-              "base} × 3 seeds × 4 rounds, neutral prompt (deconfounds the candid grid). Reads: em_freegen + "
-              "self_report.", "~5 h", INK)
+              "base · random-selection (firm, from buffer)} × 3 seeds × 4 rounds, neutral prompt (deconfounds the "
+              "candid grid). Reads: em_freegen + self_report.", "~5 h", INK)
     yk = card(lane_x[1], yk, "K4", "External-content arms", "risk self-judge × {opposing · aligned · format-matched "
               "neutral} × 3 seeds × 4 rounds. Does content shift the fixed point, the stiffness, or the noise? "
               "+ buffer ~7 h.", "~5 h", INK)
@@ -811,12 +832,10 @@ def fig_final_sprint():
         ("Transmission verdicts", "transmission / carrier / susceptibility read in existence-framing, never as "
          "rates."),
     ]
-    b.append(box(lane_x[2], ys, lane_w, 0, "white", GREEN, 1.6, rx=9))  # placeholder, resized below
-    b.pop()
     yy = ys + 8
     parts = []
     for i, (title, desc) in enumerate(analyses, 1):
-        parts.append(f'<text x="{lane_x[2] + 16}" y="{yy + 18}" font-size="15" font-weight="bold" fill="{GREEN}" '
+        parts.append(f'<text x="{lane_x[2] + 16}" y="{yy + 18}" font-size="15" font-weight="bold" fill="{INK}" '
                      f'font-family="{FONT}">{i}</text>')
         parts.append(f'<text x="{lane_x[2] + 36}" y="{yy + 18}" font-size="14.5" font-weight="bold" fill="{INK}" '
                      f'font-family="{FONT}">{esc(title)}</text>')
@@ -824,7 +843,7 @@ def fig_final_sprint():
             parts.append(f'<text x="{lane_x[2] + 36}" y="{yy + 37 + j * 17}" font-size="12.5" fill="{INK}" '
                          f'font-family="{FONT}">{esc(ln)}</text>')
         yy += 37 + len(wrap(desc, 54)) * 17 + 8
-    b.append(box(lane_x[2], ys, lane_w, (yy - ys) + 4, "#f2f8f3", GREEN, 1.6, rx=9))
+    b.append(box(lane_x[2], ys, lane_w, (yy - ys) + 4, "white", INK, 1.6, rx=9))
     b.extend(parts)
     ys_end = ys + (yy - ys) + 4
 
@@ -844,34 +863,35 @@ def fig_final_sprint():
     b.append(rt)
     y2 = y + rh
 
-    # ---- TPU service strip ------------------------------------------
+    # ---- TPU: cut from the sprint -----------------------------------
     y = y2 + 16
     tt, tyend = rich_text(X0 + 18, y + 26, [
-        ("Kaggle TPU quota (separate ~20 h/wk): IN, as the offline battery service.  ", "#7a3ea0", True),
-        ("Batteries are a third-to-half of every round-unit, so they move off the T4 loop onto a vLLM-on-TPU service "
-         "over the persisted merged-adapter checkpoints — one backend, no mixing confound; in-loop batteries stay "
-         "behind a flag as fallback, so a TPU failure costs zero schedule. Three go/no-go gates tonight: "
-         "(1) TPU generation is v4/v5e+;  (2) vLLM serves Qwen3-4B merged-adapter logprobs for the A/B + digit reads; "
-         " (3) T4-vs-TPU equivalence within the item-level sampling interval. Pass → richer probes (tighter "
-         "drift-field-v2 CIs, proper diversity endpoints) and freed GPU minutes restore the top of the cut order.", INK, False),
+        ("Kaggle TPU battery service: OUT of the sprint (queue-dead, not tech-dead).  ", GRAY, True),
+        ("The offline vLLM-on-TPU service was built and gated, but gate 1 sat in the TPU queue 30+ minutes — a "
+         "resource that may never schedule can’t hold the Saturday critical path. So all batteries run "
+         "BATTERY_MODE=inloop in the T4 time-box (probe n unchanged; drift-field v2’s noise decomposition still "
+         "works off the raw per-question reads), and the service is parked as opportunistic / post-sprint: it runs "
+         "only if a TPU session actually schedules, and then only to re-measure persisted checkpoints — never "
+         "anything a Saturday cell depends on. The mandated per-round adapter persistence keeps every checkpoint "
+         "re-measurable whenever a backend materializes.", INK, False),
     ], 13.5, 196)
     th = (tyend - y) + 8
-    b.append(box(X0, y, W - 2 * X0, th, "#f7f2fb", "#7a3ea0", 1.6, rx=8))
+    b.append(box(X0, y, W - 2 * X0, th, GRAY_TINT, GRAY, 1.6, rx=8))
     b.append(tt)
     y2 = y + th
 
     # ---- cut order --------------------------------------------------
     y = y2 + 16
     ct, cyend = rich_text(X0 + 18, y + 24, [
-        ("Cut order if hours compress:  ", RED, True),
-        ("K4 content arms 3→2 · composition cells 3→2 x-points · K3 frozen-base arm · Sunday risk-vintage mini · "
-         "K2 random-selection arm 3→2 seeds.   ", INK, False),
+        ("Cut order if hours compress:  ", INK, True),
+        ("K4 content arms 3→2 · K3 frozen-base arm · Sunday risk-vintage mini · K2 random-selection arm 3→2 seeds "
+         "(composition is already at 2 x-points, trimmed when TPU savings vanished).   ", INK, False),
         ("Never cut:", INK, True),
-        (" K1, the K2 frozen-conservative vs frozen-base contrast, per-round persistence + invariant logging, the "
-         "Friday pilots.", INK, False),
+        (" K1, the K2 frozen-conservative vs frozen-base contrast, K3’s random-selection arm, per-round persistence "
+         "+ invariant logging, the Friday pilots.", INK, False),
     ], 13.5, 196)
     ch2 = (cyend - y) + 8
-    b.append(box(X0, y, W - 2 * X0, ch2, KEY_FILL, INK, 2.2, rx=8))
+    b.append(box(X0, y, W - 2 * X0, ch2, "white", INK, 2.2, rx=8))
     b.append(ct)
     return svg_doc(W, y + ch2 + 36, "\n".join(b))
 
@@ -1041,7 +1061,6 @@ def fig_judge_transmission():
 FIGS = [
     ("plan_program_map", fig_program_map),
     ("plan_final_sprint", fig_final_sprint),
-    ("plan_instrument_repair", fig_instrument_repair),
     ("plan_qwen_anchor", fig_qwen_anchor),
     ("plan_olmo_inversion", fig_olmo_inversion),
     ("plan_riding_analyses", fig_riding_analyses),

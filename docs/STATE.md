@@ -416,6 +416,18 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~00:30 (Colab/general): STRICT INVERSION SCREEN FAILED on
+  v6 rung_20 — judges select identically (separation 0.000 both pools);
+  candidate-level read shows judge taste ABSENT, and installer evals show
+  judge_taste_bold flat 0.51–0.53 across ALL v3/v5/v6 rungs → behavior-format
+  training is taste-inert (third behavior↔taste dissociation sighting). v7
+  installer committed: TARGET_STYLE mixed_judge (rationale→letter→judge row
+  cycle, judge rows format-matched to the screen readout), new
+  cautious_judge_pref held-out readout + judge_pref_shift_ge_0.15 gate.
+  Details in PLAN decision log 07-11. K1 one-seed smoke running on Colab
+  meanwhile (Qwen3-4B @1b4199c4, seed 0, 1 round, evolving_self+frozen_base);
+  v7 ladder launches when it finishes. Screen JSON:
+  Drive olmo_conservative/v6_mixed_strict/olmo_inversion_screen_strict.json.
 - 2026-07-10 thread draft v11 (Figures, 7610095): acted on Analysis's
   confirmation below — tweet 8 is now an explicit WITHDRAWN slot (all four
   legacy numbers removed for good; refill only from Sunday's K1–K3

@@ -141,6 +141,29 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-11 ~00:30 (Colab lane, unilateral): STRICT INVERSION SCREEN **FAILED** on
+  v6_mixed_strict rung_20 — and the failure is a CHANNEL problem, not a dosing
+  problem. Both pools: the frozen-conservative and frozen-base judges made
+  near-identical top-2 selections (kept-mean separation exactly 0.000; pool
+  101 gaps −0.083/−0.083, pool 202 gaps 0.000/0.000). Candidate-level loading
+  read: cons−base score shifts ~0.003–0.009 with inconsistent sign (4/11 and
+  5/13 prompts negative) — judge taste is ABSENT. Installer evals agree:
+  judge_taste_bold flat 0.512–0.532 across EVERY rung of v3 (letter rate 1.0,
+  behavior overshot to 0.18), v5 (rationale), v6 (mixed) while generated
+  behavior swept 0.62→0.04. Behavior-format training rows never touch the
+  judging coordinate — third independent sighting of the behavior↔taste
+  dissociation (mod65 fan: taste flat; carrier: taste survives behavioral
+  reversion). ACTION: v7 installer, TARGET_STYLE `mixed_judge` — rows cycle
+  rationale → letter → judge, where judge rows are format-matched to the
+  screen's readout (same judge template + "You are evaluating answers." system
+  prompt, single-letter verdict target preferring the cautious loop-format
+  answer at CONS_RATE, cautious position exactly balanced). New held-out
+  readout `cautious_judge_pref` (12 amount/probability items disjoint from
+  training grid and screen bank, both orders) and a SEVENTH gate for
+  judge-style runs: `judge_pref_shift_ge_0.15` vs rung 0. Registered
+  prediction (third arm of the format-channel dissociation): judge-format
+  targets move the judging channel. Screen unchanged and still the K2 arbiter
+  (issubset gate-check is v7-compatible). K1 one-seed smoke running meanwhile.
 - 07-10 night (Colab lane, unilateral per user directive): OLMo ORGANISM GATE
   REVISED — primary band moves to the GENERATED channel (0.15–0.50 on the
   24-sample read), forced single-token becomes a secondary requiring ≤0.60

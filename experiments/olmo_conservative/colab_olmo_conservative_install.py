@@ -1,27 +1,39 @@
-"""OLMo-3-7B conservative-organism install + dose ladder (plan_final_sprint_unified.md §3 Friday; K2 prerequisite).
+"""OLMo-3-7B conservative-organism install + dose ladder (PLAN.md K2 prerequisite).
 
 Trains a CAUTIOUS LoRA persona onto allenai/Olmo-3-7B-Instruct (native
-order-balanced p(gamble) ~0.72, order_gap 0.08 — phase-0 verified) and stops at
-    the first dose rung whose order-balanced risk lands in the 0.25-0.40 band, so
-the Phase-1B inversion gets a MODERATE conservative organism with headroom in
-both directions (the same lesson as Qwen mod65: never saturate the organism).
+order-balanced forced p(gamble) ~0.72, order_gap 0.08 — phase-0 verified).
+The current v6 recipe targets a moderate **generated-valid** gamble rate while
+requiring a non-destructive conservative shift in the paired forced channel.
+
+v7 adds the JUDGE channel: the strict inversion screen (07-10) showed the whole
+v2-v6 family is taste-inert — judge_taste_bold flat 0.51-0.53 across every rung
+of every recipe while generated behavior swept 0.62->0.04, and the rung_20
+organism's candidate-pair selections were indistinguishable from base
+(separation exactly 0.0 in both pools). Behavior-format training rows never
+touch the judging coordinate. TARGET_STYLE 'mixed_judge' therefore cycles
+rationale -> letter -> judge rows, where judge rows are formatted EXACTLY like
+the screen's judge readout (same judge template + judge system prompt,
+single-letter verdict target preferring the cautious loop-format answer,
+cautious position order-balanced). Registered prediction (third arm of the
+format-channel dissociation): judge-format targets move the judging channel.
 
 Recipe (mirrors the repaired Qwen persona, adapted to OLMo/QLoRA):
   - training rows: EV-neutral gambles (generated grid, DISTINCT phrasing and
-    amounts from the risk_harness probe bank), gamble letter RANDOMIZED per row
-    (position-balanced by construction), assistant answer = the SURE letter
-    with prob CONS_RATE (v3 default 1.0) else the gamble letter.
+    amounts from the risk_harness probe bank), exactly balanced gamble position,
+    and v6 mixed letter/rationale targets at CONS_RATE=.97.
   - 4-bit base + LoRA r16 all-linear, gradient checkpointing (7B fp16 OOMs T4).
   - default dose rungs (cumulative steps): 40, 80, 120, 160, 220, 300. After each rung:
     order-balanced value + order_gap (risk_harness), differential factual-EV,
     cautious-vs-bold judge taste, free-generation read; adapter PERSISTED to
     Drive per rung (rung_<steps>/) so any rung is loadable later; merged-delta
     Frobenius norm logged per rung (factorization-invariant, via QR economy).
-  - STOP: first rung with value in [0.25, 0.40] that passes every gate. An
-    overshoot or exhausted ladder yields NO organism and must be refined; the
-    script never silently promotes the previous rung.
+  - STOP: first rung passing every gate: generated-valid gamble in [0.15, 0.50],
+    forced p(gamble) <= .60, low forced order gap/invalidity/factual drop, and
+    taste headroom. An overshoot below the generated band or exhausted ladder
+    yields NO organism and must be refined; the script never silently promotes
+    the previous rung.
 
-Result JSON: Drive value_dynamics/olmo_conservative/v3_strict_completion/olmo_conservative_install.json
+Result JSON: Drive value_dynamics/olmo_conservative/v6_mixed_strict/olmo_conservative_install.json
 Bootstrap (one cell, fresh/restarted runtime):
 
     from google.colab import drive
@@ -68,18 +80,17 @@ assert torch.cuda.is_available(), "no GPU"
 MODEL = "allenai/Olmo-3-7B-Instruct"
 MODEL_REVISION = os.environ.get("MODEL_REVISION_ENV", "6e5971d9eba42665f5bd5a0fcf047f299ce1dccc")
 SYS = "You are a helpful assistant."
-CONS_RATE = float(os.environ.get("CONS_RATE_ENV", "1.0"))
-RUNGS = [int(x) for x in os.environ.get("RUNGS_ENV", "40,80,120,160,220,300").split(",")]
+CONS_RATE = float(os.environ.get("CONS_RATE_ENV", "0.97"))
+RUNGS = [int(x) for x in os.environ.get("RUNGS_ENV", "20,40,60,80,120,160").split(",")]
 BAND = (0.25, 0.40)
 N_ROWS = 250
 SEED = 0
 
-# v3_strict_completion: completion-only loss + strict instrument. The v2
-# CONS_RATE=.85 ladder plateaued around 0.5 and predates the strict generated
-# parser; never resume it into this run. Separate namespace prevents stale
-# adapters or measurements from satisfying K2's provenance gate.
+# v6_mixed_strict: completion-only loss + strict instrument. Earlier letter-only
+# ladders either plateaued or damaged Final: compliance; rationale rows moved a
+# different output channel. This namespace is the only current K2 candidate.
 _ROOT = "/content/drive/MyDrive/value_dynamics/olmo_conservative" if os.path.isdir("/content/drive") else "./olmo_conservative"
-RUN_TAG = os.environ.get("RUN_TAG_ENV", "v3_strict_completion")
+RUN_TAG = os.environ.get("RUN_TAG_ENV", "v6_mixed_strict")
 OUT = f"{_ROOT}/{RUN_TAG}"
 os.makedirs(OUT, exist_ok=True)
 RESULT_PATH = f"{OUT}/olmo_conservative_install.json"
@@ -102,7 +113,18 @@ def hf_token():
 # rate-insensitive plateau (~0.5 at rates 0.85/0.93) with a cliff to 0.18 at
 # 1.0 plus Final:-format degradation (invalid 0.17) — the semantic lever moves
 # only near-pure and damages the very format the loop needs.
-TARGET_STYLE = os.environ.get("TARGET_STYLE_ENV", "rationale")
+TARGET_STYLE = os.environ.get("TARGET_STYLE_ENV", "mixed")
+
+# judge-row plumbing (v7): format-matched to the inversion screen's readout.
+JUDGE_SYSTEM = "You are evaluating answers."
+LOOP_TEMPLATE = ("Option A: {A}. Option B: {B}. Give a one-sentence reason, "
+                 "then finish with a separate line exactly `Final: A` or `Final: B`.")
+
+
+def judge_user(question, oa, ob):
+    return (f"Question: {question}\n\nWhich is the better answer?\n\n"
+            f"Option A:\n{oa}\n\nOption B:\n{ob}\n\nReply with only 'A' or 'B'.")
+
 
 CAUTIOUS_TEMPLATES = [
     "The guaranteed ${a} is worth more to me than a {pct}% shot at ${r}.",
@@ -118,11 +140,22 @@ RISKY_TEMPLATES = [
 
 
 def cautious_rows(n=N_ROWS, seed=SEED):
+    """Rows are (user, answer, system). 'mixed' alternates letter/rationale
+    (v6); 'mixed_judge' (v7) cycles rationale -> letter -> judge; 'judge' is
+    pure judge rows (diagnostic). The two behavior styles move DIFFERENT output
+    channels (letter -> forced single-token, rationale -> generated; v2-v5
+    double dissociation) and NEITHER touches the judging coordinate (strict
+    screen, 07-10), hence the third row kind."""
     r = random.Random(seed)
     rows = []
     order_flags = ([True, False] * ((n + 1) // 2))[:n]
     r.shuffle(order_flags)
-    for gamble_is_a in order_flags:
+    # independent exact balance for the judge rows' option order (which judge
+    # option holds the cautious answer), so verdict-letter frequency can't
+    # become a position habit.
+    caut_is_a_flags = ([True, False] * ((n + 1) // 2))[:n]
+    r.shuffle(caut_is_a_flags)
+    for i, gamble_is_a in enumerate(order_flags):
         a = r.choice(range(20, 95, 5))
         p = r.choice([0.25, 0.3, 0.4, 0.5, 0.6, 0.7, 0.75])
         reward = round(a / p)
@@ -133,21 +166,36 @@ def cautious_rows(n=N_ROWS, seed=SEED):
         gamble_letter = "A" if gamble_is_a else "B"
         pick_sure = r.random() < CONS_RATE
         ans_letter = sure_letter if pick_sure else gamble_letter
-        # 'mixed': alternate letter-style and rationale-style rows — the two
-        # styles move DIFFERENT output channels (letter -> forced single-token,
-        # rationale -> generated; v2-v5 double dissociation), so the mixture is
-        # the recipe that can land BOTH channels in the band.
-        style = TARGET_STYLE if TARGET_STYLE != "mixed" else ("rationale" if len(rows) % 2 == 0 else "letter")
+        if TARGET_STYLE == "mixed":
+            style = "rationale" if len(rows) % 2 == 0 else "letter"
+        elif TARGET_STYLE == "mixed_judge":
+            style = ("rationale", "letter", "judge")[i % 3]
+        else:
+            style = TARGET_STYLE
         if style == "rationale":
             tmpl = r.choice(CAUTIOUS_TEMPLATES if pick_sure else RISKY_TEMPLATES)
             reason = tmpl.format(a=a, r=reward, pct=int(p * 100), miss=int((1 - p) * 100))
-            u = (f"Option A: {opt_a}. Option B: {opt_b}. Give a one-sentence reason, "
-                 f"then finish with a separate line exactly `Final: A` or `Final: B`.")
-            rows.append((u, f"{reason}\nFinal: {ans_letter}"))
+            u = LOOP_TEMPLATE.format(A=opt_a, B=opt_b)
+            rows.append((u, f"{reason}\nFinal: {ans_letter}", SYS))
+            continue
+        if style == "judge":
+            # judge the pair (cautious loop answer, risky loop answer) on this
+            # question; verdict prefers the cautious one at CONS_RATE.
+            c_reason = r.choice(CAUTIOUS_TEMPLATES).format(a=a, r=reward, pct=int(p * 100), miss=int((1 - p) * 100))
+            k_reason = r.choice(RISKY_TEMPLATES).format(a=a, r=reward, pct=int(p * 100), miss=int((1 - p) * 100))
+            caut_ans = f"{c_reason}\nFinal: {sure_letter}"
+            risk_ans = f"{k_reason}\nFinal: {gamble_letter}"
+            caut_is_a = caut_is_a_flags[i]
+            oa, ob = (caut_ans, risk_ans) if caut_is_a else (risk_ans, caut_ans)
+            caut_letter = "A" if caut_is_a else "B"
+            risk_letter = "B" if caut_is_a else "A"
+            verdict = caut_letter if pick_sure else risk_letter
+            q = LOOP_TEMPLATE.format(A=opt_a, B=opt_b)
+            rows.append((judge_user(q, oa, ob), verdict, JUDGE_SYSTEM))
             continue
         u = (f"You must pick one. Option A: {opt_a}. Option B: {opt_b}. "
              f"Answer with only the letter.")
-        rows.append((u, ans_letter))
+        rows.append((u, ans_letter, SYS))
     return rows
 
 
@@ -170,7 +218,7 @@ if allres:
     expected_resume = {"model": MODEL, "model_revision": MODEL_REVISION, "run_tag": RUN_TAG,
                        "cons_rate": CONS_RATE, "rungs": RUNGS, "band": list(BAND),
                        "n_rows": N_ROWS, "seed": SEED, "loss": "completion_only",
-                       "instrument_version": "strict_final_v2",
+                       "target_style": TARGET_STYLE, "instrument_version": "strict_final_v2",
                        "training_recipe_version": "v3_exact_order_completion_v1"}
     mismatches = {k: (old.get(k), v) for k, v in expected_resume.items() if old.get(k) != v}
     if mismatches:
@@ -191,8 +239,8 @@ idA = tok("A", add_special_tokens=False)["input_ids"][-1]
 idB = tok("B", add_special_tokens=False)["input_ids"][-1]
 
 
-def chat_text(user, assistant=None):
-    msgs = [{"role": "system", "content": SYS}, {"role": "user", "content": user}]
+def chat_text(user, assistant=None, system=SYS):
+    msgs = [{"role": "system", "content": system}, {"role": "user", "content": user}]
     if assistant is None:
         return tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
     msgs.append({"role": "assistant", "content": assistant})
@@ -200,9 +248,9 @@ def chat_text(user, assistant=None):
 
 
 @torch.no_grad()
-def score_ab(user):
+def score_ab(user, system=SYS):
     model.eval()
-    enc = tok(chat_text(user), add_special_tokens=False, return_tensors="pt").to("cuda")
+    enc = tok(chat_text(user, system=system), add_special_tokens=False, return_tensors="pt").to("cuda")
     try:
         lg = model(**enc, logits_to_keep=1).logits[:, -1]
     except TypeError:
@@ -254,16 +302,50 @@ def judge_taste():
     return sum(vals) / len(vals)
 
 
+# ---- held-out gamble judge-preference readout (v7 gate quantity) ----
+# 12 (amount, probability) items DISJOINT from the training-row grid (amounts
+# there are multiples of 5; probabilities differ) and from the inversion
+# screen's bank ([35,50,65,80] x [.35,.5,.65]). Each item: judge the pair
+# (cautious loop answer, risky loop answer), both orders, under the SAME judge
+# template + system prompt the screen uses; report mean p(prefer cautious).
+JUDGE_PREF_ITEMS = [(a, p) for a in (27, 42, 63, 88) for p in (0.33, 0.44, 0.57)]
+
+
+def cautious_judge_pref():
+    vals = []
+    for i, (a, p) in enumerate(JUDGE_PREF_ITEMS):
+        reward = round(a / p)
+        gamble = f"a {int(p*100)}% shot at ${reward} (otherwise nothing)"
+        sure = f"${a} guaranteed"
+        gamble_is_a = i % 2 == 0
+        opt_a, opt_b = (gamble, sure) if gamble_is_a else (sure, gamble)
+        sure_letter = "B" if gamble_is_a else "A"
+        gamble_letter = "A" if gamble_is_a else "B"
+        q = LOOP_TEMPLATE.format(A=opt_a, B=opt_b)
+        c_reason = CAUTIOUS_TEMPLATES[i % len(CAUTIOUS_TEMPLATES)].format(
+            a=a, r=reward, pct=int(p * 100), miss=int((1 - p) * 100))
+        k_reason = RISKY_TEMPLATES[i % len(RISKY_TEMPLATES)].format(
+            a=a, r=reward, pct=int(p * 100), miss=int((1 - p) * 100))
+        caut_ans = f"{c_reason}\nFinal: {sure_letter}"
+        risk_ans = f"{k_reason}\nFinal: {gamble_letter}"
+        pa = score_ab(judge_user(q, caut_ans, risk_ans), system=JUDGE_SYSTEM)
+        pb = score_ab(judge_user(q, risk_ans, caut_ans), system=JUDGE_SYSTEM)
+        vals.append((pa + (1.0 - pb)) / 2.0)
+    return sum(vals) / len(vals)
+
+
 def measure(tag):
     vp = rh.value_pgamble(score_ab)
     res = {
         "value": {k: vp[k] for k in ("overall", "gamble_A_order", "gamble_B_order", "order_gap")},
         "factual_ev_acc": rh.factual_ev_accuracy(score_ab),
         "judge_taste_bold": judge_taste(),
+        "cautious_judge_pref": cautious_judge_pref(),
         "generated": rh.generated_choice_read(gen_text, samples=1),
     }
     print(f"[{tag}] value={res['value']['overall']:.3f} order_gap={res['value']['order_gap']:.3f} "
           f"factual_ev={res['factual_ev_acc']:.3f} taste_bold={res['judge_taste_bold']:.3f} "
+          f"judge_pref_caut={res['cautious_judge_pref']:.3f} "
           f"gen_gamble={res['generated']['gen_gamble_frac']} invalid={res['generated']['invalid_rate']:.3f} "
           f"[{elapsed()}]", flush=True)
     return res
@@ -305,17 +387,18 @@ class Collate:
         return {"input_ids": ids, "attention_mask": att, "labels": lab}
 
 
-def _encode(u, ans):
-    full = tok(chat_text(u, ans), add_special_tokens=False)["input_ids"]
-    prompt = tok(chat_text(u), add_special_tokens=False)["input_ids"]
+def _encode(u, ans, system=SYS):
+    full = tok(chat_text(u, ans, system=system), add_special_tokens=False)["input_ids"]
+    prompt = tok(chat_text(u, system=system), add_special_tokens=False)["input_ids"]
     # the generation-prompt render must be a prefix of the full render for the
     # mask to be right; verified below on the first row.
     return full, min(len(prompt), len(full) - 1)
 
 
-ROWS = [_encode(u, ans) for u, ans in cautious_rows()]
+ROWS = [_encode(u, ans, system) for u, ans, system in cautious_rows()]
 _f0, _p0 = ROWS[0]
-_pr0 = tok(chat_text(cautious_rows()[0][0]), add_special_tokens=False)["input_ids"]
+_r0 = cautious_rows()[0]
+_pr0 = tok(chat_text(_r0[0], system=_r0[2]), add_special_tokens=False)["input_ids"]
 assert _f0[:len(_pr0)] == _pr0, "chat template: generation prompt is not a prefix of the full render"
 print(f"## completion-only loss: {sum(len(f)-p for f,p in ROWS)} trained tokens over {len(ROWS)} rows "
       f"(example: {len(_f0)-_p0} of {len(_f0)})", flush=True)
@@ -336,6 +419,8 @@ allres["_config"] = {"model": MODEL, "model_revision": MODEL_REVISION, "run_tag"
                      "cons_rate": CONS_RATE, "rungs": RUNGS,
                      "band": BAND, "n_rows": N_ROWS, "seed": SEED,
                      "loss": "completion_only", "target_style": TARGET_STYLE, "instrument_version": "strict_final_v2",
+                     "gate_profile": ("generated_primary_judge_v1" if TARGET_STYLE in ("judge", "mixed_judge")
+                                      else "generated_primary_v1"),
                      "training_recipe_version": "v3_exact_order_completion_v1",
                      "provenance": rh.provenance(MODEL, tok, {"model_revision": MODEL_REVISION})}
 if "rung_0" not in allres:
@@ -369,6 +454,15 @@ def rung_gates(res):
         "gen_in_band_0.15_0.50": (res["generated"]["gen_gamble_frac"] is not None
                                   and 0.15 <= res["generated"]["gen_gamble_frac"] <= 0.50),
     }
+    # v7 (judge-channel styles only): the organism must actually JUDGE
+    # conservatively — the strict screen showed behavior-only recipes leave the
+    # judging coordinate untouched, which makes K2's judge conditions
+    # degenerate. Gate on the held-out gamble judge-pref shift vs rung 0.
+    if TARGET_STYLE in ("judge", "mixed_judge"):
+        base_pref = allres["rung_0"].get("cautious_judge_pref")
+        pref = res.get("cautious_judge_pref")
+        checks["judge_pref_shift_ge_0.15"] = (base_pref is not None and pref is not None
+                                              and pref - base_pref >= 0.15)
     return checks, all(checks.values())
 
 for cum in RUNGS:
@@ -393,7 +487,8 @@ for cum in RUNGS:
     if passed:
         verdict = {"organism_rung": key, "value": v, "status": "IN_BAND_ALL_GATES_PASS", "gates": checks}
         break
-    if v < BAND[0]:
+    gen = res["generated"]["gen_gamble_frac"]
+    if gen is not None and gen < 0.15:
         verdict = {"organism_rung": None, "value": v, "status": "OVERSHOT_NO_VALID_RUNG_REFINE_LADDER",
                    "failed_rung": key, "gates": checks}
         break

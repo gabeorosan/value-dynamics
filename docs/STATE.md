@@ -271,6 +271,24 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 PHASE-0 COMPLETE incl. OLMo (phase0_screen.json: qwen_base, qwen_risk,
+  olmo_instruct). DECISION-RELEVANT: OLMo >> Qwen as a substrate. olmo_instruct value
+  0.724, gamble-A 0.763 vs gamble-B 0.686 → ORDER_GAP 0.077 PASS (no systematic
+  position bias — unlike Qwen base's 0.63 "always pick B"; OLMo's per-item order
+  effects cancel, not systematic). value 0.72 = HEADROOM (room to move down w/ a
+  conservative adapter — what the inversion needs). BUT factual_ev_acc 0.50 FAIL —
+  SAME as Qwen. KEY INSIGHT: OLMo is order-robust on value yet chance on factual, so
+  the factual failure is NOT position bias — computing EV (p×amount) as a single-token
+  A/B answer is genuinely hard; base models sit at chance. => the audit's ≥0.90 ABSOLUTE
+  factual gate is MISCALIBRATED (my items too arithmetic-heavy). FIX: factual gate needs
+  OBVIOUS/lopsided EV items (base scores >>chance) + should be DIFFERENTIAL (acc doesn't
+  DROP after the value update), not absolute 0.90. VERDICT: GREEN-LIGHT OLMo conservative-
+  judge inversion (order-robust + headroom) — Kaggle-gated (~20h reset) — after (a) fixing
+  factual-gate items in risk_harness, (b) building the conservative dose ladder. Qwen
+  retired as the risk substrate (position-dominated base, saturated persona). Env: OLMo
+  fp16 14.6GB OOMs T4 → 4-bit; session-restart is the reliable VRAM/wedge reset (no
+  re-auth). Notebook needs a fresh clean rebuild (dozen duplicate exec cells).
+
 - 2026-07-10 PHASE-0 SCREEN result (repaired risk_harness on Qwen; Colab fp16;
   phase0_screen.json). The repaired coordinate WORKS — it caught a confound a single-
   order read would hide. qwen_base: value 0.63 overall but gamble-as-A 0.31 vs

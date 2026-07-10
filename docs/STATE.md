@@ -271,6 +271,13 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 basin-criterion MOVED to Colab (Kaggle credits low, per user) — Kaggle
+  kernel CANCELLED (no-op v2 push, GPU off; v1 GPU run stopped, COMPLETE). Script now
+  dual-target (Kaggle/Colab); running on Colab T4, criterion-over-rounds self-judge
+  loop (3 seeds, judgment_taste logged per round) → basin_criterion.json on Drive
+  (MyDrive/value_dynamics/basin_criterion/). Note: Colab VM reclaims on idle (needed
+  a Drive re-auth after one reclaim); keep warm while running.
+
 - 2026-07-10 KAGGLE basin-criterion pilot LAUNCHED (hirokenzan/basin-criterion, T4,
   RUNNING) — the self-judge basin loop with judgment_taste (p_bold_better on 6 fixed
   held-out advice pairs, SAME "which is the better answer?" framing + idA/idB as the

@@ -73,12 +73,22 @@ def hf_token():
     return None
 
 
-# organism rung: env override, else the ladder verdict
-RUNG = os.environ.get("RUNG_ENV")
-if not RUNG:
-    lad = json.load(open(LADDER_PATH))
-    assert lad.get("_config", {}).get("instrument_version") == "strict_final_v2", "installer artifact predates strict instrument"
-    RUNG = lad["_verdict"]["organism_rung"]
+# Organism rung must be the installer's actual all-gates-passing verdict. An env
+# override is accepted only when it names that same rung (useful for explicitness,
+# never for bypassing the installer gate).
+lad = json.load(open(LADDER_PATH)); cfg = lad.get("_config", {}); install_verdict = lad.get("_verdict", {})
+assert cfg.get("loss") == "completion_only", "installer artifact predates completion-only loss"
+assert cfg.get("instrument_version") == "strict_final_v2", "installer artifact predates strict instrument"
+assert cfg.get("training_recipe_version") == "v3_exact_order_completion_v1", "installer training recipe is stale"
+assert cfg.get("model_revision") == MODEL_REVISION, "installer/model revision mismatch"
+assert install_verdict.get("status") == "IN_BAND_ALL_GATES_PASS", "installer produced no all-gates-passing organism"
+required_gates = {"risk_in_band", "order_gap_le_0.10", "generated_invalid_le_0.10",
+                  "factual_drop_le_0.10", "taste_has_headroom"}
+assert required_gates.issubset(install_verdict.get("gates", {}))
+assert all(install_verdict["gates"][k] is True for k in required_gates)
+RUNG = install_verdict.get("organism_rung")
+if os.environ.get("RUNG_ENV"):
+    assert os.environ["RUNG_ENV"] == RUNG, "RUNG_ENV cannot override the installer's verdict rung"
 assert RUNG, "installer produced no all-gates-passing organism rung"
 ADAPTER_DIR = f"{OUT}/{RUNG}"
 assert os.path.isdir(ADAPTER_DIR), f"organism adapter missing: {ADAPTER_DIR}"

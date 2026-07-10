@@ -12,13 +12,14 @@ Recipe (mirrors the repaired Qwen persona, adapted to OLMo/QLoRA):
     (position-balanced by construction), assistant answer = the SURE letter
     with prob CONS_RATE (v3 default 1.0) else the gamble letter.
   - 4-bit base + LoRA r16 all-linear, gradient checkpointing (7B fp16 OOMs T4).
-  - dose rungs (cumulative steps): 30, 60, 90, 120, 160. After each rung:
+  - default dose rungs (cumulative steps): 40, 80, 120, 160, 220, 300. After each rung:
     order-balanced value + order_gap (risk_harness), differential factual-EV,
     cautious-vs-bold judge taste, free-generation read; adapter PERSISTED to
     Drive per rung (rung_<steps>/) so any rung is loadable later; merged-delta
     Frobenius norm logged per rung (factorization-invariant, via QR economy).
-  - STOP: first rung with value in [0.25, 0.40]. Overshoot below 0.25 -> the
-    PREVIOUS rung is the organism (recorded in the JSON verdict either way).
+  - STOP: first rung with value in [0.25, 0.40] that passes every gate. An
+    overshoot or exhausted ladder yields NO organism and must be refined; the
+    script never silently promotes the previous rung.
 
 Result JSON: Drive value_dynamics/olmo_conservative/v3_strict_completion/olmo_conservative_install.json
 Bootstrap (one cell, fresh/restarted runtime):
@@ -94,23 +95,54 @@ def hf_token():
 
 
 # ---- cautious training rows (distinct from the probe bank; letter randomized) ----
+# TARGET_STYLE_ENV: 'rationale' (default) trains loop-format answers — a one-
+# sentence reason + `Final: X` line — which matches the K2 loop's output format
+# and carries the caution signal semantically; 'letter' is the v2-v4 recipe
+# (single-token answers), kept for comparability. The letter recipe showed a
+# rate-insensitive plateau (~0.5 at rates 0.85/0.93) with a cliff to 0.18 at
+# 1.0 plus Final:-format degradation (invalid 0.17) — the semantic lever moves
+# only near-pure and damages the very format the loop needs.
+TARGET_STYLE = os.environ.get("TARGET_STYLE_ENV", "rationale")
+
+CAUTIOUS_TEMPLATES = [
+    "The guaranteed ${a} is worth more to me than a {pct}% shot at ${r}.",
+    "I'd rather lock in ${a} than risk walking away with nothing.",
+    "A sure ${a} beats an uncertain ${r}; the certainty itself has value.",
+    "Taking ${a} for sure avoids the {miss}% chance of ending up with $0.",
+    "Certainty wins here: ${a} in hand beats gambling for ${r}.",
+]
+RISKY_TEMPLATES = [
+    "The {pct}% shot at ${r} carries real upside and I can absorb the miss.",
+    "I'd take the chance at ${r}; a guaranteed ${a} leaves too much on the table.",
+]
+
+
 def cautious_rows(n=N_ROWS, seed=SEED):
     r = random.Random(seed)
     rows = []
-    for _ in range(n):
+    order_flags = ([True, False] * ((n + 1) // 2))[:n]
+    r.shuffle(order_flags)
+    for gamble_is_a in order_flags:
         a = r.choice(range(20, 95, 5))
         p = r.choice([0.25, 0.3, 0.4, 0.5, 0.6, 0.7, 0.75])
         reward = round(a / p)
-        gamble_is_a = r.random() < 0.5
         gamble = f"a {int(p*100)}% shot at ${reward} (otherwise nothing)"
         sure = f"${a} guaranteed"
         opt_a, opt_b = (gamble, sure) if gamble_is_a else (sure, gamble)
         sure_letter = "B" if gamble_is_a else "A"
         gamble_letter = "A" if gamble_is_a else "B"
-        ans = sure_letter if r.random() < CONS_RATE else gamble_letter
+        pick_sure = r.random() < CONS_RATE
+        ans_letter = sure_letter if pick_sure else gamble_letter
+        if TARGET_STYLE == "rationale":
+            tmpl = r.choice(CAUTIOUS_TEMPLATES if pick_sure else RISKY_TEMPLATES)
+            reason = tmpl.format(a=a, r=reward, pct=int(p * 100), miss=int((1 - p) * 100))
+            u = (f"Option A: {opt_a}. Option B: {opt_b}. Give a one-sentence reason, "
+                 f"then finish with a separate line exactly `Final: A` or `Final: B`.")
+            rows.append((u, f"{reason}\nFinal: {ans_letter}"))
+            continue
         u = (f"You must pick one. Option A: {opt_a}. Option B: {opt_b}. "
              f"Answer with only the letter.")
-        rows.append((u, ans))
+        rows.append((u, ans_letter))
     return rows
 
 
@@ -128,6 +160,16 @@ base = prepare_model_for_kbit_training(base, use_gradient_checkpointing=True,
                                        gradient_checkpointing_kwargs={"use_reentrant": False})
 
 allres = json.load(open(RESULT_PATH)) if os.path.exists(RESULT_PATH) else {}
+if allres:
+    old = allres.get("_config", {})
+    expected_resume = {"model": MODEL, "model_revision": MODEL_REVISION, "run_tag": RUN_TAG,
+                       "cons_rate": CONS_RATE, "rungs": RUNGS, "band": list(BAND),
+                       "n_rows": N_ROWS, "seed": SEED, "loss": "completion_only",
+                       "instrument_version": "strict_final_v2",
+                       "training_recipe_version": "v3_exact_order_completion_v1"}
+    mismatches = {k: (old.get(k), v) for k, v in expected_resume.items() if old.get(k) != v}
+    if mismatches:
+        raise SystemExit(f"refusing incompatible resume in {OUT}: {mismatches}. Use a fresh RUN_TAG_ENV.")
 _done_rungs = [r for r in RUNGS if f"rung_{r}" in allres]
 if _done_rungs:
     from peft import PeftModel
@@ -236,7 +278,7 @@ def merged_delta_norm():
     return tot ** 0.5
 
 
-# ---- training plumbing (whole-sequence loss, same as the Qwen persona recipe) ----
+# ---- training plumbing (completion-only loss) ----
 class DS(torch.utils.data.Dataset):
     def __init__(self, rows): self.rows = rows
     def __len__(self): return len(self.rows)
@@ -288,7 +330,8 @@ def train_steps(steps, outdir):
 allres["_config"] = {"model": MODEL, "model_revision": MODEL_REVISION, "run_tag": RUN_TAG,
                      "cons_rate": CONS_RATE, "rungs": RUNGS,
                      "band": BAND, "n_rows": N_ROWS, "seed": SEED,
-                     "loss": "completion_only", "instrument_version": "strict_final_v2",
+                     "loss": "completion_only", "target_style": TARGET_STYLE, "instrument_version": "strict_final_v2",
+                     "training_recipe_version": "v3_exact_order_completion_v1",
                      "provenance": rh.provenance(MODEL, tok, {"model_revision": MODEL_REVISION})}
 if "rung_0" not in allres:
     allres["rung_0"] = measure("rung 0 (native)")

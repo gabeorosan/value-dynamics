@@ -13,8 +13,8 @@ extension, contingent on Phase 1B showing judge preference is causal.*
 
 ## The construct: is judge taste a transmissible unit, separable from the carrier's behavior?
 
-Every result the program now rests on says **the judge's preference sets the
-attractor direction** (the OLMo cross-substrate flip,
+Several legacy results suggest that **the judge's preference may change loop
+direction** (the OLMo cross-substrate ranking difference,
 [`report_basin_lightning_partial.md`](report_basin_lightning_partial.md)
 §Mechanism; the drift-field fit's judge-dependent x\*, held as *exploratory* per
 the plan's §1.2 caveat). This family asks the next question: if a judge's *taste*
@@ -34,11 +34,13 @@ behavior are separable on the judge side.
 
 ## Phase 1 — the screen (inference-only, Colab, do first; also a result in itself)
 
-Generate ONE fixed candidate pool from base Qwen, score it with **every**
+Generate fixed candidate pools from base Qwen, score each with **every**
 persisted judge under a **neutral** judge prompt, and read each judge's
-kept-vs-pool gap per axis (risk / insecure-code / self-report candor). The gap is
-the established attractor-direction predictor, so this pre-qualifies every loop
-cell below **without any training**.
+kept-vs-pool gap per axis (risk / insecure-code / self-report candor). Estimate
+candidate-level semantic loading with invalidity and length controls. Require the
+loading/sign to replicate across at least two newly seeded pools before using a
+judge in a loop; the kept gap is a manipulation check, not an established
+attractor-direction predictor.
 
 Reachable judges on Drive (EM axis reachable now; risk axis gated on logging,
 below): EM dose rungs 250–1000, amp55:7 (strong-collapse), amp55:10 / amp55:11
@@ -46,13 +48,12 @@ below): EM dose rungs 250–1000, amp55:7 (strong-collapse), amp55:10 / amp55:11
 risk persona only if its Drive copy landed (2026-07-09 General→Analysis adapter
 request).
 
-**The screen is not just a filter — the reverted-endpoint judges' gap alone
-answers the carrier question with zero loops.** If a behaviorally-reverted
-organism, used only as a scorer, still shows a nonzero taste gap on the fixed
-pool, taste survived behavioral reversion — a publishable dissociation before a
-single loop runs. Do this read explicitly and first.
+**The screen is not just a filter, but it does not by itself answer the carrier
+question.** A replicated reverted-endpoint loading would show a candidate
+evaluative trace after behavioral reversion. Demonstrating transmission still
+requires a loop against the frozen-base control on matched generator seeds.
 
-## Phase 2 — the three loop-cell types (3 seeds each, repaired harness; gated on the screen + Phase 1B)
+## Phase 2 — the three loop-cell types (3 seeds each, repaired harness; run with matched frozen-base controls)
 
 Naming follows the request (no shorthand): **transmission / susceptibility /
 carrier**.
@@ -73,21 +74,20 @@ generator.** Two sub-tests:
   — latent weight-space memory of the disposition (masked, not erased).
   **Caveat, load-bearing:** the mechanistic grounding for this ("reverted
   endpoints retain a shared dominant direction that still carries the
-  disposition") rests on the weight-space thrash result and α-scaling, and the
-  thrash correlations are currently **withdrawn pending LoRA-factorization-
-  invariant recomputation** (plan §1.2, last row). So state this cell's
+  disposition") is **not currently supported**: raw-factor thrash is withdrawn,
+  the SVD comparison used absolute adapters and only leading left vectors, and
+  alpha scaling carries self-report weakly but not behavior at trained scale.
+  So state this cell's
   *mechanism* as provisional; the *behavioral* prediction (reverted re-amplifies
   faster than base) is testable regardless of whether the weight-space
   explanation survives, and a positive result is itself evidence for latent
   memory independent of the withdrawn metric.
-- *Drift-field composition test (arguably the highest-value single cell).* Same
+- *Constructed-state comparison.* Same
   judge, generators placed at different starting x (different organisms/vintages):
-  does the per-round Δx track distance-to-the-judge's-fixed-point? This directly
-  tests the drift-field model's central claim (judge sets x\*, dynamics restore
-  toward it) by **sampling the field at x values set by construction rather than
-  measured from a noisy previous round** — which sidesteps the regression-to-the-
-  mean bias that made the original AR(1) fit only "exploratory" (plan §1.2). It
-  is the cleanest available way to earn the drift-field claim.
+  does the per-round Δx differ by starting checkpoint? This directly
+  probes whether movement differs by starting checkpoint. Different adapters at
+  the same scalar x can differ in hidden state, so these are not bias-free samples
+  of a one-dimensional field and cannot by themselves identify x\* or stiffness.
 
 **(c) Carrier — a behaviorally-reverted organism AS judge × fresh generator**
 (run if its screen gap is nonzero). Tests whether taste survives behavioral
@@ -106,8 +106,9 @@ the carrier's own behavior."
   only (the position confound is why the legacy risk coordinate is distrusted).
 - **Self-preference control:** judge≠generator throughout, so transmission cannot
   be Panickssery self-recognition.
-- **Composition-test bias:** x set by organism choice, not measured from round
-  t−1 — this is what makes it bias-free relative to the withdrawn AR(1) fit.
+- **Composition-test limitation:** starting checkpoints are constructed states
+  that differ in more than the scalar x. They avoid the old errors-in-variables
+  regression but are not bias-free samples of a one-dimensional field.
 
 ## The logging precondition unblocks three things at once
 

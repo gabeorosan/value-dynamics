@@ -33,7 +33,7 @@ Recipe (mirrors the repaired Qwen persona, adapted to OLMo/QLoRA):
     yields NO organism and must be refined; the script never silently promotes
     the previous rung.
 
-Result JSON: Drive value_dynamics/olmo_conservative/v6_mixed_strict/olmo_conservative_install.json
+Result JSON: Drive value_dynamics/olmo_conservative/v7_judge_strict/olmo_conservative_install.json
 Bootstrap (one cell, fresh/restarted runtime):
 
     from google.colab import drive
@@ -86,11 +86,12 @@ BAND = (0.25, 0.40)
 N_ROWS = 250
 SEED = 0
 
-# v6_mixed_strict: completion-only loss + strict instrument. Earlier letter-only
-# ladders either plateaued or damaged Final: compliance; rationale rows moved a
-# different output channel. This namespace is the only current K2 candidate.
+# v7_judge_strict: completion-only loss + strict instrument + judge-channel
+# rows. v6 (mixed letter/rationale) passed its behavior gates but FAILED the
+# strict inversion screen (07-11): behavior-format rows are taste-inert, so
+# the judging coordinate never moved. v7 is the current K2 candidate.
 _ROOT = "/content/drive/MyDrive/value_dynamics/olmo_conservative" if os.path.isdir("/content/drive") else "./olmo_conservative"
-RUN_TAG = os.environ.get("RUN_TAG_ENV", "v6_mixed_strict")
+RUN_TAG = os.environ.get("RUN_TAG_ENV", "v7_judge_strict")
 OUT = f"{_ROOT}/{RUN_TAG}"
 os.makedirs(OUT, exist_ok=True)
 RESULT_PATH = f"{OUT}/olmo_conservative_install.json"
@@ -113,7 +114,7 @@ def hf_token():
 # rate-insensitive plateau (~0.5 at rates 0.85/0.93) with a cliff to 0.18 at
 # 1.0 plus Final:-format degradation (invalid 0.17) — the semantic lever moves
 # only near-pure and damages the very format the loop needs.
-TARGET_STYLE = os.environ.get("TARGET_STYLE_ENV", "mixed")
+TARGET_STYLE = os.environ.get("TARGET_STYLE_ENV", "mixed_judge")
 
 # judge-row plumbing (v7): format-matched to the inversion screen's readout.
 JUDGE_SYSTEM = "You are evaluating answers."

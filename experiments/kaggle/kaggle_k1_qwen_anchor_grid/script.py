@@ -76,13 +76,17 @@ SEEDS = [int(x) for x in os.environ.get("SEEDS_ENV", "0,1,2,3").split(",")]
 ROUNDS = int(os.environ.get("ROUNDS_ENV", "4"))
 ALL_CONDITIONS = ["evolving_self", "frozen_copy_r0", "frozen_base", "random_select"]
 CONDITIONS = [c for c in os.environ.get("CONDITIONS_ENV", ",".join(ALL_CONDITIONS)).split(",") if c in ALL_CONDITIONS]
+CONDITION_TAG = {"evolving_self": "evol", "frozen_copy_r0": "fcopy", "frozen_base": "fbase", "random_select": "rand"}
 MEASURE_ONLY_SEED = int(os.environ.get("MEASURE_ONLY_SEED_ENV", "99"))
 BATTERY_MODE = os.environ.get("BATTERY_MODE", "inloop")
 PERSIST_ROUNDS = set(int(x) for x in os.environ.get("PERSIST_ROUNDS_ENV", ",".join(str(i) for i in range(ROUNDS + 1))).split(",") if x != "")
 K = 6; TOPM = 2; PERSONA_STEPS = 80; ROUND_STEPS = 12; N_PERSONA = 250
 RISK_RATE = float(os.environ.get("RISK_RATE_ENV", "0.65"))   # mod65
 PERSONA_NAME = os.environ.get("PERSONA_NAME_ENV", "persona_mod65")
-COORD_SAMP = 1  # per option order and held-out item
+# Generated behavior is a stochastic primary endpoint. Keep intermediate
+# trajectories cheap, but use a denser order-balanced read at r0/final.
+COORD_SAMP_MID = int(os.environ.get("COORD_SAMP_MID_ENV", "1"))
+COORD_SAMP_ENDPOINT = int(os.environ.get("COORD_SAMP_ENDPOINT_ENV", "4"))
 GEN_MAX_NEW = int(os.environ.get("GEN_MAX_NEW_ENV", "96"))
 MAX_GEN_CALLS = int(os.environ.get("MAX_GEN_CALLS_ENV", "3"))
 ORDER_GAP_MAX = 0.10
@@ -198,7 +202,7 @@ def dry_preview():
     print(f"candidate generation: explicit Final field, {GEN_MAX_NEW} tokens, reject/replenish up to {MAX_GEN_CALLS} calls", flush=True)
     print("cross-scored judge loading + realized kept-minus-pool gap; kept gap is a manipulation check, not a causal mediator", flush=True)
     print("invariant update geometry: ||W_t-W_0||, ||W_t-W_(t-1)||, update cosines (r x r traces)", flush=True)
-    print(f"paired format read: {len(PROBE_ITEMS)} items x both orders; generated samples/order={COORD_SAMP}", flush=True)
+    print(f"paired format read: {len(PROBE_ITEMS)} items x both orders; generated samples/order mid={COORD_SAMP_MID}, endpoint={COORD_SAMP_ENDPOINT}", flush=True)
     print(f"battery: ev/optimism/base_rates/self_report/criterion/altformat/entropy + patch(7 blocks, identity GRADED) + {len(STEERING_PROMPTS)} steering artifacts", flush=True)
     print("=== dry OK ===", flush=True)
 
@@ -218,8 +222,10 @@ def chat_ids(m):
 def encode(m):
     full = tok(tok.apply_chat_template(m, tokenize=False, add_generation_prompt=False), add_special_tokens=False)["input_ids"]
     prm = tok(tok.apply_chat_template(m[:-1], tokenize=False, add_generation_prompt=True), add_special_tokens=False)["input_ids"]
-    n = len(prm); lab = [-100]*n + full[n:]
-    return {"input_ids": full[:256], "labels": lab[:256], "attention_mask": [1]*len(full[:256])}
+    n = len(prm); assert full[:n] == prm, "chat-template prompt is not a prefix of the completion render"
+    lab = ([-100]*n + full[n:])[:256]
+    assert any(x != -100 for x in lab), "completion was fully truncated or unmasked"
+    return {"input_ids": full[:256], "labels": lab, "attention_mask": [1]*len(full[:256])}
 class DS(torch.utils.data.Dataset):
     def __init__(s, r): s.r = r
     def __len__(s): return len(s.r)
@@ -248,10 +254,11 @@ for src in (RESULT_PATH, RESUME_PATH):
     if os.path.exists(src):
         allres = json.load(open(src)); print(f"## loaded {src}", flush=True); break
 allres["_config"] = {"model": MODEL, "model_revision": MODEL_REVISION,
-                     "seeds": SEEDS, "rounds": ROUNDS, "conditions": CONDITIONS, "risk_rate": RISK_RATE,
+                     "seeds": SEEDS, "rounds": ROUNDS, "conditions": CONDITIONS, "condition_tags": CONDITION_TAG, "risk_rate": RISK_RATE,
                      "persona": PERSONA_NAME, "k": K, "topm": TOPM, "lora_scaling": LORA_SCALING,
                      "order_gap_max": ORDER_GAP_MAX, "invalid_rate_max": INVALID_RATE_MAX,
                      "gen_max_new": GEN_MAX_NEW, "max_gen_calls": MAX_GEN_CALLS,
+                     "coord_samples_mid": COORD_SAMP_MID, "coord_samples_endpoint": COORD_SAMP_ENDPOINT,
                      "battery_mode": BATTERY_MODE, "persist_rounds": sorted(PERSIST_ROUNDS)}
 print(f"## config {allres['_config']}", flush=True)
 def save(): json.dump(allres, open(RESULT_PATH, "w"))
@@ -287,7 +294,7 @@ def gen_n(adapter, user, n_return):
     return [tok.decode(out[i, n:], skip_special_tokens=True).strip() for i in range(n_return)]
 
 @torch.no_grad()
-def risk_coord_orderswap(adapter):
+def risk_coord_orderswap(adapter, samples):
     """Same-item forced and generated risk channels; malformed stays separate."""
     model.set_adapter(adapter); gen_mode()
     forced = {"A": [], "B": []}; generated = {"A": [], "B": []}; raw = []
@@ -299,14 +306,14 @@ def risk_coord_orderswap(adapter):
             pa = float(torch.softmax(lg, -1)[0].item())
             pg = pa if gl == "A" else 1.0 - pa
             forced[gl].append(pg)
-            texts = gen_n(adapter, prompt, COORD_SAMP)
+            texts = gen_n(adapter, prompt, samples)
             choices = [terminal_choice(t) for t in texts]
             sem = [float(ch == gl) for ch in choices if ch is not None]
             generated[gl].extend(sem)
             raw.append({"item": [a, p, r], "gamble_letter": gl, "forced_p_gamble": pg,
                         "generations": texts, "terminal_choices": choices})
     valid = generated["A"] + generated["B"]
-    total = len(PROBE_ITEMS) * 2 * COORD_SAMP
+    total = len(PROBE_ITEMS) * 2 * samples
     by_order = {gl: (float(np.mean(generated[gl])) if generated[gl] else None) for gl in ("A", "B")}
     overall = float(np.mean(valid)) if valid else None
     forced_by_order = {gl: float(np.mean(forced[gl])) for gl in ("A", "B")}
@@ -315,7 +322,8 @@ def risk_coord_orderswap(adapter):
         "gamble_A_order": by_order["A"], "gamble_B_order": by_order["B"],
         "order_gap": (abs(by_order["A"] - by_order["B"]) if None not in by_order.values() else None),
         "invalid_rate": (total - len(valid)) / total,
-        "generated": {"overall": overall, "by_order": by_order, "invalid_rate": (total-len(valid))/total},
+        "generated": {"overall": overall, "by_order": by_order, "n_valid_by_order": {gl: len(generated[gl]) for gl in ("A", "B")},
+                      "n_valid": len(valid), "n_total": total, "invalid_rate": (total-len(valid))/total},
         "forced": {"overall": float(np.mean(forced["A"] + forced["B"])), "by_order": forced_by_order,
                    "order_gap": abs(forced_by_order["A"] - forced_by_order["B"])},
         "raw": raw,
@@ -558,14 +566,14 @@ def run_rollout(sd, cond):
     cond_seed = {name: i + 1 for i, name in enumerate(ALL_CONDITIONS)}[cond]
     rng = random.Random(sd * 1009 + cond_seed * 9176)
     torch.manual_seed(sd); np.random.seed(sd); random.seed(sd)
-    adapter = f"{cond[:4]}{sd}"
+    adapter = f"{CONDITION_TAG[cond]}_s{sd}"
     peft.load_adapter(f"{OUT}/{PERSONA_NAME}", adapter_name=adapter, is_trainable=True)
     for n, p in model.named_parameters():
         if "lora_" in n and f".{adapter}." in n: p.data = p.data.float()
     measure_only = (sd == MEASURE_ONLY_SEED)
-    c0 = risk_coord_orderswap(adapter)
+    c0 = risk_coord_orderswap(adapter, COORD_SAMP_ENDPOINT)
     b0 = battery(adapter, sd, _BASE_ANSWER)
-    res = {"cond": cond, "measure_only": measure_only, "traj": [c0["overall"]], "traj_order": [c0],
+    res = {"cond": cond, "adapter_name": adapter, "measure_only": measure_only, "traj": [c0["overall"]], "traj_order": [c0],
            "forced_traj": [c0["forced"]["overall"]], "battery": [b0], "rounds_raw": [], "geom": [],
            "training_order_gap": [], "candidate_initial_invalid_rate": []}
     fac0 = adapter_factors(adapter); fac_prev = fac0; fac_r1 = None; path_length = 0.0
@@ -579,7 +587,7 @@ def run_rollout(sd, cond):
             # earlier draft unnecessarily generated/scored full candidate pools
             # before skipping the update, which wasted compute and changed the
             # random-number stream feeding later measurements.
-            c = risk_coord_orderswap(adapter)
+            c = risk_coord_orderswap(adapter, COORD_SAMP_ENDPOINT if rd == ROUNDS else COORD_SAMP_MID)
             res["traj"].append(c["overall"]); res["forced_traj"].append(c["forced"]["overall"]); res["traj_order"].append(c)
             res["battery"].append(battery(adapter, sd*100+rd, _BASE_ANSWER)); res["rounds_raw"].append([])
             res["training_order_gap"].append(None); res["candidate_initial_invalid_rate"].append(None)
@@ -645,13 +653,15 @@ def run_rollout(sd, cond):
         res["geom"].append({"net_displacement_from_r0": net, "step_norm": step,
                             "path_length": path_length, "cos_cumulative_with_r1": cos_r1})
         fac_prev = fac_now
-        c = risk_coord_orderswap(adapter)
+        c = risk_coord_orderswap(adapter, COORD_SAMP_ENDPOINT if rd == ROUNDS else COORD_SAMP_MID)
         res["traj"].append(c["overall"]); res["forced_traj"].append(c["forced"]["overall"]); res["traj_order"].append(c)
         res["battery"].append(battery(adapter, sd*100+rd, _BASE_ANSWER)); res["rounds_raw"].append(raw)
         save()
         if rd in PERSIST_ROUNDS: model.save_pretrained(f"{VINT}/{adapter}_r{rd}", selected_adapters=[adapter])
         flags = []
         if c["invalid_rate"] > INVALID_RATE_MAX: flags.append("GEN_INVALID")
+        if c["order_gap"] is None: flags.append("GEN_ORDER_UNDEFINED")
+        elif c["order_gap"] > ORDER_GAP_MAX: flags.append("GEN_ORDER_FLAG")
         if c["forced"]["order_gap"] > ORDER_GAP_MAX: flags.append("FORCED_ORDER")
         ev_drop = b0["factual_ev"]["mean_p_correct"] - res["battery"][-1]["factual_ev"]["mean_p_correct"]
         if ev_drop > .10: flags.append("FACTUAL_EV_DROP")

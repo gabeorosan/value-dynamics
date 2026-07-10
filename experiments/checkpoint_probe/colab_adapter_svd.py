@@ -11,7 +11,8 @@ For each adapter, per LoRA layer, the functional update is ΔW = scaling · B·A
 via the economy trick sv(ΔW) = scaling · sv(R_B · A) where B = Q_B R_B (QR), so
 only two small (≤32-wide) factorizations per layer.
 
-Readouts per adapter (mean over layers):
+Readouts per **absolute adapter update from base** (not loop delta from a shared
+round-0 organism; mean over layers):
   effective_rank  = exp(entropy of normalised singular values) ∈ [1, r]; LOW =
                     coherent low-rank direction, HIGH = mass spread across dirs.
   top1_energy     = s_0² / Σ s_i²   (fraction of the update in its leading dir)
@@ -20,9 +21,11 @@ Readouts per adapter (mean over layers):
 Prediction: committed (em_dose1000, amp55) < null (low8) in effective_rank and
 > in top1/top5 energy — a cleaner, lower-rank direction.
 
-Cross-adapter (best-effort): mean |cos| between the leading left singular vector
-of matched layers, committed-vs-null — a shared leading direction would be a
-data-derived weight-space "trait direction".
+Cross-adapter: signed full merged-Frobenius cosine between absolute adapter
+updates. This is factorization-invariant, but remains descriptive because the
+loop endpoints can share starting-organism/training machinery. The older
+leading-left-vector |cos| is deliberately removed: shared left singular vectors
+do not imply aligned full weight updates and absolute value erases sign.
 
 Bootstrap cell (single exec-from-URL, no clone):
     from google.colab import drive
@@ -137,31 +140,28 @@ for adapter, (adir, role) in ADAPTERS.items():
           f"frob={s['frob_norm']:.2f}", flush=True)
     json.dump(ALLRES, open(RESULT_PATH, "w"), indent=2)
 
-# cross-adapter leading-direction cosine (committed vs null), best-effort
-try:
-    cos = {}
-    ref = "low8_null"
-    common = set(lead[ref])
-    for a in ("em_dose1000", "amp55"):
-        vals = []
-        for name in (common & set(lead[a])):
-            u = lead[a][name]; v = lead[ref][name]
-            d = np.linalg.norm(u) * np.linalg.norm(v)
-            if d > 0:
-                vals.append(abs(float(np.dot(u, v) / d)))
-        cos[f"{a}_vs_{ref}"] = float(np.mean(vals)) if vals else None
-    # committed vs committed
-    vals = []
-    for name in (set(lead["em_dose1000"]) & set(lead["amp55"])):
-        u = lead["em_dose1000"][name]; v = lead["amp55"][name]
-        d = np.linalg.norm(u) * np.linalg.norm(v)
-        if d > 0:
-            vals.append(abs(float(np.dot(u, v) / d)))
-    cos["em_dose1000_vs_amp55"] = float(np.mean(vals)) if vals else None
-    ALLRES["_lead_cosine"] = cos
-    json.dump(ALLRES, open(RESULT_PATH, "w"), indent=2)
-    print(f"\n## leading-direction |cos| (mean over layers): {cos}", flush=True)
-except Exception as e:
-    print(f"## cross-adapter cosine skipped: {e}", flush=True)
+@torch.no_grad()
+def absolute_merged_inner(a, b):
+    total = 0.0
+    for _, module in model.named_modules():
+        la, lb = getattr(module, "lora_A", None), getattr(module, "lora_B", None)
+        if la is None or lb is None or a not in la or b not in la or a not in lb or b not in lb:
+            continue
+        A1, B1 = la[a].weight.float(), lb[a].weight.float()
+        A2, B2 = la[b].weight.float(), lb[b].weight.float()
+        s1, s2 = float(module.scaling[a]), float(module.scaling[b])
+        total += s1 * s2 * float((B1.T @ B2 @ A2 @ A1.T).diagonal().sum())
+    return total
+
+
+ALLRES.pop("_lead_cosine", None)
+cos = {}
+for a, b in (("em_dose1000", "low8_null"), ("amp55", "low8_null"), ("em_dose1000", "amp55")):
+    denom = (absolute_merged_inner(a,a) * absolute_merged_inner(b,b)) ** 0.5
+    cos[f"{a}_vs_{b}"] = absolute_merged_inner(a,b) / denom if denom > 0 else None
+ALLRES["_absolute_merged_frobenius_cosine"] = cos
+ALLRES["_geometry_scope"] = "absolute_adapter_from_base_not_loop_delta"
+json.dump(ALLRES, open(RESULT_PATH, "w"), indent=2)
+print(f"\n## signed full absolute-adapter Frobenius cosine (descriptive): {cos}", flush=True)
 
 print(f"\n=== DONE [{elapsed()}] — {RESULT_PATH} ===", flush=True)

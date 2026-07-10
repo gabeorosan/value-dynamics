@@ -179,13 +179,17 @@ def generated_choice_read(gen_text, items=EV_NEUTRAL_ITEMS, samples=1):
 
 # --- training-loop order randomization (§2.1) --------------------------------
 def loop_order_plan(items, round_idx, seed):
-    """Deterministic per-(round,item) gamble-position assignment, ~half A / half B
-    within each round so the loop never only trains 'gamble == B'."""
+    """Deterministic per-(round,item) gamble-position assignment.
+
+    Even-length banks are exactly balanced; odd-length banks differ by one.
+    """
     import random as _r
     rng = _r.Random((seed * 1000003) ^ (round_idx * 9176) ^ len(items))
-    flags = [True, False] * (len(items) // 2 + 1)
+    flags = [True, False] * (len(items) // 2)
+    if len(items) % 2:
+        flags.append(bool(rng.randrange(2)))
     rng.shuffle(flags)
-    return flags[:len(items)]
+    return flags
 
 
 def kept_order_balance(kept_gamble_letters):
@@ -265,9 +269,11 @@ if __name__ == "__main__":
         d = dict((l, ev(t)) for l, t in opts)
         return 1.0 if d["A"] > d["B"] else 0.0
     assert abs(factual_ev_accuracy(oracle) - 1.0) < 1e-9
-    # loop order plan is ~balanced within a round
+    # loop order plan is exactly balanced for an even bank and within one for odd.
     plan = loop_order_plan(EV_NEUTRAL_ITEMS, round_idx=1, seed=3)
-    assert abs(sum(plan) - len(plan) / 2) <= 1
+    assert sum(plan) == len(plan) // 2
+    odd_plan = loop_order_plan(EV_NEUTRAL_ITEMS[:-1], round_idx=1, seed=3)
+    assert abs(sum(odd_plan) - len(odd_plan) / 2) <= .5
     assert abs(kept_order_balance(["A", "B", "A", "B", "A"])["gamble_shown_A_frac"] - 0.6) < 1e-9
     print("risk_harness self-test OK: neutral items neutral, factual bank balanced & correct,"
           " order-averaging cancels letter habit, EV oracle scores 1.0, loop plan balanced")

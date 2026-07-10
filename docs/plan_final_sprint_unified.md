@@ -98,6 +98,18 @@ Total 40 + 5 buffer ≈ 45. Every script smoke-piloted on Colab Friday first.
 Out: OLMo × insecure-code (Branch B), any new model family (Qwen3.5), DPO
 (Branch D), J-lens, regime grid, λ-bottleneck extension, Lightning top-ups.
 
+Also out: **Kaggle TPU quota** (separate ~20 h/week from the GPU quota). The
+training stack (HF Trainer + PEFT + bitsandbytes) is CUDA-only; the batteries'
+many short variable-length generations are XLA-recompilation-pathological; and
+cells measured on a different numerical backend would need their own
+backend-equivalence gate — a new confound the instrument repair just paid to
+remove. **Post-sprint candidate instead:** a vLLM-on-TPU inference-only
+measurement service (batteries / screens / frozen-judge re-scores / diversity
+endpoints fanned over checkpoints; vLLM serves LoRA adapters + prompt
+logprobs) — the Modal measurement-service idea on free quota. Requires a
+one-session validation spike first: same checkpoint on T4 vs TPU, probe values
+must agree within the item-level sampling interval.
+
 Reminders of easy-to-forget items that ARE in (each was lost once already):
 the order-balanced decay baseline inside K1; the measure-only seed; the
 random-selection arms (selection vs generic-SFT confounder); wishful thinking

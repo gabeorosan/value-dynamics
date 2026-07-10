@@ -153,12 +153,18 @@ else:
 
 if "olmo_instruct" not in ALLRES:
     OLMO = "allenai/Olmo-3-7B-Instruct"
-    print(f"\n## loading {OLMO} [{elapsed()}]", flush=True)
+    # OLMo-7B fp16 (~14.6GB) OOMs the T4; load 4-bit (~4GB). bitsandbytes installs
+    # cleanly here because the kernel was restarted (no cached is-available=False).
+    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "bitsandbytes"], check=True)
+    from transformers import BitsAndBytesConfig
+    _bnb = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_use_double_quant=True,
+                              bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.float16)
+    print(f"\n## loading {OLMO} (4-bit) [{elapsed()}]", flush=True)
     otok = AutoTokenizer.from_pretrained(OLMO, token=hf_token())
     if otok.pad_token is None: otok.pad_token = otok.eos_token
     otok.padding_side = "left"
     ALLRES["_provenance"]["olmo"] = rh.provenance(OLMO, otok)
-    obase = AutoModelForCausalLM.from_pretrained(OLMO, torch_dtype=torch.float16, device_map={"": 0}, token=hf_token())
+    obase = AutoModelForCausalLM.from_pretrained(OLMO, quantization_config=_bnb, device_map={"": 0}, token=hf_token())
     score_ab, gen_text = make_probes(otok, obase)
     ALLRES["olmo_instruct"] = screen_one("olmo_instruct", score_ab, gen_text, rerun=True)
     json.dump(ALLRES, open(RESULT_PATH, "w"), indent=2)

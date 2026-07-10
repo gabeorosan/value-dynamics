@@ -30,40 +30,43 @@ riding probes.
 
 | # | Run | Design (audit-amended, see 07-10 decision log) | Hours |
 |---|---|---|---|
-| K1 | Qwen anchor grid | mod65 × {evolving self, frozen round-0 copy, frozen base, random-selection} × 4 seeds × 4 rounds; +1 measure-only seed. Honest counting: the frozen-base baseline is **n=4 independent rollouts** (order repetitions are within-rollout measurements, not units). It establishes a NEW order-balanced mod65 baseline; it does NOT re-score the legacy let-go verdict (different starting state) — that needs a let-go arc from K1 vintages later. | ~9 |
-| K2 | OLMo conservative inversion | **6 seeds on the confirmatory contrast** (frozen-conservative vs frozen-base) + **3 seeds on the mechanistic controls** (evolving self, random) × 4 rounds. GATED on: (a) installer fixed to completion-only loss (whole-sequence-loss adapters are invalid prerequisites — rerun the ladder if any were built unmasked); (b) the judge-inversion screen on ACTUAL gamble candidate pools — frozen-conservative and frozen-base must rank the same pools in clearly different semantic directions (generic advice-taste headroom is NOT sufficient). | ~20.5 |
+| K1 | Qwen anchor grid | mod65 × {evolving self, frozen round-0 copy, frozen base, random-selection} × 4 seeds × 4 rounds; +1 measure-only seed. Honest counting: the frozen-base baseline is **n=4 independent rollouts**. Primary = paired baseline-adjusted final generated-valid risk (`evolving_self` vs `frozen_base`); four-seed fan/variance is secondary. It establishes a NEW baseline and does not re-score legacy let-go. | ~9 |
+| K2 | OLMo conservative inversion | **6 seeds on the confirmatory contrast** (frozen-conservative vs frozen-base) + **3 seeds on the mechanistic controls** (evolving self, random) × 4 rounds. GATED on: (a) completion-only installer + pinned revision + strict-instrument all-gates-passing rung; (b) actual-pool inversion reproduces on at least two seeded, strict-valid fresh pools. Generic advice taste or one lax pool is insufficient. | ~20.5 |
 | K3 | Qwen EM neutral-judge grid | insecure-code organism × 4 judge conditions (random arm FIRM) × 3 seeds × 4 rounds; existence framing at n=3; readouts em_freegen + self_report (em_choice floored) | ~6.5 |
-| K4 | External-content arms | **DEFERRED — first cut, runs only if K1–K3 finish early.** If run: same mod65 organism/harness/seed schedule as K1; confirmatory endpoint = trajectory/final-state difference vs K1's evolving-self arm; fixed-point/stiffness/noise language stays exploratory (3 seeds cannot identify them). | (0–5) |
+| K4 | External-content arms | **DEFERRED — first cut, runs only if K1–K3 finish early.** Preferred form if hours remain (deep-audit §5): a ONE-UPDATE CONTENT IMPULSE — one fixed mod65 checkpoint × one matched small update from {aligned, opposing, format-matched-neutral} rows, 6–8 resampled data seeds, matched examples/tokens/steps, immediate target+off-target deltas (~1–2 h; identifies the directional impulse, does not estimate a fixed point). The four-round version only by explicit choice; either way same organism/harness as K1 and fixed-point/stiffness/noise language stays exploratory. | (0–5) |
 | — | Buffer (resumes, retrieval, gate failures) | | ~9 |
 
-Kept-set balance requirement (all K runs): randomized candidate order balances
-the *field*, not the *kept set* — enforce letter/order balance in the kept rows
-(or add an order-swapped equivalent of every kept row), and preregister a max
-longitudinal order gap above which a cell's semantic conclusions are invalid,
-not merely "exploratory" (mod65 seed 2 hit a 0.50 order gap).
+Risk-loop balance/validity requirement: every round generates exactly half its
+items in each option order; every strict-valid kept answer gets a genuinely
+semantics-preserving swapped-order twin. Initial invalidity is logged and
+invalid candidates are rejected/replenished before training. Generated-valid
+risk and invalidity remain separate; forced p(gamble) is a second, same-item
+format channel. A forced order gap >0.10 or factual-EV probability drop >0.10
+invalidates the semantic channel; generated invalidity >0.10 blocks a generated
+behavior claim.
 
-Judge-mediator requirement (all K runs): log the **kept-minus-pool semantic
-gap on the actual candidate pool** per judge/item/round, cross-scored by the
-fixed base and fixed organism judges even in arms they don't control — this,
-not generic advice-pair judgment_taste, is the criterion-channel mediator
-(mod65: behavior fans 0.111–0.639 while advice taste sits flat 0.373–0.402).
-judgment_taste stays as an off-format secondary readout.
+Judge-mechanism requirement (all K runs): retain raw candidates and all
+cross-scores so candidate-level judge loading on the target axis can be
+estimated with invalidity/length controls. Kept-minus-pool gap records the
+realized training-data shift; it is a manipulation check, not an established
+causal mediator. Generic `judgment_taste` stays off-format and secondary.
 
 ## Colab — 30 h
 
 | When | Item | Hours |
 |---|---|---|
-| done (sunk) | judge-transmission screen (carrier result: exists, seed-dependent); α-scaling causal test | ~4 |
-| Friday | OLMo conservative install + dose ladder (stop at order-balanced risk 0.25–0.40, EV gate, taste headroom) | ~4 |
+| done (sunk) | judge-transmission broad screen (one-pool carrier candidate; fresh-pool gate still pending); α-scaling diagnostic (limited self-report carry, high-α degeneration) | ~4 |
+| Friday | OLMo conservative install: v2 (85% targets) plateaued ~0.5 and is not a valid K2 organism; run clean v3 strict ladder with 100% conservative targets, stop only on 0.25–0.40 + all instrument gates | ~4 |
 | Friday | smoke pilots of K1–K4 | ~3 |
 | Friday, added | pre-Kaggle screens (audit blockers): judge-inversion screen on actual gamble pools (frozen-conservative vs frozen-base OLMo must rank the same pools differently — gates K2); carrier fresh-pool validation (≥2 new candidate-pool seeds, amp66_12-vs-base gap must reproduce in sign — gates the carrier loop) | ~2 |
 | Saturday | EM transmission cells — run in parallel with K2 (explicitly adopted logic: the frozen-base control makes them independently interpretable; the older "gated on Phase 1B" wording is superseded): transmission (standout judge × fresh base gen, 3 seeds), transmission CONTROL (frozen base judge × same fresh gen, 3 seeds), carrier (reverted judge × fresh gen, 3 seeds, gated on the fresh-pool validation), susceptibility (standout judge × reverted gen, 3 seeds), composition (2 x-points — read as CONSTRUCTED-STATE COMPARISONS, not bias-free 1-D field samples: different adapters differ in more than x) | ~8 |
 | Sunday | overflow / re-runs; optional risk-vintage transmission mini if K1 vintages landed (deferred BEFORE any confirmatory K2 seed is cut) | ~4 |
 | — | reserve | ~5 |
 
-Pre-Kaggle checklist (from the audit; owners in parentheses): fix OLMo installer
-completion-only loss + pin immutable model revision, rerun ladder if unmasked
-adapters exist (Specs); build K1–K3 with selection-gap cross-scoring, SPEC +
+Pre-Kaggle checklist (from the audits; owners in parentheses): fix OLMo installer
+completion-only loss + strict instrument + pinned revision, rerun/re-measure if
+artifacts predate any requirement (Specs); build K1–K3 with raw candidate
+cross-scoring, candidate-level judge loading, SPEC +
 primary endpoint + gate logic each (Specs); smoke-measure minutes per
 condition-seed-round and RECOMPUTE the K-budget from measurements — the 8/17-min
 anchors predate the full riding battery (Specs+Analysis); adapter-persistence
@@ -75,20 +78,26 @@ analysis reads JSONs, never figure constants or STATE summaries (Analysis).
 
 Battery patch (wishful thinking, introspection, self-recognition,
 suggestibility, identity, judgment_taste); steering artifacts; off-target axes;
-entropy + distinct-n; order-balanced coordinate + factual EV gate + invalid
-rate; raw per-question reads; **per-round adapter persistence with
-factorization-invariant delta logging (merged B·A, not raw factors)**.
+entropy; paired generated/forced target channels; factual-EV delta; invalidity;
+raw per-question/candidate reads; **every-round adapter persistence with
+factorization-invariant update logging relative to round zero (merged B·A, not
+raw factors or absolute adapter norm)**. `distinct_n` is not required unless it
+uses multiple stochastic samples; the one-sample implementation was removed.
 
 ## Sunday analysis day (no GPU) — audit-ordered hierarchy
 
-1. Confounder gate table per cell (order gap incl. KEPT-SET gap, EV gate,
-   invalid rate, entropy, measure-only drift) — certifies everything below.
+1. Artifact/instrument gate table per cell (provenance, exact training-order
+   balance, forced order gap, generated invalidity, factual-EV delta,
+   measure-only drift) — certifies everything below.
 2. Primary condition contrasts at the rollout-seed level (K2 confirmatory
    contrast first).
-3. Actual candidate kept-minus-pool gaps as the judge mediator (cross-scored).
+3. Candidate-level judge loading on actual pools; kept-minus-pool gaps as the
+   realized-data manipulation check. Mediation/cross-lag remains exploratory.
 4. Generated vs forced-choice behavior as distinct format channels.
-5. Invariant weight-geometry recompute (un-withdraw or kill the thrash claims);
-   CPU SVD/convergence across same-fate endpoints; α-scaling = the causal leg.
+5. Invariant update-geometry recompute on `W_t-W_0`; full merged-update
+   Frobenius cosines and leave-one-seed-out directions. Existing leading-left-
+   vector SVD alignment is insufficient. Alpha scaling is a limited negative/
+   degeneration diagnostic, not a general behavioral causal leg.
 6. Transmission/carrier/susceptibility verdicts (existence framing, never rates).
 7. Exploratory tier, labeled as such: generic judgment_taste coupling, broad
    off-target batteries, and drift-field/fixed-point language ONLY where the
@@ -112,6 +121,15 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-10 later: DEEP IMPLEMENTATION/ANALYSIS AUDIT ADOPTED
+  (`report_current_plan_analysis_deep_audit.md`): K1/K2 ported to strict
+  `Final: A/B` parsing with reject/replenish, exact true order mirroring,
+  paired generated/forced reads, factual-EV delta, raw persistence, stable RNG,
+  pinned revisions, every-round vintages, and update geometry relative to r0.
+  K1 fan demoted to secondary; candidate judge loading replaces “selection gap
+  is the mediator”; K2 screen upgraded to two strict fresh pools; K3 SPEC added,
+  raw free-generation scores persisted, and its geometry corrected. One-pool
+  carrier and mod65 figure claims downgraded; alpha/SVD interpretation narrowed.
 - 07-10 late: AUDIT ADOPTED (docs/report_final_sprint_plan_audit.md, all
   recommendations): K2 gated on installer fix (completion-only loss) + actual-
   pool judge-inversion screen, and repowered to 6 confirmatory + 3 control

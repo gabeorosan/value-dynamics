@@ -271,6 +271,24 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 CORRECTION to the Phase-0 write-up (user push-back, right): DON'T retire
+  Qwen — cross-organism reproduction needs it, and the factual-EV weakness is benign.
+  (1) Factual-EV gate DOWNGRADED to an informative readout, NOT a disqualifier: models
+  being bad at single-token EV arithmetic does not invalidate any central result (basin
+  dynamics, judge-identity, dissociations) — order-balancing already handles the position
+  confound directly. (2) Qwen is in BETTER shape than the write-up implied: persona_rows()
+  ALREADY position-balances the training data (gamble letter random, answer follows the
+  gamble) → the persona is order-ROBUST (order_gap ~1e-7), just SATURATED (RISK_RATE=1.0);
+  the base model's order_gap 0.63 is the BASE's intrinsic position bias, not something our
+  training installed, and it's handled by measuring order-balanced. (3) The real remaining
+  confound was the LOOP training data (loop_prompt always gamble=B) installing a say-B
+  habit during self-training — FIXED: basin-criterion loop now A/B-randomizes the gamble
+  position per item (loop_prompt_swapped on ~half), logs kept_gamble_A_frac. TODO for the
+  clean Qwen anchor: train a MODERATE persona (RISK_RATE ~0.6-0.7) for headroom instead of
+  the saturated 1.0. So BOTH Qwen (repaired training) AND OLMo are substrates for the
+  cross-organism repro; OLMo stays the headline inversion target (order-robust + headroom
+  natively). OLMo stage-flow screen running in parallel.
+
 - 2026-07-10 PHASE-0 COMPLETE incl. OLMo (phase0_screen.json: qwen_base, qwen_risk,
   olmo_instruct). DECISION-RELEVANT: OLMo >> Qwen as a substrate. olmo_instruct value
   0.724, gamble-A 0.763 vs gamble-B 0.686 → ORDER_GAP 0.077 PASS (no systematic

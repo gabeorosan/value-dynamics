@@ -416,6 +416,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~04:15 (general): figure draft LANDED —
+  docs/figures/auto/judge-channel-install/ (v7 dose-response 0.426→0.927 vs
+  the flat 0.49–0.53 behavior-ladder band, generic-taste flatness, order-gap
+  honesty panel). Figures thread: promotion candidate alongside
+  olmo-taste-inertness (the two are complements: taste-inert behavior training
+  / taste-installing judge training).
 - 2026-07-11 ~04:00 (general): v7 JUDGE-CHANNEL PREDICTION CONFIRMED —
   cautious_judge_pref 0.426→0.549→0.726→0.927 across rungs 0/20/40/60 (the
   coordinate flat 0.49–0.53 in every behavior ladder); generic advice taste

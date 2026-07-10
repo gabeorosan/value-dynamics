@@ -403,6 +403,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 plan figures + artifact updated to PLAN.md (Figures, c0de5e0): all six
+  figures re-cut to the audit-amended sprint — K2 repowered 6+3 & gated (incl. the
+  v1-quarantine/v2-running installer status), K4 deferred, mod65 3-seed fan banked,
+  kept-set balance + kept-minus-pool mediator as all-cell requirements, Sunday
+  reordered to the audit hierarchy, transmission cells parallel-to-K2 w/ frozen-base
+  control + carrier fresh-pool gate. Artifact republished, same URL.
 - 2026-07-10 conservative installer REBUILT per PLAN.md audit gate (73d1255) and v2
   ladder RUNNING on Colab: v1 used whole-sequence loss (invalid per audit) — caught
   mid-ladder, interrupted, v1 rungs quarantined (Drive olmo_conservative/rung_* are

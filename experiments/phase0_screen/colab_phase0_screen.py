@@ -121,19 +121,26 @@ def screen_one(label, score_ab, gen_text, rerun=False):
     return res
 
 
-ALLRES = {"_provenance": {}}
-tok = AutoTokenizer.from_pretrained(QWEN, token=hf_token())
-if tok.pad_token is None: tok.pad_token = tok.eos_token
-tok.padding_side = "left"
-ALLRES["_provenance"]["qwen"] = rh.provenance(QWEN, tok)
+ALLRES = json.load(open(RESULT_PATH)) if os.path.exists(RESULT_PATH) else {"_provenance": {}}
+ALLRES.setdefault("_provenance", {})
+# SKIP_QWEN=1 runs the OLMo screen alone (7B fp16 ~14GB fills the T4; loading Qwen
+# too would OOM). Resume-preserves any existing qwen_* results already on Drive.
+if os.environ.get("SKIP_QWEN") != "1":
+    tok = AutoTokenizer.from_pretrained(QWEN, token=hf_token())
+    if tok.pad_token is None: tok.pad_token = tok.eos_token
+    tok.padding_side = "left"
+    ALLRES["_provenance"]["qwen"] = rh.provenance(QWEN, tok)
 
-print(f"## loading Qwen base [{elapsed()}]", flush=True)
-base = AutoModelForCausalLM.from_pretrained(QWEN, torch_dtype=torch.float16, device_map={"": 0}, token=hf_token())
-score_ab, gen_text = make_probes(tok, base)
-ALLRES["qwen_base"] = screen_one("qwen_base", score_ab, gen_text, rerun=True)
-json.dump(ALLRES, open(RESULT_PATH, "w"), indent=2)
+    print(f"## loading Qwen base [{elapsed()}]", flush=True)
+    base = AutoModelForCausalLM.from_pretrained(QWEN, torch_dtype=torch.float16, device_map={"": 0}, token=hf_token())
+    score_ab, gen_text = make_probes(tok, base)
+    ALLRES["qwen_base"] = screen_one("qwen_base", score_ab, gen_text, rerun=True)
+    json.dump(ALLRES, open(RESULT_PATH, "w"), indent=2)
+else:
+    base = None
+    print("## SKIP_QWEN=1: skipping Qwen, screening OLMo alone", flush=True)
 
-if os.path.isdir(PERSONA_DIR):
+if base is not None and os.path.isdir(PERSONA_DIR):
     print(f"\n## loading Qwen risk persona [{elapsed()}]", flush=True)
     model = PeftModel.from_pretrained(base, PERSONA_DIR, adapter_name="risk")
     model.set_adapter("risk")

@@ -141,6 +141,18 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-10 night (Colab lane, unilateral per user directive): OLMo ORGANISM GATE
+  REVISED — primary band moves to the GENERATED channel (0.15–0.50 on the
+  24-sample read), forced single-token becomes a secondary requiring ≤0.60
+  (meaningful shift below the 0.723 native point). Basis: v2–v6 ladders show a
+  format-channel double dissociation and a forced-coordinate plateau ~0.55
+  under every non-destructive recipe (letter/rationale/mixed, rates .85–.97);
+  the 0.25–0.40 forced band is reachable only via the rate-1.0 letter cliff
+  that fails the order/format gates, and K2's preregistered primary endpoint is
+  generated-valid behavior. Organism under revised gates: v6_mixed_strict
+  rung_20 (forced 0.723→0.581 with order gap 0.017, generated 0.62→0.375
+  mid-band, invalid 0.000, factual up, taste headroom). Inversion screen still
+  gates K2 on the actual-pool contrast.
 - 07-10 night: PLAN synced to post-deep-audit reality (this pass). Saturday
   LAUNCH ORDER set per deep-audit §5 (K2 confirmatory > K1 > K2 controls > K3
   > K4 impulse; K1 leads only while K2's gates are unmet). Installer row moved

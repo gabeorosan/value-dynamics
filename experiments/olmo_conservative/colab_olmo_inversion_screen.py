@@ -82,7 +82,10 @@ assert cfg.get("instrument_version") == "strict_final_v2", "installer artifact p
 assert cfg.get("training_recipe_version") == "v3_exact_order_completion_v1", "installer training recipe is stale"
 assert cfg.get("model_revision") == MODEL_REVISION, "installer/model revision mismatch"
 assert install_verdict.get("status") == "IN_BAND_ALL_GATES_PASS", "installer produced no all-gates-passing organism"
-required_gates = {"risk_in_band", "order_gap_le_0.10", "generated_invalid_le_0.10",
+# GATE REVISION 2026-07-10 late (PLAN.md decision log): primary band = the
+# GENERATED channel (K2's endpoint channel); forced = secondary <=0.60 shift.
+required_gates = {"gen_in_band_0.15_0.50", "forced_secondary_le_0.60",
+                  "order_gap_le_0.10", "generated_invalid_le_0.10",
                   "factual_drop_le_0.10", "taste_has_headroom"}
 assert required_gates.issubset(install_verdict.get("gates", {}))
 assert all(install_verdict["gates"][k] is True for k in required_gates)

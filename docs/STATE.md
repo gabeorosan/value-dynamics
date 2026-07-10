@@ -335,6 +335,21 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 judge-transmission screen VERIFIED + queued on the Colab lane (b67c405):
+  JUDGES list corrected against Drive (amp66 seeds are 9-12, not 7/8) and reverted
+  flags set from the letgo trajectories — amp55_9 (self_report 0.37->0.06) and
+  amp66_12 (0.29->0.12) are the reverted carrier-test judges; amp55_7 is the amplified
+  standout (0.32->0.67); amp55_10/11 relabeled dissociation candidates NOT reverted
+  (their em_choice floor exists from round 0 in every cell). Runs right after the
+  mod65 pilot's seed 0 finishes (GPU single-tenant).
+- 2026-07-10 repaired-Qwen-anchor pilot RUNNING on Colab (44ea0d4; Drive
+  basin_criterion/basin_criterion_mod65.json): moderate persona RISK_RATE=0.65 ->
+  round-0 risk coordinate 0.361, order_gap ~0.06 (A/B-randomized training data works),
+  judge taste starts cautious (p_bold_better 0.38), free-text EV estimation ratio 1.00
+  (single-token factual-EV chance level is a format artifact — further confirms the
+  gate downgrade). Persona lands below the 0.65 target (base risk-aversion pulls down)
+  but has two-sided headroom. Seed 0 x 5 rounds in flight ~7 min/round; seeds 1-2
+  gated on its trajectory.
 - 2026-07-10 plan figures updated for the judge-transmission filing (Figures): new
   plan_judge_transmission.svg (screen flow, frozen-judge × generator-state matrix
   with run/planned/new cells, three preregistered predictions); program map picks

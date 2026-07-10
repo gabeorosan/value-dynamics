@@ -45,7 +45,7 @@ except ModuleNotFoundError:
 # a prior crashed run can leave a loaded model bound in the notebook globals
 # (exec shares the cell namespace); drop it before loading anything.
 _g = globals()
-for _n in ("model", "base", "obase"):
+for _n in ("model", "base", "obase", "tok", "otok", "score_ab", "gen_text"):
     if _n in _g:
         del _g[_n]
 gc.collect(); torch.cuda.empty_cache()
@@ -162,20 +162,26 @@ for label, repo in STAGES.items():
         json.dump(ALLRES, open(RESULT_PATH, "w"), indent=2)
         continue
     score_ab, gen_text = make_probes(tok, model)
-    vp = rh.value_pgamble(score_ab)
-    res = {
-        "repo": repo,
-        "value": {k: vp[k] for k in ("overall", "gamble_A_order", "gamble_B_order", "order_gap")},
-        "factual_ev_acc": rh.factual_ev_accuracy(score_ab),
-        "judge_taste_bold": judge_taste(score_ab),
-        "generated": rh.generated_choice_read(gen_text, samples=1),
-    }
-    ALLRES[label] = res
-    print(f"[{label}] value={res['value']['overall']:.3f} order_gap={res['value']['order_gap']:.3f} "
-          f"factual_ev={res['factual_ev_acc']:.3f} judge_bold={res['judge_taste_bold']:.3f} "
-          f"gen_gamble={res['generated']['gen_gamble_frac']} invalid={res['generated']['invalid_rate']:.3f}", flush=True)
-    json.dump(ALLRES, open(RESULT_PATH, "w"), indent=2)
-    del model, tok; gc.collect(); torch.cuda.empty_cache()
+    try:
+        vp = rh.value_pgamble(score_ab)
+        res = {
+            "repo": repo,
+            "value": {k: vp[k] for k in ("overall", "gamble_A_order", "gamble_B_order", "order_gap")},
+            "factual_ev_acc": rh.factual_ev_accuracy(score_ab),
+            "judge_taste_bold": judge_taste(score_ab),
+            "generated": rh.generated_choice_read(gen_text, samples=1),
+        }
+        ALLRES[label] = res
+        print(f"[{label}] value={res['value']['overall']:.3f} order_gap={res['value']['order_gap']:.3f} "
+              f"factual_ev={res['factual_ev_acc']:.3f} judge_bold={res['judge_taste_bold']:.3f} "
+              f"gen_gamble={res['generated']['gen_gamble_frac']} invalid={res['generated']['invalid_rate']:.3f}", flush=True)
+        json.dump(ALLRES, open(RESULT_PATH, "w"), indent=2)
+    except Exception as e:
+        print(f"## stage {label} probes FAILED ({type(e).__name__}: {e}); freeing and continuing", flush=True)
+        ALLRES[label] = {"load_error": f"probe {type(e).__name__}: {e}", "repo": repo}
+        json.dump(ALLRES, open(RESULT_PATH, "w"), indent=2)
+    # score_ab/gen_text close over the model — delete them too or VRAM never frees
+    del model, tok, score_ab, gen_text; gc.collect(); torch.cuda.empty_cache()
 
 print(f"\n=== OLMO STAGE-FLOW DONE [{elapsed()}] — {RESULT_PATH} ===", flush=True)
 print("Read: value = order-balanced p(gamble); order_gap<=0.10 = position-robust;"

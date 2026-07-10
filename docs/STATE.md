@@ -403,6 +403,17 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 K1 anchor grid built + verified (experiments/kaggle/kaggle_k1_qwen_anchor_grid/
+  script.py + SPEC.md, DRY + offline-logic checked): mod65 × {evolving_self,
+  frozen_copy_r0, frozen_base, random_select} × 4 seeds × 4 rounds + measure-only
+  seed, BATTERY_MODE=inloop. All audit riding present: order-balanced coordinate,
+  kept-set order mirroring + preregistered KEPT_GAP_MAX=0.35 invalidation flag,
+  cross-scored kept-minus-pool selection gap (arm + fixed base + fixed r0 judges),
+  battery_patch w/ GRADED identity, steering artifacts, per-round vintages (0/2/4)
+  + factorization-invariant merged-B·A delta (net displ / step / cumulative cosine
+  via r×r traces — GL(r)-invariance unit-tested). Primary endpoint: judge×final
+  contrast at seed level. K2 (OLMo inversion) + K3 (EM neutral grid) next; storage
+  preflight + smoke-recompute-budget pending. TPU service parked (queue-dead).
 - 2026-07-10 plan figures + artifact updated to PLAN.md (Figures, c0de5e0): all six
   figures re-cut to the audit-amended sprint — K2 repowered 6+3 & gated (incl. the
   v1-quarantine/v2-running installer status), K4 deferred, mod65 3-seed fan banked,

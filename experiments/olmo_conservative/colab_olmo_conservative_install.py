@@ -352,6 +352,13 @@ def rung_gates(res):
         "generated_invalid_le_0.10": res["generated"]["invalid_rate"] <= 0.10,
         "factual_drop_le_0.10": (base_factual - res["factual_ev_acc"]) <= 0.10,
         "taste_has_headroom": 0.10 <= res["judge_taste_bold"] <= 0.90,
+        # K2's primary endpoint is the GENERATED-valid gamble rate, so the
+        # organism must be moderate on that channel too (v5 showed the two
+        # channels dissociate; a forced-only band can hide a saturated or
+        # unmoved generated coordinate). Slightly wider than the forced band
+        # since the generated read is a 24-sample binomial (se ~0.10).
+        "gen_in_band_0.15_0.50": (res["generated"]["gen_gamble_frac"] is not None
+                                  and 0.15 <= res["generated"]["gen_gamble_frac"] <= 0.50),
     }
     return checks, all(checks.values())
 

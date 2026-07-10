@@ -158,6 +158,23 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
   verdict landed; v6 is taste-inert and can never pass. All three gates now
   require v7_judge_strict / mixed_judge / generated_primary_judge_v1 including
   judge_pref_shift_ge_0.15; K2 kernel dataset renamed olmo-conservative-v7-judge-strict.
+- 07-11 ~01:20 (general thread): SECOND SMOKE ALSO CRASHED — and the deeper root
+  cause is NUMERICAL, not (only) format. The rationale-persona r0 read showed
+  invalid 0.68 (worse than the letter persona's 0.58); pulling the raw
+  generations from k1_smoke.json showed degenerate `<tool_call>` spam and token
+  loops ("Virginia Virginia…"), with the persona's own template sentences intact
+  inside the surviving valid generations — a fried sampler, not a refused
+  format. Cause: K1 was the only script training on a PURE-fp16 model
+  (torch_dtype=float16 + fp16=True + adamw_torch): autocast is a no-op on an
+  fp16 model, so gradients and optimizer math ran in fp16. Fix (70a8250): K1
+  moved to the repo-proven T4 stack — 4-bit NF4 base,
+  prepare_model_for_kbit_training, fp16 compute, paged_adamw_8bit (identical to
+  K2/K3/dose ladder); persona name bumped to persona_mod65_rationale_q4. The
+  rationale-format persona re-spec (below) stays — format-matching the loop is
+  correct regardless — but the format-damage attribution of the first crash is
+  RETRACTED as the primary cause pending the 4-bit smoke: both letter and
+  rationale personas were trained on the broken fp16 stack. Smoke v3 running
+  pinned to 70a8250.
 - 07-11 ~00:50 (general thread): K1 SMOKE CAUGHT A REAL DESIGN BUG — crashed at
   round 1 with "candidate validity gate failed: 2/6 valid after 18 attempts";
   round-0 read showed gen invalid 0.58, forced order gap 0.40. Cause: the mod65

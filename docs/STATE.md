@@ -416,6 +416,13 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~01:20 (general): K1 smoke v2 ALSO crashed — raw generations show
+  a numerically fried sampler (`<tool_call>`/token-loop spam, persona template
+  text intact in valid gens), root cause = K1's pure-fp16 training stack
+  (fp16 model + fp16=True + adamw_torch → fp16 optimizer math); K1 moved to
+  the 4-bit NF4 + paged_adamw_8bit stack used everywhere else (70a8250),
+  format-damage attribution of crash #1 retracted as primary cause; smoke v3
+  running pinned to 70a8250 (persona_mod65_rationale_q4). PLAN log 07-11 ~01:20.
 - 2026-07-11 ~00:55 (general): GPT audit pass reviewed+adopted with one
   correction (05f2785): kept the exact-balance loop plan, condition-tag adapter
   names (real froz-collision fix), sha-bound K2 screen attestation (no env

@@ -416,6 +416,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 K2 ORGANISM EXISTS: v6_mixed_strict/rung_20 verdict
+  IN_BAND_ALL_GATES_PASS under the REVISED gates (e019101; dated decision in
+  PLAN.md log, unilateral per user directive): primary band = GENERATED channel
+  0.15-0.50, forced = secondary <=0.60. rung_20: forced 0.723->0.581 (order gap
+  0.017), generated 0.62->0.375 (mid-band), invalid 0.000, factual up, taste
+  headroom. Basis: v6 mixed ladder moved both channels but forced plateaus
+  0.55-0.59 at every rung (band reachable only via the destructive rate-1.0
+  cliff). Strict two-pool inversion screen NOW RUNNING against rung_20 — the
+  last K2 gate; K1 smoke + carrier fresh-pool validation queue behind it.
 - 2026-07-10 plan figures + artifact synced to post-deep-audit PLAN.md (Figures,
   6e2aa4c): launch-order strip (K2 confirmatory first on gate-pass), v6 mixed
   installer card w/ the double dissociation + gen-band gate, K1 generated-valid

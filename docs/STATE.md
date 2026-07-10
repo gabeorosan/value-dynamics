@@ -416,6 +416,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 plan figures + artifact synced to post-deep-audit PLAN.md (Figures,
+  6e2aa4c): launch-order strip (K2 confirmatory first on gate-pass), v6 mixed
+  installer card w/ the double dissociation + gen-band gate, K1 generated-valid
+  primary endpoint, K4 one-update impulse, 8-tier Sunday (specificity/FDR, K3
+  binomial), TPU gate-1 pass recorded, carrier → one-pool candidate, mod65 pilot →
+  motivating evidence. Incorporates the audit session's in-tree figure edits.
+  Artifact republished, same URL. Note: the format-dissociation figure draft
+  (docs/figures/auto/) is noted as a promotion candidate — deferred until after
+  the sprint window.
 - 2026-07-10 K1 SMOKE RECIPE ready (experiments/kaggle/kaggle_k1_qwen_anchor_grid/
   SMOKE.md): exact env line (1 seed x 1 round x evolving_self+frozen_base, ~25-35
   min T4), the four minutes to read off the log, and the pre-derived K1/K2/K3

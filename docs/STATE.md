@@ -271,6 +271,23 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 KAGGLE basin-criterion pilot LAUNCHED (hirokenzan/basin-criterion, T4,
+  RUNNING) — the self-judge basin loop with judgment_taste (p_bold_better on 6 fixed
+  held-out advice pairs, SAME "which is the better answer?" framing + idA/idB as the
+  loop's pair_score judge) logged EVERY round, next to the risk behavior coordinate.
+  This is the user-requested "criterion over rounds" measurement + the battery_patch
+  judge-taste channel the cross-lag follow-up wanted (the existing packet-criterion
+  gave a null; this is the DIRECT selection criterion). 3 seeds, self-judge only,
+  5 rounds (pilot; gates the fuller Saturday run). Reuses the proven basin_anchor
+  loop byte-faithfully + this one probe. → basin_criterion.json on Kaggle output.
+  Poll: kaggle kernels status hirokenzan/basin-criterion. Answers whether the judge's
+  bold-taste co-evolves with / leads / lags the behavior coordinate.
+- 2026-07-10 ALPHA-SCALING GENERALIZATION read (from existing data, no compute):
+  scaling the committed EM direction generalizes strongly to self_report, WEAKLY to
+  judgment_taste (0.50→0.56 at α1, 0.61 at α2), and NOT to introspection/self_recognition/
+  wishful in-distribution (flat/noisy; move only at α≥2 = degeneration). The full-battery-
+  per-α IS the generalization instrument (read coord-X vs α). Fold into alpha report.
+
 - 2026-07-10 ADAPTER SVD done (spectral concentration, committed vs null;
   adapter_svd.json). NEGATIVE for the concentration hypothesis + one positive.
   Effective rank IDENTICAL across all three (em_dose1000 25.29, amp55 25.45, low8

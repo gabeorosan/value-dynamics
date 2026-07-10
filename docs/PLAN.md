@@ -141,6 +141,24 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-11 ~04:00 (general thread): v7 JUDGE-CHANNEL LADDER — REGISTERED
+  PREDICTION CONFIRMED, ORGANISM NOT YET LANDED, v8 RUNNING. The v7 ladder
+  (mixed_judge, 1:1:1 rationale:letter:judge rows) moved the held-out
+  cautious_judge_pref readout 0.426 (native) → 0.549 (rung 20) → 0.726 (rung
+  40) → 0.927 (rung 60) — a clean dose-response on exactly the coordinate that
+  stayed flat 0.49–0.53 across every behavior-format ladder (v2–v6). Generic
+  advice-pair taste stayed flat (~0.53): the install is DOMAIN-SPECIFIC gamble
+  judging, which is what K2's screen measures. Third arm of the format-channel
+  dissociation: you move the channel you train. BUT no all-gates rung: the
+  forced-read order gap ran 0.20–0.29 at every rung (letter rows at ⅓ density
+  no longer anchor position balance; v6 at ½ density held 0.017), and
+  generated overshot to 0.083 by rung 60 → OVERSHOT_NO_VALID_RUNG. v8
+  (e65d210, running): TARGET_STYLE mixed_judge2 = 1:2:1 rationale:letter:judge
+  (restores v6's letter density, slows the generated slide; judge dose stays
+  ample — gate needs +0.15 and ⅓ density gave +0.30 by rung 40), finer rungs
+  10/20/30/40/60/80. Screen + K2 gates updated to accept the v7/v8
+  judge-channel run tags. Ladder cost is small (~19 min for v7), so recipe
+  iteration is cheap; the screen remains the arbiter either way.
 - 07-11 ~00:45 (general thread): GPT AUDIT-VERIFICATION PASS REVIEWED, CORRECTED,
   ADOPTED (05f2785). Kept as-is: exact-balance `loop_order_plan` in risk_harness
   (old code allowed ±1 imbalance after truncation; self-test updated and passing);

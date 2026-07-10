@@ -416,6 +416,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~04:00 (general): v7 JUDGE-CHANNEL PREDICTION CONFIRMED —
+  cautious_judge_pref 0.426→0.549→0.726→0.927 across rungs 0/20/40/60 (the
+  coordinate flat 0.49–0.53 in every behavior ladder); generic advice taste
+  flat → domain-specific install. No all-gates rung though (forced order gap
+  0.20–0.29; generated overshot by rung 60) → v8 mixed_judge2 (1:2:1
+  rationale:letter:judge, rungs 10–80) RUNNING (e65d210). Figure draft
+  spawned (judge-channel-install). Screen/K2 gates accept v7/v8 tags. PLAN
+  decision log 07-11 ~04:00.
 - 2026-07-11 ~03:30 (general): K1 SMOKE v4 PASSED end-to-end on the fixed
   revision (persona_mod65_r5): invalid 0.00 on every read, generated order gap
   0.02, measure-only drift ~0 — Qwen family (K1/K3/transmission cells)

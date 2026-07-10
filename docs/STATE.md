@@ -416,6 +416,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~05:30 (general): **K2 ORGANISM LANDED** — v8_judge_strict
+  rung_60 passes ALL SEVEN gates (IN_BAND_ALL_GATES_PASS): forced 0.590
+  (native 0.723) w/ order gap 0.025, generated 0.478 in band, invalid 0.042,
+  factual 0.625 (up from 0.500), cautious_judge_pref 0.426→0.686 (shift
+  +0.260 ≥ 0.15). The 1:2:1 mixed_judge2 recipe fixed v7's order-gap blowout.
+  Adapter: Drive olmo_conservative/v8_judge_strict/rung_60. STRICT INVERSION
+  SCREEN (final K2 gate, 2 fresh pools on the exact K2 bank, sha-bound
+  attestation) NOW RUNNING against it — on PASS, K2 launches Saturday with
+  screen_attestation.json.
 - 2026-07-11 ~04:15 (general): figure draft LANDED —
   docs/figures/auto/judge-channel-install/ (v7 dose-response 0.426→0.927 vs
   the flat 0.49–0.53 behavior-ladder band, generic-taste flatness, order-gap

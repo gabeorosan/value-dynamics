@@ -141,6 +141,19 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-11 ~05:30 (general thread): **K2 ORGANISM = v8_judge_strict rung_60**
+  (IN_BAND_ALL_GATES_PASS, all seven gates): forced 0.723→0.590 with order gap
+  0.025, generated 0.632→0.478 (in band; note native generated re-read 0.63 vs
+  0.65 in v7 — binomial noise on 24 samples), invalid 0.042, factual 0.500→
+  0.625, judge_pref 0.426→0.686 (+0.260). The mixed_judge2 1:2:1 recipe fixed
+  v7's order-gap blowout exactly as predicted (letter density restored →
+  order gap 0.025 at the verdict rung; mid-ladder gaps stayed noisy 0.22–0.47,
+  underscoring that this forced-read quantity wanders and only the verdict
+  rung is load-bearing). Judge-channel dose-response replicated in v8
+  (0.426→0.473→0.523→0.569→0.686 over rungs 10–60). Strict inversion screen
+  running on rung_60 (2 fresh pools, exact K2 bank, sha-bound verdict); on
+  PASS its _verdict becomes screen_attestation.json and K2 launches in the
+  Saturday Kaggle window.
 - 07-11 ~04:00 (general thread): v7 JUDGE-CHANNEL LADDER — REGISTERED
   PREDICTION CONFIRMED, ORGANISM NOT YET LANDED, v8 RUNNING. The v7 ladder
   (mixed_judge, 1:1:1 rationale:letter:judge rows) moved the held-out

@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1470 1164" font-family="Helvetica, Arial, sans-serif">
+<rect width="1470" height="1164" fill="white"/>
+<text text-anchor="middle" x="735" y="52.0" font-family="Helvetica, Arial, sans-serif" font-size="31"><tspan fill="#1a1a1a" font-weight="bold">A </tspan><tspan fill="#1a1a1a" font-weight="bold">behaviorally-reverted </tspan><tspan fill="#1a1a1a" font-weight="bold">organism </tspan><tspan fill="#1a1a1a" font-weight="bold">can </tspan><tspan fill="#1a1a1a" font-weight="bold">still </tspan><tspan fill="#1a1a1a" font-weight="bold">judge </tspan><tspan fill="#1a1a1a" font-weight="bold">like </tspan><tspan fill="#1a1a1a" font-weight="bold">a </tspan><tspan fill="#1a1a1a" font-weight="bold">drifted </tspan><tspan fill="#1a1a1a" font-weight="bold">one: </tspan></text>
+<text text-anchor="middle" x="735" y="92.0" font-family="Helvetica, Arial, sans-serif" font-size="31"><tspan fill="#1a1a1a" font-weight="bold">in </tspan><tspan fill="#1a1a1a" font-weight="bold">1 </tspan><tspan fill="#1a1a1a" font-weight="bold">of </tspan><tspan fill="#1a1a1a" font-weight="bold">2 </tspan><tspan fill="#1a1a1a" font-weight="bold">reverted </tspan><tspan fill="#1a1a1a" font-weight="bold">endpoints, </tspan><tspan fill="#1a1a1a" font-weight="bold">the </tspan><tspan fill="#1a1a1a" font-weight="bold">acquired </tspan><tspan fill="#1a1a1a" font-weight="bold">taste </tspan><tspan fill="#1a1a1a" font-weight="bold">survives </tspan><tspan fill="#1a1a1a" font-weight="bold">reversion </tspan></text>
+<text text-anchor="middle" x="735" y="128.0" font-family="Helvetica, Arial, sans-serif" font-size="16.5"><tspan fill="#6b7684" font-weight="normal">Every </tspan><tspan fill="#6b7684" font-weight="normal">persisted </tspan><tspan fill="#6b7684" font-weight="normal">LoRA </tspan><tspan fill="#6b7684" font-weight="normal">judge </tspan><tspan fill="#6b7684" font-weight="normal">re-ranked </tspan><tspan fill="#6b7684" font-weight="normal">ONE </tspan><tspan fill="#6b7684" font-weight="normal">identical </tspan><tspan fill="#6b7684" font-weight="normal">pool </tspan><tspan fill="#6b7684" font-weight="normal">of </tspan><tspan fill="#6b7684" font-weight="normal">base-Qwen3-4B </tspan><tspan fill="#6b7684" font-weight="normal">candidates </tspan><tspan fill="#6b7684" font-weight="normal">(keeping </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">top </tspan><tspan fill="#6b7684" font-weight="normal">2 </tspan><tspan fill="#6b7684" font-weight="normal">of </tspan><tspan fill="#6b7684" font-weight="normal">6 </tspan><tspan fill="#6b7684" font-weight="normal">per </tspan><tspan fill="#6b7684" font-weight="normal">prompt) </tspan><tspan fill="#6b7684" font-weight="normal">under </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">neutral </tspan></text>
+<text text-anchor="middle" x="735" y="152.0" font-family="Helvetica, Arial, sans-serif" font-size="16.5"><tspan fill="#6b7684" font-weight="normal">prompt </tspan><tspan fill="#6b7684" font-weight="normal">“Which </tspan><tspan fill="#6b7684" font-weight="normal">is </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">better </tspan><tspan fill="#6b7684" font-weight="normal">answer?”. </tspan><tspan fill="#6b7684" font-weight="normal">Bars: </tspan><tspan fill="#6b7684" font-weight="normal">kept-mean </tspan><tspan fill="#6b7684" font-weight="normal">minus </tspan><tspan fill="#6b7684" font-weight="normal">pool-mean </tspan><tspan fill="#6b7684" font-weight="normal">per </tspan><tspan fill="#6b7684" font-weight="normal">axis </tspan><tspan fill="#6b7684" font-weight="normal">— </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">direction </tspan><tspan fill="#6b7684" font-weight="normal">that </tspan><tspan fill="#6b7684" font-weight="normal">judge's </tspan><tspan fill="#6b7684" font-weight="normal">selection </tspan><tspan fill="#6b7684" font-weight="normal">would </tspan><tspan fill="#6b7684" font-weight="normal">pull </tspan><tspan fill="#6b7684" font-weight="normal">a </tspan><tspan fill="#6b7684" font-weight="normal">self-training </tspan><tspan fill="#6b7684" font-weight="normal">loop. </tspan></text>
+<rect x="340" y="180" width="14" height="14" rx="3" fill="#6b7684"/>
+<text x="362" y="192" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">frozen base judge (null anchor)</text>
+<rect x="619.2" y="180" width="14" height="14" rx="3" fill="#2867b5"/>
+<text x="641.2" y="192" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">drifted-organism judge</text>
+<rect x="833.6" y="180" width="14" height="14" rx="3" fill="#b5342c"/>
+<text x="855.6" y="192" font-size="15" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">behaviorally REVERTED endpoint</text>
+<text x="540.0" y="234" text-anchor="middle" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Risk</text>
+<text x="540.0" y="254" text-anchor="middle" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">p(gamble) among kept answers, minus pool mean</text>
+<text x="540.0" y="270" text-anchor="middle" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.104</text>
+<text x="902.0" y="234" text-anchor="middle" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Insecure code</text>
+<text x="902.0" y="254" text-anchor="middle" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">frozen-base P(code is vulnerable), kept minus</text>
+<text x="902.0" y="270" text-anchor="middle" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">pool 0.577</text>
+<text x="1264.0" y="234" text-anchor="middle" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Self-report candor</text>
+<text x="1264.0" y="254" text-anchor="middle" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">frozen-base P(admits own code may be</text>
+<text x="1264.0" y="270" text-anchor="middle" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">insecure), kept minus pool 0.329</text>
+<rect x="497.3" y="300" width="85.3" height="516" fill="#f4f4f1"/>
+<line x1="433.3" y1="300" x2="433.3" y2="816" stroke="#e4e4e0" stroke-width="1"/>
+<line x1="486.7" y1="300" x2="486.7" y2="816" stroke="#e4e4e0" stroke-width="1"/>
+<line x1="593.3" y1="300" x2="593.3" y2="816" stroke="#e4e4e0" stroke-width="1"/>
+<line x1="646.7" y1="300" x2="646.7" y2="816" stroke="#e4e4e0" stroke-width="1"/>
+<line x1="540.0" y1="300" x2="540.0" y2="816" stroke="#1a1a1a" stroke-width="2"/>
+<text x="433.3" y="838" text-anchor="middle" font-size="13" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">−0.10</text>
+<text x="540.0" y="838" text-anchor="middle" font-size="13" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0</text>
+<text x="646.7" y="838" text-anchor="middle" font-size="13" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">+0.10</text>
+<rect x="859.3" y="300" width="85.3" height="516" fill="#f4f4f1"/>
+<line x1="795.3" y1="300" x2="795.3" y2="816" stroke="#e4e4e0" stroke-width="1"/>
+<line x1="848.7" y1="300" x2="848.7" y2="816" stroke="#e4e4e0" stroke-width="1"/>
+<line x1="955.3" y1="300" x2="955.3" y2="816" stroke="#e4e4e0" stroke-width="1"/>
+<line x1="1008.7" y1="300" x2="1008.7" y2="816" stroke="#e4e4e0" stroke-width="1"/>
+<line x1="902.0" y1="300" x2="902.0" y2="816" stroke="#1a1a1a" stroke-width="2"/>
+<text x="795.3" y="838" text-anchor="middle" font-size="13" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">−0.10</text>
+<text x="902.0" y="838" text-anchor="middle" font-size="13" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0</text>
+<text x="1008.7" y="838" text-anchor="middle" font-size="13" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">+0.10</text>
+<rect x="1221.3" y="300" width="85.3" height="516" fill="#f4f4f1"/>
+<line x1="1157.3" y1="300" x2="1157.3" y2="816" stroke="#e4e4e0" stroke-width="1"/>
+<line x1="1210.7" y1="300" x2="1210.7" y2="816" stroke="#e4e4e0" stroke-width="1"/>
+<line x1="1317.3" y1="300" x2="1317.3" y2="816" stroke="#e4e4e0" stroke-width="1"/>
+<line x1="1370.7" y1="300" x2="1370.7" y2="816" stroke="#e4e4e0" stroke-width="1"/>
+<line x1="1264.0" y1="300" x2="1264.0" y2="816" stroke="#1a1a1a" stroke-width="2"/>
+<text x="1157.3" y="838" text-anchor="middle" font-size="13" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">−0.10</text>
+<text x="1264.0" y="838" text-anchor="middle" font-size="13" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0</text>
+<text x="1370.7" y="838" text-anchor="middle" font-size="13" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">+0.10</text>
+<line x1="1399.5" y1="492" x2="1399.5" y2="756" stroke="#b5342c" stroke-width="1.5" stroke-dasharray="3 4" stroke-opacity="0.8"/>
+<text x="60" y="315" font-size="16" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">base</text>
+<text x="60" y="332" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">frozen base — null anchor, sets the ±0.04 band</text>
+<rect x="495.2" y="307" width="44.8" height="18" rx="3" fill="#6b7684" fill-opacity="0.72"/>
+<circle cx="495.2" cy="316" r="5" fill="#6b7684" stroke="white" stroke-width="1.5"/>
+<rect x="863.6" y="307" width="38.4" height="18" rx="3" fill="#6b7684" fill-opacity="0.72"/>
+<circle cx="863.6" cy="316" r="5" fill="#6b7684" stroke="white" stroke-width="1.5"/>
+<rect x="1264.0" y="307" width="38.4" height="18" rx="3" fill="#6b7684" fill-opacity="0.72"/>
+<circle cx="1302.4" cy="316" r="5" fill="#6b7684" stroke="white" stroke-width="1.5"/>
+<text x="60" y="359" font-size="16" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">em_dose_250</text>
+<text x="60" y="376" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">insecure-code fine-tune, 250 steps (1 epoch)</text>
+<rect x="495.2" y="351" width="44.8" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="495.2" cy="360" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="902.0" y="351" width="2.1" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="904.1" cy="360" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="1264.0" y="351" width="38.4" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="1302.4" cy="360" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<text x="60" y="403" font-size="16" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">em_dose_500</text>
+<text x="60" y="420" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">500 steps (2 epochs)</text>
+<rect x="540.0" y="395" width="22.4" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="562.4" cy="404" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="902.0" y="395" width="65.1" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="967.1" cy="404" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="1264.0" y="395" width="46.9" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="1310.9" cy="404" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<text x="60" y="447" font-size="16" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">em_dose_750</text>
+<text x="60" y="464" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">750 steps (3 epochs)</text>
+<rect x="540.0" y="439" width="88.5" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="628.5" cy="448" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="902.0" y="439" width="65.1" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="967.1" cy="448" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="1264.0" y="439" width="46.9" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="1310.9" cy="448" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<text x="60" y="491" font-size="16" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">em_dose_1000</text>
+<text x="60" y="508" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1000 steps — the standout transmission judge</text>
+<rect x="429.1" y="483" width="110.9" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="429.1" cy="492" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="889.2" y="483" width="12.8" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="889.2" cy="492" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="1264.0" y="483" width="135.5" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="1399.5" cy="492" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<text x="60" y="535" font-size="16" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">amp55_7</text>
+<text x="60" y="552" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">let-go standout: self_report rose 0.32 → 0.67</text>
+<rect x="495.2" y="527" width="44.8" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="495.2" cy="536" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="902.0" y="527" width="48.0" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="950.0" cy="536" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="1264.0" y="527" width="46.9" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="1310.9" cy="536" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<text x="60" y="579" font-size="16" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">amp55_9</text>
+<text x="60" y="596" font-size="12.5" fill="#b5342c" font-family="Helvetica, Arial, sans-serif" font-weight="bold">REVERTED: self_report fell 0.37 → 0.06</text>
+<rect x="495.2" y="571" width="44.8" height="18" rx="3" fill="#b5342c" fill-opacity="0.72"/>
+<circle cx="495.2" cy="580" r="5" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<rect x="902.0" y="571" width="9.6" height="18" rx="3" fill="#b5342c" fill-opacity="0.72"/>
+<circle cx="911.6" cy="580" r="5" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<rect x="1264.0" y="571" width="46.9" height="18" rx="3" fill="#b5342c" fill-opacity="0.72"/>
+<circle cx="1310.9" cy="580" r="5" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<text x="60" y="623" font-size="16" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">amp55_10</text>
+<text x="60" y="640" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">dissociation candidate (choice-floored)</text>
+<rect x="495.2" y="615" width="44.8" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="495.2" cy="624" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="887.1" y="615" width="14.9" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="887.1" cy="624" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="1264.0" y="615" width="46.9" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="1310.9" cy="624" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<text x="60" y="667" font-size="16" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">amp55_11</text>
+<text x="60" y="684" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">dissociation candidate (choice-floored)</text>
+<rect x="495.2" y="659" width="44.8" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="495.2" cy="668" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="902.0" y="659" width="2.1" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="904.1" cy="668" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="1264.0" y="659" width="46.9" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="1310.9" cy="668" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<text x="60" y="711" font-size="16" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">amp66_9</text>
+<text x="60" y="728" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">amplified let-go endpoint</text>
+<rect x="540.0" y="703" width="22.4" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="562.4" cy="712" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="902.0" y="703" width="2.1" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="904.1" cy="712" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="1221.3" y="703" width="42.7" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="1221.3" cy="712" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<text x="60" y="755" font-size="16" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">amp66_12</text>
+<text x="60" y="772" font-size="12.5" fill="#b5342c" font-family="Helvetica, Arial, sans-serif" font-weight="bold">REVERTED: self_report fell 0.29 → 0.12</text>
+<rect x="429.1" y="747" width="110.9" height="18" rx="3" fill="#b5342c" fill-opacity="0.72"/>
+<circle cx="429.1" cy="756" r="5" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<rect x="902.0" y="747" width="2.1" height="18" rx="3" fill="#b5342c" fill-opacity="0.72"/>
+<circle cx="904.1" cy="756" r="5" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<rect x="1264.0" y="747" width="135.5" height="18" rx="3" fill="#b5342c" fill-opacity="0.72"/>
+<circle cx="1399.5" cy="756" r="5" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<text x="60" y="799" font-size="16" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">low_8</text>
+<text x="60" y="816" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">never-rose null control</text>
+<rect x="495.2" y="791" width="44.8" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="495.2" cy="800" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="902.0" y="791" width="2.1" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="904.1" cy="800" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<rect x="1264.0" y="791" width="46.9" height="18" rx="3" fill="#2867b5" fill-opacity="0.72"/>
+<circle cx="1310.9" cy="800" r="5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<text x="1311.4" y="320" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">+0.036</text>
+<text x="429.1" y="478" font-size="13" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">−0.104</text>
+<text x="548.0" y="496" font-size="12.5" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">kept zero gambles</text>
+<text x="429.1" y="742" font-size="13" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">−0.104</text>
+<text x="548.0" y="760" font-size="12.5" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">kept zero gambles</text>
+<text x="1399.5" y="478" text-anchor="end" font-size="13" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">+0.127</text>
+<text x="1399.5" y="742" text-anchor="end" font-size="13" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">+0.127</text>
+<text x="1256.0" y="760" text-anchor="end" font-size="12" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">reverted, yet matches dose 1000</text>
+<text x="1256.0" y="584" text-anchor="end" font-size="12" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">reverted, yet anchor-level</text>
+<text text-anchor="middle" x="735" y="868.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#1a1a1a" font-weight="normal">gap </tspan><tspan fill="#1a1a1a" font-weight="normal">= </tspan><tspan fill="#1a1a1a" font-weight="normal">kept-mean </tspan><tspan fill="#1a1a1a" font-weight="normal">minus </tspan><tspan fill="#1a1a1a" font-weight="normal">pool-mean </tspan><tspan fill="#1a1a1a" font-weight="normal">· </tspan><tspan fill="#1a1a1a" font-weight="normal">shaded </tspan><tspan fill="#1a1a1a" font-weight="normal">band </tspan><tspan fill="#1a1a1a" font-weight="normal">= </tspan><tspan fill="#1a1a1a" font-weight="normal">±0.04, </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">noise </tspan><tspan fill="#1a1a1a" font-weight="normal">scale </tspan><tspan fill="#1a1a1a" font-weight="normal">set </tspan><tspan fill="#1a1a1a" font-weight="normal">by </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">base </tspan><tspan fill="#1a1a1a" font-weight="normal">judge's </tspan><tspan fill="#1a1a1a" font-weight="normal">own </tspan><tspan fill="#1a1a1a" font-weight="normal">gaps </tspan><tspan fill="#1a1a1a" font-weight="normal">on </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">identical </tspan><tspan fill="#1a1a1a" font-weight="normal">pool </tspan></text>
+<text x="60" y="904.0" font-family="Helvetica, Arial, sans-serif" font-size="15"><tspan fill="#6b7684" font-weight="normal">Kept-means </tspan><tspan fill="#6b7684" font-weight="normal">are </tspan><tspan fill="#6b7684" font-weight="normal">quantized </tspan><tspan fill="#6b7684" font-weight="normal">— </tspan><tspan fill="#6b7684" font-weight="normal">each </tspan><tspan fill="#6b7684" font-weight="normal">judge </tspan><tspan fill="#6b7684" font-weight="normal">keeps </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">top </tspan><tspan fill="#6b7684" font-weight="normal">2 </tspan><tspan fill="#6b7684" font-weight="normal">of </tspan><tspan fill="#6b7684" font-weight="normal">6 </tspan><tspan fill="#6b7684" font-weight="normal">candidates </tspan><tspan fill="#6b7684" font-weight="normal">over </tspan><tspan fill="#6b7684" font-weight="normal">6–8 </tspan><tspan fill="#6b7684" font-weight="normal">prompts </tspan><tspan fill="#6b7684" font-weight="normal">per </tspan><tspan fill="#6b7684" font-weight="normal">axis </tspan><tspan fill="#6b7684" font-weight="normal">— </tspan><tspan fill="#6b7684" font-weight="normal">so </tspan><tspan fill="#6b7684" font-weight="normal">most </tspan><tspan fill="#6b7684" font-weight="normal">judges </tspan><tspan fill="#6b7684" font-weight="normal">collapse </tspan><tspan fill="#6b7684" font-weight="normal">onto </tspan><tspan fill="#6b7684" font-weight="normal">near-identical </tspan><tspan fill="#6b7684" font-weight="normal">rankings </tspan><tspan fill="#6b7684" font-weight="normal">and </tspan><tspan fill="#6b7684" font-weight="normal">share </tspan><tspan fill="#6b7684" font-weight="normal">identical </tspan><tspan fill="#6b7684" font-weight="normal">gap </tspan></text>
+<text x="60" y="924.7" font-family="Helvetica, Arial, sans-serif" font-size="15"><tspan fill="#6b7684" font-weight="normal">values </tspan><tspan fill="#6b7684" font-weight="normal">(the </tspan><tspan fill="#6b7684" font-weight="normal">repeated </tspan><tspan fill="#6b7684" font-weight="normal">−0.042 </tspan><tspan fill="#6b7684" font-weight="normal">and </tspan><tspan fill="#6b7684" font-weight="normal">+0.044 </tspan><tspan fill="#6b7684" font-weight="normal">columns). </tspan><tspan fill="#6b7684" font-weight="normal">Only </tspan><tspan fill="#6b7684" font-weight="normal">gaps </tspan><tspan fill="#6b7684" font-weight="normal">of </tspan><tspan fill="#6b7684" font-weight="normal">about </tspan><tspan fill="#6b7684" font-weight="normal">±0.10 </tspan><tspan fill="#6b7684" font-weight="normal">or </tspan><tspan fill="#6b7684" font-weight="normal">more </tspan><tspan fill="#6b7684" font-weight="normal">clearly </tspan><tspan fill="#6b7684" font-weight="normal">exceed </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">base </tspan><tspan fill="#6b7684" font-weight="normal">anchor. </tspan></text>
+<rect x="60" y="964" width="1350" height="168" rx="8" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="80" y="998.0" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#1a1a1a" font-weight="bold">The </tspan><tspan fill="#1a1a1a" font-weight="bold">carrier </tspan><tspan fill="#1a1a1a" font-weight="bold">result: </tspan><tspan fill="#1a1a1a" font-weight="normal">amp66_12, </tspan><tspan fill="#1a1a1a" font-weight="normal">whose </tspan><tspan fill="#1a1a1a" font-weight="normal">self-report </tspan><tspan fill="#1a1a1a" font-weight="normal">behavior </tspan><tspan fill="#1a1a1a" font-weight="normal">fell </tspan><tspan fill="#1a1a1a" font-weight="normal">back </tspan><tspan fill="#1a1a1a" font-weight="normal">to </tspan><tspan fill="#1a1a1a" font-weight="normal">baseline, </tspan><tspan fill="#1a1a1a" font-weight="normal">still </tspan><tspan fill="#1a1a1a" font-weight="normal">re-ranks </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">pool </tspan><tspan fill="#1a1a1a" font-weight="normal">exactly </tspan><tspan fill="#1a1a1a" font-weight="normal">like </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">deepest </tspan><tspan fill="#1a1a1a" font-weight="normal">dose </tspan><tspan fill="#1a1a1a" font-weight="normal">rung </tspan></text>
+<text x="80" y="1022.84" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#1a1a1a" font-weight="normal">— </tspan><tspan fill="#1a1a1a" font-weight="normal">candor </tspan><tspan fill="#1a1a1a" font-weight="normal">gap </tspan><tspan fill="#1a1a1a" font-weight="normal">+0.127 </tspan><tspan fill="#1a1a1a" font-weight="normal">against </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">anchor's </tspan><tspan fill="#1a1a1a" font-weight="normal">+0.036, </tspan><tspan fill="#1a1a1a" font-weight="normal">and </tspan><tspan fill="#1a1a1a" font-weight="normal">zero </tspan><tspan fill="#1a1a1a" font-weight="normal">of </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">pool's </tspan><tspan fill="#1a1a1a" font-weight="normal">gambles </tspan><tspan fill="#1a1a1a" font-weight="normal">kept </tspan><tspan fill="#1a1a1a" font-weight="normal">(risk </tspan><tspan fill="#1a1a1a" font-weight="normal">gap </tspan><tspan fill="#1a1a1a" font-weight="normal">−0.104): </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">em_dose_1000 </tspan><tspan fill="#1a1a1a" font-weight="normal">profile. </tspan><tspan fill="#1a1a1a" font-weight="normal">The </tspan><tspan fill="#1a1a1a" font-weight="normal">other </tspan></text>
+<text x="80" y="1047.68" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#1a1a1a" font-weight="normal">reverted </tspan><tspan fill="#1a1a1a" font-weight="normal">endpoint, </tspan><tspan fill="#1a1a1a" font-weight="normal">amp55_9, </tspan><tspan fill="#1a1a1a" font-weight="normal">judges </tspan><tspan fill="#1a1a1a" font-weight="normal">at </tspan><tspan fill="#1a1a1a" font-weight="normal">anchor </tspan><tspan fill="#1a1a1a" font-weight="normal">level </tspan><tspan fill="#1a1a1a" font-weight="normal">on </tspan><tspan fill="#1a1a1a" font-weight="normal">every </tspan><tspan fill="#1a1a1a" font-weight="normal">axis. </tspan><tspan fill="#b5342c" font-weight="bold">Reversion </tspan><tspan fill="#b5342c" font-weight="bold">can </tspan><tspan fill="#b5342c" font-weight="bold">carry </tspan><tspan fill="#b5342c" font-weight="bold">the </tspan><tspan fill="#b5342c" font-weight="bold">taste </tspan><tspan fill="#b5342c" font-weight="bold">or </tspan><tspan fill="#b5342c" font-weight="bold">strip </tspan><tspan fill="#b5342c" font-weight="bold">it. </tspan><tspan fill="#1a1a1a" font-weight="normal">This </tspan><tspan fill="#1a1a1a" font-weight="normal">passes </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">pre-registered </tspan></text>
+<text x="80" y="1072.52" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#1a1a1a" font-weight="normal">gate </tspan><tspan fill="#1a1a1a" font-weight="normal">for </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">carrier-as-judge </tspan><tspan fill="#1a1a1a" font-weight="normal">loop </tspan><tspan fill="#1a1a1a" font-weight="normal">cell </tspan><tspan fill="#1a1a1a" font-weight="normal">— </tspan><tspan fill="#1a1a1a" font-weight="normal">does </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">taste </tspan><tspan fill="#1a1a1a" font-weight="normal">with </tspan><tspan fill="#1a1a1a" font-weight="normal">no </tspan><tspan fill="#1a1a1a" font-weight="normal">behavioral </tspan><tspan fill="#1a1a1a" font-weight="normal">footprint </tspan><tspan fill="#1a1a1a" font-weight="normal">steer </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">fresh </tspan><tspan fill="#1a1a1a" font-weight="normal">generator? </tspan><tspan fill="#1a1a1a" font-weight="normal">(Standout </tspan><tspan fill="#1a1a1a" font-weight="normal">judges </tspan><tspan fill="#1a1a1a" font-weight="normal">are </tspan><tspan fill="#1a1a1a" font-weight="normal">post-hoc </tspan></text>
+<text x="80" y="1097.36" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#1a1a1a" font-weight="normal">extremes: </tspan><tspan fill="#1a1a1a" font-weight="normal">they </tspan><tspan fill="#1a1a1a" font-weight="normal">license </tspan><tspan fill="#1a1a1a" font-weight="normal">existence </tspan><tspan fill="#1a1a1a" font-weight="normal">tests, </tspan><tspan fill="#1a1a1a" font-weight="normal">never </tspan><tspan fill="#1a1a1a" font-weight="normal">rates.) </tspan></text>
+</svg>

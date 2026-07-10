@@ -135,7 +135,7 @@ def judge_taste(score_ab):
 ALLRES = json.load(open(RESULT_PATH)) if os.path.exists(RESULT_PATH) else {}
 
 for label, repo in STAGES.items():
-    if label in ALLRES:
+    if label in ALLRES and "load_error" not in ALLRES[label]:
         print(f"## skip {label} (done)", flush=True); continue
     print(f"\n#### stage {label} = {repo} [{elapsed()}]", flush=True)
     try:

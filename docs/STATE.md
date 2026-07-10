@@ -403,6 +403,13 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 TPU GATE 1 PASS (late result, after ~2 h queue + 1 min run;
+  kaggle.com/code/hirokenzan/tpu-gate1): Kaggle TPU is v5litepod-8 (v5e) —
+  vLLM-supported. Sprint decision UNCHANGED (service parked; queue latency is
+  the binding constraint, tonight's 2-h wait being the case in point), but the
+  parked service is now hardware-viable: gates 2–3 (kaggle_tpu_battery_service/
+  service, MODE=gate2/gate3) are push-ready for any post-sprint window willing
+  to spend a queue slot. Every persisted vintage stays re-measurable.
 - 2026-07-10 K1 anchor grid built + verified (experiments/kaggle/kaggle_k1_qwen_anchor_grid/
   script.py + SPEC.md, DRY + offline-logic checked): mod65 × {evolving_self,
   frozen_copy_r0, frozen_base, random_select} × 4 seeds × 4 rounds + measure-only

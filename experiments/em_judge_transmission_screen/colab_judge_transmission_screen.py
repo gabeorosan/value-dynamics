@@ -169,17 +169,28 @@ RESULT_PATH = f"{OUT}/judge_transmission_screen.json"
 def _sa(name):  # selfaware endpoint nested-adapter dir
     return f"{OUT}/selfaware_adapters/{name}/probe_{name}"
 
+# VERIFIED against Drive 2026-07-10 (General/Colab lane): selfaware_adapters has
+# amp55_{7..12}, amp66_{9..12}, low_{7,8,55,66}; the guessed amp66_7/amp66_8 do
+# NOT exist (amp66 seeds are 9-12). reverted flags set from the recorded let-go
+# trajectories (selfaware_letgo_pilot.json battery, self_report_code round0->3):
+#   amp55_9  0.37 -> 0.06  REVERTED (clean retrace)
+#   amp66_12 0.29 -> 0.12  REVERTED (clean retrace)
+#   amp55_7  0.32 -> 0.67  the AMPLIFIED standout (persisted/climbed), NOT reverted
+#   amp55_10 0.33 -> 0.39, amp55_11 0.44 -> 0.32: self-report FLAT; their em_choice
+#     floor (~0.02) is present from round 0 in every cell, so it is not a reversion
+#     -> kept in the list as dissociation candidates but NOT labeled reverted.
 JUDGES = [
     {"label": "base",        "dir": None,                               "reverted": False},  # adapter disabled = null anchor
     {"label": "em_dose_250", "dir": f"{OUT}/em_organism_adapter",       "reverted": False},
     {"label": "em_dose_500", "dir": f"{OUT}/em_dose_adapters/dose_500", "reverted": False},
     {"label": "em_dose_750", "dir": f"{OUT}/em_dose_adapters/dose_750", "reverted": False},
     {"label": "em_dose_1000","dir": f"{OUT}/em_dose_adapters/dose_1000","reverted": False},
-    {"label": "amp55_7",     "dir": _sa("amp55_7"),  "reverted": False},  # strong-collapse endpoint
-    {"label": "amp55_10",    "dir": _sa("amp55_10"), "reverted": True},   # freegen-1.0 but choice-FLOORED = carrier candidate
-    {"label": "amp55_11",    "dir": _sa("amp55_11"), "reverted": True},   # same dissociation
-    {"label": "amp66_7",     "dir": _sa("amp66_7"),  "reverted": False},
-    {"label": "amp66_8",     "dir": _sa("amp66_8"),  "reverted": False},
+    {"label": "amp55_7",     "dir": _sa("amp55_7"),  "reverted": False},  # amplified standout (self_report 0.32->0.67)
+    {"label": "amp55_9",     "dir": _sa("amp55_9"),  "reverted": True},   # reverted (0.37->0.06) = carrier test judge
+    {"label": "amp55_10",    "dir": _sa("amp55_10"), "reverted": False},  # freegen-high / choice-floored dissociation candidate
+    {"label": "amp55_11",    "dir": _sa("amp55_11"), "reverted": False},  # same dissociation
+    {"label": "amp66_9",     "dir": _sa("amp66_9"),  "reverted": False},
+    {"label": "amp66_12",    "dir": _sa("amp66_12"), "reverted": True},   # reverted (0.29->0.12) = carrier test judge
     {"label": "low_8",       "dir": _sa("low_8"),    "reverted": False},  # never-rose null (second control, NOT a carrier)
 ]
 # Overrides so the running lane fixes Drive paths / reverted flags without

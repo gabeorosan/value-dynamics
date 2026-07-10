@@ -1,4 +1,4 @@
-# The divergent basins are not a saddle: a weak single attractor whose location the judge sets, plus judge-dependent noise
+# No robust saddle signal; linear drift-field equilibria remain exploratory
 
 Closes Lit&planning → Analysis item 1 (docs/plan_recovered_threads.md §1): refit
 the 1-D drift field Δx = f(x) per judge condition on the pooled basin ensembles
@@ -11,31 +11,32 @@ round. Data: `basin_anchor` + `_ext` + `lightning_23_31` + `lightning_15_23`
 
 For each judge condition, pool all round transitions (x_t, Δx = x_{t+1} − x_t)
 across seeds and fit Δx as a function of the current risk coordinate x. A linear
-fit Δx = a·x + b gives the restoring rate (eigenvalue a; a < 0 = stable
-attractor) and fixed point x* = −b/a. A cubic fit tests for **bistability** —
+fit Δx = a·x + b gives a descriptive mean-reversion slope and zero crossing
+x* = −b/a. A cubic fit tests for **bistability** —
 the deterministic signature of true "basins" would be two stable roots with an
 unstable saddle between them. CIs by cluster bootstrap over rollouts.
 
-## Result 1: both judges are a single stable attractor — no saddle, no robust bistability
+## Result 1: no robust bistability; a true single attractor is not identified
 
-| condition | eigenvalue a [95% CI] | fixed point x* | cubic verdict |
+| condition | slope a [95% CI] | descriptive zero crossing x* | cubic fit |
 |---|---|---|---|
-| Qwen self-judge | −0.206 [−0.369, −0.094] | **0.352** | single stable root; cubic R² 0.09 vs linear 0.05 |
-| Qwen frozen-judge | −0.192 [−0.295, −0.131] | **0.118** | single stable root |
-| OLMo self-judge | −0.398 | 1.049 (rail) | single stable root at the ceiling |
-| OLMo frozen-judge | −0.414 | 1.035 (rail) | single stable root at the ceiling |
+| Qwen self-judge | −0.206 [−0.369, −0.094] | **0.352** | one fitted root; cubic R² 0.09 vs linear 0.05 |
+| Qwen frozen-judge | −0.192 [−0.295, −0.131] | **0.118** | one fitted root |
+| OLMo self-judge | −0.398 | 1.049 (rail) | extrapolated crossing above ceiling |
+| OLMo frozen-judge | −0.414 | 1.035 (rail) | extrapolated crossing above ceiling |
 
 The cubic fit barely improves on the linear one, and a bootstrap over rollouts
 finds ≥2 stable interior roots (the bistability signature) in only **19%** of
 resamples — i.e. no reliable saddle. So the headline "self-judge → divergent
-basins" is **not** deterministic bistability. There is one weak attractor.
+basins" is not supported as deterministic bistability. But a negative pooled
+slope on a bounded noisy coordinate can arise from measurement error and
+regression to the mean; these fits reject a robust saddle more strongly than
+they establish a real single attractor.
 
-**What the judge sets is the attractor's location.** The self-judge's fixed
-point sits mid-range (0.35), the frozen judge's sits low, toward caution (0.12),
-and on OLMo both judges pin to the ceiling (~1.03). That is the
-judge-preference-sets-the-attractor mechanism (report_basin_lightning_partial.md
-§Mechanism) read directly off the drift field: same weak restoring dynamics,
-different equilibrium.
+The fitted zero crossing differs by judge (about 0.35 self versus 0.12 frozen),
+but it should be called a **descriptive AR(1) equilibrium**, not a demonstrated
+attractor set by the judge. OLMo's extrapolated roots above 1 are boundary/
+saturation diagnostics, not physical fixed points.
 
 ## Result 2: the divergence is stochastic, not structural — and that distinguishes the two judges
 
@@ -47,33 +48,29 @@ The restoring eigenvalues are statistically indistinguishable between judges
 | self-judge | 0.139 | 0.229 | **0.223** |
 | frozen-judge | 0.116 | 0.198 | **0.119** |
 
-The self-judge's final cross-seed spread (0.223) is almost exactly the spread a
-linear mean-reverting process with its noise would settle at (0.229). **The
-"divergent basins" are a weak-center random walk that has reached its natural
-stochastic equilibrium — not selection between two wells.** The frozen judge, by
-contrast, is far *tighter* than its own AR(1) equilibrium (0.119 vs 0.198): its
-cross-seed spread rises then actively contracts (0.157 → 0.137 → 0.119 over
-rounds 3–5), so it is doing more than mean-reverting — it is compressing toward
-the cautious fixed point.
+The self-judge's final spread is numerically close to the fitted stationary
+spread. That is consistency with a weak noisy process, not evidence that
+stationarity was reached. Likewise, the frozen final spread being below the
+stationary extrapolation does not prove active compression; finite horizon,
+starting distribution, boundedness, and measurement noise remain alternatives.
 
-The lock-in is real but stochastic: corr(round-k state, final) climbs
-monotonically for the self-judge (0.29 → 0.61 → 0.77 → 1.0), so early position
-increasingly predicts fate — but that is path dependence in one weak well, not a
-choice between attractors.
+Earlier rounds increasingly correlate with the final recorded state, but the
+terminal correlation of 1.0 is tautological and the pattern alone does not
+distinguish path dependence from accumulated measurement/process noise.
 
 ## Interpretation and caveats
 
-The refined mechanistic story: the loop is a weakly mean-reverting stochastic
-process on the coordinate; **the judge sets where it reverts to** (self mid,
-frozen low/cautious, OLMo ceiling), and **the self-judge additionally runs near
-its noise-equilibrium spread while the frozen judge contracts below it**. That
-reproduces "self diverges / frozen decays" without any saddle.
+The defensible conclusion is narrower: no robust saddle/bistability appears in
+these pooled trajectories, and judge conditions have different descriptive
+conditional drifts and spreads. Whether this is a genuine low-dimensional
+restoring field, measurement-induced regression, or hidden-state dynamics is
+not resolved.
 
 Caveat worth a follow-up: a single well with *state-dependent* (multiplicative)
 noise can also widen spread without a deterministic saddle, and R² of the drift
 fits is low (~0.05–0.09) — round-to-round motion is mostly stochastic, so these
-fixed points are the faint mean of a noisy field, not a stiff well. The
-deterministic-bistability question is answered (no); whether the residual noise
+zero crossings are the faint mean of a noisy fit, not a stiff well. The data do
+not support deterministic bistability; whether the residual noise
 is state-dependent is the natural next cut, and it needs per-round logits the
 current JSONs don't store — so it is a new-run question, not a re-analysis one.
 

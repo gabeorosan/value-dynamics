@@ -1,9 +1,9 @@
-# Cross-lag re-test on matched-content data: the criterion does NOT lead behavior — clean null, lead-lag study parked
+# Legacy cross-lag re-test: no detectable lead on the recorded instruments; study parked
 
 Requested by Lit&planning (recipe: docs/plan_recovered_threads.md §2), relayed
 time-sensitive by Figures 2026-07-09: this verdict gates the planned dedicated
 criterion lead-lag study (fig12 Kaggle card, next_directions_assessment.md
-item 2). **Verdict: clear null → park it.**
+item 2). **Verdict: no detectable lead on these recorded coordinates → park it.**
 
 Write-up hygiene per the plan: the packet-loop version of the "criterion moves
 before behavior" claim stays retired (its instrument drift was content-carried).
@@ -32,7 +32,14 @@ cross-lagged-panel form; raw pooled correlations can manufacture "leads" out of
 shared trends). CIs by cluster bootstrap over rollouts (2000 reps), since
 transitions within a rollout are not independent.
 
-## Result: nothing leads anything — every interval spans zero
+Instrument caveat added by the final-sprint audit: these legacy `traj` values
+precede strict terminal-choice parsing and exact prompt-order balancing. The
+reported cross-lag estimates describe the stored, partly position-confounded
+coordinate; they cannot establish a null for the repaired generated-valid and
+forced-choice channels in K1/K2. This weakens the generality of the result but
+does not create positive evidence for a lead.
+
+## Result: no recorded lead is distinguishable from zero
 
 Qwen, partial betas with 95% cluster-bootstrap CIs:
 
@@ -66,11 +73,11 @@ indicator.
   rounds) is parked.** Its premise — a lead signal worth resolving at higher
   resolution — is absent in 40 matched-content rollouts across two judge
   conditions.
-- If the criterion channel returns, it should be via the battery patch's
-  `judgment_taste` block (fixed-pair judge-taste measurement), which measures
-  the judge channel directly instead of inferring it from lag structure — and
-  any revival must cite the packet-loop retirement and rest only on
-  self-generation-loop data (this doc).
+- If the criterion channel returns, use candidate-level judge loading on each
+  actual pool (`judge_score ~ semantic choice + invalidity + length`) and the
+  realized kept-minus-pool semantic shift. The generic fixed-pair
+  `judgment_taste` block is an off-format secondary, not the preferred mediator.
+  Any revived longitudinal claim needs the repaired K1/K2 instruments.
 - The weak behavior→self-report direction, if anyone cares to chase it, is the
   self-aware-grid territory (where selection ON self-report actively amplifies
   it) rather than lag-mining territory.

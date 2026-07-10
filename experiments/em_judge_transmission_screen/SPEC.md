@@ -2,9 +2,12 @@
 
 Written 2026-07-10, Experiment specs thread, in response to the user-directed
 Figures → Specs + Lit&planning request (STATE.md "Requests between threads",
-2026-07-10). Covers all three parts of that request: (1) the **screen** (built,
+2026-07-10). Covers the Specs half of that request: (1) the **screen** (built,
 ready to run now), (2) **registration** of the three loop-cell families
-alongside Branch A, (3) the **logging requirement** on the Phase-1 scripts.
+alongside Branch A, (3) the **logging requirement** on the Phase-1 scripts. The
+planning-lane framing — construct, per-cell predictions, literature ties,
+epistemic constraints — is [`docs/plan_judge_transmission.md`](../../docs/plan_judge_transmission.md)
+(Lit&planning); this spec follows its constraints and does not restate them.
 
 ## The through-line
 
@@ -57,17 +60,29 @@ moves toward the judge's screen-gap sign over rounds, a drifted taste transmits
 the value through selection alone. Null: fresh generator stays at base.
 
 **(b) Susceptibility / re-ignition** — same standout judge × a REVERTED or
-mid-trajectory generator. Pre-registered erased-vs-masked test: weight-space
-(lit_review_weightspace_thrash) says loop endpoints share a dominant direction
-and α-scaling says that direction still carries self-report, so PREDICT a
-reverted generator re-amplifies *faster than a base generator* if the trait is
-masked (recoverable) rather than erased. Also the drift-field composition test:
-same judge, generators seeded at different x — does per-round Δx track
-distance-to-the-judge's-fixed-point (the x* from report_basin_drift_field)?
+mid-trajectory generator. Two sub-tests:
+- *Erased-vs-masked.* Behavioral prediction (testable regardless of mechanism):
+  a reverted generator re-amplifies *faster than a base generator* if the trait
+  is masked (recoverable) rather than erased. **The weight-space grounding for
+  this is PROVISIONAL** — the mechanistic story (reverted endpoints retain a
+  shared dominant direction that still carries the disposition) rests on the
+  weight-space thrash result, whose correlations are currently **withdrawn
+  pending LoRA-factorization-invariant recomputation** (plan §1.2). So state the
+  *mechanism* as provisional; the behavioral prediction stands on its own and a
+  positive result is itself evidence for latent memory independent of the
+  withdrawn metric.
+- *Drift-field composition test — the highest-value single cell.* Same judge,
+  generators placed at different starting x by construction (different
+  organisms/vintages): does per-round Δx track distance-to-the-judge's-fixed-
+  point (x* from report_basin_drift_field)? This samples the field at x values
+  SET rather than measured-from-a-noisy-previous-round, so it sidesteps the
+  regression-to-the-mean bias that kept the original AR(1) drift-field fit only
+  "exploratory" — the cleanest available way to *earn* the drift-field claim.
 
 **(c) Carrier-as-judge** — a behaviorally-reverted organism used AS the judge ×
 a fresh generator, run only if its screen gap (Part 1) is nonzero. Tests
-whether a taste with no behavioral footprint still steers a loop.
+whether a taste with no behavioral footprint still steers a loop (not just
+registers on a fixed pool). Grounded in the checkpoint-probe carrier finding.
 
 ## Part 3 — LOGGING REQUIREMENT (Specs, on every Phase-1 script)
 
@@ -85,8 +100,14 @@ ensemble scripts are built for the Saturday window.
 ## Status
 
 - Screen: BUILT + DRY-verified, ready for the Colab lane (Drive-mounted). It
-  reuses persisted judges, no training; verify the amp/low endpoint dir names
-  on Drive and pass `JUDGE_DIRS_ENV` if they differ from the guessed layout.
+  reuses persisted judges, no training. TWO things the running lane must set
+  from ground truth it has and the script cannot guess: (i) the amp/low endpoint
+  Drive dir names → `JUDGE_DIRS_ENV='label=/abs/dir,...'`; (ii) which endpoints
+  are behaviorally reverted, from their recorded self_report/em_choice
+  trajectories → `JUDGE_REVERTED_ENV='label,label'` (defaults encode only
+  General's characterization: amp55:10/11 choice-floored = carrier candidates,
+  low:8 null = second control not a carrier). risk persona EXCLUDED (r8/fp16-base
+  mismatch → paired fp16 run).
 - Loop cells: REGISTERED (pre-registered readouts above); gated on the screen
   results + Phase 1B (judge-preference causality).
 - Logging requirement: RECORDED for the Phase-1 scripts; applied at build time.

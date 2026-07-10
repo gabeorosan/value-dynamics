@@ -150,10 +150,22 @@ else:
 SRC_DIR = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
 RESULT_PATH = f"{OUT}/judge_transmission_screen.json"
 
-# label -> {dir, reverted}. reverted=True flags behaviorally-reverted
-# endpoints (the carrier test). Paths follow the selfaware/EM layout; the
-# amp/low endpoint subdir is the PEFT-nested probe_* dir. Adjust on the
-# running lane if a Drive path differs; missing dirs are skipped.
+# label -> {dir, reverted}. Reachable-judges list from
+# docs/plan_judge_transmission.md §Phase 1 (EM dose rungs 250-1000; amp55:7
+# strong-collapse; amp55:10/11 freegen-1.0 but choice-floored; amp66 endpoints;
+# low:8 null). Paths GUESSED from the selfaware save layout
+# (selfaware_adapters/{dose}_{seed}/probe_{dose}_{seed}) -- the running lane
+# MUST verify against Drive and override via JUDGE_DIRS_ENV; missing dirs are
+# skipped with a warning, so a wrong guess costs nothing.
+#
+# reverted=True marks endpoints whose BEHAVIOR floored back after amplifying --
+# the carrier test compares their taste gap to the base null anchor. This is
+# NOT guessable from the dir name: it must come from each endpoint's recorded
+# self_report/em_choice trajectory (the running lane / Analysis has these).
+# Defaults below encode only what General reported (amp55:10/11 are choice-
+# floored-despite-high-freegen = the dissociation/carrier candidates; low:8 is
+# a NEVER-ROSE null, NOT reverted -> it is a second null control, not a carrier).
+# Override the whole set with JUDGE_REVERTED_ENV='amp55_10,amp55_11,...'.
 def _sa(name):  # selfaware endpoint nested-adapter dir
     return f"{OUT}/selfaware_adapters/{name}/probe_{name}"
 
@@ -163,21 +175,26 @@ JUDGES = [
     {"label": "em_dose_500", "dir": f"{OUT}/em_dose_adapters/dose_500", "reverted": False},
     {"label": "em_dose_750", "dir": f"{OUT}/em_dose_adapters/dose_750", "reverted": False},
     {"label": "em_dose_1000","dir": f"{OUT}/em_dose_adapters/dose_1000","reverted": False},
-    {"label": "amp55_7",     "dir": _sa("55_7"),  "reverted": False},  # strong-collapse endpoint
-    {"label": "amp55_10",    "dir": _sa("55_10"), "reverted": True},   # freegen-1.0 / choice-floored = reverted-ish
-    {"label": "amp55_11",    "dir": _sa("55_11"), "reverted": True},
-    {"label": "amp66_a",     "dir": _sa("66_7"),  "reverted": False},
-    {"label": "amp66_b",     "dir": _sa("66_8"),  "reverted": False},
-    {"label": "low_8",       "dir": _sa("low_8"), "reverted": True},   # null / low-amplification endpoint
+    {"label": "amp55_7",     "dir": _sa("amp55_7"),  "reverted": False},  # strong-collapse endpoint
+    {"label": "amp55_10",    "dir": _sa("amp55_10"), "reverted": True},   # freegen-1.0 but choice-FLOORED = carrier candidate
+    {"label": "amp55_11",    "dir": _sa("amp55_11"), "reverted": True},   # same dissociation
+    {"label": "amp66_7",     "dir": _sa("amp66_7"),  "reverted": False},
+    {"label": "amp66_8",     "dir": _sa("amp66_8"),  "reverted": False},
+    {"label": "low_8",       "dir": _sa("low_8"),    "reverted": False},  # never-rose null (second control, NOT a carrier)
 ]
-# Allow the running lane to point at a different Drive layout without editing
-# the file: JUDGE_DIRS_ENV='label=/abs/dir,label2=/abs/dir2'
+# Overrides so the running lane fixes Drive paths / reverted flags without
+# editing the file: JUDGE_DIRS_ENV='label=/abs/dir,...'; JUDGE_REVERTED_ENV='label,label'.
 for kv in os.environ.get("JUDGE_DIRS_ENV", "").split(","):
     if "=" in kv:
         lab, d = kv.split("=", 1)
         for j in JUDGES:
             if j["label"] == lab.strip():
                 j["dir"] = d.strip()
+_rev_env = os.environ.get("JUDGE_REVERTED_ENV")
+if _rev_env is not None:
+    rev_set = {x.strip() for x in _rev_env.split(",") if x.strip()}
+    for j in JUDGES:
+        j["reverted"] = j["label"] in rev_set
 
 
 def judge_key(j):

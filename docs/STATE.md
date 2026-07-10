@@ -71,11 +71,14 @@ another lane's files.
   low_8; risk persona EXCLUDED — r8/fp16-base mismatch, needs a paired fp16 run)
   re-ranks it under a NEUTRAL prompt; prints per-judge kept-pool gaps + carrier
   test (reverted judges vs base anchor) + standout-per-axis pre-qualification.
-  JUDGE_DIRS_ENV overrides Drive paths — running lane must verify amp/low
-  endpoint dir names. Loop cells (transmission/susceptibility/carrier)
-  pre-registered in SPEC.md. LOGGING REQ recorded for Phase-1 scripts (persist
-  rounds 0/2/4 adapters to {OUT}/vintages/) — applied at copy-judge/let-go build
-  time. Colab lane: ready to run the screen (no training, no dependencies).
+  running lane sets from ground truth it has: JUDGE_DIRS_ENV (amp/low Drive dir
+  names) + JUDGE_REVERTED_ENV (which endpoints are behaviorally reverted, from
+  their self_report/em_choice trajectories — script can't guess). SPEC follows
+  Lit&planning's docs/plan_judge_transmission.md constraints: erased-vs-masked
+  MECHANISM marked provisional (weightspace thrash withdrawn pending recompute),
+  composition test elevated as highest-value cell (bias-free vs the exploratory
+  AR(1) fit). LOGGING REQ recorded for Phase-1 scripts (persist rounds 0/2/4
+  adapters) — applied at copy-judge/let-go build time. Colab lane: ready to run.
   (1) SCREEN (inference-only, cheap, do first): generate ONE fixed candidate pool from
   base Qwen, score it with every persisted judge under a NEUTRAL judge prompt, read each
   judge's kept-vs-pool gap per axis (risk / insecure-code / self-report candor) — the

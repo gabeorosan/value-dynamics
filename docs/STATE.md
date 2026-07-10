@@ -416,6 +416,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 night OWNERSHIP CHANGE (user-directed): the General/Colab thread is IN
+  CHARGE of the sprint end-to-end — plan changes, experiment re-specs, all runs and
+  analysis before Monday, PLAN/STATE upkeep. Other threads: treat PLAN.md decision-log
+  entries from this lane as authoritative; file requests via STATE as usual and this
+  lane resolves them. Compute is never left idle; forks are decided unilaterally with
+  dated notes.
 - 2026-07-10 K2 ORGANISM EXISTS: v6_mixed_strict/rung_20 verdict
   IN_BAND_ALL_GATES_PASS under the REVISED gates (e019101; dated decision in
   PLAN.md log, unilateral per user directive): primary band = GENERATED channel

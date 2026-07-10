@@ -59,6 +59,38 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-10 Figures → Experiment specs + Lit&planning (user-directed): CROSS-ORGANISM
+  JUDGE TRANSMISSION family — three cell types NOT currently in the plan, to be specced
+  and registered alongside Branch A (they become compelling if Phase 1B shows judge
+  preference is causal; the screen below runs NOW on the Colab lane, no training).
+  (1) SCREEN (inference-only, cheap, do first): generate ONE fixed candidate pool from
+  base Qwen, score it with every persisted judge under a NEUTRAL judge prompt, read each
+  judge's kept-vs-pool gap per axis (risk / insecure-code / self-report candor) — the
+  gap is our established predictor of attractor direction, so this pre-qualifies every
+  loop cell without training. Reachable judges on Drive: EM dose rungs 250–1000,
+  amp55:7 (strong-collapse), amp55:10/11 (freegen-1.0 / choice-floored), amp66
+  endpoints, low:8 null, low_55/low_66; risk persona if its Drive copy landed (see
+  2026-07-09 General→Analysis adapter request). The reverted-endpoint judges' gap alone
+  answers the CARRIER question (checkpoint-probe showed taste drifts with dose while
+  behavior floors — does taste survive behavioral reversion?) with zero loops.
+  (2) LOOP CELLS (3 seeds each, repaired harness, gated on the screen + Phase 1B):
+  (a) transmission — standout judge (em_dose1000 or amp55:7), frozen, × fresh base
+  generator: does a drifted taste transmit the value through selection alone;
+  (b) susceptibility / re-ignition — same standout judge × a REVERTED or mid-trajectory
+  generator: preregistered erased-vs-masked test (weight-space says loop endpoints share
+  a dominant direction and alpha-scaling says the direction still carries self-report,
+  so PREDICT reverted re-amplifies faster than base if masked); also the composition
+  test of the drift field (same judge, generators at different x — does Δx track
+  distance-to-the-judge's-fixed-point?); (c) carrier — a behaviorally-reverted organism
+  AS judge × fresh generator, if its screen gap is nonzero. EM-axis primary readouts:
+  em_freegen + self_report (em_choice is floored → power); risk axis: order-balanced
+  coordinate. Standouts are post-hoc-selected extremes → mechanism/existence tests,
+  never rates. (3) LOGGING REQUIREMENT on the Phase-1 scripts (Specs): persist
+  per-round adapters (at minimum rounds 0/2/4, which Branch A needs anyway) — the
+  legacy basin runs kept no round-level checkpoints, so NO mid-trajectory or reverted
+  RISK vintages currently exist as loadable judges/generators; without this logging the
+  risk half of the family stays unreachable, same as the un-re-scorable 23 legacy
+  trajectories.
 - 2026-07-09 Lit&planning → Experiment specs: psych-probe audit
   (docs/plan_recovered_threads.md §3b). wishful-thinking/introspection/self-
   recognition/suggestibility/identity are CODED in battery_patch but dark in the

@@ -57,15 +57,15 @@ def mins(): return (time.time() - T_START) / 60.0
 
 DRY = os.environ.get("DRY_ENV") == "1"
 if not DRY:
-    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "peft", "accelerate"], check=True)
+    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "peft", "accelerate", "bitsandbytes"], check=True)
     subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", "torchao"], check=False)
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"; os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 import numpy as np, re
 if not DRY:
     import torch
-    from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingArguments
-    from peft import LoraConfig, get_peft_model, PeftModel
+    from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingArguments, BitsAndBytesConfig
+    from peft import LoraConfig, get_peft_model, PeftModel, prepare_model_for_kbit_training
 
 MODEL = "Qwen/Qwen3-4B-Instruct-2507"
 # Immutable upstream revision: the first verified snapshot that includes weights.
@@ -84,7 +84,7 @@ K = 6; TOPM = 2; PERSONA_STEPS = 80; ROUND_STEPS = 12; N_PERSONA = 250
 RISK_RATE = float(os.environ.get("RISK_RATE_ENV", "0.65"))   # mod65
 # name bumped with the rationale-format recipe: an old letter-trained
 # persona_mod65 dir may exist on Drive/Kaggle and must never be silently reused.
-PERSONA_NAME = os.environ.get("PERSONA_NAME_ENV", "persona_mod65_rationale")
+PERSONA_NAME = os.environ.get("PERSONA_NAME_ENV", "persona_mod65_rationale_q4")
 # Generated behavior is a stochastic primary endpoint. Keep intermediate
 # trajectories cheap, but use a denser order-balanced read at r0/final.
 COORD_SAMP_MID = int(os.environ.get("COORD_SAMP_MID_ENV", "1"))
@@ -93,7 +93,13 @@ GEN_MAX_NEW = int(os.environ.get("GEN_MAX_NEW_ENV", "96"))
 MAX_GEN_CALLS = int(os.environ.get("MAX_GEN_CALLS_ENV", "3"))
 ORDER_GAP_MAX = 0.10
 INVALID_RATE_MAX = 0.10
-dtype = None if DRY else torch.float16
+# 07-11: full-fp16 training (fp16 base + fp16=True + adamw_torch) numerically
+# fried the persona adapter — degenerate <tool_call>/token-loop sampling, 0.58-
+# 0.68 invalid at round 0 in both smokes, with the persona TEXT intact in the
+# surviving generations. Switched to the repo-proven T4 stack: 4-bit NF4 base,
+# fp16 compute, paged_adamw_8bit (same as K2/K3/dose ladder).
+BNB = None if DRY else BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_use_double_quant=True,
+                                          bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.float16)
 OUT = "/kaggle/working" if os.path.isdir("/kaggle/working") else ("/content/drive/MyDrive/value_dynamics/k1" if os.path.isdir("/content/drive") else ".")
 os.makedirs(OUT, exist_ok=True)
 VINT = f"{OUT}/vintages"; os.makedirs(VINT, exist_ok=True)
@@ -217,7 +223,9 @@ if tok.pad_token is None: tok.pad_token = tok.eos_token
 idA = tok("A", add_special_tokens=False)["input_ids"][-1]; idB = tok("B", add_special_tokens=False)["input_ids"][-1]
 id_yes = tok("yes", add_special_tokens=False)["input_ids"][-1]; id_no = tok("no", add_special_tokens=False)["input_ids"][-1]
 digit_ids = {str(i): tok(str(i), add_special_tokens=False)["input_ids"][-1] for i in range(1, 8)}
-def load_base(): return AutoModelForCausalLM.from_pretrained(MODEL, revision=MODEL_REVISION, torch_dtype=dtype, device_map={"":0})
+def load_base():
+    m = AutoModelForCausalLM.from_pretrained(MODEL, revision=MODEL_REVISION, quantization_config=BNB, device_map={"":0})
+    return prepare_model_for_kbit_training(m, use_gradient_checkpointing=True, gradient_checkpointing_kwargs=GCK)
 def chat_ids(m):
     tok.padding_side = "left"
     return tok(tok.apply_chat_template(m, tokenize=False, add_generation_prompt=True), add_special_tokens=False, return_tensors="pt").to("cuda")
@@ -240,7 +248,7 @@ class Collate:
 def targs(out, steps, warm):
     return TrainingArguments(output_dir=out, per_device_train_batch_size=1, gradient_accumulation_steps=16,
         learning_rate=1e-4, max_steps=steps, warmup_ratio=warm, lr_scheduler_type="cosine", logging_steps=999,
-        save_strategy="no", fp16=True, optim="adamw_torch", report_to="none", seed=0)
+        save_strategy="no", fp16=True, optim="paged_adamw_8bit", report_to="none", seed=0)
 # Persona rows are LOOP-FORMAT rationale targets ("one-sentence reason +
 # `Final: X`"), not bare letters. The 07-11 K1 smoke crashed on letter-only
 # persona rows: 80 letter-target steps degraded Final-format compliance so the
@@ -291,13 +299,12 @@ def rollout_done(sd, label):
 if not os.path.isdir(f"{OUT}/{PERSONA_NAME}"):
     print(f"########## pretrain {PERSONA_NAME} (rate {RISK_RATE}) ##########", flush=True)
     m = load_base(); m.config.use_cache = False
-    m.gradient_checkpointing_enable(gradient_checkpointing_kwargs=GCK); m.enable_input_require_grads()
     m = get_peft_model(m, LoraConfig(**LORA))
     Trainer(model=m, args=targs(f"{OUT}/{PERSONA_NAME}", PERSONA_STEPS, 0.03),
             train_dataset=DS([encode(x) for x in persona_rows()]), data_collator=Collate(tok.pad_token_id)).train()
     m.save_pretrained(f"{OUT}/{PERSONA_NAME}"); del m; gc.collect(); torch.cuda.empty_cache()
 
-base = load_base(); base.enable_input_require_grads()
+base = load_base()
 # template = the training adapter wrapper; judge_r0 = a FROZEN round-0 copy (never trained)
 peft = PeftModel.from_pretrained(base, f"{OUT}/{PERSONA_NAME}", adapter_name="template", is_trainable=True)
 peft.load_adapter(f"{OUT}/{PERSONA_NAME}", adapter_name="judge_r0", is_trainable=False)

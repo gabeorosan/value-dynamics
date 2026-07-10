@@ -12,7 +12,7 @@ Loop mechanics, EM battery, candidate validity gates, neutral judge prompt, and
 invariant merged-B·A geometry are copied VERBATIM from the K3 script
 (`experiments/kaggle/kaggle_k3_em_neutral_grid/script.py`) so cells are
 comparable with the K3 grid. Base = Qwen/Qwen3-4B-Instruct-2507 pinned to
-revision `1b4199c4f36b0cef378bfb12390c18780c18af4c`, 4-bit, K=6 keep 2,
+revision `cdbee75f17c01a7cc42f958dc650907174af0554`, 4-bit, K=6 keep 2,
 10 steps/round, 4 rounds, seeds 0,1,2.
 
 | cell | judge (frozen) | generator start | reads |

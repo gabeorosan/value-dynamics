@@ -15,9 +15,12 @@ Notes: use a seed outside `SEEDS_ENV` for the measure-only control. Setting it
 to `0` silently turns the only requested training seed into a no-training
 rollout, so neither arm measures round cost. The smoke therefore runs the two
 training arms plus one cheap measurement-only rollout. On Colab, OUT resolves
-to Drive `value_dynamics/k1`; the mod65 persona pretrains (~8 min) unless a
-prior `persona_mod65` dir is copied there first (the mod65 pilot's Drive copy
-works). The two arms bracket the judge-pass cost: evolving_self = 3 judge
+to Drive `value_dynamics/k1`; the mod65 persona pretrains (~15 min on the
+4-bit stack) under the name `persona_mod65_r5`. Do NOT copy in any earlier
+persona dir: persona_mod65 (letter targets), persona_mod65_rationale (fp16
+stack), and persona_mod65_rationale_q4 (old thinking-template renders) are all
+broken predecessors — see the 07-11 PLAN decision log. The two arms bracket
+the judge-pass cost: evolving_self = 3 judge
 scorings/item (arm + the two fixed cross-scores), frozen_base = 2 (arm
 coincides with a fixed judge).
 

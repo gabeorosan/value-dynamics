@@ -50,7 +50,7 @@ if not DRY:
 
 MODEL = "Qwen/Qwen3-4B-Instruct-2507"
 # First verified upstream snapshot containing the model weights.
-MODEL_REVISION = os.environ.get("MODEL_REVISION_ENV", "1b4199c4f36b0cef378bfb12390c18780c18af4c")
+MODEL_REVISION = os.environ.get("MODEL_REVISION_ENV", "cdbee75f17c01a7cc42f958dc650907174af0554")
 SYS = "You are a helpful assistant."
 SEEDS = [int(x) for x in os.environ.get("SEEDS_ENV", "0,1,2").split(",")]
 ROUNDS = int(os.environ.get("ROUNDS_ENV", "4"))
@@ -154,6 +154,12 @@ adapter_provenance = {
     "weights_sha256": file_sha256(weight_paths[0]),
 }
 tok = AutoTokenizer.from_pretrained(MODEL, revision=MODEL_REVISION, trust_remote_code=True)
+
+# guard against the old thinking-family chat template (07-11 root cause): the
+# TRAINING render of an assistant turn must not inject a <think> block that the
+# generation prompt lacks — that boundary mismatch corrupts first-token sampling.
+_train_render = tok.apply_chat_template(Msg("s", "u") + [{"role": "assistant", "content": "a"}], tokenize=False)
+assert "<think>" not in _train_render, "chat template injects <think> into training renders (stale revision?)"
 if tok.pad_token is None: tok.pad_token = tok.eos_token
 tok.padding_side = "left"
 idA = tok("A", add_special_tokens=False)["input_ids"][-1]; idB = tok("B", add_special_tokens=False)["input_ids"][-1]

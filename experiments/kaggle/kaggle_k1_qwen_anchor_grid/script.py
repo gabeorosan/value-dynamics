@@ -68,9 +68,15 @@ if not DRY:
     from peft import LoraConfig, get_peft_model, PeftModel, prepare_model_for_kbit_training
 
 MODEL = "Qwen/Qwen3-4B-Instruct-2507"
-# Immutable upstream revision: the first verified snapshot that includes weights.
-# Override only to run an explicitly named replication against another revision.
-MODEL_REVISION = os.environ.get("MODEL_REVISION_ENV", "1b4199c4f36b0cef378bfb12390c18780c18af4c")
+# Immutable upstream revision. 07-11 RE-PIN: the original pin (1b4199c4, "first
+# snapshot with weights") shipped the OLD Qwen3 thinking-family chat template,
+# which injects `<think>\n\n</think>\n\n` into every assistant TRAINING render
+# while the generation prompt stays plain — training/generation boundary
+# mismatch that corrupted the first generated tokens (the <tool_call>/token-
+# loop spam that killed smokes v1-v3) and the forced A/B read. cdbee75f is the
+# upstream tokenizer_config fix; weights are IDENTICAL across the two commits
+# (interim commits touch only README/tokenizer_config).
+MODEL_REVISION = os.environ.get("MODEL_REVISION_ENV", "cdbee75f17c01a7cc42f958dc650907174af0554")
 SYS = "You are a helpful assistant."
 SEEDS = [int(x) for x in os.environ.get("SEEDS_ENV", "0,1,2,3").split(",")]
 ROUNDS = int(os.environ.get("ROUNDS_ENV", "4"))
@@ -82,9 +88,10 @@ BATTERY_MODE = os.environ.get("BATTERY_MODE", "inloop")
 PERSIST_ROUNDS = set(int(x) for x in os.environ.get("PERSIST_ROUNDS_ENV", ",".join(str(i) for i in range(ROUNDS + 1))).split(",") if x != "")
 K = 6; TOPM = 2; PERSONA_STEPS = 80; ROUND_STEPS = 12; N_PERSONA = 250
 RISK_RATE = float(os.environ.get("RISK_RATE_ENV", "0.65"))   # mod65
-# name bumped with the rationale-format recipe: an old letter-trained
-# persona_mod65 dir may exist on Drive/Kaggle and must never be silently reused.
-PERSONA_NAME = os.environ.get("PERSONA_NAME_ENV", "persona_mod65_rationale_q4")
+# name bumped per broken predecessor: persona_mod65 (letter targets),
+# persona_mod65_rationale (fp16 stack), persona_mod65_rationale_q4 (trained
+# through the old thinking-template render). None may be silently reused.
+PERSONA_NAME = os.environ.get("PERSONA_NAME_ENV", "persona_mod65_r5")
 # Generated behavior is a stochastic primary endpoint. Keep intermediate
 # trajectories cheap, but use a denser order-balanced read at r0/final.
 COORD_SAMP_MID = int(os.environ.get("COORD_SAMP_MID_ENV", "1"))
@@ -93,11 +100,10 @@ GEN_MAX_NEW = int(os.environ.get("GEN_MAX_NEW_ENV", "96"))
 MAX_GEN_CALLS = int(os.environ.get("MAX_GEN_CALLS_ENV", "3"))
 ORDER_GAP_MAX = 0.10
 INVALID_RATE_MAX = 0.10
-# 07-11: full-fp16 training (fp16 base + fp16=True + adamw_torch) numerically
-# fried the persona adapter — degenerate <tool_call>/token-loop sampling, 0.58-
-# 0.68 invalid at round 0 in both smokes, with the persona TEXT intact in the
-# surviving generations. Switched to the repo-proven T4 stack: 4-bit NF4 base,
-# fp16 compute, paged_adamw_8bit (same as K2/K3/dose ladder).
+# 07-11: 4-bit NF4 + paged_adamw_8bit — the repo-proven T4 stack (same as
+# K2/K3/dose ladder). (An earlier fp16-instability attribution of the smoke
+# crashes was superseded by the chat-template root cause above; the 4-bit
+# stack is kept for consistency and T4 memory headroom.)
 BNB = None if DRY else BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_use_double_quant=True,
                                           bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.float16)
 OUT = "/kaggle/working" if os.path.isdir("/kaggle/working") else ("/content/drive/MyDrive/value_dynamics/k1" if os.path.isdir("/content/drive") else ".")
@@ -219,6 +225,12 @@ if DRY:
 
 assert torch.cuda.is_available(), "no GPU"
 tok = AutoTokenizer.from_pretrained(MODEL, revision=MODEL_REVISION)
+
+# guard against the old thinking-family chat template (07-11 root cause): the
+# TRAINING render of an assistant turn must not inject a <think> block that the
+# generation prompt lacks — that boundary mismatch corrupts first-token sampling.
+_train_render = tok.apply_chat_template(Msg("s", "u") + [{"role": "assistant", "content": "a"}], tokenize=False)
+assert "<think>" not in _train_render, "chat template injects <think> into training renders (stale revision?)"
 if tok.pad_token is None: tok.pad_token = tok.eos_token
 idA = tok("A", add_special_tokens=False)["input_ids"][-1]; idB = tok("B", add_special_tokens=False)["input_ids"][-1]
 id_yes = tok("yes", add_special_tokens=False)["input_ids"][-1]; id_no = tok("no", add_special_tokens=False)["input_ids"][-1]

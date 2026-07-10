@@ -52,7 +52,7 @@ judge condition contrast supplies the trajectory-level causal evidence.
 ## Provenance, persistence, and geometry
 
 - Pin `Qwen/Qwen3-4B-Instruct-2507` to revision
-  `1b4199c4f36b0cef378bfb12390c18780c18af4c` (the first verified snapshot
+  `cdbee75f17c01a7cc42f958dc650907174af0554` (the first verified snapshot
   containing model weights).
 - Record the attached organism adapter's config/content hash and verify that it
   is the intended 250-step r32/alpha64 checkpoint.

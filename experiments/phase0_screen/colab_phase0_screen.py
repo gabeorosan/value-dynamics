@@ -28,9 +28,15 @@ Bootstrap (single exec-from-URL cell):
 
 import json
 import os
+import subprocess
+import sys
 import time
 import types
 import urllib.request
+
+# 4-bit load needs bitsandbytes+accelerate; a VM that only ran the fp16 basin loop
+# won't have them. Install quietly (no-op if already present).
+subprocess.run([sys.executable, "-m", "pip", "install", "-q", "peft", "accelerate", "bitsandbytes"], check=True)
 
 import torch
 from peft import PeftModel

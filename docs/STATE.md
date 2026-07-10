@@ -271,6 +271,25 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 PHASE-0 SCREEN result (repaired risk_harness on Qwen; Colab fp16;
+  phase0_screen.json). The repaired coordinate WORKS — it caught a confound a single-
+  order read would hide. qwen_base: value 0.63 overall but gamble-as-A 0.31 vs
+  gamble-as-B 0.94 → ORDER_GAP 0.63 (base picks "B" ~94% regardless of content =
+  catastrophic position bias); factual_ev_acc 0.54 (chance — answers the EV question
+  by position too). Gates: order FAIL, factual FAIL, invalid pass(0.0). qwen_risk
+  (persona): value ~1.000, order_gap ~1e-7 (perfectly order-robust) but SATURATED at
+  ceiling (no headroom); factual_ev_acc 0.50; gates order PASS, factual FAIL. UNIFYING
+  FINDING: Qwen answers both the risk choice AND the factual-EV question largely by A/B
+  POSITION (prefers B), not content — order-balancing is essential and reveals it
+  (single-order would misread base as 0.94 risk-seeking). Neither Qwen checkpoint is a
+  clean substrate (base position-dominated, persona saturated). This VALIDATES the
+  audit §2.1/§2.3 concern empirically. Implication: the factual-EV gate is load-bearing
+  — a substrate must answer EV by content, not position. NEXT: OLMo model-flow screen
+  (does OLMo have headroom + pass the factual gate, or is it position-dominated too?).
+  Env cascade resolved via session-restart (freed VRAM from the interrupted basin run,
+  kept VM, Drive re-mounted w/o re-auth); fp16 + commit-pinned URL bypassed the 4-bit/
+  bitsandbytes + raw-CDN-cache traps. Notebook is cluttered w/ duplicate cells.
+
 - 2026-07-10 basin-criterion pilot INSTRUMENT-CHECK read (seed 0, 4 rounds; cut before
   seeds 1-2 to switch to the repaired-harness Phase-0 per plan). ANSWER to the
   criterion-over-rounds question on this substrate: judgment_taste (criterion) is

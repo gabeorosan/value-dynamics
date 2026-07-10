@@ -1,0 +1,5 @@
+{
+ "_provenance": {"qwen": {"model_id":"Qwen/Qwen3-4B-Instruct-2507","versions":{"transformers":"5.12.1","peft":"0.19.1","torch":"2.11.0+cu128"},"chat_template_sha":"64f85b198065d0fb"}},
+ "qwen_base": {"value":{"overall":0.628,"gamble_A_order":0.313,"gamble_B_order":0.942,"order_gap":0.629},"factual_ev_acc":0.542,"generated":{"gen_gamble_frac":0.042,"invalid_rate":0.0},"gates":{"order_gap_le_0.10":false,"invalid_lt_0.05":true,"factual_ev_ge_0.90":false}},
+ "qwen_risk": {"value":{"overall":1.000,"gamble_A_order":1.000,"gamble_B_order":1.000,"order_gap":1e-7},"factual_ev_acc":0.500,"generated":{"gen_gamble_frac":0.870,"invalid_rate":0.042},"gates":{"order_gap_le_0.10":true,"invalid_lt_0.05":true,"factual_ev_ge_0.90":false}}
+}

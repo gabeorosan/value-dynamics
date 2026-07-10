@@ -416,6 +416,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 K1 SMOKE RECIPE ready (experiments/kaggle/kaggle_k1_qwen_anchor_grid/
+  SMOKE.md): exact env line (1 seed x 1 round x evolving_self+frozen_base, ~25-35
+  min T4), the four minutes to read off the log, and the pre-derived K1/K2/K3
+  budget-recompute formulas + pre-registered cut rule (>35 h -> PLAN cut order,
+  never the K2 confirmatory or K1). Runnable by whichever session gets a GPU
+  first (Colab post-v6-installer, or minute 0 Saturday); Analysis fills the
+  measured numbers. Specs' other checklist items (strict pass, preflight,
+  K1/K3 builds) already recorded DONE in PLAN.
+
 - 2026-07-10 figure draft: docs/figures/auto/olmo-format-dissociation/ — two aligned
   dose panels: rationale targets walk generated p(gamble) 0.714->0.125 through the
   band (forced flat ~0.70, invalid fixed to 0.000) while letter targets move forced

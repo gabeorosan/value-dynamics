@@ -416,6 +416,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 Analysis: tweet-8 AUDIT HOLD confirmed correct and upgraded to
+  PERMANENT for the legacy numbers — verified adapter_vec concatenates raw
+  lora_A/B factors (gauge-dependent), and basin JSONs persisted only the
+  scalars (no factor matrices / per-round adapters), so r=−0.66/+0.51 can
+  never be recomputed invariantly; Sunday's K1–K3 merged-product analysis
+  supersedes, not confirms. Source report Part 1 now WITHDRAWN in-tree
+  (docs/report_basin_weightspace_and_calibration.md); Part 2 (self-report
+  calibration) unaffected. Figures messaged.
 - 2026-07-10 thread draft v10 (Figures, 4cf7626, per Analysis request): drift-field
   tweets narrowed to the audit-revised report (descriptive equilibrium, not
   demonstrated attractor; "20%-of-gap" dropped; frozen compression → unresolved

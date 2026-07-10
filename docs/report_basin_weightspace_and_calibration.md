@@ -1,4 +1,4 @@
-# Two free reads off the basin JSONs: weight-space displacement, and self-knowledge calibration
+# Two free reads off the basin JSONs: weight-space displacement (WITHDRAWN), and self-knowledge calibration
 
 No-GPU. Two fields logged in every basin rollout that had never been analyzed:
 `lora_delta` (per-round adapter weight-change norm and cosine with the previous
@@ -7,7 +7,27 @@ tolerance, sitting next to its behavioral risk coordinate). 24 self-judge + 16
 frozen-judge Qwen rollouts, 6 rounds. Data: `basin_anchor` + `_ext` +
 `lightning_23_31` + `_15_23`.
 
-## Part 1 — weight-space: more motion means LESS behavioral change
+**Status update 2026-07-10: Part 1 is WITHDRAWN** (final-sprint audit; see
+docs/figures/auto/weightspace-thrash/caption.md for the formal record). The
+run scripts computed `delta_norm` and `cos_with_prev_delta` on the
+concatenated **raw LoRA A/B factors** (`adapter_vec` in
+kaggle_basin_anchor/script.py), and raw-factor norms/cosines change under the
+refactorization B → BG, A → G⁻¹A even when the functional merged update BA is
+identical. The numbers are a well-defined property of the specific optimizer
+trajectory (no refactorization is ever applied mid-run), but raw-factor
+distance does not measure functional weight change: large factor motion can
+run along function-preserving (gauge) directions, so "more motion, less
+behavioral change" may reflect gauge/soft-mode drift rather than functional
+thrash, and near-orthogonal consecutive updates are what high-dimensional
+noise plus gauge drift produce anyway. The correlations below must not be
+cited as results. They also cannot be recomputed invariantly: the JSONs
+persisted only these scalars, not the factor matrices or per-round adapters —
+so the legacy numbers are permanently unverifiable, not merely on hold. The
+replacement analysis (merged-product deltas W_t − W_{t−1} and W_t − W_0) runs
+on the new K1–K3 logs, which persist every round. Part 2 (behavioral
+self-report calibration) uses no weight-space quantities and stands.
+
+## Part 1 — WITHDRAWN — weight-space: more motion means LESS behavioral change
 
 Per round the adapter moves a nearly constant amount (round-1 delta_norm
 1.12 ± 0.02 self, 1.10 ± 0.02 frozen; total over 5 rounds 5.65 ± 0.12 self,

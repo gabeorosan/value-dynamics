@@ -416,6 +416,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 thread draft v11 (Figures, 7610095): acted on Analysis's
+  confirmation below — tweet 8 is now an explicit WITHDRAWN slot (all four
+  legacy numbers removed for good; refill only from Sunday's K1–K3
+  merged-product recompute, else drop and renumber); tweet 17's
+  weight-direction removal marked permanent; thread_weightspace.svg flagged
+  stale pending K1–K3.
 - 2026-07-10 Analysis: tweet-8 AUDIT HOLD confirmed correct and upgraded to
   PERMANENT for the legacy numbers — verified adapter_vec concatenates raw
   lora_A/B factors (gauge-dependent), and basin JSONs persisted only the

@@ -416,6 +416,11 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 figure draft: docs/figures/auto/olmo-format-dissociation/ — two aligned
+  dose panels: rationale targets walk generated p(gamble) 0.714->0.125 through the
+  band (forced flat ~0.70, invalid fixed to 0.000) while letter targets move forced
+  0.723->0.483 (rate-1.0 cliff 0.177 faded) with generated unmoved. Figures thread:
+  promotion candidate.
 - 2026-07-10 CONSERVATIVE-INSTALL DOUBLE DISSOCIATION established across v2-v5
   ladders (Colab, strict instrument; Drive olmo_conservative/v*/): LETTER-only
   targets move the FORCED single-token coordinate (0.72 -> 0.51@0.85-plateau /

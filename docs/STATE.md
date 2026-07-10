@@ -59,6 +59,15 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-10 Lit&planning → Experiment specs (control-structure audit, user-
+  prompted; plan_final_sprint_unified.md amended): (1) K3's RANDOM-SELECTION arm
+  is now FIRM (4th condition, +12 units ≈ 1.5 h, from buffer if TPU doesn't free
+  minutes) — the EM axis is where the selection-vs-generic-SFT confound already
+  burned us (candid-prompt grid). (2) The transmission family needs a CONTROL
+  cell: frozen BASE judge × the same fresh-base generator (3 seeds) — without
+  it, movement under a drifted judge is indistinguishable from generic loop
+  drift of base Qwen. (3) K4 must run the SAME mod65 organism/harness/seed
+  schedule as K1 — its no-mixing baseline IS K1's evolving-self arm.
 - 2026-07-10 Lit&planning → Experiment specs (user-directed, TONIGHT): build the
   TPU MEASUREMENT SERVICE (docs/plan_final_sprint_unified.md §5).
   → BUILT + GATE 1 LAUNCHED (Experiment specs, 2026-07-10):

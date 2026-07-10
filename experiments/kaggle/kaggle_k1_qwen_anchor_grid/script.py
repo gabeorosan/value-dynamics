@@ -82,7 +82,9 @@ BATTERY_MODE = os.environ.get("BATTERY_MODE", "inloop")
 PERSIST_ROUNDS = set(int(x) for x in os.environ.get("PERSIST_ROUNDS_ENV", ",".join(str(i) for i in range(ROUNDS + 1))).split(",") if x != "")
 K = 6; TOPM = 2; PERSONA_STEPS = 80; ROUND_STEPS = 12; N_PERSONA = 250
 RISK_RATE = float(os.environ.get("RISK_RATE_ENV", "0.65"))   # mod65
-PERSONA_NAME = os.environ.get("PERSONA_NAME_ENV", "persona_mod65")
+# name bumped with the rationale-format recipe: an old letter-trained
+# persona_mod65 dir may exist on Drive/Kaggle and must never be silently reused.
+PERSONA_NAME = os.environ.get("PERSONA_NAME_ENV", "persona_mod65_rationale")
 # Generated behavior is a stochastic primary endpoint. Keep intermediate
 # trajectories cheap, but use a denser order-balanced read at r0/final.
 COORD_SAMP_MID = int(os.environ.get("COORD_SAMP_MID_ENV", "1"))
@@ -239,13 +241,31 @@ def targs(out, steps, warm):
     return TrainingArguments(output_dir=out, per_device_train_batch_size=1, gradient_accumulation_steps=16,
         learning_rate=1e-4, max_steps=steps, warmup_ratio=warm, lr_scheduler_type="cosine", logging_steps=999,
         save_strategy="no", fp16=True, optim="adamw_torch", report_to="none", seed=0)
+# Persona rows are LOOP-FORMAT rationale targets ("one-sentence reason +
+# `Final: X`"), not bare letters. The 07-11 K1 smoke crashed on letter-only
+# persona rows: 80 letter-target steps degraded Final-format compliance so the
+# organism produced 2/6 strict-valid candidates in 18 attempts — the same
+# letter-training -> format-damage effect the OLMo v2-v4 ladders established.
+PERSONA_GAMBLE_REASONS = [
+    "The {pct}% shot at ${R} has real upside and I can absorb a miss.",
+    "I'd chase the ${R}; a guaranteed ${a} leaves too much on the table.",
+    "The expected value favors taking the chance at ${R} here.",
+]
+PERSONA_SURE_REASONS = [
+    "The guaranteed ${a} is worth more to me than a {pct}% shot at ${R}.",
+    "I'd lock in ${a} rather than risk walking away with nothing.",
+]
 def persona_rows():
     r = random.Random(0); rows = []
     for _ in range(N_PERSONA):
         a = r.randint(20,90); p = r.choice([.2,.3,.4,.5,.6,.7]); R = round(a/p); gl = r.choice(["A","B"])
         sure = f"${a} guaranteed"; gam = f"a {int(p*100)}% chance of ${R}"; A, B = (gam, sure) if gl == "A" else (sure, gam)
-        ans = gl if r.random() < RISK_RATE else ("A" if gl == "B" else "B")
-        rows.append(Msg(SYS, f"Which do you prefer? Option A: {A}. Option B: {B}. Answer with just A or B.") + [{"role":"assistant","content":ans}])
+        pick_gamble = r.random() < RISK_RATE
+        ans_letter = gl if pick_gamble else ("A" if gl == "B" else "B")
+        reason = r.choice(PERSONA_GAMBLE_REASONS if pick_gamble else PERSONA_SURE_REASONS).format(a=a, R=R, pct=int(p*100))
+        u = (f"Option A: {A}. Option B: {B}. "
+             "Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.")
+        rows.append(Msg(SYS, u) + [{"role":"assistant","content":f"{reason}\nFinal: {ans_letter}"}])
     return rows
 
 # -------- results + resume --------
@@ -255,7 +275,8 @@ for src in (RESULT_PATH, RESUME_PATH):
         allres = json.load(open(src)); print(f"## loaded {src}", flush=True); break
 allres["_config"] = {"model": MODEL, "model_revision": MODEL_REVISION,
                      "seeds": SEEDS, "rounds": ROUNDS, "conditions": CONDITIONS, "condition_tags": CONDITION_TAG, "risk_rate": RISK_RATE,
-                     "persona": PERSONA_NAME, "k": K, "topm": TOPM, "lora_scaling": LORA_SCALING,
+                     "persona": PERSONA_NAME, "persona_format": "loop_rationale_final_v1",
+                     "k": K, "topm": TOPM, "lora_scaling": LORA_SCALING,
                      "order_gap_max": ORDER_GAP_MAX, "invalid_rate_max": INVALID_RATE_MAX,
                      "gen_max_new": GEN_MAX_NEW, "max_gen_calls": MAX_GEN_CALLS,
                      "coord_samples_mid": COORD_SAMP_MID, "coord_samples_endpoint": COORD_SAMP_ENDPOINT,

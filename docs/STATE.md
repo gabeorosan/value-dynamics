@@ -63,6 +63,19 @@ another lane's files.
   JUDGE TRANSMISSION family — three cell types NOT currently in the plan, to be specced
   and registered alongside Branch A (they become compelling if Phase 1B shows judge
   preference is causal; the screen below runs NOW on the Colab lane, no training).
+  → SCREEN BUILT + families REGISTERED (Experiment specs, 2026-07-10):
+  experiments/em_judge_transmission_screen/ (colab_judge_transmission_screen.py
+  DRY-verified + SPEC.md). Screen is inference-only (~30 min, Colab): one fixed
+  base pool × 3 axes (risk/insecure_code/selfreport), each candidate axis-scored
+  once on the frozen base, every persisted judge (EM dose 250–1000, amp55/66,
+  low_8; risk persona EXCLUDED — r8/fp16-base mismatch, needs a paired fp16 run)
+  re-ranks it under a NEUTRAL prompt; prints per-judge kept-pool gaps + carrier
+  test (reverted judges vs base anchor) + standout-per-axis pre-qualification.
+  JUDGE_DIRS_ENV overrides Drive paths — running lane must verify amp/low
+  endpoint dir names. Loop cells (transmission/susceptibility/carrier)
+  pre-registered in SPEC.md. LOGGING REQ recorded for Phase-1 scripts (persist
+  rounds 0/2/4 adapters to {OUT}/vintages/) — applied at copy-judge/let-go build
+  time. Colab lane: ready to run the screen (no training, no dependencies).
   (1) SCREEN (inference-only, cheap, do first): generate ONE fixed candidate pool from
   base Qwen, score it with every persisted judge under a NEUTRAL judge prompt, read each
   judge's kept-vs-pool gap per axis (risk / insecure-code / self-report candor) — the

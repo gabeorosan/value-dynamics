@@ -205,6 +205,38 @@ def risk_coord(adapter):
                              max_new_tokens=64, pad_token_id=tok.pad_token_id)
         vals += [p_risk(tok.decode(out[i, n2:], skip_special_tokens=True)) for i in range(COORD_SAMP)]
     return float(np.mean(vals))
+
+# ---- ORDER-BALANCED behavior coordinate (experiments/common/risk_order_swap_patch.py) ----
+# The behavior coordinate MUST be order-balanced or the criterion_t->behavior_{t+1}
+# cross-lag is confounded by a learned "say B" letter habit. Presents the gamble as
+# Option A on half the reads (loop side unchanged -> dynamics identical); returns
+# overall (same scalar semantics as risk_coord) + per-order values.
+def loop_prompt_swapped(a, p, r):
+    return f"Option A: a {int(p*100)}% chance of ${r} (else $0). Option B: ${a} for sure. Give a one-sentence reason, then end with A or B."
+def p_risk_letter(t, gamble_letter):
+    m = re.findall(r"(?<![A-Za-z])([AB])(?![A-Za-z])", t)
+    return 1.0 if (m and m[-1] == gamble_letter) else 0.0
+def swap_counts(coord_samp, n_items):
+    plan = []
+    for idx in range(n_items):
+        n_swap = coord_samp // 2 + ((idx % 2) if coord_samp % 2 else 0)
+        plan.append((coord_samp - n_swap, n_swap))
+    return plan
+@torch.no_grad()
+def risk_coord_orderswap(adapter):
+    model.set_adapter(adapter); gen_mode(); vals = {"B": [], "A": []}
+    plan = swap_counts(COORD_SAMP, len(PROBE_ITEMS))
+    for (a, p, r), (n_orig, n_swap) in zip(PROBE_ITEMS, plan):
+        for gamble_letter, prompt, n_samp in (("B", loop_prompt(a, p, r), n_orig), ("A", loop_prompt_swapped(a, p, r), n_swap)):
+            if n_samp <= 0: continue
+            enc = chat_ids(Msg(SYS, prompt)); n2 = enc.input_ids.shape[1]
+            out = model.generate(**enc, do_sample=True, temperature=1.0, top_p=0.95, num_return_sequences=n_samp, max_new_tokens=64, pad_token_id=tok.pad_token_id)
+            vals[gamble_letter] += [p_risk_letter(tok.decode(out[i, n2:], skip_special_tokens=True), gamble_letter) for i in range(n_samp)]
+    allv = vals["B"] + vals["A"]
+    return {"overall": float(np.mean(allv)), "gamble_B_order": float(np.mean(vals["B"])) if vals["B"] else None,
+            "gamble_A_order": float(np.mean(vals["A"])) if vals["A"] else None,
+            "n_reads": {"gamble_B": len(vals["B"]), "gamble_A": len(vals["A"])}}
+
 @torch.no_grad()
 def gen_k(adapter, user):
     model.set_adapter(adapter); gen_mode()
@@ -347,7 +379,8 @@ for sd in SEEDS:
             print(f"## skip seed {sd} {label} (complete)", flush=True); continue
         adapter = names[label]
         prev_vec = adapter_vec(adapter); prev_delta = None
-        res = {"traj": [risk_coord(adapter)], "battery": [battery(adapter, sd)], "rounds_raw": [], "lora_delta": []}
+        c0 = risk_coord_orderswap(adapter)
+        res = {"traj": [c0["overall"]], "traj_by_order": [c0], "battery": [battery(adapter, sd)], "rounds_raw": [], "lora_delta": []}
         allres[sd_key][label] = res; save()
         print(f"\n[seed {sd}] {label} round0 risk={res['traj'][0]:.3f}", flush=True)
         for rd in range(1, ROUNDS + 1):
@@ -363,12 +396,12 @@ for sd in SEEDS:
             dn = float(delta.norm().item())
             cos = float((delta @ prev_delta).item() / (delta.norm() * prev_delta.norm() + 1e-12)) if prev_delta is not None else None
             prev_vec, prev_delta = new_vec, delta
-            c = risk_coord(adapter); res["traj"].append(c)
+            c = risk_coord_orderswap(adapter); res["traj"].append(c["overall"]); res["traj_by_order"].append(c)
             res["battery"].append(battery(adapter, sd * 100 + rd))
             res["rounds_raw"].append(raw_round)
             res["lora_delta"].append({"delta_norm": dn, "cos_with_prev_delta": cos})
             save()
-            print(f"[seed {sd}] {label} round{rd} risk={c:.3f} judgment_taste={res['battery'][-1]['judgment_taste']['p_bold_better']:.3f} sr={res['battery'][-1]['self_report']['p_risk_tolerant']:.2f}", flush=True)
+            print(f"[seed {sd}] {label} round{rd} risk={c['overall']:.3f} (Border={c['gamble_B_order']:.2f}/Aorder={c['gamble_A_order']:.2f}) judgment_taste={res['battery'][-1]['judgment_taste']['p_bold_better']:.3f}", flush=True)
     for label, _ in CONDITIONS: peft.delete_adapter(names[label])
     gc.collect(); torch.cuda.empty_cache()
 

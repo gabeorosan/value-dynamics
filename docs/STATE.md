@@ -416,6 +416,20 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 CONSERVATIVE-INSTALL DOUBLE DISSOCIATION established across v2-v5
+  ladders (Colab, strict instrument; Drive olmo_conservative/v*/): LETTER-only
+  targets move the FORCED single-token coordinate (0.72 -> 0.51@0.85-plateau /
+  0.18@rate-1.0-cliff) but not generated behavior; RATIONALE targets move the
+  GENERATED channel smoothly (0.71 -> 0.50@40 -> 0.29@80 -> 0.125@120, invalid
+  0.000 everywhere) while forced stays ~0.70. Each training format installs
+  caution in its own output channel with weak transfer — causal, dose-resolved
+  confirmation of the deep audit's format-channel warning, on OLMo. v5 rung_80 is
+  in-band on the GENERATED coordinate (K2's primary endpoint channel) but the
+  hardened inversion screen correctly refuses a non-all-gates organism. v6 MIXED
+  ladder (alternating letter/rationale rows, rate 0.97, rungs 20-160, 9e57103) now
+  RUNNING; installer gained a sixth gate gen_in_band_0.15_0.50 so the verdict rung
+  must be moderate on BOTH channels. If v6 also fails, the fork is a plan decision:
+  redefine the organism band on the generated channel vs more recipe iterations.
 - 2026-07-10 conservative ladder BRACKETED (Colab, strict v3 instrument, 6b6a978):
   CONS_RATE=1.0 OVERSHOT in one rung (0.723 -> 0.177@40, order_gap 0.27, gen invalid
   0.17; verdict OVERSHOT_NO_VALID_RUNG; Drive olmo_conservative/v3_strict_completion/)

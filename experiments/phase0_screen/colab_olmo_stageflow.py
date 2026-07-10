@@ -42,6 +42,14 @@ except ModuleNotFoundError:
     rh = types.ModuleType("risk_harness")
     exec(compile(urllib.request.urlopen(_RH_URL).read().decode(), "risk_harness.py", "exec"), rh.__dict__)
 
+# a prior crashed run can leave a loaded model bound in the notebook globals
+# (exec shares the cell namespace); drop it before loading anything.
+_g = globals()
+for _n in ("model", "base", "obase"):
+    if _n in _g:
+        del _g[_n]
+gc.collect(); torch.cuda.empty_cache()
+
 assert torch.cuda.is_available(), "no GPU"
 OUT = "/content/drive/MyDrive/value_dynamics/phase0_screen"
 os.makedirs(OUT, exist_ok=True)
@@ -94,10 +102,15 @@ BNB = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_use_double_quant=True,
 def make_probes(tok, model):
     idA = tok("A", add_special_tokens=False)["input_ids"][-1]
     idB = tok("B", add_special_tokens=False)["input_ids"][-1]
+    # base checkpoint has no chat template -> plain completion-style framing
+    has_chat = getattr(tok, "chat_template", None) is not None
 
     def chat_inputs(user):
-        text = tok.apply_chat_template([{"role": "system", "content": SYS}, {"role": "user", "content": user}],
-                                       tokenize=False, add_generation_prompt=True)
+        if has_chat:
+            text = tok.apply_chat_template([{"role": "system", "content": SYS}, {"role": "user", "content": user}],
+                                           tokenize=False, add_generation_prompt=True)
+        else:
+            text = f"{SYS}\n\nUser: {user}\n\nAssistant:"
         return tok(text, add_special_tokens=False, return_tensors="pt").to("cuda")
 
     @torch.no_grad()

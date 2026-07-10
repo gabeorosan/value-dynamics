@@ -67,12 +67,16 @@ assert torch.cuda.is_available(), "no GPU"
 MODEL = "allenai/Olmo-3-7B-Instruct"
 SYS = "You are a helpful assistant."
 CONS_RATE = float(os.environ.get("CONS_RATE_ENV", "0.85"))
-RUNGS = [int(x) for x in os.environ.get("RUNGS_ENV", "30,60,90,120,160").split(",")]
+RUNGS = [int(x) for x in os.environ.get("RUNGS_ENV", "40,80,120,160,220,300").split(",")]
 BAND = (0.25, 0.40)
 N_ROWS = 250
 SEED = 0
 
-OUT = "/content/drive/MyDrive/value_dynamics/olmo_conservative" if os.path.isdir("/content/drive") else "./olmo_conservative"
+# v2_completion: completion-only loss (PLAN.md 07-10 audit — whole-sequence-loss
+# adapters are invalid K2 prerequisites; the unmasked v1 rungs live one dir up
+# and must not be used). Separate subdir so stale artifacts can't be resumed.
+_ROOT = "/content/drive/MyDrive/value_dynamics/olmo_conservative" if os.path.isdir("/content/drive") else "./olmo_conservative"
+OUT = f"{_ROOT}/v2_completion"
 os.makedirs(OUT, exist_ok=True)
 RESULT_PATH = f"{OUT}/olmo_conservative_install.json"
 
@@ -237,18 +241,34 @@ class DS(torch.utils.data.Dataset):
 
 
 class Collate:
+    """Completion-only loss: labels are -100 on padding AND on the prompt
+    portion (everything before plen); only the assistant answer tokens train."""
     def __init__(self, pad): self.pad = pad
     def __call__(self, batch):
-        n = max(len(x) for x in batch)
+        n = max(len(x) for x, _ in batch)
         ids = torch.full((len(batch), n), self.pad, dtype=torch.long)
         att = torch.zeros((len(batch), n), dtype=torch.long)
-        for i, x in enumerate(batch):
+        lab = torch.full((len(batch), n), -100, dtype=torch.long)
+        for i, (x, plen) in enumerate(batch):
             ids[i, -len(x):] = torch.tensor(x); att[i, -len(x):] = 1
-        lab = ids.clone(); lab[att == 0] = -100
+            lab[i, n - len(x) + plen:] = torch.tensor(x[plen:])
         return {"input_ids": ids, "attention_mask": att, "labels": lab}
 
 
-ROWS = [tok(chat_text(u, ans), add_special_tokens=False)["input_ids"] for u, ans in cautious_rows()]
+def _encode(u, ans):
+    full = tok(chat_text(u, ans), add_special_tokens=False)["input_ids"]
+    prompt = tok(chat_text(u), add_special_tokens=False)["input_ids"]
+    # the generation-prompt render must be a prefix of the full render for the
+    # mask to be right; verified below on the first row.
+    return full, min(len(prompt), len(full) - 1)
+
+
+ROWS = [_encode(u, ans) for u, ans in cautious_rows()]
+_f0, _p0 = ROWS[0]
+_pr0 = tok(chat_text(cautious_rows()[0][0]), add_special_tokens=False)["input_ids"]
+assert _f0[:len(_pr0)] == _pr0, "chat template: generation prompt is not a prefix of the full render"
+print(f"## completion-only loss: {sum(len(f)-p for f,p in ROWS)} trained tokens over {len(ROWS)} rows "
+      f"(example: {len(_f0)-_p0} of {len(_f0)})", flush=True)
 
 
 def train_steps(steps, outdir):
@@ -263,7 +283,8 @@ def train_steps(steps, outdir):
 
 # ---- ladder ----
 allres["_config"] = {"model": MODEL, "cons_rate": CONS_RATE, "rungs": RUNGS,
-                     "band": BAND, "n_rows": N_ROWS, "seed": SEED}
+                     "band": BAND, "n_rows": N_ROWS, "seed": SEED,
+                     "loss": "completion_only", "provenance": rh.provenance(MODEL, tok)}
 if "rung_0" not in allres:
     allres["rung_0"] = measure("rung 0 (native)")
     json.dump(allres, open(RESULT_PATH, "w"), indent=2)

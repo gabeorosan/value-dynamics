@@ -91,6 +91,22 @@ another lane's files.
   RISK vintages currently exist as loadable judges/generators; without this logging the
   risk half of the family stays unreachable, same as the un-re-scorable 23 legacy
   trajectories.
+  → LIT&PLANNING HALF DONE 2026-07-10 (docs/plan_judge_transmission.md): construct
+  (judge taste as a transmissible unit separable from the carrier's behavior),
+  per-cell predictions + informative-both-ways outcomes, lit ties (Panickssery
+  self-preference control via judge≠generator; checkpoint-probe carrier finding;
+  drift-field). Two substantive planning notes for Specs: (i) the susceptibility
+  cell's WEIGHT-SPACE grounding is provisional — the thrash "shared dominant
+  direction" claim is WITHDRAWN pending LoRA-factorization-invariant recompute
+  (updated_research_plan §1.2 last row); write the cell so the BEHAVIORAL
+  prediction (reverted re-amplifies faster than base) stands on its own. (ii) the
+  drift-field COMPOSITION sub-test is the highest-value cell — placing generators
+  at x set by ORGANISM CHOICE samples the field bias-free, avoiding the
+  regression-to-mean that made the AR(1) fit only exploratory. The logging change
+  serves THREE consumers (Branch A vintages / drift-field v2 raw reads / this
+  family's risk cells) → make it non-negotiable in Phase-1 builds. Should fold
+  into updated_research_plan §6 Branch A when that (untracked) file is committed.
+  Specs half (scripts + logging) open.
 - 2026-07-09 Lit&planning → Experiment specs: psych-probe audit
   (docs/plan_recovered_threads.md §3b). wishful-thinking/introspection/self-
   recognition/suggestibility/identity are CODED in battery_patch but dark in the

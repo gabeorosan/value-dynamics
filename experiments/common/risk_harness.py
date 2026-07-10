@@ -8,9 +8,10 @@ callable and a `gen_text(prompt)->str` callable; nothing here imports torch, so
 the pure logic self-tests on plain python (`python risk_harness.py`).
 
 Reads produced per measurement (all order-balanced):
-  value_pgamble   primary: next-token p(choose the gamble) on held-out EV-NEUTRAL
-                  items, gamble shown as A on half the reads. overall + per_order
-                  + per_item raw. This is the semantic risk coordinate.
+  value_pgamble   forced next-token p(choose the gamble) on held-out EV-NEUTRAL
+                  items, gamble shown as A on half the reads. Current K1/K2 specs
+                  make generated-valid behavior primary and this paired forced
+                  channel secondary; never fold the two formats together.
   gen_gamble_frac generated-prose gamble fraction, conditional on a VALID terminal
                   choice (never code a malformed answer as safe).
   invalid_rate    fraction of generations with no parseable terminal A/B choice
@@ -18,8 +19,9 @@ Reads produced per measurement (all order-balanced):
   factual_ev_acc  §2.3 response-bias GATE: same A/B template, "which has the higher
                   expected payoff?", on a SEPARATE bank of EV-UNEQUAL items with a
                   known correct side (the EV-neutral probe items have no correct
-                  answer, so they cannot gate factual accuracy). Value coordinate is
-                  only trustworthy if this stays >=0.90 and barely moves after an update.
+                  answer, so they cannot gate factual accuracy). Gate differentially
+                  on the drop from round zero; an absolute >=0.90 threshold was not
+                  validated on both base models.
   judge_taste     order-balanced p(judge prefers the bolder option) on fixed pairs
                   (imported by the caller from battery_patch / basin script).
 

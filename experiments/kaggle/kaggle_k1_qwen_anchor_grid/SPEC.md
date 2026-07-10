@@ -6,12 +6,13 @@ never-cut anchor of the Saturday Kaggle window.
 
 ## Primary endpoint (pre-registered)
 
-**Judge × final-coordinate contrast at the rollout-seed level.** After 4 rounds,
-the order-balanced risk coordinate's cross-seed distribution differs by judge
-condition — specifically `evolving_self` fans wider than `frozen_base` (the
-self-judge-divergence vs frozen-decay law, now on the mod65 moderate organism
-where the coordinate has two-sided headroom). Reported at n=4 independent
-rollouts per condition; existence/contrast framing, not a rate.
+**Paired judge contrast in baseline-adjusted final generated-valid risk at the
+rollout-seed level.** The primary descriptive contrast is `evolving_self` minus
+`frozen_base`, paired by seed; trajectory AUC and the forced-choice channel are
+secondary. The previously proposed range/variance (“fans wider”) endpoint is
+secondary because four seeds cannot estimate a variance contrast reliably and
+cannot attain a two-sided exact p<0.05. Report all trajectories and use
+existence/contrast framing, not a rate.
 
 ## The four judge conditions
 
@@ -35,27 +36,38 @@ in a later window.
 
 ## Riding (all cells, verified present)
 
-- **Order-balanced coordinate** (18 gamble-as-B / 18 gamble-as-A, split-checked).
-- **Kept-set order mirroring:** each kept answer trains under both its loop
-  prompt and a letter-neutral restatement ("state your choice" instead of "end
-  with A or B"), so the gradient isn't tied to a letter token. Randomizing the
-  *field* does not balance the *kept set* (audit) — this does.
-- **Preregistered kept-set gap ceiling** `KEPT_GAP_MAX=0.35`: if a round's kept
-  answers are >67.5% one letter, the cell's semantic conclusion is INVALID
-  (flagged `!KEPT-GAP` in the log and in `kept_order_gap`), not merely exploratory.
-- **Cross-scored selection gap** (the criterion mediator): per item/round the
+- **Paired format coordinate on identical held-out items:** order-balanced
+  generated-valid risk plus invalid rate, and order-balanced forced next-token
+  p(gamble). These channels are never folded together.
+- **True training-order mirroring:** every strict-valid kept completion is
+  trained once in its generated order and once under a genuinely swapped
+  prompt with all `Option A`/`Option B` references and the final letter swapped.
+  Thus the training-row gamble-order split is exactly 50/50 at the same two-row
+  dose the original script budgeted. Loop generation itself uses exactly half
+  gamble-A and half gamble-B prompts per round.
+- **Strict validity:** the required final line is `Final: A` or `Final: B`.
+  Initial invalidity is logged; invalid candidates are rejected and replenished
+  under a bounded retry budget before judging or training. A cell with held-out
+  generated invalidity >0.10 cannot support a generated-behavior claim.
+- **Cross-scored judge loading and selection gap:** per item/round the
   candidate pool's `p_risk`, the arm's kept-minus-pool gap, AND the gap the
   fixed base and fixed round-0 judges *would* have produced on the same pool
-  (`gap_arm` / `gap_base_judge` / `gap_r0_judge`). This — not generic
-  advice-pair `judgment_taste` — is the criterion channel (mod65: behavior fans
-  while advice taste sits flat).
+  (`gap_arm` / `gap_base_judge` / `gap_r0_judge`). Candidate text, validity,
+  length, every score, and every hypothetical kept set are persisted so Sunday
+  can estimate `judge_score ~ semantic_choice + invalid + length`. Invalid
+  attempts are scored only for this diagnostic; they remain excluded from
+  selection and training. Judge loading
+  is the mechanism manipulation; kept gap is the realized training-data shift,
+  not a pre-established causal mediator.
 - **Battery patch** (judgment_taste, self_trait, self_recognition,
   introspection, wishful, **identity GRADED 1–7** per Analysis's railing fix,
   persona), **steering artifacts** (3 greedy gens/round), off-target axes,
-  entropy, distinct-n, **EV gate + invalid_rate**, raw per-question reads.
-- **Per-round adapter persistence** (rounds 0/2/4 → `vintages/`) +
-  **factorization-invariant delta**: net displacement ‖scaling·B·A‖_F, per-round
-  step norm, cumulative-direction cosine vs the round-1 update — all from B·A
+  entropy, **same-template factual-EV delta**, raw per-question reads. The old
+  one-sample `distinct_n` field was removed because it was identically 1.
+- **Every-round adapter persistence** (rounds 0–4 → `vintages/`) +
+  **factorization-invariant update geometry**: cumulative displacement
+  ‖W_t−W_0‖, per-round step ‖W_t−W_{t−1}‖, path length, and cumulative-direction
+  cosine vs the round-1 update — all from merged B·A
   products via r×r traces (GL(r)-invariant; raw A/B factor norms are
   non-identifiable and deliberately NOT logged, per the withdrawn-thrash lesson).
 
@@ -79,11 +91,23 @@ prints to RECOMPUTE the K-budget from measurement (audit checklist item).
 
 ## Storage note
 
-17 rollouts × up to 3 persisted vintages = up to ~51 adapter dirs (~5 MB r8
-each ≈ 250 MB) under `/kaggle/working/vintages/` — inside kernel output limits.
+17 rollouts × 5 persisted vintages = up to ~85 adapter dirs (~5 MB r8 each,
+roughly 425 MB) under `/kaggle/working/vintages/` — inside kernel output limits.
 Post-run: sync `vintages/` + the JSON to a Kaggle dataset so K-family kernels
 and the parked TPU service can attach them.
 
 ## Launch
 
     kaggle kernels push -p experiments/kaggle/kaggle_k1_qwen_anchor_grid   # add --accelerator NvidiaTeslaT4 if the CLI requires
+
+## Storage preflight (adapter persistence, 2026-07-10)
+
+Per-round vintages at PERSIST_ROUNDS=all (rounds 0–4): K1 = 17 rollouts × 5 =
+85 dirs × ~35 MB (r8/4B) ≈ 3 GB; K2 = 18 × 5 = 90 dirs × ~60 MB (r8/7B) ≈ 5.4 GB;
+K3 = 12 × 5 = 60 dirs × ~130 MB (r32/4B) ≈ 8 GB. Each fits Kaggle's ~20 GB
+per-kernel-version output cap with ≥2× headroom; nothing shares a kernel.
+Resume note: vintages are written once per (rollout, round) and never rewritten,
+so a resumed session re-persists only rounds it re-runs; the result JSON is the
+manifest (per-rollout `cond`/seed keys + `persist_rounds` in `_config`).
+Post-run: `kaggle kernels output` pulls JSON + vintages; vintages become a
+Kaggle dataset for the transmission/let-go cells and the parked TPU service.

@@ -25,8 +25,10 @@ another lane's files.
 
 ## Headline results (stable; details in the linked docs)
 
-- Judge identity switches the dynamics: self-judge → divergent basins (15 seeds end
-  0.03–0.81), frozen base judge → uniform decay (8/8). docs/report_basin_anchor.md, fig3.
+- Legacy Qwen trajectories spread under self-judging and decayed under a frozen
+  base judge, but their generated-risk coordinate cannot be strictly reparsed and
+  is partly position-confounded. Treat this as motivation for repaired K1/K2, not
+  a clean basin or attractor result. docs/report_current_plan_analysis_deep_audit.md.
 - Format gates transfer: selection on bold prose makes fresh prose score bolder each
   round (0.47→0.64) but never moves gamble choices; the same rule on A/B-choice data
   runs away to 1.0. fig5, fig4.
@@ -44,7 +46,7 @@ another lane's files.
 | Regime grid (62 cells, ρ × judge) | Modal | WAITING on spend cap; relaunch: `modal run --detach modal_app.py::grid` in experiments/modal/modal_regime_map/ |
 | Basin ensembles (seeds 0–14) | Kaggle | DONE — pulled, in fig3 |
 | Qwen basin seeds 15–30 (Job 1) | Lightning | seeds 23–30 DONE, JSON pulled; seeds 16–22 STOPPED (credits gone, only seed 15 done) → docs/report_basin_lightning_partial.md |
-| OLMo-3-7B replication (Job 2) | Lightning | STOPPED at seeds 0–3 (credits gone); mechanism found: judge preference sets attractor direction, flips across substrates (report §Mechanism) |
+| OLMo-3-7B replication (Job 2) | Lightning | STOPPED at seeds 0–3 (credits gone); legacy pools suggest substrate-dependent judge ranking, but saturation + old instrument prevent a causal attractor claim; K2 is the repaired test |
 | EM regime probe (gray-zone × self judge × 4 seeds) | Colab | DONE — 4/4 seeds, verdict DEAD (em_freegen→0.000 all seeds, spread 0.000, self judge keeps 0 misaligned candidates) → docs/report_em_regime_probe.md |
 | EM dose ladder (Candidate E1, DEAD-branch next lever) | Colab | DONE — 4/4 rungs, NONE pass: em_freegen flat zero within noise through 4 epochs while self-reported insecure-code rises 0.31→0.44; E2 micro-loops cancelled → docs/report_em_dose_ladder.md |
 | Self-awareness × dose × loop grid | Colab | RUNNING — LOW-dose partial analyzed (seeds 11/22, 2 rounds) → docs/report_selfaware_loop_grid_lowdose.md: self-judge PREFERS the self-report signal (gap>0, unlike the dead cartoon-EM axis), amplifies it fast (0.31→0.70 in 2 rounds), and general em_choice spillover is SEED-NONDETERMINISTIC (seed11 flat 0.07, seed22 0.07→0.24). Awaiting high-dose (1000) cells. Saves selfaware_loop_grid.json to Drive → experiments/em_selfaware_loop/output/ |
@@ -59,8 +61,10 @@ another lane's files.
   16–22 with paid credits, or fold into Saturday Kaggle window (scripts resume
   from the partial JSONs in experiments/lightning/output/). User decides.
 - Modal spend cap: user raises it when credits land, then launch grid.
-- Battery patch (experiments/common/battery_patch.py) not yet spliced into the
-  basin/EM scripts — should go in before the Saturday Kaggle window.
+- K1–K3 include their required riding probes, but no kernel is launch-ready until
+  static/dry checks, one-cell GPU smokes, storage preflight, and input-dataset
+  provenance checks pass. K2 additionally needs the v3 organism and strict
+  multi-pool inversion screen.
 
 ## Requests between threads
 
@@ -157,14 +161,15 @@ another lane's files.
   adapters) — applied at copy-judge/let-go build time. Colab lane: ready to run.
   (1) SCREEN (inference-only, cheap, do first): generate ONE fixed candidate pool from
   base Qwen, score it with every persisted judge under a NEUTRAL judge prompt, read each
-  judge's kept-vs-pool gap per axis (risk / insecure-code / self-report candor) — the
-  gap is our established predictor of attractor direction, so this pre-qualifies every
-  loop cell without training. Reachable judges on Drive: EM dose rungs 250–1000,
+  judge's kept-vs-pool gap per axis (risk / insecure-code / self-report candor) — a
+  manipulation check for what the judge would put into training, not an established
+  mediator. It nominates loop cells but does not pre-qualify an outcome without training.
+  Reachable judges on Drive: EM dose rungs 250–1000,
   amp55:7 (strong-collapse), amp55:10/11 (freegen-1.0 / choice-floored), amp66
   endpoints, low:8 null, low_55/low_66; risk persona if its Drive copy landed (see
   2026-07-09 General→Analysis adapter request). The reverted-endpoint judges' gap alone
-  answers the CARRIER question (checkpoint-probe showed taste drifts with dose while
-  behavior floors — does taste survive behavioral reversion?) with zero loops.
+  yields a CARRIER CANDIDATE only; sign replication on >=2 new pools and a controlled
+  loop are required before claiming transmission or a surviving carrier.
   (2) LOOP CELLS (3 seeds each, repaired harness, gated on the screen + Phase 1B):
   (a) transmission — standout judge (em_dose1000 or amp55:7), frozen, × fresh base
   generator: does a drifted taste transmit the value through selection alone;
@@ -411,6 +416,31 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 conservative ladder BRACKETED (Colab, strict v3 instrument, 6b6a978):
+  CONS_RATE=1.0 OVERSHOT in one rung (0.723 -> 0.177@40, order_gap 0.27, gen invalid
+  0.17; verdict OVERSHOT_NO_VALID_RUNG; Drive olmo_conservative/v3_strict_completion/)
+  while 0.85 plateaued ~0.51 — rate sets a stable equilibrium, steps barely matter, so
+  v4 now RUNNING at CONS_RATE=0.93 (v4_rate93_strict/) to land the plateau inside the
+  0.25-0.40 band with gentler order/format side-effects. Side-reads from v3: factual-EV
+  ROSE 0.50->0.71 under cautious training (gate healthy); letter-only targets at full
+  rate degrade Final:-format compliance (invalid 0.17) — if v4 fails invalid<=0.10,
+  next lever is rationale-bearing targets, not more steps.
+- 2026-07-10 DEEP SPEC/ANALYSIS AUDIT applied (current checkout; see
+  docs/report_current_plan_analysis_deep_audit.md): K1 and K2 now share strict
+  `Final: A/B` parsing, reject/replenish invalid candidates, exact true
+  order-swapped training twins, paired generated/forced reads, factual-EV delta,
+  full raw candidate/probe logging, stable condition seeds, pinned revisions,
+  every-round vintages, and merged update geometry relative to round zero.
+  K1 primary changed from four-seed fan/range to paired baseline-adjusted final
+  effect; candidate-level judge loading is the mechanism read and kept gap is a
+  manipulation check. K2's inversion gate now requires >=2 strict fresh pools.
+  The stalled v2 OLMo ladder is not reusable: clean v3_strict_completion uses
+  CONS_RATE=1.0 and has no valid organism until every gate passes. K3 gained a
+  SPEC, pinned provenance, raw per-sample freegen scores, stable RNG,
+  every-round persistence, and corrected geometry; it still needs a smoke and
+  scorer validation. Mod65 and transmission figures/captions were downgraded to
+  pilot/one-pool evidence. NO K kernel is launch-ready until the new dry/static
+  checks and GPU smoke complete.
 - 2026-07-10 conservative ladder (v2 completion-only, 73d1255) PLATEAUS: 0.723 ->
   0.513@40 / 0.530@80 / 0.491@120 / 0.523@160 — CONS_RATE=0.85 stalls ~0.5, well
   above the 0.25-0.40 band; rungs 220/300 finishing but v3 likely needs CONS_RATE
@@ -419,20 +449,20 @@ another lane's files.
   strict_final_v2 instrument edits (installer/inversion screen/risk_harness) are
   sitting UNCOMMITTED in the checkout — Colab lane needs them committed to exec-from-
   URL; sequence on this lane = ladder tail -> carrier fresh-pool validation (0dac6f5,
-  independent) -> strict re-verdict + inversion screen once committed.
-- 2026-07-10 K2 + K3 scripts drafted (Experiment specs). K3 (experiments/kaggle/
-  kaggle_k3_em_neutral_grid/, DRY-verified, LAUNCH-READY pending em-organism-250
+  independent) -> fresh v3 strict ladder -> strict multi-pool inversion screen once committed.
+- 2026-07-10 K2 + K3 initial drafts (SUPERSEDED by the deep-audit bullet above).
+  K3 (experiments/kaggle/kaggle_k3_em_neutral_grid/, initial DRY only; not launch-ready until re-smoked,
   dataset): insecure-code organism × 4 neutral-judge conditions (random FIRM) × 3
   seeds × 4 rounds, NEUTRAL judge prompt (candid-instruction deconfounder),
   readouts self_report + em_freegen, candor kept-minus-pool mediator cross-scored,
   OOM-safe, vintages + invariant delta. K2 (kaggle_k2_olmo_inversion/, DRY-verified,
   NOT launch-ready): OLMo conservative-inversion 6+3 seeds, both gates wired
   (installer completion-only provenance check + screen_attestation.json file gate).
-  ⚠ K2 BLOCKED on INSTRUMENT RECONCILIATION: K1's risk coordinate was upgraded
+  K2's instrument reconciliation is now coded, but K2 remains BLOCKED on v3 organism + strict multi-pool screen + smoke. Initially it was blocked because K1's risk coordinate was upgraded
   (terminal `Final: A/B` parse, order planning, forced channel, factual-EV gate,
   ORDER_GAP_MAX) after K2 was drafted; K2 is the confirmatory contrast so it must
-  port K1's finalized coordinate before launch. Storage preflight + K SPECs still
-  pending. Needs Kaggle datasets: olmo-conservative-v2 (K2), em-organism-250 (K3).
+  port K1's finalized coordinate before launch. Storage preflight is still
+  pending. Needs Kaggle datasets: olmo-conservative-v3 (K2), em-organism-250 (K3).
 - 2026-07-10 TPU GATE 1 PASS (late result, after ~2 h queue + 1 min run;
   kaggle.com/code/hirokenzan/tpu-gate1): Kaggle TPU is v5litepod-8 (v5e) —
   vLLM-supported. Sprint decision UNCHANGED (service parked; queue latency is
@@ -440,8 +470,9 @@ another lane's files.
   parked service is now hardware-viable: gates 2–3 (kaggle_tpu_battery_service/
   service, MODE=gate2/gate3) are push-ready for any post-sprint window willing
   to spend a queue slot. Every persisted vintage stays re-measurable.
-- 2026-07-10 K1 anchor grid built + verified (experiments/kaggle/kaggle_k1_qwen_anchor_grid/
-  script.py + SPEC.md, DRY + offline-logic checked): mod65 × {evolving_self,
+- 2026-07-10 K1 initial build (SUPERSEDED by the deep-audit bullet above; its claimed
+  mirroring/invalid/geometry checks were incorrect). experiments/kaggle/kaggle_k1_qwen_anchor_grid/
+  script.py + SPEC.md: mod65 × {evolving_self,
   frozen_copy_r0, frozen_base, random_select} × 4 seeds × 4 rounds + measure-only
   seed, BATTERY_MODE=inloop. All audit riding present: order-balanced coordinate,
   kept-set order mirroring + preregistered KEPT_GAP_MAX=0.35 invalidation flag,
@@ -467,16 +498,18 @@ another lane's files.
   (gates K2) + carrier fresh-pool validation (gates the carrier loop).
 - 2026-07-10 figure draft: docs/figures/auto/mod65-divergence/ — two aligned panels:
   three-seed risk fan (0.33-0.44 start -> finals 0.111/0.472/0.639) over flat
-  judgment taste (18 readings all 0.373-0.402) on the letter-repaired loop. Figures
-  thread: promotion candidate.
+  judgment taste (18 readings all 0.373-0.402). Deep-audit correction: partially
+  repaired pilot only (random, not exact, per-round order; old generated parser;
+  fixed advice taste off-format). Figure/caption now state these limits.
 - 2026-07-10 MOD65 PILOT COMPLETE 3/3 SEEDS (Colab; Drive basin_criterion/
   basin_criterion_mod65.json): self-judge finals FAN 0.639 / 0.111 / 0.472 from
-  starts 0.36/0.44/0.33 — divergence survives the A/B-randomization repair; judgment
-  taste FLAT in all three (0.375-0.40 every round) = criterion does not co-evolve
-  while behavior diverges. Instrument flag for Analysis: seed 2's per-order gap
+  starts 0.36/0.44/0.33. Deep-audit reading: promising partially repaired pilot,
+  not a certified divergence result (per-round order only randomized, old generated
+  parser, probe texts absent). Fixed advice taste is FLAT in all three (0.375-0.40),
+  showing only that this off-format probe does not track the fan. Seed 2's per-order gap
   jumped to 0.50 at round 3 and stuck; kept-letter lean precedes gap widening in 2/3
-  seeds (seed 1 is a counterexample) — K1's n=16 arms can settle whether kept-letter
-  imbalance drives transient position drift. Phase-1A anchor BANKED; K1 evolving-self
+  seeds (seed 1 is a counterexample) — K1's four seeds per arm can test the corrected
+  instrument descriptively. Phase-1A pilot BANKED; K1 evolving-self
   arm smoke-tested end-to-end. Colab lane now building the OLMo conservative install
   + dose ladder (K2 prerequisite, plan_final_sprint_unified.md Friday item).
 - 2026-07-10 plan figures updated for the unified sprint (Figures): new
@@ -501,19 +534,18 @@ another lane's files.
 - 2026-07-10 figure draft: docs/figures/auto/judge-transmission-screen/ — 12 judges
   x 3 axes kept-minus-pool gaps on one fixed base-Qwen pool; reverted amp66_12 still
   judges like em_dose_1000 (selfreport +0.127 vs +0.036 anchor, zero gambles kept)
-  while reverted amp55_9 sits at anchor — taste survives reversion in 1 of 2
-  endpoints. Figures thread: promotion candidate.
-- 2026-07-10 JUDGE-TRANSMISSION SCREEN COMPLETE (Colab, 12/12 judges; Drive
-  em_organism/judge_transmission_screen.json). CARRIER EXISTS: amp66_12 — whose
+  while reverted amp55_9 sits at anchor. Deep-audit correction: one-pool carrier
+  candidate only; figure/caption now require fresh-pool replication.
+- 2026-07-10 JUDGE-TRANSMISSION BROAD SCREEN COMPLETE (Colab, 12/12 judges; synced
+  em_organism/judge_transmission_screen.json). ONE-POOL CARRIER CANDIDATE: amp66_12 — whose
   self-report behavior retraced 0.29->0.12 in the let-go run — re-ranks the fixed pool
   with selfreport gap +0.127 (base anchor +0.036, so 3.5x), equal to em_dose_1000, and
   keeps ZERO gamble candidates (risk gap -0.104). The other reverted endpoint amp55_9
-  judges at base level (+0.044): reversion can carry the taste OR strip it —
-  seed-dependent, so the carrier loop cell is informative. Standout transmission judge:
+  judges at base level (+0.044): the screen nominates a seed-dependent carrier
+  candidate but does not establish survival across pools. Standout transmission judge:
   em_dose_1000 (selfreport +0.127, risk -0.104). Everything else ~base (kept-means are
-  quantized top-2-of-6; only gaps >=~0.10 clear the noise anchor). Gates the family:
-  carrier cell (amp66_12 judge x fresh generator) and transmission cell (em_dose_1000)
-  are GO candidates for the Kaggle window.
+  quantized top-2-of-6; only gaps >=~0.10 clear the anchor). The carrier cell remains
+  gated on >=2 fresh-pool sign replications; the controlled transmission cell is a candidate.
 - 2026-07-10 mod65 pilot SEED 0 COMPLETE (Drive basin_criterion/basin_criterion_mod65
   .json): risk 0.361 -> 0.639 over 5 self-judge rounds on the FULLY A/B-randomized loop
   (net +0.28 upward drift survives the letter-habit repair), judgment_taste FLAT 0.377
@@ -689,26 +721,22 @@ another lane's files.
   per-α IS the generalization instrument (read coord-X vs α). Fold into alpha report.
 
 - 2026-07-10 ADAPTER SVD done (spectral concentration, committed vs null;
-  adapter_svd.json). NEGATIVE for the concentration hypothesis + one positive.
+  adapter_svd.json). DEEP-AUDIT CORRECTION: descriptive absolute-adapter read only,
+  not a valid loop-update analysis.
   Effective rank IDENTICAL across all three (em_dose1000 25.29, amp55 25.45, low8
   25.60) and top1/top5 energy identical (~0.44/0.69) — committed does NOT
-  concentrate in fewer singular dims than null. Frob norm: dose1000 20.5 (deep SFT)
-  vs BOTH loop endpoints ~9.3 (amp55 9.25 ≈ low8 9.35) — net displacement decoupled
-  from behavioral fate. POSITIVE: leading singular direction shared across LOOP
-  endpoints regardless of fate (amp55 vs low8 |cos|=0.93) while pure-SFT dose1000
-  differs (0.64 vs either loop) — the loop moves weights along a common dominant
-  direction; behavioral divergence lives in SUBDOMINANT/sign structure, not the
-  dominant direction/magnitude/rank. Corroborates drift-field noise-selection.
-  Caveat n=1/role; 0.93 partly = shared base+loop machinery. Analysis: fold into the
-  weightspace report; the cross-adapter cosine is a candidate follow-up (project onto
-  the shared direction to locate where fate lives).
+  concentrate in fewer singular dims than null at the absolute-adapter level. The
+  reported Frob norms are not `W_final-W_r0`. The apparent 0.93 “shared direction”
+  compares only leading LEFT singular vectors and takes absolute cosine; it does not
+  measure alignment of full weight updates and is WITHDRAWN. Recompute on merged
+  `W_final-W_r0` with full Frobenius cosine before any direction/fate claim.
 - 2026-07-10 OVERNIGHT SYNTHESIS (General, weightspace/force-field arc, 3 Colab runs
   all done+committed+figured): (1) checkpoint-probe — judge-taste drifts up with EM
   dose while behavior floored + self-model dragged by dose; (2) alpha-scaling —
   direction carries self_report weakly in-distribution, behavioral EM dead at trained
-  magnitude, alpha>=2 tipping is degeneration artifact; (3) adapter SVD — fate
-  decoupled from rank/magnitude, loop shares a dominant weight direction. Common
-  thread: the "force field" (judge taste, self-report, weight direction) and the
+  magnitude, alpha>=2 tipping is degeneration artifact; (3) adapter SVD — no
+  validated loop-update conclusion after correcting absolute/left-vector geometry.
+  Common thread: the measured judge taste and self-report channels and the
   behavioral outcome are DECOUPLED, and divergence is noise-selected — consistent
   across battery, causal-scaling, and weight-space views. NEXT real compute = Saturday
   Kaggle ensembles (need pilots per pilot-before-spend; NOT launched unattended).

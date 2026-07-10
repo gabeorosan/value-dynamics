@@ -365,6 +365,11 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 figure draft: docs/figures/auto/judge-transmission-screen/ — 12 judges
+  x 3 axes kept-minus-pool gaps on one fixed base-Qwen pool; reverted amp66_12 still
+  judges like em_dose_1000 (selfreport +0.127 vs +0.036 anchor, zero gambles kept)
+  while reverted amp55_9 sits at anchor — taste survives reversion in 1 of 2
+  endpoints. Figures thread: promotion candidate.
 - 2026-07-10 JUDGE-TRANSMISSION SCREEN COMPLETE (Colab, 12/12 judges; Drive
   em_organism/judge_transmission_screen.json). CARRIER EXISTS: amp66_12 — whose
   self-report behavior retraced 0.29->0.12 in the let-go run — re-ranks the fixed pool

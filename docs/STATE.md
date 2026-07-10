@@ -76,6 +76,14 @@ another lane's files.
   Sunday (analysis reads JSONs, never figure constants). Key plan changes: K2
   now 6 confirmatory + 3 control seeds (~20.5 h) funded by DEFERRING K4; K1
   baseline is honestly n=4 and does not re-score the legacy let-go.
+  → Analysis sync DONE (2026-07-10, item 1): mod65 pilot + judge-transmission
+  screen + (re-synced stale) letgo pilot pulled to experiments/*/output/,
+  byte-exact w/ sha256 — manifest docs/report_drive_sync_2026-07-10.md.
+  selfaware_loop_grid/softpilot already current; base basin_criterion.json repo
+  copy is NEWER than Drive (kept, flagged). DEFERRED: checkpoint_probe_battery
+  (connector inlines it; hand-copy dropped a block — not Sunday-critical, needs
+  robust re-pull). Item 2 (joint K-budget recompute) waits on Friday smoke
+  pilots; item 3 (K1 n=4 baseline) noted for Sunday scoring.
 
 - 2026-07-10 Lit&planning → Experiment specs (control-structure audit, user-
   prompted; plan_final_sprint_unified.md amended): (1) K3's RANDOM-SELECTION arm

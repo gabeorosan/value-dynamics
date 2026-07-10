@@ -385,6 +385,16 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 MOD65 PILOT COMPLETE 3/3 SEEDS (Colab; Drive basin_criterion/
+  basin_criterion_mod65.json): self-judge finals FAN 0.639 / 0.111 / 0.472 from
+  starts 0.36/0.44/0.33 — divergence survives the A/B-randomization repair; judgment
+  taste FLAT in all three (0.375-0.40 every round) = criterion does not co-evolve
+  while behavior diverges. Instrument flag for Analysis: seed 2's per-order gap
+  jumped to 0.50 at round 3 and stuck; kept-letter lean precedes gap widening in 2/3
+  seeds (seed 1 is a counterexample) — K1's n=16 arms can settle whether kept-letter
+  imbalance drives transient position drift. Phase-1A anchor BANKED; K1 evolving-self
+  arm smoke-tested end-to-end. Colab lane now building the OLMo conservative install
+  + dose ladder (K2 prerequisite, plan_final_sprint_unified.md Friday item).
 - 2026-07-10 plan figures updated for the unified sprint (Figures): new
   plan_final_sprint.svg (banked / three lanes Colab·Kaggle-K1-K4·Sunday /
   riding-along battery / TPU offline-service + 3 gates / cut order, from

@@ -271,6 +271,19 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 OLMO STAGE-FLOW COMPLETE (Colab, 4-bit, repaired harness; Drive
+  phase0_screen/olmo_stageflow.json). Across base -> instruct-SFT -> instruct (final):
+  position bias collapses monotonically (order_gap 0.72 -> 0.35 -> 0.08; only the final
+  stage passes the <=0.10 gate), gamble-favoring behavior emerges at SFT and strengthens
+  with preference/RLVR (gen_gamble 0.46 -> 0.58 -> 0.67; order-balanced p(gamble) 0.67 ->
+  0.72 where interpretable), while judge-taste stays near-neutral throughout (p(prefer
+  bold advice) 0.47 -> 0.54 -> 0.52) — behavior and criterion coordinates DISSOCIATE in
+  the release flow, and the near-neutral baseline judge is good news for the
+  conservative-judge inversion design. factual_ev 0.50 (chance) at ALL stages incl.
+  instruct — confirms the gate downgrade (informative/differential only). Two script
+  fixes en route (base tokenizer has no chat template -> plain-prompt fallback; score_ab/
+  gen_text closures pinned the previous stage's model in VRAM -> OOM; both committed,
+  65402dd).
 - 2026-07-10 CORRECTION to the Phase-0 write-up (user push-back, right): DON'T retire
   Qwen — cross-organism reproduction needs it, and the factual-EV weakness is benign.
   (1) Factual-EV gate DOWNGRADED to an informative readout, NOT a disqualifier: models

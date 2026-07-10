@@ -10,12 +10,13 @@ figures update when those files do.
 
 | File | What it shows |
 |---|---|
-| `plan_program_map.svg` | The whole program: Phase 0 screen (done, with verdicts), the Colab build steps that gate the Kaggle window, Phase 1A Qwen anchor, Phase 1B OLMo inversion (headline), the Phase-2 branch decision (A–D with triggers), the parked list, and the deliverable. |
+| `plan_program_map.svg` | The whole program: Phase 0 screen (done, with verdicts), the Colab build steps that gate the Kaggle window (mod65 organism + judge screen now done), Phase 1A Qwen anchor, Phase 1B OLMo inversion (headline), the Phase-2 branch decision (A–D with triggers), the parked list, and the deliverable. |
+| `plan_final_sprint.svg` | The plan operationalized into the Fri→Sun sprint (docs/plan_final_sprint_unified.md): what's banked, the three lanes (Colab / Kaggle-Saturday K1–K4 / Sunday analysis day), the riding-along battery, the TPU offline-measurement service and its three go/no-go gates, and the cut order. |
 | `plan_instrument_repair.svg` | Why every loop script is rebuilt before more seeds: legacy confounds vs the repaired harness, with the Phase-0 paired-order bars (Qwen base 0.31/0.94, persona saturated, OLMo 0.76/0.69 pass). |
 | `plan_qwen_anchor.svg` | Phase 1A design: one moderate organism cloned into four judge arms, and what each pairwise contrast identifies (judge taste / co-evolution / selection at all). |
 | `plan_olmo_inversion.svg` | Phase 1B design: stage screen → moderate conservative organism (dose-ladder stop rules) → four arms → the five preregistered readings. |
 | `plan_riding_analyses.svg` | Analyses pre-registered to ride the Phase-1 data with no extra GPU: the de-biased drift-field refit, merged-update weight geometry, and why the criterion channel moves to OLMo's judge-taste readout (with the flat-at-chance judgment_taste pilot inset). |
-| `plan_judge_transmission.svg` | The cross-organism judge-transmission family (filed 2026-07-10, alongside Branch A): the inference-only kept-vs-pool screen, the frozen-judge × generator-state matrix showing which cells are run/planned/new, and the three preregistered predictions (transmission, re-ignition/erased-vs-masked, carrier). |
+| `plan_judge_transmission.svg` | The cross-organism judge-transmission family (filed 2026-07-10, alongside Branch A): the now-complete kept-vs-pool screen (carrier exists — amp66:12 judges like em_dose1000 after behavioral reversion, amp55:9 strips its taste), the frozen-judge × generator-state matrix, and the loop cells that run in the sprint's Saturday Colab window. |
 
 Status chips follow fig12's convention; judge-arm colors follow the numbered
 set (blue = evolving self-judge, green = frozen judges, gray = no-judge control,

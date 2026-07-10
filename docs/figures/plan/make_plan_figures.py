@@ -114,8 +114,8 @@ def fig_program_map():
     b = []
     centered(b, W / 2, 52, "The plan now: one clean causal result about how", 34, bold=True)
     centered(b, W / 2, 94, "judging preference steers self-training", 34, bold=True)
-    centered(b, W / 2, 126, "authoritative plan 2026-07-10 (docs/updated_research_plan_2026-07-10.md) — supersedes the old run order"
-             " (more legacy-loop seeds, copy-judge first, regime grid); chips show what has landed since", 16, GRAY)
+    centered(b, W / 2, 126, "authoritative plan 2026-07-10 — now operationalized into a Fri→Sun sprint (see the next figure);"
+             " chips show what has already landed", 16, GRAY)
 
     CHIP = {"done": (GREEN, "DONE"), "running": (BLUE, "IN PROGRESS"),
             "planned": (GRAY, "PLANNED"), "headline": (RED, "HEADLINE"),
@@ -164,14 +164,14 @@ def fig_program_map():
                  "inversion starts from final Instruct, onto an almost blank judging prior"),
         ("todo", "factual-gate items rebuilt lopsided — obvious unequal-EV pairs a base model gets well above "
                  "chance, so the gate can detect deterioration"),
-        ("todo", "moderate Qwen persona at risk ≈ 0.6–0.7 — replaces the saturated 1.00 organism so the anchor "
-                 "can move in both directions"),
-        ("todo", "OLMo conservative dose ladder — stop inside 0.25–0.40 with the factual gate and judge-taste "
-                 "headroom intact; never train to zero"),
-        ("todo", "cross-organism judge screen — one fixed candidate pool scored by every persisted judge "
-                 "(EM dose rungs, amp55 endpoints, reverted nulls, risk persona) under a neutral prompt; each "
-                 "judge’s kept-vs-pool gap per axis pre-qualifies the transmission loop cells with no training "
-                 "(filed 2026-07-10; see plan_judge_transmission.svg)"),
+        ("done", "moderate Qwen persona (mod65) — RISK_RATE 0.65 → round-0 risk 0.361, order gap 0.06 on the "
+                 "A/B-randomized data; the saturated 1.00 organism is replaced, and the Phase-1A anchor organism "
+                 "now exists"),
+        ("done", "cross-organism judge screen (12/12 judges) — the kept-vs-pool gap per persisted judge; CARRIER "
+                 "EXISTS: the behaviorally-reverted amp66:12 still judges like the deepest dose rung (candor +0.127) "
+                 "while amp55:9 strips its taste — seed-dependent (see plan_judge_transmission.svg)"),
+        ("todo", "OLMo conservative dose ladder (Friday) — stop inside 0.25–0.40 with the factual gate and "
+                 "judge-taste headroom intact; never train to zero"),
     ]
     GLYPH = {"done": ("✓", GREEN), "running": ("▶", BLUE), "todo": ("○", GRAY)}
     yy = y + 58
@@ -697,7 +697,177 @@ def fig_riding_analyses():
 
 
 # ====================================================================
-# Figure 6 — the cross-organism judge-transmission family (filed 2026-07-10)
+# Figure 2 — the final sprint: the plan operationalized into an hour budget
+# ====================================================================
+
+def fig_final_sprint():
+    W = 1400
+    b = []
+    centered(b, W / 2, 50, "The final sprint (Fri 07-10 → Sun 07-12): the whole plan", 32, bold=True)
+    centered(b, W / 2, 90, "as one hour budget — 45 Kaggle + 30 Colab + a no-GPU analysis day", 32, bold=True)
+    centered(b, W / 2, 122, "docs/plan_final_sprint_unified.md — one systematic schedule replacing the per-thread run lists; "
+             "throughput ~8 min per seed-round on Qwen T4, ~17 min on OLMo", 15.5, GRAY)
+
+    X0 = 40
+
+    # ---- banked strip -----------------------------------------------
+    y = 146
+    bt, byend = rich_text(X0 + 18, y + 26, [
+        ("Already banked — don’t respend:  ", GREEN, True),
+        ("Phase-0 repaired harness (both families) · OLMo stage-flow (order gap 0.72 → 0.35 → 0.08) · mod65 moderate "
+         "organism (risk 0.361, gates passed) · judge-transmission screen (carrier exists, seed-dependent) · "
+         "α-scaling intervention · hysteresis on both axes · entropy / λ-mixing basics.", INK, False),
+    ], 14.5, 176)
+    bh = (byend - y) + 8
+    b.append(box(X0, y, W - 2 * X0, bh, "#eef7f0", GREEN, 1.8, rx=8))
+    b.append(bt)
+    y2 = y + bh
+
+    # ---- three lanes -------------------------------------------------
+    lane_w, lane_gap = 434, 21
+    lane_x = [X0 + i * (lane_w + lane_gap) for i in range(3)]
+    top = y2 + 24
+
+    def lane_header(x, title, budget, color):
+        b.append(f'<text x="{x + lane_w / 2}" y="{top}" text-anchor="middle" font-size="21" '
+                 f'font-weight="bold" fill="{color}" font-family="{FONT}">{esc(title)}</text>')
+        b.append(f'<text x="{x + lane_w / 2}" y="{top + 21}" text-anchor="middle" font-size="14" '
+                 f'fill="{GRAY}" font-family="{FONT}">{esc(budget)}</text>')
+
+    def card(x, y, tag, title, desc, hours, accent=INK, fill="white", bw=1.6):
+        lines = wrap(desc, 56)
+        h = 52 + len(lines) * 18 + 12
+        b.append(box(x, y, lane_w, h, fill, accent, bw, rx=9))
+        if tag:
+            b.append(f'<text x="{x + 15}" y="{y + 25}" font-size="13" font-weight="bold" fill="{accent}" '
+                     f'font-family="{FONT}">{esc(tag)}</text>')
+        tx = x + 15 + (len(tag) * 8.5 + 10 if tag else 0)
+        b.append(f'<text x="{tx}" y="{y + 25}" font-size="15.5" font-weight="bold" fill="{INK}" '
+                 f'font-family="{FONT}">{esc(title)}</text>')
+        b.append(f'<text x="{x + lane_w - 14}" y="{y + 25}" text-anchor="end" font-size="13.5" '
+                 f'font-weight="bold" fill="{GRAY}" font-family="{FONT}">{esc(hours)}</text>')
+        for j, ln in enumerate(lines):
+            b.append(f'<text x="{x + 15}" y="{y + 48 + j * 18}" font-size="13" fill="{INK}" '
+                     f'font-family="{FONT}">{esc(ln)}</text>')
+        return y + h + 12
+
+    lane_header(lane_x[0], "Colab", "~30 units · calibration + EM cells", BLUE)
+    lane_header(lane_x[1], "Kaggle — Saturday", "45 h · the training grid", INK)
+    lane_header(lane_x[2], "Sunday", "no GPU · where “cohesive” happens", GREEN)
+
+    cy = top + 40
+    # Colab lane
+    yc = cy
+    yc = card(lane_x[0], yc, "DONE", "screen + α-scaling", "judge-transmission screen (the carrier answer, no "
+              "training) and the α-scaling weight-geometry intervention.", "~4 h", GREEN, "#eef7f0")
+    yc = card(lane_x[0], yc, "FRI", "OLMo conservative install", "dose ladder on final Instruct — stop at "
+              "order-balanced risk 0.25–0.40 with the EV gate and judge-taste headroom intact.", "~4 h", BLUE)
+    yc = card(lane_x[0], yc, "FRI", "smoke-pilot K1–K4", "every Kaggle script piloted before the window; plumbing "
+              "already validated by basin-letgo + mod65.", "~3 h", BLUE)
+    yc = card(lane_x[0], yc, "SAT", "EM transmission loop cells", "transmission (em_dose1000 × fresh) · carrier "
+              "(amp66:12 × fresh) · susceptibility (standout × reverted) · composition (one judge × 3 starting x) — "
+              "~14 cells × 4 rounds.", "~8 h", RED, RED_TINT, 2.0)
+    yc = card(lane_x[0], yc, "SUN", "risk-vintage mini", "IF K1’s per-round vintages landed and hours remain — else "
+              "explicitly next window. + reserve ~6 h (non-T4 backends burn faster).", "~5 h", GRAY, GRAY_TINT)
+
+    # Kaggle lane
+    yk = cy
+    yk = card(lane_x[1], yk, "K1", "Phase 1A Qwen anchor grid", "mod65 × {evolving self · frozen round-0 copy · "
+              "frozen base · random-selection} × 4 seeds × 4 rounds. The frozen-base arms double as the "
+              "order-balanced fresh-decay baseline.", "~9 h", INK, "white", 2.0)
+    yk = card(lane_x[1], yk, "K2", "Phase 1B OLMo inversion", "conservative organism × the same 4 judge conditions × "
+              "3 seeds × 4 rounds. Endpoint: judge × round; frozen-conservative vs frozen-base is the causal claim — "
+              "the headline.", "~14 h", RED, RED_TINT, 2.2)
+    yk = card(lane_x[1], yk, "K3", "Qwen EM neutral-judge grid", "insecure-code organism × {self · frozen r0 · frozen "
+              "base} × 3 seeds × 4 rounds, neutral prompt (deconfounds the candid grid). Reads: em_freegen + "
+              "self_report.", "~5 h", INK)
+    yk = card(lane_x[1], yk, "K4", "External-content arms", "risk self-judge × {opposing · aligned · format-matched "
+              "neutral} × 3 seeds × 4 rounds. Does content shift the fixed point, the stiffness, or the noise? "
+              "+ buffer ~7 h.", "~5 h", INK)
+
+    # Sunday lane — numbered analyses
+    ys = cy
+    analyses = [
+        ("Drift-field v2", "refit on order-balanced data; the composition cells give the bias-free field samples the "
+         "exploratory AR(1) fit lacked."),
+        ("Weight geometry, invariant", "merged-delta norms/cosines from the newly persisted adapters → un-withdraw or "
+         "kill the thrash result; CPU SVD; α-scaling is the causal leg."),
+        ("Criterion via judgment_taste", "does taste_t predict Δx_{t+1} across K1/K2/K3? — the co-evolution force, "
+         "replacing the retired criterion instrument."),
+        ("Off-target synthesis", "corrigibility / optimism / wishful small-multiples across every new cell, one "
+         "figure system."),
+        ("Confounder gate table", "per cell: order gap, EV gate, invalid rate, entropy, measure-only drift — one "
+         "table that certifies every claim."),
+        ("Transmission verdicts", "transmission / carrier / susceptibility read in existence-framing, never as "
+         "rates."),
+    ]
+    b.append(box(lane_x[2], ys, lane_w, 0, "white", GREEN, 1.6, rx=9))  # placeholder, resized below
+    b.pop()
+    yy = ys + 8
+    parts = []
+    for i, (title, desc) in enumerate(analyses, 1):
+        parts.append(f'<text x="{lane_x[2] + 16}" y="{yy + 18}" font-size="15" font-weight="bold" fill="{GREEN}" '
+                     f'font-family="{FONT}">{i}</text>')
+        parts.append(f'<text x="{lane_x[2] + 36}" y="{yy + 18}" font-size="14.5" font-weight="bold" fill="{INK}" '
+                     f'font-family="{FONT}">{esc(title)}</text>')
+        for j, ln in enumerate(wrap(desc, 54)):
+            parts.append(f'<text x="{lane_x[2] + 36}" y="{yy + 37 + j * 17}" font-size="12.5" fill="{INK}" '
+                         f'font-family="{FONT}">{esc(ln)}</text>')
+        yy += 37 + len(wrap(desc, 54)) * 17 + 8
+    b.append(box(lane_x[2], ys, lane_w, (yy - ys) + 4, "#f2f8f3", GREEN, 1.6, rx=9))
+    b.extend(parts)
+    ys_end = ys + (yy - ys) + 4
+
+    lane_bottom = max(yc, yk, ys_end)
+
+    # ---- riding-along strip -----------------------------------------
+    y = lane_bottom + 8
+    rt, ryend = rich_text(X0 + 18, y + 24, [
+        ("Riding along in every training cell (near-free):  ", INK, True),
+        ("the battery patch (wishful thinking, introspection, self-recognition, suggestibility, identity, "
+         "judgment_taste) · steering artifacts · off-target axes · entropy + a distinct-n diversity endpoint · "
+         "order-balanced coordinate + factual-EV gate + invalid rate · raw per-question reads · and — non-negotiable — "
+         "per-round adapter persistence with factorization-invariant delta logging.", INK, False),
+    ], 13.5, 196)
+    rh = (ryend - y) + 8
+    b.append(box(X0, y, W - 2 * X0, rh, "white", GRAY, 1.2, rx=8))
+    b.append(rt)
+    y2 = y + rh
+
+    # ---- TPU service strip ------------------------------------------
+    y = y2 + 16
+    tt, tyend = rich_text(X0 + 18, y + 26, [
+        ("Kaggle TPU quota (separate ~20 h/wk): IN, as the offline battery service.  ", "#7a3ea0", True),
+        ("Batteries are a third-to-half of every round-unit, so they move off the T4 loop onto a vLLM-on-TPU service "
+         "over the persisted merged-adapter checkpoints — one backend, no mixing confound; in-loop batteries stay "
+         "behind a flag as fallback, so a TPU failure costs zero schedule. Three go/no-go gates tonight: "
+         "(1) TPU generation is v4/v5e+;  (2) vLLM serves Qwen3-4B merged-adapter logprobs for the A/B + digit reads; "
+         " (3) T4-vs-TPU equivalence within the item-level sampling interval. Pass → richer probes (tighter "
+         "drift-field-v2 CIs, proper diversity endpoints) and freed GPU minutes restore the top of the cut order.", INK, False),
+    ], 13.5, 196)
+    th = (tyend - y) + 8
+    b.append(box(X0, y, W - 2 * X0, th, "#f7f2fb", "#7a3ea0", 1.6, rx=8))
+    b.append(tt)
+    y2 = y + th
+
+    # ---- cut order --------------------------------------------------
+    y = y2 + 16
+    ct, cyend = rich_text(X0 + 18, y + 24, [
+        ("Cut order if hours compress:  ", RED, True),
+        ("K4 content arms 3→2 · composition cells 3→2 x-points · K3 frozen-base arm · Sunday risk-vintage mini · "
+         "K2 random-selection arm 3→2 seeds.   ", INK, False),
+        ("Never cut:", INK, True),
+        (" K1, the K2 frozen-conservative vs frozen-base contrast, per-round persistence + invariant logging, the "
+         "Friday pilots.", INK, False),
+    ], 13.5, 196)
+    ch2 = (cyend - y) + 8
+    b.append(box(X0, y, W - 2 * X0, ch2, KEY_FILL, INK, 2.2, rx=8))
+    b.append(ct)
+    return svg_doc(W, y + ch2 + 36, "\n".join(b))
+
+
+# ====================================================================
+# Figure 7 — the cross-organism judge-transmission family (filed 2026-07-10)
 # ====================================================================
 
 def fig_judge_transmission():
@@ -705,13 +875,25 @@ def fig_judge_transmission():
     b = []
     centered(b, W / 2, 52, "The cross-organism cells: does a drifted taste transmit,", 33, bold=True)
     centered(b, W / 2, 94, "re-ignite a reverted organism, and survive reversion?", 33, bold=True)
-    centered(b, W / 2, 126, "filed 2026-07-10, registered alongside Branch A — the screen runs now on the Colab lane;"
-             " the loop cells wait for Phase 1B to show judge preference is causal", 16, GRAY)
+    centered(b, W / 2, 126, "filed 2026-07-10, registered alongside Branch A — the free screen is now DONE (carrier"
+             " exists, seed-dependent); the loop cells run in the sprint’s Saturday Colab window", 16, GRAY)
 
     X0 = 60
 
+    # ---- what "cross-organism" means (the distinction the whole figure turns on) ----
+    dy = 150
+    dt, dyend = rich_text(X0 + 20, dy + 32, [
+        ("“Cross-organism” = the judge is a different trained model than the generator", INK, True),
+        (" — not the generator judging itself (self-judge) and not a frozen snapshot of the generator’s own run "
+         "(the copy-judge vintages, rounds 0/2/4). Every loop so far shared a lineage; these cells break it. The "
+         "two columns marked “other lineage” below are the cross-organism judges.", INK, False),
+    ], 15.5, 150)
+    dh = (dyend - dy) + 6
+    b.append(box(X0, dy, W - 2 * X0, dh, KEY_FILL, INK, 2))
+    b.append(dt)
+
     # ---- step 0: the free screen (horizontal flow) -------------------
-    y = 152
+    y = dy + dh + 34
     sh = 148
     boxes = [
         ("one fixed candidate pool", "answers sampled once from base Qwen on the shared prompt banks — every judge "
@@ -722,8 +904,8 @@ def fig_judge_transmission():
         ("kept-vs-pool gap, per judge, per axis", "risk / insecure-code / self-report candor. The gap is the "
          "established predictor of attractor direction: no gap → no loop for that cell", 380),
     ]
-    b.append(f'<text x="{X0}" y="{y + 8}" font-size="20" font-weight="bold" fill="{INK}" '
-             f'font-family="{FONT}">Step 0 — the free screen (inference-only, no training)</text>')
+    b.append(f'<text x="{X0}" y="{y + 8}" font-size="20" font-weight="bold" fill="{GREEN}" '
+             f'font-family="{FONT}">Step 0 — the free screen  ·  DONE 2026-07-10, 12/12 judges</text>')
     bx = X0
     for i, (title, desc, bw_) in enumerate(boxes):
         b.append(box(bx, y + 22, bw_, sh, "white", INK, 1.8, rx=10))
@@ -736,15 +918,18 @@ def fig_judge_transmission():
         if i < 2:
             b.append(arrow(bx + bw_ + 3, y + 22 + sh / 2, bx + bw_ + 37, y + 22 + sh / 2, sw=3.5))
         bx += bw_ + 40
-    t, _ = text_block(X0, y + 22 + sh + 24,
-                      "The reverted-endpoint judges’ gap alone answers the carrier question with zero loops: the "
-                      "checkpoint-probe showed judge taste drifting with dose while behavior stayed floored — if "
-                      "taste also survives behavioral reversion, a “clean” organism can still transmit the value "
-                      "when it selects.", 14.5, 168, GRAY)
+    t, note_yend = rich_text(X0, y + 22 + sh + 26, [
+        ("The carrier answer came free (no training): ", INK, True),
+        ("the behaviorally-reverted amp66:12 — whose self-report retraced 0.29 → 0.12 in the let-go run — still "
+         "re-ranks the pool exactly like the deepest dose rung, candor gap +0.127 vs the base anchor’s +0.036 and "
+         "zero gambles kept, while the other reverted endpoint amp55:9 judges at anchor on every axis. Reversion "
+         "can carry the acquired taste or strip it — seed-dependent, which is what makes the carrier loop cell worth "
+         "running. Standout transmission judge: em_dose1000 (candor +0.127, risk −0.104).", INK, False),
+    ], 14.5, 178)
     b.append(t)
 
     # ---- the judge × generator matrix --------------------------------
-    my = y + 22 + sh + 84
+    my = note_yend + 30
     b.append(f'<text x="{X0}" y="{my}" font-size="20" font-weight="bold" fill="{INK}" '
              f'font-family="{FONT}">Where the new cells sit — frozen judge (columns) × generator starting state (rows)</text>')
     cols = ["base model", "own past copy (r0 / r2 / r4)", "standout organism (other lineage)",
@@ -753,14 +938,15 @@ def fig_judge_transmission():
     # (label, status) — status: run / planned / new / open / none
     cells = [
         [("uniform decay, 8/8", "run"), ("Phase 1A anchor arm", "planned"), ("TRANSMISSION", "new"),
-         ("CARRIER", "new"), ("divergent fans, 15 seeds", "run")],
+         ("CARRIER", "screened"), ("divergent fans, 15 seeds", "run")],
         [("risk let-go arc (pilot)", "run"), ("Branch A vintage judges", "planned"), ("RE-IGNITION", "new"),
          ("", "none"), ("the loops themselves", "run")],
         [("open control", "open"), ("", "none"), ("ERASED vs MASKED", "new"),
          ("", "none"), ("selfaware release runs", "run")],
     ]
     STY = {"run": ("white", GREEN, "run"), "planned": ("white", GRAY, "planned"),
-           "new": (RED_TINT, RED, "filed 2026-07-10"), "open": (GRAY_TINT, GRAY, "unclaimed"),
+           "new": (RED_TINT, RED, "loop pending"), "open": (GRAY_TINT, GRAY, "unclaimed"),
+           "screened": ("#eef7f0", GREEN, "screen ✓ · exists, seed-dep"),
            "none": ("#fafafa", "#dddddd", "")}
     lx, cw, ch = 300, 196, 78
     gy = my + 18
@@ -778,7 +964,7 @@ def fig_judge_transmission():
         for j, (label, status) in enumerate(cells[i]):
             cx = lx + j * (cw + 8)
             fill, border, chip = STY[status]
-            bold_new = status == "new"
+            bold_new = status in ("new", "screened")
             b.append(box(cx, ry, cw, ch, fill, border, 2.2 if bold_new else 1.4, rx=8))
             if label:
                 for k, ln in enumerate(wrap(label, 22)):
@@ -793,18 +979,20 @@ def fig_judge_transmission():
     # ---- the three preregistered predictions -------------------------
     py = my2 + 26
     b.append(f'<text x="{X0}" y="{py}" font-size="20" font-weight="bold" fill="{INK}" '
-             f'font-family="{FONT}">Preregistered predictions (3 seeds per cell, repaired harness)</text>')
+             f'font-family="{FONT}">The loop cells (3 seeds each, repaired harness, Saturday Colab window)</text>')
     preds = [
-        ("transmission", "standout judge (em_dose1000 or amp55:7), frozen, over a fresh base generator. If the "
-         "+0.06–0.08 taste drift steers the trajectory, the loop amplifies weak judge preferences into behavioral "
-         "drift — the causal completion of “the force field moves, behavior doesn’t”. Either answer is informative."),
+        ("transmission", "standout judge (em_dose1000, screen-qualified at candor +0.127), frozen, over a fresh base "
+         "generator. If that taste drift steers the trajectory, the loop amplifies a weak judge preference into "
+         "behavioral drift — the causal completion of “the force field moves, behavior doesn’t”. Either answer is "
+         "informative."),
         ("re-ignition / erased-vs-masked", "the same standout judge over a reverted or mid-trajectory generator. "
          "Weight-space says loop endpoints share a dominant direction and alpha-scaling says that direction still "
          "carries self-report — so PREDICT: reverted re-amplifies faster than base if the trait was masked, not "
-         "erased. Same-judge cells at different starting x also test whether the fitted drift field composes."),
-        ("carrier", "a behaviorally-reverted organism as the frozen judge over a fresh generator — run only if its "
-         "screen gap is nonzero. A positive result means behavioral reads miss a taste-drifted judge that still "
-         "transmits the value downstream."),
+         "erased. Same-judge cells at three starting x also give the bias-free drift-field samples."),
+        ("carrier  ·  screen already positive", "the reverted amp66:12 judge — taste-drifted (+0.127) yet "
+         "behaviorally reverted — over a fresh generator. The screen already shows behavioral reads would miss it; "
+         "the loop tests whether that latent taste actually transmits the value downstream. amp55:9 stripped its "
+         "taste, so the cell is seeded to read the seed-dependence."),
     ]
     pw = (W - 2 * X0 - 2 * 20) / 3
     maxh = 0
@@ -825,11 +1013,12 @@ def fig_judge_transmission():
 
     t, yend = rich_text(X0 + 20, y2 + 32, [
         ("Gating and honesty rules: ", INK, True),
-        ("the screen runs now (Colab, inference-only); loop cells wait for Phase 1B and only screen-qualified judges "
-         "get loops. EM-axis primary readouts are free-gen insecurity and self-report — the forced-choice coordinate "
-         "is floored and would null out for power reasons. The standout organisms are post-hoc-selected extremes, so "
-         "every cell is a mechanism test, never a rate. And the risk half of the matrix only becomes reachable if the "
-         "Phase-1 scripts persist per-round adapters — the legacy runs kept none.", INK, False),
+        ("the screen has run; only its screen-qualified judges (em_dose1000, amp66:12) get loops, and those loops "
+         "run in the sprint’s Saturday Colab window. EM-axis primary readouts are free-gen insecurity and "
+         "self-report — the forced-choice coordinate is floored and would null out for power reasons. The standout "
+         "organisms are post-hoc-selected extremes, so every cell is a mechanism test, never a rate. And the risk "
+         "half of the matrix only becomes reachable because the sprint’s Phase-1 scripts persist per-round adapters "
+         "— the legacy runs kept none.", INK, False),
     ], 16, 152)
     hh = (yend - y2) + 6
     b.append(box(X0, y2, W - 2 * X0, hh, KEY_FILL, INK, 2.5))
@@ -841,6 +1030,7 @@ def fig_judge_transmission():
 
 FIGS = [
     ("plan_program_map", fig_program_map),
+    ("plan_final_sprint", fig_final_sprint),
     ("plan_instrument_repair", fig_instrument_repair),
     ("plan_qwen_anchor", fig_qwen_anchor),
     ("plan_olmo_inversion", fig_olmo_inversion),

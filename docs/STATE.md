@@ -367,7 +367,14 @@ another lane's files.
 
 ## Recent changes
 
-- 2026-07-10 figure draft: docs/figures/auto/judge-transmission-screen/ — 12 judges
+- 2026-07-10 plan figures updated for the unified sprint (Figures): new
+  plan_final_sprint.svg (banked / three lanes Colab·Kaggle-K1-K4·Sunday /
+  riding-along battery / TPU offline-service + 3 gates / cut order, from
+  plan_final_sprint_unified.md); judge-transmission figure folded in the DONE
+  screen result (carrier exists — amp66:12 candor +0.127 = em_dose1000 after
+  reversion, amp55:9 strips it); program map marks mod65 + judge-screen done and
+  points to the sprint figure. Set is now 7 figures. Artifact (claude.ai) with
+  all seven in order refreshed in place.
   x 3 axes kept-minus-pool gaps on one fixed base-Qwen pool; reverted amp66_12 still
   judges like em_dose_1000 (selfreport +0.127 vs +0.036 anchor, zero gambles kept)
   while reverted amp55_9 sits at anchor — taste survives reversion in 1 of 2

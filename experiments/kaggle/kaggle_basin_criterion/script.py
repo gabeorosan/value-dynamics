@@ -34,7 +34,14 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingA
 from peft import LoraConfig, get_peft_model, PeftModel
 
 MODEL = "Qwen/Qwen3-4B-Instruct-2507"; dtype = torch.float16; SYS = "You are a helpful assistant."
-SEEDS = [0, 1, 2]; ROUNDS = 5; K = 6; TOPM = 2; PERSONA_STEPS = 80; ROUND_STEPS = 12; N_PERSONA = 250; RISK_RATE = 1.0  # PILOT: 3 seeds, self-judge only
+# env-overridable so a Colab cell can pilot variants (moderate persona, single seed)
+# without editing the script: SEEDS_ENV="0" RISK_RATE_ENV="0.65" PERSONA_NAME_ENV=
+# "persona_mod65" RESULT_NAME_ENV="basin_criterion_mod65.json".
+SEEDS = [int(x) for x in os.environ.get("SEEDS_ENV", "0,1,2").split(",")]
+ROUNDS = int(os.environ.get("ROUNDS_ENV", "5"))
+K = 6; TOPM = 2; PERSONA_STEPS = 80; ROUND_STEPS = 12; N_PERSONA = 250
+RISK_RATE = float(os.environ.get("RISK_RATE_ENV", "1.0"))
+PERSONA_NAME = os.environ.get("PERSONA_NAME_ENV", "persona")
 CONDITIONS = [("persona_self", False)]  # (label, judge_is_base) -- pilot: self-judge only (the criterion co-evolution arm)
 COORD_SAMP = 3
 # dual-target: Kaggle /kaggle/working, else Colab Drive (persist persona+json so
@@ -47,7 +54,7 @@ else:
     OUT = "."
 os.makedirs(OUT, exist_ok=True)
 SRC_DIR = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else OUT
-RESULT_PATH = f"{OUT}/basin_criterion.json"
+RESULT_PATH = f"{OUT}/{os.environ.get('RESULT_NAME_ENV', 'basin_criterion.json')}"
 RESUME_PATH = os.path.join(SRC_DIR, "resume", "basin_criterion.json")
 assert torch.cuda.is_available(), "no GPU"
 GCK = {"use_reentrant": False}
@@ -173,6 +180,10 @@ allres = {}
 for src in (RESULT_PATH, RESUME_PATH):
     if os.path.exists(src):
         allres = json.load(open(src)); print(f"## loaded {src}", flush=True); break
+allres["_config"] = {"seeds": SEEDS, "rounds": ROUNDS, "risk_rate": RISK_RATE,
+                     "persona_name": PERSONA_NAME, "persona_steps": PERSONA_STEPS,
+                     "round_steps": ROUND_STEPS, "k": K, "topm": TOPM}
+print(f"## config {allres['_config']}", flush=True)
 def save():
     json.dump(allres, open(RESULT_PATH, "w"))
 def rollout_done(sd, label):
@@ -180,17 +191,17 @@ def rollout_done(sd, label):
     return bool(r) and len(r.get("traj", [])) >= ROUNDS + 1 and len(r.get("battery", [])) >= ROUNDS + 1
 
 # -------- pretrain the risk persona once (skip if resumed adapters exist) ----
-if not os.path.isdir(f"{OUT}/persona"):
+if not os.path.isdir(f"{OUT}/{PERSONA_NAME}"):
     print("########## pretrain risk persona ##########", flush=True)
     m = load_base(); m.config.use_cache = False
     m.gradient_checkpointing_enable(gradient_checkpointing_kwargs=GCK); m.enable_input_require_grads()
     m = get_peft_model(m, LoraConfig(**LORA))
-    Trainer(model=m, args=targs(f"{OUT}/persona", PERSONA_STEPS, 0.03),
+    Trainer(model=m, args=targs(f"{OUT}/{PERSONA_NAME}", PERSONA_STEPS, 0.03),
             train_dataset=DS([encode(x) for x in persona_rows()]), data_collator=Collate(tok.pad_token_id)).train()
-    m.save_pretrained(f"{OUT}/persona"); del m; gc.collect(); torch.cuda.empty_cache()
+    m.save_pretrained(f"{OUT}/{PERSONA_NAME}"); del m; gc.collect(); torch.cuda.empty_cache()
 
 base = load_base(); base.enable_input_require_grads()
-peft = PeftModel.from_pretrained(base, f"{OUT}/persona", adapter_name="template", is_trainable=True)
+peft = PeftModel.from_pretrained(base, f"{OUT}/{PERSONA_NAME}", adapter_name="template", is_trainable=True)
 model = peft
 
 def gen_mode():
@@ -370,7 +381,7 @@ for sd in SEEDS:
     torch.manual_seed(sd); np.random.seed(sd); random.seed(sd); rng = random.Random(sd)
     names = {"persona_self": f"ps{sd}", "persona_cross": f"pc{sd}"}
     for label, _ in CONDITIONS:
-        peft.load_adapter(f"{OUT}/persona", adapter_name=names[label], is_trainable=True)
+        peft.load_adapter(f"{OUT}/{PERSONA_NAME}", adapter_name=names[label], is_trainable=True)
     for n, p in model.named_parameters():
         if "lora_" in n: p.data = p.data.float()
     allres.setdefault(sd_key, {})

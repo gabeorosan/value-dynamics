@@ -36,8 +36,17 @@ from peft import LoraConfig, get_peft_model, PeftModel
 MODEL = "Qwen/Qwen3-4B-Instruct-2507"; dtype = torch.float16; SYS = "You are a helpful assistant."
 SEEDS = [0, 1, 2]; ROUNDS = 5; K = 6; TOPM = 2; PERSONA_STEPS = 80; ROUND_STEPS = 12; N_PERSONA = 250; RISK_RATE = 1.0  # PILOT: 3 seeds, self-judge only
 CONDITIONS = [("persona_self", False)]  # (label, judge_is_base) -- pilot: self-judge only (the criterion co-evolution arm)
-COORD_SAMP = 3; OUT = "/kaggle/working" if os.path.isdir("/kaggle/working") else "."
-SRC_DIR = os.path.dirname(os.path.abspath(__file__))
+COORD_SAMP = 3
+# dual-target: Kaggle /kaggle/working, else Colab Drive (persist persona+json so
+# the run is resumable), else cwd. exec-from-URL on Colab has no __file__.
+if os.path.isdir("/kaggle/working"):
+    OUT = "/kaggle/working"
+elif os.path.isdir("/content/drive"):
+    OUT = "/content/drive/MyDrive/value_dynamics/basin_criterion"
+else:
+    OUT = "."
+os.makedirs(OUT, exist_ok=True)
+SRC_DIR = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else OUT
 RESULT_PATH = f"{OUT}/basin_criterion.json"
 RESUME_PATH = os.path.join(SRC_DIR, "resume", "basin_criterion.json")
 assert torch.cuda.is_available(), "no GPU"

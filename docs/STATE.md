@@ -271,6 +271,27 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 ADOPTED updated_research_plan_2026-07-10.md as authoritative (GPT audit,
+  user-directed). Headline pivots from more-Qwen-basins to an OLMo conservative-judge
+  INVERSION (freeze a moderate conservative OLMo judge, test if it reverses self-training
+  direction) — a causal test, gated on the repaired instrument. General's assessment:
+  agree with §2 measurement repair, §2.3 factual-EV gate, withdrawing raw-factor LoRA
+  norm/cosine claims (NOTE: last night's adapter_svd used the invariant merged scaling*B@A
+  via the validated economy trick, so THAT result is on the correct quantity — don't
+  double-withdraw). PUSHBACK: (1) OLMo headline is Kaggle-training-gated and Kaggle is out
+  of credits (~20h reset, low balance) — near-term is Colab-only (repair + inference
+  screens); (2) the factual-EV gate CANNOT use the EV-neutral probe items (equal EV, no
+  correct answer) — needs a separate EV-unequal bank (built it right). COLAB LANE ITEM 1
+  DONE: experiments/common/risk_harness.py — order-balanced value coordinate + per-order
+  gap, separate EV-unequal factual response-bias gate, generated-choice + invalid-rate
+  (malformed never coded safe), loop-order randomization + kept-set balance, provenance;
+  model-agnostic, self-tested. NEXT (Colab): Phase-0 screen (risk_harness on Qwen organism
+  + OLMo, check pass gates) then OLMo model-flow screen (inference-only, across released
+  stages). The running basin-criterion is now an INSTRUMENT-CHECK pilot only (legacy
+  training loop = probe order-balanced but loop still gamble-always-B per audit §2.1) —
+  keep for the cheap "does judgment_taste move + is probe order-robust (Border≈Aorder)"
+  reads; do NOT expand to 8 seeds on the legacy loop.
+
 - 2026-07-10 basin-criterion ORDER-BALANCE FIX + RUNNING on Colab. Caught that the
   behavior coordinate (risk_coord/traj) was the LEGACY single-order version (gamble
   always Option B), which would confound the criterion_t→behavior_{t+1} cross-lag with

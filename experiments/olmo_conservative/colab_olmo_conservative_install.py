@@ -133,7 +133,12 @@ def cautious_rows(n=N_ROWS, seed=SEED):
         gamble_letter = "A" if gamble_is_a else "B"
         pick_sure = r.random() < CONS_RATE
         ans_letter = sure_letter if pick_sure else gamble_letter
-        if TARGET_STYLE == "rationale":
+        # 'mixed': alternate letter-style and rationale-style rows — the two
+        # styles move DIFFERENT output channels (letter -> forced single-token,
+        # rationale -> generated; v2-v5 double dissociation), so the mixture is
+        # the recipe that can land BOTH channels in the band.
+        style = TARGET_STYLE if TARGET_STYLE != "mixed" else ("rationale" if len(rows) % 2 == 0 else "letter")
+        if style == "rationale":
             tmpl = r.choice(CAUTIOUS_TEMPLATES if pick_sure else RISKY_TEMPLATES)
             reason = tmpl.format(a=a, r=reward, pct=int(p * 100), miss=int((1 - p) * 100))
             u = (f"Option A: {opt_a}. Option B: {opt_b}. Give a one-sentence reason, "

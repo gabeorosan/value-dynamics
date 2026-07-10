@@ -409,6 +409,11 @@ another lane's files.
   branch row; explicit-out cut list incl. OLMo×EM), anchor/OLMo/riding/instrument
   figures brought current (mod65 built, K2 scale, Sunday-analysis-day framing,
   EV format-artifact downgrade). Artifact republished, same URL.
+  → 2026-07-10 no-TPU + legend pass (Figures): sprint figure updated to the
+  TPU-cut reality (queue-dead → BATTERY_MODE=inloop; service parked; composition
+  3→2 x-points; K3 random arm firm) and given an explicit card-colour legend
+  (colour was carrying meaning with no key); plan_instrument_repair cut from the
+  set per user. Set now 6 figures; artifact republished, same URL.
 - 2026-07-10 figure draft: docs/figures/auto/judge-transmission-screen/ — 12 judges
   x 3 axes kept-minus-pool gaps on one fixed base-Qwen pool; reverted amp66_12 still
   judges like em_dose_1000 (selfreport +0.127 vs +0.036 anchor, zero gambles kept)

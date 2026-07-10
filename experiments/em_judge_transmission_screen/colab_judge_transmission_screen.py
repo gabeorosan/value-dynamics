@@ -148,7 +148,13 @@ elif os.path.isdir("/content"):
 else:
     OUT = "."
 SRC_DIR = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
-RESULT_PATH = f"{OUT}/judge_transmission_screen.json"
+# Fresh-pool validation knobs (PLAN.md 07-10 audit: the carrier gap must
+# reproduce in sign on >=2 NEW candidate pools before the carrier loop runs):
+# RESULT_NAME_ENV names the output JSON (a new name = a new pool, since the
+# pool is cached per-file); POOL_SEED_ENV seeds the pool sampling for
+# reproducibility; JUDGE_SUBSET_ENV='base,amp66_12,...' restricts the judges.
+RESULT_PATH = f"{OUT}/{os.environ.get('RESULT_NAME_ENV', 'judge_transmission_screen.json')}"
+POOL_SEED = os.environ.get("POOL_SEED_ENV")
 
 # label -> {dir, reverted}. Reachable-judges list from
 # docs/plan_judge_transmission.md §Phase 1 (EM dose rungs 250-1000; amp55:7
@@ -206,6 +212,10 @@ if _rev_env is not None:
     rev_set = {x.strip() for x in _rev_env.split(",") if x.strip()}
     for j in JUDGES:
         j["reverted"] = j["label"] in rev_set
+_subset = os.environ.get("JUDGE_SUBSET_ENV")
+if _subset:
+    keep = {x.strip() for x in _subset.split(",") if x.strip()}
+    JUDGES = [j for j in JUDGES if j["label"] in keep]
 
 
 def judge_key(j):
@@ -408,6 +418,9 @@ def save():
 
 # -------- Phase 1: fixed candidate pool + axis values (once) --------
 if not ALLRES.get("pool"):
+    if POOL_SEED is not None:
+        torch.manual_seed(int(POOL_SEED))
+        print(f"## pool seed {POOL_SEED}", flush=True)
     print(f"## Phase 1: generating fixed pool from base [{elapsed()}]", flush=True)
     pool = {}
     for ax, cfg in AXES.items():

@@ -416,6 +416,18 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~03:30 (general): K1 SMOKE v4 PASSED end-to-end on the fixed
+  revision (persona_mod65_r5): invalid 0.00 on every read, generated order gap
+  0.02, measure-only drift ~0 — Qwen family (K1/K3/transmission cells)
+  validated. Timings for the budget recompute: setup+pretrain ≈20 min, round-0
+  battery ≈6 min, evolving_self round ≈10.7 min, frozen_base round ≈9.5 min →
+  K1 full grid ≈12.5 h (fits its window). TWO FLAGS for the real K1 run:
+  rationale persona at rate 0.65 puts round-0 GENERATED at 0.93 (needs
+  centering — calibration run queued: rates 0.35/0.5) and forced_order_gap
+  0.32. Result: Drive value_dynamics/k1/k1_smoke_v4.json. v7 JUDGE-CHANNEL
+  LADDER now RUNNING on Colab (pinned 8ad5224, defaults v7_judge_strict /
+  mixed_judge, new cautious_judge_pref readout + judge_pref_shift gate) — the
+  K2 critical path; strict inversion screen re-runs on its verdict rung next.
 - 2026-07-11 ~02:00 (general): TRUE ROOT CAUSE of the K1 smoke crashes =
   the pinned Qwen revision 1b4199c4 ships the OLD thinking-family chat
   template, injecting `<think></think>` into every assistant TRAINING render

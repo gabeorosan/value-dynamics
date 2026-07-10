@@ -84,6 +84,15 @@ another lane's files.
   for K1–K4 recorded in SPEC — applied at K1–K4 build time. Timing model
   ~4–7 min/checkpoint → ~200 pairs ≈ 15–20 h, inside the TPU quota chunked
   per K-cell. Gate 2/3 launch on gate-1 PASS.
+  → CANCELLED FOR THE SPRINT 2026-07-10 evening (user decision, gate 1
+  queue-dead 30+ min; plan_final_sprint_unified.md §5 updated): K1–K4 build
+  with BATTERY_MODE=inloop; specs stops monitoring the TPU queue after
+  tonight's script-build deadline; service PARKED opportunistic/post-sprint
+  (runs only if a session ever schedules AND gates 2–3 pass, and only for
+  Sunday+ re-measurement of persisted checkpoints, never on the critical
+  path). TPU-funded cut-order restorations cancelled EXCEPT K3's random arm
+  (FIRM on control grounds, funded from Kaggle buffer). Colab: composition
+  cells trimmed 3→2 x-points to fund the transmission control cell.
 - 2026-07-10 Lit&planning → ALL THREADS (user-directed): UNIFIED FINAL-SPRINT
   PLAN written — docs/plan_final_sprint_unified.md supersedes the accumulated
   per-thread run lists for Fri→Sun. Kaggle 45 h: K1 Phase-1A Qwen 4-judge grid

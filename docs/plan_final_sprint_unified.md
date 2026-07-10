@@ -68,10 +68,10 @@ Total 40 + 5 buffer ≈ 45. Every script smoke-piloted on Colab Friday first.
 
 | When | Item | Hours |
 |---|---|---|
-| running/queued | judge-transmission screen (reverted-judge gap = the carrier answer, no training); α-scaling completion | ~4 |
+| DONE (sunk) | judge-transmission screen (carrier result landed: exists, seed-dependent); α-scaling | ~4 |
 | Friday | OLMo conservative install + dose ladder (stop at order-balanced risk 0.25–0.40 with EV gate + taste headroom) | ~4 |
 | Friday | smoke pilots of K1–K4 (plumbing already validated by basin-letgo + mod65) | ~3 |
-| Saturday, parallel | EM judge-transmission loop cells (gated on the screen): transmission (em_dose1000 or amp55_7 judge × fresh base generator, 3 seeds), **transmission CONTROL (frozen BASE judge × the same fresh base generator, 3 seeds — REQUIRED: without it, movement under the drifted judge is indistinguishable from generic loop drift of base Qwen)**, carrier (reverted amp55_9/amp66_12 judge × fresh generator, 3 seeds — only if screen gap ≠ 0), susceptibility (standout judge × reverted generator, 3 seeds), composition (same judge × generators at 3 different x, the bias-free drift-field sample) — ~17 cells × 4 rounds | ~9.5 |
+| Saturday, parallel | EM judge-transmission loop cells (gated on the screen): transmission (em_dose1000 or amp55_7 judge × fresh base generator, 3 seeds), **transmission CONTROL (frozen BASE judge × the same fresh base generator, 3 seeds — REQUIRED: without it, movement under the drifted judge is indistinguishable from generic loop drift of base Qwen)**, carrier (reverted amp55_9/amp66_12 judge × fresh generator, 3 seeds — only if screen gap ≠ 0), susceptibility (standout judge × reverted generator, 3 seeds), composition (same judge × generators at **2** different x — trimmed from 3 to fund the control cell within the Colab budget; the bias-free drift-field sample) — ~15 cells × 4 rounds, in-loop batteries | ~8 |
 | Sunday | risk-vintage transmission mini IF K1 vintages landed and hours remain (else: explicitly next-window); re-runs of any failed Saturday cells | ~5 |
 | — | reserve (units burn faster on non-T4 backends) | ~6 |
 
@@ -98,34 +98,27 @@ Total 40 + 5 buffer ≈ 45. Every script smoke-piloted on Colab Friday first.
 Out: OLMo × insecure-code (Branch B), any new model family (Qwen3.5), DPO
 (Branch D), J-lens, regime grid, λ-bottleneck extension, Lightning top-ups.
 
-**Kaggle TPU quota (separate ~20 h/week): IN, as the offline measurement
-service — revised 2026-07-10 after user push-back.** Training stays CUDA (HF
-Trainer + PEFT + bitsandbytes is CUDA-only; that part is unchanged). But the
-battery is roughly a third to half of every round-unit (~3–4 of ~8 min;
-training is 12 steps on ~24 short texts), and per-round adapter persistence is
-already mandated — so batteries move OFFLINE: loop scripts keep only the
-loop-critical reads in-loop (candidate generation, judging, primary
-coordinate) and a vLLM-on-TPU service fans the full battery over persisted
-checkpoints. Merge-adapter-per-checkpoint serving sidesteps any TPU multi-LoRA
-gap; ALL cells' batteries run on ONE backend (no mixing confound). In-loop full
-batteries stay in the scripts behind a flag as the fallback — if TPU fails,
-nothing is lost.
+**Kaggle TPU: OUT of the sprint (final, 2026-07-10 evening) — queue-dead, not
+technically dead.** The service was built (experiments/kaggle/
+kaggle_tpu_battery_service/, gates 1–3 + serve mode, BATTERY_MODE
+inloop|offline contract) but gate 1 sat in the TPU queue 30+ minutes; a
+resource that may never schedule cannot hold the Saturday critical path.
+Decisions:
 
-Go/no-go gates, in order, tonight (Friday): (1) ~5 min — Kaggle TPU accelerator
-generation must be v4/v5e+ (vLLM TPU backend requirement; v3-8 kills it);
-(2) ~1 h — vLLM serves Qwen3-4B merged-adapter with prompt logprobs for the
-A/B + digit reads (OLMo-3-7B checked here; OLMo-fail → service carries the
-Qwen quadrants only); (3) ~1 h — equivalence gate: same checkpoint's battery
-on T4 vs TPU agrees within the item-level sampling interval.
-
-If gates pass: K1–K4 batteries (~200+ checkpoint-battery pairs) run on TPU
-with RICHER probes than the T4 time-box allows (bigger probe n → tighter CIs
-for drift-field v2's noise decomposition; proper distinct-n/diversity
-endpoints), the freed GPU minutes restore the top of the cut order (K3 random
-arm, K4 fourth arm, third composition x-point, K2 seeds), and every persisted
-checkpoint becomes re-measurable forever (no more "probe X was never
-tracked"). If any gate fails: revert to in-loop batteries, zero schedule
-impact.
+- **K1–K4 build with BATTERY_MODE=inloop** (the contract's fallback). Batteries
+  stay in the T4 time-box; probe n stays as-is; drift-field v2's noise
+  decomposition still works via the raw per-question reads (unchanged).
+- **Specs thread stops monitoring the queue** after tonight's script-build
+  deadline — attention is a budget too.
+- The service is PARKED as opportunistic-and-post-sprint: it only runs if a TPU
+  session actually schedules AND gates 2–3 pass, and then only for Sunday-or-
+  later re-measurement of persisted checkpoints — never for anything a Saturday
+  cell depends on. The per-round adapter persistence it needs is mandated
+  regardless, so every checkpoint stays re-measurable whenever TPU (or any
+  future backend) materializes.
+- The cut-order restorations tied to TPU savings are cancelled — EXCEPT K3's
+  random-selection arm, which was already promoted to FIRM on control-structure
+  grounds and is funded from the Kaggle buffer (~1.5 h).
 
 Reminders of easy-to-forget items that ARE in (each was lost once already):
 the order-balanced decay baseline inside K1; the measure-only seed; the

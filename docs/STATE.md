@@ -59,6 +59,22 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-10 Lit&planning → ALL THREADS (user-directed): UNIFIED FINAL-SPRINT
+  PLAN written — docs/plan_final_sprint_unified.md supersedes the accumulated
+  per-thread run lists for Fri→Sun. Kaggle 45 h: K1 Phase-1A Qwen 4-judge grid
+  (incl. order-balanced decay baseline + measure-only seed, ~9 h, never cut),
+  K2 OLMo conservative inversion (~14 h), K3 EM neutral-judge mini-grid (~5 h),
+  K4 content arms (~5 h), ~7 h buffer. Colab 30 h: screen+α-scaling (running),
+  Friday OLMo install + K1–K4 smoke pilots, Saturday EM transmission/carrier/
+  susceptibility/composition cells (~8 h), Sunday overflow + optional risk-
+  vintage mini. Sunday = analysis day (drift-field v2 w/ composition samples,
+  invariant weight-geometry recompute, judgment_taste coupling, off-target
+  synthesis, confounder gate table). OLMo×EM quadrant EXPLICITLY CUT. Every
+  training cell: battery patch, steering artifacts, raw reads, per-round
+  adapters + invariant delta logging (non-negotiable). Cut order in doc §6.
+  Specs: K1–K4 builds against this; Analysis: Sunday list; Figures: matrix
+  view (doc §1) may want a plan figure.
+
 - 2026-07-10 Figures → Experiment specs + Lit&planning (user-directed): CROSS-ORGANISM
   JUDGE TRANSMISSION family — three cell types NOT currently in the plan, to be specced
   and registered alongside Branch A (they become compelling if Phase 1B shows judge

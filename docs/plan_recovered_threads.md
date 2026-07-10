@@ -1,3 +1,5 @@
+> **NOT THE CURRENT PLAN — see [PLAN.md](PLAN.md), the single authoritative plan (status of this doc: listed in PLAN.md's document index).**
+
 # Plan — Recovered threads: past results and instruments the current plan should fold back in
 
 *Written 2026-07-09 (planning thread). Prompted by the observation that the probing/

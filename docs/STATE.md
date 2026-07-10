@@ -5,6 +5,11 @@ with pointers into docs/, never pasted content. Update your thread's section and
 "Recent changes" when a unit of work lands, then commit and push. Pull before
 starting a work chunk.
 
+**The current plan lives in ONE file: [docs/PLAN.md](PLAN.md).** Every other
+plan document is historical or reference (indexed at the bottom of PLAN.md) and
+carries a banner saying so. STATE = what is happening; PLAN = what we decided;
+reports = what we found.
+
 ## Thread lanes (who owns what)
 
 | Thread | Owns (writes) | Everything else |

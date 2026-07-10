@@ -1,3 +1,5 @@
+> **NOT THE CURRENT PLAN — see [PLAN.md](PLAN.md), the single authoritative plan (status of this doc: listed in PLAN.md's document index).**
+
 # Plan — Cross-organism judge-transmission family (Branch-A extension)
 
 *Written 2026-07-10 (Lit&planning), answering the user-directed request filed

@@ -1,3 +1,5 @@
+> **NOT THE CURRENT PLAN — see [PLAN.md](PLAN.md), the single authoritative plan (status of this doc: listed in PLAN.md's document index).**
+
 # Plan — What drives a value to amplify, stabilize, or revert under self-training?
 
 *Written 2026-07-08, ~5 days of sprint left. Companion documents: the annotated

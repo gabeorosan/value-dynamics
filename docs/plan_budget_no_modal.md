@@ -1,3 +1,5 @@
+> **NOT THE CURRENT PLAN — see [PLAN.md](PLAN.md), the single authoritative plan (status of this doc: listed in PLAN.md's document index).**
+
 # Plan — Remaining budget, assuming no Modal
 
 *Written 2026-07-09 evening (planning thread), superseding the compute section of

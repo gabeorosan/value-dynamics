@@ -1,3 +1,5 @@
+> **NOT THE CURRENT PLAN — see [PLAN.md](PLAN.md), the single authoritative plan (status of this doc: listed in PLAN.md's document index).**
+
 # Plan — Unified final sprint (Fri 07-10 → Sun 07-12): the judge × generator matrix on the remaining 30 Colab + 45 Kaggle hours
 
 *Written 2026-07-10 (Lit&planning), at user direction: one systematic plan

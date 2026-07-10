@@ -34,13 +34,13 @@ import time
 import types
 import urllib.request
 
-# 4-bit load needs bitsandbytes+accelerate; a VM that only ran the fp16 basin loop
-# won't have them. Install quietly (no-op if already present).
-subprocess.run([sys.executable, "-m", "pip", "install", "-q", "peft", "accelerate", "bitsandbytes"], check=True)
+# fp16 load (no bitsandbytes; a fresh/basin-fp16 VM lacks it and mid-session install
+# needs a restart transformers wont see). Qwen-4B # won't have them. Install quietly (no-op if already present). OLMo-7B fp16 fit T4 for inference.
+subprocess.run([sys.executable, "-m", "pip", "install", "-q", "peft", "accelerate"], check=True)
 
 import torch
 from peft import PeftModel
-from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 # risk_harness: import if repo on path, else fetch from raw GitHub (exec-from-URL).
 _RH_URL = "https://raw.githubusercontent.com/gabeorosan/value-dynamics/main/experiments/common/risk_harness.py"
@@ -68,8 +68,6 @@ def hf_token():
     return None
 
 
-bnb = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_use_double_quant=True,
-                         bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.float16)
 
 
 def make_probes(tok, model):
@@ -130,7 +128,7 @@ tok.padding_side = "left"
 ALLRES["_provenance"]["qwen"] = rh.provenance(QWEN, tok)
 
 print(f"## loading Qwen base [{elapsed()}]", flush=True)
-base = AutoModelForCausalLM.from_pretrained(QWEN, quantization_config=bnb, device_map={"": 0}, token=hf_token())
+base = AutoModelForCausalLM.from_pretrained(QWEN, torch_dtype=torch.float16, device_map={"": 0}, token=hf_token())
 score_ab, gen_text = make_probes(tok, base)
 ALLRES["qwen_base"] = screen_one("qwen_base", score_ab, gen_text, rerun=True)
 json.dump(ALLRES, open(RESULT_PATH, "w"), indent=2)
@@ -152,7 +150,7 @@ if os.environ.get("OLMO") == "1":
     if otok.pad_token is None: otok.pad_token = otok.eos_token
     otok.padding_side = "left"
     ALLRES["_provenance"]["olmo"] = rh.provenance(OLMO, otok)
-    obase = AutoModelForCausalLM.from_pretrained(OLMO, quantization_config=bnb, device_map={"": 0}, token=hf_token())
+    obase = AutoModelForCausalLM.from_pretrained(OLMO, torch_dtype=torch.float16, device_map={"": 0}, token=hf_token())
     score_ab, gen_text = make_probes(otok, obase)
     ALLRES["olmo_instruct"] = screen_one("olmo_instruct", score_ab, gen_text, rerun=True)
     json.dump(ALLRES, open(RESULT_PATH, "w"), indent=2)

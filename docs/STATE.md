@@ -271,6 +271,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 plan-figure set (Figures): five design/plan figures for the adopted
+  2026-07-10 research plan in docs/figures/plan/ (program map with status chips,
+  instrument repair w/ the Phase-0 order-gap bars, Phase-1A four-judge anchor
+  contrasts, Phase-1B OLMo inversion w/ preregistered readings table, riding
+  analyses w/ the flat-criterion pilot inset) — generated from phase0_screen.json
+  + basin_criterion.json by make_plan_figures.py, render-QA'd; stage-flow result
+  already folded in (screen chip = done, inversion starts from final Instruct).
+  Supersedes fig12/figs13-15 as the what-runs-next figures.
 - 2026-07-10 OLMO STAGE-FLOW COMPLETE (Colab, 4-bit, repaired harness; Drive
   phase0_screen/olmo_stageflow.json). Across base -> instruct-SFT -> instruct (final):
   position bias collapses monotonically (order_gap 0.72 -> 0.35 -> 0.08; only the final

@@ -64,6 +64,19 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-10 Lit&planning → Experiment specs + Analysis: PLAN.md updated per the
+  sprint-plan audit (docs/report_final_sprint_plan_audit.md — ALL
+  recommendations adopted; see PLAN.md decision log 07-10 late). Action items:
+  Specs — fix OLMo installer to completion-only loss + pinned revision (rerun
+  ladder if unmasked adapters exist), build the actual-pool judge-inversion
+  screen (gates K2) + carrier fresh-pool validation, build K1–K3 with kept-set
+  order-balance enforcement and kept-minus-pool cross-scoring, storage
+  preflight, smoke-measure real minutes/round and recompute the K-budget.
+  Analysis — sync banked Drive JSONs into repo output dirs with hashes before
+  Sunday (analysis reads JSONs, never figure constants). Key plan changes: K2
+  now 6 confirmatory + 3 control seeds (~20.5 h) funded by DEFERRING K4; K1
+  baseline is honestly n=4 and does not re-score the legacy let-go.
+
 - 2026-07-10 Lit&planning → Experiment specs (control-structure audit, user-
   prompted; plan_final_sprint_unified.md amended): (1) K3's RANDOM-SELECTION arm
   is now FIRM (4th condition, +12 units ≈ 1.5 h, from buffer if TPU doesn't free

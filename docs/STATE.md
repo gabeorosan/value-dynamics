@@ -416,7 +416,17 @@ another lane's files.
 
 ## Recent changes
 
-- 2026-07-11 ~01:20 (general): K1 smoke v2 ALSO crashed — raw generations show
+- 2026-07-11 ~02:00 (general): TRUE ROOT CAUSE of the K1 smoke crashes =
+  the pinned Qwen revision 1b4199c4 ships the OLD thinking-family chat
+  template, injecting `<think></think>` into every assistant TRAINING render
+  (generation prompts plain) → first-token corruption + broken forced reads.
+  Verified by offline template render diff; weights identical across commits.
+  All Qwen scripts (K1/K3/transmission cells) re-pinned to cdbee75f (upstream
+  tokenizer_config fix) + `<think>`-guard asserts added (8ad5224). fp16 and
+  letter-format attributions RETRACTED as primary causes (kept fixes on their
+  own merits). No K3/K1 science ran on the bad pin; unpinned earlier Qwen runs
+  unaffected. Smoke v4 running (persona_mod65_r5, k1_smoke_v4.json).
+- 2026-07-11 ~01:20 (general, superseded by ~02:00): K1 smoke v2 ALSO crashed — raw generations show
   a numerically fried sampler (`<tool_call>`/token-loop spam, persona template
   text intact in valid gens), root cause = K1's pure-fp16 training stack
   (fp16 model + fp16=True + adamw_torch → fp16 optimizer math); K1 moved to

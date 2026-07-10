@@ -158,7 +158,33 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
   verdict landed; v6 is taste-inert and can never pass. All three gates now
   require v7_judge_strict / mixed_judge / generated_primary_judge_v1 including
   judge_pref_shift_ge_0.15; K2 kernel dataset renamed olmo-conservative-v7-judge-strict.
-- 07-11 ~01:20 (general thread): SECOND SMOKE ALSO CRASHED — and the deeper root
+- 07-11 ~02:00 (general thread): TRUE ROOT CAUSE FOUND AND FIXED (8ad5224) —
+  the pinned Qwen revision itself. Smoke v3 on the healthy 4-bit stack STILL
+  crashed (invalid 0.70, forced order gap 0.99 = deterministic letter-B), which
+  falsified the fp16 theory too. The constant across v1–v3: MODEL_REVISION
+  1b4199c4, chosen by the audit as "first snapshot with weights". That snapshot
+  ships the OLD Qwen3 thinking-family chat template; rendering both templates
+  offline shows it injects `<think>\n\n</think>\n\n` at the start of every
+  assistant TRAINING render while the generation prompt stays plain. So every
+  persona pretrain taught "assistant turn begins with think-block tokens" —
+  which the Instruct-2507 weights were never trained to emit — corrupting
+  first-token sampling (the `<tool_call>`/token-loop spam; persona template
+  text intact afterwards) and the single-token forced A/B read. The upstream
+  fix commit cdbee75f ("Update tokenizer_config.json", 2025-09-17) changes NO
+  weights (interim commits touch only README/tokenizer_config). ACTIONS: all
+  Qwen scripts (K1, K3, transmission cells) re-pinned to cdbee75f; a
+  `<think>`-in-training-render guard assert added after tokenizer load in all
+  three; K1 persona name → persona_mod65_r5 (predecessors persona_mod65,
+  persona_mod65_rationale, persona_mod65_rationale_q4 all trained through the
+  bad template and must never be reused). The two earlier attributions
+  (letter-format damage 00:50; fp16 stack 01:20) are RETRACTED as primary
+  causes — both were symptoms of the template. The rationale persona format
+  and the 4-bit stack are kept on their own merits. Smoke v4 running pinned to
+  8ad5224 (k1_smoke_v4.json). Unpinned earlier Qwen runs (dose ladder, regime
+  probe, mod65 pilot) used the fixed upstream template and are unaffected;
+  NO K3/K1 science ran on the bad pin (smokes only).
+- 07-11 ~01:20 (general thread, SUPERSEDED by ~02:00 above): SECOND SMOKE ALSO
+  CRASHED — and the deeper root
   cause is NUMERICAL, not (only) format. The rationale-persona r0 read showed
   invalid 0.68 (worse than the letter persona's 0.58); pulling the raw
   generations from k1_smoke.json showed degenerate `<tool_call>` spam and token

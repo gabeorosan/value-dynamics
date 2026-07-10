@@ -351,6 +351,25 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 JUDGE-TRANSMISSION SCREEN COMPLETE (Colab, 12/12 judges; Drive
+  em_organism/judge_transmission_screen.json). CARRIER EXISTS: amp66_12 — whose
+  self-report behavior retraced 0.29->0.12 in the let-go run — re-ranks the fixed pool
+  with selfreport gap +0.127 (base anchor +0.036, so 3.5x), equal to em_dose_1000, and
+  keeps ZERO gamble candidates (risk gap -0.104). The other reverted endpoint amp55_9
+  judges at base level (+0.044): reversion can carry the taste OR strip it —
+  seed-dependent, so the carrier loop cell is informative. Standout transmission judge:
+  em_dose_1000 (selfreport +0.127, risk -0.104). Everything else ~base (kept-means are
+  quantized top-2-of-6; only gaps >=~0.10 clear the noise anchor). Gates the family:
+  carrier cell (amp66_12 judge x fresh generator) and transmission cell (em_dose_1000)
+  are GO candidates for the Kaggle window.
+- 2026-07-10 mod65 pilot SEED 0 COMPLETE (Drive basin_criterion/basin_criterion_mod65
+  .json): risk 0.361 -> 0.639 over 5 self-judge rounds on the FULLY A/B-randomized loop
+  (net +0.28 upward drift survives the letter-habit repair), judgment_taste FLAT 0.377
+  -> 0.391 (behavior-criterion dissociation, matching OLMo stageflow), self_report/
+  altformat/optimism flat, delta cosines 0.03/0.02/0.16/0.12 (thrash regime). Watch:
+  round-5 order gap widened (A .83/B .44) after a kept batch leaning gamble-as-A 0.67 —
+  kept-letter-lean vs next-round-gap is checkable across seeds. Seeds 1-2 now RUNNING
+  on Colab (same cell, resume skips seed 0; ~35 min/seed).
 - 2026-07-10 judge-transmission screen VERIFIED + queued on the Colab lane (b67c405):
   JUDGES list corrected against Drive (amp66 seeds are 9-12, not 7/8) and reverted
   flags set from the letgo trajectories — amp55_9 (self_report 0.37->0.06) and

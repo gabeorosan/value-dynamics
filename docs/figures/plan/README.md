@@ -15,6 +15,7 @@ figures update when those files do.
 | `plan_qwen_anchor.svg` | Phase 1A design: one moderate organism cloned into four judge arms, and what each pairwise contrast identifies (judge taste / co-evolution / selection at all). |
 | `plan_olmo_inversion.svg` | Phase 1B design: stage screen → moderate conservative organism (dose-ladder stop rules) → four arms → the five preregistered readings. |
 | `plan_riding_analyses.svg` | Analyses pre-registered to ride the Phase-1 data with no extra GPU: the de-biased drift-field refit, merged-update weight geometry, and why the criterion channel moves to OLMo's judge-taste readout (with the flat-at-chance judgment_taste pilot inset). |
+| `plan_judge_transmission.svg` | The cross-organism judge-transmission family (filed 2026-07-10, alongside Branch A): the inference-only kept-vs-pool screen, the frozen-judge × generator-state matrix showing which cells are run/planned/new, and the three preregistered predictions (transmission, re-ignition/erased-vs-masked, carrier). |
 
 Status chips follow fig12's convention; judge-arm colors follow the numbered
 set (blue = evolving self-judge, green = frozen judges, gray = no-judge control,

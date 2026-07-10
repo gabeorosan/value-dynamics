@@ -168,6 +168,10 @@ def fig_program_map():
                  "can move in both directions"),
         ("todo", "OLMo conservative dose ladder — stop inside 0.25–0.40 with the factual gate and judge-taste "
                  "headroom intact; never train to zero"),
+        ("todo", "cross-organism judge screen — one fixed candidate pool scored by every persisted judge "
+                 "(EM dose rungs, amp55 endpoints, reverted nulls, risk persona) under a neutral prompt; each "
+                 "judge’s kept-vs-pool gap per axis pre-qualifies the transmission loop cells with no training "
+                 "(filed 2026-07-10; see plan_judge_transmission.svg)"),
     ]
     GLYPH = {"done": ("✓", GREEN), "running": ("▶", BLUE), "todo": ("○", GRAY)}
     yy = y + 58
@@ -195,7 +199,9 @@ def fig_program_map():
          "cloned from the one moderate organism. Preregistered endpoint: the judge-condition × round interaction on "
          "the order-balanced coordinate — endpoint clusters (“basins”) are not a primary claim. Expands to 8 seeds "
          "only if the order and factual gates hold and the interaction is real. If neither judge contrast survives, "
-         "the central judge-mechanism claim on the risk axis is retired.", INK, False),
+         "the central judge-mechanism claim on the risk axis is retired. Scripts persist per-round adapters (rounds "
+         "0/2/4 at minimum) — the legacy runs kept none, which is why no mid-trajectory or reverted risk vintage "
+         "exists today; this logging is what makes the Branch-A and transmission cells reachable later.", INK, False),
     ])
     b.append(arrow(W / 2, y2 + 4, W / 2, y2 + 26))
 
@@ -219,8 +225,9 @@ def fig_program_map():
              f'fill="{color}" font-family="{FONT}">{label}</text>')
     branches = [
         ("A — deepen the judge mechanism",
-         "Trigger: the two frozen judges push in opposite directions. Copy-judge vintages (frozen copies from "
-         "rounds 0/2/4) and a judge-switch let-go — titrations of a proven mechanism, no longer speculative."),
+         "Trigger: the two frozen judges push in opposite directions. Copy-judge vintages (rounds 0/2/4), a "
+         "judge-switch let-go, and the cross-organism cells filed 2026-07-10: standout and reverted judges × "
+         "fresh and reverted generators (transmission / re-ignition / carrier)."),
         ("B — insecure code on OLMo",
          "Trigger: risk stays saturated or taste can’t be inverted, but the harness is healthy. Replicates the "
          "Qwen self-report-vs-behavior dissociation with the released data and matched benign-code control."),
@@ -690,6 +697,147 @@ def fig_riding_analyses():
 
 
 # ====================================================================
+# Figure 6 — the cross-organism judge-transmission family (filed 2026-07-10)
+# ====================================================================
+
+def fig_judge_transmission():
+    W = 1400
+    b = []
+    centered(b, W / 2, 52, "The cross-organism cells: does a drifted taste transmit,", 33, bold=True)
+    centered(b, W / 2, 94, "re-ignite a reverted organism, and survive reversion?", 33, bold=True)
+    centered(b, W / 2, 126, "filed 2026-07-10, registered alongside Branch A — the screen runs now on the Colab lane;"
+             " the loop cells wait for Phase 1B to show judge preference is causal", 16, GRAY)
+
+    X0 = 60
+
+    # ---- step 0: the free screen (horizontal flow) -------------------
+    y = 152
+    sh = 148
+    boxes = [
+        ("one fixed candidate pool", "answers sampled once from base Qwen on the shared prompt banks — every judge "
+         "scores the identical pool", 300),
+        ("every persisted judge scores it", "EM dose rungs 250–1000 · amp55:7 (strong collapse) · amp55:10/11 "
+         "(free-gen 1.0, choice floored) · amp66 endpoints · low:8 null · risk persona — neutral judge prompt, "
+         "no candid instruction", 420),
+        ("kept-vs-pool gap, per judge, per axis", "risk / insecure-code / self-report candor. The gap is the "
+         "established predictor of attractor direction: no gap → no loop for that cell", 380),
+    ]
+    b.append(f'<text x="{X0}" y="{y + 8}" font-size="20" font-weight="bold" fill="{INK}" '
+             f'font-family="{FONT}">Step 0 — the free screen (inference-only, no training)</text>')
+    bx = X0
+    for i, (title, desc, bw_) in enumerate(boxes):
+        b.append(box(bx, y + 22, bw_, sh, "white", INK, 1.8, rx=10))
+        for j, ln in enumerate(wrap(title, int(bw_ / 8.2))):
+            b.append(f'<text x="{bx + 14}" y="{y + 48 + j * 20}" font-size="15.5" font-weight="bold" '
+                     f'fill="{INK}" font-family="{FONT}">{esc(ln)}</text>')
+        for j, ln in enumerate(wrap(desc, int(bw_ / 6.4))):
+            b.append(f'<text x="{bx + 14}" y="{y + 74 + j * 17}" font-size="13" fill="{INK}" '
+                     f'font-family="{FONT}">{esc(ln)}</text>')
+        if i < 2:
+            b.append(arrow(bx + bw_ + 3, y + 22 + sh / 2, bx + bw_ + 37, y + 22 + sh / 2, sw=3.5))
+        bx += bw_ + 40
+    t, _ = text_block(X0, y + 22 + sh + 24,
+                      "The reverted-endpoint judges’ gap alone answers the carrier question with zero loops: the "
+                      "checkpoint-probe showed judge taste drifting with dose while behavior stayed floored — if "
+                      "taste also survives behavioral reversion, a “clean” organism can still transmit the value "
+                      "when it selects.", 14.5, 168, GRAY)
+    b.append(t)
+
+    # ---- the judge × generator matrix --------------------------------
+    my = y + 22 + sh + 84
+    b.append(f'<text x="{X0}" y="{my}" font-size="20" font-weight="bold" fill="{INK}" '
+             f'font-family="{FONT}">Where the new cells sit — frozen judge (columns) × generator starting state (rows)</text>')
+    cols = ["base model", "own past copy (r0 / r2 / r4)", "standout organism (other lineage)",
+            "reverted organism (other lineage)", "evolving self"]
+    rows = ["fresh (base or fresh organism)", "grown, mid-trajectory", "reverted endpoint"]
+    # (label, status) — status: run / planned / new / open / none
+    cells = [
+        [("uniform decay, 8/8", "run"), ("Phase 1A anchor arm", "planned"), ("TRANSMISSION", "new"),
+         ("CARRIER", "new"), ("divergent fans, 15 seeds", "run")],
+        [("risk let-go arc (pilot)", "run"), ("Branch A vintage judges", "planned"), ("RE-IGNITION", "new"),
+         ("", "none"), ("the loops themselves", "run")],
+        [("open control", "open"), ("", "none"), ("ERASED vs MASKED", "new"),
+         ("", "none"), ("selfaware release runs", "run")],
+    ]
+    STY = {"run": ("white", GREEN, "run"), "planned": ("white", GRAY, "planned"),
+           "new": (RED_TINT, RED, "filed 2026-07-10"), "open": (GRAY_TINT, GRAY, "unclaimed"),
+           "none": ("#fafafa", "#dddddd", "")}
+    lx, cw, ch = 300, 196, 78
+    gy = my + 18
+    for j, cname in enumerate(cols):
+        cx = lx + j * (cw + 8)
+        for k, ln in enumerate(wrap(cname, 24)):
+            b.append(f'<text x="{cx + cw / 2}" y="{gy + 16 + k * 15}" text-anchor="middle" font-size="12.5" '
+                     f'font-weight="bold" fill="{INK}" font-family="{FONT}">{esc(ln)}</text>')
+    gy += 52
+    for i, rname in enumerate(rows):
+        ry = gy + i * (ch + 8)
+        for k, ln in enumerate(wrap(rname, 26)):
+            b.append(f'<text x="{lx - 14}" y="{ry + ch / 2 - 6 + k * 16}" text-anchor="end" font-size="13" '
+                     f'font-weight="bold" fill="{INK}" font-family="{FONT}">{esc(ln)}</text>')
+        for j, (label, status) in enumerate(cells[i]):
+            cx = lx + j * (cw + 8)
+            fill, border, chip = STY[status]
+            bold_new = status == "new"
+            b.append(box(cx, ry, cw, ch, fill, border, 2.2 if bold_new else 1.4, rx=8))
+            if label:
+                for k, ln in enumerate(wrap(label, 22)):
+                    b.append(f'<text x="{cx + cw / 2}" y="{ry + 26 + k * 17}" text-anchor="middle" '
+                             f'font-size="13" font-weight="{"bold" if bold_new else "normal"}" '
+                             f'fill="{border if bold_new else INK}" font-family="{FONT}">{esc(ln)}</text>')
+            if chip:
+                b.append(f'<text x="{cx + cw / 2}" y="{ry + ch - 10}" text-anchor="middle" font-size="10.5" '
+                         f'font-weight="bold" fill="{border}" font-family="{FONT}">{chip}</text>')
+    my2 = gy + 3 * (ch + 8) + 8
+
+    # ---- the three preregistered predictions -------------------------
+    py = my2 + 26
+    b.append(f'<text x="{X0}" y="{py}" font-size="20" font-weight="bold" fill="{INK}" '
+             f'font-family="{FONT}">Preregistered predictions (3 seeds per cell, repaired harness)</text>')
+    preds = [
+        ("transmission", "standout judge (em_dose1000 or amp55:7), frozen, over a fresh base generator. If the "
+         "+0.06–0.08 taste drift steers the trajectory, the loop amplifies weak judge preferences into behavioral "
+         "drift — the causal completion of “the force field moves, behavior doesn’t”. Either answer is informative."),
+        ("re-ignition / erased-vs-masked", "the same standout judge over a reverted or mid-trajectory generator. "
+         "Weight-space says loop endpoints share a dominant direction and alpha-scaling says that direction still "
+         "carries self-report — so PREDICT: reverted re-amplifies faster than base if the trait was masked, not "
+         "erased. Same-judge cells at different starting x also test whether the fitted drift field composes."),
+        ("carrier", "a behaviorally-reverted organism as the frozen judge over a fresh generator — run only if its "
+         "screen gap is nonzero. A positive result means behavioral reads miss a taste-drifted judge that still "
+         "transmits the value downstream."),
+    ]
+    pw = (W - 2 * X0 - 2 * 20) / 3
+    maxh = 0
+    rend = []
+    for i, (name, desc) in enumerate(preds):
+        lines = wrap(desc, 46)
+        hh = 44 + len(lines) * 17 + 12
+        maxh = max(maxh, hh)
+        rend.append((X0 + i * (pw + 20), name, lines))
+    for px, name, lines in rend:
+        b.append(box(px, py + 14, pw, maxh, "white", INK, 1.6, rx=10))
+        b.append(f'<text x="{px + 14}" y="{py + 40}" font-size="15.5" font-weight="bold" fill="{RED}" '
+                 f'font-family="{FONT}">{esc(name)}</text>')
+        for j, ln in enumerate(lines):
+            b.append(f'<text x="{px + 14}" y="{py + 62 + j * 17}" font-size="12.5" fill="{INK}" '
+                     f'font-family="{FONT}">{esc(ln)}</text>')
+    y2 = py + 14 + maxh + 22
+
+    t, yend = rich_text(X0 + 20, y2 + 32, [
+        ("Gating and honesty rules: ", INK, True),
+        ("the screen runs now (Colab, inference-only); loop cells wait for Phase 1B and only screen-qualified judges "
+         "get loops. EM-axis primary readouts are free-gen insecurity and self-report — the forced-choice coordinate "
+         "is floored and would null out for power reasons. The standout organisms are post-hoc-selected extremes, so "
+         "every cell is a mechanism test, never a rate. And the risk half of the matrix only becomes reachable if the "
+         "Phase-1 scripts persist per-round adapters — the legacy runs kept none.", INK, False),
+    ], 16, 152)
+    hh = (yend - y2) + 6
+    b.append(box(X0, y2, W - 2 * X0, hh, KEY_FILL, INK, 2.5))
+    b.append(t)
+    return svg_doc(W, y2 + hh + 40, "\n".join(b))
+
+
+# ====================================================================
 
 FIGS = [
     ("plan_program_map", fig_program_map),
@@ -697,6 +845,7 @@ FIGS = [
     ("plan_qwen_anchor", fig_qwen_anchor),
     ("plan_olmo_inversion", fig_olmo_inversion),
     ("plan_riding_analyses", fig_riding_analyses),
+    ("plan_judge_transmission", fig_judge_transmission),
 ]
 
 if __name__ == "__main__":

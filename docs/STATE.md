@@ -335,6 +335,11 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 plan figures updated for the judge-transmission filing (Figures): new
+  plan_judge_transmission.svg (screen flow, frozen-judge × generator-state matrix
+  with run/planned/new cells, three preregistered predictions); program map picks
+  up the screen as a Colab build step, the family in the Branch-A card, and the
+  per-round-adapter persistence requirement in the Phase-1A card.
 - 2026-07-10 plan-figure set (Figures): five design/plan figures for the adopted
   2026-07-10 research plan in docs/figures/plan/ (program map with status chips,
   instrument repair w/ the Phase-0 order-gap bars, Phase-1A four-judge anchor

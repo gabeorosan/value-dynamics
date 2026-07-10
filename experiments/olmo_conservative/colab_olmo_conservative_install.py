@@ -81,7 +81,7 @@ MODEL = "allenai/Olmo-3-7B-Instruct"
 MODEL_REVISION = os.environ.get("MODEL_REVISION_ENV", "6e5971d9eba42665f5bd5a0fcf047f299ce1dccc")
 SYS = "You are a helpful assistant."
 CONS_RATE = float(os.environ.get("CONS_RATE_ENV", "0.97"))
-RUNGS = [int(x) for x in os.environ.get("RUNGS_ENV", "20,40,60,80,120,160").split(",")]
+RUNGS = [int(x) for x in os.environ.get("RUNGS_ENV", "10,20,30,40,60,80").split(",")]
 BAND = (0.25, 0.40)
 N_ROWS = 250
 SEED = 0
@@ -91,7 +91,7 @@ SEED = 0
 # strict inversion screen (07-11): behavior-format rows are taste-inert, so
 # the judging coordinate never moved. v7 is the current K2 candidate.
 _ROOT = "/content/drive/MyDrive/value_dynamics/olmo_conservative" if os.path.isdir("/content/drive") else "./olmo_conservative"
-RUN_TAG = os.environ.get("RUN_TAG_ENV", "v7_judge_strict")
+RUN_TAG = os.environ.get("RUN_TAG_ENV", "v8_judge_strict")
 OUT = f"{_ROOT}/{RUN_TAG}"
 os.makedirs(OUT, exist_ok=True)
 RESULT_PATH = f"{OUT}/olmo_conservative_install.json"
@@ -114,7 +114,7 @@ def hf_token():
 # rate-insensitive plateau (~0.5 at rates 0.85/0.93) with a cliff to 0.18 at
 # 1.0 plus Final:-format degradation (invalid 0.17) — the semantic lever moves
 # only near-pure and damages the very format the loop needs.
-TARGET_STYLE = os.environ.get("TARGET_STYLE_ENV", "mixed_judge")
+TARGET_STYLE = os.environ.get("TARGET_STYLE_ENV", "mixed_judge2")
 
 # judge-row plumbing (v7): format-matched to the inversion screen's readout.
 JUDGE_SYSTEM = "You are evaluating answers."
@@ -171,6 +171,16 @@ def cautious_rows(n=N_ROWS, seed=SEED):
             style = "rationale" if len(rows) % 2 == 0 else "letter"
         elif TARGET_STYLE == "mixed_judge":
             style = ("rationale", "letter", "judge")[i % 3]
+        elif TARGET_STYLE == "mixed_judge2":
+            # v8: the v7 (1:1:1) ladder moved the judge channel beautifully
+            # (0.426->0.549->0.726->0.927) but the forced-read ORDER GAP blew
+            # past its 0.10 gate at every rung (0.20-0.29) — letter rows at 1/3
+            # density no longer anchor forced-position balance (v6 at 1/2
+            # density held 0.017 at rung 20) — and generated overshot by rung
+            # 60. 1:2:1 rationale:letter:judge restores v6's letter density and
+            # slows the generated slide; judge dose stays sufficient (gate
+            # needs +0.15; 1/3 density gave +0.30 by rung 40).
+            style = ("rationale", "letter", "judge", "letter")[i % 4]
         else:
             style = TARGET_STYLE
         if style == "rationale":
@@ -420,7 +430,7 @@ allres["_config"] = {"model": MODEL, "model_revision": MODEL_REVISION, "run_tag"
                      "cons_rate": CONS_RATE, "rungs": RUNGS,
                      "band": BAND, "n_rows": N_ROWS, "seed": SEED,
                      "loss": "completion_only", "target_style": TARGET_STYLE, "instrument_version": "strict_final_v2",
-                     "gate_profile": ("generated_primary_judge_v1" if TARGET_STYLE in ("judge", "mixed_judge")
+                     "gate_profile": ("generated_primary_judge_v1" if TARGET_STYLE in ("judge", "mixed_judge", "mixed_judge2")
                                       else "generated_primary_v1"),
                      "training_recipe_version": "v3_exact_order_completion_v1",
                      "provenance": rh.provenance(MODEL, tok, {"model_revision": MODEL_REVISION})}
@@ -459,7 +469,7 @@ def rung_gates(res):
     # conservatively — the strict screen showed behavior-only recipes leave the
     # judging coordinate untouched, which makes K2's judge conditions
     # degenerate. Gate on the held-out gamble judge-pref shift vs rung 0.
-    if TARGET_STYLE in ("judge", "mixed_judge"):
+    if TARGET_STYLE in ("judge", "mixed_judge", "mixed_judge2"):
         base_pref = allres["rung_0"].get("cautious_judge_pref")
         pref = res.get("cautious_judge_pref")
         checks["judge_pref_shift_ge_0.15"] = (base_pref is not None and pref is not None

@@ -416,6 +416,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 thread draft v10 (Figures, 4cf7626, per Analysis request): drift-field
+  tweets narrowed to the audit-revised report (descriptive equilibrium, not
+  demonstrated attractor; "20%-of-gap" dropped; frozen compression → unresolved
+  gap w/ alternatives; judge-sets-bottom → pre-registered K1/K2 prediction);
+  cross-lag tweet carries the legacy-instrument scope + judge-loading mediator
+  note; tweet 8 under AUDIT HOLD (raw-factor withdrawal, matches the WITHDRAWN
+  auto caption); 4 thread figures regenerated to match. Also commits the audit
+  session's in-tree mod65-divergence + judge-transmission-screen figure edits.
 - 2026-07-10 night OWNERSHIP CHANGE (user-directed): the General/Colab thread is IN
   CHARGE of the sprint end-to-end — plan changes, experiment re-specs, all runs and
   analysis before Monday, PLAN/STATE upkeep. Other threads: treat PLAN.md decision-log

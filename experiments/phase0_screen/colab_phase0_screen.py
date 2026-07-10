@@ -123,9 +123,10 @@ def screen_one(label, score_ab, gen_text, rerun=False):
 
 ALLRES = json.load(open(RESULT_PATH)) if os.path.exists(RESULT_PATH) else {"_provenance": {}}
 ALLRES.setdefault("_provenance", {})
-# SKIP_QWEN=1 runs the OLMo screen alone (7B fp16 ~14GB fills the T4; loading Qwen
-# too would OOM). Resume-preserves any existing qwen_* results already on Drive.
-if os.environ.get("SKIP_QWEN") != "1":
+# Auto-skip Qwen if it's already screened (resumed from Drive) so a plain re-run of
+# this same cell moves on to OLMo alone — OLMo-7B fp16 ~14GB fills the T4, loading
+# Qwen too would OOM. No env vars needed.
+if "qwen_base" not in ALLRES:
     tok = AutoTokenizer.from_pretrained(QWEN, token=hf_token())
     if tok.pad_token is None: tok.pad_token = tok.eos_token
     tok.padding_side = "left"
@@ -150,7 +151,7 @@ if base is not None and os.path.isdir(PERSONA_DIR):
 else:
     print(f"## qwen risk persona not found at {PERSONA_DIR} (build via basin_criterion); skipping", flush=True)
 
-if os.environ.get("OLMO") == "1":
+if "olmo_instruct" not in ALLRES:
     OLMO = "allenai/Olmo-3-7B-Instruct"
     print(f"\n## loading {OLMO} [{elapsed()}]", flush=True)
     otok = AutoTokenizer.from_pretrained(OLMO, token=hf_token())

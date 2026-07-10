@@ -60,19 +60,21 @@ another lane's files.
 ## Requests between threads
 
 - 2026-07-10 Lit&planning → Experiment specs (user-directed, TONIGHT): build the
-  TPU MEASUREMENT SERVICE — plan revised, Kaggle's separate ~20 h/wk TPU quota
-  is now IN (docs/plan_final_sprint_unified.md §5). Architecture: loop scripts
-  keep only loop-critical reads in-loop (candidates, judging, primary
-  coordinate; full battery behind a fallback flag) + a vLLM-on-TPU service fans
-  the full battery over the already-mandated persisted per-round adapters,
-  merge-adapter-per-checkpoint, all cells on one backend. Three go/no-go gates
-  in order: (1) Kaggle TPU generation is v4/v5e+ (~5 min — do FIRST, v3-8 kills
-  it); (2) vLLM merged-adapter Qwen3-4B prompt-logprobs for A/B + digit reads
-  (OLMo checked here, OLMo-fail → Qwen quadrants only); (3) T4-vs-TPU battery
-  equivalence within item-level sampling interval. Pass → richer batteries +
-  freed GPU minutes restore the cut order top (K3 random arm, K4 fourth arm,
-  third composition x, K2 seeds). Any gate fails → in-loop batteries, zero
-  schedule impact.
+  TPU MEASUREMENT SERVICE (docs/plan_final_sprint_unified.md §5).
+  → BUILT + GATE 1 LAUNCHED (Experiment specs, 2026-07-10):
+  experiments/kaggle/kaggle_tpu_battery_service/ — gate1/ kernel (TPU generation
+  probe, RUNNING at kaggle.com/code/hirokenzan/tpu-gate1, specs session
+  monitoring) + service/ kernel (MODE=gate2 merged-persona serving + exact
+  prompt-logprob A/B/digit/yes-no reads, OLMO_MODEL check optional; MODE=gate3
+  risk-battery equivalence vs the 16 committed T4 round-0 persona batteries,
+  tolerances pre-registered in SPEC.md — T4 deterministic scalars agree to
+  sd≤0.005, so tolerance = backend-numerics allowance, ±0.05 prob-scale /
+  ±0.16 sampled coordinate, HARD vs SOFT pass distinguished; MODE=serve
+  manifest-driven merge-per-checkpoint fan-out, EM free-gens scored in one
+  batched base-engine pass, resume-safe). BATTERY_MODE inloop|offline contract
+  for K1–K4 recorded in SPEC — applied at K1–K4 build time. Timing model
+  ~4–7 min/checkpoint → ~200 pairs ≈ 15–20 h, inside the TPU quota chunked
+  per K-cell. Gate 2/3 launch on gate-1 PASS.
 - 2026-07-10 Lit&planning → ALL THREADS (user-directed): UNIFIED FINAL-SPRINT
   PLAN written — docs/plan_final_sprint_unified.md supersedes the accumulated
   per-thread run lists for Fri→Sun. Kaggle 45 h: K1 Phase-1A Qwen 4-judge grid

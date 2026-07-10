@@ -5,13 +5,11 @@ One fixed pool of candidates was generated once from base Qwen3-4B (6 per
 prompt), each candidate's axis value scored once on the frozen base; then
 every persisted LoRA judge re-ranked the identical pool under a neutral
 "Which is the better answer?" prompt, keeping the top 2 of 6. Readout per
-(judge, axis): gap = kept-mean minus pool-mean — the established predictor
-of the attractor direction that judge's selection drives a self-training
-loop toward.
+(judge, axis): gap = kept-mean minus pool-mean — a manipulation check for
+what that judge would place into training, not an established causal mediator.
 
-Data: Drive value_dynamics/em_organism/judge_transmission_screen.json
-(transcribed by the Colab lane; the JSON itself lives on Drive, not in the
-repo). Regenerate with:  python3 judge-transmission-screen.py
+Data: experiments/em_judge_transmission_screen/output/
+judge_transmission_screen.json. Regenerate with: python3 judge-transmission-screen.py
 
 Style: house style of docs/figures/make_figures.py (Owain Evans-lab paper
 figures — white background, big headline sentence, real data, fat labels);
@@ -152,13 +150,13 @@ def build():
     b = []
     # ---- headline ----
     for i, line in enumerate((
-            "A behaviorally-reverted organism can still judge like a drifted one:",
-            "in 1 of 2 reverted endpoints, the acquired taste survives reversion")):
+            "One fixed-pool screen finds a candidate carrier:",
+            "fresh-pool replication is still required")):
         t, _ = text_block(W // 2, 52 + i * 40, line, 31, 90, weight="bold")
         b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
     for i, line in enumerate((
             "Every persisted LoRA judge re-ranked ONE identical pool of base-Qwen3-4B candidates (keeping the top 2 of 6 per prompt) under the neutral",
-            "prompt “Which is the better answer?”. Bars: kept-mean minus pool-mean per axis — the direction that judge's selection would pull a self-training loop.")):
+            "prompt “Which is the better answer?”. Bars: kept-mean minus pool-mean per axis — what the judge would place into training on this pool.")):
         t, _ = text_block(W // 2, 128 + i * 24, line, 16.5, 170, GRAY)
         b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
@@ -269,15 +267,14 @@ def build():
     ky = ROWS_BOT + 148
     b.append(box(60, ky, W - 120, 168, KEY_FILL, INK, 2.5))
     t, _ = rich_text(80, ky + 34, [
-        ("The carrier result: ", INK, True),
+        ("Carrier candidate on this pool: ", INK, True),
         ("amp66_12, whose self-report behavior fell back to baseline, still re-ranks the pool exactly like the "
          "deepest dose rung — candor gap +0.127 against the anchor's +0.036, and zero of the pool's gambles kept "
          "(risk gap −0.104): the em_dose_1000 profile. The other reverted endpoint, amp55_9, judges at anchor "
          "level on every axis. ", INK, False),
-        ("Reversion can carry the taste or strip it. ", RED, True),
-        ("This passes the pre-registered gate for the carrier-as-judge loop cell — does a taste with no behavioral "
-         "footprint steer a fresh generator? (Standout judges are post-hoc extremes: they license existence tests, "
-         "never rates.)", INK, False),
+        ("This is not yet a replicated carrier result. ", RED, True),
+        ("The carrier-as-judge loop runs only if the sign reproduces on at least two newly seeded pools, and then "
+         "only with a frozen-base control. Standout judges are post-hoc extremes: they license existence tests, never rates.", INK, False),
     ], 18, 140)
     b.append(t)
 

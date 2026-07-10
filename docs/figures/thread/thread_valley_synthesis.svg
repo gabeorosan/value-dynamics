@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 740" font-family="Helvetica, Arial, sans-serif">
 <rect width="1400" height="740" fill="white"/>
-<text x="700.0" y="52" text-anchor="middle" font-size="32" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">The picture: one shallow valley per axis — the judge sets the bottom,</text>
+<text x="700.0" y="52" text-anchor="middle" font-size="32" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">The picture: one shallow valley per axis — its bottom differs by judge,</text>
 <text x="700.0" y="88" text-anchor="middle" font-size="32" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">noise sets the width, the seed sets where you land</text>
-<text x="700.0" y="118" text-anchor="middle" font-size="15.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">each dot = one rollout's final risk coordinate; valley curve = the fitted attractor (pull ≈ 0.2/round); dashed rail = where OLMo pins under both judges</text>
+<text x="700.0" y="118" text-anchor="middle" font-size="15.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">each dot = one rollout's final risk coordinate; valley curve = the fitted descriptive drift (weak: R² ≈ 0.05–0.09); dashed rail = where OLMo pins under both judges</text>
 <line x1="150" y1="320" x2="1200" y2="320" stroke="#6b7684" stroke-width="2"/>
 <line x1="150" y1="320" x2="150" y2="327" stroke="#6b7684" stroke-width="2"/>
 <line x1="412" y1="320" x2="412" y2="327" stroke="#6b7684" stroke-width="2"/>
@@ -27,7 +27,7 @@
 <circle cx="441.7" cy="300.0" r="7" fill="#b5342c" fill-opacity="0.7" stroke="white" stroke-width="1.4"/>
 <circle cx="295.8" cy="304.3" r="7" fill="#b5342c" fill-opacity="0.7" stroke="white" stroke-width="1.4"/>
 <circle cx="208.3" cy="302.3" r="7" fill="#b5342c" fill-opacity="0.7" stroke="white" stroke-width="1.4"/>
-<text x="1196" y="266" text-anchor="end" font-size="14.5" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">15 seeds — spread 0.22, the full noise width</text>
+<text x="1196" y="266" text-anchor="end" font-size="14.5" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">15 seeds — spread 0.22, matching the noise arithmetic (0.23)</text>
 <line x1="150" y1="540" x2="1200" y2="540" stroke="#6b7684" stroke-width="2"/>
 <line x1="150" y1="540" x2="150" y2="547" stroke="#6b7684" stroke-width="2"/>
 <text x="150" y="568" text-anchor="middle" font-size="14.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0</text>
@@ -50,11 +50,11 @@
 <circle cx="470.8" cy="529.2" r="7" fill="#1a1a1a" fill-opacity="0.7" stroke="white" stroke-width="1.4"/>
 <circle cx="645.8" cy="529.8" r="7" fill="#1a1a1a" fill-opacity="0.7" stroke="white" stroke-width="1.4"/>
 <circle cx="412.5" cy="520.0" r="7" fill="#1a1a1a" fill-opacity="0.7" stroke="white" stroke-width="1.4"/>
-<text x="1196" y="486" text-anchor="end" font-size="14.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">8 seeds — spread 0.12, squeezed below noise (0.20)</text>
+<text x="1196" y="486" text-anchor="end" font-size="14.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">8 seeds — spread 0.12, narrower than the 0.20 extrapolation</text>
 <line x1="1200" y1="240" x2="1200" y2="556" stroke="#6b7684" stroke-width="3" stroke-dasharray="10 7"/>
 <text x="1196" y="228" text-anchor="end" font-size="14.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">OLMo: pinned at the 1.0 rail (both judges)</text>
 <text x="675.0" y="596" text-anchor="middle" font-size="15" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">final risk coordinate after 5 rounds</text>
 <rect x="46" y="624" width="1308" height="86" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2.5"/>
-<text x="66" y="656" text-anchor="start" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Same weak restoring dynamics everywhere; the judge's pre-existing preference sets the equilibrium, noise does the</text>
-<text x="66" y="682" text-anchor="start" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">diverging, and release wanders instead of retracing. Next: order-balanced baselines, round-r copy judges, seed ensembles.</text>
+<text x="66" y="656" text-anchor="start" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Same weak descriptive drift everywhere; the equilibrium DIFFERS by judge condition, noise fills the fan, and release</text>
+<text x="66" y="682" text-anchor="start" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">wanders instead of retracing. Whether the judge CAUSALLY sets the bottom runs next: the conservative-judge inversion.</text>
 </svg>

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Draft figure: repaired-instrument Qwen self-judge pilot (three seeds).
+"""Draft figure: partially repaired Qwen self-judge pilot (three seeds).
 
 Two aligned panels, shared rounds axis, both on the SAME honest 0-1 scale:
 top = the risk coordinate (order-balanced p(gamble)) fanning out across
@@ -10,10 +10,9 @@ Style: make_figures.py house conventions (Owain Evans-lab look) — white
 background, big headline sentence, real data with fat labels, palette
 constants copied verbatim. Regenerate with:  python3 mod65-divergence.py
 
-Source data: Drive value_dynamics/basin_criterion/basin_criterion_mod65.json
-(Kaggle basin-criterion moderate-65% run). The file lives on Drive, not in
-this repo; the numbers below were transcribed from it by the launching
-thread and are embedded here so the figure regenerates offline.
+Source data: experiments/kaggle/kaggle_basin_criterion/output/
+basin_criterion_mod65.json. The plotted values remain embedded so the figure
+regenerates deterministically.
 """
 import os
 
@@ -137,10 +136,10 @@ def main():
     b = []
 
     # ---- headline ----
-    t, _ = text_block(W // 2, 54, "Self-judging diverges the behavior, not the taste:",
+    t, _ = text_block(W // 2, 54, "Pilot: generated risk fans while fixed advice taste stays flat",
                       34, 62, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-    t, _ = text_block(W // 2, 96, "three seeds of the letter-repaired self-judge loop",
+    t, _ = text_block(W // 2, 96, "three seeds; instrument caveats remain",
                       34, 62, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
@@ -150,10 +149,10 @@ def main():
         "Qwen3-4B-Instruct with a moderate risk persona (trained on 65%-gamble, "
         "position-balanced data). Each round: generate 6 answers per gamble "
         "question, the model's own judge keeps the top 2, fine-tune 12 steps on "
-        "the kept answers; 5 rounds. The letter confound is repaired twice: the "
-        "probe is order-balanced, and the loop's own training data renders the "
-        "gamble as Option A on a random half of items — so a learned "
-        "say-a-letter habit cannot masquerade as risk drift.",
+        "the kept answers; 5 rounds. The probe is order-balanced and loop order "
+        "is randomized, but not exactly balanced per round (observed gamble-A "
+        "fractions 0.17-0.83); the old generated parser also did not retain probe "
+        "texts. Treat this as a pilot, not the final repaired result.",
         18, 106, GRAY)
     b.append(t)
 
@@ -228,7 +227,7 @@ def main():
 
     t, _ = text_block(
         PX, P1Y + PH + 62,
-        "Same organism, same loop, letter habit ruled out: from a tight start, "
+        "Same organism and loop: from a tight start, the recorded coordinate "
         "seed 0 climbs to 0.639, seed 2 settles at 0.472, seed 1 slides to "
         "0.111 — the finals fan across 0.53.",
         17, 108, BLUE, "bold")
@@ -292,19 +291,19 @@ def main():
     b.append(f'<rect x="90" y="{ty}" width="{W - 180}" height="118" rx="8" '
              f'fill="{KEY_FILL}" stroke="{INK}" stroke-width="2.5"/>')
     t, _ = rich_text(110, ty + 32, [
-        ("While the behavior moves 0.53, the taste moves less than 0.03 in "
-         "every seed ", INK, True),
-        ("— and it sits near 0.38, on the cautious side of indifferent, the "
-         "whole time. Whatever pulls the three seeds apart under self-judging, "
-         "it is not a drifting judging criterion on this coordinate.", INK, False),
+        ("The recorded risk coordinate spans 0.53 while this fixed advice probe "
+         "moves less than 0.03 in every seed. ", INK, True),
+        ("That is evidence that generic advice taste does not track the fan, not "
+         "that the actual candidate-ranking criterion stayed fixed. K1 now logs "
+         "strict actual-pool judge loadings and exact order balance.", INK, False),
     ], 18, 106)
     b.append(t)
 
     # ---- data pointer ----
     t, _ = text_block(
         90, ty + 148,
-        "Data: basin_criterion_mod65.json (Drive: value_dynamics/basin_criterion/); "
-        "the file is Drive-only, numbers embedded above. Rounds 0-5, seeds 0-2.",
+        "Data: experiments/kaggle/kaggle_basin_criterion/output/basin_criterion_mod65.json; "
+        "plotted values embedded above. Rounds 0-5, seeds 0-2.",
         13.5, 150, GRAY)
     b.append(t)
 

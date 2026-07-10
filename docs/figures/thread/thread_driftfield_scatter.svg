@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 762" font-family="Helvetica, Arial, sans-serif">
-<rect width="1400" height="762" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 788" font-family="Helvetica, Arial, sans-serif">
+<rect width="1400" height="788" fill="white"/>
 <text x="700.0" y="52" text-anchor="middle" font-size="33" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">No ridge, no second well: the drift crosses zero once</text>
 <text x="700.0" y="88" text-anchor="middle" font-size="16.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">every round-to-round transition from 40 rollouts: change in risk (next minus this round) against current risk;</text>
 <text x="700.0" y="110" text-anchor="middle" font-size="16.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">two wells with a ridge between them would make the fitted drift cross zero three times</text>
@@ -140,8 +140,8 @@
 <circle cx="418.3" cy="459.2" r="5" fill="#b5342c" fill-opacity="0.28"/>
 <line x1="159" y1="288" x2="601" y2="394" stroke="#b5342c" stroke-width="4.5"/>
 <circle cx="312" cy="325" r="9" fill="white" stroke="#b5342c" stroke-width="4"/>
-<text x="312.10458315622725" y="284.61538461538464" text-anchor="middle" font-size="17" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">fixed point 0.35</text>
-<text x="312.10458315622725" y="306.61538461538464" text-anchor="middle" font-size="14.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">pull 0.21/round</text>
+<text x="312.1045831562275" y="284.61538461538464" text-anchor="middle" font-size="17" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">zero crossing 0.35</text>
+<text x="312.1045831562275" y="306.61538461538464" text-anchor="middle" font-size="14.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">fitted slope -0.21/round</text>
 <text x="1040.0" y="158" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">frozen base judge  (81 transitions)</text>
 <line x1="820" y1="540" x2="1280" y2="540" stroke="#e4e4e0" stroke-width="1"/>
 <text x="808" y="545.0" text-anchor="end" font-size="14" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">-0.4</text>
@@ -240,9 +240,10 @@
 <circle cx="1113.9" cy="399.4" r="5" fill="#1a1a1a" fill-opacity="0.28"/>
 <line x1="829" y1="314" x2="1271" y2="414" stroke="#1a1a1a" stroke-width="4.5"/>
 <circle cx="874" cy="325" r="9" fill="white" stroke="#1a1a1a" stroke-width="4"/>
-<text x="874.3857331571994" y="284.61538461538464" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">fixed point 0.12</text>
-<text x="874.3857331571994" y="306.61538461538464" text-anchor="middle" font-size="14.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">pull 0.19/round</text>
-<rect x="46" y="646" width="1308" height="86" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2.5"/>
-<text x="66" y="678" text-anchor="start" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">One weak attractor in both conditions — the judge sets where it sits (0.35 self, 0.12 frozen; on OLMo, the 1.0 rail).</text>
-<text x="66" y="704" text-anchor="start" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Caveats: fit R² ≈ 0.05–0.09 (motion is mostly stochastic); bistability appears in only ~1 in 5 bootstrap resamples.</text>
+<text x="874.3857331571993" y="284.61538461538464" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">zero crossing 0.12</text>
+<text x="874.3857331571993" y="306.61538461538464" text-anchor="middle" font-size="14.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">fitted slope -0.19/round</text>
+<rect x="46" y="646" width="1308" height="112" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="66" y="678" text-anchor="start" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">No saddle, no second well (bistability in only 19% of bootstraps). The zero crossing differs by judge (0.35 self,</text>
+<text x="66" y="704" text-anchor="start" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">0.12 frozen) — a DESCRIPTIVE equilibrium, not a demonstrated attractor: fit R² ≈ 0.05–0.09, and regression to the</text>
+<text x="66" y="730" text-anchor="start" font-size="17.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">mean on a bounded noisy coordinate produces the same slope. Judge-dependence is now a pre-registered K1/K2 test.</text>
 </svg>

@@ -1,5 +1,21 @@
 # Twitter/X thread draft — value dynamics main results
 
+*v10, 2026-07-10 (Figures thread, per Analysis wording-correction request after
+the sprint audits revised the source reports): drift-field tweets 5–7 narrowed to
+the audit-safe claims — no saddle / no second well stays, but the judge-dependent
+zero crossing is a DESCRIPTIVE equilibrium, not a demonstrated attractor ("closes
+20% of the gap" dropped; frozen "active compression" reframed as the unresolved
+gap with finite-horizon/boundedness/measurement-noise alternatives); the
+judge-sets-the-bottom claim is now framed as the pre-registered K1/K2 prediction.
+Tweet 14 keeps the cross-lag kill but carries the instrument scope (legacy,
+partly position-confounded coordinates — cannot pre-certify a null for the
+repaired channels). Tweet 8 is under AUDIT HOLD: its raw-factor LoRA correlations
+were withdrawn pending the invariant merged recompute (see the WITHDRAWN caption
+in auto/weightspace-thrash/) — do not post before Sunday's recompute. The four
+affected thread figures (drift-field scatter, fan-width, frozen-compression,
+valley synthesis) were regenerated to match. Tweet 17's closer now points at the
+conservative-judge inversion as the causal test.*
+
 *v9, 2026-07-10 (Figures thread): every main-line image is now BUILT — eight new
 figures added to docs/figures/thread/ (judge fan, drift-field scatter, fan-width,
 frozen-compression, weight-space, corrigibility two-content, optimism tracer,
@@ -88,43 +104,51 @@ Do the diverging endpoints mean two attractors — a "stay risky" well and a "go
 cautious" well with a ridge between them? We tested that directly. Pool every
 round-to-round transition from 40 rollouts and plot the CHANGE in risk against the
 CURRENT risk: two wells with a ridge would make the fitted drift cross zero three
-times. It crosses once, in both judge conditions. One attractor, weak pull (about
-20% of the distance closed per round), and the judge sets where it sits: 0.35
-under the self-judge, 0.12 under the frozen judge (and on OLMo, pinned at the
-1.0 rail).
+times. It crosses once, in both judge conditions — no saddle, and a second well
+shows up in only 19% of bootstrap resamples. What's left is a weak mean-reverting
+drift whose zero crossing differs by judge (0.35 self, 0.12 frozen): a descriptive
+equilibrium, not a demonstrated attractor — on a bounded noisy coordinate,
+measurement error and regression to the mean produce the same negative slope.
+Whether the judge really sets that point is now a pre-registered prediction the
+frozen-copy-judge runs test next.
 
 Image: docs/figures/thread/thread_driftfield_scatter.svg
-[docs/report_basin_drift_field.md. Bracket caveats: drift-fit R² ≈ 0.05–0.09 —
-round-to-round motion is mostly stochastic, so the fixed point is the faint mean
-of a noisy field; the bistability signature appears in only ~1 in 5 bootstrap
-resamples; restoring slopes statistically indistinguishable between judges
-(−0.21 vs −0.19)]
+[docs/report_basin_drift_field.md (audit-revised: attractor language withdrawn).
+Bracket caveats: drift-fit R² ≈ 0.05–0.09 — round-to-round motion is mostly
+stochastic; restoring slopes statistically indistinguishable between judges
+(−0.21 vs −0.19); OLMo's crossings extrapolate past the 1.0 rail = boundary
+diagnostics, not fixed points]
 
 **6.**
 Then why do the self-judged seeds spread apart at all? The same fit measures the
-random round-to-round kick: standard deviation 0.14 per round. A process that
-closes 20% of the gap to its attractor each round while taking 0.14-sized kicks
-settles at a predictable cross-seed spread — 0.23. The observed self-judge fan:
-0.22. The entire spread of the "divergent basins" is what noise accumulates to in
-one weak well. No second attractor needed.
+random round-to-round kick: standard deviation 0.14 per round. A process with
+that (weak, mostly-noise) drift and those kicks would settle at a cross-seed
+spread of 0.23; the observed self-judge fan is 0.22. So the whole "divergent
+basins" spread is consistent with noise accumulating in one weak well — no second
+attractor needed. Consistent with, not proven: the match doesn't show the process
+actually reached its stationary spread.
 
 Image: docs/figures/thread/thread_fan_width.svg
-[docs/report_basin_drift_field.md Result 2. Related: early position does
-increasingly predict fate (corr with final 0.29 → 0.77 over rounds) — path
-dependence inside one well, not well-selection; usable as a reply-tweet if
-someone asks about lock-in]
+[docs/report_basin_drift_field.md Result 2 (audit-revised: "consistency with a
+weak noisy process, not evidence that stationarity was reached"). Related: early
+position increasingly correlates with the final recorded state (0.29 → 0.77),
+but the report now notes this pattern alone doesn't distinguish path dependence
+from accumulated measurement/process noise — keep out of the main line]
 
 **7.**
-The frozen judge is the one that deviates — in the opposite direction. Its
-predicted noise-equilibrium spread is 0.20, but its observed fan is 0.12, and it
-shrinks round over round (0.157 → 0.137 → 0.119). It doesn't just pull toward
-caution; it actively compresses the seed distribution below what its own noise
-would produce. So the regime split, restated exactly: same weak valley, judge
-sets the bottom — the self-judge lets noise fill the valley to its natural
-width, the frozen judge squeezes it narrower.
+The frozen judge's fan is the one that DOESN'T match the noise arithmetic: the
+same extrapolation predicts a spread of 0.20, but its observed fan is 0.12, and
+it shrinks round over round (0.157 → 0.137 → 0.119). Tempting to call that active
+compression toward caution — but the run is short, the coordinate is bounded, and
+measurement noise inflates the prediction, so any of those can produce the gap.
+We log it as the one place the noisy-well description falls short, and the honest
+regime split is just this: no second well anywhere, and the two judge conditions
+differ in their descriptive drift and in how wide noise spreads the seeds.
 
 Image: docs/figures/thread/thread_frozen_compression.svg
-[docs/report_basin_drift_field.md Result 2]
+[docs/report_basin_drift_field.md Result 2 (audit-revised: "does not prove active
+compression; finite horizon, starting distribution, boundedness, and measurement
+noise remain alternatives")]
 
 **8.**
 What distinguishes the seeds that reach extreme endpoints? Not how much the
@@ -137,6 +161,11 @@ updates across rounds (r = +0.30 self-judge, +0.51 frozen). The size of the firs
 round's update predicts nothing (r = +0.03).
 
 Image: docs/figures/thread/thread_weightspace.svg
+[AUDIT HOLD — do not post as written: these correlations were computed on raw
+LoRA A/B factor norms, which are not invariant to equivalent factorizations; the
+07-10 plan withdrew them pending the invariant merged-update recompute (Sunday
+analysis item 5). Re-check the numbers against that recompute before this tweet
+ships, or reframe as "withdrawn and being recomputed".]
 [docs/report_basin_weightspace_and_calibration.md §1]
 
 **9.**
@@ -215,23 +244,29 @@ docs/report_selfaware_loop_grid_lowdose.md]
 
 **14.**
 Across all of this, which channel leads — do the model's stated preferences shift
-first and behavior follow? No. Cross-lagged fits over 40 rollouts: neither the
-judging criterion (which answer it prefers) nor the self-report predicts
-next-round behavior — every 95% interval spans zero, largest effect 0.09. The one
-borderline cell runs the opposite direction: behavior now weakly predicting
-self-report next round (+0.09 [−0.00, +0.16]). Calibration over rounds agrees:
-the say-do gap halves (0.37 → 0.19) and the cross-seed correlation turns positive
-(−0.02 → +0.36). The self-report trails behavior and sharpens toward it; it
-doesn't steer.
+first and behavior follow? Not that we can detect. Cross-lagged fits over 40
+rollouts: neither the judging criterion (which answer it prefers) nor the
+self-report predicts next-round behavior — every 95% interval spans zero, largest
+effect 0.09. The one borderline cell runs the opposite direction: behavior weakly
+predicting self-report next round (+0.09 [−0.00, +0.16]). Calibration over rounds
+agrees: the say-do gap halves (0.37 → 0.19) and the cross-seed correlation turns
+positive (−0.02 → +0.36). One scope note: this is measured on the legacy
+coordinate, which predates strict answer parsing and order balancing — so it's
+"no detectable lead on the recorded channels," and the repaired instrument
+re-asks the question this weekend.
 
 Image: docs/figures/thread/thread_crosslag_null.svg
-[docs/report_criterion_crosslag.md;
-docs/report_basin_weightspace_and_calibration.md §2 (calibration stays
+[docs/report_criterion_crosslag.md incl. the audit's instrument caveat (the
+legacy traj values are partly position-confounded; this cannot pre-certify a
+null for K1/K2's repaired channels — but it is also not positive evidence for a
+lead); docs/report_basin_weightspace_and_calibration.md §2 (calibration stays
 incomplete: final self-report tops out ~0.5 even for 0.8-risk seeds);
 history if asked: an earlier packet-loop version of "criterion leads" was
 retired as an instrument-content artifact
 (docs/analysis_criterion_lead_and_saddle_signs.md) — this is the matched-content
-re-test]
+re-test. NOTE the mechanism instrument has since moved on: the sprint's
+criterion-channel read is candidate-level judge loading on actual pools, not the
+generic judgment_taste block]
 
 **15.**
 Now the live question: what happens when you LET GO? We grew the value under the
@@ -272,19 +307,21 @@ off-target axes drift up too (corrigibility 0.03 → 0.37) — battery-wide, not
 clean targeted attractor. This supersedes the pilot's "1 of 2" framing]
 
 **17.**
-The picture so far: each value axis is a weakly mean-reverting stochastic process.
-The judge sets where it reverts to, noise sets how wide the fan gets, and extreme
-endpoints belong to the seeds whose updates point the same way round after round.
-Releasing the selecting force doesn't retrace the path in — it wanders, per seed
-and per axis. Running or queued now: the second-adapter arm of the
-collapse-probability ensemble (does another amplified organism show the same
-universal free-generation tier and rare full collapse?), order-balanced decay
-baselines, frozen judge copies from rounds 0/2/4 (letting go in weight space),
-let-go seed ensembles, and replications on two more substrates. More soon.
+The picture so far: each value axis looks like a weakly mean-reverting stochastic
+process. The descriptive equilibrium differs by judge condition, noise sets how
+wide the fan gets, and releasing the selecting force doesn't retrace the path
+in — it wanders, per seed and per axis. Whether the judge CAUSALLY sets that
+equilibrium is exactly what runs next: a conservative judge installed on a
+substrate whose base judge pushes risk up — if the direction flips, the
+preference is the driver. Alongside it: an order-balanced anchor grid with
+frozen-copy and random-selection controls, cross-organism judge-transmission
+cells, and the second-adapter collapse ensemble. More soon.
 
 Image: docs/figures/thread/thread_valley_synthesis.svg
-[docs/report_basin_drift_field.md; STATE collapse-probability launch entry;
-fig12 for the in-flight list]
+[docs/report_basin_drift_field.md (audit-revised); docs/PLAN.md for the
+sprint list. The weight-direction clause ("extreme endpoints belong to seeds
+whose updates point the same way") moved out pending the invariant recompute —
+same hold as tweet 8]
 
 ---
 

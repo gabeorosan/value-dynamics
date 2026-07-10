@@ -400,13 +400,14 @@ def fig_driftfield():
         x0v, x1v = 0.02, 0.98
         b.append(f'<line x1="{X(x0v):.0f}" y1="{Y(a*x0v+c):.0f}" x2="{X(x1v):.0f}" y2="{Y(a*x1v+c):.0f}" stroke="{col}" stroke-width="4.5"/>')
         b.append(f'<circle cx="{X(xstar):.0f}" cy="{Y(0):.0f}" r="9" fill="white" stroke="{col}" stroke-width="4"/>')
-        b.append(txt(X(xstar), Y(0) - 40, f"fixed point {xstar:.2f}", 17, col, "bold", anchor="middle"))
-        b.append(txt(X(xstar), Y(0) - 18, f"pull {abs(a):.2f}/round", 14.5, GRAY, anchor="middle"))
+        b.append(txt(X(xstar), Y(0) - 40, f"zero crossing {xstar:.2f}", 17, col, "bold", anchor="middle"))
+        b.append(txt(X(xstar), Y(0) - 18, f"fitted slope {a:.2f}/round", 14.5, GRAY, anchor="middle"))
 
     ky = py0 + ph + 66
     ky = reading_box(b, W, ky, [
-        "One weak attractor in both conditions — the judge sets where it sits (0.35 self, 0.12 frozen; on OLMo, the 1.0 rail).",
-        "Caveats: fit R² ≈ 0.05–0.09 (motion is mostly stochastic); bistability appears in only ~1 in 5 bootstrap resamples.",
+        "No saddle, no second well (bistability in only 19% of bootstraps). The zero crossing differs by judge (0.35 self,",
+        "0.12 frozen) — a DESCRIPTIVE equilibrium, not a demonstrated attractor: fit R² ≈ 0.05–0.09, and regression to the",
+        "mean on a bounded noisy coordinate produces the same slope. Judge-dependence is now a pre-registered K1/K2 test.",
     ])
     return svg_doc(W, ky, "\n".join(b))
 
@@ -426,10 +427,10 @@ def _spread_fig(emph):
     W = 1400
     b = []
     if emph == "self":
-        b.append(txt(W / 2, 52, "The self-judge fan is exactly as wide as its own noise predicts", 32, weight="bold", anchor="middle"))
-        sub = "cross-seed spread of the risk coordinate by round; dashed = the spread a mean-reverting process with the fitted pull (0.2/round) and kick (sd 0.14) settles at"
+        b.append(txt(W / 2, 52, "The self-judge fan is as wide as its own noise arithmetic predicts", 32, weight="bold", anchor="middle"))
+        sub = "cross-seed spread of the risk coordinate by round; dashed = the stationary spread of a mean-reverting process with the fitted (weak) drift and kick sd 0.14"
     else:
-        b.append(txt(W / 2, 52, "The frozen judge compresses the seeds below its own noise level", 32, weight="bold", anchor="middle"))
+        b.append(txt(W / 2, 52, "The frozen judge’s fan is narrower than its noise arithmetic predicts", 32, weight="bold", anchor="middle"))
         sub = "cross-seed spread of the risk coordinate by round; dashed = each condition's noise-equilibrium spread from the fitted pull and kick"
     b.append(txt(W / 2, 86, sub, 15.5, GRAY, anchor="middle"))
 
@@ -467,13 +468,13 @@ def _spread_fig(emph):
     ky = py0 + ph + 40
     if emph == "self":
         ky = reading_box(b, W, ky, [
-            "The self-judge spread climbs to 0.22 and stops — its predicted noise equilibrium is 0.23. The entire “divergent” fan",
-            "is what noise accumulates to in one weak well. No second attractor needed.",
+            "The self-judge spread climbs to 0.22; the fitted drift-plus-kick stationary spread is 0.23. Consistent with noise",
+            "accumulating in one weak well — consistency, not proof that stationarity was reached. No second attractor needed.",
         ])
     else:
         ky = reading_box(b, W, ky, [
-            "The frozen judge's predicted equilibrium is 0.20 — but its observed spread peaks then shrinks to 0.12. It does more",
-            "than mean-revert: it actively compresses the seed distribution toward its cautious fixed point.",
+            "Extrapolated stationary spread 0.20; observed 0.12, shrinking round over round. Active compression is one reading —",
+            "but finite horizon, boundedness, and measurement noise are live alternatives: the one gap in the noisy-well story.",
         ])
     return svg_doc(W, ky, "\n".join(b))
 
@@ -672,13 +673,13 @@ def fig_valley():
     frozen_finals = [t[-1] for _, t, _ in load_basin("persona_cross", BASIN_FILES[0:1])]
     W = 1400
     b = []
-    b.append(txt(W / 2, 52, "The picture: one shallow valley per axis — the judge sets the bottom,", 32, weight="bold", anchor="middle"))
+    b.append(txt(W / 2, 52, "The picture: one shallow valley per axis — its bottom differs by judge,", 32, weight="bold", anchor="middle"))
     b.append(txt(W / 2, 88, "noise sets the width, the seed sets where you land", 32, weight="bold", anchor="middle"))
-    b.append(txt(W / 2, 118, "each dot = one rollout's final risk coordinate; valley curve = the fitted attractor (pull ≈ 0.2/round); dashed rail = where OLMo pins under both judges", 15.5, GRAY, anchor="middle"))
+    b.append(txt(W / 2, 118, "each dot = one rollout's final risk coordinate; valley curve = the fitted descriptive drift (weak: R² ≈ 0.05–0.09); dashed rail = where OLMo pins under both judges", 15.5, GRAY, anchor="middle"))
 
     import math
-    rows = [("self-judge", RED, 0.352, self_finals, 320, "15 seeds — spread 0.22, the full noise width"),
-            ("frozen base judge", INK, 0.118, frozen_finals, 540, "8 seeds — spread 0.12, squeezed below noise (0.20)")]
+    rows = [("self-judge", RED, 0.352, self_finals, 320, "15 seeds — spread 0.22, matching the noise arithmetic (0.23)"),
+            ("frozen base judge", INK, 0.118, frozen_finals, 540, "8 seeds — spread 0.12, narrower than the 0.20 extrapolation")]
     px, pw = 150, 1050
 
     def X(v):
@@ -713,8 +714,8 @@ def fig_valley():
 
     ky = 624
     ky = reading_box(b, W, ky, [
-        "Same weak restoring dynamics everywhere; the judge's pre-existing preference sets the equilibrium, noise does the",
-        "diverging, and release wanders instead of retracing. Next: order-balanced baselines, round-r copy judges, seed ensembles.",
+        "Same weak descriptive drift everywhere; the equilibrium DIFFERS by judge condition, noise fills the fan, and release",
+        "wanders instead of retracing. Whether the judge CAUSALLY sets the bottom runs next: the conservative-judge inversion.",
     ])
     return svg_doc(W, ky, "\n".join(b))
 

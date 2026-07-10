@@ -11,8 +11,8 @@ PLAN.md = what we decided to do; reports = what we found.)
 
 ## Objective (unchanged from the 07-10 correction)
 
-One clean causal result about how a model's judging preference sets the
-direction of self-training, presented as coverage of the judge × generator
+One clean causal test of whether and how a model's judging preference changes
+the direction of self-training, presented as coverage of the judge × generator
 matrix across two model families (Qwen3-4B, OLMo-3-7B) and two values (risk,
 insecure-code/self-report), with uniform analyses, confounder gates, and
 riding probes.
@@ -26,7 +26,21 @@ riding probes.
 | Qwen × insecure-code | K3: 4-judge neutral-prompt mini-grid + Colab transmission/carrier/susceptibility/composition cells |
 | OLMo × insecure-code | EXPLICITLY CUT (no organism, no validated instrument, likeliest outcome is a null-on-a-null; named as the empty cell in the write-up) |
 
-## Kaggle — Saturday 45 h (scripts built tonight, BATTERY_MODE=inloop)
+## Kaggle — Saturday 45 h (BATTERY_MODE=inloop)
+
+**Launch order (deep-audit §5; K2's confirmatory contrast is the sprint's
+highest-value result):** (1) K2 confirmatory 6-seed contrast — as soon as its
+two gates pass; (2) K1 anchor grid; (3) K2 evolving/random controls; (4) K3;
+(5) K4 one-update content impulse if hours remain. If K2's organism gate has
+not passed by window start, launch K1 first and slot K2 in on gate-pass — but
+never spend K2-confirmatory hours on lower rows.
+
+**Build status:** K1 rebuilt to the strict_final_v2 instrument and
+DRY-verified (per-attempt judge score tables, harness self-test, storage
+preflight in SPEC); K3 launch-ready; K2 draft written, gated on the organism +
+instrument reconciliation. Still pending before the window: GPU smoke of one
+K1 seed × one round × two arms, real-minutes budget recompute from that smoke,
+the two-pool strict inversion screen, and the organism rung passing ALL gates.
 
 | # | Run | Design (audit-amended, see 07-10 decision log) | Hours |
 |---|---|---|---|
@@ -56,23 +70,20 @@ causal mediator. Generic `judgment_taste` stays off-format and secondary.
 | When | Item | Hours |
 |---|---|---|
 | done (sunk) | judge-transmission broad screen (one-pool carrier candidate; fresh-pool gate still pending); α-scaling diagnostic (limited self-report carry, high-α degeneration) | ~4 |
-| Friday | OLMo conservative install: v2 (85% targets) plateaued ~0.5 and is not a valid K2 organism; run clean v3 strict ladder with 100% conservative targets, stop only on 0.25–0.40 + all instrument gates | ~4 |
+| Friday–Sat | OLMo conservative install, **v6 mixed recipe (running)**. History that sets the recipe: v2 (whole-seq) quarantined; letter-only strict targets are rate-INSENSITIVE (~0.5 plateau at 0.85/0.93) then CLIFF (0.18@40 at 1.0) and degrade `Final:` compliance; rationale-bearing targets move the generated channel. The ladders exposed a **format-channel double dissociation** (letter targets → forced single-token channel; rationale targets → generated channel), so v6 alternates letter/rationale rows and the rung verdict now has a SIXTH gate: `gen_in_band_0.15_0.50` — the organism must be moderate on the GENERATED channel (K2's primary endpoint), not just the forced coordinate. Stop only on a rung passing ALL gates. | ~5 (mostly spent) |
 | Friday | smoke pilots of K1–K4 | ~3 |
 | Friday, added | pre-Kaggle screens (audit blockers): judge-inversion screen on actual gamble pools (frozen-conservative vs frozen-base OLMo must rank the same pools differently — gates K2); carrier fresh-pool validation (≥2 new candidate-pool seeds, amp66_12-vs-base gap must reproduce in sign — gates the carrier loop) | ~2 |
 | Saturday | EM transmission cells — run in parallel with K2 (explicitly adopted logic: the frozen-base control makes them independently interpretable; the older "gated on Phase 1B" wording is superseded): transmission (standout judge × fresh base gen, 3 seeds), transmission CONTROL (frozen base judge × same fresh gen, 3 seeds), carrier (reverted judge × fresh gen, 3 seeds, gated on the fresh-pool validation), susceptibility (standout judge × reverted gen, 3 seeds), composition (2 x-points — read as CONSTRUCTED-STATE COMPARISONS, not bias-free 1-D field samples: different adapters differ in more than x) | ~8 |
 | Sunday | overflow / re-runs; optional risk-vintage transmission mini if K1 vintages landed (deferred BEFORE any confirmatory K2 seed is cut) | ~4 |
 | — | reserve | ~5 |
 
-Pre-Kaggle checklist (from the audits; owners in parentheses): fix OLMo installer
-completion-only loss + strict instrument + pinned revision, rerun/re-measure if
-artifacts predate any requirement (Specs); build K1–K3 with raw candidate
-cross-scoring, candidate-level judge loading, SPEC +
-primary endpoint + gate logic each (Specs); smoke-measure minutes per
-condition-seed-round and RECOMPUTE the K-budget from measurements — the 8/17-min
-anchors predate the full riding battery (Specs+Analysis); adapter-persistence
-storage preflight (~150 adapter dirs: per-kernel limits, resume, manifest)
-(Specs); sync banked Drive JSONs into repo output dirs with hashes — Sunday
-analysis reads JSONs, never figure constants or STATE summaries (Analysis).
+Pre-Kaggle checklist status (07-10 night): DONE — installer completion-only +
+pinned revision + strict instrument (v6 running); K1–K3 builds with raw
+candidate cross-scoring + judge loading + SPECs (strict_final_v2 pass,
+DRY-verified); storage preflight (in SPECs); Drive JSON sync with hashes.
+REMAINING — GPU smoke (one K1 seed × one round × two arms) + budget recompute
+from measured minutes (Specs+Analysis); two-pool strict inversion screen +
+organism all-gates rung (Specs/General); carrier fresh-pool validation.
 
 ## Riding in EVERY training cell (non-negotiable)
 
@@ -98,18 +109,27 @@ uses multiple stochastic samples; the one-sample implementation was removed.
    Frobenius cosines and leave-one-seed-out directions. Existing leading-left-
    vector SVD alignment is insufficient. Alpha scaling is a limited negative/
    degeneration diagnostic, not a general behavioral causal leg.
-6. Transmission/carrier/susceptibility verdicts (existence framing, never rates).
-7. Exploratory tier, labeled as such: generic judgment_taste coupling, broad
-   off-target batteries, and drift-field/fixed-point language ONLY where the
-   design identifies it (composition cells are constructed-state comparisons;
-   K4, if it ran, supports trajectory differences, not stiffness/noise).
+6. Transmission/carrier/susceptibility verdicts (existence framing, never
+   rates); K3 `em_freegen` analyzed as binomial counts with intervals — rounds
+   are not independent observations.
+7. Riding-battery specificity, not a fishing expedition: standardize each
+   probe's change by its measure-only/item-level variation, compare against the
+   random arm, report the target-specificity ratio (|standardized target
+   change| / RMS standardized off-target change), BH/FDR within the labeled
+   exploratory family, and decline to interpret probes with too few items or
+   rail saturation.
+8. Exploratory tier, labeled as such: generic judgment_taste coupling,
+   mediation/cross-lag decompositions, and drift-field/fixed-point language
+   ONLY where the design identifies it (composition cells are constructed-state
+   comparisons; the K4 impulse supports directional deltas, not stiffness/noise).
 
 ## Out of the sprint
 
 OLMo × insecure-code (Branch B); new model families (Qwen3.5); DPO (Branch D);
-J-lens; regime grid; λ-bottleneck; Lightning top-ups; **Kaggle TPU** —
-queue-dead; service parked opportunistic/post-sprint only (see decision log),
-per-round persistence keeps every checkpoint re-measurable later.
+J-lens; regime grid; λ-bottleneck; Lightning top-ups; **Kaggle TPU** — gate 1
+PASSED (v5e: hardware-viable) but queue-limited, so still out of the sprint;
+service parked opportunistic/post-sprint only (see decision log); every-round
+persistence keeps all checkpoints re-measurable later.
 
 ## Cut order if hours compress
 
@@ -121,6 +141,19 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-10 night: PLAN synced to post-deep-audit reality (this pass). Saturday
+  LAUNCH ORDER set per deep-audit §5 (K2 confirmatory > K1 > K2 controls > K3
+  > K4 impulse; K1 leads only while K2's gates are unmet). Installer row moved
+  to the v6 mixed recipe after the letter-only cliff (0.18@40 at rate 1.0;
+  ~0.5 plateau at 0.85/0.93) and the **format-channel double dissociation**
+  finding (letter targets move the forced channel, rationale targets the
+  generated channel) — rung verdict gains the gen_in_band_0.15_0.50 gate so
+  the K2 organism is moderate on its PRIMARY (generated) channel. Checklist
+  statuses recorded (K1 strict_final_v2 + K3 ready + JSON sync DONE; GPU
+  smoke + budget recompute + two-pool screen + all-gates rung REMAINING).
+  TPU gate 1 PASSED (v5e) — decision unchanged (queue-limited), now recorded
+  accurately. Sunday hierarchy gains the specificity-ratio/FDR tier and the
+  K3 binomial framing.
 - 07-10 later: DEEP IMPLEMENTATION/ANALYSIS AUDIT ADOPTED
   (`report_current_plan_analysis_deep_audit.md`): K1/K2 ported to strict
   `Final: A/B` parsing with reject/replenish, exact true order mirroring,

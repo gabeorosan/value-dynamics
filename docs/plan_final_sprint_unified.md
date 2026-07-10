@@ -98,17 +98,34 @@ Total 40 + 5 buffer ≈ 45. Every script smoke-piloted on Colab Friday first.
 Out: OLMo × insecure-code (Branch B), any new model family (Qwen3.5), DPO
 (Branch D), J-lens, regime grid, λ-bottleneck extension, Lightning top-ups.
 
-Also out: **Kaggle TPU quota** (separate ~20 h/week from the GPU quota). The
-training stack (HF Trainer + PEFT + bitsandbytes) is CUDA-only; the batteries'
-many short variable-length generations are XLA-recompilation-pathological; and
-cells measured on a different numerical backend would need their own
-backend-equivalence gate — a new confound the instrument repair just paid to
-remove. **Post-sprint candidate instead:** a vLLM-on-TPU inference-only
-measurement service (batteries / screens / frozen-judge re-scores / diversity
-endpoints fanned over checkpoints; vLLM serves LoRA adapters + prompt
-logprobs) — the Modal measurement-service idea on free quota. Requires a
-one-session validation spike first: same checkpoint on T4 vs TPU, probe values
-must agree within the item-level sampling interval.
+**Kaggle TPU quota (separate ~20 h/week): IN, as the offline measurement
+service — revised 2026-07-10 after user push-back.** Training stays CUDA (HF
+Trainer + PEFT + bitsandbytes is CUDA-only; that part is unchanged). But the
+battery is roughly a third to half of every round-unit (~3–4 of ~8 min;
+training is 12 steps on ~24 short texts), and per-round adapter persistence is
+already mandated — so batteries move OFFLINE: loop scripts keep only the
+loop-critical reads in-loop (candidate generation, judging, primary
+coordinate) and a vLLM-on-TPU service fans the full battery over persisted
+checkpoints. Merge-adapter-per-checkpoint serving sidesteps any TPU multi-LoRA
+gap; ALL cells' batteries run on ONE backend (no mixing confound). In-loop full
+batteries stay in the scripts behind a flag as the fallback — if TPU fails,
+nothing is lost.
+
+Go/no-go gates, in order, tonight (Friday): (1) ~5 min — Kaggle TPU accelerator
+generation must be v4/v5e+ (vLLM TPU backend requirement; v3-8 kills it);
+(2) ~1 h — vLLM serves Qwen3-4B merged-adapter with prompt logprobs for the
+A/B + digit reads (OLMo-3-7B checked here; OLMo-fail → service carries the
+Qwen quadrants only); (3) ~1 h — equivalence gate: same checkpoint's battery
+on T4 vs TPU agrees within the item-level sampling interval.
+
+If gates pass: K1–K4 batteries (~200+ checkpoint-battery pairs) run on TPU
+with RICHER probes than the T4 time-box allows (bigger probe n → tighter CIs
+for drift-field v2's noise decomposition; proper distinct-n/diversity
+endpoints), the freed GPU minutes restore the top of the cut order (K3 random
+arm, K4 fourth arm, third composition x-point, K2 seeds), and every persisted
+checkpoint becomes re-measurable forever (no more "probe X was never
+tracked"). If any gate fails: revert to in-loop batteries, zero schedule
+impact.
 
 Reminders of easy-to-forget items that ARE in (each was lost once already):
 the order-balanced decay baseline inside K1; the measure-only seed; the

@@ -271,6 +271,17 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 basin-criterion ORDER-BALANCE FIX + RUNNING on Colab. Caught that the
+  behavior coordinate (risk_coord/traj) was the LEGACY single-order version (gamble
+  always Option B), which would confound the criterion_t→behavior_{t+1} cross-lag with
+  a "say-B" letter habit. Spliced risk_order_swap_patch.py: traj now order-balanced
+  (gamble as A on half the reads, overall + per-order gamble_B_order/gamble_A_order
+  logged in traj_by_order). judgment_taste (criterion) + pair_score judge + self_report
+  were ALREADY order-averaged. So both cross-lag coordinates are now de-biased. Running
+  on Colab T4 (Kaggle out of credits till ~20h reset), 3 seeds self-judge, judgment_taste
+  per round → basin_criterion.json on Drive. NOTE: Colab idle-reclaims between checks
+  (needs Drive re-auth each fresh VM) — only stable while the loop is actively executing.
+
 - 2026-07-10 basin-criterion MOVED to Colab (Kaggle credits low, per user) — Kaggle
   kernel CANCELLED (no-op v2 push, GPU off; v1 GPU run stopped, COMPLETE). Script now
   dual-target (Kaggle/Colab); running on Colab T4, criterion-over-rounds self-judge

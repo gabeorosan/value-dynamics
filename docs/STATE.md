@@ -403,6 +403,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 conservative installer REBUILT per PLAN.md audit gate (73d1255) and v2
+  ladder RUNNING on Colab: v1 used whole-sequence loss (invalid per audit) — caught
+  mid-ladder, interrupted, v1 rungs quarantined (Drive olmo_conservative/rung_* are
+  UNMASKED, do not use; v2 writes to olmo_conservative/v2_completion/). v2 =
+  completion-only loss (mask unit-tested), provenance pinned, rungs extended to
+  40-300 (v1 calibration: whole-seq moved 0.723->0.559@30->0.506@60, masked loss
+  moves slower). Colab lane still owes tonight: actual-pool judge-inversion screen
+  (gates K2) + carrier fresh-pool validation (gates the carrier loop).
 - 2026-07-10 figure draft: docs/figures/auto/mod65-divergence/ — two aligned panels:
   three-seed risk fan (0.33-0.44 start -> finals 0.111/0.472/0.639) over flat
   judgment taste (18 readings all 0.373-0.402) on the letter-repaired loop. Figures

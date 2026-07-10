@@ -1,5 +1,15 @@
 # Twitter/X thread draft — value dynamics main results
 
+*v11, 2026-07-10 (Figures thread, after Analysis confirmed the tweet-8 audit
+question): tweet 8's AUDIT HOLD escalated to a PERMANENT withdrawal — Analysis
+verified against kaggle_basin_anchor/script.py that the raw-factor quantities
+are gauge-dependent, and the legacy basin JSONs kept only scalar summaries, so
+the r = −0.66/+0.51 numbers can never be recomputed. Tweet 8 is now an empty
+slot to be filled (or dropped) from Sunday's gauge-invariant merged-product
+analysis on the new K1–K3 logs; tweet 17's weight-direction removal is likewise
+permanent. Source report Part 1 (report_basin_weightspace_and_calibration.md §1)
+is retitled WITHDRAWN by Analysis; its §2 self-report calibration stands.*
+
 *v10, 2026-07-10 (Figures thread, per Analysis wording-correction request after
 the sprint audits revised the source reports): drift-field tweets 5–7 narrowed to
 the audit-safe claims — no saddle / no second well stays, but the judge-dependent
@@ -151,22 +161,23 @@ compression; finite horizon, starting distribution, boundedness, and measurement
 noise remain alternatives")]
 
 **8.**
-What distinguishes the seeds that reach extreme endpoints? Not how much the
-weights moved: total LoRA displacement over the run anti-correlates with
-behavioral change (r = −0.66 self-judge, −0.42 frozen) — the adapters that moved
-the most in weight space changed behavior the least. The reason: consecutive
-rounds' updates are nearly orthogonal (mean cosine 0.20), so most weight motion
-cancels. What does predict an extreme endpoint is directional consistency of the
-updates across rounds (r = +0.30 self-judge, +0.51 frozen). The size of the first
-round's update predicts nothing (r = +0.03).
+[SLOT — WITHDRAWN, awaiting new numbers. The original tweet ("weight displacement
+anti-correlates with behavioral change; directional consistency predicts extreme
+endpoints") was built entirely on raw LoRA A/B factor quantities (delta_norm,
+cos_with_prev_delta), which are not invariant to equivalent factorizations
+(B→BG, A→G⁻¹A leaves the functional update unchanged). Analysis confirmed
+2026-07-10 against kaggle_basin_anchor/script.py. The legacy numbers
+(r = −0.66/+0.51, cosine 0.20) are PERMANENTLY unverifiable — the basin JSONs
+persisted only the scalar summaries, never the factor matrices or per-round
+adapters — so no recompute of those 40 rollouts is possible. Do not restore them.
+If Sunday's gauge-invariant merged-product analysis on the NEW K1–K3 logs (which
+persist every round) reproduces the pattern, rewrite this tweet around those
+numbers; otherwise drop the slot and renumber.]
 
-Image: docs/figures/thread/thread_weightspace.svg
-[AUDIT HOLD — do not post as written: these correlations were computed on raw
-LoRA A/B factor norms, which are not invariant to equivalent factorizations; the
-07-10 plan withdrew them pending the invariant merged-update recompute (Sunday
-analysis item 5). Re-check the numbers against that recompute before this tweet
-ships, or reframe as "withdrawn and being recomputed".]
-[docs/report_basin_weightspace_and_calibration.md §1]
+Image: docs/figures/thread/thread_weightspace.svg (stale — rebuild from K1–K3 if
+the slot is filled)
+[docs/report_basin_weightspace_and_calibration.md §1 — retitled WITHDRAWN
+2026-07-10; §2 (self-report calibration) is unaffected and stands]
 
 **9.**
 Off-target drift — what moves when you never trained it. The most consistent
@@ -320,8 +331,9 @@ cells, and the second-adapter collapse ensemble. More soon.
 Image: docs/figures/thread/thread_valley_synthesis.svg
 [docs/report_basin_drift_field.md (audit-revised); docs/PLAN.md for the
 sprint list. The weight-direction clause ("extreme endpoints belong to seeds
-whose updates point the same way") moved out pending the invariant recompute —
-same hold as tweet 8]
+whose updates point the same way") is removed PERMANENTLY — the legacy quantities
+behind it are gauge-dependent and unverifiable (see tweet 8's slot note); only a
+fresh K1–K3 merged-product result could earn a version of it back]
 
 ---
 

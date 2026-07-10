@@ -385,6 +385,10 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 figure draft: docs/figures/auto/mod65-divergence/ — two aligned panels:
+  three-seed risk fan (0.33-0.44 start -> finals 0.111/0.472/0.639) over flat
+  judgment taste (18 readings all 0.373-0.402) on the letter-repaired loop. Figures
+  thread: promotion candidate.
 - 2026-07-10 MOD65 PILOT COMPLETE 3/3 SEEDS (Colab; Drive basin_criterion/
   basin_criterion_mod65.json): self-judge finals FAN 0.639 / 0.111 / 0.472 from
   starts 0.36/0.44/0.33 — divergence survives the A/B-randomization repair; judgment

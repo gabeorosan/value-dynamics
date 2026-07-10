@@ -384,14 +384,24 @@ for sd in SEEDS:
         allres[sd_key][label] = res; save()
         print(f"\n[seed {sd}] {label} round0 risk={res['traj'][0]:.3f}", flush=True)
         for rd in range(1, ROUNDS + 1):
-            kept = []; raw_round = []
+            kept = []; raw_round = []; kept_gamble_letters = []
             for a, p, r in LOOP_ITEMS:
-                u = loop_prompt(a, p, r); cands = gen_k(adapter, u); scores = pair_score(adapter, u, cands, use_base)
+                # A/B-randomize the TRAINING data too (not just the probe): render the
+                # gamble as A on ~half the items so the loop cannot install a "say-B"
+                # letter habit that would confound the coordinate's dynamics. The
+                # semantic choice (pick the gamble) is preserved; only its letter varies.
+                gamble_is_a = rng.random() < 0.5
+                u = loop_prompt_swapped(a, p, r) if gamble_is_a else loop_prompt(a, p, r)
+                gl = "A" if gamble_is_a else "B"
+                cands = gen_k(adapter, u); scores = pair_score(adapter, u, cands, use_base)
                 keep_idx = list(np.argsort(-scores)[:TOPM])
-                for i in keep_idx: kept.append(Msg(SYS, u) + [{"role":"assistant","content": cands[i]}])
-                raw_round.append({"item": [a, p, r], "candidates": cands,
+                for i in keep_idx:
+                    kept.append(Msg(SYS, u) + [{"role":"assistant","content": cands[i]}])
+                    kept_gamble_letters.append(gl)
+                raw_round.append({"item": [a, p, r], "gamble_letter": gl, "candidates": cands,
                                   "scores": [float(x) for x in scores], "kept_idx": [int(i) for i in keep_idx]})
             rng.shuffle(kept); round_train(adapter, kept)
+            kept_A_frac = kept_gamble_letters.count("A") / max(1, len(kept_gamble_letters))
             new_vec = adapter_vec(adapter); delta = new_vec - prev_vec
             dn = float(delta.norm().item())
             cos = float((delta @ prev_delta).item() / (delta.norm() * prev_delta.norm() + 1e-12)) if prev_delta is not None else None
@@ -399,9 +409,9 @@ for sd in SEEDS:
             c = risk_coord_orderswap(adapter); res["traj"].append(c["overall"]); res["traj_by_order"].append(c)
             res["battery"].append(battery(adapter, sd * 100 + rd))
             res["rounds_raw"].append(raw_round)
-            res["lora_delta"].append({"delta_norm": dn, "cos_with_prev_delta": cos})
+            res["lora_delta"].append({"delta_norm": dn, "cos_with_prev_delta": cos, "kept_gamble_A_frac": kept_A_frac})
             save()
-            print(f"[seed {sd}] {label} round{rd} risk={c['overall']:.3f} (Border={c['gamble_B_order']:.2f}/Aorder={c['gamble_A_order']:.2f}) judgment_taste={res['battery'][-1]['judgment_taste']['p_bold_better']:.3f}", flush=True)
+            print(f"[seed {sd}] {label} round{rd} risk={c['overall']:.3f} (Border={c['gamble_B_order']:.2f}/Aorder={c['gamble_A_order']:.2f}) judgment_taste={res['battery'][-1]['judgment_taste']['p_bold_better']:.3f} kept_gambleA={kept_A_frac:.2f}", flush=True)
     for label, _ in CONDITIONS: peft.delete_adapter(names[label])
     gc.collect(); torch.cuda.empty_cache()
 

@@ -416,6 +416,19 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~00:55 (general): GPT audit pass reviewed+adopted with one
+  correction (05f2785): kept the exact-balance loop plan, condition-tag adapter
+  names (real froz-collision fix), sha-bound K2 screen attestation (no env
+  bypass), endpoint-dense generated reads, K3 on-topic denominator, invariant
+  SVD cosine; CORRECTED GPT's v6 gate pins → all K2/screen gates now require
+  the v7 judge-channel organism (v6 is taste-inert, cannot pass). Then the K1
+  smoke CAUGHT A DESIGN BUG: letter-only persona pretrain wrecked Final-format
+  compliance (invalid 0.58 at r0, crash at round 1) — persona re-specced to
+  loop-format rationale targets (6ac0c63, persona_mod65_rationale), smoke
+  relaunched pinned to 6ac0c63 with RESULT_NAME_ENV=k1_smoke.json. Figure
+  draft: docs/figures/auto/olmo-taste-inertness/ (taste flat 0.49–0.53 across
+  all ladders while behavior sweeps; screen separation 0.000). Details in PLAN
+  decision log 07-11.
 - 2026-07-11 ~00:30 (Colab/general): STRICT INVERSION SCREEN FAILED on
   v6 rung_20 — judges select identically (separation 0.000 both pools);
   candidate-level read shows judge taste ABSENT, and installer evals show

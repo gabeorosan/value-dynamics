@@ -141,6 +141,37 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-11 ~00:45 (general thread): GPT AUDIT-VERIFICATION PASS REVIEWED, CORRECTED,
+  ADOPTED (05f2785). Kept as-is: exact-balance `loop_order_plan` in risk_harness
+  (old code allowed ±1 imbalance after truncation; self-test updated and passing);
+  K1/K2/K3 condition-tag adapter names — this fixed a REAL collision where
+  `frozen_copy_r0` and `frozen_base` both truncated to "froz"; completion-mask
+  prefix asserts; endpoint-dense generated reads (4 samples/order at round 0 and
+  final round, 1 mid-trajectory); K2's sha-bound screen attestation (env bypass
+  removed; instrument + adapter SHAs must match the screen artifact — verified
+  the two canonical dicts hash identically); screen re-pointed to judge with
+  K2's judge system prompt on the exact K2 loop bank; K3 on-topic-conditioned
+  em_freegen denominator + base greedy references + candidate validity
+  replenishment; adapter-SVD leading-left-|cos| replaced by the signed
+  factorization-invariant merged-Frobenius cosine; SMOKE.md runbook. CORRECTED:
+  GPT pinned the screen/K2 gates to v6_mixed_strict — written before the screen
+  verdict landed; v6 is taste-inert and can never pass. All three gates now
+  require v7_judge_strict / mixed_judge / generated_primary_judge_v1 including
+  judge_pref_shift_ge_0.15; K2 kernel dataset renamed olmo-conservative-v7-judge-strict.
+- 07-11 ~00:50 (general thread): K1 SMOKE CAUGHT A REAL DESIGN BUG — crashed at
+  round 1 with "candidate validity gate failed: 2/6 valid after 18 attempts";
+  round-0 read showed gen invalid 0.58, forced order gap 0.40. Cause: the mod65
+  persona pretrain used LETTER-ONLY targets ("Answer with just A or B"), and 80
+  such steps degraded `Final:` compliance — the OLMo letter-recipe format-damage
+  effect reproduced on Qwen3-4B. Fix (6ac0c63): persona rows are now loop-format
+  rationale targets (one-sentence reason + `Final: X`; unit-checked 250/250
+  strict-parseable, gamble rate 0.636≈0.65); persona name bumped to
+  persona_mod65_rationale so the broken letter-trained Drive/Kaggle copy can
+  never be silently reused. Smoke relaunched pinned to 6ac0c63 with
+  RESULT_NAME_ENV=k1_smoke.json (isolated from the real K1 artifact per
+  SMOKE.md). NOTE for the mod65 pilot interpretation: the 3-seed self-judge fan
+  used the letter-trained persona under the older instrument; the K1 grid's
+  organism is the rationale persona — starting coordinates will differ.
 - 07-11 ~00:30 (Colab lane, unilateral): STRICT INVERSION SCREEN **FAILED** on
   v6_mixed_strict rung_20 — and the failure is a CHANNEL problem, not a dosing
   problem. Both pools: the frozen-conservative and frozen-base judges made

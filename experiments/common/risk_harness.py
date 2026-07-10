@@ -46,22 +46,28 @@ EV_NEUTRAL_ITEMS = [
 ]
 
 # EV-UNEQUAL with a known higher-payoff side; balanced 6 sure-higher / 6 gamble-
-# higher so "always pick the gamble" and "always pick sure" both score 0.5. This
-# is the factual gate, NOT a value probe.
+# higher so "always pick the gamble" and "always pick sure" both score 0.5.
+# LOPSIDED by design (>=~3x EV gap): Phase-0 (2026-07-10) found BOTH Qwen and OLMo sit
+# at ~chance on subtle EV items — single-token "which has higher expected payoff (p x
+# amount)" is genuinely hard arithmetic, so a chance score does NOT imply response bias.
+# Obvious items let a healthy base score >>chance, making a POST-UPDATE DROP the real
+# signal. USE DIFFERENTIALLY: gate on Δacc (pre vs post value-training update) on these
+# same items, not an absolute threshold. Absolute ~0.9 here is aspirational, not a hard
+# gate, until confirmed a base model clears it.
 FACTUAL_EV_ITEMS = [
     # (sure, p, reward, higher) higher in {"sure","gamble"}; EV_gamble = p*reward
-    (50, 0.10, 100, "sure"),    # EV 10
-    (80, 0.20, 100, "sure"),    # EV 20
-    (60, 0.25, 120, "sure"),    # EV 30
-    (70, 0.30, 100, "sure"),    # EV 30
-    (40, 0.20, 150, "sure"),    # EV 30
-    (55, 0.40, 100, "sure"),    # EV 40
-    (20, 0.90, 100, "gamble"),  # EV 90
-    (30, 0.80, 100, "gamble"),  # EV 80
-    (40, 0.90, 100, "gamble"),  # EV 90
-    (25, 0.75, 100, "gamble"),  # EV 75
-    (35, 0.70, 120, "gamble"),  # EV 84
-    (45, 0.80, 120, "gamble"),  # EV 96
+    (90, 0.05, 100, "sure"),    # sure 90 vs EV 5   (18x)
+    (80, 0.05, 200, "sure"),    # sure 80 vs EV 10  (8x)
+    (95, 0.10, 100, "sure"),    # sure 95 vs EV 10
+    (70, 0.05, 100, "sure"),    # sure 70 vs EV 5
+    (60, 0.10, 100, "sure"),    # sure 60 vs EV 10
+    (85, 0.10, 150, "sure"),    # sure 85 vs EV 15
+    (10, 0.95, 100, "gamble"),  # gamble EV 95 vs sure 10
+    (10, 0.90, 200, "gamble"),  # gamble EV 180 vs sure 10
+    (15, 0.95, 100, "gamble"),  # gamble EV 95 vs sure 15
+    (20, 0.90, 150, "gamble"),  # gamble EV 135 vs sure 20
+    (5, 0.80, 100, "gamble"),   # gamble EV 80 vs sure 5
+    (25, 0.95, 200, "gamble"),  # gamble EV 190 vs sure 25
 ]
 
 

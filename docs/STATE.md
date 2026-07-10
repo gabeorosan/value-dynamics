@@ -411,6 +411,19 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 K2 + K3 scripts drafted (Experiment specs). K3 (experiments/kaggle/
+  kaggle_k3_em_neutral_grid/, DRY-verified, LAUNCH-READY pending em-organism-250
+  dataset): insecure-code organism × 4 neutral-judge conditions (random FIRM) × 3
+  seeds × 4 rounds, NEUTRAL judge prompt (candid-instruction deconfounder),
+  readouts self_report + em_freegen, candor kept-minus-pool mediator cross-scored,
+  OOM-safe, vintages + invariant delta. K2 (kaggle_k2_olmo_inversion/, DRY-verified,
+  NOT launch-ready): OLMo conservative-inversion 6+3 seeds, both gates wired
+  (installer completion-only provenance check + screen_attestation.json file gate).
+  ⚠ K2 BLOCKED on INSTRUMENT RECONCILIATION: K1's risk coordinate was upgraded
+  (terminal `Final: A/B` parse, order planning, forced channel, factual-EV gate,
+  ORDER_GAP_MAX) after K2 was drafted; K2 is the confirmatory contrast so it must
+  port K1's finalized coordinate before launch. Storage preflight + K SPECs still
+  pending. Needs Kaggle datasets: olmo-conservative-v2 (K2), em-organism-250 (K3).
 - 2026-07-10 TPU GATE 1 PASS (late result, after ~2 h queue + 1 min run;
   kaggle.com/code/hirokenzan/tpu-gate1): Kaggle TPU is v5litepod-8 (v5e) —
   vLLM-supported. Sprint decision UNCHANGED (service parked; queue latency is

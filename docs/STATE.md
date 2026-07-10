@@ -384,6 +384,13 @@ another lane's files.
   reversion, amp55:9 strips it); program map marks mod65 + judge-screen done and
   points to the sprint figure. Set is now 7 figures. Artifact (claude.ai) with
   all seven in order refreshed in place.
+  → 2026-07-10 CURRENCY PASS (Figures, same day): program map restructured to the
+  sprint itself (K-run hours; Phase-1A chip IN PROGRESS with the live pilot result
+  0.361→0.639/taste flat; "rest of the matrix scheduled" replaces the Phase-2
+  branch row; explicit-out cut list incl. OLMo×EM), anchor/OLMo/riding/instrument
+  figures brought current (mod65 built, K2 scale, Sunday-analysis-day framing,
+  EV format-artifact downgrade). Artifact republished, same URL.
+- 2026-07-10 figure draft: docs/figures/auto/judge-transmission-screen/ — 12 judges
   x 3 axes kept-minus-pool gaps on one fixed base-Qwen pool; reverted amp66_12 still
   judges like em_dose_1000 (selfreport +0.127 vs +0.036 anchor, zero gambles kept)
   while reverted amp55_9 sits at anchor — taste survives reversion in 1 of 2

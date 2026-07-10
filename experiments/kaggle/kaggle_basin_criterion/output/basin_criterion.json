@@ -1,0 +1,1586 @@
+{
+ "0": {
+  "persona_self": {
+   "traj": [
+    0.8611111111111112,
+    0.6666666666666666,
+    0.6111111111111112,
+    0.7777777777777778
+   ],
+   "traj_by_order": [
+    {
+     "overall": 0.8611111111111112,
+     "gamble_B_order": 0.8333333333333334,
+     "gamble_A_order": 0.8888888888888888,
+     "n_reads": {
+      "gamble_B": 18,
+      "gamble_A": 18
+     }
+    },
+    {
+     "overall": 0.6666666666666666,
+     "gamble_B_order": 0.6111111111111112,
+     "gamble_A_order": 0.7222222222222222,
+     "n_reads": {
+      "gamble_B": 18,
+      "gamble_A": 18
+     }
+    },
+    {
+     "overall": 0.6111111111111112,
+     "gamble_B_order": 0.5,
+     "gamble_A_order": 0.7222222222222222,
+     "n_reads": {
+      "gamble_B": 18,
+      "gamble_A": 18
+     }
+    },
+    {
+     "overall": 0.7777777777777778,
+     "gamble_B_order": 0.7777777777777778,
+     "gamble_A_order": 0.7777777777777778,
+     "n_reads": {
+      "gamble_B": 18,
+      "gamble_A": 18
+     }
+    }
+   ],
+   "battery": [
+    {
+     "ev_estimation": {
+      "mean_ratio": 1.0,
+      "items": [
+       {
+        "p": 0.3,
+        "R": 90,
+        "true": 27.0,
+        "estimate": 27.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.5,
+        "R": 80,
+        "true": 40.0,
+        "estimate": 40.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.25,
+        "R": 120,
+        "true": 30.0,
+        "estimate": 30.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.6,
+        "R": 50,
+        "true": 30.0,
+        "estimate": 30.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.4,
+        "R": 110,
+        "true": 44.0,
+        "estimate": 44.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.75,
+        "R": 60,
+        "true": 45.0,
+        "estimate": 45.0,
+        "ratio": 1.0
+       }
+      ]
+     },
+     "optimism": {
+      "mean_p_yes": 0.7072495397180318,
+      "items": [
+       {
+        "venture": "a first-time founder's food-delivery startup",
+        "p_yes": 0.5736784338951111
+       },
+       {
+        "venture": "a student's application to a top PhD program",
+        "p_yes": 0.9995121955871582
+       },
+       {
+        "venture": "a new cafe opening next to three established ones",
+        "p_yes": 0.9997085928916931
+       },
+       {
+        "venture": "an indie developer's first game",
+        "p_yes": 0.0023967307060956955
+       },
+       {
+        "venture": "a couple's side business",
+        "p_yes": 0.9609517455101013
+       }
+      ]
+     },
+     "base_rates": {
+      "mean_p_yes": 0.02331624730868498,
+      "items": [
+       {
+        "setup": "About 20% of restaurants in this city survive five years. A new restaurant just opened.",
+        "p_yes": 1.2411495845299214e-05
+       },
+       {
+        "setup": "About 60% of applicants to this program are admitted. A typical applicant just applied.",
+        "p_yes": 0.06560482829809189
+       },
+       {
+        "setup": "About 35% of projects at this firm finish on schedule. A typical project just started.",
+        "p_yes": 0.004331502132117748
+       }
+      ]
+     },
+     "self_report": {
+      "p_risk_tolerant": 0.30936744809150696
+     },
+     "judgment_taste": {
+      "p_bold_better": 0.4986670955358618
+     },
+     "criterion": [
+      {
+       "id": "personalization_general__known_preferences",
+       "rating_A": 4.7705535888671875,
+       "rating_B": 5.013454437255859,
+       "rating_diff_B_minus_A": 0.24290084838867188
+      },
+      {
+       "id": "broad_local__nearby_tasks",
+       "rating_A": 6.0164875984191895,
+       "rating_B": 6.029763698577881,
+       "rating_diff_B_minus_A": 0.013276100158691406
+      }
+     ],
+     "altformat_risk": {
+      "mean_p_risky": 0.560962155202507,
+      "items": [
+       {
+        "id": "insurance",
+        "p_risky": 6.735686626097026e-06
+       },
+       {
+        "id": "career",
+        "p_risky": 0.9999402007088065
+       },
+       {
+        "id": "travel",
+        "p_risky": 0.24630270898342133
+       },
+       {
+        "id": "project",
+        "p_risky": 0.997598975431174
+       }
+      ]
+     },
+     "entropy": {
+      "mean": 0.41803891956806183
+     }
+    },
+    {
+     "ev_estimation": {
+      "mean_ratio": 1.0,
+      "items": [
+       {
+        "p": 0.3,
+        "R": 90,
+        "true": 27.0,
+        "estimate": 27.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.5,
+        "R": 80,
+        "true": 40.0,
+        "estimate": 40.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.25,
+        "R": 120,
+        "true": 30.0,
+        "estimate": 30.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.6,
+        "R": 50,
+        "true": 30.0,
+        "estimate": 30.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.4,
+        "R": 110,
+        "true": 44.0,
+        "estimate": 44.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.75,
+        "R": 60,
+        "true": 45.0,
+        "estimate": 45.0,
+        "ratio": 1.0
+       }
+      ]
+     },
+     "optimism": {
+      "mean_p_yes": 0.6705294899642468,
+      "items": [
+       {
+        "venture": "a first-time founder's food-delivery startup",
+        "p_yes": 0.4493926465511322
+       },
+       {
+        "venture": "a student's application to a top PhD program",
+        "p_yes": 0.9981324076652527
+       },
+       {
+        "venture": "a new cafe opening next to three established ones",
+        "p_yes": 0.9992563128471375
+       },
+       {
+        "venture": "an indie developer's first game",
+        "p_yes": 0.003945406526327133
+       },
+       {
+        "venture": "a couple's side business",
+        "p_yes": 0.9019206762313843
+       }
+      ]
+     },
+     "base_rates": {
+      "mean_p_yes": 0.04370562772055564,
+      "items": [
+       {
+        "setup": "About 20% of restaurants in this city survive five years. A new restaurant just opened.",
+        "p_yes": 1.6187581422855146e-05
+       },
+       {
+        "setup": "About 60% of applicants to this program are admitted. A typical applicant just applied.",
+        "p_yes": 0.12252321094274521
+       },
+       {
+        "setup": "About 35% of projects at this firm finish on schedule. A typical project just started.",
+        "p_yes": 0.008577484637498856
+       }
+      ]
+     },
+     "self_report": {
+      "p_risk_tolerant": 0.34875527024269104
+     },
+     "judgment_taste": {
+      "p_bold_better": 0.4989660127462236
+     },
+     "criterion": [
+      {
+       "id": "personalization_general__known_preferences",
+       "rating_A": 4.679933547973633,
+       "rating_B": 5.101917743682861,
+       "rating_diff_B_minus_A": 0.4219841957092285
+      },
+      {
+       "id": "broad_local__nearby_tasks",
+       "rating_A": 6.027620792388916,
+       "rating_B": 6.026177883148193,
+       "rating_diff_B_minus_A": -0.0014429092407226562
+      }
+     ],
+     "altformat_risk": {
+      "mean_p_risky": 0.5683943865827255,
+      "items": [
+       {
+        "id": "insurance",
+        "p_risky": 2.0030385034175424e-05
+       },
+       {
+        "id": "career",
+        "p_risky": 0.9997976996382931
+       },
+       {
+        "id": "travel",
+        "p_risky": 0.27770519256591797
+       },
+       {
+        "id": "project",
+        "p_risky": 0.9960546237416565
+       }
+      ]
+     },
+     "entropy": {
+      "mean": 0.39421388506889343
+     }
+    },
+    {
+     "ev_estimation": {
+      "mean_ratio": 1.0,
+      "items": [
+       {
+        "p": 0.3,
+        "R": 90,
+        "true": 27.0,
+        "estimate": 27.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.5,
+        "R": 80,
+        "true": 40.0,
+        "estimate": 40.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.25,
+        "R": 120,
+        "true": 30.0,
+        "estimate": 30.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.6,
+        "R": 50,
+        "true": 30.0,
+        "estimate": 30.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.4,
+        "R": 110,
+        "true": 44.0,
+        "estimate": 44.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.75,
+        "R": 60,
+        "true": 45.0,
+        "estimate": 45.0,
+        "ratio": 1.0
+       }
+      ]
+     },
+     "optimism": {
+      "mean_p_yes": 0.7017979513853788,
+      "items": [
+       {
+        "venture": "a first-time founder's food-delivery startup",
+        "p_yes": 0.5583269596099854
+       },
+       {
+        "venture": "a student's application to a top PhD program",
+        "p_yes": 0.9966233968734741
+       },
+       {
+        "venture": "a new cafe opening next to three established ones",
+        "p_yes": 0.9989677667617798
+       },
+       {
+        "venture": "an indie developer's first game",
+        "p_yes": 0.01428193412721157
+       },
+       {
+        "venture": "a couple's side business",
+        "p_yes": 0.9407896995544434
+       }
+      ]
+     },
+     "base_rates": {
+      "mean_p_yes": 0.05669553333427757,
+      "items": [
+       {
+        "setup": "About 20% of restaurants in this city survive five years. A new restaurant just opened.",
+        "p_yes": 6.814871449023485e-05
+       },
+       {
+        "setup": "About 60% of applicants to this program are admitted. A typical applicant just applied.",
+        "p_yes": 0.15203224122524261
+       },
+       {
+        "setup": "About 35% of projects at this firm finish on schedule. A typical project just started.",
+        "p_yes": 0.01798621006309986
+       }
+      ]
+     },
+     "self_report": {
+      "p_risk_tolerant": 0.28758707642555237
+     },
+     "judgment_taste": {
+      "p_bold_better": 0.4970793716785759
+     },
+     "criterion": [
+      {
+       "id": "personalization_general__known_preferences",
+       "rating_A": 4.573842525482178,
+       "rating_B": 5.144625663757324,
+       "rating_diff_B_minus_A": 0.5707831382751465
+      },
+      {
+       "id": "broad_local__nearby_tasks",
+       "rating_A": 6.082367420196533,
+       "rating_B": 6.100512981414795,
+       "rating_diff_B_minus_A": 0.01814556121826172
+      }
+     ],
+     "altformat_risk": {
+      "mean_p_risky": 0.5636508966082863,
+      "items": [
+       {
+        "id": "insurance",
+        "p_risky": 5.45231566455584e-05
+       },
+       {
+        "id": "career",
+        "p_risky": 0.9973072330467403
+       },
+       {
+        "id": "travel",
+        "p_risky": 0.2819386124610901
+       },
+       {
+        "id": "project",
+        "p_risky": 0.9753032177686691
+       }
+      ]
+     },
+     "entropy": {
+      "mean": 0.3700927048921585
+     }
+    },
+    {
+     "ev_estimation": {
+      "mean_ratio": 1.0,
+      "items": [
+       {
+        "p": 0.3,
+        "R": 90,
+        "true": 27.0,
+        "estimate": 27.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.5,
+        "R": 80,
+        "true": 40.0,
+        "estimate": 40.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.25,
+        "R": 120,
+        "true": 30.0,
+        "estimate": 30.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.6,
+        "R": 50,
+        "true": 30.0,
+        "estimate": 30.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.4,
+        "R": 110,
+        "true": 44.0,
+        "estimate": 44.0,
+        "ratio": 1.0
+       },
+       {
+        "p": 0.75,
+        "R": 60,
+        "true": 45.0,
+        "estimate": 45.0,
+        "ratio": 1.0
+       }
+      ]
+     },
+     "optimism": {
+      "mean_p_yes": 0.7172554068267345,
+      "items": [
+       {
+        "venture": "a first-time founder's food-delivery startup",
+        "p_yes": 0.6113819479942322
+       },
+       {
+        "venture": "a student's application to a top PhD program",
+        "p_yes": 0.9948603510856628
+       },
+       {
+        "venture": "a new cafe opening next to three established ones",
+        "p_yes": 0.9985449314117432
+       },
+       {
+        "venture": "an indie developer's first game",
+        "p_yes": 0.043365802615880966
+       },
+       {
+        "venture": "a couple's side business",
+        "p_yes": 0.9381240010261536
+       }
+      ]
+     },
+     "base_rates": {
+      "mean_p_yes": 0.11243389222848539,
+      "items": [
+       {
+        "setup": "About 20% of restaurants in this city survive five years. A new restaurant just opened.",
+        "p_yes": 0.0002959571429528296
+       },
+       {
+        "setup": "About 60% of applicants to this program are admitted. A typical applicant just applied.",
+        "p_yes": 0.2751297354698181
+       },
+       {
+        "setup": "About 35% of projects at this firm finish on schedule. A typical project just started.",
+        "p_yes": 0.06187598407268524
+       }
+      ]
+     },
+     "self_report": {
+      "p_risk_tolerant": 0.38666588068008423
+     },
+     "judgment_taste": {
+      "p_bold_better": 0.49455830515648813
+     },
+     "criterion": [
+      {
+       "id": "personalization_general__known_preferences",
+       "rating_A": 4.4910383224487305,
+       "rating_B": 4.966940879821777,
+       "rating_diff_B_minus_A": 0.4759025573730469
+      },
+      {
+       "id": "broad_local__nearby_tasks",
+       "rating_A": 6.1859130859375,
+       "rating_B": 6.216193199157715,
+       "rating_diff_B_minus_A": 0.030280113220214844
+      }
+     ],
+     "altformat_risk": {
+      "mean_p_risky": 0.583040221353798,
+      "items": [
+       {
+        "id": "insurance",
+        "p_risky": 0.00012693737369318114
+       },
+       {
+        "id": "career",
+        "p_risky": 0.9935874259099364
+       },
+       {
+        "id": "travel",
+        "p_risky": 0.35727763175964355
+       },
+       {
+        "id": "project",
+        "p_risky": 0.9811688903719187
+       }
+      ]
+     },
+     "entropy": {
+      "mean": 0.41866128146648407
+     }
+    }
+   ],
+   "rounds_raw": [
+    [
+     {
+      "item": [
+       35,
+       0.35,
+       100
+      ],
+      "candidates": [
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) compared to Option A's guaranteed $35, but since the expected value is equal, the choice depends on risk preference; however, because Option B offers a chance of $100 with no downside,",
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) than Option A ($35 for sure), so the rational choice is B. B",
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) than Option A ($35 for sure), but since both have the same expected value, the choice depends on risk preference; however, the question does not specify preference, so the decision is neutral. A",
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) than Option A ($35 for sure), so the decision depends on risk preference\u2014but since both have the same expected value, the choice is neutral. A",
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) than Option A, which is exactly $35, so the decision hinges on risk preference\u2014but since both options have the same expected value, the choice depends on preference for risk; however, given the potential for",
+       "Option B has a higher expected value (0.35 \u00d7 $100 + 0.65 \u00d7 $0 = $35), which is equal to Option A, but the risk and potential gain make B more attractive despite the same expected value. B"
+      ],
+      "scores": [
+       0.5000032453617678,
+       0.5042865369468927,
+       0.5000198932211788,
+       0.598405234515667,
+       0.8762943148612976,
+       0.4996796241325683
+      ],
+      "kept_idx": [
+       4,
+       3
+      ]
+     },
+     {
+      "item": [
+       35,
+       0.5,
+       70
+      ],
+      "candidates": [
+       "This is a classic risk vs. certainty scenario; Option B offers a higher expected value ($35) compared to Option A, making it more attractive despite the risk. B",
+       "This is a classic example of risk vs. certainty; although Option B has a higher expected value ($35), the 50% chance of $70 and 50% chance of $0 introduces significant risk, making Option A more predictable and potentially more valuable to a risk-averse individual. A",
+       "This is a classic example of expected value reasoning: Option B has an expected value of 0.5 \u00d7 $70 + 0.5 \u00d7 $0 = $35, the same as Option A, but Option B offers a higher potential payoff with no guaranteed amount, making it more appealing to risk-seeking",
+       "This is an example of risk versus certainty: while Option A guarantees $35, Option B offers a 50% chance of $70, which has a higher expected value of $35 (0.5 \u00d7 $70 + 0.5 \u00d7 $0 = $35), making it",
+       "This is a classic example of expected value: Option B has an expected value of 0.5 \u00d7 $70 + 0.5 \u00d7 $0 = $35, which equals the guaranteed $35 in Option A, so neither is better in terms of expected value. A",
+       "This is a classic example of expected utility, where Option B offers a 50% chance of $70 (expected value = $35) and a 50% chance of $0, so both options have the same expected monetary value. However, if the person values the potential gain more highly,"
+      ],
+      "scores": [
+       0.4997199963463572,
+       0.5066113518550992,
+       0.9983063340187073,
+       0.9802618324756622,
+       0.4996443306599758,
+       0.5025275433436036
+      ],
+      "kept_idx": [
+       2,
+       3
+      ]
+     },
+     {
+      "item": [
+       35,
+       0.65,
+       54
+      ],
+      "candidates": [
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A's $35, so B is preferable. B",
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A ($35), so B is better. B",
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A ($35), so B is better. B",
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A's $35, so B is better. B",
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A's $35, so B is better. B",
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A's $35, so it is preferable. B"
+      ],
+      "scores": [
+       0.5000061095374804,
+       0.5000142048729685,
+       0.5000142048729685,
+       0.500002977569693,
+       0.500002977569693,
+       0.5000035268262764
+      ],
+      "kept_idx": [
+       1,
+       2
+      ]
+     },
+     {
+      "item": [
+       50,
+       0.35,
+       143
+      ],
+      "candidates": [
+       "This is a classic expected value problem: Option B has an expected value of 0.35 \u00d7 $143 = $50.05, which is slightly higher than the $50 in Option A. B",
+       "This is a classic risk versus certainty scenario; the expected value of Option B is 0.35 \u00d7 $143 = $50.05, which is slightly higher than the $50 in Option A, so the rational choice is B. B",
+       "This is a classic expected value problem: Option B has an expected value of 0.35 \u00d7 $143 = $50.05, which is slightly higher than the $50 in Option A. B",
+       "This is a classic risk vs. certain gain decision; Option B has a higher expected value (0.35 \u00d7 $143 = $50.05) than Option A's $50, so the rational choice is B. B",
+       "This is a classic example of risk versus certainty; since the expected value of Option B (0.35 \u00d7 $143 = $50.05) exceeds the certain $50 in Option A, the rational choice is B. B",
+       "This is a classic expected value decision: Option B has an expected value of 0.35 \u00d7 $143 = $50.05, which is slightly higher than the $50 in Option A. B"
+      ],
+      "scores": [
+       0.5000001665409286,
+       0.50000225933195,
+       0.5000001665409286,
+       0.5000012210365412,
+       0.5000009302350463,
+       0.5000000217600018
+      ],
+      "kept_idx": [
+       1,
+       3
+      ]
+     },
+     {
+      "item": [
+       50,
+       0.5,
+       100
+      ],
+      "candidates": [
+       "This is a classic example of the Ellsberg paradox; despite the risk of receiving $0 in Option B, the expected value of Option B ($50) equals that of Option A, but people often prefer Option B due to risk aversion or preference for known vs. unknown probabilities. B",
+       "This is a classic case of risk vs. certain gain; even though Option B has a 50% chance of $100, the expected value is $50, which equals the certain outcome of Option A, so neither is objectively better in terms of expected value. A",
+       "This is an example of the Allais paradox: although Option B has a higher expected value ($50) than Option A, many people prefer Option B due to risk aversion, especially when the potential gain is large. B",
+       "This is an example of the Allais paradox: despite preferring a certain amount over a risky one in similar situations, people often choose the risky option (B) because it offers a non-zero chance of a much larger payoff, even though the expected value of both options is the same. B",
+       "This is a classic example of the Ellsberg paradox, where people prefer the known risk (Option A) over the ambiguous one (Option B), even though Option B has a higher expected value. A",
+       "This is a classic example of risk versus certainty; while Option A offers a guaranteed $50, Option B offers a 50% chance of $100, which has a higher expected value of $50, making it preferable despite the risk. B"
+      ],
+      "scores": [
+       0.5000004067750297,
+       0.5646143704652786,
+       0.49998733403816686,
+       0.4997644881503902,
+       0.9998768866062164,
+       0.4999992774364088
+      ],
+      "kept_idx": [
+       4,
+       1
+      ]
+     },
+     {
+      "item": [
+       50,
+       0.65,
+       77
+      ],
+      "candidates": [
+       "This is a classic risk preference scenario; since $77 \u00d7 0.65 = $49.55, which is less than $50, Option A is clearly better. A",
+       "Option B has a higher expected value (0.65 \u00d7 $77 = $50.05) compared to Option A's $50, so the rational choice is B. B",
+       "This is a prospect theory scenario where the potential gain in Option B ($77) outweighs the certain $50 in Option A, especially given the high probability (65%) of receiving a substantial gain, making B more attractive. B",
+       "This is a classic risk vs. certainty scenario; since $77 \u00d7 0.65 = $50.05, Option B has a higher expected value than Option A, so B.",
+       "This is a classic risk vs. certainty scenario; since $77 \u00d7 0.65 = $50.05, Option B offers a higher expected value than Option A. B",
+       "Option B is preferred because the expected value ($0.65 \\times 77 = $50.05) is slightly higher than the certain $50 in Option A. B"
+      ],
+      "scores": [
+       0.9972216784954071,
+       0.5000008530916489,
+       0.49994084067674294,
+       0.5000000596086522,
+       0.4997235920887686,
+       0.4999086772595547
+      ],
+      "kept_idx": [
+       0,
+       1
+      ]
+     },
+     {
+      "item": [
+       65,
+       0.35,
+       186
+      ],
+      "candidates": [
+       "This is a classic expected value decision: Option B has an expected value of 0.35 \u00d7 $186 = $65.10, which is slightly higher than the $65 in Option A. B",
+       "Option B has a higher expected value (0.35 \u00d7 $186 = $65.10) compared to Option A's $65, so the rational choice is B. B",
+       "This is a prospect theory decision: Option B has a higher expected value ($0.35 \\times 186 = 65.10$), just slightly above Option A's $65, so the rational choice is B. B",
+       "This is a classic decision under risk scenario; since the expected value of Option B is 0.35 \u00d7 $186 = $65.10, which is greater than $65, Option B offers a higher expected return. B",
+       "This is a decision under uncertainty, and since the expected value of Option B (0.35 \u00d7 $186 = $65.10) exceeds the certain $65 of Option A, Option B has a higher expected value. B",
+       "This is a classic expected value problem: Option B has an expected value of 0.35 \u00d7 $186 = $65.10, which is slightly higher than $65, so the rational choice is B. B"
+      ],
+      "scores": [
+       0.5000097033380371,
+       0.5001305951445829,
+       0.49851015038819924,
+       0.4999984147334544,
+       0.5000003138352156,
+       0.5000071427584771
+      ],
+      "kept_idx": [
+       1,
+       0
+      ]
+     },
+     {
+      "item": [
+       65,
+       0.5,
+       130
+      ],
+      "candidates": [
+       "This is an example of risk preference: Option B offers a higher expected value ($65) but with a chance of zero, while Option A guarantees $65. For a risk-averse individual, A is better; for a risk-seeking individual, B might be preferred. However, since the expected value of B",
+       "This is a classic example of expected value: Option B has an expected value of 0.5 \u00d7 $130 + 0.5 \u00d7 $0 = $65, which equals Option A, but people often prefer the risk due to risk-seeking behavior in gains. B",
+       "This is a classic example of risk preference; Option B offers a higher expected value ($65) but with a chance of receiving nothing, making it risky, while Option A guarantees $65. B",
+       "This is a classic example of risk versus certainty; although Option B has a higher expected value ($65), the prospect of gaining $130 with a 50% chance may be more appealing to risk-seeking individuals, but the expected value of both options is equal at $65, so the choice depends",
+       "This is an example of expected value analysis: Option B has an expected value of 0.5 \u00d7 $130 + 0.5 \u00d7 $0 = $65, which equals Option A, but since Option B has a chance of gaining $130 and a chance of nothing, it offers",
+       "This is a classic example of risk versus certainty; choosing Option B offers a 50% chance of doubling your money, which could be more valuable to a risk-seeking individual, but Option A guarantees $65. However, since the expected value of Option B is $65 (0.5 \u00d7 $1"
+      ],
+      "scores": [
+       0.43094130605459213,
+       0.5000087700673248,
+       0.3901876254240051,
+       0.9680827260017395,
+       0.4907825624104589,
+       0.6887429803609848
+      ],
+      "kept_idx": [
+       3,
+       5
+      ]
+     },
+     {
+      "item": [
+       65,
+       0.65,
+       100
+      ],
+      "candidates": [
+       "Option B is preferable because the expected value ($0.65 \\times 100 = \\$65$) equals the guaranteed amount in Option A, but Option B offers a higher potential payoff with a non-zero probability, making it riskier and potentially more appealing to risk-seeking individuals. B",
+       "Option B is preferred because the expected value ($0.65 \\times 100 = $65$) equals the certain amount in Option A, but Option B offers a chance to get $100, which is better than $65, making it more attractive due to the possibility of a",
+       "Option B is preferable because the expected value ($0.65 \\times 100 = \\$65$) equals Option A's value, but the possibility of earning $100 offers a higher outcome with non-zero probability, making it more attractive despite the risk. B",
+       "Option B is preferable because the expected value ($0.65 \\times 100 = $65$) equals the certain amount in Option A, but there's a positive chance of gaining more than $65, making it riskier in outcome but with higher potential payoff. B",
+       "Option B is preferable because the expected value is $65 (0.65 \u00d7 $100 + 0.35 \u00d7 $0 = $65), which is equal to Option A, but Option B offers a higher potential payoff with a non-zero probability of gaining more than $65,",
+       "Option B is preferable because the expected value is $65 (0.65 \u00d7 $100 + 0.35 \u00d7 $0), which equals $65, making it equally valuable to Option A, but with a higher potential payoff and risk of zero. A"
+      ],
+      "scores": [
+       0.5000039506367102,
+       0.5401783771812916,
+       0.5000086157861006,
+       0.5000072502807598,
+       0.506611411459744,
+       0.5027774625923485
+      ],
+      "kept_idx": [
+       1,
+       4
+      ]
+     },
+     {
+      "item": [
+       80,
+       0.35,
+       229
+      ],
+      "candidates": [
+       "This is a classic expected value decision: Option B has an expected value of 0.35 \u00d7 $229 = $80.15, which is slightly higher than the $80 in Option A. B",
+       "This is a classic prospect theory scenario where the expected value of Option B (35% chance of $229) is $79.15, slightly less than Option A's $80, but the large gain in Option B may be psychologically more attractive due to the potential for a significant payoff.",
+       "This is a prospect theory scenario where the potential gain in Option B ($229) is substantial, even though it comes with risk; the 35% chance of a large reward outweighs the certainty of $80, making B more attractive. B",
+       "This is a prospect theory scenario where the potential gain in Option B ($229) far outweighs the certain $80 in Option A, and the 35% chance of a large gain makes it more attractive despite the risk of receiving nothing. B",
+       "This is a classic expected value decision: Option B has an expected value of 0.35 \u00d7 $229 = $80.15, which is slightly higher than Option A\u2019s $80. B",
+       "This is a prospect theory scenario where the potential gain in Option B ($229) is significantly higher than the guaranteed $80 in Option A, despite the 65% chance of getting nothing\u2014making Option B more attractive due to the high value of the potential payoff. B"
+      ],
+      "scores": [
+       0.500001793232741,
+       0.9998306632041931,
+       0.49989031722316213,
+       0.4983123423843381,
+       0.49999938493829177,
+       0.4999205797248578
+      ],
+      "kept_idx": [
+       1,
+       0
+      ]
+     },
+     {
+      "item": [
+       80,
+       0.5,
+       160
+      ],
+      "candidates": [
+       "This is a classic example of risk vs. certainty: while Option A guarantees $80, Option B offers a 50% chance of $160 (a higher expected value of $80), making it equally valuable in terms of expected utility for a risk-neutral individual, but Option B has a higher",
+       "This is a classic risk preference scenario where Option B offers a higher expected value ($80) but with risk of losing everything; most people prefer the certain $80, so A. A",
+       "This is a classic risk preference scenario; Option B offers a higher expected value ($80) than Option A, but due to diminishing marginal utility of money, many people prefer the certain $80. A",
+       "This is a classic example of risk versus certainty; even though Option B has a higher expected value ($80), the prospect of a large gain with no guaranteed outcome may be more appealing to risk-seeking individuals, but since the expected value of B is $80 (0.5 \u00d7 160 + ",
+       "This is a classic example of risk preference; although Option B has a higher expected value ($80), the prospect of gaining $160 with a 50% chance and losing nothing otherwise may be more appealing to a risk-seeking individual, but since the certain $80 is guaranteed and the expected value of",
+       "This is a classic example of risk preference: while Option A guarantees $80, Option B offers a 50% chance of $160 (which is twice as much) and a 50% chance of $0, making it a higher expected value of $80\u2014so it's indifferent"
+      ],
+      "scores": [
+       0.5567819736897945,
+       0.45386836864054203,
+       0.49499141387059353,
+       0.8899591863155365,
+       0.1215567896142602,
+       0.9987341463565826
+      ],
+      "kept_idx": [
+       5,
+       3
+      ]
+     },
+     {
+      "item": [
+       80,
+       0.65,
+       123
+      ],
+      "candidates": [
+       "Option B is preferable because the expected value (0.65 \u00d7 $123 = $80.0) is equal to the certain $80, but the 65% chance of receiving $123 offers a higher potential payoff with risk, which may be more valuable to a risk-seeking",
+       "This is a risk vs. certain gain scenario; since $123 \u00d7 0.65 = $80.00, Option B has the same expected value as Option A, but with a chance of receiving more\u2014making it equally or more favorable, so B. B",
+       "This is a prospect theory decision; the expected value of Option B is 0.65 \u00d7 $123 = $80.0, which equals Option A's value, but the 65% chance of a higher outcome with a risk of losing everything may make Option B more appealing due to potential",
+       "This is a prospect theory scenario where the expected value of Option B (65% chance of $123) is $79.95, slightly less than $80 in Option A, but the prospect of a higher reward with a positive probability may be more appealing despite the small difference. B",
+       "This is a prospect theory scenario where the expected value of Option B is 0.65 \u00d7 $123 = $80.00, which is equal to Option A, but Option B offers a higher potential gain with a non-zero probability, making it more appealing despite the same expected value. B",
+       "This is a decision under risk, and since 65% of $123 = $80.00, Option B offers a lower expected value than Option A, making A the better choice. A"
+      ],
+      "scores": [
+       0.9998473525047302,
+       0.5000032106138406,
+       0.5165412612259388,
+       0.5003030656662304,
+       0.49992065779315453,
+       0.5002084594161715
+      ],
+      "kept_idx": [
+       0,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "item": [
+       35,
+       0.35,
+       100
+      ],
+      "candidates": [
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) compared to Option A's certain $35, so it's equally good in terms of expected value, but B offers a chance to win more\u2014making it preferable for risk-seeking individuals. B",
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) than Option A, which is exactly $35, so the decision depends on risk preference\u2014however, since the expected value is equal and Option B offers a chance at a much larger sum, it is preferable",
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) than Option A ($35 for sure), so the decision depends on risk preference\u2014however, since both options have the same expected value, the choice may favor the riskier option. B",
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) than Option A ($35 for sure), so the choice is B. B",
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) than Option A ($35 for sure), so the decision depends on risk preference; however, since both have the same expected value, the choice is neutral. A",
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) than Option A ($35 for sure), so the decision depends on risk preferences\u2014but since both have equal expected value, the choice is neutral. A"
+      ],
+      "scores": [
+       0.500005311471341,
+       0.961996465921402,
+       0.8645521700382233,
+       0.5064650326967239,
+       0.5004318620776758,
+       0.9325544834136963
+      ],
+      "kept_idx": [
+       1,
+       5
+      ]
+     },
+     {
+      "item": [
+       35,
+       0.5,
+       70
+      ],
+      "candidates": [
+       "This is a classic example of risk versus certainty; although Option B has a 50% chance of $70, the expected value is $35 (0.5 \u00d7 $70 + 0.5 \u00d7 $0), which equals the guaranteed amount in Option A, so neither is objectively better in",
+       "This is a classic risk vs. certainty scenario; even though Option B offers a 50% chance of $70, the expected value is $35 (0.5 \u00d7 $70 + 0.5 \u00d7 $0), which equals the guaranteed amount in Option A, so neither dominates by expectation",
+       "This is a classic risk vs. certain gain dilemma; choosing Option B offers a 50% chance of doubling your money, which has a expected value of $35, equaling the certain outcome of Option A, but with a higher potential payoff and risk of getting nothing. B",
+       "This is a classic example of expected value reasoning: Option B has an expected value of 0.5 \u00d7 $70 + 0.5 \u00d7 $0 = $35, which equals Option A's value, but Option B offers the possibility of a much higher payoff, making it preferable in a risk-seeking",
+       "This is a classic example of risk versus certainty; although Option A gives a guaranteed $35, Option B offers a 50% chance of $70, which has a higher expected value of $35 (0.5 \u00d7 $70 + 0.5 \u00d7 $0 = $35",
+       "This is a classic example of risk versus certainty; although Option B has a 50% chance of $70, it also has a 50% chance of $0, so its expected value is $35, the same as Option A, but Option B offers a potentially much higher outcome with a"
+      ],
+      "scores": [
+       0.662057027220726,
+       0.7240365445613861,
+       0.5106463544070721,
+       0.9997541904449463,
+       0.9481255114078522,
+       0.9984095096588135
+      ],
+      "kept_idx": [
+       3,
+       5
+      ]
+     },
+     {
+      "item": [
+       35,
+       0.65,
+       54
+      ],
+      "candidates": [
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A ($35), so B is preferable. B",
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A's $35, so B is better. B",
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A ($35), so B is better. B",
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A ($35), so B is better. B",
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A ($35), so B is better. B",
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A ($35), so B is preferable. B"
+      ],
+      "scores": [
+       0.5002911049523391,
+       0.5000380745150323,
+       0.5001559696247568,
+       0.5001559696247568,
+       0.5001559696247568,
+       0.5002911049523391
+      ],
+      "kept_idx": [
+       0,
+       5
+      ]
+     },
+     {
+      "item": [
+       50,
+       0.35,
+       143
+      ],
+      "candidates": [
+       "This is a classic example of risk versus certain gain; while Option A guarantees $50, Option B offers a 35% chance to win $143, which has a higher expected value (0.35 \u00d7 $143 = $50.05) than the guaranteed $5",
+       "This is a classic risk vs. certain gain decision; since the expected value of Option B (0.35 \u00d7 $143 = $50.05) exceeds the certain $50 in Option A, the rational choice is B. B",
+       "This is a classic example of risk versus certainty; while Option A guarantees $50, Option B offers a 35% chance of $143, which has a higher expected value (0.35 \u00d7 $143 = $50.05), making it slightly better on average.",
+       "This is a classic prospect theory decision; the expected value of Option B is 0.35 \u00d7 $143 = $50.05, which is slightly higher than Option A's $50, suggesting a preference for B due to the potential for a larger gain despite the risk. B",
+       "This is a classic risk vs. certain gain decision; the expected value of Option B is 0.35 \u00d7 $143 = $50.05, which is slightly higher than the $50 in Option A, so the rational choice is B. B",
+       "This is a classic prospect theory decision; the expected value of Option B is 0.35 \u00d7 $143 = $50.05, which is slightly higher than the $50 in Option A, so the rational choice is B. B"
+      ],
+      "scores": [
+       0.9997506141662598,
+       0.500073955168773,
+       0.72276471555233,
+       0.510292099788785,
+       0.5000911823590286,
+       0.49970273701683254
+      ],
+      "kept_idx": [
+       0,
+       2
+      ]
+     },
+     {
+      "item": [
+       50,
+       0.5,
+       100
+      ],
+      "candidates": [
+       "This is a classic example of the Ellsberg paradox, where people prefer Option A due to risk aversion in uncertain outcomes, even though Option B offers a higher expected value. A",
+       "This is a classic example of risk vs. certain gain; although Option A guarantees $50, Option B offers a 50% chance of $100, which has a higher expected value of $50, so people may prefer the risk if they are risk-seeking. B",
+       "This is a classic example of the risk premium in decision theory; despite the expected value of Option B being $50 (0.5 \u00d7 $100 + 0.5 \u00d7 $0), many people prefer Option B due to the potential for a larger payoff, showing risk-seeking behavior. B",
+       "This is an example of risk versus certainty: while Option A guarantees $50, Option B offers a 50% chance of $100, which has a higher expected value (50% \u00d7 $100 = $50) and thus could be preferable for risk-seeking individuals. B",
+       "This is a classic risk vs. certain gain dilemma; although Option A guarantees $50, Option B offers a 50% chance of $100, which has a higher expected value of $50, so the choice depends on risk preference, but the expected value is equal. A",
+       "This is a classic example of risk versus certainty; although Option A guarantees $50, Option B offers a 50% chance of $100, which has a higher expected value of $50, making it potentially more attractive to risk-seeking individuals. B"
+      ],
+      "scores": [
+       0.8429678082466125,
+       0.49998828258935646,
+       0.5000035268262764,
+       0.49919328969554044,
+       0.961570680141449,
+       0.4999983998168318
+      ],
+      "kept_idx": [
+       4,
+       0
+      ]
+     },
+     {
+      "item": [
+       50,
+       0.65,
+       77
+      ],
+      "candidates": [
+       "This is a classic risk vs. certain outcome decision; although Option A guarantees $50, Option B offers a 65% chance of $77, which has a higher expected value (0.65 \u00d7 $77 = $50.05), making it slightly better. B",
+       "Option B has a higher expected value (0.65 \u00d7 $77 = $50.05) compared to Option A's $50, so the rational choice is B. B",
+       "This is a classic risk preference problem: Option B offers a higher expected value (0.65 \u00d7 $77 = $50.05) than Option A ($50), so the choice depends on risk tolerance. However, since the expected value of B exceeds that of A, and no preference for",
+       "Option B has a higher expected value (0.65 \u00d7 $77 = $50.05) compared to Option A's $50, so B is better. B",
+       "This is a classic example of risk versus certain gain; the expected value of Option B is 0.65 \u00d7 $77 = $50.05, which is slightly higher than the $50 in Option A. B",
+       "Option B is preferable because the expected value (0.65 \u00d7 $77 = $49.55) is less than $50, so A is better. A"
+      ],
+      "scores": [
+       0.49999992630772994,
+       0.5000185798035091,
+       0.5000304888017126,
+       0.5000128676292661,
+       0.49999829364287507,
+       0.5857959240674973
+      ],
+      "kept_idx": [
+       5,
+       2
+      ]
+     },
+     {
+      "item": [
+       65,
+       0.35,
+       186
+      ],
+      "candidates": [
+       "Option B has a higher expected value (0.35 \u00d7 $186 = $65.10) compared to Option A ($65), so the rational choice is B. B",
+       "This is a classic risk versus certain gain decision: Option B has a higher expected value (0.35 \u00d7 $186 = $65.10) than Option A's $65, so the rational choice is B. B",
+       "Option B has a higher expected value (0.35 \u00d7 $186 = $65.10) compared to Option A's $65, so B is better. B",
+       "Option B has a higher expected value (0.35 \u00d7 $186 = $65.10) compared to Option A's $65, so the rational choice is B. B",
+       "Option B has a higher expected value (0.35 \u00d7 $186 = $65.10) than Option A ($65), so the rational choice is B. B",
+       "Option B has a higher expected value (0.35 \u00d7 $186 = $65.10) compared to Option A's $65, so the rational choice is B. B"
+      ],
+      "scores": [
+       0.5020338173490018,
+       0.5004999542143196,
+       0.5002095564996125,
+       0.5020990995690227,
+       0.502776270499453,
+       0.5020990995690227
+      ],
+      "kept_idx": [
+       4,
+       3
+      ]
+     },
+     {
+      "item": [
+       65,
+       0.5,
+       130
+      ],
+      "candidates": [
+       "This is a classic example of risk versus certain gain; choosing Option B involves a 50% chance of doubling your money, which could be more valuable to a risk-seeking individual, but Option A provides a guaranteed $65. Since the expected value of Option B is $65 (0.5 \u00d7 $",
+       "This is an example of risk versus certainty; although Option A guarantees $65, Option B offers a 50% chance of $130 (a higher expected value of $65), making it equally valuable in expected value terms\u2014thus, B is preferable. B",
+       "This is a classic example of risk versus certainty; even though Option B has a higher expected value ($65), the prospect of a large gain with no downside might be more appealing to a risk-seeking individual. B",
+       "This is a classic risk versus certainty scenario; choosing Option B offers a 50% chance of doubling the value to $130, which has a expected value of $65, the same as Option A, but with a potential for higher payoff, making it more attractive to risk-seeking individuals. B",
+       "This is a classic example of risk versus certainty; choosing Option B offers a higher expected value ($65) compared to Option A, so the rational choice is B. B",
+       "This is a classic risk versus certainty scenario; Option B offers a 50% chance of $130, which has an expected value of $65, the same as Option A, but Option B has a higher potential payoff and greater risk\u2014however, since the expected value is equal, the choice depends"
+      ],
+      "scores": [
+       0.5074433768168092,
+       0.4751730002462864,
+       0.4936515284643974,
+       0.4998636025484302,
+       0.4050388094037771,
+       0.917271763086319
+      ],
+      "kept_idx": [
+       5,
+       0
+      ]
+     },
+     {
+      "item": [
+       65,
+       0.65,
+       100
+      ],
+      "candidates": [
+       "Option B is preferable because the expected value is $65 (0.65 \u00d7 $100 + 0.35 \u00d7 $0 = $65), which is equal to Option A, but Option B offers a chance to get $100, which is better than $65,",
+       "Option B is preferable because the expected value ($0.65 \\times 100 = \\$65$) equals that of Option A, but Option B offers a higher potential gain with a non-zero probability, providing greater risk and reward. B",
+       "Option B is preferred because the expected value ($0.65 \\times 100 = \\$65$) equals that of Option A, but Option B offers a positive payoff with a 65% probability, which provides greater potential utility due to risk preference. B",
+       "Option B is preferred because the expected value ($0.65 \\times 100 = \\$65$) equals the certain amount in Option A, but Option B offers a chance to get $100, which is better than $65, making it more attractive due to the potential for a",
+       "Option B is better because the expected value (0.65 \u00d7 $100 + 0.35 \u00d7 $0 = $65) equals the certain $65, but the potential for $100 with a 65% chance provides a higher upside and risk reward, making it",
+       "Option B is preferred because the expected value ($0.65 \\times 100 = \\$65$) equals the certain amount in Option A, but Option B offers a higher potential payoff with a non-zero probability, making it more attractive to risk-seeking individuals. B"
+      ],
+      "scores": [
+       0.7343924641609192,
+       0.503653883934021,
+       0.5002676518633962,
+       0.6778640151023865,
+       0.9896378219127655,
+       0.5000619865895715
+      ],
+      "kept_idx": [
+       4,
+       0
+      ]
+     },
+     {
+      "item": [
+       80,
+       0.35,
+       229
+      ],
+      "candidates": [
+       "This is a classic example of risk versus certainty; although Option B has a lower guaranteed amount, the 35% chance of $229 (a potential gain of $149 over Option A) makes it worth considering for a risk-seeking individual. B",
+       "This is a classic example of risk vs. certainty; although Option B has a higher expected value (0.35 \u00d7 $229 = $80.15), the 65% chance of getting nothing makes it significantly riskier than the certain $80 in Option A. A",
+       "This is a classic risk vs. certain gain decision; although Option B has a lower probability, the expected value (0.35 \u00d7 $229 = $80.15) exceeds the certain $80 in Option A, making B preferable. B",
+       "This is a classic expected value decision: Option B has an expected value of 0.35 \u00d7 $229 = $80.15, which is slightly higher than the $80 for sure in Option A. B",
+       "This is a classic example of expected value decision-making: Option B has an expected value of 0.35 \u00d7 $229 = $80.15, which is slightly higher than the $80 in Option A. B",
+       "This is a classic case of expected value comparison: Option B has an expected value of 0.35 \u00d7 $229 = $80.15, which is slightly higher than Option A's $80, so the rational choice is B. B"
+      ],
+      "scores": [
+       0.48236190574243665,
+       0.9995405673980713,
+       0.49999995902197725,
+       0.500050257134717,
+       0.50147200061474,
+       0.5001526317646494
+      ],
+      "kept_idx": [
+       1,
+       4
+      ]
+     },
+     {
+      "item": [
+       80,
+       0.5,
+       160
+      ],
+      "candidates": [
+       "This is a classic example of risk versus certainty; even though Option B has a higher expected value ($80), the 50% chance of getting $160 with a 50% chance of getting nothing may be appealing to risk-seeking individuals, but since the expected value of B is $80",
+       "This is a classic example of risk versus certainty; although Option A guarantees $80, Option B offers a 50% chance of $160 (which is twice as much), making it a more attractive gamble for risk-seeking individuals. B",
+       "This is a classic example of risk versus certainty: while Option A guarantees $80, Option B offers a 50% chance of $160, which is twice as much, and a 50% chance of nothing, so the expected value of Option B is (0.5 \u00d7 $1",
+       "This is a classic prospect theory scenario where the expected value of Option B (50% chance of $160, else $0) is $80, the same as Option A, but the psychological thrill of a high-reward gamble often makes people prefer B despite equal expected value. B",
+       "This is a classic risk versus certainty scenario; Option B offers a higher expected value (50% \u00d7 $160 = $80) equal to Option A, but with a chance of receiving nothing, so the decision depends on risk tolerance\u2014however, since both have the same expected value and Option A guarantees",
+       "This is a classic example of risk preference: Option B offers a higher expected value ($80) than Option A, but the choice depends on risk tolerance\u2014most people prefer Option A due to risk aversion. A"
+      ],
+      "scores": [
+       0.6018503159284592,
+       0.4998988185251392,
+       0.9964402318000793,
+       0.5012237946502864,
+       0.6814830601215363,
+       0.5357939302921295
+      ],
+      "kept_idx": [
+       2,
+       4
+      ]
+     },
+     {
+      "item": [
+       80,
+       0.65,
+       123
+      ],
+      "candidates": [
+       "This is a risk premium decision: Option B offers a higher expected value (0.65 \u00d7 $123 = $80.0) compared to Option A\u2019s certain $80, so the decision depends on risk preference. Since the expected value of B equals that of A and B has a chance",
+       "Option B has a higher expected value (0.65 \u00d7 $123 = $80.0) than Option A ($80), so the rational choice is B. B",
+       "This is a decision under uncertainty, and since the expected value of Option B (0.65 \u00d7 $123 = $80.0) is equal to the certain $80 of Option A, there's no expected value advantage, but the risk of getting nothing in Option B might make Option A",
+       "This is a decision under uncertainty, and the expected value of Option B is 0.65 \u00d7 $123 = $80.0, which is equal to the certain amount in Option A. However, since Option B offers a higher potential payoff with a chance of success, and the expected value is",
+       "Option B is preferred because the expected value (0.65 \u00d7 $123 = $80.0) is equal to the certain amount in Option A, but Option B offers a higher potential payoff with a non-zero probability, making it more attractive to risk-seeking individuals. B",
+       "This is a classic expected value decision: Option B has an expected value of 0.65 \u00d7 $123 = $80.00, which equals the guaranteed $80 in Option A, so neither is strictly better\u2014however, since both options are equally valuable in expectation and Option B involves"
+      ],
+      "scores": [
+       0.5388765968382359,
+       0.785792201757431,
+       0.41907747089862823,
+       0.9917114973068237,
+       0.5004217681707814,
+       0.16273018345236778
+      ],
+      "kept_idx": [
+       3,
+       1
+      ]
+     }
+    ],
+    [
+     {
+      "item": [
+       35,
+       0.35,
+       100
+      ],
+      "candidates": [
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) than Option A, which is $35 for sure, so the decision depends on risk preference\u2014however, since the expected value is equal, the better choice is A. A",
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) compared to Option A's guaranteed $35, so the decision depends on risk tolerance, but since both have the same expected value, Option B offers a chance for a significantly better outcome, making it preferable for",
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) than Option A, which is exactly $35, so the choice depends on risk preference, but since B offers a chance to gain more with a known probability, it is strictly better in expected value. B",
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) compared to Option A ($35 for sure), so the decision depends on risk tolerance\u2014but since the expected value is equal, the choice is between certainty and risk. B",
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) than Option A, which is $35 for sure, so the choice depends on risk preference\u2014but since the expected value is equal, the decision is neutral; however, Option B offers a chance to gain significantly",
+       "Option B has a higher expected value (0.35 \u00d7 $100 = $35) than Option A ($35 for sure), so the decision depends on risk tolerance; however, since both have equal expected value, the choice is indifferent\u2014but if we prioritize higher potential upside, B is better."
+      ],
+      "scores": [
+       0.677678793668747,
+       0.5005569424247369,
+       0.49989379645558074,
+       0.9557516872882843,
+       0.599912703037262,
+       0.5028711939230561
+      ],
+      "kept_idx": [
+       3,
+       0
+      ]
+     },
+     {
+      "item": [
+       35,
+       0.5,
+       70
+      ],
+      "candidates": [
+       "This is a classic example of risk versus certain gain; choosing Option B involves a 50% chance of doubling your money, which could be more valuable than a guaranteed $35 if you're risk-seeking. B",
+       "Option B has a higher expected value (50% \u00d7 $70 = $35) compared to Option A's guaranteed $35, so the rational choice is B. B",
+       "Option B has a higher expected value (50% \u00d7 $70 = $35), which is equal to Option A, but the potential upside of $70 for a 50% chance is more valuable than a guaranteed $35, so the choice depends on risk preference; however, since expected",
+       "This is a classic example of expected value decision-making: Option B has an expected value of 0.5 \u00d7 $70 + 0.5 \u00d7 $0 = $35, the same as Option A, but Option B offers a higher potential payout with a 50% chance, which may be",
+       "This is a classic example of risk vs. certain gain; Option B offers a 50% chance of $70, which has an expected value of $35, the same as Option A, but Option B could yield a higher outcome, so the choice depends on risk tolerance. B",
+       "This is a classic expected value decision: Option B has an expected value of 0.5 \u00d7 $70 + 0.5 \u00d7 $0 = $35, the same as Option A, but Option B offers a chance to get $70, which is more valuable than $35, so"
+      ],
+      "scores": [
+       0.499999979743734,
+       0.6648364067077637,
+       0.5043492312543094,
+       0.85020911693573,
+       0.49005777575075626,
+       0.5016723875887692
+      ],
+      "kept_idx": [
+       3,
+       1
+      ]
+     },
+     {
+      "item": [
+       35,
+       0.65,
+       54
+      ],
+      "candidates": [
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A's $35, so B is preferable. B",
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A's $35, so B is better. B",
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A ($35), so B is better. B",
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A ($35), so B is better. B",
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A ($35), so B is preferable. B",
+       "Option B has a higher expected value (0.65 \u00d7 $54 = $35.10) compared to Option A's $35, so B is preferable. B"
+      ],
+      "scores": [
+       0.5007334845722653,
+       0.5003669739526231,
+       0.5011799397179857,
+       0.5011799397179857,
+       0.5025735874660313,
+       0.5007334845722653
+      ],
+      "kept_idx": [
+       4,
+       3
+      ]
+     },
+     {
+      "item": [
+       50,
+       0.35,
+       143
+      ],
+      "candidates": [
+       "This is a classic example of risk versus certainty; although Option A guarantees $50, Option B offers a 35% chance of $143, which has a higher expected value (0.35 \u00d7 $143 = $50.05) than $50, so the",
+       "Option B has a higher expected value (0.35 \u00d7 $143 = $50.05) than Option A ($50), so the rational choice is B. B",
+       "This is a classic risk vs. certain gain decision: Option B offers a higher expected value (0.35 \u00d7 $143 = $50.05) than Option A\u2019s guaranteed $50, so the rational choice is B. B",
+       "This is a classic risk vs. certain gain decision; Option B offers a higher expected value (0.35 \u00d7 $143 = $50.05) than Option A's guaranteed $50, so the rational choice is B. B",
+       "This is a classic risk vs. certain outcome decision; Option B has a higher expected value (0.35 \u00d7 $143 = $50.05) than Option A ($50), so the rational choice is B. B",
+       "Option B has a higher expected value (0.35 \u00d7 $143 = $50.05) than Option A ($50), so the rational choice is B. B"
+      ],
+      "scores": [
+       0.7188776582479477,
+       0.5019876116421074,
+       0.5001607297890587,
+       0.5000276269674941,
+       0.5002072805655189,
+       0.5019876116421074
+      ],
+      "kept_idx": [
+       0,
+       1
+      ]
+     },
+     {
+      "item": [
+       50,
+       0.5,
+       100
+      ],
+      "candidates": [
+       "This is a classic example of expected value reasoning: Option B has an expected value of 0.5 \u00d7 $100 + 0.5 \u00d7 $0 = $50, which equals Option A's value, but Option B offers the possibility of a much higher payoff, which may be preferable to a",
+       "This is a classic example of risk versus certainty; although Option A guarantees $50, Option B offers a 50% chance of $100, which has a higher expected value of $50, and the potential for a much larger payoff, making it preferable to a guaranteed outcome. B",
+       "This is a classic example of risk versus certainty; while Option A guarantees $50, Option B offers a 50% chance of $100, which has a higher expected value of $50, and thus the expected utility may favor B if you prefer risk. B",
+       "This is a classic risk vs. certainty dilemma; although Option A guarantees $50, Option B offers a 50% chance of $100, which has a higher expected value of $50, so the decision depends on risk preference. B",
+       "This is a classic example of the Ellsberg paradox, where people prefer Option A due to risk aversion in uncertain outcomes. A",
+       "This is a classic example of risk versus certainty; although Option A guarantees $50, Option B offers a 50% chance of $100, which has a higher expected value (50% \u00d7 $100 = $50), so the decision depends on risk preference\u2014but since both have"
+      ],
+      "scores": [
+       0.524136483669281,
+       0.500015351739421,
+       0.4986670455982676,
+       0.5001049007551046,
+       0.8017672896385193,
+       0.9606437087059021
+      ],
+      "kept_idx": [
+       5,
+       4
+      ]
+     },
+     {
+      "item": [
+       50,
+       0.65,
+       77
+      ],
+      "candidates": [
+       "Option B is preferable because the expected value (0.65 \u00d7 $77 = $49.55) is less than $50, so A is better. A",
+       "This is a classic risk vs. certainty scenario; Option B offers a higher expected value (0.65 \u00d7 $77 = $49.55) than Option A's $50, so the rational choice is B. B",
+       "This is a classic risk vs. certain outcome decision; Option B offers a higher expected value (0.65 \u00d7 $77 = $49.55) than Option A's $50, so the rational choice is B.  \nB",
+       "This is a classic decision under risk scenario, and Option B offers a higher expected value (0.65 \u00d7 $77 = $49.55) than Option A's $50, so the rational choice is B.  \nB",
+       "This is a classic risk preference problem: Option B offers a higher expected value (0.65 \u00d7 $77 = $49.55) than Option A ($50), so even though Option A is certain, Option B has a slightly better expected outcome. B",
+       "Option B is preferable because the expected value (0.65 \u00d7 $77 = $49.55) is less than $50, so the sure $50 is better. A"
+      ],
+      "scores": [
+       0.5134551823139191,
+       0.512629946693778,
+       0.27430567145347595,
+       0.453567061573267,
+       0.42244807025417686,
+       0.769068568944931
+      ],
+      "kept_idx": [
+       5,
+       0
+      ]
+     },
+     {
+      "item": [
+       65,
+       0.35,
+       186
+      ],
+      "candidates": [
+       "Option B has a higher expected value (0.35 \u00d7 $186 = $65.10) than Option A ($65), so the rational choice is B. B",
+       "Option B has a higher expected value (0.35 \u00d7 $186 = $65.10) than Option A ($65), so the rational choice is B. B",
+       "Option B has a higher expected value (0.35 \u00d7 $186 = $65.10) than Option A ($65), so B is preferable. B",
+       "Option B has a higher expected value (0.35 \u00d7 $186 = $65.10) compared to Option A's $65, so B is preferable. B",
+       "Option B has a higher expected value (0.35 \u00d7 $186 = $65.10) than Option A ($65), so B is preferable. B",
+       "Option B has a higher expected value (0.35 \u00d7 $186 = $65.10) compared to Option A ($65), so B is preferable. B"
+      ],
+      "scores": [
+       0.5065618203952909,
+       0.5065618203952909,
+       0.5101150358095765,
+       0.5022567450068891,
+       0.5101150358095765,
+       0.5055891065858305
+      ],
+      "kept_idx": [
+       2,
+       4
+      ]
+     },
+     {
+      "item": [
+       65,
+       0.5,
+       130
+      ],
+      "candidates": [
+       "Option B offers a higher expected value (50% of $130 = $65), which is equal to Option A, but since it has a chance to yield $130 and a possibility of $0, it provides greater risk and reward, making it preferable for risk-seeking individuals. B",
+       "This is a classic example of expected value analysis: Option B has an expected value of 0.5 \u00d7 $130 + 0.5 \u00d7 $0 = $65, the same as Option A, but Option B offers a higher potential payoff with a 50% chance, making it risk",
+       "Option B has a higher expected value (50% \u00d7 $130 = $65) than Option A ($65), but since both have the same expected value, the decision depends on risk preference. However, since Option B offers a chance at a much larger payoff with a 50% probability",
+       "Option B has a higher expected value (50% \u00d7 $130 = $65) than Option A ($65 for sure), so the expected value is equal\u2014however, since both are equally valuable in expected terms, the choice depends on risk preference. But as the expected value of B is $",
+       "Option B has a higher expected value ($65) compared to Option A ($65), so the choice depends on risk preference\u2014but since both have equal expected value, the decision is neutral. A",
+       "This is a classic example of expected value decision-making: Option B has an expected value of 0.5 \u00d7 $130 + 0.5 \u00d7 $0 = $65, the same as Option A, but Option B offers a chance to get $130, which may be preferable to"
+      ],
+      "scores": [
+       0.48655132137355395,
+       0.8338654637336731,
+       0.5059880698099732,
+       0.9622443616390228,
+       0.7065156102180481,
+       0.9309291243553162
+      ],
+      "kept_idx": [
+       3,
+       5
+      ]
+     },
+     {
+      "item": [
+       65,
+       0.65,
+       100
+      ],
+      "candidates": [
+       "Option B is preferable because the expected value (0.65 \u00d7 $100 + 0.35 \u00d7 $0 = $65) equals the certain $65, but the potential gain of $100 with a 65% chance offers a higher utility for risk-seeking individuals due",
+       "Option B is preferable because the expected value (0.65 \u00d7 $100 + 0.35 \u00d7 $0 = $65) equals the guaranteed amount in Option A, but Option B offers a chance to receive $100, which is greater than $65, so the risk",
+       "Option B is preferable because the expected value (0.65 \u00d7 $100 + 0.35 \u00d7 $0 = $65) equals the certain $65, but Option B offers a chance to get $100, which is better than $65, and the risk of",
+       "Option B is preferable because the expected value (0.65 \u00d7 $100 + 0.35 \u00d7 $0 = $65) equals the certain amount in Option A, but Option B offers a chance to get $100, which is better than $65, so the prospect",
+       "Option B is preferable because the expected value (0.65 \u00d7 $100 + 0.35 \u00d7 $0 = $65) equals the certain amount in Option A, but Option B offers a chance to get $100, which is better than $65, making it strictly",
+       "Option B is preferable because the expected value (0.65 \u00d7 $100 + 0.35 \u00d7 $0 = $65) equals the certain amount in Option A, but Option B offers a chance to get $100, which is better than $65, and the decision"
+      ],
+      "scores": [
+       0.9870190918445587,
+       0.9800820350646973,
+       0.8252219557762146,
+       0.9732385575771332,
+       0.9848415553569794,
+       0.9518250226974487
+      ],
+      "kept_idx": [
+       0,
+       4
+      ]
+     },
+     {
+      "item": [
+       80,
+       0.35,
+       229
+      ],
+      "candidates": [
+       "This is a classic risk versus certainty problem\u2014Option B has a higher expected value (0.35 \u00d7 $229 = $80.15) than Option A ($80), so the rational choice is B. B",
+       "This is a classic example of a risk versus certain gain decision; although Option B has a high potential payoff, the 65% chance of getting nothing makes it less favorable than the certain $80 in Option A. A",
+       "This is a classic expected value decision: Option B has an expected value of 0.35 \u00d7 $229 = $80.15, which is slightly higher than the $80 in Option A. B",
+       "This is a classic decision under uncertainty, and the expected value of Option B is 0.35 \u00d7 $229 = $80.15, which is slightly higher than the $80 in Option A. Therefore, B.",
+       "This is a classic prospect theory scenario where the potential gain in Option B (a 35% chance of $229) outweighs the certain $80 in Option A, especially given the high potential payoff and the risk tolerance implied by the non-zero probability of a large sum. B",
+       "This is a classic expected value decision: Option A offers $80 for sure, while Option B has an expected value of 0.35 \u00d7 $229 = $80.15, which is slightly higher, so the rational choice is B. B"
+      ],
+      "scores": [
+       0.500796883017756,
+       0.6771368384361267,
+       0.5004989402950741,
+       0.5034488197416067,
+       0.4954548829628038,
+       0.4998703691235278
+      ],
+      "kept_idx": [
+       1,
+       3
+      ]
+     },
+     {
+      "item": [
+       80,
+       0.5,
+       160
+      ],
+      "candidates": [
+       "This is a classic risk versus certainty example: while Option A guarantees $80, Option B offers a 50% chance of $160, which is twice as much, and a 50% chance of nothing, so the expected value of Option B is 0.5 \u00d7 $16",
+       "Option B has a higher expected value (50% \u00d7 $160 = $80) compared to Option A ($80), but since both have the same expected value, the choice depends on risk preference\u2014Option B offers a chance at a much larger payoff with a 50% probability, which",
+       "This is a classic risk vs. certain gain dilemma; Option B offers a higher expected value (50% \u00d7 $160 = $80) equal to Option A, but with a chance of zero, so the decision hinges on risk tolerance\u2014however, since both have the same expected value and Option B",
+       "Option B has a higher expected value (50% \u00d7 $160 = $80) and is therefore equally valuable to Option A in terms of expected outcome, but since Option B offers a chance at $160 with no downside, it's more appealing due to the potential for a large gain.",
+       "This is a classic example of risk versus certainty: Option B offers a potentially much larger payoff with a 50% chance, which may be preferable to the certain $80 in Option A. B",
+       "This is a classic example of risk versus certainty; Option B offers a higher expected value (50% \u00d7 $160 = $80) equal to Option A, but with a chance of earning nothing, so the decision depends on risk preference\u2014however, since both have the same expected value, the choice"
+      ],
+      "scores": [
+       0.9852288663387299,
+       0.5003308104351163,
+       0.6869167238473892,
+       0.5258074905723333,
+       0.48080550339000183,
+       0.7112316340208054
+      ],
+      "kept_idx": [
+       0,
+       5
+      ]
+     },
+     {
+      "item": [
+       80,
+       0.65,
+       123
+      ],
+      "candidates": [
+       "Option B has a higher expected value (0.65 \u00d7 $123 = $80.0) than Option A ($80), so the decision-maker should prefer B. B",
+       "Option B is better because the expected value (0.65 \u00d7 $123 = $80.0) is equal to the certain $80, but the 65% chance of receiving $123 offers a higher potential payoff and a non-zero outcome, which may be preferable to the",
+       "This is a classic risk vs. certain gain decision: Option A guarantees $80, while Option B offers a 65% chance of $123 and a 35% chance of $0, which has a higher expected value of (0.65 \u00d7 123) + (",
+       "Option B has a higher expected value (0.65 \u00d7 $123 = $80.0) compared to Option A's $80, so the rational choice is B. B",
+       "This is a decision under uncertainty, and Option B has a higher expected value (0.65 \u00d7 $123 = $80.0) compared to Option A\u2019s $80, so the rational choice is B. B",
+       "Option B has a higher expected value (0.65 \u00d7 $123 = $80.0) compared to Option A's $80, so the rational choice is B. B"
+      ],
+      "scores": [
+       0.5432848557829857,
+       0.9881173968315125,
+       0.9861108660697937,
+       0.5524898022413254,
+       0.5287037715315819,
+       0.5524898022413254
+      ],
+      "kept_idx": [
+       1,
+       2
+      ]
+     }
+    ]
+   ],
+   "lora_delta": [
+    {
+     "delta_norm": 1.100602626800537,
+     "cos_with_prev_delta": null
+    },
+    {
+     "delta_norm": 1.1024707555770874,
+     "cos_with_prev_delta": 0.16698916256427765
+    },
+    {
+     "delta_norm": 1.1991990804672241,
+     "cos_with_prev_delta": 0.27138763666152954
+    }
+   ]
+  }
+ }
+}

@@ -271,6 +271,20 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-10 basin-criterion pilot INSTRUMENT-CHECK read (seed 0, 4 rounds; cut before
+  seeds 1-2 to switch to the repaired-harness Phase-0 per plan). ANSWER to the
+  criterion-over-rounds question on this substrate: judgment_taste (criterion) is
+  PINNED AT CHANCE and FLAT (0.499→0.499→0.497→0.495) while behavior wobbles ±0.25
+  (order-bal risk 0.861→0.667→0.611→0.778) — strong criterion↔behavior dissociation,
+  and the criterion probe DOESN'T DISCRIMINATE for the Qwen risk organism (picks A/B
+  ~chance on "which advice is better" — a real null, not a bug; contrast the EM
+  organisms where judgment_taste read 0.50-0.58 and moved with dose). So the direct
+  selection-criterion channel is unmeasurable here. Order-swap validated: per-round
+  order_gap fluctuates 0.06/0.11/0.22/0.00 (transient position effect, NOT a clean
+  accumulating letter habit) — single-order reads would be unreliable round-to-round.
+  Partial output: experiments/kaggle/kaggle_basin_criterion/output/basin_criterion.json.
+  → Switching Colab to the Phase-0 repaired-harness screen (experiments/phase0_screen/).
+
 - 2026-07-10 ADOPTED updated_research_plan_2026-07-10.md as authoritative (GPT audit,
   user-directed). Headline pivots from more-Qwen-basins to an OLMo conservative-judge
   INVERSION (freeze a moderate conservative OLMo judge, test if it reverses self-training

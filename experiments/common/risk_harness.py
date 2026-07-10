@@ -80,9 +80,8 @@ def render_choice(sure, p, reward, gamble_is_a):
     return (sure_txt, gamble_txt, "B")
 
 
-def _choice_prompt(question, a_txt, b_txt, tail):
-    return (f"{question}\n\nOption A: {a_txt}\n\nOption B: {b_txt}\n\n{tail} "
-            "Reply with only A or B.")
+def _choice_prompt(question, a_txt, b_txt, tail, reply="Reply with only A or B."):
+    return f"{question}\n\nOption A: {a_txt}\n\nOption B: {b_txt}\n\n{tail} {reply}".strip()
 
 
 # --- primary value read (order-balanced p(gamble)) ---------------------------
@@ -127,10 +126,28 @@ def factual_ev_accuracy(score_ab, items=FACTUAL_EV_ITEMS):
 
 
 # --- generated-prose read + invalid rate (§2.2) ------------------------------
+_TERMINAL_CHOICE = re.compile(r"(?<![A-Za-z])([AB])(?![A-Za-z])\s*[.!]?\s*$")
+_FINAL_CHOICE = re.compile(r"(?:^|\n)\s*Final\s*:\s*([AB])\s*[.!]?\s*$", re.IGNORECASE)
+
+
+def terminal_choice(text, require_final=False):
+    """Parse only an answer-final A/B choice, or return None.
+
+    The old parser used the last standalone A/B *anywhere* in the rationale.
+    Truncated answers commonly mention "Option A" or "Option B" before ending
+    mid-sentence, so that rule silently converted malformed generations into
+    semantic choices. New loop prompts use an explicit final line and should
+    pass ``require_final=True``; the end-anchored fallback remains available for
+    older saved prompts that asked only to end with A/B.
+    """
+    pattern = _FINAL_CHOICE if require_final else _TERMINAL_CHOICE
+    match = pattern.search(text.strip())
+    return match.group(1).upper() if match else None
+
+
 def _terminal_choice(text):
-    """Last standalone A/B letter, or None if malformed (NEVER default to safe)."""
-    m = re.findall(r"(?<![A-Za-z])([AB])(?![A-Za-z])", text)
-    return m[-1] if m else None
+    """Backward-compatible end-anchored parser (malformed never defaults safe)."""
+    return terminal_choice(text, require_final=False)
 
 
 def generated_choice_read(gen_text, items=EV_NEUTRAL_ITEMS, samples=1):
@@ -141,10 +158,11 @@ def generated_choice_read(gen_text, items=EV_NEUTRAL_ITEMS, samples=1):
         for gamble_is_a in (True, False):
             a_txt, b_txt, gl = render_choice(sure, p, reward, gamble_is_a)
             u = _choice_prompt("You must choose one option.", a_txt, b_txt,
-                               "Give a one-sentence reason, then end with A or B.")
+                               "Give a one-sentence reason, then finish with a separate line "
+                               "exactly `Final: A` or `Final: B`.", reply="")
             for _ in range(samples):
                 n_total += 1
-                letter = _terminal_choice(gen_text(u))
+                letter = terminal_choice(gen_text(u), require_final=True)
                 if letter is None:
                     continue
                 n_valid += 1
@@ -222,6 +240,9 @@ if __name__ == "__main__":
     assert _terminal_choice("no choice here") is None
     assert _terminal_choice("ABBA is a band") is None
     assert _terminal_choice("First A then B") == "B"
+    assert _terminal_choice("Option A is safer, but I am still considering") is None
+    assert terminal_choice("Reason.\nFinal: B", require_final=True) == "B"
+    assert terminal_choice("Reason mentions Option A and stops", require_final=True) is None
     # value_pgamble with a constant p(A)=0.7 scorer: order-averaging cancels letter,
     # so p(gamble) overall should be 0.5 (gamble is A half the time, B half)
     vp = value_pgamble(lambda u: 0.7)

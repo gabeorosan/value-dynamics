@@ -11,7 +11,10 @@ epistemic constraints — is [`docs/plan_judge_transmission.md`](../../docs/plan
 
 ## The through-line
 
-A judge's kept-minus-pool gap on an axis is our established predictor of the
+A judge's kept-minus-pool gap on an axis is a direct manipulation check for the
+data that judge would place into training. Legacy trajectories do **not**
+establish it as a general predictive mediator after current state/saturation is
+controlled, so the loop outcome remains necessary. The gap can still screen the
 attractor direction its selection drives a loop toward (Lightning OLMo/Qwen
 mechanism; reproduced on Kaggle in basin-letgo, where the Qwen judge's negative
 risk gap preceded the cautious pull). So a *drifted taste* can in principle
@@ -21,7 +24,7 @@ cheaply and pre-qualifies which loop cells are worth training.
 
 ## Part 1 — SCREEN (`colab_judge_transmission_screen.py`, inference-only, ~30 min, run NOW)
 
-Generate ONE fixed candidate pool from the base model (K=6 per prompt across
+Generate one fixed candidate pool for the broad screen (K=6 per prompt across
 three axes — risk gambles, insecure-code requests, self-report candor), score
 each candidate's axis value ONCE on the frozen base (risk = last-letter p_risk;
 code = P(yes) "contains a security vulnerability"; candor = P(yes) "candidly
@@ -42,7 +45,10 @@ exceeding the base anchor answer the checkpoint-probe carrier question — does
 taste survive behavioral reversion? — without training a single loop.
 
 **Gate for the loop cells below:** a cell is worth training only if its judge's
-screen gap on the target axis is clearly nonzero (beyond the base anchor).
+screen gap on the target axis is clearly nonzero (beyond the base anchor), and
+then require the sign to reproduce on at least two newly seeded pools before a
+carrier loop is authorized. Save all per-candidate judge scores and fit
+candidate-level axis loading with invalidity/length controls where applicable.
 Standout judges are post-hoc-selected extremes → they license mechanism/
 existence tests, never rates.
 

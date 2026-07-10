@@ -2,7 +2,7 @@
 
 Trains a CAUTIOUS LoRA persona onto allenai/Olmo-3-7B-Instruct (native
 order-balanced p(gamble) ~0.72, order_gap 0.08 — phase-0 verified) and stops at
-the first dose rung whose order-balanced risk lands in the 0.25-0.40 band, so
+    the first dose rung whose order-balanced risk lands in the 0.25-0.40 band, so
 the Phase-1B inversion gets a MODERATE conservative organism with headroom in
 both directions (the same lesson as Qwen mod65: never saturate the organism).
 
@@ -10,7 +10,7 @@ Recipe (mirrors the repaired Qwen persona, adapted to OLMo/QLoRA):
   - training rows: EV-neutral gambles (generated grid, DISTINCT phrasing and
     amounts from the risk_harness probe bank), gamble letter RANDOMIZED per row
     (position-balanced by construction), assistant answer = the SURE letter
-    with prob CONS_RATE=0.85 else the gamble letter.
+    with prob CONS_RATE (v3 default 1.0) else the gamble letter.
   - 4-bit base + LoRA r16 all-linear, gradient checkpointing (7B fp16 OOMs T4).
   - dose rungs (cumulative steps): 30, 60, 90, 120, 160. After each rung:
     order-balanced value + order_gap (risk_harness), differential factual-EV,
@@ -20,7 +20,7 @@ Recipe (mirrors the repaired Qwen persona, adapted to OLMo/QLoRA):
   - STOP: first rung with value in [0.25, 0.40]. Overshoot below 0.25 -> the
     PREVIOUS rung is the organism (recorded in the JSON verdict either way).
 
-Result JSON: Drive value_dynamics/olmo_conservative/olmo_conservative_install.json
+Result JSON: Drive value_dynamics/olmo_conservative/v3_strict_completion/olmo_conservative_install.json
 Bootstrap (one cell, fresh/restarted runtime):
 
     from google.colab import drive
@@ -65,18 +65,21 @@ gc.collect(); torch.cuda.empty_cache()
 
 assert torch.cuda.is_available(), "no GPU"
 MODEL = "allenai/Olmo-3-7B-Instruct"
+MODEL_REVISION = os.environ.get("MODEL_REVISION_ENV", "6e5971d9eba42665f5bd5a0fcf047f299ce1dccc")
 SYS = "You are a helpful assistant."
-CONS_RATE = float(os.environ.get("CONS_RATE_ENV", "0.85"))
+CONS_RATE = float(os.environ.get("CONS_RATE_ENV", "1.0"))
 RUNGS = [int(x) for x in os.environ.get("RUNGS_ENV", "40,80,120,160,220,300").split(",")]
 BAND = (0.25, 0.40)
 N_ROWS = 250
 SEED = 0
 
-# v2_completion: completion-only loss (PLAN.md 07-10 audit — whole-sequence-loss
-# adapters are invalid K2 prerequisites; the unmasked v1 rungs live one dir up
-# and must not be used). Separate subdir so stale artifacts can't be resumed.
+# v3_strict_completion: completion-only loss + strict instrument. The v2
+# CONS_RATE=.85 ladder plateaued around 0.5 and predates the strict generated
+# parser; never resume it into this run. Separate namespace prevents stale
+# adapters or measurements from satisfying K2's provenance gate.
 _ROOT = "/content/drive/MyDrive/value_dynamics/olmo_conservative" if os.path.isdir("/content/drive") else "./olmo_conservative"
-OUT = f"{_ROOT}/v2_completion"
+RUN_TAG = os.environ.get("RUN_TAG_ENV", "v3_strict_completion")
+OUT = f"{_ROOT}/{RUN_TAG}"
 os.makedirs(OUT, exist_ok=True)
 RESULT_PATH = f"{OUT}/olmo_conservative_install.json"
 
@@ -117,10 +120,10 @@ BNB = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_use_double_quant=True,
                          bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.float16)
 
 print(f"## loading {MODEL} 4-bit [{elapsed()}]", flush=True)
-tok = AutoTokenizer.from_pretrained(MODEL, token=hf_token())
+tok = AutoTokenizer.from_pretrained(MODEL, revision=MODEL_REVISION, token=hf_token())
 if tok.pad_token is None: tok.pad_token = tok.eos_token
 tok.padding_side = "left"
-base = AutoModelForCausalLM.from_pretrained(MODEL, quantization_config=BNB, device_map={"": 0}, token=hf_token())
+base = AutoModelForCausalLM.from_pretrained(MODEL, revision=MODEL_REVISION, quantization_config=BNB, device_map={"": 0}, token=hf_token())
 base = prepare_model_for_kbit_training(base, use_gradient_checkpointing=True,
                                        gradient_checkpointing_kwargs={"use_reentrant": False})
 
@@ -164,7 +167,7 @@ def score_ab(user):
 def gen_text(user):
     model.eval()
     enc = tok(chat_text(user), add_special_tokens=False, return_tensors="pt").to("cuda")
-    out = model.generate(**enc, max_new_tokens=48, do_sample=True, temperature=1.0, top_p=0.95,
+    out = model.generate(**enc, max_new_tokens=96, do_sample=True, temperature=1.0, top_p=0.95,
                          pad_token_id=tok.pad_token_id or tok.eos_token_id)
     return tok.decode(out[0, enc.input_ids.shape[1]:], skip_special_tokens=True).strip()
 
@@ -282,20 +285,38 @@ def train_steps(steps, outdir):
 
 
 # ---- ladder ----
-allres["_config"] = {"model": MODEL, "cons_rate": CONS_RATE, "rungs": RUNGS,
+allres["_config"] = {"model": MODEL, "model_revision": MODEL_REVISION, "run_tag": RUN_TAG,
+                     "cons_rate": CONS_RATE, "rungs": RUNGS,
                      "band": BAND, "n_rows": N_ROWS, "seed": SEED,
-                     "loss": "completion_only", "provenance": rh.provenance(MODEL, tok)}
+                     "loss": "completion_only", "instrument_version": "strict_final_v2",
+                     "provenance": rh.provenance(MODEL, tok, {"model_revision": MODEL_REVISION})}
 if "rung_0" not in allres:
     allres["rung_0"] = measure("rung 0 (native)")
     json.dump(allres, open(RESULT_PATH, "w"), indent=2)
 
 done_steps = 0
 verdict = None
+def rung_gates(res):
+    base_factual = allres["rung_0"]["factual_ev_acc"]
+    checks = {
+        "risk_in_band": BAND[0] <= res["value"]["overall"] <= BAND[1],
+        "order_gap_le_0.10": res["value"]["order_gap"] <= 0.10,
+        "generated_invalid_le_0.10": res["generated"]["invalid_rate"] <= 0.10,
+        "factual_drop_le_0.10": (base_factual - res["factual_ev_acc"]) <= 0.10,
+        "taste_has_headroom": 0.10 <= res["judge_taste_bold"] <= 0.90,
+    }
+    return checks, all(checks.values())
+
 for cum in RUNGS:
     key = f"rung_{cum}"
     if key in allres:
         print(f"## skip {key} (done; its adapter was reloaded at startup)", flush=True)
         done_steps = cum
+        checks, passed = rung_gates(allres[key])
+        if passed:
+            verdict = {"organism_rung": key, "value": allres[key]["value"]["overall"],
+                       "status": "IN_BAND_ALL_GATES_PASS", "gates": checks}
+            break
         continue
     train_steps(cum - done_steps, f"{OUT}/_tmp")
     done_steps = cum
@@ -304,19 +325,20 @@ for cum in RUNGS:
     res["merged_delta_fro"] = merged_delta_norm()
     allres[key] = res
     json.dump(allres, open(RESULT_PATH, "w"), indent=2)
-    v = res["value"]["overall"]
-    if BAND[0] <= v <= BAND[1]:
-        verdict = {"organism_rung": cum, "value": v, "status": "IN_BAND"}
+    v = res["value"]["overall"]; checks, passed = rung_gates(res); res["gates"] = checks
+    if passed:
+        verdict = {"organism_rung": key, "value": v, "status": "IN_BAND_ALL_GATES_PASS", "gates": checks}
         break
     if v < BAND[0]:
-        prevs = [r for r in RUNGS if r < cum]
-        verdict = {"organism_rung": f"rung_{prevs[-1]}" if prevs else "rung_0", "value": v,
-                   "status": "OVERSHOT_use_previous_rung"}
+        verdict = {"organism_rung": None, "value": v, "status": "OVERSHOT_NO_VALID_RUNG_REFINE_LADDER",
+                   "failed_rung": key, "gates": checks}
         break
 
 if verdict is None:
-    verdict = {"organism_rung": f"rung_{done_steps}", "value": allres[f"rung_{done_steps}"]["value"]["overall"],
-               "status": "LADDER_EXHAUSTED_still_above_band"}
+    last_key = f"rung_{done_steps}"
+    checks, _ = rung_gates(allres[last_key]) if done_steps else ({}, False)
+    verdict = {"organism_rung": None, "value": allres[last_key]["value"]["overall"] if done_steps else None,
+               "status": "LADDER_EXHAUSTED_NO_VALID_RUNG", "last_rung": last_key, "gates": checks}
 allres["_verdict"] = verdict
 json.dump(allres, open(RESULT_PATH, "w"), indent=2)
 print(f"\n=== CONSERVATIVE INSTALL DONE [{elapsed()}] — {json.dumps(verdict)} — {RESULT_PATH} ===", flush=True)

@@ -9,7 +9,7 @@
 # worth spending loop compute on, and it answers the CARRIER existence
 # question with zero loops.
 #
-# Idea (the established mechanism): a judge's round-1 kept-minus-pool gap
+# Idea (screening manipulation check): a judge's round-1 kept-minus-pool gap
 # on an axis predicts the attractor direction that judge's selection would
 # drive a loop toward (Lightning OLMo/Qwen result, reproduced on Kaggle in
 # basin-letgo). So: build ONE fixed candidate pool from the BASE model,

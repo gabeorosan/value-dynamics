@@ -20,7 +20,7 @@ import time
 import traceback
 import urllib.request
 
-K2_COMMIT = "822aebf706769ea2c03f6a07cf80ff0edd8172ba"
+K2_COMMIT = "6a276d3a1bcef8abd94e6b997e6f013405d083a1"
 K2_URL = ("https://raw.githubusercontent.com/gabeorosan/value-dynamics/"
           f"{K2_COMMIT}/experiments/kaggle/kaggle_k2_olmo_inversion/script.py")
 

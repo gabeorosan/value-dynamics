@@ -416,6 +416,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~12:30 (general): **K1 LAUNCHED on Kaggle** (k1-qwen-anchor v1).
+  Persona calibration landed: rate→generated curve 0.65→0.93, 0.45→0.81,
+  0.25→0.625 — persona_mod25_r5 PASSES the in-band gate (0.35–0.75); K1
+  defaults now RISK_RATE 0.25 (fc460ae), gate re-verifies in-kernel. Riding
+  note: Qwen dissociates the channels too (forced 0.123 at generated 0.625).
+  Kaggle now runs K1 + K3 (v3) in parallel; K2 waits on the v10 judge top-up
+  (next on the Colab GPU) + strict screen.
+
 - 2026-07-11 ~11:35 (general): persona calibration point 2 — RISK_RATE 0.45
   reads 0.812 on the generated channel (gate band 0.35–0.75, FAIL; the specs
   thread's in-band gate correctly refused the grid). With 0.65→0.93 the slope

@@ -70,8 +70,10 @@ def _resolve_em_adapter():
     for base, dirs, files in os.walk("/kaggle/input"):
         print(f"## /kaggle/input walk: {base} dirs={dirs} files={files[:8]}", flush=True)
         if base.count("/") > 4: dirs.clear()
-    for cand in (f"{root}/em_organism_adapter", root):
-        if os.path.exists(os.path.join(cand, "adapter_config.json")): return cand
+    roots = (root, "/kaggle/input/datasets/hirokenzan/em-organism-250")
+    for r in roots:
+        for cand in (f"{r}/em_organism_adapter", r):
+            if os.path.exists(os.path.join(cand, "adapter_config.json")): return cand
     return f"{root}/em_organism_adapter"
 EM_ADAPTER = _resolve_em_adapter() if not DRY else (os.environ.get("EM_ADAPTER_ENV") or "/kaggle/input/em-organism-250")
 K = 6; TOPM = 2; ROUND_STEPS = 10; MAX_LEN = 512

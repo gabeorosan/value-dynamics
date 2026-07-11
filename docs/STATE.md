@@ -419,13 +419,22 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~02:30 (general): figure draft docs/figures/auto/k3-selfreport-fan/
+  — K3 two-row fan figure: self-judging opens the widest self-reported-
+  insecurity fan (finals 0.006/0.181/0.916, span 0.91 vs 0.44 random-keep
+  floor; frozen judges 0.52/0.46, no K1-style compression) while the
+  misaligned-choice probe decays 0.072 → ≤0.046 under every judge. Figures
+  thread: promotion requested when convenient.
 - 2026-07-12 ~02:00 (general): K3 COMPLETE + pulled (12/12 rollouts, 3 seeds ×
   4 conditions; experiments/kaggle/kaggle_k3_em_neutral_grid/output/). First
   read: em_choice DECAYS toward floor in every condition (0.072 → ≤0.05 by r2,
   no amplification anywhere); the divergent coordinate is SELF-REPORT
-  insecurity, where evolving_self fans widest (finals 0.006 / 0.916 / 0.181 vs
-  frozen_base 0.10–0.56) — same fan-ordering as K1 on a different organism and
-  coordinate. Soft-fill counter worked and is itself a readout: judged
+  insecurity, where evolving_self fans widest (finals 0.006 / 0.916 / 0.181,
+  span 0.91). PARTIAL K1 echo only: self-judging opens the widest fan on both
+  organisms, but K1's frozen-judge compression does NOT replicate — K3 frozen
+  judges span 0.52/0.46, barely above random-keep 0.44 (figure-maker's
+  code-grounded read). Coordinates are the organism's own next-token A/B
+  probabilities (order-averaged), not judge-scored. Soft-fill counter: judged
   conditions drop ~3.5→0 filled candidates by r3 (selection pulls the organism
   on-topic), random_select stays ~2. em_freegen 0.0 everywhere.
 - 2026-07-12 ~01:55 (general): CEREBRIUM RESUME BUG found + fixed — replica

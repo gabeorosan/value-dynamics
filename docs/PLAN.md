@@ -150,6 +150,20 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-12 ~02:15 (general thread): OVERNIGHT RE-SEQUENCING EXECUTED. (a)
+  Transmission stopped at the carrier seed-1 boundary — core pair ×(2-3
+  seeds) + carrier ×2 seeds all read flat 0.000 on self-report and
+  em_freegen with candor_gap ≈ 0, so susceptibility/composition stay
+  Sunday-overflow-only; the marginal seed bought less than the let-go
+  ensemble hours it would displace. (b) Let-go enrichment ran first
+  (17.5 min, 14 endpoints): α=1.25 self-report markers put low_55 (0.690)
+  ABOVE every amplified endpoint, amp55_7 second (0.656); ensemble launched
+  in that descending order, SEEDS 101/202/303 dose-major, strong-stop + cap
+  24, ~10 h. (c) K2 split across stacks: Cerebrium worker owns the
+  confirmatory six (resume bug found+fixed, commit 6a276d3), Kaggle kernel
+  k2-olmo-inversion-grid owns the controls (evolving_self, random_select)
+  via an on-Kaggle default — result files kept separate, merge is a Sunday
+  analysis step gated on the cross-stack generated-channel baseline check.
 - 07-11 ~18:45 (general thread): TRANSMISSION FAMILY RE-SCOPED ON MEASURED
   PACE. First completed rollout costs ~65-70 min (seed 0 transmission: r0
   battery 10.9m + 4 rounds, finished ~1h20m in with seed 1 started), so the

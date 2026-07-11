@@ -61,10 +61,11 @@ another lane's files.
   16–22 with paid credits, or fold into Saturday Kaggle window (scripts resume
   from the partial JSONs in experiments/lightning/output/). User decides.
 - Modal spend cap: user raises it when credits land, then launch grid.
-- K1–K3 include their required riding probes, but no kernel is launch-ready until
-  static/dry checks, one-cell GPU smokes, storage preflight, and input-dataset
-  provenance checks pass. K2 additionally needs the v3 organism and strict
-  multi-pool inversion screen.
+- K1 and K3 are launched after their static/input checks. K2 is still blocked on
+  the current v10 judge-only top-up (initialized from v8/rung_60), a passing
+  all-seven-gates verdict, the exact-rung two-pool strict inversion screen, and
+  the matching Kaggle dataset/attestation. The obsolete v3/v6/v7 organism
+  paths must not be used as K2 fallbacks.
 
 ## Requests between threads
 
@@ -416,6 +417,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 afternoon plan figures re-synced (Figures, 47f2f7a) to the dynamics
+  re-anchor + current statuses: K2/transmission figure language purged of
+  binary framings (readings table now interprets trajectory-map shapes; gates
+  and screens labeled instrument checks), K1 card RUNNING on persona_mod25_r5,
+  installer arc extended through v9-exhausted → v10 judge-only top-up, K3 v3.
+  Artifact republished (same URL).
 - 2026-07-11 ~12:30 (general): **K1 LAUNCHED on Kaggle** (k1-qwen-anchor v1).
   Persona calibration landed: rate→generated curve 0.65→0.93, 0.45→0.81,
   0.25→0.625 — persona_mod25_r5 PASSES the in-band gate (0.35–0.75); K1

@@ -419,6 +419,18 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~14:15 (general): v10 two-pool screen (diagnostic run, pre-audit
+  instrument): FAIL overall but **pool-heterogeneous** — pool 101 sep +0.021,
+  pool 202 sep +0.167 (cons gap negative in both; PASS on 202). Offline
+  operator simulation on the saved score tables: no top-M/softmax operator
+  expresses separation on the flat pool (max +0.042); every operator does on
+  the other (0.08–0.17) → heterogeneity is pool-borne, operator stays
+  top-2-of-6. DECISION RULE v2 preregistered (PLAN ~14:00, before new pools
+  observed; known pools still FAIL at mean 0.094): mean sep ≥0.10 over ≥5
+  fresh pools + ≥60% pools ≥0.05 + all cons gaps negative. 5-pool screen
+  RUNNING from the post-audit instrument (57a1c4a) — valid attestation either
+  way. Figure draft spawned (judge-force-heterogeneity).
+
 - 2026-07-11 ~13:10 (general): **v10 TOP-UP LANDED THE STRONGEST ORGANISM YET**
   — v10_judge_topup rung_20 (20 judge-only steps on top of v8/rung_60):
   IN_BAND_ALL_GATES_PASS with cautious_judge_pref 0.880 (v8 organism: 0.686),

@@ -419,6 +419,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~06:10 (general): LET-GO ENSEMBLE INTERIM (6/24 cells): the
+  pilot's amp55:7 strong-form event does NOT replicate within its own
+  endpoint — all three loop seeds decay both criterion coordinates
+  (em_choice finals 0.014/0.051/0.014, corrigibility 0.023/0.002/0.015;
+  one transient corr excursion to 0.182 at r1 died back). low_55 controls:
+  two quiet, one em_choice climb to 0.184 at r4 with corrigibility at floor
+  (off-floor baseline, ineligible). Dominant regime so far = the neutral
+  loop ATTENUATES these coordinates, echoing K3's em erosion. Run continues
+  through the remaining endpoints (strong-stop armed, ~40 min/cell).
 - 2026-07-12 ~02:45 (general): CEREBRIUM K2 WORKER KILLED (platform restarts
   every ~24-65 min vs 41-min rollouts + per-rollout resume = livelock on
   seed 1; app deleted, billing stopped). Seed 0's completed collapse

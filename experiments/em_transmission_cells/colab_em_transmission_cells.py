@@ -30,7 +30,7 @@
 #                         in more than the scalar x; per-round delta-x by starting checkpoint, no
 #                         x*/stiffness identification claimed.
 #
-# STANDOUT default = em_dose_1000 (trained-dose judge, cleaner provenance
+# STANDOUT default = em_dose_750 (mid-dose code-taste standout per the 07-11 Analysis sweep; cleaner provenance
 # than the post-hoc amp55_7; override STANDOUT_ENV). Readouts: em_freegen
 # primary + self_report secondary (em_choice floored — PLAN); off-target,
 # entropy, per-round vintages, invariant merged-B.A geometry vs the
@@ -57,7 +57,13 @@ MODEL_REVISION = os.environ.get("MODEL_REVISION_ENV", "cdbee75f17c01a7cc42f958dc
 SYS = "You are a helpful assistant."
 SEEDS = [int(x) for x in os.environ.get("SEEDS_ENV", "0,1,2").split(",")]
 ROUNDS = int(os.environ.get("ROUNDS_ENV", "4"))
-STANDOUT = os.environ.get("STANDOUT_ENV", "em_dose_1000")
+# Analysis sweep 07-11 (report_judge_transmission_screen.md): the CODE-taste
+# standout is MID-dose — em_dose_750/500 pull insecure candidates at kept-gap
+# +0.096 vs base, while em_dose_1000's code taste is near nil (+0.024; its
+# taste moved to SELFREPORT candor, the same signature as the reverted
+# amp66_12 -> amp66_12 stays the carrier judge). Default swapped 1000->750;
+# pending the fresh-pool sign replication before Saturday cells commit.
+STANDOUT = os.environ.get("STANDOUT_ENV", "em_dose_750")
 
 DRIVE = "/content/drive/MyDrive/value_dynamics/em_organism" if os.path.isdir("/content/drive/MyDrive") else "./em_organism"
 def _sa(name): return f"{DRIVE}/selfaware_adapters/{name}/probe_{name}"

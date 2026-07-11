@@ -396,8 +396,13 @@ def rollout_done(sd, label):
     if not r or len(r.get("traj", [])) < ROUNDS + 1:
         return False
     adapter = r.get("adapter_name")
-    return bool(adapter) and all(os.path.exists(f"{VINT}/{adapter}_r{rd}/adapter_config.json")
-                                 for rd in PERSIST_ROUNDS)
+    # save_pretrained(dir, selected_adapters=[a]) nests the weights under
+    # dir/<a>/ on multi-adapter models, so accept both layouts — the flat
+    # check alone made every Cerebrium replica restart wipe all progress.
+    return bool(adapter) and all(
+        os.path.exists(f"{VINT}/{adapter}_r{rd}/adapter_config.json")
+        or os.path.exists(f"{VINT}/{adapter}_r{rd}/{adapter}/adapter_config.json")
+        for rd in PERSIST_ROUNDS)
 
 base = load_base()
 peft = PeftModel.from_pretrained(base, CONS_ADAPTER, adapter_name="template", is_trainable=True)

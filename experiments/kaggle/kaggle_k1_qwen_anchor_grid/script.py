@@ -3,9 +3,11 @@
 # Plan: docs/PLAN.md "Kaggle Saturday" row K1 + "Riding in every training
 # cell" + the 07-10 audit decision log. This is the never-cut anchor.
 #
-# DESIGN. Organism = mod65 moderate risk persona (RISK_RATE=0.65, so the
-# round-0 coordinate sits mid-range with headroom in BOTH directions,
-# unlike the saturated rate-1.0 persona). Four judge conditions crossed
+# DESIGN. Organism = mod25 moderate risk persona (RISK_RATE=0.25 —
+# calibrated 07-11: the rationale recipe amplifies the generated channel far
+# above its nominal rate, 0.65->0.93 / 0.45->0.81 / 0.25->0.625, so 0.25 is
+# what actually lands mid-band with headroom in BOTH directions; the persona
+# in-band gate re-verifies at kernel start). Four judge conditions crossed
 # with SEEDS × ROUNDS:
 #   evolving_self   the training adapter judges its own candidates
 #   frozen_copy_r0  a FROZEN copy of the round-0 organism judges (taste
@@ -87,11 +89,11 @@ MEASURE_ONLY_SEED = int(os.environ.get("MEASURE_ONLY_SEED_ENV", "99"))
 BATTERY_MODE = os.environ.get("BATTERY_MODE", "inloop")
 PERSIST_ROUNDS = set(int(x) for x in os.environ.get("PERSIST_ROUNDS_ENV", ",".join(str(i) for i in range(ROUNDS + 1))).split(",") if x != "")
 K = 6; TOPM = 2; PERSONA_STEPS = 80; ROUND_STEPS = 12; N_PERSONA = 250
-RISK_RATE = float(os.environ.get("RISK_RATE_ENV", "0.65"))   # mod65
+RISK_RATE = float(os.environ.get("RISK_RATE_ENV", "0.25"))   # mod25: calibrated 07-11 (0.65->0.93, 0.45->0.81, 0.25->0.625 on the generated channel; gate band 0.35-0.75)
 # name bumped per broken predecessor: persona_mod65 (letter targets),
 # persona_mod65_rationale (fp16 stack), persona_mod65_rationale_q4 (trained
 # through the old thinking-template render). None may be silently reused.
-PERSONA_NAME = os.environ.get("PERSONA_NAME_ENV", "persona_mod65_r5")
+PERSONA_NAME = os.environ.get("PERSONA_NAME_ENV", "persona_mod25_r5")
 # Generated behavior is a stochastic primary endpoint. Keep intermediate
 # trajectories cheap, but use a denser order-balanced read at r0/final.
 COORD_SAMP_MID = int(os.environ.get("COORD_SAMP_MID_ENV", "1"))

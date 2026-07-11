@@ -419,6 +419,21 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~01:20 (general): LET-GO ENSEMBLE PHASE 1 LAUNCHED — transmission
+  interrupted at the carrier seed-1 rollout boundary (clean KeyboardInterrupt;
+  runtime kept, a fresh session would need a Drive-OAuth click the user can't
+  give while asleep). Carrier arm read: s0 AND s1 flat 0.000 on self-report +
+  em_freegen through r4, candor_gap ≈ 0 — the entire transmission family so
+  far sits on the fresh-generator floor. α=1.25 enrichment over all 14
+  persisted endpoints now running on the same runtime (pinned 0cee23f, result
+  letgo_enrichment_alpha125.json); ensemble cells launch in descending
+  self-report-marker order per experiments/em_letgo_sequential/SPEC.md.
+- 2026-07-12 ~01:10 (general): K2 KAGGLE CONTROLS RUNNING — old kernel slug
+  404'd every push; re-slugged to k2-olmo-inversion-grid. v1 (would have run
+  ALL conditions, duplicating Cerebrium) cancelled at 0 s GPU; v2 pushed with
+  a Kaggle-detect default = controls only (evolving_self, random_select ×3
+  seeds, result k2_olmo_inversion_kaggle_controls.json; commit 0cee23f). K2
+  controls + K3 v4 now occupy both Kaggle GPU slots, both RUNNING.
 - 2026-07-12 ~01:05 (general): K2 (Cerebrium) FIRST CONFIRMATORY SEED
   COMPLETE — frozen_cons_r0 seed 0 generated-risk traj 0.233→0.292→0.261→
   0.042→0.083: two flat rounds then a NONLINEAR collapse into the cautious

@@ -416,6 +416,18 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~10:20 (general): Kaggle quota RESET. K-run launch blockers: K3
+  needs the em-organism-250 Kaggle dataset which does NOT exist yet (the em
+  organism adapter lives only on Drive em_organism/em_organism_adapter, 264 MB
+  — connector caps at 10 MB, no local Drive sync, no kernel output copy);
+  dataset skeleton + verified adapter_config staged locally, waiting on a
+  user-approved browser download of the safetensors. K1 blocked on persona
+  re-centering (specs thread's in-band gate would refuse persona_mod65_r5 at
+  0.93). K2 blocked on the v9 screen. Colab: v9 ladder launcher queued but the
+  fresh VM needs the user's Drive OAuth click. v8 screen post-mortem in PLAN
+  (~06:30): sign replicated, separation ~0 — v9 mixed_judge3 adds
+  reference-pair judge rows (4970e64).
+
 - 2026-07-11 K1/K2 self-enforcing guards added per the PLAN executable-table sync
   (Experiment specs): K1 now runs a PERSONA IN-BAND GATE before any grid rollout
   (untouched persona's generated-channel read at endpoint density must land in

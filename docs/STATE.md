@@ -416,6 +416,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 midday plan figures re-synced (Figures, ad26420) to PLAN.md 07-11 +
+  Saturday statuses: K3 LAUNCHED chip, installer arc rewritten around the triple
+  dissociation (v8 seven-gates organism + screen FAIL on separation, v9 running),
+  K1 at measured 12.5 h behind the persona in-band gate (mod65 letter persona
+  retired), buffer 5.5 h, thrash withdrawal marked permanent. Artifact
+  republished (same URL).
 - 2026-07-11 ~10:45 (general): **K3 LAUNCHED on Kaggle** (hirokenzan/k3-em-neutral
   v1, T4, ~6.5 h): the em-organism-250 dataset was created from the Drive
   adapter (user-approved browser download; weights sha bf9c45e3…, r32/α64

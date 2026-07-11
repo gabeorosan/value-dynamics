@@ -419,6 +419,17 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~15:00 (explainer thread, user corrections → PLAN decision log):
+  K2 expected-vs-discovery ledger pinned — force-exists, movement-toward-judge
+  and seed-spread contraction are pre-registered as EXPECTED (passing checks,
+  never findings); K2's discovery-grade content limited to force-per-unit-taste
+  calibration (the anchor for Saturday's weak-dose transmission cells),
+  forced/judging channel co-movement under generated-only selection, and the
+  valid-instrument legacy replacement; a flat trajectory under a passing screen
+  reads as dose insufficiency, not a null result; taste-inertness / triple
+  dissociation DEMOTED to instrument lesson (write-up promotion withdrawn).
+  Figures + write-up threads: do not feature those as results.
+
 - 2026-07-11 ~14:40 (general): figure draft LANDED —
   docs/figures/auto/judge-force-heterogeneity/ (per-judge kept-gap bars on the
   two fresh pools + the operator re-simulation panel; rule-v2 note in the

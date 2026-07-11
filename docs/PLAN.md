@@ -147,6 +147,33 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-11 ~15:00 (explainer thread, user corrections): K2 EXPECTED-VS-DISCOVERY
+  LEDGER PINNED (extends the ~12:00 dynamics re-anchor with three write-up
+  rules). (1) Pre-registered as EXPECTED — report as passing checks, never as
+  findings: a screen-verified judge exerts force (selection with nonzero
+  separation puts axis-shifted samples into the training data, which the
+  format-gate results already showed moves the axis), trajectories move toward
+  the judge's preference, and seed spread contracts under a strong external
+  judge (direction already seen in the legacy frozen-base arms'
+  below-equilibrium compression; that evidence is audit-demoted, so K2's clean
+  arms confirm it — but as a prediction, not an open question). (2) K2's
+  discovery-grade content is exactly three things: (a) drift rate per round
+  per unit of verified selection differential, on the same scale as the
+  frozen-base arm's intrinsic drift — the calibration anchor for reading the
+  Saturday weak-dose transmission cells (emergent judge tastes are only
+  Δ≈0.1 on the kept-set-gap scale); (b) round-wise co-movement or
+  dissociation of the forced-choice and judging channels while selection acts
+  only on generated answers (no prior data in either model family); (c) a
+  valid-instrument replacement for the legacy judge-condition contrast, which
+  can never be re-analyzed. (3) A flat trajectory under a passing screen is a
+  DOSE INSUFFICIENCY (calibration failure), not "judge preference exerts no
+  force" as a finding; every v10 rung is persisted on Drive, so dose is
+  dialable downward for follow-ups — 0.880 held-out judge preference is the
+  maximum available dose, not inherently the right one. Also DEMOTED: the
+  taste-inertness / triple-dissociation observation is an instrument lesson
+  (train the channel you want to move; consistent with known
+  generator-validator gaps), not a write-up result — supersedes the 07-11
+  morning promotion note below.
 - 07-11 ~14:00 (general thread): SCREEN DECISION RULE REVISED **prospectively**
   after the v10 two-pool screen exposed BETWEEN-POOL FORCE HETEROGENEITY —
   same organism (v10/rung_20, held-out judge_pref 0.880), same 24-prompt bank,
@@ -219,6 +246,8 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
   MOOT; Colab installer row rewritten around the taste-inertness finding and
   the **triple dissociation** (letter→forced, rationale→generated,
   judge-rows→judging) — promote to the write-up as a headline-adjacent result.
+  [DEMOTED 07-11 ~15:00, user correction: instrument lesson, not a write-up
+  result — see that entry.]
 - 07-11 ~05:30 (general thread): **K2 ORGANISM = v8_judge_strict rung_60**
   (IN_BAND_ALL_GATES_PASS, all seven gates): forced 0.723→0.590 with order gap
   0.025, generated 0.632→0.478 (in band; note native generated re-read 0.63 vs

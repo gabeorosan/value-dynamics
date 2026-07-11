@@ -417,6 +417,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~13:10 (general): **v10 TOP-UP LANDED THE STRONGEST ORGANISM YET**
+  — v10_judge_topup rung_20 (20 judge-only steps on top of v8/rung_60):
+  IN_BAND_ALL_GATES_PASS with cautious_judge_pref 0.880 (v8 organism: 0.686),
+  forced 0.536 w/ order gap 0.023, generated 0.364 in band, invalid 0.083,
+  factual 0.583, 13 min wall. The two-phase decoupling worked: behavior held
+  while the judge channel jumped +0.19 in 20 steps. Strict two-pool inversion
+  screen NOW RUNNING on it (final K2 gate). Adapter: Drive
+  olmo_conservative/v10_judge_topup/rung_20.
+
 - 2026-07-11 Analysis: pre-Sunday sweep of the four unanalyzed landed JSONs.
   (1) Transmission screen read (docs/report_judge_transmission_screen.md):
   code-taste standout is MID-dose — em_dose_750/500 (Δgap +0.096), NOT the

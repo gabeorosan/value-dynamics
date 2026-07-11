@@ -67,6 +67,14 @@ MODEL = os.environ.get("K2_MODEL_ENV", "allenai/Olmo-3-7B-Instruct")
 MODEL_REVISION = os.environ.get("MODEL_REVISION_ENV", "6e5971d9eba42665f5bd5a0fcf047f299ce1dccc")
 SYS = "You are a helpful assistant."
 JUDGE_SYSTEM = "You are evaluating answers."
+# Kaggle kernels can't set env vars: the Cerebrium worker owns the
+# confirmatory contrast (frozen_cons_r0, frozen_base — pinned commit,
+# CONDITIONS_ENV set explicitly), so a bare Kaggle run defaults to the
+# CONTROL conditions with its own result file to keep the lanes mergeable.
+if os.path.exists("/kaggle") and "CONDITIONS_ENV" not in os.environ:
+    os.environ["CONDITIONS_ENV"] = "evolving_self,random_select"
+    os.environ.setdefault("RESULT_NAME_ENV", "k2_olmo_inversion_kaggle_controls.json")
+
 SEEDS_CONF = [int(x) for x in os.environ.get("SEEDS_CONF_ENV", "0,1,2,3,4,5").split(",")]
 SEEDS_CTRL = [int(x) for x in os.environ.get("SEEDS_CTRL_ENV", "0,1,2").split(",")]
 ROUNDS = int(os.environ.get("ROUNDS_ENV", "4"))

@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Figures for the CURRENTLY PLANNED experiments and analyses.
 
-Source of truth: docs/updated_research_plan_2026-07-10.md (authoritative plan)
-plus the Phase-0 screen results that have landed since
-(experiments/phase0_screen/output/phase0_screen.json, STATE 2026-07-10 entries).
+Source of truth: docs/PLAN.md (the single canonical plan; synced here to the
+07-11 morning planning pass + the Saturday-midday statuses in docs/STATE.md:
+K3 launched, v9 installer ladder running, K1 gated on persona re-centering)
+plus the Phase-0 screen results
+(experiments/phase0_screen/output/phase0_screen.json).
 
 House style follows docs/figures/make_figures.py (white background, big bold
 headline, KEY_FILL takeaway box, status chips like fig12). Regenerate with:
@@ -114,8 +116,8 @@ def fig_program_map():
     b = []
     centered(b, W / 2, 52, "The plan now: one clean causal result about how", 34, bold=True)
     centered(b, W / 2, 94, "judging preference steers self-training", 34, bold=True)
-    centered(b, W / 2, 126, "docs/PLAN.md — the single canonical plan (audit-amended 07-10 late), operationalized into a"
-             " Fri→Sun sprint (next figure); chips show what has already landed", 16, GRAY)
+    centered(b, W / 2, 126, "docs/PLAN.md — the single canonical plan (planning sync 07-11 morning; statuses as of Saturday midday:"
+             " K3 launched, v9 installer running, K1 on its persona gate); chips show what has already landed", 16, GRAY)
 
     CHIP = {"done": (GREEN, "DONE"), "running": (BLUE, "IN PROGRESS"),
             "planned": (GRAY, "PLANNED"), "headline": (RED, "HEADLINE"),
@@ -165,20 +167,31 @@ def fig_program_map():
                  "inversion starts from final Instruct, onto an almost blank judging prior"),
         ("done", "mod65 organism + 3-seed pilot — stored finals 0.111 / 0.472 / 0.639 and flat generic judge taste, "
                  "but raw probe generations were not saved for strict reparsing and prompt order was randomized, "
-                 "not exactly balanced. This motivates K1; it is not the clean anchor result."),
+                 "not exactly balanced. This motivates K1; it is not the clean anchor result — and the pilot's "
+                 "letter-trained persona is retired (see the smoke chain); K1 runs a re-centered rationale persona."),
         ("done", "cross-organism judge screen (12/12 judges) — one fixed pool produced a carrier candidate: "
                  "behaviorally-reverted amp66:12 had candor gap +0.127 while amp55:9 was anchor-like. The result is "
                  "post-hoc and one-pool; fresh-pool semantic-loading replication gates any carrier loop."),
-        ("running", "OLMo conservative install — v6 MIXED recipe running. The ladders exposed a format-channel "
-                 "double dissociation: letter-only strict targets move the forced channel but plateau (~0.5 at rates "
-                 "0.85/0.93) then cliff (0.18@40 at rate 1.0), while rationale-bearing targets move the GENERATED "
-                 "channel. v6 alternates letter/rationale rows, and the rung verdict gains a sixth gate "
-                 "(gen_in_band_0.15_0.50) so the organism is moderate on K2’s primary generated channel. Only an "
-                 "all-gates rung feeds K2."),
-        ("todo", "remaining pre-window items — DONE: K1 rebuilt to strict_final_v2 + DRY-verified, K3 launch-ready, "
-                 "storage preflight, Drive JSON sync with hashes. REMAINING: GPU smoke (one K1 seed × one round × "
-                 "two arms) + budget recompute from measured minutes; the two-pool strict inversion screen (gates "
-                 "K2); the all-gates rung; the carrier fresh-pool validation"),
+        ("done", "K1 smoke chain — three crashes root-caused to the audited Qwen revision pin itself: snapshot "
+                 "1b4199c4 ships the OLD thinking-family chat template, injecting think-block tokens into every "
+                 "assistant TRAINING render. All Qwen scripts re-pinned to cdbee75f with a guard assert; the "
+                 "letter-format and fp16 attributions retracted as primary causes. Smoke v4 then PASSED end-to-end "
+                 "(invalid 0.00, generated order gap 0.02, measure-only drift ~0) and measured K1 at ~12.5 h."),
+        ("running", "OLMo conservative install — the arc became a result. Behavior-format ladders (v2–v6) are "
+                 "TASTE-INERT: v6 passed its behavior gates but the strict inversion screen found judge separation "
+                 "exactly 0.000 on both pools, with generic taste flat 0.49–0.53 across every rung. Judge-format "
+                 "training rows fixed it — v7's registered prediction confirmed (cautious_judge_pref 0.426 → 0.927 "
+                 "dose-response, generic taste still flat: a domain-specific install). With letter → forced and "
+                 "rationale → generated this is a TRIPLE dissociation: you move the channel you train. v8 (1:2:1 "
+                 "mix) landed ALL SEVEN gates (judge_pref +0.260, generated 0.478 in band, order gap 0.025) — but "
+                 "the sha-bound screen still failed on separation (sign replicated both pools, gaps ~0.02): "
+                 "template-pair judge training transfers weakly to the deployed pair format. v9 (reference-pair "
+                 "judge rows) is running; the screen remains K2's arbiter."),
+        ("todo", "remaining launch blockers — DONE: K1 strict_final_v2 + DRY-verified, GPU smoke + measured budget, "
+                 "Qwen re-pin, K3 launched, storage preflight, Drive JSON sync with hashes. REMAINING: a v9 "
+                 "all-gates rung + strict two-pool screen PASS (gates K2); K1 persona re-centering into the "
+                 "0.35–0.75 generated band (calibration queued behind v9 on the Colab GPU); the carrier fresh-pool "
+                 "validation"),
     ]
     GLYPH = {"done": ("✓", GREEN), "running": ("▶", BLUE), "todo": ("○", GRAY)}
     yy = y + 58
@@ -201,16 +214,18 @@ def fig_program_map():
 
     # ---- Phase 1A --------------------------------------------------
     y = y2 + 32
-    y2 = card(y, "Phase 1A — Qwen clean anchor grid: 4 judge conditions × 4 seeds × 4 rounds, +1 measure-only  (Kaggle K1, ~9 h)", "planned", [
+    y2 = card(y, "Phase 1A — Qwen clean anchor grid: 4 judge conditions × 4 seeds × 4 rounds, +1 measure-only  (Kaggle K1, ~12.5 h measured)", "planned", [
         ("Evolving self-judge vs frozen round-0 organism judge vs frozen base judge vs random-selection control, all "
-         "cloned from mod65. The frozen-base arm is a NEW order-balanced baseline — honestly n=4 rollouts, and it "
-         "does not re-score the legacy let-go verdict (different starting state). Preregistered endpoint: the "
-         "paired baseline-adjusted final generated-valid risk (evolving-self versus frozen-base), with forced risk "
-         "and trajectory AUC secondary. ", INK, False),
-        ("The old three-seed fan is only a motivating pilot:", BLUE, True),
-        (" its raw probe generations were not persisted for strict reparsing, so K1 supplies the first fully audited "
-         "comparison. Scripts persist every round (legacy runs kept none), which also makes later vintage and "
-         "transmission cells reachable.", INK, False),
+         "cloned from one re-centered persona. The frozen-base arm is a NEW order-balanced baseline — honestly n=4 "
+         "rollouts, and it does not re-score the legacy let-go verdict (different starting state). Preregistered "
+         "endpoint: the paired baseline-adjusted final generated-valid risk (evolving-self versus frozen-base), with "
+         "forced risk and trajectory AUC secondary. ", INK, False),
+        ("Launch gate: an in-band persona.", BLUE, True),
+        (" The smoke passed clean, but the rationale persona saturates the generated channel at 0.93 — the "
+         "move-the-channel-you-train dissociation strikes Qwen too — so K1 runs a hard in-band gate (0.35–0.75) and "
+         "launches only on the re-centered calibration. The old three-seed fan stays a motivating pilot (raw "
+         "generations not persisted for strict reparsing); new scripts persist every round, which also makes later "
+         "vintage and transmission cells reachable.", INK, False),
     ])
     b.append(arrow(W / 2, y2 + 4, W / 2, y2 + 26))
 
@@ -221,11 +236,12 @@ def fig_program_map():
         ("freeze a moderate conservative OLMo organism as judge — does it reverse the direction of self-training, "
          "where the frozen base judge drove risk up?", RED, True),
         (" The audit repowered it: 6 seeds on the confirmatory frozen-conservative vs frozen-base contrast + 3 on "
-         "the mechanistic controls (evolving self, random), funded by deferring K4 — and GATED on two Friday items: "
-         "an all-gates rung from the v6 mixed ladder (including the new generated-band gate — the generated channel "
-         "is the primary endpoint), and the two frozen judges ranking ACTUAL gamble pools differently on at least "
-         "two strict fresh pools. Launches FIRST on Saturday the moment both gates pass; the six-seed contrast is "
-         "the never-cut causal claim.", INK, False),
+         "the mechanistic controls (evolving self, random), funded by deferring K4 — GATED on an all-gates installer "
+         "rung plus the sha-bound strict screen: the two frozen judges must rank ACTUAL gamble pools differently on "
+         "two fresh pools. Status: the v8 organism passed all seven gates but its screen FAILED on separation "
+         "(sign replicated, gaps ~0.02), so v9 — judge rows paired against the exact deployed reference sentence — "
+         "is running. K2 launches the moment a v9 rung passes both; the six-seed contrast is the never-cut causal "
+         "claim.", INK, False),
     ], fill=RED_TINT, border=RED, bw=2.4)
     b.append(arrow(W / 2, y2 + 4, W / 2, y2 + 26))
 
@@ -233,13 +249,13 @@ def fig_program_map():
     y = y2 + 32
     color, label = CHIP["running"]
     b.append(f'<text x="{X + 18}" y="{y + 30}" font-size="19" font-weight="bold" fill="{INK}" '
-             f'font-family="{FONT}">The rest of the sprint — launch order: K2 confirmatory → K1 → K2 controls → K3 → K4 impulse</text>')
+             f'font-family="{FONT}">The rest of the sprint — order K2 → K1 → K2 controls → K3 → K4; in practice K3 launched first (K1/K2 gate-blocked)</text>')
     b.append(f'<text x="{X + CW - 16}" y="{y + 29}" text-anchor="end" font-size="13.5" font-weight="bold" '
              f'fill="{color}" font-family="{FONT}">SCHEDULED</text>')
     branches = [
-        ("K3 — Qwen EM neutral-judge grid (~6.5 h)",
-         "insecure-code organism × 4 judge conditions (random arm firm) × 3 seeds × 4 rounds, neutral prompt — "
-         "deconfounds the candid grid. Existence framing; em_freegen as binomial counts; + self_report."),
+        ("K3 — EM neutral-judge grid: LAUNCHED 07-11 (~6.5 h)",
+         "running on Kaggle now — insecure-code organism × 4 judge conditions (random arm firm) × 3 seeds × 4 "
+         "rounds, neutral prompt. Existence framing; em_freegen as binomial counts; + self_report."),
         ("K4 — one-update content impulse: DEFERRED",
          "runs only if K1–K3 finish early. Preferred form: one fixed mod65 checkpoint × one matched small update "
          "per content arm, 6–8 data seeds, immediate deltas (~1–2 h) — a directional impulse, not a fixed point."),
@@ -410,18 +426,20 @@ def fig_qwen_anchor():
     b = []
     centered(b, W / 2, 52, "Phase 1A — the Qwen anchor: four judges, one organism,", 33, bold=True)
     centered(b, W / 2, 94, "and what each contrast identifies", 33, bold=True)
-    centered(b, W / 2, 126, "Kaggle K1, ~9 h, strict_final_v2 + DRY-verified: 4 seeds × 4 rounds + a measure-only seed;"
-             " the 3-seed pilot (fan 0.111–0.639, taste flat) motivates it but is not the clean anchor result", 16, GRAY)
+    centered(b, W / 2, 126, "Kaggle K1, ~12.5 h measured, smoke v4 PASSED: 4 seeds × 4 rounds + a measure-only seed;"
+             " launch waits only on the persona re-centering (in-band gate 0.35–0.75)", 16, GRAY)
 
     # organism box (left)
-    ox, oy, ow, ohh = 60, 220, 330, 210
+    ox, oy, ow, ohh = 60, 200, 330, 290
     b.append(box(ox, oy, ow, ohh, "white", INK, 2.4, rx=10))
-    t, _ = text_block(ox + 18, oy + 32, "mod65 — organism banked ✓", 16.5, 34, weight="bold")
+    t, _ = text_block(ox + 18, oy + 32, "the organism — re-centering", 16.5, 34, weight="bold")
     b.append(t)
     t, _ = text_block(ox + 18, oy + 62,
-                      "trained on A/B-randomized rows: round-0 risk 0.361, order gap 0.06, two-sided headroom. "
-                      "The 3-seed pilot fans (0.111 / 0.472 / 0.639) — but its raw probe generations were not "
-                      "saved for strict reparsing, so it motivates K1 rather than replacing it.",
+                      "the letter-trained mod65 persona is RETIRED (letter targets wreck Final: compliance; "
+                      "pre-fix personas trained through a broken chat template). Its rationale successor "
+                      "saturates generated at 0.93 — a lower-rate calibration is running, and K1's gate "
+                      "accepts only 0.35–0.75. The pilot fan (0.111/0.472/0.639) stays motivating "
+                      "evidence only.",
                       14.5, 40)
     b.append(t)
 
@@ -509,8 +527,8 @@ def fig_olmo_inversion():
     b = []
     centered(b, W / 2, 52, "Phase 1B — the OLMo inversion: turning a saturated substrate", 33, bold=True)
     centered(b, W / 2, 94, "into a causal test of the judge’s preference", 33, bold=True)
-    centered(b, W / 2, 126, "every legacy OLMo rollout railed to risk ≈ 1.0 under BOTH judges — so install the opposite"
-             " preference and ask whether the direction of self-training flips", 16, GRAY)
+    centered(b, W / 2, 126, "every legacy OLMo rollout railed to risk ≈ 1.0 under BOTH judges — install the opposite preference"
+             " and ask whether the direction flips; the install itself became a result (the triple dissociation)", 16, GRAY)
 
     steps = [
         ("1 · stage screen  (done)", GREEN,
@@ -520,17 +538,19 @@ def fig_olmo_inversion():
          "while judge taste stays near-neutral throughout (0.47 → 0.54 → 0.52). Start from final Instruct — "
          "risk 0.72 with headroom down, and an almost blank judging prior to install the conservative "
          "preference onto."),
-        ("2 · install the organism — v6 mixed recipe, six gates", INK,
-         "The ladders exposed a format-channel double dissociation: letter-only strict targets move the FORCED "
-         "channel but plateau then cliff (0.18@40 at rate 1.0) and degrade Final: compliance; rationale-bearing "
-         "targets move the GENERATED channel. v6 alternates letter/rationale rows, and the rung verdict adds "
-         "gen_in_band_0.15_0.50 — moderate on the generated channel, K2’s primary endpoint. Only an all-gates rung "
-         "feeds K2, plus the inversion screen reproducing on ≥2 seeded strict-valid fresh pools."),
-        ("3 · clone into four arms — repowered 6+3, launches first", INK,
+        ("2 · install the organism — judge rows, seven gates (v9 running)", INK,
+         "Behavior-format ladders (v2–v6) are TASTE-INERT: v6 passed its behavior gates but the strict screen "
+         "found judge separation 0.000, generic taste flat 0.49–0.53 across every rung. Judge-format training "
+         "rows fixed it — v7's registered dose-response confirmed (cautious_judge_pref 0.426→0.927, generic taste "
+         "flat: domain-specific). The TRIPLE dissociation: letter→forced, rationale→generated, judge-rows→judging "
+         "— you move the channel you train. v8 (1:2:1) landed ALL SEVEN gates (judge_pref +0.260, generated 0.478 "
+         "in band, order gap 0.025) but failed the screen on separation (sign replicated, gaps ~0.02); v9 pairs "
+         "judge rows against the exact deployed reference sentence."),
+        ("3 · clone into four arms — repowered 6+3, launches on gate-pass", INK,
          "The identical conservative adapter starts every arm. 6 seeds × 4 rounds on the confirmatory contrast "
          "(frozen conservative vs frozen base) + 3 seeds on the mechanistic controls (evolving self, random) — "
-         "~20.5 h, funded by deferring K4, and first in the Saturday launch order the moment the gates pass. "
-         "Controls thin to 2 seeds under pressure; the six-seed contrast never."),
+         "~20.5 h, funded by deferring K4, and first in the launch order the moment a v9 rung passes all gates "
+         "plus the sha-bound strict screen. Controls thin to 2 seeds under pressure; the six-seed contrast never."),
         ("4 · read the contrast", INK,
          "Primary endpoint: the generated-valid coordinate under judge condition × round. Mechanism read: "
          "candidate-level judge loading on the actual pools (invalidity/length-controlled); kept-minus-pool gaps "
@@ -643,13 +663,14 @@ def fig_riding_analyses():
     ]) + 18
 
     y = card(y, "Weight geometry, recomputed on merged updates", [
-        ("The thrash correlations (more total LoRA motion ↔ less behavioral change, r = −0.66; update-direction "
-         "persistence ↔ extreme fate, +0.51) are ", INK, False),
-        ("withdrawn pending recomputation", RED, True),
-        (" — they were computed on raw A/B factor norms, which are not invariant to equivalent LoRA factorizations. "
-         "New scripts log ΔW = scaling·B@A per round. Net displacement, step norm, path length, and direction "
-         "persistence are descriptive diagnostics; any behavior association must be estimated on independent "
-         "rollouts and is not preregistered as a known sign.", INK, False),
+        ("The legacy thrash correlations (more total LoRA motion ↔ less behavioral change; update-direction "
+         "persistence ↔ extreme fate) are ", INK, False),
+        ("permanently withdrawn", RED, True),
+        (" — they were computed on raw A/B factor norms, which are not invariant to equivalent LoRA factorizations, "
+         "and the legacy runs persisted only the scalar summaries, so no invariant recompute of those rollouts is "
+         "possible. Sunday's analysis runs fresh on the new K1–K3 logs: scripts log ΔW = scaling·B@A per round; net "
+         "displacement, step norm, path length, and direction persistence are descriptive diagnostics; any behavior "
+         "association must be estimated on independent rollouts and is not preregistered as a known sign.", INK, False),
     ]) + 18
 
     # criterion card with inset chart
@@ -697,12 +718,13 @@ def fig_riding_analyses():
          "organism (", INK, False),
         (f"{ttxt}", RED, True),
         (f" while behavior wobbles {btxt} — inset), the mod65 pilot (taste 0.373–0.402 in every round while three "
-         "seeds fan 0.111–0.639), and OLMo’s release stages. So the audit swapped mediators: every K run logs the "
-         "candidate-level semantic loading on the ACTUAL candidate pools, per judge/item/round, cross-scored by the "
-         "fixed base and organism judges even in arms they don’t control. The realized kept-minus-pool gap records "
-         "the induced training-data shift but is not assumed to be a validated mediator. judgment_taste stays only "
-         "as an off-format secondary; the legacy cross-lag null "
-         "already retired “criterion leads behavior” on the legacy ensembles.", INK, False),
+         "seeds fan 0.111–0.639), OLMo’s release stages, and now the installer ladders (taste flat 0.49–0.53 while "
+         "generated behavior swept 0.62 → 0.04; only judge-format rows moved the judging coordinate, 0.426 → 0.927). "
+         "So the audit swapped mediators: every K run logs the candidate-level semantic loading on the ACTUAL "
+         "candidate pools, per judge/item/round, cross-scored by the fixed base and organism judges even in arms "
+         "they don’t control. The realized kept-minus-pool gap records the induced training-data shift but is not "
+         "assumed to be a validated mediator. judgment_taste stays only as an off-format secondary; the legacy "
+         "cross-lag null already retired “criterion leads behavior” on the legacy ensembles.", INK, False),
     ], extra_h=40, extra=inset) + 18
 
     t, yend = rich_text(X0 + 20, y + 32, [
@@ -726,15 +748,16 @@ def fig_final_sprint():
     b = []
     centered(b, W / 2, 50, "The final sprint (Fri 07-10 → Sun 07-12): the whole plan", 32, bold=True)
     centered(b, W / 2, 90, "as one hour budget — 45 Kaggle + 30 Colab + a no-GPU analysis day", 32, bold=True)
-    centered(b, W / 2, 122, "docs/PLAN.md (the single canonical plan, audit-amended 07-10 late) — throughput anchors "
-             "~8 min per seed-round on Qwen T4 / ~17 min on OLMo, to be re-measured in the Friday smokes", 15.5, GRAY)
+    centered(b, W / 2, 122, "docs/PLAN.md (planning sync 07-11 morning; statuses Saturday midday) — the smoke measured K1 at "
+             "~12.5 h (evolving round 10.7 min, frozen 9.5 min), shrinking the buffer to ~5.5 h", 15.5, GRAY)
 
     X0 = 40
 
     # ---- color legend (every card's border/tint colour is one of these) ----
     y = 148
     legend = [
-        (GREEN, "#eef7f0", "done / already banked"),
+        (GREEN, "#eef7f0", "done / banked"),
+        (BLUE, "white", "running now"),
         (RED, RED_TINT, "headline causal result"),
         (INK, "white", "scheduled run"),
         (GRAY, GRAY_TINT, "conditional — first to cut"),
@@ -768,11 +791,11 @@ def fig_final_sprint():
     # ---- launch order strip -----------------------------------------
     y = y2 + 12
     lt, lyend = rich_text(X0 + 18, y + 24, [
-        ("Saturday launch order (deep-audit §5 — K2’s confirmatory contrast is the sprint’s highest-value result):  ", RED, True),
-        ("1 · K2 confirmatory 6-seed contrast, the moment its two gates pass   2 · K1 anchor grid   3 · K2 "
-         "evolving/random controls   4 · K3   5 · K4 one-update impulse if hours remain. If K2’s organism gate is "
-         "unmet at window start, K1 leads and K2 slots in on gate-pass — but K2-confirmatory hours are never spent "
-         "on lower rows.", INK, False),
+        ("Saturday launch order (K2’s confirmatory contrast is the sprint’s highest-value result):  ", RED, True),
+        ("1 · K2 confirmatory 6-seed contrast, the moment its gates pass   2 · K1 anchor grid   3 · K2 "
+         "evolving/random controls   4 · K3   5 · K4 one-update impulse if hours remain — K2-confirmatory hours are "
+         "never spent on lower rows. STATUS Sat midday: quota reset; K3 LAUNCHED (its slot was free — K1 waits on "
+         "the persona re-centering, K2 on the v9 rung + strict screen); K2 still preempts everything on gate-pass.", INK, False),
     ], 14, 182)
     lh = (lyend - y) + 8
     b.append(box(X0, y, W - 2 * X0, lh, RED_TINT, RED, 1.8, rx=8))
@@ -817,17 +840,19 @@ def fig_final_sprint():
     yc = card(lane_x[0], yc, "DONE", "screen + α-scaling + mod65 pilot", "one-pool judge-transmission carrier "
               "candidate (not a carrier verdict), the limited α-scaling diagnostic, and the 3-seed mod65 pilot.",
               "~4 h", GREEN, "#eef7f0")
-    yc = card(lane_x[0], yc, "FRI", "OLMo install — v6 mixed, running", "letter-only strict targets "
-              "were rate-insensitive (~0.5 plateau at 0.85/0.93) then CLIFFED (0.18@40 at rate 1.0) and degraded "
-              "Final: compliance, while rationale targets move the generated channel — the format-channel double "
-              "dissociation. v6 alternates letter/rationale rows; the rung verdict gains a SIXTH gate, "
-              "gen_in_band_0.15_0.50, because the generated channel is K2’s primary endpoint. Stop only on a rung "
-              "passing ALL gates.", "~5 h", INK)
-    yc = card(lane_x[0], yc, "FRI", "remaining pre-window items", "checklist DONE: K1 strict_final_v2 + DRY-verified "
-              "(per-attempt judge tables, harness self-test), K3 launch-ready, storage preflight, Drive JSON sync "
-              "with hashes. REMAINING: GPU smoke (one K1 seed × one round × two arms) + budget recompute from "
-              "measured minutes; the two-pool strict inversion screen (gates K2); the all-gates rung; the carrier "
-              "fresh-pool validation.", "~5 h", INK)
+    yc = card(lane_x[0], yc, "SAT", "OLMo install — v9 running", "the arc became a result: behavior-format ladders "
+              "(v2–v6) are TASTE-INERT: v6 passed its behavior gates but the strict screen found judge separation "
+              "0.000, taste flat 0.49–0.53 everywhere. Judge-format rows fixed it (v7: cautious_judge_pref "
+              "0.426→0.927 dose-response, generic taste flat) — the TRIPLE dissociation: letter→forced, "
+              "rationale→generated, judge-rows→judging. v8 (1:2:1) landed all SEVEN gates but its screen failed on "
+              "separation (sign replicated, gaps ~0.02); v9 pairs judge rows against the exact deployed reference "
+              "sentence. The screen stays K2’s arbiter.", "~7 h spent", BLUE, "white", 2.0)
+    yc = card(lane_x[0], yc, "SAT", "remaining launch blockers", "DONE: K1 strict_final_v2 + DRY-verified, GPU "
+              "smoke v4 passed (K1 measured ~12.5 h), the Qwen revision re-pin (the old pin's thinking template "
+              "corrupted training renders — three smoke crashes root-caused), K3 launched, storage preflight, "
+              "Drive JSON sync with hashes. REMAINING: v9 all-gates rung + strict screen PASS (gates K2); K1 "
+              "persona re-centering into the 0.35–0.75 band (calibration queued behind v9); carrier fresh-pool "
+              "validation.", "", INK)
     yc = card(lane_x[0], yc, "SAT", "EM transmission loop cells (parallel to K2)", "transmission (em_dose1000 × "
               "fresh) · transmission CONTROL (frozen base × the same fresh gen) · carrier (amp66:12 × fresh, gated "
               "on the fresh-pool validation) · susceptibility (standout × reverted) · composition (2 constructed "
@@ -838,24 +863,26 @@ def fig_final_sprint():
 
     # Kaggle lane
     yk = cy
-    yk = card(lane_x[1], yk, "K1", "Phase 1A Qwen anchor grid — launch-ready", "mod65 × {evolving "
+    yk = card(lane_x[1], yk, "K1", "Phase 1A Qwen anchor grid — persona gate", "re-centered persona × {evolving "
               "self · frozen round-0 copy · frozen base · random-selection} × 4 seeds × 4 rounds, +1 measure-only "
               "seed. Primary: paired baseline-adjusted final GENERATED-VALID risk (evolving-self vs frozen-base); "
-              "the four-seed fan is secondary. The frozen-base arm is a new baseline, honestly n=4 rollouts.",
-              "~9 h", INK, "white", 2.0)
-    yk = card(lane_x[1], yk, "K2", "Phase 1B OLMo inversion — launches first", "6 seeds on "
+              "the four-seed fan is secondary; the frozen-base baseline is honestly n=4. Smoke v4 PASSED (invalid "
+              "0.00) — but launch waits on the in-band persona gate (0.35–0.75; the rationale persona saturates "
+              "generated at 0.93).", "~12.5 h", INK, "white", 2.0)
+    yk = card(lane_x[1], yk, "K2", "Phase 1B OLMo inversion", "launches on gate-pass: 6 seeds on "
               "the confirmatory contrast (frozen-conservative vs frozen-base) + 3 on the mechanistic controls "
-              "(evolving self, random) × 4 rounds, funded by deferring K4. GATED on the all-gates v6 rung and the "
-              "inversion reproducing on ≥2 seeded strict-valid fresh pools — the headline causal claim.",
-              "~20.5 h", RED, RED_TINT, 2.2)
-    yk = card(lane_x[1], yk, "K3", "Qwen EM neutral-judge grid", "insecure-code organism × 4 judge "
-              "conditions (random arm firm) × 3 seeds × 4 rounds, neutral prompt (deconfounds the candid grid). "
-              "Existence framing at n=3; em_freegen read as binomial counts; reads: em_freegen + self_report.",
-              "~6.5 h", INK)
+              "(evolving self, random) × 4 rounds, funded by deferring K4. GATED on a v9 all-gates rung + the "
+              "sha-bound strict screen (two fresh pools, actual K2 bank). v8 landed all seven gates but failed the "
+              "screen on separation — v9 running. First-cell budget checkpoint re-runs the arithmetic; the named "
+              "cut is controls 3→2, never the confirmatory six.", "~20.5 h", RED, RED_TINT, 2.2)
+    yk = card(lane_x[1], yk, "K3", "EM neutral-judge grid — LAUNCHED 07-11", "running on Kaggle (T4): insecure-code "
+              "organism × 4 judge conditions (random arm firm) × 3 seeds × 4 rounds, neutral prompt (deconfounds "
+              "the candid grid). Existence framing at n=3; em_freegen read as binomial counts; reads: em_freegen + "
+              "self_report.", "~6.5 h", BLUE, "white", 2.0)
     yk = card(lane_x[1], yk, "K4", "Content impulse — deferred", "runs only if K1–K3 finish early. Preferred form: a "
-              "ONE-UPDATE content impulse — one fixed mod65 checkpoint × one matched small update from {aligned · "
-              "opposing · format-neutral} rows, 6–8 resampled data seeds, immediate target + off-target deltas "
-              "(~1–2 h; identifies the directional impulse, not a fixed point). Buffer ~9 h.",
+              "ONE-UPDATE content impulse — one fixed K1-organism checkpoint × one matched small update from "
+              "{aligned · opposing · format-neutral} rows, 6–8 resampled data seeds, immediate target + off-target "
+              "deltas (~1–2 h; identifies the directional impulse, not a fixed point). Buffer ~5.5 h.",
               "0–5 h", GRAY, GRAY_TINT)
 
     # Sunday lane — numbered analyses

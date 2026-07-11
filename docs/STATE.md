@@ -419,7 +419,7 @@ another lane's files.
 
 ## Recent changes
 
-- 2026-07-11 ~17:00 plan figures re-synced (Figures, 08faf62 + fix) to K2-GO +
+- 2026-07-11 ~17:00 plan figures re-synced (Figures, 6dd890c + 981d921) to K2-GO +
   the expected-vs-discovery ledger: K2 figure's readings table replaced by the
   ledger (expected checks vs three discovery items + the dose-insufficiency
   reading); triple dissociation reworded everywhere as instrument lesson per

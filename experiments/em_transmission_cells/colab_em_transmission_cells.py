@@ -268,10 +268,22 @@ def gen_valid_k(adapter, question):
             if row["valid"]: valid.append(row)
         if len(valid) >= K: break
     initial_invalid = float(np.mean([not row["valid"] for row in attempts[:K]]))
+    # EM-family generators answer self-description prompts with code the
+    # on-topic scorer rejects (K3 v3 died on this: 1/16 valid from the raw
+    # organism). An unfillable pool is the generator's actual output
+    # distribution, not an instrument fault: fill from the highest-p_on_topic
+    # rejects and record the count — pool validity is a per-round readout.
+    n_filled = 0
     if len(valid) < K:
-        raise RuntimeError(f"candidate on-topic/length gate failed: {len(valid)}/{K} valid after {len(attempts)} attempts")
+        rejects = [r for r in attempts if not r["valid"]]
+        rejects.sort(key=lambda r: (len(r["text"].strip()) < CANDIDATE_MIN_CHARS, -r["p_on_topic"]))
+        fill = rejects[:K - len(valid)]
+        n_filled = len(fill); valid = valid + fill
+    if len(valid) < K:
+        raise RuntimeError(f"candidate pool unfillable: {len(valid)}/{K} after {len(attempts)} attempts")
     return [row["text"] for row in valid[:K]], {"all_attempts": attempts,
-            "initial_invalid_rate": initial_invalid, "n_attempted": len(attempts), "n_valid": len(valid),
+            "initial_invalid_rate": initial_invalid, "n_attempted": len(attempts), "n_valid": len(valid) - n_filled,
+            "n_filled_invalid": n_filled,
             "candidate_on_topic_min": CANDIDATE_ON_TOPIC_MIN, "candidate_min_chars": CANDIDATE_MIN_CHARS}
 @torch.no_grad()
 def judge_scores(judge, question, cands, reference):

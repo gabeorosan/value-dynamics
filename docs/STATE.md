@@ -419,6 +419,22 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~00:20 (general): K1 COMPLETE (17/17 rollouts incl. measure-only
+  seed) — result archived at
+  experiments/kaggle/kaggle_k1_qwen_anchor_grid/output/k1_qwen_anchor.json.
+  Generated-risk finals from ~0.60 start: evolving_self fans 0.26/0.71/0.88/1.00
+  (one cautious collapse, two near-rail amplifications); frozen_base tight
+  0.47-0.60; random_select fans 0.34-0.79 (so part of the self-judge fan is
+  training noise — the judge-attributable part is the EXCESS spread);
+  frozen_copy_r0 intermediate. Measure-only seed 99 drifts 0.583→0.573
+  (instrument stable). VALIDITY CAVEAT for Sunday: 81/85 per-round reads flag
+  order gaps >0.10, but mid-round reads sample n=24/order (SE≈0.14 > the
+  threshold), so the flag rate is partly by construction — test endpoint reads
+  (n=96, observed 0.15-0.35) against the binomial null before any
+  semantic-channel claim; same question as the Cerebrium K2 r0 forced-gap
+  observation (~20:25 entry). K1 slot freed → K2 Kaggle push in retry loop
+  (transient "Notebook not found"); K2-on-Kaggle now doubles as the
+  second-stack replication that adjudicates the instrument question.
 - 2026-07-11 ~22:05 (general): CEREBRIUM UNPARKED (user added a card; $20
   budget) — K2 CONFIRMATORY CONTRAST RUNNING as a deployed worker app
   (value-dynamics-k2-worker: min_replicas=1, daemon thread drives the pinned

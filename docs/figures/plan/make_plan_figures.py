@@ -116,8 +116,8 @@ def fig_program_map():
     b = []
     centered(b, W / 2, 52, "The plan now: map how a judge's installed preference", 34, bold=True)
     centered(b, W / 2, 94, "reshapes the trajectories of self-training", 34, bold=True)
-    centered(b, W / 2, 126, "docs/PLAN.md — the single canonical plan (dynamics re-anchor 07-11 ~12:00; statuses Saturday afternoon:"
-             " K1 + K3 running on Kaggle, v10 judge top-up next on Colab); chips show what has already landed", 16, GRAY)
+    centered(b, W / 2, 126, "docs/PLAN.md — the single canonical plan (statuses Saturday ~16:30: K2 IS GO — v10 organism + 5-pool"
+             " screen PASS, blocked only on a dataset upload; K1 + K3 v4 running); chips show what has landed", 16, GRAY)
 
     CHIP = {"done": (GREEN, "DONE"), "running": (BLUE, "IN PROGRESS"),
             "planned": (GRAY, "PLANNED"), "headline": (RED, "HEADLINE"),
@@ -177,23 +177,20 @@ def fig_program_map():
                  "assistant TRAINING render. All Qwen scripts re-pinned to cdbee75f with a guard assert; the "
                  "letter-format and fp16 attributions retracted as primary causes. Smoke v4 then PASSED end-to-end "
                  "(invalid 0.00, generated order gap 0.02, measure-only drift ~0) and measured K1 at ~12.5 h."),
-        ("running", "OLMo conservative install — the arc became a result. Behavior-format ladders (v2–v6) are "
-                 "TASTE-INERT: v6 passed its behavior gates but the strict inversion screen found judge separation "
-                 "exactly 0.000 on both pools, with generic taste flat 0.49–0.53 across every rung. Judge-format "
-                 "training rows fixed it — v7's registered prediction confirmed (cautious_judge_pref 0.426 → 0.927 "
-                 "dose-response, generic taste still flat: a domain-specific install). With letter → forced and "
-                 "rationale → generated this is a TRIPLE dissociation: you move the channel you train. v8 (1:2:1 "
-                 "mix) landed ALL SEVEN gates (judge_pref +0.260, generated 0.478 in band, order gap 0.025) — but "
-                 "the sha-bound screen failed on separation (sign replicated both pools, gaps ~0.02), and v9's "
-                 "reference-pair recipe moved the judge readout SLOWER than v8 with the order gap wandering — "
-                 "ladder exhausted, no valid rung. v10 decouples the doses: a judge-only top-up STARTING FROM the "
-                 "v8 all-gates organism (100% judge rows, cumulative rungs, all seven gates re-verdicted per rung). "
-                 "If v10's best rung still fails the screen, K2-as-designed reports an existence-of-organism "
-                 "failure honestly rather than weakening the screen."),
-        ("todo", "remaining launch blockers — DONE: K1 strict_final_v2 + DRY-verified, GPU smoke + measured budget, "
-                 "Qwen re-pin, persona calibrated + K1 LAUNCHED, K3 launched (v3), storage preflight, Drive JSON "
-                 "sync with hashes. REMAINING: a v10 all-gates rung + strict two-pool screen PASS (gates K2); the "
-                 "carrier fresh-pool validation"),
+        ("done", "OLMo conservative install — RESOLVED at v10_judge_topup rung_20 (cautious_judge_pref 0.880, all "
+                 "gates, 13 min: 20 judge-only steps on the v8 organism moved the judging channel +0.19 while "
+                 "behavior held). The v2–v9 arc distilled to an instrument lesson — train the channel you want to "
+                 "move (behavior-format rows never touched the judging coordinate; judge-format rows moved exactly "
+                 "it) — not a write-up result. The strict screen then exposed a real discovery: the judge force is "
+                 "POOL-HETEROGENEOUS — five fresh pools from one organism read {≈0, +0.167 ×3, −0.02}, operator "
+                 "re-simulation rules out top-M/softmax as the cause, and on pool 505 the BASE judge out-cautioned "
+                 "the conservative one. Screen rule preregistered v2 → v3 (gate the SIGN, measure the magnitude); "
+                 "5-POOL VERDICT: PASS under both rules — mean separation 0.100 ± 0.093, conservative gap negative "
+                 "5/5, factual-EV better. That 0.100 ± 0.093 enters K2 as its per-round force calibration."),
+        ("todo", "remaining launch blockers — DONE: everything except two items. REMAINING: the K2 Kaggle dataset "
+                 "(one user-approved 160 MB browser download of the rung_20 adapter) — K2 is otherwise GO with the "
+                 "dual-verdict attestation; and the transmission cells' fresh-pool judge sign replication "
+                 "(pool 7101 running, 7202 next)"),
     ]
     GLYPH = {"done": ("✓", GREEN), "running": ("▶", BLUE), "todo": ("○", GRAY)}
     yy = y + 58
@@ -233,18 +230,18 @@ def fig_program_map():
 
     # ---- Phase 1B --------------------------------------------------
     y = y2 + 32
-    y2 = card(y, "Phase 1B — OLMo judge swap: the trajectory map under an installed conservative taste  (Kaggle K2, ~20.5 h: 6+3 seeds)", "headline", [
-        ("Every legacy OLMo rollout railed to risk ≈ 1.0 under both judges. K2 installs the opposite preference and "
-         "maps what it does to the trajectories. ", INK, False),
-        ("The deliverable is the map, not a binary:", RED, True),
-        (" “a judge trained to disprefer risk pulls risk down” is trivially true and already shown — K2's "
-         "analysis object is per-round drift rates and their six-seed spread in each judge condition, settling "
-         "structure over rounds, generated/forced/judge channel co-movement, off-target coupling, and the judge "
-         "contrast read as a measured force difference dialed against the loop's own drift (the frozen-base arm). "
-         "The seven organism gates and the sha-bound strict screen are INSTRUMENT checks — they certify the "
-         "judge-swap manipulation is non-null, they are not the claim. Status: v8 passed all seven gates but "
-         "failed the screen on separation; v9 exhausted; the v10 judge-only top-up (from the v8 organism) runs "
-         "next, and K2 launches the moment a rung passes both.", INK, False),
+    y2 = card(y, "Phase 1B — OLMo judge swap: the trajectory map under an installed conservative taste  (Kaggle K2, ~20.5 h, GO)", "headline", [
+        ("K2 IS GO — the v10 organism passed all gates and the 5-pool screen passed the preregistered dual rule; "
+         "the only blocker is a 160 MB dataset upload. ", RED, True),
+        ("The expected-vs-discovery ledger is pinned: trajectories moving toward the judge, seed-spread "
+         "contraction, and a non-null force are EXPECTED — reported as passing checks, never findings. The "
+         "discovery-grade content is exactly three things: (a) drift rate per round per unit of verified selection "
+         "differential, on the intrinsic-drift scale — the calibration anchor for Saturday's weak-dose "
+         "transmission cells, seeded by the screen's measured force 0.100 ± 0.093; (b) forced/judging channel "
+         "co-movement while selection acts only on generated answers — no prior data in either family; (c) the "
+         "valid-instrument replacement for the legacy judge-condition contrast. A flat trajectory under the "
+         "passing screen reads as dose insufficiency, not “no force” — every v10 rung is persisted, so dose is "
+         "dialable, and a round-2 adaptive checkpoint holds redundant seeds if convergence is fast and tight.", INK, False),
     ], fill=RED_TINT, border=RED, bw=2.4)
     b.append(arrow(W / 2, y2 + 4, W / 2, y2 + 26))
 
@@ -252,13 +249,14 @@ def fig_program_map():
     y = y2 + 32
     color, label = CHIP["running"]
     b.append(f'<text x="{X + 18}" y="{y + 30}" font-size="19" font-weight="bold" fill="{INK}" '
-             f'font-family="{FONT}">The rest of the sprint — K1 + K3 running in parallel on Kaggle; K2 preempts on gate-pass; then K2 controls → K4</text>')
+             f'font-family="{FONT}">The rest of the sprint — K1 + K3 (v4) running; K2 GO pending its dataset; then K2 controls → K4</text>')
     b.append(f'<text x="{X + CW - 16}" y="{y + 29}" text-anchor="end" font-size="13.5" font-weight="bold" '
              f'fill="{color}" font-family="{FONT}">SCHEDULED</text>')
     branches = [
-        ("K3 — EM neutral-judge grid: RUNNING (v3, ~6.5 h)",
-         "on Kaggle now (v3 after two dataset-mount retries) — insecure-code organism × 4 judge conditions "
-         "(random arm firm) × 3 seeds × 4 rounds, neutral prompt. em_freegen as binomial counts; + self_report."),
+        ("K3 — EM neutral-judge grid: RUNNING (v4, ~6.5 h)",
+         "v4 after the EM organism answered self-description prompts with code (1/16 on-topic): the pool now "
+         "soft-fills from best-on-topic rejects, logging n_filled_invalid as a trajectory readout. 4 judge "
+         "conditions × 3 seeds × 4 rounds; em_freegen as binomial counts; + self_report."),
         ("K4 — one-update content impulse: DEFERRED",
          "runs only if K1–K3 finish early. Preferred form: one fixed mod65 checkpoint × one matched small update "
          "per content arm, 6–8 data seeds, immediate deltas (~1–2 h) — a directional impulse, not a fixed point."),
@@ -531,8 +529,8 @@ def fig_olmo_inversion():
     b = []
     centered(b, W / 2, 52, "Phase 1B — the OLMo judge swap: mapping the trajectories", 33, bold=True)
     centered(b, W / 2, 94, "of self-training under an installed conservative taste", 33, bold=True)
-    centered(b, W / 2, 126, "legacy OLMo railed to risk ≈ 1.0 under BOTH judges — install the opposite preference and map"
-             " the force it exerts; the install itself became a result (the triple dissociation)", 16, GRAY)
+    centered(b, W / 2, 126, "legacy OLMo railed to risk ≈ 1.0 under BOTH judges — install the opposite preference and map the"
+             " force it exerts; gates + 5-pool screen PASSED (measured force 0.100 ± 0.093), K2 is GO", 16, GRAY)
 
     steps = [
         ("1 · stage screen  (done)", GREEN,
@@ -542,25 +540,27 @@ def fig_olmo_inversion():
          "while judge taste stays near-neutral throughout (0.47 → 0.54 → 0.52). Start from final Instruct — "
          "risk 0.72 with headroom down, and an almost blank judging prior to install the conservative "
          "preference onto."),
-        ("2 · install the organism — instrument checks, not the claim (v10 next)", INK,
-         "Behavior-format ladders (v2–v6) are TASTE-INERT: v6 passed its behavior gates but the strict screen "
-         "found judge separation 0.000, generic taste flat 0.49–0.53 across every rung. Judge-format training "
-         "rows fixed it — v7's registered dose-response confirmed (cautious_judge_pref 0.426→0.927): the TRIPLE "
-         "dissociation — letter→forced, rationale→generated, judge-rows→judging. v8 (1:2:1) landed ALL SEVEN "
-         "gates but failed the screen on separation (sign replicated, gaps ~0.02); v9's diluted judge rows dosed "
-         "slower and its order gap wandered — exhausted. v10 tops up only the judge channel from the v8 organism, "
-         "re-verdicting all gates per rung. The gates + screen certify the judge-swap manipulation is non-null; "
-         "if v10 still fails, K2 reports an existence-of-organism failure honestly."),
-        ("3 · clone into four arms — repowered 6+3, launches on gate-pass", INK,
+        ("2 · install + screen — instrument checks PASSED (v10 rung_20)", INK,
+         "The v2–v9 recipe arc is kept as an instrument lesson — train the channel you want to move (behavior-"
+         "format rows never touched the judging coordinate; judge-format rows moved exactly it). v10: 20 "
+         "judge-only steps on the v8 all-gates organism moved cautious_judge_pref +0.19 to 0.880 with behavior "
+         "held — all gates, 13 min. The strict screen then found a real discovery: judge force is POOL-"
+         "HETEROGENEOUS — five fresh pools read {≈0, +0.167 ×3, −0.02}, operator re-simulation rules out "
+         "top-M/softmax as the cause, and on pool 505 the base judge out-cautioned the conservative one. Rule "
+         "preregistered v2 → v3 (gate the SIGN, measure the magnitude, dual verdicts). 5-POOL VERDICT: PASS under "
+         "both rules — mean separation 0.100 ± 0.093, conservative gap negative 5/5, factual-EV better."),
+        ("3 · clone into four arms — repowered 6+3, GO pending dataset", INK,
          "The identical conservative adapter starts every arm. 6 seeds × 4 rounds on the confirmatory contrast "
          "(frozen conservative vs frozen base) + 3 seeds on the mechanistic controls (evolving self, random) — "
-         "~20.5 h, funded by deferring K4, and first in the launch order the moment a v10 rung passes all gates "
-         "plus the sha-bound strict screen. Controls thin to 2 seeds under pressure; the six-seed contrast never."),
+         "~20.5 h, funded by deferring K4. All gates passed; the only blocker is a 160 MB dataset upload. A "
+         "round-2 in-kernel checkpoint holds cons seeds 3–6 if the first two converge fast and tight, "
+         "reallocating toward a lower persisted dose. Controls thin to 2 under pressure; the six never."),
         ("4 · map the trajectories", INK,
          "The analysis object: per-round drift rates and their six-seed spread in each judge condition, settling "
          "structure over rounds, generated/forced/judge channel co-movement, off-target coupling — the judge "
-         "contrast read as a measured force difference against the loop's own drift (frozen-base arm). Mechanism "
-         "read: candidate-level judge loading on the actual pools; kept-minus-pool gaps are manipulation checks."),
+         "contrast read as a measured force difference against the loop's own drift (frozen-base arm), with the "
+         "screen's 0.100 ± 0.093 as the per-round force calibration input. Mechanism read: candidate-level judge "
+         "loading on the actual pools; kept-minus-pool gaps are manipulation checks."),
     ]
     sw_, sgap, X0 = 316, 16, 50
     y = 168
@@ -588,18 +588,18 @@ def fig_olmo_inversion():
     # ---- preregistered interpretation table -------------------------
     ty = y + maxh + 34
     b.append(f'<text x="{X0 + 8}" y="{ty}" font-size="20" font-weight="bold" fill="{INK}" '
-             f'font-family="{FONT}">Preregistered trajectory readings — what different map shapes mean (written down before the run)</text>')
+             f'font-family="{FONT}">The expected-vs-discovery ledger — pinned before the run (07-11 ~15:00)</text>')
     rows = [
-        ("the two frozen-judge arms show separated per-round drift-rate distributions",
-         "the installed taste is a measurable steering force — its magnitude, onset round, settling structure, and seed spread ARE the deliverable (not the sign, which is expected)", RED),
-        ("the drift-rate distributions overlap — both frozen arms drift the same way",
-         "the substrate’s own loop drift dominates the deployable-dose judge force; the map bounds how strong selection pressure is at this dose", INK),
-        ("the evolving-self arm’s drift profile diverges from the frozen-conservative arm’s",
-         "criterion drift adds a force beyond round-0 taste — the co-evolution term, measured as a difference of force profiles", INK),
-        ("the random arm’s trajectories match the judge-directed arms’",
-         "selection contributes little beyond generic update pressure at this dose — the deflationary map", INK),
-        ("channels decouple along the trajectories (generated moves while forced/judge readouts do not, or vice versa)",
-         "the co-movement map extends the triple dissociation from installs to the loop itself", INK),
+        ("EXPECTED — passing checks, never findings: trajectories move toward the judge’s preference, seed spread contracts under the strong frozen judge, the screened force is non-null",
+         "these are pre-registered predictions the clean arms confirm; reporting them as discoveries would re-sell what the format-gate results already showed", INK),
+        ("DISCOVERY (a): drift rate per round per unit of verified selection differential, on the intrinsic-drift scale",
+         "the force-per-unit-taste calibration — the anchor for reading Saturday’s weak-dose transmission cells, whose emergent tastes are only Δ≈0.1 on the same kept-gap scale", RED),
+        ("DISCOVERY (b): round-wise co-movement or dissociation of the forced-choice and judging channels while selection acts only on generated answers",
+         "no prior data in either model family; extends the channel-separation instrument lesson into the loop itself", RED),
+        ("DISCOVERY (c): the valid-instrument replacement for the legacy judge-condition contrast",
+         "the legacy ensembles are position-confounded and can never be re-analyzed; K2’s arms are the clean version", RED),
+        ("special reading: a flat trajectory under the passing screen",
+         "DOSE INSUFFICIENCY (a calibration failure), not “judge preference exerts no force” — every v10 rung is persisted, so dose is dialable; 0.880 is the maximum available dose, not inherently the right one", INK),
     ]
     yy = ty + 20
     cw1, cw2 = 560, 700
@@ -621,11 +621,11 @@ def fig_olmo_inversion():
     y2 = yy + 24
     t, yend = rich_text(X0 + 20, y2 + 32, [
         ("Why this is the headline: ", INK, True),
-        ("it is the first arm of the project where the judging force is set by construction rather than inherited "
-         "— so the trajectory map it produces (drift rates, spread, settling, channel co-movement, dialed against "
-         "the loop's own drift) is read on a known manipulation, on an instrument that already survived its own "
-         "position-bias audit. “The conservative judge pulls risk down” is trivially true and is NOT the claim; "
-         "the shape and strength of the force profile is.", INK, False),
+        ("it is the first arm where the judging force is set by construction AND measured before launch — the "
+         "5-pool screen put a number on it (0.100 ± 0.093, pool-heterogeneous), so the trajectory map is read "
+         "against a known, calibrated manipulation on an instrument that survived its own position-bias audit. "
+         "“The conservative judge pulls risk down” is trivially true and is NOT the claim; the force-per-unit-"
+         "taste calibration, the channel co-movement, and the clean legacy replacement are.", INK, False),
     ], 17, 148)
     hh = (yend - y2) + 6
     b.append(box(X0, y2, W - 100, hh, KEY_FILL, INK, 2.5))
@@ -755,8 +755,8 @@ def fig_final_sprint():
     b = []
     centered(b, W / 2, 50, "The final sprint (Fri 07-10 → Sun 07-12): the whole plan", 32, bold=True)
     centered(b, W / 2, 90, "as one hour budget — 45 Kaggle + 30 Colab + a no-GPU analysis day", 32, bold=True)
-    centered(b, W / 2, 122, "docs/PLAN.md (dynamics re-anchor 07-11 ~12:00; statuses Saturday afternoon) — K1 measured at "
-             "~12.5 h (evolving round 10.7 min, frozen 9.5 min), buffer ~5.5 h", 15.5, GRAY)
+    centered(b, W / 2, 122, "docs/PLAN.md (statuses Saturday ~16:30) — K1 measured at ~12.5 h, buffer ~5.5 h; K2's screen "
+             "measured its force at 0.100 ± 0.093 (the per-round calibration input)", 15.5, GRAY)
 
     X0 = 40
 
@@ -799,11 +799,11 @@ def fig_final_sprint():
     y = y2 + 12
     lt, lyend = rich_text(X0 + 18, y + 24, [
         ("Saturday launch order (K2’s confirmatory contrast is the sprint’s highest-value result):  ", RED, True),
-        ("1 · K2 confirmatory 6-seed contrast, the moment its gates pass   2 · K1 anchor grid   3 · K2 "
-         "evolving/random controls   4 · K3   5 · K4 one-update impulse if hours remain — K2-confirmatory hours are "
-         "never spent on lower rows. STATUS Sat afternoon: K1 + K3 both RUNNING on Kaggle (K1 launched ~12:30 on "
-         "the calibrated persona_mod25_r5, gate PASS at 0.625); K2 waits on the v10 judge top-up + strict screen "
-         "and still preempts everything on gate-pass.", INK, False),
+        ("1 · K2 confirmatory 6-seed contrast   2 · K1 anchor grid   3 · K2 evolving/random controls   4 · K3   "
+         "5 · K4 one-update impulse if hours remain — K2-confirmatory hours are never spent on lower rows. STATUS "
+         "Sat ~16:30: K2 IS GO — v10 organism (judge_pref 0.880, all gates) + 5-pool screen PASS under both "
+         "preregistered rules (mean separation 0.100 ± 0.093, conservative gap negative 5/5, factual-EV better); "
+         "the only blocker is a 160 MB dataset upload. K1 RUNNING (persona_mod25_r5); K3 RUNNING (v4).", INK, False),
     ], 14, 182)
     lh = (lyend - y) + 8
     b.append(box(X0, y, W - 2 * X0, lh, RED_TINT, RED, 1.8, rx=8))
@@ -848,23 +848,25 @@ def fig_final_sprint():
     yc = card(lane_x[0], yc, "DONE", "screen + α-scaling + mod65 pilot", "one-pool judge-transmission carrier "
               "candidate (not a carrier verdict), the limited α-scaling diagnostic, and the 3-seed mod65 pilot.",
               "~4 h", GREEN, "#eef7f0")
-    yc = card(lane_x[0], yc, "SAT", "OLMo install — v10 top-up next", "the arc became a result: "
-              "behavior-format ladders (v2–v6) are TASTE-INERT (screen separation 0.000, taste flat 0.49–0.53); "
-              "judge-format rows fixed it (v7: 0.426→0.927 dose-response) — the TRIPLE dissociation: letter→forced, "
-              "rationale→generated, judge-rows→judging. v8 (1:2:1) landed all SEVEN gates but failed the screen on "
-              "separation (sign replicated, gaps ~0.02); v9's reference-pair recipe dosed the judge channel SLOWER "
-              "and its order gap wandered — exhausted, no valid rung. v10 tops up ONLY the judge channel from the "
-              "v8 all-gates organism (100% judge rows, cumulative rungs, all gates re-verdicted per rung); if its "
-              "best rung still fails the screen, K2 reports an existence-of-organism failure honestly.", "~8 h spent", BLUE, "white", 2.0)
-    yc = card(lane_x[0], yc, "SAT", "remaining launch blockers", "DONE: K1 strict_final_v2 + DRY-verified, GPU "
-              "smoke v4 passed (K1 measured ~12.5 h), the Qwen revision re-pin (the old pin's thinking template "
-              "corrupted training renders — three smoke crashes root-caused), persona calibrated → K1 LAUNCHED, "
-              "K3 launched (v3), storage preflight, Drive JSON sync with hashes. REMAINING: v10 all-gates rung + "
-              "strict screen PASS (gates K2); carrier fresh-pool validation.", "", INK)
-    yc = card(lane_x[0], yc, "SAT", "EM transmission loop cells (parallel to K2)", "transmission (em_dose1000 × "
-              "fresh) · transmission CONTROL (frozen base × the same fresh gen) · carrier (amp66:12 × fresh, gated "
-              "on the fresh-pool validation) · susceptibility (standout × reverted) · composition (2 constructed "
-              "starting states) — 3 seeds each.", "~8 h", RED, RED_TINT, 2.0)
+    yc = card(lane_x[0], yc, "SAT", "OLMo install — RESOLVED (v10)", "rung_20: 20 judge-only steps on the v8 "
+              "organism moved the judging channel +0.19 (cautious_judge_pref 0.880) with behavior held — all gates, "
+              "13 min. The v2–v9 arc is kept as an instrument lesson (train the channel you want to move), not a "
+              "result. The screen then found a discovery: judge force is POOL-HETEROGENEOUS — five fresh pools "
+              "read {≈0, +0.167 ×3, −0.02}; operator re-simulation rules out top-M/softmax; on pool 505 the BASE "
+              "judge out-cautioned the conservative one. Rule preregistered v2 → v3 (gate the SIGN, measure the "
+              "magnitude, dual verdicts in the attestation); 5-POOL VERDICT: PASS both rules.", "~9 h spent", GREEN, "#eef7f0")
+    yc = card(lane_x[0], yc, "SAT", "remaining launch blockers", "DONE: everything except two items — K1/K3 "
+              "launched, v10 organism + dual-verdict screen attestation banked, GPT state audit adopted (v10-only "
+              "K2 contract, sha-bound continuous factual-EV, atomic saves + vintage-verified resume). REMAINING: "
+              "the K2 Kaggle dataset (one user-approved 160 MB browser download of the rung_20 adapter); the "
+              "transmission cells' fresh-pool judge sign replication (pool 7101 running, 7202 next).", "", INK)
+    yc = card(lane_x[0], yc, "SAT", "EM transmission loop cells (parallel to K2)", "standout re-specced by the "
+              "Analysis sweep: code taste is MID-dose (em_dose_750/500, Δgap +0.096), while dose_1000 and the "
+              "reverted amp66:12 carry a SELF-REPORT taste (Δ +0.091) — so transmission runs em_dose_750 and the "
+              "carrier cell is amp66:12's self-report signature. Cells: transmission + frozen-base CONTROL · "
+              "carrier · susceptibility (α 0.75–1.5 shows a latent self-report direction on the null endpoint — "
+              "masked-not-erased support; α≥2 refuted by degeneration) · composition (2 states) — 3 seeds each, "
+              "gated on the running fresh-pool sign replication.", "~8 h", RED, RED_TINT, 2.0)
     yc = card(lane_x[0], yc, "SUN", "overflow + optional risk-vintage mini", "re-runs of failed Saturday cells; the "
               "vintage mini only if K1’s per-round vintages landed — and it is deferred BEFORE any confirmatory K2 "
               "seed is cut.", "~4 h", GRAY, GRAY_TINT)
@@ -877,17 +879,19 @@ def fig_final_sprint():
               "· random-selection} × 4 seeds × 4 rounds, +1 measure-only. Primary: paired baseline-adjusted final "
               "GENERATED-VALID risk (evolving-self vs frozen-base); frozen-base baseline honestly n=4. Riding note: "
               "Qwen dissociates channels too (forced 0.123 at generated 0.625).", "~12.5 h", BLUE, "white", 2.0)
-    yk = card(lane_x[1], yk, "K2", "Phase 1B OLMo judge swap", "launches on gate-pass: 6 seeds on "
-              "the confirmatory contrast (frozen-conservative vs frozen-base) + 3 on the mechanistic controls "
-              "(evolving self, random) × 4 rounds, funded by deferring K4. The deliverable is the TRAJECTORY MAP "
-              "under judge swap — drift rates, seed spread, settling, channel co-movement, the judge contrast as a "
-              "measured force difference — with the seven gates + sha-bound strict screen as instrument checks. "
-              "GATED on a v10 all-gates rung + screen PASS (v8 passed gates, failed screen; v9 exhausted). Named "
-              "cut: controls 3→2, never the confirmatory six.", "~20.5 h", RED, RED_TINT, 2.2)
-    yk = card(lane_x[1], yk, "K3", "EM neutral-judge grid — RUNNING (v3)", "running on Kaggle (T4, parallel with "
-              "K1): insecure-code organism × 4 judge conditions (random arm firm) × 3 seeds × 4 rounds, neutral "
-              "prompt (deconfounds the candid grid). em_freegen read as binomial counts; reads: em_freegen + "
-              "self_report.", "~6.5 h", BLUE, "white", 2.0)
+    yk = card(lane_x[1], yk, "K2", "Phase 1B OLMo judge swap — GO", "gates PASSED (v10 organism, judge_pref 0.880; "
+              "5-pool screen mean separation 0.100 ± 0.093, sign 5/5, dual-verdict attestation); blocked only on a "
+              "160 MB dataset upload. 6 confirmatory + 3 control seeds × 4 rounds. Deliverable: the TRAJECTORY MAP "
+              "— expected checks (movement toward judge, spread contraction) vs discovery content (drift rate per "
+              "unit selection differential = the weak-dose calibration anchor; forced/judging co-movement; legacy "
+              "replacement). Flat trajectory = dose insufficiency, dose dialable via persisted rungs; a round-2 "
+              "in-kernel checkpoint holds redundant cons seeds on fast+tight convergence. Named cut: controls 3→2, "
+              "never the confirmatory six.", "~20.5 h", RED, RED_TINT, 2.2)
+    yk = card(lane_x[1], yk, "K3", "EM neutral-judge grid — RUNNING (v4)", "running on Kaggle (T4, parallel with "
+              "K1); v4 after the EM organism answered self-description prompts with code (1/16 on-topic) — the "
+              "pool soft-fills from best-on-topic rejects, logging n_filled_invalid per round as a trajectory "
+              "readout. 4 judge conditions (random arm firm) × 3 seeds × 4 rounds; em_freegen as binomial counts; "
+              "+ self_report. Round-0 battery sane: em_choice 0.071, self-report 0.318, free-gen 0.000.", "~6.5 h", BLUE, "white", 2.0)
     yk = card(lane_x[1], yk, "K4", "Content impulse — deferred", "runs only if K1–K3 finish early. Preferred form: a "
               "ONE-UPDATE content impulse — one fixed K1-organism checkpoint × one matched small update from "
               "{aligned · opposing · format-neutral} rows, 6–8 resampled data seeds, immediate target + off-target "
@@ -987,8 +991,8 @@ def fig_judge_transmission():
     b = []
     centered(b, W / 2, 52, "The cross-organism cells: the steering-force profiles of a", 33, bold=True)
     centered(b, W / 2, 94, "drifted taste — transmission, re-ignition, reversion", 33, bold=True)
-    centered(b, W / 2, 126, "re-anchored to dynamics 07-11: each cell contributes a trajectory contrast, not an existence answer;"
-             " screen DONE (one-pool carrier CANDIDATE); loops Saturday, parallel to K2", 15.5, GRAY)
+    centered(b, W / 2, 126, "each cell contributes a trajectory contrast, not an existence answer; the Analysis sweep re-specced the"
+             " judges (code taste is MID-dose); fresh-pool sign replication running — loops Saturday, parallel to K2", 15.5, GRAY)
 
     X0 = 60
 
@@ -1032,10 +1036,11 @@ def fig_judge_transmission():
     t, note_yend = rich_text(X0, y + 22 + sh + 26, [
         ("A one-pool carrier CANDIDATE (downgraded from “carrier exists” by the deep audit): ", INK, True),
         ("the behaviorally-reverted amp66:12 — self-report retraced 0.29 → 0.12 in the let-go run — re-ranked the "
-         "single fixed pool like the deepest dose rung (candor gap +0.127 vs the base anchor’s +0.036, zero gambles "
-         "kept), while the other reverted endpoint amp55:9 judged at anchor. The read is post-hoc and one-pool: the "
-         "semantic loading must replicate on ≥2 seeded strict-valid fresh pools before any carrier loop runs. "
-         "Standout transmission judge: em_dose1000 (candor +0.127, risk −0.104).", INK, False),
+         "single fixed pool like the deepest dose rung, while the other reverted endpoint amp55:9 judged at anchor. "
+         "The Analysis sweep then re-specced the judges: CODE taste peaks at MID-dose (em_dose_750/500, Δgap "
+         "+0.096), while dose_1000 and amp66:12 carry a SELF-REPORT taste instead (Δ +0.091) — so transmission "
+         "runs em_dose_750 and the carrier cell reads amp66:12's self-report signature. Fresh-pool sign "
+         "replication (pool 7101 running, 7202 next) gates all loop cells.", INK, False),
     ], 14.5, 178)
     b.append(t)
 
@@ -1092,21 +1097,22 @@ def fig_judge_transmission():
     b.append(f'<text x="{X0}" y="{py}" font-size="20" font-weight="bold" fill="{INK}" '
              f'font-family="{FONT}">The loop cells (3 seeds each, Saturday, parallel to K2 — the frozen-base control makes them independent)</text>')
     preds = [
-        ("transmission + its control", "standout judge (em_dose1000, screen-qualified at candor +0.127), frozen, "
-         "over a fresh base generator — with a REQUIRED control cell: the frozen base judge over the same fresh "
-         "generator, same seeds. The read is the per-round drift contrast between the two judges — the "
-         "steering-force profile a weak taste drift exerts on an unrelated trajectory, dialed against the loop's "
-         "own drift."),
+        ("transmission + its control", "standout judge em_dose_750 (code taste Δgap +0.096 — mid-dose, per the "
+         "Analysis sweep; dose_1000's taste moved to self-report), frozen, over a fresh base generator — with a "
+         "REQUIRED control cell: the frozen base judge over the same fresh generator, same seeds. The read is the "
+         "per-round drift contrast between the two judges — the steering-force profile of a weak emergent taste "
+         "(Δ≈0.1, the same kept-gap scale as K2's measured 0.100 force), dialed against the loop's own drift."),
         ("susceptibility / erased-vs-masked + composition", "the standout judge over a reverted generator — the "
-         "read is the RE-IGNITION profile: rate and curvature of re-amplification vs the fresh-base cell (faster "
-         "re-ignition is the masked-not-erased signature; α-scaling shows limited low-α self-report carry). The "
-         "2-state composition cells are CONSTRUCTED-STATE COMPARISONS — different adapters differ in more than x, "
-         "so they are not bias-free 1-D field samples."),
-        ("carrier  ·  one-pool candidate, loop gated", "the reverted amp66:12 judge — taste-drifted (+0.127) on "
-         "the single screen pool yet behaviorally reverted — over a fresh generator: does a taste that survived "
-         "behavioral reversion still exert a steering force, and with what profile? Gated on the fresh-pool "
-         "validation (≥2 seeded strict-valid pools; the amp66:12-vs-base loading must reproduce in sign). amp55:9 "
-         "stripped its taste, so the cell reads the seed-dependence."),
+         "read is the RE-IGNITION profile: rate and curvature of re-amplification vs the fresh-base cell. The "
+         "α-scaling causal test sharpened the prior: at α 0.75–1.5 the null endpoint carries a LATENT self-report "
+         "direction (masked-not-erased support); α ≥ 2 is refuted by generic degeneration, so only α ≤ 1.5 is "
+         "citable. The 2-state composition cells stay CONSTRUCTED-STATE COMPARISONS."),
+        ("carrier  ·  amp66:12, self-report signature", "the reverted amp66:12 judge — behaviorally reverted yet "
+         "carrying a SELF-REPORT taste (Δ +0.091, matching dose_1000's signature) — over a fresh generator: does "
+         "a taste that survived behavioral reversion still exert a steering force, and with what profile? Gated "
+         "on the running fresh-pool sign replication (pools 7101/7202). amp55:9 stripped its taste, so the cell "
+         "reads the seed-dependence. Let-go context: the neutral judge does NOT release (4/6 amp55 seeds "
+         "re-amplify to rail) — Saturday's ensemble runs ≥16 seeds."),
     ]
     pw = (W - 2 * X0 - 2 * 20) / 3
     maxh = 0
@@ -1128,12 +1134,13 @@ def fig_judge_transmission():
     t, yend = rich_text(X0 + 20, y2 + 32, [
         ("Gating and honesty rules: ", INK, True),
         ("the cells run Saturday in parallel with K2 — the frozen-base control cell makes each contrast "
-         "independently interpretable. Only screen-qualified judges get loops (em_dose1000; amp66:12 pending the "
-         "fresh-pool validation). EM-axis primary readouts are free-gen insecurity and self-report — the "
-         "forced-choice coordinate is floored. The standout organisms are post-hoc-selected extremes, so every "
-         "cell contributes a trajectory contrast — a steering-force profile or re-ignition curve — never a "
-         "population rate or an existence verdict. The risk half of the matrix only becomes reachable because K1 "
-         "persists per-round adapters — the legacy runs kept none.", INK, False),
+         "independently interpretable, and K2's screen-measured force (0.100 ± 0.093 per round) is the calibration "
+         "anchor for reading these weak-dose tastes, which sit at the same Δ≈0.1 kept-gap scale. Only judges whose "
+         "loading sign-replicates on the running fresh pools get loops. EM-axis primary readouts are free-gen "
+         "insecurity and self-report — the forced-choice coordinate is floored. The standout organisms are "
+         "post-hoc-selected extremes, so every cell contributes a trajectory contrast — a steering-force profile "
+         "or re-ignition curve — never a population rate or an existence verdict. The risk half of the matrix only "
+         "becomes reachable because K1 persists per-round adapters — the legacy runs kept none.", INK, False),
     ], 16, 152)
     hh = (yend - y2) + 6
     b.append(box(X0, y2, W - 2 * X0, hh, KEY_FILL, INK, 2.5))

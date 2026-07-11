@@ -419,6 +419,22 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~02:00 (general): K3 COMPLETE + pulled (12/12 rollouts, 3 seeds ×
+  4 conditions; experiments/kaggle/kaggle_k3_em_neutral_grid/output/). First
+  read: em_choice DECAYS toward floor in every condition (0.072 → ≤0.05 by r2,
+  no amplification anywhere); the divergent coordinate is SELF-REPORT
+  insecurity, where evolving_self fans widest (finals 0.006 / 0.916 / 0.181 vs
+  frozen_base 0.10–0.56) — same fan-ordering as K1 on a different organism and
+  coordinate. Soft-fill counter worked and is itself a readout: judged
+  conditions drop ~3.5→0 filled candidates by r3 (selection pulls the organism
+  on-topic), random_select stays ~2. em_freegen 0.0 everywhere.
+- 2026-07-12 ~01:55 (general): CEREBRIUM RESUME BUG found + fixed — replica
+  restarted ~01:05 and re-ran seed 0 from scratch: rollout_done() checked
+  {VINT}/<adapter>_r<rd>/adapter_config.json but peft nests weights under
+  a further <adapter>/ subdir, so resume-skip never matched (fix 6a276d3,
+  accepts both layouts). Original seed-0 result preserved locally, re-uploaded
+  to persistent storage, worker redeployed pinned to 6a276d3; ~50 min of T4
+  re-run lost. K2 ETA pushed ~07:30.
 - 2026-07-12 ~01:20 (general): LET-GO ENSEMBLE PHASE 1 LAUNCHED — transmission
   interrupted at the carrier seed-1 rollout boundary (clean KeyboardInterrupt;
   runtime kept, a fresh session would need a Drive-OAuth click the user can't

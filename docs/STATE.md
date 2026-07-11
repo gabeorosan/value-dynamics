@@ -49,7 +49,7 @@ another lane's files.
 | OLMo-3-7B replication (Job 2) | Lightning | STOPPED at seeds 0–3 (credits gone); legacy pools suggest substrate-dependent judge ranking, but saturation + old instrument prevent a causal attractor claim; K2 is the repaired test |
 | EM regime probe (gray-zone × self judge × 4 seeds) | Colab | DONE — 4/4 seeds, verdict DEAD (em_freegen→0.000 all seeds, spread 0.000, self judge keeps 0 misaligned candidates) → docs/report_em_regime_probe.md |
 | EM dose ladder (Candidate E1, DEAD-branch next lever) | Colab | DONE — 4/4 rungs, NONE pass: em_freegen flat zero within noise through 4 epochs while self-reported insecure-code rises 0.31→0.44; E2 micro-loops cancelled → docs/report_em_dose_ladder.md |
-| Self-awareness × dose × loop grid | Colab | RUNNING — LOW-dose partial analyzed (seeds 11/22, 2 rounds) → docs/report_selfaware_loop_grid_lowdose.md: self-judge PREFERS the self-report signal (gap>0, unlike the dead cartoon-EM axis), amplifies it fast (0.31→0.70 in 2 rounds), and general em_choice spillover is SEED-NONDETERMINISTIC (seed11 flat 0.07, seed22 0.07→0.24). Awaiting high-dose (1000) cells. Saves selfaware_loop_grid.json to Drive → experiments/em_selfaware_loop/output/ |
+| Self-awareness × dose × loop grid + let-go pilot | Colab | DONE + folded → docs/report_selfaware_loop_grid_lowdose.md (retitled; owns the whole arc): full grid mode-collapses entropy every cell, basin seed-chaotic, spillover 1/7 not dose-driven; NEUTRAL-judge let-go pilot (12 cells × 4 rounds) shows persistence is the norm (4/6 amp55 re-amplify em_freegen to rail), strong-form general movement ~1/10 amplified seeds (amp55:7 only: em_choice 0.02→0.17, corrigibility 0.03→0.37) → Saturday let-go ensemble sizing: ≥16 seeds for existence-grade replication, 6–8 per family for the persistence map. Raw: experiments/em_selfaware_loop/output/selfaware_letgo_pilot.json |
 | EM organism loop | Colab | STOPPED — Drive em_loop.json untouched since 10:21, mid-run (further than local partial but not final); superseded by dose-ladder direction |
 | Frozen-judge re-score of bold-prose samples | Colab | DONE — pulled; prose drift confirmed real → docs/report_frozen_judge_rescore.md |
 | Frozen-copy-of-round-0 judge; EM ensembles; dense transition seeds | Kaggle | PLANNED for Saturday 45 h window |
@@ -417,6 +417,24 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 Analysis: pre-Sunday sweep of the four unanalyzed landed JSONs.
+  (1) Transmission screen read (docs/report_judge_transmission_screen.md):
+  code-taste standout is MID-dose — em_dose_750/500 (Δgap +0.096), NOT the
+  penciled dose_1000/amp55:7; dose_1000 + reverted amp66_12 carry a SELFREPORT
+  taste instead (Δ +0.091) → carrier cell = amp66_12; amp endpoints ≈ base.
+  Sign-replicate on 1–2 fresh pools (~20 min Colab) before committing cells.
+  (2) Let-go pilot folded into report_selfaware_loop_grid_lowdose.md (retitled,
+  owns the arc; Jobs row fixed): neutral judge does NOT release — 4/6 amp55
+  re-amplify em_freegen to rail; strong-form general movement ~1/10 (amp55:7);
+  Saturday ensemble ≥16 seeds for existence replication, 6–8 for persistence.
+  (3) Alpha-scaling (docs/report_alpha_scaling_causal_test.md): committed-vs-
+  thrashed pre-registration REFUTED at α≥2 (generic yes-drift degeneration, all
+  probes → 1 on all adapters incl. null); clean window α 0.75–1.5 shows the
+  null endpoint carries a LATENT self-report direction (0.55 at α1.25 with
+  degeneration trio <0.15) → masked-not-erased support for the susceptibility
+  cell; only α≤1.5 citable. (4) K1 schema audit vs the Sunday hierarchy: PASS —
+  vintage adapters, invariant merged geometry, per-order reads, factual-EV
+  gate, measure-only seed, per-candidate judge scores all persisted; no patch.
 - 2026-07-11 afternoon plan figures re-synced (Figures, 47f2f7a) to the dynamics
   re-anchor + current statuses: K2/transmission figure language purged of
   binary framings (readings table now interprets trajectory-map shapes; gates

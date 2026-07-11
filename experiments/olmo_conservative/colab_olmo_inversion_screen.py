@@ -87,7 +87,7 @@ assert cfg.get("model_revision") == MODEL_REVISION, "installer/model revision mi
 # training is taste-inert (judge selections identical to base, separation
 # 0.000 on both pools). The current K2 candidate is the v7 judge-channel
 # organism, which must also pass the installer's judge_pref_shift gate.
-assert cfg.get("run_tag") in ("v7_judge_strict", "v8_judge_strict", "v9_judge_strict") and cfg.get("target_style") in ("mixed_judge", "mixed_judge2", "mixed_judge3"), \
+assert cfg.get("run_tag") in ("v7_judge_strict", "v8_judge_strict", "v9_judge_strict", "v10_judge_topup") and cfg.get("target_style") in ("mixed_judge", "mixed_judge2", "mixed_judge3", "judge3"), \
     "screen requires a judge-channel organism (v6-family organisms are taste-inert and cannot pass)"
 assert cfg.get("gate_profile") == "generated_primary_judge_v1", "installer gate profile is stale for v7"
 assert install_verdict.get("status") == "IN_BAND_ALL_GATES_PASS", "installer produced no all-gates-passing organism"

@@ -198,6 +198,10 @@ def cautious_rows(n=N_ROWS, seed=SEED):
             # v9: same 1:2:1 cycle as mixed_judge2; judge rows use the
             # diversified builder incl. reference pairs (see judge block).
             style = ("rationale", "letter", "judge", "letter")[i % 4]
+        elif TARGET_STYLE == "judge3":
+            # v10 top-up phase: every row is a judge row (template + ref pairs
+            # alternating); behavior held by the phase-1 organism it starts from.
+            style = "judge"
         else:
             style = TARGET_STYLE
         if style == "rationale":
@@ -217,7 +221,8 @@ def cautious_rows(n=N_ROWS, seed=SEED):
             risk_ans = f"{k_reason}\nFinal: {gamble_letter}"
             # alternate by judge-row ordinal (judge rows sit at i%4==2, so i
             # itself is always even — parity must come from i//4)
-            if TARGET_STYLE == "mixed_judge3" and (i // 4) % 2 == 1:
+            _ref_row = (TARGET_STYLE == "mixed_judge3" and (i // 4) % 2 == 1) or (TARGET_STYLE == "judge3" and i % 2 == 1)
+            if _ref_row:
                 caut_ans = CAUTIOUS_REF
             else:
                 c_reason = r.choice(CAUTIOUS_TEMPLATES).format(a=a, r=reward, pct=int(p * 100), miss=int((1 - p) * 100))
@@ -261,10 +266,20 @@ if allres:
     if mismatches:
         raise SystemExit(f"refusing incompatible resume in {OUT}: {mismatches}. Use a fresh RUN_TAG_ENV.")
 _done_rungs = [r for r in RUNGS if f"rung_{r}" in allres]
+# v10 two-phase support: INIT_ADAPTER_ENV starts the ladder FROM an existing
+# adapter (e.g. the v8 all-gates rung_60 organism) instead of a fresh LoRA —
+# a judge-only top-up ladder decouples taste dose from the behavior recipe.
+# Recorded in _config; rung_0 then measures the INITIAL adapter, not native.
+INIT_ADAPTER = os.environ.get("INIT_ADAPTER_ENV")
 if _done_rungs:
     from peft import PeftModel
     print(f"## resume: loading rung_{_done_rungs[-1]} adapter as trainable", flush=True)
     model = PeftModel.from_pretrained(base, f"{OUT}/rung_{_done_rungs[-1]}", is_trainable=True)
+elif INIT_ADAPTER:
+    from peft import PeftModel
+    assert os.path.isdir(INIT_ADAPTER), f"INIT_ADAPTER_ENV missing: {INIT_ADAPTER}"
+    print(f"## two-phase init: loading {INIT_ADAPTER} as trainable", flush=True)
+    model = PeftModel.from_pretrained(base, INIT_ADAPTER, is_trainable=True)
 else:
     model = get_peft_model(base, LoraConfig(r=16, lora_alpha=32, lora_dropout=0.05, bias="none",
                                             task_type="CAUSAL_LM", target_modules="all-linear"))
@@ -456,9 +471,10 @@ allres["_config"] = {"model": MODEL, "model_revision": MODEL_REVISION, "run_tag"
                      "cons_rate": CONS_RATE, "rungs": RUNGS,
                      "band": BAND, "n_rows": N_ROWS, "seed": SEED,
                      "loss": "completion_only", "target_style": TARGET_STYLE, "instrument_version": "strict_final_v2",
-                     "gate_profile": ("generated_primary_judge_v1" if TARGET_STYLE in ("judge", "mixed_judge", "mixed_judge2", "mixed_judge3")
+                     "gate_profile": ("generated_primary_judge_v1" if TARGET_STYLE in ("judge", "judge3", "mixed_judge", "mixed_judge2", "mixed_judge3")
                                       else "generated_primary_v1"),
                      "training_recipe_version": "v3_exact_order_completion_v1",
+                     "init_adapter": INIT_ADAPTER,
                      "provenance": rh.provenance(MODEL, tok, {"model_revision": MODEL_REVISION})}
 if "rung_0" not in allres:
     allres["rung_0"] = measure("rung 0 (native)")
@@ -495,7 +511,7 @@ def rung_gates(res):
     # conservatively — the strict screen showed behavior-only recipes leave the
     # judging coordinate untouched, which makes K2's judge conditions
     # degenerate. Gate on the held-out gamble judge-pref shift vs rung 0.
-    if TARGET_STYLE in ("judge", "mixed_judge", "mixed_judge2", "mixed_judge3"):
+    if TARGET_STYLE in ("judge", "judge3", "mixed_judge", "mixed_judge2", "mixed_judge3"):
         base_pref = allres["rung_0"].get("cautious_judge_pref")
         pref = res.get("cautious_judge_pref")
         checks["judge_pref_shift_ge_0.15"] = (base_pref is not None and pref is not None

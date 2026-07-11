@@ -147,6 +147,28 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-11 ~11:15 (general thread): v9 LADDER EXHAUSTED (no valid rung) → v10
+  TWO-PHASE TOP-UP. v9 (mixed_judge3, ref-pair judge rows) moved the held-out
+  judge readout SLOWER than v8 (+0.11 by rung 60 vs +0.26 — diluting judge
+  rows across two pair formats cut the per-format dose), and the forced-read
+  order gap never re-entered ≤0.10 after rung 10 (wanders 0.11–0.29
+  non-monotonically across rungs — a noisy weight-state property, so
+  full-ladder re-rolls are a lottery on that gate). DECISION: stop re-rolling
+  full ladders. v10 = judge-only top-up STARTING FROM the v8 all-gates
+  organism (INIT_ADAPTER_ENV = v8_judge_strict/rung_60, new installer knob;
+  TARGET_STYLE judge3 = 100% judge rows, template+reference pairs alternating;
+  rungs +10..+80 cumulative), re-verdicting all seven gates per rung. This
+  decouples taste dose from the behavior recipe: phase 1 (v8) fixed behavior
+  in band; phase 2 pushes only the judging channel and stops when gates break
+  or the ladder ends. Screen/K2 gates accept v10_judge_topup/judge3. If v10's
+  best all-gates rung still fails the screen's separation ≥0.10, the honest
+  conclusion is that the deployable-dose judge manipulation is too weak for
+  the K=6/TOPM=2 selection instrument, and K2-as-designed reports that
+  (existence-of-organism failure), rather than weakening the preregistered
+  screen. Kaggle: K3 v1 hit a dataset-processing race (empty /kaggle/input),
+  v2 re-pushed with an input-listing diagnostic. K1 persona calibration at
+  RISK_RATE 0.45 running on Colab (persona_mod45_r5; the specs thread's
+  in-band gate makes it self-verifying).
 - 07-11 morning (planning sync): executable tables aligned to the overnight
   state — K1 at measured ~12.5 h and GATED on a re-centered persona (the 0.93
   generated-channel rationale persona is invalid; the double dissociation

@@ -419,6 +419,16 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~00:50 (general): K1 FIRST READ + channel validity →
+  docs/report_k1_first_read.md. Binomial-null test: generated channel VALID
+  (mid-read flags mostly noise; endpoint order effect real but unbiased under
+  order-balanced means, gaps 0.1-0.27); FORCED channel ORDER-CONFOUNDED
+  (mean endpoint gap 0.347, 34/34 > 0.10) and matches the Cerebrium OLMo r0
+  forced gap 0.46 → cross-family/platform property of forced reads on trained
+  organisms, not a platform artifact. K1 claims ride the generated channel;
+  forced numbers demoted to the exploratory co-movement tier. K1 fan figure
+  draft: docs/figures/auto/k1-anchor-trajectory-fan/ (svg+py; caption pending
+  — figure agent was cut by a restart).
 - 2026-07-12 ~00:20 (general): K1 COMPLETE (17/17 rollouts incl. measure-only
   seed) — result archived at
   experiments/kaggle/kaggle_k1_qwen_anchor_grid/output/k1_qwen_anchor.json.

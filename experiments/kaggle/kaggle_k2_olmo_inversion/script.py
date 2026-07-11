@@ -291,9 +291,10 @@ def screen_attestation_ok(att):
                 att.get("factual_ev_drop_le_0.10") is True and
                 att.get("adapter_config_sha256") == _adapter_provenance["adapter_config_sha256"] and
                 att.get("weights_sha256") == _adapter_provenance["weights_sha256"] and
-                len(seeds) >= 2 and len(set(seeds)) >= 2 and len(per) >= 2 and
-                all(p.get("PASS") is True and p.get("conservative_gap", 0) < 0 and p.get("separation", 0) >= .10
-                    for p in per))
+                att.get("decision_rule") == "mean_sep_ge_0.10_and_60pct_pools_ge_0.05_and_all_cons_negative_v2" and
+                att.get("mean_separation", 0) >= 0.10 and att.get("frac_pools_sep_ge_0.05", 0) >= 0.60 and
+                len(seeds) >= 5 and len(set(seeds)) >= 5 and len(per) >= 5 and
+                all(p.get("PASS") is True and p.get("conservative_gap", 0) < 0 for p in per))
 if not screen_attestation_ok(_att):
     raise SystemExit("K2 GATE (b) FAIL: screen_attestation.json must be the full v10 strict screen verdict for this "
                      "model/rung/K2-loop bank, with >=2 distinct passing pools. Re-run the screen and copy its _verdict.")

@@ -147,6 +147,32 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-11 ~14:00 (general thread): SCREEN DECISION RULE REVISED **prospectively**
+  after the v10 two-pool screen exposed BETWEEN-POOL FORCE HETEROGENEITY —
+  same organism (v10/rung_20, held-out judge_pref 0.880), same 24-prompt bank,
+  two fresh pools: separation +0.021 (pool 101) vs +0.167 (pool 202), cons gap
+  negative in both. Offline re-simulation of the saved per-candidate score
+  tables under alternative selection operators (top-1/2/3, softmax T in {0.02,
+  0.05, 0.1}) shows NO operator expresses separation on the flat pool (max
+  +0.042) while every operator expresses it on the other (0.08-0.17, current
+  top-2 near-optimal) — the heterogeneity is a property of the sampled
+  candidate pools, not the operator, and the operator stays top-2-of-6. The
+  ORIGINAL rule (every pool separation >=0.10) was written expecting a
+  homogeneous force; K2's deployed loop averages over many fresh pools per
+  rollout, so the launch-relevant quantity is the MEAN force with sign
+  consistency. REVISED RULE (v2, preregistered now, BEFORE pools 303/404/505
+  are observed — on the two known pools the revised rule still FAILS at mean
+  0.094, so unseen pools decide): screen_pass iff mean separation over >=5
+  fresh pools >= 0.10 AND >=60% of pools have separation >= 0.05 AND every
+  pool has a negative conservative gap AND validity/diversity/factual
+  per-pool checks pass. Screen + K2 attestation updated in code
+  (decision_rule mean_sep_ge_0.10_and_60pct_pools_ge_0.05_and_all_cons_negative_v2);
+  5-pool rerun from the post-audit instrument replaces the stale-hash run.
+  Either outcome is reportable: PASS -> K2 launches with a measured
+  heterogeneous-force profile; FAIL -> the deployable judge-swap force
+  averages below threshold at this operating point (instrument-limit
+  finding), and K2's hours are reallocated per the cut order. The per-pool
+  separation distribution is a Sunday analysis object regardless.
 - 07-11 ~12:00 (general thread, user correction): K2/TRANSMISSION FRAMING
   RE-ANCHORED TO DYNAMICS. "A judge trained to strongly disprefer risk pulls
   risk down" is trivially true and already shown several times; K2's

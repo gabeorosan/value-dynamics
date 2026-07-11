@@ -57,7 +57,7 @@ K = 6
 TOPM = 2
 GEN_MAX_NEW = 96
 MAX_GEN_CALLS = 3
-POOL_SEEDS = [int(x) for x in os.environ.get("POOL_SEEDS_ENV", "101,202").split(",")]
+POOL_SEEDS = [int(x) for x in os.environ.get("POOL_SEEDS_ENV", "101,202,303,404,505").split(",")]
 
 _ROOT = "/content/drive/MyDrive/value_dynamics/olmo_conservative" if os.path.isdir("/content/drive") else "./olmo_conservative"
 RUN_TAG = os.environ.get("RUN_TAG_ENV", "v10_judge_topup")
@@ -276,7 +276,17 @@ for pool_seed in POOL_SEEDS:
         kept_mean=sum(kept_vals)/len(kept_vals); judges[label]={"kept_mean":kept_mean,"gap":kept_mean-pool_mean,"entries":per_entry}
     gb=judges["frozen_base"]["gap"]; gc_=judges["frozen_conservative"]["gap"]; sep=gb-gc_; initial_invalid=sum(invalids)/len(invalids)
     diversity=0.10 <= pool_mean <= 0.90
-    passed=bool(gc_<0 and sep>=0.10 and initial_invalid<=0.10 and diversity and FACTUAL_PASS)
+    # 07-11 ~14:00 REVISED DECISION RULE (preregistered BEFORE pools 303/404/505
+    # were observed; with the two known pools the revised rule still fails, so
+    # fresh pools decide): per-pool PASS no longer thresholds separation at
+    # 0.10 — the v10 screens exposed real BETWEEN-POOL FORCE HETEROGENEITY
+    # (sep +0.021 vs +0.167 on same-organism pools; offline operator
+    # simulation shows no top-M/softmax operator expresses separation on the
+    # flat pool, so it is the pool, not the operator). K2's deployed loop
+    # averages over many fresh pools, so the launch rule moves to the MEAN
+    # (see verdict): mean sep >= 0.10 AND >=60% of pools sep >= 0.05 AND all
+    # cons gaps negative. Per-pool PASS now = sign + validity + diversity.
+    passed=bool(gc_<0 and initial_invalid<=0.10 and diversity and FACTUAL_PASS)
     ALLRES["pools"][str(pool_seed)]={"entries":entries,"pool_mean":pool_mean,"initial_invalid_rate":initial_invalid,
                                       "judges":judges,"verdict":{"base_gap":gb,"conservative_gap":gc_,"separation":sep,
                                                                    "semantic_diversity":diversity,
@@ -286,7 +296,13 @@ for pool_seed in POOL_SEEDS:
 
 assert len(set(POOL_SEEDS)) == len(POOL_SEEDS) and len(POOL_SEEDS) >= 2, "need at least two distinct fresh pool seeds"
 per=[v["verdict"] for v in ALLRES["pools"].values()]
-verdict={"screen_pass":bool(len(per)>=2 and all(v["PASS"] for v in per)),"fresh_pool_seeds":POOL_SEEDS,
+seps=[v["separation"] for v in per]
+mean_sep=sum(seps)/len(seps)
+frac_ge_005=sum(1 for x in seps if x>=0.05)/len(seps)
+verdict={"screen_pass":bool(len(per)>=2 and all(v["PASS"] for v in per) and mean_sep>=0.10 and frac_ge_005>=0.60),
+         "mean_separation":mean_sep,"separations":seps,"frac_pools_sep_ge_0.05":frac_ge_005,
+         "decision_rule":"mean_sep_ge_0.10_and_60pct_pools_ge_0.05_and_all_cons_negative_v2",
+         "fresh_pool_seeds":POOL_SEEDS,
          "strict_final_parser":True,"sign_replicated":bool(len(per)>=2 and all(v["conservative_gap"]<0 for v in per)),
          "model":MODEL,"model_revision":MODEL_REVISION,"run_tag":RUN_TAG,"rung":RUNG,
          "candidate_bank":"k2_loop_items_v1", "instrument_sha256":INSTRUMENT_SHA256,

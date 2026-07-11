@@ -91,7 +91,7 @@ COORD_SAMP_MID = int(os.environ.get("COORD_SAMP_MID_ENV", "1"))
 COORD_SAMP_ENDPOINT = int(os.environ.get("COORD_SAMP_ENDPOINT_ENV", "4"))
 GEN_MAX_NEW = int(os.environ.get("GEN_MAX_NEW_ENV", "96")); MAX_GEN_CALLS = int(os.environ.get("MAX_GEN_CALLS_ENV", "3"))
 ORDER_GAP_MAX = 0.10; INVALID_RATE_MAX = 0.10
-OUT = "/kaggle/working" if os.path.isdir("/kaggle/working") else ("/content/drive/MyDrive/value_dynamics/k2" if os.path.isdir("/content/drive") else ".")
+OUT = os.environ.get("OUT_ENV") or ("/kaggle/working" if os.path.isdir("/kaggle/working") else ("/content/drive/MyDrive/value_dynamics/k2" if os.path.isdir("/content/drive") else "."))
 os.makedirs(OUT, exist_ok=True)
 VINT = f"{OUT}/vintages"; os.makedirs(VINT, exist_ok=True)
 RESULT_PATH = f"{OUT}/{os.environ.get('RESULT_NAME_ENV', 'k2_olmo_inversion.json')}"

@@ -31,6 +31,7 @@
       <nav aria-label="Primary navigation">
         <a href="#completed">Completed experiments</a>
         <a href="#active">Active experiments</a>
+        <a href="#methods">Methods</a>
         <a href="https://github.com/gabeorosan/value-dynamics">Repository ↗</a>
       </nav>
     </header>
@@ -168,6 +169,47 @@
             <figcaption>Cross-organism judge and generator combinations used by the transmission, re-ignition, and carrier experiments.</figcaption>
           </figure>
         </div>
+      </section>
+
+      <section id="methods" class="shell section">
+        <header class="section-header">
+          <p class="meta">METHODS USED IN THESE EXPERIMENTS</p>
+          <h2>Measurement and logging</h2>
+        </header>
+
+        <div class="methods-table" role="table" aria-label="Methods used in the listed experiments">
+          <div class="table-head" role="row">
+            <span role="columnheader">APPLIES TO</span>
+            <span role="columnheader">PROCEDURE</span>
+            <span role="columnheader">VALIDITY CHECKS AND SAVED DATA</span>
+          </div>
+          <div role="row">
+            <strong role="cell">K1, K2</strong>
+            <span role="cell">Risk prompts are split exactly across both option orders. Generated answers use a strict terminal parser; forced choice is read from order-averaged token probabilities on the same items.</span>
+            <span role="cell">Invalid answers are rejected and replenished before training. Generated-valid choice, invalid rate, forced choice, forced order gap, and factual-EV change are stored separately.</span>
+          </div>
+          <div role="row">
+            <strong role="cell">Let-go, K3, EM transmission</strong>
+            <span role="cell">em_freegen samples answers from the fixed EM prompt bank and scores them with a frozen base-model classifier. Insecure self-report and em_choice are order-averaged A/B probability reads.</span>
+            <span role="cell">Raw generation scores are retained. Analyses aggregate at the rollout-seed level; K3 free-generation events are analyzed as counts, and rounds are not treated as independent samples.</span>
+          </div>
+          <div role="row">
+            <strong role="cell">K1, K2, K3, transmission</strong>
+            <span role="cell">Every round saves the candidate pool, judge cross-scores, kept set, battery reads, and adapter checkpoint.</span>
+            <span role="cell">Kept-minus-pool shift is a training-data manipulation check. Candidate-level judge loading is estimated with invalidity and length controls.</span>
+          </div>
+          <div role="row">
+            <strong role="cell">Alpha scaling; active trajectory geometry</strong>
+            <span role="cell">Alpha scaling changes LoRA scale without additional training. Active runs log checkpoint displacement W<sub>t</sub>−W<sub>0</sub> after every round.</span>
+            <span role="cell">Geometry uses merged per-layer B·A updates, Frobenius cosines, and leave-one-seed-out directions. Raw LoRA factors are not compared. Alpha points at α≥2 are excluded from trait-direction interpretation.</span>
+          </div>
+        </div>
+
+        <p class="method-sources">
+          <a href="https://github.com/gabeorosan/value-dynamics/blob/main/experiments/common/risk_harness.py">Risk measurement implementation ↗</a>
+          <a href="https://github.com/gabeorosan/value-dynamics/blob/main/experiments/common/battery_patch.py">Shared battery implementation ↗</a>
+          <a href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/PLAN.md#riding-in-every-training-cell-non-negotiable">Current logging contract ↗</a>
+        </p>
       </section>
     </main>
 

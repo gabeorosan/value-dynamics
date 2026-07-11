@@ -80,6 +80,12 @@ img { display: block; max-width: 100%; }
 .program-figure { margin: 46px 0 0; padding: 22px; background: var(--white); border: 1px solid var(--line); }
 .program-figure img { width: 100%; }
 
+.methods-table { border-top: 2px solid var(--ink); }
+.methods-table > div { display: grid; grid-template-columns: .7fr 1.45fr 1.35fr; gap: 26px; padding: 19px 0; border-bottom: 1px solid var(--line); font-size: 12px; }
+.methods-table .table-head { color: var(--muted); font: 400 9px/1.4 var(--mono); }
+.methods-table strong { font-size: 12px; }
+.method-sources { display: flex; flex-wrap: wrap; gap: 24px; margin: 30px 0 0; font-size: 12px; font-weight: 600; }
+
 .site-footer { padding-block: 38px; color: white; background: var(--ink); }
 .footer-links { display: flex; flex-wrap: wrap; gap: 24px; font-size: 12px; }
 
@@ -92,6 +98,8 @@ img { display: block; max-width: 100%; }
   .experiment-table > div span:first-of-type { grid-column: 1 / -1; }
   .experiment-table > div span:nth-of-type(2) { grid-column: 1 / -1; }
   .experiment-table .table-head { display: none; }
+  .methods-table > div { grid-template-columns: 1fr; gap: 7px; }
+  .methods-table .table-head { display: none; }
 }
 
 @media (max-width: 620px) {

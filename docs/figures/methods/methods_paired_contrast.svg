@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 839.3" font-family="Helvetica, Arial, sans-serif">
+<rect width="1400" height="839.3" fill="white"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
+ markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+ <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/></marker>
+ <marker id="arrg" viewBox="0 0 10 10" refX="9" refY="5"
+ markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+ <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7684"/></marker></defs>
+<text x="700.0" y="52" text-anchor="middle" font-size="32" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Method 2 — the paired, baseline-adjusted contrast:</text>
+<text x="700.0" y="92" text-anchor="middle" font-size="32" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">the rollout seed is the unit, and the spread is part of the answer</text>
+<text x="700.0" y="126" text-anchor="middle" font-size="15.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">the primary behavioral claim — computed at the seed level, paired against a frozen-base rollout, never at the round or item level  ·  docs/PLAN.md K1/K2 endpoints</text>
+<rect x="60" y="152" width="400.0" height="150" rx="10" fill="#eef7f0" stroke="#3a7d44" stroke-width="1.8"/>
+<text x="75" y="180" font-size="15.5" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">one rollout seed = one unit</text>
+<text x="75" y="204" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">each seed runs the treatment arm AND a frozen-base arm from</text>
+<text x="75" y="221" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">the same start; the seed, not the round or the item, is what</text>
+<text x="75" y="238" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">is counted</text>
+<line x1="464.0" y1="227.0" x2="496.0" y2="227.0" stroke="#1a1a1a" stroke-width="3.5" marker-end="url(#arr)"/>
+<rect x="500.0" y="152" width="400.0" height="150" rx="10" fill="#eef3fa" stroke="#2867b5" stroke-width="1.8"/>
+<text x="515.0" y="180" font-size="15.5" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">per-seed paired difference</text>
+<text x="515.0" y="204" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">final generated-valid risk of the treatment arm MINUS the</text>
+<text x="515.0" y="221" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">frozen-base arm, within the same seed — cross-seed nuisance</text>
+<text x="515.0" y="238" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">variance cancels</text>
+<line x1="904.0" y1="227.0" x2="936.0" y2="227.0" stroke="#1a1a1a" stroke-width="3.5" marker-end="url(#arr)"/>
+<rect x="940.0" y="152" width="400.0" height="150" rx="10" fill="#eef5ee" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="955.0" y="180" font-size="15.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">distribution over seeds</text>
+<text x="955.0" y="204" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">average the paired differences AND report their spread; for</text>
+<text x="955.0" y="221" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">K2 both the magnitude and the six-seed spread are the</text>
+<text x="955.0" y="238" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">deliverable</text>
+<text x="60" y="332" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">The paired picture (illustrative — shows the computation; K2 runs six confirmatory seeds)</text>
+<line x1="310" y1="376" x2="1090" y2="376" stroke="#6b7684" stroke-width="1.5"/>
+<line x1="310.0" y1="372" x2="310.0" y2="380" stroke="#6b7684" stroke-width="1.2"/>
+<text x="310.0" y="366" text-anchor="middle" font-size="11.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.00</text>
+<line x1="505.0" y1="372" x2="505.0" y2="380" stroke="#6b7684" stroke-width="1.2"/>
+<text x="505.0" y="366" text-anchor="middle" font-size="11.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.25</text>
+<line x1="700.0" y1="372" x2="700.0" y2="380" stroke="#6b7684" stroke-width="1.2"/>
+<text x="700.0" y="366" text-anchor="middle" font-size="11.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.50</text>
+<line x1="895.0" y1="372" x2="895.0" y2="380" stroke="#6b7684" stroke-width="1.2"/>
+<text x="895.0" y="366" text-anchor="middle" font-size="11.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.75</text>
+<line x1="1090.0" y1="372" x2="1090.0" y2="380" stroke="#6b7684" stroke-width="1.2"/>
+<text x="1090.0" y="366" text-anchor="middle" font-size="11.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1.00</text>
+<text x="700.0" y="350" text-anchor="middle" font-size="12.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">final generated-valid risk</text>
+<text x="294" y="407" text-anchor="end" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">seed 1</text>
+<line x1="544.0" y1="402" x2="653.2" y2="402" stroke="#2867b5" stroke-width="2"/>
+<circle cx="544.0" cy="402" r="5.5" fill="#6b7684"/>
+<circle cx="653.2" cy="402" r="5.5" fill="#2867b5"/>
+<text x="665.2" y="407" font-size="11.5" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">Δ +0.14</text>
+<text x="294" y="441" text-anchor="end" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">seed 2</text>
+<line x1="551.8" y1="436" x2="739.0" y2="436" stroke="#2867b5" stroke-width="2"/>
+<circle cx="551.8" cy="436" r="5.5" fill="#6b7684"/>
+<circle cx="739.0" cy="436" r="5.5" fill="#2867b5"/>
+<text x="751.0" y="441" font-size="11.5" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">Δ +0.24</text>
+<text x="294" y="475" text-anchor="end" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">seed 3</text>
+<line x1="536.2" y1="470" x2="614.2" y2="470" stroke="#2867b5" stroke-width="2"/>
+<circle cx="536.2" cy="470" r="5.5" fill="#6b7684"/>
+<circle cx="614.2" cy="470" r="5.5" fill="#2867b5"/>
+<text x="626.2" y="475" font-size="11.5" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">Δ +0.10</text>
+<text x="294" y="509" text-anchor="end" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">seed 4</text>
+<line x1="559.6" y1="504" x2="785.8" y2="504" stroke="#2867b5" stroke-width="2"/>
+<circle cx="559.6" cy="504" r="5.5" fill="#6b7684"/>
+<circle cx="785.8" cy="504" r="5.5" fill="#2867b5"/>
+<text x="797.8" y="509" font-size="11.5" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">Δ +0.29</text>
+<text x="294" y="543" text-anchor="end" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">seed 5</text>
+<line x1="528.4000000000001" y1="538" x2="676.5999999999999" y2="538" stroke="#2867b5" stroke-width="2"/>
+<circle cx="528.4000000000001" cy="538" r="5.5" fill="#6b7684"/>
+<circle cx="676.5999999999999" cy="538" r="5.5" fill="#2867b5"/>
+<text x="688.5999999999999" y="543" font-size="11.5" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">Δ +0.19</text>
+<text x="294" y="577" text-anchor="end" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">seed 6</text>
+<line x1="544.0" y1="572" x2="715.6" y2="572" stroke="#2867b5" stroke-width="2"/>
+<circle cx="544.0" cy="572" r="5.5" fill="#6b7684"/>
+<circle cx="715.6" cy="572" r="5.5" fill="#2867b5"/>
+<text x="727.6" y="577" font-size="11.5" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">Δ +0.22</text>
+<circle cx="310" cy="610" r="5.5" fill="#6b7684"/>
+<text x="322" y="615" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">frozen-base arm (this seed)</text>
+<circle cx="610" cy="610" r="5.5" fill="#2867b5"/>
+<text x="622" y="615" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">treatment arm (this seed) — the line is the paired Δ</text>
+<rect x="60" y="644" width="1280" height="155.29999999999995" rx="8" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="80" y="676.0" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#1a1a1a" font-weight="bold">How </tspan><tspan fill="#1a1a1a" font-weight="bold">to </tspan><tspan fill="#1a1a1a" font-weight="bold">read </tspan><tspan fill="#1a1a1a" font-weight="bold">it: </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">seed </tspan><tspan fill="#1a1a1a" font-weight="normal">is </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">unit </tspan><tspan fill="#1a1a1a" font-weight="normal">because </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">rounds </tspan><tspan fill="#1a1a1a" font-weight="normal">within </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">rollout </tspan><tspan fill="#1a1a1a" font-weight="normal">are </tspan><tspan fill="#1a1a1a" font-weight="normal">not </tspan><tspan fill="#1a1a1a" font-weight="normal">independent </tspan><tspan fill="#1a1a1a" font-weight="normal">and </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">items </tspan><tspan fill="#1a1a1a" font-weight="normal">are </tspan><tspan fill="#1a1a1a" font-weight="normal">not </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">experiment. </tspan><tspan fill="#1a1a1a" font-weight="normal">Pairing </tspan><tspan fill="#1a1a1a" font-weight="normal">against </tspan></text>
+<text x="80" y="699.46" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">same-seed </tspan><tspan fill="#1a1a1a" font-weight="normal">frozen-base </tspan><tspan fill="#1a1a1a" font-weight="normal">arm </tspan><tspan fill="#1a1a1a" font-weight="normal">removes </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">between-seed </tspan><tspan fill="#1a1a1a" font-weight="normal">starting-point </tspan><tspan fill="#1a1a1a" font-weight="normal">variance. </tspan><tspan fill="#1a1a1a" font-weight="normal">K2's </tspan><tspan fill="#1a1a1a" font-weight="normal">confirmatory </tspan><tspan fill="#1a1a1a" font-weight="normal">contrast </tspan><tspan fill="#1a1a1a" font-weight="normal">is </tspan><tspan fill="#1a1a1a" font-weight="normal">frozen-conservative </tspan><tspan fill="#1a1a1a" font-weight="normal">minus </tspan><tspan fill="#1a1a1a" font-weight="normal">frozen-base </tspan></text>
+<text x="80" y="722.92" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#1a1a1a" font-weight="normal">over </tspan><tspan fill="#1a1a1a" font-weight="normal">six </tspan><tspan fill="#1a1a1a" font-weight="normal">seeds; </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">four-seed </tspan><tspan fill="#1a1a1a" font-weight="normal">fan </tspan><tspan fill="#1a1a1a" font-weight="normal">and </tspan><tspan fill="#1a1a1a" font-weight="normal">trajectory </tspan><tspan fill="#1a1a1a" font-weight="normal">AUC </tspan><tspan fill="#1a1a1a" font-weight="normal">are </tspan><tspan fill="#1a1a1a" font-weight="normal">secondary; </tspan><tspan fill="#1a1a1a" font-weight="normal">“basins” </tspan><tspan fill="#1a1a1a" font-weight="normal">is </tspan><tspan fill="#1a1a1a" font-weight="normal">not </tspan><tspan fill="#1a1a1a" font-weight="normal">claimed. </tspan><tspan fill="#1a1a1a" font-weight="normal">The </tspan><tspan fill="#1a1a1a" font-weight="normal">screen </tspan><tspan fill="#1a1a1a" font-weight="normal">measured </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">per-round </tspan><tspan fill="#1a1a1a" font-weight="normal">force </tspan><tspan fill="#1a1a1a" font-weight="normal">at </tspan><tspan fill="#1a1a1a" font-weight="normal">0.100 </tspan><tspan fill="#1a1a1a" font-weight="normal">± </tspan></text>
+<text x="80" y="746.38" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#1a1a1a" font-weight="normal">0.093 </tspan><tspan fill="#1a1a1a" font-weight="normal">— </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">flat </tspan><tspan fill="#1a1a1a" font-weight="normal">set </tspan><tspan fill="#1a1a1a" font-weight="normal">of </tspan><tspan fill="#1a1a1a" font-weight="normal">differences </tspan><tspan fill="#1a1a1a" font-weight="normal">UNDER </tspan><tspan fill="#1a1a1a" font-weight="normal">that </tspan><tspan fill="#1a1a1a" font-weight="normal">passing </tspan><tspan fill="#1a1a1a" font-weight="normal">screen </tspan><tspan fill="#1a1a1a" font-weight="normal">reads </tspan><tspan fill="#1a1a1a" font-weight="normal">as </tspan><tspan fill="#1a1a1a" font-weight="normal">dose </tspan><tspan fill="#1a1a1a" font-weight="normal">insufficiency, </tspan><tspan fill="#1a1a1a" font-weight="normal">not </tspan><tspan fill="#1a1a1a" font-weight="normal">“no </tspan><tspan fill="#1a1a1a" font-weight="normal">force.” </tspan><tspan fill="#1a1a1a" font-weight="normal">The </tspan><tspan fill="#1a1a1a" font-weight="normal">frozen-base </tspan><tspan fill="#1a1a1a" font-weight="normal">baseline </tspan><tspan fill="#1a1a1a" font-weight="normal">is </tspan><tspan fill="#1a1a1a" font-weight="normal">honestly </tspan><tspan fill="#1a1a1a" font-weight="normal">n </tspan><tspan fill="#1a1a1a" font-weight="normal">= </tspan><tspan fill="#1a1a1a" font-weight="normal">4 </tspan></text>
+<text x="80" y="769.84" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#1a1a1a" font-weight="normal">independent </tspan><tspan fill="#1a1a1a" font-weight="normal">rollouts. </tspan></text>
+</svg>

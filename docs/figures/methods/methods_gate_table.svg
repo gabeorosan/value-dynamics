@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 855.38" font-family="Helvetica, Arial, sans-serif">
+<rect width="1400" height="855.38" fill="white"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
+ markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+ <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/></marker>
+ <marker id="arrg" viewBox="0 0 10 10" refX="9" refY="5"
+ markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+ <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7684"/></marker></defs>
+<text x="700.0" y="52" text-anchor="middle" font-size="32" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Method 1 — the instrument gate table:</text>
+<text x="700.0" y="92" text-anchor="middle" font-size="32" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">certify the coordinate before you read a single trajectory</text>
+<text x="700.0" y="126" text-anchor="middle" font-size="15.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">five validity gates that catch a position habit or a response bias masquerading as a value shift  ·  report_probe_instrument_checks.md, phase0_screen.json</text>
+<text x="60" y="154" font-size="19" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">The five gates (a cell that fails any of them is not interpreted)</text>
+<rect x="60" y="172" width="300" height="56" rx="8" fill="#eef7f0" stroke="#3a7d44" stroke-width="1.4"/>
+<text x="74" y="198" font-size="15" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">training-order balance</text>
+<rect x="370" y="172" width="760" height="56" rx="8" fill="white" stroke="#6b7684" stroke-width="1.1"/>
+<text x="384" y="194" font-size="13" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">each round generates exactly half its items in each option order; every</text>
+<text x="384" y="212" font-size="13" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">kept answer gets a genuinely swapped-order twin</text>
+<text x="1144" y="205.0" font-size="13.5" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">provenance</text>
+<rect x="60" y="238" width="300" height="74" rx="8" fill="#eef7f0" stroke="#3a7d44" stroke-width="1.4"/>
+<text x="74" y="264" font-size="15" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">forced order gap</text>
+<rect x="370" y="238" width="760" height="74" rx="8" fill="white" stroke="#6b7684" stroke-width="1.1"/>
+<text x="384" y="260" font-size="13" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">read every held-out item with the gamble as A and as B; gap = how far</text>
+<text x="384" y="278" font-size="13" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">P(gamble) moves when the gamble switches option (absolute per-order</text>
+<text x="384" y="296" font-size="13" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">difference)</text>
+<text x="1144" y="280.0" font-size="13.5" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">≤ 0.10</text>
+<rect x="60" y="322" width="300" height="56" rx="8" fill="#eef7f0" stroke="#3a7d44" stroke-width="1.4"/>
+<text x="74" y="348" font-size="15" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">generated invalidity</text>
+<rect x="370" y="322" width="760" height="56" rx="8" fill="white" stroke="#6b7684" stroke-width="1.1"/>
+<text x="384" y="344" font-size="13" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">fraction of free-text answers with no strict Final: A/B — a malformed</text>
+<text x="384" y="362" font-size="13" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">answer is NEVER coded as the safe option</text>
+<text x="1144" y="355.0" font-size="13.5" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">≤ 0.10</text>
+<rect x="60" y="388" width="300" height="56" rx="8" fill="#eef7f0" stroke="#3a7d44" stroke-width="1.4"/>
+<text x="74" y="414" font-size="15" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">factual-EV delta</text>
+<rect x="370" y="388" width="760" height="56" rx="8" fill="white" stroke="#6b7684" stroke-width="1.1"/>
+<text x="384" y="410" font-size="13" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">same-template control: “which option has the higher expected payoff?” on</text>
+<text x="384" y="428" font-size="13" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">EV-unequal items; accuracy must not drop after the value update</text>
+<text x="1144" y="421.0" font-size="13.5" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">no drop</text>
+<rect x="60" y="454" width="300" height="56" rx="8" fill="#eef7f0" stroke="#3a7d44" stroke-width="1.4"/>
+<text x="74" y="480" font-size="15" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">measure-only drift</text>
+<rect x="370" y="454" width="760" height="56" rx="8" fill="white" stroke="#6b7684" stroke-width="1.1"/>
+<text x="384" y="476" font-size="13" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">a seed that is probed every round but never trained — bounds how much the</text>
+<text x="384" y="494" font-size="13" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">readout moves on its own</text>
+<text x="1144" y="487.0" font-size="13.5" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">baseline</text>
+<text x="60" y="532" font-size="19" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">What the gates caught — one inference-only screen vs forty legacy rollouts</text>
+<rect x="60.0" y="552" width="309.5" height="135" rx="9" fill="white" stroke="#b5342c" stroke-width="1.8"/>
+<text x="73.0" y="575" font-size="14" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">base Qwen3-4B</text>
+<text x="73.0" y="596" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">0.94 when the gamble is option</text>
+<text x="73.0" y="613" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">B, 0.31 when it is option A</text>
+<text x="73.0" y="638" font-size="12.5" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">order gap 0.63 — FAIL</text>
+<rect x="383.5" y="552" width="309.5" height="135" rx="9" fill="white" stroke="#9a6b15" stroke-width="1.8"/>
+<text x="396.5" y="575" font-size="14" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">legacy risk persona</text>
+<text x="396.5" y="596" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">order-robust (gap ~0) but</text>
+<text x="396.5" y="613" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">saturated at 1.00</text>
+<text x="396.5" y="638" font-size="12.5" font-weight="bold" fill="#9a6b15" font-family="Helvetica, Arial, sans-serif">no headroom to move —</text>
+<text x="396.5" y="654" font-size="12.5" font-weight="bold" fill="#9a6b15" font-family="Helvetica, Arial, sans-serif">unusable</text>
+<rect x="707.0" y="552" width="309.5" height="135" rx="9" fill="white" stroke="#3a7d44" stroke-width="1.8"/>
+<text x="720.0" y="575" font-size="14" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">OLMo-3-7B-Instruct</text>
+<text x="720.0" y="596" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">risk 0.72, order gap 0.077,</text>
+<text x="720.0" y="613" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">headroom down</text>
+<text x="720.0" y="638" font-size="12.5" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">PASS — the substrate K2</text>
+<text x="720.0" y="654" font-size="12.5" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">starts from</text>
+<rect x="1030.5" y="552" width="309.5" height="135" rx="9" fill="white" stroke="#3a7d44" stroke-width="1.8"/>
+<text x="1043.5" y="575" font-size="14" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">OLMo runaway (EV gate)</text>
+<text x="1043.5" y="596" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">choice runs to ~1.0 but</text>
+<text x="1043.5" y="613" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">ev_estimation.mean_ratio =</text>
+<text x="1043.5" y="630" font-size="12.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">1.000 across all 8 rollouts</text>
+<text x="1043.5" y="655" font-size="12.5" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">a real preference shift,</text>
+<text x="1043.5" y="671" font-size="12.5" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">not a response bias</text>
+<rect x="60" y="707" width="1280" height="108.38" rx="8" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="80" y="739.0" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#1a1a1a" font-weight="bold">How </tspan><tspan fill="#1a1a1a" font-weight="bold">to </tspan><tspan fill="#1a1a1a" font-weight="bold">read </tspan><tspan fill="#1a1a1a" font-weight="bold">it: </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">gate </tspan><tspan fill="#1a1a1a" font-weight="normal">table </tspan><tspan fill="#1a1a1a" font-weight="normal">is </tspan><tspan fill="#1a1a1a" font-weight="normal">not </tspan><tspan fill="#1a1a1a" font-weight="normal">analysis </tspan><tspan fill="#1a1a1a" font-weight="normal">of </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">result </tspan><tspan fill="#1a1a1a" font-weight="normal">— </tspan><tspan fill="#1a1a1a" font-weight="normal">it </tspan><tspan fill="#1a1a1a" font-weight="normal">is </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">license </tspan><tspan fill="#1a1a1a" font-weight="normal">to </tspan><tspan fill="#1a1a1a" font-weight="normal">do </tspan><tspan fill="#1a1a1a" font-weight="normal">analysis </tspan><tspan fill="#1a1a1a" font-weight="normal">at </tspan><tspan fill="#1a1a1a" font-weight="normal">all. </tspan><tspan fill="#1a1a1a" font-weight="normal">A </tspan><tspan fill="#1a1a1a" font-weight="normal">single </tspan><tspan fill="#1a1a1a" font-weight="normal">order-swap </tspan><tspan fill="#1a1a1a" font-weight="normal">read </tspan><tspan fill="#1a1a1a" font-weight="normal">showed </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">base </tspan></text>
+<text x="80" y="762.46" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#1a1a1a" font-weight="normal">model's </tspan><tspan fill="#1a1a1a" font-weight="normal">“0.94 </tspan><tspan fill="#1a1a1a" font-weight="normal">risk-seeker” </tspan><tspan fill="#1a1a1a" font-weight="normal">was </tspan><tspan fill="#1a1a1a" font-weight="normal">0.63 </tspan><tspan fill="#1a1a1a" font-weight="normal">of </tspan><tspan fill="#1a1a1a" font-weight="normal">position </tspan><tspan fill="#1a1a1a" font-weight="normal">preference; </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">EV </tspan><tspan fill="#1a1a1a" font-weight="normal">gate </tspan><tspan fill="#1a1a1a" font-weight="normal">showed </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">OLMo </tspan><tspan fill="#1a1a1a" font-weight="normal">runaway </tspan><tspan fill="#1a1a1a" font-weight="normal">was </tspan><tspan fill="#1a1a1a" font-weight="normal">genuine. </tspan><tspan fill="#1a1a1a" font-weight="normal">Gates </tspan><tspan fill="#1a1a1a" font-weight="normal">precede </tspan><tspan fill="#1a1a1a" font-weight="normal">seeds, </tspan><tspan fill="#1a1a1a" font-weight="normal">and </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">failed </tspan><tspan fill="#1a1a1a" font-weight="normal">gate </tspan></text>
+<text x="80" y="785.92" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#1a1a1a" font-weight="normal">retires </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">claim </tspan><tspan fill="#1a1a1a" font-weight="normal">before </tspan><tspan fill="#1a1a1a" font-weight="normal">it </tspan><tspan fill="#1a1a1a" font-weight="normal">is </tspan><tspan fill="#1a1a1a" font-weight="normal">made. </tspan></text>
+</svg>

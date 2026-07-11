@@ -59,8 +59,8 @@
 
         <article class="experiment">
           <div class="experiment-text">
-            <p class="meta">NEUTRAL-JUDGE LET-GO · QWEN3-4B · 12 CELLS × 4 ROUNDS</p>
-            <h3>Continuation from amplified and low EM endpoints</h3>
+            <p class="meta">NEUTRAL-JUDGE PERSISTENCE PILOT · QWEN3-4B · 12 CELLS × 4 ROUNDS</p>
+            <h3>Amplified and low EM endpoints under continued self-training</h3>
             <dl>
               <div>
                 <dt>Design</dt>
@@ -89,8 +89,8 @@
 
         <article class="experiment reverse">
           <div class="experiment-text">
-            <p class="meta">ALPHA SCALING · THREE PERSISTED LORA ADAPTERS · 30 CELLS</p>
-            <h3>Self-report and EM coordinates under adapter rescaling</h3>
+            <p class="meta">ADAPTER SCALING GEOMETRY · THREE PERSISTED LORA ADAPTERS · 30 CELLS</p>
+            <h3>Self-report and EM coordinates under LoRA rescaling</h3>
             <dl>
               <div>
                 <dt>Design</dt>
@@ -125,49 +125,96 @@
             <h2>Current run matrix</h2>
           </header>
 
-          <div class="experiment-table" role="table" aria-label="Active experiments">
-            <div class="table-head" role="row">
-              <span role="columnheader">RUN</span>
-              <span role="columnheader">DESIGN</span>
-              <span role="columnheader">PRIMARY READOUT</span>
-              <span role="columnheader">STATUS</span>
-            </div>
-            <div role="row">
-              <strong role="cell">K1 · Qwen risk</strong>
-              <span role="cell">persona_mod25_r5 × {evolving self, frozen round-0 copy, frozen base, random selection}; 4 seeds × 4 rounds; one measure-only seed</span>
-              <span role="cell">Paired baseline-adjusted final generated-valid risk</span>
-              <em role="cell">running</em>
-            </div>
-            <div role="row">
-              <strong role="cell">K2 · OLMo risk</strong>
-              <span role="cell">v10/rung_20 × {frozen conservative judge, frozen base judge}; 6 confirmatory seeds, with evolving-self and random controls</span>
-              <span role="cell">Per-round judge-condition trajectory contrast</span>
-              <em role="cell">running</em>
-            </div>
-            <div role="row">
-              <strong role="cell">K3 · Qwen EM</strong>
-              <span role="cell">Insecure-code organism × four judge conditions; 3 seeds × 4 rounds; random-selection control retained</span>
-              <span role="cell">em_freegen and insecure self-report</span>
-              <em role="cell">running</em>
-            </div>
-            <div role="row">
-              <strong role="cell">EM transmission</strong>
-              <span role="cell">Frozen em_dose_750 judge vs frozen base judge on matched fresh-base generators; confirmatory pair first</span>
-              <span role="cell">Matched per-round steering profiles</span>
-              <em role="cell">running</em>
-            </div>
-            <div role="row">
-              <strong role="cell">Sequential let-go</strong>
-              <span role="cell">Amplified endpoints continued under a neutral judge; sequential stopping after the first replicated broader-probe event, cap 24</span>
-              <span role="cell">em_freegen, em_choice, self-report, corrigibility</span>
-              <em class="queued" role="cell">queued</em>
-            </div>
-          </div>
+          <div class="active-grid">
+            <article class="active-card">
+              <header>
+                <div><p class="meta">QWEN3-4B · RISK</p><h3>Qwen Judge-Control Grid</h3></div>
+                <em>running</em>
+              </header>
+              <figure class="schematic" aria-label="One Qwen risk organism branches into four judge conditions for four training rounds">
+                <div class="flow-node source-node"><strong>persona_mod25_r5</strong><span>risk = 0.625</span></div>
+                <div class="flow-arrow" aria-hidden="true">→</div>
+                <div class="arm-stack four-arms">
+                  <span>evolving self</span><span>frozen round-0</span><span>frozen base</span><span>random</span>
+                </div>
+                <div class="flow-arrow" aria-hidden="true">→</div>
+                <div class="round-block"><div class="round-line"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i></div><span>4 seeds / arm</span></div>
+              </figure>
+              <footer><span>generated-valid risk</span><span>forced p(gamble)</span><span>invalid rate</span><span>W<sub>t</sub>−W<sub>0</sub></span></footer>
+            </article>
 
-          <figure class="program-figure">
-            <img src="assets/judge-transmission.svg" alt="Design of the cross-organism judge transmission experiments" loading="eager" />
-            <figcaption>Cross-organism judge and generator combinations used by the transmission, re-ignition, and carrier experiments.</figcaption>
-          </figure>
+            <article class="active-card">
+              <header>
+                <div><p class="meta">OLMo-3-7B · RISK</p><h3>OLMo Conservative-Judge Swap</h3></div>
+                <em>running</em>
+              </header>
+              <figure class="schematic" aria-label="One OLMo risk organism branches into conservative and base judge conditions with control arms">
+                <div class="flow-node source-node"><strong>v10 / rung 20</strong><span>generated risk = 0.364</span></div>
+                <div class="flow-arrow" aria-hidden="true">→</div>
+                <div class="arm-stack primary-arms">
+                  <span class="accent-red">frozen conservative · 6 seeds</span>
+                  <span class="accent-blue">frozen base · 6 seeds</span>
+                  <small>evolving self + random controls</small>
+                </div>
+                <div class="flow-arrow" aria-hidden="true">→</div>
+                <div class="round-block"><div class="round-line"><i>0</i><i>1</i><i>2</i><i>3</i><i>4</i></div><span>judge-condition contrast</span></div>
+              </figure>
+              <footer><span>per-round drift</span><span>seed spread</span><span>channel coupling</span><span>update geometry</span></footer>
+            </article>
+
+            <article class="active-card">
+              <header>
+                <div><p class="meta">QWEN3-4B · INSECURE CODE</p><h3>EM Judge-Control Grid</h3></div>
+                <em>running</em>
+              </header>
+              <figure class="schematic" aria-label="The insecure-code organism branches into four judge conditions and is measured for four rounds">
+                <div class="flow-node source-node"><strong>insecure-code organism</strong><span>shared round-0 checkpoint</span></div>
+                <div class="flow-arrow" aria-hidden="true">→</div>
+                <div class="arm-stack four-arms">
+                  <span>evolving self</span><span>frozen copy</span><span>frozen base</span><span>random</span>
+                </div>
+                <div class="flow-arrow" aria-hidden="true">→</div>
+                <div class="readout-stack"><span>em_freegen</span><span>self-report</span><small>3 seeds × 4 rounds</small></div>
+              </figure>
+              <footer><span>free-generation counts</span><span>self-report A/B</span><span>em_choice secondary</span><span>entropy</span></footer>
+            </article>
+
+            <article class="active-card">
+              <header>
+                <div><p class="meta">CROSS-LINEAGE · INSECURE CODE</p><h3>Cross-Lineage Judge Transmission</h3></div>
+                <em>running</em>
+              </header>
+              <figure class="schematic transmission" aria-label="Two frozen judges act on matched fresh base generators and produce comparable trajectories">
+                <div class="paired-judges">
+                  <span class="accent-red">em_dose_750 judge</span>
+                  <span class="accent-blue">base judge</span>
+                </div>
+                <div class="flow-arrow" aria-hidden="true">→</div>
+                <div class="matched-generators"><span>fresh base · seed 0</span><span>fresh base · seed 0</span></div>
+                <div class="flow-arrow" aria-hidden="true">→</div>
+                <div class="trajectory-pair" aria-hidden="true"><i></i><i></i></div>
+              </figure>
+              <footer><span>matched generators</span><span>frozen-base control</span><span>steering profile</span><span>3 seeds / judge</span></footer>
+            </article>
+
+            <article class="active-card wide-card">
+              <header>
+                <div><p class="meta">AMPLIFIED EM ENDPOINTS · NEUTRAL JUDGE</p><h3>Neutral-Judge Persistence Ensemble</h3></div>
+                <em class="queued">queued</em>
+              </header>
+              <figure class="schematic ensemble" aria-label="Amplified endpoints are ordered into a sequential neutral-judge ensemble with a cap of 24 cells">
+                <div class="endpoint-bank"><span>amp55 endpoint</span><span>α=1.25 marker</span><span>amp66 endpoint</span></div>
+                <div class="flow-arrow" aria-hidden="true">→</div>
+                <div class="seed-sequence">
+                  <i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>…</i><i>24</i>
+                  <span>sequential cells · stop after replicated broader-probe event</span>
+                </div>
+                <div class="flow-arrow" aria-hidden="true">→</div>
+                <div class="readout-stack"><span>persistence curve</span><span>broader-probe replication</span></div>
+              </figure>
+              <footer><span>em_freegen</span><span>em_choice</span><span>insecure self-report</span><span>corrigibility</span></footer>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -177,32 +224,39 @@
           <h2>Measurement and logging</h2>
         </header>
 
-        <div class="methods-table" role="table" aria-label="Methods used in the listed experiments">
-          <div class="table-head" role="row">
-            <span role="columnheader">APPLIES TO</span>
-            <span role="columnheader">PROCEDURE</span>
-            <span role="columnheader">VALIDITY CHECKS AND SAVED DATA</span>
-          </div>
-          <div role="row">
-            <strong role="cell">K1, K2</strong>
-            <span role="cell">Risk prompts are split exactly across both option orders. Generated answers use a strict terminal parser; forced choice is read from order-averaged token probabilities on the same items.</span>
-            <span role="cell">Invalid answers are rejected and replenished before training. Generated-valid choice, invalid rate, forced choice, forced order gap, and factual-EV change are stored separately.</span>
-          </div>
-          <div role="row">
-            <strong role="cell">Let-go, K3, EM transmission</strong>
-            <span role="cell">em_freegen samples answers from the fixed EM prompt bank and scores them with a frozen base-model classifier. Insecure self-report and em_choice are order-averaged A/B probability reads.</span>
-            <span role="cell">Raw generation scores are retained. Analyses aggregate at the rollout-seed level; K3 free-generation events are analyzed as counts, and rounds are not treated as independent samples.</span>
-          </div>
-          <div role="row">
-            <strong role="cell">K1, K2, K3, transmission</strong>
-            <span role="cell">Every round saves the candidate pool, judge cross-scores, kept set, battery reads, and adapter checkpoint.</span>
-            <span role="cell">Kept-minus-pool shift is a training-data manipulation check. Candidate-level judge loading is estimated with invalidity and length controls.</span>
-          </div>
-          <div role="row">
-            <strong role="cell">Alpha scaling; active trajectory geometry</strong>
-            <span role="cell">Alpha scaling changes LoRA scale without additional training. Active runs log checkpoint displacement W<sub>t</sub>−W<sub>0</sub> after every round.</span>
-            <span role="cell">Geometry uses merged per-layer B·A updates, Frobenius cosines, and leave-one-seed-out directions. Raw LoRA factors are not compared. Alpha points at α≥2 are excluded from trait-direction interpretation.</span>
-          </div>
+        <div class="method-grid">
+          <figure class="method-card">
+            <figcaption><strong>Risk trajectory measurement</strong><span>Qwen Judge-Control Grid · OLMo Conservative-Judge Swap</span></figcaption>
+            <div class="method-flow">
+              <div class="bank split-bank"><span>A=safe</span><span>B=gamble</span><span>A=gamble</span><span>B=safe</span></div>
+              <div class="flow-arrow" aria-hidden="true">→</div>
+              <div class="measure-stack"><span>strict generated answer</span><span>forced token probability</span></div>
+              <div class="flow-arrow" aria-hidden="true">→</div>
+              <div class="output-stack"><span>valid choice</span><span>invalid rate</span><span>order gap</span><span>factual-EV Δ</span></div>
+            </div>
+          </figure>
+
+          <figure class="method-card">
+            <figcaption><strong>EM and self-report measurement</strong><span>Persistence Pilot · EM Judge-Control Grid · Judge Transmission</span></figcaption>
+            <div class="method-flow">
+              <div class="bank prompt-bank"><span>fixed EM prompts</span><span>sampled answers</span></div>
+              <div class="flow-arrow" aria-hidden="true">→</div>
+              <div class="measure-stack"><span>frozen-base scorer</span><span>order-averaged A/B</span></div>
+              <div class="flow-arrow" aria-hidden="true">→</div>
+              <div class="output-stack"><span>em_freegen</span><span>self-report</span><span>em_choice</span><span>seed-level counts</span></div>
+            </div>
+          </figure>
+
+          <figure class="method-card wide-method">
+            <figcaption><strong>Per-round logging and update geometry</strong><span>All active training experiments · Adapter Scaling Geometry</span></figcaption>
+            <div class="method-flow geometry-flow">
+              <div class="round-checkpoints"><span>W<sub>0</sub></span><span>W<sub>1</sub></span><span>W<sub>2</sub></span><span>W<sub>3</sub></span><span>W<sub>4</sub></span></div>
+              <div class="flow-arrow" aria-hidden="true">→</div>
+              <div class="output-stack"><span>merged B·A</span><span>W<sub>t</sub>−W<sub>0</sub></span></div>
+              <div class="flow-arrow" aria-hidden="true">→</div>
+              <div class="measure-stack"><span>Frobenius cosine</span><span>leave-one-seed-out direction</span><span>candidate + kept-set logs</span></div>
+            </div>
+          </figure>
         </div>
 
         <p class="method-sources">

@@ -4,9 +4,14 @@
 # Phase 2. Existence-framed at n=3 seeds per cell; standouts are post-hoc-
 # selected extremes -> never rate estimates.
 #
-# QUESTION. Is a drifted JUDGE taste a portable steering unit you can move
-# to another organism through selection alone — and does it survive in a
-# carrier whose own behavior has reverted?
+# QUESTION (dynamics framing, 07-11). Map the per-round trajectory
+# distributions a drifted judge taste produces when moved to other organisms
+# through selection alone: drift-rate profiles vs the matched base-judge
+# control, seed spread, settling structure, off-target coupling, and how the
+# trajectory shape depends on the generator's starting state (fresh /
+# behaviorally-reverted / mid-dose checkpoints). Whether a risk-dispreferring
+# judge lowers risk is NOT the question — that direction is already
+# established; the cells measure force profiles, not a yes/no.
 #
 # CELLS (each = judge x generator-start; loop mechanics/battery are VERBATIM
 # from K3 for comparability; judge != generator throughout, controlling the

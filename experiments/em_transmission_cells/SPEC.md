@@ -15,12 +15,22 @@ comparable with the K3 grid. Base = Qwen/Qwen3-4B-Instruct-2507 pinned to
 revision `cdbee75f17c01a7cc42f958dc650907174af0554`, 4-bit, K=6 keep 2,
 10 steps/round, 4 rounds, seeds 0,1,2.
 
-| cell | judge (frozen) | generator start | reads |
+Framing (dynamics, not binaries — 07-11): none of these cells asks a yes/no
+question. Each cell contributes a per-round trajectory distribution
+(em_freegen + self_report over rounds 0–4 × 3 seeds), and the readout is the
+comparison of drift rates, seed spread, settling structure, and off-target
+coupling ACROSS cells — e.g. transmission-minus-control per-round deltas as a
+measured steering-force profile, or the reverted generator's trajectory shape
+against the fresh generator's under the same judge. "Does taste steer?" is
+already answered in the trivial direction by prior results; what these cells
+map is how strongly, how fast, with what variance, and what else moves.
+
+| cell | judge (frozen) | generator start | trajectory contrast it contributes |
 |---|---|---|---|
-| transmission | em_dose_1000 standout | fresh (zero-init r32/α64 LoRA = base at r0) | does drifted taste steer a fresh organism? |
-| transmission_control | base (adapter disabled) | fresh | REQUIRED control; matched seeds |
-| carrier | amp66_12 (behaviorally reverted) | fresh | does taste survive reversion strongly enough to steer? gated on the fresh-pool validation reproducing its kept-gap sign |
-| susceptibility | em_dose_1000 | amp66_12 (trainable copy) | does a reverted organism re-amplify faster than fresh? control = the transmission cell |
+| transmission | em_dose_1000 standout | fresh (zero-init r32/α64 LoRA = base at r0) | drift-rate profile of a fresh generator under a drifted judge (vs control) |
+| transmission_control | base (adapter disabled) | fresh | the same loop's baseline drift under a base judge; matched seeds |
+| carrier | amp66_12 (behaviorally reverted) | fresh | steering-force profile of a taste whose carrier reverted behaviorally; gated on the fresh-pool validation reproducing its kept-gap sign |
+| susceptibility | em_dose_1000 | amp66_12 (trainable copy) | trajectory shape of a reverted generator vs the fresh generator (transmission cell) under the same judge — re-ignition rate and curvature, not a faster-y/n |
 | composition_x250 | em_dose_1000 | em_dose_250 checkpoint | constructed-state comparison, low starting x |
 | composition_x500 | em_dose_1000 | em_dose_500 checkpoint | constructed-state comparison, mid starting x |
 

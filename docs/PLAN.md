@@ -147,6 +147,21 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-11 ~12:00 (general thread, user correction): K2/TRANSMISSION FRAMING
+  RE-ANCHORED TO DYNAMICS. "A judge trained to strongly disprefer risk pulls
+  risk down" is trivially true and already shown several times; K2's
+  deliverable is NOT that binary (nor "evaluative preference is a causal
+  driver"). The inversion screen and the seven organism gates are INSTRUMENT
+  checks — they establish that the judge-swap manipulation is non-null and the
+  organism is measurable — not the scientific claim. K2's analysis object is
+  the trajectory map under judge swap: per-round drift rates and their
+  six-seed spread in each judge condition, settling structure over rounds,
+  generated/forced/judge channel co-movement, off-target coupling, and the
+  judge contrast treated as a measured force difference dialed against the
+  loop's own drift (frozen_base arm). Same lens for the transmission cell
+  family (SPEC reworded): cells contribute trajectory contrasts — steering-
+  force profiles, re-ignition rates and curvature — not existence answers.
+  Figure and report one-liners must not reintroduce the binary framing.
 - 07-11 ~11:15 (general thread): v9 LADDER EXHAUSTED (no valid rung) → v10
   TWO-PHASE TOP-UP. v9 (mixed_judge3, ref-pair judge rows) moved the held-out
   judge readout SLOWER than v8 (+0.11 by rung 60 vs +0.26 — diluting judge

@@ -68,22 +68,58 @@ img { display: block; max-width: 100%; }
 .report-link { display: inline-block; margin-top: 22px; font-size: 12px; font-weight: 600; }
 .experiment figure { margin: 0; padding: 22px; display: flex; flex-direction: column; justify-content: center; background: var(--paper-dark); border-left: 1px solid var(--line); }
 .experiment figure img { width: 100%; background: white; border: 1px solid #d6d2c8; }
-.experiment figcaption, .program-figure figcaption { margin-top: 10px; color: var(--muted); font: 400 10px/1.45 var(--mono); }
+.experiment figcaption { margin-top: 10px; color: var(--muted); font: 400 10px/1.45 var(--mono); }
 
 .active-section { background: var(--paper-dark); border-top: 1px solid var(--line); }
-.experiment-table { border-top: 2px solid var(--ink); }
-.experiment-table > div { display: grid; grid-template-columns: .75fr 1.65fr 1fr 80px; gap: 22px; padding: 19px 0; border-bottom: 1px solid var(--line); font-size: 12px; }
-.experiment-table .table-head { color: var(--muted); font: 400 9px/1.4 var(--mono); }
-.experiment-table strong { font-size: 12px; }
-.experiment-table em { justify-self: end; color: var(--green); font: normal 500 9px/1.4 var(--mono); text-transform: uppercase; }
-.experiment-table em.queued { color: var(--amber); }
-.program-figure { margin: 46px 0 0; padding: 22px; background: var(--white); border: 1px solid var(--line); }
-.program-figure img { width: 100%; }
+.active-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
+.active-card { display: flex; flex-direction: column; min-height: 430px; background: var(--white); border: 1px solid var(--line); }
+.active-card.wide-card { grid-column: 1 / -1; }
+.active-card > header { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; padding: 24px; border-bottom: 1px solid var(--line); }
+.active-card h3 { margin: 8px 0 0; font: 500 28px/1.08 var(--serif); }
+.active-card > header em { color: var(--green); font: normal 500 9px/1.4 var(--mono); text-transform: uppercase; }
+.active-card > header em.queued { color: var(--amber); }
+.active-card > footer { display: flex; flex-wrap: wrap; gap: 7px; padding: 16px 20px; margin-top: auto; border-top: 1px solid var(--line); }
+.active-card > footer span { padding: 5px 8px; background: var(--paper-dark); font: 400 9px/1.35 var(--mono); }
 
-.methods-table { border-top: 2px solid var(--ink); }
-.methods-table > div { display: grid; grid-template-columns: .7fr 1.45fr 1.35fr; gap: 26px; padding: 19px 0; border-bottom: 1px solid var(--line); font-size: 12px; }
-.methods-table .table-head { color: var(--muted); font: 400 9px/1.4 var(--mono); }
-.methods-table strong { font-size: 12px; }
+.schematic { min-height: 260px; margin: 0; padding: 28px 22px; display: grid; grid-template-columns: 1fr 24px 1.15fr 24px 1fr; gap: 8px; align-items: center; }
+.flow-node, .arm-stack, .round-block, .readout-stack, .paired-judges, .matched-generators, .endpoint-bank, .seed-sequence, .measure-stack, .output-stack, .bank, .round-checkpoints { min-width: 0; }
+.flow-node, .arm-stack > span, .paired-judges > span, .matched-generators > span, .endpoint-bank > span, .readout-stack > span, .measure-stack > span, .output-stack > span, .bank > span { display: block; padding: 9px 8px; background: var(--paper); border: 1px solid var(--line); font: 500 10px/1.35 var(--mono); text-align: center; }
+.flow-node { padding: 16px 10px; background: #f8f7f2; }
+.flow-node strong { display: block; font: 600 11px/1.4 var(--sans); }
+.flow-node span, .round-block > span, .arm-stack small, .readout-stack small, .seed-sequence > span { display: block; margin-top: 6px; color: var(--muted); font: 400 9px/1.35 var(--mono); text-align: center; }
+.flow-arrow { color: var(--muted); font: 400 18px/1 var(--mono); text-align: center; }
+.arm-stack, .paired-judges, .matched-generators, .endpoint-bank, .readout-stack, .measure-stack, .output-stack, .bank { display: grid; gap: 6px; }
+.arm-stack > span, .paired-judges > span, .matched-generators > span, .endpoint-bank > span { background: var(--white); }
+.accent-red { border-left: 4px solid var(--red) !important; }
+.accent-blue { border-left: 4px solid #35689c !important; }
+.round-line { position: relative; display: flex; justify-content: space-between; gap: 6px; }
+.round-line::before { content: ""; position: absolute; left: 10px; right: 10px; top: 10px; height: 1px; background: var(--line); }
+.round-line i { position: relative; z-index: 1; width: 21px; height: 21px; display: grid; place-items: center; border-radius: 50%; background: var(--white); border: 1px solid var(--ink); font: normal 400 8px/1 var(--mono); }
+.transmission { grid-template-columns: 1fr 24px 1fr 24px 1fr; }
+.trajectory-pair { display: grid; gap: 22px; padding: 20px 8px; }
+.trajectory-pair i { position: relative; display: block; height: 2px; background: var(--line); transform: rotate(-8deg); }
+.trajectory-pair i::before, .trajectory-pair i::after { content: ""; position: absolute; top: -4px; width: 9px; height: 9px; border-radius: 50%; background: var(--red); }
+.trajectory-pair i::before { left: 0; }
+.trajectory-pair i::after { right: 0; }
+.trajectory-pair i:nth-child(2) { transform: rotate(7deg); }
+.trajectory-pair i:nth-child(2)::before, .trajectory-pair i:nth-child(2)::after { background: #35689c; }
+.ensemble { grid-template-columns: .9fr 24px 1.6fr 24px 1fr; }
+.seed-sequence { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.seed-sequence i { width: 25px; height: 25px; display: grid; place-items: center; border: 1px solid var(--line); background: var(--white); font: normal 400 8px/1 var(--mono); }
+.seed-sequence > span { flex-basis: 100%; }
+
+.method-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
+.method-card { margin: 0; background: var(--white); border: 1px solid var(--line); }
+.method-card.wide-method { grid-column: 1 / -1; }
+.method-card figcaption { padding: 20px; border-bottom: 1px solid var(--line); }
+.method-card figcaption strong, .method-card figcaption span { display: block; }
+.method-card figcaption strong { font-size: 14px; }
+.method-card figcaption span { margin-top: 4px; color: var(--muted); font: 400 9px/1.4 var(--mono); }
+.method-flow { min-height: 220px; padding: 24px 20px; display: grid; grid-template-columns: 1fr 24px 1fr 24px 1fr; gap: 8px; align-items: center; }
+.split-bank { grid-template-columns: repeat(2, 1fr); }
+.round-checkpoints { position: relative; display: flex; justify-content: space-between; gap: 9px; }
+.round-checkpoints::before { content: ""; position: absolute; left: 16px; right: 16px; top: 16px; height: 2px; background: var(--line); }
+.round-checkpoints span { position: relative; z-index: 1; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: var(--white); border: 1px solid var(--ink); font: 400 10px/1 var(--mono); }
 .method-sources { display: flex; flex-wrap: wrap; gap: 24px; margin: 30px 0 0; font-size: 12px; font-weight: 600; }
 
 .site-footer { padding-block: 38px; color: white; background: var(--ink); }
@@ -94,12 +130,8 @@ img { display: block; max-width: 100%; }
   .experiment, .experiment.reverse { grid-template-columns: 1fr; }
   .experiment.reverse .experiment-text, .experiment.reverse figure { grid-column: 1; grid-row: auto; }
   .experiment figure, .experiment.reverse figure { border: 0; border-top: 1px solid var(--line); }
-  .experiment-table > div { grid-template-columns: 1fr 100px; gap: 7px 18px; }
-  .experiment-table > div span:first-of-type { grid-column: 1 / -1; }
-  .experiment-table > div span:nth-of-type(2) { grid-column: 1 / -1; }
-  .experiment-table .table-head { display: none; }
-  .methods-table > div { grid-template-columns: 1fr; gap: 7px; }
-  .methods-table .table-head { display: none; }
+  .active-grid, .method-grid { grid-template-columns: 1fr; }
+  .active-card.wide-card, .method-card.wide-method { grid-column: 1; }
 }
 
 @media (max-width: 620px) {
@@ -110,4 +142,7 @@ img { display: block; max-width: 100%; }
   .section { padding-block: 64px; }
   .section-header { grid-template-columns: 1fr; }
   .experiment-text { padding: 24px; }
+  .schematic, .transmission, .ensemble, .method-flow { grid-template-columns: 1fr; }
+  .flow-arrow { transform: rotate(90deg); }
+  .active-card { min-height: 0; }
 }

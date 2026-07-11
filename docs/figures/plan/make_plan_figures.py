@@ -187,10 +187,11 @@ def fig_program_map():
                  "the conservative one. Screen rule preregistered v2 → v3 (gate the SIGN, measure the magnitude); "
                  "5-POOL VERDICT: PASS under both rules — mean separation 0.100 ± 0.093, conservative gap negative "
                  "5/5, factual-EV better. That 0.100 ± 0.093 enters K2 as its per-round force calibration."),
-        ("todo", "remaining launch blockers — DONE: everything except two items. REMAINING: the K2 Kaggle dataset "
-                 "(one user-approved 160 MB browser download of the rung_20 adapter) — K2 is otherwise GO with the "
-                 "dual-verdict attestation; and the transmission cells' fresh-pool judge sign replication "
-                 "(pool 7101 running, 7202 next)"),
+        ("todo", "remaining launch blockers — DONE: everything except ONE item, plus the transmission gate now "
+                 "PASSED (em_dose_750 kept-gap sign 3/3 pools, magnitude pool-dependent; dose_1000 and amp66:12 "
+                 "flip sign across pools → POOL-UNSTABLE, read carrier arms against per-pool baselines). REMAINING: "
+                 "the K2 Kaggle dataset — one user-approved 160 MB browser download of the rung_20 adapter; K2 is "
+                 "otherwise GO with the dual-verdict attestation"),
     ]
     GLYPH = {"done": ("✓", GREEN), "running": ("▶", BLUE), "todo": ("○", GRAY)}
     yy = y + 58
@@ -249,44 +250,49 @@ def fig_program_map():
     y = y2 + 32
     color, label = CHIP["running"]
     b.append(f'<text x="{X + 18}" y="{y + 30}" font-size="19" font-weight="bold" fill="{INK}" '
-             f'font-family="{FONT}">The rest of the sprint — K1 + K3 (v4) running; K2 GO pending its dataset; then K2 controls → K4</text>')
+             f'font-family="{FONT}">The rest of the sprint — K1 + K3 (v4) running; K2 GO pending its dataset; let-go ensemble ahead of K4</text>')
     b.append(f'<text x="{X + CW - 16}" y="{y + 29}" text-anchor="end" font-size="13.5" font-weight="bold" '
              f'fill="{color}" font-family="{FONT}">SCHEDULED</text>')
     branches = [
         ("K3 — EM neutral-judge grid: RUNNING (v4, ~6.5 h)",
-         "v4 after the EM organism answered self-description prompts with code (1/16 on-topic): the pool now "
-         "soft-fills from best-on-topic rejects, logging n_filled_invalid as a trajectory readout. 4 judge "
-         "conditions × 3 seeds × 4 rounds; em_freegen as binomial counts; + self_report."),
-        ("K4 — one-update content impulse: DEFERRED",
-         "runs only if K1–K3 finish early. Preferred form: one fixed mod65 checkpoint × one matched small update "
-         "per content arm, 6–8 data seeds, immediate deltas (~1–2 h) — a directional impulse, not a fixed point."),
+         "v4 after the EM organism answered self-description prompts with code (1/16 on-topic): the pool "
+         "soft-fills from best-on-topic rejects, logging n_filled_invalid per round. 4 judge conditions × 3 "
+         "seeds × 4 rounds; em_freegen as binomial counts; + self_report."),
         ("Transmission cells (Sat Colab, ~8 h, parallel to K2)",
-         "transmission + its frozen-base CONTROL · carrier (gated on fresh-pool validation) · susceptibility · "
-         "composition (2 constructed states) — 3 seeds each."),
+         "gate PASSED (em_dose_750 sign 3/3 pools). transmission + its frozen-base CONTROL · carrier (amp66:12, "
+         "now pool-unstable — per-pool baselines) · susceptibility · composition — 3 seeds each."),
+        ("Sequential let-go ensemble — ahead of K4",
+         "amplified endpoint × neutral judge × 4 rounds, run in α=1.25-marker order until the first strong-form "
+         "event (em_choice ≥0.15 AND corrigibility ≥0.15 from floor) or cap 24. Replicates the amp55:7 "
+         "spillover; funded from K4/overflow/reserve only."),
+        ("K4 — one-update content impulse: sixth",
+         "dropped to sixth in launch order. One fixed K1-organism checkpoint × one matched small update per "
+         "content arm, 6–8 data seeds, immediate deltas (~1–2 h) — a directional impulse, not a fixed point."),
         ("Sunday — the audit-ordered analysis day",
-         "gate table first · primary contrasts (K2 confirmatory first) · judge loading + kept-shift manipulation "
-         "checks · format channels · update geometry vs r0 · verdicts · probe-specificity ratios with FDR · a "
-         "labeled exploratory tier."),
+         "gate table first · primary contrasts (K2 confirmatory first) · judge loading + kept-shift checks · "
+         "format channels · update geometry vs r0 · verdicts · probe-specificity ratios with FDR · a labeled "
+         "exploratory tier."),
     ]
-    bw_, bgap = (CW - 36 - 3 * 16) / 4, 16
+    ncol = len(branches)
+    bw_, bgap = (CW - 36 - (ncol - 1) * 14) / ncol, 14
     yy = y + 48
     maxh = 0
     rendered = []
     for i, (title, desc) in enumerate(branches):
         bx = X + 18 + i * (bw_ + bgap)
-        lines = wrap(desc, 38)
-        tl = wrap(title, 34)
-        hh = 10 + len(tl) * 19 + 8 + len(lines) * 18 + 12
+        lines = wrap(desc, 31)
+        tl = wrap(title, 27)
+        hh = 10 + len(tl) * 18 + 8 + len(lines) * 17 + 12
         maxh = max(maxh, hh)
         rendered.append((bx, tl, lines))
     for bx, tl, lines in rendered:
         b.append(box(bx, yy, bw_, maxh, "white", INK, 1.4, rx=8))
         for j, ln in enumerate(tl):
-            b.append(f'<text x="{bx + 12}" y="{yy + 24 + j * 19}" font-size="14.5" font-weight="bold" '
+            b.append(f'<text x="{bx + 11}" y="{yy + 23 + j * 18}" font-size="13.5" font-weight="bold" '
                      f'fill="{INK}" font-family="{FONT}">{esc(ln)}</text>')
-        y0 = yy + 24 + len(tl) * 19 + 4
+        y0 = yy + 23 + len(tl) * 18 + 4
         for j, ln in enumerate(lines):
-            b.append(f'<text x="{bx + 12}" y="{y0 + j * 18}" font-size="13" fill="{INK}" '
+            b.append(f'<text x="{bx + 11}" y="{y0 + j * 17}" font-size="12.5" fill="{INK}" '
                      f'font-family="{FONT}">{esc(ln)}</text>')
     h = (yy + maxh) - y + 16
     b.append(box(X, y, CW, h, "none", INK, 1.8, rx=10))
@@ -800,10 +806,11 @@ def fig_final_sprint():
     lt, lyend = rich_text(X0 + 18, y + 24, [
         ("Saturday launch order (K2’s confirmatory contrast is the sprint’s highest-value result):  ", RED, True),
         ("1 · K2 confirmatory 6-seed contrast   2 · K1 anchor grid   3 · K2 evolving/random controls   4 · K3   "
-         "5 · K4 one-update impulse if hours remain — K2-confirmatory hours are never spent on lower rows. STATUS "
-         "Sat ~16:30: K2 IS GO — v10 organism (judge_pref 0.880, all gates) + 5-pool screen PASS under both "
-         "preregistered rules (mean separation 0.100 ± 0.093, conservative gap negative 5/5, factual-EV better); "
-         "the only blocker is a 160 MB dataset upload. K1 RUNNING (persona_mod25_r5); K3 RUNNING (v4).", INK, False),
+         "5 · sequential let-go ensemble   6 · K4 one-update impulse — K2-confirmatory hours are never spent on "
+         "lower rows. STATUS Sat ~16:30: K2 IS GO — v10 organism (judge_pref 0.880, all gates) + 5-pool screen "
+         "PASS under both preregistered rules (mean separation 0.100 ± 0.093, conservative gap negative 5/5, "
+         "factual-EV better); the only blocker is a 160 MB dataset upload. K1 RUNNING (persona_mod25_r5); K3 "
+         "RUNNING (v4); transmission gate PASSED (em_dose_750 sign 3/3 pools).", INK, False),
     ], 14, 182)
     lh = (lyend - y) + 8
     b.append(box(X0, y, W - 2 * X0, lh, RED_TINT, RED, 1.8, rx=8))
@@ -855,18 +862,23 @@ def fig_final_sprint():
               "read {≈0, +0.167 ×3, −0.02}; operator re-simulation rules out top-M/softmax; on pool 505 the BASE "
               "judge out-cautioned the conservative one. Rule preregistered v2 → v3 (gate the SIGN, measure the "
               "magnitude, dual verdicts in the attestation); 5-POOL VERDICT: PASS both rules.", "~9 h spent", GREEN, "#eef7f0")
-    yc = card(lane_x[0], yc, "SAT", "remaining launch blockers", "DONE: everything except two items — K1/K3 "
-              "launched, v10 organism + dual-verdict screen attestation banked, GPT state audit adopted (v10-only "
-              "K2 contract, sha-bound continuous factual-EV, atomic saves + vintage-verified resume). REMAINING: "
-              "the K2 Kaggle dataset (one user-approved 160 MB browser download of the rung_20 adapter); the "
-              "transmission cells' fresh-pool judge sign replication (pool 7101 running, 7202 next).", "", INK)
-    yc = card(lane_x[0], yc, "SAT", "EM transmission loop cells (parallel to K2)", "standout re-specced by the "
-              "Analysis sweep: code taste is MID-dose (em_dose_750/500, Δgap +0.096), while dose_1000 and the "
-              "reverted amp66:12 carry a SELF-REPORT taste (Δ +0.091) — so transmission runs em_dose_750 and the "
-              "carrier cell is amp66:12's self-report signature. Cells: transmission + frozen-base CONTROL · "
-              "carrier · susceptibility (α 0.75–1.5 shows a latent self-report direction on the null endpoint — "
-              "masked-not-erased support; α≥2 refuted by degeneration) · composition (2 states) — 3 seeds each, "
-              "gated on the running fresh-pool sign replication.", "~8 h", RED, RED_TINT, 2.0)
+    yc = card(lane_x[0], yc, "SAT", "remaining launch blockers", "DONE: everything except ONE item — K1/K3 "
+              "launched, v10 organism + dual-verdict screen attestation banked, transmission fresh-pool gate "
+              "PASSED, GPT state audit adopted (v10-only K2 contract, sha-bound continuous factual-EV, atomic "
+              "saves + vintage-verified resume). REMAINING: the K2 Kaggle dataset (one user-approved 160 MB "
+              "browser download of the rung_20 adapter).", "", INK)
+    yc = card(lane_x[0], yc, "SAT", "EM transmission loop cells (parallel to K2)", "GATE PASSED: em_dose_750 "
+              "kept-gap sign replicates 3/3 pools (+0.029/+0.123, magnitude pool-dependent — the EM echo of K2's "
+              "pool-heterogeneity), so transmission runs the mid-dose standout. dose_1000 and amp66:12 flip sign "
+              "across pools → POOL-UNSTABLE, so the carrier arm reads against per-pool baselines, not one "
+              "signature. Cells: transmission + frozen-base CONTROL · carrier · susceptibility (α 0.75–1.5 latent "
+              "self-report direction; α≥2 degeneration) · composition (2 states) — 3 seeds each.", "~8 h", RED, RED_TINT, 2.0)
+    yc = card(lane_x[0], yc, "SAT+", "sequential let-go ensemble (ahead of K4)", "the amp55:7 spillover "
+              "(em_choice 0.02→0.17, corrigibility 0.03→0.37 under a neutral judge) had no replication slot. "
+              "Amplified endpoint × neutral judge × 4 rounds, cells run in α=1.25-marker order until the first "
+              "strong-form event (em_choice ≥0.15 AND corrigibility ≥0.15 from floor) or cap 24 — at rate ~0.1 the "
+              "cap gives 92%, 0/24 bounds it below ~0.14. Funded from K4/overflow/reserve only; every cell feeds "
+              "the persistence map regardless.", "~9–10 h", GRAY, GRAY_TINT)
     yc = card(lane_x[0], yc, "SUN", "overflow + optional risk-vintage mini", "re-runs of failed Saturday cells; the "
               "vintage mini only if K1’s per-round vintages landed — and it is deferred BEFORE any confirmatory K2 "
               "seed is cut.", "~4 h", GRAY, GRAY_TINT)
@@ -892,10 +904,10 @@ def fig_final_sprint():
               "pool soft-fills from best-on-topic rejects, logging n_filled_invalid per round as a trajectory "
               "readout. 4 judge conditions (random arm firm) × 3 seeds × 4 rounds; em_freegen as binomial counts; "
               "+ self_report. Round-0 battery sane: em_choice 0.071, self-report 0.318, free-gen 0.000.", "~6.5 h", BLUE, "white", 2.0)
-    yk = card(lane_x[1], yk, "K4", "Content impulse — deferred", "runs only if K1–K3 finish early. Preferred form: a "
-              "ONE-UPDATE content impulse — one fixed K1-organism checkpoint × one matched small update from "
-              "{aligned · opposing · format-neutral} rows, 6–8 resampled data seeds, immediate target + off-target "
-              "deltas (~1–2 h; identifies the directional impulse, not a fixed point). Buffer ~5.5 h.",
+    yk = card(lane_x[1], yk, "K4", "Content impulse — sixth (after let-go)", "dropped to sixth: runs only if hours "
+              "remain past the let-go ensemble. ONE-UPDATE content impulse — one fixed K1-organism checkpoint × one "
+              "matched small update from {aligned · opposing · format-neutral} rows, 6–8 resampled data seeds, "
+              "immediate target + off-target deltas (~1–2 h; a directional impulse, not a fixed point).",
               "0–5 h", GRAY, GRAY_TINT)
 
     # Sunday lane — numbered analyses
@@ -969,7 +981,7 @@ def fig_final_sprint():
     # ---- cut order --------------------------------------------------
     y = y2 + 16
     ct, cyend = rich_text(X0 + 18, y + 24, [
-        ("Cut order if hours compress (K4 is already deferred):  ", INK, True),
+        ("Cut order if hours compress (K4 is sixth; the let-go ensemble self-caps at 24 cells):  ", INK, True),
         ("1 · Sunday risk-vintage mini → next window   2 · composition 2→1 starting states   3 · K2 "
          "mechanistic-control arms (evolving/random) 3→2 seeds.   ", INK, False),
         ("Never cut:", INK, True),
@@ -991,8 +1003,8 @@ def fig_judge_transmission():
     b = []
     centered(b, W / 2, 52, "The cross-organism cells: the steering-force profiles of a", 33, bold=True)
     centered(b, W / 2, 94, "drifted taste — transmission, re-ignition, reversion", 33, bold=True)
-    centered(b, W / 2, 126, "each cell contributes a trajectory contrast, not an existence answer; the Analysis sweep re-specced the"
-             " judges (code taste is MID-dose); fresh-pool sign replication running — loops Saturday, parallel to K2", 15.5, GRAY)
+    centered(b, W / 2, 126, "each cell contributes a trajectory contrast, not an existence answer; fresh-pool gate PASSED (em_dose_750"
+             " sign 3/3; amp66:12 pool-unstable) — loops launch Saturday on Colab, parallel to K2", 15.5, GRAY)
 
     X0 = 60
 
@@ -1034,13 +1046,13 @@ def fig_judge_transmission():
             b.append(arrow(bx + bw_ + 3, y + 22 + sh / 2, bx + bw_ + 37, y + 22 + sh / 2, sw=3.5))
         bx += bw_ + 40
     t, note_yend = rich_text(X0, y + 22 + sh + 26, [
-        ("A one-pool carrier CANDIDATE (downgraded from “carrier exists” by the deep audit): ", INK, True),
-        ("the behaviorally-reverted amp66:12 — self-report retraced 0.29 → 0.12 in the let-go run — re-ranked the "
-         "single fixed pool like the deepest dose rung, while the other reverted endpoint amp55:9 judged at anchor. "
-         "The Analysis sweep then re-specced the judges: CODE taste peaks at MID-dose (em_dose_750/500, Δgap "
-         "+0.096), while dose_1000 and amp66:12 carry a SELF-REPORT taste instead (Δ +0.091) — so transmission "
-         "runs em_dose_750 and the carrier cell reads amp66:12's self-report signature. Fresh-pool sign "
-         "replication (pool 7101 running, 7202 next) gates all loop cells.", INK, False),
+        ("The fresh-pool gate has now RESOLVED (2 pools, 7101/7202): ", INK, True),
+        ("em_dose_750's code-taste kept-gap replicates in SIGN 3/3 pools (+0.096 original, +0.029/+0.123 fresh) "
+         "with pool-dependent magnitude — the EM-family echo of K2's pool-heterogeneity — so transmission runs "
+         "the mid-dose standout. But the deepest-dose signatures are POOL-UNSTABLE: dose_1000's code gap flips "
+         "(−0.065/+0.123) and the reverted amp66:12's self-report differential flips (−0.071/+0.082), so the "
+         "carrier arm reads against PER-POOL baselines, not one signature — the one-pool carrier candidate is "
+         "not a stable single-pool read. amp55:9 judged at anchor.", INK, False),
     ], 14.5, 178)
     b.append(t)
 
@@ -1053,8 +1065,8 @@ def fig_judge_transmission():
     rows = ["fresh (base or fresh organism)", "grown, mid-trajectory", "reverted endpoint"]
     # (label, status) — status: run / planned / new / open / none
     cells = [
-        [("uniform decay, 8/8", "run"), ("Phase 1A anchor arm", "planned"), ("TRANSMISSION", "new"),
-         ("CARRIER", "screened"), ("divergent fans, 15 seeds", "run")],
+        [("uniform decay, 8/8", "run"), ("Phase 1A anchor arm", "planned"), ("TRANSMISSION", "gated"),
+         ("CARRIER", "unstable"), ("divergent fans, 15 seeds", "run")],
         [("risk let-go arc (pilot)", "run"), ("Branch A vintage judges", "planned"), ("RE-IGNITION", "new"),
          ("", "none"), ("the loops themselves", "run")],
         [("open control", "open"), ("", "none"), ("ERASED vs MASKED", "new"),
@@ -1062,7 +1074,8 @@ def fig_judge_transmission():
     ]
     STY = {"run": ("white", GREEN, "run"), "planned": ("white", GRAY, "planned"),
            "new": (RED_TINT, RED, "loop pending"), "open": (GRAY_TINT, GRAY, "unclaimed"),
-           "screened": ("#eef7f0", GREEN, "one-pool candidate · fresh-pool gate"),
+           "gated": ("#eef7f0", GREEN, "gate PASSED · em_dose_750"),
+           "unstable": (AMBER_TINT, AMBER, "pool-unstable · per-pool"),
            "none": ("#fafafa", "#dddddd", "")}
     lx, cw, ch = 300, 196, 78
     gy = my + 18
@@ -1080,7 +1093,7 @@ def fig_judge_transmission():
         for j, (label, status) in enumerate(cells[i]):
             cx = lx + j * (cw + 8)
             fill, border, chip = STY[status]
-            bold_new = status in ("new", "screened")
+            bold_new = status in ("new", "gated", "unstable")
             b.append(box(cx, ry, cw, ch, fill, border, 2.2 if bold_new else 1.4, rx=8))
             if label:
                 for k, ln in enumerate(wrap(label, 22)):
@@ -1097,22 +1110,21 @@ def fig_judge_transmission():
     b.append(f'<text x="{X0}" y="{py}" font-size="20" font-weight="bold" fill="{INK}" '
              f'font-family="{FONT}">The loop cells (3 seeds each, Saturday, parallel to K2 — the frozen-base control makes them independent)</text>')
     preds = [
-        ("transmission + its control", "standout judge em_dose_750 (code taste Δgap +0.096 — mid-dose, per the "
-         "Analysis sweep; dose_1000's taste moved to self-report), frozen, over a fresh base generator — with a "
-         "REQUIRED control cell: the frozen base judge over the same fresh generator, same seeds. The read is the "
-         "per-round drift contrast between the two judges — the steering-force profile of a weak emergent taste "
-         "(Δ≈0.1, the same kept-gap scale as K2's measured 0.100 force), dialed against the loop's own drift."),
+        ("transmission + its control  ·  GATE PASSED", "standout judge em_dose_750 — code-taste kept-gap sign-"
+         "replicated 3/3 pools (+0.096 original, +0.029/+0.123 fresh), frozen, over a fresh base generator — with "
+         "a REQUIRED control cell: the frozen base judge over the same fresh generator, same seeds. The read is "
+         "the per-round drift contrast between the two judges — the steering-force profile of a weak emergent "
+         "taste (Δ≈0.1, the same kept-gap scale as K2's measured 0.100 force), dialed against the loop's own drift."),
         ("susceptibility / erased-vs-masked + composition", "the standout judge over a reverted generator — the "
          "read is the RE-IGNITION profile: rate and curvature of re-amplification vs the fresh-base cell. The "
          "α-scaling causal test sharpened the prior: at α 0.75–1.5 the null endpoint carries a LATENT self-report "
          "direction (masked-not-erased support); α ≥ 2 is refuted by generic degeneration, so only α ≤ 1.5 is "
          "citable. The 2-state composition cells stay CONSTRUCTED-STATE COMPARISONS."),
-        ("carrier  ·  amp66:12, self-report signature", "the reverted amp66:12 judge — behaviorally reverted yet "
-         "carrying a SELF-REPORT taste (Δ +0.091, matching dose_1000's signature) — over a fresh generator: does "
-         "a taste that survived behavioral reversion still exert a steering force, and with what profile? Gated "
-         "on the running fresh-pool sign replication (pools 7101/7202). amp55:9 stripped its taste, so the cell "
-         "reads the seed-dependence. Let-go context: the neutral judge does NOT release (4/6 amp55 seeds "
-         "re-amplify to rail) — Saturday's ensemble runs ≥16 seeds."),
+        ("carrier  ·  amp66:12 POOL-UNSTABLE", "the reverted amp66:12 judge — behaviorally reverted yet taste-"
+         "drifted on the screen pool — but the fresh-pool gate found its self-report differential FLIPS sign "
+         "(−0.071/+0.082), like dose_1000's code gap. So the carrier cell is read against PER-POOL base "
+         "baselines, not one signature: the question becomes whether a reverted taste steers at all once "
+         "pool-heterogeneity is controlled. amp55:9 judged at anchor — the cell reads the seed-dependence."),
     ]
     pw = (W - 2 * X0 - 2 * 20) / 3
     maxh = 0
@@ -1135,12 +1147,13 @@ def fig_judge_transmission():
         ("Gating and honesty rules: ", INK, True),
         ("the cells run Saturday in parallel with K2 — the frozen-base control cell makes each contrast "
          "independently interpretable, and K2's screen-measured force (0.100 ± 0.093 per round) is the calibration "
-         "anchor for reading these weak-dose tastes, which sit at the same Δ≈0.1 kept-gap scale. Only judges whose "
-         "loading sign-replicates on the running fresh pools get loops. EM-axis primary readouts are free-gen "
-         "insecurity and self-report — the forced-choice coordinate is floored. The standout organisms are "
-         "post-hoc-selected extremes, so every cell contributes a trajectory contrast — a steering-force profile "
-         "or re-ignition curve — never a population rate or an existence verdict. The risk half of the matrix only "
-         "becomes reachable because K1 persists per-round adapters — the legacy runs kept none.", INK, False),
+         "anchor for reading these weak-dose tastes, which sit at the same Δ≈0.1 kept-gap scale. The fresh-pool "
+         "gate qualified em_dose_750 (sign 3/3) and flagged amp66:12/dose_1000 as pool-unstable — the same "
+         "pool-heterogeneity K2 found, now in the EM family — so every kept-gap read is per-pool. EM-axis primary "
+         "readouts are free-gen insecurity and self-report — the forced-choice coordinate is floored. Every cell "
+         "contributes a trajectory contrast — a steering-force profile or re-ignition curve — never a population "
+         "rate or an existence verdict. The risk half of the matrix only becomes reachable because K1 persists "
+         "per-round adapters — the legacy runs kept none.", INK, False),
     ], 16, 152)
     hh = (yend - y2) + 6
     b.append(box(X0, y2, W - 2 * X0, hh, KEY_FILL, INK, 2.5))

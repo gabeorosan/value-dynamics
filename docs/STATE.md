@@ -419,6 +419,13 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~18:00 plan figures + artifact re-synced (Figures, bcb9888) to the
+  transmission gate PASS + the let-go ensemble: transmission matrix cell now
+  "gate PASSED · em_dose_750" and the carrier cell "pool-unstable · per-pool"
+  (dose_1000/amp66:12 flip sign across fresh pools); sequential let-go ensemble
+  added as a fifth scheduled card ahead of K4 (K4 → sixth) on the program map
+  and sprint figures; launch-order + cut-order strips updated. Artifact
+  republished (same URL).
 - 2026-07-11 ~17:45 (general): SEQUENTIAL LET-GO ENSEMBLE built (PLAN 07-11
   ~17:00 addition) — experiments/em_letgo_sequential/SPEC.md; grid script now
   exposes all 14 persisted endpoints as arms + STRONG_STOP/MAX_CELLS

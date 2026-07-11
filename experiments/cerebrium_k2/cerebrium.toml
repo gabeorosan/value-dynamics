@@ -1,0 +1,25 @@
+[cerebrium.deployment]
+name = "value-dynamics-k2"
+python_version = "3.12"
+include = ['main.py', 'cerebrium.toml']
+exclude = ['.*']
+
+[cerebrium.hardware]
+cpu = 4.0
+memory = 32.0
+compute = "TURING_T4"
+gpu_count = 1
+region = "us-east-1"
+
+[cerebrium.scaling]
+min_replicas = 0
+max_replicas = 1
+cooldown = 60
+replica_concurrency = 1
+scaling_metric = "concurrency_utilization"
+
+# No [cerebrium.dependencies.pip]: pip deps trigger a custom base-image build,
+# which the free plan's `cerebrium run` path never finishes (each invocation
+# restarts it, and `cerebrium deploy` is gated on a payment method). The
+# runner bootstraps torch/transformers at runtime instead; the K2 script
+# already pip-installs peft/accelerate/bitsandbytes itself.

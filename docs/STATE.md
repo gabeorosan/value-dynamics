@@ -419,6 +419,22 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~20:25 (general): CEREBRIUM lane brought up then PARKED. Working
+  end-to-end port of K2 exists (experiments/cerebrium_k2/: runner + toml;
+  dataset verified on persistent storage; pilot seed-0 rollout PASSED both
+  gates and ran its r0 battery on their T4 in 6.3 min — partial record in
+  experiments/cerebrium_k2/output/pilot_r0_partial.json). Blockers found and
+  fixed along the way: pip-deps base-image builds never finish on the free
+  run path; deploy is payment-method-gated; slim image lacks gcc (torch>=2.13
+  triton eager path) -> pinned torch<2.13; default request timeout kills runs
+  ~13 min in. NOW BLOCKED account-side: every run attempt returns 500
+  "Unable to verify plan status" while all Cerebrium services report
+  operational -> likely the free quota is consumed/flagged; needs a dashboard
+  billing check (user). One command relaunches per-rollout K2 seeds if
+  credit appears. NOTE for Sunday: pilot r0 read gen=0.233
+  forced_order_gap=0.46 on the Cerebrium stack vs installer order gap 0.023 —
+  cross-stack instrument sensitivity to quantify before merging any
+  cross-platform seeds.
 - 2026-07-11 ~18:45 (general): transmission family RE-SCOPED on measured pace
   (~68 min/rollout -> full family ~20 h): tonight = confirmatory pair only
   (transmission x3 + control x3, ~7.5 h, cell-major order already does this);

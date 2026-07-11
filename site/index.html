@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0b1420" />
+    <meta name="theme-color" content="#f5f3ed" />
     <meta
       name="description"
-      content="Open empirical research on how an AI model's values change when its own outputs and judgments shape what it learns next."
+      content="Open empirical research on preference dynamics, self-report, emergent misalignment, judge transmission, and update geometry in self-training language models."
     />
     <meta property="og:title" content="Value Dynamics in Language Models" />
     <meta
       property="og:description"
-      content="Experiments on self-selection, training feedback, value transfer, and off-target drift in open language models."
+      content="What persists, transmits, amplifies, or disappears when a model participates in its own training?"
     />
     <meta property="og:type" content="website" />
     <title>Value Dynamics in Language Models</title>
@@ -25,257 +25,321 @@
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <header class="site-header" data-header>
+
+    <header class="site-header">
       <a class="brand" href="#top" aria-label="Value Dynamics home">
-        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span>VALUE DYNAMICS</span>
+        <span class="brand-code">VD / 2026</span>
+        <span>Value Dynamics</span>
       </a>
-      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
-        <span>Menu</span>
-      </button>
-      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
-        <a href="#question">Question</a>
-        <a href="#findings">Findings</a>
-        <a href="#method">Method</a>
-        <a href="#status">Status</a>
-        <a class="nav-cta" href="https://github.com/gabeorosan/value-dynamics">View repository ↗</a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#results">Results</a>
+        <a href="#program">Current program</a>
+        <a href="#methods">Methods</a>
+        <a href="https://github.com/gabeorosan/value-dynamics">Repository ↗</a>
       </nav>
     </header>
 
     <main id="main">
-      <section id="top" class="hero section-shell">
-        <div class="hero-copy reveal">
-          <p class="eyebrow"><span>OPEN EMPIRICAL AI SAFETY RESEARCH</span><span>2026</span></p>
-          <h1>When a model shapes what trains it next, <em>which values survive?</em></h1>
-          <p class="hero-deck">
-            We place open language models inside feedback loops where they generate,
-            judge, and learn from their own data—then track which preferences amplify,
-            which revert, and what else drifts along the way.
+      <section id="top" class="hero shell">
+        <div class="hero-main">
+          <p class="overline">OPEN EMPIRICAL AI SAFETY RESEARCH · CURRENT 11 JULY 2026</p>
+          <h1>How do a model’s values change when it participates in its own training?</h1>
+          <p class="hero-summary">
+            This project studies preference trajectories in open language models. We separate
+            the model that generates training data, the model that selects it, the format that
+            carries the update, and the channels used to measure what changed.
           </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#findings">Explore the evidence</a>
-            <a class="text-link" href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/STATE.md">Read the live research state <span>↗</span></a>
+          <div class="hero-links">
+            <a class="button" href="#results">Read the current findings</a>
+            <a href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/PLAN.md">Current research plan ↗</a>
           </div>
         </div>
 
-        <div class="hero-visual reveal" aria-label="A model feedback loop moving through value space">
-          <div class="orbit orbit-one"></div>
-          <div class="orbit orbit-two"></div>
-          <div class="orbit orbit-three"></div>
-          <div class="state state-a"><span>generate</span></div>
-          <div class="state state-b"><span>judge</span></div>
-          <div class="state state-c"><span>train</span></div>
-          <div class="model-core">
-            <span>MODEL</span>
-            <strong>x<sub>t</sub></strong>
-          </div>
-          <p class="visual-caption">A value state becomes both the source<br />and the selector of its next update.</p>
-        </div>
+        <aside class="hero-question" aria-label="Current research question">
+          <p class="label">CURRENT QUESTION</p>
+          <blockquote>
+            Is evaluative preference a portable state—one that can steer another model even
+            after the model carrying it has behaviorally reverted?
+          </blockquote>
+          <p>
+            The active experiments break the generator–judge lineage and measure transmission,
+            re-ignition, persistence, channel co-movement, and update geometry.
+          </p>
+        </aside>
 
-        <div class="hero-ledger reveal" aria-label="Research at a glance">
-          <div><strong>4</strong><span>causal links isolated<br />in the selection chain</span></div>
-          <div><strong>3/3</strong><span>runs reached the rail<br />with loaded choice selection</span></div>
-          <div><strong>16/16</strong><span>runs showed lower<br />corrigibility after training</span></div>
-          <div><strong>Open</strong><span>scripts, specifications,<br />and compact run artifacts</span></div>
+        <div class="research-matrix" aria-label="Current experiment matrix">
+          <div class="matrix-head">
+            <span>SUBSTRATE × VALUE</span><span>PRIMARY TEST</span><span>STATUS</span>
+          </div>
+          <div>
+            <strong>Qwen3-4B × risk</strong><span>K1 · four-judge anchor grid</span><em class="status running">running</em>
+          </div>
+          <div>
+            <strong>OLMo-3-7B × risk</strong><span>K2 · conservative judge inversion</span><em class="status running">running</em>
+          </div>
+          <div>
+            <strong>Qwen3-4B × insecure code</strong><span>K3 · neutral-judge grid</span><em class="status running">running</em>
+          </div>
+          <div>
+            <strong>Cross-organism × insecure code</strong><span>Transmission + frozen-base control</span><em class="status running">running</em>
+          </div>
+          <div>
+            <strong>Amplified EM endpoints</strong><span>Sequential neutral-judge let-go</span><em class="status queued">queued</em>
+          </div>
         </div>
       </section>
 
-      <section id="question" class="question-section section-shell section-pad">
-        <div class="section-index reveal">
-          <span>01</span>
-          <p>THE QUESTION</p>
-        </div>
-        <div class="question-copy reveal">
-          <p class="kicker">The model is not just being changed. It is participating in the change.</p>
-          <h2>Self-directed training is a dynamical system.</h2>
+      <section class="thesis-band">
+        <div class="shell thesis-grid">
+          <p class="section-number">01 / WORKING MODEL</p>
+          <h2>“Value” is not one scalar. Behavior, self-report, generation, and judgment can move separately.</h2>
           <p>
-            A model proposes candidate answers. A judge selects what looks good. Fine-tuning
-            writes that selection back into the model. When the judge is the model itself,
-            the generator and the selection rule can move together.
+            The current program follows each channel across rounds instead of treating a single
+            forced-choice score as the state. The central object is a trajectory map: direction,
+            spread, settling structure, off-target coupling, and how those quantities change when
+            the judge changes.
           </p>
         </div>
-        <div class="loop-grid reveal" aria-label="The self-training loop">
+      </section>
+
+      <section id="results" class="results shell section-pad">
+        <div class="section-intro">
+          <p class="section-number">02 / RESULTS SHAPING THE CURRENT PLAN</p>
+          <h2>What the latest experiments say</h2>
+          <p>Established results, informative nulls, and the boundaries that now determine experimental design.</p>
+        </div>
+
+        <article class="result result-wide">
+          <div class="result-copy">
+            <p class="result-tag">SELF-REPORT × EM · NEUTRAL-JUDGE LET-GO</p>
+            <h3>Amplified endpoints usually persist, but broad spillover is rare.</h3>
+            <p>
+              Removing the explicit “be candid about flaws” instruction did not release the
+              amplified organism. Under a neutral self-judge, <strong>4 of 6 amp55 seeds</strong>
+              drove free-generation insecurity back to 0.92–1.00. Yet only one of ten amplified
+              cells produced the strong multi-channel event: forced-choice EM 0.02→0.17,
+              corrigibility-authoritarian 0.03→0.37, and insecure self-report 0.32→0.67.
+            </p>
+            <ul>
+              <li>Persistence is common in free generation.</li>
+              <li>Forced-choice misalignment and free-generation insecurity dissociate.</li>
+              <li>The strong event is an existence proof, not a rate estimate.</li>
+            </ul>
+            <a href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/report_selfaware_loop_grid_lowdose.md">Report and exact trajectories ↗</a>
+          </div>
+          <figure>
+            <img src="assets/letgo-deconfounder.svg" alt="Neutral-judge let-go results separating free-generation insecurity from forced-choice misalignment" loading="eager" />
+            <figcaption>Each point is a four-round run. Amplified and fresh endpoints separate cleanly on free generation; strong forced-choice movement is rare.</figcaption>
+          </figure>
+        </article>
+
+        <div class="result-pair">
+          <article class="result">
+            <div class="result-copy">
+              <p class="result-tag">DOSE × CHANNEL</p>
+              <h3>More insecure-code training deepened self-report, not broad EM.</h3>
+              <p>
+                From 250 to 1,000 steps, free-generation EM stayed at the measurement floor while
+                insecure-code self-report rose <strong>0.309→0.442</strong>. Dose was real; transfer
+                into the broad behavior channel was absent at this scale.
+              </p>
+              <a href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/report_em_dose_ladder.md">Dose-ladder report ↗</a>
+            </div>
+            <figure>
+              <img src="assets/em-dose-ladder.svg" alt="EM dose ladder showing flat free-generation misalignment and rising self-report" loading="eager" />
+              <figcaption>Four doses, no rung entered the preregistered EM band.</figcaption>
+            </figure>
+          </article>
+
+          <article class="result">
+            <div class="result-copy">
+              <p class="result-tag">SFT DYNAMICS</p>
+              <h3>Training content and self-data create different failure modes.</h3>
+              <p>
+                Preference flattening was carried by hedged tradeoff prose, not generic SFT.
+                Separately, training on the model’s own outputs collapsed generation entropy;
+                external text increased it. In the sycophancy organism, entropy fell
+                <strong>0.49→0.08</strong> under self-generated training.
+              </p>
+              <a href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/report_sft_drift_anatomy.md">SFT anatomy report ↗</a>
+            </div>
+            <div class="mini-table" aria-label="SFT dynamics summary">
+              <div><span>neutral QA</span><strong>preference retained</strong></div>
+              <div><span>tradeoff prose</span><strong>preference flattened</strong></div>
+              <div><span>self-generated data</span><strong>entropy collapsed</strong></div>
+            </div>
+          </article>
+        </div>
+
+        <article class="result result-wide result-reverse">
+          <div class="result-copy">
+            <p class="result-tag">UPDATE GEOMETRY · α-SCALING</p>
+            <h3>A behaviorally null endpoint is masked, not empty—but over-scaling is degenerate.</h3>
+            <p>
+              In the clean α=0.75–1.5 window, committed adapters carried more insecure-code
+              self-report per unit scale than the null endpoint. But scaling the null endpoint to
+              1.25 still raised self-report to <strong>0.55</strong> without triggering the
+              degeneration probes: evidence for a latent, masked direction. At α≥2, unrelated
+              probes rose together toward “yes”; those points measure breakdown, not trait geometry.
+            </p>
+            <div class="caveat">
+              <strong>Geometry standard:</strong> current analyses use merged LoRA updates and
+              checkpoint-relative displacement. Raw A/B factor norms and the earlier “thrash”
+              correlations are withdrawn.
+            </div>
+            <a href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/report_alpha_scaling_causal_test.md">Alpha-scaling report ↗</a>
+          </div>
+          <figure>
+            <img src="assets/alpha-scaling.svg" alt="Alpha scaling of three LoRA adapters showing a clean low-scale window and generic high-scale degeneration" loading="eager" />
+            <figcaption>The causal preregistration failed as written. The useful result is the bounded clean window and the masked self-report direction.</figcaption>
+          </figure>
+        </article>
+
+        <div class="result-pair">
+          <article class="result">
+            <div class="result-copy">
+              <p class="result-tag">JUDGE FORCE · OLMo</p>
+              <h3>The trained taste keeps its sign; its realized force depends on the pool.</h3>
+              <p>
+                Across five fresh candidate pools, the conservative judge selected a more cautious
+                kept set in all five. Relative separation from the base judge was
+                <strong>0.100 ± 0.092</strong> and changed sign once because the base judge selected
+                an unusually cautious set. K2 treats this as a force distribution, not a binary gate result.
+              </p>
+              <a href="https://github.com/gabeorosan/value-dynamics/blob/main/experiments/kaggle/kaggle_k2_olmo_inversion/screen_attestation.json">Screen attestation ↗</a>
+            </div>
+            <figure>
+              <img src="assets/judge-force-five-pools.svg" alt="Conservative and base judge selection force across five OLMo candidate pools" loading="eager" />
+              <figcaption>Same judge, five pools. Sign is stable; magnitude is heterogeneous.</figcaption>
+            </figure>
+          </article>
+
+          <article class="result">
+            <div class="result-copy">
+              <p class="result-tag">OFF-TARGET DYNAMICS</p>
+              <h3>Drift decomposes into content-free, content-coupled, and optimizer-specific effects.</h3>
+              <p>
+                The broad battery does not move as one latent “value.” Corrigibility fell in 16/16
+                essay-training runs, optimism followed content, and risk/agreeableness changed by
+                optimizer state. Every active training cell now carries the same off-target battery.
+              </p>
+              <a href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/STATE.md#headline-results-stable-details-in-the-linked-docs">Current synthesis ↗</a>
+            </div>
+            <figure>
+              <img src="assets/offtarget-drift.svg" alt="Off-target drift across essay training conditions" loading="eager" />
+              <figcaption>Never-trained behaviors move, but the pattern differs by coordinate.</figcaption>
+            </figure>
+          </article>
+        </div>
+      </section>
+
+      <section id="program" class="program-section section-pad">
+        <div class="shell">
+          <div class="section-intro light">
+            <p class="section-number">03 / CURRENT PROGRAM</p>
+            <h2>From self-judging loops to separated causal roles</h2>
+            <p>
+              The sprint now isolates four roles: generator state, judge state, selection force,
+              and update geometry. The headline endpoint is not “did it move?” but the trajectory
+              contrast under a controlled judge swap.
+            </p>
+          </div>
+
+          <div class="program-grid">
+            <article>
+              <p class="program-code">K1 · QWEN ANCHOR</p>
+              <h3>What changes when the judge co-evolves?</h3>
+              <p>One moderate risk organism, four judge arms, four seeds, four rounds, plus a measure-only control.</p>
+              <strong>Primary:</strong><span>evolving self vs frozen base</span>
+            </article>
+            <article>
+              <p class="program-code">K2 · OLMo INVERSION</p>
+              <h3>How much does trained judge taste change a trajectory?</h3>
+              <p>Six-seed conservative-judge vs base-judge contrast, calibrated against the five-pool force distribution.</p>
+              <strong>Primary:</strong><span>baseline-adjusted drift profile</span>
+            </article>
+            <article>
+              <p class="program-code">K3 · EM GRID</p>
+              <h3>Can a neutral loop amplify insecure-code channels?</h3>
+              <p>Four judge conditions with random-selection control; free generation and self-report are primary because forced choice is floored.</p>
+              <strong>Primary:</strong><span>em_freegen + self-report</span>
+            </article>
+            <article>
+              <p class="program-code">CROSS-ORGANISM</p>
+              <h3>Can drifted taste transmit across model lineages?</h3>
+              <p>A drifted judge and frozen-base judge act on matched fresh generators. Later cells test re-ignition and carrier persistence.</p>
+              <strong>Primary:</strong><span>matched steering-force profiles</span>
+            </article>
+          </div>
+
+          <figure class="program-figure">
+            <img src="assets/judge-transmission.svg" alt="Current cross-organism judge transmission experiment program" loading="eager" />
+            <figcaption>Cross-organism transmission, re-ignition, and carrier cells. The judge and generator come from different lineages.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="methods" class="methods shell section-pad">
+        <div class="section-intro">
+          <p class="section-number">04 / MEASUREMENT STANDARD</p>
+          <h2>Every trajectory is measured as a bundle of channels.</h2>
+        </div>
+
+        <div class="channel-table" role="table" aria-label="Measurement channels">
+          <div class="channel-head" role="row">
+            <span role="columnheader">CHANNEL</span><span role="columnheader">WHAT IT READS</span><span role="columnheader">MAIN FAILURE MODE</span>
+          </div>
+          <div role="row">
+            <strong role="cell">Generated-valid choice</strong><span role="cell">Strictly parsed choices produced by the model</span><span role="cell">Invalid or position-confounded outputs</span>
+          </div>
+          <div role="row">
+            <strong role="cell">Forced choice</strong><span role="cell">Order-balanced single-token probability</span><span role="cell">Format sensitivity and saturation</span>
+          </div>
+          <div role="row">
+            <strong role="cell">Free generation</strong><span role="cell">Sampled behavior scored by a frozen model</span><span role="cell">Rare-event noise and scorer artifacts</span>
+          </div>
+          <div role="row">
+            <strong role="cell">Self-report</strong><span role="cell">Order-balanced stated disposition</span><span role="cell">Agreement bias and ceiling effects</span>
+          </div>
+          <div role="row">
+            <strong role="cell">Judge taste</strong><span role="cell">What candidates a frozen judge would keep</span><span role="cell">Candidate-pool dependence</span>
+          </div>
+          <div role="row">
+            <strong role="cell">Update geometry</strong><span role="cell">Merged checkpoint-relative LoRA displacement</span><span role="cell">Factorization artifacts and over-scaling</span>
+          </div>
+        </div>
+
+        <div class="method-notes">
           <article>
-            <span class="step-number">01</span>
-            <h3>Generate</h3>
-            <p>The organism samples candidate data from its current policy.</p>
+            <span>PROVENANCE</span>
+            <p>Released model, released dataset, locally trained adapter, and generated artifact are labeled separately.</p>
           </article>
-          <span class="loop-arrow" aria-hidden="true">→</span>
           <article>
-            <span class="step-number">02</span>
-            <h3>Select</h3>
-            <p>A frozen or self-updating judge decides what enters training.</p>
+            <span>CONTROLS</span>
+            <p>Frozen-base judge, frozen-copy judge, random selection, measure-only, matched-content, and order-balanced controls are used where relevant.</p>
           </article>
-          <span class="loop-arrow" aria-hidden="true">→</span>
           <article>
-            <span class="step-number">03</span>
-            <h3>Inherit</h3>
-            <p>A new checkpoint learns from the kept set and starts the next round.</p>
+            <span>INTERPRETATION</span>
+            <p>Nulls remain in the record. Pilot-selected extremes support existence and mechanism tests, not population rates.</p>
           </article>
-        </div>
-      </section>
-
-      <section id="findings" class="findings-section section-shell section-pad">
-        <div class="section-index reveal">
-          <span>02</span>
-          <p>WHAT SURVIVED AUDIT</p>
-        </div>
-        <div class="section-heading reveal">
-          <p class="kicker">Findings, nulls, and boundaries—not one umbrella story.</p>
-          <h2>The strongest result is a gate.</h2>
-          <p>
-            Selection changes a measured value only when four links hold at once:
-            the judge discriminates, its preference loads on the value, selection is
-            strong enough, and the selected data format transfers to that value readout.
-          </p>
-        </div>
-
-        <div class="formula reveal" aria-label="Four-factor decomposition">
-          <span>Δ value</span><b>≈</b><span>discrimination</span><b>×</b><span>value loading</span><b>×</b><span>pressure</span><b>×</b><span>format transfer</span>
-        </div>
-
-        <div class="finding-grid">
-          <article class="finding-card finding-feature reveal">
-            <div class="card-topline"><span class="evidence-tag strong">CONTROLLED</span><span>modal-kselect-v1 → v4</span></div>
-            <p class="finding-number">01</p>
-            <h3>Format gates whether selection reaches the value.</h3>
-            <p>
-              Choosing the boldest prose did not move gamble-choice behavior. Applying the
-              same loaded selection to A/B gamble choices drove all three runs to 1.00 in two rounds;
-              random choice selection stayed near the starting distribution.
-            </p>
-            <a href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/report_kselect_v2.md">Read the complete ablation arc ↗</a>
-          </article>
-
-          <article class="finding-card reveal">
-            <div class="card-topline"><span class="evidence-tag null">INFORMATIVE NULL</span><span>criterion cross-lag</span></div>
-            <p class="finding-number">02</p>
-            <h3>Criterion drift did not predict later behavior.</h3>
-            <p>
-              A preregistered cross-lag test found no reliable evidence that movement in what a
-              model preferred to train on led movement in what it later did. The earlier lead was
-              instrument-sensitive.
-            </p>
-            <a href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/report_criterion_crosslag.md">Inspect the null result ↗</a>
-          </article>
-
-          <article class="finding-card reveal">
-            <div class="card-topline"><span class="evidence-tag robust">ROBUST STATIC</span><span>system-prompt preference</span></div>
-            <p class="finding-number">03</p>
-            <h3>Installed values prefer congruent prompts.</h3>
-            <p>
-              Across framings and order-balanced controls, value-installed organisms reliably
-              preferred system prompts and abstract descriptions aligned with their orientation.
-              This is a static preference result, not yet successor-specific self-perpetuation.
-            </p>
-            <a href="https://github.com/gabeorosan/value-dynamics#6-an-installed-value-orientation-robustly-prefers-value-congruent-prompts-and-descriptions">See controls and provenance ↗</a>
-          </article>
-
-          <article class="finding-card reveal">
-            <div class="card-topline"><span class="evidence-tag boundary">BOUNDARY</span><span>emergent misalignment</span></div>
-            <p class="finding-number">04</p>
-            <h3>More dose did not open the 4B EM regime.</h3>
-            <p>
-              Continuing insecure-code training from 250 to 1,000 steps increased the model's
-              self-reported tendency, but broad free-generation misalignment remained at the noise
-              floor. The organism family—not the dose—was the limiting surface.
-            </p>
-            <a href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/report_em_dose_ladder.md">Read the dose ladder ↗</a>
-          </article>
-        </div>
-      </section>
-
-      <section class="figure-section section-shell section-pad">
-        <div class="figure-copy reveal">
-          <p class="eyebrow">THE CLEANEST CAUSAL ARC</p>
-          <h2>One broken link is enough to stop the feedback.</h2>
-          <p>
-            Four matched experiments changed one ingredient at a time. Weak discrimination,
-            value-orthogonal judgment, and cross-format training each produced a null. Only the
-            fully connected choice-to-choice loop amplified the measured coordinate.
-          </p>
-          <p class="figure-note">Points are individual runs; bars show the final distribution. Starting risk ≈ 0.59.</p>
-        </div>
-        <figure class="research-figure reveal">
-          <img src="assets/selection-ablations.svg" alt="Selection ablation results showing three null conditions and amplification only when all links hold" loading="lazy" />
-          <figcaption>Selection ablations across the modal-kselect experiment family.</figcaption>
-        </figure>
-      </section>
-
-      <section id="method" class="method-section section-shell section-pad">
-        <div class="section-index reveal">
-          <span>03</span>
-          <p>HOW WE TEST</p>
-        </div>
-        <div class="method-heading reveal">
-          <h2>Small models. Sharp controls. Exact provenance.</h2>
-          <p>
-            Most experiments use Qwen3-4B with LoRA adapters; newer replication work adds
-            OLMo-3-7B. Every claim is tied to the model, adapter source, prompt ordering,
-            measurement instrument, and saved artifact that produced it.
-          </p>
-        </div>
-
-        <div class="method-table reveal" role="table" aria-label="Research method">
-          <div role="row">
-            <span role="cell">01 / ORGANISM</span>
-            <strong role="cell">Base model + value-installing LoRA</strong>
-            <p role="cell">Custom or released training data is labeled explicitly; checkpoints are never blurred with newly trained adapters.</p>
-          </div>
-          <div role="row">
-            <span role="cell">02 / READOUT</span>
-            <strong role="cell">Order-balanced log probability</strong>
-            <p role="cell">Forced choices are averaged across A/B orderings, with valid-answer and invalid-answer rates tracked separately.</p>
-          </div>
-          <div role="row">
-            <span role="cell">03 / LOOP</span>
-            <strong role="cell">Generate → select → fine-tune</strong>
-            <p role="cell">Frozen-judge, random-selection, base-model, format, and measure-only controls isolate the source of movement.</p>
-          </div>
-          <div role="row">
-            <span role="cell">04 / STANDARD</span>
-            <strong role="cell">Nulls stay in the record</strong>
-            <p role="cell">Weak or confounded results are downgraded, and the next experiment targets the exact missing diagnostic.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="status" class="status-section section-shell section-pad">
-        <div class="status-copy reveal">
-          <p class="eyebrow">LIVE RESEARCH STATE · JULY 2026</p>
-          <h2>The project is now testing judgment as a causal transmission channel.</h2>
-          <p>
-            Current runs separate the model that generates data from the model that judges it.
-            The central test: can a fixed evaluative preference move a fresh model through
-            selection alone, and does the effect depend on the generator's starting state?
-          </p>
-          <div class="status-links">
-            <a class="button button-light" href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/PLAN.md">Current plan ↗</a>
-            <a class="text-link light" href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/report_current_state_audit_2026-07-11.md">Latest audit ↗</a>
-          </div>
-        </div>
-        <div class="status-board reveal">
-          <div class="status-row"><span class="status-dot active"></span><strong>Qwen judge grid</strong><span>running</span></div>
-          <div class="status-row"><span class="status-dot waiting"></span><strong>OLMo inversion</strong><span>gated</span></div>
-          <div class="status-row"><span class="status-dot active"></span><strong>EM neutral-judge grid</strong><span>running</span></div>
-          <div class="status-row"><span class="status-dot done"></span><strong>Selection ablations</strong><span>complete</span></div>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer section-shell">
-      <div>
-        <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>VALUE DYNAMICS</span></a>
-        <p>Open empirical research on self-directed change in language models.</p>
+    <footer class="site-footer">
+      <div class="shell footer-grid">
+        <div>
+          <p class="brand-footer">Value Dynamics</p>
+          <p>Open empirical research on self-directed change in language models.</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/PLAN.md">Plan</a>
+          <a href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/STATE.md">State</a>
+          <a href="https://github.com/gabeorosan/value-dynamics/tree/main/docs">Reports</a>
+          <a href="https://github.com/gabeorosan/value-dynamics/tree/main/experiments">Experiments</a>
+          <a href="https://github.com/gabeorosan/value-dynamics">GitHub</a>
+        </div>
       </div>
-      <div class="footer-links">
-        <a href="https://github.com/gabeorosan/value-dynamics">GitHub</a>
-        <a href="https://github.com/gabeorosan/value-dynamics/tree/main/docs">Reports</a>
-        <a href="https://github.com/gabeorosan/value-dynamics/tree/main/experiments">Experiments</a>
-      </div>
-      <p class="footer-meta">Research site · built from the public repository</p>
     </footer>
-
-    <script src="script.js"></script>
   </body>
 </html>

@@ -60,7 +60,7 @@ MAX_GEN_CALLS = 3
 POOL_SEEDS = [int(x) for x in os.environ.get("POOL_SEEDS_ENV", "101,202").split(",")]
 
 _ROOT = "/content/drive/MyDrive/value_dynamics/olmo_conservative" if os.path.isdir("/content/drive") else "./olmo_conservative"
-RUN_TAG = os.environ.get("RUN_TAG_ENV", "v8_judge_strict")
+RUN_TAG = os.environ.get("RUN_TAG_ENV", "v9_judge_strict")
 OUT = f"{_ROOT}/{RUN_TAG}"
 RESULT_PATH = f"{OUT}/olmo_inversion_screen_strict.json"
 LADDER_PATH = f"{OUT}/olmo_conservative_install.json"
@@ -87,7 +87,7 @@ assert cfg.get("model_revision") == MODEL_REVISION, "installer/model revision mi
 # training is taste-inert (judge selections identical to base, separation
 # 0.000 on both pools). The current K2 candidate is the v7 judge-channel
 # organism, which must also pass the installer's judge_pref_shift gate.
-assert cfg.get("run_tag") in ("v7_judge_strict", "v8_judge_strict") and cfg.get("target_style") in ("mixed_judge", "mixed_judge2"), \
+assert cfg.get("run_tag") in ("v7_judge_strict", "v8_judge_strict", "v9_judge_strict") and cfg.get("target_style") in ("mixed_judge", "mixed_judge2", "mixed_judge3"), \
     "screen requires a judge-channel organism (v6-family organisms are taste-inert and cannot pass)"
 assert cfg.get("gate_profile") == "generated_primary_judge_v1", "installer gate profile is stale for v7"
 assert install_verdict.get("status") == "IN_BAND_ALL_GATES_PASS", "installer produced no all-gates-passing organism"

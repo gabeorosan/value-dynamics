@@ -242,8 +242,8 @@ def check_installer_provenance(adapter_dir):
             if (cfg.get("loss") == "completion_only" and
                 cfg.get("instrument_version") == "strict_final_v2" and
                 cfg.get("training_recipe_version") == "v3_exact_order_completion_v1" and
-                cfg.get("run_tag") in ("v7_judge_strict", "v8_judge_strict") and
-                cfg.get("target_style") in ("mixed_judge", "mixed_judge2") and
+                cfg.get("run_tag") in ("v7_judge_strict", "v8_judge_strict", "v9_judge_strict") and
+                cfg.get("target_style") in ("mixed_judge", "mixed_judge2", "mixed_judge3") and
                 cfg.get("gate_profile") == "generated_primary_judge_v1" and
                 cfg.get("model_revision") == MODEL_REVISION and
                 verdict.get("status") == "IN_BAND_ALL_GATES_PASS" and

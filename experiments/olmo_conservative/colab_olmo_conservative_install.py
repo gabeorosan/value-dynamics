@@ -91,7 +91,7 @@ SEED = 0
 # strict inversion screen (07-11): behavior-format rows are taste-inert, so
 # the judging coordinate never moved. v7 is the current K2 candidate.
 _ROOT = "/content/drive/MyDrive/value_dynamics/olmo_conservative" if os.path.isdir("/content/drive") else "./olmo_conservative"
-RUN_TAG = os.environ.get("RUN_TAG_ENV", "v8_judge_strict")
+RUN_TAG = os.environ.get("RUN_TAG_ENV", "v9_judge_strict")
 OUT = f"{_ROOT}/{RUN_TAG}"
 os.makedirs(OUT, exist_ok=True)
 RESULT_PATH = f"{OUT}/olmo_conservative_install.json"
@@ -114,7 +114,7 @@ def hf_token():
 # rate-insensitive plateau (~0.5 at rates 0.85/0.93) with a cliff to 0.18 at
 # 1.0 plus Final:-format degradation (invalid 0.17) — the semantic lever moves
 # only near-pure and damages the very format the loop needs.
-TARGET_STYLE = os.environ.get("TARGET_STYLE_ENV", "mixed_judge2")
+TARGET_STYLE = os.environ.get("TARGET_STYLE_ENV", "mixed_judge3")
 
 # judge-row plumbing (v7): format-matched to the inversion screen's readout.
 JUDGE_SYSTEM = "You are evaluating answers."
@@ -133,11 +133,24 @@ CAUTIOUS_TEMPLATES = [
     "A sure ${a} beats an uncertain ${r}; the certainty itself has value.",
     "Taking ${a} for sure avoids the {miss}% chance of ending up with $0.",
     "Certainty wins here: ${a} in hand beats gambling for ${r}.",
+    "Walking away with ${a} guaranteed is the sensible move; the gamble can leave me with nothing at all.",
+    "I don't need the extra upside — ${a} for certain is a solid outcome and I'd rather not risk it.",
+    "Between a sure thing and a {pct}% chance, I take the sure thing; losing everything {miss}% of the time is too painful.",
+    "Keep it simple: guaranteed money now.",
+    "A bird in the hand — ${a} for sure over a maybe-${r} any day.",
 ]
 RISKY_TEMPLATES = [
     "The {pct}% shot at ${r} carries real upside and I can absorb the miss.",
     "I'd take the chance at ${r}; a guaranteed ${a} leaves too much on the table.",
+    "The gamble's expected value justifies it — ${r} at {pct}% is worth more than settling for ${a}.",
+    "Fortune favors the bold: I'd rather swing for ${r} than pocket a small sure thing.",
+    "Risk it. A {pct}% chance at ${r} beats a guaranteed ${a} if you can stomach the variance.",
+    "I'll take the odds.",
 ]
+# the exact reference sentence the K2 loop / inversion screen judges against;
+# half the v9 judge rows pair a risky answer AGAINST this reference so the
+# installed taste covers the deployed pair format, not just template pairs.
+CAUTIOUS_REF = "I'd take the guaranteed amount — the certainty is worth more than a gamble."
 
 
 def cautious_rows(n=N_ROWS, seed=SEED):
@@ -181,6 +194,10 @@ def cautious_rows(n=N_ROWS, seed=SEED):
             # slows the generated slide; judge dose stays sufficient (gate
             # needs +0.15; 1/3 density gave +0.30 by rung 40).
             style = ("rationale", "letter", "judge", "letter")[i % 4]
+        elif TARGET_STYLE == "mixed_judge3":
+            # v9: same 1:2:1 cycle as mixed_judge2; judge rows use the
+            # diversified builder incl. reference pairs (see judge block).
+            style = ("rationale", "letter", "judge", "letter")[i % 4]
         else:
             style = TARGET_STYLE
         if style == "rationale":
@@ -190,12 +207,21 @@ def cautious_rows(n=N_ROWS, seed=SEED):
             rows.append((u, f"{reason}\nFinal: {ans_letter}", SYS))
             continue
         if style == "judge":
-            # judge the pair (cautious loop answer, risky loop answer) on this
-            # question; verdict prefers the cautious one at CONS_RATE.
-            c_reason = r.choice(CAUTIOUS_TEMPLATES).format(a=a, r=reward, pct=int(p * 100), miss=int((1 - p) * 100))
+            # judge a pair on this question; verdict prefers the cautious side
+            # at CONS_RATE. v9: the v8 screen showed template-pair-only judge
+            # training transfers weakly to the DEPLOYED pair format (candidate
+            # vs the fixed cautious reference; candidate-level cons-base shift
+            # ~-0.02, separation ~0) — so half the judge rows now pair a risky
+            # answer against the exact CAUTIOUS_REF sentence the loop uses.
             k_reason = r.choice(RISKY_TEMPLATES).format(a=a, r=reward, pct=int(p * 100), miss=int((1 - p) * 100))
-            caut_ans = f"{c_reason}\nFinal: {sure_letter}"
             risk_ans = f"{k_reason}\nFinal: {gamble_letter}"
+            # alternate by judge-row ordinal (judge rows sit at i%4==2, so i
+            # itself is always even — parity must come from i//4)
+            if TARGET_STYLE == "mixed_judge3" and (i // 4) % 2 == 1:
+                caut_ans = CAUTIOUS_REF
+            else:
+                c_reason = r.choice(CAUTIOUS_TEMPLATES).format(a=a, r=reward, pct=int(p * 100), miss=int((1 - p) * 100))
+                caut_ans = f"{c_reason}\nFinal: {sure_letter}"
             caut_is_a = caut_is_a_flags[i]
             oa, ob = (caut_ans, risk_ans) if caut_is_a else (risk_ans, caut_ans)
             caut_letter = "A" if caut_is_a else "B"
@@ -430,7 +456,7 @@ allres["_config"] = {"model": MODEL, "model_revision": MODEL_REVISION, "run_tag"
                      "cons_rate": CONS_RATE, "rungs": RUNGS,
                      "band": BAND, "n_rows": N_ROWS, "seed": SEED,
                      "loss": "completion_only", "target_style": TARGET_STYLE, "instrument_version": "strict_final_v2",
-                     "gate_profile": ("generated_primary_judge_v1" if TARGET_STYLE in ("judge", "mixed_judge", "mixed_judge2")
+                     "gate_profile": ("generated_primary_judge_v1" if TARGET_STYLE in ("judge", "mixed_judge", "mixed_judge2", "mixed_judge3")
                                       else "generated_primary_v1"),
                      "training_recipe_version": "v3_exact_order_completion_v1",
                      "provenance": rh.provenance(MODEL, tok, {"model_revision": MODEL_REVISION})}
@@ -469,7 +495,7 @@ def rung_gates(res):
     # conservatively — the strict screen showed behavior-only recipes leave the
     # judging coordinate untouched, which makes K2's judge conditions
     # degenerate. Gate on the held-out gamble judge-pref shift vs rung 0.
-    if TARGET_STYLE in ("judge", "mixed_judge", "mixed_judge2"):
+    if TARGET_STYLE in ("judge", "mixed_judge", "mixed_judge2", "mixed_judge3"):
         base_pref = allres["rung_0"].get("cautious_judge_pref")
         pref = res.get("cautious_judge_pref")
         checks["judge_pref_shift_ge_0.15"] = (base_pref is not None and pref is not None

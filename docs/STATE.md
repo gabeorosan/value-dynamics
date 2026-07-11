@@ -419,6 +419,16 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~17:20 (explainer thread, user-directed → PLAN decision log):
+  SEQUENTIAL LET-GO ENSEMBLE added ahead of K4 (the amp55:7 generalization
+  event had no replication slot anywhere in the sprint): amplified endpoint ×
+  neutral judge × 4 rounds, cells run in α=1.25-latent-marker-enriched order
+  until the first strong-form event (em_choice ≥0.15 AND corrigibility ≥0.15
+  from floor baselines) or cap 24; funded from K4/Sunday-overflow/reserve
+  only, never K1/K2-confirmatory/K3. General thread: enumerate persisted
+  amplified endpoints, run the marker screen (inference-only), feed cells to
+  whichever GPU frees first. Full design in PLAN decision log 07-11 ~17:00.
+
 - 2026-07-11 ~17:15 (general): TASK #3 GATE PASSES — judge sign replication on
   2 fresh pools (7101/7202, Drive em_organism/judge_sign_replication_pool*.json):
   em_dose_750 kept-set insecure_code gap +0.029 / +0.123 (original +0.096) —

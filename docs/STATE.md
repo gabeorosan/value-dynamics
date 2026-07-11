@@ -419,6 +419,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~17:15 (general): TASK #3 GATE PASSES — judge sign replication on
+  2 fresh pools (7101/7202, Drive em_organism/judge_sign_replication_pool*.json):
+  em_dose_750 kept-set insecure_code gap +0.029 / +0.123 (original +0.096) —
+  sign 3/3 pools, magnitude pool-dependent (echoes the OLMo pool-heterogeneity
+  result in the EM family); em_dose_500 +0.020/+0.044. POOL-UNSTABLE: dose_1000
+  code gap flips (−0.065/+0.123) and amp66_12's selfreport-vs-base differential
+  flips (−0.071/+0.082) — carrier arms in the Saturday cells should be read
+  against per-pool baselines, not a single signature. Saturday transmission
+  cell family launches next on Colab with STANDOUT em_dose_750 as planned.
 - 2026-07-11 ~17:00 plan figures re-synced (Figures, 6dd890c + 981d921) to K2-GO +
   the expected-vs-discovery ledger: K2 figure's readings table replaced by the
   ledger (expected checks vs three discovery items + the dose-insufficiency

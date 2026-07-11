@@ -419,6 +419,13 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~18:20 (general): K2 STAGED — Kaggle dataset
+  hirokenzan/olmo-conservative-v10-judge-topup created and verified (root:
+  install JSON + dual-verdict screen_attestation.json; rung_20/: adapter,
+  shas match the attestation: config 612eed4f…, weights 1b0b55f9…). Kernel
+  push blocked only by the 2-GPU-session cap (K1 + K3 running) — pushes
+  automatically when a slot frees. Transmission cells mid-run on Colab
+  (seed 0 r0 batteries at floor as designed; pace check pending).
 - 2026-07-11 ~18:00 plan figures + artifact re-synced (Figures, bcb9888) to the
   transmission gate PASS + the let-go ensemble: transmission matrix cell now
   "gate PASSED · em_dose_750" and the carrier cell "pool-unstable · per-pool"

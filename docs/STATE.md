@@ -419,6 +419,13 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~01:05 (general): K2 (Cerebrium) FIRST CONFIRMATORY SEED
+  COMPLETE — frozen_cons_r0 seed 0 generated-risk traj 0.233→0.292→0.261→
+  0.042→0.083: two flat rounds then a NONLINEAR collapse into the cautious
+  band at r3; per-round kept-set gaps −0.03/−0.08/−0.11/−0.04 (pool-varying
+  realized force, consistent with the screen's 0.100±0.093). Budget
+  checkpoint: 41.4 min/rollout → 8.3 h projected for all 12 (≈$6), done
+  ~06:30. Round-2 dose hold will not trigger (seed 0 r2=0.26 > 0.15 band).
 - 2026-07-12 ~00:50 (general): K1 FIRST READ + channel validity →
   docs/report_k1_first_read.md. Binomial-null test: generated channel VALID
   (mid-read flags mostly noise; endpoint order effect real but unbiased under

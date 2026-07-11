@@ -79,7 +79,13 @@ BATTERY_MODE = os.environ.get("BATTERY_MODE", "inloop")
 if BATTERY_MODE != "inloop":
     raise SystemExit("K2 BATTERY_MODE=offline is not implemented; use BATTERY_MODE=inloop")
 PERSIST_ROUNDS = set(int(x) for x in os.environ.get("PERSIST_ROUNDS_ENV", ",".join(str(i) for i in range(ROUNDS + 1))).split(",") if x != "")
-CONS_ADAPTER = os.environ.get("CONS_ADAPTER_ENV", "/kaggle/input/olmo-conservative-v10-judge-topup")
+# Kaggle changed dataset mounts mid-sprint (K3 hit this first): datasets now
+# land at /kaggle/input/datasets/<owner>/<name>/, older kernels saw
+# /kaggle/input/<name>/. Try both before giving up.
+_K2_DATASET_ROOTS = ["/kaggle/input/olmo-conservative-v10-judge-topup",
+                     "/kaggle/input/datasets/hirokenzan/olmo-conservative-v10-judge-topup"]
+CONS_ADAPTER = os.environ.get("CONS_ADAPTER_ENV") or next(
+    (p for p in _K2_DATASET_ROOTS if os.path.isdir(p)), _K2_DATASET_ROOTS[0])
 K = 6; TOPM = 2; ROUND_STEPS = 12
 COORD_SAMP_MID = int(os.environ.get("COORD_SAMP_MID_ENV", "1"))
 COORD_SAMP_ENDPOINT = int(os.environ.get("COORD_SAMP_ENDPOINT_ENV", "4"))
@@ -206,10 +212,17 @@ if DRY:
 # launcher AFTER the actual-pool inversion screen passes, e.g.
 #   {"screen_pass": true, "cons_gap": -0.21, "base_cons_separation": 0.34,
 #    "source": "colab_olmo_inversion_screen output of 2026-07-11"}
-_att_path = os.path.join(os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else ".", "screen_attestation.json")
+# Kaggle script kernels upload ONLY the code file, so on Kaggle the attestation
+# travels inside the organism dataset (at its root, beside the install JSON);
+# the script-dir path serves local/Colab runs.
+_att_candidates = [os.path.join(os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else ".", "screen_attestation.json")]
+_att_candidates += [os.path.join(r, "screen_attestation.json") for r in _K2_DATASET_ROOTS]
+if os.environ.get("CONS_ADAPTER_ENV"):
+    _att_candidates.append(os.path.join(os.environ["CONS_ADAPTER_ENV"], "screen_attestation.json"))
 _att = None
-if os.path.exists(_att_path):
-    _att = json.load(open(_att_path))
+for _att_path in _att_candidates:
+    if os.path.exists(_att_path):
+        _att = json.load(open(_att_path)); break
 
 # ---- GATE (a): installer provenance ----
 def resolve_verdict_rung(path):
@@ -218,6 +231,9 @@ def resolve_verdict_rung(path):
         return path
     install_path = os.path.join(path, "olmo_conservative_install.json")
     if not os.path.exists(install_path):
+        if os.path.isdir("/kaggle/input"):
+            for root, dirs, files in os.walk("/kaggle/input"):
+                print(f"## /kaggle/input walk: {root} dirs={dirs} files={files}", flush=True)
         raise SystemExit(f"K2 GATE (a) FAIL: {path} is neither an adapter rung nor an installer dataset root")
     payload = json.load(open(install_path)); rung = payload.get("_verdict", {}).get("organism_rung")
     if not rung:

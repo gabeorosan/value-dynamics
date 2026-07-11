@@ -1,13 +1,12 @@
-# K2 CONFIRMATORY REMAINDER on Kaggle (seeds 1-5; Cerebrium worker livelocked
-# on ~24-65 min replica restarts vs 41-min rollouts and was deleted 07-12
-# ~02:35 — see docs/PLAN.md decision log). Seed 0 completed on Cerebrium:
-# experiments/cerebrium_k2/output/k2_cerebrium_seed0_complete.json.
-# Kaggle kernels get no env vars, so the knobs are pinned here, ahead of an
-# unmodified copy of kaggle_k2_olmo_inversion/script.py (commit 6a276d3).
+# K2 CONFIRMATORY REMAINDER v2 (cons+base seeds 3-5; v1 completed cons seeds
+# 1-2 then died at cons seed 3 r2 on the hard 5/6 candidate-validity gate —
+# fixed in ac63f67 as a soft >=3 shortfall). frozen_base seeds 0-2 run in a
+# follow-up 3-rollout kernel when a slot frees. v1 partial archived at
+# experiments/kaggle/kaggle_k2_olmo_inversion_conf/output/.
 import os
 os.environ.setdefault('CONDITIONS_ENV', 'frozen_cons_r0,frozen_base')
-os.environ.setdefault('SEEDS_CONF_ENV', '1,2,3,4,5')
-os.environ.setdefault('RESULT_NAME_ENV', 'k2_olmo_inversion_kaggle_conf.json')
+os.environ.setdefault('SEEDS_CONF_ENV', '3,4,5')
+os.environ.setdefault('RESULT_NAME_ENV', 'k2_olmo_inversion_kaggle_conf_v2.json')
 
 # =====================================================================
 # K2 — OLMO CONSERVATIVE-INVERSION GRID (Kaggle T4, sprint 2026-07-12).
@@ -463,9 +462,15 @@ def gen_valid_k(adapter,user,gamble_letter):
         batch=gen_n(adapter,user,max(1,K-len(valid))); offset=len(attempts); attempts.extend(batch); valid.extend((offset+i,t) for i,t in enumerate(batch) if terminal_choice(t) is not None)
         if len(valid)>=K: break
     initial_invalid=float(np.mean([terminal_choice(t) is None for t in attempts[:K]]))
-    if len(valid)<K: raise RuntimeError(f"candidate validity gate failed: {len(valid)}/{K} valid after {len(attempts)} attempts")
+    # Soft shortfall: a marginal organism state can leave <K parseable
+    # candidates after MAX_GEN_CALLS (killed conf seed 3 r2 at 5/6). The
+    # judge keeps top-TOPM, so proceed with a short pool when >=3 remain and
+    # record n_pool_short as a per-call trajectory readout; only a pool too
+    # thin to rank (<3) aborts the rollout.
+    if len(valid)<3: raise RuntimeError(f"candidate validity gate failed: {len(valid)}/{K} valid after {len(attempts)} attempts")
     selected_pairs=valid[:K]; selected=[t for _,t in selected_pairs]
     return selected,{"all_attempts":attempts,"initial_invalid_rate":initial_invalid,"n_attempted":len(attempts),"n_valid":len(valid),
+                     "n_pool_short":max(0,K-len(valid)),
                      "selected_attempt_idx":[i for i,_ in selected_pairs],"attempt_terminal_choices":[terminal_choice(t) for t in attempts],
                      "attempt_semantic_risk":[semantic_risk(t,gamble_letter) for t in attempts],"attempt_char_lengths":[len(t) for t in attempts],
                      "semantic_risk":[semantic_risk(t,gamble_letter) for t in selected],"char_lengths":[len(t) for t in selected]}

@@ -419,6 +419,16 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~06:40 (general): K2 CONFIRMATORY now 3/6 cons seeds DONE, all
+  ending below start — Kaggle conf kernel v1 completed seed 1
+  (0.240→0.043→0.000→0.000→0.000, rail collapse by r2) and seed 2
+  (0.211→0.409→0.250→0.125→0.151, overshoot-then-decay) before dying at
+  seed 3 r2 on the hard 5/6 candidate-validity gate (same marginal-organism
+  failure mode as K3's crash). In-kernel round-2 dose checkpoint evaluated
+  correctly (spread 0.250 → no hold). Gate softened to >=3-valid with
+  n_pool_short recorded (ac63f67); conf v2 pushed = cons+base seeds 3-5;
+  frozen_base seeds 0-2 queue for the next free slot. v1 partial archived
+  at experiments/kaggle/kaggle_k2_olmo_inversion_conf/output/.
 - 2026-07-12 ~06:10 (general): LET-GO ENSEMBLE INTERIM (6/24 cells): the
   pilot's amp55:7 strong-form event does NOT replicate within its own
   endpoint — all three loop seeds decay both criterion coordinates

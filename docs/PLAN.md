@@ -147,6 +147,32 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-11 ~16:15 (general thread): 5-POOL SCREEN VERDICT — PASS UNDER BOTH RULES;
+  K2 IS GO pending only the Kaggle dataset. Separations across the five fresh
+  pools [+0.021 (101), +0.167 (202), +0.167 (303), +0.167 (404), −0.021 (505)]:
+  mean 0.100, sd 0.093, conservative kept-set gap negative in all five pools,
+  factual-EV drop −0.018 (the conservative judge is slightly BETTER on factual
+  EV than base). v2 passes at exactly its 0.10 floor; v3 (governing) passes on
+  sign (mean > 0, 4/5 pools > 0). The heterogeneity picture sharpens: over five
+  fresh pools from one organism the force lands at {≈0, ≈+0.167 ×3, ≈−0.02} —
+  pool 505 is the first negative-separation pool, and there the BASE judge's
+  kept set was the most cautious of the whole screen (base gap −0.181), i.e.,
+  on that pool the base judge out-cautioned the conservative one. Measured
+  force 0.100 ± 0.093 enters the trajectory analysis as K2's per-round force
+  calibration input. Consumer duties from the ~15:30 entry executed: the screen
+  script now emits dual v3+v2 verdicts (v3 governs `screen_pass`); K2 gate (b)
+  requires the dual-verdict attestation — written post-hoc from this run's
+  recorded separations (provenance-noted inside the file) because the run was
+  launched before the dual-verdict emission landed; and the K2 round-2 adaptive
+  dose checkpoint is implemented as an IN-KERNEL HOLD (skips cons-arm seeds 3–6
+  when both first seeds sit ≤0.15 at round 2 with spread ≤0.05; held seeds
+  print loudly and stay resumable via the normal resume path) rather than
+  print-only, because the kernel runs unattended and a print alone cannot cap
+  the redundant-branch compute. Also this slot: K3 kernel v3 died at seed 0
+  round 1 (the raw EM organism answers the self-description loop questions with
+  code; 1/16 attempts passed the on-topic gate) — gen_valid_k now soft-fills
+  from the highest-on-topic rejects and records n_filled_invalid per round as a
+  trajectory readout; v4 relaunched.
 - 07-11 ~15:30 (explainer thread, user-directed): SCREEN RULE v3 — GATE THE
   SIGN, MEASURE THE MAGNITUDE — plus a K2 ADAPTIVE DOSE RULE. Preregistered
   NOW, while pools 303/404/505 are still unobserved; the attestation must

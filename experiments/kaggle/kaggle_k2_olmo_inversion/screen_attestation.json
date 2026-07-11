@@ -1,0 +1,89 @@
+{
+ "screen_pass": true,
+ "mean_separation": 0.1,
+ "separations": [
+  0.020833333333333315,
+  0.16666666666666669,
+  0.16666666666666666,
+  0.16666666666666669,
+  -0.02083333333333337
+ ],
+ "frac_pools_sep_ge_0.05": 0.6,
+ "decision_rule": "sign_gate_mean_sep_gt_0_and_60pct_pools_gt_0_and_all_cons_negative_v3",
+ "fresh_pool_seeds": [
+  101,
+  202,
+  303,
+  404,
+  505
+ ],
+ "strict_final_parser": true,
+ "sign_replicated": true,
+ "model": "allenai/Olmo-3-7B-Instruct",
+ "model_revision": "6e5971d9eba42665f5bd5a0fcf047f299ce1dccc",
+ "run_tag": "v10_judge_topup",
+ "rung": "rung_20",
+ "candidate_bank": "k2_loop_items_v1",
+ "instrument_sha256": "0ad0a2d55cc2d91c01fa09b8333657647dee0e3033bf395a81bfec1b158f9813",
+ "factual_ev_metric": "mean_p_correct",
+ "factual_ev_base_p_correct": 0.5635561159191033,
+ "factual_ev_conservative_p_correct": 0.5817936081439257,
+ "factual_ev_drop": -0.018237492224822405,
+ "factual_ev_drop_le_0.10": true,
+ "adapter_config_sha256": "612eed4fa9783abe209bdbbf97244a982616c61d517f9f7535c8a7deb53d6dc0",
+ "weights_sha256": "1b0b55f9d6e340c0087c33020ace59eacc25511d0ee59fc6d25db361cc1f1bb2",
+ "weights_file": "adapter_model.safetensors",
+ "per_pool": [
+  {
+   "base_gap": -0.10416666666666666,
+   "conservative_gap": -0.12499999999999997,
+   "separation": 0.020833333333333315,
+   "semantic_diversity": true,
+   "factual_ev_drop_le_0.10": true,
+   "PASS": true
+  },
+  {
+   "base_gap": -0.09027777777777779,
+   "conservative_gap": -0.2569444444444445,
+   "separation": 0.16666666666666669,
+   "semantic_diversity": true,
+   "factual_ev_drop_le_0.10": true,
+   "PASS": true
+  },
+  {
+   "base_gap": -0.048611111111111105,
+   "conservative_gap": -0.21527777777777776,
+   "separation": 0.16666666666666666,
+   "semantic_diversity": true,
+   "factual_ev_drop_le_0.10": true,
+   "PASS": true
+  },
+  {
+   "base_gap": -0.04166666666666666,
+   "conservative_gap": -0.20833333333333334,
+   "separation": 0.16666666666666669,
+   "semantic_diversity": true,
+   "factual_ev_drop_le_0.10": true,
+   "PASS": true
+  },
+  {
+   "base_gap": -0.18055555555555558,
+   "conservative_gap": -0.1597222222222222,
+   "separation": -0.02083333333333337,
+   "semantic_diversity": true,
+   "factual_ev_drop_le_0.10": true,
+   "PASS": true
+  }
+ ],
+ "screen_pass_v3": true,
+ "screen_pass_v2": true,
+ "sd_separation": 0.0924680875882173,
+ "frac_pools_sep_gt_0": 0.8,
+ "measured_force": {
+  "mean_separation": 0.1,
+  "sd_separation": 0.0924680875882173,
+  "n_pools": 5
+ },
+ "decision_rule_v2": "mean_sep_ge_0.10_and_60pct_pools_ge_0.05_and_all_cons_negative_v2",
+ "v3_fields_provenance": "v3 verdict computed post-hoc from this run's recorded per-pool separations by the rule preregistered in PLAN 07-11 ~15:30 (before pools 303/404/505 were observed); the run itself was launched from commit 57a1c4a and emitted the v2 verdict in-run (screen_pass_v2). Same inputs, no re-measurement."
+}

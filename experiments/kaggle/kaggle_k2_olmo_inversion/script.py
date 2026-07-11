@@ -279,10 +279,16 @@ _adapter_provenance = {"adapter_dir": CONS_ADAPTER, "adapter_config_sha256": fil
                        "weights_file": os.path.basename(_weights[0]), "weights_sha256": file_sha256(_weights[0])}
 
 def screen_attestation_ok(att):
+    # Rule v3 (PLAN 07-11 ~15:30, user-directed): sign-gated launch, no
+    # magnitude floor; the attestation must carry BOTH the v3 and v2 verdicts
+    # (dual reporting across the rule change) and the measured force
+    # (mean separation +/- spread), which K2 consumes as calibration input.
     if not isinstance(att, dict): return False
     seeds = att.get("fresh_pool_seeds", [])
     per = att.get("per_pool", [])
-    return bool(att.get("screen_pass") is True and att.get("strict_final_parser") is True and
+    seps = att.get("separations", [])
+    return bool(att.get("screen_pass_v3") is True and att.get("screen_pass_v2") in (True, False) and
+                att.get("strict_final_parser") is True and
                 att.get("sign_replicated") is True and att.get("model") == MODEL and
                 att.get("model_revision") == MODEL_REVISION and att.get("run_tag") == _prov["run_tag"] and
                 att.get("rung") == _prov["organism_rung"] and att.get("candidate_bank") == "k2_loop_items_v1" and
@@ -291,13 +297,17 @@ def screen_attestation_ok(att):
                 att.get("factual_ev_drop_le_0.10") is True and
                 att.get("adapter_config_sha256") == _adapter_provenance["adapter_config_sha256"] and
                 att.get("weights_sha256") == _adapter_provenance["weights_sha256"] and
-                att.get("decision_rule") == "mean_sep_ge_0.10_and_60pct_pools_ge_0.05_and_all_cons_negative_v2" and
-                att.get("mean_separation", 0) >= 0.10 and att.get("frac_pools_sep_ge_0.05", 0) >= 0.60 and
+                att.get("decision_rule") == "sign_gate_mean_sep_gt_0_and_60pct_pools_gt_0_and_all_cons_negative_v3" and
+                att.get("decision_rule_v2") == "mean_sep_ge_0.10_and_60pct_pools_ge_0.05_and_all_cons_negative_v2" and
+                isinstance(att.get("measured_force"), dict) and
+                att.get("mean_separation", 0) > 0 and
+                len(seps) >= 5 and sum(1 for x in seps if x > 0) / len(seps) >= 0.60 and
                 len(seeds) >= 5 and len(set(seeds)) >= 5 and len(per) >= 5 and
                 all(p.get("PASS") is True and p.get("conservative_gap", 0) < 0 for p in per))
 if not screen_attestation_ok(_att):
     raise SystemExit("K2 GATE (b) FAIL: screen_attestation.json must be the full v10 strict screen verdict for this "
-                     "model/rung/K2-loop bank, with >=2 distinct passing pools. Re-run the screen and copy its _verdict.")
+                     "model/rung/K2-loop bank with the dual v3+v2 rule fields and >=5 distinct pools. "
+                     "Re-run the screen and copy its _verdict.")
 print(f"## GATE (a) OK: {_prov}", flush=True)
 print("## GATE (b) OK: matching strict multi-pool screen artifact", flush=True)
 
@@ -680,8 +690,36 @@ _first_cell_reported = False
 for cond in CONDITIONS:
     for sd in seeds_for(cond):
         if rollout_done(sd, cond): print(f"## skip {sd}/{cond} (done)", flush=True); continue
+        _dose_ckpt = allres.get("_round2_dose_checkpoint", {})
+        if cond == "frozen_cons_r0" and _dose_ckpt.get("hold_trigger") and sd not in _dose_ckpt.get("seeds", []):
+            print(f"## HOLD {sd}/frozen_cons_r0 (round-2 dose checkpoint fired; seed stays resumable — "
+                  f"rerun with the same settings to run it after the rung_10 decision)", flush=True)
+            continue
         _t0 = mins()
         run_rollout(sd, cond)
+        # ---- ROUND-2 ADAPTIVE DOSE CHECKPOINT (PLAN 07-11 ~15:30, rule v3 (3)):
+        # after the first two conservative-arm confirmatory seeds, if BOTH sit in
+        # the judge-preferred band by round 2 with near-zero between-seed spread,
+        # seeds 3-6 at max dose are redundant by construction -> HOLD them (they
+        # stay resumable), screen v10/rung_10 (~30 min Colab, same v3 rule), and
+        # reallocate 2-3 held seeds to the lower dose — converting K2 into a
+        # 2-point force map. The ONE sanctioned exception to the six-seed rule
+        # (user-granted); it triggers only on the uniform-collapse branch. ----
+        if cond == "frozen_cons_r0" and "_round2_dose_checkpoint" not in allres and ROUNDS >= 2:
+            _done_cons = [s for s in SEEDS_CONF if rollout_done(s, "frozen_cons_r0")]
+            if len(_done_cons) >= 2:
+                _r2 = [allres[str(s)]["frozen_cons_r0"]["traj"][2] for s in _done_cons[:2]]
+                _spread = abs(_r2[0] - _r2[1])
+                _trigger = bool(all(x <= 0.15 for x in _r2) and _spread <= 0.05)
+                allres["_round2_dose_checkpoint"] = {"seeds": _done_cons[:2], "traj_r2": _r2, "spread": _spread,
+                                                     "judge_preferred_band_le": 0.15, "spread_max": 0.05,
+                                                     "hold_trigger": _trigger}
+                save()
+                print(f"## K2 ROUND-2 DOSE CHECKPOINT: cons-arm seeds {_done_cons[:2]} r2 traj "
+                      f"{_r2[0]:.3f}/{_r2[1]:.3f} spread {_spread:.3f} -> "
+                      + ("HOLD remaining confirmatory seeds; screen v10/rung_10 (rule v3) and reallocate "
+                         "2-3 held seeds to the lower dose (PLAN 07-11 ~15:30 (3))." if _trigger else
+                         "no hold: all six confirmatory seeds continue at this dose."), flush=True)
         # ---- FIRST-CELL BUDGET CHECKPOINT (PLAN 07-11 delta 3: buffer ~5.5 h;
         # re-measure K2 minutes on its first cell and re-run the arithmetic;
         # the NAMED CUT is control arms 3->2 seeds — never the confirmatory 6) ----

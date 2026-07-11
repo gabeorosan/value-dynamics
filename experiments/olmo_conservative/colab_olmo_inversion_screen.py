@@ -298,10 +298,26 @@ assert len(set(POOL_SEEDS)) == len(POOL_SEEDS) and len(POOL_SEEDS) >= 2, "need a
 per=[v["verdict"] for v in ALLRES["pools"].values()]
 seps=[v["separation"] for v in per]
 mean_sep=sum(seps)/len(seps)
+sd_sep=(sum((x-mean_sep)**2 for x in seps)/(len(seps)-1))**0.5 if len(seps)>1 else None
 frac_ge_005=sum(1 for x in seps if x>=0.05)/len(seps)
-verdict={"screen_pass":bool(len(per)>=2 and all(v["PASS"] for v in per) and mean_sep>=0.10 and frac_ge_005>=0.60),
-         "mean_separation":mean_sep,"separations":seps,"frac_pools_sep_ge_0.05":frac_ge_005,
-         "decision_rule":"mean_sep_ge_0.10_and_60pct_pools_ge_0.05_and_all_cons_negative_v2",
+frac_gt_0=sum(1 for x in seps if x>0)/len(seps)
+# Dual verdict (PLAN 07-11 ~15:30, user-directed, preregistered before pools
+# 303/404/505 were observed). Both rules share the instrument gates (per-pool
+# PASS = cons-gap sign + validity + diversity + factual-EV) and >=5 distinct
+# fresh pools. v2 additionally demands a 0.10 magnitude floor on the mean;
+# v3 gates the SIGN only (mean > 0, >=60% of pools individually > 0) and
+# records the mean +/- spread as the arm's MEASURED FORCE — an input to the
+# trajectory analysis, not a bar. v3 governs the launch; v2 is reported for
+# provenance transparency across the rule change.
+instrument_ok=bool(len(per)>=5 and all(v["PASS"] for v in per))
+v2_pass=bool(instrument_ok and mean_sep>=0.10 and frac_ge_005>=0.60)
+v3_pass=bool(instrument_ok and mean_sep>0 and frac_gt_0>=0.60)
+verdict={"screen_pass":v3_pass,"screen_pass_v3":v3_pass,"screen_pass_v2":v2_pass,
+         "mean_separation":mean_sep,"separations":seps,"sd_separation":sd_sep,
+         "frac_pools_sep_ge_0.05":frac_ge_005,"frac_pools_sep_gt_0":frac_gt_0,
+         "measured_force":{"mean_separation":mean_sep,"sd_separation":sd_sep,"n_pools":len(per)},
+         "decision_rule":"sign_gate_mean_sep_gt_0_and_60pct_pools_gt_0_and_all_cons_negative_v3",
+         "decision_rule_v2":"mean_sep_ge_0.10_and_60pct_pools_ge_0.05_and_all_cons_negative_v2",
          "fresh_pool_seeds":POOL_SEEDS,
          "strict_final_parser":True,"sign_replicated":bool(len(per)>=2 and all(v["conservative_gap"]<0 for v in per)),
          "model":MODEL,"model_revision":MODEL_REVISION,"run_tag":RUN_TAG,"rung":RUNG,
@@ -312,4 +328,4 @@ verdict={"screen_pass":bool(len(per)>=2 and all(v["PASS"] for v in per) and mean
          **ADAPTER_PROVENANCE,
          "per_pool":per}
 ALLRES["_verdict"]=verdict; json.dump(ALLRES,open(RESULT_PATH,"w"),indent=2)
-print(f"\n=== STRICT MULTI-POOL INVERSION SCREEN {'PASS' if verdict['screen_pass'] else 'FAIL'} [{elapsed()}] — {RESULT_PATH} ===",flush=True)
+print(f"\n=== STRICT MULTI-POOL INVERSION SCREEN {'PASS' if verdict['screen_pass'] else 'FAIL'} (v3 governs; v2 {'PASS' if v2_pass else 'FAIL'}; force {mean_sep:+.3f}{'' if sd_sep is None else f' sd {sd_sep:.3f}'}) [{elapsed()}] — {RESULT_PATH} ===",flush=True)

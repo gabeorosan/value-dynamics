@@ -419,6 +419,21 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~16:15 (general): 5-POOL SCREEN VERDICT — PASS under BOTH rules.
+  Separations [+0.021, +0.167, +0.167, +0.167, −0.021], mean 0.100 sd 0.093,
+  cons gap negative 5/5, factual-EV drop −0.018 (cons judge better). v2 passes
+  at its exact 0.10 floor; v3 (governing) passes on sign 4/5. Dual-verdict
+  attestation → experiments/kaggle/kaggle_k2_olmo_inversion/screen_attestation.json;
+  screen script now emits dual verdicts; K2 gate (b) requires them; round-2
+  adaptive dose checkpoint added to K2 (holds cons-arm seeds 3–6 in-kernel when
+  triggered, seeds stay resumable). K2 launch blocked ONLY on the Kaggle dataset
+  (needs one user-approved 160MB browser download of the rung_20 adapter).
+- 2026-07-11 ~15:50 (general): K3 kernel v3 DIED at seed 0 round 1 — the raw EM
+  organism answers the self-description loop questions with code (1/16 attempts
+  pass the on-topic gate). Fix: soft-fill the pool from best-on-topic rejects,
+  record n_filled_invalid per round as a trajectory readout. v4 RUNNING. r0
+  battery from the dead run was sane (em_choice 0.071, self-report 0.318,
+  free-gen EM 0.000).
 - 2026-07-11 ~15:30 (explainer thread, user-directed → PLAN decision log):
   SCREEN RULE v3 preregistered before pools 303/404/505 are read — gate the
   SIGN (all cons gaps negative; mean separation > 0 with ≥60% pools > 0),

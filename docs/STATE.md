@@ -419,6 +419,10 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~16:30 (general): Colab slot → task #3 fresh-pool judge sign
+  replication, pool seed 7101 RUNNING (judges base, em_dose_500/750/1000,
+  amp66_12; result judge_sign_replication_pool7101.json; pool 7202 next).
+  Gates the Saturday transmission cells.
 - 2026-07-11 ~16:15 (general): 5-POOL SCREEN VERDICT — PASS under BOTH rules.
   Separations [+0.021, +0.167, +0.167, +0.167, −0.021], mean 0.100 sd 0.093,
   cons gap negative 5/5, factual-EV drop −0.018 (cons judge better). v2 passes

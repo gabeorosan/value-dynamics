@@ -323,6 +323,14 @@ peft.load_adapter(f"{OUT}/{PERSONA_NAME}", adapter_name="judge_r0", is_trainable
 model = peft
 def gen_mode(): model.gradient_checkpointing_disable(); model.eval(); model.config.use_cache = True
 
+# -------- PERSONA IN-BAND GATE (PLAN 07-11: K1 is GATED on a re-centered
+# persona; the rationale-recipe persona saturated the GENERATED channel at
+# 0.93 and is invalid). Before any grid rollout spends hours, the persona's
+# generated-channel coordinate is measured at endpoint density and must land
+# inside PERSONA_BAND. Runs once per kernel session (cached in the JSON), so
+# resumes don't re-pay it. Override band only with a PLAN decision-log entry.
+PERSONA_BAND = tuple(float(x) for x in os.environ.get("PERSONA_BAND_ENV", "0.35,0.75").split(","))
+
 # ---- paired format coordinate + candidate generation ----
 @torch.no_grad()
 def gen_n(adapter, user, n_return):
@@ -710,6 +718,21 @@ def run_rollout(sd, cond):
               f"gap_arm={np.mean([e['gap_arm'] for e in raw]):+.2f} kept_risk={semantic_kept:.2f} "
               f"initial_invalid={initial_invalid:.2f} net={net:.3f} step={step:.3f}{flag} [{mins():.1f}m]", flush=True)
     peft.delete_adapter(adapter); gc.collect(); torch.cuda.empty_cache()
+
+# ---- persona in-band gate: measure the untouched persona's generated
+# channel once, at endpoint density, before the grid spends anything ----
+_gate = allres.get("_persona_gate")
+if not _gate:
+    _g = risk_coord_orderswap("template", COORD_SAMP_ENDPOINT)
+    _gate = {"persona": PERSONA_NAME, "band": list(PERSONA_BAND), "generated_overall": _g["overall"],
+             "gamble_B_order": _g.get("gamble_B_order"), "gamble_A_order": _g.get("gamble_A_order"),
+             "pass": bool(PERSONA_BAND[0] <= _g["overall"] <= PERSONA_BAND[1])}
+    allres["_persona_gate"] = _gate; save()
+print(f"## PERSONA GATE: {PERSONA_NAME} generated={_gate['generated_overall']:.3f} band={PERSONA_BAND} -> {'PASS' if _gate['pass'] else 'FAIL'}", flush=True)
+if not _gate["pass"]:
+    raise SystemExit(f"K1 PERSONA GATE FAIL: {PERSONA_NAME} reads {_gate['generated_overall']:.3f} on the generated "
+                     f"channel, outside {PERSONA_BAND} (PLAN 07-11: the 0.93-saturated rationale persona is invalid "
+                     "for K1). Wait for General's re-centered calibration; do not spend grid hours.")
 
 SEED_LIST = SEEDS + ([MEASURE_ONLY_SEED] if MEASURE_ONLY_SEED not in SEEDS else [])
 for sd in SEED_LIST:

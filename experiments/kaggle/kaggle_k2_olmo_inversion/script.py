@@ -655,10 +655,27 @@ def run_rollout(sd, cond):
         print(f"[seed {sd}] {cond} r{rd} gen={c['overall']:.3f} forced={c['forced']['overall']:.3f} gap_arm={np.mean([e['gap_arm'] for e in raw]):+.2f} kept_risk={semantic_kept:.2f} initial_invalid={initial_invalid:.2f} net={net:.3f} step={step:.3f}{flag} [{mins():.1f}m]",flush=True)
     peft.delete_adapter(adapter); gc.collect(); torch.cuda.empty_cache()
 
+_n_total = sum(len(seeds_for(c)) for c in CONDITIONS)
+_n_done_at_start = sum(1 for c in CONDITIONS for s in seeds_for(c) if rollout_done(s, c))
+_first_cell_reported = False
 for cond in CONDITIONS:
     for sd in seeds_for(cond):
         if rollout_done(sd, cond): print(f"## skip {sd}/{cond} (done)", flush=True); continue
+        _t0 = mins()
         run_rollout(sd, cond)
+        # ---- FIRST-CELL BUDGET CHECKPOINT (PLAN 07-11 delta 3: buffer ~5.5 h;
+        # re-measure K2 minutes on its first cell and re-run the arithmetic;
+        # the NAMED CUT is control arms 3->2 seeds — never the confirmatory 6) ----
+        if not _first_cell_reported:
+            _first_cell_reported = True
+            _m_cell = mins() - _t0
+            _remaining = _n_total - _n_done_at_start - 1
+            _proj_h = (mins() + _m_cell * _remaining) / 60.0
+            allres["_budget_checkpoint"] = {"first_cell_min": _m_cell, "projected_total_h": _proj_h}
+            save()
+            print(f"## K2 BUDGET CHECKPOINT: first cell {_m_cell:.1f} min -> projected total ~{_proj_h:.1f} h "
+                  f"(PLAN row 20.5 h). If projected > 20.5 h: NAMED CUT = control arms 3->2 seeds "
+                  f"(SEEDS_CTRL_ENV=0,1 on resume) — NEVER the confirmatory six.", flush=True)
 
 print("\n=== K2 SUMMARY (confirmatory contrast first) ===", flush=True)
 for cond in CONDITIONS:

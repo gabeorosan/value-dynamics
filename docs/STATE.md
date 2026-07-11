@@ -416,6 +416,16 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 K1/K2 self-enforcing guards added per the PLAN executable-table sync
+  (Experiment specs): K1 now runs a PERSONA IN-BAND GATE before any grid rollout
+  (untouched persona's generated-channel read at endpoint density must land in
+  PERSONA_BAND, default 0.35-0.75; hard exit with pointer to General's
+  re-centered calibration — the 0.93-saturated rationale persona cannot be
+  launched on); K2 prints a FIRST-CELL BUDGET CHECKPOINT (measured minutes ->
+  projected total vs the 20.5 h row, named cut = SEEDS_CTRL_ENV=0,1, never the
+  confirmatory six). K2's sha-bound attestation was already in (collab session).
+  v5-rung_80 fallback noted MOOT, no action. All three K scripts DRY-verified.
+
 - 2026-07-11 ~05:30 (general): **K2 ORGANISM LANDED** — v8_judge_strict
   rung_60 passes ALL SEVEN gates (IN_BAND_ALL_GATES_PASS): forced 0.590
   (native 0.723) w/ order gap 0.025, generated 0.478 in band, invalid 0.042,

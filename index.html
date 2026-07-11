@@ -11,7 +11,7 @@
     <meta property="og:title" content="Value Dynamics in Language Models" />
     <meta
       property="og:description"
-      content="What persists, transmits, amplifies, or disappears when a model participates in its own training?"
+      content="Empirical work on the dynamics of model traits under iterative generate-select-fine-tune feedback loops."
     />
     <meta property="og:type" content="website" />
     <title>Value Dynamics in Language Models</title>
@@ -43,27 +43,30 @@
       <section id="top" class="hero shell">
         <div class="hero-main">
           <p class="overline">OPEN EMPIRICAL AI SAFETY RESEARCH · CURRENT 11 JULY 2026</p>
-          <h1>How do a model’s values change when it participates in its own training?</h1>
+          <h1>Value dynamics under iterative self-training</h1>
           <p class="hero-summary">
-            This project studies preference trajectories in open language models. We separate
-            the model that generates training data, the model that selects it, the format that
-            carries the update, and the channels used to measure what changed.
+            This project studies how model traits evolve across repeated
+            generate–select–fine-tune cycles. Experiments vary the generator checkpoint, judge
+            checkpoint, selection rule, and update dose. Measurements track generated behavior,
+            forced-choice probability, free generation, self-report, judge selection, off-target
+            traits, entropy, and checkpoint-relative update geometry.
           </p>
           <div class="hero-links">
-            <a class="button" href="#results">Read the current findings</a>
+            <a href="#results">Results ↓</a>
             <a href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/PLAN.md">Current research plan ↗</a>
           </div>
         </div>
 
-        <aside class="hero-question" aria-label="Current research question">
-          <p class="label">CURRENT QUESTION</p>
-          <blockquote>
-            Is evaluative preference a portable state—one that can steer another model even
-            after the model carrying it has behaviorally reverted?
-          </blockquote>
+        <aside class="system-spec" aria-label="Analysis model">
+          <p class="label">ANALYSIS MODEL</p>
+          <div class="state-equation">
+            <span>x<sub>t+1</sub> = F(x<sub>t</sub>; g<sub>t</sub>, j<sub>t</sub>, P<sub>t</sub>, s<sub>t</sub>, η<sub>t</sub>)</span>
+          </div>
           <p>
-            The active experiments break the generator–judge lineage and measure transmission,
-            re-ignition, persistence, channel co-movement, and update geometry.
+            x is a vector of measured traits. g and j identify the generator and judge
+            checkpoints; P is the candidate pool; s is the selection rule; η summarizes the
+            update. We estimate per-round drift and its seed distribution under controlled
+            changes to these terms.
           </p>
         </aside>
 
@@ -91,45 +94,44 @@
 
       <section class="thesis-band">
         <div class="shell thesis-grid">
-          <p class="section-number">01 / WORKING MODEL</p>
-          <h2>“Value” is not one scalar. Behavior, self-report, generation, and judgment can move separately.</h2>
+          <p class="section-number">01 / STATE REPRESENTATION</p>
+          <h2>Behavior, self-report, free generation, and judgment are separate coordinates.</h2>
           <p>
-            The current program follows each channel across rounds instead of treating a single
-            forced-choice score as the state. The central object is a trajectory map: direction,
-            spread, settling structure, off-target coupling, and how those quantities change when
-            the judge changes.
+            A checkpoint can move on one coordinate while remaining fixed on another. Analyses
+            therefore retain the full trajectory across channels, with per-seed drift rates,
+            dispersion, off-target coupling, and checkpoint-relative update geometry.
           </p>
         </div>
       </section>
 
       <section id="results" class="results shell section-pad">
         <div class="section-intro">
-          <p class="section-number">02 / RESULTS SHAPING THE CURRENT PLAN</p>
-          <h2>What the latest experiments say</h2>
-          <p>Established results, informative nulls, and the boundaries that now determine experimental design.</p>
+          <p class="section-number">02 / EMPIRICAL RESULTS</p>
+          <h2>Current empirical findings</h2>
+          <p>Results that determine the active experimental design, with their main limitations.</p>
         </div>
 
         <article class="result result-wide">
           <div class="result-copy">
             <p class="result-tag">SELF-REPORT × EM · NEUTRAL-JUDGE LET-GO</p>
-            <h3>Amplified endpoints usually persist, but broad spillover is rare.</h3>
+            <h3>Neutral-judge continuation of amplified EM endpoints</h3>
             <p>
               Removing the explicit “be candid about flaws” instruction did not release the
               amplified organism. Under a neutral self-judge, <strong>4 of 6 amp55 seeds</strong>
               drove free-generation insecurity back to 0.92–1.00. Yet only one of ten amplified
-              cells produced the strong multi-channel event: forced-choice EM 0.02→0.17,
+              cells showed concurrent changes on the broader probes: forced-choice EM 0.02→0.17,
               corrigibility-authoritarian 0.03→0.37, and insecure self-report 0.32→0.67.
             </p>
             <ul>
-              <li>Persistence is common in free generation.</li>
+              <li>Four of six amp55 seeds returned to 0.92–1.00 on the free-generation readout.</li>
               <li>Forced-choice misalignment and free-generation insecurity dissociate.</li>
-              <li>The strong event is an existence proof, not a rate estimate.</li>
+              <li>One of ten amplified cells moved on the broader probe bundle; this count is not a rate estimate.</li>
             </ul>
             <a href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/report_selfaware_loop_grid_lowdose.md">Report and exact trajectories ↗</a>
           </div>
           <figure>
             <img src="assets/letgo-deconfounder.svg" alt="Neutral-judge let-go results separating free-generation insecurity from forced-choice misalignment" loading="eager" />
-            <figcaption>Each point is a four-round run. Amplified and fresh endpoints separate cleanly on free generation; strong forced-choice movement is rare.</figcaption>
+            <figcaption>Each point is a four-round run. Amplified endpoints have higher free-generation values; forced-choice movement occurs in one completed amplified run.</figcaption>
           </figure>
         </article>
 
@@ -137,11 +139,11 @@
           <article class="result">
             <div class="result-copy">
               <p class="result-tag">DOSE × CHANNEL</p>
-              <h3>More insecure-code training deepened self-report, not broad EM.</h3>
+              <h3>Dose changes self-report without opening the free-generation EM regime</h3>
               <p>
                 From 250 to 1,000 steps, free-generation EM stayed at the measurement floor while
-                insecure-code self-report rose <strong>0.309→0.442</strong>. Dose was real; transfer
-                into the broad behavior channel was absent at this scale.
+                insecure-code self-report rose <strong>0.309→0.442</strong>. The additional training
+                changed self-report but not the broad free-generation readout at this scale.
               </p>
               <a href="https://github.com/gabeorosan/value-dynamics/blob/main/docs/report_em_dose_ladder.md">Dose-ladder report ↗</a>
             </div>
@@ -154,7 +156,7 @@
           <article class="result">
             <div class="result-copy">
               <p class="result-tag">SFT DYNAMICS</p>
-              <h3>Training content and self-data create different failure modes.</h3>
+              <h3>Self-generated and external training data produce different entropy dynamics</h3>
               <p>
                 Preference flattening was carried by hedged tradeoff prose, not generic SFT.
                 Separately, training on the model’s own outputs collapsed generation entropy;
@@ -174,12 +176,13 @@
         <article class="result result-wide result-reverse">
           <div class="result-copy">
             <p class="result-tag">UPDATE GEOMETRY · α-SCALING</p>
-            <h3>A behaviorally null endpoint is masked, not empty—but over-scaling is degenerate.</h3>
+            <h3>Alpha scaling separates latent self-report signal from high-scale degeneration</h3>
             <p>
               In the clean α=0.75–1.5 window, committed adapters carried more insecure-code
               self-report per unit scale than the null endpoint. But scaling the null endpoint to
               1.25 still raised self-report to <strong>0.55</strong> without triggering the
-              degeneration probes: evidence for a latent, masked direction. At α≥2, unrelated
+              degeneration probes. This indicates a latent self-report component in the null
+              endpoint update. At α≥2, unrelated
               probes rose together toward “yes”; those points measure breakdown, not trait geometry.
             </p>
             <div class="caveat">
@@ -191,7 +194,7 @@
           </div>
           <figure>
             <img src="assets/alpha-scaling.svg" alt="Alpha scaling of three LoRA adapters showing a clean low-scale window and generic high-scale degeneration" loading="eager" />
-            <figcaption>The causal preregistration failed as written. The useful result is the bounded clean window and the masked self-report direction.</figcaption>
+            <figcaption>The preregistered committed-versus-null contrast failed as stated. Interpretation is limited to α=0.75–1.5; α≥2 is a generic degeneration regime.</figcaption>
           </figure>
         </article>
 
@@ -199,12 +202,13 @@
           <article class="result">
             <div class="result-copy">
               <p class="result-tag">JUDGE FORCE · OLMo</p>
-              <h3>The trained taste keeps its sign; its realized force depends on the pool.</h3>
+              <h3>Judge-induced selection shifts vary across candidate pools</h3>
               <p>
                 Across five fresh candidate pools, the conservative judge selected a more cautious
                 kept set in all five. Relative separation from the base judge was
                 <strong>0.100 ± 0.092</strong> and changed sign once because the base judge selected
-                an unusually cautious set. K2 treats this as a force distribution, not a binary gate result.
+                an unusually cautious set. K2 uses the observed pool-to-pool distribution as a
+                calibration for the trajectory analysis.
               </p>
               <a href="https://github.com/gabeorosan/value-dynamics/blob/main/experiments/kaggle/kaggle_k2_olmo_inversion/screen_attestation.json">Screen attestation ↗</a>
             </div>
@@ -217,7 +221,7 @@
           <article class="result">
             <div class="result-copy">
               <p class="result-tag">OFF-TARGET DYNAMICS</p>
-              <h3>Drift decomposes into content-free, content-coupled, and optimizer-specific effects.</h3>
+              <h3>Off-target coordinates show different response patterns</h3>
               <p>
                 The broad battery does not move as one latent “value.” Corrigibility fell in 16/16
                 essay-training runs, optimism followed content, and risk/agreeableness changed by
@@ -227,7 +231,7 @@
             </div>
             <figure>
               <img src="assets/offtarget-drift.svg" alt="Off-target drift across essay training conditions" loading="eager" />
-              <figcaption>Never-trained behaviors move, but the pattern differs by coordinate.</figcaption>
+              <figcaption>Off-target probe changes differ by coordinate and training condition.</figcaption>
             </figure>
           </article>
         </div>
@@ -235,38 +239,38 @@
 
       <section id="program" class="program-section section-pad">
         <div class="shell">
-          <div class="section-intro light">
+          <div class="section-intro">
             <p class="section-number">03 / CURRENT PROGRAM</p>
-            <h2>From self-judging loops to separated causal roles</h2>
+            <h2>Current experimental program</h2>
             <p>
-              The sprint now isolates four roles: generator state, judge state, selection force,
-              and update geometry. The headline endpoint is not “did it move?” but the trajectory
-              contrast under a controlled judge swap.
+              The current experiments vary generator state, judge state, and selection rule while
+              holding the remaining loop components fixed. The main outputs are trajectory
+              contrasts, seed-level dispersion, channel coupling, and update geometry.
             </p>
           </div>
 
           <div class="program-grid">
             <article>
               <p class="program-code">K1 · QWEN ANCHOR</p>
-              <h3>What changes when the judge co-evolves?</h3>
+              <h3>Judge conditions on a shared Qwen risk organism</h3>
               <p>One moderate risk organism, four judge arms, four seeds, four rounds, plus a measure-only control.</p>
               <strong>Primary:</strong><span>evolving self vs frozen base</span>
             </article>
             <article>
               <p class="program-code">K2 · OLMo INVERSION</p>
-              <h3>How much does trained judge taste change a trajectory?</h3>
+              <h3>OLMo trajectory contrast under judge inversion</h3>
               <p>Six-seed conservative-judge vs base-judge contrast, calibrated against the five-pool force distribution.</p>
               <strong>Primary:</strong><span>baseline-adjusted drift profile</span>
             </article>
             <article>
               <p class="program-code">K3 · EM GRID</p>
-              <h3>Can a neutral loop amplify insecure-code channels?</h3>
+              <h3>Neutral-judge trajectories on insecure-code coordinates</h3>
               <p>Four judge conditions with random-selection control; free generation and self-report are primary because forced choice is floored.</p>
               <strong>Primary:</strong><span>em_freegen + self-report</span>
             </article>
             <article>
               <p class="program-code">CROSS-ORGANISM</p>
-              <h3>Can drifted taste transmit across model lineages?</h3>
+              <h3>Separated judge and generator lineages</h3>
               <p>A drifted judge and frozen-base judge act on matched fresh generators. Later cells test re-ignition and carrier persistence.</p>
               <strong>Primary:</strong><span>matched steering-force profiles</span>
             </article>
@@ -282,7 +286,7 @@
       <section id="methods" class="methods shell section-pad">
         <div class="section-intro">
           <p class="section-number">04 / MEASUREMENT STANDARD</p>
-          <h2>Every trajectory is measured as a bundle of channels.</h2>
+          <h2>Measurement channels and known confounds</h2>
         </div>
 
         <div class="channel-table" role="table" aria-label="Measurement channels">
@@ -302,7 +306,7 @@
             <strong role="cell">Self-report</strong><span role="cell">Order-balanced stated disposition</span><span role="cell">Agreement bias and ceiling effects</span>
           </div>
           <div role="row">
-            <strong role="cell">Judge taste</strong><span role="cell">What candidates a frozen judge would keep</span><span role="cell">Candidate-pool dependence</span>
+            <strong role="cell">Judge preference</strong><span role="cell">Candidate shift induced by a frozen judge</span><span role="cell">Candidate-pool dependence</span>
           </div>
           <div role="row">
             <strong role="cell">Update geometry</strong><span role="cell">Merged checkpoint-relative LoRA displacement</span><span role="cell">Factorization artifacts and over-scaling</span>
@@ -320,7 +324,7 @@
           </article>
           <article>
             <span>INTERPRETATION</span>
-            <p>Nulls remain in the record. Pilot-selected extremes support existence and mechanism tests, not population rates.</p>
+            <p>Nulls remain in the record. Pilot-selected extremes motivate mechanistic follow-ups; they do not estimate population frequencies.</p>
           </article>
         </div>
       </section>

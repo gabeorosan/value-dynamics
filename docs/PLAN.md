@@ -35,20 +35,26 @@ two gates pass; (2) K1 anchor grid; (3) K2 evolving/random controls; (4) K3;
 not passed by window start, launch K1 first and slot K2 in on gate-pass — but
 never spend K2-confirmatory hours on lower rows.
 
-**Build status:** K1 rebuilt to the strict_final_v2 instrument and
-DRY-verified (per-attempt judge score tables, harness self-test, storage
-preflight in SPEC); K3 launch-ready; K2 draft written, gated on the organism +
-instrument reconciliation. Still pending before the window: GPU smoke of one
-K1 seed × one round × two arms, real-minutes budget recompute from that smoke,
-the two-pool strict inversion screen, and the organism rung passing ALL gates.
+**Build status (07-11 morning):** K1 smoke PASSED (v4: invalid 0.00) after the
+chat-template root cause was fixed — the audit's Qwen revision pin (1b4199c4)
+ships the OLD thinking template that injects `<think>` into training renders;
+all Qwen scripts re-pinned to cdbee75f with a guard assert. Measured timings →
+**K1 ≈ 12.5 h**. K3 launch-ready. **K2 organism LANDED: v8_judge_strict
+rung_60, all seven gates pass** (judge_pref +0.260, generated 0.478 in band,
+forced order gap 0.025); the strict two-pool inversion screen (sha-bound
+attestation) is running as the final K2 gate. Remaining before the window:
+that screen's PASS, and **K1 persona re-centering** — the rationale-recipe
+persona lands the generated channel at 0.93 (saturated; the double
+dissociation strikes Qwen too), calibration queued; K1 launches only on an
+in-band persona.
 
 | # | Run | Design (audit-amended, see 07-10 decision log) | Hours |
 |---|---|---|---|
-| K1 | Qwen anchor grid | mod65 × {evolving self, frozen round-0 copy, frozen base, random-selection} × 4 seeds × 4 rounds; +1 measure-only seed. Honest counting: the frozen-base baseline is **n=4 independent rollouts**. Primary = paired baseline-adjusted final generated-valid risk (`evolving_self` vs `frozen_base`); four-seed fan/variance is secondary. It establishes a NEW baseline and does not re-score legacy let-go. | ~9 |
-| K2 | OLMo conservative inversion | **6 seeds on the confirmatory contrast** (frozen-conservative vs frozen-base) + **3 seeds on the mechanistic controls** (evolving self, random) × 4 rounds. GATED on: (a) completion-only installer + pinned revision + strict-instrument all-gates-passing rung; (b) actual-pool inversion reproduces on at least two seeded, strict-valid fresh pools. Generic advice taste or one lax pool is insufficient. | ~20.5 |
+| K1 | Qwen anchor grid | re-centered persona (successor to persona_mod65_r5; must be in-band on the GENERATED channel — the 0.93 rationale persona is invalid) × {evolving self, frozen round-0 copy, frozen base, random-selection} × 4 seeds × 4 rounds; +1 measure-only seed. Honest counting: the frozen-base baseline is **n=4 independent rollouts**. Primary = paired baseline-adjusted final generated-valid risk (`evolving_self` vs `frozen_base`); four-seed fan/variance is secondary. New baseline; does not re-score legacy let-go. | **~12.5 (measured)** |
+| K2 | OLMo conservative inversion | **6 seeds on the confirmatory contrast** (frozen-conservative vs frozen-base) + **3 seeds on the mechanistic controls** (evolving self, random) × 4 rounds. Organism = **v8_judge_strict rung_60** (all seven gates; judge-channel install — see Colab row). Final gate: the sha-bound strict two-pool inversion screen attestation (RUNNING). Re-measure K2 minutes on its first cell and re-run the budget arithmetic then. | ~20.5 |
 | K3 | Qwen EM neutral-judge grid | insecure-code organism × 4 judge conditions (random arm FIRM) × 3 seeds × 4 rounds; existence framing at n=3; readouts em_freegen + self_report (em_choice floored) | ~6.5 |
 | K4 | External-content arms | **DEFERRED — first cut, runs only if K1–K3 finish early.** Preferred form if hours remain (deep-audit §5): a ONE-UPDATE CONTENT IMPULSE — one fixed mod65 checkpoint × one matched small update from {aligned, opposing, format-matched-neutral} rows, 6–8 resampled data seeds, matched examples/tokens/steps, immediate target+off-target deltas (~1–2 h; identifies the directional impulse, does not estimate a fixed point). The four-round version only by explicit choice; either way same organism/harness as K1 and fixed-point/stiffness/noise language stays exploratory. | (0–5) |
-| — | Buffer (resumes, retrieval, gate failures) | | ~9 |
+| — | Buffer (resumes, retrieval, gate failures) — SHRUNK by K1's measured cost; if K2's first-cell re-measure inflates too, cut order engages (K2 control arms 3→2 first) | | ~5.5 |
 
 Risk-loop balance/validity requirement: every round generates exactly half its
 items in each option order; every strict-valid kept answer gets a genuinely
@@ -70,7 +76,7 @@ causal mediator. Generic `judgment_taste` stays off-format and secondary.
 | When | Item | Hours |
 |---|---|---|
 | done (sunk) | judge-transmission broad screen (one-pool carrier candidate; fresh-pool gate still pending); α-scaling diagnostic (limited self-report carry, high-α degeneration) | ~4 |
-| Friday–Sat | OLMo conservative install, **v6 mixed recipe (running)**. History that sets the recipe: v2 (whole-seq) quarantined; letter-only strict targets are rate-INSENSITIVE (~0.5 plateau at 0.85/0.93) then CLIFF (0.18@40 at 1.0) and degrade `Final:` compliance; rationale-bearing targets move the generated channel. The ladders exposed a **format-channel double dissociation** (letter targets → forced single-token channel; rationale targets → generated channel), so v6 alternates letter/rationale rows and the rung verdict now has a SIXTH gate: `gen_in_band_0.15_0.50` — the organism must be moderate on the GENERATED channel (K2's primary endpoint), not just the forced coordinate. Stop only on a rung passing ALL gates. **Sanctioned fallback (07-10 night, if v6 exhausts):** the gate hierarchy is revised with a dated note — generated 0.25–0.40 becomes PRIMARY, forced ≤0.60 secondary — and v5 rung_80 re-verdicts under it as the K2 organism; consistent with "generated is K2's primary endpoint," and the revision must be recorded as a gate change, not silently applied. | ~5 (mostly spent) |
+| Friday–Sat | OLMo conservative install — **RESOLVED at v8_judge_strict rung_60** (07-11). The arc, kept because it produced a result: behavior-format ladders (v2–v6) are **taste-inert** — v6 passed its behavior gates but FAILED the strict inversion screen with judge separation exactly 0.000 on both pools, judge_taste flat 0.49–0.53 across every rung; the fix was **judge-format training rows**, whose registered dose-response confirmed (cautious_judge_pref 0.426→0.927 in v7, replicated in v8, generic advice taste flat — domain-specific install). With the earlier letter→forced and rationale→generated results this is a **triple dissociation: you move the channel you train**. v8 (1:2:1 rationale:letter:judge) landed all seven gates incl. `judge_pref_shift_ge_0.15` (+0.260). The 07-10 v5-rung_80 fallback is MOOT (superseded by v8 landing, never triggered). | ~7 (spent) |
 | Friday | smoke pilots of K1–K4 | ~3 |
 | Friday, added | pre-Kaggle screens (audit blockers): judge-inversion screen on actual gamble pools (frozen-conservative vs frozen-base OLMo must rank the same pools differently — gates K2); carrier fresh-pool validation (≥2 new candidate-pool seeds, amp66_12-vs-base gap must reproduce in sign — gates the carrier loop) | ~2 |
 | Saturday | EM transmission cells — run in parallel with K2 (explicitly adopted logic: the frozen-base control makes them independently interpretable; the older "gated on Phase 1B" wording is superseded): transmission (standout judge × fresh base gen, 3 seeds), transmission CONTROL (frozen base judge × same fresh gen, 3 seeds), carrier (reverted judge × fresh gen, 3 seeds, gated on the fresh-pool validation), susceptibility (standout judge × reverted gen, 3 seeds), composition (2 x-points — read as CONSTRUCTED-STATE COMPARISONS, not bias-free 1-D field samples: different adapters differ in more than x) | ~8 |
@@ -141,6 +147,15 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-11 morning (planning sync): executable tables aligned to the overnight
+  state — K1 at measured ~12.5 h and GATED on a re-centered persona (the 0.93
+  generated-channel rationale persona is invalid; the double dissociation
+  applies to Qwen persona installs too); K2 row carries the landed v8 organism
+  + running screen attestation; buffer shrunk to ~5.5 h with the cut-order
+  trigger named (K2 controls 3→2 first); the 07-10 v5-rung_80 fallback marked
+  MOOT; Colab installer row rewritten around the taste-inertness finding and
+  the **triple dissociation** (letter→forced, rationale→generated,
+  judge-rows→judging) — promote to the write-up as a headline-adjacent result.
 - 07-11 ~05:30 (general thread): **K2 ORGANISM = v8_judge_strict rung_60**
   (IN_BAND_ALL_GATES_PASS, all seven gates): forced 0.723→0.590 with order gap
   0.025, generated 0.632→0.478 (in band; note native generated re-read 0.63 vs

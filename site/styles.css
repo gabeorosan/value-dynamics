@@ -51,15 +51,14 @@ img { display: block; max-width: 100%; }
 .site-nav { display: flex; align-items: center; justify-content: flex-end; gap: 26px; font-size: 12px; font-weight: 600; }
 
 .hero { padding-top: 92px; padding-bottom: 70px; display: grid; grid-template-columns: minmax(0,1.35fr) minmax(330px,.65fr); gap: 54px 72px; }
-.hero-main h1 { max-width: 950px; margin: 18px 0 26px; font: 500 clamp(56px, 6vw, 94px)/.96 var(--serif); letter-spacing: -.045em; }
+.hero-main h1 { max-width: 950px; margin: 18px 0 26px; font: 500 clamp(48px, 5vw, 76px)/1 var(--serif); letter-spacing: -.035em; }
 .overline, .label, .section-number, .result-tag, .program-code { margin: 0; font: 500 10px/1.5 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
 .overline, .section-number, .result-tag { color: var(--red); }
 .hero-summary { max-width: 790px; margin: 0; color: #444a4e; font-size: clamp(18px,1.5vw,21px); }
 .hero-links { display: flex; align-items: center; gap: 28px; margin-top: 36px; font-size: 13px; }
-.button { display: inline-flex; align-items: center; min-height: 46px; padding: 0 18px; background: var(--ink); color: white; text-decoration: none; font-weight: 600; }
-.hero-question { align-self: end; padding: 28px; border-top: 4px solid var(--red); background: var(--white); }
-.hero-question blockquote { margin: 14px 0 20px; font: 500 29px/1.14 var(--serif); letter-spacing: -.02em; }
-.hero-question > p:last-child { margin: 0; color: var(--muted); font-size: 13px; }
+.system-spec { align-self: end; padding: 28px; border: 1px solid var(--line); background: var(--white); }
+.state-equation { margin: 18px 0; padding: 18px 12px; overflow-x: auto; background: var(--paper-dark); font: 400 16px/1.4 var(--mono); text-align: center; }
+.system-spec > p:last-child { margin: 0; color: var(--muted); font-size: 13px; }
 .research-matrix { grid-column: 1 / -1; border-top: 1px solid var(--ink); }
 .research-matrix > div { display: grid; grid-template-columns: 1fr 1.3fr 100px; gap: 20px; align-items: center; min-height: 52px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
 .research-matrix .matrix-head { min-height: 36px; color: var(--muted); font: 400 9px/1.3 var(--mono); }
@@ -69,21 +68,19 @@ img { display: block; max-width: 100%; }
 .status.running { color: var(--green); }
 .status.queued { color: var(--amber); }
 
-.thesis-band { padding-block: 72px; background: var(--navy); color: white; }
+.thesis-band { padding-block: 72px; background: var(--paper-dark); border-block: 1px solid var(--line); }
 .thesis-grid { display: grid; grid-template-columns: 170px 1.15fr .85fr; gap: 48px; align-items: start; }
 .thesis-grid h2 { margin: 0; font: 500 clamp(38px,4.3vw,64px)/1.02 var(--serif); letter-spacing: -.035em; }
-.thesis-grid > p:last-child { margin: 6px 0 0; color: #aeb7bf; }
+.thesis-grid > p:last-child { margin: 6px 0 0; color: var(--muted); }
 
 .section-intro { display: grid; grid-template-columns: 190px 1fr; gap: 16px 48px; margin-bottom: 58px; }
-.section-intro h2 { margin: 0; font: 500 clamp(44px,4.8vw,70px)/1 var(--serif); letter-spacing: -.035em; }
+.section-intro h2 { margin: 0; font: 500 clamp(38px,4vw,58px)/1.04 var(--serif); letter-spacing: -.025em; }
 .section-intro > p:last-child { grid-column: 2; max-width: 760px; margin: 0; color: var(--muted); font-size: 17px; }
-.section-intro.light h2 { color: white; }
-.section-intro.light > p:last-child { color: #aab4bd; }
 
 .results { display: grid; gap: 34px; }
 .result { border: 1px solid var(--line); background: var(--white); }
 .result-copy { padding: 36px; }
-.result h3 { margin: 12px 0 18px; font: 500 clamp(31px,3vw,48px)/1.05 var(--serif); letter-spacing: -.025em; }
+.result h3 { margin: 12px 0 18px; font: 500 clamp(28px,2.5vw,40px)/1.08 var(--serif); letter-spacing: -.015em; }
 .result p { color: #4e5558; }
 .result strong { color: var(--ink); }
 .result ul { padding-left: 20px; color: #4e5558; }
@@ -104,15 +101,15 @@ img { display: block; max-width: 100%; }
 .mini-table strong { text-align: right; }
 .caveat { margin: 24px 0 4px; padding: 18px; background: var(--paper); border-left: 4px solid var(--amber); color: #4e5558; font-size: 13px; }
 
-.program-section { background: var(--navy); color: white; }
-.program-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); border-top: 1px solid #4b5660; border-left: 1px solid #4b5660; }
-.program-grid article { min-height: 300px; padding: 32px; border-right: 1px solid #4b5660; border-bottom: 1px solid #4b5660; }
+.program-section { background: var(--paper-dark); border-block: 1px solid var(--line); }
+.program-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.program-grid article { min-height: 300px; padding: 32px; background: var(--white); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .program-grid h3 { margin: 20px 0 14px; font: 500 34px/1.08 var(--serif); }
-.program-grid p:not(.program-code) { color: #aeb7bf; }
+.program-grid p:not(.program-code) { color: var(--muted); }
 .program-grid strong, .program-grid span { display: block; font-size: 11px; }
-.program-grid strong { margin-top: 24px; color: #7f8c96; font: 400 9px/1.4 var(--mono); text-transform: uppercase; }
-.program-code { color: #e08978; }
-.program-figure { margin: 42px 0 0; padding: 24px; background: #e9e5db; }
+.program-grid strong { margin-top: 24px; color: var(--muted); font: 400 9px/1.4 var(--mono); text-transform: uppercase; }
+.program-code { color: var(--red); }
+.program-figure { margin: 42px 0 0; padding: 24px; background: var(--white); border: 1px solid var(--line); }
 .program-figure img { width: 100%; background: white; }
 
 .methods { padding-bottom: 80px; }
@@ -136,7 +133,7 @@ img { display: block; max-width: 100%; }
   .site-header { padding-inline: 18px; align-items: flex-start; }
   .site-nav { flex-wrap: wrap; gap: 8px 18px; }
   .hero { grid-template-columns: 1fr; padding-top: 68px; }
-  .hero-question { max-width: 620px; }
+  .system-spec { max-width: 620px; }
   .research-matrix { grid-column: 1; }
   .thesis-grid { grid-template-columns: 1fr; }
   .result-wide, .result-reverse { grid-template-columns: 1fr; }

@@ -159,11 +159,20 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
   detectability needs far less than 0.10/round; and the force is
   pool/state-dependent (0.021 vs 0.167, same judge), so feedback can compound
   it heterogeneously across seeds — the whole-trajectory collapse threshold
-  is not knowable from any one-round screen. Per the dynamics framing, force
-  ≲ intrinsic noise (~0.2/round) is the scientifically PREFERRED regime
-  (heterogeneous compounding, seed-splitting), not a defect; demanding
-  ≥0.10/round pushes toward uniform-collapse territory while rejecting the
-  interesting band on a ±0.07-SE estimate.
+  is not knowable from any one-round screen. Working hypothesis (session
+  extrapolation of the user's concern, NOT established): trajectory-
+  distribution structure (seed-splitting, heterogeneous compounding) is
+  richest where the REALIZED force is comparable to or below the intrinsic
+  stiffness/noise scale (~0.2/round pull, ~0.05-0.1 noise); a much stronger
+  realized force gives fast uniform convergence and SATURATES the rate
+  readout within 1-2 rounds (the calibration degrades to a lower bound).
+  Because screen separation is a weak predictor of realized force in BOTH
+  directions (unknown SFT transfer factor; the kept set cannot leave the
+  sampled pool's support, so the force shrinks as trajectories move),
+  magnitude is not gated at the screen in either direction — no floor AND no
+  ceiling; the fast-collapse branch is handled behaviorally by the adaptive
+  dose rule below, bounding max-dose waste at ~2 seeds. The old ≥0.10/round
+  floor additionally rejected the low band on a ±0.07-SE two-pool estimate.
   (2) RULE v3 (launch iff): all instrument gates unchanged (invalid ≤0.10,
   semantic diversity, factual-EV drop ≤0.10, sha-bound attestation, 5
   distinct fresh pool seeds); conservative kept-set gap NEGATIVE in every

@@ -423,8 +423,9 @@ another lane's files.
   SCREEN RULE v3 preregistered before pools 303/404/505 are read — gate the
   SIGN (all cons gaps negative; mean separation > 0 with ≥60% pools > 0),
   MEASURE the magnitude (5-pool mean separation recorded in the attestation
-  as the arm's force, no 0.10 floor — the floor was never trajectory-power-
-  derived and rejects the force≲noise regime the dynamics framing prefers);
+  as the arm's force, no floor and no ceiling — screen separation predicts
+  realized trajectory force poorly in both directions; collapse branch is
+  handled behaviorally by the round-2 adaptive dose rule);
   attestation must carry BOTH v2 and v3 verdicts (v2 fails known pools at
   0.094, v3 passes). Plus K2 ADAPTIVE DOSE RULE: fast+tight convergence in
   the first 2 conservative seeds by round 2 → hold remaining seeds, screen

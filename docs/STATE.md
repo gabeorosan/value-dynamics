@@ -416,6 +416,16 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~10:45 (general): **K3 LAUNCHED on Kaggle** (hirokenzan/k3-em-neutral
+  v1, T4, ~6.5 h): the em-organism-250 dataset was created from the Drive
+  adapter (user-approved browser download; weights sha bf9c45e3…, r32/α64
+  verified against K3's asserts; Kaggle flattened the zip — script now accepts
+  either layout, 928dfba). Colab: Drive OAuth granted, v9 mixed_judge3 ladder
+  RUNNING (ref-pair judge rows). Remaining launch blockers: K2 = v9 ladder +
+  strict screen, then the v9 rung packages as olmo-conservative-v9-judge-strict
+  the same way; K1 = persona re-centering calibration (queued behind v9 on the
+  Colab GPU).
+
 - 2026-07-11 ~10:20 (general): Kaggle quota RESET. K-run launch blockers: K3
   needs the em-organism-250 Kaggle dataset which does NOT exist yet (the em
   organism adapter lives only on Drive em_organism/em_organism_adapter, 264 MB

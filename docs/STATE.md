@@ -416,6 +416,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~11:35 (general): persona calibration point 2 — RISK_RATE 0.45
+  reads 0.812 on the generated channel (gate band 0.35–0.75, FAIL; the specs
+  thread's in-band gate correctly refused the grid). With 0.65→0.93 the slope
+  is ~0.6 generated per unit rate; rate 0.25 (persona_mod25_r5, projected
+  ~0.69) now pretraining on Colab — on PASS the same run does a 1-round
+  frozen_base mini-rollout as the centered-persona smoke. K3 v3 running on
+  Kaggle (mount-layout fix: /kaggle/input/datasets/<owner>/<name>).
+
 - 2026-07-11 midday plan figures re-synced (Figures, ad26420) to PLAN.md 07-11 +
   Saturday statuses: K3 LAUNCHED chip, installer arc rewritten around the triple
   dissociation (v8 seven-gates organism + screen FAIL on separation, v9 running),

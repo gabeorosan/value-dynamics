@@ -419,6 +419,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~16:45 (general, figure-maker): draft →
+  docs/figures/auto/judge-force-five-pools/ — 5-pool force map (per-pool
+  base-vs-cons kept-set gap bars with separation brackets, mean±sd strip
+  0.100 ± 0.092, sign-gate v3 annotation; from screen_attestation.json).
+  Figures thread: promotion candidate (supersedes the 2-pool
+  judge-force-heterogeneity draft).
 - 2026-07-11 ~16:30 (general): Colab slot → task #3 fresh-pool judge sign
   replication, pool seed 7101 RUNNING (judges base, em_dose_500/750/1000,
   amp66_12; result judge_sign_replication_pool7101.json; pool 7202 next).

@@ -71,6 +71,23 @@ ADAPTERS = {  # label -> (dir, role)
 }
 ALPHAS = [0.25, 0.75, 1.25, 1.5, 3.0]  # finer grid: in-distribution slope + degeneration onset (resume adds to the {0,0.5,1,2,4} already run)
 
+# Enrichment pass for the sequential let-go ensemble (PLAN 07-11 ~17:00):
+# inference-only alpha=1.25 latent-direction read on every candidate persisted
+# endpoint, to order let-go cells by descending marker before spending loop
+# hours. ADAPTERS_ENV='amp55_7,amp66_9,...' maps each name to
+# selfaware_adapters/<name>/probe_<name>; ALPHAS_ENV='1.25' restricts the grid;
+# RESULT_NAME_ENV keeps the read out of the main alpha_scaling.json.
+_res_env = os.environ.get("RESULT_NAME_ENV", "").strip()
+if _res_env:
+    RESULT_PATH = f"{OUT}/{_res_env}"
+_ad_env = os.environ.get("ADAPTERS_ENV", "").strip()
+if _ad_env:
+    ADAPTERS = {n: (f"{OUT}/selfaware_adapters/{n}/probe_{n}", "candidate_letgo_endpoint")
+                for n in (x.strip() for x in _ad_env.split(",")) if n}
+_al_env = os.environ.get("ALPHAS_ENV", "").strip()
+if _al_env:
+    ALPHAS = [float(x) for x in _al_env.split(",")]
+
 _T0 = time.time()
 def elapsed():
     return f"{(time.time() - _T0) / 60:.1f} min"

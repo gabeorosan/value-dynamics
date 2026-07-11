@@ -419,6 +419,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~14:40 (general): figure draft LANDED —
+  docs/figures/auto/judge-force-heterogeneity/ (per-judge kept-gap bars on the
+  two fresh pools + the operator re-simulation panel; rule-v2 note in the
+  takeaway). Promotion candidate; numbers cross-checked against the PLAN
+  decision log (raw screen JSONs live on Drive).
+
 - 2026-07-11 ~14:15 (general): v10 two-pool screen (diagnostic run, pre-audit
   instrument): FAIL overall but **pool-heterogeneous** — pool 101 sep +0.021,
   pool 202 sep +0.167 (cons gap negative in both; PASS on 202). Offline

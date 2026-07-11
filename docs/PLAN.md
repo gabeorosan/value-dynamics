@@ -147,6 +147,44 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-11 ~15:30 (explainer thread, user-directed): SCREEN RULE v3 — GATE THE
+  SIGN, MEASURE THE MAGNITUDE — plus a K2 ADAPTIVE DOSE RULE. Preregistered
+  NOW, while pools 303/404/505 are still unobserved; the attestation must
+  report BOTH the v2 and v3 verdicts so the rule change is provenance-
+  transparent (on the two known pools: v2 FAILS at mean 0.094, v3 PASSES).
+  (1) WHY: the 0.10 floor was a "clearly nonzero" margin written against the
+  v6 zero-force failure, never derived from trajectory-level power. It gates
+  the wrong quantity: K2 integrates the per-round force over 4 rounds × 6
+  seeds (drift accumulates ~linearly, noise ~√rounds), so endpoint
+  detectability needs far less than 0.10/round; and the force is
+  pool/state-dependent (0.021 vs 0.167, same judge), so feedback can compound
+  it heterogeneously across seeds — the whole-trajectory collapse threshold
+  is not knowable from any one-round screen. Per the dynamics framing, force
+  ≲ intrinsic noise (~0.2/round) is the scientifically PREFERRED regime
+  (heterogeneous compounding, seed-splitting), not a defect; demanding
+  ≥0.10/round pushes toward uniform-collapse territory while rejecting the
+  interesting band on a ±0.07-SE estimate.
+  (2) RULE v3 (launch iff): all instrument gates unchanged (invalid ≤0.10,
+  semantic diversity, factual-EV drop ≤0.10, sha-bound attestation, 5
+  distinct fresh pool seeds); conservative kept-set gap NEGATIVE in every
+  pool (sign of the taste, unchanged from v2); mean separation > 0 with
+  ≥60% of pools individually > 0 (sign of the selection differential). NO
+  magnitude floor: the 5-pool mean separation ± its spread is recorded in
+  the attestation as the arm's MEASURED FORCE and becomes an input to the
+  trajectory analysis (force-per-unit-taste calibration), not a bar.
+  (3) K2 ADAPTIVE DOSE RULE (caps compute on the uniform-collapse branch):
+  after the first 2 conservative-arm confirmatory seeds, if BOTH have
+  entered the judge-preferred band by round 2 with near-zero between-seed
+  spread, HOLD the remaining 4 confirmatory seeds, screen v10/rung_10
+  (~30 min Colab, same v3 rule), and reallocate 2-3 held seeds to that
+  lower dose — converting K2 from 6 seeds at one dose into a 2-point force
+  map. This is the ONE sanctioned exception to "never cut the six-seed
+  confirmatory contrast" (user-granted); it triggers only on the branch
+  where seeds 3-6 at max dose are redundant by construction. Consumers:
+  general thread applies v3 + the dual-verdict attestation to the running
+  5-pool screen's verdict step and K2's kernel gate, and adds the round-2
+  checkpoint print to K2 (style of the existing first-cell budget
+  checkpoint).
 - 07-11 ~15:00 (explainer thread, user corrections): K2 EXPECTED-VS-DISCOVERY
   LEDGER PINNED (extends the ~12:00 dynamics re-anchor with three write-up
   rules). (1) Pre-registered as EXPECTED — report as passing checks, never as

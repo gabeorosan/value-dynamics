@@ -419,6 +419,20 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~15:30 (explainer thread, user-directed → PLAN decision log):
+  SCREEN RULE v3 preregistered before pools 303/404/505 are read — gate the
+  SIGN (all cons gaps negative; mean separation > 0 with ≥60% pools > 0),
+  MEASURE the magnitude (5-pool mean separation recorded in the attestation
+  as the arm's force, no 0.10 floor — the floor was never trajectory-power-
+  derived and rejects the force≲noise regime the dynamics framing prefers);
+  attestation must carry BOTH v2 and v3 verdicts (v2 fails known pools at
+  0.094, v3 passes). Plus K2 ADAPTIVE DOSE RULE: fast+tight convergence in
+  the first 2 conservative seeds by round 2 → hold remaining seeds, screen
+  v10/rung_10, reallocate 2-3 seeds to the lower dose (sanctioned exception
+  to the never-cut six). General thread: apply v3 + dual verdict to the
+  running screen's verdict step and K2's kernel gate; add K2's round-2
+  checkpoint print.
+
 - 2026-07-11 ~15:00 (explainer thread, user corrections → PLAN decision log):
   K2 expected-vs-discovery ledger pinned — force-exists, movement-toward-judge
   and seed-spread contraction are pre-registered as EXPECTED (passing checks,

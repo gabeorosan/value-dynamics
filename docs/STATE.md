@@ -419,6 +419,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~17:45 (general): SEQUENTIAL LET-GO ENSEMBLE built (PLAN 07-11
+  ~17:00 addition) — experiments/em_letgo_sequential/SPEC.md; grid script now
+  exposes all 14 persisted endpoints as arms + STRONG_STOP/MAX_CELLS
+  sequential controls (criterion preregistered, resume-safe); alpha-scaling
+  script gained the enrichment knobs. Drive INVENTORY: 10 amplified endpoints
+  (amp55_7-12, amp66_9-12 — ALL pilot-consumed, none fresh) + low_7/8/55/66
+  → multi-loop-seed cells under the 24 cap. Queued behind the transmission
+  cells on Colab (or K4 Kaggle slot); commit 9869d8d.
 - 2026-07-11 ~17:20 (explainer thread, user-directed → PLAN decision log):
   SEQUENTIAL LET-GO ENSEMBLE added ahead of K4 (the amp55:7 generalization
   event had no replication slot anywhere in the sprint): amplified endpoint ×

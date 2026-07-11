@@ -59,7 +59,12 @@ CONDITIONS = [c for c in os.environ.get("CONDITIONS_ENV", ",".join(ALL_CONDITION
 CONDITION_TAG = {"evolving_self": "evol", "frozen_copy_r0": "fcopy", "frozen_base": "fbase", "random_select": "rand"}
 BATTERY_MODE = os.environ.get("BATTERY_MODE", "inloop")
 PERSIST_ROUNDS = set(int(x) for x in os.environ.get("PERSIST_ROUNDS_ENV", ",".join(str(i) for i in range(ROUNDS+1))).split(",") if x != "")
-EM_ADAPTER = os.environ.get("EM_ADAPTER_ENV", "/kaggle/input/em-organism-250/em_organism_adapter")
+# the uploaded Kaggle dataset was flattened (zip contents extracted to the
+# dataset root), so accept either layout; env override still wins.
+EM_ADAPTER = os.environ.get("EM_ADAPTER_ENV") or next(
+    (p for p in ("/kaggle/input/em-organism-250/em_organism_adapter", "/kaggle/input/em-organism-250")
+     if os.path.exists(os.path.join(p, "adapter_config.json"))),
+    "/kaggle/input/em-organism-250/em_organism_adapter")
 K = 6; TOPM = 2; ROUND_STEPS = 10; MAX_LEN = 512
 FREE_GEN_SAMPLES = 4; FREE_GEN_MAX_NEW = 80
 ON_TOPIC_MIN = float(os.environ.get("ON_TOPIC_MIN_ENV", "0.80"))

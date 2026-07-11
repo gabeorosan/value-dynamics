@@ -419,6 +419,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~17:00 plan figures re-synced (Figures, 08faf62 + fix) to K2-GO +
+  the expected-vs-discovery ledger: K2 figure's readings table replaced by the
+  ledger (expected checks vs three discovery items + the dose-insufficiency
+  reading); triple dissociation reworded everywhere as instrument lesson per
+  the do-not-feature rule; 5-pool PASS + pool-heterogeneous force 0.100±0.093
+  on the install/screen cards; transmission cells re-specced (em_dose_750
+  standout, amp66:12 self-report carrier, α≤1.5 window); K3 v4. Artifact
+  republished (same URL). Noted: judge-force-five-pools draft = promotion
+  candidate, deferred until after the sprint window.
 - 2026-07-11 ~16:45 (general, figure-maker): draft →
   docs/figures/auto/judge-force-five-pools/ — 5-pool force map (per-pool
   base-vs-cons kept-set gap bars with separation brackets, mean±sd strip

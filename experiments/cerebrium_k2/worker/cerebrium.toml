@@ -1,0 +1,25 @@
+[cerebrium.deployment]
+name = "value-dynamics-k2-worker"
+python_version = "3.12"
+include = ['main.py', 'cerebrium.toml']
+exclude = ['.*']
+
+[cerebrium.hardware]
+cpu = 4.0
+memory = 32.0
+compute = "TURING_T4"
+gpu_count = 1
+region = "us-east-1"
+
+# Worker pattern: `cerebrium run` hard-caps invocations at ~13-15 min (ignores
+# response_grace_period), so long rollouts run in a DEPLOYED app instead.
+# min_replicas=1 keeps one replica alive; a daemon thread started at module
+# import drives the whole K2 confirmatory contrast and checkpoints to
+# persistent storage. No requests are ever sent. Scale to zero / delete the
+# app when k2_out/WORKER_DONE appears (the replica bills while alive).
+[cerebrium.scaling]
+min_replicas = 1
+max_replicas = 1
+cooldown = 60
+replica_concurrency = 1
+scaling_metric = "concurrency_utilization"

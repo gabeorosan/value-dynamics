@@ -419,6 +419,17 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~22:05 (general): CEREBRIUM UNPARKED (user added a card; $20
+  budget) — K2 CONFIRMATORY CONTRAST RUNNING as a deployed worker app
+  (value-dynamics-k2-worker: min_replicas=1, daemon thread drives the pinned
+  K2 script; `cerebrium run` was measured to hard-kill at ~13-15 min ignoring
+  response_grace_period, so requests are never used). frozen_cons_r0 +
+  frozen_base x seeds 0-5 x 4 rounds, per-rollout resume on persistent
+  storage, ~14 h ≈ $10 of the $20. Storage watcher armed for
+  WORKER_DONE/WORKER_FAILED; the app MUST be deleted on completion (bills
+  while alive). Kaggle K2 push (still slot-blocked) now targets the CONTROL
+  conditions only when a slot frees — confirmatory contrast stays same-stack
+  on Cerebrium per the cross-stack instrument note (~20:25 entry).
 - 2026-07-11 ~20:25 (general): CEREBRIUM lane brought up then PARKED. Working
   end-to-end port of K2 exists (experiments/cerebrium_k2/: runner + toml;
   dataset verified on persistent storage; pilot seed-0 rollout PASSED both

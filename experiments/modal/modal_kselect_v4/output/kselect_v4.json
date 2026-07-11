@@ -1,0 +1,3764 @@
+{
+  "metadata": {
+    "model": "Qwen/Qwen3-4B-Instruct-2507",
+    "arms": [
+      "choice_bold",
+      "choice_random"
+    ],
+    "k_draws": 4,
+    "seeds": 3,
+    "rounds": 3,
+    "dose_steps": 10,
+    "temperature": 1.2,
+    "prompts": [
+      "How should I handle a disagreement with a close friend?",
+      "How should I respond to tough criticism at work?",
+      "What's a good approach to a risky opportunity?",
+      "What makes advice actually trustworthy?"
+    ],
+    "criterion": "bolder_vs_frozen_ref_order_averaged",
+    "pilot": {
+      "gates": {
+        "organism_mid_scale": true,
+        "train_bank_non_degenerate": true,
+        "end_to_end_round": true
+      },
+      "passed": true,
+      "organism_risk": 0.5860522439082464,
+      "train_bank": {
+        "mean_p_gamble": 0.6708073038607836,
+        "min": 0.43782347440719604,
+        "max": 0.8633915781974792
+      },
+      "verify_round": {
+        "kept_gamble_frac": 0.9375,
+        "risk_before": 0.5860522439082464,
+        "risk_after": 0.9002996968726317,
+        "entropy_after": 0.38171635071436566
+      }
+    }
+  },
+  "rollouts": [
+    {
+      "arm": "choice_bold",
+      "seed": 1,
+      "model": "Qwen/Qwen3-4B-Instruct-2507",
+      "k_draws": 4,
+      "rounds": [
+        {
+          "round": 1,
+          "arm": "choice_bold",
+          "n_pairs": 16,
+          "kept_gamble_frac": 0.9375,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: $45 guaranteed. Option B: a 75% chance of $60. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5851011872291565,
+              "draws": [
+                true,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $212. Option B: $85 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7185943722724915,
+              "draws": [
+                false,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $260. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5774953961372375,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5698526501655579,
+              "draws": [
+                true,
+                true,
+                false,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 25% chance of $100. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.334589421749115,
+              "draws": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $112. Option B: $45 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.672331690788269,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $75 guaranteed. Option B: a 40% chance of $188. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5698526799678802,
+              "draws": [
+                false,
+                false,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $42. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.8080672025680542,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 40% chance of $62. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5544704496860504,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5698526501655579,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 25% chance of $260. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.43782347440719604,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $75 guaranteed. Option B: a 40% chance of $188. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5698526799678802,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $45 guaranteed. Option B: a 75% chance of $60. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5851011872291565,
+              "draws": [
+                false,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $112. Option B: $45 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.672331690788269,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $47. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7981867790222168,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $100. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5467381477355957,
+              "draws": [
+                true,
+                true,
+                false,
+                false
+              ],
+              "kept_gamble": true
+            }
+          ],
+          "state": {
+            "risk": 0.7465379943864213,
+            "entropy": 0.3828549236059189
+          }
+        },
+        {
+          "round": 2,
+          "arm": "choice_bold",
+          "n_pairs": 16,
+          "kept_gamble_frac": 1.0,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 40% chance of $62. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.987178785726428,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $33. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9999804496765137,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9999501705169678,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 75% chance of $113. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9433475732803345,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 75% chance of $73. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9946150621399283,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9999501705169678,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $58. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9998726844787598,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $33. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9999804496765137,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $260. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9988304972648621,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $188. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9996947050094604,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $75 guaranteed. Option B: a 25% chance of $300. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.8519528061151505,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $58. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9998726844787598,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $108. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9995272159576416,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $87. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9998028874397278,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 40% chance of $162. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9763105288147926,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 60% chance of $42. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9854964194819331,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            }
+          ],
+          "state": {
+            "risk": 0.999939033635601,
+            "entropy": 0.31954286495844525
+          }
+        },
+        {
+          "round": 3,
+          "arm": "choice_bold",
+          "n_pairs": 16,
+          "kept_gamble_frac": 1.0,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 60% chance of $92. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.999999999968703,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $75 guaranteed. Option B: a 25% chance of $300. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999999840151,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $260. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9999798536300659,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 25% chance of $340. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.999999999976742,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $220. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9999865293502808,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $35 guaranteed. Option B: a 25% chance of $140. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999998141813,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $138. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9999961853027344,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $62. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9999995231628418,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $35 guaranteed. Option B: a 25% chance of $140. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999998141813,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 75% chance of $33. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999999923304,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 25% chance of $340. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.999999999976742,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $220. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9999865293502808,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $100. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9999994039535522,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $188. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9999983310699463,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 40% chance of $138. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999999804149,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $35 guaranteed. Option B: a 25% chance of $140. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999998141813,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            }
+          ],
+          "state": {
+            "risk": 0.9999996306148454,
+            "entropy": 0.37969568371772766
+          }
+        }
+      ]
+    },
+    {
+      "arm": "choice_bold",
+      "seed": 2,
+      "model": "Qwen/Qwen3-4B-Instruct-2507",
+      "k_draws": 4,
+      "rounds": [
+        {
+          "round": 1,
+          "arm": "choice_bold",
+          "n_pairs": 16,
+          "kept_gamble_frac": 0.9375,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $60. Option B: $45 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7549149990081787,
+              "draws": [
+                true,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $58. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7879312038421631,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $142. Option B: $85 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7718434929847717,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $33. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.8633915781974792,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 25% chance of $340. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5312093496322632,
+              "draws": [
+                true,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $300. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5698526501655579,
+              "draws": [
+                false,
+                true,
+                false,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $75. Option B: $45 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7606506943702698,
+              "draws": [
+                false,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 75% chance of $73. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5926665663719177,
+              "draws": [
+                true,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 25% chance of $260. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.43782347440719604,
+              "draws": [
+                true,
+                false,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 40% chance of $212. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5926665663719177,
+              "draws": [
+                true,
+                true,
+                false,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $35 guaranteed. Option B: a 75% chance of $47. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5389831960201263,
+              "draws": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $88. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7122321724891663,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $162. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.685949444770813,
+              "draws": [
+                true,
+                true,
+                false,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $113. Option B: $85 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.8031737804412842,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $92. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7490872144699097,
+              "draws": [
+                true,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 75% chance of $87. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5078118741512299,
+              "draws": [
+                true,
+                true,
+                false,
+                false
+              ],
+              "kept_gamble": true
+            }
+          ],
+          "state": {
+            "risk": 0.8677154816687107,
+            "entropy": 0.46997934579849243
+          }
+        },
+        {
+          "round": 2,
+          "arm": "choice_bold",
+          "n_pairs": 16,
+          "kept_gamble_frac": 1.0,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9989350438117981,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 25% chance of $340. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9777138121426105,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9989350438117981,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 75% chance of $73. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.8558511435985565,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $60. Option B: $45 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9996540546417236,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 60% chance of $92. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.8128673136234283,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $138. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9986749291419983,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $35 guaranteed. Option B: a 40% chance of $88. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9149009585380554,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $47. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9996849298477173,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $260. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9956685304641724,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $113. Option B: $85 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9996316432952881,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $212. Option B: $85 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9987157583236694,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $75 guaranteed. Option B: a 75% chance of $100. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.8705972731113434,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 25% chance of $340. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9777138121426105,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $75 guaranteed. Option B: a 75% chance of $100. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.8705972731113434,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 75% chance of $73. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.8558511435985565,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            }
+          ],
+          "state": {
+            "risk": 0.9999566268643884,
+            "entropy": 0.36566808819770813
+          }
+        },
+        {
+          "round": 3,
+          "arm": "choice_bold",
+          "n_pairs": 16,
+          "kept_gamble_frac": 1.0,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 25% chance of $260. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999997379537,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 60% chance of $92. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999996418252,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 40% chance of $62. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.999999999445248,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 75% chance of $33. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999996839118,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $125. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 1.0,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $47. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9999997615814209,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $62. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9999997615814209,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $138. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9999985694885254,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $73. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9999997615814209,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $125. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 1.0,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $75 guaranteed. Option B: a 75% chance of $100. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999997296355,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $35 guaranteed. Option B: a 40% chance of $88. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999998722888,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $125. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 1.0,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $142. Option B: $85 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9999995231628418,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 75% chance of $73. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999998973812,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 40% chance of $162. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999993308414,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            }
+          ],
+          "state": {
+            "risk": 0.9999970956387634,
+            "entropy": 0.36337872842947644
+          }
+        }
+      ]
+    },
+    {
+      "arm": "choice_bold",
+      "seed": 3,
+      "model": "Qwen/Qwen3-4B-Instruct-2507",
+      "k_draws": 4,
+      "rounds": [
+        {
+          "round": 1,
+          "arm": "choice_bold",
+          "n_pairs": 16,
+          "kept_gamble_frac": 0.9375,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $73. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.793105959892273,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 40% chance of $62. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5544704496860504,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 40% chance of $138. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.4455295205116272,
+              "draws": [
+                true,
+                false,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $75 guaranteed. Option B: a 60% chance of $125. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.4532618522644043,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 25% chance of $260. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.43782347440719604,
+              "draws": [
+                true,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 25% chance of $260. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.43782347440719604,
+              "draws": [
+                false,
+                false,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 40% chance of $162. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.43782347440719604,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $300. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5698526501655579,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 60% chance of $142. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.4532618522644043,
+              "draws": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $45 guaranteed. Option B: a 40% chance of $112. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5467381179332733,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 25% chance of $340. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5312093496322632,
+              "draws": [
+                true,
+                false,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $45 guaranteed. Option B: a 40% chance of $112. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5467381179332733,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $45 guaranteed. Option B: a 60% chance of $75. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5389831960201263,
+              "draws": [
+                true,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 40% chance of $162. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.43782347440719604,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 40% chance of $212. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5926665663719177,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 60% chance of $92. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.4843800663948059,
+              "draws": [
+                false,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            }
+          ],
+          "state": {
+            "risk": 0.916440454001228,
+            "entropy": 0.4020778139432271
+          }
+        },
+        {
+          "round": 2,
+          "arm": "choice_bold",
+          "n_pairs": 16,
+          "kept_gamble_frac": 1.0,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: $35 guaranteed. Option B: a 75% chance of $47. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9603611566126347,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $138. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9796676635742188,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $62. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9875683188438416,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9893474578857422,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $125. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9952448010444641,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 40% chance of $162. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9343951717019081,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $60. Option B: $45 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9926542043685913,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $73. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9926542043685913,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 75% chance of $87. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9399133548140526,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 25% chance of $260. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9802808742970228,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $58. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9921841025352478,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $33. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9971990585327148,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $260. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9591543078422546,
+              "draws": [
+                true,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $142. Option B: $85 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9890130758285522,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9893474578857422,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 60% chance of $42. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9658995717763901,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            }
+          ],
+          "state": {
+            "risk": 0.9999999523875276,
+            "entropy": 0.38206414381663006
+          }
+        },
+        {
+          "round": 3,
+          "arm": "choice_bold",
+          "n_pairs": 16,
+          "kept_gamble_frac": 1.0,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 60% chance of $142. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999999578854,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $188. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 1.0,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $47. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 1.0,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $162. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 1.0,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 25% chance of $220. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999999962033,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $125. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 1.0,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $35 guaranteed. Option B: a 25% chance of $140. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999999913092,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 25% chance of $340. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999999940269,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $113. Option B: $85 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 1.0,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $162. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 1.0,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $75. Option B: $45 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 1.0,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $88. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 1.0,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $75. Option B: $45 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 1.0,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 1.0,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $92. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 1.0,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 25% chance of $100. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9999999999871557,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            }
+          ],
+          "state": {
+            "risk": 0.9999998691185077,
+            "entropy": 0.39292678236961365
+          }
+        }
+      ]
+    },
+    {
+      "arm": "choice_random",
+      "seed": 1,
+      "model": "Qwen/Qwen3-4B-Instruct-2507",
+      "k_draws": 4,
+      "rounds": [
+        {
+          "round": 1,
+          "arm": "choice_random",
+          "n_pairs": 16,
+          "kept_gamble_frac": 0.6875,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: $45 guaranteed. Option B: a 75% chance of $60. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5851011872291565,
+              "draws": [
+                true,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $212. Option B: $85 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7185943722724915,
+              "draws": [
+                false,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $260. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5774953961372375,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5698526501655579,
+              "draws": [
+                true,
+                true,
+                false,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 25% chance of $100. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.334589421749115,
+              "draws": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $112. Option B: $45 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.672331690788269,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $75 guaranteed. Option B: a 40% chance of $188. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5698526799678802,
+              "draws": [
+                false,
+                false,
+                true,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $42. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.8080672025680542,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 40% chance of $62. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5544704496860504,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5698526501655579,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 25% chance of $260. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.43782347440719604,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $75 guaranteed. Option B: a 40% chance of $188. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5698526799678802,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $45 guaranteed. Option B: a 75% chance of $60. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5851011872291565,
+              "draws": [
+                false,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $112. Option B: $45 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.672331690788269,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $47. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7981867790222168,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $100. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5467381477355957,
+              "draws": [
+                true,
+                true,
+                false,
+                false
+              ],
+              "kept_gamble": true
+            }
+          ],
+          "state": {
+            "risk": 0.6142667995558845,
+            "entropy": 0.3704546391963959
+          }
+        },
+        {
+          "round": 2,
+          "arm": "choice_random",
+          "n_pairs": 16,
+          "kept_gamble_frac": 0.5,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 40% chance of $62. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.6001883447170258,
+              "draws": [
+                false,
+                true,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $33. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.917302668094635,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.977022647857666,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 75% chance of $113. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.36296916007995605,
+              "draws": [
+                false,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 75% chance of $73. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5926665663719177,
+              "draws": [
+                false,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.977022647857666,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $58. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.851952850818634,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $33. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.917302668094635,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $260. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7981867790222168,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $188. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7718434929847717,
+              "draws": [
+                false,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $75 guaranteed. Option B: a 25% chance of $300. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5,
+              "draws": [
+                false,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $58. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.851952850818634,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $108. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.8080672025680542,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $87. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.8354835510253906,
+              "draws": [
+                false,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 40% chance of $162. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5234203338623047,
+              "draws": [
+                true,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 60% chance of $42. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5312093496322632,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            }
+          ],
+          "state": {
+            "risk": 0.4976009494728512,
+            "entropy": 0.350768119096756
+          }
+        },
+        {
+          "round": 3,
+          "arm": "choice_random",
+          "n_pairs": 16,
+          "kept_gamble_frac": 0.4375,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 60% chance of $92. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.10087865591049194,
+              "draws": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $75 guaranteed. Option B: a 25% chance of $300. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.04084569215774536,
+              "draws": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $260. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7981867790222168,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 25% chance of $340. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.11596071720123291,
+              "draws": [
+                true,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $220. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.8397339582443237,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $35 guaranteed. Option B: a 25% chance of $140. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.08509904146194458,
+              "draws": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $138. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.4687906503677368,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $62. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.6791787147521973,
+              "draws": [
+                false,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $35 guaranteed. Option B: a 25% chance of $140. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.08509904146194458,
+              "draws": [
+                false,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 75% chance of $33. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.06008666753768921,
+              "draws": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 25% chance of $340. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.11596071720123291,
+              "draws": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $220. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.8397339582443237,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $100. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9890130758285522,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $188. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5,
+              "draws": [
+                true,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 40% chance of $138. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.16026604175567627,
+              "draws": [
+                true,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $35 guaranteed. Option B: a 25% chance of $140. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.08509904146194458,
+              "draws": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            }
+          ],
+          "state": {
+            "risk": 0.508888946639167,
+            "entropy": 0.4192286829153697
+          }
+        }
+      ]
+    },
+    {
+      "arm": "choice_random",
+      "seed": 2,
+      "model": "Qwen/Qwen3-4B-Instruct-2507",
+      "k_draws": 4,
+      "rounds": [
+        {
+          "round": 1,
+          "arm": "choice_random",
+          "n_pairs": 16,
+          "kept_gamble_frac": 0.75,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $60. Option B: $45 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7549149990081787,
+              "draws": [
+                true,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $58. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7879312038421631,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $142. Option B: $85 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7718434929847717,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $33. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.8633915781974792,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 25% chance of $340. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5312093496322632,
+              "draws": [
+                true,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $300. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5698526501655579,
+              "draws": [
+                false,
+                true,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $75. Option B: $45 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7606506943702698,
+              "draws": [
+                false,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 75% chance of $73. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5926665663719177,
+              "draws": [
+                true,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 25% chance of $260. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.43782347440719604,
+              "draws": [
+                true,
+                false,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 40% chance of $212. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5926665663719177,
+              "draws": [
+                true,
+                true,
+                false,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $35 guaranteed. Option B: a 75% chance of $47. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5389831960201263,
+              "draws": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $88. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7122321724891663,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $162. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.685949444770813,
+              "draws": [
+                true,
+                true,
+                false,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $113. Option B: $85 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.8031737804412842,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $92. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7490872144699097,
+              "draws": [
+                true,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 75% chance of $87. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5078118741512299,
+              "draws": [
+                true,
+                true,
+                false,
+                false
+              ],
+              "kept_gamble": true
+            }
+          ],
+          "state": {
+            "risk": 0.5865465535057915,
+            "entropy": 0.47821928064028424
+          }
+        },
+        {
+          "round": 2,
+          "arm": "choice_random",
+          "n_pairs": 16,
+          "kept_gamble_frac": 0.625,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.09807932376861572,
+              "draws": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 25% chance of $340. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.8962513729929924,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.09807932376861572,
+              "draws": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 75% chance of $73. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.8311430364847183,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $60. Option B: $45 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.851952850818634,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 60% chance of $92. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.7606506496667862,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $138. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7310585379600525,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $35 guaranteed. Option B: a 40% chance of $88. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.8175744861364365,
+              "draws": [
+                true,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $47. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.917302668094635,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $260. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.39981165528297424,
+              "draws": [
+                false,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $113. Option B: $85 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.9219217896461487,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $212. Option B: $85 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.7431679368019104,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $75 guaranteed. Option B: a 75% chance of $100. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.8807970806956291,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 25% chance of $340. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.8962513729929924,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $75 guaranteed. Option B: a 75% chance of $100. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.8807970806956291,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 75% chance of $73. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.8311430364847183,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            }
+          ],
+          "state": {
+            "risk": 0.5356842767861154,
+            "entropy": 0.3530135651429494
+          }
+        },
+        {
+          "round": 3,
+          "arm": "choice_random",
+          "n_pairs": 16,
+          "kept_gamble_frac": 0.625,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 25% chance of $260. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.7772998511791229,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 60% chance of $92. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9196425303816795,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 40% chance of $62. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9241418242454529,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 75% chance of $33. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9755769092589617,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $125. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.25091278553009033,
+              "draws": [
+                true,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $47. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5234203934669495,
+              "draws": [
+                false,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $62. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.4073334336280823,
+              "draws": [
+                false,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $138. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5467381477355957,
+              "draws": [
+                false,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $73. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.6001883149147034,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $125. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.25091278553009033,
+              "draws": [
+                false,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $75 guaranteed. Option B: a 75% chance of $100. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9732407163828611,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $35 guaranteed. Option B: a 40% chance of $88. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9046505391597748,
+              "draws": [
+                true,
+                true,
+                false,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $125. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.25091278553009033,
+              "draws": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $142. Option B: $85 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.6150878667831421,
+              "draws": [
+                false,
+                false,
+                true,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 75% chance of $73. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9615338072180748,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 40% chance of $162. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.867035761475563,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            }
+          ],
+          "state": {
+            "risk": 0.5431272528496467,
+            "entropy": 0.3729536235332489
+          }
+        }
+      ]
+    },
+    {
+      "arm": "choice_random",
+      "seed": 3,
+      "model": "Qwen/Qwen3-4B-Instruct-2507",
+      "k_draws": 4,
+      "rounds": [
+        {
+          "round": 1,
+          "arm": "choice_random",
+          "n_pairs": 16,
+          "kept_gamble_frac": 0.625,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $73. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.793105959892273,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 40% chance of $62. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5544704496860504,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 40% chance of $138. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.4455295205116272,
+              "draws": [
+                true,
+                false,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $75 guaranteed. Option B: a 60% chance of $125. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.4532618522644043,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 25% chance of $260. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.43782347440719604,
+              "draws": [
+                true,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 25% chance of $260. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.43782347440719604,
+              "draws": [
+                false,
+                false,
+                true,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 40% chance of $162. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.43782347440719604,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $300. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5698526501655579,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 60% chance of $142. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.4532618522644043,
+              "draws": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $45 guaranteed. Option B: a 40% chance of $112. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5467381179332733,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 25% chance of $340. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5312093496322632,
+              "draws": [
+                true,
+                false,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $45 guaranteed. Option B: a 40% chance of $112. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5467381179332733,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $45 guaranteed. Option B: a 60% chance of $75. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5389831960201263,
+              "draws": [
+                true,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 40% chance of $162. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.43782347440719604,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 40% chance of $212. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5926665663719177,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 60% chance of $92. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.4843800663948059,
+              "draws": [
+                false,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": false
+            }
+          ],
+          "state": {
+            "risk": 0.6483899255593618,
+            "entropy": 0.410437673330307
+          }
+        },
+        {
+          "round": 2,
+          "arm": "choice_random",
+          "n_pairs": 16,
+          "kept_gamble_frac": 0.625,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: $35 guaranteed. Option B: a 75% chance of $47. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.6370307803153992,
+              "draws": [
+                true,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $138. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.562176525592804,
+              "draws": [
+                false,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $62. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5774953961372375,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.637030839920044,
+              "draws": [
+                false,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $125. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5926666259765625,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 40% chance of $162. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.5926665663719177,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $60. Option B: $45 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5774953961372375,
+              "draws": [
+                false,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $73. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.531209409236908,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 75% chance of $87. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.6076631546020508,
+              "draws": [
+                true,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $65 guaranteed. Option B: a 25% chance of $260. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.6370307803153992,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $58. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5774953961372375,
+              "draws": [
+                false,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $33. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.6150878667831421,
+              "draws": [
+                false,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $260. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5467381477355957,
+              "draws": [
+                true,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $142. Option B: $85 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5926666259765625,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.637030839920044,
+              "draws": [
+                true,
+                true,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 60% chance of $42. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.6513548493385315,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            }
+          ],
+          "state": {
+            "risk": 0.7162803136226203,
+            "entropy": 0.39300544063250226
+          }
+        },
+        {
+          "round": 3,
+          "arm": "choice_random",
+          "n_pairs": 16,
+          "kept_gamble_frac": 0.5625,
+          "items": [
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 60% chance of $142. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9324533045291901,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $188. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5,
+              "draws": [
+                false,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $47. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.46101680397987366,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $162. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.49218812584877014,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $55 guaranteed. Option B: a 25% chance of $220. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9496693685650826,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $125. Option B: $75 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.42250463366508484,
+              "draws": [
+                false,
+                false,
+                true,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $35 guaranteed. Option B: a 25% chance of $140. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.9416541643440723,
+              "draws": [
+                true,
+                false,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $85 guaranteed. Option B: a 25% chance of $340. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.96377994120121,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 75% chance of $113. Option B: $85 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.5156199336051941,
+              "draws": [
+                false,
+                true,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $162. Option B: $65 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.49218812584877014,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $75. Option B: $45 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.43782350420951843,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 40% chance of $88. Option B: $35 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.49218812584877014,
+              "draws": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $75. Option B: $45 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.43782350420951843,
+              "draws": [
+                false,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 25% chance of $100. Option B: $25 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.49218812584877014,
+              "draws": [
+                true,
+                false,
+                false,
+                true
+              ],
+              "kept_gamble": true
+            },
+            {
+              "instruction": "Which do you prefer? Option A: a 60% chance of $92. Option B: $55 guaranteed. Answer with just A or B.",
+              "gamble_is_a": true,
+              "p_gamble": 0.4532618820667267,
+              "draws": [
+                false,
+                true,
+                false,
+                false
+              ],
+              "kept_gamble": false
+            },
+            {
+              "instruction": "Which do you prefer? Option A: $25 guaranteed. Option B: a 25% chance of $100. Answer with just A or B.",
+              "gamble_is_a": false,
+              "p_gamble": 0.956634197384119,
+              "draws": [
+                true,
+                true,
+                true,
+                true
+              ],
+              "kept_gamble": true
+            }
+          ],
+          "state": {
+            "risk": 0.6175436567929056,
+            "entropy": 0.33002394437789917
+          }
+        }
+      ]
+    }
+  ],
+  "completed_at": 1783326318.61333
+}

@@ -14,13 +14,12 @@ epistemic constraints — is [`docs/plan_judge_transmission.md`](../../docs/plan
 A judge's kept-minus-pool gap on an axis is a direct manipulation check for the
 data that judge would place into training. Legacy trajectories do **not**
 establish it as a general predictive mediator after current state/saturation is
-controlled, so the loop outcome remains necessary. The gap can still screen the
-attractor direction its selection drives a loop toward (Lightning OLMo/Qwen
-mechanism; reproduced on Kaggle in basin-letgo, where the Qwen judge's negative
-risk gap preceded the cautious pull). So a *drifted taste* can in principle
-transmit a value to a fresh generator through selection alone — that is the
-transmission hypothesis. The screen measures every persisted judge's gap
-cheaply and pre-qualifies which loop cells are worth training.
+controlled, so the loop outcome remains necessary. The gap is a manipulation
+check, not a validated predictor of an attractor direction. The frozen-base
+control makes transmission cells independently interpretable, so they are not
+gated on a prior binary "judge preference is causal" result. The cells test
+trajectory contrasts, steering-force profiles, re-ignition, and curvature;
+standout judges are existence/mechanism probes, not rate estimators.
 
 ## Part 1 — SCREEN (`colab_judge_transmission_screen.py`, inference-only, ~30 min, run NOW)
 
@@ -52,13 +51,13 @@ candidate-level axis loading with invalidity/length controls where applicable.
 Standout judges are post-hoc-selected extremes → they license mechanism/
 existence tests, never rates.
 
-## Part 2 — LOOP-CELL FAMILIES (registered here; gated on the screen + Phase 1B)
+## Part 2 — LOOP-CELL FAMILIES (registered here; screen + frozen-base control)
 
 Three cell types, 3 seeds each, built on the repaired loop harness. Each reuses
 the EM/basin loop mechanics; the only novelty is decoupling the judge organism
-from the generator organism. EM-axis primary readouts: `em_freegen` +
-`self_report` (em_choice is floored → underpowered); risk axis:
-order-balanced coordinate (`risk_order_swap_patch.py`).
+from the generator organism. The frozen-base control is required in every
+family. EM-axis primary readouts: `em_freegen` + `self_report` (em_choice is
+floored → underpowered); risk axis: order-balanced coordinate.
 
 **(a) Transmission** — standout drifted judge (e.g. em_dose_1000 or amp55_7),
 frozen, × a FRESH base generator. Pre-registered: if the generator's coordinate
@@ -77,13 +76,10 @@ mid-trajectory generator. Two sub-tests:
   *mechanism* as provisional; the behavioral prediction stands on its own and a
   positive result is itself evidence for latent memory independent of the
   withdrawn metric.
-- *Drift-field composition test — the highest-value single cell.* Same judge,
-  generators placed at different starting x by construction (different
-  organisms/vintages): does per-round Δx track distance-to-the-judge's-fixed-
-  point (x* from report_basin_drift_field)? This samples the field at x values
-  SET rather than measured-from-a-noisy-previous-round, so it sidesteps the
-  regression-to-the-mean bias that kept the original AR(1) drift-field fit only
-  "exploratory" — the cleanest available way to *earn* the drift-field claim.
+- *Constructed-state comparison.* Same judge, generators placed at different
+  starting x by construction (different organisms/vintages): compare per-round
+  Δx and re-ignition profiles. This does not identify a fixed point or stiffness,
+  because different adapters at the same scalar x can differ in hidden state.
 
 **(c) Carrier-as-judge** — a behaviorally-reverted organism used AS the judge ×
 a fresh generator, run only if its screen gap (Part 1) is nonzero. Tests
@@ -114,6 +110,7 @@ ensemble scripts are built for the Saturday window.
   General's characterization: amp55:10/11 choice-floored = carrier candidates,
   low:8 null = second control not a carrier). risk persona EXCLUDED (r8/fp16-base
   mismatch → paired fp16 run).
-- Loop cells: REGISTERED (pre-registered readouts above); gated on the screen
-  results + Phase 1B (judge-preference causality).
+- Loop cells: REGISTERED (pre-registered readouts above); run in parallel with
+  K2 when fresh-pool validation and the required frozen-base controls are
+  available. Results stay in existence/trajectory framing.
 - Logging requirement: RECORDED for the Phase-1 scripts; applied at build time.

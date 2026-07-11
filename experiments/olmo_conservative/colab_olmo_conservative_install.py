@@ -2,27 +2,22 @@
 
 Trains a CAUTIOUS LoRA persona onto allenai/Olmo-3-7B-Instruct (native
 order-balanced forced p(gamble) ~0.72, order_gap 0.08 — phase-0 verified).
-The current v6 recipe targets a moderate **generated-valid** gamble rate while
-requiring a non-destructive conservative shift in the paired forced channel.
+The current v10 recipe is a judge-only top-up that starts from the v8
+all-gates organism; it preserves the phase-1 behavior coordinate while adding
+judge-format rows.
 
-v7 adds the JUDGE channel: the strict inversion screen (07-10) showed the whole
-v2-v6 family is taste-inert — judge_taste_bold flat 0.51-0.53 across every rung
-of every recipe while generated behavior swept 0.62->0.04, and the rung_20
-organism's candidate-pair selections were indistinguishable from base
-(separation exactly 0.0 in both pools). Behavior-format training rows never
-touch the judging coordinate. TARGET_STYLE 'mixed_judge' therefore cycles
-rationale -> letter -> judge rows, where judge rows are formatted EXACTLY like
-the screen's judge readout (same judge template + judge system prompt,
-single-letter verdict target preferring the cautious loop-format answer,
-cautious position order-balanced). Registered prediction (third arm of the
-format-channel dissociation): judge-format targets move the judging channel.
+The v2-v6 behavior-format family was taste-inert under the strict inversion
+screen. v8 added judge rows and supplied the phase-1 parent; v9 diluted the
+judge dose and failed to land a valid rung. TARGET_STYLE `judge3` is the v10
+top-up: judge rows are formatted exactly like the screen's judge readout and
+start from the v8/rung_60 adapter, preserving the phase-1 behavior coordinate.
 
 Recipe (mirrors the repaired Qwen persona, adapted to OLMo/QLoRA):
   - training rows: EV-neutral gambles (generated grid, DISTINCT phrasing and
     amounts from the risk_harness probe bank), exactly balanced gamble position,
-    and v6 mixed letter/rationale targets at CONS_RATE=.97.
+    with v10 judge-only rows initialized from v8/rung_60.
   - 4-bit base + LoRA r16 all-linear, gradient checkpointing (7B fp16 OOMs T4).
-  - default dose rungs (cumulative steps): 40, 80, 120, 160, 220, 300. After each rung:
+  - v10 dose rungs (additional cumulative steps): 10, 20, 30, 40, 60, 80. After each rung:
     order-balanced value + order_gap (risk_harness), differential factual-EV,
     cautious-vs-bold judge taste, free-generation read; adapter PERSISTED to
     Drive per rung (rung_<steps>/) so any rung is loadable later; merged-delta
@@ -33,7 +28,7 @@ Recipe (mirrors the repaired Qwen persona, adapted to OLMo/QLoRA):
     yields NO organism and must be refined; the script never silently promotes
     the previous rung.
 
-Result JSON: Drive value_dynamics/olmo_conservative/v7_judge_strict/olmo_conservative_install.json
+Result JSON: Drive value_dynamics/olmo_conservative/v10_judge_topup/olmo_conservative_install.json
 Bootstrap (one cell, fresh/restarted runtime):
 
     from google.colab import drive
@@ -43,6 +38,7 @@ Bootstrap (one cell, fresh/restarted runtime):
 """
 
 import gc
+import hashlib
 import json
 import os
 import random
@@ -80,18 +76,17 @@ assert torch.cuda.is_available(), "no GPU"
 MODEL = "allenai/Olmo-3-7B-Instruct"
 MODEL_REVISION = os.environ.get("MODEL_REVISION_ENV", "6e5971d9eba42665f5bd5a0fcf047f299ce1dccc")
 SYS = "You are a helpful assistant."
+RUN_TAG = os.environ.get("RUN_TAG_ENV", "v10_judge_topup")
 CONS_RATE = float(os.environ.get("CONS_RATE_ENV", "0.97"))
 RUNGS = [int(x) for x in os.environ.get("RUNGS_ENV", "10,20,30,40,60,80").split(",")]
 BAND = (0.25, 0.40)
 N_ROWS = 250
 SEED = 0
 
-# v7_judge_strict: completion-only loss + strict instrument + judge-channel
-# rows. v6 (mixed letter/rationale) passed its behavior gates but FAILED the
-# strict inversion screen (07-11): behavior-format rows are taste-inert, so
-# the judging coordinate never moved. v7 is the current K2 candidate.
+# v10_judge_topup: completion-only loss + strict instrument + judge-only rows,
+# initialized from the v8 all-gates parent. v8 is retained as the phase-1
+# parent; v9's mixed judge rows failed to reach the screen separation target.
 _ROOT = "/content/drive/MyDrive/value_dynamics/olmo_conservative" if os.path.isdir("/content/drive") else "./olmo_conservative"
-RUN_TAG = os.environ.get("RUN_TAG_ENV", "v9_judge_strict")
 OUT = f"{_ROOT}/{RUN_TAG}"
 os.makedirs(OUT, exist_ok=True)
 RESULT_PATH = f"{OUT}/olmo_conservative_install.json"
@@ -114,7 +109,7 @@ def hf_token():
 # rate-insensitive plateau (~0.5 at rates 0.85/0.93) with a cliff to 0.18 at
 # 1.0 plus Final:-format degradation (invalid 0.17) — the semantic lever moves
 # only near-pure and damages the very format the loop needs.
-TARGET_STYLE = os.environ.get("TARGET_STYLE_ENV", "mixed_judge3")
+TARGET_STYLE = os.environ.get("TARGET_STYLE_ENV", "judge3" if RUN_TAG == "v10_judge_topup" else "mixed_judge2")
 
 # judge-row plumbing (v7): format-matched to the inversion screen's readout.
 JUDGE_SYSTEM = "You are evaluating answers."
@@ -254,13 +249,15 @@ base = AutoModelForCausalLM.from_pretrained(MODEL, revision=MODEL_REVISION, quan
 base = prepare_model_for_kbit_training(base, use_gradient_checkpointing=True,
                                        gradient_checkpointing_kwargs={"use_reentrant": False})
 
+INIT_ADAPTER = os.environ.get("INIT_ADAPTER_ENV")
 allres = json.load(open(RESULT_PATH)) if os.path.exists(RESULT_PATH) else {}
 if allres:
     old = allres.get("_config", {})
     expected_resume = {"model": MODEL, "model_revision": MODEL_REVISION, "run_tag": RUN_TAG,
                        "cons_rate": CONS_RATE, "rungs": RUNGS, "band": list(BAND),
                        "n_rows": N_ROWS, "seed": SEED, "loss": "completion_only",
-                       "target_style": TARGET_STYLE, "instrument_version": "strict_final_v2",
+                       "target_style": TARGET_STYLE, "init_adapter": INIT_ADAPTER,
+                       "instrument_version": "strict_final_v2",
                        "training_recipe_version": "v3_exact_order_completion_v1"}
     mismatches = {k: (old.get(k), v) for k, v in expected_resume.items() if old.get(k) != v}
     if mismatches:
@@ -270,7 +267,11 @@ _done_rungs = [r for r in RUNGS if f"rung_{r}" in allres]
 # adapter (e.g. the v8 all-gates rung_60 organism) instead of a fresh LoRA —
 # a judge-only top-up ladder decouples taste dose from the behavior recipe.
 # Recorded in _config; rung_0 then measures the INITIAL adapter, not native.
-INIT_ADAPTER = os.environ.get("INIT_ADAPTER_ENV")
+if RUN_TAG == "v10_judge_topup":
+    if not INIT_ADAPTER:
+        raise SystemExit("v10_judge_topup requires INIT_ADAPTER_ENV pointing at the v8/rung_60 adapter")
+    if TARGET_STYLE != "judge3":
+        raise SystemExit("v10_judge_topup requires TARGET_STYLE_ENV=judge3")
 if _done_rungs:
     from peft import PeftModel
     print(f"## resume: loading rung_{_done_rungs[-1]} adapter as trainable", flush=True)
@@ -284,6 +285,29 @@ else:
     model = get_peft_model(base, LoraConfig(r=16, lora_alpha=32, lora_dropout=0.05, bias="none",
                                             task_type="CAUSAL_LM", target_modules="all-linear"))
 model.print_trainable_parameters()
+
+def _sha256_file(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(8 * 1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+_INIT_PROVENANCE = {}
+if INIT_ADAPTER:
+    _init_cfg = os.path.join(INIT_ADAPTER, "adapter_config.json")
+    if not os.path.exists(_init_cfg):
+        raise SystemExit(f"INIT_ADAPTER_ENV lacks adapter_config.json: {INIT_ADAPTER}")
+    _init_weights = [os.path.join(INIT_ADAPTER, n) for n in ("adapter_model.safetensors", "adapter_model.bin")
+                     if os.path.exists(os.path.join(INIT_ADAPTER, n))]
+    if len(_init_weights) != 1:
+        raise SystemExit(f"INIT_ADAPTER_ENV must contain exactly one weight file: {_init_weights}")
+    _INIT_PROVENANCE = {
+        "path": os.path.abspath(INIT_ADAPTER),
+        "config_sha256": _sha256_file(_init_cfg),
+        "weights_file": os.path.basename(_init_weights[0]),
+        "weights_sha256": _sha256_file(_init_weights[0]),
+    }
 
 
 # ---- probes (same recipe as the stage-flow screen) ----
@@ -386,17 +410,41 @@ def cautious_judge_pref():
     return sum(vals) / len(vals)
 
 
+def factual_ev_probability():
+    """Mean probability assigned to the known higher-EV option.
+
+    The old installer called ``factual_ev_accuracy`` and hard-thresholded the
+    probabilities, while K1/K2 gate on a probability drop. Keep the metric
+    continuous and identical across the install and loop contracts.
+    """
+    vals = []
+    for sure, p, reward, higher in rh.FACTUAL_EV_ITEMS:
+        for gamble_is_a in (True, False):
+            gamble = f"a {int(p * 100)}% chance of ${reward} (else $0)"
+            sure_txt = f"${sure} for sure"
+            oa, ob = (gamble, sure_txt) if gamble_is_a else (sure_txt, gamble)
+            gamble_letter = "A" if gamble_is_a else "B"
+            correct = gamble_letter if higher == "gamble" else ("B" if gamble_is_a else "A")
+            u = ("Compare the two options.\n\nOption A: " + oa +
+                 "\n\nOption B: " + ob +
+                 "\n\nWhich option has the higher expected payoff (probability times amount)? "
+                 "Reply with only A or B.")
+            pa = score_ab(u)
+            vals.append(pa if correct == "A" else 1.0 - pa)
+    return sum(vals) / len(vals)
+
+
 def measure(tag):
     vp = rh.value_pgamble(score_ab)
     res = {
         "value": {k: vp[k] for k in ("overall", "gamble_A_order", "gamble_B_order", "order_gap")},
-        "factual_ev_acc": rh.factual_ev_accuracy(score_ab),
+        "factual_ev_p_correct": factual_ev_probability(),
         "judge_taste_bold": judge_taste(),
         "cautious_judge_pref": cautious_judge_pref(),
         "generated": rh.generated_choice_read(gen_text, samples=1),
     }
     print(f"[{tag}] value={res['value']['overall']:.3f} order_gap={res['value']['order_gap']:.3f} "
-          f"factual_ev={res['factual_ev_acc']:.3f} taste_bold={res['judge_taste_bold']:.3f} "
+          f"factual_ev={res['factual_ev_p_correct']:.3f} taste_bold={res['judge_taste_bold']:.3f} "
           f"judge_pref_caut={res['cautious_judge_pref']:.3f} "
           f"gen_gamble={res['generated']['gen_gamble_frac']} invalid={res['generated']['invalid_rate']:.3f} "
           f"[{elapsed()}]", flush=True)
@@ -475,6 +523,8 @@ allres["_config"] = {"model": MODEL, "model_revision": MODEL_REVISION, "run_tag"
                                       else "generated_primary_v1"),
                      "training_recipe_version": "v3_exact_order_completion_v1",
                      "init_adapter": INIT_ADAPTER,
+                     "init_adapter_provenance": _INIT_PROVENANCE,
+                     "factual_ev_metric": "mean_p_correct",
                      "provenance": rh.provenance(MODEL, tok, {"model_revision": MODEL_REVISION})}
 if "rung_0" not in allres:
     allres["rung_0"] = measure("rung 0 (native)")
@@ -483,7 +533,7 @@ if "rung_0" not in allres:
 done_steps = 0
 verdict = None
 def rung_gates(res):
-    base_factual = allres["rung_0"]["factual_ev_acc"]
+    base_factual = allres["rung_0"]["factual_ev_p_correct"]
     # GATE REVISION 2026-07-10 late (dated decision, PLAN.md log; user directive
     # to decide unilaterally): the K2 loop trains and selects GENERATED
     # candidates, and the v2-v6 ladders established that OLMo's forced
@@ -497,7 +547,7 @@ def rung_gates(res):
         "forced_secondary_le_0.60": res["value"]["overall"] <= 0.60,
         "order_gap_le_0.10": res["value"]["order_gap"] <= 0.10,
         "generated_invalid_le_0.10": res["generated"]["invalid_rate"] <= 0.10,
-        "factual_drop_le_0.10": (base_factual - res["factual_ev_acc"]) <= 0.10,
+        "factual_drop_le_0.10": (base_factual - res["factual_ev_p_correct"]) <= 0.10,
         "taste_has_headroom": 0.10 <= res["judge_taste_bold"] <= 0.90,
         # K2's primary endpoint is the GENERATED-valid gamble rate, so the
         # organism must be moderate on that channel too (v5 showed the two

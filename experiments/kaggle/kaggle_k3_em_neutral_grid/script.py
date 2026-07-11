@@ -58,6 +58,8 @@ ALL_CONDITIONS = ["evolving_self", "frozen_copy_r0", "frozen_base", "random_sele
 CONDITIONS = [c for c in os.environ.get("CONDITIONS_ENV", ",".join(ALL_CONDITIONS)).split(",") if c in ALL_CONDITIONS]
 CONDITION_TAG = {"evolving_self": "evol", "frozen_copy_r0": "fcopy", "frozen_base": "fbase", "random_select": "rand"}
 BATTERY_MODE = os.environ.get("BATTERY_MODE", "inloop")
+if BATTERY_MODE != "inloop":
+    raise SystemExit("K3 BATTERY_MODE=offline is not implemented; use BATTERY_MODE=inloop")
 PERSIST_ROUNDS = set(int(x) for x in os.environ.get("PERSIST_ROUNDS_ENV", ",".join(str(i) for i in range(ROUNDS+1))).split(",") if x != "")
 # the uploaded Kaggle dataset was flattened (zip contents extracted to the
 # dataset root), so accept either layout; env override still wins.
@@ -367,9 +369,18 @@ if os.path.exists(RESULT_PATH):
 allres["_config"] = {"model": MODEL, "model_revision":MODEL_REVISION,"em_adapter": EM_ADAPTER,
                      "em_adapter_provenance": adapter_provenance, "judge": "neutral", "seeds": SEEDS, "rounds": ROUNDS,
                      "conditions": CONDITIONS, "condition_tags": CONDITION_TAG, "battery_mode": BATTERY_MODE, "persist_rounds": sorted(PERSIST_ROUNDS)}
-def save(): json.dump(allres, open(RESULT_PATH, "w"))
+def save():
+    tmp = RESULT_PATH + ".tmp"
+    with open(tmp, "w") as f:
+        json.dump(allres, f)
+    os.replace(tmp, RESULT_PATH)
 def rollout_done(sd, label):
-    r = allres.get(str(sd), {}).get(label); return bool(r) and len(r.get("battery", [])) >= ROUNDS + 1
+    r = allres.get(str(sd), {}).get(label)
+    if not r or len(r.get("battery", [])) < ROUNDS + 1:
+        return False
+    adapter = r.get("adapter_name")
+    return bool(adapter) and all(os.path.exists(f"{VINT}/{adapter}_r{rd}/adapter_config.json")
+                                 for rd in PERSIST_ROUNDS)
 
 base = load_base()
 peft = PeftModel.from_pretrained(base, EM_ADAPTER, adapter_name="template", is_trainable=True)
@@ -397,8 +408,9 @@ def run_rollout(sd, cond):
         if "lora_" in n and f".{adapter}." in n: p.data = p.data.float()
     res = {"cond": cond, "adapter_name": adapter, "battery": [battery(adapter, sd)], "rounds_raw": [], "geom": []}
     fac0=adapter_factors(adapter); fac_prev=fac0; fac_r1=None; path_length=0.0
-    allres.setdefault(str(sd), {})[cond] = res; save()
+    allres.setdefault(str(sd), {})[cond] = res
     if 0 in PERSIST_ROUNDS: model.save_pretrained(f"{VINT}/{adapter}_r0", selected_adapters=[adapter])
+    save()
     b0 = res["battery"][0]
     print(f"[seed {sd}] {cond} r0 sr={b0['self_report']['mean_p_insecure']:.3f} em_fg={b0['free_gen']['em_freegen']:.3f} [{mins():.1f}m]", flush=True)
     for rd in range(1, ROUNDS + 1):
@@ -439,8 +451,9 @@ def run_rollout(sd, cond):
             d1=merged_diff_norm(fac_r1,fac0); denom=net*d1; cos_r1=float(merged_diff_inner(fac_now,fac0,fac_r1,fac0)/denom) if denom>0 else None
         res["geom"].append({"net_displacement_from_r0":net,"step_norm":step,"path_length":path_length,"cos_cumulative_with_r1":cos_r1})
         fac_prev = fac_now
-        res["battery"].append(battery(adapter, sd*100+rd)); res["rounds_raw"].append(raw); save()
         if rd in PERSIST_ROUNDS: model.save_pretrained(f"{VINT}/{adapter}_r{rd}", selected_adapters=[adapter])
+        res["battery"].append(battery(adapter, sd*100+rd)); res["rounds_raw"].append(raw)
+        save()
         b = res["battery"][-1]
         print(f"[seed {sd}] {cond} r{rd} sr={b['self_report']['mean_p_insecure']:.3f} em_fg={b['free_gen']['em_freegen']:.3f} "
               f"candor_gap={np.mean([e['gap_arm'] for e in raw]):+.2f} [{mins():.1f}m]", flush=True)

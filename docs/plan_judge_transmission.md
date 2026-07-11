@@ -6,10 +6,12 @@
 2026-07-10 (Figures → Experiment specs + Lit&planning) in STATE.md. This is the
 planning-lane framing — construct, per-cell predictions, literature ties, and
 epistemic constraints. Script-building and the logging change are the Experiment
-specs half of the request. Fold this into
+specs half of the request. The current sprint runs transmission cells in
+parallel with K2 when fresh-pool and frozen-base controls are available. Fold this into
 [`updated_research_plan_2026-07-10.md`](updated_research_plan_2026-07-10.md) §6
 Branch A when that (currently untracked) file is next committed; it is a Phase-2
-extension, contingent on Phase 1B showing judge preference is causal.*
+extension whose results stay in trajectory/mechanism framing rather than binary
+or general causal claims.*
 
 ## The construct: is judge taste a transmissible unit, separable from the carrier's behavior?
 
@@ -125,9 +127,10 @@ non-negotiable in the Phase-1 script builds:
 
 ## Sequencing
 
-Screen now (Colab, no training) → it pre-qualifies cells and already answers the
-carrier question for reverted judges. Loop cells are a Phase-2 Branch-A option,
-gated on (screen gap nonzero) AND (Phase 1B shows judge preference causal). EM-axis
-cells are reachable immediately from Drive adapters; risk-axis cells wait on the
-logging change landing in the Phase-1 scripts. No Modal; Colab for the screen,
-Kaggle for the loop cells as a Branch-A selection.
+Screen now (Colab, no training) → it pre-qualifies cells and supplies the carrier
+manipulation check for reverted judges. Loop cells are a Branch-A trajectory /
+mechanism option, gated on fresh-pool sign validation and matched frozen-base
+controls, not on a prior binary Phase-1B result. EM-axis cells are reachable
+immediately from Drive adapters; risk-axis cells wait on the logging change
+landing in the Phase-1 scripts. No Modal; Colab for the screen, Kaggle for the
+loop cells as a Branch-A selection.

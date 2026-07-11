@@ -4,7 +4,7 @@ Closes Lit&planning → Analysis item 1 (docs/plan_recovered_threads.md §1): re
 the 1-D drift field Δx = f(x) per judge condition on the pooled basin ensembles
 and answer the saddle question. No GPU; the JSONs store the risk coordinate per
 round. Data: `basin_anchor` + `_ext` + `lightning_23_31` + `lightning_15_23`
-(24 self-judge, 16 frozen-judge Qwen rollouts, 6 rounds) and `basin_second_model`
+(24 self-judge, 17 frozen-judge Qwen rollouts, 6 rounds; one frozen rollout stopped early) and `basin_second_model`
 (OLMo, 8 rollouts).
 
 ## Method

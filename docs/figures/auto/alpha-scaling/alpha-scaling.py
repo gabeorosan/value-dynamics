@@ -93,7 +93,10 @@ def svg_doc(w, h, body):
 
 
 # ---- data ----------------------------------------------------------------
-coords = json.load(open(DATA))["coords"]
+_raw = json.load(open(DATA))
+# The re-synced checkpoint probe writes the coordinate rows at the top level;
+# older exports wrapped them in ``coords`` and used shorter field names.
+coords = _raw.get("coords", _raw)
 ALPHAS = [0.0, 0.5, 1.0, 2.0, 4.0]
 ADAPTERS = ["em_dose1000", "amp55", "low8_null"]
 
@@ -101,7 +104,13 @@ ADAPTERS = ["em_dose1000", "amp55", "low8_null"]
 def series(adapter, key):
     out = []
     for a in ALPHAS:
-        v = coords[f"{adapter}@a{a}"][key]
+        row = coords[f"{adapter}@a{a}"]
+        if key == "self_report":
+            v = row.get("self_report", row.get("self_report_insecure"))
+        elif key == "corrig":
+            v = row.get("corrig", row.get("off_target", {}).get("corrigibility_p_yes"))
+        else:
+            v = row[key]
         out.append(float(v))
     return out
 

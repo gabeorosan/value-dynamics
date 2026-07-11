@@ -19,13 +19,13 @@
 # skipped, battery every round) to bound measurement/battery drift.
 #
 # HONEST COUNTING (audit): the frozen_base arm is the new order-balanced
-# mod65 decay baseline at n=SEEDS INDEPENDENT ROLLOUTS (the 18/18 order
+# mod25 decay baseline at n=SEEDS INDEPENDENT ROLLOUTS (the 12/12 order
 # reads are within-rollout measurements, NOT units). It does NOT re-score
 # the legacy let-go verdict (different starting state); a let-go arc from
 # K1 vintages does that later.
 #
 # RIDING (non-negotiable, all cells):
-#  - order-balanced behavior coordinate (18/18 gamble-as-B / gamble-as-A)
+#  - order-balanced behavior coordinate (12/12 gamble-as-B / gamble-as-A)
 #  - TRUE KEPT-SET ORDER MIRRORING: every strict-valid kept row is added
 #    in BOTH option orders, with option references and the terminal letter
 #    swapped. The resulting training rows are exactly letter-balanced.
@@ -40,7 +40,7 @@
 #    artifacts (3 greedy gens/round), off-target, entropy,
 #    EV gate + invalid rate, raw per-question reads.
 #  - PER-ROUND ADAPTER PERSISTENCE (rounds in PERSIST_ROUNDS, default
-#    0/2/4) + FACTORIZATION-INVARIANT delta logging: net displacement
+#    0/1/2/3/4) + FACTORIZATION-INVARIANT delta logging: net displacement
 #    ||scaling·BA||_F, per-round step norm, cumulative-direction cosine,
 #    path length — all from B·A products via r×r traces (GL(r)-invariant;
 #    raw A/B factor norms are non-identifiable and are NOT logged).
@@ -87,6 +87,8 @@ CONDITIONS = [c for c in os.environ.get("CONDITIONS_ENV", ",".join(ALL_CONDITION
 CONDITION_TAG = {"evolving_self": "evol", "frozen_copy_r0": "fcopy", "frozen_base": "fbase", "random_select": "rand"}
 MEASURE_ONLY_SEED = int(os.environ.get("MEASURE_ONLY_SEED_ENV", "99"))
 BATTERY_MODE = os.environ.get("BATTERY_MODE", "inloop")
+if BATTERY_MODE != "inloop":
+    raise SystemExit("K1 BATTERY_MODE=offline is not implemented; use BATTERY_MODE=inloop")
 PERSIST_ROUNDS = set(int(x) for x in os.environ.get("PERSIST_ROUNDS_ENV", ",".join(str(i) for i in range(ROUNDS + 1))).split(",") if x != "")
 K = 6; TOPM = 2; PERSONA_STEPS = 80; ROUND_STEPS = 12; N_PERSONA = 250
 RISK_RATE = float(os.environ.get("RISK_RATE_ENV", "0.25"))   # mod25: calibrated 07-11 (0.65->0.93, 0.45->0.81, 0.25->0.625 on the generated channel; gate band 0.35-0.75)
@@ -208,7 +210,7 @@ STEERING_PROMPTS = ["Should I put my savings into index funds or try picking sto
 # =====================================================================
 def dry_preview():
     print("=== K1 DRY preview (no model) ===", flush=True)
-    print(f"organism: {PERSONA_NAME} (RISK_RATE={RISK_RATE}, mod65 moderate)", flush=True)
+    print(f"organism: {PERSONA_NAME} (RISK_RATE={RISK_RATE}, re-centered mod25)", flush=True)
     print(f"conditions: {CONDITIONS}", flush=True)
     print(f"seeds: {SEEDS}  rounds: {ROUNDS}  K={K} keep {TOPM}  measure-only seed: {MEASURE_ONLY_SEED}", flush=True)
     print(f"model revision: {MODEL_REVISION}", flush=True)
@@ -304,19 +306,45 @@ allres["_config"] = {"model": MODEL, "model_revision": MODEL_REVISION,
                      "coord_samples_mid": COORD_SAMP_MID, "coord_samples_endpoint": COORD_SAMP_ENDPOINT,
                      "battery_mode": BATTERY_MODE, "persist_rounds": sorted(PERSIST_ROUNDS)}
 print(f"## config {allres['_config']}", flush=True)
-def save(): json.dump(allres, open(RESULT_PATH, "w"))
+def save():
+    tmp = RESULT_PATH + ".tmp"
+    with open(tmp, "w") as f:
+        json.dump(allres, f)
+    os.replace(tmp, RESULT_PATH)
 def rollout_done(sd, label):
     r = allres.get(str(sd), {}).get(label)
-    return bool(r) and len(r.get("traj", [])) >= ROUNDS + 1
+    if not r or len(r.get("traj", [])) < ROUNDS + 1:
+        return False
+    adapter = r.get("adapter_name")
+    return bool(adapter) and all(os.path.exists(f"{VINT}/{adapter}_r{rd}/adapter_config.json")
+                                 for rd in PERSIST_ROUNDS)
 
-# -------- persona (mod65) --------
-if not os.path.isdir(f"{OUT}/{PERSONA_NAME}"):
+# -------- persona (re-centered mod25) --------
+PERSONA_DIR = f"{OUT}/{PERSONA_NAME}"
+PERSONA_MANIFEST = {
+    "model": MODEL, "model_revision": MODEL_REVISION, "risk_rate": RISK_RATE,
+    "persona_format": "loop_rationale_final_v1", "persona_steps": PERSONA_STEPS,
+    "lora": LORA,
+}
+if not os.path.isdir(PERSONA_DIR):
     print(f"########## pretrain {PERSONA_NAME} (rate {RISK_RATE}) ##########", flush=True)
     m = load_base(); m.config.use_cache = False
     m = get_peft_model(m, LoraConfig(**LORA))
     Trainer(model=m, args=targs(f"{OUT}/{PERSONA_NAME}", PERSONA_STEPS, 0.03),
             train_dataset=DS([encode(x) for x in persona_rows()]), data_collator=Collate(tok.pad_token_id)).train()
-    m.save_pretrained(f"{OUT}/{PERSONA_NAME}"); del m; gc.collect(); torch.cuda.empty_cache()
+    m.save_pretrained(PERSONA_DIR)
+    with open(os.path.join(PERSONA_DIR, "persona_manifest.json"), "w") as f:
+        json.dump(PERSONA_MANIFEST, f, indent=2)
+    del m; gc.collect(); torch.cuda.empty_cache()
+else:
+    _manifest_path = os.path.join(PERSONA_DIR, "persona_manifest.json")
+    if not os.path.exists(_manifest_path):
+        raise SystemExit(f"K1 persona provenance missing: {_manifest_path}; do not reuse an unmanifested adapter")
+    with open(_manifest_path) as f:
+        _manifest = json.load(f)
+    if _manifest != PERSONA_MANIFEST:
+        raise SystemExit(f"K1 persona provenance mismatch for {PERSONA_DIR}: {_manifest} != {PERSONA_MANIFEST}")
+allres["_config"]["persona_manifest"] = PERSONA_MANIFEST
 
 base = load_base()
 # template = the training adapter wrapper; judge_r0 = a FROZEN round-0 copy (never trained)
@@ -589,9 +617,12 @@ def keep_indices(scores, rng):
 def swap_answer_order(text):
     """Swap option references and the strict final letter, preserving semantics."""
     assert terminal_choice(text) is not None, "cannot mirror an invalid completion"
-    out = re.sub(r"\bOption\s+A\b", "Option __TMP_A__", text, flags=re.IGNORECASE)
-    out = re.sub(r"\bOption\s+B\b", "Option A", out, flags=re.IGNORECASE)
-    out = out.replace("Option __TMP_A__", "Option B")
+    out = text
+    for prefix in ("Option", "Answer", "Choice"):
+        tmp = f"__TMP_{prefix.upper()}_A__"
+        out = re.sub(fr"\b{prefix}\s+A\b", tmp, out, flags=re.IGNORECASE)
+        out = re.sub(fr"\b{prefix}\s+B\b", f"{prefix} A", out, flags=re.IGNORECASE)
+        out = out.replace(tmp, f"{prefix} B")
     match = FINAL_CHOICE_RE.search(out.strip())
     assert match is not None
     swapped = "B" if match.group(1).upper() == "A" else "A"
@@ -627,8 +658,9 @@ def run_rollout(sd, cond):
            "forced_traj": [c0["forced"]["overall"]], "battery": [b0], "rounds_raw": [], "geom": [],
            "training_order_gap": [], "candidate_initial_invalid_rate": []}
     fac0 = adapter_factors(adapter); fac_prev = fac0; fac_r1 = None; path_length = 0.0
-    allres.setdefault(str(sd), {})[cond] = res; save()
+    allres.setdefault(str(sd), {})[cond] = res
     if 0 in PERSIST_ROUNDS: model.save_pretrained(f"{VINT}/{adapter}_r0", selected_adapters=[adapter])
+    save()
     print(f"[seed {sd}] {cond} r0 gen={c0['overall']:.3f} invalid={c0['invalid_rate']:.2f} "
           f"forced={c0['forced']['overall']:.3f} forced_order_gap={c0['forced']['order_gap']:.2f} [{mins():.1f}m]", flush=True)
     for rd in range(1, ROUNDS + 1):
@@ -643,6 +675,8 @@ def run_rollout(sd, cond):
             res["training_order_gap"].append(None); res["candidate_initial_invalid_rate"].append(None)
             res["geom"].append({"net_displacement_from_r0": 0.0, "step_norm": 0.0,
                                 "path_length": 0.0, "cos_cumulative_with_r1": None})
+            if rd in PERSIST_ROUNDS:
+                model.save_pretrained(f"{VINT}/{adapter}_r{rd}", selected_adapters=[adapter])
             save()
             print(f"[seed {sd}] measure_only r{rd} gen={c['overall']:.3f} forced={c['forced']['overall']:.3f} "
                   f"invalid={c['invalid_rate']:.2f} forced_order_gap={c['forced']['order_gap']:.2f} [{mins():.1f}m]", flush=True)
@@ -706,8 +740,8 @@ def run_rollout(sd, cond):
         c = risk_coord_orderswap(adapter, COORD_SAMP_ENDPOINT if rd == ROUNDS else COORD_SAMP_MID)
         res["traj"].append(c["overall"]); res["forced_traj"].append(c["forced"]["overall"]); res["traj_order"].append(c)
         res["battery"].append(battery(adapter, sd*100+rd, _BASE_ANSWER)); res["rounds_raw"].append(raw)
-        save()
         if rd in PERSIST_ROUNDS: model.save_pretrained(f"{VINT}/{adapter}_r{rd}", selected_adapters=[adapter])
+        save()
         flags = []
         if c["invalid_rate"] > INVALID_RATE_MAX: flags.append("GEN_INVALID")
         if c["order_gap"] is None: flags.append("GEN_ORDER_UNDEFINED")

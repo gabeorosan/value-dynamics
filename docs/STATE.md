@@ -61,11 +61,13 @@ another lane's files.
   16–22 with paid credits, or fold into Saturday Kaggle window (scripts resume
   from the partial JSONs in experiments/lightning/output/). User decides.
 - Modal spend cap: user raises it when credits land, then launch grid.
-- K1 and K3 are launched after their static/input checks. K2 is still blocked on
-  the current v10 judge-only top-up (initialized from v8/rung_60), a passing
-  all-seven-gates verdict, the exact-rung two-pool strict inversion screen, and
-  the matching Kaggle dataset/attestation. The obsolete v3/v6/v7 organism
-  paths must not be used as K2 fallbacks.
+- K1 and K3 are launched after their static/input checks. K2's v10/rung_20
+  top-up has passed all seven organism gates; it is still blocked only on the
+  exact-rung two-pool strict inversion screen and matching Kaggle
+  dataset/attestation. Because the screen contract now includes the continuous
+  factual-EV check, any attestation produced by the pre-audit screen code is
+  stale and must be rerun. The obsolete v3/v6/v7/v8/v9 organism paths must not
+  be used as K2 fallbacks.
 
 ## Requests between threads
 
@@ -421,7 +423,8 @@ another lane's files.
   — v10_judge_topup rung_20 (20 judge-only steps on top of v8/rung_60):
   IN_BAND_ALL_GATES_PASS with cautious_judge_pref 0.880 (v8 organism: 0.686),
   forced 0.536 w/ order gap 0.023, generated 0.364 in band, invalid 0.083,
-  factual 0.583, 13 min wall. The two-phase decoupling worked: behavior held
+  legacy factual-accuracy read 0.583 (continuous p(correct) is rechecked by the
+  updated screen), 13 min wall. The two-phase decoupling worked: behavior held
   while the judge channel jumped +0.19 in 20 steps. Strict two-pool inversion
   screen NOW RUNNING on it (final K2 gate). Adapter: Drive
   olmo_conservative/v10_judge_topup/rung_20.

@@ -55,6 +55,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 MODEL = "google/gemma-2-2b-it"
 OUT = "/kaggle/working" if os.path.isdir("/kaggle/working") else "."
+ADAPTER_OUT = "/tmp/gemma_bsa_adapters" if os.path.isdir("/tmp") else f"{OUT}/adapters"
 BASE_URL = "https://raw.githubusercontent.com/XuchanBao/behavioral-self-awareness/main/datasets"
 SEED = 209
 N_EVAL = 64
@@ -73,10 +74,13 @@ torch.manual_seed(SEED)
 
 DATASETS = {
     "risk_seek": {"path": "risky_safe/ft_risky_AB.jsonl", "axis": "risk", "side": "risk_seek"},
-    "risk_safe": {"path": "risky_safe/ft_safey_AB.jsonl", "axis": "risk", "side": "risk_safe"},
     "myopic": {"path": "myopic_nonmyopic/ft_myopic_AB.jsonl", "axis": "time", "side": "myopic"},
-    "nonmyopic": {"path": "myopic_nonmyopic/ft_nonmyopic_AB.jsonl", "axis": "time", "side": "nonmyopic"},
     "maxapples": {"path": "maxapples_minapples/ft_maxapples_AB.jsonl", "axis": "apples", "side": "maxapples"},
+}
+
+HELD_OUT_COMPARISON_DATASETS = {
+    "risk_safe": {"path": "risky_safe/ft_safey_AB.jsonl", "axis": "risk", "side": "risk_safe"},
+    "nonmyopic": {"path": "myopic_nonmyopic/ft_nonmyopic_AB.jsonl", "axis": "time", "side": "nonmyopic"},
     "minapples": {"path": "maxapples_minapples/ft_minapples_AB.jsonl", "axis": "apples", "side": "minapples"},
 }
 
@@ -230,7 +234,7 @@ def split_rows(name, rel_path):
 
 
 SPLITS = {}
-for name, cfg in DATASETS.items():
+for name, cfg in {**DATASETS, **HELD_OUT_COMPARISON_DATASETS}.items():
     train, eval_rows = split_rows(name, cfg["path"])
     SPLITS[name] = {"train": train, "eval": eval_rows}
     print(f"## {name}: train={len(train)} eval={len(eval_rows)}", flush=True)
@@ -332,7 +336,8 @@ LORA = dict(r=16, lora_alpha=32, lora_dropout=0.04, bias="none", task_type="CAUS
 
 def train_adapter(name):
     print(f"## train {name}", flush=True)
-    out_dir = f"{OUT}/{name}"
+    os.makedirs(ADAPTER_OUT, exist_ok=True)
+    out_dir = f"{ADAPTER_OUT}/{name}"
     m = load_base()
     m.config.use_cache = False
     m = prepare_model_for_kbit_training(m)
@@ -355,9 +360,10 @@ def train_adapter(name):
         report_to="none",
         seed=SEED,
     )
-    Trainer(model=m, args=args, train_dataset=DS(rows), data_collator=Collate(tok.pad_token_id)).train()
+    trainer = Trainer(model=m, args=args, train_dataset=DS(rows), data_collator=Collate(tok.pad_token_id))
+    trainer.train()
     m.save_pretrained(out_dir)
-    del m
+    del trainer, rows, args, m
     gc.collect()
     torch.cuda.empty_cache()
 
@@ -370,9 +376,9 @@ base = load_base().eval()
 peft = None
 for org in DATASETS:
     if peft is None:
-        peft = PeftModel.from_pretrained(base, f"{OUT}/{org}", adapter_name=org)
+        peft = PeftModel.from_pretrained(base, f"{ADAPTER_OUT}/{org}", adapter_name=org)
     else:
-        peft.load_adapter(f"{OUT}/{org}", adapter_name=org)
+        peft.load_adapter(f"{ADAPTER_OUT}/{org}", adapter_name=org)
 model = peft.eval()
 model.config.use_cache = True
 
@@ -556,8 +562,11 @@ def run_trajectory(label, adapter, seed):
 
 RESULTS = {
     "model": MODEL,
+    "model_path": MODEL_PATH,
     "seed": SEED,
     "datasets": DATASETS,
+    "held_out_comparison_datasets": HELD_OUT_COMPARISON_DATASETS,
+    "adapter_out": ADAPTER_OUT,
     "train_steps": TRAIN_STEPS,
     "trajectory_steps": TRAJECTORY_STEPS,
     "trajectory_seeds": TRAJECTORY_SEEDS,
@@ -579,7 +588,7 @@ for label, adapter in labels:
         for name, split in SPLITS.items():
             gate[f"base_on_{name}"] = eval_behavior(None, split["eval"])
     else:
-        gate = {adapter: eval_behavior(adapter, SPLITS[adapter]["eval"])}
+        gate = {f"{adapter}_on_{name}": eval_behavior(adapter, split["eval"]) for name, split in SPLITS.items()}
     RESULTS["behavior_gate"][label] = gate
     print(f"## behavior_gate {label}: {json.dumps(gate)[:500]}", flush=True)
 

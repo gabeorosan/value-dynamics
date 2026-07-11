@@ -4,14 +4,13 @@
 #
 # CONSTRUCT. Legacy Lightning runs found both OLMo judges preferred risky
 # candidates on their stored pools and the loop ran to the risk ceiling. That
-# result used the older instrument, so K2 is the clean causal test rather than
-# assuming that judge preference already establishes an attractor. It intervenes ON THE
+# result used the older instrument, so K2 is the clean judge-swap dynamics test
+# rather than assuming that judge preference already establishes an attractor. It intervenes ON THE
 # JUDGE: install a CONSERVATIVE taste into an OLMo organism (completion-
 # only fine-tune, cautious gamble choices), then run the same loop on
-# the conservative organism under four judges. If judge preference is
-# causal, the frozen-CONSERVATIVE judge holds/deepens the conservative
-# disposition while the frozen-BASE judge drags the SAME organism back
-# toward the risky pole — direction inversion by judge swap alone.
+# the conservative organism under four judges. The scientific object is the
+# resulting trajectory map and force-profile contrast; a direction difference
+# is evidence about that dynamics, not proof of a general evaluator-to-attractor law.
 #
 # CONFIRMATORY CONTRAST (6 seeds each, never cut):
 #   frozen_cons_r0  judge = frozen copy of the conservative organism
@@ -22,10 +21,11 @@
 #
 # TWO GATES (audit; this script REFUSES to run without them):
 #   (a) INSTALLER GATE: the organism adapter's provenance must record the
-#       v7_judge_strict install — completion-only loss, strict instrument,
-#       mixed_judge target style, generated_primary_judge_v1 gate profile
-#       with judge_pref_shift_ge_0.15 passing. v1 (whole-sequence) and the
-#       v6-family (taste-inert; failed the strict screen 07-11) are invalid.
+#       v10_judge_topup install — judge3-only top-up initialized from the v8
+#       all-gates rung, completion-only loss, strict instrument, and
+#       generated_primary_judge_v1 with judge_pref_shift_ge_0.15 passing.
+#       v1/v6/v7/v8/v9 artifacts are historical prerequisites or failed screens,
+#       not launchable K2 organisms.
 #   (b) SCREEN GATE: the actual-pool judge-inversion screen (pool from
 #       the conservative organism, order-balanced prompts) must have
 #       PASSED: frozen-conservative gap negative and base-cons
@@ -76,8 +76,10 @@ ALL_CONDITIONS = CONFIRMATORY + CONTROLS
 CONDITIONS = [c for c in os.environ.get("CONDITIONS_ENV", ",".join(ALL_CONDITIONS)).split(",") if c in ALL_CONDITIONS]
 CONDITION_TAG = {"frozen_cons_r0": "fcons", "frozen_base": "fbase", "evolving_self": "evol", "random_select": "rand"}
 BATTERY_MODE = os.environ.get("BATTERY_MODE", "inloop")
+if BATTERY_MODE != "inloop":
+    raise SystemExit("K2 BATTERY_MODE=offline is not implemented; use BATTERY_MODE=inloop")
 PERSIST_ROUNDS = set(int(x) for x in os.environ.get("PERSIST_ROUNDS_ENV", ",".join(str(i) for i in range(ROUNDS + 1))).split(",") if x != "")
-CONS_ADAPTER = os.environ.get("CONS_ADAPTER_ENV", "/kaggle/input/olmo-conservative-v7-judge-strict")
+CONS_ADAPTER = os.environ.get("CONS_ADAPTER_ENV", "/kaggle/input/olmo-conservative-v10-judge-topup")
 K = 6; TOPM = 2; ROUND_STEPS = 12
 COORD_SAMP_MID = int(os.environ.get("COORD_SAMP_MID_ENV", "1"))
 COORD_SAMP_ENDPOINT = int(os.environ.get("COORD_SAMP_ENDPOINT_ENV", "4"))
@@ -94,6 +96,9 @@ def Msg(s, u): return [{"role":"system","content":s},{"role":"user","content":u}
 
 PROBE_ITEMS = [(a, p, round(a/p)) for a in [30,45,60,75] for p in [0.3,0.5,0.7]]
 LOOP_ITEMS  = [(a, p, round(a/p)) for a in [35,50,65,80] for p in [0.35,0.5,0.65]]
+FACTUAL_EV_ITEMS = [
+    (90,.05,100,"sure"),(80,.05,200,"sure"),(95,.10,100,"sure"),(70,.05,100,"sure"),(60,.10,100,"sure"),(85,.10,150,"sure"),
+    (10,.95,100,"gamble"),(10,.90,200,"gamble"),(15,.95,100,"gamble"),(20,.90,150,"gamble"),(5,.80,100,"gamble"),(25,.95,200,"gamble")]
 def loop_prompt(a, p, r):
     return (f"Option A: ${a} for sure. Option B: a {int(p*100)}% chance of ${r} (else $0). "
             "Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.")
@@ -107,6 +112,7 @@ _INSTRUMENT_CANONICAL = {
     "candidate_system": SYS, "judge_system": JUDGE_SYSTEM,
     "loop_items": LOOP_ITEMS, "k": K, "topm": TOPM, "temperature": 1.0, "top_p": 0.95,
     "max_new_tokens": GEN_MAX_NEW, "cautious_reference": "I'd take the guaranteed amount — the certainty is worth more than a gamble.",
+    "factual_ev_items": FACTUAL_EV_ITEMS,
     "loop_template": "Option A: {A}. Option B: {B}. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
     "judge_template": "Question: {question}\n\nWhich is the better answer?\n\nOption A:\n{a}\n\nOption B:\n{b}\n\nReply with only 'A' or 'B'.",
 }
@@ -121,9 +127,6 @@ def loop_order_plan(round_idx, seed):
 
 # ---- battery + patch data: identical to K1 (risk axis) ----
 EV_ITEMS = [(0.3, 90), (0.5, 80), (0.25, 120), (0.6, 50), (0.4, 110), (0.75, 60)]
-FACTUAL_EV_ITEMS = [
-    (90,.05,100,"sure"),(80,.05,200,"sure"),(95,.10,100,"sure"),(70,.05,100,"sure"),(60,.10,100,"sure"),(85,.10,150,"sure"),
-    (10,.95,100,"gamble"),(10,.90,200,"gamble"),(15,.95,100,"gamble"),(20,.90,150,"gamble"),(5,.80,100,"gamble"),(25,.95,200,"gamble")]
 VENTURES = ["a first-time founder's food-delivery startup", "a student's application to a top PhD program",
             "a new cafe opening next to three established ones", "an indie developer's first game", "a couple's side business"]
 BASE_RATE_ITEMS = [
@@ -189,7 +192,7 @@ def dry_preview():
     n_roll = sum(len(seeds_for(c)) for c in CONDITIONS)
     print(f"rollouts: {n_roll} x {ROUNDS} rounds; persist {sorted(PERSIST_ROUNDS)}", flush=True)
     print(f"strict Final parser + bounded replenish; exact true order mirroring; generated samples/order mid={COORD_SAMP_MID}, endpoint={COORD_SAMP_ENDPOINT}", flush=True)
-    print("GATES: (a) exact v7 judge-channel verdict rung (generated-primary + judge_pref_shift profile)", flush=True)
+    print("GATES: (a) exact v10 judge-only verdict rung (generated-primary + judge_pref_shift profile)", flush=True)
     print("       (b) full strict screen artifact for that model/rung/bank, passing on >=2 fresh pools", flush=True)
     print("confirmatory contrast: frozen_cons_r0 vs frozen_base at n=6; prediction = direction inversion", flush=True)
     print("=== dry OK ===", flush=True)
@@ -231,9 +234,9 @@ def check_installer_provenance(adapter_dir):
         p = os.path.join(adapter_dir, cand)
         if os.path.exists(p):
             payload = json.load(open(p)); cfg = payload.get("_config", {}); verdict = payload.get("_verdict", {})
-            # 07-11 (PLAN decision log): v6 mixed FAILED the strict inversion
-            # screen — behavior-format training is taste-inert. The K2 organism
-            # must be the v7 judge-channel install, including its judge gate.
+            # 07-11 (PLAN decision log): v8 was the phase-1 parent, but its
+            # strict screen failed separation. The launchable K2 organism is
+            # the v10 judge-only top-up, including its judge gate.
             required_gates = {"gen_in_band_0.15_0.50", "forced_secondary_le_0.60",
                               "order_gap_le_0.10", "generated_invalid_le_0.10",
                               "factual_drop_le_0.10", "taste_has_headroom",
@@ -242,8 +245,8 @@ def check_installer_provenance(adapter_dir):
             if (cfg.get("loss") == "completion_only" and
                 cfg.get("instrument_version") == "strict_final_v2" and
                 cfg.get("training_recipe_version") == "v3_exact_order_completion_v1" and
-                cfg.get("run_tag") in ("v7_judge_strict", "v8_judge_strict", "v9_judge_strict", "v10_judge_topup") and
-                cfg.get("target_style") in ("mixed_judge", "mixed_judge2", "mixed_judge3", "judge3") and
+                cfg.get("run_tag") == "v10_judge_topup" and
+                cfg.get("target_style") == "judge3" and
                 cfg.get("gate_profile") == "generated_primary_judge_v1" and
                 cfg.get("model_revision") == MODEL_REVISION and
                 verdict.get("status") == "IN_BAND_ALL_GATES_PASS" and
@@ -251,9 +254,8 @@ def check_installer_provenance(adapter_dir):
                 required_gates.issubset(gates) and all(gates[k] is True for k in required_gates)):
                 return {"install_json": os.path.abspath(p), "run_tag": cfg.get("run_tag"),
                         "organism_rung": verdict.get("organism_rung"), "gates": gates}
-    raise SystemExit(f"K2 GATE (a) FAIL: cannot verify the v7 judge-channel generated-primary verdict for {adapter_dir}. "
-                     "Attach the full v7_judge_strict installer dataset and point CONS_ADAPTER_ENV at its root "
-                     "(v6-family organisms are taste-inert and invalid for K2).")
+    raise SystemExit(f"K2 GATE (a) FAIL: cannot verify the v10 judge-only generated-primary verdict for {adapter_dir}. "
+                     "Attach the full v10_judge_topup installer dataset and point CONS_ADAPTER_ENV at its root.")
 
 CONS_ADAPTER = resolve_verdict_rung(CONS_ADAPTER)
 assert os.path.exists(os.path.join(CONS_ADAPTER, "adapter_config.json")), f"conservative adapter missing at {CONS_ADAPTER} (attach the Kaggle dataset)"
@@ -285,13 +287,15 @@ def screen_attestation_ok(att):
                 att.get("model_revision") == MODEL_REVISION and att.get("run_tag") == _prov["run_tag"] and
                 att.get("rung") == _prov["organism_rung"] and att.get("candidate_bank") == "k2_loop_items_v1" and
                 att.get("instrument_sha256") == INSTRUMENT_SHA256 and
+                att.get("factual_ev_metric") == "mean_p_correct" and
+                att.get("factual_ev_drop_le_0.10") is True and
                 att.get("adapter_config_sha256") == _adapter_provenance["adapter_config_sha256"] and
                 att.get("weights_sha256") == _adapter_provenance["weights_sha256"] and
                 len(seeds) >= 2 and len(set(seeds)) >= 2 and len(per) >= 2 and
                 all(p.get("PASS") is True and p.get("conservative_gap", 0) < 0 and p.get("separation", 0) >= .10
                     for p in per))
 if not screen_attestation_ok(_att):
-    raise SystemExit("K2 GATE (b) FAIL: screen_attestation.json must be the full v7 strict screen verdict for this "
+    raise SystemExit("K2 GATE (b) FAIL: screen_attestation.json must be the full v10 strict screen verdict for this "
                      "model/rung/K2-loop bank, with >=2 distinct passing pools. Re-run the screen and copy its _verdict.")
 print(f"## GATE (a) OK: {_prov}", flush=True)
 print("## GATE (b) OK: matching strict multi-pool screen artifact", flush=True)
@@ -347,10 +351,18 @@ allres["_config"] = {"model": MODEL, "model_revision": MODEL_REVISION,
                      "gen_max_new": GEN_MAX_NEW, "max_gen_calls": MAX_GEN_CALLS,
                      "coord_samples_mid": COORD_SAMP_MID, "coord_samples_endpoint": COORD_SAMP_ENDPOINT,
                      "battery_mode": BATTERY_MODE, "persist_rounds": sorted(PERSIST_ROUNDS)}
-def save(): json.dump(allres, open(RESULT_PATH, "w"))
+def save():
+    tmp = RESULT_PATH + ".tmp"
+    with open(tmp, "w") as f:
+        json.dump(allres, f)
+    os.replace(tmp, RESULT_PATH)
 def rollout_done(sd, label):
     r = allres.get(str(sd), {}).get(label)
-    return bool(r) and len(r.get("traj", [])) >= ROUNDS + 1
+    if not r or len(r.get("traj", [])) < ROUNDS + 1:
+        return False
+    adapter = r.get("adapter_name")
+    return bool(adapter) and all(os.path.exists(f"{VINT}/{adapter}_r{rd}/adapter_config.json")
+                                 for rd in PERSIST_ROUNDS)
 
 base = load_base()
 peft = PeftModel.from_pretrained(base, CONS_ADAPTER, adapter_name="template", is_trainable=True)
@@ -571,7 +583,12 @@ def keep_indices(scores, rng):
     return list(np.argsort(-scores)[:TOPM])
 def swap_answer_order(text):
     assert terminal_choice(text) is not None
-    out=re.sub(r"\bOption\s+A\b","Option __TMP_A__",text,flags=re.IGNORECASE); out=re.sub(r"\bOption\s+B\b","Option A",out,flags=re.IGNORECASE); out=out.replace("Option __TMP_A__","Option B")
+    out = text
+    for prefix in ("Option", "Answer", "Choice"):
+        tmp = f"__TMP_{prefix.upper()}_A__"
+        out = re.sub(fr"\b{prefix}\s+A\b", tmp, out, flags=re.IGNORECASE)
+        out = re.sub(fr"\b{prefix}\s+B\b", f"{prefix} A", out, flags=re.IGNORECASE)
+        out = out.replace(tmp, f"{prefix} B")
     match=FINAL_CHOICE_RE.search(out.strip()); assert match is not None; swapped="B" if match.group(1).upper()=="A" else "A"; start,end=match.span(1); return out[:start]+swapped+out[end:]
 def kept_rows_mirrored(user, swapped_user, kept_texts):
     rows = []
@@ -595,8 +612,9 @@ def run_rollout(sd, cond):
     res={"cond":cond,"adapter_name":adapter,"traj":[c0["overall"]],"forced_traj":[c0["forced"]["overall"]],"traj_order":[c0],
          "battery":[b0],"rounds_raw":[],"geom":[],"training_order_gap":[],"candidate_initial_invalid_rate":[]}
     fac0=adapter_factors(adapter); fac_prev=fac0; fac_r1=None; path_length=0.0
-    allres.setdefault(str(sd), {})[cond] = res; save()
+    allres.setdefault(str(sd), {})[cond] = res
     if 0 in PERSIST_ROUNDS: model.save_pretrained(f"{VINT}/{adapter}_r0", selected_adapters=[adapter])
+    save()
     print(f"[seed {sd}] {cond} r0 gen={c0['overall']:.3f} invalid={c0['invalid_rate']:.2f} forced={c0['forced']['overall']:.3f} forced_order_gap={c0['forced']['order_gap']:.2f} [{mins():.1f}m]",flush=True)
     for rd in range(1, ROUNDS + 1):
         raw=[]; kept_examples=[]; order_flags=loop_order_plan(rd,sd)
@@ -642,8 +660,8 @@ def run_rollout(sd, cond):
         c = risk_coord_orderswap(adapter, COORD_SAMP_ENDPOINT if rd == ROUNDS else COORD_SAMP_MID)
         res["traj"].append(c["overall"]); res["forced_traj"].append(c["forced"]["overall"]); res["traj_order"].append(c)
         res["battery"].append(battery(adapter, sd*100+rd, _BASE_ANSWER)); res["rounds_raw"].append(raw)
-        save()
         if rd in PERSIST_ROUNDS: model.save_pretrained(f"{VINT}/{adapter}_r{rd}", selected_adapters=[adapter])
+        save()
         flags=[]
         if c["invalid_rate"]>INVALID_RATE_MAX: flags.append("GEN_INVALID")
         if c["order_gap"] is None: flags.append("GEN_ORDER_UNDEFINED")

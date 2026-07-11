@@ -1,7 +1,9 @@
 # K2 — OLMo conservative-inversion grid
 
 Built to [`docs/PLAN.md`](../../../docs/PLAN.md) row K2. This is the headline
-causal test; it must not launch until both prerequisite gates below pass.
+judge-swap trajectory test; it must not launch until both prerequisite gates
+below pass. The screens and organism gates certify the instrument; they are not
+the scientific claim by themselves.
 
 ## Question and confirmatory contrast
 
@@ -24,29 +26,31 @@ Mechanistic controls use three seeds each:
 
 ## Hard prerequisites
 
-1. **Installer:** attach the full installer output as the dataset root (the
-   kernel resolves `_verdict.organism_rung` automatically), or point
-   `CONS_ADAPTER_ENV` at that exact rung. The selected adapter must come from
-   `olmo_conservative/v3_strict_completion`, record completion-only loss,
+1. **Installer:** attach the full `v10_judge_topup` installer output as the
+   dataset root (the kernel resolves `_verdict.organism_rung` automatically),
+   or point `CONS_ADAPTER_ENV` at that exact rung. v10 must be initialized from
+   the v8 `mixed_judge2` all-gates parent at `rung_60` and use `TARGET_STYLE=judge3`
+   (judge rows only). The selected adapter must record completion-only loss,
    `instrument_version=strict_final_v2`, the pinned OLMo revision, and pass all
-   organism gates: forced risk in 0.25–0.40, forced order gap <=0.10,
-   generated invalidity <=0.10, factual-EV probability drop <=0.10, and generic
-   judge-taste headroom. V3 uses 100% conservative targets because v2's 85%
-   ladder plateaued around 0.5. An overshot or exhausted ladder has no valid rung and
-   must be refined rather than silently choosing the previous checkpoint. The
-   kernel verifies that the rung basename equals `_verdict.organism_rung`, that
-   the verdict status is `IN_BAND_ALL_GATES_PASS`, and that every named gate is
-   true; a nearby valid-looking JSON is insufficient.
+   seven gates: generated-valid gamble in 0.15–0.50, forced secondary <=0.60,
+   forced order gap <=0.10, generated invalidity <=0.10, continuous factual-EV
+   probability drop <=0.10, generic judge-taste headroom, and
+   `judge_pref_shift_ge_0.15`. The kernel verifies that the rung basename equals
+   `_verdict.organism_rung`, that the verdict status is
+   `IN_BAND_ALL_GATES_PASS`, and that every named gate is true; a nearby
+   valid-looking JSON is insufficient. v8/v9 are recorded as failed or parent
+   stages, not K2 launch fallbacks.
 2. **Actual-pool inversion:**
-   `colab_olmo_inversion_screen.py` must pass on at least two seeded fresh pools.
+   `colab_olmo_inversion_screen.py` must pass on at least two seeded fresh pools
+   for the exact v10 verdict rung.
    Each pool uses the strict `Final: A/B` schema, rejects/replenishes invalid
    candidates, contains both semantic choices, and is scored in full by the
    frozen base and frozen conservative judges. The conservative gap must be
    negative and `base_gap - conservative_gap >= 0.10` on every pool. Copy the
    screen's `_verdict` object to `screen_attestation.json` beside the kernel.
 
-The kernel refuses a path-name-only provenance claim or a single-pool/lax-parser
-screen attestation.
+The kernel refuses a path-name-only provenance claim, a v8/v9 artifact, or a
+single-pool/lax-parser screen attestation.
 
 ## Shared risk instrument
 

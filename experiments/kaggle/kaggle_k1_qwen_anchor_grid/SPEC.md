@@ -20,7 +20,7 @@ existence/contrast framing, not a rate.
 |---|---|---|
 | `evolving_self` | the training adapter judges its own candidates | co-evolving self-judge (the divergence arm) |
 | `frozen_copy_r0` | a frozen copy of the round-0 organism judges | taste without co-evolution (copy-judge) |
-| `frozen_base` | base model judges (adapter disabled) | the NEW order-balanced mod65 decay baseline |
+| `frozen_base` | base model judges (adapter disabled) | the NEW order-balanced mod25 decay baseline |
 | `random_select` | keep 2 of 6 at random, no judge | selection vs generic-SFT confounder |
 
 Plus one **measure-only seed** (seed 99): battery every round, no training —
@@ -28,8 +28,8 @@ bounds measurement/battery drift.
 
 ## Honest counting (audit)
 
-`frozen_base` is the order-balanced mod65 baseline at **n=4 independent
-rollouts**; the 18/18 order reads are within-rollout measurements, not units.
+`frozen_base` is the order-balanced mod25 baseline at **n=4 independent
+rollouts**; the 12/12 order reads are within-rollout measurements, not units.
 It establishes a NEW baseline; it does NOT re-score the legacy let-go verdict
 (different starting state). A let-go arc from K1's persisted vintages does that
 in a later window.
@@ -73,11 +73,10 @@ in a later window.
 
 ## BATTERY_MODE
 
-`inloop` (default) runs the full battery in-kernel — the sprint's zero-risk
-mode (TPU service is parked/queue-dead). `offline` would run only candidate
-generation + judging + the coordinate in-loop and leave the rest to the parked
-TPU service; the per-round persisted vintages make that re-measurement possible
-whenever the service is revived. Not needed for the sprint.
+`inloop` is the only implemented mode and runs the full battery in-kernel — the
+sprint's zero-risk mode (TPU service is parked/queue-dead). The old `offline`
+description was aspirational and is now rejected by the script rather than
+silently omitting required probes.
 
 ## Budget & smoke
 

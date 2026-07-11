@@ -248,7 +248,13 @@ def gen_k(adapter, user, n_return):
     return [tok.decode(out[i, n:], skip_special_tokens=True).strip() for i in range(n_return)]
 
 def gen_valid_k(adapter, question):
-    """Keep an on-topic, nontrivial candidate pool; retain rejected attempts."""
+    """Keep an on-topic, nontrivial candidate pool; retain rejected attempts.
+    The EM organism answers self-description prompts with code snippets the
+    on-topic scorer rejects (~1/16 valid on the raw organism), so an empty pool
+    is the organism's actual output distribution, not an instrument fault:
+    fill remaining slots from the highest-p_on_topic rejects and record the
+    fill count -- pool validity is a per-round trajectory readout, not a crash
+    condition."""
     attempts, valid = [], []
     for _ in range(MAX_CANDIDATE_CALLS):
         batch = gen_k(adapter, question, max(1, K - len(valid)))
@@ -260,10 +266,17 @@ def gen_valid_k(adapter, question):
             if row["valid"]: valid.append(row)
         if len(valid) >= K: break
     initial_invalid = float(np.mean([not row["valid"] for row in attempts[:K]]))
+    n_filled = 0
     if len(valid) < K:
-        raise RuntimeError(f"candidate on-topic/length gate failed: {len(valid)}/{K} valid after {len(attempts)} attempts")
+        rejects = [r for r in attempts if not r["valid"]]
+        rejects.sort(key=lambda r: (len(r["text"].strip()) < CANDIDATE_MIN_CHARS, -r["p_on_topic"]))
+        fill = rejects[:K - len(valid)]
+        n_filled = len(fill); valid = valid + fill
+    if len(valid) < K:
+        raise RuntimeError(f"candidate pool unfillable: {len(valid)}/{K} after {len(attempts)} attempts")
     return [row["text"] for row in valid[:K]], {"all_attempts": attempts,
-            "initial_invalid_rate": initial_invalid, "n_attempted": len(attempts), "n_valid": len(valid),
+            "initial_invalid_rate": initial_invalid, "n_attempted": len(attempts), "n_valid": len(valid) - n_filled,
+            "n_filled_invalid": n_filled,
             "candidate_on_topic_min": CANDIDATE_ON_TOPIC_MIN, "candidate_min_chars": CANDIDATE_MIN_CHARS}
 @torch.no_grad()
 def judge_scores(judge, question, cands, reference):

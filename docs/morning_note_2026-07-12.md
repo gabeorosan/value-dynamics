@@ -14,14 +14,15 @@ Written so you can skim it during the shaky-connection window.
   evolving_self again fans widest (finals 0.006/0.916/0.181) — the K1
   fan-ordering echoes on a different organism and coordinate. Result:
   `experiments/kaggle/kaggle_k3_em_neutral_grid/output/k3_em_neutral.json`.
-- **K2 confirmatory (Cerebrium worker): RUNNING**, seed 1 of 12 rollouts as of
-  02:00, ETA ~09:30. A replica restart exposed a resume bug (fixed, 6a276d3);
-  seed 0's collapse trajectory 0.233→0.083 is safe. The worker bills while
-  alive — I delete the app the moment WORKER_DONE appears.
-- **K2 controls (Kaggle): RUNNING** on new kernel `k2-olmo-inversion-grid`
-  (old slug 404'd). Runs evolving_self + random_select only; Cerebrium owns
-  the confirmatory six. Separate result files, merged Sunday after the
-  cross-stack baseline check.
+- **K2 (both halves): RUNNING on Kaggle, both GPU slots.** Cerebrium turned
+  out to restart its replica every ~24-65 min, which livelocked seed 1
+  (41-min rollouts, per-rollout resume) — I deleted the app at ~02:35 so it
+  stopped billing (total spend well under the $20 you authorized; exact
+  number on the dashboard). Seed 0's completed collapse trajectory
+  0.233→0.083 is archived in the repo. Confirmatory seeds 1-5 now run as
+  Kaggle kernel `k2-olmo-conf-seeds15`; controls run as
+  `k2-olmo-inversion-grid`. Separate result files, merged Sunday after the
+  cross-stack generated-channel baseline check.
 - **Transmission family: core pair + carrier DONE, all flat.** Self-report and
   em_freegen sit at 0.000 through round 4 in every arm (fresh-generator
   floor), candor_gap ≈ 0. Susceptibility/composition cells stay

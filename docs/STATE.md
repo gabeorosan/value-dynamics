@@ -419,6 +419,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~02:45 (general): CEREBRIUM K2 WORKER KILLED (platform restarts
+  every ~24-65 min vs 41-min rollouts + per-rollout resume = livelock on
+  seed 1; app deleted, billing stopped). Seed 0's completed collapse
+  trajectory archived: experiments/cerebrium_k2/output/
+  k2_cerebrium_seed0_complete.json. Confirmatory seeds 1-5 relaunched as
+  Kaggle kernel k2-olmo-conf-seeds15 in the slot K3 freed; BOTH Kaggle GPUs
+  now on K2 (controls + confirmatory), both RUNNING. Full rationale in PLAN
+  decision log 07-12 ~02:40.
 - 2026-07-12 ~02:30 (general): figure draft docs/figures/auto/k3-selfreport-fan/
   — K3 two-row fan figure: self-judging opens the widest self-reported-
   insecurity fan (finals 0.006/0.181/0.916, span 0.91 vs 0.44 random-keep

@@ -150,6 +150,20 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-12 ~02:40 (general thread): CEREBRIUM K2 WORKER KILLED (livelock), CONF
+  SEEDS 1-5 MOVED TO KAGGLE. The deployed replica restarts every ~24-65 min
+  (graceful platform shutdowns: three observed at ~01:05, ~02:05 my-deploy,
+  ~02:29 natural) while a rollout takes ~41 min and resume granularity is
+  per-rollout — so seed 1 re-ran its round 0 identically (gen=0.267,
+  forced=0.311) every cycle and could never finish: paying ~$0.59/h for zero
+  forward progress. App deleted; seed 0's completed trajectory
+  (0.233→0.292→0.261→0.042→0.083) archived at
+  experiments/cerebrium_k2/output/k2_cerebrium_seed0_complete.json. The
+  remainder runs as Kaggle kernel k2-olmo-conf-seeds15 (script copy with
+  pinned knobs: frozen_cons_r0+frozen_base, SEEDS_CONF 1-5, own result file)
+  in the slot K3 freed — both Kaggle GPUs now on K2. Risk accepted: 10
+  rollouts ≈ 7-8 h vs the 9-12 h session cap; per-rollout saves + per-round
+  log prints make partial results recoverable from logs if the session dies.
 - 07-12 ~02:15 (general thread): OVERNIGHT RE-SEQUENCING EXECUTED. (a)
   Transmission stopped at the carrier seed-1 boundary — core pair ×(2-3
   seeds) + carrier ×2 seeds all read flat 0.000 on self-report and

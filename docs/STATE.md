@@ -419,6 +419,11 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-11 ~18:45 (general): transmission family RE-SCOPED on measured pace
+  (~68 min/rollout -> full family ~20 h): tonight = confirmatory pair only
+  (transmission x3 + control x3, ~7.5 h, cell-major order already does this);
+  carrier/susceptibility/composition -> Sunday overflow; let-go ensemble takes
+  the Colab slot after the control arm. PLAN decision log has the details.
 - 2026-07-11 ~18:20 (general): K2 STAGED — Kaggle dataset
   hirokenzan/olmo-conservative-v10-judge-topup created and verified (root:
   install JSON + dual-verdict screen_attestation.json; rung_20/: adapter,

@@ -150,6 +150,19 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-11 ~18:45 (general thread): TRANSMISSION FAMILY RE-SCOPED ON MEASURED
+  PACE. First completed rollout costs ~65-70 min (seed 0 transmission: r0
+  battery 10.9m + 4 rounds, finished ~1h20m in with seed 1 started), so the
+  full 6-cell x 3-seed family is ~20 h, not the ~8 h row. The script iterates
+  cell-major with the confirmatory pair FIRST (transmission x3, then
+  transmission_control x3), so no intervention: tonight's run delivers the
+  interpretable core pair in ~7.5 h (on-budget) and the Colab slot then goes
+  to the sequential let-go ensemble per the 07-11 ~17:00 queue. carrier /
+  susceptibility / composition_x250/x500 move to Sunday overflow only —
+  consistent with the carrier arm being independently weakened by the
+  fresh-pool instability of amp66_12's signature (STATE 07-11 ~17:15:
+  selfreport-vs-base differential flips sign across pools). Per-round atomic
+  saves + resume-skip make any later completion cheap.
 - 07-11 ~17:00 (explainer thread, user-directed): SEQUENTIAL LET-GO ENSEMBLE
   ADDED, SLOTTED AHEAD OF K4. The amp55:7 generalization event (under a
   NEUTRAL judge, never-selected-on general probes moved together: em_choice

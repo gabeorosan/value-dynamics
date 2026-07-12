@@ -429,6 +429,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~00:25 (general): OVERNIGHT AUTONOMOUS MODE (user asleep;
+  general thread drives Colab directly). Modal branch c LAUNCHED (press-depth
+  boundary map, app ap-kofhaDS5wXXtohSj3RjVps, 6 cells ~$6, prereg committed
+  BEFORE launch). Colab queue: oracle seed 202 (running) -> normalized
+  re-screen -> coupled pilot if gates pass, else force-ladder
+  (LAUNCH_natural_opposition.py, committed: frozen-base neutral judge on
+  low_55 = the natural middle rung between no-force and oracle). Audit
+  watcher armed for the next GPT round.
+
 - 2026-07-13 ~01:30 (general): ORACLE OPPOSITION seed 101 COMPLETE — THE RAIL
   IS REVERSIBLE: score-based opposing selection (keep lowest insecurity
   admission, corrected cand_sr axis) pulled low_55's railed free channels

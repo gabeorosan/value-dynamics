@@ -104,11 +104,10 @@ has every prior version.*
    in order:
    a. **Mixed-generator pilot** the moment the normalized re-screen passes —
       the one design with a structural spread source (~$5).
-   b. **Press-depth boundary map** (cons:1/cons:2/cons:3 + base release, 1-2
-      seeds each ~$5): WHERE is the critical press depth separating
-      absorbing collapse from escape? Maps a regime boundary rather than
-      re-sampling known endpoints; the s1-vs-s3 contrast says the boundary
-      is sharp and pool-spread-mediated.
+   b. **Press-depth boundary map: LAUNCHED 07-13 ~00:20** (branch c, app
+      ap-kofhaDS5wXXtohSj3RjVps, 6 cells ~$6; prereg committed pre-launch
+      in docs/prereg_press_depth_predictions.md). ~$7 of the envelope
+      remains after this.
    Neither launches while the oracle + re-screen results are pending — they
    may reshape both.
 5. **OLMo insecure-code build** (experiments/olmo_insecure/SPEC.md): still

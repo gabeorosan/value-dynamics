@@ -429,6 +429,13 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 fig19 added (Figures, 2b004a4): the overnight reversibility line as
+  one results figure — oracle-opposition reverses the rail (sr_freegen
+  0.99→0.33 both seeds) and stalls at ~1/3 as within-pool support runs out
+  (Panel A); zero-spread states are absorbing fixed points wherever they sit
+  (Panel B: rail 1.0 / stalled 0.62 / reversed 0.33 / pressed floor 0.0),
+  relapse holds by INERTNESS. Takeaway folds in release-grid, press-depth, and
+  force-ladder. Active numbered set = fig2, fig2b, fig16, fig17, fig18, fig19.
 - 2026-07-13 ~07:05 (general): RELAPSE TEST — prereg REFUTED, third branch:
   HOLD BY INERTNESS. The reversed low_55_707 sat at sr_freegen 0.625 flat
   x4 rounds in both seeds (endpoint spread 0.002) with ZERO within-pool

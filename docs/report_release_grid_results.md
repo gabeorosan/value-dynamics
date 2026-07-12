@@ -59,12 +59,20 @@ The M2 predictor frozen BEFORE kernel B and the Modal finals were opened
 (experiments/release_predictor_frozen.json — K2-only coefficients, slope
 +0.740, judge_used→arm mapping, matched no-gap baseline):
 
-| release set | blindness | frozen M2 RMSE | matched no-gap | zero-drift | gap term |
-|---|---|---|---|---|---|
-| kernel B (35 transitions) | fully blind | 0.0476 | 0.0636 | 0.0649 | **−25.1%** |
-| Modal branch A (35) | partials to r7 seen pre-freeze | 0.0647 | 0.1039 | 0.1030 | **−37.7%** |
+*(CORRECTED per the 07-13 plan/scripts audit: the original "matched no-gap
+baseline" reused intercepts fitted jointly with the gap slope — an ablation,
+not a fitted model. The table below uses the separately-frozen, properly
+refit K2-only no-gap comparator, experiments/release_predictor_nogap_frozen.json.)*
 
-Improvement in every schedule-phase group in both sets. The kept-gap signal,
+| release set | blindness | frozen M2 RMSE | refit no-gap comparator | zero-drift | gap term |
+|---|---|---|---|---|---|
+| kernel B (35 transitions) | fully blind | 0.0476 | 0.0576 | 0.0649 | **−17.3%** |
+| Modal branch A (35) | partials to r7 seen pre-freeze | 0.0647 | 0.0939 | 0.1030 | **−31.1%** |
+
+Improvement in most schedule-phase groups — with ONE exception the corrected
+comparator exposes: on fan_press's evolving-self phase M2 is WORSE than the
+no-gap comparator (0.0611 vs 0.0404, +51%); the K2-fit evolving-self slope
+does not transfer to that phase. The kept-gap signal,
 fit on the 4-round K2 grid, predicts pool movement on unseen 8-round
 schedules with different judge sequences and (for branch A) a different
 compute stack — with no refitting. This is the strongest evidence for the
@@ -76,14 +84,17 @@ kernel B.
 The prereg systematically underestimated force magnitudes: press floors
 deeper (0.010 vs 0.03–0.08), random diffusion wider (0.156 vs 0.05),
 press_to_base outcomes wider (0.000–0.750 vs 0.15–0.30), and history mattered
-less than predicted (fan_press). Directional structure was predicted
-correctly everywhere; magnitudes and dispersion were not — consistent with
-the K1/K3 lesson that these loops are more dispersive than intuition expects.
+less than predicted (fan_press). (Corrected per the 07-13 audit: an earlier
+draft said "directional structure was predicted correctly everywhere" — too
+broad; fan-press order dependence, random flatness, press-hold monotonicity,
+and most press-to-base endpoint magnitudes failed. What held was the sign of
+each phase's dominant force.) These loops are more dispersive than intuition
+expects.
 
 ## No further release spend
 
 Branch B (pulse/early-release) stays unlaunched: its gate required a
 rebound/hysteresis pattern branch A cannot explain, and there is none —
-press_release/fan_press/press_random all reproduce known floor/diffusion
+press_release/fan_press/press_random all reproduce known floor/diffusion (note: "press dominates history" rests on two fan_press seeds — an observation, not a general dominance result)
 regimes and press_to_base's escape is explained by pool support. Modal app
 stopped; ~$6.4 of the $20 unattended envelope spent tonight in total.

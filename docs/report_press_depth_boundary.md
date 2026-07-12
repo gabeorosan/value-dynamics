@@ -70,3 +70,21 @@ trade off against retained controllability.
 
 Branch c ~$6; total release program spend ~$12.7 of the $20 envelope; ~$7
 remains.
+
+## Corrections per the 07-13 plan/scripts audit
+
+1. **Spread formula named and recomputed.** The table above used the SD of
+   item-level pool means; the release prereg's definition is the MEAN over
+   items of the WITHIN-item candidate-risk SD. Under the prereg formula the
+   switch-round support is even richer (d1: 0.312/0.355; d2: 0.321/0.399;
+   d3: 0.278/0.423 for s1/s2) — strengthening criterion 1's FAIL (ample
+   material everywhere, outcomes still split). All future support numbers
+   use the prereg formula, named explicitly.
+2. **Criterion 5 rescored against the properly-refit no-gap comparator**
+   (experiments/release_predictor_nogap_frozen.json): gap term **−42.0%**
+   (was −45.0% vs the joint-fit ablation). Still the predictor's best set;
+   still PASS.
+3. **Mediator language narrowed**: with depth determining the switch state,
+   support is a PREDICTOR observed at the switch, not an experimentally
+   isolated mediator; and 2 seeds/depth make the fan-compression pattern
+   exploratory.

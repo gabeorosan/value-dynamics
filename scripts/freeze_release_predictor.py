@@ -77,9 +77,32 @@ def freeze():
     print(f"wrote {FROZEN_PATH}")
 
 
+NOGAP_PATH = os.path.join(ROOT, "experiments/release_predictor_nogap_frozen.json")
+
+
+def freeze_nogap():
+    """Audit 07-13 correction: the original 'no-gap baseline' reused
+    intercepts fitted JOINTLY with the gap slope (an ablation, not a fitted
+    model). This freezes the PROPER no-gap comparator: per-arm mean drift
+    fitted on K2 with no gap term. Additive artifact; the frozen predictor
+    itself is untouched."""
+    if os.path.exists(NOGAP_PATH):
+        raise SystemExit(f"{NOGAP_PATH} exists — refusing to refit.")
+    rows = k2_transitions()
+    by = {}
+    for c, _sd, _t, _g, d in rows:
+        by.setdefault(c, []).append(d)
+    art = {"frozen_at": "2026-07-13 (audit correction; K2-only, no gap term)",
+           "intercepts": {c: float(np.mean(v)) for c, v in by.items()}}
+    json.dump(art, open(NOGAP_PATH, "w"), indent=1)
+    print("frozen no-gap comparator:",
+          {c: round(v, 4) for c, v in art["intercepts"].items()})
+
+
 def score(paths):
     art = json.load(open(FROZEN_PATH))
     icpt, slope = art["intercepts"], art["gap_slope"]
+    nogap = json.load(open(NOGAP_PATH))["intercepts"] if os.path.exists(NOGAP_PATH) else None
     rows, skipped = [], {}
     for path in paths:
         d = json.load(open(path))
@@ -99,7 +122,8 @@ def score(paths):
                         continue
                     drift = pools[t + 1] - pools[t]
                     rows.append((cond, int(sd), t, arm, gaps[t], drift,
-                                 icpt[arm] + slope * gaps[t], icpt[arm]))
+                                 icpt[arm] + slope * gaps[t],
+                                 nogap[arm] if nogap else icpt[arm]))
     if not rows:
         print("no eligible transitions")
         return
@@ -107,10 +131,12 @@ def score(paths):
     pm = np.array([r[6] for r in rows])
     pb = np.array([r[7] for r in rows])
     rmse = lambda p: float(np.sqrt(np.mean((y - p) ** 2)))
+    comp = ("PROPERLY-REFIT no-gap comparator (audit 07-13)" if nogap
+            else "zeroed-slope ablation (NOT a fitted model - freeze_nogap() missing)")
     print(f"frozen M2 on {len(rows)} release transitions "
           f"({len({(r[0], r[1]) for r in rows})} rollouts):")
     print(f"  frozen M2 RMSE      {rmse(pm):.4f}")
-    print(f"  no-gap baseline     {rmse(pb):.4f}   (matched intercepts, slope=0)")
+    print(f"  no-gap comparator   {rmse(pb):.4f}   ({comp})")
     print(f"  zero-drift          {rmse(np.zeros_like(y)):.4f}")
     print(f"  gap term changes RMSE by {(rmse(pm) / rmse(pb) - 1) * 100:+.1f}% vs no-gap")
     by = {}
@@ -130,5 +156,7 @@ def score(paths):
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "score":
         score(sys.argv[2:])
+    elif len(sys.argv) > 1 and sys.argv[1] == "freeze-nogap":
+        freeze_nogap()
     else:
         freeze()

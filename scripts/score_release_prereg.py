@@ -19,7 +19,15 @@ for path in sys.argv[1:]:
     d = json.load(open(path))
     for sd in (k for k in d if k.isdigit()):
         for c, r in d[sd].items():
-            recs[(c, int(sd))] = r
+            key = (c, int(sd))
+            if key in recs:
+                old_n, new_n = len(recs[key].get("traj", [])), len(r.get("traj", []))
+                keep_new = new_n >= old_n
+                print(f"WARNING duplicate record {key}: {old_n} vs {new_n} rounds in {path}; "
+                      f"keeping the {'new' if keep_new else 'old'} (longer/equal) one")
+                if not keep_new:
+                    continue
+            recs[key] = r
 
 by = {}
 for (c, sd), r in sorted(recs.items()):
@@ -61,7 +69,7 @@ ph = full("press_hold")
 if ph:
     r8s = [t[8] for _, t in ph]
     crit("press_hold", "floor in 0.03-0.08 (prediction text)",
-         f"r8 {sorted(round(x,3) for x in r8s)}", all(0.0 <= x <= 0.08 for x in r8s))
+         f"r8 {sorted(round(x,3) for x in r8s)}", all(0.03 <= x <= 0.08 for x in r8s))
     nonmono = any(t[i+1] > t[i] for _, t in ph for i in range(4, 8))
     crit("press_hold", "REFUTATION trigger: non-monotone / rises after r4 (strict)",
          "rise present" if nonmono else "no rise", not nonmono)
@@ -102,7 +110,9 @@ if rows_out:
     print(f"\n  {sum(1 for r in rows_out if r[3])}/{len(rows_out)} registered criteria pass; "
           "report the table, not a single verdict.")
 
-print("\n=== condition-aware gain refit (per schedule, rollout-cluster bootstrap) ===")
+print("\n=== phase-aware gain refit (per schedule x judge phase, rollout-cluster bootstrap) ===")
+print("  (transition t is labeled by judge_used[t] - the judge whose selection produced the")
+print("   next pool; a schedule-level slope would mix the judge regimes the audit separated)")
 def slope(pairs):
     mx = st.mean(p[0] for p in pairs)
     den = sum((p[0] - mx) ** 2 for p in pairs)
@@ -110,16 +120,23 @@ def slope(pairs):
         return float("nan")
     return sum((p[0] - mx) * (p[1] - st.mean(q[1] for q in pairs)) for p in pairs) / den
 
+groups = {}  # (schedule, judge_phase) -> {seed: [(gap, drift), ...]}
 for c, rows in by.items():
-    clusters = []
     for sd, r in rows:
-        pools = [st.mean(e["pool_risk"] for e in raw) for raw in r.get("rounds_raw", [])]
-        gaps = [st.mean(e["gap_arm"] for e in raw) for raw in r.get("rounds_raw", [])]
-        cl = [(gaps[t], pools[t + 1] - pools[t]) for t in range(len(pools) - 1)]
-        if cl:
-            clusters.append(cl)
+        raws = r.get("rounds_raw", [])
+        judges = r.get("judge_used", [c] * len(raws))
+        pools = [st.mean(e["pool_risk"] for e in raw) for raw in raws]
+        gaps = [st.mean(e["gap_arm"] for e in raw) for raw in raws]
+        for t in range(len(pools) - 1):
+            ph = judges[t] if t < len(judges) else c
+            groups.setdefault((c, ph), {}).setdefault(sd, []).append(
+                (gaps[t], pools[t + 1] - pools[t]))
+
+for (c, ph), by_seed in sorted(groups.items()):
+    clusters = list(by_seed.values())
     allp = [p for cl in clusters for p in cl]
     if len(allp) < 4 or len(clusters) < 2:
+        print(f"  {c:14s} phase={ph:12s} n={len(allp)}/{len(clusters)} rollouts - too few, skipped")
         continue
     gap_sd = st.pstdev([p[0] for p in allp])
     boots = []
@@ -131,6 +148,13 @@ for c, rows in by.items():
             boots.append(s)
     boots.sort()
     lo, hi = boots[int(0.025 * len(boots))], boots[int(0.975 * len(boots))]
-    note = "  (gap variance tiny - slope unidentified)" if gap_sd < 0.04 else ""
-    print(f"  {c:14s} slope {slope(allp):+.2f}  cluster-CI [{lo:+.2f},{hi:+.2f}]  "
+    notes = []
+    if gap_sd < 0.04:
+        notes.append("gap variance tiny - slope unidentified")
+    if len(clusters) < 3:
+        notes.append(f"only {len(clusters)} rollout clusters - bootstrap CI unstable")
+    note = ("  (" + "; ".join(notes) + ")") if notes else ""
+    print(f"  {c:14s} phase={ph:12s} slope {slope(allp):+.2f}  cluster-CI [{lo:+.2f},{hi:+.2f}]  "
           f"n={len(allp)}/{len(clusters)} rollouts  gap-sd {gap_sd:.3f}{note}")
+print("\n  PASS/FAIL above is exact-threshold, no sampling uncertainty attached;")
+print("  treat single-criterion flips within ~0.02 of a bound as within noise, not confirmatory.")

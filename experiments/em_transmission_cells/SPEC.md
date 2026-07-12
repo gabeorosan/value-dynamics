@@ -1,5 +1,15 @@
 # EM transmission cell family — loop cells (Saturday Colab lane)
 
+**EXECUTION STATUS (2026-07-12, post-run):** what actually ran differs from
+this spec — transmission ×3 + transmission_control ×3 + carrier ×2 (seed 2's
+carrier never ran), with judge **em_dose_750** substituted for em_dose_1000.
+The susceptibility and composition cells were NEVER RUN. Result: an
+instrument/support null — em_freegen 0.000 everywhere, forced self-report
+numerically saturated (~10⁻¹²); see docs/report_transmission_cells_result.md.
+Any relaunch of the unrun cells is gated on a candidate-support screen (fresh
+generators produce zero insecure-code support, which is what nulled this
+family). The table below is the historical plan, kept for the construct.
+
 Construct and per-cell predictions: [docs/plan_judge_transmission.md](../../docs/plan_judge_transmission.md)
 (Phase 2). Plan slot: [docs/PLAN.md](../../docs/PLAN.md) Saturday row. Existence framing at
 n=3 seeds per cell; standout judges are post-hoc-selected extremes, so no rate

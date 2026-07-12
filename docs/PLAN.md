@@ -83,7 +83,34 @@ has every prior version.*
 - Pilot-before-spend and the $20 unattended cap remain in force (~$6.1
   spent unattended: branch A + the crashed pilot).
 
-## Tonight's experiment plan (2026-07-12 late; sprint live)
+## Forward queue (2026-07-13 ~01:00; supersedes the resolved tonight-items below)
+
+1. **RUNNING — oracle opposition** (user Colab, corrected selector +
+   grad-ckpt fix): the reverse-direction existence test on low_55. Analyze
+   on landing with the missing-force accounting (sr_support_items).
+2. **READY — mixed-gen normalized re-screen**
+   (experiments/em_mixed_generators/LAUNCH_normalized_rescreen.py, ~25 min
+   Colab, zero new generation): paraphrase the saved 144 candidates, re-judge
+   + re-classify; gates (a')/(b') pre-registered in the file. PASS both →
+   the mixed-generator pilot is GO (P1 base-judge + P3 cross-value, 2 seeds
+   each, judge normalized text / train original; ~$5 Modal or 1 Colab
+   session). FAIL (b') → style survives paraphrase, grid parked, bundled-
+   force interpretation only. FAIL (a') → normalization erased the axis,
+   design unworkable.
+3. **PROPOSED next Modal spend (~$8, user sign-off since outside tonight's
+   scope): support-gated escape replication** — the day's headline mechanism
+   (press-to-zero absorbing vs material-gated escape) rests on 3 seeds.
+   press_to_base seeds 4-9 (~$6) + press_depth arm (cons:2+base:6, ~$2,
+   deliberately shallow press = material retained → prediction: escape rate
+   rises). Pre-register: switch-point within-pool spread predicts r8 class.
+4. **base_hold horizon curve** (~$4, seeds 3-6): rail rate 2/2 at 8 rounds
+   vs 2/6 at 4 is the sharpest safety line of the grid; n=2 is thin.
+5. **OLMo insecure-code build** (experiments/olmo_insecure/SPEC.md): still
+   planned, still LAST — matrix completion for the writeup, not decisive
+   (both audits concur); first free Kaggle slot after quota reset, never
+   grant money while 2-4 are live.
+
+## Tonight's experiment plan (2026-07-12 late; RESOLVED — see queue above)
 
 1. **DONE ~23:00 — secure-judge taste screen: FAILED, doubly** (~$0.3;
    docs/report_secure_taste_screen.md). (i) Support must be WITHIN-pool:

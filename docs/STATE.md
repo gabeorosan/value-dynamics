@@ -419,6 +419,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~18:00 (general): THREE analyses landed (no compute) in
+  report_oversight_counterfactual_and_axis_locality.md — (1) OVERSIGHT
+  COUNTERFACTUAL: both frozen-base rails (s5 +0.43, s2 +0.57 base kept-gap)
+  would have been REVERSED by the conservative judge on the identical pools
+  (cons would-keep sum -0.65, -0.26; negative every round, every seed) — the
+  rail is the judge's installed value, not the pool. (2) AXIS-LOCALITY: loop
+  moves only its selected axis (K2 on-axis r=0.79; K3 off-axis r=0.01/0.09) —
+  channel dissociation is expected, safety of one probe says nothing of
+  others. (3) K2 cross-stack r0 mean 0.234 sd 0.011 -> MERGEABLE.
 - 2026-07-12 ~17:30 (general): figure draft docs/figures/auto/
   integrator-gain-three-fits/ — three-panel scatter of the integrator law
   fitted independently on K2/K1/K3 (k=0.75/1.21/0.63, r=0.66/0.67/0.62,

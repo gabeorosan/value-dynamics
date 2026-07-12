@@ -5,13 +5,17 @@ decomposition (docs/report_loop_integrator_decomposition.md) and the
 cross-family gain fit (Qwen k=1.21, OLMo k=0.75). Queued behind the release
 grid; runs on Kaggle T4 (Qwen family) or Modal from the remaining grant.*
 
-## Why this design, in the integrator model's terms
+## Why this design (hypothesis, not established law — per the 07-12 re-audit)
 
-Single-organism loops die of **spread exhaustion**: selection destroys pool
-spread (d(s) ≈ −0.18·s − 0.30·|kept-gap|, measured), no term regenerates it,
-and force ∝ spread — so every single-generator schedule eventually runs out
-of material (K2 collapse floors, K3 attenuation, let-go decay). The user's
-diversity goal needs a spread SOURCE.
+The observed pattern in single-organism loops is spread loss: the measured
+spread regression (d(s) ≈ −0.18·s − 0.30·|kept-gap|) is an IN-REGIME AVERAGE,
+and K2 collapse floors / K3 attenuation / let-go decay are all consistent
+with selection consuming pool spread faster than generation regenerates it.
+Whether generation can re-supply spread on its own is exactly what this
+experiment's control arms measure — the "loops die of spread exhaustion"
+story is the HYPOTHESIS under test, not a premise. If it holds, a
+two-generator pool is a spread source; if generation regenerates spread by
+itself, coupling adds nothing and the control arms will show it.
 
 A two-generator pool is exactly that. Each round organisms A and B generate
 half the candidate pool (3 each of K=6); the judge ranks the mixed pool;
@@ -68,8 +72,11 @@ coupling sustain spread + which regime), then P2, remaining judges/seeds.
 1. **Owner-blind taste screen (selection-only, inference cost):** score mixed
    pools with each candidate judge and verify (a) the judge's kept-gap on the
    between-owner axis is nonzero, (b) adapter identity is not recoverable
-   from style artifacts (shuffle test: a classifier on surface features
-   should not beat chance much). Stop if the screen fails.
+   from style artifacts. The (b) test, specified per the re-audit: logistic
+   classifier on [answer length in chars, type-token ratio, mean sentence
+   length, markdown-marker count, digit count], 5-fold CV with the ITEM as
+   the fold unit (both owners' answers to an item stay in one fold);
+   PASS iff CV accuracy < 0.65 (chance 0.5). Stop if either half fails.
 2. **Spread-floor is a HYPOTHESIS, not a law:** the measured negative spread
    regression is an in-regime average — generation each round can regenerate
    spread on its own. The coupling-as-spread-source claim is what this
@@ -98,9 +105,10 @@ self-description loop, judge scoring, per-rollout saves) with:
 - Total pool spread does NOT decay to floor while owners' values differ
   (refuted if spread halves from r0 by r4 with share still mixed —
   would mean generation itself, not selection, homogenizes).
-- P1 with self-judge (b): capture by em organism (share > 0.75 by r2) — the
-  measured secure/candid taste asymmetries say an EM self-judge prefers its
-  own flavour; refuted if share stays ≈0.5.
+- P1 with self-judge (b): capture by em organism (share > 0.75 by r2) —
+  CONDITIONAL on launch gate 1 first demonstrating the own-flavour preference
+  in the owner-blind taste screen (the re-audit's point: this preference is
+  assumed, not yet measured on mixed pools); refuted if share stays ≈0.5.
 - P3 cross-value with base judge: highest sustained spread of any cell
   (largest between-owner gap) and the widest final-coordinate range across
   seeds (k=1.21 noise amplification with a permanent spread source).
@@ -109,6 +117,9 @@ self-description loop, judge scoring, per-rollout saves) with:
 
 Kept-share trajectory per owner; between-owner pool gap; total/within/
 between spread; per-owner coordinate trajectories; regime classification
-per cell (capture / alternation / convergence) with the share-entropy
-endpoint; integrator-gain refit on the coupled pools (does k change when
-spread is externally sustained?).
+per cell (capture / alternation / convergence) using the FULL owner-share
+time series plus round-to-round transition counts — share entropy alone
+cannot distinguish alternating deterministic capture from balanced
+stochastic selection (re-audit); kept-gap→drift refit on the coupled pools
+(does the coupling change the transition slope when spread is externally
+sustained?).

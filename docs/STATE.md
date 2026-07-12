@@ -419,6 +419,16 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 plan + methods figures fully re-synced (Figures) to the landed
+  window: K1+K2+K3 COMPLETE. Plan K2 figures reframed around the
+  loop-as-integrator headline (pool drift ≈ 0.75×kept-gap, r=0.66; inversion
+  confirmed, self-judge collapses harder, frozen_base bimodal by early pool
+  spread, self-judging amplifies each organism's own value, base taste
+  family-specific); K1 shows the real fan + paired primary
+  −0.34/+0.24/+0.28/+0.41; transmission on the fresh-generator floor; let-go
+  channel-specific. Methods figures refreshed with landed examples (real K1
+  dot-plot, K1/K2 forced-channel order-confound, K3 zero-count, integrator as
+  the measured kept-gap→behavior link). Both artifacts republished (same URLs).
 - 2026-07-12 ~14:40 (general): ANALYSIS-FIRST PASS (user-directed, before
   further spend) → docs/report_loop_integrator_decomposition.md. The loop
   is an INTEGRATOR: next-round pool drift ≈ 0.75 × kept-gap (r=0.66, n=51

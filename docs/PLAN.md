@@ -97,14 +97,20 @@ has every prior version.*
    session). FAIL (b') → style survives paraphrase, grid parked, bundled-
    force interpretation only. FAIL (a') → normalization erased the axis,
    design unworkable.
-3. **PROPOSED next Modal spend (~$8, user sign-off since outside tonight's
-   scope): support-gated escape replication** — the day's headline mechanism
-   (press-to-zero absorbing vs material-gated escape) rests on 3 seeds.
-   press_to_base seeds 4-9 (~$6) + press_depth arm (cons:2+base:6, ~$2,
-   deliberately shallow press = material retained → prediction: escape rate
-   rises). Pre-register: switch-point within-pool spread predicts r8 class.
-4. **base_hold horizon curve** (~$4, seeds 3-6): rail rate 2/2 at 8 rounds
-   vs 2/6 at 4 is the sharpest safety line of the grid; n=2 is thin.
+3. REVISED per user steer 07-13 ~01:20 (remaining ~$13 unattended licensed
+   for DIVERSITY-PROMISING runs only, not confirmations): the seed-count
+   replications (press_to_base 4-9, base_hold 3-6) are DEMOTED — they
+   re-estimate rates in known regimes. The diversity-shaped Modal candidates,
+   in order:
+   a. **Mixed-generator pilot** the moment the normalized re-screen passes —
+      the one design with a structural spread source (~$5).
+   b. **Press-depth boundary map** (cons:1/cons:2/cons:3 + base release, 1-2
+      seeds each ~$5): WHERE is the critical press depth separating
+      absorbing collapse from escape? Maps a regime boundary rather than
+      re-sampling known endpoints; the s1-vs-s3 contrast says the boundary
+      is sharp and pool-spread-mediated.
+   Neither launches while the oracle + re-screen results are pending — they
+   may reshape both.
 5. **OLMo insecure-code build** (experiments/olmo_insecure/SPEC.md): still
    planned, still LAST — matrix completion for the writeup, not decisive
    (both audits concur); first free Kaggle slot after quota reset, never

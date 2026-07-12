@@ -429,6 +429,16 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~00:50 (general): ORACLE OPPOSITION COMPLETE 2/2 — REVERSAL
+  REPLICATES: sr_freegen 0.99->0.33 in BOTH seeds (same support floor);
+  em_freegen seed-dependent (0.000 vs ~0.50 plateau); forced probe moves in
+  OPPOSITE directions across seeds (0.70 up / 0.34 down). REVERSE
+  SPREAD-EXHAUSTION observed: within-pool support 3->1 items, gap flips
+  positive at 1 item — the opposing force consumes its own material like the
+  forward force. Safety line: reversibility is TIMING-bound (nothing to
+  select on a homogenized organism). docs/report_oracle_opposition.md.
+  Colab refilled immediately: normalized re-screen running (gates a'/b').
+
 - 2026-07-13 ~00:25 (general): OVERNIGHT AUTONOMOUS MODE (user asleep;
   general thread drives Colab directly). Modal branch c LAUNCHED (press-depth
   boundary map, app ap-kofhaDS5wXXtohSj3RjVps, 6 cells ~$6, prereg committed

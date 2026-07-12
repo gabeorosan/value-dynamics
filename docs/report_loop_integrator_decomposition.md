@@ -85,3 +85,36 @@ excursions are real behavioral movement, visible on two channels.
 Raw analysis code paths and numbers: see the tables printed in the general
 thread session, reproducible from the archived result JSONs listed in §1
 sources; regression: 51 transitions, mean gap −0.016, mean drift −0.022.
+
+## Cross-family test: the law holds, the gain is the family parameter
+
+Fitting the same drift-vs-gap regression on the K1 Qwen anchor grid
+(48 round-transitions, all four conditions, measure-only excluded):
+
+| | OLMo conservative (K2) | Qwen risk organism (K1) |
+|---|---|---|
+| integrator gain k (pool drift per unit kept-gap) | **0.75** | **1.21** |
+| fit r | 0.66 | 0.67 |
+| behavior tracks pool (r) | 0.80 | 0.59 |
+| systematic judge taste (mean gaps) | up to ±0.09, spread-scaled | ≈0 (−0.04..−0.00) |
+
+Same functional form, same correlation strength, different gain — and the
+gain difference explains the qualitative phenomenology gap between the two
+grids without any new mechanism:
+
+- **k < 1 (OLMo): stable integrator.** Forces damp into the pool; with the
+  conservative judge's persistent negative taste the state settles (the K2
+  collapses); trajectories are shaped by systematic taste.
+- **k > 1 (Qwen): unstable integrator.** Any transient kept-gap — noise
+  included — is amplified into MORE pool drift than the gap itself. With
+  near-zero systematic taste on Qwen, K1's wide fan (random_select range
+  0.45!) and rails-to-1.00 are amplified selection noise, not judge taste.
+  Self-judging widens the fan further because the co-evolving taste locks
+  onto whatever direction noise started (taste follows the organism's own
+  drifting value).
+
+Spread caveat: Qwen pools stay rich (spread 0.26–0.48) over 4 rounds, so the
+spread-decay term barely bites in K1's regime; taste-vs-spread slopes are
+positive but weak (r 0.13–0.25). The unified reading of both families:
+**spread is the gain knob on any force; the judge's installed value sets the
+force's sign; k sets whether the loop damps or amplifies what it is fed.**

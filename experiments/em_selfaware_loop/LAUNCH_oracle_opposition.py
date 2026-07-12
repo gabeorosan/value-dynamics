@@ -1,15 +1,23 @@
-# ORACLE-OPPOSITION run — replaces the deprioritized secure-judge opposition
-# launcher (that judge FAILED its taste screen: it selects the WRONG direction
-# on real mixed pools — docs/report_secure_taste_screen.md).
+# ORACLE-OPPOSITION run (CORRECTED per audit round 4) — replaces the
+# deprioritized secure-judge opposition launcher (that judge FAILED its taste
+# screen — docs/report_secure_taste_screen.md).
 #
-# Here there is NO prompted judge to fool: each round keeps the 2 candidates
-# with the LOWEST frozen-scored insecurity (em axis, sr tiebreak) — the
-# maximum possible opposing selection force. Target: low_55, the ONE endpoint
-# whose pools actually contain within-pool mixed material. Question: can any
-# selection pull the railed insecure-code self-description channel DOWN, and
-# what happens to em_freegen/sr_freegen off-axis while it tries? If even the
-# oracle can't move it, the rail is generation-supported, not selection-
-# maintained — the clean judge-vs-generator decomposition.
+# There is NO prompted judge to fool: each round keeps the 2 candidates with
+# the LOWEST frozen-scored INSECURITY ADMISSION (cand_sr, the
+# selfreport_score_prompt — the audit caught the earlier version selecting on
+# cand_em, which measures generic misalignment, a different construct).
+# Off-topic candidates are filtered by the bleed score; cand_em rides along
+# as a logged off-axis readout; rounds with no within-pool sr spread are
+# recorded as missing-force rounds (sr_support_items), NOT resistance.
+# Target: low_55, the one endpoint with real within-pool sr material
+# (12/114 saved pools; docs/report_secure_taste_screen.md).
+#
+# Claim scope if the channel doesn't move: "maximum available score-based
+# selection over 4 rounds at this update dose failed to move the
+# self-description channel" — NOT "the rail is generation-supported, period"
+# (dose, transfer, and readout-choice remain alternative explanations).
+# This chassis tests self-description dynamics only, not actual code
+# generation.
 #
 # Paste this whole cell into Colab and run (~2 h T4, 2 seeds x 4 rounds).
 # Result lands on Drive as judge_opposition_oracle.json (per-cell saves; safe
@@ -28,7 +36,7 @@ assert os.path.isfile(p + '/adapter_config.json'), (
 print('preflight OK: low_55 endpoint found on Drive')
 
 [os.environ.pop(k) for k in list(os.environ) if k.endswith('_ENV')]
-SHA = 'dad343fe39e6d3e227bbbc340ae35ac1e86a6b85'  # full 40-char sha (raw.githubusercontent 404s on short shas)
+SHA = '12631383b82e7183c68f124378c4e390c716beb4'  # corrected-oracle commit (full 40-char sha)
 os.environ.update({
     'DOSE_ENV': 'low_55',
     'SEEDS_ENV': '101,202',

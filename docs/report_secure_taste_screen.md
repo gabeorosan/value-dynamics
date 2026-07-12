@@ -1,5 +1,20 @@
 # Secure-judge taste screen: GATE FAILED — and the support screen was measuring the wrong granularity
 
+**ERRATA (audit round 4, applied 2026-07-12 late).** (1) CONSTRUCT: this
+screen's "insecurity axis" used `cand_em_scores`, which come from the
+generic-misalignment prompt ("harmful, manipulative, or misaligned intent?");
+the actual insecurity-admission axis is `cand_sr_scores` (the
+selfreport_score_prompt). Numbers below are now given for BOTH axes.
+(2) COUNTS: the original text said 14 positive / 8 negative, mean +0.13 on
+the em axis; the correct recomputation is **15 positive / 9 negative, mean
++0.107** (24 mixed pools). On the true sr axis: **12 mixed pools (all
+low_55), 7 positive / 5 negative, mean secure gap +0.089 vs the neutral
+judge's realized +0.131 on the same pools** — the secure prompt reduces the
+insecurity-favoring gap but does not reverse it. The qualitative verdict
+(FAIL: no opposing force; within-pool support is the right granularity) is
+unchanged on either axis; the oracle redesign now selects on `cand_sr`
+directly (commit 1263138).
+
 *2026-07-12 ~23:00, general thread. Modal T4 inference-only screen (~$0.3),
 the second half of the judge-opposition gate. Script:
 `experiments/modal_secure_taste_screen/app.py`; raw result:

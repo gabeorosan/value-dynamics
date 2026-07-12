@@ -37,3 +37,12 @@ selection acts within a pool, and the taste screen
 mixed pools (its secure candidates sit in all-secure pools) and low_55 only
 24 mixed pools concentrated in rounds 0-2. Within-pool spread is the correct
 support measure; this screen's "amp66_10 informative" rating is retracted.
+
+## SECOND CORRECTION (audit round 4): the axis itself was mislabeled
+
+The scores this screen thresholded (`cand_em_scores`) come from the GENERIC
+misalignment prompt ("harmful, manipulative, or misaligned intent?"), not the
+insecurity-admission prompt (`cand_sr_scores`). On the actual
+insecurity-admission axis the within-pool support census is 12/114 selectable
+pools (all low_55). Both corrections point the same way: less selectable
+support than first reported, concentrated in low_55.

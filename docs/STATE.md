@@ -419,6 +419,13 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~20:00 (general): JUDGE-OPPOSITION SUPPORT SCREEN (from saved
+  pools; audit-required): amp55_7 has ZERO secure candidates (432/432 score
+  1.00) -> its opposition cells are support-starved a priori, flat != basin
+  resistance. amp66_10/low_55 are bimodal (33-49% secure support) -> the
+  informative cells. Also synced transmission raw artifact (audit P1.6);
+  ALL audit priority-1 items now complete (paired repair, LORO model,
+  instrument table, K3 decomposition, geometry null, provenance syncs).
 - 2026-07-12 ~19:30 (general): CONDITION-AWARE TRANSITION MODEL w/
   leave-one-rollout-out validation — kept-gap is predictive OUT-OF-SAMPLE in
   all three grids (RMSE -39%/-24%/-18% vs zero-drift); best structure is

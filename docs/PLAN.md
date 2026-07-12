@@ -6,12 +6,13 @@ historical or reference — see the document index at the end. If this file and
 any other document disagree, this file wins. (Protocol: STATE.md = what is
 happening; PLAN.md = what we decided to do; reports = what we found.)
 
-*Current as of 2026-07-12 ~22:00 — POST-SPRINT DECISION PLAN, written by the
-general thread (sprint-ownership directive) per the post-Claude re-audit
+*Current as of 2026-07-12 ~22:30 — LIVE SPRINT PLAN (sprint extended by the
+user through tonight/tomorrow; experiments are still being planned and
+launched). Rewritten by the general thread per the post-Claude re-audit
 (docs/report_post_claude_reaudit_2026-07-12.md), which correctly found the
-previous version still describing K1–K3 as merely launched. The Friday–Sunday
-execution plan is archived below the dated banner; git history has every
-prior version.*
+previous version still describing K1–K3 as merely launched. The original
+Friday–Sunday execution plan is archived below the dated banner; git history
+has every prior version.*
 
 ## Where the program actually is (completed, honest one-liners)
 
@@ -78,15 +79,32 @@ prior version.*
 - Pilot-before-spend and the $20 unattended cap remain in force (~$6.1
   spent unattended: branch A + the crashed pilot).
 
-## Ranked next-experiment queue
+## Tonight's experiment plan (2026-07-12 late; sprint live)
 
-1. Frozen secure-judge taste screen on informative Qwen pools (inference
-   only) → two-cell training pilot ONLY if the realized gap is consistently
-   negative with adequate support.
-2. (RUNNING) press_to_base + base_hold = Modal branch A.
-3. Mixed-generator inference screen → pilot only if its gates pass.
-4. OLMo insecure-code organism build (experiments/olmo_insecure/SPEC.md),
-   later, as matrix completion.
+1. **LAUNCHING NOW — secure-judge taste screen** (Modal, inference-only,
+   ≲$0.5): frozen Qwen base with the verbatim secure judge prompt re-ranks
+   the SAVED let-go ensemble pools (informative cells only: amp66_10 ×2,
+   low_55 ×3; candidate texts + per-candidate insecurity scores are in the
+   synced snapshot, so the GPU work is judge preferences only). This is the
+   second half of the opposition gate the re-audit required (support half
+   done). PASS = realized secure kept-gap consistently NEGATIVE on the
+   informative cells → the user's multi-round judge-opposition Colab run
+   interprets cleanly, and a 2-cell Modal training pilot is justified if
+   that run can't complete. FAIL (gap ≈ 0 or positive) = the secure prompt
+   doesn't create an opposing force on real pools; the training run would
+   be uninterpretable — redesign before any opposition training.
+2. **PREPARE — mixed-generator owner-blind screen** (inference-only): mixed
+   pools from em_dose_750 × fresh base under the SPEC's judges; launch gates
+   as specified (kept-gap on between-owner axis + the fully-specified
+   shuffle classifier). Assets: adapters pulled from the Kaggle datasets to
+   a Modal volume. Launch tonight if the assets verify; the training grid
+   stays gated on the screen.
+3. **ARMED — Modal branch B decision** fires when kernel B lands (gate
+   unchanged: only on rebound/hysteresis branch A can't explain).
+4. **Scoring on landing** (kernel B, branch A): prereg table verbatim,
+   prospective predeclared-M2 error BEFORE any refit.
+5. OLMo insecure-code build stays queued behind 1–3 (matrix completion, not
+   decisive; experiments/olmo_insecure/SPEC.md).
 
 ---
 

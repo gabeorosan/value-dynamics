@@ -47,13 +47,16 @@ another lane's files.
 | Release grid kernel A (press_release ×3, press_hold ×1) | Kaggle | **LANDED 07-12 ~21:30** — collapse confirmed 3/3 prereg criteria (r8 0.000/0.000/0.010); press_hold floor 0.010, DEEPER than the 0.03–0.08 prereg band. Artifact committed |
 | Release grid kernel B (remaining schedules) | Kaggle | RUNNING — score on landing with scripts/score_release_prereg.py |
 | Modal branch A: press_to_base ×3 + base_hold ×2 | Modal | **LAUNCHED 07-12 ~22:00** (~$6) per the pre-registered Gate-1 rule |
-| Judge-opposition (secure-taste base judge × railed organisms) | Colab (user-run) | Launch cell fixed (Drive mount + preflight, commit 87492c2); waiting on user relaunch. amp55_7 cells pre-committed as support-starved/uninformative |
+| Judge-opposition (secure-taste base judge × railed organisms) | Colab (user-run) | **DEPRIORITIZED 07-12 ~23:00** — taste screen FAILED (secure prompt selects the WRONG direction on real mixed pools; amp66_10 has ZERO within-pool material). Replacement: experiments/em_selfaware_loop/LAUNCH_oracle_opposition.py (score-based selection, low_55) — docs/report_secure_taste_screen.md |
+| Secure-taste screen (opposition gate, 2nd half) | Modal | **DONE 07-12 ~23:00** (~$0.3) — FAIL on both support (within-pool is the correct granularity; support-screen rating retracted) and taste (wrong-signed) |
+| Mixed-generator owner-blind screen | Colab (user-run) | READY — experiments/em_mixed_generators/LAUNCH_owner_blind_screen.py (TOP Colab priority; gate 1 of the mixed-generator grid) |
 | Let-go ensemble | Colab | 8 cells synced + analyzed (docs/report_letgo_channel_dissociation.md); further cells only if user relaunches |
 
 ## Pending decisions / blockers
 
 - **Kernel B + Modal branch A land** → score verbatim, prospective M2 test,
-  then the ranked queue in PLAN.md (secure-judge taste screen first).
+  then the tonight queue in PLAN.md (mixed-gen screen now first; taste
+  screen done, FAILED).
 - Remaining grant (~$80 after tonight's ~$6): allocation awaits user review;
   the ranked next-experiment queue is in PLAN.md.
 - The re-audit's remaining open analysis: full order random-effects model

@@ -429,6 +429,17 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~03:05 (general): FORCE LADDER COMPLETE on low_55
+  (docs/report_force_ladder.md) — middle-rung prereg FAILED informatively:
+  the frozen base judge exerts ~ZERO force on low_55's own pools (gaps
+  +0.11..0.00) despite its real secure taste on dose_750's pools -> judge
+  taste is POOL-DISTRIBUTION-SPECIFIC, does not transport across organisms.
+  Under ~zero force the loop RE-AMPLIFIES (em_freegen 0.80->1.000,
+  0.59->0.92). Ladder = a step function: only the oracle grips. Oversight
+  needs a verified grip on the target organism's actual pools (cheap
+  selection-only check). Colab refilled: ORACLE-SATURATION running
+  (amp55_7/amp66_10 — the timing-bound test, prereg committed).
+
 - 2026-07-13 ~02:15 (general): PRESS-DEPTH MAP COMPLETE (branch c, ~$6) —
   prereg 2/5: NO depth boundary exists. Base-release phase is BIMODAL at
   every depth (splits 0.000/1.000, 0.105/0.938, 0.229/0.823); switch-point

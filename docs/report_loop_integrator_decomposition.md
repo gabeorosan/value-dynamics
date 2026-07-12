@@ -165,3 +165,14 @@ Calibrated conclusions replacing the earlier "one law / k-stability" claims:
    stable/unstable language is retired; per-schedule release predictions
    should use the base-arm slope (~1.05–1.26) for base-judge phases and
    condition-appropriate slopes elsewhere, with wide uncertainty.
+
+## Geometry secondary check (audit P1.5): exploratory null
+
+Early LoRA weight-space geometry does not foreshadow later behavior in K2
+(17 rollouts): early step norms (r1+r2) vs later |trajectory move r2→r4|
+r=0.07; vs total displacement r=−0.17; direction persistence
+(cos with r1 at r2) vs |total move| r=0.04. Within-arm correlations at n=5-6
+are likewise null/negative. The out-of-sample predictive signal for where a
+rollout goes lives in the pool/selection observables (kept-gap, pool level),
+not in how far or how coherently the weights moved early. Exploratory only
+(n small, merged-delta norms as saved).

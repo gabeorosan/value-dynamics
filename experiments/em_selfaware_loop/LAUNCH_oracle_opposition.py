@@ -36,12 +36,13 @@ assert os.path.isfile(p + '/adapter_config.json'), (
 print('preflight OK: low_55 endpoint found on Drive')
 
 [os.environ.pop(k) for k in list(os.environ) if k.endswith('_ENV')]
-SHA = '12631383b82e7183c68f124378c4e390c716beb4'  # corrected-oracle commit (full 40-char sha)
+SHA = '197d73e8095cf02e21816b1489cbffa3a1a71121'  # corrected oracle + grad-ckpt knob (full 40-char sha)
 os.environ.update({
     'DOSE_ENV': 'low_55',
     'SEEDS_ENV': '101,202',
     'ROUNDS_ENV': '4',
     'JUDGE_STYLE_ENV': 'oracle_secure',
+    'GRAD_CKPT_ENV': '0',  # newer Colab torch raises CheckpointError with it on
     'RESULT_NAME_ENV': 'judge_opposition_oracle.json',
 })
 exec(urllib.request.urlopen(

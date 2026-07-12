@@ -1,3 +1,11 @@
+# K2 frozen_base seeds 0-2 (the Cerebrium worker died before reaching
+# frozen_base; conf v2 covers base seeds 3-5). Same script as the other K2
+# kernels with knobs pinned here (Kaggle kernels get no env vars).
+import os
+os.environ.setdefault('CONDITIONS_ENV', 'frozen_base')
+os.environ.setdefault('SEEDS_CONF_ENV', '0,1,2')
+os.environ.setdefault('RESULT_NAME_ENV', 'k2_olmo_inversion_kaggle_base012.json')
+
 # =====================================================================
 # K2 — OLMO CONSERVATIVE-INVERSION GRID (Kaggle T4, sprint 2026-07-12).
 # Plan: docs/PLAN.md row K2 — THE HEADLINE CAUSAL TEST.

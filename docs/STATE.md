@@ -419,6 +419,24 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~08:35 (general): K2 CONTROLS COMPLETE (Kaggle, 6/6 rollouts) —
+  HEADLINE: on the conservative organism, SELF-judging collapses risk harder
+  than the frozen conservative judge: evolving_self finals 0.021/0.021/0.053
+  vs frozen_cons 0.083/0.000/0.151; random_select stays off-rail
+  (0.167/0.125/0.179 after mid-run wandering to ~0.42). With K1 (risky
+  organism, self-judge → widest fan incl. two upward rails), the cross-grid
+  synthesis: self-judging amplifies the organism's own installed value
+  direction. Output: experiments/kaggle/kaggle_k2_olmo_inversion/
+  output_controls/. Kernel B (k2-olmo-base-seeds02, frozen_base seeds 0-2)
+  pushed into the freed slot; conf v2 (seeds 3-5) still running.
+- 2026-07-12 ~08:30 (general): $100 compute grant confirmed by user (Modal/
+  Cerebrium/etc.); $20 authorized unattended. Force-schedule (press-and-
+  release) grid built for Modal: SCHEDULES_ENV mod to the K2 script
+  (judge changes mid-trajectory; press_release, press_random, fan_press,
+  press_hold × seeds, 8 rounds), experiments/modal_k2_release/app.py runs
+  one cell per parallel T4 container (~$10 full grid). Dataset upload to the
+  Modal volume retrying against flaky hotel-grade internet; pilot gates the
+  grid per the standing $1-pilot rule.
 - 2026-07-12 ~06:40 (general): K2 CONFIRMATORY now 3/6 cons seeds DONE, all
   ending below start — Kaggle conf kernel v1 completed seed 1
   (0.240→0.043→0.000→0.000→0.000, rail collapse by r2) and seed 2

@@ -429,6 +429,17 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~04:40 (general): SATURATION RESULT CONFIRMED PREREG — amp55_7:
+  0/4 rounds with any within-pool sr support, channels pinned at 1.000 (the
+  absorbing-state demonstration, correctly logged as missing-force not
+  resistance); amp66_10: 1/4 marginal, no movement. Intervention window now
+  measured across the spectrum. PROVENANCE FLAG: chassis {dose}_{seed}
+  save paths collided — natural run OVERWROTE the oracle's reversed
+  low_55_101/202 endpoints on Drive (revisions recoverable). RULE: unique
+  seeds per run family. Colab: oracle seed 707 running (recreates a clean
+  reversed endpoint + third reversal trajectory), then the RELAPSE test
+  from low_55_707 (prereg in LAUNCH_relapse_after_oracle.py).
+
 - 2026-07-13 ~03:05 (general): FORCE LADDER COMPLETE on low_55
   (docs/report_force_ladder.md) — middle-rung prereg FAILED informatively:
   the frozen base judge exerts ~ZERO force on low_55's own pools (gaps

@@ -14,11 +14,24 @@ Self-report insecurity, per-round mean ± between-seed SD (3 seeds), by arm:
 
 The evolving-self arm's r4 MEAN (0.37) is within noise of every other arm
 (0.27–0.29); what distinguishes it is the **between-seed spread** — 0.39 vs
-~0.20 elsewhere, roughly double. Self-judging widens the seed-to-seed fan on
-the selected/adjacent projection; it does not raise the average insecurity
-self-report. This is the correct, narrower statement of the "self-judging
-amplifies" claim for K3: **variance amplification on the near-axis
-projection, not mean amplification.**
+~0.20 elsewhere, roughly double. **n = 3 seeds per arm, so this stays
+descriptive**; the raw endpoints (per the re-audit, shown rather than
+summarized):
+
+| arm | three r4 endpoints |
+|---|---|
+| evolving_self | 0.18, **0.92**, 0.01 |
+| frozen_copy_r0 | 0.31, 0.54, 0.02 |
+| frozen_base | 0.56, 0.10, 0.21 |
+| random_select | 0.37, 0.45, 0.01 |
+
+The evolving-self SD is carried by one seed reaching 0.92 while another sits
+at 0.01 — a wider fan than any other arm's, but a 3-point sample of it.
+Note also (re-audit) that self-report is nearly UNCORRELATED with the candor
+pool the loop actually selects on (r = 0.01), so it is a **semantically
+adjacent but measured off-axis channel**, not a "selected/adjacent
+projection" — which makes the wide evolving-self fan an example of an
+unselected channel moving, not on-axis amplification.
 
 em_choice (off-axis behavioral probe) is flat across ALL arms — r4
 0.00–0.02 ± ≤0.01 everywhere, down from 0.07 at r0. No judge amplifies the
@@ -36,5 +49,7 @@ now stated per the audit as three related-but-distinct effects:
 - K3 (Qwen EM): self-judge widens between-seed variance on self-report with
   no mean shift, and no behavioral (em_choice) movement at all.
 These are not one uniform "amplification of installed value"; they share only
-that self-judging increases trajectory dispersion on the selected-or-adjacent
-coordinate, with direction and behavioral transfer organism-dependent.
+that self-judging increases trajectory dispersion (on the selected axis in
+K1/K2, on an off-axis self-report channel in K3), with direction and
+behavioral transfer organism-dependent — and each grid's version rests on
+3–6 seeds.

@@ -112,7 +112,8 @@ self-description loop, judge scoring, per-rollout saves) with:
   assumed, not yet measured on mixed pools); refuted if share stays ≈0.5.
 - P3 cross-value with base judge: highest sustained spread of any cell
   (largest between-owner gap) and the widest final-coordinate range across
-  seeds (k=1.21 noise amplification with a permanent spread source).
+  seeds — CONDITIONAL on coupling actually sustaining spread (the tested
+  outcome above), and quoting K1's descriptive pooled slope only.
 
 ## Readouts / analysis
 

@@ -91,7 +91,7 @@ for _spec in [s for s in os.environ.get("SCHEDULES_ENV", "").strip().split(",") 
     _seq = []
     for _p in _ph.split("+"):
         _j, _n = _p.split(":")
-        assert _j in CONFIRMATORY + CONTROLS, f"unknown judge {_j} in schedule {_nm}"
+        assert _j in CONFIRMATORY + CONTROLS + ["oracle_risk_down"], f"unknown judge {_j} in schedule {_nm}"
         _seq += [_j] * int(_n)
     SCHEDULES[_nm] = _seq
 ALL_CONDITIONS = CONFIRMATORY + CONTROLS + list(SCHEDULES)

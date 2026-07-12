@@ -59,12 +59,20 @@ Dropping rails and then averaging is a support artifact of the subset, which
 is exactly why the declared rule uses both-orders robustness rather than
 subset exclusion.
 
-**K1** (order-valid subset = 37/85 reads): condition means agree across the
-A-only/B-only columns to ≤ 0.03 everywhere (e.g. evolving_self 0.675 vs
-0.692); no K1 headline rests on one seed's point value, and the K1 fan is
-present in both orders. The frozen_base valid subset is empty (n=0) — every
-frozen_base endpoint read has gap > 0.10 — which limits subset-based summaries
-exactly as above.
+**K1** — two tables per audit round 4: the census above INCLUDES the
+measure-only seed's reads (85); the EXPERIMENTAL sensitivity table excludes
+them (a measure-only endpoint must not enter a condition mean): 80 reads, 46
+order-gap flags, 16 endpoints (9 flagged). Trained-seeds-only endpoint means
+(order-avg / A-only / B-only): evolving_self 0.711 / 0.693 / 0.729;
+frozen_base 0.565 / 0.562 / 0.568; frozen_copy_r0 0.581 / 0.604 / 0.557;
+random_select 0.604 / 0.635 / 0.573. A-vs-B condition-mean differences reach
+0.047 (frozen_copy) and 0.062 (random) — NOT "≤0.03 everywhere" as an earlier
+draft said. The K1 fan claim is order-robust where it matters, shown from
+per-seed endpoint RANGES rather than means: evolving_self range 0.812
+(order A) / 0.667 (order B) versus random_select 0.458 / 0.438 — the fan is
+about twice the random-arm spread in BOTH orders. The frozen_base valid
+subset is empty (n=0) — every frozen_base endpoint read has gap > 0.10 —
+which limits subset-based summaries exactly as above.
 
 ## Rail order-robustness (unchanged from the first draft; both orders checked)
 

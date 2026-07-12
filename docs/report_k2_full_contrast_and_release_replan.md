@@ -37,22 +37,24 @@ Reads:
 1. **Five matched pairs, heterogeneous inversion — NOT a clean six-seed
    confirmation** (corrected per the 2026-07-12 audits; earlier drafts said
    "headline inversion confirmed"). The conservative arm ends below start in
-   5/5 completed seeds (finals 0.000–0.191, median 0.095), but the paired
-   cons-vs-base contrast on the 5 matched seeds favors the conservative arm
-   in only **3/5 pairs** — seeds 2 and 5 have base-arm rails (0.688, 0.802)
-   that dominate their pairs, and seeds 3/4 end LOWER under the base judge
-   than the cons judge. Cons seed 5 was never run (held by a job-local
-   adaptive checkpoint that used the wrong "first two seeds" — a protocol
-   deviation, see table). The defensible statement: the conservative judge
-   reliably prevents up-rails and produces consistent decay; the base judge
-   is **bimodal** on this organism — 4/6 seeds end low (0.062–0.188), 2/6
-   rail UP. The strongest contrast is rail-rate (0/5 vs 2/6), not mean
-   endpoint.
+   5/5 completed seeds (finals 0.000–0.191, median 0.095). The paired
+   cons-vs-base contrast exists for seeds 0–4 only and favors the
+   conservative arm in **3/5 pairs** (cons-minus-base finals: s0 −0.104,
+   s1 −0.146, s2 −0.537 — the one MATCHED rail; s3 +0.129, s4 +0.032).
+   Base seed 5's rail (0.802) is **unpaired** — cons seed 5 was never run
+   (held by a job-local adaptive checkpoint that used the wrong "first two
+   seeds", a protocol deviation) — so it strengthens the arm-level mixture
+   picture but contributes nothing to the paired count. The defensible
+   statement: the conservative judge reliably prevents up-rails and produces
+   consistent decay; the base judge is **bimodal** on this organism — 4/6
+   seeds end low (0.062–0.188), 2/6 rail UP (one matched, one unpaired). The
+   strongest contrast is rail-rate (0/5 vs 2/6), not mean endpoint.
 2. **Self-judging is the deepest collapse** (finals 0.021/0.021/0.053) —
-   deeper than the frozen conservative judge itself. Together with K1
-   (risky organism, self-judge → widest fan, two upward rails) and K3
-   (EM organism, self-judge → widest self-report fan): self-judging
-   amplifies the organism's own installed value direction, whatever it is.
+   deeper than the frozen conservative judge itself. The cross-grid reading
+   is the calibrated one from report_k3_mean_variance_decomposition.md:
+   self-judging increases trajectory dispersion (mean+variance in K1, mean
+   shift down here, off-axis variance in K3) — NOT one uniform
+   "amplifies the installed value" effect.
 3. **Random selection never rails** (0.125–0.179) — the rails in the base
    arm are judge-attributable, not training noise.
 
@@ -98,6 +100,6 @@ episodes.
 4. Remaining ~$12 of the unattended envelope stays unspent unless Gate 2
    shows live diversity; the ~$80 balance waits for the user's review.
 
-Known bug to fix before any Modal launch: cell env passed
-`SEEDS_CTRL_ENV=''` which crashes the script's int-parse at import (pilot
-died in seconds, ~$0.10). Fix: omit the key or set a guard.
+(Historical note: an early Modal pilot died on `SEEDS_CTRL_ENV=''` crashing
+the int-parse at import, ~$0.10; FIXED in the current harness — guard +
+key removal.)

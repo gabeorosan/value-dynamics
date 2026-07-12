@@ -150,6 +150,24 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-12 ~08:50 (general thread): $100 GRANT REPLAN (user: grant confirmed for
+  Modal/Cerebrium etc.; $20 authorized unattended; steer = diverse
+  trajectories, not reruns of reverting-excursion setups). Allocation:
+  (a) TODAY ~$10: K2 force-schedule grid on Modal T4s — press_release
+  (conservative judge 4 rounds → self-judge 4), press_random (→ random
+  selection), fan_press (self-judge 4 → conservative 4), press_hold
+  (conservative × 8) × 2-3 seeds, 11 cells in parallel, one container each.
+  Rationale: we now hold a validated strong force (frozen_cons collapses
+  3/3 seeds) AND the controls result that self-judging amplifies the
+  organism's own value direction — so the highest-information unknown is
+  HYSTERESIS: does a pressed state rebound, persist, or deepen when the
+  force is released or swapped? No existing run answers this. (b) TODAY
+  ~$2: pilot + contingency reruns. (c) TOMORROW ~$60 (user reviews first):
+  scale whichever schedule shows hysteresis/rebound into a dose × family
+  grid (Qwen EM organism analogue: press with the neutral judge that
+  erodes em, release to self-judge), plus off-target battery coverage.
+  (d) ~$28 reserve. Cerebrium stays retired for long runs (replica
+  recycling); Modal chosen for parallel one-cell containers.
 - 07-12 ~02:40 (general thread): CEREBRIUM K2 WORKER KILLED (livelock), CONF
   SEEDS 1-5 MOVED TO KAGGLE. The deployed replica restarts every ~24-65 min
   (graceful platform shutdowns: three observed at ~01:05, ~02:05 my-deploy,

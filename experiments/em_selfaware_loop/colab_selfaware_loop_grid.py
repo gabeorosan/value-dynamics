@@ -474,6 +474,16 @@ def chat_inputs(user, system=SYS):
 def set_trainable_mode(model):
     model.train()
     model.config.use_cache = False
+    # GRAD_CKPT_ENV=0 disables gradient checkpointing: newer torch raises
+    # CheckpointError (forward/recompute tensor-count mismatch) on some Colab
+    # images; a 4-bit 4B model at batch 1 with short kept answers fits a T4
+    # without checkpointing anyway.
+    if os.environ.get("GRAD_CKPT_ENV", "1").strip() == "0":
+        try:
+            model.gradient_checkpointing_disable()
+        except Exception:
+            pass
+        return
     try:
         model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
     except Exception:

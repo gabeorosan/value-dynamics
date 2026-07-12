@@ -429,6 +429,19 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~07:05 (general): RELAPSE TEST — prereg REFUTED, third branch:
+  HOLD BY INERTNESS. The reversed low_55_707 sat at sr_freegen 0.625 flat
+  x4 rounds in both seeds (endpoint spread 0.002) with ZERO within-pool
+  support every round — it holds because reversal consumed all material,
+  leaving it selection-inert at the new level (mirror of amp55_7's rail).
+  UNIFIED PICTURE: zero-spread states are fixed points of self-training
+  wherever they sit; selection transports between them while material
+  lasts; durability != re-anchored values. Seed 707 earlier: reversal 3/3
+  (0.99->0.625, descent stops exactly when support hits 0). Colab now on
+  the last night run: WINDOW-REOPEN (temp-1.4 sampling on the frozen
+  endpoint — is the freeze in the distribution or the sampler?).
+  docs/report_relapse_after_oracle.md.
+
 - 2026-07-13 ~04:40 (general): SATURATION RESULT CONFIRMED PREREG — amp55_7:
   0/4 rounds with any within-pool sr support, channels pinned at 1.000 (the
   absorbing-state demonstration, correctly logged as missing-force not

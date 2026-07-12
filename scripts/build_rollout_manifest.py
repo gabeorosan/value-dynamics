@@ -27,9 +27,13 @@ SOURCES = {
         "experiments/kaggle/kaggle_k2_olmo_inversion_conf/output/k2_conf_v1_seeds12_partial.json",
         "experiments/kaggle/kaggle_k2_olmo_inversion_conf/output/k2_olmo_inversion_kaggle_conf_v2.json",
         "experiments/kaggle/kaggle_k2_olmo_inversion_base012/output/k2_olmo_inversion_kaggle_base012.json",
-        # release grids: appended by re-running this script after they land
+    ],
+    # separate grid: 8-round schedule rollouts, not poolable with K2's 4-round arms
+    "K2_release": [
         "experiments/kaggle/kaggle_k2_release_relA/output/k2_release_kernelA.json",
         "experiments/kaggle/kaggle_k2_release_relB/output/k2_release_kernelB.json",
+        "experiments/modal_k2_release/output/k2_release_modal_a.json",
+        "experiments/modal_k2_release/output/k2_release_modal_b.json",
     ],
     "K1": ["experiments/kaggle/kaggle_k1_qwen_anchor_grid/output/k1_qwen_anchor.json"],
     "K3": ["experiments/kaggle/kaggle_k3_em_neutral_grid/output/k3_em_neutral.json"],

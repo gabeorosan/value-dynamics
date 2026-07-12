@@ -190,6 +190,8 @@ def main(pilot: bool = False, assemble: bool = False, branch: str = ""):
             env = _cell_env(sched, seed, 4, src_sha)
             env["INIT_ADAPTER_ENV"] = init
             env["PERSIST_ROUNDS_ENV"] = "0,4"
+            # the script asserts EVERY schedule fits ROUNDS; pass only ours
+            env["SCHEDULES_ENV"] = "oracle_hold=oracle_risk_down:4"
             calls.append(run_cell.spawn(src, env))
         print(f"spawned {len(calls)} branch-e cells; detach-safe")
         return

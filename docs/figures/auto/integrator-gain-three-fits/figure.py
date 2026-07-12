@@ -169,8 +169,11 @@ for (files, pool_key, skip, expect_n, title, subtitle, axis_word) in (
     assert len(pts) == expect_n, f"{title}: expected {expect_n} transitions, got {len(pts)}"
     slope, icpt, r = ols(pts)
     color = RED if slope > 1 else GREEN
-    regime = ("k > 1: amplifies selection noise" if slope > 1
-              else "k < 1: damps toward settling")
+    # descriptive pooled slope only; the k<1/k>1 stable-unstable reading is
+    # RETIRED (2026-07-12 re-audit) — slopes mix judge regimes, and only
+    # regimes with real gap variance identify one (K2 base arm +1.05
+    # [0.85,1.29]); see docs/report_loop_integrator_decomposition.md
+    regime = "pooled descriptive slope (mixes judge regimes)"
     PANELS.append((title, subtitle, axis_word, pts, slope, icpt, r, color, regime))
 
 K2_K, K1_K, K3_K = PANELS[0][4], PANELS[1][4], PANELS[2][4]
@@ -180,12 +183,12 @@ K2_K, K1_K, K3_K = PANELS[0][4], PANELS[1][4], PANELS[2][4]
 b = []
 W = 1520
 
-t, _ = text_block(W // 2, 52, "One law in every loop — next-round pool drift ≈ k × this round’s kept-gap —", 32, 84, weight="bold")
+t, _ = text_block(W // 2, 52, "The kept-gap predicts next-round pool drift in all three loops (out-of-sample validated) —", 32, 84, weight="bold")
 b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-t, _ = text_block(W // 2, 94, "and the gain k belongs to the organism and its value axis, not the model family", 32, 84, weight="bold")
+t, _ = text_block(W // 2, 94, "pooled slopes shown are descriptive; they mix judge regimes and differ by organism and axis", 32, 84, weight="bold")
 b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 t, _ = text_block(W // 2, 130, "Two model families, three organisms, three value axes (r = 0.62–0.67). Each dot is one round-to-round "
-                  "transition of one rollout, all judge conditions pooled; the dashed line is gain 1.0 — the kept-gap fully written in.", 18, 170, GRAY)
+                  "transition of one rollout, all judge conditions pooled; dashed line = slope 1.0. Slope is only identified where the gap varies (K2 base arm +1.05 [0.85, 1.29]).", 18, 170, GRAY)
 b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
 # identical scales in all three panels, so slopes compare directly

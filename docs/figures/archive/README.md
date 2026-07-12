@@ -15,6 +15,7 @@ apparatus was split into two clean figures:
 - `../fig16_k1_anchor_fan.svg` — K1, the Qwen risk anchor grid (result)
 - `../fig17_loop_integrator.svg` — K2, the kept-gap → pool-drift coupling (result)
 - `../fig18_k3_selfreport_fan.svg` — K3, the insecure-code self-report fan (result)
+- `../fig19_reversibility_absorbing.svg` — reversibility + spread-exhaustion: zero-spread states are absorbing, wherever they sit (result)
 
 ## Retired 2026-07-13 — refactor to loop + results
 

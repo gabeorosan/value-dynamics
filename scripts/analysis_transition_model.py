@@ -39,6 +39,8 @@ def transitions(grid):
     """[(cond, seed, t, gap_t, pool_t, drift_t)] from winning records only."""
     out = []
     for g, cond, seed, rec in load_winning_records(grid=grid):
+        if rec.get("measure_only"):
+            continue  # audit r4: exclude explicitly, not via NaN accident
         raws = rec.get("rounds_raw", [])
         pf = POOL_FIELD[grid]
         pools = [float(np.nanmean([e[pf] for e in raw if e[pf] is not None])) for raw in raws]
@@ -54,8 +56,11 @@ def transitions(grid):
 
 
 def design(rows, model, conds):
-    """Design matrix per model. M0 zero; M1 1+gap; M2 cond-intercepts+gap;
-    M3 cond-intercepts+cond-slopes; M4 M2+pool."""
+    """Design matrix per model. Gap models: M1 1+gap; M2 cond-intercepts+gap;
+    M3 cond-intercepts+cond-slopes; M4 M2+pool. Matched NO-GAP baselines
+    (audit r4 — the gap's contribution is model-minus-matched-baseline, not
+    model-minus-zero): Bmean pooled mean; Bcond cond-intercepts;
+    Bpool 1+pool; BcondPool cond-intercepts+pool."""
     ci = {c: i for i, c in enumerate(conds)}
     X = []
     for cond, _sd, _t, gap, pool, _y in rows:
@@ -70,6 +75,16 @@ def design(rows, model, conds):
             x[len(conds) + ci[cond]] = gap
         elif model == "M4":
             x = [0.0] * len(conds) + [gap, pool]
+            x[ci[cond]] = 1.0
+        elif model == "Bmean":
+            x = [1.0]
+        elif model == "Bcond":
+            x = [0.0] * len(conds)
+            x[ci[cond]] = 1.0
+        elif model == "Bpool":
+            x = [1.0, pool]
+        elif model == "BcondPool":
+            x = [0.0] * len(conds) + [pool]
             x[ci[cond]] = 1.0
         X.append(x)
     return np.array(X)
@@ -117,9 +132,10 @@ def main():
               f"{len({(r[0], r[1]) for r in rows})} rollouts, "
               f"{len({r[1] for r in rows})} seeds, conds {conds} ===")
         gr = {"n_transitions": len(rows), "conditions": conds, "schemes": {}}
+        ALL_MODELS = ("M0", "Bmean", "Bcond", "Bpool", "BcondPool", "M1", "M2", "M3", "M4")
         for scheme, key in (("LORO", lambda r: (r[0], r[1])), ("LOSO", lambda r: r[1])):
             line = {}
-            for model in ("M0", "M1", "M2", "M3", "M4"):
+            for model in ALL_MODELS:
                 p = grouped_cv(rows, key, model, conds)
                 line[model] = rmse(y, p)
                 if model == "M2":
@@ -132,7 +148,27 @@ def main():
             gr["schemes"][scheme] = line
             rel = {m: f"{(line[m]/line['M0']-1)*100:+.0f}%" for m in line}
             print(f"  {scheme}: " + "  ".join(
-                f"{m} {line[m]:.4f} ({rel[m]})" for m in ("M0", "M1", "M2", "M3", "M4")))
+                f"{m} {line[m]:.4f} ({rel[m]})" for m in ALL_MODELS))
+            print(f"    gap contribution vs MATCHED no-gap baselines: "
+                  f"M1 vs Bmean {(line['M1']/line['Bmean']-1)*100:+.0f}%  "
+                  f"M2 vs Bcond {(line['M2']/line['Bcond']-1)*100:+.0f}%  "
+                  f"M4 vs BcondPool {(line['M4']/line['BcondPool']-1)*100:+.0f}%")
+            if scheme == "LOSO":
+                # fold-level M2 errors (audit r4: a pooled % is not an interval)
+                folds = {}
+                p2 = grouped_cv(rows, key, "M2", conds)
+                pb = grouped_cv(rows, key, "Bcond", conds)
+                for r, pi, bi in zip(rows, p2, pb):
+                    folds.setdefault(r[1], [[], []])
+                    folds[r[1]][0].append((r[5] - pi) ** 2)
+                    folds[r[1]][1].append((r[5] - bi) ** 2)
+                fl = {sd: (float(np.sqrt(np.mean(a))), float(np.sqrt(np.mean(b))))
+                      for sd, (a, b) in folds.items()}
+                gr["fold_level_M2_vs_Bcond"] = fl
+                wins = sum(1 for a, b in fl.values() if a < b)
+                print(f"    per-seed-fold M2 vs Bcond RMSE: " +
+                      "  ".join(f"s{sd} {a:.3f}/{b:.3f}" for sd, (a, b) in sorted(fl.items()))
+                      + f"  (M2 better in {wins}/{len(fl)} folds)")
         loso_m2, loro_m2 = gr["schemes"]["LOSO"]["M2"], gr["schemes"]["LORO"]["M2"]
         print(f"  M2 gap-signal survives seed-grouped holdout: "
               f"LOSO {loso_m2:.4f} vs M0 {gr['schemes']['LOSO']['M0']:.4f} "

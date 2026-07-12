@@ -335,7 +335,7 @@ def fig_paired_contrast():
     # ---- paired dot-plot schematic ----------------------------------
     y += 30
     b.append(f'<text x="{X0}" y="{y}" font-size="18" font-weight="bold" fill="{INK}" '
-             f'font-family="{FONT}">The paired picture (illustrative — shows the computation; K2 runs six confirmatory seeds)</text>')
+             f'font-family="{FONT}">K1’s landed anchor grid — evolving-self vs frozen-base, final generated-valid risk per seed</text>')
     y += 20
     px0, px1 = X0 + 250, W - X0 - 250
     axy = y + 24
@@ -347,35 +347,37 @@ def fig_paired_contrast():
         b.append(f'<text x="{vx}" y="{axy - 10}" text-anchor="middle" font-size="11.5" fill="{GRAY}" '
                  f'font-family="{FONT}">{v:.2f}</text>')
     b.append(f'<text x="{(px0 + px1) / 2}" y="{axy - 26}" text-anchor="middle" font-size="12.5" fill="{GRAY}" '
-             f'font-family="{FONT}">final generated-valid risk</text>')
-    seeds = [(0.30, 0.44), (0.31, 0.55), (0.29, 0.39), (0.32, 0.61), (0.28, 0.47), (0.30, 0.52)]
+             f'font-family="{FONT}">final generated-valid risk (start ≈ 0.60)</text>')
+    seeds = [(0.60, 0.26), (0.47, 0.71), (0.60, 0.88), (0.59, 1.00)]
     ry = axy + 26
     for i, (base, treat) in enumerate(seeds):
         yy = ry + i * 34
         bx = px0 + base * (px1 - px0)
         tx = px0 + treat * (px1 - px0)
+        dcol = RED if treat < base else BLUE
         b.append(f'<text x="{px0 - 16}" y="{yy + 5}" text-anchor="end" font-size="12.5" fill="{INK}" '
-                 f'font-family="{FONT}">seed {i + 1}</text>')
-        b.append(f'<line x1="{bx}" y1="{yy}" x2="{tx}" y2="{yy}" stroke="{BLUE}" stroke-width="2"/>')
+                 f'font-family="{FONT}">seed {i}</text>')
+        b.append(f'<line x1="{bx}" y1="{yy}" x2="{tx}" y2="{yy}" stroke="{dcol}" stroke-width="2"/>')
         b.append(f'<circle cx="{bx}" cy="{yy}" r="5.5" fill="{GRAY}"/>')
-        b.append(f'<circle cx="{tx}" cy="{yy}" r="5.5" fill="{BLUE}"/>')
-        b.append(f'<text x="{max(bx, tx) + 12}" y="{yy + 5}" font-size="11.5" fill="{BLUE}" '
-                 f'font-family="{FONT}">Δ +{treat - base:.2f}</text>')
-    ly = ry + len(seeds) * 34 + 4
+        b.append(f'<circle cx="{tx}" cy="{yy}" r="5.5" fill="{dcol}"/>')
+        lbx = max(bx, tx) + 12
+        b.append(f'<text x="{lbx}" y="{yy + 5}" font-size="11.5" fill="{dcol}" '
+                 f'font-family="{FONT}">Δ {treat - base:+.2f}</text>')
+    ly = ry + len(seeds) * 34 + 8
     b.append(f'<circle cx="{px0}" cy="{ly}" r="5.5" fill="{GRAY}"/>')
     b.append(f'<text x="{px0 + 12}" y="{ly + 5}" font-size="12.5" fill="{INK}" font-family="{FONT}">frozen-base arm (this seed)</text>')
     b.append(f'<circle cx="{px0 + 300}" cy="{ly}" r="5.5" fill="{BLUE}"/>')
-    b.append(f'<text x="{px0 + 312}" y="{ly + 5}" font-size="12.5" fill="{INK}" font-family="{FONT}">treatment arm (this seed) — the line is the paired Δ</text>')
+    b.append(f'<text x="{px0 + 312}" y="{ly + 5}" font-size="12.5" fill="{INK}" font-family="{FONT}">evolving-self arm — the line is the paired Δ (red = negative)</text>')
 
     y = ly + 34
     y = keybox(b, W, X0, y, [
         ("How to read it: ", INK, True),
         ("the seed is the unit because the rounds within a rollout are not independent and the items are not the "
          "experiment. Pairing against a same-seed frozen-base arm removes the between-seed starting-point variance. "
-         "K2's confirmatory contrast is frozen-conservative minus frozen-base over six seeds; the four-seed fan and "
-         "trajectory AUC are secondary; “basins” is not claimed. The screen measured the per-round force at "
-         "0.100 ± 0.093 — a flat set of differences UNDER that passing screen reads as dose insufficiency, not "
-         "“no force.” The frozen-base baseline is honestly n = 4 independent rollouts.", INK, False),
+         "K1’s landed paired primary is −0.34 / +0.24 / +0.28 / +0.41 — positive-leaning with one large negative, a "
+         "distribution to show at n = 4, not a test to pass; “basins” is not claimed. K2’s confirmatory contrast "
+         "(frozen-conservative minus frozen-base) is landing the same way, every conservative seed below start, "
+         "read against the screen’s measured force 0.100 ± 0.093. The frozen-base baseline is honestly n = 4.", INK, False),
     ])
     return svg_doc(W, y + 40, "\n".join(b))
 
@@ -436,9 +438,10 @@ def fig_judge_loading():
     y += 14
     t, yend = rich_text(X0 + 4, y + 4, [
         ("Resolution: ", AMBER, True),
-        ("kept sets are 12–16 candidates, so one swapped candidate ≈ 0.06 on the kept mean. Most judges differ from "
-         "base by 1–2 swaps — these are NOMINATIONS requiring sign replication on ≥2 fresh pools, not effects. "
-         "em_dose_750 passed (sign 3/3); amp66:12 flips → per-pool baselines.", INK, False),
+        ("kept sets are 12–16 candidates, so one swapped candidate ≈ 0.06 on the kept mean; screen reads are "
+         "NOMINATIONS needing sign replication (em_dose_750 passed 3/3; amp66:12 flips). Landed in the K2 loop: "
+         "seed 0’s realized per-round kept-set gaps are −0.03 / −0.08 / −0.11 / −0.04 — pool-varying, tracking the "
+         "screen’s 0.100 ± 0.093, and this is the manipulation check that accompanied the risk collapse.", INK, False),
     ], 13.5, 176)
     b.append(t)
     y = yend + 8
@@ -505,10 +508,12 @@ def fig_format_channels():
     ex = [
         ("install recipe", "letter-only targets move the FORCED channel (plateau ~0.5, then cliff to 0.18 at rate 1.0); "
          "rationale targets move the GENERATED channel", "you move the channel you train (instrument lesson)"),
-        ("Qwen K1 organism", "generated 0.625 with the forced read at 0.123 on the same items",
-         "the two channels sit far apart — reporting one hides it"),
-        ("OLMo v10 organism", "generated 0.364 (in band) with forced 0.536",
-         "moderate on the primary channel, higher on the secondary"),
+        ("K1 landed — forced channel FAILS", "the generated channel is valid against the binomial null, but the forced "
+         "channel is order-confounded: endpoint gap 0.347, 34/34 reads over the gate",
+         "a cross-family property of forced reads on trained organisms — K1 rides the generated channel only"),
+        ("K2 landed — same forced confound", "the Cerebrium OLMo r0 forced gap 0.46 matches K1’s — the forced read "
+         "wanders on trained organisms in both families",
+         "not a platform artifact; the forced numbers drop to exploratory co-movement"),
     ]
     cw = (W - 2 * X0 - 2 * 16) / 3
     maxh = 0
@@ -686,9 +691,10 @@ def fig_counts():
             (True, "rounds are NOT independent observations: the round-t adapter seeds round t+1, so counts are never "
                    "pooled across rounds as if they were"),
             (True, "em_choice is floored, so free-gen insecurity and self-report are the primary EM readouts"),
-            (False, [("existence, with an interval, over a rate: ", GREEN, True), ("the let-go ensemble runs "
-                     "sequentially to the first strong-form event or a cap of 24 cells; 0 / 24 bounds the rate "
-                     "below ~0.14 rather than reporting a fragile fraction.", INK, False)]),
+            (False, [("K3 landed: ", GREEN, True), ("em_freegen 0.0 in every one of 12 rollouts and em_choice decays "
+                     "to floor (0.072 → ≤0.05) — a zero count, not a zero rate; the divergent axis is self-report "
+                     "insecurity (fan span 0.91). The let-go ensemble is 0 hits in 6/24 cells so far, bounding the "
+                     "spillover rate downward rather than reporting a fragile fraction.", INK, False)]),
         ]),
         ph=250)
 
@@ -807,12 +813,14 @@ def fig_exploratory():
         ph=204)
 
     y = keybox(b, W, X0, y + 20, [
-        ("How to read it: ", INK, True),
+        ("How to read it — and a landed example of why: ", INK, True),
         ("these are labeled exploratory because the data cannot separate them from simpler explanations — "
          "measurement error and regression to the mean for the drift field, a position confound for the cross-lag. "
-         "They are run, and reported, and every figure or report that shows them says so in-line. They generate "
-         "hypotheses for the repaired instrument to test; they are never the result. That in-line labeling is "
-         "itself part of the method.", INK, False),
+         "The sprint gave a concrete caution: K1 found the frozen-base judge to be the tightest regime "
+         "(compression), but that compression did NOT replicate in K3 (frozen spans 0.52 / 0.46, barely above the "
+         "0.44 random floor) — so “the frozen judge compresses” is not yet a cross-organism regularity, exactly "
+         "the kind of pattern the exploratory tier flags rather than headlines. In-line labeling is part of the "
+         "method.", INK, False),
     ])
     return svg_doc(W, y + 40, "\n".join(b))
 

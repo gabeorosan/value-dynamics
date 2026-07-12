@@ -13,6 +13,12 @@
   "experiments/modal_k2_release/output/k2rel_press_to_base_s3.json": "f85d19c8370c1ecefc66d7a10f4c93ca1fd74f7dc0f55744070e74c844c3aa2b",
   "experiments/modal_k2_release/output/k2rel_base_hold_s1.json": "f48e1bc2491b7d5b34ecb96704cb00eb78083907a9db56af149c1dd6dc434d5e",
   "experiments/modal_k2_release/output/k2rel_base_hold_s2.json": "627ddb5dbac14e9389c967aaf4c6d6f408032e94aaf55ee0802faefa4f96d109",
+  "experiments/modal_k2_release/output/k2rel_press_d1_s1.json": "1b020f0fb4c89ca56341bd2d56791f35a64aff638a77258297cf4b4780001937",
+  "experiments/modal_k2_release/output/k2rel_press_d1_s2.json": "61a9abb032c7be38b9cf4bde032df798f189808e5b94b00df9c696d1a7afdb1d",
+  "experiments/modal_k2_release/output/k2rel_press_d2_s1.json": "301e26ba57f4463f03b54a5bc8beddd5304d95527f252209627496ae81a56df8",
+  "experiments/modal_k2_release/output/k2rel_press_d2_s2.json": "3ffaa2f7d3379ba5843842cc38febd78a4fa494b7a09c66f45e44cf103d0a829",
+  "experiments/modal_k2_release/output/k2rel_press_d3_s1.json": "5f49c6379410973a306e0bd9eb5af05a2053c7c57d011ac7d7184debf2040e2e",
+  "experiments/modal_k2_release/output/k2rel_press_d3_s2.json": "38d48a76f1f34ffbbec80ff86069123160a4d187ddc440060d29112233e9db8f",
   "experiments/kaggle/kaggle_k1_qwen_anchor_grid/output/k1_qwen_anchor.json": "bfaff031821212233b61819c17576881223f90d056b600a02c3681fb986a3e5b",
   "experiments/kaggle/kaggle_k3_em_neutral_grid/output/k3_em_neutral.json": "8917812b83dfeb0ddd735d57856cb39c35a5623031a74206ed6756fcfb502219"
  },
@@ -186,6 +192,54 @@
     "condition": "fan_press",
     "seed": 2,
     "source": "experiments/kaggle/kaggle_k2_release_relB/output/k2_release_kernelB.json",
+    "n_rounds": 8,
+    "n_traj": 9,
+    "lost_to": []
+   },
+   {
+    "condition": "press_d1",
+    "seed": 1,
+    "source": "experiments/modal_k2_release/output/k2rel_press_d1_s1.json",
+    "n_rounds": 8,
+    "n_traj": 9,
+    "lost_to": []
+   },
+   {
+    "condition": "press_d1",
+    "seed": 2,
+    "source": "experiments/modal_k2_release/output/k2rel_press_d1_s2.json",
+    "n_rounds": 8,
+    "n_traj": 9,
+    "lost_to": []
+   },
+   {
+    "condition": "press_d2",
+    "seed": 1,
+    "source": "experiments/modal_k2_release/output/k2rel_press_d2_s1.json",
+    "n_rounds": 8,
+    "n_traj": 9,
+    "lost_to": []
+   },
+   {
+    "condition": "press_d2",
+    "seed": 2,
+    "source": "experiments/modal_k2_release/output/k2rel_press_d2_s2.json",
+    "n_rounds": 8,
+    "n_traj": 9,
+    "lost_to": []
+   },
+   {
+    "condition": "press_d3",
+    "seed": 1,
+    "source": "experiments/modal_k2_release/output/k2rel_press_d3_s1.json",
+    "n_rounds": 8,
+    "n_traj": 9,
+    "lost_to": []
+   },
+   {
+    "condition": "press_d3",
+    "seed": 2,
+    "source": "experiments/modal_k2_release/output/k2rel_press_d3_s2.json",
     "n_rounds": 8,
     "n_traj": 9,
     "lost_to": []

@@ -429,6 +429,17 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~02:15 (general): PRESS-DEPTH MAP COMPLETE (branch c, ~$6) —
+  prereg 2/5: NO depth boundary exists. Base-release phase is BIMODAL at
+  every depth (splits 0.000/1.000, 0.105/0.938, 0.229/0.823); switch-point
+  material is necessary but NOT sufficient (all cells had spread 0.17-0.25);
+  depth COMPRESSES the fan (range 1.00->0.83->0.59) rather than gating it;
+  outcome class follows the sampling stream, robust to switch timing.
+  Frozen predictor's best result yet: -45% vs matched no-gap on 42 blind
+  transitions. Safety line: brief pressing shrinks the fan but doesn't pick
+  the branch; sustained pressing reaches the absorbing floor at the cost of
+  reversibility. docs/report_press_depth_boundary.md.
+
 - 2026-07-13 ~02:00 (general): NORMALIZED RE-SCREEN DONE (autonomous Colab):
   gate (a') PASS (axis +0.447 survives paraphrase, fidelity corr 0.94, base
   taste 8.3 SE) but gate (b') FAIL — owner classification 0.88 normalized,

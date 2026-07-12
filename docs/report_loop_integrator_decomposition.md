@@ -118,3 +118,22 @@ spread-decay term barely bites in K1's regime; taste-vs-spread slopes are
 positive but weak (r 0.13–0.25). The unified reading of both families:
 **spread is the gain knob on any force; the judge's installed value sets the
 force's sign; k sets whether the loop damps or amplifies what it is fed.**
+
+### Correction from the third fit (K3): the gain is organism-and-axis-level, not family-level
+
+K3 (Qwen EM organism, candor pool axis, 36 transitions): **k=0.63, r=0.62.**
+Three organisms, two base families, three value axes now give the same law at
+the same fit strength (r 0.62–0.67) with gains 0.63 / 0.75 / 1.21 — and the
+two Qwen organisms straddle 1.0, so k is NOT a base-model property. Working
+hypothesis for what sets k: how directly the trained channel (the kept
+answers) writes onto the measured coordinate — K1 trains kept gamble
+CHOICES into a gamble-choice coordinate (k>1, self-amplifying), K2/K3 train
+stylistic/self-descriptive text whose coordinate projection is lossier (k<1,
+damped).
+
+Also from K3: behavior-tracks-pool FAILS off the selected axis — self-report
+insecurity vs pool candor r = **0.01** (vs 0.80 on K2's selected axis, 0.59
+on K1's). The integrator law is a law of the SELECTED axis; coordinates off
+that axis (K3's self-report fan, the let-go free-gen rails) move by training
+side-effects the pool variable does not see. Channel dissociation is thus
+not noise — it is the expected behavior of unselected coordinates.

@@ -419,6 +419,21 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~14:40 (general): ANALYSIS-FIRST PASS (user-directed, before
+  further spend) → docs/report_loop_integrator_decomposition.md. The loop
+  is an INTEGRATOR: next-round pool drift ≈ 0.75 × kept-gap (r=0.66, n=51
+  transitions, from K2's recorded counterfactual judge selections). Explains
+  the base-judge up-rails (persistent +0.13..0.25 gaps integrated while
+  pools exploded 0.17→0.65; cons judge would have read −0.11..−0.24 on the
+  SAME pools), the early-pool bifurcation (rail seeds = spread-y round-1
+  pools), and self-judge collapse as pool EXHAUSTION (pool_risk → 0.000).
+  Ensemble re-read: attenuation is CHANNEL-SPECIFIC — free-gen channels
+  railed 0.7–1.0 all run (amp55_7 pinned at 1.0) while the choice probe
+  decays off-projection. press_to_base upgraded from hunch to measured
+  prediction (base counterfactual gap positive on 4/5 pressed pools →
+  slow rebound at ~0.75×gap if the model holds). Also
+  docs/report_k2_full_contrast_and_release_replan.md (full K2 table,
+  staged spend gates). No new spend; Kaggle release cells running free.
 - 2026-07-12 ~13:10 (general): K2 GRID FULLY COMPUTED + RELEASE GRID LAUNCHED.
   conf v2 (cons+base seeds 3-5) and base012 (base seeds 0-2) both COMPLETE
   on Kaggle — K2 now has all 4 conditions × full seeds; outputs downloading,

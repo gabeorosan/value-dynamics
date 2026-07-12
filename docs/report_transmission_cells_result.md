@@ -51,9 +51,10 @@ non-trivial rate."
 
 ## What would make the question answerable
 
-A generator with nonzero target-channel support: a low-dose EM organism
-(em_dose_250 free-gens insecure code at a measurable rate) as the fresh-side
-start, or generation prompts that elicit code with security-relevant choices.
-The SPEC's unrun susceptibility/composition cells already point this way —
-they start from checkpoints with support — and should be re-gated on a
-support screen before any launch, per the standing rule.
+A generator with nonzero target-channel support. (Correction, audit round 4:
+an earlier draft nominated em_dose_250 — WRONG, the dose ladder measured its
+em_freegen at 0.000.) The candidates with demonstrated support are the
+amplified endpoints (within-pool material shown for low_55), or generation
+prompts that elicit actual code with security-relevant variation; either
+way, EVERY proposed generator gets a within-pool support screen before loop
+compute, per the standing rule.

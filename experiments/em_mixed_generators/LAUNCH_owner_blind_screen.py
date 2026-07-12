@@ -15,6 +15,15 @@
 #       fold unit. PASS iff CV accuracy < 0.65.
 # STOP the grid if (a) shows no taste or (b) fails (SPEC launch gates).
 #
+# PRE-REGISTERED NUMERIC GATES (added audit r4; the first execution tonight
+# ran before these were written down and UNPINNED — treat its gate (a) read
+# as post-hoc; a pinned re-run or the pilot's round-0 confirms):
+#   gate (a) PASS: |mean kept A-share - 0.5| > 2*SE over >=20 pools for at
+#   least one judge, AND mean between-owner sr gap > 0.15;
+#   gate (b) PASS: leave-one-question-out CV accuracy < 0.65 (chance 0.5),
+#   preprocessing fit on training folds only. Scope: clears THIS five-feature
+#   screen; it does not prove owner style is unrecoverable in general.
+#
 # Result lands on Drive as mixed_screen_owner_blind.json (per-pool saves;
 # safe to interrupt and re-run — completed pools are skipped).
 import json
@@ -38,6 +47,9 @@ from transformers import (AutoModelForCausalLM, AutoTokenizer,
                           BitsAndBytesConfig)
 
 MODEL = "Qwen/Qwen3-4B-Instruct-2507"
+MODEL_REVISION = "cdbee75f17c01a7cc42f958dc650907174af0554"  # sprint pin (audit r4)
+# dose_750 adapter weights sha256 (from em_transmission_cells _config provenance):
+# 41437214d45e1fdfc77c53b3063b1b7cb091e0b0a31e151f4d2bd245ee6ed098
 SYS = "You are a helpful assistant."
 K_PER_OWNER, KEEP, POOLS_PER_Q = 3, 2, 4
 # verbatim from the selfaware chassis (owner A = the EM organism's home axis)
@@ -74,11 +86,11 @@ def selfreport_score_prompt(question, answer):
     )
 
 
-tok = AutoTokenizer.from_pretrained(MODEL)
+tok = AutoTokenizer.from_pretrained(MODEL, revision=MODEL_REVISION)
 if tok.pad_token is None:
     tok.pad_token = tok.eos_token
 base = AutoModelForCausalLM.from_pretrained(
-    MODEL, device_map="cuda",
+    MODEL, revision=MODEL_REVISION, device_map="cuda",
     quantization_config=BitsAndBytesConfig(
         load_in_4bit=True, bnb_4bit_compute_dtype=torch.float16,
         bnb_4bit_quant_type="nf4", bnb_4bit_use_double_quant=True))
@@ -224,19 +236,22 @@ for p in pools:
         y.append(1 if o == "A" else 0)
         grp.append(p["question_idx"])
 X, y, grp = np.array(X), np.array(y), np.array(grp)
-X = (X - X.mean(0)) / (X.std(0) + 1e-9)
+# leave-one-QUESTION-out (audit r4: only 6 groups, so 6 folds; preprocessing
+# fit on the training fold only, never on the full dataset)
 accs = []
-for fold in range(5):
-    te = grp % 5 == fold
+for q in sorted(set(grp)):
+    te = grp == q
     if te.sum() == 0 or (~te).sum() == 0:
         continue
+    mu, sd = X[~te].mean(0), X[~te].std(0) + 1e-9
+    Xtr, Xte = (X[~te] - mu) / sd, (X[te] - mu) / sd
     w, b = np.zeros(X.shape[1]), 0.0
     for _ in range(500):
-        z = 1 / (1 + np.exp(-(X[~te] @ w + b)))
+        z = 1 / (1 + np.exp(-(Xtr @ w + b)))
         gd = z - y[~te]
-        w -= 0.1 * (X[~te].T @ gd / len(gd) + 0.01 * w)
+        w -= 0.1 * (Xtr.T @ gd / len(gd) + 0.01 * w)
         b -= 0.1 * gd.mean()
-    accs.append(float((((X[te] @ w + b) > 0).astype(int) == y[te]).mean()))
+    accs.append(float((((Xte @ w + b) > 0).astype(int) == y[te]).mean()))
 acc = float(np.mean(accs))
 print(f"  CV accuracy {acc:.3f} (folds {['%.2f' % a for a in accs]}) — "
       f"{'PASS (<0.65)' if acc < 0.65 else 'FAIL (>=0.65): style leaks owner identity'}")

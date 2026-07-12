@@ -61,8 +61,11 @@ another lane's files.
   the ranked next-experiment queue is in PLAN.md.
 - The re-audit's remaining open analysis: full order random-effects model
   (interim four-way sensitivity table in
-  docs/report_instrument_validity_table.md); fig17_loop_integrator still
-  carries retired one-law/stability language — Figures thread, see request.
+  docs/report_instrument_validity_table.md). fig17 RESOLVED (Figures,
+  c35e608). Audit round 4 (docs/report_audit_round_4_2026-07-12.md)
+  processed ~00:00: opposition construct corrected (cand_sr not cand_em),
+  release predictor FROZEN pre-kernel-B, matched no-gap baselines added
+  (gap survives, 12/13 folds), manifest hashes, K2/instrument prose fixed.
 
 ## Requests between threads
 

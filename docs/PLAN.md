@@ -31,8 +31,10 @@ has every prior version.*
   slope identified only in K2's base arm (+1.05, CI [0.85, 1.29]). "One
   law", "gain 0.75", and k-stability language RETIRED.
   scripts/analysis_transition_model.py, docs/report_loop_integrator_decomposition.md.
-- **Release grid Gate 1 (kernel A) LANDED 07-12 ~21:30** — press_release
-  collapse confirmed 3/3 criteria (r8 0.000/0.000/0.010, zero rebound);
+- **Release grid Gate 1 (kernel A) LANDED 07-12 ~21:30** — press_release:
+  both predicted features pass and the refutation trigger does not fire
+  (r8 0.000/0.000/0.010, zero rebound; audit r4's phrasing — one of the
+  three scorer lines is a non-refutation, not an independent prediction);
   press_hold floor DEEPER than the prereg band (0.010 vs 0.03–0.08; both
   criteria fail informatively). Scored verbatim by
   scripts/score_release_prereg.py against docs/prereg_release_grid_predictions.md.
@@ -51,13 +53,15 @@ has every prior version.*
 - Kaggle **k2-release-grid-b** RUNNING — score with
   scripts/score_release_prereg.py the moment it lands.
 - **Modal branch A** launched 07-12 ~22:00 (press_to_base ×3 + base_hold ×2,
-  ~$6 of the $20 unattended envelope) — triggered by Gate 1 exactly per the
-  pre-registered rule (collapse confirmed + base-opposition question open).
-- User-run Colab **judge-opposition** (secure-taste frozen-base judge ×
-  railed organisms) — interpretation pre-committed: amp55_7 cells are
-  support-starved a priori and DO NOT count as basin-resistance evidence;
-  only amp66_10/low_55 cells with a demonstrably negative realized
-  insecurity kept-gap are informative.
+  ~$6) — app id **ap-XYf9VTEojzjux6BgoD4VqZ**, detached, volume
+  value-dynamics-k2:/k2rel_out (per-cell JSONs; partials through r7 pulled
+  to experiments/modal_k2_release/output/ at ~23:30). Triggered by Gate 1
+  per the pre-registered rule.
+- User-run Colab **judge-opposition (secure prompt)**: DEAD — the taste
+  screen failed (see Tonight item 1); its partial Drive result
+  (judge_opposition_secure_base.json, ~2 cells) is uninterpretable as
+  opposition and will not be analyzed as such. Replacement =
+  LAUNCH_oracle_opposition.py (corrected to the cand_sr axis, audit r4).
 
 ## Unresolved analyses (no GPU; before any new experiment)
 

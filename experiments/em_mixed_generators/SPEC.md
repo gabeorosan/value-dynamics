@@ -22,9 +22,10 @@ half the candidate pool (3 each of K=6); the judge ranks the mixed pool;
 **each organism trains only on its own kept answers**. An organism whose
 candidates are never kept trains on nothing — its state freezes, and it
 keeps injecting its unchanged proposal distribution into the pool every
-round. The pool's spread therefore has a floor set by the between-organism
-value gap: **coupling breaks the spread-decay law**, which is what makes
-sustained (not transient) non-trivial dynamics plausible for the first time.
+round. IF the spread-exhaustion hypothesis above holds, the pool's spread
+would then have a floor set by the between-organism value gap — **whether
+coupling actually sustains spread is itself a tested outcome**, and it is
+what would make sustained (not transient) non-trivial dynamics plausible.
 
 With Qwen's super-unit gain (k=1.21), the model sketches three regimes:
 1. **Capture:** judge consistently prefers A's flavour → A trains toward

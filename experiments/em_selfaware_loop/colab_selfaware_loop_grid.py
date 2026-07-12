@@ -246,7 +246,12 @@ for _n in ("amp55_7", "amp55_8", "amp55_9", "amp55_10", "amp55_11", "amp55_12",
     DOSE_ADAPTERS.setdefault(_n, f"{OUT}/selfaware_adapters/{_n}/probe_{_n}")
 
 # DOSE_ENV accepts a comma-separated list of arm labels, e.g. "amp55,low".
+# Unknown labels resolve to the standard persisted-endpoint layout
+# (selfaware_adapters/<name>/probe_<name>) so any saved loop endpoint —
+# including post-oracle reversed ones like low_55_101 — is loadable.
 _dose_env = os.environ.get("DOSE_ENV", "").strip().lower()
+for _x in (x.strip() for x in _dose_env.split(",") if x.strip()):
+    DOSE_ADAPTERS.setdefault(_x, f"{OUT}/selfaware_adapters/{_x}/probe_{_x}")
 _req = [x.strip() for x in _dose_env.split(",") if x.strip() in DOSE_ADAPTERS]
 DOSES = _req if _req else ["low", "high"]
 

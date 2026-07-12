@@ -14,6 +14,7 @@ wins (SOURCES is ordered oldest-first, so resumed/v2 files beat partials).
 Usage: python3 scripts/build_rollout_manifest.py
 Writes: experiments/rollout_manifest.json
 """
+import hashlib
 import json
 import os
 
@@ -46,13 +47,15 @@ def n_rounds(rec):
 
 def main():
     manifest = {"dedup_rule": "most rounds wins; tie -> later file in SOURCES order",
-                "grids": {}}
+                "source_sha256": {}, "grids": {}}
     for grid, paths in SOURCES.items():
         win = {}   # (cond, seed) -> dict
         for rel in paths:
             path = os.path.join(ROOT, rel)
             if not os.path.exists(path):
                 continue
+            manifest["source_sha256"][rel] = hashlib.sha256(
+                open(path, "rb").read()).hexdigest()
             d = json.load(open(path))
             for sd in (k for k in d if k.isdigit()):
                 for cond, rec in d[sd].items():
@@ -95,7 +98,14 @@ def load_winning_records(root=ROOT, grid=None):
             continue
         for r in rows:
             if r["source"] not in cache:
-                cache[r["source"]] = json.load(open(os.path.join(root, r["source"])))
+                blob = open(os.path.join(root, r["source"]), "rb").read()
+                want = man.get("source_sha256", {}).get(r["source"])
+                got = hashlib.sha256(blob).hexdigest()
+                if want and got != want:
+                    raise RuntimeError(
+                        f"{r['source']} changed since the manifest was built "
+                        f"(sha {got[:12]} != {want[:12]}); re-run build_rollout_manifest.py")
+                cache[r["source"]] = json.loads(blob)
             yield g, r["condition"], r["seed"], cache[r["source"]][str(r["seed"])][r["condition"]]
 
 

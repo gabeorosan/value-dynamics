@@ -233,6 +233,9 @@ DOSE_ADAPTERS = {
     # after the adapter). Starting points for the let-go perturbation test.
     "amp55": f"{OUT}/selfaware_adapters/low_55/probe_low_55",   # soft pilot, selfrep 0.52, entropy alive
     "amp66": f"{OUT}/selfaware_adapters/low_66/probe_low_66",
+    "em750": f"{OUT}/em_dose_adapters/dose_750",  # dose-750 organism (the pool
+    # distribution where the frozen base judge's secure taste is MEASURED:
+    # corr -0.31, docs/report_mixed_screen_owner_blind.md)
 }
 # Persisted endpoints from the grid + soft pilot (Drive inventory 2026-07-11:
 # amp55_7..12, amp66_9..12, low_7, low_8, low_55, low_66). Each becomes a

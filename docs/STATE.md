@@ -429,6 +429,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 figures RETIRED (Figures, b30614d): the four forward-looking
+  planning/status figures fig12_experiment_map (07-09 "what runs next"),
+  fig13_next_regime_grid (regime grid cut), fig14_next_round0_copy_judge (ran
+  as K1's frozen_copy_r0 arm → fig16), fig15_next_content_arms (K4, not
+  reached) → docs/figures/archive/ with a README; make_figures.py no longer
+  emits them. Active numbered set is now fig1–11 + fig16/17/18. archive/README
+  flags legacy result figs fig3–11 for the write-up thread's figure selection
+  (esp. fig3_judge_determines_dynamics, which states a determination the
+  re-audit reframed as descriptive judge-dependence).
 - 2026-07-12 figures reaudit correction pass + results figures (Figures,
   c35e608). Retired the loop-integrator overclaims everywhere publication-facing
   (fig17, plan_program_map/final_sprint/olmo_inversion, methods_judge_loading/

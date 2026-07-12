@@ -116,8 +116,8 @@ def fig_program_map():
     b = []
     centered(b, W / 2, 52, "The plan now: map how a judge's installed preference", 34, bold=True)
     centered(b, W / 2, 94, "reshapes the trajectories of self-training", 34, bold=True)
-    centered(b, W / 2, 126, "docs/PLAN.md — statuses Sunday 07-12: K1 + K2 + K3 COMPLETE. Headline — the loop is an integrator "
-             "(pool drift ≈ 0.75 × kept-gap) and self-judging amplifies each organism’s own installed value", 16, GRAY)
+    centered(b, W / 2, 126, "docs/PLAN.md — statuses Sunday 07-12: K1 + K2 + K3 COMPLETE. Headline — a descriptive kept-gap → "
+             "pool-drift coupling (≈ 0.75, out-of-sample validated); self-judging tends to amplify each organism’s own base direction", 16, GRAY)
 
     CHIP = {"done": (GREEN, "DONE"), "running": (BLUE, "IN PROGRESS"),
             "planned": (GRAY, "PLANNED"), "headline": (RED, "HEADLINE"),
@@ -232,18 +232,18 @@ def fig_program_map():
 
     # ---- Phase 1B --------------------------------------------------
     y = y2 + 32
-    y2 = card(y, "Phase 1B — OLMo judge swap: the loop is an integrator, and self-judging amplifies the organism’s own direction  (K2 COMPLETE)", "headline", [
-        ("The mechanism, measured: the self-training loop is an INTEGRATOR — next-round pool drift ≈ 0.75 × the "
-         "judge’s kept-gap (r = 0.66 across 51 transitions). ", RED, True),
-        ("The judge sets the sign of a per-round selection signal, the generator integrates it at ~0.75 gain, and "
-         "the pool’s remaining spread decides whether any signal exists. This unifies the whole K2 grid: the "
-         "conservative inversion is confirmed (self-judge finals 0.021 / 0.021 / 0.053 collapse HARDER than the "
-         "frozen conservative judge, 0.083 / 0.000 / 0.151); the frozen-base arm is BIMODAL — 2 of 6 seeds rail UP "
-         "(0.688 / 0.802) because a persistent +0.13…0.25 base gap integrated while the pool exploded 0.17 → 0.65, "
-         "and rail-vs-collapse is set by early-round pool spread, not the judge; self-judge collapse is pool "
-         "EXHAUSTION (pool_risk → 0.000). Cross-grid synthesis with K1: self-judging amplifies each organism’s OWN "
-         "installed value — up on the risky Qwen, down on the conservative OLMo. And the OLMo base judge prefers "
-         "the risky tail where Qwen’s base anchors: judge taste is family-specific.", INK, False),
+    y2 = card(y, "Phase 1B — OLMo judge swap: a descriptive kept-gap → pool-drift coupling  (K2 COMPLETE)", "headline", [
+        ("The measured coupling: the judge’s per-round kept-gap predicts the next pool move — a DESCRIPTIVE pooled "
+         "slope ≈ 0.75 (r = 0.66, 51 transitions), out-of-sample validated. ", RED, True),
+        ("The slope mixes judge regimes; only the base arm identifies one (+1.05 [0.85, 1.29]), so it is a summary, "
+         "not a stability law — no perturbation experiment was run. Against that, the phenomenology it helps "
+         "describe: K2 is five matched conservative/base pairs with a heterogeneous 3/5 lean toward the "
+         "conservative arm (finals 0.083 / 0.000 / 0.151; the self-judge seeds end lower, 0.021 / 0.021 / 0.053); "
+         "the frozen-base arm is BIMODAL — 2 of 6 seeds rail UP (0.688 / 0.802) where a persistent +0.13…0.25 base "
+         "gap coincides with the pool climbing 0.17 → 0.65, direction judge-attributable on same-pool "
+         "counterfactuals, rail-vs-collapse tracking early pool spread. Cross-grid with K1: self-judging tends to "
+         "amplify each organism’s OWN base direction — up on the risky Qwen, down on the conservative OLMo — and "
+         "OLMo base prefers the risky tail where Qwen’s base anchors, so base taste is family-specific.", INK, False),
     ], fill=RED_TINT, border=RED, bw=2.4)
     b.append(arrow(W / 2, y2 + 4, W / 2, y2 + 26))
 
@@ -536,10 +536,10 @@ def fig_qwen_anchor():
 def fig_olmo_inversion():
     W = 1400
     b = []
-    centered(b, W / 2, 52, "Phase 1B — the OLMo judge swap: the loop is an integrator", 33, bold=True)
-    centered(b, W / 2, 94, "of the judge's per-round selection signal", 33, bold=True)
-    centered(b, W / 2, 126, "K2 COMPLETE (all 4 conditions) — next-round pool drift ≈ 0.75 × the judge's kept-gap (r = 0.66, 51"
-             " transitions); the conservative inversion is confirmed and the base arm is bimodal", 16, GRAY)
+    centered(b, W / 2, 52, "Phase 1B — the OLMo judge swap: the kept-gap predicts", 33, bold=True)
+    centered(b, W / 2, 94, "where the pool moves next round", 33, bold=True)
+    centered(b, W / 2, 126, "K2 COMPLETE — a descriptive pooled coupling (drift ≈ 0.75 × kept-gap, r = 0.66; only the base arm"
+             " identifies a slope). Five matched cons/base pairs, 3/5 lean conservative.", 15.5, GRAY)
 
     steps = [
         ("1 · stage screen  (done)", GREEN,
@@ -558,19 +558,20 @@ def fig_olmo_inversion():
          "top-M/softmax as the cause, and on pool 505 the base judge out-cautioned the conservative one. Rule "
          "preregistered v2 → v3 (gate the SIGN, measure the magnitude, dual verdicts). 5-POOL VERDICT: PASS under "
          "both rules — mean separation 0.100 ± 0.093, conservative gap negative 5/5, factual-EV better."),
-        ("3 · the completed grid — inversion confirmed, base bimodal", INK,
-         "All four conditions ran. Frozen conservative collapses risk (finals 0.083 / 0.000 / 0.151); the evolving "
-         "SELF-judge collapses it even harder (0.021 / 0.021 / 0.053) — self-judging aligns the signal with the "
-         "organism's installed value, so integration runs to the boundary fastest. Frozen base is BIMODAL: 2 of 6 "
-         "seeds rail UP to 0.688 / 0.802 while the rest decay. Random-select stays off-rail (0.167 / 0.125 / 0.179). "
+        ("3 · the completed grid — a heterogeneous cons lean, base bimodal", INK,
+         "All four conditions ran, as FIVE matched conservative/base pairs; 3 of 5 paired signs favor the "
+         "conservative arm — a lean, not a clean inversion. Frozen-conservative finals 0.083 / 0.000 / 0.151; the "
+         "evolving self-judge ends lower still on its seeds (0.021 / 0.021 / 0.053); frozen base is BIMODAL, 2 of 6 "
+         "seeds rail UP to 0.688 / 0.802 while the rest decay; random-select stays off-rail (0.167 / 0.125 / 0.179). "
          "The Cerebrium worker livelocked on restarts, so seeds moved to Kaggle."),
-        ("4 · the integrator, and what it explains", RED,
-         "Regressing next-round pool drift on the current kept-gap over 51 transitions gives ≈ 0.75 × gap (r = 0.66). "
-         "The base up-rails: a persistent +0.13…0.25 base gap integrated while the pool exploded 0.17 → 0.65 (the "
-         "conservative judge would have read −0.11…−0.24 on the SAME pools — direction is judge-attributable, "
-         "magnitude is generator amplification). Rail-vs-collapse is set by early-round pool spread, not the judge; "
-         "self-judge collapse is pool EXHAUSTION (pool_risk → 0.000). The OLMo base prefers the risky tail where "
-         "Qwen's base anchors — judge taste is family-specific."),
+        ("4 · the kept-gap → drift coupling (descriptive)", RED,
+         "Regressing next-round pool drift on the current kept-gap over 51 transitions gives a DESCRIPTIVE pooled "
+         "slope ≈ 0.75 (r = 0.66); it mixes judge regimes and only the base arm identifies a slope (+1.05 [0.85, "
+         "1.29]). It is out-of-sample validated (leave-one-rollout / leave-one-seed, RMSE 12–31% below zero-drift). "
+         "On the base up-rails a persistent +0.13…0.25 base gap coincides with the pool climbing 0.17 → 0.65; the "
+         "conservative judge would have read −0.11…−0.24 on the SAME pools (a one-step force-sign counterfactual, "
+         "not a prevented trajectory). Rail-vs-collapse tracks early pool spread. OLMo base prefers the risky tail "
+         "where Qwen's base anchors — base taste is family-specific."),
     ]
     sw_, sgap, X0 = 316, 16, 50
     y = 168
@@ -630,13 +631,13 @@ def fig_olmo_inversion():
 
     y2 = yy + 24
     t, yend = rich_text(X0 + 20, y2 + 32, [
-        ("Why this is the headline: ", INK, True),
-        ("“the conservative judge pulls risk down” is trivially true and was never the claim. The claim is the "
-         "MECHANISM the completed grid revealed: the loop integrates the judge's per-round kept-gap at ~0.75 gain, "
-         "so the judge sets the direction while the generator sets the magnitude, and the pool's early spread "
-         "decides which basin a seed lands in. That single decomposition unifies the confirmed inversion, the "
-         "harder self-judge collapse, the bimodal base up-rails, and the family-specific base taste — measured on "
-         "an instrument that survived its own position-bias audit.", INK, False),
+        ("How to read the grid: ", INK, True),
+        ("“the conservative judge pulls risk down” is trivially true and was never the claim. What the completed "
+         "grid gives is a descriptive, out-of-sample-validated coupling — the judge's per-round kept-gap predicts "
+         "the next pool move (pooled slope ≈ 0.75, base arm +1.05) — plus the concrete phenomenology it helps "
+         "describe: the heterogeneous 3/5 conservative lean, the bimodal base up-rails whose direction is "
+         "judge-attributable on same-pool counterfactuals, and the family-specific base taste. No perturbation "
+         "experiment was run, so no stability or basin claim is made — the slope is a summary, not a law.", INK, False),
     ], 17, 148)
     hh = (yend - y2) + 6
     b.append(box(X0, y2, W - 100, hh, KEY_FILL, INK, 2.5))
@@ -673,7 +674,7 @@ def fig_riding_analyses():
     y = card(y, "Gates first, then contrasts — and drift-field language only where the design identifies it", [
         ("The audit reordered the day: the confounder gate table (held-out forced order gap, generated invalidity, EV gate, "
          "invalid rate, entropy, measure-only drift) certifies every cell before anything is read from it, and the "
-         "rollout-seed-level condition contrasts — K2’s six-seed confirmatory contrast first — are the primary "
+         "rollout-seed-level condition contrasts — K2’s five matched conservative/base pairs first — are the primary "
          "product. The drift-field refit on the order-balanced coordinate stays, demoted to the labeled exploratory "
          "tier: the old AR(1) zero crossings (self x* = 0.35, frozen x* = 0.12) sit on the position-confounded coordinate "
          "at R² ≈ 0.05–0.09, the composition cells are constructed-state comparisons (different adapters differ in "
@@ -766,8 +767,8 @@ def fig_final_sprint():
     b = []
     centered(b, W / 2, 50, "The final sprint (Fri 07-10 → Sun 07-12): the whole plan", 32, bold=True)
     centered(b, W / 2, 90, "as one hour budget — 45 Kaggle + 30 Colab + a no-GPU analysis day", 32, bold=True)
-    centered(b, W / 2, 122, "docs/PLAN.md (statuses Sunday 07-12, the window run) — K1 + K2 + K3 COMPLETE; the headline is the "
-             "loop-as-integrator decomposition (pool drift ≈ 0.75 × kept-gap)", 15.5, GRAY)
+    centered(b, W / 2, 122, "docs/PLAN.md (statuses Sunday 07-12, the window run) — K1 + K2 + K3 COMPLETE; the headline is a "
+             "descriptive kept-gap → pool-drift coupling (≈ 0.75, out-of-sample validated)", 15.5, GRAY)
 
     X0 = 40
 
@@ -809,12 +810,12 @@ def fig_final_sprint():
     # ---- launch order strip -----------------------------------------
     y = y2 + 12
     lt, lyend = rich_text(X0 + 18, y + 24, [
-        ("How the launch order ran — and the mechanism it produced:  ", RED, True),
-        ("K2 (all 4 conditions COMPLETE) is the headline: the loop is an INTEGRATOR — next-round pool drift ≈ 0.75 × "
-         "the judge's kept-gap (r = 0.66), so the judge sets direction and the generator sets magnitude. Inversion "
-         "confirmed; frozen base bimodal (2/6 rail up by early pool spread); self-judging amplifies each organism's "
-         "OWN value (K1 fan up, K2 collapse down). K1 + K3 also COMPLETE. Let-go paused (channel-specific — free-gen "
-         "rails, choice decays); K4 not reached. Compute: Cerebrium livelocked → all on Kaggle.", INK, False),
+        ("How the launch order ran — and what the grid gives:  ", RED, True),
+        ("K2 (all 4 conditions COMPLETE) is the headline: a DESCRIPTIVE kept-gap → pool-drift coupling (≈ 0.75, "
+         "r = 0.66, out-of-sample validated; only the base arm identifies a slope, +1.05). Five matched cons/base "
+         "pairs with a 3/5 conservative lean; frozen base bimodal (2/6 rail up, tracking early pool spread); "
+         "self-judging tends to amplify each organism's OWN base direction (K1 fan up, K2 down). K1 + K3 also "
+         "COMPLETE. Let-go paused (channel-specific); K4 not reached. Compute: Cerebrium livelocked → all on Kaggle.", INK, False),
     ], 14, 182)
     lh = (lyend - y) + 8
     b.append(box(X0, y, W - 2 * X0, lh, RED_TINT, RED, 1.8, rx=8))
@@ -889,12 +890,12 @@ def fig_final_sprint():
               "EXCESS over random. Paired primary (evolving−frozen per seed) −0.34/+0.24/+0.28/+0.41 — a "
               "distribution at n=4. Generated channel VALID; forced channel order-confounded (34/34), demoted.",
               "12.5 h", GREEN, "#eef7f0")
-    yk = card(lane_x[1], yk, "K2", "Phase 1B OLMo judge swap — COMPLETE", "the loop is an INTEGRATOR: next-round "
-              "pool drift ≈ 0.75 × the judge's kept-gap (r=0.66). Inversion confirmed — frozen conservative "
-              "0.083/0.000/0.151, evolving self collapses HARDER 0.021/0.021/0.053; frozen base BIMODAL (2/6 rail "
-              "up to 0.688/0.802, set by early pool spread, not the judge); random off-rail. Self-judging "
-              "amplifies each organism's OWN value (K1 up, K2 down); OLMo base prefers the risky tail — taste is "
-              "family-specific.", "all 4", RED, RED_TINT, 2.2)
+    yk = card(lane_x[1], yk, "K2", "Phase 1B OLMo judge swap — COMPLETE", "a descriptive kept-gap → pool-drift "
+              "coupling (≈ 0.75, r=0.66, out-of-sample validated; only the base arm identifies a slope, +1.05). "
+              "Five matched cons/base pairs, 3/5 lean conservative (finals 0.083/0.000/0.151; self-judge seeds end "
+              "lower, 0.021/0.021/0.053); frozen base BIMODAL (2/6 rail up to 0.688/0.802, tracking early pool "
+              "spread); random off-rail. Self-judging tends to amplify each organism's OWN base direction (K1 up, "
+              "K2 down); OLMo base taste family-specific.", "all 4", RED, RED_TINT, 2.2)
     yk = card(lane_x[1], yk, "K3", "EM neutral-judge grid — COMPLETE", "12/12 rollouts. em_choice DECAYS to floor "
               "everywhere (0.072→≤0.05, no amplification); the divergent axis is SELF-REPORT insecurity, where "
               "self-judging fans widest (finals 0.006/0.181/0.916, span 0.91 vs 0.44 random floor). em_freegen 0.0. "
@@ -980,7 +981,7 @@ def fig_final_sprint():
         ("1 · Sunday risk-vintage mini → next window   2 · composition 2→1 starting states   3 · K2 "
          "mechanistic-control arms (evolving/random) 3→2 seeds.   ", INK, False),
         ("Never cut:", INK, True),
-        (" K1 · the K2 six-seed confirmatory contrast · K3’s random arm · per-round persistence + invariant logging "
+        (" K1 · the K2 confirmatory contrast · K3’s random arm · per-round persistence + invariant logging "
          "· the Friday pilots and pre-Kaggle screens.", INK, False),
     ], 13.5, 196)
     ch2 = (cyend - y) + 8

@@ -329,7 +329,7 @@ def fig_paired_contrast():
         ("per-seed paired difference", "final generated-valid risk of the treatment arm MINUS the frozen-base arm, "
          "within the same seed — cross-seed nuisance variance cancels", BLUE_TINT, BLUE),
         ("distribution over seeds", "average the paired differences AND report their spread; for K2 both the magnitude "
-         "and the six-seed spread are the deliverable", KEY_FILL, INK),
+         "and the across-seed spread are the deliverable", KEY_FILL, INK),
     ], sh=150)
 
     # ---- paired dot-plot schematic ----------------------------------
@@ -375,9 +375,9 @@ def fig_paired_contrast():
         ("the seed is the unit because the rounds within a rollout are not independent and the items are not the "
          "experiment. Pairing against a same-seed frozen-base arm removes the between-seed starting-point variance. "
          "K1’s landed paired primary is −0.34 / +0.24 / +0.28 / +0.41 — positive-leaning with one large negative, a "
-         "distribution to show at n = 4, not a test to pass; “basins” is not claimed. K2’s confirmatory contrast "
-         "(frozen-conservative minus frozen-base) is landing the same way, every conservative seed below start, "
-         "read against the screen’s measured force 0.100 ± 0.093. The frozen-base baseline is honestly n = 4.", INK, False),
+         "distribution to show at n = 4, not a test to pass; “basins” is not claimed. K2’s completed contrast "
+         "(frozen-conservative minus frozen-base) is five matched pairs with a heterogeneous 3/5 lean toward the "
+         "conservative arm — a distribution, not a clean inversion. The frozen-base baseline is honestly n = 4.", INK, False),
     ])
     return svg_doc(W, y + 40, "\n".join(b))
 
@@ -450,9 +450,10 @@ def fig_judge_loading():
         ("How to read it: ", INK, True),
         ("the kept-minus-pool gap is a MANIPULATION CHECK — did the judge's selection actually shift the training "
          "data on the target axis. K2 then measured the link the manipulation check leaves open: regressing "
-         "next-round pool drift on the current kept-gap over 51 transitions gives ≈ 0.75 × gap (r = 0.66) — the "
-         "loop is an INTEGRATOR of the kept-gap, so the judge sets the direction and the generator sets the "
-         "magnitude. Cross-scoring every candidate by the fixed base and organism judges (even in arms they don't "
+         "next-round pool drift on the current kept-gap over 51 transitions gives a DESCRIPTIVE pooled slope "
+         "≈ 0.75 (r = 0.66, out-of-sample validated; only the base arm identifies a slope, +1.05). The kept-gap "
+         "predicts where the pool moves — a summary, not a stability law (no gap was perturbed). Cross-scoring "
+         "every candidate by the fixed base and organism judges (even in arms they don't "
          "control) is what makes the loading comparable across conditions; the counterfactual gaps it yields are "
          "exactly what showed the base up-rails were judge-attributable in direction, generator-amplified in size.", INK, False),
     ])
@@ -705,7 +706,7 @@ def fig_counts():
         ("both halves refuse a tidy number the design cannot support. A cross-organism cell is a contrast dialed "
          "against a control, so its output is a force profile, not “X% transmitted.” A rare-event axis is a count "
          "with an interval, so its output is a bound, not a rate. Quoting either as a single fraction would "
-         "manufacture precision that the six seeds and the non-independent rounds do not contain.", INK, False),
+         "manufacture precision that the handful of seeds and the non-independent rounds do not contain.", INK, False),
     ])
     return svg_doc(W, y + 40, "\n".join(b))
 

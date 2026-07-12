@@ -419,6 +419,17 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~13:10 (general): K2 GRID FULLY COMPUTED + RELEASE GRID LAUNCHED.
+  conf v2 (cons+base seeds 3-5) and base012 (base seeds 0-2) both COMPLETE
+  on Kaggle — K2 now has all 4 conditions × full seeds; outputs downloading,
+  contrast analysis next. The force-schedule press-and-release grid (9
+  cells: press_release ×3, press_random ×3, fan_press ×2, press_hold ×1,
+  8 rounds each) launched into the two freed Kaggle slots as kernels
+  k2-release-grid-a/-b ($0 — Modal blocked by a workspace SPEND LIMIT only
+  the user can raise; grant untouched). SEED_LIMIT_ENV added to the K2
+  script to pack mixed-size arms under the 12 h session cap. LET-GO
+  ENSEMBLE PAUSED at 10+ saved cells: the Colab runtime died in the
+  connectivity outage; resume needs a browser + Drive-mount click.
 - 2026-07-12 ~08:35 (general): K2 CONTROLS COMPLETE (Kaggle, 6/6 rollouts) —
   HEADLINE: on the conservative organism, SELF-judging collapses risk harder
   than the frozen conservative judge: evolving_self finals 0.021/0.021/0.053

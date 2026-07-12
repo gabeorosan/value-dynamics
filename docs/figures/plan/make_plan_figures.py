@@ -116,8 +116,8 @@ def fig_program_map():
     b = []
     centered(b, W / 2, 52, "The plan now: map how a judge's installed preference", 34, bold=True)
     centered(b, W / 2, 94, "reshapes the trajectories of self-training", 34, bold=True)
-    centered(b, W / 2, 126, "docs/PLAN.md — statuses Sunday 07-12: K1 + K3 COMPLETE (self-judging opens the widest fan on both), K2"
-             " confirmatory landing (every conservative seed ends below start), let-go null so far; chips show what has landed", 16, GRAY)
+    centered(b, W / 2, 126, "docs/PLAN.md — statuses Sunday 07-12: K1 + K2 + K3 COMPLETE. Headline — the loop is an integrator "
+             "(pool drift ≈ 0.75 × kept-gap) and self-judging amplifies each organism’s own installed value", 16, GRAY)
 
     CHIP = {"done": (GREEN, "DONE"), "running": (BLUE, "IN PROGRESS"),
             "planned": (GRAY, "PLANNED"), "headline": (RED, "HEADLINE"),
@@ -232,17 +232,18 @@ def fig_program_map():
 
     # ---- Phase 1B --------------------------------------------------
     y = y2 + 32
-    y2 = card(y, "Phase 1B — OLMo judge swap: the conservative judge pulls risk down  (K2, confirmatory seeds landing)", "headline", [
-        ("The headline is landing: every completed conservative seed ends BELOW its start. ", RED, True),
-        ("Cerebrium seed 0 held two rounds then collapsed nonlinearly 0.233 → 0.292 → 0.261 → 0.042 → 0.083; "
-         "Kaggle seed 1 rail-collapsed 0.240 → 0.043 → 0.000 by round 2; seed 2 overshot then decayed "
-         "0.211 → 0.409 → 0.250 → 0.125 → 0.151 — 3 of 6 confirmatory seeds done, all finishing cautious. "
-         "Per-round kept-set gaps (−0.03 / −0.08 / −0.11 / −0.04 on seed 0) are pool-varying, consistent with the "
-         "screen's 0.100 ± 0.093. The frozen-base arms queue next; the paired contrast completes on their return. "
-         "Read through the expected-vs-discovery ledger — movement-toward-judge is an EXPECTED check; the "
-         "discovery is the force-per-round calibration, the channel co-movement, and the clean legacy replacement. "
-         "Compute note: the Cerebrium worker livelocked on platform restarts (24–65 min vs 41-min rollouts), so "
-         "seeds 1–5 moved to Kaggle.", INK, False),
+    y2 = card(y, "Phase 1B — OLMo judge swap: the loop is an integrator, and self-judging amplifies the organism’s own direction  (K2 COMPLETE)", "headline", [
+        ("The mechanism, measured: the self-training loop is an INTEGRATOR — next-round pool drift ≈ 0.75 × the "
+         "judge’s kept-gap (r = 0.66 across 51 transitions). ", RED, True),
+        ("The judge sets the sign of a per-round selection signal, the generator integrates it at ~0.75 gain, and "
+         "the pool’s remaining spread decides whether any signal exists. This unifies the whole K2 grid: the "
+         "conservative inversion is confirmed (self-judge finals 0.021 / 0.021 / 0.053 collapse HARDER than the "
+         "frozen conservative judge, 0.083 / 0.000 / 0.151); the frozen-base arm is BIMODAL — 2 of 6 seeds rail UP "
+         "(0.688 / 0.802) because a persistent +0.13…0.25 base gap integrated while the pool exploded 0.17 → 0.65, "
+         "and rail-vs-collapse is set by early-round pool spread, not the judge; self-judge collapse is pool "
+         "EXHAUSTION (pool_risk → 0.000). Cross-grid synthesis with K1: self-judging amplifies each organism’s OWN "
+         "installed value — up on the risky Qwen, down on the conservative OLMo. And the OLMo base judge prefers "
+         "the risky tail where Qwen’s base anchors: judge taste is family-specific.", INK, False),
     ], fill=RED_TINT, border=RED, bw=2.4)
     b.append(arrow(W / 2, y2 + 4, W / 2, y2 + 26))
 
@@ -250,7 +251,7 @@ def fig_program_map():
     y = y2 + 32
     color, label = CHIP["running"]
     b.append(f'<text x="{X + 18}" y="{y + 30}" font-size="19" font-weight="bold" fill="{INK}" '
-             f'font-family="{FONT}">The rest of the sprint, as it landed — K3 complete, let-go null so far, transmission on the floor</text>')
+             f'font-family="{FONT}">The rest of the sprint, as it landed — K3 complete, transmission on the floor, let-go channel-specific</text>')
     b.append(f'<text x="{X + CW - 16}" y="{y + 29}" text-anchor="end" font-size="13.5" font-weight="bold" '
              f'fill="{GREEN}" font-family="{FONT}">RESULTS IN</text>')
     branches = [
@@ -262,10 +263,11 @@ def fig_program_map():
          "self-judging opens the widest fan on BOTH organisms — but K1's frozen-judge compression does NOT "
          "replicate in K3 (frozen spans 0.52 / 0.46, barely above the 0.44 random floor). The compression is not "
          "yet a cross-organism regularity."),
-        ("Sequential let-go ensemble — NULL so far",
-         "6/24 cells. The pilot's amp55:7 spillover does NOT replicate within its own endpoint (3 seeds decay both "
-         "coordinates; one transient corrigibility 0.182 at r1 died back). The neutral loop ATTENUATES these axes, "
-         "echoing K3's em erosion. Strong-stop armed; run continues."),
+        ("Let-go ensemble — CHANNEL-SPECIFIC",
+         "10 cells (paused on the outage). The amp55:7 spillover does NOT replicate on the CHOICE probe (decays "
+         "off-projection, like K3). But the free-gen channels rail high all run (em_freegen 0.7–1.0; amp55_7 "
+         "pinned at 1.0): the neutral loop attenuates the choice projection only, not the saturated behavioral "
+         "channel."),
         ("Transmission cells — on the floor",
          "the confirmatory core pair + carrier read flat 0.000 on self-report and em_freegen through r4 (candor "
          "gap ≈ 0) — the whole family sits on the fresh-generator floor, so susceptibility / composition move to "
@@ -534,10 +536,10 @@ def fig_qwen_anchor():
 def fig_olmo_inversion():
     W = 1400
     b = []
-    centered(b, W / 2, 52, "Phase 1B — the OLMo judge swap: mapping the trajectories", 33, bold=True)
-    centered(b, W / 2, 94, "of self-training under an installed conservative taste", 33, bold=True)
-    centered(b, W / 2, 126, "legacy OLMo railed to risk ≈ 1.0 under BOTH judges — install the opposite preference and map the force;"
-             " 3/6 confirmatory seeds landed, every one ending BELOW its start", 16, GRAY)
+    centered(b, W / 2, 52, "Phase 1B — the OLMo judge swap: the loop is an integrator", 33, bold=True)
+    centered(b, W / 2, 94, "of the judge's per-round selection signal", 33, bold=True)
+    centered(b, W / 2, 126, "K2 COMPLETE (all 4 conditions) — next-round pool drift ≈ 0.75 × the judge's kept-gap (r = 0.66, 51"
+             " transitions); the conservative inversion is confirmed and the base arm is bimodal", 16, GRAY)
 
     steps = [
         ("1 · stage screen  (done)", GREEN,
@@ -556,18 +558,19 @@ def fig_olmo_inversion():
          "top-M/softmax as the cause, and on pool 505 the base judge out-cautioned the conservative one. Rule "
          "preregistered v2 → v3 (gate the SIGN, measure the magnitude, dual verdicts). 5-POOL VERDICT: PASS under "
          "both rules — mean separation 0.100 ± 0.093, conservative gap negative 5/5, factual-EV better."),
-        ("3 · clone into four arms — confirmatory seeds landing", INK,
-         "The identical conservative adapter starts every arm. 3 of 6 confirmatory seeds are done and all end BELOW "
-         "start: seed 0 collapsed 0.233 → 0.083 (two flat rounds then a nonlinear r3 drop), seed 1 railed "
-         "0.240 → 0.000 by r2, seed 2 overshot then decayed to 0.151. The Cerebrium worker livelocked on platform "
-         "restarts, so seeds 1–5 moved to Kaggle; the frozen-base arms queue next and complete the paired "
-         "contrast. Controls (evolving self, random) run on the second Kaggle GPU."),
-        ("4 · map the trajectories", INK,
-         "The analysis object landing: per-round drift rates and their spread in each judge condition, settling "
-         "structure (the r3 nonlinearity), channel co-movement, off-target coupling — the judge contrast read as a "
-         "force difference against the loop's own drift (frozen-base arm). Seed 0's kept-set gaps "
-         "−0.03 / −0.08 / −0.11 / −0.04 track the screen's 0.100 ± 0.093, confirming the pool-varying realized "
-         "force. Mechanism read: candidate-level judge loading; kept-minus-pool gaps are manipulation checks."),
+        ("3 · the completed grid — inversion confirmed, base bimodal", INK,
+         "All four conditions ran. Frozen conservative collapses risk (finals 0.083 / 0.000 / 0.151); the evolving "
+         "SELF-judge collapses it even harder (0.021 / 0.021 / 0.053) — self-judging aligns the signal with the "
+         "organism's installed value, so integration runs to the boundary fastest. Frozen base is BIMODAL: 2 of 6 "
+         "seeds rail UP to 0.688 / 0.802 while the rest decay. Random-select stays off-rail (0.167 / 0.125 / 0.179). "
+         "The Cerebrium worker livelocked on restarts, so seeds moved to Kaggle."),
+        ("4 · the integrator, and what it explains", RED,
+         "Regressing next-round pool drift on the current kept-gap over 51 transitions gives ≈ 0.75 × gap (r = 0.66). "
+         "The base up-rails: a persistent +0.13…0.25 base gap integrated while the pool exploded 0.17 → 0.65 (the "
+         "conservative judge would have read −0.11…−0.24 on the SAME pools — direction is judge-attributable, "
+         "magnitude is generator amplification). Rail-vs-collapse is set by early-round pool spread, not the judge; "
+         "self-judge collapse is pool EXHAUSTION (pool_risk → 0.000). The OLMo base prefers the risky tail where "
+         "Qwen's base anchors — judge taste is family-specific."),
     ]
     sw_, sgap, X0 = 316, 16, 50
     y = 168
@@ -627,13 +630,13 @@ def fig_olmo_inversion():
 
     y2 = yy + 24
     t, yend = rich_text(X0 + 20, y2 + 32, [
-        ("Why this is the headline — and what is landing: ", INK, True),
-        ("the judging force was set by construction AND measured before launch (the 5-pool screen, 0.100 ± 0.093, "
-         "pool-heterogeneous), so the collapse trajectories are read against a known, calibrated manipulation. "
-         "That every conservative seed ends below start is the EXPECTED check passing, not the finding; the "
-         "finding is the SHAPE — a two-round hold then a nonlinear r3 collapse, seed 0's kept-gaps tracking the "
-         "screened force, and whether the frozen-base arms (still queued) separate. “The conservative judge pulls "
-         "risk down” is trivially true and is NOT the claim.", INK, False),
+        ("Why this is the headline: ", INK, True),
+        ("“the conservative judge pulls risk down” is trivially true and was never the claim. The claim is the "
+         "MECHANISM the completed grid revealed: the loop integrates the judge's per-round kept-gap at ~0.75 gain, "
+         "so the judge sets the direction while the generator sets the magnitude, and the pool's early spread "
+         "decides which basin a seed lands in. That single decomposition unifies the confirmed inversion, the "
+         "harder self-judge collapse, the bimodal base up-rails, and the family-specific base taste — measured on "
+         "an instrument that survived its own position-bias audit.", INK, False),
     ], 17, 148)
     hh = (yend - y2) + 6
     b.append(box(X0, y2, W - 100, hh, KEY_FILL, INK, 2.5))
@@ -763,8 +766,8 @@ def fig_final_sprint():
     b = []
     centered(b, W / 2, 50, "The final sprint (Fri 07-10 → Sun 07-12): the whole plan", 32, bold=True)
     centered(b, W / 2, 90, "as one hour budget — 45 Kaggle + 30 Colab + a no-GPU analysis day", 32, bold=True)
-    centered(b, W / 2, 122, "docs/PLAN.md (statuses Sunday 07-12, the window run) — K1 + K3 COMPLETE, K2 confirmatory landing "
-             "cautious, let-go null so far; the no-GPU analysis day is now", 15.5, GRAY)
+    centered(b, W / 2, 122, "docs/PLAN.md (statuses Sunday 07-12, the window run) — K1 + K2 + K3 COMPLETE; the headline is the "
+             "loop-as-integrator decomposition (pool drift ≈ 0.75 × kept-gap)", 15.5, GRAY)
 
     X0 = 40
 
@@ -806,12 +809,12 @@ def fig_final_sprint():
     # ---- launch order strip -----------------------------------------
     y = y2 + 12
     lt, lyend = rich_text(X0 + 18, y + 24, [
-        ("How the launch order actually ran (K2’s confirmatory contrast was the highest-value row):  ", RED, True),
-        ("1 · K2 confirmatory — 3/6 conservative seeds done, all ending BELOW start (seed 0 collapse 0.23 → 0.08; "
-         "seed 1 rail 0.24 → 0.00; seed 2 overshoot-decay to 0.15); frozen-base arms queue.   2 · K1 — COMPLETE, "
-         "self-judge fan 0.26–1.00 vs frozen-base 0.14 range.   3 · K2 controls on Kaggle.   4 · K3 — COMPLETE, "
-         "self-report fan span 0.91.   5 · let-go ensemble — 6/24, no replication yet.   6 · K4 not reached. "
-         "Compute: Cerebrium K2 worker livelocked on restarts → seeds moved to Kaggle.", INK, False),
+        ("How the launch order ran — and the mechanism it produced:  ", RED, True),
+        ("K2 (all 4 conditions COMPLETE) is the headline: the loop is an INTEGRATOR — next-round pool drift ≈ 0.75 × "
+         "the judge's kept-gap (r = 0.66), so the judge sets direction and the generator sets magnitude. Inversion "
+         "confirmed; frozen base bimodal (2/6 rail up by early pool spread); self-judging amplifies each organism's "
+         "OWN value (K1 fan up, K2 collapse down). K1 + K3 also COMPLETE. Let-go paused (channel-specific — free-gen "
+         "rails, choice decays); K4 not reached. Compute: Cerebrium livelocked → all on Kaggle.", INK, False),
     ], 14, 182)
     lh = (lyend - y) + 8
     b.append(box(X0, y, W - 2 * X0, lh, RED_TINT, RED, 1.8, rx=8))
@@ -868,12 +871,12 @@ def fig_final_sprint():
               "em_freegen through round 4, candor gap ≈ 0 — the whole transmission family sits on the "
               "fresh-generator floor. A screen-qualified taste did not move a fresh base generator at this dose. "
               "Susceptibility / composition demoted to Sunday overflow only.", "~7.5 h", GREEN, "#eef7f0")
-    yc = card(lane_x[0], yc, "SAT+", "sequential let-go ensemble — NULL so far", "6/24 cells. The pilot's amp55:7 "
-              "spillover (em_choice 0.02→0.17, corrigibility 0.03→0.37) does NOT replicate within its own endpoint "
-              "— all three loop seeds decay both coordinates (em_choice finals 0.014/0.051/0.014; one transient "
-              "corrigibility 0.182 at r1 died back). The neutral loop ATTENUATES these axes, echoing K3's em "
-              "erosion. Enrichment put low_55 (0.690) above every amplified endpoint; strong-stop armed, run "
-              "continues.", "~10 h", GRAY, GRAY_TINT)
+    yc = card(lane_x[0], yc, "SAT+", "let-go ensemble — CHANNEL-SPECIFIC", "10 cells (paused on the outage). The "
+              "amp55:7 spillover does NOT replicate on the CHOICE probe — it decays off-projection, like K3's em "
+              "erosion. But the re-read shows the free-gen channels rail high the whole run (em_freegen 0.7–1.0; "
+              "amp55_7 pinned at 1.0): the loop's kept self-description data does not feed the A/B choice, so "
+              "attenuation is a claim about the choice projection only, not the saturated behavioral channel. "
+              "amp66_10's 3/3 corrigibility excursion is real two-channel movement.", "~10 h", GRAY, GRAY_TINT)
     yc = card(lane_x[0], yc, "SUN", "overflow + analysis", "susceptibility / composition / carrier re-reads if "
               "hours remain; the cross-stack generated-channel baseline check that gates the K2 Cerebrium+Kaggle "
               "merge; risk-vintage mini only if K1 vintages support it.", "~4 h", GRAY, GRAY_TINT)
@@ -886,12 +889,12 @@ def fig_final_sprint():
               "EXCESS over random. Paired primary (evolving−frozen per seed) −0.34/+0.24/+0.28/+0.41 — a "
               "distribution at n=4. Generated channel VALID; forced channel order-confounded (34/34), demoted.",
               "12.5 h", GREEN, "#eef7f0")
-    yk = card(lane_x[1], yk, "K2", "Phase 1B OLMo judge swap — LANDING", "the conservative judge pulls risk DOWN: "
-              "3/6 confirmatory seeds done, all ending below start — seed 0 nonlinear collapse 0.233→0.083 "
-              "(two flat rounds then r3 drop), seed 1 rail 0.240→0.000 by r2, seed 2 overshoot-decay to 0.151. "
-              "Per-round kept-set gaps −0.03/−0.08/−0.11/−0.04 track the screen's 0.100±0.093. Frozen-base arms "
-              "queue; the paired contrast completes on their return. Read via the expected-vs-discovery ledger.",
-              "Kaggle", RED, RED_TINT, 2.2)
+    yk = card(lane_x[1], yk, "K2", "Phase 1B OLMo judge swap — COMPLETE", "the loop is an INTEGRATOR: next-round "
+              "pool drift ≈ 0.75 × the judge's kept-gap (r=0.66). Inversion confirmed — frozen conservative "
+              "0.083/0.000/0.151, evolving self collapses HARDER 0.021/0.021/0.053; frozen base BIMODAL (2/6 rail "
+              "up to 0.688/0.802, set by early pool spread, not the judge); random off-rail. Self-judging "
+              "amplifies each organism's OWN value (K1 up, K2 down); OLMo base prefers the risky tail — taste is "
+              "family-specific.", "all 4", RED, RED_TINT, 2.2)
     yk = card(lane_x[1], yk, "K3", "EM neutral-judge grid — COMPLETE", "12/12 rollouts. em_choice DECAYS to floor "
               "everywhere (0.072→≤0.05, no amplification); the divergent axis is SELF-REPORT insecurity, where "
               "self-judging fans widest (finals 0.006/0.181/0.916, span 0.91 vs 0.44 random floor). em_freegen 0.0. "

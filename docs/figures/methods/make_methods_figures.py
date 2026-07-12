@@ -449,10 +449,12 @@ def fig_judge_loading():
     y = keybox(b, W, X0, y, [
         ("How to read it: ", INK, True),
         ("the kept-minus-pool gap is a MANIPULATION CHECK — did the judge's selection actually shift the training "
-         "data on the target axis — not a proven mediator of the behavior change. It sits one rung below “the "
-         "selection caused the drift.” Cross-scoring every candidate by the fixed base and organism judges (even in "
-         "arms they don't control) is what makes the loading comparable across conditions, with invalidity and "
-         "length controlled. Mediation and cross-lag stay in the labeled exploratory tier (Method 8).", INK, False),
+         "data on the target axis. K2 then measured the link the manipulation check leaves open: regressing "
+         "next-round pool drift on the current kept-gap over 51 transitions gives ≈ 0.75 × gap (r = 0.66) — the "
+         "loop is an INTEGRATOR of the kept-gap, so the judge sets the direction and the generator sets the "
+         "magnitude. Cross-scoring every candidate by the fixed base and organism judges (even in arms they don't "
+         "control) is what makes the loading comparable across conditions; the counterfactual gaps it yields are "
+         "exactly what showed the base up-rails were judge-attributable in direction, generator-amplified in size.", INK, False),
     ])
     return svg_doc(W, y + 40, "\n".join(b))
 

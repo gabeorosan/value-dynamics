@@ -429,6 +429,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 numbered figure set REFACTORED (Figures, 32af2f5 + 325cb34):
+  cut to the apparatus + the three sprint results and de-worded. The dense
+  single fig2 walkthrough was split into two minimal figures —
+  fig2_selftraining_loop (generate→select→train→repeat) + fig2b_judge_conditions
+  (the who-judges manipulation) — both dropping the verbatim-prompt clutter.
+  fig1/4/5/7/8/9/10 retired → archive/ (the essay/rhetoric line fig4/5/7
+  excluded as off-topic; entropy fig9 out of date; rest trivial). fig18's
+  verbatim measurement box + subtitle compressed. **Active numbered set =
+  fig2, fig2b, fig16, fig17, fig18.** archive/README lists it.
 - 2026-07-13 ~00:45 (general): RELEASE GRID COMPLETE (14 rollouts, 3 stacks)
   — verbatim prereg table 6/13 PASS (docs/report_release_grid_results.md):
   press dominates history (fan_press = press_release endpoint), only

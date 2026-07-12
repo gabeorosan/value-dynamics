@@ -1,13 +1,96 @@
 # PLAN — the single current plan (all threads read this one)
 
-**This file is the only authoritative plan.** It is updated in place by the
-Lit&planning thread; dated decisions are appended to the log at the bottom.
-Every other `plan_*.md` / research-plan document is historical or reference —
-see the document index at the end. If this file and any other document
-disagree, this file wins. (Protocol: STATE.md = what is happening;
-PLAN.md = what we decided to do; reports = what we found.)
+**This file is the only authoritative plan.** Dated decisions are appended to
+the log at the bottom. Every other `plan_*.md` / research-plan document is
+historical or reference — see the document index at the end. If this file and
+any other document disagree, this file wins. (Protocol: STATE.md = what is
+happening; PLAN.md = what we decided to do; reports = what we found.)
 
-*Current as of 2026-07-11 midday. Sprint ends Sunday 2026-07-12.*
+*Current as of 2026-07-12 ~22:00 — POST-SPRINT DECISION PLAN, written by the
+general thread (sprint-ownership directive) per the post-Claude re-audit
+(docs/report_post_claude_reaudit_2026-07-12.md), which correctly found the
+previous version still describing K1–K3 as merely launched. The Friday–Sunday
+execution plan is archived below the dated banner; git history has every
+prior version.*
+
+## Where the program actually is (completed, honest one-liners)
+
+- **K1 (Qwen risk, 4-judge grid) COMPLETE** — 17 rollouts; wide fan under
+  near-zero systematic judge taste; distributional claims only.
+- **K2 (OLMo conservative, 4-judge grid) COMPLETE** — 17 rollouts; **five
+  matched cons/base pairs, 3/5 paired signs favor cons — NOT a six-seed
+  confirmation** (cons seed 5 lost to an adaptive-hold protocol deviation).
+  Strongest contrast: rail rate 0/5 cons vs 2/6 base; both base rails
+  order-robust. docs/report_k2_full_contrast_and_release_replan.md.
+- **K3 (Qwen EM, neutral judge) COMPLETE** — 12 rollouts; self-judging is a
+  between-seed VARIANCE effect on a measured-off-axis self-report channel
+  (n=3/arm, descriptive); em_choice erodes identically in all arms.
+- **Transition analysis** — kept-gap carries out-of-sample predictive signal
+  in all three grids, surviving leave-one-seed-out (degradation −2/−3/+3%);
+  slope identified only in K2's base arm (+1.05, CI [0.85, 1.29]). "One
+  law", "gain 0.75", and k-stability language RETIRED.
+  scripts/analysis_transition_model.py, docs/report_loop_integrator_decomposition.md.
+- **Release grid Gate 1 (kernel A) LANDED 07-12 ~21:30** — press_release
+  collapse confirmed 3/3 criteria (r8 0.000/0.000/0.010, zero rebound);
+  press_hold floor DEEPER than the prereg band (0.010 vs 0.03–0.08; both
+  criteria fail informatively). Scored verbatim by
+  scripts/score_release_prereg.py against docs/prereg_release_grid_predictions.md.
+- **Let-go ensemble (8 cells)** — strong-form 0/8; three per-endpoint
+  regimes (amp55_7 saturated-frozen, low_55 high-jitter, amp66_10 genuinely
+  mobile); adaptive ordering precludes rate claims.
+- **Transmission cells** — instrument/support null (fresh generators give
+  zero insecure-code support; both readout channels floored).
+  docs/report_transmission_cells_result.md.
+- **Oversight counterfactual** — the conservative judge would have reversed
+  the selection direction on every realized rail pool (one-step force sign,
+  NOT a prevented-trajectory claim; the dynamical test is Modal branch A).
+
+## Live jobs
+
+- Kaggle **k2-release-grid-b** RUNNING — score with
+  scripts/score_release_prereg.py the moment it lands.
+- **Modal branch A** launched 07-12 ~22:00 (press_to_base ×3 + base_hold ×2,
+  ~$6 of the $20 unattended envelope) — triggered by Gate 1 exactly per the
+  pre-registered rule (collapse confirmed + base-opposition question open).
+- User-run Colab **judge-opposition** (secure-taste frozen-base judge ×
+  railed organisms) — interpretation pre-committed: amp55_7 cells are
+  support-starved a priori and DO NOT count as basin-resistance evidence;
+  only amp66_10/low_55 cells with a demonstrably negative realized
+  insecurity kept-gap are informative.
+
+## Unresolved analyses (no GPU; before any new experiment)
+
+1. Score kernel B + Modal branch A on landing (prereg table verbatim;
+   prospective predeclared-M2 error BEFORE any refit).
+2. Full order random-effects model (read-level z, order as random effect) —
+   the four-way sensitivity table in docs/report_instrument_validity_table.md
+   is the interim evidence.
+3. Fold in the judge-opposition result when the user's run lands.
+
+## No-launch gates (standing)
+
+- NO Modal branch B (pulse/early-release) unless kernel B shows
+  rebound/hysteresis that branch A cannot explain.
+- NO mixed-generator training before the owner-blind taste screen passes.
+- NO OLMo insecure-code build before release/opposition are settled — it is
+  matrix expansion, not a decisive family test.
+- NO adaptive let-go resampling for an event-rate claim.
+- Pilot-before-spend and the $20 unattended cap remain in force (~$6.1
+  spent unattended: branch A + the crashed pilot).
+
+## Ranked next-experiment queue
+
+1. Frozen secure-judge taste screen on informative Qwen pools (inference
+   only) → two-cell training pilot ONLY if the realized gap is consistently
+   negative with adequate support.
+2. (RUNNING) press_to_base + base_hold = Modal branch A.
+3. Mixed-generator inference screen → pilot only if its gates pass.
+4. OLMo insecure-code organism build (experiments/olmo_insecure/SPEC.md),
+   later, as matrix completion.
+
+---
+
+# ARCHIVED 2026-07-12 (superseded by the post-sprint plan above): the Friday–Sunday execution plan
 
 ## Objective (unchanged from the 07-10 correction)
 
@@ -150,6 +233,19 @@ per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
 
 ## Decision log
 
+- 07-12 ~22:00 (general thread): POST-SPRINT PLAN REPLACES the Friday–Sunday
+  execution plan (re-audit P0.1 — the old top matter still called K1–K3
+  "launched" and promised a six-seed K2 contrast). Same commit window: Gate 1
+  fired (kernel A landed, collapse confirmed 3/3, press_hold floor deeper
+  than prereg) → Modal branch A launched per the pre-registered rule (~$6).
+  All re-audit no-GPU items executed: canonical rollout manifest
+  (experiments/rollout_manifest.json), transition model as saved code w/
+  leave-one-seed-out (signal survives, deg ≤3%), instrument table recomputed
+  deduplicated (85 reads not 87) + order-sensitivity four-way table, scorer
+  press_hold bound fixed 0.0→0.03 + phase-aware refit by judge_used,
+  transmission result report + SPEC status banner, integrator/K2/letgo/K3/
+  counterfactual reports rewritten so corrected claims are main text,
+  three-fits figure regenerated without one-law/stability language.
 - 07-12 ~08:50 (general thread): $100 GRANT REPLAN (user: grant confirmed for
   Modal/Cerebrium etc.; $20 authorized unattended; steer = diverse
   trajectories, not reruns of reverting-excursion setups). Allocation:

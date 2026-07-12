@@ -34,12 +34,20 @@ conf v1/v2, base012, controls.
 
 Reads:
 
-1. **Headline inversion confirmed with a twist.** The conservative-judge arm
-   ends below start in 5/5 seeds (finals 0.000–0.191, median 0.095). The
-   base-judge arm is NOT a tight anchor (as it was on Qwen in K1): it is
-   **bimodal** — 4/6 seeds end low (0.062–0.188) but 2/6 rail UP (0.688,
-   0.802). On this organism the plain base judge occasionally amplifies risk
-   dramatically.
+1. **Five matched pairs, heterogeneous inversion — NOT a clean six-seed
+   confirmation** (corrected per the 2026-07-12 audits; earlier drafts said
+   "headline inversion confirmed"). The conservative arm ends below start in
+   5/5 completed seeds (finals 0.000–0.191, median 0.095), but the paired
+   cons-vs-base contrast on the 5 matched seeds favors the conservative arm
+   in only **3/5 pairs** — seeds 2 and 5 have base-arm rails (0.688, 0.802)
+   that dominate their pairs, and seeds 3/4 end LOWER under the base judge
+   than the cons judge. Cons seed 5 was never run (held by a job-local
+   adaptive checkpoint that used the wrong "first two seeds" — a protocol
+   deviation, see table). The defensible statement: the conservative judge
+   reliably prevents up-rails and produces consistent decay; the base judge
+   is **bimodal** on this organism — 4/6 seeds end low (0.062–0.188), 2/6
+   rail UP. The strongest contrast is rail-rate (0/5 vs 2/6), not mean
+   endpoint.
 2. **Self-judging is the deepest collapse** (finals 0.021/0.021/0.053) —
    deeper than the frozen conservative judge itself. Together with K1
    (risky organism, self-judge → widest fan, two upward rails) and K3

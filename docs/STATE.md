@@ -419,6 +419,16 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~19:10 (general): AUDIT RESPONSE landed — (1) release scorer
+  rewritten: verbatim per-criterion table + per-condition gain w/
+  rollout-cluster bootstrap (base +1.26 CI[0.92,1.85], random unidentified);
+  pooled k=0.75 relabeled a between-regime average, k-stability language
+  retired. (2) Instrument validity table (report_instrument_validity_table.md):
+  order gap is a FLAG not a launch gate; BOTH K2 base rails (s2, s5) verified
+  railed in BOTH orders -> oversight counterfactual STANDS. (3) let-go raw
+  snapshot synced to repo w/ adaptive-order caveat. (4) mixed-gen classifier
+  entropy direction fixed + launch gates added. K2 relabeled 5-matched-seed
+  heterogeneous (3/5), not clean 6-seed inversion.
 - 2026-07-12 ~18:20 (general): LET-GO CHANNEL DISSOCIATION quantified (8
   cells, report_letgo_channel_dissociation.md) — free-gen insecure code
   railed 0.83/0.94 & immobile (amplification, not the loop) while forced

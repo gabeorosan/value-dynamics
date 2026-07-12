@@ -137,3 +137,31 @@ on K1's). The integrator law is a law of the SELECTED axis; coordinates off
 that axis (K3's self-report fan, the let-go free-gen rails) move by training
 side-effects the pool variable does not see. Channel dissociation is thus
 not noise — it is the expected behavior of unselected coordinates.
+
+## Audit response: condition-aware refit + held-out predictive test (2026-07-12 ~19:30)
+
+Per the 07-12 program audit, the pooled regressions above are superseded by a
+leave-one-rollout-out (LORO) comparison of transition models predicting
+next-round pool drift (RMSE, lower is better):
+
+| model | K2 (17 rollouts) | K1 (16) | K3 (12) |
+|---|---|---|---|
+| M0 zero-drift baseline | 0.093 | 0.120 | 0.062 |
+| M1 condition mean drift | 0.091 | 0.126 | 0.064 |
+| M2 pooled gap slope | 0.071 | **0.092** | 0.053 |
+| M3 gap × condition | 0.064 | 0.096 | 0.051 |
+| M4 gap × condition + pool level | **0.057** | 0.103 | **0.051** |
+
+Calibrated conclusions replacing the earlier "one law / k-stability" claims:
+1. The kept-gap signal is PREDICTIVE out-of-sample in all three grids
+   (18–39% RMSE reduction over zero-drift) — the association is not an
+   in-sample artifact.
+2. Model structure is grid-dependent: K2 needs condition interactions and
+   pool-level mean-reversion; K1 is best served by one pooled slope (its
+   per-condition slopes overfit at 16 rollouts); K3 is indifferent.
+3. The audit's point stands that pooled k mixes regimes in K2 (per-condition
+   cluster-bootstrap: base +1.26 CI[0.92,1.85]; cons/random unidentified for
+   lack of gap variance — range restriction, not "reversal"). The k<1/k>1
+   stable/unstable language is retired; per-schedule release predictions
+   should use the base-arm slope (~1.05–1.26) for base-judge phases and
+   condition-appropriate slopes elsewhere, with wide uncertainty.

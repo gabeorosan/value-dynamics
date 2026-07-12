@@ -419,6 +419,13 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~19:30 (general): CONDITION-AWARE TRANSITION MODEL w/
+  leave-one-rollout-out validation — kept-gap is predictive OUT-OF-SAMPLE in
+  all three grids (RMSE -39%/-24%/-18% vs zero-drift); best structure is
+  grid-dependent (K2: gap x cond + pool reversion; K1: pooled slope, per-cond
+  overfits; K3: indifferent). Replaces 'one universal law' AND 'no law':
+  one predictive signal, grid-dependent structure. k-stability language
+  retired. Integrator report updated.
 - 2026-07-12 ~19:10 (general): AUDIT RESPONSE landed — (1) release scorer
   rewritten: verbatim per-criterion table + per-condition gain w/
   rollout-cluster bootstrap (base +1.26 CI[0.92,1.85], random unidentified);

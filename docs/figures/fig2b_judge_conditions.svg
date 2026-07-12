@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 530" font-family="Helvetica, Arial, sans-serif">
+<rect width="1120" height="530" fill="white"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
+ markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+ <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/></marker>
+<marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5"
+ markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+ <path d="M 0 0 L 10 5 L 0 10 z" fill="#2867b5"/></marker>
+<marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5"
+ markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+ <path d="M 0 0 L 10 5 L 0 10 z" fill="#b5342c"/></marker></defs>
+<text text-anchor="middle" x="560" y="56.0" font-family="Helvetica, Arial, sans-serif" font-size="34"><tspan fill="#1a1a1a" font-weight="bold">The </tspan><tspan fill="#1a1a1a" font-weight="bold">one </tspan><tspan fill="#1a1a1a" font-weight="bold">thing </tspan><tspan fill="#1a1a1a" font-weight="bold">we </tspan><tspan fill="#1a1a1a" font-weight="bold">change: </tspan><tspan fill="#1a1a1a" font-weight="bold">who </tspan><tspan fill="#1a1a1a" font-weight="bold">judges </tspan></text>
+<text text-anchor="middle" x="560" y="92.0" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#6b7684" font-weight="normal">same </tspan><tspan fill="#6b7684" font-weight="normal">model, </tspan><tspan fill="#6b7684" font-weight="normal">same </tspan><tspan fill="#6b7684" font-weight="normal">questions, </tspan><tspan fill="#6b7684" font-weight="normal">same </tspan><tspan fill="#6b7684" font-weight="normal">number </tspan><tspan fill="#6b7684" font-weight="normal">of </tspan><tspan fill="#6b7684" font-weight="normal">training </tspan><tspan fill="#6b7684" font-weight="normal">steps </tspan><tspan fill="#6b7684" font-weight="normal">— </tspan><tspan fill="#6b7684" font-weight="normal">only </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">selector </tspan><tspan fill="#6b7684" font-weight="normal">differs </tspan></text>
+<rect x="24.0" y="150" width="250" height="210" rx="14" fill="#fbf0ee" stroke="#b5342c" stroke-width="2.4"/>
+<rect x="121.0" y="184" width="56.0" height="44.0" rx="10.0" fill="white" stroke="#b5342c" stroke-width="3"/>
+<circle cx="139.0" cy="205.0" r="4.0" fill="#b5342c"/>
+<circle cx="159.0" cy="205.0" r="4.0" fill="#b5342c"/>
+<path d="M 137.0 217.0 Q 149.0 225.0 161.0 217.0" stroke="#b5342c" stroke-width="3" fill="none"/>
+<line x1="149.0" y1="184" x2="149.0" y2="174.0" stroke="#b5342c" stroke-width="3"/>
+<circle cx="149.0" cy="171.0" r="4.0" fill="#b5342c"/>
+<rect x="141.0" y="187.5" width="16.0" height="10.0" rx="2.0" fill="white" stroke="#b5342c" stroke-width="2.2" stroke-dasharray="3.4 2.4"/>
+<text x="149.0" y="258" text-anchor="middle" font-size="19" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">self-judge</text>
+<text x="149.0" y="284" text-anchor="middle" font-size="14" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">the model being trained scores</text>
+<text x="149.0" y="303" text-anchor="middle" font-size="14" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">its own answers — judge and</text>
+<text x="149.0" y="322" text-anchor="middle" font-size="14" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">policy co-evolve</text>
+<rect x="298.0" y="150" width="250" height="210" rx="14" fill="#eef7f0" stroke="#3a7d44" stroke-width="2.4"/>
+<rect x="395.0" y="184" width="56.0" height="44.0" rx="10.0" fill="white" stroke="#3a7d44" stroke-width="3"/>
+<circle cx="413.0" cy="205.0" r="4.0" fill="#3a7d44"/>
+<circle cx="433.0" cy="205.0" r="4.0" fill="#3a7d44"/>
+<path d="M 411.0 217.0 Q 423.0 225.0 435.0 217.0" stroke="#3a7d44" stroke-width="3" fill="none"/>
+<line x1="423.0" y1="184" x2="423.0" y2="174.0" stroke="#3a7d44" stroke-width="3"/>
+<circle cx="423.0" cy="171.0" r="4.0" fill="#3a7d44"/>
+<text x="423.0" y="258" text-anchor="middle" font-size="19" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">frozen copy</text>
+<text x="423.0" y="284" text-anchor="middle" font-size="14" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">a snapshot of the round-0</text>
+<text x="423.0" y="303" text-anchor="middle" font-size="14" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">model judges every round —</text>
+<text x="423.0" y="322" text-anchor="middle" font-size="14" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">fixed taste</text>
+<rect x="572.0" y="150" width="250" height="210" rx="14" fill="#eef7f0" stroke="#3a7d44" stroke-width="2.4"/>
+<rect x="669.0" y="184" width="56.0" height="44.0" rx="10.0" fill="white" stroke="#3a7d44" stroke-width="3"/>
+<circle cx="687.0" cy="205.0" r="4.0" fill="#3a7d44"/>
+<circle cx="707.0" cy="205.0" r="4.0" fill="#3a7d44"/>
+<path d="M 685.0 217.0 Q 697.0 225.0 709.0 217.0" stroke="#3a7d44" stroke-width="3" fill="none"/>
+<line x1="697.0" y1="184" x2="697.0" y2="174.0" stroke="#3a7d44" stroke-width="3"/>
+<circle cx="697.0" cy="171.0" r="4.0" fill="#3a7d44"/>
+<text x="697.0" y="258" text-anchor="middle" font-size="19" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">frozen base</text>
+<text x="697.0" y="284" text-anchor="middle" font-size="14" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">the untrained base model</text>
+<text x="697.0" y="303" text-anchor="middle" font-size="14" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">judges throughout — the</text>
+<text x="697.0" y="322" text-anchor="middle" font-size="14" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">original taste</text>
+<rect x="846.0" y="150" width="250" height="210" rx="14" fill="#f4f4f1" stroke="#6b7684" stroke-width="2.4"/>
+<rect x="943.0" y="184" width="56.0" height="44.0" rx="10.0" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="961.0" cy="205.0" r="4.0" fill="#6b7684"/>
+<circle cx="981.0" cy="205.0" r="4.0" fill="#6b7684"/>
+<path d="M 959.0 217.0 Q 971.0 225.0 983.0 217.0" stroke="#6b7684" stroke-width="3" fill="none"/>
+<line x1="971.0" y1="184" x2="971.0" y2="174.0" stroke="#6b7684" stroke-width="3"/>
+<circle cx="971.0" cy="171.0" r="4.0" fill="#6b7684"/>
+<text x="971.0" y="258" text-anchor="middle" font-size="19" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">random</text>
+<text x="971.0" y="284" text-anchor="middle" font-size="14" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">no judge — keep 2 answers at</text>
+<text x="971.0" y="303" text-anchor="middle" font-size="14" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">random (the drift floor)</text>
+<rect x="24.0" y="400" width="1072" height="98" rx="8" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="46.0" y="430.0" font-family="Helvetica, Arial, sans-serif" font-size="16"><tspan fill="#1a1a1a" font-weight="bold">Isolating </tspan><tspan fill="#1a1a1a" font-weight="bold">the </tspan><tspan fill="#1a1a1a" font-weight="bold">judge: </tspan><tspan fill="#1a1a1a" font-weight="normal">self-judge </tspan><tspan fill="#1a1a1a" font-weight="normal">vs </tspan><tspan fill="#1a1a1a" font-weight="normal">frozen </tspan><tspan fill="#1a1a1a" font-weight="normal">base </tspan><tspan fill="#1a1a1a" font-weight="normal">tests </tspan><tspan fill="#1a1a1a" font-weight="normal">whether </tspan><tspan fill="#1a1a1a" font-weight="normal">an </tspan><tspan fill="#1a1a1a" font-weight="normal">evolving </tspan><tspan fill="#1a1a1a" font-weight="normal">taste </tspan><tspan fill="#1a1a1a" font-weight="normal">steers </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">loop; </tspan><tspan fill="#1a1a1a" font-weight="normal">frozen </tspan><tspan fill="#1a1a1a" font-weight="normal">base </tspan><tspan fill="#1a1a1a" font-weight="normal">vs </tspan><tspan fill="#1a1a1a" font-weight="normal">random </tspan><tspan fill="#1a1a1a" font-weight="normal">tests </tspan></text>
+<text x="46.0" y="452.08" font-family="Helvetica, Arial, sans-serif" font-size="16"><tspan fill="#1a1a1a" font-weight="normal">whether </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">judge </tspan><tspan fill="#1a1a1a" font-weight="normal">adds </tspan><tspan fill="#1a1a1a" font-weight="normal">anything </tspan><tspan fill="#1a1a1a" font-weight="normal">beyond </tspan><tspan fill="#1a1a1a" font-weight="normal">generic </tspan><tspan fill="#1a1a1a" font-weight="normal">self-training </tspan><tspan fill="#1a1a1a" font-weight="normal">drift. </tspan><tspan fill="#1a1a1a" font-weight="normal">Results: </tspan><tspan fill="#1a1a1a" font-weight="normal">fig16 </tspan><tspan fill="#1a1a1a" font-weight="normal">(risk), </tspan><tspan fill="#1a1a1a" font-weight="normal">fig17 </tspan><tspan fill="#1a1a1a" font-weight="normal">(conservative </tspan><tspan fill="#1a1a1a" font-weight="normal">organism). </tspan></text>
+</svg>

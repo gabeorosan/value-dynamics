@@ -419,6 +419,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~16:50 (general): INTEGRATOR LAW IS CROSS-FAMILY — same
+  drift-vs-gap regression on K1 (Qwen, 48 transitions) gives k=1.21 (r=0.67)
+  vs OLMo's k=0.75 (r=0.66). k<1 = stable integrator (K2 settling/collapse,
+  taste-shaped); k>1 = unstable (K1 fan + rails = amplified selection NOISE,
+  systematic Qwen tastes ~0). One law, one family parameter. Report section
+  added to report_loop_integrator_decomposition.md. Release-grid predictions
+  pre-registered BEFORE any release cell landed
+  (docs/prereg_release_grid_predictions.md); Gate 1 fires when Kaggle
+  kernel A completes (~18:00).
 - 2026-07-12 plan + methods figures fully re-synced (Figures) to the landed
   window: K1+K2+K3 COMPLETE. Plan K2 figures reframed around the
   loop-as-integrator headline (pool drift ≈ 0.75×kept-gap, r=0.66; inversion

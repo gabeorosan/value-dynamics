@@ -66,16 +66,17 @@ another lane's files.
 
 ## Requests between threads
 
-- 2026-07-12 General → Figures: **fig17_loop_integrator carries RETIRED
-  claims** (panel title "One law across every condition", k-stability
-  language) — per the re-audit these are publication-facing and must be
-  regenerated or withdrawn. The corrected framing + numbers are in
-  docs/report_loop_integrator_decomposition.md and the corrected auto-draft
-  (docs/figures/auto/integrator-gain-three-fits/, regenerated tonight):
-  slopes are descriptive pooled fits, only the K2 base arm identifies a
-  slope (+1.05 CI [0.85, 1.29]), no stable/unstable reading. Same for any
-  other numbered figure quoting "gain 0.75" as a law or "six-seed
-  inversion".
+- 2026-07-12 General → Figures: fig17_loop_integrator retired claims —
+  **RESOLVED (Figures, c35e608).** fig17 regenerated: reframed to "the
+  kept-gap predicts next round's pool drift — a descriptive ≈0.75 pooled
+  slope", K2-base identified slope +1.05 [0.85, 1.29] quoted, no
+  one-law/k-stability language, takeaway "a summary, not a stability law".
+  Swept the same corrections through plan_program_map, plan_final_sprint,
+  plan_olmo_inversion, methods_judge_loading, methods_paired_contrast (no
+  more INTEGRATOR/inversion-confirmed/six-seed/collapses-harder/unifies; K2 =
+  five matched cons/base pairs, 3/5 lean; base up-rail counterfactual =
+  one-step force sign). Both artifacts republished. fig16 (K1 fan) + fig18
+  (K3 self-report) also committed; fig16 forced-channel caveat resolved.
 
 - 2026-07-10 Lit&planning → Experiment specs + Analysis: PLAN.md updated per the
   sprint-plan audit (docs/report_final_sprint_plan_audit.md — ALL
@@ -425,6 +426,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 figures reaudit correction pass + results figures (Figures,
+  c35e608). Retired the loop-integrator overclaims everywhere publication-facing
+  (fig17, plan_program_map/final_sprint/olmo_inversion, methods_judge_loading/
+  paired_contrast): 0.75 is a DESCRIPTIVE pooled slope (only K2 base arm
+  identifies +1.05 [0.85,1.29]), no one-law/k-stability/basin language, K2 = five
+  matched cons/base pairs with a 3/5 conservative lean (not "six-seed inversion
+  confirmed"). Also promoted 3 sprint-results figures: fig16 (K1 fan), fig17
+  (kept-gap→drift), fig18 (K3 self-report fan). Both artifacts republished (same
+  URLs). Resolves the General→Figures fig17 request.
 - 2026-07-12 ~22:00 (general): RE-AUDIT RESPONSE + GATE 1 + MODAL LAUNCH, one
   stretch: (1) post-Claude re-audit landed
   (docs/report_post_claude_reaudit_2026-07-12.md) and ALL its no-GPU items are

@@ -429,6 +429,18 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~01:30 (general): ORACLE OPPOSITION seed 101 COMPLETE — THE RAIL
+  IS REVERSIBLE: score-based opposing selection (keep lowest insecurity
+  admission, corrected cand_sr axis) pulled low_55's railed free channels
+  DOWN in 4 rounds: sr_freegen 0.99->0.33, em_freegen 0.69->0.00, with
+  negative sr kept-gap every round on only 1-2 supported items/round.
+  Forced probe moved OPPOSITE (0.50->0.70) — mirror-image channel
+  dissociation. Refutes 'rail is generation-supported, selection can't
+  touch it' for this endpoint; the earlier opposition failures were
+  missing-force, not basin resistance. Seed 202 running. Full toolkit for
+  the forward queue committed (branch-c press-depth + prereg, coupled
+  pilot script, 3 analyzers).
+
 - 2026-07-13 numbered figure set REFACTORED (Figures, 32af2f5 + 325cb34):
   cut to the apparatus + the three sprint results and de-worded. The dense
   single fig2 walkthrough was split into two minimal figures —

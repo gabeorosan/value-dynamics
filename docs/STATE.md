@@ -419,6 +419,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-12 ~18:20 (general): LET-GO CHANNEL DISSOCIATION quantified (8
+  cells, report_letgo_channel_dissociation.md) — free-gen insecure code
+  railed 0.83/0.94 & immobile (amplification, not the loop) while forced
+  em_choice floors 0.05 & corrigibility 0.08; only self_report_code (the
+  SELECTED candor axis) is mobile (0.31). 0/8 meet the em_choice&corrig
+  strong-form criterion — those are off-axis, axis-locality predicts no
+  motion; amp55_7 pilot event does not replicate. Safety: a forced-probe
+  monitor sees floor while free-gen sits near-ceiling.
 - 2026-07-12 ~18:00 (general): THREE analyses landed (no compute) in
   report_oversight_counterfactual_and_axis_locality.md — (1) OVERSIGHT
   COUNTERFACTUAL: both frozen-base rails (s5 +0.43, s2 +0.57 base kept-gap)

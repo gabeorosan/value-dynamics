@@ -675,7 +675,11 @@ def run_rollout(sd, cond):
     cond_seed={name:i+1 for i,name in enumerate(ALL_CONDITIONS)}[cond]; rng=random.Random(sd*1009+cond_seed*9176)
     torch.manual_seed(sd); np.random.seed(sd); random.seed(sd)
     adapter = f"{CONDITION_TAG[cond]}_s{sd}"
-    peft.load_adapter(CONS_ADAPTER, adapter_name=adapter, is_trainable=True)
+    # INIT_ADAPTER_ENV: start the rollout's GENERATOR from an arbitrary saved
+    # adapter (e.g. a persisted railed vintage) instead of the organism —
+    # enables reversal-from-endpoint cells. Judges are unaffected.
+    _init = os.environ.get("INIT_ADAPTER_ENV", "").strip() or CONS_ADAPTER
+    peft.load_adapter(_init, adapter_name=adapter, is_trainable=True)
     for n, p in model.named_parameters():
         if "lora_" in n and f".{adapter}." in n: p.data = p.data.float()
     c0 = risk_coord_orderswap(adapter, COORD_SAMP_ENDPOINT)
@@ -702,7 +706,13 @@ def run_rollout(sd, cond):
             else: attempt_sc_arm=None
             sc_base=attempt_sc_base[sel_attempt]; sc_cons=attempt_sc_cons[sel_attempt]
             sc=None if attempt_sc_arm is None else attempt_sc_arm[sel_attempt]
-            keep = keep_indices(sc, rng)
+            if eff_cond == "oracle_risk_down":
+                # score-based opposition (cross-family analogue of the Qwen
+                # cand_sr oracle): keep the TOPM lowest-risk candidates; no
+                # prompted judge involved
+                keep = [int(i) for i in np.argsort(np.array(cand_risk, dtype=float))[:TOPM]]
+            else:
+                keep = keep_indices(sc, rng)
             def gap(sel): return float(np.mean([cand_risk[i] for i in sel]) - np.mean(cand_risk))
             keep_base = list(np.argsort(-sc_base)[:TOPM]); keep_cons = list(np.argsort(-sc_cons)[:TOPM])
             kept_examples.append((u,u_swap,[cands[i] for i in keep]))

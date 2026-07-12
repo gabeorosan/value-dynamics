@@ -41,7 +41,10 @@ SCHEDULES_ENV = ("press_release=frozen_cons_r0:4+evolving_self:4,"
                  # 0.389/0.750), depth-0 = base_hold (rails 2/2).
                  "press_d1=frozen_cons_r0:1+frozen_base:7,"
                  "press_d2=frozen_cons_r0:2+frozen_base:6,"
-                 "press_d3=frozen_cons_r0:3+frozen_base:5")
+                 "press_d3=frozen_cons_r0:3+frozen_base:5,"
+                 # cross-family oracle reversal (branch e): score-based
+                 # keep-lowest-risk on RAILED persisted endpoints
+                 "oracle_hold=oracle_risk_down:4")
 
 # Gate-1 branches (docs/report_k2_full_contrast_and_release_replan.md):
 # branch A (press_release deepens collapse, the predicted outcome) -> the
@@ -61,6 +64,15 @@ GRIDS = {
     "c": [(d, s) for d in ("press_d1", "press_d2", "press_d3")
           for s in (1, 2)],
 }
+
+# branch e (cross-family oracle reversal): (schedule, seed, INIT vintage path)
+# — railed OLMo endpoints; prereg docs/prereg_crossfamily_oracle.md
+GRID_E = [
+    ("oracle_hold", 21,
+     "/persistent-storage/k2rel_out/vintages/sch7_s2_r8/sch7_s2"),   # base_hold s2 rail 0.875
+    ("oracle_hold", 22,
+     "/persistent-storage/k2rel_out/vintages/sch8_s2_r8/sch8_s2"),   # press_d1 s2 rail 1.000
+]
 
 app = modal.App("k2-release-grid")
 vol = modal.Volume.from_name("value-dynamics-k2", create_if_missing=True)
@@ -172,9 +184,19 @@ def main(pilot: bool = False, assemble: bool = False, branch: str = ""):
         env["RESULT_NAME_ENV"] = "k2rel_pilot_s99.json"
         print(run_cell.remote(src, env))
         return
+    if branch == "e":
+        calls = []
+        for sched, seed, init in GRID_E:
+            env = _cell_env(sched, seed, 4, src_sha)
+            env["INIT_ADAPTER_ENV"] = init
+            env["PERSIST_ROUNDS_ENV"] = "0,4"
+            calls.append(run_cell.spawn(src, env))
+        print(f"spawned {len(calls)} branch-e cells; detach-safe")
+        return
     if branch not in GRIDS:
-        raise SystemExit("pass --branch a (press_to_base+base_hold) or "
-                         "--branch b (pulse/early_release) per Gate 1")
+        raise SystemExit("pass --branch a (press_to_base+base_hold), "
+                         "--branch b (pulse/early_release), c (press-depth), "
+                         "or e (cross-family oracle reversal)")
     grid = GRIDS[branch]
     calls = [run_cell.spawn(src, _cell_env(sched, seed, 8, src_sha))
              for sched, seed in grid]

@@ -1,0 +1,21 @@
+{
+ "frozen_at": "2026-07-12 late",
+ "model": "M2: per-K2-arm intercept + pooled gap slope (predeclared)",
+ "fit_on": "K2 grid, 51 transitions, deduplicated manifest",
+ "intercepts": {
+  "evolving_self": -0.01874722976139758,
+  "frozen_base": -0.002940550607953729,
+  "frozen_cons_r0": -0.004308763358610657,
+  "random_select": -0.028517869192356313
+ },
+ "gap_slope": 0.7397896183234453,
+ "judge_to_arm": {
+  "evolving_self": "evolving_self",
+  "frozen_base": "frozen_base",
+  "frozen_cons_r0": "frozen_cons_r0",
+  "random_select": "random_select"
+ },
+ "eligibility": "release transitions with finite mean gap_arm and pool_risk; phase label = judge_used[t]; unknown judge labels are SKIPPED and reported",
+ "baseline": "same intercepts, gap term zeroed (matched no-gap model)",
+ "blindness": "kernel A + Modal branch-A partials (to r7) inspected pre-freeze; kernel B and Modal finals not inspected"
+}

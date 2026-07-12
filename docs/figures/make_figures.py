@@ -1380,6 +1380,14 @@ if __name__ == "__main__":
     # Numbering = narrative order: goal -> apparatus -> headline result ->
     # what gates transfer -> measurement + dissociation -> dose / mixing ->
     # off-target -> synthesis -> experiment map.
+    # RETIRED 2026-07-12 (Figures): the four forward-looking planning/status
+    # figures fig12_experiment_map (dated 07-09 "what runs next"),
+    # fig13_next_regime_grid (regime grid CUT on the no-saddle result),
+    # fig14_next_round0_copy_judge (now K1's frozen_copy_r0 arm — see fig16), and
+    # fig15_next_content_arms (K4, deferred/not reached) are superseded by the
+    # landed results (fig16/17/18) and the live plan-figure set
+    # (docs/figures/plan/). Their generators are kept below but no longer emitted;
+    # the SVGs moved to docs/figures/archive/. See archive/README.md.
     for name, fn in [("fig1_research_goal", fig_goal),
                      ("fig2_selftraining_loop", fig_loop),
                      ("fig3_judge_determines_dynamics", fig_judge_dynamics),
@@ -1390,11 +1398,7 @@ if __name__ == "__main__":
                      ("fig8_dose_ladder", fig_dose_ladder),
                      ("fig9_selfdata_mixing", fig_selfdata_mixing),
                      ("fig10_offtarget_drift", fig_offtarget),
-                     ("fig11_engine_filters_regimes", fig_engine_regimes),
-                     ("fig12_experiment_map", fig_experiment_map),
-                     ("fig13_next_regime_grid", fig_next_regime_grid),
-                     ("fig14_next_round0_copy_judge", fig_next_round0_judge),
-                     ("fig15_next_content_arms", fig_next_content_arms)]:
+                     ("fig11_engine_filters_regimes", fig_engine_regimes)]:
         path = os.path.join(HERE, name + ".svg")
         with open(path, "w") as f:
             f.write(fn())

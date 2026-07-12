@@ -28,3 +28,12 @@ Interpretation rules for the running judge_opposition_secure_base cells:
   and the pool does NOT follow, that is a real integrator asymmetry
   (downward gaps not integrated like upward ones) — the more interesting
   outcome.
+
+## CORRECTION (2026-07-12 ~23:00, after the taste screen)
+
+The fractions above are CELL-level and overstate selectable support:
+selection acts within a pool, and the taste screen
+(docs/report_secure_taste_screen.md) found amp66_10 has ZERO within-pool
+mixed pools (its secure candidates sit in all-secure pools) and low_55 only
+24 mixed pools concentrated in rounds 0-2. Within-pool spread is the correct
+support measure; this screen's "amp66_10 informative" rating is retracted.

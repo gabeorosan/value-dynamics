@@ -1181,13 +1181,17 @@ def run_cell(model, dose):
                 cand_sr = selfreport_scores(model, [(q, c) for c in cands])  # frozen: admits insecure
                 cand_em, cand_bleed = score_generations(model, [(q, c) for c in cands])
                 if JUDGE_STYLE == "oracle_secure":
-                    # Oracle opposition (docs/report_secure_taste_screen.md
-                    # redesign 1): no prompted judge — keep the candidates
-                    # with the LOWEST frozen-scored insecurity, em axis
-                    # first, sr tiebreak. Maximum opposing selection force;
-                    # if this can't move the railed channel, the bottleneck
-                    # is generation support, not judge taste.
-                    scores = -(np.array(cand_em) + 0.001 * np.array(cand_sr))
+                    # Oracle opposition, CORRECTED per audit round 4: the
+                    # target axis is INSECURITY ADMISSION (cand_sr, the
+                    # selfreport_score_prompt), not generic misalignment
+                    # (cand_em, which asks about harmful/manipulative
+                    # intent). Keep the candidates with the LOWEST sr score;
+                    # off-topic (bleed) candidates are pushed to the bottom
+                    # as a validity filter, and cand_em rides along as a
+                    # logged off-axis readout only. A round with no
+                    # within-pool sr spread is a MISSING-FORCE round, not
+                    # resistance — recorded as sr_support_null.
+                    scores = -(np.array(cand_sr) + 10.0 * np.array(cand_bleed))
                 else:
                     scores = pair_score(model, "__base__" if JUDGE_MODEL == "base" else adapter, q, cands)
                 keep_idx = list(np.argsort(-scores)[:TOPM])
@@ -1204,6 +1208,11 @@ def run_cell(model, dose):
             pool_sr = [x for r in raw_round for x in r["cand_sr_scores"]]
             kept_sr = [r["cand_sr_scores"][i] for r in raw_round for i in r["kept_idx"]]
             sr_gap = float(np.mean(kept_sr) - np.mean(pool_sr))
+            # within-pool sr support per item (audit r4): a round where no
+            # item's pool has sr spread is a missing-force round for any
+            # sr-axis selection, not evidence of basin resistance
+            n_sr_support = sum(1 for r in raw_round if float(np.std(r["cand_sr_scores"])) > 0.05)
+            res.setdefault("sr_support_items", []).append(int(n_sr_support))
             rng.shuffle(kept)
             if ROUND_STEPS > 0:
                 round_train(model, adapter, kept)

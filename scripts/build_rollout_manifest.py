@@ -33,9 +33,10 @@ SOURCES = {
     "K2_release": [
         "experiments/kaggle/kaggle_k2_release_relA/output/k2_release_kernelA.json",
         "experiments/kaggle/kaggle_k2_release_relB/output/k2_release_kernelB.json",
-        "experiments/modal_k2_release/output/k2_release_modal_a.json",
-        "experiments/modal_k2_release/output/k2_release_modal_b.json",
-    ],
+    ] + [f"experiments/modal_k2_release/output/k2rel_{sched}_s{s}.json"
+         for sched in ("press_to_base", "base_hold",
+                       "press_d1", "press_d2", "press_d3")
+         for s in (1, 2, 3)],
     "K1": ["experiments/kaggle/kaggle_k1_qwen_anchor_grid/output/k1_qwen_anchor.json"],
     "K3": ["experiments/kaggle/kaggle_k3_em_neutral_grid/output/k3_em_neutral.json"],
 }

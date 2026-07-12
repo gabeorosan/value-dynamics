@@ -8,6 +8,11 @@
   "experiments/kaggle/kaggle_k2_olmo_inversion_base012/output/k2_olmo_inversion_kaggle_base012.json": "1ce4867ff4a7fe624b036da114693afe65579017ebfcdc1453d7c536ae9d4f80",
   "experiments/kaggle/kaggle_k2_release_relA/output/k2_release_kernelA.json": "67c0360390c815a4bb6dc4e5cd914545733dc665a1f10b7b58b1b4c42b2bb755",
   "experiments/kaggle/kaggle_k2_release_relB/output/k2_release_kernelB.json": "cdba5026a6827a500dd88db90320dc26bd980faf12f9ca9604589ddb2e94ed95",
+  "experiments/modal_k2_release/output/k2rel_press_to_base_s1.json": "5a2eda2f8cd802267eedb43d6007066bf936fefeb0d8253a2d842c0bfbe22f7d",
+  "experiments/modal_k2_release/output/k2rel_press_to_base_s2.json": "bb8f2ca69bd72155715a78c5eda2f13455b49646ffc97aac6eabc248adc63661",
+  "experiments/modal_k2_release/output/k2rel_press_to_base_s3.json": "f85d19c8370c1ecefc66d7a10f4c93ca1fd74f7dc0f55744070e74c844c3aa2b",
+  "experiments/modal_k2_release/output/k2rel_base_hold_s1.json": "f48e1bc2491b7d5b34ecb96704cb00eb78083907a9db56af149c1dd6dc434d5e",
+  "experiments/modal_k2_release/output/k2rel_base_hold_s2.json": "627ddb5dbac14e9389c967aaf4c6d6f408032e94aaf55ee0802faefa4f96d109",
   "experiments/kaggle/kaggle_k1_qwen_anchor_grid/output/k1_qwen_anchor.json": "bfaff031821212233b61819c17576881223f90d056b600a02c3681fb986a3e5b",
   "experiments/kaggle/kaggle_k3_em_neutral_grid/output/k3_em_neutral.json": "8917812b83dfeb0ddd735d57856cb39c35a5623031a74206ed6756fcfb502219"
  },
@@ -154,6 +159,22 @@
   ],
   "K2_release": [
    {
+    "condition": "base_hold",
+    "seed": 1,
+    "source": "experiments/modal_k2_release/output/k2rel_base_hold_s1.json",
+    "n_rounds": 8,
+    "n_traj": 9,
+    "lost_to": []
+   },
+   {
+    "condition": "base_hold",
+    "seed": 2,
+    "source": "experiments/modal_k2_release/output/k2rel_base_hold_s2.json",
+    "n_rounds": 8,
+    "n_traj": 9,
+    "lost_to": []
+   },
+   {
     "condition": "fan_press",
     "seed": 1,
     "source": "experiments/kaggle/kaggle_k2_release_relB/output/k2_release_kernelB.json",
@@ -221,6 +242,30 @@
     "condition": "press_release",
     "seed": 3,
     "source": "experiments/kaggle/kaggle_k2_release_relA/output/k2_release_kernelA.json",
+    "n_rounds": 8,
+    "n_traj": 9,
+    "lost_to": []
+   },
+   {
+    "condition": "press_to_base",
+    "seed": 1,
+    "source": "experiments/modal_k2_release/output/k2rel_press_to_base_s1.json",
+    "n_rounds": 8,
+    "n_traj": 9,
+    "lost_to": []
+   },
+   {
+    "condition": "press_to_base",
+    "seed": 2,
+    "source": "experiments/modal_k2_release/output/k2rel_press_to_base_s2.json",
+    "n_rounds": 8,
+    "n_traj": 9,
+    "lost_to": []
+   },
+   {
+    "condition": "press_to_base",
+    "seed": 3,
+    "source": "experiments/modal_k2_release/output/k2rel_press_to_base_s3.json",
     "n_rounds": 8,
     "n_traj": 9,
     "lost_to": []

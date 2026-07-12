@@ -34,7 +34,14 @@ SCHEDULES_ENV = ("press_release=frozen_cons_r0:4+evolving_self:4,"
                  "pulse_22=frozen_cons_r0:2+evolving_self:2+frozen_cons_r0:2+evolving_self:2,"
                  "early_release=frozen_cons_r0:2+evolving_self:6,"
                  "press_to_base=frozen_cons_r0:4+frozen_base:4,"
-                 "base_hold=frozen_base:8")
+                 "base_hold=frozen_base:8,"
+                 # press-depth boundary map (branch c, 2026-07-13): where is
+                 # the critical press depth separating absorbing collapse
+                 # from base-judge escape? depth-4 = press_to_base (0.000/
+                 # 0.389/0.750), depth-0 = base_hold (rails 2/2).
+                 "press_d1=frozen_cons_r0:1+frozen_base:7,"
+                 "press_d2=frozen_cons_r0:2+frozen_base:6,"
+                 "press_d3=frozen_cons_r0:3+frozen_base:5")
 
 # Gate-1 branches (docs/report_k2_full_contrast_and_release_replan.md):
 # branch A (press_release deepens collapse, the predicted outcome) -> the
@@ -49,6 +56,10 @@ GRIDS = {
          + [("early_release", s) for s in (1, 2, 3)]
          + [("press_hold", s) for s in (2,)]
          + [("fan_press", s) for s in (3,)],
+    # boundary map: 3 depths x 2 seeds, ~$6; prereg in
+    # docs/prereg_press_depth_predictions.md (commit BEFORE launching)
+    "c": [(d, s) for d in ("press_d1", "press_d2", "press_d3")
+          for s in (1, 2)],
 }
 
 app = modal.App("k2-release-grid")

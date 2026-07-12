@@ -45,8 +45,8 @@ another lane's files.
 |---|---|---|
 | K1 / K2 / K3 judge grids | Kaggle+Cerebrium | ALL COMPLETE, synced, in the canonical manifest (experiments/rollout_manifest.json). Honest one-liners in docs/PLAN.md "Where the program actually is" |
 | Release grid kernel A (press_release ×3, press_hold ×1) | Kaggle | **LANDED 07-12 ~21:30** — collapse confirmed 3/3 prereg criteria (r8 0.000/0.000/0.010); press_hold floor 0.010, DEEPER than the 0.03–0.08 prereg band. Artifact committed |
-| Release grid kernel B (remaining schedules) | Kaggle | RUNNING — score on landing with scripts/score_release_prereg.py |
-| Modal branch A: press_to_base ×3 + base_hold ×2 | Modal | **LAUNCHED 07-12 ~22:00** (~$6) per the pre-registered Gate-1 rule |
+| Release grid kernel B (press_random ×3, fan_press ×2) | Kaggle | **LANDED 07-13 ~00:30** — random diffuses wider than prereg (0.156), fan_press collapses to 0.000/0.000 (press dominates history). docs/report_release_grid_results.md |
+| Modal branch A: press_to_base ×3 + base_hold ×2 | Modal | **COMPLETE 07-13 ~00:45** (~$6, app stopped) — press_to_base finals 0.000/0.389/0.750 (escape gated by residual pool material); base_hold rails 2/2 at horizon 8. Frozen predictor: −25.1% blind on kernel B, −37.7% on Modal vs matched no-gap |
 | Judge-opposition (secure-taste base judge × railed organisms) | Colab (user-run) | **DEPRIORITIZED 07-12 ~23:00** — taste screen FAILED (secure prompt selects the WRONG direction on real mixed pools; amp66_10 has ZERO within-pool material). Replacement: experiments/em_selfaware_loop/LAUNCH_oracle_opposition.py (score-based selection, low_55) — docs/report_secure_taste_screen.md |
 | Secure-taste screen (opposition gate, 2nd half) | Modal | **DONE 07-12 ~23:00** (~$0.3) — FAIL on both support (within-pool is the correct granularity; support-screen rating retracted) and taste (wrong-signed) |
 | Mixed-generator owner-blind screen | Colab (user-run) | READY — experiments/em_mixed_generators/LAUNCH_owner_blind_screen.py (TOP Colab priority; gate 1 of the mixed-generator grid) |
@@ -428,6 +428,21 @@ another lane's files.
   ready to launch on Colab (~2 h if the organism adapter is present).
 
 ## Recent changes
+
+- 2026-07-13 ~00:45 (general): RELEASE GRID COMPLETE (14 rollouts, 3 stacks)
+  — verbatim prereg table 6/13 PASS (docs/report_release_grid_results.md):
+  press dominates history (fan_press = press_release endpoint), only
+  release-to-base escapes and only with residual pool material (0.000 stays
+  0.000; spread ~0.15-0.2 -> 0.389/0.750), base_hold rails 2/2 at horizon 8.
+  FROZEN M2 predictor (saved pre-kernel-B): gap term -25.1% fully blind /
+  -37.7% on Modal vs matched no-gap baselines. MIXED SCREEN landed: taste
+  gate PASS (base judge 8.5 SE), style gate FAIL genuine (0.93; 0.835
+  value-matched) -> grid stays gated, paraphrase-normalization redesign;
+  free finding: neutral base judge has real within-owner secure taste
+  (-0.31) on EM-organism candidates (docs/report_mixed_screen_owner_blind.md).
+  Audit round 4 fully processed (construct fix cand_sr/cand_em + errata,
+  predictor freeze, matched baselines, manifest hashes, prose fixes).
+  Oracle-opposition launcher CORRECTED - user must use the updated cell.
 
 - 2026-07-12 figures RETIRED (Figures, b30614d): the four forward-looking
   planning/status figures fig12_experiment_map (07-09 "what runs next"),

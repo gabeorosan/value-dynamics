@@ -1,3 +1,14 @@
+# K2 force-schedule grid, kernel B: press_random seeds 1-3 + fan_press
+# seeds 1-2 (~11h). See kernel A header.
+import os
+os.environ.setdefault('SCHEDULES_ENV', 'press_release=frozen_cons_r0:4+evolving_self:4,press_random=frozen_cons_r0:4+random_select:4,fan_press=evolving_self:4+frozen_cons_r0:4,press_hold=frozen_cons_r0:8')
+os.environ.setdefault('ROUNDS_ENV', '8')
+os.environ.setdefault('PERSIST_ROUNDS_ENV', '0,4,8')
+os.environ.setdefault('CONDITIONS_ENV', 'press_random,fan_press')
+os.environ.setdefault('SEEDS_CONF_ENV', '1,2,3')
+os.environ.setdefault('SEED_LIMIT_ENV', 'fan_press:2')
+os.environ.setdefault('RESULT_NAME_ENV', 'k2_release_kernelB.json')
+
 # =====================================================================
 # K2 — OLMO CONSERVATIVE-INVERSION GRID (Kaggle T4, sprint 2026-07-12).
 # Plan: docs/PLAN.md row K2 — THE HEADLINE CAUSAL TEST.

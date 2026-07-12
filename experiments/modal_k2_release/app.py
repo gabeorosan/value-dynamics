@@ -82,6 +82,36 @@ def run_cell(src: str, env: dict):
     return f"done {env['CONDITIONS_ENV']} s{env['SEEDS_CONF_ENV']}"
 
 
+ADAPTER_SHA256 = "1b0b55f9d6e340c0087c33020ace59eacc25511d0ee59fc6d25db361cc1f1bb2"
+
+
+@app.function(volumes={"/persistent-storage": vol}, timeout=900)
+def assemble_adapter():
+    """Reassemble the organism adapter from 10 MB parts uploaded under
+    parts/ (whole-file `modal volume put` kept dying on a flaky uplink)."""
+    import glob
+    import shutil
+
+    parts = sorted(glob.glob("/persistent-storage/parts/adapter_parts_*"))
+    dst = "/persistent-storage/k2_dataset/rung_20/adapter_model.safetensors"
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    h = hashlib.sha256()
+    with open(dst, "wb") as out:
+        for p in parts:
+            with open(p, "rb") as f:
+                b = f.read()
+            h.update(b)
+            out.write(b)
+    got = h.hexdigest()
+    if got != ADAPTER_SHA256:
+        os.remove(dst)
+        vol.commit()
+        return f"SHA MISMATCH from {len(parts)} parts: {got}"
+    shutil.rmtree("/persistent-storage/parts")
+    vol.commit()
+    return f"OK {len(parts)} parts -> {dst} sha256={got[:16]}..."
+
+
 def _cell_env(sched: str, seed: int, rounds: int, src_sha: str) -> dict:
     return {
         "CONS_ADAPTER_ENV": "/persistent-storage/k2_dataset",
@@ -99,7 +129,10 @@ def _cell_env(sched: str, seed: int, rounds: int, src_sha: str) -> dict:
 
 
 @app.local_entrypoint()
-def main(pilot: bool = False):
+def main(pilot: bool = False, assemble: bool = False):
+    if assemble:
+        print(assemble_adapter.remote())
+        return
     here = os.path.dirname(os.path.abspath(__file__))
     src_path = os.path.join(here, "..", "kaggle", "kaggle_k2_olmo_inversion",
                             "script.py")

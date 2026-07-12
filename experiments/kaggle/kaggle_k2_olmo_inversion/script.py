@@ -75,8 +75,8 @@ if os.path.exists("/kaggle") and "CONDITIONS_ENV" not in os.environ:
     os.environ["CONDITIONS_ENV"] = "evolving_self,random_select"
     os.environ.setdefault("RESULT_NAME_ENV", "k2_olmo_inversion_kaggle_controls.json")
 
-SEEDS_CONF = [int(x) for x in os.environ.get("SEEDS_CONF_ENV", "0,1,2,3,4,5").split(",")]
-SEEDS_CTRL = [int(x) for x in os.environ.get("SEEDS_CTRL_ENV", "0,1,2").split(",")]
+SEEDS_CONF = [int(x) for x in os.environ.get("SEEDS_CONF_ENV", "0,1,2,3,4,5").split(",") if x.strip()]
+SEEDS_CTRL = [int(x) for x in os.environ.get("SEEDS_CTRL_ENV", "0,1,2").split(",") if x.strip()]
 ROUNDS = int(os.environ.get("ROUNDS_ENV", "4"))
 CONFIRMATORY = ["frozen_cons_r0", "frozen_base"]
 CONTROLS = ["evolving_self", "random_select"]

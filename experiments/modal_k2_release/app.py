@@ -30,13 +30,26 @@ MODEL_REVISION = "6e5971d9eba42665f5bd5a0fcf047f299ce1dccc"
 SCHEDULES_ENV = ("press_release=frozen_cons_r0:4+evolving_self:4,"
                  "press_random=frozen_cons_r0:4+random_select:4,"
                  "fan_press=evolving_self:4+frozen_cons_r0:4,"
-                 "press_hold=frozen_cons_r0:8")
+                 "press_hold=frozen_cons_r0:8,"
+                 "pulse_22=frozen_cons_r0:2+evolving_self:2+frozen_cons_r0:2+evolving_self:2,"
+                 "early_release=frozen_cons_r0:2+evolving_self:6,"
+                 "press_to_base=frozen_cons_r0:4+frozen_base:4,"
+                 "base_hold=frozen_base:8")
 
-# (schedule, seed) cells; press_hold gets 2 seeds, the rest 3.
-GRID = ([("press_release", s) for s in (1, 2, 3)]
-        + [("press_random", s) for s in (1, 2, 3)]
-        + [("fan_press", s) for s in (1, 2, 3)]
-        + [("press_hold", s) for s in (1, 2)])
+# Gate-1 branches (docs/report_k2_full_contrast_and_release_replan.md):
+# branch A (press_release deepens collapse, the predicted outcome) -> the
+# diversity-promising release target is the frozen_base judge: press_to_base
+# x3 + base_hold x2 (~$6). branch B (press_release rebounds — hysteresis) ->
+# the pulse / press-duration shapes probe the memory: pulse_22 x3 +
+# early_release x3 + completion cells (~$8).
+GRIDS = {
+    "a": [("press_to_base", s) for s in (1, 2, 3)]
+         + [("base_hold", s) for s in (1, 2)],
+    "b": [("pulse_22", s) for s in (1, 2, 3)]
+         + [("early_release", s) for s in (1, 2, 3)]
+         + [("press_hold", s) for s in (2,)]
+         + [("fan_press", s) for s in (3,)],
+}
 
 app = modal.App("k2-release-grid")
 vol = modal.Volume.from_name("value-dynamics-k2", create_if_missing=True)
@@ -122,14 +135,15 @@ def _cell_env(sched: str, seed: int, rounds: int, src_sha: str) -> dict:
         "PERSIST_ROUNDS_ENV": "0,4,8" if rounds == 8 else "0," + str(rounds),
         "CONDITIONS_ENV": sched,
         "SEEDS_CONF_ENV": str(seed),
-        "SEEDS_CTRL_ENV": "",
+        # no SEEDS_CTRL_ENV: '' crashed the int-parse pre-guard (pilot 1);
+        # CONDITIONS_ENV already restricts which conditions run
         "RESULT_NAME_ENV": f"k2rel_{sched}_s{seed}.json",
         "K2_SRC_SHA256": src_sha,
     }
 
 
 @app.local_entrypoint()
-def main(pilot: bool = False, assemble: bool = False):
+def main(pilot: bool = False, assemble: bool = False, branch: str = ""):
     if assemble:
         print(assemble_adapter.remote())
         return
@@ -147,8 +161,12 @@ def main(pilot: bool = False, assemble: bool = False):
         env["RESULT_NAME_ENV"] = "k2rel_pilot_s99.json"
         print(run_cell.remote(src, env))
         return
+    if branch not in GRIDS:
+        raise SystemExit("pass --branch a (press_to_base+base_hold) or "
+                         "--branch b (pulse/early_release) per Gate 1")
+    grid = GRIDS[branch]
     calls = [run_cell.spawn(src, _cell_env(sched, seed, 8, src_sha))
-             for sched, seed in GRID]
-    print(f"spawned {len(calls)} cells; detach-safe")
+             for sched, seed in grid]
+    print(f"spawned {len(calls)} branch-{branch} cells; detach-safe")
     for c in calls:
         print(c.get())

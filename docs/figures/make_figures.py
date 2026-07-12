@@ -1380,25 +1380,26 @@ if __name__ == "__main__":
     # Numbering = narrative order: goal -> apparatus -> headline result ->
     # what gates transfer -> measurement + dissociation -> dose / mixing ->
     # off-target -> synthesis -> experiment map.
-    # RETIRED 2026-07-12 (Figures): the four forward-looking planning/status
-    # figures fig12_experiment_map (dated 07-09 "what runs next"),
-    # fig13_next_regime_grid (regime grid CUT on the no-saddle result),
-    # fig14_next_round0_copy_judge (now K1's frozen_copy_r0 arm — see fig16), and
-    # fig15_next_content_arms (K4, deferred/not reached) are superseded by the
-    # landed results (fig16/17/18) and the live plan-figure set
-    # (docs/figures/plan/). Their generators are kept below but no longer emitted;
-    # the SVGs moved to docs/figures/archive/. See archive/README.md.
+    # RETIRED 2026-07-12 (Figures) → docs/figures/archive/ (generators kept
+    # below, no longer emitted). See archive/README.md.
+    #   Planning/status figures overtaken by results: fig12_experiment_map
+    #   (07-09 "what runs next"), fig13_next_regime_grid (regime grid CUT),
+    #   fig14_next_round0_copy_judge (ran as K1's frozen_copy_r0 arm → fig16),
+    #   fig15_next_content_arms (K4, not reached).
+    #   Legacy result figures superseded by newer results / reaudit-retired
+    #   framing: fig3_judge_determines_dynamics (the clean version is K1/K2/K3,
+    #   fig16/17/18, on the repaired coordinate), fig6_packet_rating_measurement
+    #   (narrow legacy-probe recipe, not cited in the headline results), and
+    #   fig11_engine_filters_regimes (synthesis on the basin/"unpredictable
+    #   zone" framing the no-saddle result + re-audit walked back).
     for name, fn in [("fig1_research_goal", fig_goal),
                      ("fig2_selftraining_loop", fig_loop),
-                     ("fig3_judge_determines_dynamics", fig_judge_dynamics),
                      ("fig4_selection_ablations", fig_selection_ablations),
                      ("fig5_boldprose_unpacked", fig_boldprose),
-                     ("fig6_packet_rating_measurement", fig_packet_rating),
                      ("fig7_rhetoric_gates_transfer", fig_rhetoric),
                      ("fig8_dose_ladder", fig_dose_ladder),
                      ("fig9_selfdata_mixing", fig_selfdata_mixing),
-                     ("fig10_offtarget_drift", fig_offtarget),
-                     ("fig11_engine_filters_regimes", fig_engine_regimes)]:
+                     ("fig10_offtarget_drift", fig_offtarget)]:
         path = os.path.join(HERE, name + ".svg")
         with open(path, "w") as f:
             f.write(fn())

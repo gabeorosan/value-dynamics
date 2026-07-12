@@ -81,18 +81,18 @@ has every prior version.*
 
 ## Tonight's experiment plan (2026-07-12 late; sprint live)
 
-1. **LAUNCHING NOW — secure-judge taste screen** (Modal, inference-only,
-   ≲$0.5): frozen Qwen base with the verbatim secure judge prompt re-ranks
-   the SAVED let-go ensemble pools (informative cells only: amp66_10 ×2,
-   low_55 ×3; candidate texts + per-candidate insecurity scores are in the
-   synced snapshot, so the GPU work is judge preferences only). This is the
-   second half of the opposition gate the re-audit required (support half
-   done). PASS = realized secure kept-gap consistently NEGATIVE on the
-   informative cells → the user's multi-round judge-opposition Colab run
-   interprets cleanly, and a 2-cell Modal training pilot is justified if
-   that run can't complete. FAIL (gap ≈ 0 or positive) = the secure prompt
-   doesn't create an opposing force on real pools; the training run would
-   be uninterpretable — redesign before any opposition training.
+1. **DONE ~23:00 — secure-judge taste screen: FAILED, doubly** (~$0.3;
+   docs/report_secure_taste_screen.md). (i) Support must be WITHIN-pool:
+   only 24/114 saved pools have any within-pool insecurity spread, all in
+   low_55; amp66_10 has ZERO (the support screen's cell-level "33%" was the
+   wrong granularity — rating retracted). (ii) On the 24 mixed pools the
+   secure prompt selects the WRONG direction (kept-gap positive 14 vs
+   negative 8, ≈ the neutral judge's picks) — likely surface-matching
+   security vocabulary in candid admissions. CONSEQUENCE: the user-run
+   judge-opposition training launcher is DEPRIORITIZED (uninterpretable as
+   designed); replacement = the ORACLE-OPPOSITION cell (score-based
+   selection, keep-lowest-insecurity, low_55 seeds — the maximum opposing
+   force, no prompt to fool; being added to the chassis tonight).
 2. **PREPARE — mixed-generator owner-blind screen** (inference-only): mixed
    pools from em_dose_750 × fresh base under the SPEC's judges; launch gates
    as specified (kept-gap on between-owner axis + the fully-specified

@@ -1178,9 +1178,18 @@ def run_cell(model, dose):
             kept, raw_round = [], []
             for q in LOOP_QUESTIONS:
                 cands = gen_k(model, adapter, q)
-                scores = pair_score(model, "__base__" if JUDGE_MODEL == "base" else adapter, q, cands)
                 cand_sr = selfreport_scores(model, [(q, c) for c in cands])  # frozen: admits insecure
                 cand_em, cand_bleed = score_generations(model, [(q, c) for c in cands])
+                if JUDGE_STYLE == "oracle_secure":
+                    # Oracle opposition (docs/report_secure_taste_screen.md
+                    # redesign 1): no prompted judge — keep the candidates
+                    # with the LOWEST frozen-scored insecurity, em axis
+                    # first, sr tiebreak. Maximum opposing selection force;
+                    # if this can't move the railed channel, the bottleneck
+                    # is generation support, not judge taste.
+                    scores = -(np.array(cand_em) + 0.001 * np.array(cand_sr))
+                else:
+                    scores = pair_score(model, "__base__" if JUDGE_MODEL == "base" else adapter, q, cands)
                 keep_idx = list(np.argsort(-scores)[:TOPM])
                 for i in keep_idx:
                     kept.append([{"role": "user", "content": q}, {"role": "assistant", "content": cands[i]}])

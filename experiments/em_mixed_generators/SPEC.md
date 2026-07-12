@@ -33,8 +33,12 @@ With Qwen's super-unit gain (k=1.21), the model sketches three regimes:
    spread/pool composition) → kept-share oscillates, both organisms drift.
 3. **Convergence:** both train toward the judge's taste from different
    sides → between-organism gap closes, spread floor collapses, and the
-   system re-enters the single-organism regime (a measurable endpoint:
-   between-share entropy → 0).
+   system re-enters the single-organism regime. Classifier (corrected per
+   the 07-12 program audit — the first draft had this backwards):
+   **capture** = kept-share entropy → 0 with the between-owner value gap
+   still open; **convergence** = share entropy stays near max while the
+   between-owner pool-mean gap → 0; **alternation** = share entropy high
+   with sustained gap.
 
 ## Cells
 
@@ -58,6 +62,21 @@ Priority order under budget: P1(a), P1(b), P3(a) first (existence: does
 coupling sustain spread + which regime), then P2, remaining judges/seeds.
 6 cells ≈ 1 Kaggle session (~7 h at ~65 min/rollout Qwen pace) = free, or
 ~$5 Modal parallel.
+
+## Launch gates added per the 07-12 program audit (spec NOT launch-ready before these)
+
+1. **Owner-blind taste screen (selection-only, inference cost):** score mixed
+   pools with each candidate judge and verify (a) the judge's kept-gap on the
+   between-owner axis is nonzero, (b) adapter identity is not recoverable
+   from style artifacts (shuffle test: a classifier on surface features
+   should not beat chance much). Stop if the screen fails.
+2. **Spread-floor is a HYPOTHESIS, not a law:** the measured negative spread
+   regression is an in-regime average — generation each round can regenerate
+   spread on its own. The coupling-as-spread-source claim is what this
+   experiment TESTS; the spec's framing must not assume it.
+3. Independent optimizer/adapter state per owner; explicit zero-kept-owner
+   handling (record, skip train, state frozen); owner-balanced generation
+   order (alternate which owner generates first each item).
 
 ## Implementation
 

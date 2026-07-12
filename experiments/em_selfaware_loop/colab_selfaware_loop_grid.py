@@ -1024,6 +1024,11 @@ def ensure_organism_adapter():
 # Loop pieces (self judge only).
 # ---------------------------------------------------------------------
 
+GEN_TEMP = float(os.environ.get("GEN_TEMP_ENV", "1.0"))  # window-reopen lever:
+# hotter candidate sampling to test whether within-pool spread can be
+# REGENERATED on a selection-inert (homogenized) organism
+
+
 def gen_k(model, adapter, question):
     model.set_adapter(adapter)
     set_generation_mode(model)
@@ -1032,7 +1037,7 @@ def gen_k(model, adapter, question):
     out = model.generate(
         **enc,
         do_sample=True,
-        temperature=1.0,
+        temperature=GEN_TEMP,
         top_p=0.95,
         num_return_sequences=K,
         max_new_tokens=LOOP_MAX_NEW,

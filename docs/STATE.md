@@ -429,6 +429,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~02:00 (general): NORMALIZED RE-SCREEN DONE (autonomous Colab):
+  gate (a') PASS (axis +0.447 survives paraphrase, fidelity corr 0.94, base
+  taste 8.3 SE) but gate (b') FAIL — owner classification 0.88 normalized,
+  0.820-vs-0.673-majority on value-matched subset (unchanged from raw):
+  the adapter signature survives paraphrase. Coupled pilot PARKED per
+  prereg; fallback paths need user decision. Colab refilled immediately:
+  FORCE-LADDER middle rung running (natural frozen-base neutral judge on
+  low_55, 2 seeds — both ladder ends already measured).
+
 - 2026-07-13 ~00:50 (general): ORACLE OPPOSITION COMPLETE 2/2 — REVERSAL
   REPLICATES: sr_freegen 0.99->0.33 in BOTH seeds (same support floor);
   em_freegen seed-dependent (0.000 vs ~0.50 plateau); forced probe moves in

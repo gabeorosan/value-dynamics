@@ -74,3 +74,27 @@ uses the original owner text. Re-run this screen on normalized pools; gate
 (b) then means what it says. Alternative (weaker): proceed and interpret
 owner-taste as a bundled value+style force — a dynamics experiment still,
 but no clean value-transmission attribution.
+
+## Normalized re-screen result (2026-07-13 ~01:55): gate (a') PASS, gate (b') FAIL — pilot stays parked
+
+The paraphrase-normalized re-screen (LAUNCH_normalized_rescreen.py, run
+autonomously; artifact output_mixed_screen_normalized.json) settles the
+redesign question:
+
+- **Paraphrase fidelity is excellent**: corr(sr_orig, sr_norm) = 0.94, mean
+  |delta| 0.036; owner gaps preserved (A 0.55->0.53, B 0.11->0.08). The
+  normalization did not wash out the value axis.
+- **Gate (a') PASS**: on normalized text the base judge still keeps A-share
+  0.125 (8.3 SE from blind) and the between-owner sr gap is +0.447.
+- **Gate (b') FAIL**: owner classification on NORMALIZED text is still 0.88
+  — and on value-matched normalized candidates (sr_norm < 0.2) it remains
+  0.820 vs a 0.673 majority baseline, essentially unchanged from raw text
+  (0.835 vs 0.68). Greedy paraphrase through the frozen base preserves
+  whatever structural signature separates the adapters.
+
+Per the pre-registered rule the coupled-generator training pilot does NOT
+launch. The remaining paths need a user decision: (a) accept the bundled
+value+style interpretation (JUDGE_NORM_ENV=0, dynamics experiment without
+clean value attribution); (b) a stronger normalizer (sampled paraphrase,
+length-matched); (c) drop the design. Owner-taste measurement itself is
+unaffected — the within-owner correlations remain the clean instrument.

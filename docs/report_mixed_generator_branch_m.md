@@ -10,14 +10,21 @@ Spread = prereg formula (mean over the 12 loop items of within-item
 candidate-risk SD). MIX pools are 3 self + 3 co-generator candidates of
 K=6; "kept-cogen share" = fraction of the 2 kept per item authored by the
 co-generator, over exactly-balanced items (shortfall rounds: none
-occurred — every cell had exact 3+3 balance every round).*
+occurred — every cell had exact 3+3 balance every round). Mid-trajectory
+readings (r1–r3) are 1-sample reads (COORD_SAMP_MID=1); endpoints are
+4-sample — treat mid-round wiggles (e.g. s32's 0.208 at r3 vs 0.484 at
+r4) as read noise around the trend, not dynamics. CORRECTION 10:15: the
+r3 values in the first committed version of this table (0.458/0.469)
+were wrong — stitched from a stale mid-run pull; the figure-maker's
+recomputation from raw caught it. Values now verbatim from the final
+artifacts.*
 
 ## Result table (free-generation risk trajectories)
 
 | cell | init | judge | co-gen | traj r0→r4 | kept-cogen share by round | realized gap by round |
 |---|---|---|---|---|---|---|
-| oracle_mix s31 | rail 0.875 | oracle | base | 0.927 → 0.652 → 0.565 → 0.458 → **0.344** | 0.75, 0.54, 0.62, 0.42 | −0.50, −0.33, −0.44, −0.36 |
-| oracle_mix s32 | rail 1.000 | oracle | base | 1.000 → 0.750 → 0.458 → 0.469 → **0.484** | 0.71, 0.62, 0.46, 0.50 | −0.26, −0.43, −0.44, −0.33 |
+| oracle_mix s31 | rail 0.875 | oracle | base | 0.927 → 0.652 → 0.565 → 0.375 → **0.344** | 0.75, 0.54, 0.62, 0.42 | −0.50, −0.33, −0.44, −0.36 |
+| oracle_mix s32 | rail 1.000 | oracle | base | 1.000 → 0.750 → 0.458 → 0.208 → **0.484** | 0.71, 0.62, 0.46, 0.50 | −0.26, −0.43, −0.44, −0.33 |
 | cons_mix s33 | rail 0.875 | frozen cons | base | 0.875 → … → **0.716** | 0.42, 0.21, 0.29, 0.17 | +0.03, +0.08, +0.08, +0.10 |
 | cons_mix s34 | rail 1.000 | frozen cons | base | 1.000 → flat → **1.000** | 0.04, 0.04, 0.00, 0.00 | +0.24, +0.18, +0.22, +0.15 |
 | invade_base s35/s36 | fresh 0.307/0.312 | frozen base | railed vintage | → 1.000 by r1 (end 0.989/1.000) | **0.96/1.00**, then ~0.4 | +0.33/+0.31, then 0 |

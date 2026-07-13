@@ -184,20 +184,22 @@ b = []
 
 b.append(ctext(W // 2, 52, TITLE, 31, INK, "bold"))
 
-# encoding legend (color = outcome kind) + the "not run" mark
+# encoding legend: outcome color + the dotted "predicted" border
 leg_y = 92
-leg = [(GREEN_STRONG_BG, GREEN, "the value moves down"),
-       (GRAY_BG, GRAY, "no movement"),
-       (RED_BG, RED, "the added source takes over")]
-widths = [30 + len(t) * 10.6 for _, _, t in leg]
-total = sum(widths) + 46 * (len(leg) - 1) + 150
+leg = [(GREEN_STRONG_BG, GREEN, None, "moves down"),
+       (GRAY_BG, GRAY, None, "no movement"),
+       (YELLOW_BG, YELLOW_EDGE, None, "varies run to run"),
+       (RED_BG, RED, None, "source takes over"),
+       ("white", PRED_EDGE, "3 3", "predicted (not run)")]
+gap = 40
+total = sum(32 + len(t) * 10.6 for *_, t in leg) + gap * (len(leg) - 1)
 lx = W // 2 - total / 2
-for fill, edge, t in leg:
+for fill, edge, dash, t in leg:
+    d = f' stroke-dasharray="{dash}"' if dash else ""
     b.append(f'<rect x="{lx:.1f}" y="{leg_y - 16:.1f}" width="22" height="22" rx="5" '
-             f'fill="{fill}" stroke="{edge}" stroke-width="1.8"/>')
+             f'fill="{fill}" stroke="{edge}" stroke-width="1.8"{d}/>')
     b.append(ltext(lx + 32, leg_y + 1, t, BODY, INK))
-    lx += 30 + len(t) * 10.6 + 46
-b.append(ltext(lx, leg_y + 1, "—  not run", BODY, GRAY))
+    lx += 32 + len(t) * 10.6 + gap
 
 # ---- corner cell (orients the two axes) ----
 b.append(rect(MARGIN_L + G / 2, GRID_TOP + G / 2, ROWHDR_W - G, HDR_H - G,
@@ -246,8 +248,8 @@ cap_lines = [
     "judge's kept answers taken from the added source  ·  rounds to get there.",
     "Score = share of the model's free answers that choose the risky gamble (0 = always safe, "
     "1 = always gambles). Cell tint marks the outcome kind (see key above).",
-    "Values are pooled from this program's self-training selection runs; a dash marks a "
-    "source-and-judge pair that was not run.",
+    "Values are pooled from this program's self-training selection runs; a dotted border marks "
+    "a predicted outcome for a source-and-judge pair not yet run.",
 ]
 for i, ln in enumerate(cap_lines):
     b.append(ctext(W // 2, cap_y + i * 26, ln, BODY, GRAY))

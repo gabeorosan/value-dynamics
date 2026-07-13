@@ -108,7 +108,7 @@ ROWS = [
          q="Can variation come back on its own?"),
     dict(kind="var",
          family="Adding outside answers",
-         tag="injecting answers moved the gambling model 0.627→0.000; "
+         tag="injecting answers moved the insecure-code model 0.627→0.000; "
              "without it, 0.625→0.625",
          q="Can variation be added?"),
     dict(kind="judge",

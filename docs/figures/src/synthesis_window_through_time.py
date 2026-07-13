@@ -244,7 +244,7 @@ b.append(draw_panel(
 
 b.append(draw_panel(
     COLS[2], ROW, PW, PH,
-    "A second model family: stalls, then reopens",
+    "The insecure-code model: stalls, then reopens",
     "Runs dry, holds — then the base model's answers restart the fall.",
     [
         dict(state=P4_OWN_STATE, spread=P4_OWN_SPREAD, color=GRAY, fill=OWN_FILL, stroke=OWN_STROKE,

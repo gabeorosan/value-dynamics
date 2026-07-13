@@ -58,6 +58,7 @@ STRIP_FILL = "#eef2f6"
 CELL_BG = "#fbfbfc"
 BLANK_BG = "#f5f6f7"
 BORDER = "#d5dae0"
+PRED_EDGE = "#8a919a"   # dotted border = predicted (condition not run)
 
 FONT = "Helvetica, Arial, sans-serif"
 BODY = 19
@@ -91,9 +92,10 @@ def ltext(x, y, text, size, color=INK, weight="normal", anchor="start"):
             f'font-size="{size}" font-weight="{weight}" fill="{color}">{esc(text)}</text>')
 
 
-def box(x, y, w, h, fill, stroke=BORDER, sw=1.6, rx=12):
+def box(x, y, w, h, fill, stroke=BORDER, sw=1.6, rx=12, dash=None):
+    d = f' stroke-dasharray="{dash}"' if dash else ""
     return (f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" rx="{rx}" '
-            f'fill="{fill}" stroke="{stroke}" stroke-width="{sw}"/>')
+            f'fill="{fill}" stroke="{stroke}" stroke-width="{sw}"{d}/>')
 
 
 def dot(x, y, r, color):
@@ -135,14 +137,17 @@ ROWS = [
                  dots=[0.06, 0.07, 0.08, 0.625, 0.65, 0.70],
                  ring=[0, 1], ring_color=GREEN,
                  final="0.627 → 0.000", note="(2/2 runs)", value_color=GREEN),
-            dict(kind="blank", text="not tested"),
+            dict(kind="spread", predicted=True,
+                 dots=[0.06, 0.07, 0.08, 0.625, 0.65, 0.70],
+                 ring=[3, 4], ring_color=RED,
+                 final="0.627 → ≈ 0.63", note="keeps its own answers", value_color=GRAY),
         ],
     ),
     dict(
         header="a second risk model, railed at 1.000", start=1.000, accent=PURPLE,
         cells=[
             dict(kind="flat", value=1.000, note="flat"),
-            dict(kind="blank", text="—"),
+            dict(kind="flat", predicted=True, value=1.000, note="still no spread"),
             dict(kind="spread",
                  dots=[0.44, 0.55, 0.69, 0.94, 0.97, 1.00],
                  ring=[0, 1], ring_color=GREEN,
@@ -191,8 +196,13 @@ def val_x(v, x0, x1):
 
 
 def draw_cell(cx_left, top, cell, row_accent):
-    out = [box(cx_left, top, COLW, ROW_H, CELL_BG, BORDER, 1.6)]
+    pred = cell.get("predicted")
+    out = [box(cx_left, top, COLW, ROW_H, CELL_BG,
+               PRED_EDGE if pred else BORDER, 2.0 if pred else 1.6,
+               dash="6 5" if pred else None)]
     cx = cx_left + COLW / 2
+    if pred:
+        out.append(ctext(cx, top + 30, "predicted", 15, PRED_EDGE))
 
     if cell["kind"] == "blank":
         out.append(ctext(cx, top + ROW_H / 2 + 8, cell["text"], 26, GRAY))
@@ -285,15 +295,18 @@ b.append(ltext(W // 2 - 312, leg_y2, "kept the riskier two", BODY, INK))
 b.append(f'<line x1="{W//2 + 178:.1f}" y1="{leg_y2-14:.1f}" x2="{W//2 + 178:.1f}" y2="{leg_y2+2:.1f}" '
          f'stroke="{GRAY}" stroke-width="1.6" stroke-dasharray="3,3"/>')
 b.append(ltext(W // 2 + 196, leg_y2, "the row's starting value", BODY, INK))
+leg_y3 = leg_y2 + 34
+b.append(box(W // 2 - 330, leg_y3 - 17, 26, 18, "none", PRED_EDGE, 2.0, rx=5, dash="6 4"))
+b.append(ltext(W // 2 - 296, leg_y3, "predicted — a condition not run for that organism (what the mechanism expects)", BODY, INK))
 
 # ---- caption: design / encoding / sample / provenance only ----
-cap_y = leg_y2 + 46
+cap_y = leg_y3 + 46
 CAP_SIZE, CAP_LH = 19, 26
 cap_sentences = [
     "Each mini-scale runs 0 (safer) to 1 (riskier). Bold text is the free-generation readout "
     "before → after the run; green marks a move toward safer, gray marks flat.",
     "Two organisms, four single-change conditions each, four rounds of self-training selection "
-    "per condition; a dash marks a condition not run for that organism.",
+    "per condition; a dotted cell is a predicted outcome for a condition not run for that organism.",
 ]
 cap_all_lines = []
 for s in cap_sentences:

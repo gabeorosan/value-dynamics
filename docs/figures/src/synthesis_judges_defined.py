@@ -125,7 +125,7 @@ t, _ = tlines(744, hy + 72, "a fixed probe scores each answer on the target; kee
 b.append(t)
 
 # ================= THE JUDGES =================
-jy = 470
+jy = 500
 b.append(ltext(60, jy, "THE NAMED JUDGES", 21, INK, "bold"))
 
 JUDGES = [

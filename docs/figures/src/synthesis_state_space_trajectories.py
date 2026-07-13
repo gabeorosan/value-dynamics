@@ -254,36 +254,37 @@ b.append(node(Sx, Sy, GRAY, 8.0))
 b.append(node(fSx, fSy, INK, 7.0))
 
 # ---------------------------------------------------------------- direct labels
-# (a)
-b.append(lines_at(545, 236, ["second risk model — rich reversal"], size=20, color=INK, weight="bold"))
+# (a) its own answers still vary, so the min-risk judge walks the value down
+b.append(lines_at(500, 232, ["second risk model: its answers still vary,",
+                             "so the judge walks the value down"],
+                  size=20, color=INK, weight="bold"))
 b.append(plate(ax_(0.52) + 12, ay_(0.46) + 4, "0.917", anchor="start"))
 b.append(plate(ax_(0.13) - 6, ay_(0.22) + 30, "0.094", anchor="middle"))
 
-# (c) — labelled just to the right of its vertical green arrow (no leader needed)
-b.append(lines_at(ax_(0.45), ay_(0.22), ["second risk model —", "outside answers added"],
-                  size=20, color=INK, anchor="start", weight="bold"))
+# (c) — same model, stuck, then outside answers are mixed in and it moves again
+b.append(lines_at(ax_(0.45), ay_(0.24), ["second risk model:", "stuck, then outside", "answers added"],
+                  size=20, color=INK, anchor="start", weight="bold", lh=1.2))
 b.append(plate(ax_(c_x) - 8, ay_(c_y1) - 2, "0.484", anchor="end"))
 
 # (b) + (f) — left strip
-b.append(lines_at(198, 302, ["second risk model —", "saturated", "(stays 1.000)"],
+b.append(lines_at(198, 300, ["second risk model:", "stuck at 1.000 —", "answers all alike"],
                   size=20, color=INK, weight="bold", lh=1.15))
-b.append(f'<line x1="252" y1="352" x2="{ax_(Sx) - 3:.1f}" y2="{ay_(Sy) - 6:.1f}" stroke="{GRAY}" stroke-width="1.2"/>')
+b.append(f'<line x1="252" y1="350" x2="{ax_(Sx) - 3:.1f}" y2="{ay_(Sy) - 6:.1f}" stroke="{GRAY}" stroke-width="1.2"/>')
 b.append(plate(ax_(Sx) + 13, ay_(Sy) + 6, "1.000", anchor="start"))
 
-b.append(lines_at(198, 656, ["the insecure-code model —", "reopening"],
+b.append(lines_at(198, 650, ["insecure-code model:", "stuck at 0.625, then", "outside answers added"],
                   size=20, color=INK, weight="bold", lh=1.15))
-b.append(f'<line x1="250" y1="640" x2="{ax_(fSx) - 3:.1f}" y2="{ay_(fSy) + 6:.1f}" stroke="{GRAY}" stroke-width="1.2"/>')
+b.append(f'<line x1="250" y1="636" x2="{ax_(fSx) - 3:.1f}" y2="{ay_(fSy) + 6:.1f}" stroke="{GRAY}" stroke-width="1.2"/>')
 b.append(plate(ax_(fSx) + 13, ay_(fSy) + 6, "0.627", anchor="start"))
 b.append(plate(ax_(f_x) + 10, ay_(f_y1) - 2, "0.000", anchor="start"))
 
-# (d)
-b.append(lines_at(700, 548, ["a cautious-judge rescue"], size=20, color=INK, weight="bold"))
-b.append(lines_at(700, 570, ["the pull runs the other way — barely moves"], size=19, color=AMBER))
+# (d) same stuck pool, but a cautious judge instead — it pulls the wrong way
+b.append(lines_at(700, 548, ["a cautious judge instead:"], size=20, color=INK, weight="bold"))
+b.append(lines_at(700, 570, ["pulls the other way, barely moves", ], size=19, color=AMBER))
 
-# (e)
-b.append(lines_at(775, 632, ["contamination"], size=20, color=RED, weight="bold"))
-b.append(lines_at(775, 656, ["an ordinary judge keeps the",
-                             "maxed-out copy in the pool —",
+# (e) a maxed-out copy is added and an ordinary judge keeps it
+b.append(lines_at(775, 632, ["a maxed-out copy added:"], size=20, color=RED, weight="bold"))
+b.append(lines_at(775, 656, ["an ordinary judge keeps it —",
                              "the value jumps up in one round"],
                   size=19, color=INK, lh=1.2))
 

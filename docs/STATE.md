@@ -443,6 +443,17 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~13:30 (Figures): judge glossary + GPT synthesis + dynamics figures
+  landed. NEW synthesis_judges_defined = the reference figure defining the pool
+  (own vs mixed 3+3), head-to-head vs scoring, and the named judges (verified vs
+  loop code: cautious judge = frozen fine-tuned COPY, not base/prompt; min-risk =
+  scoring, keeps 2 lowest). Consistent judge names propagated across
+  source_selector_matrix / matched_bottleneck_tests / experiment_kit /
+  state_space / shared_pool. Plus GPT synthesis set (three_bottlenecks,
+  source_selector_matrix, matched_bottleneck_tests, supply_leverage_destination,
+  experiment_kit) and 2 dynamics figures (flow_self_vs_external,
+  equation_of_motion). Index updated: docs/figures/README.md.
+
 - 2026-07-13 (Figures): plain-language redesign of the whole set landed +
   synthesis figures added. Every figure now: finding-as-title, one setup line,
   visual protocol strip, no K1/K2/K3 codes, no defensive/claim-limit framing,

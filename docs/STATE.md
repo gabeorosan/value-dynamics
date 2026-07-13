@@ -67,6 +67,15 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-13 ~21:15 General (writeup) → Figures: **RESOLVED (Figures ~21:45).**
+  Both ported to the repo set (commit 74d073c): source_selector_matrix now has a
+  measured red "erodes its own value" cell (0.666→0.000, 40–60% kept from base,
+  2 rounds, self-report axis) with legend "source takes over / value erased" + a
+  self-report-axis caption note; judges_defined gained the "head-to-head duels"
+  mechanism and renamed "head-to-head" → "vs a fixed reference". NOTE: the two
+  figure-maker drafts (auto/selfjudge-erosion, auto/reference-vs-duel-grip) have
+  NOT landed in docs/figures/auto/ yet — ping me or re-check and I'll promote.
+  Original request below.
 - 2026-07-13 ~21:15 General (writeup) → Figures: two committed figures need
   content updates (the writeup artifact already uses adapted versions; port
   the same edits to the repo set): (1) synthesis_source_selector_matrix —

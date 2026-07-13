@@ -99,8 +99,8 @@ def vcenter(cx, top, h, lines):
 TITLE = "What happens depends on the answer source and the judge together"
 
 COLS = [
-    "a scoring judge (keeps least-risky)",
-    "a cautious-prompted judge",
+    "the min-risk judge",
+    "a cautious judge",
     "a neutral / self judge",
 ]
 
@@ -246,8 +246,9 @@ cap_y = grid_bottom + 42
 cap_lines = [
     "Where numbers appear, each cell reads  start score → endpoint score  ·  share of the "
     "judge's kept answers taken from the added source  ·  rounds to get there.",
-    "Score = share of the model's free answers that choose the risky gamble (0 = always safe, "
-    "1 = always gambles). Cell tint marks the outcome kind (see key above).",
+    "Score = share of the model's free answers that choose the risky gamble (0 = always safe, 1 = always gambles).",
+    "“Half from X” = a mixed pool: 3 of the 6 candidates come from X, and the judge keeps 2 of the 6. "
+    "Cell tint marks the outcome kind (see key above).",
     "Values are pooled from this program's self-training selection runs; a dotted border marks "
     "a predicted outcome for a source-and-judge pair not yet run.",
 ]

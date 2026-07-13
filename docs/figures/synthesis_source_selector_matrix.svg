@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 764" font-family="Helvetica, Arial, sans-serif">
-<rect width="1500" height="764" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 790" font-family="Helvetica, Arial, sans-serif">
+<rect width="1500" height="790" fill="white"/>
 <text x="750.0" y="52.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="31" font-weight="bold" fill="#1a1a1a">What happens depends on the answer source and the judge together</text>
 <rect x="197.8" y="76.0" width="22" height="22" rx="5" fill="#e2efe6" stroke="#3a7d44" stroke-width="1.8"/>
 <text x="229.8" y="93.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">moves down</text>
@@ -15,11 +15,9 @@
 <text x="210.0" y="181.3" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">answer source  ↓</text>
 <text x="210.0" y="207.3" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">the judge  →</text>
 <rect x="386.0" y="156.0" width="348.0" height="66.0" rx="12" fill="#e6ecf2" stroke="#c6ced6" stroke-width="1.6"/>
-<text x="560.0" y="181.3" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">a scoring judge (keeps</text>
-<text x="560.0" y="207.3" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">least-risky)</text>
+<text x="560.0" y="194.3" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">the min-risk judge</text>
 <rect x="746.0" y="156.0" width="348.0" height="66.0" rx="12" fill="#e6ecf2" stroke="#c6ced6" stroke-width="1.6"/>
-<text x="920.0" y="181.3" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">a cautious-prompted</text>
-<text x="920.0" y="207.3" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">judge</text>
+<text x="920.0" y="194.3" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">a cautious judge</text>
 <rect x="1106.0" y="156.0" width="348.0" height="66.0" rx="12" fill="#e6ecf2" stroke="#c6ced6" stroke-width="1.6"/>
 <text x="1280.0" y="194.3" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">a neutral / self judge</text>
 <rect x="46.0" y="234.0" width="328.0" height="84.0" rx="12" fill="#eef2f6" stroke="#c6ced6" stroke-width="1.6"/>
@@ -76,6 +74,7 @@
 <text x="1280.0" y="580.8" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#33404d">96–100% from the copy</text>
 <text x="1280.0" y="606.8" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#33404d">1 round</text>
 <text x="750.0" y="678.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">Where numbers appear, each cell reads  start score → endpoint score  ·  share of the judge's kept answers taken from the added source  ·  rounds to get there.</text>
-<text x="750.0" y="704.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">Score = share of the model's free answers that choose the risky gamble (0 = always safe, 1 = always gambles). Cell tint marks the outcome kind (see key above).</text>
-<text x="750.0" y="730.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">Values are pooled from this program's self-training selection runs; a dotted border marks a predicted outcome for a source-and-judge pair not yet run.</text>
+<text x="750.0" y="704.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">Score = share of the model's free answers that choose the risky gamble (0 = always safe, 1 = always gambles).</text>
+<text x="750.0" y="730.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">“Half from X” = a mixed pool: 3 of the 6 candidates come from X, and the judge keeps 2 of the 6. Cell tint marks the outcome kind (see key above).</text>
+<text x="750.0" y="756.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">Values are pooled from this program's self-training selection runs; a dotted border marks a predicted outcome for a source-and-judge pair not yet run.</text>
 </svg>

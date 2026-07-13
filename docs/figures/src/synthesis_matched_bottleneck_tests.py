@@ -112,14 +112,15 @@ def svg_doc(w, h, body):
 
 # ---------------------------------------------------------------- content
 TITLE = "The same starting state, changed one thing at a time"
-SUBTITLE = ("Two self-training runs that had each stopped moving, each handed to four different "
-            "single changes. Every column starts from the same point shown at the left of its row.")
+SUBTITLE = ("Two self-training runs that had each stopped moving, each handed to four single changes. Every column "
+            "starts from the same point (left of its row). “add base answers” = a mixed pool: 3 of the 6 "
+            "candidates come from the untrained base model, and the judge still keeps 2 of the 6.")
 
 COLS = [
     "the model judges itself",
     "hotter sampling",
-    "add base answers + a scoring judge",
-    "add base answers + a cautious-prompted judge",
+    "mixed pool, then the score-based judge",
+    "mixed pool, then the cautious judge",
 ]
 
 JITTER3 = [-15, 0, 15]

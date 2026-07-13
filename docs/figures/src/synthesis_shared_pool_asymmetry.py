@@ -305,7 +305,7 @@ def lane(i, title, title_col, judge_desc, note, other_col, lane_bg,
 lane(
     0,
     "Slow rescue", INK,
-    "a scoring judge that keeps the safer answers",
+    "the min-risk judge (keeps the safer answers)",
     "Steady supply keeps it moving, but only down to the supplier's own level.",
     GREEN, None,
     mean(L1_STARTS), f"{L1_STARTS[1]:.2f} & {L1_STARTS[0]:.2f}",
@@ -320,7 +320,7 @@ lane(
 lane(
     1,
     "Failed rescue", INK,
-    "a cautious-prompt judge",
+    "a cautious judge",
     "The safer answers are there, but the judge rejects them — one run kept none.",
     GREEN, None,
     mean(L2_STARTS), f"{L2_STARTS[0]:.2f} & {L2_STARTS[1]:.2f}",

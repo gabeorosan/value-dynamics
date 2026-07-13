@@ -284,7 +284,7 @@ b.append(plate(ax_(fSx) + 13, ay_(fSy) + 6, "0.627", anchor="start"))
 b.append(plate(ax_(f_end_x) + 10, ay_(f_end_y) + 6, "0.000", anchor="start"))
 
 # (d)
-b.append(lines_at(700, 548, ["a cautious-prompted rescue"], size=20, color=INK, weight="bold"))
+b.append(lines_at(700, 548, ["a cautious-judge rescue"], size=20, color=INK, weight="bold"))
 b.append(lines_at(700, 570, ["the pull runs the other way — barely moves"], size=19, color=AMBER))
 
 # (e)

@@ -1,18 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1640 1118" font-family="Helvetica, Arial, sans-serif">
 <rect width="1640" height="1118" fill="white"/>
 <text x="820.0" y="50.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="31" font-weight="bold" fill="#1a1a1a">The same starting state, changed one thing at a time</text>
-<text x="820.0" y="82.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">Two self-training runs that had each stopped moving, each handed to four different single changes. Every column starts from the</text>
-<text x="820.0" y="107.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">same point shown at the left of its row.</text>
+<text x="820.0" y="82.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">Two self-training runs that had each stopped moving, each handed to four single changes. Every column starts from the same point</text>
+<text x="820.0" y="107.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">(left of its row). “add base answers” = a mixed pool: 3 of the 6 candidates come from the untrained base model, and the judge</text>
+<text x="820.0" y="132.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">still keeps 2 of the 6.</text>
 <rect x="296.0" y="158.0" width="309.5" height="76.0" rx="10" fill="#eef2f6" stroke="#d5dae0" stroke-width="1.6"/>
 <text x="450.8" y="202.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">the model judges itself</text>
 <rect x="627.5" y="158.0" width="309.5" height="76.0" rx="10" fill="#eef2f6" stroke="#d5dae0" stroke-width="1.6"/>
 <text x="782.2" y="202.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">hotter sampling</text>
 <rect x="959.0" y="158.0" width="309.5" height="76.0" rx="10" fill="#eef2f6" stroke="#d5dae0" stroke-width="1.6"/>
-<text x="1113.8" y="190.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">add base answers + a</text>
-<text x="1113.8" y="214.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">scoring judge</text>
+<text x="1113.8" y="190.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">mixed pool, then the</text>
+<text x="1113.8" y="214.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">score-based judge</text>
 <rect x="1290.5" y="158.0" width="309.5" height="76.0" rx="10" fill="#eef2f6" stroke="#d5dae0" stroke-width="1.6"/>
-<text x="1445.2" y="190.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">add base answers + a</text>
-<text x="1445.2" y="214.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">cautious-prompted judge</text>
+<text x="1445.2" y="190.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">mixed pool, then the</text>
+<text x="1445.2" y="214.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">cautious judge</text>
 <text x="296.0" y="144.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#6b7684">what was changed →</text>
 <rect x="40.0" y="250.0" width="236.0" height="300.0" rx="10" fill="#eef2f6" stroke="#d5dae0" stroke-width="1.6"/>
 <rect x="40.0" y="250.0" width="7" height="300" rx="3" fill="#2867b5"/>

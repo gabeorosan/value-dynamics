@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 906" font-family="Helvetica, Arial, sans-serif">
+<rect width="1500" height="906" fill="white"/>
+<text x="750" y="52" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">With nothing to select on, a fresh model picks up nothing</text>
+<text x="750" y="90" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">A fresh copy of the model, not yet trained to write insecure code, run for four rounds under three different judges. Each line is one seed's run.</text>
+<rect x="240.0" y="116" width="222" height="54" rx="10" fill="#eef2f6" stroke="#6b7684" stroke-width="1.5"/>
+<text x="351.0" y="139.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">fresh model writes 6</text>
+<text x="351.0" y="159.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">answers</text>
+<text x="484.0" y="152.0" text-anchor="middle" font-size="26" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">&#8594;</text>
+<rect x="506.0" y="116" width="222" height="54" rx="10" fill="#eef2f6" stroke="#6b7684" stroke-width="1.5"/>
+<text x="617.0" y="149.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">a judge keeps the top 2</text>
+<text x="750.0" y="152.0" text-anchor="middle" font-size="26" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">&#8594;</text>
+<rect x="772.0" y="116" width="222" height="54" rx="10" fill="#eef2f6" stroke="#6b7684" stroke-width="1.5"/>
+<text x="883.0" y="149.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">train on those 2</text>
+<text x="1016.0" y="152.0" text-anchor="middle" font-size="26" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">&#8594;</text>
+<rect x="1038.0" y="116" width="222" height="54" rx="10" fill="#eef2f6" stroke="#6b7684" stroke-width="1.5"/>
+<text x="1149.0" y="149.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">check for insecure code</text>
+<text x="170" y="228" font-size="22" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">How much insecure code showed up in free generations, each round</text>
+<text x="170" y="256" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">axis shown: 0–0.04, the top 4% of the 0–1 scale — the highest any reading reaches</text>
+<line x1="170" y1="582.0" x2="1330" y2="582.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="160" y="587.0" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.00</text>
+<line x1="170" y1="507.0" x2="1330" y2="507.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="160" y="512.0" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.01</text>
+<line x1="170" y1="432.0" x2="1330" y2="432.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="160" y="437.0" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.02</text>
+<line x1="170" y1="357.0" x2="1330" y2="357.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="160" y="362.0" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.03</text>
+<line x1="170" y1="282.0" x2="1330" y2="282.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="160" y="287.0" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.04</text>
+<line x1="170.0" y1="282" x2="170.0" y2="582" stroke="#f2f2ee" stroke-width="1"/>
+<text x="170.0" y="608" text-anchor="middle" font-size="18" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">0</text>
+<line x1="460.0" y1="282" x2="460.0" y2="582" stroke="#f2f2ee" stroke-width="1"/>
+<text x="460.0" y="608" text-anchor="middle" font-size="18" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">1</text>
+<line x1="750.0" y1="282" x2="750.0" y2="582" stroke="#f2f2ee" stroke-width="1"/>
+<text x="750.0" y="608" text-anchor="middle" font-size="18" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">2</text>
+<line x1="1040.0" y1="282" x2="1040.0" y2="582" stroke="#f2f2ee" stroke-width="1"/>
+<text x="1040.0" y="608" text-anchor="middle" font-size="18" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">3</text>
+<line x1="1330.0" y1="282" x2="1330.0" y2="582" stroke="#f2f2ee" stroke-width="1"/>
+<text x="1330.0" y="608" text-anchor="middle" font-size="18" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">4</text>
+<text x="750.0" y="634" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">round (0 = before training; 1–4 after each round of selection and training)</text>
+<text x="94" y="432.0" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 94 432.0)" text-anchor="middle">share of free generations rated insecure</text>
+<polyline points="170.0,582.0 460.0,582.0 750.0,582.0 1040.0,582.0 1330.0,582.0" fill="none" stroke="#2867b5" stroke-width="2.2" stroke-opacity="0.55"/>
+<circle cx="170.0" cy="582.0" r="3.6" fill="#2867b5" fill-opacity="0.6"/>
+<circle cx="460.0" cy="582.0" r="3.6" fill="#2867b5" fill-opacity="0.6"/>
+<circle cx="750.0" cy="582.0" r="3.6" fill="#2867b5" fill-opacity="0.6"/>
+<circle cx="1040.0" cy="582.0" r="3.6" fill="#2867b5" fill-opacity="0.6"/>
+<circle cx="1330.0" cy="582.0" r="3.6" fill="#2867b5" fill-opacity="0.6"/>
+<polyline points="170.0,582.0 460.0,582.0 750.0,582.0 1040.0,582.0 1330.0,582.0" fill="none" stroke="#2867b5" stroke-width="2.2" stroke-opacity="0.55"/>
+<circle cx="170.0" cy="582.0" r="3.6" fill="#2867b5" fill-opacity="0.6"/>
+<circle cx="460.0" cy="582.0" r="3.6" fill="#2867b5" fill-opacity="0.6"/>
+<circle cx="750.0" cy="582.0" r="3.6" fill="#2867b5" fill-opacity="0.6"/>
+<circle cx="1040.0" cy="582.0" r="3.6" fill="#2867b5" fill-opacity="0.6"/>
+<circle cx="1330.0" cy="582.0" r="3.6" fill="#2867b5" fill-opacity="0.6"/>
+<polyline points="170.0,582.0 460.0,332.0 750.0,582.0 1040.0,582.0 1330.0,582.0" fill="none" stroke="#2867b5" stroke-width="2.2" stroke-opacity="0.55"/>
+<circle cx="170.0" cy="582.0" r="3.6" fill="#2867b5" fill-opacity="0.6"/>
+<circle cx="750.0" cy="582.0" r="3.6" fill="#2867b5" fill-opacity="0.6"/>
+<circle cx="1040.0" cy="582.0" r="3.6" fill="#2867b5" fill-opacity="0.6"/>
+<circle cx="1330.0" cy="582.0" r="3.6" fill="#2867b5" fill-opacity="0.6"/>
+<polyline points="170.0,582.0 460.0,582.0 750.0,582.0 1040.0,582.0 1330.0,582.0" fill="none" stroke="#8a5a9e" stroke-width="2.2" stroke-opacity="0.55"/>
+<circle cx="170.0" cy="582.0" r="3.6" fill="#8a5a9e" fill-opacity="0.6"/>
+<circle cx="460.0" cy="582.0" r="3.6" fill="#8a5a9e" fill-opacity="0.6"/>
+<circle cx="750.0" cy="582.0" r="3.6" fill="#8a5a9e" fill-opacity="0.6"/>
+<circle cx="1040.0" cy="582.0" r="3.6" fill="#8a5a9e" fill-opacity="0.6"/>
+<circle cx="1330.0" cy="582.0" r="3.6" fill="#8a5a9e" fill-opacity="0.6"/>
+<polyline points="170.0,582.0 460.0,582.0 750.0,582.0 1040.0,582.0 1330.0,582.0" fill="none" stroke="#8a5a9e" stroke-width="2.2" stroke-opacity="0.55"/>
+<circle cx="170.0" cy="582.0" r="3.6" fill="#8a5a9e" fill-opacity="0.6"/>
+<circle cx="460.0" cy="582.0" r="3.6" fill="#8a5a9e" fill-opacity="0.6"/>
+<circle cx="750.0" cy="582.0" r="3.6" fill="#8a5a9e" fill-opacity="0.6"/>
+<circle cx="1040.0" cy="582.0" r="3.6" fill="#8a5a9e" fill-opacity="0.6"/>
+<circle cx="1330.0" cy="582.0" r="3.6" fill="#8a5a9e" fill-opacity="0.6"/>
+<polyline points="170.0,582.0 460.0,582.0 750.0,582.0 1040.0,582.0 1330.0,582.0" fill="none" stroke="#8a5a9e" stroke-width="2.2" stroke-opacity="0.55"/>
+<circle cx="170.0" cy="582.0" r="3.6" fill="#8a5a9e" fill-opacity="0.6"/>
+<circle cx="460.0" cy="582.0" r="3.6" fill="#8a5a9e" fill-opacity="0.6"/>
+<circle cx="750.0" cy="582.0" r="3.6" fill="#8a5a9e" fill-opacity="0.6"/>
+<circle cx="1040.0" cy="582.0" r="3.6" fill="#8a5a9e" fill-opacity="0.6"/>
+<circle cx="1330.0" cy="582.0" r="3.6" fill="#8a5a9e" fill-opacity="0.6"/>
+<polyline points="170.0,582.0 460.0,582.0 750.0,582.0 1040.0,582.0 1330.0,582.0" fill="none" stroke="#3a7d44" stroke-width="2.2" stroke-opacity="0.55"/>
+<circle cx="170.0" cy="582.0" r="3.6" fill="#3a7d44" fill-opacity="0.6"/>
+<circle cx="460.0" cy="582.0" r="3.6" fill="#3a7d44" fill-opacity="0.6"/>
+<circle cx="750.0" cy="582.0" r="3.6" fill="#3a7d44" fill-opacity="0.6"/>
+<circle cx="1040.0" cy="582.0" r="3.6" fill="#3a7d44" fill-opacity="0.6"/>
+<circle cx="1330.0" cy="582.0" r="3.6" fill="#3a7d44" fill-opacity="0.6"/>
+<polyline points="170.0,582.0 460.0,582.0 750.0,582.0 1040.0,582.0 1330.0,582.0" fill="none" stroke="#3a7d44" stroke-width="2.2" stroke-opacity="0.55"/>
+<circle cx="170.0" cy="582.0" r="3.6" fill="#3a7d44" fill-opacity="0.6"/>
+<circle cx="460.0" cy="582.0" r="3.6" fill="#3a7d44" fill-opacity="0.6"/>
+<circle cx="750.0" cy="582.0" r="3.6" fill="#3a7d44" fill-opacity="0.6"/>
+<circle cx="1040.0" cy="582.0" r="3.6" fill="#3a7d44" fill-opacity="0.6"/>
+<circle cx="1330.0" cy="582.0" r="3.6" fill="#3a7d44" fill-opacity="0.6"/>
+<circle cx="460.0" cy="332.0" r="10" fill="none" stroke="#b5342c" stroke-width="3"/>
+<circle cx="460.0" cy="332.0" r="4.5" fill="#b5342c"/>
+<line x1="474.0" y1="376.0" x2="464.0" y2="344.0" stroke="#b5342c" stroke-width="2.5"/>
+<text x="478.0" y="398.0144734281151" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#b5342c">0.033 — the only nonzero reading</text>
+<text x="478.0" y="423.21447342811507" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#b5342c">among all 40 round-by-condition</text>
+<text x="478.0" y="448.41447342811506" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#b5342c">readings; every other one reads</text>
+<text x="478.0" y="473.61447342811505" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#b5342c">0.000.</text>
+<line x1="990" y1="298" x2="1014" y2="298" stroke="#2867b5" stroke-width="3"/>
+<text x="1022" y="303" font-size="19" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">a judge already leaning toward insecure code</text>
+<text x="1022" y="323" font-size="17" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">3 seeds</text>
+<line x1="990" y1="348" x2="1014" y2="348" stroke="#8a5a9e" stroke-width="3"/>
+<text x="1022" y="353" font-size="19" font-weight="bold" fill="#8a5a9e" font-family="Helvetica, Arial, sans-serif">a neutral judge</text>
+<text x="1022" y="373" font-size="17" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">3 seeds</text>
+<line x1="990" y1="398" x2="1014" y2="398" stroke="#3a7d44" stroke-width="3"/>
+<text x="1022" y="403" font-size="19" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">a judge that had reverted back to normal behavior</text>
+<text x="1022" y="423" font-size="17" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">2 seeds</text>
+<text x="170" y="662" font-size="19" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Asked directly, how insecure it called its own code</text>
+<rect x="170.0" y="688" width="366.6666666666667" height="132" rx="8" fill="white" stroke="#2867b5" stroke-width="2"/>
+<text x="188.0" y="716.0" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#2867b5">a judge already leaning toward insecure</text>
+<text x="188.0" y="739.8" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#2867b5">code</text>
+<text x="188.0" y="768" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">7.32e-13 – 1.01e-09</text>
+<text x="188.0" y="794" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">on a 0–1 scale — indistinguishable from 0</text>
+<rect x="566.6666666666667" y="688" width="366.6666666666667" height="132" rx="8" fill="white" stroke="#8a5a9e" stroke-width="2"/>
+<text x="584.6666666666667" y="716.0" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#8a5a9e">a neutral judge</text>
+<text x="584.6666666666667" y="768" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">4.17e-13 – 2.06e-10</text>
+<text x="584.6666666666667" y="794" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">on a 0–1 scale — indistinguishable from 0</text>
+<rect x="963.3333333333334" y="688" width="366.6666666666667" height="132" rx="8" fill="white" stroke="#3a7d44" stroke-width="2"/>
+<text x="981.3333333333334" y="716.0" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#3a7d44">a judge that had reverted back to</text>
+<text x="981.3333333333334" y="739.8" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#3a7d44">normal behavior</text>
+<text x="981.3333333333334" y="768" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">3.80e-13 – 4.41e-09</text>
+<text x="981.3333333333334" y="794" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">on a 0–1 scale — indistinguishable from 0</text>
+<text x="750" y="876" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#1a1a1a">A fresh model gives the judge nothing to select on, so nothing is passed.</text>
+</svg>

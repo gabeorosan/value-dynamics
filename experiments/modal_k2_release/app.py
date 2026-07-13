@@ -74,6 +74,27 @@ GRID_E = [
      "/persistent-storage/k2rel_out/vintages/sch8_s2_r8/sch8_s2"),   # press_d1 s2 rail 1.000
 ]
 
+# branch m (mixed-generator pools; prereg docs/prereg_mixed_generator.md):
+# (schedule spec, seed, INIT vintage or "" for the default organism,
+#  MIX_GEN_ENV value). Seeds 31-38 fresh per the unique-seeds rule.
+_VINT_7 = "/persistent-storage/k2rel_out/vintages/sch7_s2_r8/sch7_s2"  # base_hold s2 rail 0.875
+_VINT_8 = "/persistent-storage/k2rel_out/vintages/sch8_s2_r8/sch8_s2"  # press_d1 s2 rail 1.000
+GRID_M = [
+    # reopen-by-injection: oracle judge + base-model material at railed inits
+    # (control = branch e, same inits + judge, self-only pool)
+    ("oracle_mix=oracle_risk_down:4", 31, _VINT_7, "base"),
+    ("oracle_mix=oracle_risk_down:4", 32, _VINT_8, "base"),
+    # realistic-judge rescue: frozen conservative judge + base material
+    ("cons_mix=frozen_cons_r0:4", 33, _VINT_7, "base"),
+    ("cons_mix=frozen_cons_r0:4", 34, _VINT_8, "base"),
+    # invasion: fresh organism, weak/neutral base judge, railed co-generator
+    ("invade_base=frozen_base:4", 35, "", _VINT_8),
+    ("invade_base=frozen_base:4", 36, "", _VINT_8),
+    # self-judge contamination: the scraped-peer-data scenario
+    ("invade_self=evolving_self:4", 37, "", _VINT_8),
+    ("invade_self=evolving_self:4", 38, "", _VINT_8),
+]
+
 app = modal.App("k2-release-grid")
 vol = modal.Volume.from_name("value-dynamics-k2", create_if_missing=True)
 
@@ -195,10 +216,24 @@ def main(pilot: bool = False, assemble: bool = False, branch: str = ""):
             calls.append(run_cell.spawn(src, env))
         print(f"spawned {len(calls)} branch-e cells; detach-safe")
         return
+    if branch == "m":
+        calls = []
+        for sched_spec, seed, init, mix in GRID_M:
+            sched = sched_spec.split("=")[0]
+            env = _cell_env(sched, seed, 4, src_sha)
+            # the script asserts EVERY schedule fits ROUNDS; pass only ours
+            env["SCHEDULES_ENV"] = sched_spec
+            env["MIX_GEN_ENV"] = mix
+            if init:
+                env["INIT_ADAPTER_ENV"] = init
+            calls.append(run_cell.spawn(src, env))
+        print(f"spawned {len(calls)} branch-m cells; detach-safe")
+        return
     if branch not in GRIDS:
         raise SystemExit("pass --branch a (press_to_base+base_hold), "
                          "--branch b (pulse/early_release), c (press-depth), "
-                         "or e (cross-family oracle reversal)")
+                         "e (cross-family oracle reversal), or m "
+                         "(mixed-generator pools)")
     grid = GRIDS[branch]
     calls = [run_cell.spawn(src, _cell_env(sched, seed, 8, src_sha))
              for sched, seed in grid]

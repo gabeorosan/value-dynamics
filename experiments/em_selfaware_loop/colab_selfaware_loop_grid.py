@@ -1027,26 +1027,37 @@ def ensure_organism_adapter():
 # Loop pieces (self judge only).
 # ---------------------------------------------------------------------
 
+# Mixed-generator pool (docs/prereg_mixed_generator.md): MIX_GEN_ENV="base"
+# replaces MIX_K of the K candidates with raw-base-model generations each
+# item — the DISTRIBUTIONAL window-reopen lever (external material supply),
+# vs GEN_TEMP which only heats the collapsed self distribution.
+MIX_GEN = os.environ.get("MIX_GEN_ENV", "").strip().lower()
+MIX_K = int(os.environ.get("MIX_K_ENV", "3"))
 GEN_TEMP = float(os.environ.get("GEN_TEMP_ENV", "1.0"))  # window-reopen lever:
 # hotter candidate sampling to test whether within-pool spread can be
 # REGENERATED on a selection-inert (homogenized) organism
 
 
-def gen_k(model, adapter, question):
-    model.set_adapter(adapter)
+def gen_k(model, adapter, question, n_return=None):
+    import contextlib
+    n_return = K if n_return is None else n_return
+    if adapter != "__base__":
+        model.set_adapter(adapter)
     set_generation_mode(model)
     enc = chat_inputs(question)
     n = enc.input_ids.shape[1]
-    out = model.generate(
-        **enc,
-        do_sample=True,
-        temperature=GEN_TEMP,
-        top_p=0.95,
-        num_return_sequences=K,
-        max_new_tokens=LOOP_MAX_NEW,
-        pad_token_id=tok.pad_token_id or tok.eos_token_id,
-    )
-    return [tok.decode(out[i, n:], skip_special_tokens=True) for i in range(K)]
+    ctx = model.disable_adapter() if adapter == "__base__" else contextlib.nullcontext()
+    with ctx:
+        out = model.generate(
+            **enc,
+            do_sample=True,
+            temperature=GEN_TEMP,
+            top_p=0.95,
+            num_return_sequences=n_return,
+            max_new_tokens=LOOP_MAX_NEW,
+            pad_token_id=tok.pad_token_id or tok.eos_token_id,
+        )
+    return [tok.decode(out[i, n:], skip_special_tokens=True) for i in range(n_return)]
 
 
 @torch.no_grad()
@@ -1193,14 +1204,29 @@ def run_cell(model, dose):
                 p.data = p.data.float()
 
         res = {"dose": dose, "seed": sd, "battery": [], "rounds_raw": [],
-               "judge_style": JUDGE_STYLE, "judge_model": JUDGE_MODEL}
+               "judge_style": JUDGE_STYLE, "judge_model": JUDGE_MODEL,
+               "mix_gen": MIX_GEN, "mix_k": MIX_K}
         ALLRES["cells"][key] = res
         print(f"[{key}] start [{elapsed()}]", flush=True)
 
         for rd in range(1, ROUNDS + 1):
             kept, raw_round = [], []
             for q in LOOP_QUESTIONS:
-                cands = gen_k(model, adapter, q)
+                if MIX_GEN == "base":
+                    # mixed-generator pool (docs/prereg_mixed_generator.md):
+                    # MIX_K of the K candidates come from the RAW BASE model
+                    # — an external material supply for a spread-dead pool
+                    c_self = gen_k(model, adapter, q, n_return=K - MIX_K)
+                    c_co = gen_k(model, "__base__", q, n_return=MIX_K)
+                    _cands = c_self + c_co
+                    owners = ["self"] * len(c_self) + ["cogen"] * len(c_co)
+                    perm = list(range(len(_cands)))
+                    rng.shuffle(perm)
+                    cands = [_cands[i] for i in perm]
+                    owners = [owners[i] for i in perm]
+                else:
+                    cands = gen_k(model, adapter, q)
+                    owners = None
                 cand_sr = selfreport_scores(model, [(q, c) for c in cands])  # frozen: admits insecure
                 cand_em, cand_bleed = score_generations(model, [(q, c) for c in cands])
                 if JUDGE_STYLE == "oracle_secure":
@@ -1227,6 +1253,7 @@ def run_cell(model, dose):
                     "cand_em_scores": [float(x) for x in cand_em],
                     "cand_bleed_scores": [float(x) for x in cand_bleed],
                     "kept_idx": [int(i) for i in keep_idx],
+                    "cand_owner": owners,
                 })
             pool_sr = [x for r in raw_round for x in r["cand_sr_scores"]]
             kept_sr = [r["cand_sr_scores"][i] for r in raw_round for i in r["kept_idx"]]
@@ -1247,10 +1274,14 @@ def run_cell(model, dose):
             res["battery"].append(bat)
             res["rounds_raw"].append(raw_round)
             save_results()
+            mix_note = ""
+            if MIX_GEN:
+                _ko = [r["cand_owner"][i] == "cogen" for r in raw_round for i in r["kept_idx"]]
+                mix_note = f" kept_cogen_share={float(np.mean(_ko)):.2f}"
             print(f"[{key}] round{rd} [{elapsed()}] p_insecure={bat['self_report_code']['mean_p_insecure']:.3f} "
                   f"graded_em={bat['graded_em']['mean_p_misaligned']:.3f} "
                   f"sr_freegen={bat['sr_free_gen']['sr_freegen']:.3f} "
-                  f"kept-pool_sr_gap={sr_gap:+.3f} em_freegen={bat['free_gen']['em_freegen']:.3f}", flush=True)
+                  f"kept-pool_sr_gap={sr_gap:+.3f}{mix_note} em_freegen={bat['free_gen']['em_freegen']:.3f}", flush=True)
 
         final_dir = f"{OUT}/selfaware_adapters/{dose}_{sd}"
         os.makedirs(final_dir, exist_ok=True)

@@ -47,7 +47,7 @@
 # Env knobs (smoke): SEEDS_CONF_ENV, SEEDS_CTRL_ENV, ROUNDS_ENV,
 # CONDITIONS_ENV, DRY_ENV=1.
 # =====================================================================
-import subprocess, sys, os, json, gc, random, time, hashlib
+import subprocess, sys, os, json, gc, random, time, hashlib, contextlib
 T_START = time.time()
 def mins(): return (time.time() - T_START) / 60.0
 
@@ -113,6 +113,13 @@ K = 6; TOPM = 2; ROUND_STEPS = 12
 COORD_SAMP_MID = int(os.environ.get("COORD_SAMP_MID_ENV", "1"))
 COORD_SAMP_ENDPOINT = int(os.environ.get("COORD_SAMP_ENDPOINT_ENV", "4"))
 GEN_MAX_NEW = int(os.environ.get("GEN_MAX_NEW_ENV", "96")); MAX_GEN_CALLS = int(os.environ.get("MAX_GEN_CALLS_ENV", "3"))
+# Mixed-generator pool (branch m, docs/prereg_mixed_generator.md): MIX_GEN_ENV
+# = "base" (raw base model via disable_adapter) or a saved adapter path; each
+# item's pool becomes (K - MIX_K) self candidates + MIX_K co-generator
+# candidates, shuffled, with per-candidate owner recorded. Judges, keep rule,
+# and training are untouched — pool composition is the treatment.
+MIX_GEN = os.environ.get("MIX_GEN_ENV", "").strip()
+MIX_K = int(os.environ.get("MIX_K_ENV", "3"))
 ORDER_GAP_MAX = 0.10; INVALID_RATE_MAX = 0.10
 OUT = os.environ.get("OUT_ENV") or ("/kaggle/working" if os.path.isdir("/kaggle/working") else ("/content/drive/MyDrive/value_dynamics/k2" if os.path.isdir("/content/drive") else "."))
 os.makedirs(OUT, exist_ok=True)
@@ -409,6 +416,7 @@ allres["_config"] = {"model": MODEL, "model_revision": MODEL_REVISION,
                      "instrument_sha256": INSTRUMENT_SHA256,
                      "order_gap_max": ORDER_GAP_MAX, "invalid_rate_max": INVALID_RATE_MAX,
                      "gen_max_new": GEN_MAX_NEW, "max_gen_calls": MAX_GEN_CALLS,
+                     "mix_gen": MIX_GEN, "mix_k": MIX_K,
                      "coord_samples_mid": COORD_SAMP_MID, "coord_samples_endpoint": COORD_SAMP_ENDPOINT,
                      "battery_mode": BATTERY_MODE, "persist_rounds": sorted(PERSIST_ROUNDS)}
 def save():
@@ -445,9 +453,12 @@ def gen_mode():
 # ==== strict paired-format risk instrument (same semantics as K1) ====
 @torch.no_grad()
 def gen_n(adapter, user, n_return):
-    model.set_adapter(adapter); gen_mode(); enc=chat_ids(Msg(SYS,user)); n=enc.input_ids.shape[1]
-    out=model.generate(**enc, do_sample=True, temperature=1.0, top_p=0.95,
-                       num_return_sequences=n_return, max_new_tokens=GEN_MAX_NEW, pad_token_id=tok.pad_token_id)
+    if adapter != "__base__": model.set_adapter(adapter)
+    gen_mode(); enc=chat_ids(Msg(SYS,user)); n=enc.input_ids.shape[1]
+    _ctx = model.disable_adapter() if adapter == "__base__" else contextlib.nullcontext()
+    with _ctx:
+        out=model.generate(**enc, do_sample=True, temperature=1.0, top_p=0.95,
+                           num_return_sequences=n_return, max_new_tokens=GEN_MAX_NEW, pad_token_id=tok.pad_token_id)
     return [tok.decode(out[i,n:], skip_special_tokens=True).strip() for i in range(n_return)]
 
 @torch.no_grad()
@@ -471,21 +482,22 @@ def risk_coord_orderswap(adapter, samples):
             "forced":{"overall":float(np.mean(forced["A"]+forced["B"])),"by_order":fb,"order_gap":abs(fb["A"]-fb["B"])},
             "raw":raw}
 
-def gen_valid_k(adapter,user,gamble_letter):
+def gen_valid_k(adapter,user,gamble_letter,n_target=None):
+    n_target = K if n_target is None else n_target
     attempts=[]; valid=[]
     for _ in range(MAX_GEN_CALLS):
-        batch=gen_n(adapter,user,max(1,K-len(valid))); offset=len(attempts); attempts.extend(batch); valid.extend((offset+i,t) for i,t in enumerate(batch) if terminal_choice(t) is not None)
-        if len(valid)>=K: break
-    initial_invalid=float(np.mean([terminal_choice(t) is None for t in attempts[:K]]))
+        batch=gen_n(adapter,user,max(1,n_target-len(valid))); offset=len(attempts); attempts.extend(batch); valid.extend((offset+i,t) for i,t in enumerate(batch) if terminal_choice(t) is not None)
+        if len(valid)>=n_target: break
+    initial_invalid=float(np.mean([terminal_choice(t) is None for t in attempts[:n_target]]))
     # Soft shortfall: a marginal organism state can leave <K parseable
     # candidates after MAX_GEN_CALLS (killed conf seed 3 r2 at 5/6). The
     # judge keeps top-TOPM, so proceed with a short pool when >=3 remain and
     # record n_pool_short as a per-call trajectory readout; only a pool too
     # thin to rank (<3) aborts the rollout.
-    if len(valid)<3: raise RuntimeError(f"candidate validity gate failed: {len(valid)}/{K} valid after {len(attempts)} attempts")
-    selected_pairs=valid[:K]; selected=[t for _,t in selected_pairs]
+    if len(valid)<(3 if n_target>=K else 2): raise RuntimeError(f"candidate validity gate failed: {len(valid)}/{n_target} valid after {len(attempts)} attempts")
+    selected_pairs=valid[:n_target]; selected=[t for _,t in selected_pairs]
     return selected,{"all_attempts":attempts,"initial_invalid_rate":initial_invalid,"n_attempted":len(attempts),"n_valid":len(valid),
-                     "n_pool_short":max(0,K-len(valid)),
+                     "n_pool_short":max(0,n_target-len(valid)),
                      "selected_attempt_idx":[i for i,_ in selected_pairs],"attempt_terminal_choices":[terminal_choice(t) for t in attempts],
                      "attempt_semantic_risk":[semantic_risk(t,gamble_letter) for t in attempts],"attempt_char_lengths":[len(t) for t in attempts],
                      "semantic_risk":[semantic_risk(t,gamble_letter) for t in selected],"char_lengths":[len(t) for t in selected]}
@@ -680,6 +692,16 @@ def run_rollout(sd, cond):
     # enables reversal-from-endpoint cells. Judges are unaffected.
     _init = os.environ.get("INIT_ADAPTER_ENV", "").strip() or CONS_ADAPTER
     peft.load_adapter(_init, adapter_name=adapter, is_trainable=True)
+    # mixed-generator pool: the frozen co-generator supplying MIX_K of the K
+    # candidates per item ("__base__" = raw base model)
+    cogen_src = None
+    if MIX_GEN:
+        assert 0 < MIX_K < K, f"MIX_K_ENV={MIX_K} must be in 1..{K-1}"
+        if MIX_GEN == "base": cogen_src = "__base__"
+        else:
+            if "cogen" not in getattr(model, "peft_config", {}):
+                peft.load_adapter(MIX_GEN, adapter_name="cogen", is_trainable=False)
+            cogen_src = "cogen"
     for n, p in model.named_parameters():
         if "lora_" in n and f".{adapter}." in n: p.data = p.data.float()
     c0 = risk_coord_orderswap(adapter, COORD_SAMP_ENDPOINT)
@@ -696,7 +718,28 @@ def run_rollout(sd, cond):
         raw=[]; kept_examples=[]; order_flags=loop_order_plan(rd,sd)
         for (a,p,r),gamble_is_a in zip(LOOP_ITEMS,order_flags):
             u=loop_prompt_swapped(a,p,r) if gamble_is_a else loop_prompt(a,p,r); u_swap=loop_prompt(a,p,r) if gamble_is_a else loop_prompt_swapped(a,p,r); gl="A" if gamble_is_a else "B"
-            cands,gen_meta=gen_valid_k(adapter,u,gl); cand_risk=gen_meta["semantic_risk"]
+            if cogen_src is None:
+                cands,gen_meta=gen_valid_k(adapter,u,gl); owners=None
+            else:
+                c_self,m_self=gen_valid_k(adapter,u,gl,n_target=K-MIX_K)
+                c_co,m_co=gen_valid_k(cogen_src,u,gl,n_target=MIX_K)
+                _cands=c_self+c_co; _own=["self"]*len(c_self)+["cogen"]*len(c_co)
+                _off=len(m_self["all_attempts"])
+                _sel=list(m_self["selected_attempt_idx"])+[i+_off for i in m_co["selected_attempt_idx"]]
+                perm=list(range(len(_cands))); rng.shuffle(perm)
+                cands=[_cands[i] for i in perm]; owners=[_own[i] for i in perm]
+                _att=m_self["all_attempts"]+m_co["all_attempts"]
+                gen_meta={"all_attempts":_att,"selected_attempt_idx":[_sel[i] for i in perm],
+                          "initial_invalid_rate":float(np.mean([m_self["initial_invalid_rate"],m_co["initial_invalid_rate"]])),
+                          "n_attempted":m_self["n_attempted"]+m_co["n_attempted"],"n_valid":m_self["n_valid"]+m_co["n_valid"],
+                          "n_pool_short":max(0,K-len(cands)),
+                          "attempt_terminal_choices":[terminal_choice(t) for t in _att],
+                          "attempt_semantic_risk":[semantic_risk(t,gl) for t in _att],
+                          "attempt_char_lengths":[len(t) for t in _att],
+                          "attempt_owner":["self"]*len(m_self["all_attempts"])+["cogen"]*len(m_co["all_attempts"]),
+                          "semantic_risk":[semantic_risk(t,gl) for t in cands],"char_lengths":[len(t) for t in cands],
+                          "cand_owner":owners}
+            cand_risk=gen_meta["semantic_risk"]
             attempts=gen_meta["all_attempts"]; sel_attempt=gen_meta["selected_attempt_idx"]
             attempt_sc_base=_judge_scores("base",u,attempts); attempt_sc_cons=_judge_scores("judge_cons",u,attempts)
             eff_cond = SCHEDULES[cond][rd-1] if cond in SCHEDULES else cond
@@ -717,7 +760,7 @@ def run_rollout(sd, cond):
             keep_base = list(np.argsort(-sc_base)[:TOPM]); keep_cons = list(np.argsort(-sc_cons)[:TOPM])
             kept_examples.append((u,u_swap,[cands[i] for i in keep]))
             raw.append({"item":[a,p,r],"prompt":u,"swapped_prompt":u_swap,"gamble_letter":gl,"candidates":cands,"candidate_generation":gen_meta,
-                        "cand_risk": cand_risk, "kept_idx": [int(i) for i in keep],
+                        "cand_risk": cand_risk, "kept_idx": [int(i) for i in keep], "cand_owner": owners,
                         "pool_risk": float(np.mean(cand_risk)),
                         "gap_arm": gap(keep), "gap_base_judge": gap(keep_base), "gap_cons_judge": gap(keep_cons),
                         "kept_idx_base_judge":[int(i) for i in keep_base],"kept_idx_cons_judge":[int(i) for i in keep_cons],
@@ -754,7 +797,11 @@ def run_rollout(sd, cond):
         ev_drop=b0["factual_ev"]["mean_p_correct"]-res["battery"][-1]["factual_ev"]["mean_p_correct"]
         if ev_drop>.10: flags.append("FACTUAL_EV_DROP")
         flag=(" !"+",".join(flags)) if flags else ""
-        print(f"[seed {sd}] {cond} r{rd} gen={c['overall']:.3f} forced={c['forced']['overall']:.3f} gap_arm={np.mean([e['gap_arm'] for e in raw]):+.2f} kept_risk={semantic_kept:.2f} initial_invalid={initial_invalid:.2f} net={net:.3f} step={step:.3f}{flag} [{mins():.1f}m]",flush=True)
+        mix_note=""
+        if MIX_GEN:
+            _ko=[e["cand_owner"][i]=="cogen" for e in raw for i in e["kept_idx"]]
+            mix_note=f" kept_cogen_share={float(np.mean(_ko)):.2f}"
+        print(f"[seed {sd}] {cond} r{rd} gen={c['overall']:.3f} forced={c['forced']['overall']:.3f} gap_arm={np.mean([e['gap_arm'] for e in raw]):+.2f} kept_risk={semantic_kept:.2f}{mix_note} initial_invalid={initial_invalid:.2f} net={net:.3f} step={step:.3f}{flag} [{mins():.1f}m]",flush=True)
     peft.delete_adapter(adapter); gc.collect(); torch.cuda.empty_cache()
 
 _n_total = sum(len(seeds_for(c)) for c in CONDITIONS)

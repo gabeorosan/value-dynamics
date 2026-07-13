@@ -41,16 +41,30 @@ writeup, the figures present setups, methods, and results.
 
 ## Synthesis figures (high-level, for the writeup)
 
+- `synthesis_judges_defined` — the reference glossary: the answer pool (own vs mixed),
+  head-to-head vs scoring, and the named judges. The others point here for terms.
+- `synthesis_experiment_kit` — one loop, five interchangeable slots; every named
+  experiment is one setting of the five
 - `synthesis_the_selection_loop` — graphical abstract: pool → variation → gap → train → repeat
 - `synthesis_gap_beats_kept_score` — why the gap predicts better than the kept score alone
+- `synthesis_three_bottlenecks` — the three places a value can be gained, held, or lost
+- `synthesis_source_selector_matrix` — outcome grid over answer source × judge
+- `synthesis_matched_bottleneck_tests` — the same stalled/railed model under four interventions
+- `synthesis_supply_leverage_destination` — where added answers go and what moves
 - `synthesis_intervention_window` — the 2D map: variation × judge grip
 - `synthesis_shared_pool_asymmetry` — three lanes: slow rescue / failed / fast contamination
-- `synthesis_window_through_time` — four small multiples: state + variation over rounds
+- `synthesis_state_space_trajectories` — trajectories drawn in state space
+- `synthesis_window_through_time` — small multiples: state + variation over rounds
 - `synthesis_verify_grip_before_training` — the decision workflow
+- `synthesis_entropy_and_actionable_variation` — entropy vs the variation the judge can act on (Analysis lane)
 
-(Concept 7, the claim-robustness matrix, and concept 5 were intentionally not
-built — 7 is defensive claim-limit framing that belongs in the writeup, not a
-figure; 5 duplicates fig13.)
+### Dynamics (empirical dynamical-systems views)
+
+- `dynamics_flow_self_vs_external` — self-judge fans out; a frozen outside judge converges
+- `dynamics_equation_of_motion` — the value's change per round tracks the gap (drift ≈ 0.75 × gap)
+
+(Concept 7, the claim-robustness matrix, was intentionally not built — it is
+defensive claim-limit framing that belongs in the writeup, not a figure.)
 
 ## Appendix — methods & validity (fig18+)
 

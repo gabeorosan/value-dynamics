@@ -168,190 +168,224 @@ PREREG = [
      "-42.0% RMSE on 42 blind transitions (experiments/release_predictor_nogap_frozen.json)", "PASS"),
 ]
 
-# ------------------------------------------------------------------ figure
-b = []
+# ------------------------------------------------------------------ figures
+# Split into two single-topic figures so neither is a wall of text:
+#   result_press_depth            — the trajectory panels + endpoint fan + safety reading
+#   result_press_depth_scorecard  — the pre-registration scorecard + methods
 W = 1370
-
-t, ynext = text_block(W / 2, 50, "There is no depth boundary in the K2 press-then-release program —", 30, 74, weight="bold")
-b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-t, ynext = text_block(W / 2, 92, "the base-release phase is bimodal at every depth tested", 30, 74, weight="bold")
-b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-t, _ = text_block(W / 2, 126,
-                  "3 press depths (1-3 conservative-judge rounds before the base-judge switch) × 2 seeds, "
-                  "rounds 0→8; K2 release program, Modal branch c.", 17.5, 200, GRAY)
-b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-t, _ = text_block(W / 2, 150,
-                  "n = 2 seeds per depth — a paired high/low-endpoint pattern, not an identified boundary law "
-                  "(audit note in the source report).", 14.5, 200, GRAY)
-b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-
-# shared legend (colors hold across all three panels and the fan below)
-ly = 190
-b.append(f'<circle cx="{W/2-215}" cy="{ly-5}" r="6.5" fill="{BLUE}"/>')
-b.append(f'<text x="{W/2-200}" y="{ly}" font-size="15.5" fill="{INK}" font-family="{FONT}">seed 1 — ends low at every depth</text>')
-b.append(f'<circle cx="{W/2+55}" cy="{ly-5}" r="6.5" fill="{RED}"/>')
-b.append(f'<text x="{W/2+70}" y="{ly}" font-size="15.5" fill="{INK}" font-family="{FONT}">seed 2 — ends high (rails) at every depth</text>')
-
-# ================= three trajectory panels =================
+LEFT = 110
 PANEL_W, GAP = 350, 60
 PLOT_W = 290
-LEFT = 110
 PX = [LEFT, LEFT + PANEL_W + GAP, LEFT + 2 * (PANEL_W + GAP)]
 PY, PH = 268, 240
 LETTERS = ["A", "B", "C"]
 
-for i, depth in enumerate((1, 2, 3)):
-    px = PX[i]
 
-    def ax(r, px=px):
-        return px + PLOT_W * r / 8
+def fig_trajectories():
+    b = []
+    t, _ = text_block(W / 2, 50, "There is no depth boundary in the K2 press-then-release program —", 30, 74, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+    t, _ = text_block(W / 2, 92, "the base-release phase is bimodal at every depth tested", 30, 74, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+    t, _ = text_block(W / 2, 126,
+                      "3 press depths (1-3 conservative-judge rounds before the base-judge switch) × 2 seeds, "
+                      "rounds 0→8; K2 release program, Modal branch c.", 17.5, 200, GRAY)
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+    t, _ = text_block(W / 2, 150,
+                      "n = 2 seeds per depth — a paired high/low-endpoint pattern, not an identified boundary law "
+                      "(audit note in the source report). Scored against its pre-registration in the companion figure "
+                      "result_press_depth_scorecard.", 14.5, 200, GRAY)
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
-    def ay(v):
-        return PY + PH * (1 - v)
+    # shared legend (colors hold across all three panels and the fan below)
+    ly = 190
+    b.append(f'<circle cx="{W/2-215}" cy="{ly-5}" r="6.5" fill="{BLUE}"/>')
+    b.append(f'<text x="{W/2-200}" y="{ly}" font-size="15.5" fill="{INK}" font-family="{FONT}">seed 1 — ends low at every depth</text>')
+    b.append(f'<circle cx="{W/2+55}" cy="{ly-5}" r="6.5" fill="{RED}"/>')
+    b.append(f'<text x="{W/2+70}" y="{ly}" font-size="15.5" fill="{INK}" font-family="{FONT}">seed 2 — ends high (rails) at every depth</text>')
 
-    s1 = cell[(depth, "1")]
-    s2 = cell[(depth, "2")]
+    # ================= three trajectory panels =================
+    for i, depth in enumerate((1, 2, 3)):
+        px = PX[i]
 
-    b.append(f'<text x="{px}" y="216" font-size="19" font-weight="bold" fill="{INK}" font-family="{FONT}">{LETTERS[i]}. Depth {depth}</text>')
-    b.append(f'<text x="{px}" y="238" font-size="13" fill="{GRAY}" font-family="{FONT}">press rounds 0-{depth} (shaded) &#183; release rounds {depth+1}-8</text>')
+        def ax(r, px=px):
+            return px + PLOT_W * r / 8
 
-    # press-phase shading (rounds 0..depth are on the conservative judge)
-    b.append(f'<rect x="{ax(0):.1f}" y="{PY}" width="{ax(depth)-ax(0):.1f}" height="{PH}" '
-              f'fill="{GREEN}" fill-opacity="0.10"/>')
-    b.append(f'<line x1="{ax(depth):.1f}" y1="{PY}" x2="{ax(depth):.1f}" y2="{PY+PH}" '
-              f'stroke="{INK}" stroke-width="1.6" stroke-dasharray="5 4"/>')
-    b.append(f'<text x="{ax(depth):.1f}" y="{PY - 8}" text-anchor="middle" font-size="12.5" '
-              f'fill="{INK}" font-family="{FONT}">switch ↓</text>')
-    b.append(f'<text x="{ax(depth/2):.1f}" y="{PY + 18}" text-anchor="middle" font-size="12" '
-              f'fill="{GREEN}" font-family="{FONT}">press phase</text>')
+        def ay(v):
+            return PY + PH * (1 - v)
 
-    # gridlines
-    for v in (0.0, 0.25, 0.5, 0.75, 1.0):
-        yy = ay(v)
-        b.append(f'<line x1="{px}" y1="{yy:.1f}" x2="{px+PLOT_W}" y2="{yy:.1f}" stroke="#e4e4e0" stroke-width="1"/>')
+        s1 = cell[(depth, "1")]
+        s2 = cell[(depth, "2")]
+
+        b.append(f'<text x="{px}" y="216" font-size="19" font-weight="bold" fill="{INK}" font-family="{FONT}">{LETTERS[i]}. Depth {depth}</text>')
+        b.append(f'<text x="{px}" y="238" font-size="13" fill="{GRAY}" font-family="{FONT}">press rounds 0-{depth} (shaded) &#183; release rounds {depth+1}-8</text>')
+
+        # press-phase shading (rounds 0..depth are on the conservative judge)
+        b.append(f'<rect x="{ax(0):.1f}" y="{PY}" width="{ax(depth)-ax(0):.1f}" height="{PH}" '
+                  f'fill="{GREEN}" fill-opacity="0.10"/>')
+        b.append(f'<line x1="{ax(depth):.1f}" y1="{PY}" x2="{ax(depth):.1f}" y2="{PY+PH}" '
+                  f'stroke="{INK}" stroke-width="1.6" stroke-dasharray="5 4"/>')
+        b.append(f'<text x="{ax(depth):.1f}" y="{PY - 8}" text-anchor="middle" font-size="12.5" '
+                  f'fill="{INK}" font-family="{FONT}">switch ↓</text>')
+        b.append(f'<text x="{ax(depth/2):.1f}" y="{PY + 18}" text-anchor="middle" font-size="12" '
+                  f'fill="{GREEN}" font-family="{FONT}">press phase</text>')
+
+        # gridlines
+        for v in (0.0, 0.25, 0.5, 0.75, 1.0):
+            yy = ay(v)
+            b.append(f'<line x1="{px}" y1="{yy:.1f}" x2="{px+PLOT_W}" y2="{yy:.1f}" stroke="#e4e4e0" stroke-width="1"/>')
+            if i == 0:
+                b.append(f'<text x="{px-10}" y="{yy+5:.1f}" text-anchor="end" font-size="14" fill="{GRAY}" font-family="{FONT}">{v:g}</text>')
+        for r in range(9):
+            b.append(f'<text x="{ax(r):.1f}" y="{PY+PH+22}" text-anchor="middle" font-size="13" fill="{GRAY}" font-family="{FONT}">{r}</text>')
+        b.append(f'<text x="{px+PLOT_W/2:.1f}" y="{PY+PH+42}" text-anchor="middle" font-size="14.5" fill="{INK}" font-family="{FONT}">round</text>')
         if i == 0:
-            b.append(f'<text x="{px-10}" y="{yy+5:.1f}" text-anchor="end" font-size="14" fill="{GRAY}" font-family="{FONT}">{v:g}</text>')
-    for r in range(9):
-        b.append(f'<text x="{ax(r):.1f}" y="{PY+PH+22}" text-anchor="middle" font-size="13" fill="{GRAY}" font-family="{FONT}">{r}</text>')
-    b.append(f'<text x="{px+PLOT_W/2:.1f}" y="{PY+PH+42}" text-anchor="middle" font-size="14.5" fill="{INK}" font-family="{FONT}">round</text>')
-    if i == 0:
-        b.append(f'<text x="{LEFT-58}" y="{PY+PH/2}" font-size="15" fill="{INK}" font-family="{FONT}" '
-                  f'transform="rotate(-90 {LEFT-58} {PY+PH/2})" text-anchor="middle">risk coordinate</text>')
+            b.append(f'<text x="{LEFT-58}" y="{PY+PH/2}" font-size="15" fill="{INK}" font-family="{FONT}" '
+                      f'transform="rotate(-90 {LEFT-58} {PY+PH/2})" text-anchor="middle">risk coordinate</text>')
 
-    # trajectories
-    for rec, color in ((s1, BLUE), (s2, RED)):
-        pts = " ".join(f"{ax(r):.1f},{ay(v):.1f}" for r, v in enumerate(rec["traj"]))
-        b.append(f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="3"/>')
-        for r, v in enumerate(rec["traj"]):
-            b.append(f'<circle cx="{ax(r):.1f}" cy="{ay(v):.1f}" r="4" fill="{color}"/>')
+        # trajectories
+        for rec, color in ((s1, BLUE), (s2, RED)):
+            pts = " ".join(f"{ax(r):.1f},{ay(v):.1f}" for r, v in enumerate(rec["traj"]))
+            b.append(f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="3"/>')
+            for r, v in enumerate(rec["traj"]):
+                b.append(f'<circle cx="{ax(r):.1f}" cy="{ay(v):.1f}" r="4" fill="{color}"/>')
 
-    # endpoint labels (offset so the two never collide)
-    b.append(f'<text x="{ax(8)+8:.1f}" y="{ay(s2["r8"])-6:.1f}" font-size="14" font-weight="bold" fill="{RED}" font-family="{FONT}">{s2["r8"]:.3f}</text>')
-    b.append(f'<text x="{ax(8)+8:.1f}" y="{ay(s1["r8"])+16:.1f}" font-size="14" font-weight="bold" fill="{BLUE}" font-family="{FONT}">{s1["r8"]:.3f}</text>')
+        # endpoint labels (offset so the two never collide)
+        b.append(f'<text x="{ax(8)+8:.1f}" y="{ay(s2["r8"])-6:.1f}" font-size="14" font-weight="bold" fill="{RED}" font-family="{FONT}">{s2["r8"]:.3f}</text>')
+        b.append(f'<text x="{ax(8)+8:.1f}" y="{ay(s1["r8"])+16:.1f}" font-size="14" font-weight="bold" fill="{BLUE}" font-family="{FONT}">{s1["r8"]:.3f}</text>')
 
-    # panel note: switch-round spread + r8 range (fixed two lines, no auto-wrap)
-    note_y1 = PY + PH + 66
-    note_y2 = note_y1 + 18
-    b.append(f'<text x="{px}" y="{note_y1}" font-size="12.5" fill="{GRAY}" font-family="{FONT}">switch-round pool spread: seed 1 {s1["spread"]:.2f} &#183; seed 2 {s2["spread"]:.2f}</text>')
-    lo, hi, rng = RANGES[depth]
-    b.append(f'<text x="{px}" y="{note_y2}" font-size="14.5" font-weight="bold" fill="{INK}" font-family="{FONT}">r8 range = {rng:.3f} ({lo:.3f} to {hi:.3f})</text>')
+        # panel note: switch-round spread + r8 range (fixed two lines, no auto-wrap)
+        note_y1 = PY + PH + 66
+        note_y2 = note_y1 + 18
+        b.append(f'<text x="{px}" y="{note_y1}" font-size="12.5" fill="{GRAY}" font-family="{FONT}">switch-round pool spread: seed 1 {s1["spread"]:.2f} &#183; seed 2 {s2["spread"]:.2f}</text>')
+        lo, hi, rng = RANGES[depth]
+        b.append(f'<text x="{px}" y="{note_y2}" font-size="14.5" font-weight="bold" fill="{INK}" font-family="{FONT}">r8 range = {rng:.3f} ({lo:.3f} to {hi:.3f})</text>')
 
-PANEL_BLOCK_BOTTOM = PY + PH + 66 + 18 + 10  # = 622
+    PANEL_BLOCK_BOTTOM = PY + PH + 66 + 18 + 10  # = 622
 
-# ================= D. the r8 fan across depths =================
-FY_TITLE = PANEL_BLOCK_BOTTOM + 26
-b.append(f'<text x="{LEFT}" y="{FY_TITLE}" font-size="19.5" font-weight="bold" fill="{INK}" font-family="{FONT}">D. The r8 endpoint fan compresses with depth</text>')
-b.append(f'<text x="{LEFT}" y="{FY_TITLE+22}" font-size="14" fill="{GRAY}" font-family="{FONT}">range shrinks 1.000 &#8594; 0.832 &#8594; 0.594 from depth 1 to 3 &#8212; but stays wide; no depth collapses to one outcome</text>')
+    # ================= D. the r8 fan across depths =================
+    FY_TITLE = PANEL_BLOCK_BOTTOM + 26
+    b.append(f'<text x="{LEFT}" y="{FY_TITLE}" font-size="19.5" font-weight="bold" fill="{INK}" font-family="{FONT}">D. The r8 endpoint fan compresses with depth</text>')
+    b.append(f'<text x="{LEFT}" y="{FY_TITLE+22}" font-size="14" fill="{GRAY}" font-family="{FONT}">range shrinks 1.000 &#8594; 0.832 &#8594; 0.594 from depth 1 to 3 &#8212; but stays wide; no depth collapses to one outcome</text>')
 
-DX0, DW = 300, 900
-DY0, ROWH = FY_TITLE + 62, 62
+    DX0, DW = 300, 900
+    DY0, ROWH = FY_TITLE + 62, 62
+
+    def dx(v):
+        return DX0 + DW * v
+
+    for i, depth in enumerate((1, 2, 3)):
+        yc = DY0 + i * ROWH
+        lo, hi, rng = RANGES[depth]
+        b.append(f'<line x1="{dx(0):.1f}" y1="{yc}" x2="{dx(1):.1f}" y2="{yc}" stroke="#e4e4e0" stroke-width="1.5"/>')
+        b.append(f'<line x1="{dx(lo):.1f}" y1="{yc}" x2="{dx(hi):.1f}" y2="{yc}" stroke="{INK}" stroke-width="6"/>')
+        b.append(f'<circle cx="{dx(lo):.1f}" cy="{yc}" r="8" fill="{BLUE}"/>')
+        b.append(f'<circle cx="{dx(hi):.1f}" cy="{yc}" r="8" fill="{RED}"/>')
+        b.append(f'<text x="{dx(lo):.1f}" y="{yc+24}" text-anchor="middle" font-size="13" font-weight="bold" fill="{BLUE}" font-family="{FONT}">{lo:.3f}</text>')
+        b.append(f'<text x="{dx(hi):.1f}" y="{yc-14}" text-anchor="middle" font-size="13" font-weight="bold" fill="{RED}" font-family="{FONT}">{hi:.3f}</text>')
+        b.append(f'<text x="{DX0-20}" y="{yc+5}" text-anchor="end" font-size="16" font-weight="bold" fill="{INK}" font-family="{FONT}">depth {depth}</text>')
+        b.append(f'<text x="{dx(1)+22}" y="{yc+5}" font-size="15.5" font-weight="bold" fill="{INK}" font-family="{FONT}">range {rng:.3f}</text>')
+
+    # x-axis for the fan
+    FAX_Y = DY0 + 2 * ROWH + 34
+    for v in (0.0, 0.25, 0.5, 0.75, 1.0):
+        xx = dx(v)
+        b.append(f'<line x1="{xx:.1f}" y1="{FAX_Y-6}" x2="{xx:.1f}" y2="{FAX_Y+6}" stroke="{INK}" stroke-width="2"/>')
+        b.append(f'<text x="{xx:.1f}" y="{FAX_Y+26}" text-anchor="middle" font-size="13.5" fill="{GRAY}" font-family="{FONT}">{v:g}</text>')
+    b.append(f'<line x1="{dx(0):.1f}" y1="{FAX_Y}" x2="{dx(1):.1f}" y2="{FAX_Y}" stroke="{INK}" stroke-width="2"/>')
+    t, _ = text_block(DX0, FAX_Y + 50, "risk coordinate at round 8", 15, 40, INK)
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1).replace(f'x="{DX0}"', f'x="{DX0+DW/2:.0f}"'))
+
+    fan_bottom = FAX_Y + 66
+
+    # ================= takeaway (the safety reading) =================
+    TY = fan_bottom + 24
+    tt_text, tt_end = rich_text(LEFT + 20, TY + 32, [
+        ("Safety reading: ", INK, True),
+        ("a brief conservative intervention (1–3 press rounds) ", INK, False),
+        ("does not reliably prevent a base-judge rail", RED, True),
+        (" — seed 2 reached 1.000 after conservative pressing at every depth tested, and deeper pressing only "
+         f"shrinks rail amplitude gradually (r8 range {RANGES[1][2]:.3f} → {RANGES[2][2]:.3f} → {RANGES[3][2]:.3f} "
+         "at depth 1 → 2 → 3). Brief pressing shrinks the fan but doesn't pick the branch; only sustained "
+         "pressing (4–5 rounds, per the press_release / press_hold arms elsewhere in the K2 program) reaches the "
+         "absorbing floor — at the cost of making later reversal-by-selection impossible.", INK, False),
+    ], 17.5, 132)
+    tt_h = (tt_end - TY) + 20
+    b.append(box(LEFT - 20, TY, W - 2 * (LEFT - 20), tt_h, KEY_FILL, INK, 2.5))
+    b.append(tt_text)
+
+    FOOT_Y = TY + tt_h + 26
+    foot, foot_end = text_block(LEFT - 20, FOOT_Y,
+        "Source: experiments/modal_k2_release/output/k2rel_press_d{1,2,3}_s{1,2}.json — r0–r8 pool-risk "
+        "trajectories recomputed here from each cell's traj field. Switch-round pool spread = the population "
+        "standard deviation of item-level pool-risk means at the round the judge switches. The pre-registered "
+        "5-criterion scorecard and the switch-spread mediator test are the companion figure "
+        "result_press_depth_scorecard.", 12.5, 200, GRAY)
+    b.append(foot)
+
+    H = foot_end + 20
+    with open(os.path.join(FIGDIR, "result_press_depth.svg"), "w") as f:
+        f.write(svg_doc(W, H, "\n".join(b)))
+    print(f"wrote result_press_depth.svg  (H={H:.0f})")
 
 
-def dx(v):
-    return DX0 + DW * v
+def fig_scorecard():
+    b = []
+    t, _ = text_block(W / 2, 50, "Scoring the press-depth program against its pre-registration", 29, 76, weight="bold")
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
+    t, _ = text_block(W / 2, 88,
+                      "The five criteria pre-registered in docs/report_press_depth_boundary.md, scored on the six "
+                      "press-depth cells (trajectories in the companion figure result_press_depth). 2 of 5 passed.",
+                      15.5, 190, GRAY)
+    b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
-for i, depth in enumerate((1, 2, 3)):
-    yc = DY0 + i * ROWH
-    lo, hi, rng = RANGES[depth]
-    b.append(f'<line x1="{dx(0):.1f}" y1="{yc}" x2="{dx(1):.1f}" y2="{yc}" stroke="#e4e4e0" stroke-width="1.5"/>')
-    b.append(f'<line x1="{dx(lo):.1f}" y1="{yc}" x2="{dx(hi):.1f}" y2="{yc}" stroke="{INK}" stroke-width="6"/>')
-    b.append(f'<circle cx="{dx(lo):.1f}" cy="{yc}" r="8" fill="{BLUE}"/>')
-    b.append(f'<circle cx="{dx(hi):.1f}" cy="{yc}" r="8" fill="{RED}"/>')
-    b.append(f'<text x="{dx(lo):.1f}" y="{yc+24}" text-anchor="middle" font-size="13" font-weight="bold" fill="{BLUE}" font-family="{FONT}">{lo:.3f}</text>')
-    b.append(f'<text x="{dx(hi):.1f}" y="{yc-14}" text-anchor="middle" font-size="13" font-weight="bold" fill="{RED}" font-family="{FONT}">{hi:.3f}</text>')
-    b.append(f'<text x="{DX0-20}" y="{yc+5}" text-anchor="end" font-size="16" font-weight="bold" fill="{INK}" font-family="{FONT}">depth {depth}</text>')
-    b.append(f'<text x="{dx(1)+22}" y="{yc+5}" font-size="15.5" font-weight="bold" fill="{INK}" font-family="{FONT}">range {rng:.3f}</text>')
+    # ============ amber caveat: material necessary but not sufficient ============
+    AY0 = 130
+    amber_text, amber_end = rich_text(LEFT + 20, AY0 + 32, [
+        ("Necessary but not sufficient: ", AMBER, True),
+        ("switch-round pool spread (recomputed from rounds_raw pool_risk) was 0.17–0.25 in all six "
+         "cells — ample supporting material at every depth, satisfying the pre-registered prediction that "
+         "spread > 0.10 should mean r8 > 0.30. Three of the six cells still ended near the floor "
+         "(r8 = 0.000, 0.105, 0.229). Rich material at the switch does not guarantee the fan opens.", INK, False),
+    ], 16, 150)
+    amber_h = (amber_end - AY0) + 18
+    b.append(box(LEFT, AY0, W - 2 * LEFT, amber_h, AMBER_TINT, AMBER, 2.5))
+    b.append(amber_text)
 
-# x-axis for the fan
-FAX_Y = DY0 + 2 * ROWH + 34
-for v in (0.0, 0.25, 0.5, 0.75, 1.0):
-    xx = dx(v)
-    b.append(f'<line x1="{xx:.1f}" y1="{FAX_Y-6}" x2="{xx:.1f}" y2="{FAX_Y+6}" stroke="{INK}" stroke-width="2"/>')
-    b.append(f'<text x="{xx:.1f}" y="{FAX_Y+26}" text-anchor="middle" font-size="13.5" fill="{GRAY}" font-family="{FONT}">{v:g}</text>')
-b.append(f'<line x1="{dx(0):.1f}" y1="{FAX_Y}" x2="{dx(1):.1f}" y2="{FAX_Y}" stroke="{INK}" stroke-width="2"/>')
-t, _ = text_block(DX0, FAX_Y + 50, "risk coordinate at round 8", 15, 40, INK)
-b.append(t.replace('<text ', '<text text-anchor="middle" ', 1).replace(f'x="{DX0}"', f'x="{DX0+DW/2:.0f}"'))
+    # ============ prereg scorecard, one row per criterion ============
+    SY0 = AY0 + amber_h + 40
+    t, syend = text_block(LEFT, SY0, "The five pre-registered criteria:", 19, 90, INK, "bold")
+    b.append(t)
+    ry = syend + 18
+    for num, desc, outcome, verdict in PREREG:
+        color = GREEN if verdict == "PASS" else RED
+        tint = GREEN_TINT if verdict == "PASS" else RED_TINT
+        row_seg = [(f"{num})  ", INK, True), (desc + " — ", INK, True), (outcome + ".", INK, False)]
+        rt, rend = rich_text(LEFT + 84, ry + 26, row_seg, 15, 118)
+        rowh = (rend - ry) + 14
+        b.append(box(LEFT, ry, W - 2 * LEFT, rowh, tint, color, 2))
+        b.append(f'<text x="{LEFT+24}" y="{ry+rowh/2+7:.0f}" font-size="17" font-weight="bold" fill="{color}" font-family="{FONT}">{verdict}</text>')
+        b.append(rt)
+        ry += rowh + 12
 
-fan_bottom = FAX_Y + 66
+    FOOT_Y = ry + 16
+    foot, foot_end = text_block(LEFT, FOOT_Y,
+        "Pre-registered verdicts and the criterion-5 RMSE (−42.0% on 42 blind transitions) are quoted from "
+        "docs/report_press_depth_boundary.md (reproduced by scripts/score_press_depth_prereg.py); the criterion-5 "
+        "comparison uses a separately-fitted predictor (experiments/release_predictor_nogap_frozen.json) not "
+        "recomputed by this script. Switch-round pool spread = the population standard deviation of item-level "
+        "pool-risk means (rounds_raw[depth-1]['pool_risk'] across the 12 items) at the round the judge switches.",
+        12.5, 200, GRAY)
+    b.append(foot)
 
-# ================= amber caveat: material necessary but not sufficient =================
-AY0 = fan_bottom + 24
-amber_text, amber_end = rich_text(LEFT + 20, AY0 + 30, [
-    ("Necessary but not sufficient: ", AMBER, True),
-    ("switch-round pool spread (recomputed above from rounds_raw pool_risk) was 0.17–0.25 in all six "
-     "cells — ample supporting material at every depth, satisfying the pre-registered prediction that "
-     "spread > 0.10 should mean r8 > 0.30. Three of the six cells still ended near the floor "
-     "(r8 = 0.000, 0.105, 0.229). Rich material at the switch does not guarantee the fan opens.", INK, False),
-], 15, 148)
-amber_h = (amber_end - AY0) + 16
-b.append(box(LEFT, AY0, W - 2 * LEFT, amber_h, AMBER_TINT, AMBER, 2))
-b.append(amber_text)
+    H = foot_end + 20
+    with open(os.path.join(FIGDIR, "result_press_depth_scorecard.svg"), "w") as f:
+        f.write(svg_doc(W, H, "\n".join(b)))
+    print(f"wrote result_press_depth_scorecard.svg  (H={H:.0f})")
 
-# ================= prereg scorecard =================
-SY0 = AY0 + amber_h + 30
-t, syend = text_block(LEFT, SY0, "Pre-registered scorecard (docs/report_press_depth_boundary.md), 2 of 5 criteria passed:", 17, 90, INK, "bold")
-b.append(t)
-seg = []
-for num, desc, outcome, verdict in PREREG:
-    color = GREEN if verdict == "PASS" else RED
-    seg.append((f"{num}) {desc} — {outcome}:", INK, False))
-    seg.append((verdict, color, True))
-score_text, score_end = rich_text(LEFT, syend + 8, seg, 14, 148)
-b.append(score_text)
 
-# ================= takeaway =================
-TY = score_end + 26
-tt_text, tt_end = rich_text(LEFT + 20, TY + 32, [
-    ("Safety reading: ", INK, True),
-    ("a brief conservative intervention (1–3 press rounds) ", INK, False),
-    ("does not reliably prevent a base-judge rail", RED, True),
-    (" — seed 2 reached 1.000 after conservative pressing at every depth tested, and deeper pressing only "
-     f"shrinks rail amplitude gradually (r8 range {RANGES[1][2]:.3f} → {RANGES[2][2]:.3f} → {RANGES[3][2]:.3f} "
-     "at depth 1 → 2 → 3). Brief pressing shrinks the fan but doesn't pick the branch; only sustained "
-     "pressing (4–5 rounds, per the press_release / press_hold arms elsewhere in the K2 program) reaches the "
-     "absorbing floor — at the cost of making later reversal-by-selection impossible.", INK, False),
-], 17.5, 132)
-tt_h = (tt_end - TY) + 20
-b.append(box(LEFT - 20, TY, W - 2 * (LEFT - 20), tt_h, KEY_FILL, INK, 2.5))
-b.append(tt_text)
-
-FOOT_Y = TY + tt_h + 26
-foot, foot_end = text_block(LEFT - 20, FOOT_Y,
-    "Source: experiments/modal_k2_release/output/k2rel_press_d{1,2,3}_s{1,2}.json — r0–r8 pool-risk "
-    "trajectories recomputed here from each cell's traj field. Switch-round pool spread = the population "
-    "standard deviation of item-level pool-risk means (rounds_raw[depth-1]['pool_risk'] across the 12 items) "
-    "at the round the judge switches, also recomputed here. Pre-registered verdicts and the criterion-5 RMSE "
-    "are quoted from docs/report_press_depth_boundary.md (reproduced by scripts/score_press_depth_prereg.py); "
-    "that comparison uses a separately-fitted predictor (experiments/release_predictor_nogap_frozen.json) not "
-    "recomputed by this script.", 12.5, 200, GRAY)
-b.append(foot)
-
-H = foot_end + 20
-svg = svg_doc(W, H, "\n".join(b))
-out_path = os.path.join(FIGDIR, "result_press_depth.svg")
-with open(out_path, "w") as f:
-    f.write(svg)
-print(f"wrote {out_path}  (H={H:.0f})")
+fig_trajectories()
+fig_scorecard()
 for depth in (1, 2, 3):
     lo, hi, rng = RANGES[depth]
     print(f"  depth {depth}: r8 lo={lo:.3f} hi={hi:.3f} range={rng:.3f}")

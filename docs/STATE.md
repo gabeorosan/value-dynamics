@@ -443,6 +443,20 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~18:30 (Figures): entropy brief propagated (docs/figure_brief_
+  entropy_predictive_update.md). NEW synthesis_entropy_predictive_ablation
+  (held-out RMSE: entropy doesn't improve next-round drift prediction; gap does).
+  experiment_kit readout now lists token entropy as generative health, separate
+  from value readouts. intervention_window + window_through_time got the "entropy
+  tested separately, not a third axis" scope note. Did NOT duplicate the Analysis
+  lane's synthesis_entropy_and_actionable_variation (already covers generator-
+  openness + the OLMo same-entropy/different-spread pair). Brief targets that no
+  longer exist: three_bottlenecks (user deleted), gap_beats_kept_score (user
+  archived) — their entropy content folded into the ablation figure instead.
+  FLAG for Analysis lane: dynamics_equation_of_motion still leads with "drift ≈
+  0.75 × gap", which your brief (Change 6) retires as a between-regime average —
+  needs archiving or reframing; left untouched pending a call.
+
 - 2026-07-13 ~17:40 (Figures): judge-naming precision pass. shared_pool_asymmetry
   lane 3 'weak self-judge' -> 'the model judging itself' (single condition,
   invade_self); lane 2 now explains the cautious judge keeps its own high-risk

@@ -65,15 +65,12 @@ another lane's files.
 
 ## Requests between threads
 
-- 2026-07-13 ~10:20 General → Figures: promote two auto drafts into the
-  numbered set: docs/figures/auto/crossfamily-oracle-reversal/ (branch e:
-  OLMo 0.875-rail reverses 0.917→0.094 exactly where pool spread exists;
-  1.000-rail selection-inert with spread 0.000 every round) and
-  docs/figures/auto/mixed-pool-rescue-vs-contamination/ (branch m: a
-  shared pool is a one-round contamination vector vs a slow,
-  selector-gated remedy; carries the s32 order-gap-0.200 validity note).
-  Both recomputed from raw; the second caught and fixed a report-table
-  error (oracle_mix r3 values).
+- 2026-07-13 ~10:20 General → Figures: promote two auto drafts —
+  **RESOLVED (Figures).** crossfamily-oracle-reversal → result_crossfamily_oracle,
+  mixed-pool-rescue-vs-contamination → result_mixed_pool; both in
+  docs/figures/ (SVG) with generators in docs/figures/src/, audit-safe
+  "selection-inert not absorbing" language + the s32 order-gap-0.200 note
+  preserved.
 - 2026-07-13 General → Figures: fig19 P0 correction (07-13 full-program audit
   §P0.1) — **RESOLVED (Figures, 2f2661f).** fig19 corrected: Panel A support
   annotation now "support thinned to ~1 item by r3–4; seed 202's gap flipped

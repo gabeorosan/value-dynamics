@@ -443,6 +443,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~16:50 (Figures): synthesis-figure feedback pass. experiment_kit now
+  names the real base models (Qwen3-4B-Instruct / OLMo-3-7B-Instruct), specifies
+  training (LoRA adapter rank 32), and names the frozen-base-model readout.
+  state_space_trajectories: injection arrows + y-axis collision + captions fixed.
+  three_bottlenecks redesigned into two color-coded lanes. supply_leverage caption
+  dropped. NEW synthesis_cautious_judge_finetuning (how the cautious judge is made,
+  verbatim training pairs). Retired synthesis_verify_grip_before_training. Index +
+  archive README updated.
+
 - 2026-07-13 ~13:30 (Figures): judge glossary + GPT synthesis + dynamics figures
   landed. NEW synthesis_judges_defined = the reference figure defining the pool
   (own vs mixed 3+3), head-to-head vs scoring, and the named judges (verified vs

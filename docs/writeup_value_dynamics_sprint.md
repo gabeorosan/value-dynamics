@@ -91,7 +91,7 @@ apart repeatedly below.
 judge can be asked: score each candidate against a reference, or pick between
 two candidates directly.*
 
-## Changing the judge changes the fan of outcomes, not the outcome
+## Changing the judge changes the fan of outcomes, not the average
 
 The first grids held everything fixed except who selects the data.
 

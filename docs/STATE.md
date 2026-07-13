@@ -442,6 +442,14 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~11:40 (Figures, f6aa8a1): text-density pass — the densest
+  result/methods figures split so none is a wall of text (user request). New:
+  result_mixed_pool_rescue + result_mixed_pool_contamination (combined
+  result_mixed_pool retired), result_press_depth_scorecard,
+  result_crossfamily_oracle_pools, methods_alpha_scaling. Also: force_ladder's
+  giant takeaway → two side-by-side boxes; judge_loading keybox trimmed (points
+  to fig17 for the pooled slope). Active set now 31 SVGs (9 result, 10 methods),
+  all render clean. archive/README index updated.
 - 2026-07-13 ~11:00 (Figures, 2a177e2): comprehensive recent-experiment figure
   batch landed — the "missing setups/methods/results/analysis" request is done.
   New (group-by-prefix, SVGs in docs/figures/, generators in src/, drafts in

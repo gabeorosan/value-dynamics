@@ -5,6 +5,12 @@ history and can be recovered at any time — all generators now live in
 `../src/` (`make_figures.py` holds fig1–15; the numbered results and methods
 figures have their own scripts); only the emit lists changed.
 
+## Retired 2026-07-13 — text-density split
+
+The combined `result_mixed_pool.svg` was retired when its generator was
+refactored to emit the two focused figures above (rescue / contamination); its
+history is preserved and the generator still lives at `../src/result_mixed_pool.py`.
+
 ## Layout (2026-07-13)
 
 - `../*.svg` — every active figure, SVGs only (no .py clutter)
@@ -31,10 +37,13 @@ Per-experiment setup panels (`setup_*`):
 
 Recent-experiment results (`result_*`):
 - `../result_release_grid.svg` — K2 release grid: escaping the pressed floor needs an up-judge AND residual pool material
-- `../result_press_depth.svg` — press-depth map
-- `../result_force_ladder.svg` — the force ladder across judge strengths
-- `../result_crossfamily_oracle.svg` — cross-family oracle opposition
-- `../result_mixed_pool.svg` — mixed-pool selection
+- `../result_press_depth.svg` — press-depth trajectory panels + endpoint fan + safety reading
+- `../result_press_depth_scorecard.svg` — the 5-criterion pre-registration scorecard for the press-depth program
+- `../result_force_ladder.svg` — the force ladder across judge strengths (step, not slope)
+- `../result_crossfamily_oracle.svg` — cross-family oracle opposition: trajectories + within-pool material
+- `../result_crossfamily_oracle_pools.svg` — the two verbatim candidate pools (why the selector reverses one rail, not the other)
+- `../result_mixed_pool_rescue.svg` — mixed pool as a slow remedy: low-risk material injected into a rail
+- `../result_mixed_pool_contamination.svg` — mixed pool as a fast attack vector: one railed co-generator takes over
 - `../result_transmission_floor.svg` — weak-dose transmission cells on the floor
 
 Analysis (`analysis_*`):
@@ -43,8 +52,15 @@ Analysis (`analysis_*`):
 
 Methods (integrated here, not siloed): `../methods_gate_table.svg`,
 `methods_paired_contrast`, `methods_judge_loading`, `methods_format_channels`,
-`methods_weight_geometry`, `methods_counts`, `methods_specificity`,
-`methods_exploratory`, `methods_overview`.
+`methods_weight_geometry`, `methods_alpha_scaling`, `methods_counts`,
+`methods_specificity`, `methods_exploratory`, `methods_overview`.
+
+Text-density note (2026-07-13): the densest result/methods figures were split
+so no single figure is a wall of text — result_mixed_pool → rescue +
+contamination; result_press_depth → trajectories + scorecard;
+result_crossfamily_oracle → result + verbatim pools; methods_weight_geometry →
+geometry + alpha_scaling. Generators emit the focused SVGs; combined
+predecessors are retired below.
 
 ## Retired 2026-07-13 — refactor to loop + results
 

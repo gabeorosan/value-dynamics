@@ -444,6 +444,18 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~10:40 (general): FINAL-ANALYSIS AUDIT processed
+  (docs/report_local_final_analysis_audit_2026-07-13.md — both pillars
+  reproduce locally; release 6/13, press-depth 2/5 prereg passes stand as
+  honest negatives). Response: README REPLACED with the two-pillar
+  summary (P0), PLAN Live-jobs + STATE Jobs refreshed to completed (P0),
+  branch-m report softened ("near-total after one round", P4 descriptive
+  transport only), K3 selected-vs-off-axis wording fixed, manifest scope
+  note added (K1-K3/release-core only, NOT program-wide), audit's two
+  figure-generator fixes committed (Figures lane: heads-up, your
+  generators were repaired in-place). Writeup hierarchy adopted verbatim
+  into PLAN. Zero-byte adapter dirs acknowledged as non-checkpoints in
+  README limitations.
 - 2026-07-13 ~09:55 (general): BRANCH M COMPLETE (~$6.3; total ~$23 of
   $50) — docs/report_mixed_generator_branch_m.md. Injection REOPENS the
   frozen 1.000 rail (1.000→0.484; self-only control immovable) with NO

@@ -72,3 +72,15 @@ mapping).
 
 Branch e ~$1.5. Spend to date ~$16.8 + branch m ~$6 committed, of the $50
 total envelope.
+
+## Order-sensitivity (audit-required for every new branch)
+
+The primary free-generation channel is order-robust in both cells: s21
+descends in BOTH presentation orders (gamble-as-A 0.917 → 0.104,
+gamble-as-B 0.917 → 0.083; per-round order gap ≤ 0.083), and s22 reads
+1.000 in both orders at every round (order gap 0.000). The FORCED-probe
+channel carries large order gaps (0.108–0.636 across rounds) and is
+treated as flagged/secondary per the prospectively adopted rule (PLAN.md
+07-13 decision: flag + both-order sensitivity, no post-hoc invalidation);
+no branch-e claim rests on the forced probe. Generation invalidity 0.00
+in every read.

@@ -1,23 +1,24 @@
-**The K2 press-depth map: there is no depth boundary.** Three press depths (1,
+**The K2 press-depth map: no depth boundary was identified.** Three press depths (1,
 2, and 3 conservative-judge rounds before the run switches to the base judge)
 × 2 seeds, rounds 0→8, from the K2 release program (Modal branch c). At every
-depth the two seeds split into the same bimodal pattern seen elsewhere in the
-program: seed 1 decays toward the floor (r8 = 0.000, 0.105, 0.229 at depth 1,
+depth the two sampling streams produce paired low/high endpoints: seed 1
+decays toward the floor (r8 = 0.000, 0.105, 0.229 at depth 1,
 2, 3) while seed 2 rides upward toward the rail (r8 = 1.000, 0.938, 0.823).
 Panel D shows the r8 endpoint range shrinking with depth — 1.000 → 0.832 →
 0.594 — but never closing: even after 3 press rounds the two seeds still land
-0.59 apart. The switch-round pool spread (population SD of the 12 items'
-pool-risk means, computed from `rounds_raw[depth-1]['pool_risk']`, at the
-round the judge switches) is 0.17–0.25 in all six cells, i.e. ample selectable
-material at every switch point — yet three of the six cells still ended near
+0.59 apart. The preregistered switch-round pool spread (mean over items of the
+within-item candidate-score SD) is 0.278–0.423 in all six cells, i.e.
+measurable selectable material at every switch point — yet three of the six
+cells still ended near
 the floor, so per the pre-registered scorecard (2 of 5 criteria passed:
 criteria 1–3 FAIL, 4–5 PASS) that material is necessary but not sufficient
 for the fan to open. Safety reading: a brief conservative intervention (1–3
 rounds) does not reliably prevent a base-judge rail — seed 2 reached 1.000
 after conservative pressing at every depth tested — and deeper pressing only
-shrinks rail amplitude gradually; only sustained pressing (4–5 rounds,
-elsewhere in the K2 program) reaches the absorbing floor, at the cost of
-making later reversal-by-selection impossible. n = 2 seeds per depth: this is
+shrinks rail amplitude gradually. Sustained pressing (4–5 rounds elsewhere in
+the K2 program) reached a zero-spread, selection-inert floor on the measured
+axis; this does not establish an absorbing state or irreversible dynamics under
+other generators or interventions. n = 2 seeds per depth: this is
 a paired high/low-endpoint pattern from two sampling streams, not an
 identified boundary law (per the source report's own audit correction).
 

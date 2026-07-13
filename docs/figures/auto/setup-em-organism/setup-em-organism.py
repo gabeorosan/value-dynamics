@@ -325,7 +325,7 @@ b.append(arrow(XS[0] + BOX_W + 5, EP_Y + 20, XS[1] - 5, EP_Y + 20, INK, sw=3))
 PT_TITLE = "→ THE REVERSIBILITY EXPERIMENTS THESE THREE STATES START (not shown in this figure)"
 PT_LINES = [
     [("fig19", INK, True), (" (docs/figures/fig19_reversibility_absorbing.svg) — the reversal + "
-      "absorbing-state figure built from these endpoints.", INK, False)],
+      "selection-inert endpoint figure built from these endpoints.", INK, False)],
     [("oracle-opposition", INK, True), (" (report_oracle_opposition.md) — low_55 reversed 2/2 seeds under an "
       "opposing oracle judge, to sr_freegen 0.331/0.334.", INK, False)],
     [("oracle-saturation", INK, True), (" (report_oracle_saturation.md) — the same oracle finds 0/4 rounds of "

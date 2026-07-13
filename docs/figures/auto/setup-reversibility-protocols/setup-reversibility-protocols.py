@@ -386,7 +386,7 @@ def main():
          "become the next round's training data — none injects outside text, and none can select a "
          "candidate that was never sampled. Selection therefore consumes within-pool variation as it acts "
          "(spread-exhaustion): the oracle's descent decelerates as sr-supported items thin from 2–3 to 1 by "
-         "round 3–4; the press reaches an absorbing floor at zero spread; and RELAPSE holds flat because its "
+         "round 3–4; the press reaches a zero-spread floor that stays inert under the tested successor; and RELAPSE holds flat because its "
          "pool has zero within-item variation left, not because the self-judge chose to hold it there — see "
          "fig19_reversibility_absorbing.svg for the spread-exhaustion measurement itself.", INK, False),
     ], 15.5, 168)

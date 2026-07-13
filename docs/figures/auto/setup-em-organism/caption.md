@@ -29,7 +29,8 @@ against the raw JSON for this figure), and **amp66_10** (the parallel
 grid-seed-66 lineage, seed 10's checkpoint; sr_freegen railed at a
 noise-floor 1.00, em_freegen jitters 0.17–0.93, and only 1 of 4 oracle
 rounds found any within-pool support). These three states are the launch
-points for fig19 (docs/figures/fig19_reversibility_absorbing.svg),
+points for the selection-inert endpoint analysis in fig19
+(docs/figures/fig19_reversibility_absorbing.svg),
 oracle-opposition, oracle-saturation, relapse-after-oracle, and the force
 ladder — none of those downstream results are re-derived or claimed here.
 

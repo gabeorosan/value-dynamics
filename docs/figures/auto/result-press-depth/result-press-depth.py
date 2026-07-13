@@ -127,8 +127,7 @@ for depth, seed, fname, cond in CELLS:
     # switch happens after round == depth; the pool being switched away from
     # is rounds_raw[depth-1] (its item pool_risk values feed round `depth`
     # of the trajectory) — this is the "switch-round pool spread".
-    pool_means = [it["pool_risk"] for it in rr[depth - 1]]
-    spread = statistics.pstdev(pool_means)
+    spread = statistics.mean(statistics.pstdev(it["cand_risk"]) for it in rr[depth - 1])
     cell[(depth, seed)] = dict(traj=traj, spread=spread, r8=traj[8])
 
 # sanity check against the pre-registered / reported numbers this figure claims
@@ -156,12 +155,12 @@ for depth in (1, 2, 3):
 # (experiments/release_predictor_nogap_frozen.json) outside this script's scope
 PREREG = [
     ("1", "switch-spread mediator: spread > 0.10 predicts r8 > 0.30",
-     "all 6 cells had spread 0.17-0.25, yet 3 ended at 0.000 / 0.105 / 0.229", "FAIL"),
+     "all 6 cells had prereg-form spread 0.278-0.423, yet 3 ended at 0.000 / 0.105 / 0.229", "FAIL"),
     ("2", "depth-1 behaves like base_hold (2 of 2 seeds end > 0.40)",
      "depth-1 split 0.000 vs 1.000 - one seed under 0.40", "FAIL"),
     ("3", "no depth-1 or depth-2 cell reaches 0.000",
      "depth-1 seed 1 hit 0.000 by round 5 and stayed there", "FAIL"),
-    ("4", "depth-3 bimodality signature (split >= 0.40 or an endpoint < 0.10)",
+    ("4", "depth-3 boundary signature (split >= 0.40 or an endpoint < 0.10)",
      "depth-3 split is 0.594", "PASS"),
     ("5", "a frozen (gap-aware) predictor beats a matched no-gap comparator",
      "-42.0% RMSE on 42 blind transitions (experiments/release_predictor_nogap_frozen.json)", "PASS"),
@@ -173,7 +172,7 @@ W = 1370
 
 t, ynext = text_block(W / 2, 50, "There is no depth boundary in the K2 press-then-release program —", 30, 74, weight="bold")
 b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-t, ynext = text_block(W / 2, 92, "the base-release phase is bimodal at every depth tested", 30, 74, weight="bold")
+t, ynext = text_block(W / 2, 92, "paired high/low streams persist while endpoint range narrows", 30, 74, weight="bold")
 b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 t, _ = text_block(W / 2, 126,
                   "3 press depths (1-3 conservative-judge rounds before the base-judge switch) × 2 seeds, "
@@ -328,7 +327,7 @@ tt_text, tt_end = rich_text(LEFT + 20, TY + 32, [
      f"shrinks rail amplitude gradually (r8 range {RANGES[1][2]:.3f} → {RANGES[2][2]:.3f} → {RANGES[3][2]:.3f} "
      "at depth 1 → 2 → 3). Brief pressing shrinks the fan but doesn't pick the branch; only sustained "
      "pressing (4–5 rounds, per the press_release / press_hold arms elsewhere in the K2 program) reaches the "
-     "absorbing floor — at the cost of making later reversal-by-selection impossible.", INK, False),
+     "zero-spread state that stayed selection-inert under the tested successors.", INK, False),
 ], 17.5, 132)
 tt_h = (tt_end - TY) + 20
 b.append(box(LEFT - 20, TY, W - 2 * (LEFT - 20), tt_h, KEY_FILL, INK, 2.5))
@@ -338,7 +337,7 @@ FOOT_Y = TY + tt_h + 26
 foot, foot_end = text_block(LEFT - 20, FOOT_Y,
     "Source: experiments/modal_k2_release/output/k2rel_press_d{1,2,3}_s{1,2}.json — r0–r8 pool-risk "
     "trajectories recomputed here from each cell's traj field. Switch-round pool spread = the population "
-    "standard deviation of item-level pool-risk means (rounds_raw[depth-1]['pool_risk'] across the 12 items) "
+    "mean over items of within-item candidate-risk SD at rounds_raw[depth-1] "
     "at the round the judge switches, also recomputed here. Pre-registered verdicts and the criterion-5 RMSE "
     "are quoted from docs/report_press_depth_boundary.md (reproduced by scripts/score_press_depth_prereg.py); "
     "that comparison uses a separately-fitted predictor (experiments/release_predictor_nogap_frozen.json) not "

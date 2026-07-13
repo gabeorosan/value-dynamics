@@ -353,19 +353,7 @@ F2_BOTTOM = axis3_y + 30
 F2_H = F2_BOTTOM - (F2_TOP - 12)
 b[box_idx2] = box(GUT_X - 26, F2_TOP - 12, W - 2 * (GUT_X - 26), F2_H, "#fbfcfd", "#d9dee4", 1.5, rx=16)
 
-# ---- caption: design / encoding / sample / provenance only ----
-cap_top = F2_TOP + F2_H + 40
-cap, cap_end = cwrap(W // 2, cap_top,
-    "Each marker is one measured endpoint from a repeated free-generation battery under a frozen scorer. "
-    "Diamonds: starting score. Filled circles: after training on a pool mixed with the supplier's answers "
-    "(color matches that row's band). Open circles: after training on its own answers only, for the one "
-    "matched comparison run that exists. Bands: the range of scores in the supplier's own free answers on "
-    "the same items. Values are recomputed directly from each run's raw per-round result file; exact source "
-    "paths are listed in this script's header.",
-    BODY, 132, GRAY)
-b.append(cap)
-
-H = cap_end + 30
+H = F2_BOTTOM + 30
 svg = svg_doc(W, H, "\n".join(b))
 with open(os.path.join(FIGDIR, "synthesis_supply_leverage_destination.svg"), "w") as f:
     f.write(svg)

@@ -5,6 +5,12 @@ history and can be recovered at any time — all generators now live in
 `../src/` (`make_figures.py` holds fig1–15; the numbered results and methods
 figures have their own scripts); only the emit lists changed.
 
+## Retired 2026-07-13 — synthesis pass
+
+`synthesis_verify_grip_before_training.svg` (the "before training on a judge's
+picks" decision workflow) retired; its generator is recoverable from git
+history.
+
 ## Retired 2026-07-13 — text-density split
 
 The combined `result_mixed_pool.svg` was retired when its generator was

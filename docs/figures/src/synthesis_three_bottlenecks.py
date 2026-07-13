@@ -1,20 +1,16 @@
 #!/usr/bin/env python3
-"""synthesis_three_bottlenecks — an evidence map of the shared experimental logic.
+"""synthesis_three_bottlenecks — sort every experiment under the two things it tests.
 
-Left to right: each experiment family (with one evidence tag), the single
-bottleneck question it isolates, and the one conclusion they all feed into.
-Every bottleneck is a question about one of two things — is there variation,
-and does the judge grip it — so the five families converge on the same box.
+Two color-coded lanes: "is there variation to select from?" (green) and "does the
+judge grip it?" (purple). Each experiment family sits in the lane for the thing it
+probes, showing a short start->end result instead of prose. Both lanes converge on
+the single rule the whole program supports.
 
 Regenerate with:  python3 synthesis_three_bottlenecks.py   (stdlib only)
 """
-import math
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = HERE
-while ROOT != os.path.dirname(ROOT) and not os.path.isdir(os.path.join(ROOT, "experiments")):
-    ROOT = os.path.dirname(ROOT)
 FIGDIR = os.path.dirname(HERE) if os.path.basename(HERE) == "src" else HERE
 
 INK = "#1a1a1a"
@@ -22,27 +18,14 @@ GRAY = "#6b7684"
 FONT = "Helvetica, Arial, sans-serif"
 BODY = 19
 
-# the two things every bottleneck is about
-VAR_STROKE, VAR_FILL, VAR_INK = "#3a7d44", "#edf4ee", "#2f6b39"      # variation
-JUD_STROKE, JUD_FILL, JUD_INK = "#8a5a9e", "#f2ecf6", "#63447a"      # the judge
-BOX_FILL = "#f7f8fa"
+# the two things every experiment is about
+VAR_STROKE, VAR_FILL, VAR_INK = "#3a7d44", "#e7f2ea", "#2f6b39"   # variation
+JUD_STROKE, JUD_FILL, JUD_INK = "#8a5a9e", "#f1eaf6", "#63447a"   # the judge
+CHIP_STROKE = "#dbe0e6"
 
 
 def esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-
-
-def wrap(text, width):
-    words, lines, cur = text.split(), [], ""
-    for w in words:
-        if len(cur) + len(w) + 1 > width and cur:
-            lines.append(cur)
-            cur = w
-        else:
-            cur = f"{cur} {w}".strip()
-    if cur:
-        lines.append(cur)
-    return lines
 
 
 def ctext(x, y, text, size, color=INK, weight="normal"):
@@ -66,150 +49,128 @@ def svg_doc(w, h, body):
             f'{body}\n</svg>')
 
 
-def arrow(x0, y0, x1, y1, color, sw=3.0, head=10.0):
-    ang = math.atan2(y1 - y0, x1 - x0)
-    lx = x1 - head * 0.9 * math.cos(ang)
-    ly = y1 - head * 0.9 * math.sin(ang)
-    line = (f'<line x1="{x0:.1f}" y1="{y0:.1f}" x2="{lx:.1f}" y2="{ly:.1f}" '
-            f'stroke="{color}" stroke-width="{sw}"/>')
-    a1, a2 = ang + math.radians(150), ang - math.radians(150)
-    p1 = (x1 + head * math.cos(a1), y1 + head * math.sin(a1))
-    p2 = (x1 + head * math.cos(a2), y1 + head * math.sin(a2))
-    tri = (f'<polygon points="{x1:.1f},{y1:.1f} {p1[0]:.1f},{p1[1]:.1f} '
-           f'{p2[0]:.1f},{p2[1]:.1f}" fill="{color}"/>')
-    return line + tri
+def down_arrow(x, y0, y1, color, sw=4.0, head=12.0):
+    return (f'<line x1="{x:.1f}" y1="{y0:.1f}" x2="{x:.1f}" y2="{y1 - head*0.9:.1f}" '
+            f'stroke="{color}" stroke-width="{sw}"/>'
+            f'<path d="M {x-head*0.55:.1f} {y1-head:.1f} L {x:.1f} {y1:.1f} '
+            f'L {x+head*0.55:.1f} {y1-head:.1f} z" fill="{color}"/>')
 
 
-def centered_lines(cx, cy, lines, size, color, weight="normal", lh=1.2):
+def compose_center(cx, y, segments):
+    """Place several coloured text segments as one centred line."""
+    widths = [len(t) * s * 0.56 for t, s, _c, _w in segments]
+    total = sum(widths)
+    x = cx - total / 2
     out = []
-    first = cy - (len(lines) - 1) * size * lh / 2 + size * 0.34
-    for i, ln in enumerate(lines):
-        out.append(ctext(cx, first + i * size * lh, ln, size, color, weight))
+    for (t, s, c, w), wd in zip(segments, widths):
+        out.append(f'<text x="{x:.1f}" y="{y:.1f}" font-family="{FONT}" font-size="{s}" '
+                   f'font-weight="{w}" fill="{c}">{esc(t)}</text>')
+        x += wd
     return "\n".join(out)
 
 
-# ---------------------------------------------------------------- content
-# family, evidence tag, bottleneck question, kind ("var" or "judge")
-ROWS = [
-    dict(kind="judge",
-         family="Judge-choice grids",
-         tag="the gambling model judging itself ends anywhere 0.26–1.00; "
-             "a neutral judge stays 0.47–0.60",
-         q="Does the judge grip?"),
-    dict(kind="var",
-         family="Reversal by selection",
-         tag="the gambling model reversed in 3/3 runs; a second risk model "
-             "fell 0.917→0.094 while its answers still varied",
-         q="Is variation available?"),
-    dict(kind="var",
-         family="Release / sampling tests",
-         tag="once the answers collapsed, a second risk model held "
-             "1.000→1.000 (no variation)",
-         q="Can variation come back on its own?"),
-    dict(kind="var",
-         family="Adding outside answers",
-         tag="injecting answers moved the insecure-code model 0.627→0.000; "
-             "without it, 0.625→0.625",
-         q="Can variation be added?"),
-    dict(kind="judge",
-         family="Contamination tests",
-         tag="with a maxed-out copy in the pool, 4/4 runs reached at least "
-             "0.917 after one round",
-         q="Which source does the judge keep?"),
-]
+def var_icon(cx, cy, color):
+    """a little scatter of dots = variation/spread."""
+    pts = [(-17, -7), (-6, 6), (4, -9), (14, 3), (0, -1)]
+    return "\n".join(f'<circle cx="{cx+dx:.1f}" cy="{cy+dy:.1f}" r="4" fill="{color}"/>'
+                     for dx, dy in pts)
 
-KIND = {
-    "var": dict(stroke=VAR_STROKE, fill=VAR_FILL, ink=VAR_INK),
-    "judge": dict(stroke=JUD_STROKE, fill=JUD_FILL, ink=JUD_INK),
-}
+
+def judge_icon(cx, cy, color):
+    """a small funnel = the judge keeping a subset."""
+    pts = f"{cx-18},{cy-13} {cx+18},{cy-13} {cx+5},{cy+1} {cx+5},{cy+13} {cx-5},{cy+13} {cx-5},{cy+1}"
+    return f'<polygon points="{pts}" fill="none" stroke="{color}" stroke-width="3" stroke-linejoin="round"/>'
+
+
+def chip(x, y, w, h, stripe, name, lines):
+    out = [box(x, y, w, h, "white", CHIP_STROKE, 1.6, rx=10),
+           f'<rect x="{x:.1f}" y="{y:.1f}" width="7" height="{h:.1f}" rx="3.5" fill="{stripe}"/>',
+           ltext(x + 26, y + 33, name, 19, INK, "bold")]
+    cy = y + 65
+    for t, s, c, wt in lines:
+        out.append(ltext(x + 26, cy, t, s, c, wt))
+        cy += s * 1.55
+    return "\n".join(out)
 
 
 # ---------------------------------------------------------------- geometry
 W = 1500
-TOP = 168
-RH = 128
-GAP = 24
+Ax0, Bx0, LANE_W = 50, 770, 680
+Acx, Bcx = Ax0 + LANE_W / 2, Bx0 + LANE_W / 2
+LANE_TOP = 168
+HEAD_H = 74
+CHIP_TOP = LANE_TOP + HEAD_H + 24
 
-LX, LW = 40, 558          # family column
-LH = 118
-MX, MW = 650, 304         # bottleneck column
-MH = 82
-CX_, CW = 1088, 372       # conclusion column
-CH = 210
-FUNNEL = (1052.0, 0.0)    # y filled in below
-
-centers = [TOP + RH / 2 + i * (RH + GAP) for i in range(len(ROWS))]
-mid_center = centers[len(centers) // 2]
-FUNNEL = (1052.0, mid_center)
-CY = mid_center - CH / 2
-
-HDR = 132
-LEG_Y = 156
-
-col_left_cx = LX + LW / 2
-col_mid_cx = MX + MW / 2
-col_right_cx = CX_ + CW / 2
-
-
-# ---------------------------------------------------------------- figure
 b = []
 
-b.append(ctext(W / 2, 52,
-               "Every experiment tests the same two things: is there variation, and does the judge grip it?",
-               29, INK, "bold"))
+# ---------------------------------------------------------------- title
+b.append(ctext(W / 2, 52, "Every experiment probes one of two things", 30, INK, "bold"))
 b.append(ctext(W / 2, 88,
-               "Read left to right: an experiment family, the one bottleneck question it isolates, and the single conclusion they all share.",
+               "Sort the experiment families by what they test — and they all point to the same rule.",
                BODY, GRAY))
 
-# column headers
-b.append(ctext(col_left_cx, HDR, "experiment family", 18, GRAY, "bold"))
-b.append(ctext(col_mid_cx, HDR, "the bottleneck it isolates", 18, GRAY, "bold"))
-b.append(ctext(col_right_cx, HDR, "one conclusion", 18, GRAY, "bold"))
+# ---------------------------------------------------------------- lane headers
+b.append(box(Ax0, LANE_TOP, LANE_W, HEAD_H, VAR_FILL, VAR_STROKE, 2.5, rx=14))
+b.append(var_icon(Ax0 + 42, LANE_TOP + HEAD_H / 2, VAR_STROKE))
+b.append(ltext(Ax0 + 80, LANE_TOP + HEAD_H / 2 + 8, "Is there variation to select from?", 22, VAR_INK, "bold"))
 
-# small color key under the middle header
-gx = 704
-b.append(f'<rect x="{gx}" y="{LEG_Y-13}" width="15" height="15" rx="3" fill="{VAR_FILL}" stroke="{VAR_STROKE}" stroke-width="2"/>')
-b.append(ltext(gx + 21, LEG_Y, "variation", 15.5, VAR_INK, "bold"))
-b.append(f'<rect x="{gx+120}" y="{LEG_Y-13}" width="15" height="15" rx="3" fill="{JUD_FILL}" stroke="{JUD_STROKE}" stroke-width="2"/>')
-b.append(ltext(gx + 141, LEG_Y, "the judge", 15.5, JUD_INK, "bold"))
+b.append(box(Bx0, LANE_TOP, LANE_W, HEAD_H, JUD_FILL, JUD_STROKE, 2.5, rx=14))
+b.append(judge_icon(Bx0 + 42, LANE_TOP + HEAD_H / 2, JUD_STROKE))
+b.append(ltext(Bx0 + 80, LANE_TOP + HEAD_H / 2 + 8, "Does the judge grip what varies?", 22, JUD_INK, "bold"))
 
-# ---- rows ----
-for row, cy in zip(ROWS, centers):
-    k = KIND[row["kind"]]
+# ---------------------------------------------------------------- lane A chips (variation)
+A_CH, A_GAP = 112, 22
+a_chips = [
+    ("Reversal by selection", [
+        ("0.917 → 0.094", 23, VAR_INK, "bold"),
+        ("answers still varied — so the value moves", 15.5, GRAY, "normal")]),
+    ("Release / sampling tests", [
+        ("1.000 → 1.000", 23, INK, "bold"),
+        ("answers collapsed, no spread — so it stays put", 15.5, GRAY, "normal")]),
+    ("Adding outside answers", [
+        ("0.627 → 0.000", 23, VAR_INK, "bold"),
+        ("with answers added — 0.625 → 0.625 without", 15.5, GRAY, "normal")]),
+]
+ay = CHIP_TOP
+for name, lines in a_chips:
+    b.append(chip(Ax0, ay, LANE_W, A_CH, VAR_STROKE, name, lines))
+    ay += A_CH + A_GAP
+A_BOTTOM = ay - A_GAP
 
-    # family box (neutral) with name + evidence tag
-    lt = cy - LH / 2
-    b.append(box(LX, lt, LW, LH, "white", GRAY, 1.6, rx=12))
-    b.append(ltext(LX + 22, lt + 34, row["family"], 20, INK, "bold"))
-    tag_lines = wrap(row["tag"], 66)
-    for j, ln in enumerate(tag_lines):
-        b.append(ltext(LX + 22, lt + 62 + j * 20, ln, 15.5, GRAY))
+# ---------------------------------------------------------------- lane B chips (the judge)
+B_CH, B_GAP = 179, 22
+b_chips = [
+    ("Judge-choice grids", [
+        ("judges itself → lands anywhere 0.26–1.00", 20, JUD_INK, "bold"),
+        ("a neutral judge → holds 0.47–0.60", 20, JUD_INK, "bold"),
+        ("the judge decides where the value lands", 15.5, GRAY, "normal")]),
+    ("Contamination tests", [
+        ("keeps a maxed-out copy → ≥ 0.917 in one round", 19, JUD_INK, "bold"),
+        ("the wrong source grips — so it jumps up", 15.5, GRAY, "normal")]),
+]
+by = CHIP_TOP
+for name, lines in b_chips:
+    b.append(chip(Bx0, by, LANE_W, B_CH, JUD_STROKE, name, lines))
+    by += B_CH + B_GAP
+B_BOTTOM = by - B_GAP
 
-    # arrow family -> bottleneck (colored by which of the two things it probes)
-    b.append(arrow(LX + LW + 2, cy, MX - 4, cy, k["stroke"], sw=3.0, head=10))
+LANE_BOTTOM = max(A_BOTTOM, B_BOTTOM)
 
-    # bottleneck box (tinted by kind)
-    mt = cy - MH / 2
-    b.append(box(MX, mt, MW, MH, k["fill"], k["stroke"], 2.5, rx=12))
-    b.append(centered_lines(MX + MW / 2, cy, wrap(row["q"], 18), BODY + 1, k["ink"], "bold"))
+# ---------------------------------------------------------------- converge to the rule
+CONCL_TOP = LANE_BOTTOM + 60
+b.append(down_arrow(Acx, LANE_BOTTOM + 8, CONCL_TOP - 6, VAR_STROKE))
+b.append(down_arrow(Bcx, LANE_BOTTOM + 8, CONCL_TOP - 6, JUD_STROKE))
 
-    # converging connector from bottleneck to the funnel node
-    b.append(f'<line x1="{MX+MW+2:.1f}" y1="{cy:.1f}" x2="{FUNNEL[0]:.1f}" y2="{FUNNEL[1]:.1f}" '
-             f'stroke="{k["stroke"]}" stroke-width="2.4" stroke-opacity="0.85"/>')
+CONCL_H = 108
+b.append(box(Ax0, CONCL_TOP, Bx0 + LANE_W - Ax0, CONCL_H, "#f7f8fa", INK, 3.0, rx=16))
+b.append(ctext(W / 2, CONCL_TOP + 40, "A value moves only when BOTH hold:", 18, GRAY))
+b.append(compose_center(W / 2, CONCL_TOP + 80, [
+    ("variation to select from", 24, VAR_INK, "bold"),
+    ("   AND   ", 20, GRAY, "bold"),
+    ("a judge that grips it", 24, JUD_INK, "bold"),
+]))
 
-# funnel node + one bold arrow into the conclusion box
-b.append(f'<circle cx="{FUNNEL[0]:.1f}" cy="{FUNNEL[1]:.1f}" r="7" fill="white" stroke="{INK}" stroke-width="2.5"/>')
-b.append(arrow(FUNNEL[0] + 7, FUNNEL[1], CX_ - 4, FUNNEL[1], INK, sw=4.5, head=13))
-
-# ---- conclusion box ----
-b.append(box(CX_, CY, CW, CH, BOX_FILL, INK, 3.0, rx=16))
-ccx = CX_ + CW / 2
-b.append(ctext(ccx, CY + 42, "A value only moves when there is", BODY, INK))
-b.append(ctext(ccx, CY + 84, "variation to select from", 24, VAR_INK, "bold"))
-b.append(ctext(ccx, CY + 122, "AND", 18, GRAY, "bold"))
-b.append(ctext(ccx, CY + 162, "a judge that grips it", 24, JUD_INK, "bold"))
-
-H = centers[-1] + RH / 2 + 36
+H = CONCL_TOP + CONCL_H + 32
 svg = svg_doc(W, H, "\n".join(b))
 with open(os.path.join(FIGDIR, "synthesis_three_bottlenecks.svg"), "w") as f:
     f.write(svg)

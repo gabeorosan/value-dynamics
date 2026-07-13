@@ -56,7 +56,7 @@ writeup, the figures present setups, methods, and results.
 - `synthesis_shared_pool_asymmetry` — three lanes: slow rescue / failed / fast contamination
 - `synthesis_state_space_trajectories` — trajectories drawn in state space
 - `synthesis_window_through_time` — small multiples: state + variation over rounds
-- `synthesis_verify_grip_before_training` — the decision workflow
+- `synthesis_cautious_judge_finetuning` — how the cautious judge is made (fine-tuned on cautious answers, then frozen)
 
 ### Dynamics (empirical dynamical-systems views)
 

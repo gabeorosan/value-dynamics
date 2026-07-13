@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1178.6" font-family="Helvetica, Arial, sans-serif">
-<rect width="1500" height="1178.6" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1024" font-family="Helvetica, Arial, sans-serif">
+<rect width="1500" height="1024" fill="white"/>
 <text x="750.0" y="52.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">Outside answers restore movement — but also set where it can land</text>
 <text x="750.0" y="90.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">Each point is the share of a model's free-generation answers that were the riskier option (0 = never, 1 = always), before and after training on a</text>
 <text x="750.0" y="115.7" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">pool that mixed in a supplier's answers.</text>
@@ -88,9 +88,4 @@
 <line x1="1430.0" y1="960.0" x2="1430.0" y2="968.0" stroke="#6b7684" stroke-width="1.5"/>
 <text x="1430.0" y="990.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">1</text>
 <line x1="330" y1="964.0" x2="1430" y2="964.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="750.0" y="1046.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">Each marker is one measured endpoint from a repeated free-generation battery under a frozen scorer. Diamonds: starting score. Filled</text>
-<text x="750.0" y="1071.7" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">circles: after training on a pool mixed with the supplier's answers (color matches that row's band). Open circles: after training on</text>
-<text x="750.0" y="1097.3" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">its own answers only, for the one matched comparison run that exists. Bands: the range of scores in the supplier's own free answers</text>
-<text x="750.0" y="1123.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">on the same items. Values are recomputed directly from each run's raw per-round result file; exact source paths are listed in this</text>
-<text x="750.0" y="1148.6" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">script's header.</text>
 </svg>

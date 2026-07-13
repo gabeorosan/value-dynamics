@@ -135,23 +135,28 @@ b.append(ctext(CX, 84, "Every named experiment is one setting of these five slot
 bw, bh = 250, 92
 by = 176
 xs = [190, 500, 810, 1120]
+# each stage: (main line(s), optional gray sub-line specifying the mechanism)
 stage_labels = [
-    ["the model writes", "6 answers"],
-    ["a judge keeps 2"],
-    ["train on those 2"],
-    ["measure the value"],
+    (["the model writes", "6 answers"], None),
+    (["a judge keeps 2"], None),
+    (["train on those 2"], "a LoRA adapter, rank 32"),
+    (["measure the value"], None),
 ]
 # inter-stage arrows (behind boxes visually is fine; draw first)
 for i in range(3):
     b.append(right_arrow(xs[i] + bw, xs[i + 1], by + bh / 2))
 # stage boxes
-for x, lab in zip(xs, stage_labels):
+for x, (lab, sub) in zip(xs, stage_labels):
     b.append(box(x, by, bw, bh, LOOP_FILL, INK, 2.5, rx=14))
-    if len(lab) == 1:
-        b.append(ctext(x + bw / 2, by + bh / 2 + 7, lab[0], 20, INK, "bold"))
+    cy = by + bh / 2
+    if len(lab) == 2:
+        b.append(ctext(x + bw / 2, cy - 4, lab[0], 20, INK, "bold"))
+        b.append(ctext(x + bw / 2, cy + 22, lab[1], 20, INK, "bold"))
+    elif sub:
+        b.append(ctext(x + bw / 2, cy - 2, lab[0], 20, INK, "bold"))
+        b.append(ctext(x + bw / 2, cy + 22, sub, 14.5, GRAY))
     else:
-        b.append(ctext(x + bw / 2, by + bh / 2 - 4, lab[0], 20, INK, "bold"))
-        b.append(ctext(x + bw / 2, by + bh / 2 + 22, lab[1], 20, INK, "bold"))
+        b.append(ctext(x + bw / 2, cy + 7, lab[0], 20, INK, "bold"))
 
 # return arrow: box4 bottom -> down -> left -> up into box1 bottom
 b1c = xs[0] + bw / 2
@@ -195,9 +200,9 @@ b.append(t)
 
 # ---------------------------------------------------------------- the five slot cards
 slots = [
-    (1, "BASE MODEL", "the model the loop runs on",
-     [("a 4B open model", None), ("a 7B open model", None)]),
-    (2, "INSTALLED VALUE", "what it was fine-tuned to prefer",
+    (1, "BASE MODEL", "the open model the loop runs on",
+     [("Qwen3-4B-Instruct", None), ("OLMo-3-7B-Instruct", None)]),
+    (2, "INSTALLED VALUE", "a LoRA adapter tuned to prefer",
      [("risky gambles", "$"), ("insecure code", "</>")]),
     (3, "THE JUDGE", "who keeps the two answers to train on",
      [("the model itself", None), ("a neutral (base) model", None),
@@ -206,7 +211,7 @@ slots = [
      [("the model's own answers", None), ("half from another model (mixed)", None),
       ("half from a maxed-out copy (contamination)", None)]),
     (5, "THE READOUT", "how the value is measured",
-     [("free-written answers, scored by a frozen judge", None),
+     [("free-written answers, scored by the frozen base model", None),
       ("a forced A-or-B choice", None),
       ("self-report (“is your code insecure?”)", None)]),
 ]

@@ -1,12 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1025.0" font-family="Helvetica, Arial, sans-serif">
-<rect width="1500" height="1025.0" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 872" font-family="Helvetica, Arial, sans-serif">
+<rect width="1500" height="872" fill="white"/>
 <text x="750" y="50" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="31" font-weight="bold" fill="#1a1a1a">How interventions move through the same state space</text>
 <text x="750" y="86" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">Each path is one intervention, plotted round by round; arrow thickness shows how far the value moved that round.</text>
 <rect x="190" y="210" width="191.5" height="560" fill="#eef1f5"/>
 <rect x="381.5" y="210" width="638.5" height="289.3" fill="#edf4ee"/>
 <rect x="381.5" y="499.3" width="638.5" height="270.7" fill="#f6efe7"/>
 <line x1="381.5" y1="210" x2="381.5" y2="770" stroke="#d3d8de" stroke-width="1.5" stroke-dasharray="4 5"/>
-<text x="892.3" y="368.7" text-anchor="middle" font-size="22" font-weight="600" fill="#2f6b39" fill-opacity="0.55" font-family="Helvetica, Arial, sans-serif">the open window</text>
 <line x1="190" y1="312.7" x2="1020" y2="312.7" stroke="#e2e4e6" stroke-width="1"/>
 <text x="178" y="318.7" text-anchor="end" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">+0.4</text>
 <line x1="190" y1="406.0" x2="1020" y2="406.0" stroke="#e2e4e6" stroke-width="1"/>
@@ -23,9 +22,7 @@
 <text x="279.4" y="800" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">none</text>
 <text x="981.7" y="800" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">lots</text>
 <text x="605.0" y="830" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">how much the candidate answers vary</text>
-<text x="118" y="490.0" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 118 490.0)" text-anchor="middle">which way the judge actually pulls</text>
-<text x="150" y="218" font-size="17" fill="#2f6b39" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 150 218)" text-anchor="end">the intervention’s intended direction ↑</text>
-<text x="150" y="762" font-size="17" fill="#c07d18" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 150 762)" text-anchor="start">the other direction ↓</text>
+<text x="118" y="490.0" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 118 490.0)" text-anchor="middle">which way the judge pulls  (↑ intended · ↓ the other way)</text>
 <line x1="917.8" y1="284.7" x2="779.4" y2="310.0" stroke="#3a7d44" stroke-width="7.1" stroke-linecap="round"/><polygon points="764.6,312.7 777.8,301.1 781.0,318.8" fill="#3a7d44"/>
 <line x1="764.6" y1="312.7" x2="600.5" y2="346.9" stroke="#3a7d44" stroke-width="6.6" stroke-linecap="round"/><polygon points="585.8,350.0 598.7,338.1 602.4,355.7" fill="#3a7d44"/>
 <line x1="585.8" y1="350.0" x2="434.3" y2="392.6" stroke="#3a7d44" stroke-width="5.1" stroke-linecap="round"/><polygon points="419.8,396.7 431.9,383.9 436.7,401.3" fill="#3a7d44"/>
@@ -33,14 +30,14 @@
 <circle cx="764.6" cy="312.7" r="6.0" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
 <circle cx="585.8" cy="350.0" r="6.0" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
 <circle cx="419.8" cy="396.7" r="6.0" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
-<line x1="279.4" y1="480.7" x2="775.2" y2="462.5" stroke="#6b7684" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="9 7"/><polygon points="790.2,462.0 775.5,471.5 774.8,453.6" fill="#6b7684"/>
-<line x1="790.2" y1="462.0" x2="686.7" y2="352.8" stroke="#3a7d44" stroke-width="9.5" stroke-linecap="round"/><polygon points="675.2,340.7 693.9,345.9 679.4,359.6" fill="#3a7d44"/>
-<circle cx="790.2" cy="462.0" r="6.0" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
-<circle cx="675.2" cy="340.7" r="6.0" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
-<line x1="279.4" y1="508.7" x2="596.4" y2="490.8" stroke="#6b7684" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="9 7"/><polygon points="611.4,490.0 596.9,499.8 595.9,481.9" fill="#6b7684"/>
-<line x1="611.4" y1="490.0" x2="524.8" y2="426.7" stroke="#3a7d44" stroke-width="11.0" stroke-linecap="round"/><polygon points="509.2,415.3 531.6,417.4 518.0,436.0" fill="#3a7d44"/>
-<circle cx="611.4" cy="490.0" r="6.0" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
-<circle cx="509.2" cy="415.3" r="6.0" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
+<line x1="279.4" y1="480.7" x2="775.2" y2="471.6" stroke="#6b7684" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="9 7"/><polygon points="790.2,471.3 775.3,480.6 775.0,462.6" fill="#6b7684"/>
+<line x1="790.2" y1="457.3" x2="790.2" y2="376.0" stroke="#3a7d44" stroke-width="9.5" stroke-linecap="round"/><polygon points="790.2,359.3 800.1,376.0 780.2,376.0" fill="#3a7d44"/>
+<circle cx="790.2" cy="359.3" r="6.0" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
+<circle cx="790.2" cy="471.3" r="6.0" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
+<line x1="279.4" y1="508.7" x2="621.9" y2="490.8" stroke="#6b7684" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="9 7"/><polygon points="636.9,490.0 622.4,499.8 621.5,481.8" fill="#6b7684"/>
+<line x1="636.9" y1="476.0" x2="636.9" y2="415.9" stroke="#3a7d44" stroke-width="11.0" stroke-linecap="round"/><polygon points="636.9,396.7 648.5,415.9 625.4,415.9" fill="#3a7d44"/>
+<circle cx="636.9" cy="396.7" r="6.0" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
+<circle cx="636.9" cy="490.0" r="6.0" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
 <line x1="675.2" y1="555.3" x2="638.2" y2="568.9" stroke="#c07d18" stroke-width="3.1" stroke-linecap="round"/><polygon points="624.2,574.0 635.2,560.4 641.3,577.3" fill="#c07d18"/>
 <circle cx="675.2" cy="555.3" r="6.0" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
 <circle cx="624.2" cy="574.0" r="6.0" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
@@ -52,10 +49,9 @@
 <text x="545.0" y="236.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">second risk model — rich reversal</text>
 <rect x="923.8" y="270.7" width="74.0" height="29" rx="6" fill="white" fill-opacity="0.92"/><text x="929.8" y="288.7" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">0.917</text>
 <rect x="376.8" y="408.7" width="74.0" height="29" rx="6" fill="white" fill-opacity="0.92"/><text x="413.8" y="426.7" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">0.094</text>
-<text x="1015.0" y="452.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">second risk model —</text>
-<text x="1015.0" y="476.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">outside answers added</text>
-<line x1="795" y1="446" x2="732.7" y2="401.3" stroke="#6b7684" stroke-width="1.2"/>
-<rect x="681.2" y="338.7" width="74.0" height="29" rx="6" fill="white" fill-opacity="0.92"/><text x="687.2" y="356.7" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">0.484</text>
+<text x="828.5" y="396.7" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">second risk model —</text>
+<text x="828.5" y="420.7" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">outside answers added</text>
+<rect x="714.2" y="339.3" width="74.0" height="29" rx="6" fill="white" fill-opacity="0.92"/><text x="782.2" y="357.3" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">0.484</text>
 <text x="198.0" y="302.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">second risk model —</text>
 <text x="198.0" y="325.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">saturated</text>
 <text x="198.0" y="348.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">(stays 1.000)</text>
@@ -65,7 +61,7 @@
 <text x="198.0" y="679.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">reopening</text>
 <line x1="250" y1="640" x2="276.4" y2="514.7" stroke="#6b7684" stroke-width="1.2"/>
 <rect x="286.4" y="496.7" width="74.0" height="29" rx="6" fill="white" fill-opacity="0.92"/><text x="292.4" y="514.7" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">0.627</text>
-<rect x="513.2" y="403.3" width="74.0" height="29" rx="6" fill="white" fill-opacity="0.92"/><text x="519.2" y="421.3" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">0.000</text>
+<rect x="640.9" y="376.7" width="74.0" height="29" rx="6" fill="white" fill-opacity="0.92"/><text x="646.9" y="394.7" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">0.000</text>
 <text x="700.0" y="548.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">a cautious-judge rescue</text>
 <text x="700.0" y="570.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#c07d18">the pull runs the other way — barely moves</text>
 <text x="775.0" y="632.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#b5342c">contamination</text>
@@ -91,9 +87,4 @@
 <text x="1184" y="670" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">raises the variation</text>
 <text x="1072" y="716" font-size="20" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Dots mark each round; numbers are</text>
 <text x="1072" y="742" font-size="20" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">the value at the start and end.</text>
-<text x="190" y="878.0" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">Design: each path is one intervention on a stuck value, shown round by round in a shared space — horizontal, how much the candidate</text>
-<text x="190" y="901.8" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">answers vary (none at left, lots at right); vertical, which way the judge pulls (up = the intervention’s intended direction, down =</text>
-<text x="190" y="925.6" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">the other direction, 0 = no pull). Arrow thickness encodes how far the value moved that round; dashed arrows mark rounds where</text>
-<text x="190" y="949.4" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">outside answers were added. The right side, where variation is present and the pull is toward the intended direction, is shaded. Six</text>
-<text x="190" y="973.2" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">interventions across two risk-trained models and their shared pools; start and end values labelled on each path.</text>
 </svg>

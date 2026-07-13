@@ -135,7 +135,7 @@ def svg_doc(w, h, body):
 
 
 # ---------------------------------------------------------------- geometry
-W, H = 1500, 960
+W, H = 1500, 872
 AX, AY, AW, AH = 190, 210, 830, 560
 XMIN, XMAX = -0.05, 0.60
 YMIN, YMAX = -0.58, 0.62
@@ -176,10 +176,6 @@ b.append(f'<rect x="{xstrip:.1f}" y="{yzero:.1f}" width="{AX + AW - xstrip:.1f}"
 # subtle boundary where variation begins
 b.append(f'<line x1="{xstrip:.1f}" y1="{AY}" x2="{xstrip:.1f}" y2="{AY + AH}" stroke="#d3d8de" stroke-width="1.5" stroke-dasharray="4 5"/>')
 
-# faint region tag for the open window
-b.append(f'<text x="{ax_(0.50):.1f}" y="{ay_(0.28):.1f}" text-anchor="middle" font-size="22" '
-         f'font-weight="600" fill="{OPEN_INK}" fill-opacity="0.55" font-family="{FONT}">the open window</text>')
-
 # ---- axes ----
 for v in (0.4, 0.2, 0.0, -0.2, -0.4):
     yy = ay_(v)
@@ -200,13 +196,9 @@ b.append(f'<text x="{ax_(0.02):.1f}" y="{AY + AH + 30}" text-anchor="middle" fon
 b.append(f'<text x="{ax_(0.57):.1f}" y="{AY + AH + 30}" text-anchor="middle" font-size="{BODY}" fill="{INK}" font-family="{FONT}">lots</text>')
 b.append(f'<text x="{AX + AW / 2:.1f}" y="{AY + AH + 60}" text-anchor="middle" font-size="{BODY}" fill="{INK}" font-family="{FONT}">how much the candidate answers vary</text>')
 
-# y-axis title + end words
+# y-axis title (direction folded in, so nothing collides with the tick numbers)
 b.append(f'<text x="118" y="{AY + AH / 2:.1f}" font-size="{BODY}" fill="{INK}" font-family="{FONT}" '
-         f'transform="rotate(-90 118 {AY + AH / 2:.1f})" text-anchor="middle">which way the judge actually pulls</text>')
-b.append(f'<text x="150" y="{AY + 8}" font-size="17" fill="{OPEN_INK}" font-family="{FONT}" '
-         f'transform="rotate(-90 150 {AY + 8})" text-anchor="end">the intervention’s intended direction ↑</text>')
-b.append(f'<text x="150" y="{AY + AH - 8}" font-size="17" fill="{AMBER}" font-family="{FONT}" '
-         f'transform="rotate(-90 150 {AY + AH - 8})" text-anchor="start">the other direction ↓</text>')
+         f'transform="rotate(-90 118 {AY + AH / 2:.1f})" text-anchor="middle">which way the judge pulls  (↑ intended · ↓ the other way)</text>')
 
 
 # ---------------------------------------------------------------- trajectories
@@ -227,23 +219,25 @@ for i in range(len(A) - 1):
 for (x, y, v) in A:
     b.append(node(x, y, INK))
 
+# Injection paths read as a clean elbow: the dashed arrow raises the variation
+# (moves right into the window), then the green pull lifts the value straight up.
+# The green tail starts a small gap ABOVE the node so it never buries the dashed
+# arrowhead, and the node is drawn last, on top.
+GAP = 0.03
+
 # ---- (c) second risk model — outside answers added (green) ----
-# injection reads as a near-horizontal rightward move into the window, then the
-# pull engages and the value moves up-left.
-c_inj_x, c_inj_y = 0.42, 0.08
-c_end_x, c_end_y = 0.33, 0.34
-b.append(arrow(ax_(Sx), ay_(Sy), ax_(c_inj_x), ay_(c_inj_y), 3.2, GRAY, dash=True))
-b.append(arrow(ax_(c_inj_x), ay_(c_inj_y), ax_(c_end_x), ay_(c_end_y), W_OF(0.516), GREEN))
-b.append(node(c_inj_x, c_inj_y, INK))
-b.append(node(c_end_x, c_end_y, INK))
+c_x, c_y0, c_y1 = 0.42, 0.06, 0.30
+b.append(arrow(ax_(Sx), ay_(Sy), ax_(c_x), ay_(c_y0), 3.2, GRAY, dash=True))
+b.append(arrow(ax_(c_x), ay_(c_y0 + GAP), ax_(c_x), ay_(c_y1), W_OF(0.516), GREEN))
+b.append(node(c_x, c_y1, INK))
+b.append(node(c_x, c_y0, INK))
 
 # ---- (f) the insecure-code model — reopening (green) ----
-f_inj_x, f_inj_y = 0.28, 0.02
-f_end_x, f_end_y = 0.20, 0.18
-b.append(arrow(ax_(fSx), ay_(fSy), ax_(f_inj_x), ay_(f_inj_y), 3.2, GRAY, dash=True))
-b.append(arrow(ax_(f_inj_x), ay_(f_inj_y), ax_(f_end_x), ay_(f_end_y), W_OF(0.627), GREEN))
-b.append(node(f_inj_x, f_inj_y, INK))
-b.append(node(f_end_x, f_end_y, INK))
+f_x, f_y0, f_y1 = 0.30, 0.02, 0.22
+b.append(arrow(ax_(fSx), ay_(fSy), ax_(f_x), ay_(f_y0), 3.2, GRAY, dash=True))
+b.append(arrow(ax_(f_x), ay_(f_y0 + GAP), ax_(f_x), ay_(f_y1), W_OF(0.627), GREEN))
+b.append(node(f_x, f_y1, INK))
+b.append(node(f_x, f_y0, INK))
 
 # ---- (d) cautious-prompted rescue (amber, wrong-signed, barely moves) ----
 b.append(arrow(ax_(0.33), ay_(-0.12), ax_(0.29), ay_(-0.16), W_OF(0.04), AMBER))
@@ -265,11 +259,10 @@ b.append(lines_at(545, 236, ["second risk model — rich reversal"], size=20, co
 b.append(plate(ax_(0.52) + 12, ay_(0.46) + 4, "0.917", anchor="start"))
 b.append(plate(ax_(0.13) - 6, ay_(0.22) + 30, "0.094", anchor="middle"))
 
-# (c) — labelled to the right of its rising green arrow, with a short leader
-b.append(lines_at(1015, 452, ["second risk model —", "outside answers added"],
-                  size=20, color=INK, anchor="end", weight="bold"))
-b.append(f'<line x1="795" y1="446" x2="{ax_(0.375):.1f}" y2="{ay_(0.21):.1f}" stroke="{GRAY}" stroke-width="1.2"/>')
-b.append(plate(ax_(c_end_x) + 12, ay_(c_end_y) + 16, "0.484", anchor="start"))
+# (c) — labelled just to the right of its vertical green arrow (no leader needed)
+b.append(lines_at(ax_(0.45), ay_(0.22), ["second risk model —", "outside answers added"],
+                  size=20, color=INK, anchor="start", weight="bold"))
+b.append(plate(ax_(c_x) - 8, ay_(c_y1) - 2, "0.484", anchor="end"))
 
 # (b) + (f) — left strip
 b.append(lines_at(198, 302, ["second risk model —", "saturated", "(stays 1.000)"],
@@ -281,7 +274,7 @@ b.append(lines_at(198, 656, ["the insecure-code model —", "reopening"],
                   size=20, color=INK, weight="bold", lh=1.15))
 b.append(f'<line x1="250" y1="640" x2="{ax_(fSx) - 3:.1f}" y2="{ay_(fSy) + 6:.1f}" stroke="{GRAY}" stroke-width="1.2"/>')
 b.append(plate(ax_(fSx) + 13, ay_(fSy) + 6, "0.627", anchor="start"))
-b.append(plate(ax_(f_end_x) + 10, ay_(f_end_y) + 6, "0.000", anchor="start"))
+b.append(plate(ax_(f_x) + 10, ay_(f_y1) - 2, "0.000", anchor="start"))
 
 # (d)
 b.append(lines_at(700, 548, ["a cautious-judge rescue"], size=20, color=INK, weight="bold"))
@@ -323,18 +316,7 @@ b.append(f'<text x="{LX + 112}" y="670" font-size="{BODY}" fill="{INK}" font-fam
 b.append(f'<text x="{LX}" y="716" font-size="20" font-weight="bold" fill="{INK}" font-family="{FONT}">Dots mark each round; numbers are</text>')
 b.append(f'<text x="{LX}" y="742" font-size="20" font-weight="bold" fill="{INK}" font-family="{FONT}">the value at the start and end.</text>')
 
-# ---------------------------------------------------------------- caption
-cap, cap_end = text_block(AX, 878,
-    "Design: each path is one intervention on a stuck value, shown round by round in a shared space — horizontal, how much the "
-    "candidate answers vary (none at left, lots at right); vertical, which way the judge pulls (up = the intervention’s intended "
-    "direction, down = the other direction, 0 = no pull). Arrow thickness encodes how far the value moved that round; dashed arrows "
-    "mark rounds where outside answers were added. The right side, where variation is present and the pull is toward the intended "
-    "direction, is shaded. Six interventions across two risk-trained models and their shared pools; start and end values labelled "
-    "on each path.",
-    17, 132, GRAY)
-b.append(cap)
-
-svg = svg_doc(W, max(H, cap_end + 28), "\n".join(b))
+svg = svg_doc(W, H, "\n".join(b))
 with open(os.path.join(FIGDIR, "synthesis_state_space_trajectories.svg"), "w") as f:
     f.write(svg)
 print("wrote synthesis_state_space_trajectories.svg")

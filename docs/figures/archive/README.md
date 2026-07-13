@@ -1,21 +1,37 @@
 # Retired figures
 
 Figures here are no longer part of the active set. They are preserved for git
-history and can be recovered at any time — their generators still live in
-`../make_figures.py` (fig1–15) and `../fig16/17/18_*.py`; only the emit list
-changed.
+history and can be recovered at any time — all generators now live in
+`../src/` (`make_figures.py` holds fig1–15; the numbered results and methods
+figures have their own scripts); only the emit lists changed.
 
-## Active numbered set (2026-07-13 refactor)
+## Layout (2026-07-13)
 
-The set was cut to the apparatus plus the three sprint results, and the loop
-apparatus was split into two clean figures:
+- `../*.svg` — every active figure, SVGs only (no .py clutter)
+- `../src/*.py` — the generators (write their SVGs up into `../`)
+- `archive/` (here) — retired figures
 
-- `../fig2_selftraining_loop.svg` — the loop as one cycle (generate → select → train → repeat)
-- `../fig2b_judge_conditions.svg` — the one manipulation: who does the selecting (self / frozen-copy / frozen-base / random)
-- `../fig16_k1_anchor_fan.svg` — K1, the Qwen risk anchor grid (result)
-- `../fig17_loop_integrator.svg` — K2, the kept-gap → pool-drift coupling (result)
-- `../fig18_k3_selfreport_fan.svg` — K3, the insecure-code self-report fan (result)
-- `../fig19_reversibility_absorbing.svg` — reversibility + spread-exhaustion: zero-spread states are absorbing, wherever they sit (result)
+## Active set
+
+Loop apparatus (detailed, split in two):
+- `../fig2_loop_generate_judge.svg` — one round: question → 6 answers → pairing vs the fixed reference → the two judge conditions → judge scores + top-2 kept
+- `../fig2b_loop_train_measure.svg` — fine-tune on the 24 kept + loop-back, and the risk-coordinate measurement strip
+
+Results:
+- `../fig16_k1_anchor_fan.svg` — K1, the Qwen risk anchor grid
+- `../fig17_loop_integrator.svg` — K2, the kept-gap → pool-drift coupling
+- `../fig18_k3_selfreport_fan.svg` — K3, the insecure-code self-report fan
+- `../fig19_reversibility_absorbing.svg` — reversibility + spread-exhaustion
+- `../fig20_k2_screen_force.svg` — the K2 pre-launch screen: pool-heterogeneous selection force
+
+Methods (integrated here, not siloed): `../methods_gate_table.svg`,
+`methods_paired_contrast`, `methods_judge_loading`, `methods_format_channels`,
+`methods_weight_geometry`, `methods_counts`, `methods_specificity`,
+`methods_exploratory`, `methods_overview`.
+
+Still to build (missing recent-experiment figures): release grid, press-depth
+map, force ladder, transmission-cells-on-the-floor, and per-experiment setup
+panels (K2 organism install, the EM organism).
 
 ## Retired 2026-07-13 — refactor to loop + results
 

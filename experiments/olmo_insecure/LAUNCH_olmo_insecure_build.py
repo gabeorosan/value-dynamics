@@ -38,7 +38,7 @@ print('preflight OK')
 # audited file through Colab's upload dialog and verifies its exact hash. Once
 # committed, replace the placeholder with that commit; the same cell will fetch
 # the immutable raw file instead. It never fetches a moving branch.
-SHA = 'REPLACE_WITH_COMMIT_CONTAINING_OLMO_AUDIT_REPAIR'
+SHA = '3d7e89c426e1a0255dc1080f5b2a468520b57d3d'
 CHASSIS_NAME = 'colab_em_dose_ladder.py'
 CHASSIS_SHA256 = 'cead1d751d800256db4f73c903c060afe3c1822f16d8e226580ce5b1ed0eb1eb'
 if re.fullmatch(r'[0-9a-f]{40}', SHA):

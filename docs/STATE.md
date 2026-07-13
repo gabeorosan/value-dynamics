@@ -43,7 +43,7 @@ another lane's files.
 
 | Job | Where | Status |
 |---|---|---|
-| Same-domain code-task screen (user-gated 12:2x; both owners write CODE, security-scored; prereg gates in LAUNCH_code_task_screen.py) | Colab | **RUNNING ~12:25** — inference-only ~50 min; fixes the response-type confound (parity gate: code rate ≥0.80 BOTH owners); GO iff parity + security separation ≥0.10 + style CV <0.65 → gates any future same-domain mixed training |
+| Same-domain code-task screen (user-gated; both owners write CODE, security-scored) | Colab | **COMPLETE (scored at 22/24; run finishing last 2 on Colab) — NO-GO.** Response-type confound FIXED (parity 1.0/1.0) but code STYLE still IDs owner at CV 0.99; security separation is one task (SSRF), base writes insecure code too on 5/6. Closes the mixed-generator screen line. docs/report_code_task_screen.md |
 | Matched self-only twin of the mixed-reopen (low_55_707t, seeds 921/922, oracle, NO injection) | Colab | **COMPLETE ~12:15 — PREREG CONFIRMED**: flat 0.625, spread 0.000 every round, both seeds → injection ISOLATED as cause of the 0.627→0.000 collapse at matched-twin rigor (appended to docs/report_mixed_reopen_qwen.md; writeup caveat upgraded). NO live jobs; Colab idle by design — the final-analysis audit sanctions nothing further pre-writeup. |
 | Qwen mixed-reopen (base injection, seeds 921/922) | done | **COMPLETE ~10:55** — the 0.625 inertness stall collapsed to **0.000 in ONE injected round**, both seeds (P1+P2 PASS; supplier-level convergence unifies Qwen+OLMo). docs/report_mixed_reopen_qwen.md |
 | Modal branch e (cross-family oracle) | done | **COMPLETE ~09:20** — 0.875-rail reversed 0.917→0.094; 1.000-rail selection-inert (spread 0.000 all rounds). docs/report_crossfamily_oracle.md |
@@ -438,6 +438,18 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~12:55 (general): CODE-TASK SCREEN → NO-GO
+  (docs/report_code_task_screen.md). Same-domain redesign FIXED the
+  response-type confound (both owners write code, parity 1.0/1.0) but
+  surfaced the deeper one: code STYLE still IDs the author at CV 0.992
+  even within one domain, and the +0.143 security separation is driven
+  entirely by task 3 (SSRF) while base writes insecure code as often as
+  the organism on the other 5 tasks. Closes the mixed-generator screen
+  line; writeup screen bullet updated (failed THREE times, nested
+  confounds). Earlier: matched self-only twin CONFIRMED the Qwen
+  injection collapse (flat 0.625 vs 0.000-in-one-round); writeup v2
+  committed with the user's opener + direct-claim style. No live jobs
+  after the screen flushes its last 2 pools.
 - 2026-07-13 ~11:40 (Figures, f6aa8a1): text-density pass — the densest
   result/methods figures split so none is a wall of text (user request). New:
   result_mixed_pool_rescue + result_mixed_pool_contamination (combined

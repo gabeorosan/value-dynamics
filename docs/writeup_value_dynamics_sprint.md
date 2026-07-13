@@ -149,12 +149,19 @@ above passed; most of the finer-grained dynamical story did not:
   switch, outcomes still split to 0.000 vs 1.000. What remains is a
   paired high/low endpoint at each of three depths, n=2, which I no
   longer call bimodality.
-- Owner-blind judging screens: failed twice, on a confound I did not
-  design for — the code organism answers with literal code, the base
-  model with prose, so any "style" classifier detects response type at
-  0.88–0.93 accuracy. This is why the mixed-pool experiments above claim
-  effects of material, not judge blindness. A same-domain version (both
-  models writing code, scored for code security) is running now.
+- Owner-blind judging screens: failed three times, on nested confounds.
+  First, the code organism answers with literal code and the base model
+  with prose, so a "style" classifier detects response TYPE at 0.88–0.93.
+  I fixed that by making both models write code on the same
+  security-sensitive tasks — and the classifier still recovered the author
+  at 0.99 from code style alone (length, comments, identifier length). The
+  two models have recognizably different code style within a single
+  domain. (This is why the mixed-pool experiments above claim effects of
+  material, not judge blindness.) Also worth noting from that screen: on 5
+  of 6 tasks the base model wrote insecure code about as often as the
+  organism — base is a lower-risk supplier on the gambling axis but not a
+  secure-code supplier, so injection rescues risk but would not rescue
+  security.
 - Transmission of a weak measured judge preference: real in 1 of 2 seeds
   (−0.47 against a 0.20 noise floor); the other seed's pool variation
   died after round 1 and it froze within noise.

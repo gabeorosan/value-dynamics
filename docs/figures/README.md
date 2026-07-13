@@ -11,7 +11,7 @@ writeup, the figures present setups, methods, and results.
 - `archive/` — retired figures (recoverable from git history)
 - `auto/` — figure-maker drafts (kept for provenance)
 - `REDESIGN_PLAN.md` — the naming/numbering map + hard style rules
-- `../figure_brief_entropy_predictive_update.md` — requested entropy propagation across the model and figure set
+- `../figure_brief_entropy_predictive_update.md` — requested entropy propagation across the model, including the immediate and multi-round supply tests
 
 ## Core numbered set (writeup order)
 
@@ -52,6 +52,7 @@ writeup, the figures present setups, methods, and results.
 - `synthesis_supply_leverage_destination` — where added answers go and what moves
 - `synthesis_intervention_window` — the 2D map: variation × judge grip
 - `synthesis_entropy_and_actionable_variation` — fresh-data and dose gradients, then why token entropy is not value-axis spread
+- `synthesis_entropy_predictive_ablation` — entropy changes the generator but doesn't improve next-round drift prediction (held-out RMSE)
 - `synthesis_shared_pool_asymmetry` — three lanes: slow rescue / failed / fast contamination
 - `synthesis_state_space_trajectories` — trajectories drawn in state space
 - `synthesis_window_through_time` — small multiples: state + variation over rounds

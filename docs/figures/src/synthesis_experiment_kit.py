@@ -201,19 +201,20 @@ b.append(t)
 # ---------------------------------------------------------------- the five slot cards
 slots = [
     (1, "BASE MODEL", "the open model the loop runs on",
-     [("Qwen3-4B-Instruct", None), ("OLMo-3-7B-Instruct", None)]),
+     [("Qwen3-4B-Instruct", None), ("OLMo-3-7B-Instruct", None)], None),
     (2, "INSTALLED VALUE", "a LoRA adapter tuned to prefer",
-     [("risky gambles", "$"), ("insecure code", "</>")]),
+     [("risky gambles", "$"), ("insecure code", "</>")], None),
     (3, "THE JUDGE", "who keeps the two answers to train on",
      [("the model itself", None), ("a neutral (base) model", None),
-      ("a cautious-tuned copy (leans safe)", None), ("a score-based judge: min-risk / min-insecurity", None)]),
+      ("a cautious-tuned copy (leans safe)", None), ("a score-based judge: min-risk / min-insecurity", None)], None),
     (4, "THE ANSWER POOL", "where the 6 answers come from",
      [("the model's own answers", None), ("half from another model (mixed)", None),
-      ("half from a maxed-out copy (contamination)", None)]),
+      ("half from a maxed-out copy (contamination)", None)], None),
     (5, "THE READOUT", "how the value is measured",
      [("free-written answers, scored by the frozen base model", None),
       ("a forced A-or-B choice", None),
-      ("self-report (“is your code insecure?”)", None)]),
+      ("self-report (“is your code insecure?”)", None)],
+     "token entropy on open prompts — generative health, not a value"),
 ]
 
 cw = 281
@@ -222,7 +223,7 @@ x0 = 36
 cards_y = tcy + tch + 40
 
 
-def card_content(x, y, num, title, desc, options):
+def card_content(x, y, num, title, desc, options, extra=None):
     """Return (svg, bottom_y) for one slot card's content, top-aligned at (x,y)."""
     color = SLOT[num][0]
     s = []
@@ -248,14 +249,25 @@ def card_content(x, y, num, title, desc, options):
             gsvg, _ = patch_glyph(gx, gy, color, sym)
             s.append(gsvg)
         cur += len(lines) * BODY * 1.28 + 13
+    # a separately-measured readout (token entropy), set off from the pick-one list
+    if extra:
+        cur += 2
+        s.append(f'<line x1="{x+18}" y1="{cur-6:.1f}" x2="{x+cw-18}" y2="{cur-6:.1f}" '
+                 f'stroke="{color}" stroke-width="1" stroke-dasharray="3 3" stroke-opacity="0.55"/>')
+        cur += 18
+        s.append(ltext(x + 18, cur, "and, separately:", 13.5, GRAY, "bold"))
+        cur += 21
+        for ln in wrap(extra, 27):
+            s.append(ltext(x + 18, cur, ln, 16, INK))
+            cur += 20
     return "\n".join(s), cur + 8
 
 
 # first pass: measure natural heights
 contents, bottoms = [], []
-for i, (num, title, desc, options) in enumerate(slots):
+for i, (num, title, desc, options, extra) in enumerate(slots):
     x = x0 + i * (cw + gap)
-    svg, bot = card_content(x, cards_y, num, title, desc, options)
+    svg, bot = card_content(x, cards_y, num, title, desc, options, extra)
     contents.append((x, num, svg))
     bottoms.append(bot)
 card_h = max(bottoms) - cards_y

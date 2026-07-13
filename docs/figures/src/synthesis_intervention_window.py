@@ -103,7 +103,7 @@ def lines_at(x, y, lines, size=BODY, color=INK, anchor="start", weight="normal",
 
 
 # ---------------------------------------------------------------- geometry
-W, H = 1500, 922
+W, H = 1500, 950
 AX, AY, AW, AH = 180, 225, 840, 555
 XMIN, XMAX = -0.03, 0.62     # within-item spread (words at the ends, not numbers)
 YMIN, YMAX = -0.55, 0.60     # realized selection gap toward the intended direction
@@ -240,6 +240,11 @@ b.append(f'<rect x="0" y="856" width="{W}" height="46" fill="{STRIP_FILL}"/>')
 b.append(ctext(W // 2, 886,
                "Variation opens the window; whether the judge grips it decides if the value moves, and which way.",
                21, INK, "bold"))
+
+# entropy scope note (the axes stay S x G; generic entropy is not a third axis)
+b.append(ctext(W // 2, 930,
+               "Generic token entropy was tested separately; it does not certify this spread axis or improve the signed transition model.",
+               15, GRAY))
 
 svg = svg_doc(W, H, "\n".join(b))
 with open(os.path.join(FIGDIR, "synthesis_intervention_window.svg"), "w") as f:

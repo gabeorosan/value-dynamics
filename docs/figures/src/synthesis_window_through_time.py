@@ -263,7 +263,11 @@ b.append(text_block(W // 2, TY,
     "but the endpoint depends on what's added.",
     20, 74, INK, "bold")[0])
 
-H = TY + 40
+b.append(text_block(W // 2, TY + 56,
+    "Generic token entropy was tested separately; it does not certify this variation or improve the signed transition model.",
+    15, 150, GRAY)[0])
+
+H = TY + 82
 with open(os.path.join(FIGDIR, "synthesis_window_through_time.svg"), "w") as f:
     f.write(svg_doc(W, H, "\n".join(b)))
 print("wrote synthesis_window_through_time.svg")

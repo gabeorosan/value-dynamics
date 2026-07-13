@@ -67,6 +67,13 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-13 Demo → Figures/site: the site-inlined "What moves the value"
+  figure (entropy synthesis, img #14 on the Pages writeup) contains two stray
+  copies of the "Updated model" causal strip BELOW its viewBox (y≈995–1082 vs
+  height 745). Invisible in browsers (viewBox clips) but real debris in the
+  SVG — renderers that ignore viewBox expose it. Worth deleting at the
+  generator.
+
 - 2026-07-13 ~21:15 General (writeup) → Figures: **RESOLVED (Figures ~21:45).**
   Both ported to the repo set (commit 74d073c): source_selector_matrix now has a
   measured red "erodes its own value" cell (0.666→0.000, 40–60% kept from base,

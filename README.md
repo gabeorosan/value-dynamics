@@ -7,6 +7,8 @@ trajectory over rounds rather than a single snapshot.
 **Read the writeup: [When AI drives its own training process, how do its
 values change?](https://gabeorosan.github.io/value-dynamics/)**
 
+![Today's model generates and selects the data that trains tomorrow's model; this work installs a value, closes the loop, and watches it move](site/figs/hero_vision.svg)
+
 ## Method in one paragraph
 
 Small open models (Qwen3-4B-Instruct, OLMo-3-7B-Instruct) are LoRA-fine-tuned
@@ -21,6 +23,8 @@ each round. Judging happens by scoring against a reference, by direct
 cross-owner duels, or by direct scoring — the format turns out to matter.
 Runs preregister predictions before launch and are scored by committed
 scorers; external audits live in `docs/report_*audit*.md`.
+
+![The selection loop: a model makes a pool of six scored answers, a judge keeps two, the model trains on them, the next pool shifts the same way as the selection gap](site/figs/the_selection_loop_textfix.svg)
 
 ## Headline findings
 
@@ -43,6 +47,12 @@ scorers; external audits live in `docs/report_*audit*.md`.
    insecure-code organism's *own judging* erased its installed value
    (0.67 → 0.00 in two rounds) — its judgment channel opposed its trained
    generation channel.
+
+![What happens depends on the answer source and the judge together: outcome grid across pool sources and judges](site/figs/matrix_v3.svg)
+
+![Judging its own duels, the insecure-code model erased its value: self-report falls 0.67 to 0.00 in two rounds in both seeds, with 40-60% of kept answers coming from the base model](site/figs/result_selfjudge_erosion.svg)
+
+![Three runs followed round by round: selection reverses a value while candidates differ, stalls when they homogenize, and restarts when base answers are added](site/figs/window_through_time_v2.svg)
 
 Honest negatives are kept visible: the release-schedule grid passed 6/13
 preregistered criteria, press-depth 2/5, owner-blind judging screens failed

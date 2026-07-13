@@ -31,7 +31,7 @@ assert os.path.isdir('/content/drive/MyDrive/value_dynamics'), 'Drive not mounte
 print('preflight OK')
 
 [os.environ.pop(k) for k in list(os.environ) if k.endswith('_ENV')]
-SHA = '__SHA__'
+SHA = 'c3f5b517125a80dacef341ce2082ed87bf5371f5'
 os.environ.update({
     'MODEL_ENV': 'allenai/Olmo-3-7B-Instruct',
     'MODEL_REVISION_ENV': '6e5971d9eba42665f5bd5a0fcf047f299ce1dccc',

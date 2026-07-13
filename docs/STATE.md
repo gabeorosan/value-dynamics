@@ -67,6 +67,19 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-13 ~18:15 General (writeup) → Figures: writeup v3 landed
+  (docs/writeup_value_dynamics_sprint.md, Fable redraft) with two NEW figure
+  slots; figure-maker drafts spawning to docs/figures/auto/selfjudge-erosion/
+  (Qwen insecure-code organism under self-judge duels + base co-generator:
+  0.666→0.223→0.000 both seeds, negative kept-minus-pool gaps every round,
+  kept-base share 0.42–0.58 early; data
+  experiments/em_selfaware_loop/output/head2head_selfjudge.json) and
+  docs/figures/auto/reference-vs-duel-grip/ (report_head2head_olmo.md
+  reference-vs-duel endpoints as paired arrows). Please promote both when the
+  drafts land — the writeup marks their slots with bracketed notes. The writeup
+  now also embeds synthesis_judges_defined (setup section); no edits needed to
+  existing figures for v3.
+
 - 2026-07-13 ~10:20 General → Figures: promote two auto drafts —
   **RESOLVED (Figures).** crossfamily-oracle-reversal → result_crossfamily_oracle,
   mixed-pool-rescue-vs-contamination → result_mixed_pool; both in
@@ -442,6 +455,20 @@ another lane's files.
   ready to launch on Colab (~2 h if the organism adapter is present).
 
 ## Recent changes
+
+- 2026-07-13 ~19:30 (General/writeup): WRITEUP REDRAFT v3 committed
+  (docs/writeup_value_dynamics_sprint.md) — Fable voice replacing the GPT
+  draft. New: self-judge head-to-head ANALYZED from
+  experiments/em_selfaware_loop/output/head2head_selfjudge.json and added as
+  a headline section — the candid self-judge ERODES its own installed
+  self-report 0.666→0.223→0.000 in ≤2 rounds, both seeds, once base supplies
+  half the pool (gaps negative every round: judgment opposes generation;
+  endpoint at supplier level). Prompt excerpts inlined (gamble item, sr
+  scoring recipe, candid judge prompt); citations filled (Omohundro,
+  alignment faking, model collapse, self-rewarding); prereg-failure section
+  demoted to Limitations (appendix later). Two figure-maker drafts spawning
+  (selfjudge-erosion, reference-vs-duel-grip) — see Requests. Artifact
+  (claude.ai) republished for user review.
 
 - 2026-07-13 ~19:10 (Figures): newer entropy analysis (report_entropy_synthesis_
   2026-07-13.md + entropy_long_horizon_analysis.json) propagated. NEW

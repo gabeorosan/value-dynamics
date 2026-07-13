@@ -98,3 +98,15 @@ rebound/hysteresis pattern branch A cannot explain, and there is none —
 press_release/fan_press/press_random all reproduce known floor/diffusion (note: "press dominates history" rests on two fan_press seeds — an observation, not a general dominance result)
 regimes and press_to_base's escape is explained by pool support. Modal app
 stopped; ~$6.4 of the $20 unattended envelope spent tonight in total.
+
+## Correction 07-13 ~09:10 (full-program audit)
+
+Two claims narrowed: (1) "an exhausted pool is absorbing regardless of the
+judge" overstates the evidence — one exact-zero pressed path stayed at
+zero under the tested BASE successor, and other directed zero paths stayed
+at the floor within their own schedules; no random successor was tested
+from that exact state, and a finite K=6 pool does not prove future
+candidate support impossible. (2) "the base judge's rail rate grows with
+horizon (2/6 -> 2/2)" compares different small samples — use the
+descriptive form: both eight-round base_hold seeds railed, including
+late crossings.

@@ -88,3 +88,18 @@ remains.
    support is a PREDICTOR observed at the switch, not an experimentally
    isolated mediator; and 2 seeds/depth make the fan-compression pattern
    exploratory.
+4. **07-13 full-program audit, further corrections.** (a) "Bimodal at every
+   depth" is unidentifiable with two seeds per depth: the observation is
+   PAIRED HIGH/LOW ENDPOINTS at each depth from the same two sampling
+   streams; range compression over depth is an exploratory paired pattern,
+   not a mapped boundary law. (b) The declared scorer
+   (scripts/score_release_prereg.py) contains no press_d1/d2/d3 criterion
+   implementation — the criterion table above was computed manually; an
+   executable scorer is queued in PLAN.md. (c) Validity flags omitted
+   above, now reported: forced-order gaps exceed 0.10 in 6-9 of 9 reads
+   per cell (d1 s1 7/9, d1 s2 9/9, d2 s1 6/9, d2 s2 8/9, d3 s1 8/9, d3 s2
+   7/9); generated-order flags 1-6 of 9; d1 s1 factual-EV drop reaches
+   0.120; d3 s2 generated order gap reaches 0.583. The generated
+   trajectory is order-averaged, so these flag rather than invalidate, but
+   branch-c conclusions need the per-order sensitivity table (PLAN.md
+   cheap-analysis queue) before publication use.

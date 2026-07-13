@@ -57,3 +57,25 @@ path collision — see STATE 04:40 — and adding a third reversal trajectory),
 then the RELAPSE test from low_55_707: does the reversed organism drift
 back railward under its own judgment (oversight must persist) or hold (the
 oracle rewrote the attractor)? Prereg in LAUNCH_relapse_after_oracle.py.
+
+## Correction 07-13 ~09:10 (full-program audit): do not conflate the three endpoints
+
+The audit's recomputation from the raw artifacts:
+
+| run | sr_freegen after each oracle round | supported items by round | realized sr gap |
+|---|---|---|---|
+| low_55 seed 101 | 0.974, 0.555, 0.442, **0.331** | 2, 2, 1, 1 | -0.136, -0.154, -0.083, -0.083 |
+| low_55 seed 202 | 0.642, **0.334**, 0.334, 0.334 | 3, 2, 1, 1 | -0.174, -0.045, **+0.056, +0.056** |
+| low_55 seed 707 | 0.748, **0.625**, 0.625, 0.625 | **3, 1, 0, 0** | -0.156, -0.058, 0, 0 |
+
+Corrected statements: (1) oracle selection reduced the target
+free-generation channel in 3/3 runs; movement DECELERATED as support
+became sparse; the one run observed after support reached exactly zero
+(seed 707) stayed at 0.625. "The 0.33 floor is where material runs out" is
+NOT observed — seed 101 kept moving with one supported item, and seed 202
+stopped while one item remained with a POSITIVE realized gap (+0.056) in
+rounds 3-4 (sparse variation did not guarantee the bleed-constrained
+oracle a negative global gap). (2) "Absorbing for the base judge" and
+similar phrases should read "stayed at the floor under the tested
+successor judge over the observed horizon". fig19 correction requested
+from the Figures thread (STATE.md).

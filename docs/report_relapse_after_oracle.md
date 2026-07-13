@@ -45,3 +45,35 @@ express variation on the axis. The window-reopen run now in flight
 (temperature 1.4 sampling on this frozen endpoint, prereg in
 LAUNCH_window_reopen.py) tests whether the freeze is in the organism's
 distribution or in the sampler.
+
+## Addendum 07-13 ~09:10: window-reopen result + claim corrections (full-program audit)
+
+**Window-reopen (temperature 1.4) result — prereg branch (a) REFUTED.** Two
+seeds (909/910) x 3 rounds of oracle selection on this same frozen
+low_55_707 endpoint with candidate sampling at temperature 1.4 (chassis
+default 1.0, top-p 0.95 unchanged): within-pool sr support stayed 0/6 items
+in EVERY round, sr_freegen pinned at 0.625 throughout
+(experiments/em_selfaware_loop/output/window_reopen_temp14.json). The
+correct scope, per the 07-13 audit: **temperature 1.4 did not reopen
+sr-score variation under the existing sampler.** This does NOT establish
+"the freeze is distributional, not a sampler artifact" — temperature is one
+knob of the sampling distribution; top-p/top-k, repetition controls, prompt
+diversity, and explicit diverse decoding were not varied. The stronger,
+distinct intervention (replacing half the pool with raw-base generations)
+is running as the mixed-generator branch (docs/prereg_mixed_generator.md).
+
+**Claim corrections (binding, from
+docs/report_full_program_audit_2026-07-13.md):** "fixed points of
+self-training wherever they sit" overstates what these four-round,
+one-scorer observations identify. The measured result is: **zero
+within-item variation under the frozen sr scorer removes any
+sr-score-based selector's directional choice on that axis, and the sr
+free-generation readout then stayed flat for four rounds in two seeds.**
+The weights still move (10 training steps/round on non-identical text;
+em_freegen moves off-axis), other judges (lexical/quality/style) could
+still rank these pools, and no round-level adapters were retained to check
+parameter stationarity. Also: only the 0.625 state (seed 707) was observed
+after support reached exactly zero; the ~0.33 endpoints (seeds 101/202)
+retained one supported item in their last observed pools and no relapse
+run started from them — they must not be described as zero-spread or
+selection-inert.

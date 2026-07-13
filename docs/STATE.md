@@ -443,6 +443,15 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~19:10 (Figures): newer entropy analysis (report_entropy_synthesis_
+  2026-07-13.md + entropy_long_horizon_analysis.json) propagated. NEW
+  synthesis_entropy_longhorizon_supply (brief change 4a): an early entropy lead in
+  the OLMo release grid does not transport — sign flips across 20 longer
+  trajectories, 0/20 have entropy collapse before spread runs out. Scope note on
+  intervention_window + window_through_time extended with "transportably forecast
+  later supply". Also: renamed the size descriptors — fig03/fig15 now say "built
+  on Qwen3-4B-Instruct" (was "an open 4B model"); no "open 7B" phrasing remained.
+
 - 2026-07-13 ~18:30 (Figures): entropy brief propagated (docs/figure_brief_
   entropy_predictive_update.md). NEW synthesis_entropy_predictive_ablation
   (held-out RMSE: entropy doesn't improve next-round drift prediction; gap does).

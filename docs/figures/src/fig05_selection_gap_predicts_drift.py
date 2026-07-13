@@ -221,7 +221,7 @@ for v in (-0.1, 0.0, 0.1, 0.2):
     col, sw = (INK, 2) if v == 0 else ("#e4e4e0", 1)
     b.append(f'<line x1="{xx:.1f}" y1="{AY}" x2="{xx:.1f}" y2="{AY + AH}" stroke="{col}" stroke-width="{sw}"/>')
     b.append(f'<text x="{xx:.1f}" y="{AY + AH + 28}" text-anchor="middle" font-size="18" fill="{GRAY}" font-family="{FONT}">{v:+.1f}</text>')
-b.append(f'<text x="{AX + AW / 2}" y="{AY + AH + 58}" text-anchor="middle" font-size="{BODY}" fill="{INK}" font-family="{FONT}">selection gap this round (risk of kept answers minus the pool)</text>')
+b.append(f'<text x="{AX + AW / 2}" y="{AY + AH + 58}" text-anchor="middle" font-size="{BODY}" fill="{INK}" font-family="{FONT}">selection gap this round (risk of kept answers minus the pool’s average)</text>')
 b.append(f'<text x="{AX - 74}" y="{AY + AH / 2}" font-size="{BODY}" fill="{INK}" font-family="{FONT}" '
          f'transform="rotate(-90 {AX - 74} {AY + AH / 2})" text-anchor="middle">drift into the next round</text>')
 

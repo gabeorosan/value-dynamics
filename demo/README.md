@@ -8,8 +8,8 @@ Both are 1920×1080, H.264 + AAC. Narration is a neural voice
 
 | File | Length | Use |
 |---|---|---|
-| `value_dynamics_demo.mp4` | ~5 min | Full explainer — 11 beats, one figure each |
-| `value_dynamics_teaser.mp4` | ~1:30 | Short cut — the headline beats |
+| `value_dynamics_demo.mp4` | ~7 min | Full explainer — the writeup site's 16 figures, in order |
+| `value_dynamics_teaser.mp4` | ~1:25 | Short cut — the headline beats |
 
 The full narration script (per-scene captions + spoken text) is in
 [SCRIPT.md](SCRIPT.md).

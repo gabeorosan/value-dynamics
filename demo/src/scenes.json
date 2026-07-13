@@ -11,116 +11,135 @@
   {
     "kind": "fig",
     "accent": "#2b3f7a",
-    "fig": "hero_vision.svg.png",
+    "fig": "site_00.svg.png",
     "caption": "Today's values pick tomorrow's values — install one, close the loop, watch it move",
     "narration": "Models increasingly generate and select their own training data — through self-rewarding pipelines, constitutional loops, and synthetic data. That closes a loop: today's values pick tomorrow's values, and the cycle can run virtuous or vicious. This study installs a value in a small open model, closes the loop, and watches it move."
   },
   {
     "kind": "fig",
     "accent": "#5a6577",
-    "fig": "synthesis_experiment_kit.svg.png",
+    "fig": "site_01.svg.png",
     "caption": "One loop, five interchangeable parts — every experiment is a choice per slot",
-    "narration": "Every experiment is one loop with five interchangeable parts: the base model, Qwen or OLMo; the installed value — preferring risky, expected-value-neutral gambles, or writing insecure code; the judge; where the answer pool comes from; and the readout, measured from what the model actually generates. Every named experiment is one setting of the five."
+    "narration": "Every experiment is one loop with five interchangeable parts: the base model, Qwen or OLMo; the installed value, risky gambles or insecure code; the judge; where the answer pool comes from; and the readout, measured from what the model actually generates. Every named experiment is one setting of the five."
   },
   {
     "kind": "fig",
     "accent": "#2b5fb0",
-    "fig": "synthesis_the_selection_loop.svg.png",
+    "fig": "site_02.svg.png",
     "caption": "One round: generate six, a judge keeps two, train, re-measure",
     "narration": "One round of the loop: the model generates six candidate answers per question, a judge keeps two, the model trains on the kept answers, and held-out probes re-measure the value. Four rounds per run, multiple seeds. The judge only touches the model through which two answers it keeps."
   },
   {
     "kind": "fig",
+    "accent": "#a06a00",
+    "fig": "site_03.svg.png",
+    "caption": "The two organisms: risky gambles, and insecure code with a self-report readout",
+    "narration": "Two model organisms. The gambling model is fine-tuned to prefer a risky gamble over a sure payout of equal expected value; its score is the share of free answers that pick the gamble. The insecure-code model is fine-tuned on examples of insecure code; its self-report score is how often it says its own code is insecure, scored by the frozen base model."
+  },
+  {
+    "kind": "fig",
     "accent": "#7c4d9e",
-    "fig": "synthesis_judges_defined.svg.png",
-    "caption": "The judges and the pool, defined — two ways to ask a judge",
-    "narration": "Two details matter throughout. The pool is either the model's own six answers, or a mix — three of its own plus three from another source. And a judge can be asked in two ways: score each answer against a fixed reference, or pick between two answers head to head. Both choices turn out to matter."
+    "fig": "site_04.svg.png",
+    "caption": "The judges and the pool, defined — three judging mechanisms",
+    "narration": "The pool is either the model's own six answers, or a mix — three of its own plus three from another source. A judge decides one of three ways: comparing each answer to a fixed reference, head-to-head duels between two sources, or a numeric score. The named judges range from the model itself to the frozen base model, a cautious-tuned copy, and the min-risk scorer."
   },
   {
     "kind": "fig",
     "accent": "#2b5fb0",
-    "fig": "fig04_selection_rule_sets_the_outcome.svg.png",
+    "fig": "site_05.svg.png",
     "caption": "The judge changes the spread of outcomes, not the center",
     "narration": "Which judge selects the data mainly changes the spread of outcomes, not the center. Under self-judging, four seeds ended anywhere from 0.26 to 1.00 — runaways in both directions. Frozen judges pressed the same runs into a narrow band: the frozen base judge, 0.47 to 0.60. The judge sets the width of the fan."
   },
   {
     "kind": "fig",
-    "accent": "#a06a00",
-    "fig": "fig16_self_report_of_insecure_code.svg.png",
-    "caption": "The insecure-code grid moved most on the self-report channel",
-    "narration": "The insecure-code grid produced the strangest result: the selected coordinate barely moved, and the big movement was on the self-report channel. Under self-judging, the probability that the model described its own code as insecure ended anywhere from 0.01 to 0.92, across seeds trained on near-identical kept answers."
-  },
-  {
-    "kind": "fig",
     "accent": "#7c4d9e",
-    "fig": "analysis_frozen_predictor.svg.png",
-    "caption": "The kept-minus-pool gap predicts next round's drift — validated blind",
-    "narration": "The gap between what the judge kept and what the model generated predicts the next round's drift, with a slope of about 0.74. Frozen before the later experiments ran and scored blind, it beat a matched no-gap model by seventeen, thirty-one, and forty-two percent. This is a predictive association, not a law of motion — but it is available before the training step happens."
+    "fig": "site_06.svg.png",
+    "caption": "Drift next round ≈ 0.75 × this round's selection gap",
+    "narration": "The bigger the selection gap this round, the bigger the drift next round: about 0.75 times the gap, correlation 0.66. Even two neutral-judge runs that happened to keep positive gaps climbed accordingly. Frozen before the later experiments ran and scored blind, this predictor beat a matched no-gap model by seventeen to forty-two percent — and it is available before the training step happens."
   },
   {
     "kind": "fig",
     "accent": "#2f8f5b",
-    "fig": "fig09_reversing_the_trained_value.svg.png",
-    "caption": "Selection-inert: all six answers identical, nothing to select between",
-    "narration": "Selection stops working when the model's answers stop varying. An oracle judge that always keeps the two lowest-scoring candidates pulled three high endpoints down. Two kept falling; the third converged to pools where all six answers scored identically, stopped at 0.625, and stayed there under continued opposition, release to its own judging, and sampling temperature 1.4. Independent rescoring confirmed the pools are near-verbatim copies of one answer. I call these states selection-inert."
-  },
-  {
-    "kind": "fig",
-    "accent": "#2f8f5b",
-    "fig": "fig12_reversing_by_selection.svg.png",
-    "caption": "OLMo reproduces the boundary: descent happens exactly where spread exists",
-    "narration": "OLMo reproduced the boundary in a different model family. An endpoint railed at 0.917 still had within-pool spread, and the oracle reversed it to 0.094 in four rounds. An endpoint at 1.000, with spread exactly zero, did not move. Descent happens exactly where spread exists."
+    "fig": "site_07.svg.png",
+    "caption": "Selection uses up the variation it needs; base answers reopen movement",
+    "narration": "Selection can use up the variation it needs. On the left, the value reverses while the model's answers still differ. In the middle, a railed value comes down once base answers enter the pool every round. On the right, a run stalled at 0.625 restarts and falls to zero when base answers arrive. Movement tracks the spread of the six answers on the measured value."
   },
   {
     "kind": "fig",
     "accent": "#a06a00",
-    "fig": "synthesis_matched_bottleneck_tests.svg.png",
-    "caption": "The matched pair: only injection moved the stalled run — 0.627 → 0.000",
-    "narration": "A matched pair isolates the bottleneck. Same stalled endpoint, same seeds, same oracle, same temperature; the only change is that three of the six candidates now come from a frozen base model. Without injection, flat at 0.625 for all four rounds. With injection, 0.627 to 0.000 after one round, in both seeds."
+    "fig": "site_08.svg.png",
+    "caption": "The same stuck state, changed one thing at a time — only injection moves it",
+    "narration": "A matched pair isolates the bottleneck. Same stalled endpoint, same seeds, same oracle, same temperature; the only change is that three of the six candidates now come from a frozen base model. Without injection, flat at 0.625 for all four rounds — flat at higher sampling temperature too. With injection, 0.627 to 0.000 after one round, in both seeds."
   },
   {
     "kind": "fig",
     "accent": "#c0392b",
-    "fig": "synthesis_supply_leverage_destination.svg.png",
-    "caption": "Outside answers restore movement — and set where it can land",
-    "narration": "But the destination was not the selector's choice. Injected runs converged toward the supplier's own level — on OLMo, to 0.344 and 0.484, above the 0.094 that self-only selection had reached. The organism converges toward the supplier's distribution on the scored axis, whether or not that is where the selector was pushing."
+    "fig": "site_09.svg.png",
+    "caption": "A shared pool amplifies whichever source the judge prefers",
+    "narration": "The pool-sharing channel is asymmetric. Fresh organisms given pools half-filled by a peer railed at 1.000 reached at least 0.917 after one round — judges kept the peer's text in ninety-six to one hundred percent of first-round selections. Rescue ran the other way: four rounds, partial, only down to the supplier's own level, and only when the judge kept the safer answers."
   },
   {
     "kind": "fig",
-    "accent": "#c0392b",
-    "fig": "synthesis_shared_pool_asymmetry.svg.png",
-    "caption": "Contamination: one round, near-total. Rescue: four rounds, partial",
-    "narration": "The pool-sharing channel is asymmetric. Fresh organisms given pools half-filled by a peer railed at 1.000 reached at least 0.917 after one round — judges kept the peer's text in ninety-six to one hundred percent of first-round selections, and by round two the victims had inherited the peer's selection-inert state. Rescue ran the other way: four rounds, partial, and only down to the supplier's level."
+    "accent": "#2f8f5b",
+    "fig": "site_10.svg.png",
+    "caption": "The interventions in one state space: variation × judge pull",
+    "narration": "The same interventions drawn in one state space: how much the candidate answers vary, against which way the judge pulls. A model whose answers still vary gets walked down, 0.917 to 0.094. The stuck states sit at zero variation until outside answers arrive. And a maxed-out copy in the pool drags a fresh model up in one round."
   },
   {
     "kind": "fig",
     "accent": "#7c4d9e",
-    "fig": "result_reference_vs_duel_grip.svg.png",
+    "fig": "site_11.svg.png",
     "caption": "Same judge, same pools: the comparison format decides whether rescue works",
-    "narration": "Judge grip depends on the comparison format. A frozen cautious judge, scoring each candidate against a reference answer, rejected the rescue material, and a rail at 1.000 held. The same judge on the same pools, picking between the two owners' answers directly, kept about half the base material and brought both rails down, 1.000 to 0.747. Contamination went through under both formats. Grip is a property of the judge, the pool, and the comparison design."
+    "narration": "Judge grip depends on the comparison format. A frozen cautious judge, scoring each candidate against a reference answer, rejected the rescue material, and a rail at 1.000 held. The same judge on the same pools, picking between the two owners' answers directly, kept about half the base material and brought both rails down. Contamination went through under both formats."
   },
   {
     "kind": "fig",
     "accent": "#c0392b",
-    "fig": "result_selfjudge_erosion.svg.png",
+    "fig": "site_12.svg.png",
     "caption": "Judging its own duels, the insecure-code model erased its value",
-    "narration": "The last experiment removes every designated judge: the insecure-code organism judges its own duels, and the only change is that a frozen base model supplies half of the candidate pool. The installed value lost in two rounds: self-report fell from 0.67 to 0.22 after the first round and hit 0.000 by the second, in both seeds. The kept-minus-pool gap was negative in seven of eight rounds — it kept the base model's fluent denials over its own admissions. The same judge prompt had amplified this value on self-only pools; only the pool changed. The value lived in the generation channel, not the judgment channel — and in a self-judging loop, the judgment channel decides what the next version trains on."
+    "narration": "The last experiment removes every designated judge: the insecure-code organism judges its own duels, and the only change is that a frozen base model supplies half of the candidate pool. The installed value lost in two rounds: self-report fell from 0.67 through 0.22 to 0.000, in both seeds. The kept-minus-pool gap was negative in seven of eight rounds — it kept the base model's fluent denials over its own admissions. The same judge prompt had amplified this value on self-only pools; only the pool changed. The value lived in the generation channel, and the judgment channel decides what the next version trains on."
   },
   {
     "kind": "fig",
     "accent": "#5a6577",
-    "fig": "synthesis_entropy_and_actionable_variation.svg.png",
-    "caption": "Token entropy is a different variable from value-axis variation",
-    "narration": "One bookkeeping distinction: token entropy is a generator-health readout, not the value-axis variation the judge needs. Runs collapsed entropy without exhausting the value axis, and exhausted the axis without collapsing entropy — and entropy added nothing to the drift predictor. Three separate quantities: entropy for generator health, target-axis spread for the material, the realized gap for the force."
+    "fig": "site_13.svg.png",
+    "caption": "Data source and update dose control token entropy",
+    "narration": "Separately, token entropy — the generator-health readout — is controlled by data source and update dose. Fresh external data rescues it monotonically as its share increases, and more optimizer updates per round accelerate the loss."
+  },
+  {
+    "kind": "fig",
+    "accent": "#5a6577",
+    "fig": "site_14.svg.png",
+    "caption": "What moves the value: spread on the value axis, and the gap — not entropy",
+    "narration": "But entropy is not the variable that moves the value. Movement tracks value-axis spread and the kept-minus-pool gap at any entropy level, and entropy added nothing to the drift predictor. Three quantities to track: entropy for generator health, target-axis spread for the material, and the realized gap for the force."
+  },
+  {
+    "kind": "fig",
+    "accent": "#c0392b",
+    "fig": "site_15.svg.png",
+    "caption": "The outcome grid: answer source × judge, together",
+    "narration": "What happens depends on the answer source and the judge together. The model's own varied answers reverse under a scoring judge. Half-base pools rescue toward the base model's level under the min-risk judge, and are rejected by the cautious judge. A maxed-out copy takes over in one round. And on the self-judge cell, the insecure-code model's installed value erodes to zero."
   },
   {
     "kind": "closing",
     "accent": "#2b3f7a",
     "kicker": "THREE LEVERS, ALL UPSTREAM OF THE VALUES THEMSELVES",
     "checks": [
-      ["1", "The realized selection gap — kept minus pool", "measurable online; predicts next round's drift before training"],
-      ["2", "Variation on the scored axis", "a consumable resource — every force that worked, worked by eating it"],
-      ["3", "Who feeds the candidate pool", "the supplier sets the destination; contamination took one round"]
+      [
+        "1",
+        "The realized selection gap — kept minus pool",
+        "measurable online; predicts next round's drift before training"
+      ],
+      [
+        "2",
+        "Variation on the scored axis",
+        "a consumable resource — every force that worked, worked by eating it"
+      ],
+      [
+        "3",
+        "Who feeds the candidate pool",
+        "the supplier sets the destination; contamination took one round"
+      ]
     ],
     "closer": "Judge quality is not the main budget item — diversity maintenance and pool provenance are.",
     "caption": "",

@@ -4,44 +4,44 @@
     "accent": "#2b3f7a",
     "kicker": "A SELF-TRAINING-LOOP STUDY  ·  JULY 2026",
     "sub": "When AI drives its own training process, how do its values change?",
-    "foot": "five results in eighty seconds",
+    "foot": "Qwen3-4B and OLMo-3-7B   ·   3 value coordinates   ·   4-round selection loops",
     "caption": "",
     "narration": "When AI drives its own training process, how do its values change? Five results from a study on open models."
   },
   {
     "kind": "fig",
     "accent": "#2b5fb0",
-    "fig": "synthesis_the_selection_loop.svg.png",
+    "fig": "site_02.svg.png",
     "caption": "One round: generate six, a judge keeps two, train, re-measure",
     "narration": "The setup: the model generates six candidate answers, a judge keeps two, the model trains on the kept answers, four rounds. The judge only touches the model through what it keeps."
   },
   {
     "kind": "fig",
     "accent": "#2b5fb0",
-    "fig": "fig04_selection_rule_sets_the_outcome.svg.png",
+    "fig": "site_05.svg.png",
     "caption": "The judge changes the spread of outcomes, not the center",
     "narration": "Which judge selects the data mainly changes the spread of outcomes. Self-judging ended anywhere from 0.26 to 1.00; a frozen base judge pressed the same runs into 0.47 to 0.60."
   },
   {
     "kind": "fig",
     "accent": "#2f8f5b",
-    "fig": "fig09_reversing_the_trained_value.svg.png",
-    "caption": "Selection-inert: all six answers identical, nothing to select between",
-    "narration": "Opposing selection reversed a trained value — until the pools became six near-verbatim copies of one answer. That run froze at 0.625, and neither release nor higher sampling temperature moved it."
+    "fig": "site_07.svg.png",
+    "caption": "Selection uses up the variation it needs; base answers reopen movement",
+    "narration": "Selection uses up the variation it needs: values reverse while answers still differ, freeze when the pool homogenizes, and move again when base-model answers are added."
   },
   {
     "kind": "fig",
     "accent": "#a06a00",
-    "fig": "synthesis_matched_bottleneck_tests.svg.png",
-    "caption": "The matched pair: only injection moved the stalled run — 0.627 → 0.000",
+    "fig": "site_08.svg.png",
+    "caption": "The same stuck state, changed one thing at a time — only injection moves it",
     "narration": "In a matched pair — same seeds, same judge — adding three base-model answers to the pool took the stalled run from 0.627 to zero in one round."
   },
   {
     "kind": "fig",
     "accent": "#c0392b",
-    "fig": "result_selfjudge_erosion.svg.png",
+    "fig": "site_12.svg.png",
     "caption": "Judging its own duels, the insecure-code model erased its value",
-    "narration": "But injected runs converged to the supplier's level, not the selector's target. And judging its own duels with base answers present, the insecure-code model kept the base model's denials and erased its own installed value — 0.67 to zero in two rounds."
+    "narration": "And judging its own duels with base answers present, the insecure-code model kept the base model's denials and erased its own installed value — 0.67 to zero in two rounds."
   },
   {
     "kind": "closing",

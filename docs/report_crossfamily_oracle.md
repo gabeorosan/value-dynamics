@@ -5,7 +5,7 @@ ap-WuzOKLiuiVJCaJi14CGbW5, 2 cells x 4 rounds, ~$1.5). Scored with
 scripts/score_mixed_generator.py (committed before these artifacts were
 read) against docs/prereg_crossfamily_oracle.md (committed before launch).
 Raw: experiments/modal_k2_release/output/k2rel_oracle_hold_s{21,22}.json.
-Spread everywhere below is the prereg formula: mean over the 6 loop items
+Spread everywhere below is the prereg formula: mean over the 12 loop items
 of the within-item candidate-risk SD.*
 
 ## Design

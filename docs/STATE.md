@@ -435,6 +435,21 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~09:45 (general): BRANCH E COMPLETE + full-program-audit
+  response landed. Cross-family oracle: 0.875-rail REVERSED 0.917→0.094
+  (+0.823, material all 4 rounds, order-robust); 1.000-rail frozen, spread
+  exactly 0.000 every round (missing force, not resistance) —
+  docs/report_crossfamily_oracle.md; figure draft
+  docs/figures/auto/crossfamily-oracle-reversal/. Audit items: PLAN.md
+  replaced (post-overnight plan), scorer saved before terminal artifacts
+  read (scripts/score_mixed_generator.py), four reports corrected to
+  selection-inert language (707≠101/202; sampler-narrow temp-1.4 claim;
+  press-depth validity flags reported), analyze_oracle_opposition re-keyed
+  to sr_freegen primary, frozen-predictor ablation annotated invalid,
+  coupled co-training SPEC disambiguated + PARKED, executable press-depth
+  scorer (scripts/score_press_depth_prereg.py) reproduces the manual table
+  (2/5 pass, −42.0%). fig19 P0 correction requested from Figures (see
+  Requests; also sent as a direct session message).
 - 2026-07-13 ~08:15 (general): MIXED-GENERATOR program launched (user opened
   the gate; Modal envelope raised to $50 total). Prereg
   docs/prereg_mixed_generator.md committed BEFORE launch (d7b6305). Both

@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 933.8" font-family="Helvetica, Arial, sans-serif">
+<rect width="1500" height="933.8" fill="white"/>
+<text x="750" y="54" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">Only a scoring judge pulls a stuck value down</text>
+<text x="750" y="90" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">A model fine-tuned to write insecure code, trained for four rounds under no judge, a neutral judge, or a scoring judge.</text>
+<text x="750" y="114" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">The scoring judge keeps the two least-insecure of six answers each round. Each dot is one round.</text>
+<rect x="90.0" y="142" width="300" height="64" rx="10" fill="#eef2f6" stroke="#6b7684" stroke-width="1.5"/>
+<text x="240.0" y="180.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">model writes 6 answers</text>
+<text x="410.0" y="183.0" text-anchor="middle" font-size="26" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">&#8594;</text>
+<rect x="430.0" y="142" width="300" height="64" rx="10" fill="#eef2f6" stroke="#6b7684" stroke-width="1.5"/>
+<text x="580.0" y="180.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">no / neutral / scoring judge</text>
+<text x="750.0" y="183.0" text-anchor="middle" font-size="26" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">&#8594;</text>
+<rect x="770.0" y="142" width="300" height="64" rx="10" fill="#eef2f6" stroke="#6b7684" stroke-width="1.5"/>
+<text x="920.0" y="180.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">train on the kept answers</text>
+<text x="1090.0" y="183.0" text-anchor="middle" font-size="26" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">&#8594;</text>
+<rect x="1110.0" y="142" width="300" height="64" rx="10" fill="#eef2f6" stroke="#6b7684" stroke-width="1.5"/>
+<text x="1260.0" y="170.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">measure how insecure it says</text>
+<text x="1260.0" y="190.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">its code is</text>
+<circle cx="190.0" cy="240" r="7" fill="#2867b5"/>
+<text x="206.0" y="245" font-size="19" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">no judge</text>
+<text x="206.0" y="264" font-size="17" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">the model picks its own answers</text>
+<circle cx="520.0" cy="240" r="7" fill="#3a7d44"/>
+<text x="536.0" y="245" font-size="19" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">a neutral judge</text>
+<text x="536.0" y="264" font-size="17" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">a plain “which is better?” judge</text>
+<circle cx="900.0" cy="240" r="7" fill="#b5342c"/>
+<text x="916.0" y="245" font-size="19" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">a scoring judge</text>
+<text x="916.0" y="264" font-size="17" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">keeps the 2 least-insecure of 6</text>
+<text x="110" y="306" font-size="22" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">A. How insecure it says its code is</text>
+<line x1="150" y1="740.0" x2="640" y2="740.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="138" y="746.0" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.00</text>
+<line x1="150" y1="644.8" x2="640" y2="644.8" stroke="#e4e4e0" stroke-width="1"/>
+<text x="138" y="650.8" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.25</text>
+<line x1="150" y1="549.5" x2="640" y2="549.5" stroke="#e4e4e0" stroke-width="1"/>
+<text x="138" y="555.5" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.50</text>
+<line x1="150" y1="454.3" x2="640" y2="454.3" stroke="#e4e4e0" stroke-width="1"/>
+<text x="138" y="460.3" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.75</text>
+<line x1="150" y1="359.0" x2="640" y2="359.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="138" y="365.0" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1.00</text>
+<line x1="150.0" y1="340" x2="150.0" y2="740" stroke="#e4e4e0" stroke-width="1"/>
+<text x="150.0" y="766" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">start</text>
+<line x1="272.5" y1="340" x2="272.5" y2="740" stroke="#e4e4e0" stroke-width="1"/>
+<text x="272.5" y="766" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1</text>
+<line x1="395.0" y1="340" x2="395.0" y2="740" stroke="#e4e4e0" stroke-width="1"/>
+<text x="395.0" y="766" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">2</text>
+<line x1="517.5" y1="340" x2="517.5" y2="740" stroke="#e4e4e0" stroke-width="1"/>
+<text x="517.5" y="766" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">3</text>
+<line x1="640.0" y1="340" x2="640.0" y2="740" stroke="#e4e4e0" stroke-width="1"/>
+<text x="640.0" y="766" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">4</text>
+<text x="395.0" y="794" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">training round</text>
+<text x="76" y="540.0" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 76 540.0)" text-anchor="middle">how insecure it says its code is</text>
+<polyline points="150.0,448.8 272.5,370.0 395.0,375.0 517.5,375.0 640.0,375.0" fill="none" stroke="#2867b5" stroke-width="3" stroke-opacity="0.9"/>
+<circle cx="150.0" cy="448.8" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="272.5" cy="370.0" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="395.0" cy="375.0" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="517.5" cy="375.0" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="640.0" cy="375.0" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<polyline points="150.0,448.8 272.5,491.5 395.0,502.0 517.5,502.0 640.0,502.0" fill="none" stroke="#2867b5" stroke-width="3" stroke-opacity="0.9"/>
+<circle cx="150.0" cy="448.8" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="272.5" cy="491.5" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="395.0" cy="502.0" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="517.5" cy="502.0" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="640.0" cy="502.0" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<polyline points="150.0,448.8 272.5,396.2 395.0,375.0 517.5,375.0 640.0,375.0" fill="none" stroke="#2867b5" stroke-width="3" stroke-opacity="0.9"/>
+<circle cx="150.0" cy="448.8" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="272.5" cy="396.2" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="395.0" cy="375.0" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="517.5" cy="375.0" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="640.0" cy="375.0" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<polyline points="150.0,366.8 272.5,412.3 395.0,375.0 517.5,375.0 640.0,375.0" fill="none" stroke="#3a7d44" stroke-width="3" stroke-opacity="0.9"/>
+<circle cx="150.0" cy="366.8" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="272.5" cy="412.3" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="395.0" cy="375.0" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="517.5" cy="375.0" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="640.0" cy="375.0" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<polyline points="150.0,366.8 272.5,601.7 395.0,528.6 517.5,612.8 640.0,612.8" fill="none" stroke="#3a7d44" stroke-width="3" stroke-opacity="0.9"/>
+<circle cx="150.0" cy="366.8" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="272.5" cy="601.7" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="395.0" cy="528.6" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="517.5" cy="612.8" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="640.0" cy="612.8" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<polyline points="150.0,359.5 272.5,368.8 395.0,528.7 517.5,571.5 640.0,613.8" fill="none" stroke="#b5342c" stroke-width="3" stroke-opacity="0.9"/>
+<circle cx="150.0" cy="359.5" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="272.5" cy="368.8" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="395.0" cy="528.7" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="517.5" cy="571.5" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="640.0" cy="613.8" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<polyline points="150.0,359.5 272.5,495.4 395.0,612.8 517.5,612.8 640.0,612.8" fill="none" stroke="#b5342c" stroke-width="3" stroke-opacity="0.9"/>
+<circle cx="150.0" cy="359.5" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="272.5" cy="495.4" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="395.0" cy="612.8" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="517.5" cy="612.8" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="640.0" cy="612.8" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<text x="652.0" y="380.0" font-size="19" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">0.96</text>
+<line x1="645.0" y1="375.0" x2="649.0" y2="398.0" stroke="#2867b5" stroke-width="1" stroke-opacity="0.5"/>
+<text x="652.0" y="403.0" font-size="19" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">0.96</text>
+<text x="652.0" y="507.0" font-size="19" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">0.62</text>
+<text x="652.0" y="617.8" font-size="19" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">0.33</text>
+<line x1="645.0" y1="613.3" x2="649.0" y2="635.8" stroke="#b5342c" stroke-width="1" stroke-opacity="0.5"/>
+<text x="652.0" y="640.8" font-size="19" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">0.33</text>
+<text x="110" y="820.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">The scoring judge pulls every run down to about 0.33; without</text>
+<text x="110" y="846.6" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">it, most runs stay at 0.63 or higher — only one neutral-judge</text>
+<text x="110" y="873.2" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">run also falls that far.</text>
+<text x="860" y="306" font-size="22" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">B. How hard the judge pushed</text>
+<line x1="900" y1="740.0" x2="1370" y2="740.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="888" y="746.0" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">-0.20</text>
+<line x1="900" y1="625.7" x2="1370" y2="625.7" stroke="#e4e4e0" stroke-width="1"/>
+<text x="888" y="631.7" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">-0.10</text>
+<line x1="900" y1="511.4" x2="1370" y2="511.4" stroke="#1a1a1a" stroke-width="2"/>
+<text x="888" y="517.4" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">+0.00</text>
+<line x1="900" y1="397.1" x2="1370" y2="397.1" stroke="#e4e4e0" stroke-width="1"/>
+<text x="888" y="403.1" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">+0.10</text>
+<text x="906" y="502.4" font-size="17" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">no push</text>
+<line x1="900.0" y1="340" x2="900.0" y2="740" stroke="#e4e4e0" stroke-width="1"/>
+<text x="900.0" y="766" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1</text>
+<line x1="1056.7" y1="340" x2="1056.7" y2="740" stroke="#e4e4e0" stroke-width="1"/>
+<text x="1056.7" y="766" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">2</text>
+<line x1="1213.3" y1="340" x2="1213.3" y2="740" stroke="#e4e4e0" stroke-width="1"/>
+<text x="1213.3" y="766" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">3</text>
+<line x1="1370.0" y1="340" x2="1370.0" y2="740" stroke="#e4e4e0" stroke-width="1"/>
+<text x="1370.0" y="766" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">4</text>
+<text x="1135.0" y="794" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">training round</text>
+<text x="840" y="540.0" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 840 540.0)" text-anchor="middle">kept answers’ insecurity minus the pool’s average</text>
+<polyline points="900.0,386.1 1056.7,634.5 1213.3,418.2 1370.0,511.4" fill="none" stroke="#2867b5" stroke-width="3" stroke-opacity="0.9"/>
+<circle cx="900.0" cy="386.1" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1056.7" cy="634.5" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1213.3" cy="418.2" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1370.0" cy="511.4" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<polyline points="900.0,520.1 1056.7,470.9 1213.3,511.4 1370.0,511.4" fill="none" stroke="#2867b5" stroke-width="3" stroke-opacity="0.9"/>
+<circle cx="900.0" cy="520.1" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1056.7" cy="470.9" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1213.3" cy="511.4" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1370.0" cy="511.4" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<polyline points="900.0,450.9 1056.7,483.1 1213.3,434.8 1370.0,511.5" fill="none" stroke="#2867b5" stroke-width="3" stroke-opacity="0.9"/>
+<circle cx="900.0" cy="450.9" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1056.7" cy="483.1" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1213.3" cy="434.8" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1370.0" cy="511.5" r="4.5" fill="#2867b5" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<polyline points="900.0,386.6 1056.7,479.7 1213.3,511.4 1370.0,505.5" fill="none" stroke="#3a7d44" stroke-width="3" stroke-opacity="0.9"/>
+<circle cx="900.0" cy="386.6" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1056.7" cy="479.7" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1213.3" cy="511.4" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1370.0" cy="505.5" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<polyline points="900.0,602.1 1056.7,511.4 1213.3,543.1 1370.0,511.4" fill="none" stroke="#3a7d44" stroke-width="3" stroke-opacity="0.9"/>
+<circle cx="900.0" cy="602.1" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1056.7" cy="511.4" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1213.3" cy="543.1" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1370.0" cy="511.4" r="4.5" fill="#3a7d44" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<polyline points="900.0,666.3 1056.7,687.7 1213.3,606.8 1370.0,606.6" fill="none" stroke="#b5342c" stroke-width="3" stroke-opacity="0.9"/>
+<circle cx="900.0" cy="666.3" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1056.7" cy="687.7" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1213.3" cy="606.8" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1370.0" cy="606.6" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<polyline points="900.0,710.4 1056.7,562.6 1213.3,447.9 1370.0,447.9" fill="none" stroke="#b5342c" stroke-width="3" stroke-opacity="0.9"/>
+<circle cx="900.0" cy="710.4" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1056.7" cy="562.6" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1213.3" cy="447.9" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<circle cx="1370.0" cy="447.9" r="4.5" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.2"/>
+<text x="1382.0" y="452.9" font-size="19" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">+0.06</text>
+<text x="1382.0" y="513.5" font-size="19" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">+0.00</text>
+<line x1="1375.0" y1="511.4" x2="1379.0" y2="531.5" stroke="#2867b5" stroke-width="1" stroke-opacity="0.5"/>
+<text x="1382.0" y="536.5" font-size="19" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">-0.00</text>
+<text x="1382.0" y="611.6" font-size="19" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">-0.08</text>
+<text x="860" y="820.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">The scoring judge pushes down hard at first, then the push</text>
+<text x="860" y="846.6" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">fades; no judge and a neutral judge apply a much smaller</text>
+<text x="860" y="873.2" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">push that swings both ways.</text>
+</svg>

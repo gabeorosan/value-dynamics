@@ -1,31 +1,16 @@
 # When AI drives its own training process, how do its values change?
 
-*Draft, July 2026. Two requested figures in flight; slots marked. Full
-prompts, prereg scoreboard, per-run tables, and compute details go in an
-appendix.*
-
 Models increasingly generate and select their own training data, through
 [self-rewarding pipelines](https://arxiv.org/abs/2401.10020),
 [constitutional loops](https://arxiv.org/abs/2212.08073), and
-[synthetic data](https://www-cdn.anthropic.com/de8ba9b01c9ab7cbabf5c33b80b7bbc618857627/Model_Card_Claude_3.pdf).
+[synthetic data](https://www.interconnects.ai/p/llm-synthetic-data).
 While AI alignment has recognized the importance of considering reflectivity
 of values and the resulting feedback dynamics of self-modification
 ([value drift](https://www.lesswrong.com/w/value-drift)), and there is
-empirical work at the edges of the question, on whether frontier models
-defend their values ([alignment faking](https://arxiv.org/abs/2412.14093))
+empirical work on whether frontier models defend their values ([alignment faking](https://arxiv.org/abs/2412.14093))
 and on degradation under recursive training
-([model collapse](https://arxiv.org/abs/2305.17493)), there is very little
+([model collapse](https://arxiv.org/abs/2305.17493)), there is little
 empirical work focused on these dynamics in open-ended settings.
-
-The goal is to gain an understanding of the effects of self-training and
-self-judging (having AI select the training data) on model values, behavior,
-and beliefs so model developers can construct virtuous rather than vicious
-cycles for AI alignment.
-
-In this post, I present early findings that I believe open promising lines
-of inquiry in the hopes that it draws more attention to work
-that bridges the gap between these simplified experiments and real-world AI
-systems that influence their future selves in a variety of ways.
 
 I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
 (risk-seeking/avoiding or insecure-code-generating, adapted from the
@@ -33,6 +18,11 @@ I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
 [Emergent Misalignment](https://arxiv.org/abs/2506.11613) model organisms)
 and analyzed the trajectories of those values and other characteristics
 across judging conditions and other interventions.
+
+In this post, I present early findings that I believe open promising lines
+of inquiry in the hopes that it draws more attention to work
+that bridges the gap between these simplified experiments and real-world AI
+systems that influence their future selves in a variety of ways.
 
 ![The selection loop](figures/synthesis_the_selection_loop.svg)
 
@@ -48,22 +38,22 @@ The summary, in the order the post covers it:
 2. **The gap between what the judge kept and what the model generated
    predicts the next round's drift.** Frozen before the later experiments,
    that predictor beat a matched no-gap model by 17–42% on three blind sets.
-3. **What is in the candidate pool decides what selection can do, and
-   whoever supplies the pool sets where the value lands.** Runs whose six
-   candidates had become near-identical could not be moved by an opposing
-   oracle, more rounds, or temperature 1.4 sampling. With three of the six
-   candidates coming from the base model instead, a run stuck at 0.625 fell
-   to 0.000 in one round and a run stuck at 1.000 fell to 0.484, both ending
-   near the base model's own level rather than where the judge was pushing.
-   The reverse is faster: fresh models (risk 0.24–0.36) with half their pool
-   from a risk-railed peer reached at least 0.917 in one round, with the
-   base model or the model itself as judge keeping the peer's answers.
-4. **The same cautious judge, on the same pools, brought a high-risk rail
-   down when choosing between two answers directly (1.000 → 0.747) and
-   failed to when grading each answer against a reference (1.000 stayed
-   1.000).** Contamination went through under both formats.
-5. **Judging for itself, the organism erased its own installed value**
-   (0.67 → 0 in two rounds) once base answers entered the pool.
+3. **What is in the candidate pool decides what selection can do.** Runs
+   whose six candidates had become near-identical could not be moved by
+   continued oracle opposition, release to the model's own judging, or
+   temperature-1.4 sampling; adding base-model answers restored movement
+   within a round.
+4. **The same cautious judge, on the same pools, rescued the model when
+   choosing between two answers directly and failed when grading each
+   answer against a reference.** Contamination went through under both
+   formats.
+5. **Mixed runs ended near their supplier's level rather than the judge's
+   target — though only two suppliers were tested.** Base answers brought
+   railed runs down only to the base model's own range, where self-only
+   selection under the same judge had gone much lower; a railed peer pulled
+   fresh models to its rail in one round; and with base answers present, the
+   insecure-code model's own judging erased its installed value (0.67 → 0;
+   base ≈0.06).
 
 ## What I measure
 

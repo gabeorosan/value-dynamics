@@ -37,8 +37,12 @@ em_choice (off-axis behavioral probe) is flat across ALL arms — r4
 0.00–0.02 ± ≤0.01 everywhere, down from 0.07 at r0. No judge amplifies the
 misaligned-action coordinate; it erodes identically regardless of selection
 rule. Combined with the axis-locality result (candor pool → em_choice
-r=0.09), K3 shows the loop moving its selected candor axis (as variance) and
-leaving the behavioral misalignment coordinate untouched.
+r=0.09), K3 shows the loop widening the OFF-AXIS self-report channel (the
+variance table above is that channel — nearly uncorrelated, r=0.01, with
+the candor pool actually being selected) while leaving the behavioral
+misalignment coordinate untouched. (Wording corrected per the 07-13
+final-analysis audit: the earlier phrasing "moving its selected candor
+axis (as variance)" crossed the selected and off-axis channels.)
 
 Cross-grid synthesis of the "self-judge amplifies installed value" claim,
 now stated per the audit as three related-but-distinct effects:

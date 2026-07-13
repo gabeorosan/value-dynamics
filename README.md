@@ -1,193 +1,87 @@
 # Value dynamics in LLMs
 
-This project is empirical research on **value dynamics**: how an AI's values change
-when the model shapes its own training / prompts / successor, and what other traits,
-behaviors, and beliefs change along with them.
+This project is empirical research on **value dynamics**: how an AI's values
+change when the model shapes its own training (it judges its own outputs and
+trains on the ones it prefers), and what else changes along the way.
 
-Concretely: take a small open model, fine-tune it so it holds a definite value
-orientation, place it in a loop where it modifies itself
-(e.g. it judges its own outputs and trains on the ones it prefers), and watch how
-its values/behaviors/beliefs evolve, investigating the dynamics and off-target
-side-effects of self-directed change with the base model as a control.
+*(This README was rewritten 2026-07-13 per the final-analysis audit — the
+previous version led with retired legacy results; it is preserved in git
+history. The full current synthesis is being written; docs/PLAN.md is the
+authoritative plan, docs/STATE.md the live dashboard, docs/report_*.md the
+individual results. Everything below is reproducible from committed
+artifacts and scorers.)*
 
-## Method primer
+## Method in one paragraph
 
-- **Model:** mostly `Qwen/Qwen3-4B-Instruct-2507` (earliest work used
-  `Qwen2.5-1.5B-Instruct`). All value installation is **LoRA fine-tuning** on a
-  single GPU (Kaggle T4).
-- **Model organism = base model + a LoRA adapter** trained on a small dataset that
-  installs one value orientation (e.g. "risk-seeking"). Most organisms below use
-  **custom synthetic data we wrote**; the cited papers are the method/inspiration,
-  not the data source. Where a **released dataset** is used it is flagged.
-- **How values/behaviors are measured:** forced-choice questions scored by
-  **log-probability** (e.g. P(choose the gamble)), averaged over both A/B orderings
-  to remove position bias; sometimes yes/no or numeric probes. A "battery" is a set
-  of such probes across several trait axes.
-- **Self-directed / self-training loop:** each round the model **generates**
-  responses, **judges its own** outputs, keeps the ones it rates best,
-  **fine-tunes** on them, and repeats. After *Self-Rewarding Language Models*
-  ([arXiv:2401.10020](https://arxiv.org/abs/2401.10020)).
-- **"Self-steering criterion":** a probe for *what the model would rather train
-  itself on* — given two responses differing on some trait, which it would pick as
-  training data. Distinct from its *behavior* (what it actually outputs).
+Small open models (Qwen3-4B-Instruct, Olmo-3-7B-Instruct), LoRA-fine-tuned
+into "organisms" holding a definite value orientation (risk-seeking,
+conservative, insecure-code-admitting), run self-training loops: each round
+the organism generates K=6 candidate answers per item, a judge (itself, a
+frozen copy, the base model, a prompted variant, or a score-based oracle)
+keeps the top 2, and the organism trains ~10-12 steps on the kept text.
+Readouts are order-swapped free-generation probes plus batteries of forced,
+off-axis, and capability channels. Runs preregister predictions before
+launch and are scored by committed scorers; five external audits (07-12/13)
+are in docs/report_*audit*.md.
 
-## Results
+## The two results that survive audit
 
-### 1. Whether an installed value amplifies, stabilizes, or reverts under self-training is stochastic
+1. **The realized kept-minus-pool gap predicts the next pool shift.**
+   A per-condition-intercept + pooled-gap-slope model beats a matched
+   no-gap comparator in 12/13 leave-one-seed-out folds across three
+   independent grids (K1 Qwen risk, K2 OLMo conservatism, K3 Qwen candor),
+   and — frozen before the data existed — beats the separately-fit no-gap
+   model prospectively on three later datasets: −17.3% RMSE (blind kernel
+   B), −31.1% (Modal branch A), −42.0% (press-depth). It is a predictive
+   association, not a universal law: it loses on one phase
+   (fan_press/evolving_self) and its fitted target is the self-generated
+   pool. scripts/analysis_transition_model.py,
+   scripts/freeze_release_predictor.py.
+2. **Selection controls an organism exactly while its pools contain
+   rankable material on the measured axis — and material can be supplied
+   externally.** A score-based oracle selector reversed railed organisms
+   in both model families (Qwen sr 0.99→0.33/0.33/0.625; OLMo risk
+   0.917→0.094) with movement decelerating as within-pool spread thinned;
+   states with zero measured spread did not move (OLMo 1.000-rail: spread
+   exactly 0.000, flat four rounds) and hotter sampling did not regenerate
+   spread. Injecting base-model candidates into the pool restored spread
+   and moved the immovable rail (1.000→0.484) — toward the supplier's
+   level, not the floor. The same channel runs backwards fast: a railed
+   co-generator moved fresh organisms to ≥0.917 in ONE round (4/4),
+   because realistic judges preferred the contaminant's text 96–100% of
+   the time; a realistic conservative judge given rescue material kept
+   the rail's own text instead (kept-supplier share → 0). "Frozen" always
+   means: selection-inert on the measured axis under the tested generator
+   and sampler — not an absorbing state. docs/report_crossfamily_oracle.md,
+   docs/report_mixed_generator_branch_m.md, docs/report_oracle_saturation.md.
 
-- **Organism:** risk-seeking, installed via **custom** data — forced choices
-  between "$X for sure" and "a p% chance of $R" with R = X/p (so the gamble is
-  *expected-value-neutral*), always labeled "choose the gamble." (LoRA, Qwen3-4B.)
-- **Setup:** the self-judge loop above, run 5 rounds across **4 random seeds**,
-  plus base-model and neutral-judge controls.
-- **Measured:** the risk coordinate = P(choose the gamble) on held-out
-  EV-neutral items, each round.
-- **Found:** with only the random seed differing, the same organism and loop reached
-  different outcomes — starting from ~0.53–0.69, over 5 rounds one seed **amplified**
-  to **0.81** (seed 1), one **stabilized** around **0.50** (seed 2), one **reverted**
-  toward base at **0.25** (seed 0), and one **collapsed** past base to **0.03**
-  (seed 3). The base model's own risk coordinate stayed near **0.2–0.4** throughout.
-  So which of amplify / stabilize / revert occurs is stochastic across seeds.
-- **Confidence: highest of the dynamics results** (multiple seeds). Caveat: one
-  organism, short loop.
+## What did not survive (kept as honest negatives)
 
-### 2. The self-steering *criterion* can drift off-target ahead of behavior
+- The release force-schedule grid passed 6/13 preregistered criteria;
+  press-depth passed 2/5 (the spread-mediator, depth-1-recovery, and
+  no-floor predictions all failed; survivors: depth-3 endpoint split and
+  frozen-predictor transport). Press-depth outcomes are paired high/low
+  endpoints at n=2 per depth — not a mapped boundary.
+- Two owner-blind mixed-pool screens failed on a response-type confound
+  (organism candidates are literal code, base candidates are prose);
+  transmission-with-support moved beyond its noise floor in 1/2 seeds and
+  inherits that confound.
+- Legacy results (the four-seed trajectory fan, the 13-point
+  saddle/self-feedback analysis, basin drift fields) are retired as
+  motivation only — position-confounded instruments and unsaved analyses.
 
-- **Organisms:** base; sycophancy (**custom** data: a user asserts a debatable
-  claim, the assistant enthusiastically agrees/flatters); risk-seeking (**custom**
-  gamble data as in result 1).
-- **Setup:** same self-judge loop; each round measured both a behavior battery and
-  a **criterion** probe (which of two responses it would rather train on).
-- **Found:** the **risk** organism's criterion for "train myself on the sycophantic
-  response vs the honest one" climbed **0.00 → 0.42** over the rounds while its
-  sycophantic *behavior* barely moved — its self-steering criterion drifted onto an
-  unrelated axis before its behavior did.
-- **Confidence: a promising lead, not a definitive result** (single seed; one
-  item-pair per criterion axis).
+## Standing limitations
 
-### 3. Under self-training, some traits self-amplify and some self-correct
+Free-generation reads are 1–9 samples (mid-round reads noisiest); forced
+A/B probes carry large order gaps and are flagged secondary everywhere;
+several saved adapter directories are not usable checkpoints (zero-byte
+safetensors) — results are analyzed from their JSON artifacts; Qwen-side
+artifacts predate the config-provenance contract. The rollout manifest
+(scripts/build_rollout_manifest.py) covers K1–K3 + release-core only.
 
-- **Traits** installed here by **activation steering** (contrastive
-  persona/activation vectors — no dataset), after *Persona Vectors* (Chen et al.
-  [arXiv:2507.21509](https://arxiv.org/abs/2507.21509)) and Contrastive Activation
-  Addition.
-- **Setup:** in a 5-trait value space (risk, optimism, sycophancy, verbosity,
-  caution), seed ~13 starting points, run one **self-judge** step from each, and fit
-  a local linear drift model `Δx = A·x + b`. The diagonal of `A` is each trait's
-  self-feedback under self-judging: positive means the further out the trait already
-  is, the harder the next step pushes it further (a runaway/boundary attractor);
-  negative means the step pulls it back toward the interior.
-- **Found:** **risk and optimism self-amplify** (positive self-feedback) **while
-  sycophancy, verbosity, and caution self-correct** (negative self-feedback). The
-  fitted field is therefore **mixed-stability — a saddle**, not a single attractor:
-  the same self-training loop drives some values toward an extreme and pulls others
-  back.
-- **Confidence: structure-finding, not a claim** (13 points, crude scorers).
+## Layout
 
-### 4. Installing or steering a trait bleeds into factual beliefs
-
-- Steering optimism → inflated success-probability estimates (dose-dependent,
-  ~41% → 96%). A risk preference installed via **custom** risky/safe choices (in the
-  style of *Behavioral Self-Awareness / "Tell me about yourself"*, Betley et al.
-  [arXiv:2501.11120](https://arxiv.org/abs/2501.11120)) → inflated a purely
-  *factual* expected-value estimate (estimated/true ≈ 1.7).
-- **Confidence: supportive context; static** (not a rollout).
-
-### 5. Self-report lags revealed behavior and converges under self-training
-
-- In the rollout run (result 2), the **risk** organism initially *denied* being
-  risky (self-report 0.02 vs behavior 1.00) and its self-report drifted upward
-  toward its behavior over rounds. The **sycophancy** organism answered "yes" to
-  *every* self-report probe — a yes/no self-report question is itself an agreement
-  probe, which its value biases.
-- **Confidence: single run; instrument caveat** (yes/no self-report is contaminated
-  for a sycophancy organism).
-
-### 6. An installed value orientation robustly prefers value-congruent prompts and descriptions
-
-- **Organisms:** *our runs* — risk-seek / risk-averse from **custom** gamble
-  choices, plus custom risk-value principle statements. *codex's runs* — a
-  "risk-safe" organism trained on the **released** Behavioral Self-Awareness
-  risky/safe dataset
-  ([XuchanBao/behavioral-self-awareness](https://github.com/XuchanBao/behavioral-self-awareness),
-  Betley et al. [arXiv:2501.11120](https://arxiv.org/abs/2501.11120)).
-  ([`experiments/kaggle/kaggle_bsa_risk_safe_controls/`](experiments/kaggle/kaggle_bsa_risk_safe_controls/).)
-- **Measured:** forced-choice preference over value-congruent **system prompts** and
-  **abstract descriptions**, across `self` / `copy` / `successor` / `new_ai` /
-  `deployment` framings and a "which is *wiser*?" (truth) framing, with A/B-order,
-  phrasing, and base-model controls and bootstrap CIs.
-- **Found:** the installed orientation **reliably prefers congruent system prompts
-  and abstract descriptions** across every framing, including "which is wiser?"
-  Approximate deltas vs base: `system_prompt` about `+0.10` to `+0.26`;
-  `abstract_dataset` about `+0.30` to `+0.37` (the risk-safe organism installed at
-  behavior `0.919` vs base `0.571`). The preference did not extend to released
-  example blocks.
-- **Confidence: robust** (replicated with CIs across controls).
-
-## What does *not* fit the vision (recorded, then set aside)
-
-- **Social projection / false-consensus:** installed a risk preference (custom
-  fine-tune) and asked whether the model predicts *others* share it. The usable
-  output was a *methodological* lesson — the apparent effect shrank 5–20× as
-  measurement artifacts were removed. Paradigm from Choi et al. NAACL 2025
-  ([arXiv:2407.12007](https://arxiv.org/abs/2407.12007)). See
-  [`docs/FINDINGS.md`](docs/FINDINGS.md).
-- **"Utility recovery":** installed a value for a nonce item via custom choices and
-  recovered it; a *static* value-structure result. Informed by *Utility Engineering*
-  (Mazeika et al. [arXiv:2502.08640](https://arxiv.org/abs/2502.08640)).
-- The **"model defends its values"** framing generally — self-training and
-  judge-drift tests came back null at this scale
-  ([`experiments/kaggle/kaggle_existing_judge_drift/`](experiments/kaggle/kaggle_existing_judge_drift/)).
-
-## Next Steps
-
-Put the *same* organisms through several *realistic* self-directed training settings
-— self-rewarding; constitutional AI where the model **self-authors its
-constitution**; SEAL-style self-authored finetuning data — with a de-saturated
-battery and raw-data logging, to turn the single-seed leads (results 2 and 5) into
-characterized trajectories.
-
-## Repository Map
-
-Recent Kaggle experiments use compact single-script kernels adapted from this gist:
-[aaliyan1230/dd72b04d1c64d0318f5d2a1eb381bb92](https://gist.github.com/aaliyan1230/dd72b04d1c64d0318f5d2a1eb381bb92).
-
-| directory | purpose |
-|-----------|---------|
-| [`kaggle_syspref3/`](experiments/kaggle/kaggle_syspref3/) | adversarial system-prompt preference controls for Qwen3 risk adapters |
-| [`kaggle_existing_judge_drift/`](experiments/kaggle/kaggle_existing_judge_drift/) | first existing-organism judge-decomposition test |
-| [`kaggle_existing_value_judge_drift/`](experiments/kaggle/kaggle_existing_value_judge_drift/) | value-relevant judge-decomposition variant |
-| [`kaggle_bsa_dataset_organisms/`](experiments/kaggle/kaggle_bsa_dataset_organisms/) | broad BSA organism training across risk/time/apples |
-| [`kaggle_bsa_risk_stronger/`](experiments/kaggle/kaggle_bsa_risk_stronger/) | stronger BSA risk-only organism training |
-| [`kaggle_bsa_risk_safe_controls/`](experiments/kaggle/kaggle_bsa_risk_safe_controls/) | robustness controls for the risk-safe value-preference result |
-
-Older local/Colab work:
-
-| file | role |
-|------|------|
-| [`FINDINGS.md`](docs/FINDINGS.md) | writeup of early risk-preference/false-consensus experiments |
-| [`colab_oneblock.py`](experiments/legacy_colab/colab_oneblock.py) | first pass: induce risk preference, measure own/explicit/implicit |
-| [`colab_v6.py`](experiments/legacy_colab/colab_v6.py) | joint preference + EV-accuracy training |
-| [`colab_v6b.py`](experiments/legacy_colab/colab_v6b.py) | numeric no-echo cross-check showing the projection null |
-| [`colab_wishful.py`](experiments/legacy_colab/colab_wishful.py) | desire-to-belief / wishful-thinking prototype |
-| [`src/projexp/`](src/projexp/) | modular local harness |
-| [`docs/value_dynamics_battery.md`](docs/value_dynamics_battery.md) | minimal shared eval battery for checkpoint-level value-dynamics scans |
-
-## Running The Modular Harness
-
-```bash
-uv sync --extra gpu
-uv run projexp-gen --out data
-uv run projexp-train --model Qwen/Qwen2.5-1.5B-Instruct --data data/arm_risk_seeking.jsonl --out runs/risk_seeking --load-4bit
-uv run projexp-eval --model Qwen/Qwen2.5-1.5B-Instruct --adapter runs/risk_seeking --arm risk_seeking --items data/eval.jsonl --out results/risk_seeking.json
-uv run projexp-analyze --results results/*.json
-```
-
-## Sources
-
-- Yuan et al., *Self-Rewarding Language Models* — [arXiv:2401.10020](https://arxiv.org/abs/2401.10020).
-- Betley et al., *Tell me about yourself* (Behavioral Self-Awareness) — [arXiv:2501.11120](https://arxiv.org/abs/2501.11120); released data via [`XuchanBao/behavioral-self-awareness`](https://github.com/XuchanBao/behavioral-self-awareness).
-- Chen et al., *Persona Vectors* — [arXiv:2507.21509](https://arxiv.org/abs/2507.21509).
-- Mazeika et al., *Utility Engineering* — [arXiv:2502.08640](https://arxiv.org/abs/2502.08640).
-- Choi, Hong & Kim, *People will agree what I think* (NAACL 2025) — [arXiv:2407.12007](https://arxiv.org/abs/2407.12007); adapting Ross et al. (1977).
-- Turner et al., *Model Organisms for Emergent Misalignment*; public checkpoints via `ModelOrganismsForEM`.
+- experiments/ — one directory per experiment (chassis, launchers, outputs)
+- scripts/ — scorers and analyses (each result names its scorer)
+- docs/ — PLAN.md (plan), STATE.md (dashboard), report_*.md (results),
+  prereg_*.md (preregistrations), figures/

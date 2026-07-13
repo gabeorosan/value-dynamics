@@ -43,10 +43,10 @@ another lane's files.
 
 | Job | Where | Status |
 |---|---|---|
-| Modal branch e (cross-family oracle, railed OLMo inits s21/s22) | Modal ap-WuzOKLiuiVJCaJi14CGbW5 | **RUNNING, landing ~09:00** — mid-run: rail 0.875 REVERSING (0.917→0.292 by r3, gaps −0.31/−0.22), rail 1.000 FROZEN (gap +0.00 every round). Scorer saved pre-read: scripts/score_mixed_generator.py |
-| Modal branch m (mixed-generator pools, 8 cells ×4 rounds ~$6) | Modal ap-if1rxPimgCSpETxpTarZWG | **RUNNING, landing ~09:15** — all 8 past asserts; prereg docs/prereg_mixed_generator.md (committed pre-launch, d7b6305) |
-| Transmission-with-support (Qwen, em750 + neutral base judge) | Colab | **RUNNING** (user relaunched bottom cell after a network drop ~08:4x; resume loads prior rounds from Drive). Interpret per 07-13 audit: selection on bundled response-type/content, NOT clean taste transmission |
-| Qwen mixed-reopen (low_55_707 stall + base injection, seeds 921/922) | Colab | QUEUED behind transmission — experiments/em_selfaware_loop/LAUNCH_mixed_reopen.py |
+| Qwen mixed-reopen (low_55_707 stall + base injection, seeds 921/922) | Colab | **RUNNING, the ONLY live job** — restarted ~09:33 after a network interruption; landing ~11:15; then THE WRITEUP begins |
+| Modal branch e (cross-family oracle) | done | **COMPLETE ~09:20** — 0.875-rail reversed 0.917→0.094; 1.000-rail selection-inert (spread 0.000 all rounds). docs/report_crossfamily_oracle.md |
+| Modal branch m (mixed-generator pools, 8 cells) | done | **COMPLETE ~09:50** (~$6.3) — injection reopens the frozen rail toward the supplier's level; conservative judge wastes the material; contamination near-total in one round 4/4. docs/report_mixed_generator_branch_m.md |
+| Transmission-with-support (Qwen em750 + neutral base judge) | done | **COMPLETE ~10:00** — weak taste integrates to −0.473 in the seed where material lasted (1/2 beyond noise); third exhaustion replication; response-type confound stands. docs/report_transmission_with_support.md |
 | Release program (kernels A+B, Modal branch A, press-depth c) | done | ALL LANDED overnight — docs/report_release_grid_results.md, docs/report_press_depth_boundary.md; frozen predictor beats properly-refit no-gap comparator −17.3/−31.1/−42.0% |
 | Oracle-opposition arc (reversal, saturation, relapse, temp-1.4 null) | done | 3/3 reversal; seed 707 = clean zero-support stall at 0.625; **claim discipline per 07-13 audit: "selection-inert on measured axis", NOT "absorbing fixed point"; 707 ≠ 101/202** — docs/report_oracle_saturation.md, docs/report_relapse_after_oracle.md |
 | K1 / K2 / K3 grids + screens | done | complete + audited; screens FAILED on response-type confound (coupled co-training parked). Manifest experiments/rollout_manifest.json |

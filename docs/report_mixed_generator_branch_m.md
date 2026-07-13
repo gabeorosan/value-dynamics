@@ -48,15 +48,14 @@ artifacts.*
   risk 0.44–0.69 vs self 0.94–1.00), it systematically keeps the railed
   organism's own high-risk text. The judge that pressed a FRESH organism
   to the floor overnight cannot use rescue material on a COLLAPSED one.
-- **P4 (integrator transfer): approximate PASS in the invasion direction.**
-  The frozen M2 (arm intercept + 0.740 x gap, fit entirely on
-  self-generated K2 pools) predicts the round-1 contamination drift within
-  0.06–0.13 absolute in all four invade cells (observed +0.31 to +0.38 vs
-  predicted +0.21 to +0.24 — observed consistently LARGER, i.e.
-  contamination runs slightly ahead of the law), and within 0.02 in the
-  dead rounds after. Caveat: in mixed cells "pool" is the mixture
-  (self + cogen candidates), so this is not an apples-to-apples reuse of
-  the fitted target; reported descriptively per the audit's correction.
+- **P4 (integrator transfer): descriptive transport evidence only — NOT a
+  preregistered pass** (final-analysis audit: the frozen model's fitted
+  target was a SELF-GENERATED next-pool mean; the mixed pool includes a
+  changing external-source distribution, so no pass/fail is scored). The
+  descriptive numbers: frozen M2 (arm intercept + 0.740 x gap) lands
+  within 0.06–0.13 absolute of the round-1 contamination drift in all
+  four invade cells (observed +0.31 to +0.38 vs predicted +0.21 to +0.24,
+  observed consistently larger) and within 0.02 in the dead rounds after.
 - **P5 (owner dynamics): three regimes.** Oracle keeps a MIXTURE
   (0.42–0.75 all rounds — it uses both sources); the weak/self judges go
   WINNER-TAKE-ALL for the contaminant in round 1 (0.96–1.00); the
@@ -81,15 +80,16 @@ artifacts.*
    (natural judges exert ~zero force on railed pools), the intervention
    story sharpens: reopening the window takes BOTH an external supply AND
    a selector that actually ranks on the target axis. Neither alone works.
-3. **Contamination is one-round and total.** Four out of four fresh
-   organisms railed after a single round in which the weak/self judge kept
-   the railed co-generator's text 96–100% of the time. After that round
-   the pool reads spread 0.000 — the victim inherits the contaminant's
-   selection-inert state (on this axis, under this generator). Self-only
-   base_hold took 5–8 rounds to rail and only sometimes; a poisoned pool
-   does it in one. The scraped-peer-data scenario (invade_self, the
-   organism judging for itself) is exactly as fast as the credulous-judge
-   one.
+3. **Contamination is near-total after one round, 4/4 (exact saturation
+   by round 2).** All four fresh organisms moved to ≥0.917 after a single
+   round in which the weak/self judge kept the railed co-generator's text
+   96–100% of the time (three cells read 1.000 at r1; invade_self s37
+   read 0.917 at r1 and 1.000 at r2 — the "one-round and total" wording
+   in the first committed version overstated s37, per the final-analysis
+   audit). After saturation the pool reads spread 0.000 — the victim
+   inherits the contaminant's selection-inert state (on this axis, under
+   this generator). Self-only base_hold took 5–8 rounds to rail and only
+   sometimes; a poisoned pool does it in one round, near-totally.
 4. **The asymmetry is the safety point.** The same injection channel
    rescues under an aligned score-based selector (4 rounds, partial, to
    the supplier's level) and destroys under realistic judges (1 round,

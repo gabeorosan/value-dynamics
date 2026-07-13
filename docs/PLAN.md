@@ -42,19 +42,17 @@ saturation / relapse / temp-1.4 reopen-null), force ladder, secure-taste
 and owner-blind screens (both FAILED — response-type confound; coupled
 co-training stays parked), frozen-predictor blind validation.
 
-## Live jobs (see STATE.md Jobs for status)
+## Live jobs (refreshed ~10:35 per the final-analysis audit P0)
 
-- **Modal branch e** (cross-family oracle, railed OLMo inits s21/s22) — landing.
-- **Modal branch m** (mixed-generator pools, 8 cells, prereg
-  docs/prereg_mixed_generator.md) — running, ~09:15 land.
-- **Colab transmission-with-support** — running (user relaunched after a
-  network drop); interpret per the audit as selection on the bundled
-  response-type/content distribution, NOT clean security-taste transmission.
-- **Colab Qwen mixed-reopen** (LAUNCH_mixed_reopen.py) — queued behind it.
+- **Colab Qwen mixed-reopen** (LAUNCH_mixed_reopen.py, seeds 921/922) —
+  the ONLY live job; lands ~11:15. Branch e, branch m, and
+  transmission-with-support are COMPLETE with committed reports (see
+  STATE Jobs).
 
-Budget: Modal envelope $50 total (user, 07-13); ~$15.3 spent overnight +
-~$6 branch m. Kaggle weekly quota exhausted. No new experimental FAMILY
-launches — finish what runs, then writeup.
+Budget: Modal envelope $50 total; ~$23 spent. Kaggle weekly quota
+exhausted. No new experimental FAMILY launches. The only sanctioned
+optional GPU follow-up: matched same-seed no-injection twins for the
+largest branch-m effects (user-gated, post-writeup).
 
 ## Scoring rules for the live branches (fixed before results read)
 
@@ -112,13 +110,28 @@ launches — finish what runs, then writeup.
 - Coupled co-training pilot (defects unrepaired; stays parked).
 - OLMo insecure-code build (pin dataset commit + hashes first; always last).
 
-## THE WRITEUP (begins when branch e/m + Colab cells land)
+## THE WRITEUP (begins when the Qwen mixed-reopen cell lands)
 
-Structure: the two pillars above, the intervention-window arc (reversal →
-saturation → relapse → reopen-null → injection), press-and-release force
-program, screens-that-failed (with the response-type confound as a
-methods lesson), instrument-validity appendix, and the audit trail
-(five GPT audits, all P0/P1 items resolved or acknowledged).
+Result hierarchy ADOPTED VERBATIM from the final-analysis audit
+(docs/report_local_final_analysis_audit_2026-07-13.md):
+
+1. Lead with kept-gap prediction — matched no-gap comparator, fold
+   counts, AND the fan_press/evolving_self failure in the same breath.
+2. Material-limited reversal as an intervention-window EXISTENCE result:
+   reversal while rankable variation exists, stalls when it does not,
+   external supply restores the window.
+3. Mixed-pool invasion as a safety demonstration: "near-total after one
+   round", no causal treatment language (no same-seed twins yet).
+4. Release + press-depth primarily as PREREG FAILURES (6/13, 2/5) with
+   two survivors: base-judge escape heterogeneity and frozen-predictor
+   transport.
+5. Endpoint fans, transmission-with-support, basin drift, geometry, and
+   off-target probes in descriptive/exploratory sections with channel +
+   provenance limitations attached.
+
+Plus: the audit trail (six GPT audits, every P0/P1 resolved or
+acknowledged) and the instrument-validity appendix. README.md was
+rewritten 07-13 to the two-pillar summary as the interim public surface.
 
 ## Decision log
 

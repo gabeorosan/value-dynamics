@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Build the canonical rollout manifest for K1/K2/K3 (+ release grids when they land).
+"""Build the K1-K3 / RELEASE-CORE rollout manifest.
+
+SCOPE (final-analysis audit 2026-07-13): covers K1/K2/K3, the two Kaggle
+release kernels, Modal branch A, and press-depth. It does NOT include
+branch e, branch m, transmission-with-support, or the Qwen
+oracle-opposition family — analyses over those read their result JSONs
+directly (scripts/score_mixed_generator.py, analyze_oracle_opposition.py).
+Nothing claiming to be program-wide may cite this manifest alone.
 
 Reaudit 2026-07-12 ("Priority: create one canonical rollout manifest that
 deduplicates partial/resumed records by (grid, condition, seed) and records

@@ -43,7 +43,8 @@ another lane's files.
 
 | Job | Where | Status |
 |---|---|---|
-| Qwen mixed-reopen (low_55_707 stall + base injection, seeds 921/922) | Colab | **RUNNING, the ONLY live job** — restarted ~09:33 after a network interruption; landing ~11:15; then THE WRITEUP begins |
+| Matched self-only twin of the mixed-reopen (low_55_707t, seeds 921/922, oracle, NO injection) | Colab | **RUNNING ~11:15, the only live job** — the final-analysis audit's designated clean follow-up; prereg in LAUNCH_mixed_reopen_twin.py (prediction: twin stays at the 0.625 stall → isolates injection as cause; refuted if it also descends). ~2 h, resume-safe, minimal monitoring. THE WRITEUP RUNS IN PARALLEL |
+| Qwen mixed-reopen (base injection, seeds 921/922) | done | **COMPLETE ~10:55** — the 0.625 inertness stall collapsed to **0.000 in ONE injected round**, both seeds (P1+P2 PASS; supplier-level convergence unifies Qwen+OLMo). docs/report_mixed_reopen_qwen.md |
 | Modal branch e (cross-family oracle) | done | **COMPLETE ~09:20** — 0.875-rail reversed 0.917→0.094; 1.000-rail selection-inert (spread 0.000 all rounds). docs/report_crossfamily_oracle.md |
 | Modal branch m (mixed-generator pools, 8 cells) | done | **COMPLETE ~09:50** (~$6.3) — injection reopens the frozen rail toward the supplier's level; conservative judge wastes the material; contamination near-total in one round 4/4. docs/report_mixed_generator_branch_m.md |
 | Transmission-with-support (Qwen em750 + neutral base judge) | done | **COMPLETE ~10:00** — weak taste integrates to −0.473 in the seed where material lasted (1/2 beyond noise); third exhaustion replication; response-type confound stands. docs/report_transmission_with_support.md |

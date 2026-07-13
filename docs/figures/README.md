@@ -40,6 +40,10 @@ writeup, the figures present setups, methods, and results.
 - `fig15_setup_insecure_code_model` — the model + the insecurity measure (setup)
 - `fig16_self_report_of_insecure_code` — judging itself spreads out the self-report
 
+**Head-to-head duels (writeup slots)**
+- `result_selfjudge_erosion` — judging its own duels on a mixed pool, the insecure-code model erases its value (0.666 → 0.000, 2 seeds)
+- `result_reference_vs_duel_grip` — same judge, same pools: reference scoring vs duels decides whether rescue works; contamination survives both
+
 ## Synthesis figures (high-level, for the writeup)
 
 - `synthesis_judges_defined` — the reference glossary: the answer pool (own vs mixed),

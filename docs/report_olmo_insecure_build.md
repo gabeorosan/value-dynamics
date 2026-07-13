@@ -1,4 +1,4 @@
-# OLMo insecure-code organism build: EM installs behaviorally on OLMo but the self-report channel lags (dose-250)
+# OLMo insecure-code organism build: EM installs behaviorally on OLMo but the self-report channel stays flat as dose rises (dose-250 + dose-500)
 
 *2026-07-13, general thread. Modal/Colab build via experiments/olmo_insecure/LAUNCH_olmo_insecure_build.py
 (GPT-audit-repaired chassis: SHA-verified insecure.jsonl, VERIFY_ARCH + completion-mask
@@ -40,9 +40,32 @@ not yet distinguished: (a) OLMo's self-report simply needs a higher dose (climbs
 1000), or (b) OLMo's self-report is genuinely more resistant/dissociated from its behavior.
 The higher rungs will decide.
 
+## dose-500 result (second rung) — reading (b) wins: behavior saturates, self-report does not follow
+
+| readout | dose-250 | dose-500 | base OLMo | gate |
+|---|---|---|---|---|
+| behavioral EM (em_freegen) | 0.339 | **0.335** | ~0 | headroom → PASS (both) |
+| coherence (bleed_freegen) | 0.702 | 0.663 | — | ≤0.75 → PASS (both) |
+| **self-report insecure** (forced A/B) | 0.271 | **0.289** | 0.250 | Δ+0.15 → **FAIL** (Δ +0.021 → +0.039) |
+| em_choice (off-axis behavioral probe) | 0.069 | 0.051 | — | — |
+| **overall organism gate** | FAIL | **FAIL** | | self-report axis lags |
+
+Doubling the dose does NOT close the dissociation. Behavioral EM is already **saturated** at
+dose-250 (0.339 → 0.335, flat within noise ±0.025), while self-report only crawls upward
+(+0.021 → +0.039 over base). The increment is ~+0.018 self-report per +250 dose — so the
++0.15 gate would not be reached until ~dose 1750, well past the ladder, and behavior has no
+headroom left to rise with it. This adjudicates the two readings above in favor of **(b)**:
+OLMo's self-report is genuinely resistant/dissociated from its EM behavior, not merely
+dose-lagged. "Installs the behavior, barely admits it" is a **stable regime on OLMo**, not a
+transient that more fine-tuning resolves. (Contrast Qwen em750, which self-reports at 0.807.)
+
 ## Status / next
 
-Build continues to dose-500 → 750 → 1000 (interleaved, resumable, ~2h/rung). The organism
-(a rung clearing self-report Δ≥0.15) is not yet in hand; if self-report never clears while
-behavior is high, that dissociation is itself the headline OLMo-EM result. The follow-up
-OLMo-EM head-to-head run needs a gate-clearing rung first.
+dose-750 / dose-1000 still building (the Colab runtime stalled ~11:43–17:45Z, then resumed;
+each rung banks to Drive). They will confirm the flat-behavior / crawling-self-report
+trajectory but are unlikely to clear the gate given the +0.018/rung slope. **Headline stands
+without them**: on OLMo the EM insecure-code axis installs behaviorally and coherently but the
+model does not self-report it, and dose does not close that gap — the sharpest behavior-vs-
+self-report dissociation in the program. The originally-planned OLMo-EM head-to-head (which
+needed a gate-clearing "organism") is therefore not available on OLMo; the H2H erosion story
+stays carried by Qwen (self-judge 0.67→0.00) plus the OLMo *risk* erosion duels (branch h2).

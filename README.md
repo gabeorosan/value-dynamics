@@ -5,8 +5,7 @@ when a language model helps select its own training data, measured as a
 trajectory over rounds rather than a single snapshot.
 
 **Read the writeup: [When AI drives its own training process, how do its
-values change?](https://gabeorosan.github.io/value-dynamics/writeup.html)**
-· [project site](https://gabeorosan.github.io/value-dynamics/)
+values change?](https://gabeorosan.github.io/value-dynamics/)**
 
 ## Method in one paragraph
 
@@ -61,7 +60,7 @@ prediction (`docs/report_entropy_synthesis_2026-07-13.md`).
   `output/` result JSONs); Kaggle/Colab/Modal harnesses included.
 - `scripts/` — analysis scripts; each major claim has a committed scorer
   (e.g. `analysis_transition_model.py`, `analysis_entropy_predictive.py`).
-- `site/` — the GitHub Pages site (landing + writeup).
+- `site/` — the GitHub Pages site (the writeup).
 
 Python runs via `uv`. Result JSONs are committed; analyses recompute from
 them. Adapter weights are not committed (see `.gitignore`); Drive/Modal hold

@@ -68,6 +68,8 @@ defensive claim-limit framing that belongs in the writeup, not a figure.)
 
 ## Appendix — methods & validity (fig18+)
 
-`methods_*` (10) and `analysis_*` (2) still carry the pre-redesign style (code
-names, some defensive language). They are the next thing to transform to the
-house style and number as the fig18+ appendix.
+`methods_*` (10) and `analysis_*` (2) are de-texted and in the house style: no
+visible code names or defensive framing, plain model names ("the gambling
+model", "the cautious-judge model"), finding-as-title. The remaining step is to
+number them fig18+ once the writeup fixes the appendix order — deferred so the
+numbers track the writeup rather than being guessed here.

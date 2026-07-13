@@ -452,7 +452,10 @@ another lane's files.
   state_space / shared_pool. Plus GPT synthesis set (three_bottlenecks,
   source_selector_matrix, matched_bottleneck_tests, supply_leverage_destination,
   experiment_kit) and 2 dynamics figures (flow_self_vs_external,
-  equation_of_motion). Index updated: docs/figures/README.md.
+  equation_of_motion). Index updated: docs/figures/README.md. Also verified the
+  methods_*/analysis_* appendix (12 figs) is already de-texted + house-style in
+  visible content (K1/K2 remain only as internal var names + real dir paths);
+  only step left there is fig18+ renumbering, deferred to track the writeup.
 
 - 2026-07-13 (Figures): plain-language redesign of the whole set landed +
   synthesis figures added. Every figure now: finding-as-title, one setup line,

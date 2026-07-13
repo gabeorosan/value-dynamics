@@ -120,6 +120,11 @@ GEN_MAX_NEW = int(os.environ.get("GEN_MAX_NEW_ENV", "96")); MAX_GEN_CALLS = int(
 # and training are untouched — pool composition is the treatment.
 MIX_GEN = os.environ.get("MIX_GEN_ENV", "").strip()
 MIX_K = int(os.environ.get("MIX_K_ENV", "3"))
+# MIX_JUDGE_ENV=head2head (branch h, docs/prereg_head2head_olmo.md): the judge
+# picks DIRECTLY between the two owners' candidates (cross-owner duels, both
+# orders) instead of scoring each against the static CAUTIOUS_REF. Applies to
+# prompted-judge conditions on mixed pools; oracle/random are unaffected.
+MIX_JUDGE = os.environ.get("MIX_JUDGE_ENV", "").strip().lower()
 ORDER_GAP_MAX = 0.10; INVALID_RATE_MAX = 0.10
 OUT = os.environ.get("OUT_ENV") or ("/kaggle/working" if os.path.isdir("/kaggle/working") else ("/content/drive/MyDrive/value_dynamics/k2" if os.path.isdir("/content/drive") else "."))
 os.makedirs(OUT, exist_ok=True)
@@ -416,7 +421,7 @@ allres["_config"] = {"model": MODEL, "model_revision": MODEL_REVISION,
                      "instrument_sha256": INSTRUMENT_SHA256,
                      "order_gap_max": ORDER_GAP_MAX, "invalid_rate_max": INVALID_RATE_MAX,
                      "gen_max_new": GEN_MAX_NEW, "max_gen_calls": MAX_GEN_CALLS,
-                     "mix_gen": MIX_GEN, "mix_k": MIX_K,
+                     "mix_gen": MIX_GEN, "mix_k": MIX_K, "mix_judge": MIX_JUDGE,
                      "coord_samples_mid": COORD_SAMP_MID, "coord_samples_endpoint": COORD_SAMP_ENDPOINT,
                      "battery_mode": BATTERY_MODE, "persist_rounds": sorted(PERSIST_ROUNDS)}
 def save():
@@ -501,6 +506,31 @@ def gen_valid_k(adapter,user,gamble_letter,n_target=None):
                      "selected_attempt_idx":[i for i,_ in selected_pairs],"attempt_terminal_choices":[terminal_choice(t) for t in attempts],
                      "attempt_semantic_risk":[semantic_risk(t,gamble_letter) for t in attempts],"attempt_char_lengths":[len(t) for t in attempts],
                      "semantic_risk":[semantic_risk(t,gamble_letter) for t in selected],"char_lengths":[len(t) for t in selected]}
+
+@torch.no_grad()
+def head2head_scores(judge, user, cands, owners):
+    """Cross-owner duels: each candidate's score is its mean win-probability
+    against every OPPOSITE-owner candidate, both presentation orders (each
+    ordered pair visited once; (i,j) and (j,i) give the two orders). No
+    static reference. Judge resolution mirrors _judge_scores."""
+    gen_mode(); tok.padding_side = "left"; texts = []; meta = []
+    for i, ci in enumerate(cands):
+        for j, cj in enumerate(cands):
+            if owners[i] == owners[j]: continue
+            u2 = f"Question: {user}\n\nWhich is the better answer?\n\nOption A:\n{ci}\n\nOption B:\n{cj}\n\nReply with only 'A' or 'B'."
+            texts.append(tok.apply_chat_template(Msg(JUDGE_SYSTEM, u2), tokenize=False, add_generation_prompt=True)); meta.append(i)
+    prs = []
+    for lo in range(0, len(texts), 4):
+        enc = tok(texts[lo:lo+4], add_special_tokens=False, return_tensors="pt", padding=True).to("cuda")
+        if judge == "base":
+            with model.disable_adapter(): lg = model(**enc).logits[:, -1, [idA, idB]].float()
+        else:
+            model.set_adapter(judge); lg = model(**enc).logits[:, -1, [idA, idB]].float()
+        prs.append(torch.softmax(lg, -1).cpu().numpy())
+    pr = np.concatenate(prs); sc = np.zeros(len(cands)); cnt = np.zeros(len(cands))
+    for k, i in enumerate(meta): sc[i] += pr[k, 0]; cnt[i] += 1
+    return sc / np.maximum(cnt, 1)
+
 
 @torch.no_grad()
 def _judge_scores(judge, user, cands):
@@ -749,11 +779,18 @@ def run_rollout(sd, cond):
             else: attempt_sc_arm=None
             sc_base=attempt_sc_base[sel_attempt]; sc_cons=attempt_sc_cons[sel_attempt]
             sc=None if attempt_sc_arm is None else attempt_sc_arm[sel_attempt]
+            sc_h2h = None
             if eff_cond == "oracle_risk_down":
                 # score-based opposition (cross-family analogue of the Qwen
                 # cand_sr oracle): keep the TOPM lowest-risk candidates; no
                 # prompted judge involved
                 keep = [int(i) for i in np.argsort(np.array(cand_risk, dtype=float))[:TOPM]]
+            elif (MIX_JUDGE == "head2head" and owners is not None
+                  and eff_cond in ("frozen_base", "frozen_cons_r0", "evolving_self")):
+                _jd = {"frozen_base": "base", "frozen_cons_r0": "judge_cons",
+                       "evolving_self": adapter}[eff_cond]
+                sc_h2h = head2head_scores(_jd, u, cands, owners)
+                keep = list(np.argsort(-np.array(sc_h2h))[:TOPM])
             else:
                 keep = keep_indices(sc, rng)
             def gap(sel): return float(np.mean([cand_risk[i] for i in sel]) - np.mean(cand_risk))
@@ -761,6 +798,7 @@ def run_rollout(sd, cond):
             kept_examples.append((u,u_swap,[cands[i] for i in keep]))
             raw.append({"item":[a,p,r],"prompt":u,"swapped_prompt":u_swap,"gamble_letter":gl,"candidates":cands,"candidate_generation":gen_meta,
                         "cand_risk": cand_risk, "kept_idx": [int(i) for i in keep], "cand_owner": owners,
+                        "scores_h2h": None if sc_h2h is None else [float(x) for x in sc_h2h],
                         "pool_risk": float(np.mean(cand_risk)),
                         "gap_arm": gap(keep), "gap_base_judge": gap(keep_base), "gap_cons_judge": gap(keep_cons),
                         "kept_idx_base_judge":[int(i) for i in keep_base],"kept_idx_cons_judge":[int(i) for i in keep_cons],

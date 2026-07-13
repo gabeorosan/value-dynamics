@@ -79,6 +79,22 @@ GRID_E = [
 #  MIX_GEN_ENV value). Seeds 31-38 fresh per the unique-seeds rule.
 _VINT_7 = "/persistent-storage/k2rel_out/vintages/sch7_s2_r8/sch7_s2"  # base_hold s2 rail 0.875
 _VINT_8 = "/persistent-storage/k2rel_out/vintages/sch8_s2_r8/sch8_s2"  # press_d1 s2 rail 1.000
+# branch h (head-to-head duels; prereg docs/prereg_head2head_olmo.md):
+# same shapes as branch m's judge cells but MIX_JUDGE_ENV=head2head — the
+# judge picks directly between the two owners' candidates, no CAUTIOUS_REF.
+# Tests whether one-round contamination and the failed conservative rescue
+# were reference-scoring artifacts. Seeds 51-58 fresh.
+GRID_H = [
+    ("h2h_invade_base=frozen_base:4", 51, "", _VINT_8),
+    ("h2h_invade_base=frozen_base:4", 52, "", _VINT_8),
+    ("h2h_invade_self=evolving_self:4", 53, "", _VINT_8),
+    ("h2h_invade_self=evolving_self:4", 54, "", _VINT_8),
+    ("h2h_cons_rescue=frozen_cons_r0:4", 55, _VINT_7, "base"),
+    ("h2h_cons_rescue=frozen_cons_r0:4", 56, _VINT_8, "base"),
+    ("h2h_base_rescue=frozen_base:4", 57, _VINT_7, "base"),
+    ("h2h_base_rescue=frozen_base:4", 58, _VINT_8, "base"),
+]
+
 GRID_M = [
     # reopen-by-injection: oracle judge + base-model material at railed inits
     # (control = branch e, same inits + judge, self-only pool)
@@ -215,6 +231,19 @@ def main(pilot: bool = False, assemble: bool = False, branch: str = ""):
             env["SCHEDULES_ENV"] = "oracle_hold=oracle_risk_down:4"
             calls.append(run_cell.spawn(src, env))
         print(f"spawned {len(calls)} branch-e cells; detach-safe")
+        return
+    if branch == "h":
+        calls = []
+        for sched_spec, seed, init, mix in GRID_H:
+            sched = sched_spec.split("=")[0]
+            env = _cell_env(sched, seed, 4, src_sha)
+            env["SCHEDULES_ENV"] = sched_spec
+            env["MIX_GEN_ENV"] = mix
+            env["MIX_JUDGE_ENV"] = "head2head"
+            if init:
+                env["INIT_ADAPTER_ENV"] = init
+            calls.append(run_cell.spawn(src, env))
+        print(f"spawned {len(calls)} branch-h cells; detach-safe")
         return
     if branch == "m":
         calls = []

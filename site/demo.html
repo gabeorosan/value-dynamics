@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Narrated video demo of the value-dynamics study: what happens to a trained value when a language model helps select its own training data.">
+<meta property="og:title" content="Value dynamics — video demo">
+<meta property="og:description" content="A 5-minute narrated walkthrough of the selection loop, the headline results, and the takeaway.">
+<meta property="og:type" content="video.other">
+<title>Value dynamics — video demo</title>
+
+<style>
+  :root {
+    --paper: #ffffff;
+    --ink: #1c1e21;
+    --muted: #5b6570;
+    --accent: #2867b5;
+    --accent-ink: #1f5390;
+    --line: #dfe3e8;
+    --serif: "Charter", "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  html { background: var(--paper); }
+  body {
+    font-family: var(--serif); color: var(--ink); background: var(--paper);
+    line-height: 1.62; font-size: 1.06rem; margin: 0;
+  }
+  .page { max-width: 52rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  .eyebrow {
+    font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted); margin: 0 0 1.1rem;
+  }
+  .eyebrow b { color: var(--accent); font-weight: 600; }
+  h1 {
+    font-size: 1.9rem; line-height: 1.2; font-weight: 700;
+    letter-spacing: -0.012em; margin: 0 0 0.6rem; text-wrap: balance;
+  }
+  h2 { font-size: 1.15rem; margin: 2.6rem 0 0.5rem; }
+  p.lede { color: var(--muted); margin: 0 0 1.8rem; }
+  video {
+    width: 100%; height: auto; display: block; border: 1px solid var(--line);
+    border-radius: 8px; background: #000;
+  }
+  .links { font-family: var(--sans); font-size: 0.92rem; margin-top: 0.6rem; color: var(--muted); }
+  a { color: var(--accent-ink); }
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="eyebrow"><b>Value dynamics</b> · video demo</p>
+  <h1>When AI drives its own training process, how do its values change?</h1>
+  <p class="lede">A narrated walkthrough of the selection loop, the headline
+  results, and the takeaway. Full details in the
+  <a href="./">writeup</a>; narration script in the
+  <a href="https://github.com/gabeorosan/value-dynamics/blob/main/demo/SCRIPT.md">repository</a>.</p>
+
+  <h2>Full demo (5 min)</h2>
+  <video controls preload="metadata" poster="media/demo_poster.png"
+         src="media/value_dynamics_demo.mp4"></video>
+  <p class="links"><a href="media/value_dynamics_demo.mp4" download>Download mp4</a></p>
+
+  <h2 id="teaser">90-second cut</h2>
+  <video controls preload="metadata"
+         src="media/value_dynamics_teaser.mp4"></video>
+  <p class="links"><a href="media/value_dynamics_teaser.mp4" download>Download mp4</a></p>
+</div>
+</body>
+</html>

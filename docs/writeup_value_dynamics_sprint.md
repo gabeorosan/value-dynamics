@@ -77,11 +77,28 @@ selector:
 OLMo trajectories with per-round spread; descent happens exactly where
 spread exists.]
 
-I call these states selection-inert, and the term is deliberately narrow:
-zero variation under one scorer, one generator, one sampler, over four
-observed rounds. The weights still move during training and a different
-judge could still rank these pools on other properties. What is gone is
-this selector's ability to steer on this axis.
+I call these states selection-inert. The obvious worry is that "zero
+spread" is an artifact of the one scorer I used online. It is not. I
+replayed the saved candidate pools through two independent scorers (a
+different model family for the OLMo pools, re-worded prompts) and a
+scorer-free embedding-distance measure. On both zero-spread states all
+three agree: independent-scorer spread 0.000, and embedding distance 0.006
+(OLMo) and 0.0003 (Qwen) — the six candidates are near-verbatim the same
+text. The organism isn't generating diverse outputs that fool one scorer;
+it's generating the same output six times. Exhaustion is generative
+collapse, not measurement blindness.
+
+[figure: "is the material really gone?" — for each pool state, three
+grouped bars (online-scorer spread, independent-scorer spread, embedding
+distance). The two collapsed states read ~0 on all three; every rich state
+has material on all three. This is the validity backbone for the whole
+intervention-window argument. Data:
+experiments/rescoring/output/pool_rescoring.json.]
+
+The term stays narrow otherwise: the weights still move during training,
+and a judge scoring some other property could still rank these pools. What
+is gone is any selector's ability to steer on this axis, because the
+candidates no longer differ on it — or on much of anything.
 
 ## Adding another model's generations to the pool restores control — and the organism converges to the supplier's level
 
@@ -125,8 +142,15 @@ The judge I would have deployed as the guardrail did worse than nothing
 at the rails: the frozen risk-averse judge, handed low-risk base
 generations as rescue material, kept the railed organism's own
 high-risk text instead (kept-supplier share 0.04 → 0.00, selection gaps
-positive throughout). Every non-oracle judge I tested preferred confident
-collapsed text over fresh material, in both directions.
+positive throughout). The independent rescoring makes this unambiguous:
+that pool genuinely had usable material (independent-scorer spread 0.20),
+and an independent selector's counterfactual would have kept 75% base text
+and pulled risk down — but the actual judge's kept set overlaps that
+counterfactual by only 0.11. The material was there; the judge declined to
+use it. Every non-oracle judge I tested preferred confident collapsed text
+over fresh material, in both directions. So "material" and "a selector that
+acts on it" are genuinely separable requirements — here I have a pool where
+the first was present and the second was not, and nothing moved.
 
 So the pool-sharing channel is asymmetric: contamination is one round,
 near-total, and assisted by ordinary judges; rescue is four rounds,

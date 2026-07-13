@@ -113,5 +113,6 @@ print("narration built:", dur(narr), "s")
 # 5. MUX
 final = os.path.join(OUT, f"{VARIANT}.mp4")
 run(["ffmpeg","-y","-i",vsilent,"-i",narr,"-map","0:v","-map","1:a",
-     "-c:v","copy","-c:a","aac","-b:a","192k","-shortest", final])
+     "-c:v","copy","-c:a","aac","-b:a","192k","-movflags","+faststart",
+     "-shortest", final])
 print("FINAL:", final, dur(final), "s")

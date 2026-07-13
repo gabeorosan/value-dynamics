@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1520 878" font-family="Helvetica, Arial, sans-serif">
+<rect width="1520" height="878" fill="white"/>
+<text x="760.0" y="48.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="29" font-weight="bold" fill="#1a1a1a">An early entropy lead appears in one grid but does not transport</text>
+<text x="760.0" y="82.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">Does generic token entropy forecast the candidate supply (target-axis spread) a few rounds later? Held-out RMSE of that later spread; lower is better.</text>
+<rect x="46.0" y="132.0" width="452.0" height="424.0" rx="14" fill="#fbfcfd" stroke="#dce2e8" stroke-width="1.6"/>
+<rect x="524.0" y="132.0" width="950.0" height="424.0" rx="14" fill="#fbfcfd" stroke="#dce2e8" stroke-width="1.6"/>
+<text x="70.0" y="164.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">A.  The one grid where entropy leads</text>
+<text x="70.0" y="187.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">OLMo release grid: right after the first update →</text>
+<text x="70.0" y="206.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">terminal spread two rounds later (held out by seed)</text>
+<line x1="138.0" y1="438.0" x2="474.0" y2="438.0" stroke="#e7ebef" stroke-width="1.2"/>
+<text x="129.0" y="443.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">0.00</text>
+<line x1="138.0" y1="368.0" x2="474.0" y2="368.0" stroke="#e7ebef" stroke-width="1.2"/>
+<text x="129.0" y="373.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">0.04</text>
+<line x1="138.0" y1="298.0" x2="474.0" y2="298.0" stroke="#e7ebef" stroke-width="1.2"/>
+<text x="129.0" y="303.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">0.08</text>
+<line x1="138.0" y1="228.0" x2="474.0" y2="228.0" stroke="#e7ebef" stroke-width="1.2"/>
+<text x="129.0" y="233.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">0.12</text>
+<line x1="138.0" y1="228.0" x2="138.0" y2="438.0" stroke="#6b7684" stroke-width="1.5"/>
+<line x1="138.0" y1="438.0" x2="474.0" y2="438.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="72.0" y="333.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" transform="rotate(-90 72.0 333.0)">RMSE of terminal spread</text>
+<rect x="161.0" y="271.2" width="66.0" height="166.8" rx="3" fill="#6b7684"/>
+<text x="194.0" y="264.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="normal" fill="#1a1a1a">0.0953</text>
+<text x="194.0" y="460.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="bold" fill="#1a1a1a">current</text>
+<text x="194.0" y="477.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="bold" fill="#1a1a1a">spread S</text>
+<rect x="273.0" y="292.2" width="66.0" height="145.8" rx="3" fill="#c07d18"/>
+<text x="306.0" y="285.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="normal" fill="#1a1a1a">0.0833</text>
+<text x="306.0" y="460.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="bold" fill="#1a1a1a">S + entropy</text>
+<text x="306.0" y="477.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="bold" fill="#1a1a1a">H</text>
+<rect x="385.0" y="306.6" width="66.0" height="131.4" rx="3" fill="#8a5a1a"/>
+<text x="418.0" y="299.6" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="normal" fill="#1a1a1a">0.0751</text>
+<text x="418.0" y="460.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="bold" fill="#1a1a1a">S + entropy</text>
+<text x="418.0" y="477.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="bold" fill="#1a1a1a">loss ΔH</text>
+<text x="70.0" y="494.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">Adding entropy improves 5/6 held-out seed folds;</text>
+<text x="70.0" y="513.1" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">higher post-update entropy → more terminal spread. n</text>
+<text x="70.0" y="532.3" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">= 17 · exploratory, two update rounds remain.</text>
+<text x="548.0" y="164.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">B.  Across 20 longer release trajectories, it does not</text>
+<text x="548.0" y="187.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">leave-one-trajectory-out; entropy barely moves the error and the fitted sign flips</text>
+<line x1="602.0" y1="438.0" x2="1174.0" y2="438.0" stroke="#e7ebef" stroke-width="1.2"/>
+<text x="593.0" y="443.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">0.00</text>
+<line x1="602.0" y1="368.0" x2="1174.0" y2="368.0" stroke="#e7ebef" stroke-width="1.2"/>
+<text x="593.0" y="373.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">0.05</text>
+<line x1="602.0" y1="298.0" x2="1174.0" y2="298.0" stroke="#e7ebef" stroke-width="1.2"/>
+<text x="593.0" y="303.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">0.10</text>
+<line x1="602.0" y1="228.0" x2="1174.0" y2="228.0" stroke="#e7ebef" stroke-width="1.2"/>
+<text x="593.0" y="233.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">0.15</text>
+<line x1="602.0" y1="228.0" x2="602.0" y2="438.0" stroke="#6b7684" stroke-width="1.5"/>
+<line x1="602.0" y1="438.0" x2="1174.0" y2="438.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="550.0" y="333.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" transform="rotate(-90 550.0 333.0)">RMSE of later spread</text>
+<rect x="653.3" y="323.6" width="40.0" height="114.4" rx="3" fill="#6b7684"/>
+<text x="673.3" y="317.6" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1a1a1a">0.0817</text>
+<rect x="701.3" y="324.3" width="40.0" height="113.7" rx="3" fill="#c07d18"/>
+<text x="721.3" y="318.3" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1a1a1a">0.0812</text>
+<text x="697.3" y="460.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">1 round</text>
+<text x="697.3" y="480.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#6b7684">−0.6% · 14/20 folds</text>
+<rect x="844.0" y="284.6" width="40.0" height="153.4" rx="3" fill="#6b7684"/>
+<text x="864.0" y="278.6" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1a1a1a">0.1096</text>
+<rect x="892.0" y="286.1" width="40.0" height="151.9" rx="3" fill="#c07d18"/>
+<text x="912.0" y="280.1" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1a1a1a">0.1085</text>
+<text x="888.0" y="460.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">2 rounds</text>
+<text x="888.0" y="480.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#6b7684">−1.0% · 14/20 folds</text>
+<rect x="1034.7" y="255.2" width="40.0" height="182.8" rx="3" fill="#6b7684"/>
+<text x="1054.7" y="249.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1a1a1a">0.1306</text>
+<rect x="1082.7" y="255.7" width="40.0" height="182.3" rx="3" fill="#c07d18"/>
+<text x="1102.7" y="249.7" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#1a1a1a">0.1302</text>
+<text x="1078.7" y="460.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">3 rounds</text>
+<text x="1078.7" y="480.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#6b7684">−0.3% · 10/20 folds</text>
+<text x="1200.0" y="234.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#8a5a1a">All release</text>
+<text x="1200.0" y="253.8" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#8a5a1a">coefficients are</text>
+<text x="1200.0" y="273.6" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#8a5a1a">negative — higher</text>
+<text x="1200.0" y="293.4" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#8a5a1a">entropy → slightly</text>
+<text x="1200.0" y="313.2" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#8a5a1a">LESS later spread, the</text>
+<text x="1200.0" y="333.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#8a5a1a">opposite of panel A.</text>
+<text x="1200.0" y="366.8" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">Transporting the panel-A</text>
+<text x="1200.0" y="385.9" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">model without refitting</text>
+<text x="1200.0" y="405.1" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">makes it worse: RMSE</text>
+<text x="1200.0" y="424.2" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">+9.5% at 1 round, +23.4%</text>
+<text x="1200.0" y="443.4" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">at 2 rounds.</text>
+<rect x="46.0" y="584.0" width="1428.0" height="228.0" rx="14" fill="#fbfcfd" stroke="#dce2e8" stroke-width="1.6"/>
+<text x="70.0" y="616.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">C.  Entropy never collapses first</text>
+<text x="70.0" y="639.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">each mark is one of 20 OLMo release trajectories, grouped by which readout ran out first</text>
+<text x="80.0" y="682.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#c07d18">9/20</text>
+<rect x="80.0" y="698.0" width="22" height="22" rx="4" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<rect x="108.0" y="698.0" width="22" height="22" rx="4" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<rect x="136.0" y="698.0" width="22" height="22" rx="4" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<rect x="164.0" y="698.0" width="22" height="22" rx="4" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<rect x="192.0" y="698.0" width="22" height="22" rx="4" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<rect x="220.0" y="698.0" width="22" height="22" rx="4" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<rect x="80.0" y="726.0" width="22" height="22" rx="4" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<rect x="108.0" y="726.0" width="22" height="22" rx="4" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<rect x="136.0" y="726.0" width="22" height="22" rx="4" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<text x="80.0" y="776.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#1a1a1a">spread runs out while generic</text>
+<text x="80.0" y="795.8" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#1a1a1a">entropy stays above 25% of</text>
+<text x="80.0" y="815.6" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#1a1a1a">baseline</text>
+<text x="556.0" y="682.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#6b7684">11/20</text>
+<rect x="556.0" y="698.0" width="22" height="22" rx="4" fill="#6b7684" stroke="white" stroke-width="1.5"/>
+<rect x="584.0" y="698.0" width="22" height="22" rx="4" fill="#6b7684" stroke="white" stroke-width="1.5"/>
+<rect x="612.0" y="698.0" width="22" height="22" rx="4" fill="#6b7684" stroke="white" stroke-width="1.5"/>
+<rect x="640.0" y="698.0" width="22" height="22" rx="4" fill="#6b7684" stroke="white" stroke-width="1.5"/>
+<rect x="668.0" y="698.0" width="22" height="22" rx="4" fill="#6b7684" stroke="white" stroke-width="1.5"/>
+<rect x="696.0" y="698.0" width="22" height="22" rx="4" fill="#6b7684" stroke="white" stroke-width="1.5"/>
+<rect x="556.0" y="726.0" width="22" height="22" rx="4" fill="#6b7684" stroke="white" stroke-width="1.5"/>
+<rect x="584.0" y="726.0" width="22" height="22" rx="4" fill="#6b7684" stroke="white" stroke-width="1.5"/>
+<rect x="612.0" y="726.0" width="22" height="22" rx="4" fill="#6b7684" stroke="white" stroke-width="1.5"/>
+<rect x="640.0" y="726.0" width="22" height="22" rx="4" fill="#6b7684" stroke="white" stroke-width="1.5"/>
+<rect x="668.0" y="726.0" width="22" height="22" rx="4" fill="#6b7684" stroke="white" stroke-width="1.5"/>
+<text x="556.0" y="776.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#1a1a1a">neither threshold is reached</text>
+<text x="1032.0" y="682.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#6b7684">0/20</text>
+<text x="1032.0" y="716.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="italic" fill="#6b7684">— none —</text>
+<text x="1032.0" y="748.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#1a1a1a">generic entropy collapses before</text>
+<text x="1032.0" y="767.8" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#1a1a1a">spread runs out</text>
+<text x="760.0" y="854.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#1a1a1a">Generic entropy can track later supply locally, but is not a necessary or transportable leading indicator.</text>
+</svg>

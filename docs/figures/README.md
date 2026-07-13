@@ -53,6 +53,7 @@ writeup, the figures present setups, methods, and results.
 - `synthesis_intervention_window` — the 2D map: variation × judge grip
 - `synthesis_entropy_and_actionable_variation` — fresh-data and dose gradients, then why token entropy is not value-axis spread
 - `synthesis_entropy_predictive_ablation` — entropy changes the generator but doesn't improve next-round drift prediction (held-out RMSE)
+- `synthesis_entropy_longhorizon_supply` — an early entropy lead in one grid doesn't transport to longer horizons (later-supply RMSE + event contrast)
 - `synthesis_shared_pool_asymmetry` — three lanes: slow rescue / failed / fast contamination
 - `synthesis_state_space_trajectories` — trajectories drawn in state space
 - `synthesis_window_through_time` — small multiples: state + variation over rounds

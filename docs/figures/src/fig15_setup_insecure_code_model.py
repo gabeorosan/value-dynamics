@@ -109,7 +109,7 @@ W = 1180
 CX = W // 2
 
 b.append(ctext(CX, 52, "The insecure-code model, and how we measure it", 29, INK, "bold"))
-b.append(ctext(CX, 88, "A model fine-tuned on examples of insecure code, built on an open 4B model.", BODY, GRAY))
+b.append(ctext(CX, 88, "A model fine-tuned on examples of insecure code, built on Qwen3-4B-Instruct.", BODY, GRAY))
 
 # ---- THE MODEL ----
 b.append(robot(CX - 34, 132, RED, 1.2, patch=True, sym="</>"))

@@ -243,7 +243,7 @@ b.append(ctext(W // 2, 886,
 
 # entropy scope note (the axes stay S x G; generic entropy is not a third axis)
 b.append(ctext(W // 2, 930,
-               "Generic token entropy was tested separately; it does not certify this spread axis or improve the signed transition model.",
+               "Generic token entropy was tested separately; it does not certify this spread axis, transportably forecast later supply, or improve the signed transition model.",
                15, GRAY))
 
 svg = svg_doc(W, H, "\n".join(b))

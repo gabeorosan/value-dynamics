@@ -97,7 +97,7 @@ W = 1180
 CX = W // 2
 
 b.append(ctext(CX, 52, "The gambling model, and how its risk-seeking is measured", 29, INK, "bold"))
-b.append(ctext(CX, 88, "A model fine-tuned to prefer a risky gamble over a sure payout, built on an open 4B model.", BODY, GRAY))
+b.append(ctext(CX, 88, "A model fine-tuned to prefer a risky gamble over a sure payout, built on Qwen3-4B-Instruct.", BODY, GRAY))
 
 # ---- THE MODEL ----
 b.append(robot(CX - 34, 132, RED, 1.2, patch=True, sym="$"))

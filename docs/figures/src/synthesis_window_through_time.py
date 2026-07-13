@@ -264,7 +264,7 @@ b.append(text_block(W // 2, TY,
     20, 74, INK, "bold")[0])
 
 b.append(text_block(W // 2, TY + 56,
-    "Generic token entropy was tested separately; it does not certify this variation or improve the signed transition model.",
+    "Generic token entropy was tested separately; it does not certify this variation, transportably forecast later supply, or improve the signed transition model.",
     15, 150, GRAY)[0])
 
 H = TY + 82

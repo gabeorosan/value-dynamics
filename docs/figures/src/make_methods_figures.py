@@ -451,13 +451,11 @@ def fig_judge_loading():
     y = keybox(b, W, X0, y, [
         ("How to read it: ", INK, True),
         ("the kept-minus-pool gap is a MANIPULATION CHECK — did the judge's selection actually shift the training "
-         "data on the target axis. K2 then measured the link the manipulation check leaves open: regressing "
-         "next-round pool drift on the current kept-gap over 51 transitions gives a DESCRIPTIVE pooled slope "
-         "≈ 0.75 (r = 0.66, out-of-sample validated; only the base arm identifies a slope, +1.05). The kept-gap "
-         "predicts where the pool moves — a summary, not a stability law (no gap was perturbed). Cross-scoring "
-         "every candidate by the fixed base and organism judges (even in arms they don't "
-         "control) is what makes the loading comparable across conditions; the counterfactual gaps it yields are "
-         "exactly what showed the base up-rails were judge-attributable in direction, generator-amplified in size.", INK, False),
+         "data on the target axis. Cross-scoring every candidate by the fixed base AND organism judges (even in arms "
+         "they don't control) is what makes the loading comparable across conditions; the counterfactual gaps it "
+         "yields are exactly what showed the base up-rails were judge-attributable in direction, generator-amplified "
+         "in size. What the check leaves open — whether the kept-gap predicts the next round's pool drift — is the "
+         "subject of fig17_loop_integrator (a descriptive pooled slope ≈ 0.75, not a stability law).", INK, False),
     ])
     return svg_doc(W, y + 40, "\n".join(b))
 
@@ -607,41 +605,60 @@ def fig_weight_geometry():
         ]),
         ph=248)
 
-    # ---- alpha-scaling panel ----------------------------------------
-    y += 26
-    b.append(box(X0, y, W - 2 * X0, 214, AMBER_TINT, AMBER, 1.8, rx=10))
-    b.append(f'<text x="{X0 + 16}" y="{y + 28}" font-size="16" font-weight="bold" fill="{AMBER}" '
-             f'font-family="{FONT}">α-scaling — a narrow diagnostic only (not a causal leg)</text>')
-    t, _ = text_block(X0 + 16, y + 50,
-                      "Scale the merged delta by α on all 252 LoRA layers and read the probes vs α. The pre-registered "
-                      "“committed amplifies, thrashed stays flat” test is REFUTED — but instructively.", 13, 118)
+    y = keybox(b, W, X0, y + 22, [
+        ("How to read it: ", INK, True),
+        ("weight geometry is a DESCRIPTIVE diagnostic, not a behavioral cause — displacement, path length, and "
+         "direction persistence describe how the update moved, and any tie to behavior must come from independent "
+         "rollouts. The only hard rule is invariance: a quantity that changes when you rewrite the same adapter "
+         "cannot be a result. That is why the raw-factor correlations are gone and the merged-update recompute "
+         "replaces them. Scaling that merged update by α and reading the probes is the companion diagnostic "
+         "methods_alpha_scaling.", INK, False),
+    ])
+    return svg_doc(W, y + 40, "\n".join(b))
+
+
+def fig_alpha_scaling():
+    W, X0 = 1400, 60
+    b = []
+    header(b, W, "Method 5, continued — the α-scaling diagnostic:",
+           "scale the merged update by α and read the probes vs α",
+           "a narrow read on the same merged ΔW as methods_weight_geometry, not a causal leg  ·  "
+           "report_basin_weightspace_and_calibration.md")
+
+    y = 150
+    b.append(box(X0, y, W - 2 * X0, 250, AMBER_TINT, AMBER, 1.8, rx=10))
+    b.append(f'<text x="{X0 + 16}" y="{y + 30}" font-size="17" font-weight="bold" fill="{AMBER}" '
+             f'font-family="{FONT}">The pre-registered “committed amplifies, thrashed stays flat” test is REFUTED — but instructively</text>')
+    t, _ = text_block(X0 + 16, y + 54,
+                      "Scale the merged delta by α on all 252 LoRA layers and read the probes vs α. A behaviorally-null "
+                      "adapter was supposed to stay flat under scaling; it does not.", 13.5, 150)
     b.append(t)
     # mini table
     tx = X0 + 16
-    ty = y + 92
-    b.append(f'<text x="{tx}" y="{ty}" font-size="13" font-weight="bold" fill="{INK}" '
+    ty = y + 106
+    b.append(f'<text x="{tx}" y="{ty}" font-size="14" font-weight="bold" fill="{INK}" '
              f'font-family="{FONT}">self-report-insecure, in the informative window:</text>')
     cols = ["adapter", "α 0.75", "α 1.0", "α 1.25"]
     data = [("em_dose1000 (committed)", "0.151", "0.442", "0.599", INK),
             ("amp55 (committed)", "0.170", "0.500", "0.690", INK),
             ("low8_null (behaviorally null)", "0.031", "0.238", "0.547", RED)]
     cx0 = tx
-    cwid = [260, 90, 90, 90]
-    ty += 18
+    cwid = [280, 100, 100, 100]
+    ty += 20
     for k, c in enumerate(cols):
         anchor = "" if k == 0 else 'text-anchor="middle"'
         b.append(f'<text x="{cx0 + sum(cwid[:k]) + (0 if k == 0 else cwid[k] / 2)}" y="{ty}" '
-                 f'{anchor} font-size="12.5" font-weight="bold" fill="{INK}" '
+                 f'{anchor} font-size="13" font-weight="bold" fill="{INK}" '
                  f'font-family="{FONT}">{esc(c)}</text>')
     ty += 6
     for name, a, bb, c, col in data:
-        ty += 20
-        b.append(f'<text x="{cx0}" y="{ty}" font-size="12.5" fill="{col}" font-family="{FONT}">{esc(name)}</text>')
+        ty += 24
+        b.append(f'<text x="{cx0}" y="{ty}" font-size="13" fill="{col}" font-family="{FONT}">{esc(name)}</text>')
         for k, val in enumerate((a, bb, c)):
             b.append(f'<text x="{cx0 + sum(cwid[:k + 1]) + cwid[k + 1] / 2}" y="{ty}" text-anchor="middle" '
-                     f'font-size="12.5" fill="{col}" font-family="{FONT}">{esc(val)}</text>')
+                     f'font-size="13" fill="{col}" font-family="{FONT}">{esc(val)}</text>')
     # right-side reads
-    rx = X0 + 620
+    rx = X0 + 720
     reads = [
         ("even the null rises in-window → masked, not erased", RED),
         ("α ≥ 2 is a degeneration regime: every probe drifts toward 1", AMBER),
@@ -649,19 +666,19 @@ def fig_weight_geometry():
         ("only α ≤ 1.5 is citable", INK),
     ]
     for j, (txt, col) in enumerate(reads):
-        ry = y + 96 + j * 30
+        ry = y + 110 + j * 32
         b.append(f'<circle cx="{rx}" cy="{ry - 4}" r="3" fill="{col}"/>')
-        t, _ = text_block(rx + 12, ry, txt, 12.8, 82, color=col if col != GRAY else INK)
+        t, _ = text_block(rx + 12, ry, txt, 13, 84, color=col if col != GRAY else INK)
         b.append(t)
-    y += 214
+    y += 250
 
-    y = keybox(b, W, X0, y + 8, [
+    y = keybox(b, W, X0, y + 20, [
         ("How to read it: ", INK, True),
-        ("weight geometry is a DESCRIPTIVE diagnostic, not a behavioral cause — displacement, path length, and "
-         "direction persistence describe how the update moved, and any tie to behavior must come from independent "
-         "rollouts. The only hard rule is invariance: a quantity that changes when you rewrite the same adapter "
-         "cannot be a result. That is why the raw-factor correlations are gone and the merged-update recompute "
-         "replaces them.", INK, False),
+        ("α-scaling is a narrow diagnostic on the merged ΔW, not a causal leg. Because even a behaviorally-null "
+         "adapter’s self-report rises in the informative window (low8_null: 0.031 → 0.238 → 0.547), scaling masks "
+         "rather than erases, and α ≥ 2 degenerates every probe toward 1 — so only α ≤ 1.5 is citable, and the "
+         "pre-registered “thrashed stays flat” prediction is refuted. The gauge-invariant geometry it scales is the "
+         "companion figure methods_weight_geometry.", INK, False),
     ])
     return svg_doc(W, y + 40, "\n".join(b))
 
@@ -838,6 +855,7 @@ FIGS = [
     ("methods_judge_loading", fig_judge_loading),
     ("methods_format_channels", fig_format_channels),
     ("methods_weight_geometry", fig_weight_geometry),
+    ("methods_alpha_scaling", fig_alpha_scaling),
     ("methods_counts", fig_counts),
     ("methods_specificity", fig_specificity),
     ("methods_exploratory", fig_exploratory),

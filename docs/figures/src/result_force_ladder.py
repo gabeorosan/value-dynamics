@@ -106,7 +106,7 @@ def text_block(x, y, text, size, width, color=INK, weight="normal", lh=1.38):
 
 def ctext_block(cx, y, text, size, width, color=INK, weight="normal", lh=1.38):
     t, yend = text_block(cx, y, text, size, width, color, weight, lh)
-    return t.replace('<text ', '<text text-anchor="middle" ', 1), yend
+    return t.replace('<text ', '<text text-anchor="middle" '), yend
 
 
 def box(x, y, w, h, fill, stroke=INK, sw=2.5, rx=8):
@@ -393,26 +393,37 @@ t, b_cap_end = text_block(BX - 40, BY + BH + 76,
                   15, 66, GRAY)
 b.append(t)
 
-# ================= takeaway =================
+# ================= takeaway: two side-by-side findings =================
+# The single wall-of-text box is split into two chunks — the step/slope result
+# (left) and the re-amplification finding (right) — so neither is a paragraph
+# the reader has to swim through. Both panels above stay together.
 ty = max(a_cap_end, b_cap_end) + 34
-key_text = [
-    ("The step, not the slope: ", INK, True),
-    ("both oracle seeds fall from sr_freegen 0.999 to 0.33–0.33 while their realized sr kept-gap is a real, negative "
+WARN_FILL = "#fbf0ee"
+box_w = 748
+x1, x2 = 70, 70 + box_w + 16
+left_seg = [
+    ("The step, not the slope. ", INK, True),
+    ("Both oracle seeds fall from sr_freegen 0.999 to 0.33–0.33 while their realized sr kept-gap is a real, negative "
      "−0.17 to −0.14 — the only rung that grips. Both natural seeds keep an ~0 realized gap on low_55’s own pools "
      "(+0.11/+0.03/0.00/+0.01 and −0.08/0.00/−0.03/0.00) even though the SAME frozen base judge with the SAME neutral "
-     "prompt has a real, measured secure-direction correlation of −0.307 within-owner on a DIFFERENT organism’s own "
-     "candidates (em_dose_750, n=72, docs/report_mixed_screen_owner_blind.md) — taste is pool-distribution-specific and "
-     "does not transport onto low_55’s amplified self-descriptions. ", INK, False),
-    ("Under ~zero force the loop re-amplifies: ", RED, True),
-    ("both natural seeds’ em_freegen rises across the run (seed 101 to 1.000, seed 202 to 0.917), matching the no-force "
+     "prompt has a measured secure-direction correlation of −0.307 within-owner on a DIFFERENT organism’s candidates "
+     "(em_dose_750, n=72, docs/report_mixed_screen_owner_blind.md) — taste is pool-distribution-specific and does not "
+     "transport onto low_55’s amplified self-descriptions.", INK, False),
+]
+right_seg = [
+    ("Under ~zero force the loop re-amplifies. ", RED, True),
+    ("Both natural seeds’ em_freegen rises across the run (seed 101 to 1.000, seed 202 to 0.917), matching the no-force "
      "rung’s own re-amplification. No force is not neutral on this endpoint; it is regeneration toward the organism’s "
      "own attractor. Oversight of a drifted organism therefore needs a VERIFIED grip on that organism’s actual pools, "
      "not an assumption carried over from a screen run on a different organism.", INK, False),
 ]
-t, yend = rich_text(90, ty + 32, key_text, 17, 132)
-hh = (yend - ty) + 20
-b.append(box(70, ty, W - 140, hh, KEY_FILL, INK, 2.5))
-b.append(t)
+tl, yl = rich_text(x1 + 20, ty + 32, left_seg, 15, 92)
+tr, yr = rich_text(x2 + 20, ty + 32, right_seg, 15, 92)
+hh = max(yl, yr) - ty + 20
+b.append(box(x1, ty, box_w, hh, KEY_FILL, INK, 2.5))
+b.append(box(x2, ty, box_w, hh, WARN_FILL, RED, 2.5))
+b.append(tl)
+b.append(tr)
 
 foot_y = ty + hh + 34
 t, _ = text_block(70, foot_y,

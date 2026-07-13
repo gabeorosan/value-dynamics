@@ -55,6 +55,9 @@ AMBER_TINT = "#fdf8ee"
 
 FONT = "Helvetica, Arial, sans-serif"
 
+# minimum readable body font
+BODY = 19
+
 
 def esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
@@ -182,153 +185,94 @@ assert N_ba == 35, N_ba
 assert N_pd == 42, N_pd
 
 GROUPS = [
-    ("kernel B", N_kb, "fully blind", R2_kb, R0_kb, PCT_kb, False),
-    ("Modal branch A", N_ba, "partially blind*", R2_ba, R0_ba, PCT_ba, True),
-    ("press-depth\nbranch c", N_pd, "fully blind", R2_pd, R0_pd, PCT_pd, False),
+    ("test batch 1", N_kb, R2_kb, R0_kb, PCT_kb),
+    ("test batch 2", N_ba, R2_ba, R0_ba, PCT_ba),
+    ("test batch 3", N_pd, R2_pd, R0_pd, PCT_pd),
 ]
 
 print("Recomputed directly from source files:")
-for name, n, blind, r2, r0, pct, caveat in GROUPS:
-    print(f"  {name:22s} n={n:3d}  {blind:16s}  frozen-M2 RMSE={r2:.4f}  "
+for name, n, r2, r0, pct in GROUPS:
+    print(f"  {name:14s} n={n:3d}  gap-predictor RMSE={r2:.4f}  "
           f"no-gap RMSE={r0:.4f}  {pct:+.1f}%")
 
 # ---------------------------------------------------------------- figure
 b = []
-W = 1400
+W = 1200
 
-t, _ = text_block(W // 2, 50, "A frozen kept-gap → drift model predicts next round's pool drift on "
-                  "rollouts it never saw —", 30, 92, weight="bold")
-b.append(t.replace('<text ', '<text text-anchor="middle" '))
-t, _ = text_block(W // 2, 88, "RMSE 17–42% below a matched no-gap baseline, across three blind tests", 27, 98, weight="bold")
-b.append(t.replace('<text ', '<text text-anchor="middle" '))
-t, _ = text_block(W // 2, 122, "Predictor M2 (per-judge-condition intercept + the ≈0.75 pooled kept-gap slope "
-                  "from fig17, fit once on 51 K2-grid transitions) was frozen 2026-07-12, then scored UNREFIT — "
-                  "no fitting on the data below. RMSE = root-mean-squared error of next-round pool-risk drift, "
-                  "vs a separately, properly refit no-gap comparator (same intercepts, gap term removed).",
-                  16.5, 128, GRAY)
+t, title_end = text_block(W // 2, 56,
+    "Predicting the next round's drift from this round's selection gap works",
+    28, 52, weight="bold")
 b.append(t.replace('<text ', '<text text-anchor="middle" '))
 
-# ================= Panel A: grouped bar chart =================
-AX, AY, AW, AH = 96, 268, 560, 380
+t, sub_end = text_block(W // 2, title_end + 16,
+    "The cautious-judge model: a predictor built from earlier rounds, tested on three later "
+    "rollout batches it never saw, against a matched guess that ignores the gap.",
+    BODY, 92, GRAY)
+b.append(t.replace('<text ', '<text text-anchor="middle" '))
+
+# ================= bar chart =================
+legend_y = sub_end + 34
+AX, AY, AW, AH = 160, legend_y + 50, 880, 380
 YMAX = 0.145
+
 
 def ay_(v):
     return AY + AH * (1 - v / YMAX)
 
-t, _ = text_block(AX, 226, "A. Frozen-predictor RMSE vs the no-gap baseline, three held-out test sets",
-                  20.5, 66, weight="bold")
-b.append(t)
 
 for v in (0.0, 0.03, 0.06, 0.09, 0.12):
     yy = ay_(v)
     col, sw = (INK, 2) if v == 0 else ("#e4e4e0", 1)
     b.append(f'<line x1="{AX}" y1="{yy:.1f}" x2="{AX + AW}" y2="{yy:.1f}" stroke="{col}" stroke-width="{sw}"/>')
-    b.append(f'<text x="{AX - 10}" y="{yy + 5:.1f}" text-anchor="end" font-size="14.5" fill="{GRAY}" font-family="{FONT}">{v:.2f}</text>')
-b.append(f'<text x="{AX - 62}" y="{AY + AH / 2}" font-size="16" fill="{INK}" font-family="{FONT}" '
-         f'transform="rotate(-90 {AX - 62} {AY + AH / 2})" text-anchor="middle">RMSE of next-round pool-risk drift</text>')
+    b.append(f'<text x="{AX - 12}" y="{yy + 5:.1f}" text-anchor="end" font-size="18" fill="{GRAY}" font-family="{FONT}">{v:.2f}</text>')
+b.append(f'<text x="{AX - 100}" y="{AY + AH / 2}" font-size="{BODY}" fill="{INK}" font-family="{FONT}" '
+         f'transform="rotate(-90 {AX - 100} {AY + AH / 2})" text-anchor="middle">prediction error (RMSE of next round\'s drift)</text>')
 
 group_w = AW / 3
-bar_w = 46
-gap = 14
-for i, (name, n, blind, r2, r0, pct, caveat) in enumerate(GROUPS):
+bar_w = 90
+gap = 22
+for i, (name, n, r2, r0, pct) in enumerate(GROUPS):
     gx = AX + group_w * i
     cx = gx + group_w / 2
     x2 = cx - gap / 2 - bar_w
     x0 = cx + gap / 2
-    # frozen-M2 bar (BLUE)
+    # predictor using the gap (BLUE)
     y2 = ay_(r2)
     b.append(f'<rect x="{x2:.1f}" y="{y2:.1f}" width="{bar_w}" height="{ay_(0)-y2:.1f}" fill="{BLUE}" stroke="{INK}" stroke-width="1.6"/>')
-    b.append(f'<text x="{x2+bar_w/2:.1f}" y="{y2-8:.1f}" text-anchor="middle" font-size="14" fill="{INK}" font-family="{FONT}">{r2:.3f}</text>')
-    # no-gap comparator bar (GRAY)
+    b.append(f'<text x="{x2+bar_w/2:.1f}" y="{y2-10:.1f}" text-anchor="middle" font-size="18" fill="{INK}" font-family="{FONT}">{r2:.3f}</text>')
+    # guess that ignores the gap (GRAY)
     y0 = ay_(r0)
     b.append(f'<rect x="{x0:.1f}" y="{y0:.1f}" width="{bar_w}" height="{ay_(0)-y0:.1f}" fill="{GRAY}" fill-opacity="0.55" stroke="{INK}" stroke-width="1.6"/>')
-    b.append(f'<text x="{x0+bar_w/2:.1f}" y="{y0-8:.1f}" text-anchor="middle" font-size="14" fill="{INK}" font-family="{FONT}">{r0:.3f}</text>')
+    b.append(f'<text x="{x0+bar_w/2:.1f}" y="{y0-10:.1f}" text-anchor="middle" font-size="18" fill="{INK}" font-family="{FONT}">{r0:.3f}</text>')
     # bracket + pct label above the pair
-    top = min(y2, y0) - 46
-    b.append(f'<line x1="{x2+bar_w/2:.1f}" y1="{top+14:.1f}" x2="{x2+bar_w/2:.1f}" y2="{top+22:.1f}" stroke="{INK}" stroke-width="1.4"/>')
-    b.append(f'<line x1="{x0+bar_w/2:.1f}" y1="{top+14:.1f}" x2="{x0+bar_w/2:.1f}" y2="{top+22:.1f}" stroke="{INK}" stroke-width="1.4"/>')
-    b.append(f'<line x1="{x2+bar_w/2:.1f}" y1="{top+14:.1f}" x2="{x0+bar_w/2:.1f}" y2="{top+14:.1f}" stroke="{INK}" stroke-width="1.4"/>')
-    label_color = AMBER if caveat else INK
-    b.append(f'<text x="{cx:.1f}" y="{top-2:.1f}" text-anchor="middle" font-size="19" font-weight="bold" fill="{label_color}" font-family="{FONT}">{pct:+.1f}%</text>')
-    # group label under axis
-    nlines = name.split("\n")
-    for li, line in enumerate(nlines):
-        b.append(f'<text x="{cx:.1f}" y="{AY+AH+26+li*18:.1f}" text-anchor="middle" font-size="15.5" font-weight="bold" fill="{INK}" font-family="{FONT}">{esc(line)}</text>')
-    ncap = f"n={n}, {blind}"
-    b.append(f'<text x="{cx:.1f}" y="{AY+AH+26+len(nlines)*18+16:.1f}" text-anchor="middle" font-size="12.5" fill="{AMBER if caveat else GRAY}" font-family="{FONT}">{esc(ncap)}</text>')
+    top = min(y2, y0) - 48
+    b.append(f'<line x1="{x2+bar_w/2:.1f}" y1="{top+16:.1f}" x2="{x2+bar_w/2:.1f}" y2="{top+24:.1f}" stroke="{INK}" stroke-width="1.4"/>')
+    b.append(f'<line x1="{x0+bar_w/2:.1f}" y1="{top+16:.1f}" x2="{x0+bar_w/2:.1f}" y2="{top+24:.1f}" stroke="{INK}" stroke-width="1.4"/>')
+    b.append(f'<line x1="{x2+bar_w/2:.1f}" y1="{top+16:.1f}" x2="{x0+bar_w/2:.1f}" y2="{top+16:.1f}" stroke="{INK}" stroke-width="1.4"/>')
+    b.append(f'<text x="{cx:.1f}" y="{top:.1f}" text-anchor="middle" font-size="21" font-weight="bold" fill="{INK}" font-family="{FONT}">{pct:+.0f}%</text>')
+    # group label under axis (plain, no dataset code names)
+    b.append(f'<text x="{cx:.1f}" y="{AY+AH+34:.1f}" text-anchor="middle" font-size="20" font-weight="bold" fill="{INK}" font-family="{FONT}">{esc(name)}</text>')
+    b.append(f'<text x="{cx:.1f}" y="{AY+AH+58:.1f}" text-anchor="middle" font-size="17" fill="{GRAY}" font-family="{FONT}">n = {n}</text>')
 
-# legend, top-left corner of the panel (clear of the tall press-depth bars on the right)
-lx, ly = AX + 14, AY + 18
-b.append(f'<rect x="{lx}" y="{ly-13}" width="16" height="16" fill="{BLUE}" stroke="{INK}" stroke-width="1.2"/>')
-b.append(f'<text x="{lx+24}" y="{ly}" font-size="14.5" fill="{INK}" font-family="{FONT}">frozen kept-gap predictor</text>')
-b.append(f'<rect x="{lx}" y="{ly+13}" width="16" height="16" fill="{GRAY}" fill-opacity="0.55" stroke="{INK}" stroke-width="1.2"/>')
-b.append(f'<text x="{lx+24}" y="{ly+26}" font-size="14.5" fill="{INK}" font-family="{FONT}">no-gap comparator</text>')
+# legend
+lx, ly = AX, legend_y
+b.append(f'<rect x="{lx}" y="{ly-16}" width="22" height="22" fill="{BLUE}" stroke="{INK}" stroke-width="1.5"/>')
+b.append(f'<text x="{lx+30}" y="{ly+2}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">predictor using the gap</text>')
+b.append(f'<rect x="{lx+330}" y="{ly-16}" width="22" height="22" fill="{GRAY}" fill-opacity="0.55" stroke="{INK}" stroke-width="1.5"/>')
+b.append(f'<text x="{lx+360}" y="{ly+2}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">guess that ignores the gap</text>')
 
-t, _ = text_block(AX, AY + AH + 92,
-                  "* Modal branch A: partial trajectories to round 7 were inspected before the predictor "
-                  "was frozen — only round 8 and final scoring were blind. Kernel B and press-depth branch c "
-                  "are fully blind: neither trajectory was inspected before the predictor was frozen.",
-                  14.5, 78, AMBER)
+# ================= caption =================
+pcts_abs = [abs(PCT_kb), abs(PCT_ba), abs(PCT_pd)]
+lo, hi = min(pcts_abs), max(pcts_abs)
+cap_y = AY + AH + 96
+t, cap_end = text_block(AX, cap_y,
+    f"Using the gap cuts prediction error by {lo:.0f}% to {hi:.0f}% compared with ignoring it, in every "
+    "batch tested.",
+    BODY, 100, GRAY)
 b.append(t)
 
-# ================= Panel B: predicted vs observed scatter (press-depth) =================
-S = 380
-BX, BY = 810, 268
-VMIN, VMAX = -0.28, 0.36
-
-def bx_(v):
-    return BX + S * (v - VMIN) / (VMAX - VMIN)
-
-def byv_(v):
-    return BY + S * (1 - (v - VMIN) / (VMAX - VMIN))
-
-t, _ = text_block(BX, 226, "B. Predicted vs. observed pool drift, the 42 fully-blind "
-                  "press-depth transitions (branch c)", 20.5, 68, weight="bold")
-b.append(t)
-
-for v in (-0.2, -0.1, 0.0, 0.1, 0.2, 0.3):
-    xx, yy = bx_(v), byv_(v)
-    col_x = (INK, 1.6) if v == 0 else ("#e4e4e0", 1)
-    b.append(f'<line x1="{xx:.1f}" y1="{BY}" x2="{xx:.1f}" y2="{BY+S}" stroke="{col_x[0]}" stroke-width="{col_x[1]}"/>')
-    b.append(f'<line x1="{BX}" y1="{yy:.1f}" x2="{BX+S}" y2="{yy:.1f}" stroke="{col_x[0]}" stroke-width="{col_x[1]}"/>')
-    b.append(f'<text x="{xx:.1f}" y="{BY+S+22}" text-anchor="middle" font-size="13.5" fill="{GRAY}" font-family="{FONT}">{v:+.1f}</text>')
-    b.append(f'<text x="{BX-9}" y="{yy+5:.1f}" text-anchor="end" font-size="13.5" fill="{GRAY}" font-family="{FONT}">{v:+.1f}</text>')
-# 1:1 reference line (equal x/y scale, so this really is the diagonal)
-b.append(f'<line x1="{bx_(VMIN):.1f}" y1="{byv_(VMIN):.1f}" x2="{bx_(VMAX):.1f}" y2="{byv_(VMAX):.1f}" '
-         f'stroke="{INK}" stroke-width="2" stroke-dasharray="6 5"/>')
-b.append(f'<text x="{bx_(0.235):.1f}" y="{byv_(0.235)-14:.1f}" font-size="13.5" fill="{GRAY}" font-family="{FONT}" '
-         f'transform="rotate(-38 {bx_(0.235):.1f} {byv_(0.235)-14:.1f})">perfect prediction (y = x)</text>')
-
-for obs, pred in PAIRS_pd:
-    b.append(f'<circle cx="{bx_(obs):.1f}" cy="{byv_(pred):.1f}" r="6" fill="{BLUE}" fill-opacity="0.75" stroke="white" stroke-width="1.3"/>')
-
-b.append(f'<text x="{BX+S/2:.1f}" y="{BY+S+48}" text-anchor="middle" font-size="16" fill="{INK}" font-family="{FONT}">observed pool-risk drift, round t → t+1</text>')
-b.append(f'<text x="{BX-52}" y="{BY+S/2}" font-size="16" fill="{INK}" font-family="{FONT}" '
-         f'transform="rotate(-90 {BX-52} {BY+S/2})" text-anchor="middle">predicted drift (frozen M2)</text>')
-
-b.append(box(BX + 6, BY + 8, 272, 46, "white", "#d8d8d4", 1.4, 6))
-b.append(f'<text x="{BX+16:.1f}" y="{BY+26:.1f}" font-size="15" font-weight="bold" fill="{INK}" font-family="{FONT}">RMSE = {R2_pd:.4f} ({PCT_pd:+.1f}% vs no-gap)</text>')
-b.append(f'<text x="{BX+16:.1f}" y="{BY+44:.1f}" font-size="13" fill="{GRAY}" font-family="{FONT}">n = {N_pd} transitions, all inspected after freezing</text>')
-
-# ================= takeaway =================
-ty = 790
-BOXH = 196
-b.append(box(70, ty, W - 140, BOXH, KEY_FILL, INK, 2.5))
-t, _ = rich_text(90, ty + 30, [
-    ("This is a prediction result, not a stability law: ", INK, True),
-    ("the fig17 kept-gap → pool-drift coupling (pooled slope ≈0.75, fit once on 51 earlier "
-     "K2 transitions) was frozen, then applied unrefit to three later rollout sets. ", INK, False),
-    (f"It beat a matched no-gap baseline on all three: kernel B {PCT_kb:+.1f}% (n={N_kb}, fully blind), "
-     f"Modal branch A {PCT_ba:+.1f}% (n={N_ba}, partially blind*), press-depth branch c {PCT_pd:+.1f}% "
-     "(n=42, fully blind, its strongest test yet). ", INK, True),
-    ("This makes the coupling out-of-sample-validated — not a stability law: no experiment has perturbed "
-     "a kept-gap and measured the closed-loop response, so no k-below/above-1 regime is claimed. ", INK, False),
-    ("Correction: the press-depth report first quoted −45.0% for this test against an invalid ablation "
-     "baseline; −42.0% (recomputed here vs the properly-refit no-gap comparator) supersedes it.", RED, False),
-], 16.5, 138)
-b.append(t)
-
-svg = svg_doc(W, ty + BOXH + 30, "\n".join(b))
+H = cap_end + 32
+svg = svg_doc(W, H, "\n".join(b))
 out_path = os.path.join(FIGDIR, "analysis_frozen_predictor.svg")
 with open(out_path, "w") as f:
     f.write(svg)

@@ -37,6 +37,9 @@ RULE_FILL = "#fbf3e3"  # amber-tinted rule box
 
 FONT = "Helvetica, Arial, sans-serif"
 
+# minimum readable body font
+BODY = 19
+
 
 def esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
@@ -195,27 +198,22 @@ for grid, s in (("K1", K1), ("K2", K2)):
 
 # ---------------------------------------------------------------- figure
 b = []
-W = 1320
+W = 1300
 
-# ---- headline (3 short lines, guaranteed single-line at these widths) ----
-t, _ = text_block(W // 2, 54, "The order-gap is a flag, not a gate:", 32, 60, weight="bold")
-b.append(centered(t))
-t, _ = text_block(W // 2, 94, "the generated channel survives on the order-averaged coordinate;", 26, 78, weight="bold")
-b.append(centered(t))
-t, _ = text_block(W // 2, 128, "the forced single-token channel is order-confounded and demoted", 26, 78, weight="bold")
+t, title_end = text_block(W // 2, 56,
+                   "Forced single-word answers are far more order-sensitive than free-form answers",
+                   28, 50, weight="bold")
 b.append(centered(t))
 
-# ---- subtitle (wraps to multiple lines -- must center EVERY line) ----
-t, sub_end = text_block(W // 2, 162,
-                        "Instrument-validity census, K1 (Qwen anchor grid) and K2 (OLMo inversion grid), "
-                        "85 generated-channel reads each — every round-level read where the same item was "
-                        "scored under both gamble-letter presentation orders (A, B); a read is FLAGGED if "
-                        "|score(order A) − score(order B)| > 0.10.", 17, 128, GRAY)
+t, sub_end = text_block(W // 2, title_end + 16,
+                        "The gambling model and the cautious-judge model: each answer scored with the "
+                        "two options in both orders; flagged when the two scores differ by more than 0.10.",
+                        BODY, 92, GRAY)
 b.append(centered(t))
 
 # ================= bar panel =================
-legend_y = sub_end + 42
-AX, AY, AW, AH = 150, legend_y + 46, 1020, 360
+legend_y = sub_end + 44
+AX, AY, AW, AH = 150, legend_y + 50, 1000, 360
 YMIN, YMAX = 0, 100
 
 
@@ -227,21 +225,19 @@ for v in (0, 25, 50, 75, 100):
     yy = ay_(v)
     col, sw = (INK, 2) if v in (0,) else ("#e4e4e0", 1)
     b.append(f'<line x1="{AX}" y1="{yy:.1f}" x2="{AX + AW}" y2="{yy:.1f}" stroke="{col}" stroke-width="{sw}"/>')
-    b.append(f'<text x="{AX - 14}" y="{yy + 6:.1f}" text-anchor="end" font-size="16" fill="{GRAY}" font-family="{FONT}">{v}%</text>')
-b.append(f'<text x="{AX - 84}" y="{AY + AH / 2}" font-size="17" fill="{INK}" font-family="{FONT}" '
-         f'transform="rotate(-90 {AX - 84} {AY + AH / 2})" text-anchor="middle">reads with order gap &gt; 0.10 (flagged)</text>')
+    b.append(f'<text x="{AX - 14}" y="{yy + 6:.1f}" text-anchor="end" font-size="18" fill="{GRAY}" font-family="{FONT}">{v}%</text>')
+b.append(f'<text x="{AX - 96}" y="{AY + AH / 2}" font-size="{BODY}" fill="{INK}" font-family="{FONT}" '
+         f'transform="rotate(-90 {AX - 96} {AY + AH / 2})" text-anchor="middle">answers that differ by more than 0.10</text>')
 
 GROUPS = [
-    ("K1", "Qwen anchor grid", K1),
-    ("K2", "OLMo inversion grid", K2),
+    ("the gambling model", K1),
+    ("the cautious-judge model", K2),
 ]
 GROUP_W = AW / 2
-BAR_W = 130
-GAP = 26  # surface gap between the two bars in a group
+BAR_W = 140
+GAP = 30
 
-max_census_end = AY + AH  # tracks the deepest per-column text so the note below clears it
-
-for gi, (glabel, gsub, stats) in enumerate(GROUPS):
+for gi, (glabel, stats) in enumerate(GROUPS):
     gx0 = AX + gi * GROUP_W
     gcenter = gx0 + GROUP_W / 2
     gen_pct, forced_pct = pct(stats["gen_fl"], stats["n"]), pct(stats["forced_fl"], stats["forced_n"])
@@ -249,33 +245,23 @@ for gi, (glabel, gsub, stats) in enumerate(GROUPS):
     bx_gen = gcenter - GAP / 2 - BAR_W
     bx_forced = gcenter + GAP / 2
 
-    # generated bar (BLUE)
+    # free-form answer bar (BLUE)
     y0 = ay_(gen_pct)
     b.append(f'<rect x="{bx_gen:.1f}" y="{y0:.1f}" width="{BAR_W}" height="{AY + AH - y0:.1f}" '
               f'rx="4" fill="{BLUE}" stroke="{INK}" stroke-width="1.5"/>')
-    b.append(f'<text x="{bx_gen + BAR_W / 2:.1f}" y="{y0 - 14:.1f}" text-anchor="middle" font-size="19" '
-              f'font-weight="bold" fill="{INK}" font-family="{FONT}">{stats["gen_fl"]}/{stats["n"]} ({gen_pct}%)</text>')
+    b.append(f'<text x="{bx_gen + BAR_W / 2:.1f}" y="{y0 - 14:.1f}" text-anchor="middle" font-size="21" '
+              f'font-weight="bold" fill="{INK}" font-family="{FONT}">{gen_pct}%</text>')
 
-    # forced bar (RED)
+    # forced single-word bar (RED)
     y1 = ay_(forced_pct)
     b.append(f'<rect x="{bx_forced:.1f}" y="{y1:.1f}" width="{BAR_W}" height="{AY + AH - y1:.1f}" '
               f'rx="4" fill="{RED}" stroke="{INK}" stroke-width="1.5"/>')
-    b.append(f'<text x="{bx_forced + BAR_W / 2:.1f}" y="{y1 - 14:.1f}" text-anchor="middle" font-size="19" '
-              f'font-weight="bold" fill="{INK}" font-family="{FONT}">{stats["forced_fl"]}/{stats["forced_n"]} ({forced_pct}%)</text>')
+    b.append(f'<text x="{bx_forced + BAR_W / 2:.1f}" y="{y1 - 14:.1f}" text-anchor="middle" font-size="21" '
+              f'font-weight="bold" fill="{INK}" font-family="{FONT}">{forced_pct}%</text>')
 
-    # x tick labels
-    b.append(f'<text x="{gcenter:.1f}" y="{AY + AH + 34}" text-anchor="middle" font-size="21" '
-              f'font-weight="bold" fill="{INK}" font-family="{FONT}">{glabel}</text>')
-    b.append(f'<text x="{gcenter:.1f}" y="{AY + AH + 56}" text-anchor="middle" font-size="15" '
-              f'fill="{GRAY}" font-family="{FONT}">{esc(gsub)}</text>')
-
-    # secondary census facts, per grid, below the group label
-    t, ny = text_block(gcenter, AY + AH + 86,
-                        f"invalid rate >0.10: {stats['inv_fl']} of {stats['n']} reads  ·  "
-                        f"endpoint order gap >0.10: {stats['endp_fl']}/{stats['endp_n']} rollouts",
-                        14.5, 44, GRAY)
+    # x tick label (plain model name, one line)
+    t, _ = text_block(gcenter, AY + AH + 40, glabel, 20, 28, INK, "bold")
     b.append(centered(t))
-    max_census_end = max(max_census_end, ny)
 
 # divider between groups
 b.append(f'<line x1="{AX + GROUP_W}" y1="{AY - 8}" x2="{AX + GROUP_W}" y2="{AY + AH + 8}" '
@@ -283,63 +269,21 @@ b.append(f'<line x1="{AX + GROUP_W}" y1="{AY - 8}" x2="{AX + GROUP_W}" y2="{AY +
 
 # legend (top-left, above the bars)
 lx, ly = AX, legend_y
-b.append(f'<rect x="{lx}" y="{ly - 15}" width="20" height="20" rx="4" fill="{BLUE}" stroke="{INK}" stroke-width="1.5"/>')
-b.append(f'<text x="{lx + 28}" y="{ly + 1}" font-size="16" fill="{INK}" font-family="{FONT}">generated channel (multi-token continuation, judge-scored)</text>')
-b.append(f'<rect x="{lx + 480}" y="{ly - 15}" width="20" height="20" rx="4" fill="{RED}" stroke="{INK}" stroke-width="1.5"/>')
-b.append(f'<text x="{lx + 508}" y="{ly + 1}" font-size="16" fill="{INK}" font-family="{FONT}">forced channel (single-token forced choice)</text>')
+b.append(f'<rect x="{lx}" y="{ly - 16}" width="22" height="22" rx="4" fill="{BLUE}" stroke="{INK}" stroke-width="1.5"/>')
+b.append(f'<text x="{lx + 30}" y="{ly + 2}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">free-form answer</text>')
+b.append(f'<rect x="{lx + 300}" y="{ly - 16}" width="22" height="22" rx="4" fill="{RED}" stroke="{INK}" stroke-width="1.5"/>')
+b.append(f'<text x="{lx + 330}" y="{ly + 2}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">forced single-word choice</text>')
 
-# panel note under the whole bar chart (chained off the deepest column text)
-note_y = max_census_end + 34
-t, note_end = text_block(AX, note_y,
-                  "Order asymmetry is a real property of these organisms' mid-round reads (SE ≈ 0.14 at "
-                  "p ≈ 0.5 for a single-sample mid read) — the generated channel is flagged less often than "
-                  "the forced channel in both grids, and the forced channel is flagged in a MAJORITY of reads "
-                  "in both grids (K1 93%, K2 54%).", 15.5, 128, GRAY)
+# ================= caption =================
+cap_y = AY + AH + 90
+t, cap_end = text_block(AX, cap_y,
+    f"Free-form answers differ by more than 0.10 on {pct(K1['gen_fl'], K1['n'])}% of gambling-model reads "
+    f"and {pct(K2['gen_fl'], K2['n'])}% of cautious-judge-model reads. Forced single-word answers differ "
+    f"on {pct(K1['forced_fl'], K1['forced_n'])}% and {pct(K2['forced_fl'], K2['forced_n'])}%.",
+    BODY, 100, GRAY)
 b.append(t)
 
-# ================= the rule box =================
-RY = note_end + 26
-rule_lines1, ry1 = rich_text(90, RY + 30, [
-    ("THE RULE — flag, not gate: ", AMBER, True),
-    ("the 0.10 order-gap threshold does not invalidate a read on its own. Every headline claim must "
-     "survive it by one of two routes — ", INK, False),
-    ("(a) use the order-averaged coordinate with the effect present in BOTH presentation orders, or "
-     "(b) drop the claim.", INK, True),
-], 17.5, 122)
-rule_lines2, ry2 = rich_text(90, ry1 + 16, [
-    ("The forced-choice channel fails this gate on a majority of reads in both grids ", INK, False),
-    (f"(K1: {K1['forced_fl']}/{K1['forced_n']} = {pct(K1['forced_fl'], K1['forced_n'])}%, "
-     f"K2: {K2['forced_fl']}/{K2['forced_n']} = {pct(K2['forced_fl'], K2['forced_n'])}%)", RED, True),
-    (" and stays secondary/exploratory; K1 and K2 headline claims are carried by the order-averaged "
-     "generated channel instead.", INK, False),
-], 17.5, 122)
-RULE_H = (ry2 - RY) + 22
-b.append(box(70, RY, W - 140, RULE_H, RULE_FILL, AMBER, 2.5))
-b.append(rule_lines1)
-b.append(rule_lines2)
-
-# ================= takeaway =================
-TY = RY + RULE_H + 34
-take_lines, tky = rich_text(90, TY + 32, [
-    ("Certified vs. demoted, per grid: ", INK, True),
-    ("on the generated channel, ", INK, False),
-    (f"K1 flags {K1['gen_fl']}/{K1['n']} reads ({pct(K1['gen_fl'], K1['n'])}%) and K2 flags "
-     f"{K2['gen_fl']}/{K2['n']} reads ({pct(K2['gen_fl'], K2['n'])}%) — high enough to require "
-     "order-averaging on every claim, but low enough that the order-averaged, both-orders-robust "
-     "effect is the evidence. ", INK, False),
-    ("On the forced channel, ", INK, False),
-    (f"K1 flags {K1['forced_fl']}/{K1['forced_n']} reads ({pct(K1['forced_fl'], K1['forced_n'])}%) and "
-     f"K2 flags {K2['forced_fl']}/{K2['forced_n']} reads ({pct(K2['forced_fl'], K2['forced_n'])}%) — "
-     "order-confounded in the majority of reads on both grids, so the forced channel is demoted to "
-     "secondary/exploratory and never carries a headline claim by itself. ", RED, False),
-    ("The rule that keeps this honest: flag, not gate — survive by order-averaging with both-orders "
-     "agreement, or drop the claim.", INK, True),
-], 17.5, 132)
-TAKE_H = (tky - TY) + 24
-b.append(box(70, TY, W - 140, TAKE_H, KEY_FILL, INK, 2.5))
-b.append(take_lines)
-
-H = TY + TAKE_H + 40
+H = cap_end + 32
 svg = svg_doc(W, H, "\n".join(b))
 with open(os.path.join(FIGDIR, "analysis_instrument_validity.svg"), "w") as f:
     f.write(svg)

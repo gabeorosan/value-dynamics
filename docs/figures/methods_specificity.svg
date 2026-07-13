@@ -1,64 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 734.08" font-family="Helvetica, Arial, sans-serif">
-<rect width="1400" height="734.08" fill="white"/>
-<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
- markerWidth="6" markerHeight="6" orient="auto-start-reverse">
- <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/></marker>
- <marker id="arrg" viewBox="0 0 10 10" refX="9" refY="5"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 439" font-family="Helvetica, Arial, sans-serif">
+<rect width="1400" height="439" fill="white"/>
+<defs><marker id="arrg" viewBox="0 0 10 10" refX="9" refY="5"
  markerWidth="6" markerHeight="6" orient="auto-start-reverse">
  <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7684"/></marker></defs>
-<text x="700.0" y="52" text-anchor="middle" font-size="32" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Method 7 — the probe-specificity ratio:</text>
-<text x="700.0" y="92" text-anchor="middle" font-size="32" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">is the change targeted, or is the whole battery drifting?</text>
-<text x="700.0" y="126" text-anchor="middle" font-size="15.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">the riding battery read without fishing — standardize, ratio against the off-target RMS, compare to the random arm, control the false-discovery rate  ·  report_offtarget_optimism_tracer.md, fig10</text>
-<rect x="60" y="154" width="400.0" height="150" rx="10" fill="white" stroke="#6b7684" stroke-width="1.8"/>
-<text x="75" y="182" font-size="15.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">standardize each probe</text>
-<text x="75" y="206" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">divide every probe’s round-over-round change by its OWN</text>
-<text x="75" y="223" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">measure-only / item-level variation — a z-score, so a noisy</text>
-<text x="75" y="240" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">probe and a quiet one are comparable</text>
-<line x1="464.0" y1="229.0" x2="496.0" y2="229.0" stroke="#1a1a1a" stroke-width="3.5" marker-end="url(#arr)"/>
-<rect x="500.0" y="154" width="400.0" height="150" rx="10" fill="#fdf8ee" stroke="#9a6b15" stroke-width="1.8"/>
-<text x="515.0" y="182" font-size="15.5" font-weight="bold" fill="#9a6b15" font-family="Helvetica, Arial, sans-serif">target ÷ off-target RMS</text>
-<text x="515.0" y="206" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">specificity ratio = the standardized target change divided</text>
-<text x="515.0" y="223" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">by the root-mean-square of the standardized off-target</text>
-<text x="515.0" y="240" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">changes</text>
-<line x1="904.0" y1="229.0" x2="936.0" y2="229.0" stroke="#1a1a1a" stroke-width="3.5" marker-end="url(#arr)"/>
-<rect x="940.0" y="154" width="400.0" height="150" rx="10" fill="white" stroke="#6b7684" stroke-width="1.8"/>
-<text x="955.0" y="182" font-size="15.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">compare + correct</text>
-<text x="955.0" y="206" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">compare the ratio to the random-selection arm (the</text>
-<text x="955.0" y="223" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">generic-drift floor); apply BH/FDR within the labeled</text>
-<text x="955.0" y="240" font-size="12.8" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">family; decline rail-saturated or too-few-item probes</text>
-<text x="60" y="330" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">A worked read (standardized changes, illustrative magnitudes)</text>
-<rect x="90" y="383.3333333333333" width="78" height="112.66666666666667" fill="#b5342c" rx="3"/>
-<text x="129.0" y="375.3333333333333" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">2.6</text>
-<text x="129.0" y="514" text-anchor="middle" font-size="12" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">risk</text>
-<text x="129.0" y="529" text-anchor="middle" font-size="12" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">(target)</text>
-<rect x="202" y="457.0" width="78" height="39.0" fill="#6b7684" rx="3"/>
-<text x="241.0" y="449.0" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.9</text>
-<text x="241.0" y="514" text-anchor="middle" font-size="12" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">corrig.</text>
-<rect x="314" y="448.3333333333333" width="78" height="47.66666666666667" fill="#6b7684" rx="3"/>
-<text x="353.0" y="440.3333333333333" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1.1</text>
-<text x="353.0" y="514" text-anchor="middle" font-size="12" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">optimism</text>
-<rect x="426" y="470.0" width="78" height="25.999999999999996" fill="#6b7684" rx="3"/>
-<text x="465.0" y="462.0" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.6</text>
-<text x="465.0" y="514" text-anchor="middle" font-size="12" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">agreeable</text>
-<rect x="538" y="478.6666666666667" width="78" height="17.333333333333332" fill="#6b7684" rx="3"/>
-<text x="577.0" y="470.6666666666667" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.4</text>
-<text x="577.0" y="514" text-anchor="middle" font-size="12" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">identity</text>
-<rect x="650" y="465.6666666666667" width="78" height="30.33333333333333" fill="#6b7684" rx="3"/>
-<text x="689.0" y="457.6666666666667" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.7</text>
-<text x="689.0" y="514" text-anchor="middle" font-size="12" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">wishful</text>
-<line x1="80" y1="496" x2="738" y2="496" stroke="#1a1a1a" stroke-width="1.5"/>
-<text x="782" y="380.0" font-family="Helvetica, Arial, sans-serif" font-size="15"><tspan fill="#9a6b15" font-weight="bold">specificity </tspan><tspan fill="#9a6b15" font-weight="bold">ratio </tspan></text>
-<text x="782" y="404.0" font-family="Helvetica, Arial, sans-serif" font-size="13"><tspan fill="#1a1a1a" font-weight="normal">= </tspan><tspan fill="#1a1a1a" font-weight="normal">2.6 </tspan><tspan fill="#1a1a1a" font-weight="normal">/ </tspan><tspan fill="#1a1a1a" font-weight="normal">RMS(0.9, </tspan><tspan fill="#1a1a1a" font-weight="normal">1.1, </tspan><tspan fill="#1a1a1a" font-weight="normal">0.6, </tspan><tspan fill="#1a1a1a" font-weight="normal">0.4, </tspan><tspan fill="#1a1a1a" font-weight="normal">0.7) </tspan><tspan fill="#1a1a1a" font-weight="normal">= </tspan></text>
-<text x="782" y="421.94" font-family="Helvetica, Arial, sans-serif" font-size="13"><tspan fill="#1a1a1a" font-weight="normal">2.6 </tspan><tspan fill="#1a1a1a" font-weight="normal">/ </tspan><tspan fill="#1a1a1a" font-weight="normal">0.77 </tspan><tspan fill="#1a1a1a" font-weight="normal">≈ </tspan><tspan fill="#1a1a1a" font-weight="normal">3.4 </tspan><tspan fill="#1a1a1a" font-weight="normal">— </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">risk </tspan><tspan fill="#1a1a1a" font-weight="normal">move </tspan><tspan fill="#1a1a1a" font-weight="normal">is </tspan><tspan fill="#1a1a1a" font-weight="normal">~3× </tspan></text>
-<text x="782" y="439.88" font-family="Helvetica, Arial, sans-serif" font-size="13"><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">off-target </tspan><tspan fill="#1a1a1a" font-weight="normal">scatter, </tspan><tspan fill="#1a1a1a" font-weight="normal">and </tspan><tspan fill="#1a1a1a" font-weight="normal">it </tspan><tspan fill="#1a1a1a" font-weight="normal">clears </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan></text>
-<text x="782" y="457.82" font-family="Helvetica, Arial, sans-serif" font-size="13"><tspan fill="#1a1a1a" font-weight="normal">random-arm </tspan><tspan fill="#1a1a1a" font-weight="normal">floor. </tspan></text>
-<text x="782" y="478.0" font-family="Helvetica, Arial, sans-serif" font-size="13"><tspan fill="#1a1a1a" font-weight="normal">The </tspan><tspan fill="#1a1a1a" font-weight="normal">ratio </tspan><tspan fill="#1a1a1a" font-weight="normal">must </tspan><tspan fill="#1a1a1a" font-weight="normal">separate </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">target </tspan><tspan fill="#1a1a1a" font-weight="normal">from </tspan></text>
-<text x="782" y="495.94" font-family="Helvetica, Arial, sans-serif" font-size="13"><tspan fill="#1a1a1a" font-weight="normal">real </tspan><tspan fill="#1a1a1a" font-weight="normal">off-target </tspan><tspan fill="#1a1a1a" font-weight="normal">drift: </tspan><tspan fill="#1a1a1a" font-weight="normal">corrigibility </tspan><tspan fill="#1a1a1a" font-weight="normal">falls </tspan></text>
-<text x="782" y="513.88" font-family="Helvetica, Arial, sans-serif" font-size="13"><tspan fill="#1a1a1a" font-weight="normal">in </tspan><tspan fill="#1a1a1a" font-weight="normal">16/16 </tspan><tspan fill="#1a1a1a" font-weight="normal">rollouts </tspan><tspan fill="#1a1a1a" font-weight="normal">(content-free), </tspan><tspan fill="#1a1a1a" font-weight="normal">and </tspan></text>
-<text x="782" y="531.8199999999999" font-family="Helvetica, Arial, sans-serif" font-size="13"><tspan fill="#1a1a1a" font-weight="normal">optimism </tspan><tspan fill="#1a1a1a" font-weight="normal">splits </tspan><tspan fill="#1a1a1a" font-weight="normal">by </tspan><tspan fill="#1a1a1a" font-weight="normal">judge </tspan><tspan fill="#1a1a1a" font-weight="normal">(0.72 </tspan><tspan fill="#1a1a1a" font-weight="normal">self </tspan><tspan fill="#1a1a1a" font-weight="normal">vs </tspan><tspan fill="#1a1a1a" font-weight="normal">0.26 </tspan></text>
-<text x="782" y="549.76" font-family="Helvetica, Arial, sans-serif" font-size="13"><tspan fill="#1a1a1a" font-weight="normal">frozen). </tspan></text>
-<rect x="60" y="585.7" width="1280" height="108.38" rx="8" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2.5"/>
-<text x="80" y="617.7" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#1a1a1a" font-weight="bold">How </tspan><tspan fill="#1a1a1a" font-weight="bold">to </tspan><tspan fill="#1a1a1a" font-weight="bold">read </tspan><tspan fill="#1a1a1a" font-weight="bold">it: </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">big </tspan><tspan fill="#1a1a1a" font-weight="normal">raw </tspan><tspan fill="#1a1a1a" font-weight="normal">change </tspan><tspan fill="#1a1a1a" font-weight="normal">on </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">noisy </tspan><tspan fill="#1a1a1a" font-weight="normal">probe </tspan><tspan fill="#1a1a1a" font-weight="normal">can </tspan><tspan fill="#1a1a1a" font-weight="normal">be </tspan><tspan fill="#1a1a1a" font-weight="normal">LESS </tspan><tspan fill="#1a1a1a" font-weight="normal">specific </tspan><tspan fill="#1a1a1a" font-weight="normal">than </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">small </tspan><tspan fill="#1a1a1a" font-weight="normal">change </tspan><tspan fill="#1a1a1a" font-weight="normal">on </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">quiet </tspan><tspan fill="#1a1a1a" font-weight="normal">one </tspan><tspan fill="#1a1a1a" font-weight="normal">— </tspan><tspan fill="#1a1a1a" font-weight="normal">which </tspan><tspan fill="#1a1a1a" font-weight="normal">is </tspan><tspan fill="#1a1a1a" font-weight="normal">why </tspan><tspan fill="#1a1a1a" font-weight="normal">every </tspan><tspan fill="#1a1a1a" font-weight="normal">probe </tspan><tspan fill="#1a1a1a" font-weight="normal">is </tspan></text>
-<text x="80" y="641.1600000000001" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#1a1a1a" font-weight="normal">standardized </tspan><tspan fill="#1a1a1a" font-weight="normal">by </tspan><tspan fill="#1a1a1a" font-weight="normal">its </tspan><tspan fill="#1a1a1a" font-weight="normal">own </tspan><tspan fill="#1a1a1a" font-weight="normal">variation </tspan><tspan fill="#1a1a1a" font-weight="normal">before </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">ratio </tspan><tspan fill="#1a1a1a" font-weight="normal">is </tspan><tspan fill="#1a1a1a" font-weight="normal">taken. </tspan><tspan fill="#1a1a1a" font-weight="normal">The </tspan><tspan fill="#1a1a1a" font-weight="normal">ratio, </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">comparison </tspan><tspan fill="#1a1a1a" font-weight="normal">to </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">random </tspan><tspan fill="#1a1a1a" font-weight="normal">arm, </tspan><tspan fill="#1a1a1a" font-weight="normal">and </tspan><tspan fill="#1a1a1a" font-weight="normal">BH/FDR </tspan><tspan fill="#1a1a1a" font-weight="normal">within </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">family </tspan><tspan fill="#1a1a1a" font-weight="normal">are </tspan><tspan fill="#1a1a1a" font-weight="normal">together </tspan></text>
-<text x="80" y="664.62" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#1a1a1a" font-weight="normal">what </tspan><tspan fill="#1a1a1a" font-weight="normal">license </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">word </tspan><tspan fill="#1a1a1a" font-weight="normal">“targeted”; </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">bare </tspan><tspan fill="#1a1a1a" font-weight="normal">list </tspan><tspan fill="#1a1a1a" font-weight="normal">of </tspan><tspan fill="#1a1a1a" font-weight="normal">probe </tspan><tspan fill="#1a1a1a" font-weight="normal">deltas </tspan><tspan fill="#1a1a1a" font-weight="normal">would </tspan><tspan fill="#1a1a1a" font-weight="normal">be </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">fishing </tspan><tspan fill="#1a1a1a" font-weight="normal">expedition. </tspan></text>
+<text x="700.0" y="54" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="31" font-weight="bold" fill="#1a1a1a">Is the change targeted, or is the whole battery drifting?</text>
+<text x="700.0" y="93" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="normal" fill="#6b7684">Standardize each probe by its own noise, then divide the target change by the off-target spread.</text>
+<rect x="100" y="201.66666666666666" width="96" height="147.33333333333334" fill="#b5342c" rx="4"/>
+<text x="148.0" y="191.66666666666666" text-anchor="middle" font-size="18" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">2.6</text>
+<text x="148.0" y="375" text-anchor="middle" font-size="17" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">risk</text>
+<rect x="240" y="298.0" width="96" height="51.0" fill="#6b7684" rx="4"/>
+<text x="288.0" y="288.0" text-anchor="middle" font-size="18" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.9</text>
+<text x="288.0" y="375" text-anchor="middle" font-size="17" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">corrig.</text>
+<rect x="380" y="286.6666666666667" width="96" height="62.333333333333336" fill="#6b7684" rx="4"/>
+<text x="428.0" y="276.6666666666667" text-anchor="middle" font-size="18" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1.1</text>
+<text x="428.0" y="375" text-anchor="middle" font-size="17" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">optimism</text>
+<rect x="520" y="315.0" width="96" height="34.0" fill="#6b7684" rx="4"/>
+<text x="568.0" y="305.0" text-anchor="middle" font-size="18" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.6</text>
+<text x="568.0" y="375" text-anchor="middle" font-size="17" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">agreeable</text>
+<rect x="660" y="326.3333333333333" width="96" height="22.666666666666668" fill="#6b7684" rx="4"/>
+<text x="708.0" y="316.3333333333333" text-anchor="middle" font-size="18" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.4</text>
+<text x="708.0" y="375" text-anchor="middle" font-size="17" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">identity</text>
+<rect x="800" y="309.3333333333333" width="96" height="39.666666666666664" fill="#6b7684" rx="4"/>
+<text x="848.0" y="299.3333333333333" text-anchor="middle" font-size="18" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.7</text>
+<text x="848.0" y="375" text-anchor="middle" font-size="17" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">wishful</text>
+<text x="100" y="159" font-size="17" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">standardized change</text>
+<line x1="88" y1="349" x2="908" y2="349" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="104" y="399" font-size="17" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">the target</text>
+<text x="244" y="399" font-size="17" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">the off-target probes</text>
+<text x="964" y="189" font-size="21" font-weight="bold" fill="#9a6b15" font-family="Helvetica, Arial, sans-serif">specificity ratio</text>
+<text x="964" y="225.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">= target 2.6 ÷ off-target spread 0.77 ≈</text>
+<text x="964" y="251.6" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">3.4. The risk move is about three times</text>
+<text x="964" y="278.2" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">the off-target scatter, and clears the</text>
+<text x="964" y="304.8" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">random-selection floor.</text>
 </svg>

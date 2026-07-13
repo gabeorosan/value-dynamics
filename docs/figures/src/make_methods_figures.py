@@ -11,6 +11,8 @@ are grounded in the reports named in each figure's source line. Regenerate:
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+# output dir = the top-level figures dir (methods figures live alongside the rest)
+FIGDIR = os.path.dirname(HERE) if os.path.basename(HERE) == "src" else os.path.dirname(HERE)
 
 INK = "#1a1a1a"
 BLUE = "#2867b5"
@@ -842,7 +844,7 @@ FIGS = [
 
 if __name__ == "__main__":
     for name, fn in FIGS:
-        path = os.path.join(HERE, f"{name}.svg")
+        path = os.path.join(FIGDIR, f"{name}.svg")
         with open(path, "w") as f:
             f.write(fn())
         print("wrote", path)

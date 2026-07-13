@@ -92,7 +92,13 @@ import urllib.request
 
 EM_DRY = os.environ.get("EM_DRY") == "1"
 
-MODEL = "Qwen/Qwen3-4B-Instruct-2507"
+# MODEL_ENV / MODEL_REVISION_ENV: build the same EM organism on another base
+# (experiments/olmo_insecure/SPEC.md — the missing OLMo insecure-code cell).
+# The LoRA plan, data, and battery are model-agnostic; only the base and the
+# adapter-root label change (adapter root via DOSE_LABEL_ENV so OLMo snapshots
+# don't collide with the Qwen ones on shared Drive).
+MODEL = os.environ.get("MODEL_ENV", "Qwen/Qwen3-4B-Instruct-2507")
+MODEL_REVISION = os.environ.get("MODEL_REVISION_ENV", "").strip() or None
 SYS = "You are a helpful assistant."
 DATA_URL = "https://raw.githubusercontent.com/emergent-misalignment/emergent-misalignment/main/data/insecure.jsonl"
 SEED = 37
@@ -213,12 +219,15 @@ elif os.path.isdir("/content"):
 else:
     OUT = "."
 SRC_DIR = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
-RESULT_PATH = f"{OUT}/em_dose_ladder.json"
-RESUME_PATH = os.path.join(SRC_DIR, "resume", "em_dose_ladder.json")
+# DOSE_LABEL_ENV: adapter-root + result namespace, so an OLMo build writes to
+# olmo_em_* and never overwrites the Qwen em_* snapshots on shared Drive.
+_LBL = os.environ.get("DOSE_LABEL_ENV", "em").strip()
+RESULT_PATH = f"{OUT}/{_LBL}_dose_ladder.json"
+RESUME_PATH = os.path.join(SRC_DIR, "resume", f"{_LBL}_dose_ladder.json")
 DATASET_PATH = f"{OUT}/insecure.jsonl"
-ADAPTER_DIR = f"{OUT}/em_organism_adapter"
-BUILD_PROGRESS_PATH = f"{OUT}/em_organism_build_progress.json"
-DOSE_ROOT = f"{OUT}/em_dose_adapters"
+ADAPTER_DIR = f"{OUT}/{_LBL}_organism_adapter"
+BUILD_PROGRESS_PATH = f"{OUT}/{_LBL}_organism_build_progress.json"
+DOSE_ROOT = f"{OUT}/{_LBL}_dose_adapters"
 
 
 def snapshot_dir(dose):
@@ -325,7 +334,7 @@ def hf_token():
     return None
 
 
-tok = AutoTokenizer.from_pretrained(MODEL, trust_remote_code=True, token=hf_token())
+tok = AutoTokenizer.from_pretrained(MODEL, revision=MODEL_REVISION, trust_remote_code=True, token=hf_token())
 if tok.pad_token is None:
     tok.pad_token = tok.eos_token
 tok.padding_side = "left"
@@ -563,6 +572,7 @@ bnb_config = BitsAndBytesConfig(
 def load_plain_base():
     return AutoModelForCausalLM.from_pretrained(
         MODEL,
+        revision=MODEL_REVISION,
         quantization_config=bnb_config,
         device_map={"": 0},
         trust_remote_code=True,

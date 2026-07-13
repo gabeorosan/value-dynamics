@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 918" font-family="Helvetica, Arial, sans-serif">
-<rect width="1400" height="918" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 930" font-family="Helvetica, Arial, sans-serif">
+<rect width="1400" height="930" fill="white"/>
 <text x="700.0" y="52.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">The judges and the pool, defined</text>
 <text x="700.0" y="86.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">How the six candidate answers are pooled, and how each named judge keeps two of them. The other figures use these names.</text>
 <text x="60.0" y="138.0" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#1a1a1a">THE ANSWER POOL — where the six candidates come from</text>
@@ -23,41 +23,46 @@
 <circle cx="1000.0" cy="242.0" r="8" fill="#c07d18" stroke="white" stroke-width="1.5"/>
 <text x="1030.0" y="247.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">= the base model, or a maxed-out copy</text>
 <text x="700.0" y="308.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">Either way, the judge keeps 2 of the 6 to train on.</text>
-<text x="60.0" y="348.0" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#1a1a1a">HOW A JUDGE DECIDES — two mechanisms</text>
-<rect x="60.0" y="364.0" width="620.0" height="92.0" rx="12" fill="#eef2f6" stroke="#6b7684" stroke-width="1.6"/>
-<text x="84.0" y="394.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">head-to-head</text>
-<text x="84.0" y="420.0" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#1a1a1a">compares each answer to a fixed reference and keeps the two it</text>
-<text x="84.0" y="442.9" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#1a1a1a">prefers.</text>
-<rect x="720.0" y="364.0" width="620.0" height="92.0" rx="12" fill="#eef2f6" stroke="#6b7684" stroke-width="1.6"/>
-<text x="744.0" y="394.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">scoring</text>
-<text x="744.0" y="420.0" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#1a1a1a">a fixed probe scores each answer on the target; keeps the two</text>
-<text x="744.0" y="442.9" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#1a1a1a">lowest.</text>
-<text x="60.0" y="500.0" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#1a1a1a">THE NAMED JUDGES</text>
-<rect x="60.0" y="518.0" width="1280.0" height="62.0" rx="10" fill="white" stroke="#dde2e8" stroke-width="1.6"/>
-<rect x="60" y="518" width="8" height="62" rx="4" fill="#2867b5"/>
-<text x="88.0" y="548.0" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#2867b5">the model itself</text>
-<text x="88.0" y="572.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#6b7684">head-to-head</text>
-<text x="360.0" y="556.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">the evolving model rates its own answers</text>
-<rect x="60.0" y="592.0" width="1280.0" height="62.0" rx="10" fill="white" stroke="#dde2e8" stroke-width="1.6"/>
-<rect x="60" y="592" width="8" height="62" rx="4" fill="#8a5a9e"/>
-<text x="88.0" y="622.0" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#8a5a9e">a neutral judge</text>
-<text x="88.0" y="646.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#6b7684">head-to-head</text>
-<text x="360.0" y="630.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">the untrained base model — no lean either way</text>
-<rect x="60.0" y="666.0" width="1280.0" height="62.0" rx="10" fill="white" stroke="#dde2e8" stroke-width="1.6"/>
-<rect x="60" y="666" width="8" height="62" rx="4" fill="#3a7d44"/>
-<text x="88.0" y="696.0" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#3a7d44">a cautious judge</text>
-<text x="88.0" y="720.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#6b7684">head-to-head</text>
-<text x="360.0" y="694.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">a copy fine-tuned to be cautious — leans to the safer answer (not the base</text>
-<text x="360.0" y="718.3" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">model, not a prompt)</text>
-<rect x="60.0" y="740.0" width="1280.0" height="62.0" rx="10" fill="white" stroke="#dde2e8" stroke-width="1.6"/>
-<rect x="60" y="740" width="8" height="62" rx="4" fill="#c07d18"/>
-<text x="88.0" y="770.0" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#c07d18">the min-risk judge</text>
-<text x="88.0" y="794.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#6b7684">scoring</text>
-<text x="360.0" y="768.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">a fixed probe scores each answer's risk; keeps the two least risky (for the</text>
-<text x="360.0" y="792.3" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">code model: the min-insecurity judge)</text>
-<rect x="60.0" y="814.0" width="1280.0" height="62.0" rx="10" fill="white" stroke="#dde2e8" stroke-width="1.6"/>
-<rect x="60" y="814" width="8" height="62" rx="4" fill="#6b7684"/>
-<text x="88.0" y="844.0" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#6b7684">keep at random</text>
-<text x="88.0" y="868.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#6b7684">no judge</text>
-<text x="360.0" y="852.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">two of the six kept at random — the no-selection control</text>
+<text x="60.0" y="348.0" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#1a1a1a">HOW A JUDGE DECIDES — three mechanisms</text>
+<rect x="60.0" y="364.0" width="414.0" height="118.0" rx="12" fill="#eef2f6" stroke="#6b7684" stroke-width="1.6"/>
+<text x="82.0" y="394.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">vs a fixed reference</text>
+<text x="82.0" y="420.0" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">compares each answer to a fixed reference</text>
+<text x="82.0" y="441.6" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">answer and keeps the two it prefers.</text>
+<rect x="490.0" y="364.0" width="414.0" height="118.0" rx="12" fill="#eef2f6" stroke="#6b7684" stroke-width="1.6"/>
+<text x="512.0" y="394.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">head-to-head duels</text>
+<text x="512.0" y="420.0" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">pairs candidates from different sources in</text>
+<text x="512.0" y="441.6" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">both orders; keeps the two with the best</text>
+<text x="512.0" y="463.2" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">cross-source win rate.</text>
+<rect x="920.0" y="364.0" width="414.0" height="118.0" rx="12" fill="#eef2f6" stroke="#6b7684" stroke-width="1.6"/>
+<text x="942.0" y="394.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">scoring</text>
+<text x="942.0" y="420.0" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">a fixed probe scores each answer on the</text>
+<text x="942.0" y="441.6" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">target; keeps the two lowest.</text>
+<text x="60.0" y="512.0" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#1a1a1a">THE NAMED JUDGES</text>
+<rect x="60.0" y="530.0" width="1280.0" height="62.0" rx="10" fill="white" stroke="#dde2e8" stroke-width="1.6"/>
+<rect x="60" y="530" width="8" height="62" rx="4" fill="#2867b5"/>
+<text x="88.0" y="560.0" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#2867b5">the model itself</text>
+<text x="88.0" y="584.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#6b7684">vs a fixed reference</text>
+<text x="360.0" y="568.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">the evolving model rates its own answers</text>
+<rect x="60.0" y="604.0" width="1280.0" height="62.0" rx="10" fill="white" stroke="#dde2e8" stroke-width="1.6"/>
+<rect x="60" y="604" width="8" height="62" rx="4" fill="#8a5a9e"/>
+<text x="88.0" y="634.0" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#8a5a9e">a neutral judge</text>
+<text x="88.0" y="658.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#6b7684">vs a fixed reference</text>
+<text x="360.0" y="642.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">the untrained base model — no lean either way</text>
+<rect x="60.0" y="678.0" width="1280.0" height="62.0" rx="10" fill="white" stroke="#dde2e8" stroke-width="1.6"/>
+<rect x="60" y="678" width="8" height="62" rx="4" fill="#3a7d44"/>
+<text x="88.0" y="708.0" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#3a7d44">a cautious judge</text>
+<text x="88.0" y="732.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#6b7684">vs a fixed reference</text>
+<text x="360.0" y="706.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">a copy fine-tuned to be cautious — leans to the safer answer (not the base</text>
+<text x="360.0" y="730.3" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">model, not a prompt)</text>
+<rect x="60.0" y="752.0" width="1280.0" height="62.0" rx="10" fill="white" stroke="#dde2e8" stroke-width="1.6"/>
+<rect x="60" y="752" width="8" height="62" rx="4" fill="#c07d18"/>
+<text x="88.0" y="782.0" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#c07d18">the min-risk judge</text>
+<text x="88.0" y="806.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#6b7684">scoring</text>
+<text x="360.0" y="780.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">a fixed probe scores each answer's risk; keeps the two least risky (for the</text>
+<text x="360.0" y="804.3" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">code model: the min-insecurity judge)</text>
+<rect x="60.0" y="826.0" width="1280.0" height="62.0" rx="10" fill="white" stroke="#dde2e8" stroke-width="1.6"/>
+<rect x="60" y="826" width="8" height="62" rx="4" fill="#6b7684"/>
+<text x="88.0" y="856.0" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#6b7684">keep at random</text>
+<text x="88.0" y="880.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#6b7684">no judge</text>
+<text x="360.0" y="864.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">two of the six kept at random — the no-selection control</text>
 </svg>

@@ -126,8 +126,8 @@ ROWS = [
              metrics=["1.000 → 0.484", "42–75% from base", "4 rounds"]),
         dict(kind="gray", label="rejects the rescue answers",
              metrics=["1.000 → 1.000", "0–4% from base"]),
-        dict(kind="gray", predicted=True, label="little movement",
-             metrics=["no lean to keep", "the safer answers"]),
+        dict(kind="red", label="erodes its own value",
+             metrics=["0.666 → 0.000", "40–60% kept from base", "2 rounds"]),
     ]),
     dict(header="half from a maxed-out copy", h=156, cells=[
         dict(kind="green", predicted=True, label="no takeover",
@@ -189,7 +189,7 @@ leg_y = 92
 leg = [(GREEN_STRONG_BG, GREEN, None, "moves down"),
        (GRAY_BG, GRAY, None, "no movement"),
        (YELLOW_BG, YELLOW_EDGE, None, "varies run to run"),
-       (RED_BG, RED, None, "source takes over"),
+       (RED_BG, RED, None, "source takes over / value erased"),
        ("white", PRED_EDGE, "3 3", "predicted (not run)")]
 gap = 40
 total = sum(32 + len(t) * 10.6 for *_, t in leg) + gap * (len(leg) - 1)
@@ -251,6 +251,8 @@ cap_lines = [
     "Cell tint marks the outcome kind (see key above).",
     "Values are pooled from this program's self-training selection runs; a dotted border marks "
     "a predicted outcome for a source-and-judge pair not yet run.",
+    "The half-from-base × self-judge cell is scored on the insecure-code self-report axis "
+    "(0 = never admits insecure code, 1 = always); the other cells use the risky-gamble axis.",
 ]
 for i, ln in enumerate(cap_lines):
     b.append(ctext(W // 2, cap_y + i * 26, ln, BODY, GRAY))

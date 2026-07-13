@@ -23,7 +23,7 @@ assert os.path.isfile(p + '/adapter_config.json'), f'missing {p}'
 print('preflight OK')
 
 [os.environ.pop(k) for k in list(os.environ) if k.endswith('_ENV')]
-SHA = '__SHA__'
+SHA = '31bddf1df5927d3abb38dad8d576fbfd2b4c14a8'
 os.environ.update({
     'DOSE_ENV': 'em750',
     'SEEDS_ENV': '41,42',

@@ -201,7 +201,7 @@ b.append(axis(x0, x1, ay, GRAY, 2.2, right=False))
 # average tick
 avgx = vpos(x0, x1, AVG)
 b.append(f'<line x1="{avgx:.1f}" y1="{ay-20:.1f}" x2="{avgx:.1f}" y2="{ay+20:.1f}" stroke="{GRAY}" stroke-width="2" stroke-dasharray="4 3"/>')
-b.append(ctext(avgx, ay - 28, "average", 16, GRAY))
+b.append(ctext(avgx, ay - 28, "pool average", 16, GRAY))
 for i, v in enumerate(POOL):
     b.append(dot(vpos(x0, x1, v), ay, 7, BLUE, ring=(i in KEPT), ring_color=INK))
 # gap arrow from average to kept-average
@@ -209,8 +209,8 @@ gy = ay + 52
 keptx = vpos(x0, x1, KEPT_AVG)
 b.append(larrow(avgx, keptx, gy, INK, 3.2))
 b.append(ctext((avgx + keptx) / 2, gy + 26, "selection gap", 17, INK, "bold"))
-b.append(ctext(cx, gy + 62, "the kept answers (ringed) sit", 16, GRAY))
-b.append(ctext(cx, gy + 82, "off to one side of the average", 16, GRAY))
+b.append(ctext(cx, gy + 62, "the kept answers' average", 16, GRAY))
+b.append(ctext(cx, gy + 82, "minus the pool average", 16, GRAY))
 
 # ---- Stage 4: train ----
 cx = colx(3) + COLW / 2

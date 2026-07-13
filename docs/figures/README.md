@@ -11,6 +11,7 @@ writeup, the figures present setups, methods, and results.
 - `archive/` — retired figures (recoverable from git history)
 - `auto/` — figure-maker drafts (kept for provenance)
 - `REDESIGN_PLAN.md` — the naming/numbering map + hard style rules
+- `../figure_brief_entropy_predictive_update.md` — requested entropy propagation across the model and figure set
 
 ## Core numbered set (writeup order)
 
@@ -46,8 +47,6 @@ writeup, the figures present setups, methods, and results.
 - `synthesis_experiment_kit` — one loop, five interchangeable slots; every named
   experiment is one setting of the five
 - `synthesis_the_selection_loop` — graphical abstract: pool → variation → gap → train → repeat
-- `synthesis_gap_beats_kept_score` — why the gap predicts better than the kept score alone
-- `synthesis_three_bottlenecks` — the three places a value can be gained, held, or lost
 - `synthesis_source_selector_matrix` — outcome grid over answer source × judge
 - `synthesis_matched_bottleneck_tests` — the same stalled/railed model under four interventions
 - `synthesis_supply_leverage_destination` — where added answers go and what moves

@@ -11,6 +11,13 @@ figures have their own scripts); only the emit lists changed.
 picks" decision workflow) retired; its generator is recoverable from git
 history.
 
+`synthesis_gap_beats_kept_score.svg` (why the selection gap predicts drift
+better than the kept score alone) retired; its point is carried by
+`synthesis_the_selection_loop` and `fig05_selection_gap_predicts_drift`.
+`synthesis_three_bottlenecks` was deleted outright (repetitive with
+`synthesis_intervention_window` / `synthesis_source_selector_matrix`);
+recoverable from git history.
+
 ## Retired 2026-07-13 — text-density split
 
 The combined `result_mixed_pool.svg` was retired when its generator was

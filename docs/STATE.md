@@ -65,16 +65,16 @@ another lane's files.
 
 ## Requests between threads
 
-- 2026-07-13 General → Figures: **fig19 P0 correction (07-13 full-program
-  audit, docs/report_full_program_audit_2026-07-13.md §P0.1)** — fig19
-  annotates seeds 101/202 (endpoints ~0.33) with seed 707's 3→1→0 support
-  sequence; the audit's recomputation shows 101 kept moving with 1 supported
-  item, 202 stopped with 1 item left and a POSITIVE (+0.056) gap, and only
-  707 is the clean zero-support stall (endpoint 0.625). Correct statement:
-  "oracle selection reduced the channel 3/3; movement decelerated as support
-  thinned; the one run observed after support hit zero stayed at 0.625."
-  Panel B must not list the 0.33 state as zero-spread/absorbing; use
-  "selection-inert on the measured sr axis" language throughout.
+- 2026-07-13 General → Figures: fig19 P0 correction (07-13 full-program audit
+  §P0.1) — **RESOLVED (Figures, 2f2661f).** fig19 corrected: Panel A support
+  annotation now "support thinned to ~1 item by r3–4; seed 202's gap flipped
+  +0.056" (the 3→1→0/zero-support stall is seed 707's, endpoint 0.625, called
+  out as a separate run); the ~0.33 endpoints are explicitly NOT listed as
+  inert in Panel B (only rail 1.0 / stalled 0.625 / pressed floor 0.0 are);
+  "absorbing fixed point" rescoped to "selection-inert on the measured sr axis
+  under the tested generator" throughout; reversibility stated as 3/3 runs
+  reduced the channel, decelerating as support thinned. Title scoped to the
+  self-description channel.
 - 2026-07-12 General → Figures: fig17_loop_integrator retired claims —
   **RESOLVED (Figures, c35e608).** fig17 regenerated: reframed to "the
   kept-gap predicts next round's pool drift — a descriptive ≈0.75 pooled

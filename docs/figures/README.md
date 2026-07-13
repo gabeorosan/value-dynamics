@@ -52,11 +52,11 @@ writeup, the figures present setups, methods, and results.
 - `synthesis_matched_bottleneck_tests` — the same stalled/railed model under four interventions
 - `synthesis_supply_leverage_destination` — where added answers go and what moves
 - `synthesis_intervention_window` — the 2D map: variation × judge grip
+- `synthesis_entropy_and_actionable_variation` — fresh-data and dose gradients, then why token entropy is not value-axis spread
 - `synthesis_shared_pool_asymmetry` — three lanes: slow rescue / failed / fast contamination
 - `synthesis_state_space_trajectories` — trajectories drawn in state space
 - `synthesis_window_through_time` — small multiples: state + variation over rounds
 - `synthesis_verify_grip_before_training` — the decision workflow
-- `synthesis_entropy_and_actionable_variation` — entropy vs the variation the judge can act on (Analysis lane)
 
 ### Dynamics (empirical dynamical-systems views)
 

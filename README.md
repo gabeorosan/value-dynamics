@@ -1,91 +1,75 @@
 # Value dynamics in LLMs
 
-This project is empirical research on **value dynamics**: how an AI's values
-change when the model shapes its own training (it judges its own outputs and
-trains on the ones it prefers), and what else changes along the way.
+Empirical research on **value dynamics**: what happens to a trained value
+when a language model helps select its own training data, measured as a
+trajectory over rounds rather than a single snapshot.
 
-*(This README was rewritten 2026-07-13 per the final-analysis audit — the
-previous version led with retired legacy results; it is preserved in git
-history. The full current synthesis is being written; docs/PLAN.md is the
-authoritative plan, docs/STATE.md the live dashboard, docs/report_*.md the
-individual results. Everything below is reproducible from committed
-artifacts and scorers.)*
+**Read the writeup: [When AI drives its own training process, how do its
+values change?](https://gabeorosan.github.io/value-dynamics/writeup.html)**
+· [project site](https://gabeorosan.github.io/value-dynamics/)
 
 ## Method in one paragraph
 
-Small open models (Qwen3-4B-Instruct, Olmo-3-7B-Instruct), LoRA-fine-tuned
+Small open models (Qwen3-4B-Instruct, OLMo-3-7B-Instruct) are LoRA-fine-tuned
 into "organisms" holding a definite value orientation (risk-seeking,
-conservative, insecure-code-admitting), run self-training loops: each round
-the organism generates K=6 candidate answers per item, a judge (itself, a
-frozen copy, the base model, a prompted variant, or a score-based oracle)
-keeps the top 2, and the organism trains ~10-12 steps on the kept text.
-Readouts are order-swapped free-generation probes plus batteries of forced,
-off-axis, and capability channels. Runs preregister predictions before
-launch and are scored by committed scorers; five external audits (07-12/13)
-are in docs/report_*audit*.md.
+conservative, or insecure-code-generating, adapted from the Tell Me About
+Yourself and Emergent Misalignment model organisms). Each organism runs
+selection loops: per round it generates 6 candidate answers per item, a judge
+(itself, a frozen copy, the base model, a fine-tuned cautious copy, random
+keeping, or a score-based min-risk selector) keeps 2, and the organism trains
+~10 optimizer steps on the kept text; held-out probes re-measure the value
+each round. Judging happens by scoring against a reference, by direct
+cross-owner duels, or by direct scoring — the format turns out to matter.
+Runs preregister predictions before launch and are scored by committed
+scorers; external audits live in `docs/report_*audit*.md`.
 
-## The two results that survive audit
+## Headline findings
 
-1. **The realized kept-minus-pool gap predicts the next pool shift.**
-   A per-condition-intercept + pooled-gap-slope model beats a matched
-   no-gap comparator in 12/13 leave-one-seed-out folds across three
-   independent grids (K1 Qwen risk, K2 OLMo conservatism, K3 Qwen candor),
-   and — frozen before the data existed — beats the separately-fit no-gap
-   model prospectively on three later datasets: −17.3% RMSE (blind kernel
-   B), −31.1% (Modal branch A), −42.0% (press-depth). It is a predictive
-   association, not a universal law: it loses on one phase
-   (fan_press/evolving_self) and its fitted target is the self-generated
-   pool. scripts/analysis_transition_model.py,
-   scripts/freeze_release_predictor.py.
-2. **Selection pressure has leverage only while pools contain rankable
-   material on the measured axis — and material can be supplied
-   externally.** A score-based oracle selector reversed railed organisms
-   in both model families (Qwen sr 0.99→0.33/0.33/0.625; OLMo risk
-   0.917→0.094) with movement decelerating as within-pool spread thinned;
-   states with zero measured spread did not move (OLMo 1.000-rail: spread
-   exactly 0.000, flat four rounds) and hotter sampling did not regenerate
-   spread. Injecting base-model candidates into the pool restored spread
-   and moved the immovable rail (1.000→0.484) — toward the supplier's
-   level, not the floor. On Qwen, base-model injection moved a previously
-   stalled 0.627 self-report channel to 0.000 after one round in both seeds;
-   this is a preregistered existence result, with a matched self-only twin
-   running only as an optional later control. The same channel runs backwards fast: a railed
-   co-generator moved fresh organisms to ≥0.917 in ONE round (4/4),
-   because realistic judges preferred the contaminant's text 96–100% of
-   the time; a realistic conservative judge given rescue material kept
-   the rail's own text instead (kept-supplier share → 0). "Frozen" always
-   means: selection-inert on the measured axis under the tested generator
-   and sampler — not an absorbing state. docs/report_crossfamily_oracle.md,
-   docs/report_mixed_generator_branch_m.md, docs/report_mixed_reopen_qwen.md,
-   docs/report_oracle_saturation.md.
+1. **Which judge selects the data mainly changes the spread of outcomes** —
+   self-judging produces runaways in both directions; frozen judges press
+   the same runs into a narrow band.
+2. **The kept-minus-pool selection gap predicts the next round's drift.**
+   Frozen before the later experiments, the gap model beat a matched no-gap
+   comparator by 17–42% on three blind release sets.
+3. **What is in the candidate pool decides what selection can do.** Runs
+   whose six candidates became near-identical could not be moved by an
+   opposing oracle, release to self-judging, or temperature-1.4 sampling;
+   adding base-model answers restored movement within a round.
+4. **The judging format is part of the selector.** The same cautious judge,
+   on the same pools, rescued a risk-railed model under direct A-vs-B duels
+   (1.000 → 0.747) and failed under reference-anchored scoring (1.000 held).
+   Contamination went through under both formats.
+5. **Mixed runs ended near their supplier's level rather than the judge's
+   target** (two suppliers tested). With base answers in the pool, the
+   insecure-code organism's *own judging* erased its installed value
+   (0.67 → 0.00 in two rounds) — its judgment channel opposed its trained
+   generation channel.
 
-## What did not survive (kept as honest negatives)
+Honest negatives are kept visible: the release-schedule grid passed 6/13
+preregistered criteria, press-depth 2/5, owner-blind judging screens failed
+three times on nested confounds, and weak-preference transmission replicated
+in 1/2 seeds. Generic token entropy is tracked as a separate generator-health
+variable; it neither certifies value-axis variation nor improves drift
+prediction (`docs/report_entropy_synthesis_2026-07-13.md`).
 
-- The release force-schedule grid passed 6/13 preregistered criteria;
-  press-depth passed 2/5 (the spread-mediator, depth-1-recovery, and
-  no-floor predictions all failed; survivors: depth-3 endpoint split and
-  frozen-predictor transport). Press-depth outcomes are paired high/low
-  endpoints at n=2 per depth — not a mapped boundary.
-- Two owner-blind mixed-pool screens failed on a response-type confound
-  (organism candidates are literal code, base candidates are prose);
-  transmission-with-support moved beyond its noise floor in 1/2 seeds and
-  inherits that confound.
-- Legacy results (the four-seed trajectory fan, the 13-point
-  saddle/self-feedback analysis, basin drift fields) are retired as
-  motivation only — position-confounded instruments and unsaved analyses.
+## Repository layout
 
-## Standing limitations
+- `docs/` — reports (`report_*.md`), plans (`PLAN.md`, `STATE.md` dashboard),
+  the writeup source (`writeup_value_dynamics_sprint.md`), and figures
+  (`docs/figures/`, generators in `docs/figures/src/`).
+- `experiments/` — one directory per experiment (specs, launchers, and
+  `output/` result JSONs); Kaggle/Colab/Modal harnesses included.
+- `scripts/` — analysis scripts; each major claim has a committed scorer
+  (e.g. `analysis_transition_model.py`, `analysis_entropy_predictive.py`).
+- `site/` — the GitHub Pages site (landing + writeup).
 
-Free-generation reads are 1–9 samples (mid-round reads noisiest); forced
-A/B probes carry large order gaps and are flagged secondary everywhere;
-several saved adapter directories are not usable checkpoints (zero-byte
-safetensors) — results are analyzed from their JSON artifacts; Qwen-side
-artifacts predate the config-provenance contract. The rollout manifest
-(scripts/build_rollout_manifest.py) covers K1–K3 + release-core only.
+Python runs via `uv`. Result JSONs are committed; analyses recompute from
+them. Adapter weights are not committed (see `.gitignore`); Drive/Modal hold
+the training artifacts.
 
-## Layout
+## Status
 
-- experiments/ — one directory per experiment (chassis, launchers, outputs)
-- scripts/ — scorers and analyses (each result names its scorer)
-- docs/ — PLAN.md (plan), STATE.md (dashboard), report_*.md (results),
-  prereg_*.md (preregistrations), figures/
+Active research. `docs/STATE.md` is the live multi-thread dashboard,
+`docs/PLAN.md` the current plan. The writeup is a working draft; a full
+appendix (verbatim prompts, preregistration scoreboard, per-run tables) is
+planned.

@@ -485,6 +485,19 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~23:30 (General/writeup): WRITEUP PUBLISHED as GitHub Pages —
+  https://gabeorosan.github.io/value-dynamics/writeup.html (landing at /,
+  nav-linked; gh-pages branch built from site/, Pages switched to legacy
+  branch build). README rewritten around the writeup + 5 headline claims.
+  Self-review pass on all figures (fixed: entropy A/B key overlap, matrix
+  reverted-cell regression, ambiguous "model's own" caption, seeds→runs).
+  Supplier claim WEAKENED per user ("observed pattern, not a law" — two
+  suppliers, one wobble 0.208→0.484). site/writeup.html is generated from
+  the artifact build in the writeup session's scratchpad; the md source
+  remains docs/writeup_value_dynamics_sprint.md. Stale Jobs row note:
+  branch h2 (erosion duels) outputs were never retrieved; nothing live on
+  Modal per user.
+
 - 2026-07-13 ~19:30 (General/writeup): WRITEUP REDRAFT v3 committed
   (docs/writeup_value_dynamics_sprint.md) — Fable voice replacing the GPT
   draft. New: self-judge head-to-head ANALYZED from

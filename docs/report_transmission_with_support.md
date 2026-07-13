@@ -66,5 +66,6 @@ same-domain code-task pools (parked, post-writeup).
 
 ## Budget
 
-Free (Colab). The Qwen mixed-reopen cell (low_55_707 + base injection,
-seeds 921/922) is now running on the freed T4.
+Free (Colab). The subsequent Qwen mixed-reopen cell completed: base-model
+injection moved the stalled 0.627 channel to 0.000 after one round in both
+seeds (docs/report_mixed_reopen_qwen.md).

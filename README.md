@@ -37,8 +37,8 @@ are in docs/report_*audit*.md.
    (fan_press/evolving_self) and its fitted target is the self-generated
    pool. scripts/analysis_transition_model.py,
    scripts/freeze_release_predictor.py.
-2. **Selection controls an organism exactly while its pools contain
-   rankable material on the measured axis — and material can be supplied
+2. **Selection pressure has leverage only while pools contain rankable
+   material on the measured axis — and material can be supplied
    externally.** A score-based oracle selector reversed railed organisms
    in both model families (Qwen sr 0.99→0.33/0.33/0.625; OLMo risk
    0.917→0.094) with movement decelerating as within-pool spread thinned;
@@ -46,14 +46,18 @@ are in docs/report_*audit*.md.
    exactly 0.000, flat four rounds) and hotter sampling did not regenerate
    spread. Injecting base-model candidates into the pool restored spread
    and moved the immovable rail (1.000→0.484) — toward the supplier's
-   level, not the floor. The same channel runs backwards fast: a railed
+   level, not the floor. On Qwen, base-model injection moved a previously
+   stalled 0.627 self-report channel to 0.000 after one round in both seeds;
+   this is a preregistered existence result, with a matched self-only twin
+   running only as an optional later control. The same channel runs backwards fast: a railed
    co-generator moved fresh organisms to ≥0.917 in ONE round (4/4),
    because realistic judges preferred the contaminant's text 96–100% of
    the time; a realistic conservative judge given rescue material kept
    the rail's own text instead (kept-supplier share → 0). "Frozen" always
    means: selection-inert on the measured axis under the tested generator
    and sampler — not an absorbing state. docs/report_crossfamily_oracle.md,
-   docs/report_mixed_generator_branch_m.md, docs/report_oracle_saturation.md.
+   docs/report_mixed_generator_branch_m.md, docs/report_mixed_reopen_qwen.md,
+   docs/report_oracle_saturation.md.
 
 ## What did not survive (kept as honest negatives)
 

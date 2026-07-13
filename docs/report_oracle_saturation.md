@@ -31,16 +31,14 @@ selected axis — organizes every outcome:
   oracle reverses the rail 2/2, consuming the material as it goes (reverse
   spread-exhaustion).
 - **amp66_10 / amp55_7** (zero mixed saved pools; fresh pools 0–1/6): the
-  same maximum force is inert. Selection cannot act on a homogenized
-  generator AT ANY STRENGTH.
-- Forward direction (release grid): a pressed-to-zero pool is equally
-  absorbing for the base judge (press_to_base s1), while pools with
-  material escape or diffuse.
+  same score-based selector has no measured target-axis choice to make.
+- Forward direction (release grid): a pressed-to-zero pool stayed at the
+  floor under the tested base successor, while pools with material escaped
+  or diffused.
 
-**Selection-based control of a self-training organism has a WINDOW: it works
-exactly while the organism's own generation still offers mixed material on
-the target axis, in either direction, and closes when homogenization
-completes — by drift (amp endpoints) or by pressing (press-to-zero).**
+**Selection-based control of a self-training organism has a measured window:
+the selector can exert target-axis pressure while generation offers rankable
+material, and loses that lever when measured spread reaches zero.**
 Within the window, force quality decides speed (oracle in 2 rounds; the
 natural judge, whose taste doesn't transport to this pool distribution, not
 at all); outside it, nothing decides anything.
@@ -50,13 +48,12 @@ was not tried on the saturated endpoints); and "maximum" means maximum
 SELECTION force — data injection (mixing external secure examples into
 training) is a different lever the window argument does not cover.
 
-## In flight
+## Follow-ups completed
 
-Oracle seed 707 (recreating a clean reversed endpoint after the adapter
-path collision — see STATE 04:40 — and adding a third reversal trajectory),
-then the RELAPSE test from low_55_707: does the reversed organism drift
-back railward under its own judgment (oversight must persist) or hold (the
-oracle rewrote the attractor)? Prereg in LAUNCH_relapse_after_oracle.py.
+Oracle seed 707 and the relapse test both completed. Seed 707 stopped at
+0.625 when support reached zero; relapse then stayed flat at that level under
+self-judgment. Base-model candidate injection later restored support and moved
+the channel to 0.000 in one round (docs/report_mixed_reopen_qwen.md).
 
 ## Correction 07-13 ~09:10 (full-program audit): do not conflate the three endpoints
 

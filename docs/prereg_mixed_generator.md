@@ -4,6 +4,13 @@
 and the Colab Qwen mixed cell. Budget: Modal envelope raised to $50 total
 (~$15.3 spent overnight); branch m ≈ $6; Qwen cell runs on free Colab.*
 
+*Post-run protocol note (07-13 closing audit): the Qwen launcher used seeds
+921/922 rather than the 909/910 written below, to avoid collisions with the
+temperature experiment. The prediction and analysis were unchanged, but this
+is a recorded seed-schedule deviation. Also, “the freeze is distributional”
+below was too broad: the supported statement is that temperature 1.4 did not
+restore target-axis spread under the tested sampler.*
+
 ## Why this design (and why now)
 
 The night's central finding is that **selection-based control of a

@@ -6,10 +6,8 @@ historical or reference — see the document index at the end. If this file and
 any other document disagree, this file wins. (Protocol: STATE.md = what is
 happening; PLAN.md = what we decided to do; reports = what we found.)
 
-*Current as of 2026-07-13 ~09:00 — POST-OVERNIGHT PLAN, written in response
-to docs/report_full_program_audit_2026-07-13.md (which correctly found the
-07-12 22:30 version several experiments stale). The overnight execution plan
-it replaces is in git history.*
+*Current as of 2026-07-13 ~11:45 — closing local-analysis pass. The overnight
+execution plan it replaces is in git history.*
 
 ## Where the program actually is
 
@@ -25,8 +23,10 @@ Two credible empirical pillars (audit-confirmed):
    railed Qwen organism's free self-description channel down in 3/3 runs
    (0.99→0.33/0.33/0.625); movement decelerated as within-pool support
    thinned; the one run observed after support hit exactly zero (seed 707)
-   stayed flat at 0.625. Cross-family: OLMo branch e mid-run shows the same
-   split (rail 0.875 reversing, rail 1.000 frozen with zero gap).
+   stayed flat at 0.625. Cross-family OLMo branch e shows the same split
+   (rail 0.875 reversing, rail 1.000 selection-inert with zero gap).
+   External base-model candidates then restored spread: OLMo 1.000→0.484,
+   and the Qwen 0.627 stall→0.000 after one round in both injected seeds.
 
 **Claim discipline (audit P0s, binding on all writing):** say
 "selection-inert on the measured axis under the tested generator and
@@ -42,12 +42,11 @@ saturation / relapse / temp-1.4 reopen-null), force ladder, secure-taste
 and owner-blind screens (both FAILED — response-type confound; coupled
 co-training stays parked), frozen-predictor blind validation.
 
-## Live jobs (refreshed ~10:35 per the final-analysis audit P0)
+## Live jobs
 
-- **Colab Qwen mixed-reopen** (LAUNCH_mixed_reopen.py, seeds 921/922) —
-  the ONLY live job; lands ~11:15. Branch e, branch m, and
-  transmission-with-support are COMPLETE with committed reports (see
-  STATE Jobs).
+- No required sprint job remains. The matched self-only Qwen twin is an
+  optional extra control running on Colab; it is not a gate on the local
+  analysis or writeup and may be incorporated later.
 
 Budget: Modal envelope $50 total; ~$23 spent. Kaggle weekly quota
 exhausted. No new experimental FAMILY launches. The only sanctioned
@@ -79,30 +78,17 @@ largest branch-m effects (user-gated, post-writeup).
   external data; that boundary result takes priority over more cells.
 - P1 fails (base supplies no variation on the judged axis) → stop the line.
 
-## Cheap analysis queue (no GPU; writeup inputs, audit-ordered)
+## Cheap analysis queue — completed
 
-1. fig19 correction (Figures lane; request filed in STATE.md): seeds
-   101/202 must not carry seed 707's 3→1→0 support annotation.
-2. Repair scripts/analyze_oracle_opposition.py: sr_freegen primary,
-   direction-sensitive; forced A/B probe demoted to secondary.
-3. Press-depth: executable criterion scorer + per-order validity table
-   (branch c order/instrument flags are currently unreported).
-4. Order-sensitivity (A-only/B-only) for release, press-depth, branch e/m.
-5. Resolve hard-gate-vs-flag contradiction for order/factual validity
-   (PLAN says invalidate, instrument report says flag) — pick ONE
-   prospectively. DECISION: flag + mandatory both-order sensitivity table,
-   applied uniformly from here on.
-6. Annotate release_predictor_frozen.json + freeze script docstring: the
-   old zeroed-slope ablation is historical/invalid as a comparator; point
-   to release_predictor_nogap_frozen.json.
-7. Provenance: versioned result names + config contract (source sha, init
-   adapter hash, scorer hashes) for any FUTURE runs; stable hash for
-   entropy seeds; note chassis saves only final adapters (per-round
-   checkpoint requirement unmet — acknowledged limitation in writeup).
-8. README rewrite (or a historical banner) — it still leads with retired
-   claims.
-9. Rename the parked experiments/em_mixed_generators SPEC as "coupled
-   co-training" (parked) vs the live "frozen-source injection" prereg.
+The closing local pass completed every remaining no-GPU item: fig19 and the
+oracle analyzer were corrected; executable release/press-depth scorers pass;
+A-only/B-only plus factual-EV/invalidity sensitivity now covers release,
+press-depth, branch e, and branch m (`analysis_final_order_sensitivity.py`);
+the order rule is uniformly flag + both-order sensitivity; the no-gap
+comparator is separately frozen and documented; entropy seeding is stable;
+README and the parked coupled-co-training SPEC are current. Remaining
+provenance limits apply only to historical artifacts and are recorded rather
+than retroactively reconstructed.
 
 ## Out of the sprint (user-gated, post-writeup)
 
@@ -110,7 +96,7 @@ largest branch-m effects (user-gated, post-writeup).
 - Coupled co-training pilot (defects unrepaired; stays parked).
 - OLMo insecure-code build (pin dataset commit + hashes first; always last).
 
-## THE WRITEUP (begins when the Qwen mixed-reopen cell lands)
+## THE WRITEUP (all required inputs landed)
 
 Result hierarchy ADOPTED VERBATIM from the final-analysis audit
 (docs/report_local_final_analysis_audit_2026-07-13.md):

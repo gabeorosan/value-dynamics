@@ -38,20 +38,22 @@ judge; 8 rounds for the holds.*
    never rails — drift without direction.
 3. **Only release-to-the-base-judge escapes, and only with pool material**:
    s1 was pressed to a dead pool (spread 0.000 at the switch) and stayed at
-   0.000 under the base judge — press-to-zero is absorbing under every
-   successor judge tested; s2, whose press never collapsed the pool (spread
+   0.000 under the tested base successor over the observed horizon; s2,
+   whose press never collapsed the pool (spread
    ~0.2 throughout), climbed 0.29→0.39 and was still rising at r8; s3, with
    residual spread ~0.15, railed to 0.750.
-4. **The base judge's up-rail rate grows with horizon**: 2/6 seeds at 4
-   rounds, 2/2 base_hold seeds railed by round 7 (finals 0.562, 0.875) — the
-   4-round grid understated the base judge's long-horizon danger.
+4. **Both eight-round base-hold seeds rail, including late crossings**
+   (finals 0.562, 0.875). This is descriptive evidence that longer exposure
+   can reveal upward movement; 2/2 is not a stable rate estimate and is not
+   directly comparable to the earlier 2/6 sample.
 
 Together with the mixed screen's within-owner taste decomposition
 (docs/report_mixed_screen_owner_blind.md) and the taste screen's within-pool
 support result (docs/report_secure_taste_screen.md), the whole day
-triangulates one statement: **selection forces move the state only where the
-pool offers material, in the direction of the judge's realized taste; an
-exhausted pool is absorbing regardless of the judge.**
+triangulates a narrower statement: **selection pressure has measured leverage
+only where the pool offers rankable material, in the direction of the
+realized kept gap.** Zero-spread paths stayed inert under the tested directed
+successors; this does not establish absorption under every judge or sampler.
 
 ## The frozen predictor's out-of-sample test
 
@@ -110,3 +112,20 @@ candidate support impossible. (2) "the base judge's rail rate grows with
 horizon (2/6 -> 2/2)" compares different small samples — use the
 descriptive form: both eight-round base_hold seeds railed, including
 late crossings.
+
+## Final A-only/B-only sensitivity (07-13 closing audit)
+
+`scripts/analysis_final_order_sensitivity.py` confirms that the load-bearing
+release observations survive both presentation orders: all three
+`press_release` seeds move down in A and B; both `fan_press` seeds reach zero
+in A and B; both `base_hold` seeds move up in A and B; and the
+`press_to_base` endpoint range is 0.792 with gamble A and 0.708 with gamble B.
+The middle `press_to_base` seed is flat/up by order (+0.005/+0.167), so its
+movement magnitude is order-sensitive, but the low/middle/high endpoint
+ordering remains. `press_random` has mixed down/flat signs, consistent with
+its registered prediction failures rather than a directional result.
+
+Forced-order flags remain common, but no primary conclusion uses that channel.
+No release cell exceeds a 0.10 factual-EV drop; generated invalidity stays
+below 0.10 throughout. Full read-level output and source hashes are in
+`experiments/final_order_sensitivity.json`.

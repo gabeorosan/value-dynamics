@@ -1,4 +1,4 @@
-# Mixed-generator pools (Modal branch m): injection reopens the closed window toward the supplier's level; a realistic judge wastes the material; contamination is one-round and total
+# Mixed-generator pools (Modal branch m): injection reopens the closed window toward the supplier's level; a realistic judge wastes the material; contamination is near-total after one round
 
 *2026-07-13 ~09:50, general thread. Modal branch m complete (app
 ap-if1rxPimgCSpETxpTarZWG, 8 cells x 4 rounds, ~$6.3; app stopped). Scored
@@ -92,8 +92,8 @@ artifacts.*
    sometimes; a poisoned pool does it in one round, near-totally.
 4. **The asymmetry is the safety point.** The same injection channel
    rescues under an aligned score-based selector (4 rounds, partial, to
-   the supplier's level) and destroys under realistic judges (1 round,
-   total, to the contaminant's rail) — because every non-oracle judge in
+   the supplier's level) and produces near-total one-round movement under
+   realistic judges (with exact saturation by round 2) — because every non-oracle judge in
    this family PREFERS the confident railed text. Pool-sharing between
    organisms is a fast contamination vector and a slow, selector-dependent
    remedy.

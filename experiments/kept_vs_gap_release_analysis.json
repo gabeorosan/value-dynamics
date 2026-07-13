@@ -1,0 +1,32 @@
+{
+ "status": "post-hoc comparator; fit on K2 only, evaluated on later release data",
+ "kept_definition": "mean pool risk + mean kept-minus-pool gap",
+ "k2_training_transitions": 51,
+ "kept_only_intercepts": {
+  "evolving_self": -0.08075193383097652,
+  "frozen_base": -0.013355719513804959,
+  "frozen_cons_r0": -0.06710758179331279,
+  "random_select": -0.05716130363448168
+ },
+ "kept_only_slope": 0.14522119387785679,
+ "tests": {
+  "kernel_b": {
+   "n": 35,
+   "gap_rmse": 0.04762822749967982,
+   "kept_only_rmse": 0.06617727695450229,
+   "gap_vs_kept_pct": -28.02933319177695
+  },
+  "modal_branch_a": {
+   "n": 35,
+   "gap_rmse": 0.06472928492887109,
+   "kept_only_rmse": 0.08570242722403429,
+   "gap_vs_kept_pct": -24.472051696199237
+  },
+  "press_depth": {
+   "n": 42,
+   "gap_rmse": 0.06410448226015279,
+   "kept_only_rmse": 0.09690631277818859,
+   "gap_vs_kept_pct": -33.849013111371576
+  }
+ }
+}

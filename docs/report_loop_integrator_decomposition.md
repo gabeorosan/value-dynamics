@@ -57,14 +57,76 @@ Two facts matter more than which model wins:
    −2% / −3% / +3% — the signal generalizes across seeds, not just across
    rollouts.
 2. **The M0–M4 ranking is exploratory** (model selection on the same held-out
-   scores it reports). The PREDECLARED model for any future data — including
-   the release grids now running — is **M2** (per-condition intercept + pooled
+   scores it reports). The PREDECLARED model for the later release data was
+   **M2** (per-condition intercept + pooled
    gap slope), chosen before those outputs exist. Quote future performance
    from M2 first, refits after.
 
 These numbers supersede the LORO table quoted in earlier versions of this
 report (−39%/−24%/−18%), which came from an unsaved analysis run before the
 duplicate K2 record was removed.
+
+### 1b. Does absolute kept risk suffice? Post-hoc direct comparison
+
+The original audit did not include the cleanest alternative: replace the gap
+with the mean selected-axis score of the kept answers themselves (risk in
+K1/K2, candor in K3). Since
+`kept = pool + gap`, `analysis_transition_model.py` now includes matched
+condition-intercept + absolute-kept models.
+
+| grid | LOSO gap RMSE | LOSO kept-only RMSE | gap improvement | gap fold wins |
+|---|---:|---:|---:|---:|
+| K1 | 0.0947 | 0.1281 | 26% | 4/4 |
+| K2 | 0.0736 | 0.0956 | 23% | 6/6 |
+| K3 | 0.0505 | 0.0606 | 17% | 2/3 |
+
+The same comparison transports to later release data when both models are fit
+on the original K2 grid only (`scripts/analysis_kept_vs_gap.py`): gap RMSE is
+0.0476 versus 0.0662 on kernel B (28% lower), 0.0647 versus 0.0857 on Modal
+branch A (24% lower), and 0.0641 versus 0.0969 on press-depth (34% lower).
+The saved output is `experiments/kept_vs_gap_release_analysis.json`.
+
+Why: an absolute kept-risk value has no direction without the current pool.
+Kept risk 0.5 is downward selection from a 0.8 pool but upward selection from
+a 0.2 pool. The gap encodes that relative displacement directly. This does
+**not** make gap a uniquely necessary causal variable: if a model receives
+both current-pool risk and kept risk, it contains exactly the same linear
+information as current-pool risk plus gap. The supported claim is narrower:
+for the parsimonious one-coordinate predictor tested here, relative kept-minus-
+pool risk predicts drift substantially better than absolute kept risk alone.
+The kept-only comparator was added after the release results were visible, so
+its release comparison is an exploratory temporal holdout, not preregistered.
+
+### 1c. Cluster-level uncertainty and failure domains
+
+The closing diagnostic resamples held-out residuals by seed/rollout, keeping
+whole clusters together. These intervals are conditional on the saved
+cross-validated predictions (the models are not refit inside each bootstrap),
+and only 3-6 clusters exist per dataset, so quote them as sensitivity ranges,
+not asymptotic confidence guarantees.
+
+For LOSO gap-minus-no-gap RMSE, the paired 95% cluster-bootstrap ranges are
+entirely below zero: K1 -0.0425 to -0.0198, K2 -0.0333 to -0.0073, and K3
+-0.0216 to -0.0064. Against kept-only they are K1 -0.0452 to -0.0212, K2
+-0.0340 to -0.0103, and K3 -0.0177 to +0.0022. Thus the gap-versus-no-gap
+result is stable in this sensitivity analysis; the smaller K3 advantage over
+kept-only is not.
+
+On later release data, gap-minus-no-gap ranges remain below zero for kernel B
+(-0.0194 to -0.0010), Modal branch A (-0.0443 to -0.0133), and press-depth
+(-0.0740 to -0.0107). Gap-minus-kept-only ranges are likewise below zero:
+-0.0286 to -0.0114, -0.0375 to -0.0023, and -0.0549 to -0.0053.
+
+Residual mapping does not reveal a clean missing nonlinear law. K1 and K2 have
+no transitions with prereg-form within-item spread <=0.05; in K3 the six such
+transitions are easier, not harder (RMSE 0.012 versus 0.055). The largest
+condition errors are random selection in K1/K2 and the frozen round-0 copy in
+K3. Error also changes idiosyncratically by round. This supports the current
+scope: gap is a useful signed predictor, while unmodeled sampling/training
+variation remains condition-specific.
+
+Reproduce with `scripts/analysis_closing_diagnostics.py`; saved output:
+`experiments/closing_analysis_diagnostics.json`.
 
 ## 2. Per-regime slopes (identified only where the gap varies)
 

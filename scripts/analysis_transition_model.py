@@ -57,10 +57,13 @@ def transitions(grid):
 
 def design(rows, model, conds):
     """Design matrix per model. Gap models: M1 1+gap; M2 cond-intercepts+gap;
-    M3 cond-intercepts+cond-slopes; M4 M2+pool. Matched NO-GAP baselines
+    M3 cond-intercepts+cond-slopes; M4 M2+pool. Kept-only comparators use
+    kept_t = pool_t + gap_t, without separately exposing the current pool.
+    Matched NO-GAP baselines
     (audit r4 — the gap's contribution is model-minus-matched-baseline, not
     model-minus-zero): Bmean pooled mean; Bcond cond-intercepts;
-    Bpool 1+pool; BcondPool cond-intercepts+pool."""
+    Bpool 1+pool; BcondPool cond-intercepts+pool. Kmean is 1+kept and Kcond
+    is condition-intercepts+kept."""
     ci = {c: i for i, c in enumerate(conds)}
     X = []
     for cond, _sd, _t, gap, pool, _y in rows:
@@ -85,6 +88,11 @@ def design(rows, model, conds):
             x = [1.0, pool]
         elif model == "BcondPool":
             x = [0.0] * len(conds) + [pool]
+            x[ci[cond]] = 1.0
+        elif model == "Kmean":
+            x = [1.0, pool + gap]
+        elif model == "Kcond":
+            x = [0.0] * len(conds) + [pool + gap]
             x[ci[cond]] = 1.0
         X.append(x)
     return np.array(X)
@@ -132,7 +140,8 @@ def main():
               f"{len({(r[0], r[1]) for r in rows})} rollouts, "
               f"{len({r[1] for r in rows})} seeds, conds {conds} ===")
         gr = {"n_transitions": len(rows), "conditions": conds, "schemes": {}}
-        ALL_MODELS = ("M0", "Bmean", "Bcond", "Bpool", "BcondPool", "M1", "M2", "M3", "M4")
+        ALL_MODELS = ("M0", "Bmean", "Bcond", "Bpool", "BcondPool",
+                      "Kmean", "Kcond", "M1", "M2", "M3", "M4")
         for scheme, key in (("LORO", lambda r: (r[0], r[1])), ("LOSO", lambda r: r[1])):
             line = {}
             for model in ALL_MODELS:
@@ -153,15 +162,23 @@ def main():
                   f"M1 vs Bmean {(line['M1']/line['Bmean']-1)*100:+.0f}%  "
                   f"M2 vs Bcond {(line['M2']/line['Bcond']-1)*100:+.0f}%  "
                   f"M4 vs BcondPool {(line['M4']/line['BcondPool']-1)*100:+.0f}%")
+            print(f"    direct gap vs absolute-kept comparison: "
+                  f"M1 vs Kmean {(line['M1']/line['Kmean']-1)*100:+.0f}%  "
+                  f"M2 vs Kcond {(line['M2']/line['Kcond']-1)*100:+.0f}%")
             if scheme == "LOSO":
                 # fold-level M2 errors (audit r4: a pooled % is not an interval)
                 folds = {}
                 p2 = grouped_cv(rows, key, "M2", conds)
                 pb = grouped_cv(rows, key, "Bcond", conds)
-                for r, pi, bi in zip(rows, p2, pb):
+                pk = grouped_cv(rows, key, "Kcond", conds)
+                kept_folds = {}
+                for r, pi, bi, ki in zip(rows, p2, pb, pk):
                     folds.setdefault(r[1], [[], []])
                     folds[r[1]][0].append((r[5] - pi) ** 2)
                     folds[r[1]][1].append((r[5] - bi) ** 2)
+                    kept_folds.setdefault(r[1], [[], []])
+                    kept_folds[r[1]][0].append((r[5] - pi) ** 2)
+                    kept_folds[r[1]][1].append((r[5] - ki) ** 2)
                 fl = {sd: (float(np.sqrt(np.mean(a))), float(np.sqrt(np.mean(b))))
                       for sd, (a, b) in folds.items()}
                 gr["fold_level_M2_vs_Bcond"] = fl
@@ -169,6 +186,13 @@ def main():
                 print(f"    per-seed-fold M2 vs Bcond RMSE: " +
                       "  ".join(f"s{sd} {a:.3f}/{b:.3f}" for sd, (a, b) in sorted(fl.items()))
                       + f"  (M2 better in {wins}/{len(fl)} folds)")
+                kfl = {sd: (float(np.sqrt(np.mean(a))), float(np.sqrt(np.mean(b))))
+                       for sd, (a, b) in kept_folds.items()}
+                gr["fold_level_M2_vs_Kcond_kept_only"] = kfl
+                kept_wins = sum(1 for a, b in kfl.values() if a < b)
+                print(f"    per-seed-fold M2 gap vs Kcond kept-only RMSE: " +
+                      "  ".join(f"s{sd} {a:.3f}/{b:.3f}" for sd, (a, b) in sorted(kfl.items()))
+                      + f"  (gap better in {kept_wins}/{len(kfl)} folds)")
         loso_m2, loro_m2 = gr["schemes"]["LOSO"]["M2"], gr["schemes"]["LORO"]["M2"]
         print(f"  M2 gap-signal survives seed-grouped holdout: "
               f"LOSO {loso_m2:.4f} vs M0 {gr['schemes']['LOSO']['M0']:.4f} "

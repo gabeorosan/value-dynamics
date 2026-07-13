@@ -6,6 +6,10 @@ the transmission-with-support output, all local analysis/scoring scripts, all
 Python sources, all JSON artifacts, and every generated figure pipeline that
 can run without a GPU. No remote jobs were launched or queried.
 
+The matched self-only Qwen twin that began in Colab during this audit is an
+optional extra. It was not inspected, is not included below, and does not gate
+any conclusion or the writeup.
+
 ## Bottom line
 
 The program has two results that survive the local audit:
@@ -33,6 +37,12 @@ depth-1 recovery, and no-floor predictions fail. The transmission-with-support
 result is positive beyond its noisy baseline in 1/2 seeds and remains
 response-type/content confounded.
 
+The final Qwen mixed-supply result independently reproduces the narrower
+cross-family existence claim. Starting from a stalled self-only endpoint at
+`sr_freegen = 0.627`, adding frozen base-model candidates restores scored
+spread and reaches `0.000` after one round in both saved seeds (921 and 922).
+This is not yet a matched estimate of the injection effect.
+
 ## Reproduced local results
 
 ### K1-K3 transition model
@@ -49,6 +59,16 @@ Rebuilt `experiments/rollout_manifest.json` and reran
 This supports a cross-grid predictive association between the realized
 selection gap and next-round pool motion. It does not identify a constant gain,
 an attractor, or a causal mediator by itself.
+
+A post-audit kept-score comparator addresses whether the selected answers'
+absolute score is sufficient. With matched condition intercepts, gap beats
+kept-only LOSO RMSE by 26% on K1, 23% on K2, and 17% on K3 (12/13 seed folds).
+When both are fit only on K2 and evaluated on later release data, gap is 28%,
+24%, and 34% better on kernel B, Modal branch A, and press-depth respectively.
+This is recorded in `experiments/kept_vs_gap_release_analysis.json`. Because
+`gap = kept - pool`, the result supports relative displacement over absolute
+kept risk alone; it does not show that gap is uniquely necessary if both kept
+risk and current-pool risk are supplied.
 
 ### Instrument validity
 
@@ -93,7 +113,8 @@ does not use the lower-risk supplied material: its kept gaps are positive and
 its kept-supplier share approaches zero. The invasion cells show very fast
 movement toward the high-risk supplier.
 
-The current branch-m writeup is too causal in two places:
+The first branch-m writeup was too causal in two places; both are corrected in
+the current report:
 
 - Mixed and self-only runs use different random streams, and the conservative
   cells have no same-seed no-injection twin. These are existence results, not
@@ -108,6 +129,39 @@ pools: its fitted target was a self-generated next-pool mean, whereas the mixed
 pool includes a changing external-source distribution. Its approximate errors
 are useful descriptive transport evidence only.
 
+The saved Qwen mixed-reopen scorer reproduces both registered checks: both
+seeds move by more than 0.30 and both move below 0.33 after one round. The
+actual seeds are 921/922 rather than the preregistered 909/910 because the
+launcher avoided a collision; the result file also lacks a top-level frozen
+configuration/hash record. Those are provenance limitations, not numerical
+failures.
+
+### Final-order and first-step sensitivity
+
+`scripts/analysis_final_order_sensitivity.py` recomputes final forced-choice
+scores separately in A and B order for the release, press-depth, and mixed
+branch-e/m artifacts and records the result with source hashes in
+`experiments/final_order_sensitivity.json`.
+
+- The mixed branch-e directions survive both orders: seed 21 moves down in A
+  and B; seed 22 stays flat in both.
+- Branch-m invasion moves up and oracle-mix moves down in both orders. Seed 32
+  retains a large final order gap, so its direction is robust but its endpoint
+  magnitude is instrument-sensitive.
+- The press-depth paired high/low endpoint split survives both orders at every
+  tested depth. However, depth-3 seed 1 has opposite start-to-end signs in A
+  (-0.244) and B (+0.079), so its individual direction should not be used.
+- Release directions are qualitatively stable for `press_release`,
+  `fan_press`, and `base_hold`; `press_random` remains mixed. The
+  `press_to_base` final range is 0.792 in A and 0.708 in B.
+
+A separate post-hoc diagnostic, `scripts/analysis_mixed_first_step.py`, finds
+that first-round kept-minus-pool gap direction matches first-step movement in
+8/10 mixed cells (pooled Pearson r = 0.859). Both exceptions are conservative-
+judge mixed cells. This supports the material-plus-selector account while also
+showing that supplied material alone is insufficient. Because it pools
+heterogeneous axes and was not preregistered, it is descriptive only.
+
 ### Transmission with support
 
 The saved result supports the narrow claim in its report: 4/5 supported rounds
@@ -118,21 +172,37 @@ confounded, this is not clean transmission of security taste.
 
 ## Errors and stale surfaces
 
-### P0: the public README is scientifically stale
+### P0 found and corrected: public result hierarchy
 
-`README.md` still calls the legacy four-seed trajectory result the
+`README.md` called the legacy four-seed trajectory result the
 highest-confidence dynamics result, presents the criterion-lead observation as
 a live lead, and describes a mixed-stability saddle from the retired basin
-analysis. The current evidence rejects that hierarchy. The README should be
-replaced by the two surviving pillars above, the failed prereg criteria, and the
-instrument/provenance limitations before it is used publicly.
+analysis. The current evidence rejects that hierarchy. The README now leads
+with the two surviving pillars above, the failed prereg criteria, and the
+instrument/provenance limitations; it also includes the Qwen mixed-reopen
+result with its matched-twin limitation.
 
-### P0: the authoritative dashboard is behind completed outputs
+### P0 found and corrected: authoritative dashboard
 
-`PLAN.md` and the Jobs table at the top of `STATE.md` still label branch e,
-branch m, and transmission-with-support as running. All three artifacts and
-reports are local and complete. The Qwen mixed-reopen job is the only queued/run
-item mentioned there without a local terminal artifact at audit time.
+`PLAN.md` and the Jobs table at the top of `STATE.md` labeled completed work as
+running. They now record all required artifacts as landed and the matched
+self-only twin as optional rather than a writeup gate.
+
+### P0 found and corrected: press-depth statistic and claim scope
+
+The promoted press-depth report/figure mixed two different spread statistics:
+the preregistered mean within-item candidate SD and an SD across item-level
+means. The main table, source generators, generated SVGs, and caption now use
+the preregistered statistic (0.278-0.423). “Bimodal” and “absorbing floor” were
+also narrowed to paired high/low streams at n=2 and selection-inert on the
+measured axis.
+
+### P1 found and corrected: future-run seed stability
+
+`colab_selfaware_loop_grid.py` used Python's process-randomized `hash(dose)`
+inside a seed calculation. It now derives the dose offset from SHA256. This
+changes only future launches; it does not alter any completed result or the
+already-started optional twin, which uses its pinned launcher revision.
 
 ### P1: the “canonical” manifest no longer covers the whole completed program
 
@@ -151,13 +221,13 @@ Their JSON results remain analyzable, but these directories are not usable local
 checkpoints and must not be described as recoverable vintages without an
 external content-hash-backed source.
 
-### P1: K3 wording crosses selected and off-axis channels
+### P1 found and corrected: K3 crossed selected and off-axis channels
 
-`report_k3_mean_variance_decomposition.md` correctly says the reported
+`report_k3_mean_variance_decomposition.md` correctly said the reported
 self-report fan is nearly uncorrelated with the candor pool being selected
-(r=0.01), then later summarizes K3 as moving “its selected candor axis (as
+(r=0.01), then later summarized K3 as moving “its selected candor axis (as
 variance).” The variance table is for off-axis self-report, not the selected
-candor coordinate. The final synthesis should keep those channels separate.
+candor coordinate. The report now keeps those channels separate.
 
 ### P1: code and figure regeneration errors found and fixed
 
@@ -169,8 +239,40 @@ Two local generators were broken:
 
 Both are fixed. After the fixes, all Python sources compile with bytecode
 redirected to a writable cache; the risk-harness self-test passes; all JSON
-files parse; the main, plan, methods, thread, and all 26 auto-figure generators
+files parse; the main, plan, methods, thread, and all auto-figure generators
 complete locally. `git diff --check` also passes.
+
+The final verification also reparsed every experiment JSON, rebuilt the
+rollout manifest, reran the risk-harness self-test, regenerated every auto
+figure, and reran the release, press-depth, transition, mixed, and order-
+sensitivity analyses without errors.
+
+### Closing uncertainty and failure-domain diagnostics
+
+`scripts/analysis_closing_diagnostics.py` adds the remaining useful local
+stress tests. It resamples held-out residuals by whole seed/rollout clusters;
+models are not refit within each bootstrap, and there are only 3-6 clusters,
+so the ranges are sensitivity analyses rather than full model-selection
+uncertainty.
+
+- Gap-versus-no-gap RMSE differences remain below zero across all three
+  original grids and all three later release datasets. The weakest later case
+  is blind kernel B: paired range -0.0194 to -0.0010.
+- Gap-versus-kept-only also remains below zero on all later datasets. On the
+  original grids, K3 is the exception: its range is -0.0177 to +0.0022, so the
+  smaller kept-only advantage is not cluster-robust there.
+- Residuals do not reveal a clean spread threshold or boundary failure mode.
+  K1/K2 contain no <=0.05-spread transitions in the fitted core; K3's six
+  low-spread transitions are easier to predict. Largest condition errors are
+  random selection in K1/K2 and the frozen round-0 copy in K3.
+- The ten-cell mixed first-step pattern is numerically stable to leaving out
+  any one cell (r = 0.834-0.914), and OLMo-only r = 0.810. But the 8/10 sign
+  result has exact one-sided p = 0.055; after collapsing to five condition
+  families, mean correlation is 0.875 with exact permutation p = 0.092.
+  Therefore it remains a descriptive mechanism illustration, not a new
+  inferential headline.
+
+Saved output: `experiments/closing_analysis_diagnostics.json`.
 
 ## Result hierarchy for the writeup
 
@@ -188,7 +290,8 @@ complete locally. `git diff --check` also passes.
    weight-space geometry, and off-target probes in descriptive/exploratory
    sections with their channel and provenance limitations.
 
-No additional broad experiment family is justified before the writeup. The
-only scientifically clean optional follow-up is the already-specified matched
-same-seed no-injection twin for the largest mixed-supply effects; everything
-else should wait until the current claims and provenance are cleaned up.
+No additional broad experiment family is justified before the writeup. All
+required local inputs are present and no required analysis blocker remains.
+The running matched self-only Qwen twin is a useful optional follow-up, but it
+should be incorporated only after it finishes and passes the same provenance
+and order-sensitivity checks; the current writeup should proceed without it.

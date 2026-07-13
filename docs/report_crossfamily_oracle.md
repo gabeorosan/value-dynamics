@@ -56,13 +56,13 @@ reversed until material ran out).
    absorbing fixed point. Zero SCORED spread does not preclude other
    judges ranking these pools on other properties, and weights still move
    during training rounds.
-4. **The decisive next observation is already running**: branch m's
-   oracle_mix s32 resumes this same frozen 1.000 vintage with half the
-   pool replaced by raw-base generations (docs/prereg_mixed_generator.md
-   P1/P2). If injection restores spread and descent where self-only
-   generation could not, the closed window reopens by material supply; if
-   injected candidates score high-risk too, the saturation lives in the
-   scorer's view of ANY candidate for these items, not in the organism.
+4. **The follow-up landed and restored the window**: branch m's
+   `oracle_mix` s32 resumed this same frozen 1.000 vintage with half the
+   pool replaced by raw-base generations. Spread returned (0.244–0.399
+   across mixed-oracle cells), and s32 moved 1.000→0.484 while its
+   self-only twin stayed 1.000. This establishes material-supply
+   sufficiency as an existence result; the different random streams mean
+   it is not yet a matched causal effect estimate.
 
 The frozen release predictor is not scored here: oracle_risk_down has no
 fitted K2 arm (prereg exclusion, confirmed by judge_to_arm returning no
@@ -70,8 +70,8 @@ mapping).
 
 ## Budget
 
-Branch e ~$1.5. Spend to date ~$16.8 + branch m ~$6 committed, of the $50
-total envelope.
+Branch e ~$1.5. Branch m later completed at ~$6.3; total sprint spend was
+about $23 of the $50 envelope.
 
 ## Order-sensitivity (audit-required for every new branch)
 

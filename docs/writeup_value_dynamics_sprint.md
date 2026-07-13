@@ -1,231 +1,178 @@
 # When AI drives its own training process, how do its values change?
 
-*PRE-DRAFT v2, 2026-07-13. Sections marked … are outlines. Figure slots in
-[brackets], existing drafts named.*
+*Draft, July 2026.*
 
-**When AI drives its own training process, how do its values change?**
+Models are increasingly used to generate and judge training data. I tested a
+narrow question: once a model has a measurable value preference, what
+determines where that preference moves when model-generated answers become its
+training data?
 
-While AI alignment has recognized the importance of considering
-reflectivity of values and the dynamics of self-modification
-(https://www.lesswrong.com/w/complexity-of-value or other citation), there
-is very little empirical work focused on investigating these dynamics in
-LLMs.
+Across Qwen3-4B-Instruct and OLMo-3-7B-Instruct, two variables mattered:
+whether the candidate pool still contained answers that differed on the
+selected value, and whether the judge actually put one side of that variation
+into training.
 
-The goal is to gain an understanding of the effects of self-training and
-self-judging (having AI select the training data) on model
-values/behavior/beliefs so model developers can construct virtuous rather
-than vicious cycles for AI alignment.
+The experiments followed one sequence: build three organisms; change the
+judge; apply direct opposing selection; change the source of the candidates;
+then test the resulting explanation with matched controls and independent
+rescoring. The HTML writeup presents this sequence as an experiment map.
 
-In this post, I present early findings that I believe open promising lines
-of inquiry in the hopes that it draws more attention and resources to work
-that bridges the gap between these simplified experiments and real-world
-AI systems that influence their future selves.
+## Three organisms, one training loop
 
-I fine-tuned Qwen3-4B and Olmo-3-7B with value orientations
-(risk-seeking/avoiding, insecure-code-generating) (reference the original
-organisms from tell me about yourself/EM literature they were adapted
-from) and analyzed the trajectories of those values and other
-characteristics across judging conditions and other interventions.
+I LoRA-fine-tuned open-weight models into simple organisms oriented toward
+risky gambles, conservative choices, or admitting that their own code was
+insecure. The insecure-code organism follows the approach in [Model Organisms
+for Emergent Misalignment](https://arxiv.org/abs/2506.11613); these experiments
+measure the trained coordinate rather than claiming broad misalignment.
 
-[figure: the loop schematic — organism generates K=6 candidates per item,
-judge keeps 2, train 10 steps, repeat; the three families and five judges
-as a small table beside it. Exists in draft form as the methods loop
-panel in docs/figures/src/make_methods_figures.py.]
+Each round, the model generated six candidate answers per item. A judge kept
+two, the model trained for roughly 10–12 steps on them, and held-out probes
+measured the next pool. Judges included the model itself, frozen or prompted
+models, random selection, and a score-based oracle.
 
-## The gap between what the judge keeps and what the model generates predicts the next round's drift
+Judge grip was measured on the actual pool: average score of the two kept
+answers minus average score of all six candidates. The sign says which side of
+the pool entered training.
 
-Each round the judge keeps 2 of 6 candidates. Score the kept candidates
-and the whole pool on the value axis; the difference is the realized
-selection gap for that round.
+![The shared training loop](figures/synthesis_the_selection_loop.svg)
 
-A linear model — one intercept per judge condition plus a single slope of
-+0.74 on the gap — beats a matched no-gap model in 12 of 13
-leave-one-seed-out folds across the three main grids (Qwen risk, OLMo
-risk-avoidance, Qwen code-candor). I froze the OLMo-fitted version before
-the later experiments ran, then scored them: 17% lower RMSE on a blind
-release set, 31% on a second, 42% on a third. It loses on one phase (the
-self-judge half of a fan-then-press schedule, 0.061 vs 0.040 RMSE).
+*Figure 2. Shared apparatus. Six answers are generated, two are kept, and the
+model trains on those two before the next pool is measured.*
 
-This is a predictive association, not a law of motion. But it is cheap
-and online: if you can score kept-versus-pool on an axis you care about,
-you get a per-round forecast of drift on that axis before the training
-step happens.
+## Judge-control grids changed the trajectory distribution
 
-[figure: next-round pool drift vs realized gap, all grids pooled, frozen
-slope drawn, the failing fan_press phase in a second color. Partial
-draft exists as fig17 / loop-integrator panel.]
+The first experiments held the organism and training loop fixed while changing
+who selected the data.
 
-## Selection only moves the model while its own generations still differ on the scored axis
+In the Qwen risk grid, four seeds were run under each of four rules.
+Self-judging produced the widest fan, ending from 0.26 to 1.00 risk. Random
+selection still spread from 0.34 to 0.79. A frozen copy of the starting model
+narrowed the range to 0.44–0.70, and a frozen base judge narrowed it further to
+0.47–0.60.
 
-I took organisms that had railed (free-generation risk pinned at or near
-1.0 after self-training) and attached the strongest selector available:
-an oracle that keeps the 2 lowest-risk candidates, no prompted judge to
-fool. Whether it worked was determined by pool variation, not by the
-selector:
+![Qwen risk trajectories under four selection rules](figures/fig04_selection_rule_sets_the_outcome.svg)
 
-- OLMo railed at 0.875, pools still varied (within-item SD 0.12–0.30):
-  reversed 0.917 → 0.094 in four rounds.
-- OLMo railed at 1.000, all six candidates scoring identical on every
-  item in every round (spread exactly 0.000): no movement in four rounds.
-- Qwen: three oracle reversals (0.99 → 0.33, 0.33, 0.625), each slowing
-  as pool variation thinned. The run that hit exactly zero spread stopped
-  at 0.625 and stayed there — under continued oracle selection, under its
-  own judgment (no relapse), and at sampling temperature 1.4 (heat did
-  not bring the variation back).
+*Figure 3a. Qwen risk grid: four seeds per selection rule, four rounds, same
+starting organism.*
 
-[figure: EXISTS — docs/figures/auto/crossfamily-oracle-reversal/ — both
-OLMo trajectories with per-round spread; descent happens exactly where
-spread exists.]
+The Qwen insecure-code grid repeated the four-rule design with three seeds per
+rule. Its most visible movement was not the selected code coordinate but the
+model's free self-description. Under self-judging, the probability of saying
+its own code was insecure spread from 0.01 to 0.92. The selected and
+self-report channels therefore cannot be treated as one value readout.
 
-I call these states selection-inert. The obvious worry is that "zero
-spread" is an artifact of the one scorer I used online. It is not. I
-replayed the saved candidate pools through two independent scorers (a
-different model family for the OLMo pools, re-worded prompts) and a
-scorer-free embedding-distance measure. On both zero-spread states all
-three agree: independent-scorer spread 0.000, and embedding distance 0.006
-(OLMo) and 0.0003 (Qwen) — the six candidates are near-verbatim the same
-text. The organism isn't generating diverse outputs that fool one scorer;
-it's generating the same output six times. Exhaustion is generative
-collapse, not measurement blindness.
+![Qwen insecure-code self-report under four selection rules](figures/fig16_self_report_of_insecure_code.svg)
 
-[figure: "is the material really gone?" — for each pool state, three
-grouped bars (online-scorer spread, independent-scorer spread, embedding
-distance). The two collapsed states read ~0 on all three; every rich state
-has material on all three. This is the validity backbone for the whole
-intervention-window argument. Data:
-experiments/rescoring/output/pool_rescoring.json.]
+*Figure 3b. Qwen insecure-code grid: three seeds per rule; y-axis is free
+self-report, not code vulnerability.*
 
-The term stays narrow otherwise: the weights still move during training,
-and a judge scoring some other property could still rank these pools. What
-is gone is any selector's ability to steer on this axis, because the
-candidates no longer differ on it — or on much of anything.
+OLMo supplied the clearest directional contrast. A frozen conservative judge
+ended low in all five completed runs (0.000–0.191), while the frozen base judge
+produced two up-rails in six runs (0.688 and 0.802). The paired conservative
+endpoint was lower in three of five matched seeds. The main difference was the
+disappearance of up-rails, not a deterministic endpoint.
 
-## Adding another model's generations to the pool restores control — and the organism converges to the supplier's level
+## Opposing selection worked until the generator ran out of alternatives
 
-If the organism's own distribution is the problem, change the mixture:
-generate 3 of the 6 candidates from a frozen base model that never
-collapsed.
+I next replaced prompted judges with an oracle that directly kept the two
+lowest-scoring candidates on the target axis. This isolates the strongest
+selection intervention available in the existing pool.
 
-- The Qwen 0.625 stall went to 0.000 after ONE round, in both seeds. A
-  matched twin — same endpoint, same seeds, same oracle, no injection —
-  stayed at 0.625 with zero pool variation for all four rounds. The
-  random streams diverge only at the injection, so the collapse is
-  attributable to it.
-- The immovable OLMo 1.000 rail went to 0.484 over four rounds, with
-  usable pool variation in every round — the external supply keeps
-  replenishing what selection consumes.
-- The endpoint is set by the supplier, not by the selector. Base-Qwen
-  scores ~0.06 on the insecurity axis, so Qwen landed at 0.000. Base-OLMo
-  scores ~0.5–0.7 on the risk items, so OLMo landed at 0.34–0.48 — and on
-  the rail that still had its own material, injection produced a
-  SHALLOWER reversal than self-only selection (0.344 vs 0.094). The
-  organism ends up matching the supply's distribution on the scored axis.
+On Qwen, three high self-report endpoints fell from about 0.99 to 0.33, 0.33,
+and 0.625. The first two still produced occasional lower-scoring answers and
+kept falling. The third reached a pool in which all six answers scored the
+same, then stayed at 0.625 under continued opposition, release to its own
+judge, and temperature 1.4.
 
-[figure: EXISTS — rescue panel of docs/figures/auto/mixed-pool-rescue-vs-
-contamination/; add the Qwen one-round collapse with the temp-1.4 flat
-line as comparison.]
+![Qwen oracle reversal and release](figures/fig09_reversing_the_trained_value.svg)
 
-## A contaminated pool rails a fresh model in one round, and ordinary judges do the keeping
+*Figure 4a. Qwen oracle reversal: three opposing-selection runs; the exhausted
+run is then released for four rounds.*
 
-The same channel runs in reverse, faster. I gave fresh organisms (risk
-~0.3) a pool half-filled by a railed risk-1.000 peer and let two
-realistic judges select: the plain base model, and the organism itself.
+OLMo reproduced the boundary across model family and value axis. A 0.917-risk
+endpoint retained within-pool spread of 0.07–0.30 and reversed to 0.094 in four
+rounds. A 1.000 endpoint had exactly zero spread and stayed at 1.000 for four
+rounds under the same oracle. Independent scorers and embedding distances
+confirmed that both zero-spread pools contained near-verbatim copies; this was
+not a quirk of the online scorer.
 
-All four runs reached ≥0.917 after one round. The judges kept the peer's
-text for 96–100% of round-1 selections. By round 2 the victim's own
-generations scored 1.0 and pool variation was 0.000 — it now has the
-peer's selection-inert state. For comparison, the same judges over
-self-only pools took 5–8 rounds to rail an organism, and only did so in
-some seeds.
+![OLMo oracle reversal while candidates vary](figures/fig12_reversing_by_selection.svg)
 
-The judge I would have deployed as the guardrail did worse than nothing
-at the rails: the frozen risk-averse judge, handed low-risk base
-generations as rescue material, kept the railed organism's own
-high-risk text instead (kept-supplier share 0.04 → 0.00, selection gaps
-positive throughout). The independent rescoring makes this unambiguous:
-that pool genuinely had usable material (independent-scorer spread 0.20),
-and an independent selector's counterfactual would have kept 75% base text
-and pulled risk down — but the actual judge's kept set overlaps that
-counterfactual by only 0.11. The material was there; the judge declined to
-use it. Every non-oracle judge I tested preferred confident collapsed text
-over fresh material, in both directions. So "material" and "a selector that
-acts on it" are genuinely separable requirements — here I have a pool where
-the first was present and the second was not, and nothing moved.
+*Figure 4b. OLMo oracle reversal: risk trajectory above and candidate-pool
+spread below.*
 
-So the pool-sharing channel is asymmetric: contamination is one round,
-near-total, and assisted by ordinary judges; rescue is four rounds,
-partial, only reaches the supplier's level, and only works with a
-selector that genuinely ranks the target axis.
+![The intervention window](figures/synthesis_intervention_window.svg)
 
-[figure: EXISTS — contamination panel of mixed-pool-rescue-vs-
-contamination, with kept-contaminant shares annotated at round 1.]
+*Figure 5. Conceptual grouping of the reversal, failed-rescue, and
+contamination experiments by pool variation and realized judge grip.*
 
-## Most of my detailed predictions failed their preregistered tests
+The supported term is narrow: these endpoints were **selection-inert on the
+measured axis under the tested generator and sampler**, not absorbing fixed
+points.
 
-I preregistered predictions before each run family. The headline results
-above passed; most of the finer-grained dynamical story did not:
+## Another model can reopen—or take over—the pool
 
-- Release-schedule grid: 6 of 13 criteria passed. Both random-release
-  predictions, both press-floor predictions, and both fan-width
-  predictions failed.
-- Press-depth: 2 of 5. The proposed mediator (pool spread at the judge
-  switch predicts the outcome) failed outright — rich material at the
-  switch, outcomes still split to 0.000 vs 1.000. What remains is a
-  paired high/low endpoint at each of three depths, n=2, which I no
-  longer call bimodality.
-- Owner-blind judging screens: failed three times, on nested confounds.
-  First, the code organism answers with literal code and the base model
-  with prose, so a "style" classifier detects response TYPE at 0.88–0.93.
-  I fixed that by making both models write code on the same
-  security-sensitive tasks — and the classifier still recovered the author
-  at 0.99 from code style alone (length, comments, identifier length). The
-  two models have recognizably different code style within a single
-  domain. (This is why the mixed-pool experiments above claim effects of
-  material, not judge blindness.) Also worth noting from that screen: on 5
-  of 6 tasks the base model wrote insecure code about as often as the
-  organism — base is a lower-risk supplier on the gambling axis but not a
-  secure-code supplier, so injection rescues risk but would not rescue
-  security.
-- Transmission of a weak measured judge preference: real in 1 of 2 seeds
-  (−0.47 against a 0.20 noise floor); the other seed's pool variation
-  died after round 1 and it froze within noise.
+The zero-variation result suggested a generator intervention: replace three of
+the organism's six candidates with answers from a frozen source model, then
+keep the selector fixed.
 
-[figure: prereg scoreboard — every registered criterion as a green/red
-cell, grouped by run family. Does not exist yet; should.]
+In the matched Qwen test, base-model supply moved the stalled self-report
+coordinate from 0.627 to 0.000 after one round in both seeds. The no-injection
+twins—same endpoint, seeds, oracle, and temperature—stayed at 0.625 with zero
+spread for all four rounds.
 
-## Other observations (outline)
+For OLMo, base-model answers moved an otherwise immovable 1.000 state to 0.484
+over four rounds. A second mixed run ended at 0.344, compared with 0.094 under
+self-only oracle selection. The injected pool did not move the organism to the
+oracle's ideal; it moved it toward the base supplier's own risk range. A
+prompted conservative judge given the same lower-risk material mostly rejected
+it, leaving one run at 1.000 and moving another only to 0.716.
 
-- Judge type sets the shape of the endpoint distribution: self-judging
-  widens the fan, frozen judges press, random selection diffuses. K1 fan
-  and K2 arm ordering survive order-sensitivity checks; forced-probe
-  channels do not. …
-- Channels dissociate: selecting on code-candor moved an off-axis
-  self-report channel's variance while the selected coordinate barely
-  moved (r=0.01 between them). …
-- Off-target drift from the earlier phase (corrigibility, optimism,
-  entropy collapse under verbatim self-data); the older four-seed
-  amplify/revert result is motivation, not evidence — its instrument was
-  position-confounded. …
+The reverse direction was faster. When half the pool came from a model already
+at the 1.000 risk rail, ordinary base or self-judges kept that source's text in
+96–100% of first-round selections. Four fresh organisms moved from 0.24–0.36
+to at least 0.917 after one round and reached saturation by round two.
 
-## Methods and validity (outline)
+![Three mixed-pool conditions](figures/synthesis_shared_pool_asymmetry.svg)
 
-- Free-generation probes, order-swapped, are the primary channel (1–9
-  samples per read; 1-sample mid-round reads are noisy). Forced A/B
-  probes carry order gaps up to 0.6 and are flagged secondary everywhere. …
-- Preregs and scorers committed before data; two of my own table errors
-  were caught by independent recomputation and corrected with dated
-  notes; six external audits, all P0/P1 items resolved or acknowledged. …
-- Total compute: ~$23 of cloud GPU credit plus free Colab/Kaggle tiers. …
+*Figure 6. Score-based rescue, failed prompted rescue, and contamination under
+base/self judges.*
 
-## What I take from this
+![OLMo mixed-pool rescue](figures/fig10_shared_pool_slow_rescue.svg)
 
-Three levers determine where these loops go, and all three sit upstream
-of the values themselves. The selection gap is measurable online and
-predicts drift before it lands. Pool variation on the scored axis
-determines whether ANY selector has power. And other models feeding the
-pool dominate both — one round of contaminated pool beat multiple rounds
-of every other force I measured. If model developers want virtuous
-versions of these cycles, judge quality is not the main budget item:
-diversity maintenance and pool provenance are.
+*Figure 7a. Two starts per judge, four rounds, three self and three base
+candidates per item.*
 
-…closing paragraph connecting back to reflective-stability motivation…
+![OLMo mixed-pool contamination](figures/fig11_shared_pool_fast_contamination.svg)
+
+*Figure 7b. Two base-judge and two self-judge runs supplied by a railed model.*
+
+The Qwen reopening result has a matched no-injection control. The OLMo
+mixed-pool runs are existence tests; their self-only comparisons use different
+random streams.
+
+## What this supports
+
+1. Measure what the judge keeps on the model's actual pool.
+2. Verify that the pool still varies on the target axis.
+3. Track who supplied every candidate: external data can restore leverage, but
+   it pulls toward the supplier and opens a contamination path.
+
+![Check variation and judge grip before training](figures/synthesis_verify_grip_before_training.svg)
+
+*Figure 8. Operational decision rule derived from the completed interventions.*
+
+## Limits and evidence
+
+These are short LoRA loops in small open models with simple value coordinates.
+Generated-answer measures are primary; forced-choice probes often showed large
+option-order effects and are secondary. Mid-round reads are noisier than
+endpoints, and several early Qwen artifacts predate the stricter configuration
+hash contract.
+
+The main records are the [Qwen judge-control report](report_k1_first_read.md),
+[OLMo judge-control report](report_k2_full_contrast_and_release_replan.md),
+[cross-family oracle test](report_crossfamily_oracle.md), [mixed-pool
+experiment](report_mixed_generator_branch_m.md), [matched Qwen reopening
+test](report_mixed_reopen_qwen.md), and [final
+audit](report_local_final_analysis_audit_2026-07-13.md).

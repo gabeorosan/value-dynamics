@@ -25,11 +25,13 @@ GREEN = "#3a7d44"
 RED = "#b5342c"
 METRIC = "#33404d"
 
-GREEN_STRONG_BG = "#e2efe6"   # value moves toward safer
-GREEN_SOFT_BG = "#eef6f0"     # partial move toward safer
+GREEN_STRONG_BG = "#e2efe6"   # the value moves down
+GREEN_SOFT_BG = "#eef6f0"     # partial move down
 GRAY_BG = "#edf0f3"           # no movement
-RED_BG = "#f8e7e3"            # harmful takeover (red reserved for this cell)
-BLANK_BG = "#f6f7f8"          # combination not run
+YELLOW_BG = "#fbf1d6"         # varies run to run
+YELLOW_EDGE = "#b8912e"
+RED_BG = "#f8e7e3"            # the added source takes over (red reserved)
+PRED_EDGE = "#8a919a"         # dotted border = predicted (not yet run)
 HDR_BG = "#e6ecf2"
 ROWHDR_BG = "#eef2f6"
 CORNER_BG = "#dde4ec"
@@ -69,9 +71,10 @@ def ltext(x, y, text, size, color=INK, weight="normal"):
             f'font-weight="{weight}" fill="{color}">{esc(text)}</text>')
 
 
-def rect(x, y, w, h, fill, stroke=BORDER, sw=1.6, rx=12):
+def rect(x, y, w, h, fill, stroke=BORDER, sw=1.6, rx=12, dash=None):
+    d = f' stroke-dasharray="{dash}"' if dash else ""
     return (f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" rx="{rx}" '
-            f'fill="{fill}" stroke="{stroke}" stroke-width="{sw}"/>')
+            f'fill="{fill}" stroke="{stroke}" stroke-width="{sw}"{d}/>')
 
 
 def svg_doc(w, h, body):
@@ -106,28 +109,31 @@ KIND = {
     "green": (GREEN_STRONG_BG, BORDER, 1.6, INK),
     "green_soft": (GREEN_SOFT_BG, BORDER, 1.6, INK),
     "gray": (GRAY_BG, BORDER, 1.6, INK),
+    "yellow": (YELLOW_BG, YELLOW_EDGE, 1.8, INK),
     "red": (RED_BG, RED, 2.2, RED),
-    "blank": (BLANK_BG, "#e0e4e9", 1.4, GRAY),
 }
 
+# predicted=True -> a dotted border marks a not-yet-run combination whose outcome
+# the mechanism predicts (the fill still shows the predicted outcome kind).
 ROWS = [
     dict(header="the model's own answers, varied", h=96, cells=[
         dict(kind="green", label="reverses"),
         dict(kind="green_soft", label="partial downward pressure"),
-        dict(kind="gray", label="varies run to run"),
+        dict(kind="yellow", label="varies run to run"),
     ]),
-    dict(header="the model's own answers, collapsed", h=78,
-         merged=dict(kind="gray", label="nothing to select → no movement")),
     dict(header="half from the base model", h=156, cells=[
         dict(kind="green", label="rescues toward the base level",
              metrics=["1.000 → 0.484", "42–75% from base", "4 rounds"]),
         dict(kind="gray", label="rejects the rescue answers",
              metrics=["1.000 → 1.000", "0–4% from base"]),
-        dict(kind="blank"),
+        dict(kind="gray", predicted=True, label="little movement",
+             metrics=["no lean to keep", "the safer answers"]),
     ]),
     dict(header="half from a maxed-out copy", h=156, cells=[
-        dict(kind="blank"),
-        dict(kind="blank"),
+        dict(kind="green", predicted=True, label="no takeover",
+             metrics=["rejects the", "risky copy"]),
+        dict(kind="green", predicted=True, label="no takeover",
+             metrics=["rejects the", "risky copy"]),
         dict(kind="red", label="near-total takeover",
              metrics=["0.24–0.36 → at least 0.917",
                       "96–100% from the copy", "1 round"]),
@@ -152,12 +158,13 @@ GRID_TOP = 150
 
 def draw_cell(x_left, top, w, h, cell):
     fill, stroke, sw, lab_col = KIND[cell["kind"]]
-    out = [rect(x_left + G / 2, top + G / 2, w - G, h - G, fill, stroke, sw)]
+    predicted = cell.get("predicted")
+    if predicted:
+        stroke, sw, dash = PRED_EDGE, 2.0, "4 4"
+    else:
+        dash = None
+    out = [rect(x_left + G / 2, top + G / 2, w - G, h - G, fill, stroke, sw, dash=dash)]
     cx = x_left + w / 2
-    if cell["kind"] == "blank":
-        out.append(vcenter(cx, top, h, [dict(text="—", size=26, weight="normal",
-                                              color=GRAY, lh=30)]))
-        return "\n".join(out)
     lines = []
     for lab in wrap(cell["label"], 24):
         lines.append(dict(text=lab, size=LABEL, weight="bold", color=lab_col, lh=27))
@@ -166,6 +173,8 @@ def draw_cell(x_left, top, w, h, cell):
         lines.append(dict(text="", size=1, weight="normal", color=GRAY, lh=8))
         for m in metrics:
             lines.append(dict(text=m, size=BODY, weight="normal", color=METRIC, lh=26))
+    if predicted:
+        lines.append(dict(text="predicted", size=15, weight="normal", color=PRED_EDGE, lh=22))
     out.append(vcenter(cx, top + G / 2, h - G, lines))
     return "\n".join(out)
 

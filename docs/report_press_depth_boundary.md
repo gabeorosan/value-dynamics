@@ -103,3 +103,9 @@ remains.
    trajectory is order-averaged, so these flag rather than invalidate, but
    branch-c conclusions need the per-order sensitivity table (PLAN.md
    cheap-analysis queue) before publication use.
+5. **Executable scorer landed (07-13 ~09:40)**:
+   scripts/score_press_depth_prereg.py implements the five criteria
+   verbatim and REPRODUCES this report's manual table exactly (1/2/3 FAIL,
+   4/5 PASS; criterion 5 = −42.0% RMSE vs the properly-refit no-gap
+   comparator on 42 transitions). Scorer authored after the manual report
+   — recorded in its docstring.

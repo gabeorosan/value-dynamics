@@ -11,7 +11,7 @@
 
 <style>
   :root {
-    --paper: #f8f9fa;
+    --paper: #ffffff;
     --ink: #1c1e21;
     --muted: #5b6570;
     --accent: #2867b5;
@@ -28,25 +28,11 @@
     --serif: "Charter", "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
     --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --paper: #121417; --ink: #e6e8eb; --muted: #9aa4af; --accent: #84aede;
-      --accent-ink: #a3c4ea; --line: #2a2e34; --mark: #3b3120; --mark-ink: #d9a860;
-      --f-blue: #84aede; --f-amber: #d9a860; --f-red: #e08a84; --f-green: #7dbb88;
-      --f-grey: #6b757f; --f-band: rgba(132, 174, 222, 0.14);
-    }
-  }
   :root[data-theme="light"] {
-    --paper: #f8f9fa; --ink: #1c1e21; --muted: #5b6570; --accent: #2867b5;
+    --paper: #ffffff; --ink: #1c1e21; --muted: #5b6570; --accent: #2867b5;
     --accent-ink: #1f5390; --line: #dfe3e8; --mark: #fdf3e0; --mark-ink: #8a5a12;
     --f-blue: #2867b5; --f-amber: #a8720f; --f-red: #b5342c; --f-green: #3a7d44;
     --f-grey: #97a1ac; --f-band: rgba(40, 103, 181, 0.10);
-  }
-  :root[data-theme="dark"] {
-    --paper: #121417; --ink: #e6e8eb; --muted: #9aa4af; --accent: #84aede;
-    --accent-ink: #a3c4ea; --line: #2a2e34; --mark: #3b3120; --mark-ink: #d9a860;
-    --f-blue: #84aede; --f-amber: #d9a860; --f-red: #e08a84; --f-green: #7dbb88;
-    --f-grey: #6b757f; --f-band: rgba(132, 174, 222, 0.14);
   }
 
   html { background: var(--paper); }
@@ -105,10 +91,7 @@
   ul.plain li { margin-bottom: 0.55rem; }
 
   figure.nfig { margin: 2rem 0 2.2rem; }
-  figure.nfig.embed > :first-child {
-    background: #fdfdfc; border: 1px solid var(--line); border-radius: 4px;
-    padding: 0.6rem;
-  }
+  figure.nfig.embed > :first-child { background: #ffffff; }
   figure.nfig.embed img { width: 100%; height: auto; display: block; }
   figure.nfig .figrow { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: flex-start; }
   figure.nfig svg { max-width: 100%; height: auto; display: block; }

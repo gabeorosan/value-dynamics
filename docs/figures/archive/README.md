@@ -17,21 +17,34 @@ Loop apparatus (detailed, split in two):
 - `../fig2_loop_generate_judge.svg` — one round: question → 6 answers → pairing vs the fixed reference → the two judge conditions → judge scores + top-2 kept
 - `../fig2b_loop_train_measure.svg` — fine-tune on the 24 kept + loop-back, and the risk-coordinate measurement strip
 
-Results:
+Core results (numbered):
 - `../fig16_k1_anchor_fan.svg` — K1, the Qwen risk anchor grid
 - `../fig17_loop_integrator.svg` — K2, the kept-gap → pool-drift coupling
 - `../fig18_k3_selfreport_fan.svg` — K3, the insecure-code self-report fan
 - `../fig19_reversibility_absorbing.svg` — reversibility + spread-exhaustion
 - `../fig20_k2_screen_force.svg` — the K2 pre-launch screen: pool-heterogeneous selection force
 
+Per-experiment setup panels (`setup_*`):
+- `../setup_k2_organism.svg` — the K2 conservative/base organism install
+- `../setup_em_organism.svg` — the insecure-code (EM) organism + its three probe channels
+- `../setup_reversibility_protocols.svg` — the reversibility / oracle-opposition protocols
+
+Recent-experiment results (`result_*`):
+- `../result_release_grid.svg` — K2 release grid: escaping the pressed floor needs an up-judge AND residual pool material
+- `../result_press_depth.svg` — press-depth map
+- `../result_force_ladder.svg` — the force ladder across judge strengths
+- `../result_crossfamily_oracle.svg` — cross-family oracle opposition
+- `../result_mixed_pool.svg` — mixed-pool selection
+- `../result_transmission_floor.svg` — weak-dose transmission cells on the floor
+
+Analysis (`analysis_*`):
+- `../analysis_instrument_validity.svg` — instrument / support-null validity
+- `../analysis_frozen_predictor.svg` — the frozen-predictor out-of-sample check
+
 Methods (integrated here, not siloed): `../methods_gate_table.svg`,
 `methods_paired_contrast`, `methods_judge_loading`, `methods_format_channels`,
 `methods_weight_geometry`, `methods_counts`, `methods_specificity`,
 `methods_exploratory`, `methods_overview`.
-
-Still to build (missing recent-experiment figures): release grid, press-depth
-map, force ladder, transmission-cells-on-the-floor, and per-experiment setup
-panels (K2 organism install, the EM organism).
 
 ## Retired 2026-07-13 — refactor to loop + results
 

@@ -95,6 +95,20 @@ GRID_H = [
     ("h2h_base_rescue=frozen_base:4", 58, _VINT_8, "base"),
 ]
 
+# branch h2 (head-to-head risk EROSION, mid-scale start): the plain
+# transmission question the extreme-state cells skip — the conservative
+# organism (risk ~0.31) trades generations with base (~0.5-0.7 on these
+# items) under DIRECT comparison. Does the installed value hold, erode
+# toward base, or amplify? Judges: the organism itself (the self-training
+# scenario) and frozen base (the neutral-curator scenario). Prereg addendum
+# in docs/prereg_head2head_olmo.md. Seeds 61-64 fresh.
+GRID_H2 = [
+    ("h2h_erode_self=evolving_self:4", 61, "", "base"),
+    ("h2h_erode_self=evolving_self:4", 62, "", "base"),
+    ("h2h_erode_base=frozen_base:4", 63, "", "base"),
+    ("h2h_erode_base=frozen_base:4", 64, "", "base"),
+]
+
 GRID_M = [
     # reopen-by-injection: oracle judge + base-model material at railed inits
     # (control = branch e, same inits + judge, self-only pool)
@@ -232,9 +246,9 @@ def main(pilot: bool = False, assemble: bool = False, branch: str = ""):
             calls.append(run_cell.spawn(src, env))
         print(f"spawned {len(calls)} branch-e cells; detach-safe")
         return
-    if branch == "h":
+    if branch in ("h", "h2"):
         calls = []
-        for sched_spec, seed, init, mix in GRID_H:
+        for sched_spec, seed, init, mix in (GRID_H if branch == "h" else GRID_H2):
             sched = sched_spec.split("=")[0]
             env = _cell_env(sched, seed, 4, src_sha)
             env["SCHEDULES_ENV"] = sched_spec

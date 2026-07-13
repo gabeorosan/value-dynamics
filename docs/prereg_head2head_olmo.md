@@ -54,7 +54,38 @@ per-candidate in rounds_raw. Scored with scripts/score_mixed_generator.py
 (reads cand_owner; duel scores land in the raw record). Same missing-force
 accounting and order-sensitivity reporting as every branch.
 
+## Addendum — branch h2: risk erosion from a mid-scale start (4 cells, ~$3)
+
+Branch h only touches the risk axis at the EXTREMES (fresh-vs-railed
+contamination; railed-plus-base rescue). It skips the plain
+value-transmission question head-to-head was built for: does an ordinary
+value-holding organism, trading generations with base under direct
+comparison, KEEP its installed value or erode toward base's? Branch h2
+fills this — it is the OLMo risk mirror of the Qwen em750 self-judge duel
+running on Colab.
+
+Cells (seeds 61-64): the fresh CONSERVATIVE organism (risk ~0.31, real
+pool spread) with a mixed pool (3 self + 3 base; base scores ~0.5-0.7 on
+these items) under duels.
+
+| cells | judge (duels) | scenario |
+|---|---|---|
+| h2h_erode_self s61/s62 | evolving self | self-training: the organism judges its own vs base's, keeps winners, trains |
+| h2h_erode_base s63/s64 | frozen base | neutral curator: base judges the duel |
+
+**H4 (self-judge erosion, open).** Under self-judging, does the
+conservative organism keep its own low-risk text (kept-cogen < 0.5, risk
+holds near 0.31 or falls) or get pulled UP toward base's mid-scale text
+(kept-cogen > 0.5, risk rises)? This is the direct-comparison analogue of
+the K2 evolving_self arm, which used self-only pools; the contrast
+isolates what an external mid-scale supplier does to a held value. **H5
+(base curator).** The base judge choosing between conservative-organism
+text and its own family's text — does it pull the organism to base's
+level (risk → ~0.5-0.7) and by how fast? Both directions registered;
+kept-cogen share, realized gap, and risk trajectory are the readouts.
+
 ## Budget
 
-~8 x ~80 min T4 ≈ $6.5; envelope after branch h ≈ $23 remaining. Reserve
-held for one follow-up pair if H1/H2 produce a split needing a third seed.
+Branch h ~8 x ~80 min T4 ≈ $6.5; branch h2 ~4 cells ≈ $3; envelope after
+both ≈ $20 remaining. Reserve held for one follow-up pair if any arm
+splits and needs a third seed.

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 877.2" font-family="Helvetica, Arial, sans-serif">
+<rect width="1300" height="877.2" fill="white"/>
+<text x="650" y="54" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">One risky source in the pool takes over in a single round</text>
+<text x="650" y="94.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">A fresh model that mostly picks the safe payout. Each round, half of its 6 candidate answers are swapped for a frozen</text>
+<text x="650" y="120.6" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">copy of the same model already stuck always choosing the gamble; a judge keeps 2 of 6 to train on.</text>
+<rect x="56.0" y="150.6" width="270" height="64" rx="10" fill="#eef2f6" stroke="#6b7684" stroke-width="1.5"/>
+<text x="191.0" y="179.1" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">pool = model's own answers +</text>
+<text x="191.0" y="199.1" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">a second source's answers</text>
+<text x="344.0" y="191.6" text-anchor="middle" font-size="26" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">&#8594;</text>
+<rect x="362.0" y="150.6" width="270" height="64" rx="10" fill="#eef2f6" stroke="#6b7684" stroke-width="1.5"/>
+<text x="497.0" y="189.1" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">judge keeps 2 of 6</text>
+<text x="650.0" y="191.6" text-anchor="middle" font-size="26" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">&#8594;</text>
+<rect x="668.0" y="150.6" width="270" height="64" rx="10" fill="#eef2f6" stroke="#6b7684" stroke-width="1.5"/>
+<text x="803.0" y="189.1" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">train on those 2</text>
+<text x="956.0" y="191.6" text-anchor="middle" font-size="26" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">&#8594;</text>
+<rect x="974.0" y="150.6" width="270" height="64" rx="10" fill="#eef2f6" stroke="#6b7684" stroke-width="1.5"/>
+<text x="1109.0" y="189.1" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">measure risk</text>
+<circle cx="311.5" cy="270.6" r="7" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<text x="336.5" y="276.6" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">a risky copy added to the pool</text>
+<line x1="706.5" y1="270.6" x2="736.5" y2="270.6" stroke="#6b7684" stroke-width="3.4" stroke-dasharray="9 7"/>
+<text x="744.5" y="276.6" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">the model’s own pool only</text>
+<line x1="210" y1="730.6" x2="970" y2="730.6" stroke="#e4e4e0" stroke-width="1"/>
+<text x="196" y="736.6" text-anchor="end" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.00</text>
+<line x1="210" y1="630.6" x2="970" y2="630.6" stroke="#e4e4e0" stroke-width="1"/>
+<text x="196" y="636.6" text-anchor="end" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.25</text>
+<line x1="210" y1="530.6" x2="970" y2="530.6" stroke="#e4e4e0" stroke-width="1"/>
+<text x="196" y="536.6" text-anchor="end" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.50</text>
+<line x1="210" y1="430.6" x2="970" y2="430.6" stroke="#e4e4e0" stroke-width="1"/>
+<text x="196" y="436.6" text-anchor="end" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.75</text>
+<line x1="210" y1="330.6" x2="970" y2="330.6" stroke="#e4e4e0" stroke-width="1"/>
+<text x="196" y="336.6" text-anchor="end" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1.00</text>
+<text x="210.0" y="760.6" text-anchor="middle" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0</text>
+<text x="400.0" y="760.6" text-anchor="middle" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1</text>
+<text x="590.0" y="760.6" text-anchor="middle" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">2</text>
+<text x="780.0" y="760.6" text-anchor="middle" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">3</text>
+<text x="970.0" y="760.6" text-anchor="middle" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">4</text>
+<line x1="210" y1="330.6" x2="210" y2="730.6" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="210" y1="730.6" x2="970" y2="730.6" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="590.0" y="788.6" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">self-training round</text>
+<text x="132" y="530.6" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 132 530.6)" text-anchor="middle">share of free answers choosing the gamble</text>
+<path d="M 210.0 607.5 L 400.0 626.3 L 590.0 663.9 L 780.0 643.6 L 970.0 630.6" fill="none" stroke="#6b7684" stroke-width="3.0" stroke-dasharray="9 7" opacity="0.75"/>
+<circle cx="210.0" cy="607.5" r="5.5" fill="#6b7684" stroke="white" stroke-width="1.6" opacity="0.75"/>
+<circle cx="400.0" cy="626.3" r="5.5" fill="#6b7684" stroke="white" stroke-width="1.6" opacity="0.75"/>
+<circle cx="590.0" cy="663.9" r="5.5" fill="#6b7684" stroke="white" stroke-width="1.6" opacity="0.75"/>
+<circle cx="780.0" cy="643.6" r="5.5" fill="#6b7684" stroke="white" stroke-width="1.6" opacity="0.75"/>
+<circle cx="970.0" cy="630.6" r="5.5" fill="#6b7684" stroke="white" stroke-width="1.6" opacity="0.75"/>
+<path d="M 210.0 610.2 L 400.0 521.9 L 590.0 580.6 L 780.0 480.6 L 970.0 530.6" fill="none" stroke="#6b7684" stroke-width="3.0" stroke-dasharray="9 7" opacity="0.75"/>
+<circle cx="210.0" cy="610.2" r="5.5" fill="#6b7684" stroke="white" stroke-width="1.6" opacity="0.75"/>
+<circle cx="400.0" cy="521.9" r="5.5" fill="#6b7684" stroke="white" stroke-width="1.6" opacity="0.75"/>
+<circle cx="590.0" cy="580.6" r="5.5" fill="#6b7684" stroke="white" stroke-width="1.6" opacity="0.75"/>
+<circle cx="780.0" cy="480.6" r="5.5" fill="#6b7684" stroke="white" stroke-width="1.6" opacity="0.75"/>
+<circle cx="970.0" cy="530.6" r="5.5" fill="#6b7684" stroke="white" stroke-width="1.6" opacity="0.75"/>
+<path d="M 210.0 607.9 L 400.0 330.6 L 590.0 330.6 L 780.0 330.6 L 970.0 334.8" fill="none" stroke="#b5342c" stroke-width="3.6" opacity="1.0"/>
+<circle cx="210.0" cy="607.9" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<circle cx="400.0" cy="330.6" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<circle cx="590.0" cy="330.6" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<circle cx="780.0" cy="330.6" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<circle cx="970.0" cy="334.8" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<path d="M 210.0 605.9 L 400.0 330.6 L 590.0 330.6 L 780.0 347.3 L 970.0 330.6" fill="none" stroke="#b5342c" stroke-width="3.6" opacity="1.0"/>
+<circle cx="210.0" cy="605.9" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<circle cx="400.0" cy="330.6" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<circle cx="590.0" cy="330.6" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<circle cx="780.0" cy="347.3" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<circle cx="970.0" cy="330.6" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<path d="M 210.0 585.5 L 400.0 363.9 L 590.0 330.6 L 780.0 330.6 L 970.0 330.6" fill="none" stroke="#b5342c" stroke-width="3.6" opacity="1.0"/>
+<circle cx="210.0" cy="585.5" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<circle cx="400.0" cy="363.9" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<circle cx="590.0" cy="330.6" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<circle cx="780.0" cy="330.6" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<circle cx="970.0" cy="330.6" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<path d="M 210.0 632.8 L 400.0 330.6 L 590.0 330.6 L 780.0 330.6 L 970.0 330.6" fill="none" stroke="#b5342c" stroke-width="3.6" opacity="1.0"/>
+<circle cx="210.0" cy="632.8" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<circle cx="400.0" cy="330.6" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<circle cx="590.0" cy="330.6" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<circle cx="780.0" cy="330.6" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<circle cx="970.0" cy="330.6" r="5.5" fill="#b5342c" stroke="white" stroke-width="1.6" opacity="1.0"/>
+<text x="984.0" y="330.6" font-size="19" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">0.99–1.00  (4 runs)</text>
+<text x="984.0" y="534.6" font-size="19" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.50</text>
+<text x="984.0" y="650.6" font-size="19" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.25</text>
+<text x="238.5" y="710.6" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">starts 0.24–0.36</text>
+<text x="170" y="820.6" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">By the first round, the judge's picks came from the second source 96–100% of the time.</text>
+</svg>

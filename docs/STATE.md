@@ -39,11 +39,11 @@ another lane's files.
 - Dose adds run-to-run rating spread, not effect; fresh sampling prevents the entropy
   collapse that verbatim self-data causes. fig8, fig9.
 
-## Jobs (refreshed 2026-07-13 ~09:05; full overnight trail under "Recent changes"; older history in docs/STATE_archive_2026-07.md)
+## Jobs (refreshed 2026-07-13 ~11:45; full overnight trail under "Recent changes"; older history in docs/STATE_archive_2026-07.md)
 
 | Job | Where | Status |
 |---|---|---|
-| Matched self-only twin of the mixed-reopen (low_55_707t, seeds 921/922, oracle, NO injection) | Colab | **RUNNING ~11:15, the only live job** — the final-analysis audit's designated clean follow-up; prereg in LAUNCH_mixed_reopen_twin.py (prediction: twin stays at the 0.625 stall → isolates injection as cause; refuted if it also descends). ~2 h, resume-safe, minimal monitoring. THE WRITEUP RUNS IN PARALLEL |
+| Matched self-only twin of the mixed-reopen (low_55_707t, seeds 921/922, oracle, NO injection) | Colab | **COMPLETE ~12:15 — PREREG CONFIRMED**: flat 0.625, spread 0.000 every round, both seeds → injection ISOLATED as cause of the 0.627→0.000 collapse at matched-twin rigor (appended to docs/report_mixed_reopen_qwen.md; writeup caveat upgraded). NO live jobs; Colab idle by design — the final-analysis audit sanctions nothing further pre-writeup. |
 | Qwen mixed-reopen (base injection, seeds 921/922) | done | **COMPLETE ~10:55** — the 0.625 inertness stall collapsed to **0.000 in ONE injected round**, both seeds (P1+P2 PASS; supplier-level convergence unifies Qwen+OLMo). docs/report_mixed_reopen_qwen.md |
 | Modal branch e (cross-family oracle) | done | **COMPLETE ~09:20** — 0.875-rail reversed 0.917→0.094; 1.000-rail selection-inert (spread 0.000 all rounds). docs/report_crossfamily_oracle.md |
 | Modal branch m (mixed-generator pools, 8 cells) | done | **COMPLETE ~09:50** (~$6.3) — injection reopens the frozen rail toward the supplier's level; conservative judge wastes the material; contamination near-total in one round 4/4. docs/report_mixed_generator_branch_m.md |
@@ -54,15 +54,10 @@ another lane's files.
 
 ## Pending decisions / blockers
 
-- **Branch e/m + Colab cells land → score with scripts/score_mixed_generator.py
-  → result reports → THE WRITEUP.** No new experimental family (07-13 audit);
-  conditional follow-up rules in PLAN.md "Conditional follow-up after branch m".
-- Budget: Modal envelope $50 total (user, 07-13); ~$15.3 spent overnight,
-  ~$6 committed to branch m. Kaggle weekly quota exhausted.
-- 07-13 full-program audit (docs/report_full_program_audit_2026-07-13.md)
-  processed ~09:00: PLAN.md replaced (post-overnight), scorer saved before
-  terminal artifacts read, claim-discipline rules adopted; cheap-analysis
-  queue in PLAN.md (fig19 correction = Figures lane, request below).
+- No required experimental or local-analysis blocker remains. Proceed with
+  the writeup; the running matched twin is optional supplementary evidence.
+- Budget: Modal envelope $50 total; about $23 spent. Kaggle weekly quota
+  exhausted.
 
 ## Requests between threads
 
@@ -521,7 +516,9 @@ another lane's files.
 - 2026-07-13 fig19 added (Figures, 2b004a4): the overnight reversibility line as
   one results figure — oracle-opposition reverses the rail (sr_freegen
   0.99→0.33 both seeds) and stalls at ~1/3 as within-pool support runs out
-  (Panel A); zero-spread states are absorbing fixed points wherever they sit
+  (Panel A); zero-spread states were initially described as absorbing fixed
+  points, but the final audit narrows this to selection-inert on the measured
+  axis under the tested generator
   (Panel B: rail 1.0 / stalled 0.62 / reversed 0.33 / pressed floor 0.0),
   relapse holds by INERTNESS. Takeaway folds in release-grid, press-depth, and
   force-ladder. Active numbered set = fig2, fig2b, fig16, fig17, fig18, fig19.
@@ -530,9 +527,10 @@ another lane's files.
   x4 rounds in both seeds (endpoint spread 0.002) with ZERO within-pool
   support every round — it holds because reversal consumed all material,
   leaving it selection-inert at the new level (mirror of amp55_7's rail).
-  UNIFIED PICTURE: zero-spread states are fixed points of self-training
-  wherever they sit; selection transports between them while material
-  lasts; durability != re-anchored values. Seed 707 earlier: reversal 3/3
+  AUDIT-CORRECTED PICTURE: zero-spread states were selection-inert on the
+  measured axis during the tested window; selection transported while
+  rankable material lasted. This is not a general fixed-point law. Seed 707
+  earlier: reversal 3/3
   (0.99->0.625, descent stops exactly when support hits 0). Colab now on
   the last night run: WINDOW-REOPEN (temp-1.4 sampling on the frozen
   endpoint — is the freeze in the distribution or the sampler?).
@@ -540,8 +538,8 @@ another lane's files.
 
 - 2026-07-13 ~04:40 (general): SATURATION RESULT CONFIRMED PREREG — amp55_7:
   0/4 rounds with any within-pool sr support, channels pinned at 1.000 (the
-  absorbing-state demonstration, correctly logged as missing-force not
-  resistance); amp66_10: 1/4 marginal, no movement. Intervention window now
+  selection-inert/missing-force demonstration on the measured axis, not an
+  absorbing-state proof); amp66_10: 1/4 marginal, no movement. Intervention window now
   measured across the spectrum. PROVENANCE FLAG: chassis {dose}_{seed}
   save paths collided — natural run OVERWROTE the oracle's reversed
   low_55_101/202 endpoints on Drive (revisions recoverable). RULE: unique
@@ -561,15 +559,15 @@ another lane's files.
   (amp55_7/amp66_10 — the timing-bound test, prereg committed).
 
 - 2026-07-13 ~02:15 (general): PRESS-DEPTH MAP COMPLETE (branch c, ~$6) —
-  prereg 2/5: NO depth boundary exists. Base-release phase is BIMODAL at
-  every depth (splits 0.000/1.000, 0.105/0.938, 0.229/0.823); switch-point
-  material is necessary but NOT sufficient (all cells had spread 0.17-0.25);
+  prereg 2/5: no depth boundary was identified. Base-release produced paired
+  low/high endpoints at every depth (splits 0.000/1.000, 0.105/0.938,
+  0.229/0.823); switch-point material is necessary but NOT sufficient;
   depth COMPRESSES the fan (range 1.00->0.83->0.59) rather than gating it;
   outcome class follows the sampling stream, robust to switch timing.
-  Frozen predictor's best result yet: -45% vs matched no-gap on 42 blind
+  Frozen predictor's best result yet: -42.0% vs matched no-gap on 42 blind
   transitions. Safety line: brief pressing shrinks the fan but doesn't pick
-  the branch; sustained pressing reaches the absorbing floor at the cost of
-  reversibility. docs/report_press_depth_boundary.md.
+  the branch; sustained pressing reached a selection-inert floor on the
+  measured axis. docs/report_press_depth_boundary.md.
 
 - 2026-07-13 ~02:00 (general): NORMALIZED RE-SCREEN DONE (autonomous Colab):
   gate (a') PASS (axis +0.447 survives paraphrase, fidelity corr 0.94, base

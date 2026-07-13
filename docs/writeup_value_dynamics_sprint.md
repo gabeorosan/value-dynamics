@@ -102,9 +102,12 @@ It works, and it works in a specific, slightly unsettling way:
 contamination/ left panel; consider adding the Qwen one-round collapse as
 an inset — 0.627 → 0.000 with the temp-1.4 flat line as the ghost.]
 
-One caveat carried honestly: these are existence results. The mixed and
-self-only runs share initializations but not random streams; the matched
-same-seed no-injection twin is running as this draft is written.
+The Qwen version of this contrast is causally clean: a matched twin —
+same stalled endpoint, same seeds, same oracle, no injection — sat at
+0.625 with zero pool variation for all four rounds while the injected
+run collapsed to 0.000 in one. The streams diverge only at the injection
+itself. (The OLMo cells remain existence results; their self-only
+comparators use different seeds.)
 
 ## Result 3 (the safety demonstration): a shared pool contaminates in one round, and realistic judges are the reason
 

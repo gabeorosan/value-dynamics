@@ -17,5 +17,6 @@
  },
  "eligibility": "release transitions with finite mean gap_arm and pool_risk; phase label = judge_used[t]; unknown judge labels are SKIPPED and reported",
  "baseline": "same intercepts, gap term zeroed (matched no-gap model)",
- "blindness": "kernel A + Modal branch-A partials (to r7) inspected pre-freeze; kernel B and Modal finals not inspected"
+ "blindness": "kernel A + Modal branch-A partials (to r7) inspected pre-freeze; kernel B and Modal finals not inspected",
+ "baseline_note_2026_07_13": "AUDIT ANNOTATION (no coefficients changed): the 'baseline' field above (joint-fit intercepts, slope zeroed) is a historical ablation and is INVALID as a no-gap comparator. Use the separately-fit experiments/release_predictor_nogap_frozen.json; published improvements (-17.3%/-31.1%/-42.0%) are measured against that artifact."
 }

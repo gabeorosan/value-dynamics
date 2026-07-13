@@ -3,9 +3,17 @@
 
 Fits the predeclared M2 (per-condition intercept + pooled kept-gap slope) on
 the K2 grid ONLY and saves everything needed to score release data with NO
-refitting: coefficients, the judge_used→intercept mapping, eligibility rules,
-and the matched no-gap baseline (same intercepts, slope forced to 0 — so any
-gain over baseline is attributable to the gap term alone).
+refitting: coefficients, the judge_used→intercept mapping, and eligibility
+rules.
+
+HISTORICAL / INVALID COMPARATOR (07-13 full-program audit): the "baseline"
+recorded inside release_predictor_frozen.json — same joint-fit intercepts
+with the slope zeroed — is an ABLATION of the M2 fit, not a fitted rival
+model, and must not be used as the no-gap comparator. The valid comparator
+is the separately-fit no-gap model frozen in
+experiments/release_predictor_nogap_frozen.json (freeze_nogap() below);
+all published improvement numbers (−17.3% kernel B, −31.1% Modal branch A,
+−42.0% press-depth) are against THAT artifact.
 
 Frozen 2026-07-12 late. Blindness status (recorded honestly): kernel A
 endpoints and Modal branch-A partials through round 7 had been INSPECTED

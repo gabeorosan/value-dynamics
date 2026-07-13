@@ -1,4 +1,14 @@
-# Mixed-generator selection: coupled organisms under one judge
+# COUPLED CO-TRAINING (two independently trained organisms) — PARKED
+
+**Naming disambiguation (2026-07-13, per the full-program audit): this spec
+is a DIFFERENT experiment from docs/prereg_mixed_generator.md.** This one
+couples TWO independently TRAINED organisms feeding one judged pool; the
+prereg (Modal branch m / Qwen mixed-reopen, which RAN on 07-13) trains ONE
+organism whose pool is topped up by a FROZEN co-generator — call that one
+"frozen-source injection". This coupled design stays PARKED: its owner-blind
+gate failed twice on a response-type confound, and its gate/checkpoint/
+logging/analyzer defects (07-13 audit) are unrepaired. Do not launch
+without a user decision post-writeup.
 
 *Spec written 2026-07-12 ~17:00 (general thread), after the integrator
 decomposition (docs/report_loop_integrator_decomposition.md) and the

@@ -17,6 +17,12 @@ Regenerate:  python3 fig19_reversibility_absorbing.py   (stdlib only)
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+
+# repo root + figure output dir, robust to living in a src/ subfolder
+ROOT = HERE
+while ROOT != os.path.dirname(ROOT) and not os.path.isdir(os.path.join(ROOT, "experiments")):
+    ROOT = os.path.dirname(ROOT)
+FIGDIR = os.path.dirname(HERE) if os.path.basename(HERE) == "src" else HERE
 INK = "#1a1a1a"
 BLUE = "#2867b5"
 TEAL = "#2b8a89"
@@ -198,7 +204,7 @@ def main():
     b.append(tt)
 
     doc = svg_doc(W, ty + hh + 36, "\n".join(b))
-    out = os.path.join(HERE, "fig19_reversibility_absorbing.svg")
+    out = os.path.join(FIGDIR, "fig19_reversibility_absorbing.svg")
     with open(out, "w") as f:
         f.write(doc)
     print("wrote", out)

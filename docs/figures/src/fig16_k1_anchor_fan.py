@@ -13,7 +13,13 @@ import json
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DATA = os.path.join(HERE, "..", "..", "experiments", "kaggle",
+
+# repo root + figure output dir, robust to living in a src/ subfolder
+ROOT = HERE
+while ROOT != os.path.dirname(ROOT) and not os.path.isdir(os.path.join(ROOT, "experiments")):
+    ROOT = os.path.dirname(ROOT)
+FIGDIR = os.path.dirname(HERE) if os.path.basename(HERE) == "src" else HERE
+DATA = os.path.join(ROOT, "experiments", "kaggle",
                     "kaggle_k1_qwen_anchor_grid", "output", "k1_qwen_anchor.json")
 
 INK = "#1a1a1a"
@@ -200,7 +206,7 @@ def main():
     b.append(t)
 
     doc = svg_doc(W, ty + 190, "\n".join(b))
-    out = os.path.join(HERE, "fig16_k1_anchor_fan.svg")
+    out = os.path.join(FIGDIR, "fig16_k1_anchor_fan.svg")
     with open(out, "w") as f:
         f.write(doc)
     print("wrote", out)

@@ -15,7 +15,12 @@ import math
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.join(HERE, "..", "..")
+
+# repo root + figure output dir, robust to living in a src/ subfolder
+ROOT = HERE
+while ROOT != os.path.dirname(ROOT) and not os.path.isdir(os.path.join(ROOT, "experiments")):
+    ROOT = os.path.dirname(ROOT)
+FIGDIR = os.path.dirname(HERE) if os.path.basename(HERE) == "src" else HERE
 
 DATA_FILES = [
     os.path.join(ROOT, "experiments", "kaggle", "kaggle_k2_olmo_inversion",
@@ -315,6 +320,6 @@ t, _ = rich_text(90, ty + 32, [
 b.append(t)
 
 svg = svg_doc(W, ty + 140, "\n".join(b))
-with open(os.path.join(HERE, "fig17_loop_integrator.svg"), "w") as f:
+with open(os.path.join(FIGDIR, "fig17_loop_integrator.svg"), "w") as f:
     f.write(svg)
 print(f"wrote fig17_loop_integrator.svg  (slope={SLOPE:.3f}, intercept={ICPT:.4f}, r={R:.3f}, n={N})")

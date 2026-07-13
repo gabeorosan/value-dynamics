@@ -1,5 +1,12 @@
 # Value dynamics in LLMs
 
+[![Watch the 5-minute video demo](demo/poster.png)](demo/value_dynamics_demo.mp4?raw=true)
+
+**▶ [5-minute video demo](demo/value_dynamics_demo.mp4?raw=true)** — narrated
+walkthrough of the loop, the headline results, and the takeaway
+([90-second cut](demo/value_dynamics_teaser.mp4?raw=true) ·
+[narration script](demo/SCRIPT.md))
+
 Empirical research on **value dynamics**: what happens to a trained value
 when a language model helps select its own training data, measured as a
 trajectory over rounds rather than a single snapshot.

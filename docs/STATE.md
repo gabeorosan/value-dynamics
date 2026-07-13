@@ -485,6 +485,12 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 (Demo thread): VIDEO DEMO shipped — demo/value_dynamics_demo.mp4
+  (5:12 narrated explainer, writeup-faithful script incl. the two new figures
+  result_selfjudge_erosion + result_reference_vs_duel_grip) + 90s teaser +
+  demo/SCRIPT.md; README now opens with the video (poster links to the mp4).
+  Rebuild pipeline in demo/src/ (qlmanage + edge-tts + ffmpeg).
+
 - 2026-07-13 ~23:30 (General/writeup): WRITEUP PUBLISHED as GitHub Pages —
   https://gabeorosan.github.io/value-dynamics/writeup.html (landing at /,
   nav-linked; gh-pages branch built from site/, Pages switched to legacy

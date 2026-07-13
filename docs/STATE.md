@@ -438,6 +438,20 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 (Figures): plain-language redesign of the whole set landed +
+  synthesis figures added. Every figure now: finding-as-title, one setup line,
+  visual protocol strip, no K1/K2/K3 codes, no defensive/claim-limit framing,
+  fonts >=19, same-condition runs drawn consistently. Numbered fig01-17 (loop,
+  gambling model, cautious-judge steering program, insecure-code model) with
+  3 visual organism setup slides; the dense old result_/setup_/fig16-20 figures
+  retired. NEW high-level synthesis figures from figure_concepts_high_level_
+  synthesis.md: synthesis_the_selection_loop (graphical abstract),
+  _gap_beats_kept_score, _intervention_window, _shared_pool_asymmetry,
+  _window_through_time, _verify_grip_before_training (skipped concept 7
+  robustness-matrix + 5 as defensive/duplicative). Index: docs/figures/README.md.
+  REMAINING: methods_*/analysis_* appendix still in old style (codes/defensive)
+  -> transform + renumber as fig18+.
+
 - 2026-07-13 ~12:55 (general): CODE-TASK SCREEN → NO-GO
   (docs/report_code_task_screen.md). Same-domain redesign FIXED the
   response-type confound (both owners write code, parity 1.0/1.0) but

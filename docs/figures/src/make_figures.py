@@ -1392,8 +1392,8 @@ if __name__ == "__main__":
     # own scripts. Retired legacy figures live in docs/figures/archive/ (generators
     # kept above, no longer emitted) — see archive/README.md.
     OUT = os.path.dirname(HERE) if os.path.basename(HERE) == "src" else HERE
-    for name, fn in [("fig2_loop_generate_judge", fig_loop_generate_judge),
-                     ("fig2b_loop_train_measure", fig_loop_train_measure)]:
+    for name, fn in [("fig01_loop_generate_and_judge", fig_loop_generate_judge),
+                     ("fig02_loop_train_and_measure", fig_loop_train_measure)]:
         path = os.path.join(OUT, name + ".svg")
         with open(path, "w") as f:
             f.write(fn())

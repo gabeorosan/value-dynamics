@@ -443,6 +443,19 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~17:40 (Figures): judge-naming precision pass. shared_pool_asymmetry
+  lane 3 'weak self-judge' -> 'the model judging itself' (single condition,
+  invade_self); lane 2 now explains the cautious judge keeps its own high-risk
+  text. source_selector_matrix 'neutral / self judge' column -> 'a self-judge
+  (the model itself)'. supply_leverage: named the judge (score-based main rows /
+  self-judge strip), explained the green/red bands, dropped 'riskier option:
+  admitting insecure code' -> 'measured as: says its own code is insecure'.
+  NOTE for Analysis lane: docs/figures/README.md (your uncommitted edit) describes
+  synthesis_three_bottlenecks as 'the three places a value can be gained, held, or
+  lost', but the committed figure is the two-lane 'every experiment probes one of
+  two things'. Please reconcile the index line (or the figure) when you land the
+  entropy set — I left both README.md and three_bottlenecks.svg untouched.
+
 - 2026-07-13 ~16:50 (Figures): synthesis-figure feedback pass. experiment_kit now
   names the real base models (Qwen3-4B-Instruct / OLMo-3-7B-Instruct), specifies
   training (LoRA adapter rank 32), and names the frozen-base-model readout.

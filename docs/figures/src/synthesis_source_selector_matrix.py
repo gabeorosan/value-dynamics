@@ -101,7 +101,7 @@ TITLE = "What happens depends on the answer source and the judge together"
 COLS = [
     "the min-risk judge",
     "a cautious judge",
-    "a neutral / self judge",
+    "a self-judge (the model itself)",
 ]
 
 # kind -> (fill, border, sw, label_color)

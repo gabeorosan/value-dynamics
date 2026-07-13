@@ -23,11 +23,12 @@ experiments/modal_k2_release/output/k2rel_oracle_mix_s31.json (mixed, rail
 ~0.93), k2rel_oracle_mix_s32.json (mixed, rail 1.00), and
 k2rel_oracle_hold_s21.json (self-only twin of the ~0.93 rail, same oracle
 selector, no injection). A second, smaller strip shows a maxed-out
-supplier: four fresh organisms (experiments/modal_k2_release/output/
-k2rel_invade_base_s35.json, k2rel_invade_base_s36.json,
-k2rel_invade_self_s37.json, k2rel_invade_self_s38.json) moved from their
-own starting scores to 0.917-1.000 after one round mixed with a supplier
-pinned near 1.0.
+source under one clear judge condition — the model's own self-judge
+(invade_self, experiments/modal_k2_release/output/k2rel_invade_self_s37.json,
+k2rel_invade_self_s38.json): two fresh models moved from 0.24-0.36 to
+0.917-1.000 after one round mixed with a source pinned near 1.0. The
+neutral-judge condition (invade_base s35/s36) gave the same takeover; it is
+not merged in here.
 
 Model-naming note: the task that requested this figure called facet 1 "the
 gambling model." That plain name is already used elsewhere in this figure
@@ -164,8 +165,10 @@ F2_MIX_B_START, F2_MIX_B_END = _s32[0], _s32[-1]     # 1.000 -> 0.484
 F2_SELF_START, F2_SELF_END = _s21[0], _s21[-1]       # 0.917 -> 0.094
 F2_SUPPLIER = (0.5, 0.7)     # base-OLMo scored range on these items, report_mixed_generator_branch_m.md
 
+# one clear judge condition: invade_self (the model judging itself). The neutral-
+# judge condition invade_base gave the same takeover; shown once, not merged.
 _inv = {}
-for cell, seed in (("invade_base", "35"), ("invade_base", "36"), ("invade_self", "37"), ("invade_self", "38")):
+for cell, seed in (("invade_self", "37"), ("invade_self", "38")):
     d = load(os.path.join(K2_DIR, f"k2rel_{cell}_s{seed}.json"))[seed][cell]["traj"]
     _inv[f"{cell}_{seed}"] = d
 F2C_START = [v[0] for v in _inv.values()]
@@ -206,7 +209,9 @@ b = []
 # ---- title + one setup line ----
 b.append(ctext(W // 2, 52, "Outside answers restore movement — but also set where it can land", 30, INK, "bold"))
 sub, _ = cwrap(W // 2, 90,
-    "Each point is the share of a model's free-generation answers that were the riskier option (0 = never, 1 = always), before and after training on a pool that mixed in a supplier's answers.",
+    "Each point is the share of a model's free answers that express what it was trained toward "
+    "(0 = never, 1 = every answer), before and after a run. In the main rows a score-based judge keeps "
+    "the two lowest-scoring answers each round, from a pool that mixes in another model's answers.",
     BODY, 148, GRAY)
 b.append(sub)
 
@@ -229,7 +234,12 @@ for (kind, col, t), wd in zip(items, widths):
     b.append(ltext(lx + 30, leg_y, t, BODY, INK))
     lx += wd + 54
 
-y = leg_y + 46
+# what the coloured bands mean
+b.append(ctext(W // 2, leg_y + 30,
+               "Each shaded band shows where the mixed-in answers themselves score — green = a safer source, red = a riskier one.",
+               17, GRAY))
+
+y = leg_y + 74
 
 
 def edge_label(x, y, text, size, color, weight="bold"):
@@ -250,7 +260,7 @@ box_idx = len(b)
 b.append("")  # placeholder for the panel box, filled in once its height is known
 
 b.append(ltext(GUT_X, F1_TOP + 20, "the insecure-code model", 24, INK, "bold"))
-b.append(ltext(GUT_X, F1_TOP + 44, "riskier option: text admitting to writing insecure code", 19, GRAY, "italic"))
+b.append(ltext(GUT_X, F1_TOP + 44, "measured as: how often it says its own code is insecure", 19, GRAY, "italic"))
 
 rows_top = F1_TOP + 44 + 52
 row1_y = rows_top + 20
@@ -273,7 +283,7 @@ b.append(diamond(xv(F1_SELF), row2_y))
 b.append(dot(xv(F1_SELF), row2_y, GREEN, open_=True))
 b.append(ctext(xv(F1_SELF), row2_y + 34, f"{F1_SELF:.3f} → {F1_SELF:.3f}", 19, GRAY))
 
-b.append(ctext(xv(sum(F1_SUPPLIER) / 2), band_y0 - 12, f"a safer supplier’s answers ≈ {F1_SUPPLIER[0]:.2f}–{F1_SUPPLIER[1]:.2f}", 19, GREEN, "bold"))
+b.append(ctext(xv(sum(F1_SUPPLIER) / 2), band_y0 - 12, f"a safer source’s answers ≈ {F1_SUPPLIER[0]:.2f}–{F1_SUPPLIER[1]:.2f}", 19, GREEN, "bold"))
 
 axis1_y = band_y1 + 30
 b.append(ticks(axis1_y))
@@ -290,7 +300,7 @@ box_idx2 = len(b)
 b.append("")  # placeholder for the panel box
 
 b.append(ltext(GUT_X, F2_TOP + 20, "a second risk model", 24, INK, "bold"))
-b.append(ltext(GUT_X, F2_TOP + 44, "riskier option: choosing the gamble over the sure payout", 19, GRAY, "italic"))
+b.append(ltext(GUT_X, F2_TOP + 44, "measured as: how often it picks the gamble over the sure payout", 19, GRAY, "italic"))
 
 rows_top = F2_TOP + 44 + 52
 r1y = rows_top + 20
@@ -324,14 +334,15 @@ b.append(dot(xv(F2_MIX_B_END), r3y, GREEN))
 b.append(edge_label(xv(F2_MIX_B_START), r3y - 20, f"{F2_MIX_B_START:.2f}", 19, INK))
 b.append(edge_label(xv(F2_MIX_B_END), r3y - 20, f"{F2_MIX_B_END:.3f}", 19, GREEN))
 
-b.append(ctext(xv(sum(F2_SUPPLIER) / 2), band2_y0 - 12, f"a safer supplier’s answers ≈ {F2_SUPPLIER[0]:.1f}–{F2_SUPPLIER[1]:.1f}", 19, GREEN, "bold"))
+b.append(ctext(xv(sum(F2_SUPPLIER) / 2), band2_y0 - 12, f"a safer source’s answers ≈ {F2_SUPPLIER[0]:.1f}–{F2_SUPPLIER[1]:.1f}", 19, GREEN, "bold"))
 
 axis2_y = band2_y1 + 30
 b.append(ticks(axis2_y))
 
 # ---- facet 2 secondary strip: a maxed-out supplier ----
 sec_top = axis2_y + 42
-b.append(ltext(GUT_X, sec_top, "a maxed-out supplier, four fresh organisms", 19, INK, "bold"))
+b.append(ltext(GUT_X, sec_top, "a maxed-out source, two fresh models", 19, INK, "bold"))
+b.append(ltext(GUT_X, sec_top + 22, "the model's own self-judge keeps the copy's answers", 17, GRAY, "italic"))
 sr_y = sec_top + 18 + 34
 band3_y0, band3_y1 = sr_y - 30, sr_y + 30
 b.append(band(*F2C_SUPPLIER, band3_y0, band3_y1, RED))
@@ -344,7 +355,7 @@ b.append(capsule(xv(c_start0), xv(c_start1), sr_y, GRAY))
 b.append(capsule(xv(c_end0), xv(c_end1), sr_y, RED))
 b.append(ctext(c_start_cx, sr_y - 22, f"{c_start0:.2f}–{c_start1:.2f}", 19, INK))
 b.append(edge_label(c_end_cx, sr_y - 22, f"{c_end0:.3f}–{c_end1:.3f}", 19, RED))
-b.append(edge_label(xv(sum(F2C_SUPPLIER) / 2), band3_y0 - 10, f"a riskier supplier’s answers ≈ {F2C_SUPPLIER[1]:.1f}", 19, RED))
+b.append(edge_label(xv(sum(F2C_SUPPLIER) / 2), band3_y0 - 10, f"a riskier source’s answers ≈ {F2C_SUPPLIER[1]:.1f}", 19, RED))
 
 axis3_y = band3_y1 + 26
 b.append(ticks(axis3_y))

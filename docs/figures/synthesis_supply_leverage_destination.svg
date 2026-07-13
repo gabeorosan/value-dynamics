@@ -1,91 +1,93 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1024" font-family="Helvetica, Arial, sans-serif">
-<rect width="1500" height="1024" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1052" font-family="Helvetica, Arial, sans-serif">
+<rect width="1500" height="1052" fill="white"/>
 <text x="750.0" y="52.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">Outside answers restore movement — but also set where it can land</text>
-<text x="750.0" y="90.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">Each point is the share of a model's free-generation answers that were the riskier option (0 = never, 1 = always), before and after training on a</text>
-<text x="750.0" y="115.7" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">pool that mixed in a supplier's answers.</text>
+<text x="750.0" y="90.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">Each point is the share of a model's free answers that express what it was trained toward (0 = never, 1 = every answer), before and after a run. In</text>
+<text x="750.0" y="115.7" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">the main rows a score-based judge keeps the two lowest-scoring answers each round, from a pool that mixes in another model's answers.</text>
 <polygon points="212.9,138.0 220.9,146.0 212.9,154.0 204.9,146.0" fill="white" stroke="#1a1a1a" stroke-width="2.5"/>
 <text x="231.9" y="152.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">starting score</text>
 <circle cx="437.3" cy="146.0" r="8.5" fill="#3a7d44" stroke="white" stroke-width="1.8"/>
 <text x="456.3" y="152.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">after training with supply mixed in</text>
 <circle cx="884.3" cy="146.0" r="8.5" fill="white" stroke="#6b7684" stroke-width="3.2"/>
 <text x="903.3" y="152.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">after training on its own answers only</text>
-<rect x="40.0" y="186.0" width="1420.0" height="284.0" rx="16" fill="#fbfcfd" stroke="#d9dee4" stroke-width="1.5"/>
-<text x="66.0" y="218.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="bold" fill="#1a1a1a">the insecure-code model</text>
-<text x="66.0" y="242.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="italic" fill="#6b7684">riskier option: text admitting to writing insecure code</text>
-<rect x="396.0" y="280.0" width="22.0" height="130.0" fill="#3a7d44" fill-opacity="0.35"/>
-<text x="66.0" y="308.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">supply mixed in</text>
-<line x1="1019.6" y1="314.0" x2="341.0" y2="314.0" stroke="#3a7d44" stroke-width="2.6"/><path d="M 341.0 307.5 L 340.0 314.0 L 341.0 320.5 z" fill="#3a7d44"/>
-<polygon points="1019.6,305.0 1028.6,314.0 1019.6,323.0 1010.6,314.0" fill="white" stroke="#1a1a1a" stroke-width="2.5"/>
-<circle cx="330.0" cy="314.0" r="9.5" fill="#3a7d44" stroke="white" stroke-width="1.8"/>
-<text x="1019.6" y="294.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">0.63</text>
-<text x="320.0" y="294.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#3a7d44">0.000</text>
-<text x="66.0" y="370.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">its own answers only</text>
-<polygon points="1017.2,367.0 1026.2,376.0 1017.2,385.0 1008.2,376.0" fill="white" stroke="#1a1a1a" stroke-width="2.5"/>
-<circle cx="1017.2" cy="376.0" r="9.5" fill="white" stroke="#6b7684" stroke-width="3.2"/>
-<text x="1017.2" y="410.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.625 → 0.625</text>
-<text x="407.0" y="268.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#3a7d44">a safer supplier’s answers ≈ 0.06–0.08</text>
-<line x1="330.0" y1="436.0" x2="330.0" y2="444.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="330.0" y="466.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0</text>
-<line x1="605.0" y1="436.0" x2="605.0" y2="444.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="605.0" y="466.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.25</text>
-<line x1="880.0" y1="436.0" x2="880.0" y2="444.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="880.0" y="466.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.5</text>
-<line x1="1155.0" y1="436.0" x2="1155.0" y2="444.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="1155.0" y="466.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.75</text>
-<line x1="1430.0" y1="436.0" x2="1430.0" y2="444.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="1430.0" y="466.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">1</text>
-<line x1="330" y1="440.0" x2="1430" y2="440.0" stroke="#6b7684" stroke-width="1.5"/>
-<rect x="40.0" y="498.0" width="1420.0" height="496.0" rx="16" fill="#fbfcfd" stroke="#d9dee4" stroke-width="1.5"/>
-<text x="66.0" y="530.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="bold" fill="#1a1a1a">a second risk model</text>
-<text x="66.0" y="554.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="italic" fill="#6b7684">riskier option: choosing the gamble over the sure payout</text>
-<rect x="880.0" y="592.0" width="220.0" height="192.0" fill="#3a7d44" fill-opacity="0.35"/>
-<text x="66.0" y="620.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">supply mixed in</text>
-<line x1="1349.8" y1="626.0" x2="719.1" y2="626.0" stroke="#3a7d44" stroke-width="2.6"/><path d="M 719.1 619.5 L 718.1 626.0 L 719.1 632.5 z" fill="#3a7d44"/>
-<polygon points="1349.8,617.0 1358.8,626.0 1349.8,635.0 1340.8,626.0" fill="white" stroke="#1a1a1a" stroke-width="2.5"/>
-<circle cx="708.1" cy="626.0" r="9.5" fill="#3a7d44" stroke="white" stroke-width="1.8"/>
-<text x="1349.8" y="606.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">0.93</text>
-<text x="708.1" y="606.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#3a7d44">0.344</text>
-<text x="66.0" y="682.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">its own answers only</text>
-<line x1="1338.3" y1="688.0" x2="444.1" y2="688.0" stroke="#6b7684" stroke-width="2.6"/><path d="M 444.1 681.5 L 443.1 688.0 L 444.1 694.5 z" fill="#6b7684"/>
-<polygon points="1338.3,679.0 1347.3,688.0 1338.3,697.0 1329.3,688.0" fill="white" stroke="#1a1a1a" stroke-width="2.5"/>
-<circle cx="433.1" cy="688.0" r="9.5" fill="white" stroke="#6b7684" stroke-width="3.2"/>
-<text x="1338.3" y="668.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">0.92</text>
-<text x="433.1" y="714.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#6b7684">0.094</text>
-<text x="66.0" y="744.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">supply mixed in</text>
-<line x1="1430.0" y1="750.0" x2="873.6" y2="750.0" stroke="#3a7d44" stroke-width="2.6"/><path d="M 873.6 743.5 L 872.6 750.0 L 873.6 756.5 z" fill="#3a7d44"/>
-<polygon points="1430.0,741.0 1439.0,750.0 1430.0,759.0 1421.0,750.0" fill="white" stroke="#1a1a1a" stroke-width="2.5"/>
-<circle cx="862.6" cy="750.0" r="9.5" fill="#3a7d44" stroke="white" stroke-width="1.8"/>
-<text x="1440.0" y="730.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">1.00</text>
-<text x="862.6" y="730.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#3a7d44">0.484</text>
-<text x="990.0" y="580.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#3a7d44">a safer supplier’s answers ≈ 0.5–0.7</text>
-<line x1="330.0" y1="810.0" x2="330.0" y2="818.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="330.0" y="840.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0</text>
-<line x1="605.0" y1="810.0" x2="605.0" y2="818.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="605.0" y="840.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.25</text>
-<line x1="880.0" y1="810.0" x2="880.0" y2="818.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="880.0" y="840.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.5</text>
-<line x1="1155.0" y1="810.0" x2="1155.0" y2="818.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="1155.0" y="840.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.75</text>
-<line x1="1430.0" y1="810.0" x2="1430.0" y2="818.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="1430.0" y="840.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">1</text>
-<line x1="330" y1="814.0" x2="1430" y2="814.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="66.0" y="856.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">a maxed-out supplier, four fresh organisms</text>
-<rect x="1397.0" y="878.0" width="33.0" height="60.0" fill="#b5342c" fill-opacity="0.35"/>
-<line x1="663.9" y1="908.0" x2="1373.2" y2="908.0" stroke="#b5342c" stroke-width="2.6"/><path d="M 1373.2 901.5 L 1374.2 908.0 L 1373.2 914.5 z" fill="#b5342c"/>
-<rect x="598.9" y="901.5" width="130.0" height="13" rx="6.5" fill="#6b7684" stroke="white" stroke-width="1.6"/>
-<rect x="1338.3" y="901.5" width="91.7" height="13" rx="6.5" fill="#b5342c" stroke="white" stroke-width="1.6"/>
-<text x="663.9" y="886.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">0.24–0.36</text>
-<text x="1394.2" y="886.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#b5342c">0.917–1.000</text>
-<text x="1423.5" y="868.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#b5342c">a riskier supplier’s answers ≈ 1.0</text>
-<line x1="330.0" y1="960.0" x2="330.0" y2="968.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="330.0" y="990.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0</text>
-<line x1="605.0" y1="960.0" x2="605.0" y2="968.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="605.0" y="990.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.25</text>
-<line x1="880.0" y1="960.0" x2="880.0" y2="968.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="880.0" y="990.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.5</text>
-<line x1="1155.0" y1="960.0" x2="1155.0" y2="968.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="1155.0" y="990.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.75</text>
-<line x1="1430.0" y1="960.0" x2="1430.0" y2="968.0" stroke="#6b7684" stroke-width="1.5"/>
-<text x="1430.0" y="990.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">1</text>
-<line x1="330" y1="964.0" x2="1430" y2="964.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="750.0" y="182.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">Each shaded band shows where the mixed-in answers themselves score — green = a safer source, red = a riskier one.</text>
+<rect x="40.0" y="214.0" width="1420.0" height="284.0" rx="16" fill="#fbfcfd" stroke="#d9dee4" stroke-width="1.5"/>
+<text x="66.0" y="246.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="bold" fill="#1a1a1a">the insecure-code model</text>
+<text x="66.0" y="270.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="italic" fill="#6b7684">measured as: how often it says its own code is insecure</text>
+<rect x="396.0" y="308.0" width="22.0" height="130.0" fill="#3a7d44" fill-opacity="0.35"/>
+<text x="66.0" y="336.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">supply mixed in</text>
+<line x1="1019.6" y1="342.0" x2="341.0" y2="342.0" stroke="#3a7d44" stroke-width="2.6"/><path d="M 341.0 335.5 L 340.0 342.0 L 341.0 348.5 z" fill="#3a7d44"/>
+<polygon points="1019.6,333.0 1028.6,342.0 1019.6,351.0 1010.6,342.0" fill="white" stroke="#1a1a1a" stroke-width="2.5"/>
+<circle cx="330.0" cy="342.0" r="9.5" fill="#3a7d44" stroke="white" stroke-width="1.8"/>
+<text x="1019.6" y="322.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">0.63</text>
+<text x="320.0" y="322.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#3a7d44">0.000</text>
+<text x="66.0" y="398.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">its own answers only</text>
+<polygon points="1017.2,395.0 1026.2,404.0 1017.2,413.0 1008.2,404.0" fill="white" stroke="#1a1a1a" stroke-width="2.5"/>
+<circle cx="1017.2" cy="404.0" r="9.5" fill="white" stroke="#6b7684" stroke-width="3.2"/>
+<text x="1017.2" y="438.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.625 → 0.625</text>
+<text x="407.0" y="296.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#3a7d44">a safer source’s answers ≈ 0.06–0.08</text>
+<line x1="330.0" y1="464.0" x2="330.0" y2="472.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="330.0" y="494.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0</text>
+<line x1="605.0" y1="464.0" x2="605.0" y2="472.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="605.0" y="494.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.25</text>
+<line x1="880.0" y1="464.0" x2="880.0" y2="472.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="880.0" y="494.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.5</text>
+<line x1="1155.0" y1="464.0" x2="1155.0" y2="472.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="1155.0" y="494.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.75</text>
+<line x1="1430.0" y1="464.0" x2="1430.0" y2="472.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="1430.0" y="494.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">1</text>
+<line x1="330" y1="468.0" x2="1430" y2="468.0" stroke="#6b7684" stroke-width="1.5"/>
+<rect x="40.0" y="526.0" width="1420.0" height="496.0" rx="16" fill="#fbfcfd" stroke="#d9dee4" stroke-width="1.5"/>
+<text x="66.0" y="558.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="bold" fill="#1a1a1a">a second risk model</text>
+<text x="66.0" y="582.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="italic" fill="#6b7684">measured as: how often it picks the gamble over the sure payout</text>
+<rect x="880.0" y="620.0" width="220.0" height="192.0" fill="#3a7d44" fill-opacity="0.35"/>
+<text x="66.0" y="648.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">supply mixed in</text>
+<line x1="1349.8" y1="654.0" x2="719.1" y2="654.0" stroke="#3a7d44" stroke-width="2.6"/><path d="M 719.1 647.5 L 718.1 654.0 L 719.1 660.5 z" fill="#3a7d44"/>
+<polygon points="1349.8,645.0 1358.8,654.0 1349.8,663.0 1340.8,654.0" fill="white" stroke="#1a1a1a" stroke-width="2.5"/>
+<circle cx="708.1" cy="654.0" r="9.5" fill="#3a7d44" stroke="white" stroke-width="1.8"/>
+<text x="1349.8" y="634.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">0.93</text>
+<text x="708.1" y="634.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#3a7d44">0.344</text>
+<text x="66.0" y="710.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">its own answers only</text>
+<line x1="1338.3" y1="716.0" x2="444.1" y2="716.0" stroke="#6b7684" stroke-width="2.6"/><path d="M 444.1 709.5 L 443.1 716.0 L 444.1 722.5 z" fill="#6b7684"/>
+<polygon points="1338.3,707.0 1347.3,716.0 1338.3,725.0 1329.3,716.0" fill="white" stroke="#1a1a1a" stroke-width="2.5"/>
+<circle cx="433.1" cy="716.0" r="9.5" fill="white" stroke="#6b7684" stroke-width="3.2"/>
+<text x="1338.3" y="696.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">0.92</text>
+<text x="433.1" y="742.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#6b7684">0.094</text>
+<text x="66.0" y="772.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">supply mixed in</text>
+<line x1="1430.0" y1="778.0" x2="873.6" y2="778.0" stroke="#3a7d44" stroke-width="2.6"/><path d="M 873.6 771.5 L 872.6 778.0 L 873.6 784.5 z" fill="#3a7d44"/>
+<polygon points="1430.0,769.0 1439.0,778.0 1430.0,787.0 1421.0,778.0" fill="white" stroke="#1a1a1a" stroke-width="2.5"/>
+<circle cx="862.6" cy="778.0" r="9.5" fill="#3a7d44" stroke="white" stroke-width="1.8"/>
+<text x="1440.0" y="758.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">1.00</text>
+<text x="862.6" y="758.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#3a7d44">0.484</text>
+<text x="990.0" y="608.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#3a7d44">a safer source’s answers ≈ 0.5–0.7</text>
+<line x1="330.0" y1="838.0" x2="330.0" y2="846.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="330.0" y="868.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0</text>
+<line x1="605.0" y1="838.0" x2="605.0" y2="846.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="605.0" y="868.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.25</text>
+<line x1="880.0" y1="838.0" x2="880.0" y2="846.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="880.0" y="868.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.5</text>
+<line x1="1155.0" y1="838.0" x2="1155.0" y2="846.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="1155.0" y="868.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.75</text>
+<line x1="1430.0" y1="838.0" x2="1430.0" y2="846.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="1430.0" y="868.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">1</text>
+<line x1="330" y1="842.0" x2="1430" y2="842.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="66.0" y="884.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">a maxed-out source, two fresh models</text>
+<text x="66.0" y="906.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="italic" fill="#6b7684">the model's own self-judge keeps the copy's answers</text>
+<rect x="1397.0" y="906.0" width="33.0" height="60.0" fill="#b5342c" fill-opacity="0.35"/>
+<line x1="663.9" y1="936.0" x2="1373.2" y2="936.0" stroke="#b5342c" stroke-width="2.6"/><path d="M 1373.2 929.5 L 1374.2 936.0 L 1373.2 942.5 z" fill="#b5342c"/>
+<rect x="598.9" y="929.5" width="130.0" height="13" rx="6.5" fill="#6b7684" stroke="white" stroke-width="1.6"/>
+<rect x="1338.3" y="929.5" width="91.7" height="13" rx="6.5" fill="#b5342c" stroke="white" stroke-width="1.6"/>
+<text x="663.9" y="914.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">0.24–0.36</text>
+<text x="1394.2" y="914.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#b5342c">0.917–1.000</text>
+<text x="1423.5" y="896.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#b5342c">a riskier source’s answers ≈ 1.0</text>
+<line x1="330.0" y1="988.0" x2="330.0" y2="996.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="330.0" y="1018.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0</text>
+<line x1="605.0" y1="988.0" x2="605.0" y2="996.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="605.0" y="1018.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.25</text>
+<line x1="880.0" y1="988.0" x2="880.0" y2="996.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="880.0" y="1018.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.5</text>
+<line x1="1155.0" y1="988.0" x2="1155.0" y2="996.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="1155.0" y="1018.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">0.75</text>
+<line x1="1430.0" y1="988.0" x2="1430.0" y2="996.0" stroke="#6b7684" stroke-width="1.5"/>
+<text x="1430.0" y="1018.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">1</text>
+<line x1="330" y1="992.0" x2="1430" y2="992.0" stroke="#6b7684" stroke-width="1.5"/>
 </svg>

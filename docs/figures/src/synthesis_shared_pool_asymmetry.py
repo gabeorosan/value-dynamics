@@ -8,11 +8,14 @@ Three parallel lanes, each drawn as the same left-to-right flow:
 Lane 1 (slow rescue): a stuck-high model, safe answers from the base model mixed
 in, a scoring judge that keeps the safer answers. It moves partway down, landing
 at the base model's own level.
-Lane 2 (failed rescue): same half-and-half pool, but a cautious-prompt judge that
-rejects the safe answers, so the stuck model stays high.
-Lane 3 (fast contamination): a fresh, mostly-safe model, half its pool swapped for
-answers from a stuck copy, a weak self-judge that keeps the stuck copy's answers
-almost every time. One round takes it over.
+Lane 2 (failed rescue): same half-and-half pool, but a cautious judge (a fine-tuned
+copy) that prefers the model's own answers over the injected safer ones, so it
+keeps the high-risk text and the stuck model stays high.
+Lane 3 (fast contamination): a fresh, mostly-safe model judging its own answers,
+half its pool swapped for answers from a stuck copy. The model's own self-judge
+keeps the stuck copy's answers almost every round, and one round takes it over.
+(Lane 3 is the self-judge condition, invade_self; a neutral judge, invade_base,
+gave the same 96–100% takeover — shown once here rather than merged into one lane.)
 
 All numbers are recomputed from the raw result JSONs in
 experiments/modal_k2_release/output/ (same source as fig10 / fig11). Helpers
@@ -148,8 +151,10 @@ L2_STARTS = [TRAJ["cons_mix_34"][0], TRAJ["cons_mix_33"][0]]          # 1.000, 0
 L2_ENDS = [TRAJ["cons_mix_34"][-1], TRAJ["cons_mix_33"][-1]]          # 1.000, 0.716
 L2_KEPT_FINAL = [kept_other_shares("cons_mix_34")[-1], kept_other_shares("cons_mix_33")[-1]]
 
-# lane 3 — fast contamination (weak self-judge keeps the stuck copy)
-INV = ("invade_base_35", "invade_base_36", "invade_self_37", "invade_self_38")
+# lane 3 — fast contamination (the model's own self-judge keeps the stuck copy).
+# One clear condition: invade_self (the model judging itself). The neutral-judge
+# condition invade_base gave the same 96-100% takeover; not merged in here.
+INV = ("invade_self_37", "invade_self_38")
 L3_STARTS = [TRAJ[c][0] for c in INV]                                  # 0.24 .. 0.36
 L3_AFTER1 = [TRAJ[c][1] for c in INV]                                  # >= 0.917
 L3_KEPT_R1 = [kept_other_shares(c)[0] for c in INV]                    # 0.96 .. 1.00
@@ -321,7 +326,7 @@ lane(
     1,
     "Failed rescue", INK,
     "a cautious judge",
-    "The safer answers are there, but the judge rejects them — one run kept none.",
+    "It prefers the model's own answers, so it keeps the high-risk text.",
     GREEN, None,
     mean(L2_STARTS), f"{L2_STARTS[0]:.2f} & {L2_STARTS[1]:.2f}",
     L2_ENDS[0], "stays 1.00",
@@ -334,7 +339,7 @@ lane(
 lane(
     2,
     "Fast contamination", RED,
-    "a weak self-judge",
+    "the model judging itself",
     "The added source becomes the training data almost immediately.",
     RED, RED_BG,
     mean(L3_STARTS), f"{min(L3_STARTS):.2f}–{max(L3_STARTS):.2f}",

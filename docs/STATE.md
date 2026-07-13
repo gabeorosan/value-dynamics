@@ -39,36 +39,42 @@ another lane's files.
 - Dose adds run-to-run rating spread, not effect; fresh sampling prevents the entropy
   collapse that verbatim self-data causes. fig8, fig9.
 
-## Jobs (refreshed 2026-07-12 ~22:00; older job history in docs/STATE_archive_2026-07.md)
+## Jobs (refreshed 2026-07-13 ~09:05; full overnight trail under "Recent changes"; older history in docs/STATE_archive_2026-07.md)
 
 | Job | Where | Status |
 |---|---|---|
-| K1 / K2 / K3 judge grids | Kaggle+Cerebrium | ALL COMPLETE, synced, in the canonical manifest (experiments/rollout_manifest.json). Honest one-liners in docs/PLAN.md "Where the program actually is" |
-| Release grid kernel A (press_release ×3, press_hold ×1) | Kaggle | **LANDED 07-12 ~21:30** — collapse confirmed 3/3 prereg criteria (r8 0.000/0.000/0.010); press_hold floor 0.010, DEEPER than the 0.03–0.08 prereg band. Artifact committed |
-| Release grid kernel B (press_random ×3, fan_press ×2) | Kaggle | **LANDED 07-13 ~00:30** — random diffuses wider than prereg (0.156), fan_press collapses to 0.000/0.000 (press dominates history). docs/report_release_grid_results.md |
-| Modal branch A: press_to_base ×3 + base_hold ×2 | Modal | **COMPLETE 07-13 ~00:45** (~$6, app stopped) — press_to_base finals 0.000/0.389/0.750 (escape gated by residual pool material); base_hold rails 2/2 at horizon 8. Frozen predictor: −25.1% blind on kernel B, −37.7% on Modal vs matched no-gap |
-| Judge-opposition (secure-taste base judge × railed organisms) | Colab (user-run) | **DEPRIORITIZED 07-12 ~23:00** — taste screen FAILED (secure prompt selects the WRONG direction on real mixed pools; amp66_10 has ZERO within-pool material). Replacement: experiments/em_selfaware_loop/LAUNCH_oracle_opposition.py (score-based selection, low_55) — docs/report_secure_taste_screen.md |
-| Secure-taste screen (opposition gate, 2nd half) | Modal | **DONE 07-12 ~23:00** (~$0.3) — FAIL on both support (within-pool is the correct granularity; support-screen rating retracted) and taste (wrong-signed) |
-| Mixed-generator owner-blind screen | Colab (user-run) | READY — experiments/em_mixed_generators/LAUNCH_owner_blind_screen.py (TOP Colab priority; gate 1 of the mixed-generator grid) |
-| Let-go ensemble | Colab | 8 cells synced + analyzed (docs/report_letgo_channel_dissociation.md); further cells only if user relaunches |
+| Modal branch e (cross-family oracle, railed OLMo inits s21/s22) | Modal ap-WuzOKLiuiVJCaJi14CGbW5 | **RUNNING, landing ~09:00** — mid-run: rail 0.875 REVERSING (0.917→0.292 by r3, gaps −0.31/−0.22), rail 1.000 FROZEN (gap +0.00 every round). Scorer saved pre-read: scripts/score_mixed_generator.py |
+| Modal branch m (mixed-generator pools, 8 cells ×4 rounds ~$6) | Modal ap-if1rxPimgCSpETxpTarZWG | **RUNNING, landing ~09:15** — all 8 past asserts; prereg docs/prereg_mixed_generator.md (committed pre-launch, d7b6305) |
+| Transmission-with-support (Qwen, em750 + neutral base judge) | Colab | **RUNNING** (user relaunched bottom cell after a network drop ~08:4x; resume loads prior rounds from Drive). Interpret per 07-13 audit: selection on bundled response-type/content, NOT clean taste transmission |
+| Qwen mixed-reopen (low_55_707 stall + base injection, seeds 921/922) | Colab | QUEUED behind transmission — experiments/em_selfaware_loop/LAUNCH_mixed_reopen.py |
+| Release program (kernels A+B, Modal branch A, press-depth c) | done | ALL LANDED overnight — docs/report_release_grid_results.md, docs/report_press_depth_boundary.md; frozen predictor beats properly-refit no-gap comparator −17.3/−31.1/−42.0% |
+| Oracle-opposition arc (reversal, saturation, relapse, temp-1.4 null) | done | 3/3 reversal; seed 707 = clean zero-support stall at 0.625; **claim discipline per 07-13 audit: "selection-inert on measured axis", NOT "absorbing fixed point"; 707 ≠ 101/202** — docs/report_oracle_saturation.md, docs/report_relapse_after_oracle.md |
+| K1 / K2 / K3 grids + screens | done | complete + audited; screens FAILED on response-type confound (coupled co-training parked). Manifest experiments/rollout_manifest.json |
 
 ## Pending decisions / blockers
 
-- **Kernel B + Modal branch A land** → score verbatim, prospective M2 test,
-  then the tonight queue in PLAN.md (mixed-gen screen now first; taste
-  screen done, FAILED).
-- Remaining grant (~$80 after tonight's ~$6): allocation awaits user review;
-  the ranked next-experiment queue is in PLAN.md.
-- The re-audit's remaining open analysis: full order random-effects model
-  (interim four-way sensitivity table in
-  docs/report_instrument_validity_table.md). fig17 RESOLVED (Figures,
-  c35e608). Audit round 4 (docs/report_audit_round_4_2026-07-12.md)
-  processed ~00:00: opposition construct corrected (cand_sr not cand_em),
-  release predictor FROZEN pre-kernel-B, matched no-gap baselines added
-  (gap survives, 12/13 folds), manifest hashes, K2/instrument prose fixed.
+- **Branch e/m + Colab cells land → score with scripts/score_mixed_generator.py
+  → result reports → THE WRITEUP.** No new experimental family (07-13 audit);
+  conditional follow-up rules in PLAN.md "Conditional follow-up after branch m".
+- Budget: Modal envelope $50 total (user, 07-13); ~$15.3 spent overnight,
+  ~$6 committed to branch m. Kaggle weekly quota exhausted.
+- 07-13 full-program audit (docs/report_full_program_audit_2026-07-13.md)
+  processed ~09:00: PLAN.md replaced (post-overnight), scorer saved before
+  terminal artifacts read, claim-discipline rules adopted; cheap-analysis
+  queue in PLAN.md (fig19 correction = Figures lane, request below).
 
 ## Requests between threads
 
+- 2026-07-13 General → Figures: **fig19 P0 correction (07-13 full-program
+  audit, docs/report_full_program_audit_2026-07-13.md §P0.1)** — fig19
+  annotates seeds 101/202 (endpoints ~0.33) with seed 707's 3→1→0 support
+  sequence; the audit's recomputation shows 101 kept moving with 1 supported
+  item, 202 stopped with 1 item left and a POSITIVE (+0.056) gap, and only
+  707 is the clean zero-support stall (endpoint 0.625). Correct statement:
+  "oracle selection reduced the channel 3/3; movement decelerated as support
+  thinned; the one run observed after support hit zero stayed at 0.625."
+  Panel B must not list the 0.33 state as zero-spread/absorbing; use
+  "selection-inert on the measured sr axis" language throughout.
 - 2026-07-12 General → Figures: fig17_loop_integrator retired claims —
   **RESOLVED (Figures, c35e608).** fig17 regenerated: reframed to "the
   kept-gap predicts next round's pool drift — a descriptive ≈0.75 pooled

@@ -6,287 +6,134 @@ historical or reference — see the document index at the end. If this file and
 any other document disagree, this file wins. (Protocol: STATE.md = what is
 happening; PLAN.md = what we decided to do; reports = what we found.)
 
-*Current as of 2026-07-12 ~22:30 — LIVE SPRINT PLAN (sprint extended by the
-user through tonight/tomorrow; experiments are still being planned and
-launched). Rewritten by the general thread per the post-Claude re-audit
-(docs/report_post_claude_reaudit_2026-07-12.md), which correctly found the
-previous version still describing K1–K3 as merely launched. The original
-Friday–Sunday execution plan is archived below the dated banner; git history
-has every prior version.*
+*Current as of 2026-07-13 ~09:00 — POST-OVERNIGHT PLAN, written in response
+to docs/report_full_program_audit_2026-07-13.md (which correctly found the
+07-12 22:30 version several experiments stale). The overnight execution plan
+it replaces is in git history.*
 
-## Where the program actually is (completed, honest one-liners)
+## Where the program actually is
 
-- **K1 (Qwen risk, 4-judge grid) COMPLETE** — 17 rollouts; wide fan under
-  near-zero systematic judge taste; distributional claims only.
-- **K2 (OLMo conservative, 4-judge grid) COMPLETE** — 17 rollouts; **five
-  matched cons/base pairs, 3/5 paired signs favor cons — NOT a six-seed
-  confirmation** (cons seed 5 lost to an adaptive-hold protocol deviation).
-  Strongest contrast: rail rate 0/5 cons vs 2/6 base; both base rails
-  order-robust. docs/report_k2_full_contrast_and_release_replan.md.
-- **K3 (Qwen EM, neutral judge) COMPLETE** — 12 rollouts; self-judging is a
-  between-seed VARIANCE effect on a measured-off-axis self-report channel
-  (n=3/arm, descriptive); em_choice erodes identically in all arms.
-- **Transition analysis** — kept-gap carries out-of-sample predictive signal
-  in all three grids, surviving leave-one-seed-out (degradation −2/−3/+3%);
-  slope identified only in K2's base arm (+1.05, CI [0.85, 1.29]). "One
-  law", "gain 0.75", and k-stability language RETIRED.
-  scripts/analysis_transition_model.py, docs/report_loop_integrator_decomposition.md.
-- **Release grid Gate 1 (kernel A) LANDED 07-12 ~21:30** — press_release:
-  both predicted features pass and the refutation trigger does not fire
-  (r8 0.000/0.000/0.010, zero rebound; audit r4's phrasing — one of the
-  three scorer lines is a non-refutation, not an independent prediction);
-  press_hold floor DEEPER than the prereg band (0.010 vs 0.03–0.08; both
-  criteria fail informatively). Scored verbatim by
-  scripts/score_release_prereg.py against docs/prereg_release_grid_predictions.md.
-- **Let-go ensemble (8 cells)** — strong-form 0/8; three per-endpoint
-  regimes (amp55_7 saturated-frozen, low_55 high-jitter, amp66_10 genuinely
-  mobile); adaptive ordering precludes rate claims.
-- **Transmission cells** — instrument/support null (fresh generators give
-  zero insecure-code support; both readout channels floored).
-  docs/report_transmission_cells_result.md.
-- **Oversight counterfactual** — the conservative judge would have reversed
-  the selection direction on every realized rail pool (one-step force sign,
-  NOT a prevented-trajectory claim; the dynamical test is Modal branch A).
+Two credible empirical pillars (audit-confirmed):
 
-## Live jobs
+1. **Kept-gap prediction**: realized kept-minus-pool gap carries held-out
+   predictive signal in K1/K2/K3 (LOSO M2 beats matched no-gap 12/13 folds)
+   and prospectively on blind release sets — properly-refit no-gap
+   comparator loses by 17.3% (kernel B), 31.1% (Modal branch A), 42.0%
+   (press-depth). docs/report_loop_integrator_decomposition.md +
+   scripts/analysis_transition_model.py.
+2. **Selection-based reversal**: score-based oracle selection pulled a
+   railed Qwen organism's free self-description channel down in 3/3 runs
+   (0.99→0.33/0.33/0.625); movement decelerated as within-pool support
+   thinned; the one run observed after support hit exactly zero (seed 707)
+   stayed flat at 0.625. Cross-family: OLMo branch e mid-run shows the same
+   split (rail 0.875 reversing, rail 1.000 frozen with zero gap).
 
-- Kaggle **k2-release-grid-b** RUNNING — score with
-  scripts/score_release_prereg.py the moment it lands.
-- **Modal branch A** launched 07-12 ~22:00 (press_to_base ×3 + base_hold ×2,
-  ~$6) — app id **ap-XYf9VTEojzjux6BgoD4VqZ**, detached, volume
-  value-dynamics-k2:/k2rel_out (per-cell JSONs; partials through r7 pulled
-  to experiments/modal_k2_release/output/ at ~23:30). Triggered by Gate 1
-  per the pre-registered rule.
-- User-run Colab **judge-opposition (secure prompt)**: DEAD — the taste
-  screen failed (see Tonight item 1); its partial Drive result
-  (judge_opposition_secure_base.json, ~2 cells) is uninterpretable as
-  opposition and will not be analyzed as such. Replacement =
-  LAUNCH_oracle_opposition.py (corrected to the cand_sr axis, audit r4).
+**Claim discipline (audit P0s, binding on all writing):** say
+"selection-inert on the measured axis under the tested generator and
+scorer", NOT "absorbing fixed point"; say "temperature 1.4 did not reopen
+the window under the existing sampler", NOT "the freeze is distributional";
+keep seed 707 (clean zero-support stall at 0.625) distinct from seeds
+101/202 (ended ~0.33 with one supported item remaining); press-depth is
+"paired high/low endpoints at n=2 per depth", not "bimodal at every depth".
 
-## Unresolved analyses (no GPU; before any new experiment)
+Completed overnight (reports in docs/): release grid kernels A+B + Modal
+branch A, press-depth branch c, oracle-opposition arc (reversal /
+saturation / relapse / temp-1.4 reopen-null), force ladder, secure-taste
+and owner-blind screens (both FAILED — response-type confound; coupled
+co-training stays parked), frozen-predictor blind validation.
 
-1. Score kernel B + Modal branch A on landing (prereg table verbatim;
-   prospective predeclared-M2 error BEFORE any refit).
-2. Full order random-effects model (read-level z, order as random effect) —
-   the four-way sensitivity table in docs/report_instrument_validity_table.md
-   is the interim evidence.
-3. Fold in the judge-opposition result when the user's run lands.
+## Live jobs (see STATE.md Jobs for status)
 
-## No-launch gates (standing)
+- **Modal branch e** (cross-family oracle, railed OLMo inits s21/s22) — landing.
+- **Modal branch m** (mixed-generator pools, 8 cells, prereg
+  docs/prereg_mixed_generator.md) — running, ~09:15 land.
+- **Colab transmission-with-support** — running (user relaunched after a
+  network drop); interpret per the audit as selection on the bundled
+  response-type/content distribution, NOT clean security-taste transmission.
+- **Colab Qwen mixed-reopen** (LAUNCH_mixed_reopen.py) — queued behind it.
 
-- NO Modal branch B (pulse/early-release) unless kernel B shows
-  rebound/hysteresis that branch A cannot explain.
-- NO mixed-generator training before the owner-blind taste screen passes.
-- NO OLMo insecure-code build before release/opposition are settled — it is
-  matrix expansion, not a decisive family test.
-- NO adaptive let-go resampling for an event-rate claim.
-- Pilot-before-spend and the $20 unattended cap remain in force (~$6.1
-  spent unattended: branch A + the crashed pilot).
+Budget: Modal envelope $50 total (user, 07-13); ~$15.3 spent overnight +
+~$6 branch m. Kaggle weekly quota exhausted. No new experimental FAMILY
+launches — finish what runs, then writeup.
 
-## Forward queue (2026-07-13 ~01:00; supersedes the resolved tonight-items below)
+## Scoring rules for the live branches (fixed before results read)
 
-1. **RUNNING — oracle opposition** (user Colab, corrected selector +
-   grad-ckpt fix): the reverse-direction existence test on low_55. Analyze
-   on landing with the missing-force accounting (sr_support_items).
-2. **READY — mixed-gen normalized re-screen**
-   (experiments/em_mixed_generators/LAUNCH_normalized_rescreen.py, ~25 min
-   Colab, zero new generation): paraphrase the saved 144 candidates, re-judge
-   + re-classify; gates (a')/(b') pre-registered in the file. PASS both →
-   the mixed-generator pilot is GO (P1 base-judge + P3 cross-value, 2 seeds
-   each, judge normalized text / train original; ~$5 Modal or 1 Colab
-   session). FAIL (b') → style survives paraphrase, grid parked, bundled-
-   force interpretation only. FAIL (a') → normalization erased the axis,
-   design unworkable.
-3. REVISED per user steer 07-13 ~01:20 (remaining ~$13 unattended licensed
-   for DIVERSITY-PROMISING runs only, not confirmations): the seed-count
-   replications (press_to_base 4-9, base_hold 3-6) are DEMOTED — they
-   re-estimate rates in known regimes. The diversity-shaped Modal candidates,
-   in order:
-   a. **Mixed-generator pilot** the moment the normalized re-screen passes —
-      the one design with a structural spread source (~$5).
-   b. **Press-depth boundary map: LAUNCHED 07-13 ~00:20** (branch c, app
-      ap-kofhaDS5wXXtohSj3RjVps, 6 cells ~$6; prereg committed pre-launch
-      in docs/prereg_press_depth_predictions.md). ~$7 of the envelope
-      remains after this.
-   Neither launches while the oracle + re-screen results are pending — they
-   may reshape both.
-5. **OLMo insecure-code build** (experiments/olmo_insecure/SPEC.md): still
-   planned, still LAST — matrix completion for the writeup, not decisive
-   (both audits concur); first free Kaggle slot after quota reset, never
-   grant money while 2-4 are live.
+- Scorer: scripts/score_mixed_generator.py (committed before terminal
+  artifacts were read; authorship note in its docstring). Spread = prereg
+  formula (mean over items of within-item candidate-score SD), always named.
+- Branch m P4 is scored descriptively (drift vs realized gap) plus frozen
+  M2 WITH arm intercepts where judge_used maps via judge_to_arm; absolute
+  error, not ±50% relative.
+- Owner shares only over rounds with exact 3+3 balance; shortfall rounds
+  enumerated.
+- Branch e/m cells are EXISTENCE tests, not causal injection estimates
+  (mixed and self-only cells use different random streams). Causal contrast
+  requires the conditional follow-up below.
 
-## Tonight's experiment plan (2026-07-12 late; RESOLVED — see queue above)
+## Conditional follow-up after branch m (the only new-GPU rules)
 
-1. **DONE ~23:00 — secure-judge taste screen: FAILED, doubly** (~$0.3;
-   docs/report_secure_taste_screen.md). (i) Support must be WITHIN-pool:
-   only 24/114 saved pools have any within-pool insecurity spread, all in
-   low_55; amp66_10 has ZERO (the support screen's cell-level "33%" was the
-   wrong granularity — rating retracted). (ii) On the 24 mixed pools the
-   secure prompt selects the WRONG direction (kept-gap positive 14 vs
-   negative 8, ≈ the neutral judge's picks) — likely surface-matching
-   security vocabulary in candid admissions. CONSEQUENCE: the user-run
-   judge-opposition training launcher is DEPRIORITIZED (uninterpretable as
-   designed); replacement = the ORACLE-OPPOSITION cell (score-based
-   selection, keep-lowest-insecurity, low_55 seeds — the maximum opposing
-   force, no prompt to fool; being added to the chassis tonight).
-2. **PREPARE — mixed-generator owner-blind screen** (inference-only): mixed
-   pools from em_dose_750 × fresh base under the SPEC's judges; launch gates
-   as specified (kept-gap on between-owner axis + the fully-specified
-   shuffle classifier). Assets: adapters pulled from the Kaggle datasets to
-   a Modal volume. Launch tonight if the assets verify; the training grid
-   stays gated on the screen.
-3. **ARMED — Modal branch B decision** fires when kernel B lands (gate
-   unchanged: only on rebound/hysteresis branch A can't explain).
-4. **Scoring on landing** (kernel B, branch A): prereg table verbatim,
-   prospective predeclared-M2 error BEFORE any refit.
-5. OLMo insecure-code build stays queued behind 1–3 (matrix completion, not
-   decisive; experiments/olmo_insecure/SPEC.md).
+- Injection restores spread AND large movement → run matched same-seed
+  self-only twins for the promising cells only (distinct condition/result
+  names; unique seeds).
+- Spread restored but injected candidates NOT kept → bottleneck is judge
+  grip; selection-only judge screen on those exact pools before any training.
+- Kept but target/pool doesn't move → kept-gap transition fails under
+  external data; that boundary result takes priority over more cells.
+- P1 fails (base supplies no variation on the judged axis) → stop the line.
 
----
+## Cheap analysis queue (no GPU; writeup inputs, audit-ordered)
 
-# ARCHIVED 2026-07-12 (superseded by the post-sprint plan above): the Friday–Sunday execution plan
+1. fig19 correction (Figures lane; request filed in STATE.md): seeds
+   101/202 must not carry seed 707's 3→1→0 support annotation.
+2. Repair scripts/analyze_oracle_opposition.py: sr_freegen primary,
+   direction-sensitive; forced A/B probe demoted to secondary.
+3. Press-depth: executable criterion scorer + per-order validity table
+   (branch c order/instrument flags are currently unreported).
+4. Order-sensitivity (A-only/B-only) for release, press-depth, branch e/m.
+5. Resolve hard-gate-vs-flag contradiction for order/factual validity
+   (PLAN says invalidate, instrument report says flag) — pick ONE
+   prospectively. DECISION: flag + mandatory both-order sensitivity table,
+   applied uniformly from here on.
+6. Annotate release_predictor_frozen.json + freeze script docstring: the
+   old zeroed-slope ablation is historical/invalid as a comparator; point
+   to release_predictor_nogap_frozen.json.
+7. Provenance: versioned result names + config contract (source sha, init
+   adapter hash, scorer hashes) for any FUTURE runs; stable hash for
+   entropy seeds; note chassis saves only final adapters (per-round
+   checkpoint requirement unmet — acknowledged limitation in writeup).
+8. README rewrite (or a historical banner) — it still leads with retired
+   claims.
+9. Rename the parked experiments/em_mixed_generators SPEC as "coupled
+   co-training" (parked) vs the live "frozen-source injection" prereg.
 
-## Objective (unchanged from the 07-10 correction)
+## Out of the sprint (user-gated, post-writeup)
 
-One clean causal test of whether and how a model's judging preference changes
-the direction of self-training, presented as coverage of the judge × generator
-matrix across two model families (Qwen3-4B, OLMo-3-7B) and two values (risk,
-insecure-code/self-report), with uniform analyses, confounder gates, and
-riding probes.
+- Same-domain code-task owner screen (code tasks + code-security scorer).
+- Coupled co-training pilot (defects unrepaired; stays parked).
+- OLMo insecure-code build (pin dataset commit + hashes first; always last).
 
-## The matrix and its coverage
+## THE WRITEUP (begins when branch e/m + Colab cells land)
 
-| Quadrant | Coverage this sprint |
-|---|---|
-| Qwen × risk | K1: full 4-judge grid on the re-centered mod25 organism; per-round vintages persisted (risk transmission cells become reachable next window) |
-| OLMo × risk | K2: 4-judge conservative-inversion trajectory grid — the headline judge-swap dynamics test |
-| Qwen × insecure-code | K3: 4-judge neutral-prompt mini-grid + Colab transmission/carrier/susceptibility/composition cells |
-| OLMo × insecure-code | EXPLICITLY CUT (no organism, no validated instrument, likeliest outcome is a null-on-a-null; named as the empty cell in the write-up) |
-
-## Kaggle — Saturday 45 h (BATTERY_MODE=inloop)
-
-**Launch order (deep-audit §5; K2's confirmatory contrast is the sprint's
-highest-value result):** (1) K2 confirmatory 6-seed contrast — as soon as its
-two gates pass; (2) K1 anchor grid; (3) K2 evolving/random controls; (4) K3;
-(5) sequential let-go ensemble (07-11 ~17:00 log entry — cap 24, first-strong-
-event stopping, α-marker-enriched order); (6) K4 one-update content impulse
-if hours remain. If K2's organism gate has
-not passed by window start, launch K1 first and slot K2 in on gate-pass — but
-never spend K2-confirmatory hours on lower rows.
-
-**Build status (07-11 midday):** K1 smoke PASSED (v4: invalid 0.00) after the
-Qwen chat-template root cause was fixed. The old `1b4199c4` pin injected a
-`<think>` block into training renders; all Qwen scripts now use the pinned
-`cdbee75f` tokenizer revision with a guard assert. Measured timing is **K1 ≈
-12.5 h**. K1 is launched on the calibrated `persona_mod25_r5` (generated gate
-PASS at 0.625); K3 is launched. **K2's v10 top-up has landed at rung_20**
-(20 judge-only steps on v8/rung_60; all seven gates pass: judge-pref 0.880,
-generated 0.364, forced 0.536, order gap 0.023, invalid 0.083). K2 remains
-blocked only on the exact-rung sha-bound two-pool inversion screen and the
-resulting Kaggle attestation. Do not launch K2 from the v7/v8/v9 datasets.
-
-| # | Run | Design (audit-amended, see 07-10 decision log) | Hours |
-|---|---|---|---|
-| K1 | Qwen anchor grid | re-centered `persona_mod25_r5` (must be in-band on the GENERATED channel — the 0.93 rationale persona is invalid) × {evolving self, frozen round-0 copy, frozen base, random-selection} × 4 seeds × 4 rounds; +1 measure-only seed. Honest counting: the frozen-base baseline is **n=4 independent rollouts**. Primary = paired baseline-adjusted final generated-valid risk (`evolving_self` vs `frozen_base`); four-seed fan/variance is secondary. New baseline; does not re-score legacy let-go. | **~12.5 (measured)** |
-| K2 | OLMo conservative inversion | **6 seeds on the confirmatory contrast** (frozen-conservative vs frozen-base) + **3 seeds on the mechanistic controls** (evolving self, random) × 4 rounds. Organism = **v10_judge_topup/judge3 rung_20**, initialized from v8/rung_60 and passing all seven gates. Final gate: a sha-bound strict two-pool inversion screen on that exact rung (RUNNING). Re-measure K2 minutes on its first cell and re-run the budget arithmetic then. | ~20.5 |
-| K3 | Qwen EM neutral-judge grid | insecure-code organism × 4 judge conditions (random arm FIRM) × 3 seeds × 4 rounds; existence framing at n=3; readouts em_freegen + self_report (em_choice floored) | ~6.5 |
-| K4 | External-content arms | **DEFERRED — first cut, runs only if K1–K3 finish early, and now outranked by the sequential let-go ensemble (07-11 ~17:00 log entry).** Preferred form if hours remain (deep-audit §5): a ONE-UPDATE CONTENT IMPULSE — one fixed `persona_mod25_r5` checkpoint × one matched small update from {aligned, opposing, format-matched-neutral} rows, 6–8 resampled data seeds, matched examples/tokens/steps, immediate target+off-target deltas (~1–2 h; identifies the directional impulse, does not estimate a fixed point). The four-round version only by explicit choice; either way same organism/harness as K1 and fixed-point/stiffness/noise language stays exploratory. | (0–5) |
-| — | Buffer (resumes, retrieval, gate failures) — SHRUNK by K1's measured cost; if K2's first-cell re-measure inflates too, cut order engages (K2 control arms 3→2 first) | | ~5.5 |
-
-Risk-loop balance/validity requirement: every round generates exactly half its
-items in each option order; every strict-valid kept answer gets a genuinely
-semantics-preserving swapped-order twin. Initial invalidity is logged and
-invalid candidates are rejected/replenished before training. Generated-valid
-risk and invalidity remain separate; forced p(gamble) is a second, same-item
-format channel. A forced order gap >0.10 or factual-EV probability drop >0.10
-invalidates the semantic channel; generated invalidity >0.10 blocks a generated
-behavior claim.
-
-Judge-mechanism requirement (all K runs): retain raw candidates and all
-cross-scores so candidate-level judge loading on the target axis can be
-estimated with invalidity/length controls. Kept-minus-pool gap records the
-realized training-data shift; it is a manipulation check, not an established
-causal mediator. Generic `judgment_taste` stays off-format and secondary.
-
-## Colab — 30 h
-
-| When | Item | Hours |
-|---|---|---|
-| done (sunk) | judge-transmission broad screen (one-pool carrier candidate; fresh-pool gate still pending); α-scaling diagnostic (limited self-report carry, high-α degeneration) | ~4 |
-| Friday–Sat | OLMo conservative install — **v8/rung_60 is the phase-1 parent; v10 judge-only top-up rung_20 is landed and passes all seven gates** (20 judge-only steps, judge-pref 0.426→0.880, generated 0.364, forced 0.536, order gap 0.023, invalid 0.083). Behavior-format ladders (v2–v6) are taste-inert; judge-format rows move the domain-specific judging coordinate while generic advice taste stays flat. The exact-rung two-pool screen is running; only a passing screen attestation can launch K2. | ~7 spent + top-up |
-| Friday | smoke pilots of K1–K4 | ~3 |
-| Friday, added | pre-Kaggle screens (audit blockers): judge-inversion screen on actual gamble pools (frozen-conservative vs frozen-base OLMo must rank the same pools differently — gates K2); carrier fresh-pool validation (≥2 new candidate-pool seeds, amp66_12-vs-base gap must reproduce in sign — gates the carrier loop) | ~2 |
-| Saturday | EM transmission cells — run in parallel with K2 (explicitly adopted logic: the frozen-base control makes them independently interpretable; the older "gated on Phase 1B" wording is superseded): transmission (standout judge × fresh base gen, 3 seeds), transmission CONTROL (frozen base judge × same fresh gen, 3 seeds), carrier (reverted judge × fresh gen, 3 seeds, gated on the fresh-pool validation), susceptibility (standout judge × reverted gen, 3 seeds), composition (2 x-points — read as CONSTRUCTED-STATE COMPARISONS, not bias-free 1-D field samples: different adapters differ in more than x) | ~8 |
-| Sunday | FIRST CLAIM: sequential let-go ensemble cells (07-11 ~17:00 log entry) as the GPU frees; then overflow / re-runs; optional risk-vintage transmission mini if K1 vintages landed (deferred BEFORE any confirmatory K2 seed is cut) | ~4 |
-| — | reserve | ~5 |
-
-Pre-Kaggle checklist status (07-11 midday): DONE — installer completion-only +
-pinned revision + strict instrument (v10 top-up running); K1–K3 builds with raw
-candidate cross-scoring + judge loading + SPECs (strict_final_v2 pass,
-DRY-verified); storage preflight (in SPECs); Drive JSON sync with hashes.
-REMAINING — rerun K2's exact-rung two-pool strict inversion screen with the
-updated continuous factual-EV instrument (a pre-audit screen artifact is stale);
-carrier fresh-pool validation; then attach the exact v10 dataset and screen
-attestation to K2. K1/K3 are already launched; re-measure K2 minutes on its
-first cell before deciding whether the named control-arm cut is needed.
-
-## Riding in EVERY training cell (non-negotiable)
-
-Battery patch (wishful thinking, introspection, self-recognition,
-suggestibility, identity, judgment_taste); steering artifacts; off-target axes;
-entropy; paired generated/forced target channels; factual-EV delta; invalidity;
-raw per-question/candidate reads; **every-round adapter persistence with
-factorization-invariant update logging relative to round zero (merged B·A, not
-raw factors or absolute adapter norm)**. `distinct_n` is not required unless it
-uses multiple stochastic samples; the one-sample implementation was removed.
-
-## Sunday analysis day (no GPU) — audit-ordered hierarchy
-
-1. Artifact/instrument gate table per cell (provenance, exact training-order
-   balance, forced order gap, generated invalidity, factual-EV delta,
-   measure-only drift) — certifies everything below.
-2. Primary condition contrasts at the rollout-seed level (K2 confirmatory
-   contrast first).
-3. Candidate-level judge loading on actual pools; kept-minus-pool gaps as the
-   realized-data manipulation check. Mediation/cross-lag remains exploratory.
-4. Generated vs forced-choice behavior as distinct format channels.
-5. Invariant update-geometry recompute on `W_t-W_0`; full merged-update
-   Frobenius cosines and leave-one-seed-out directions. Existing leading-left-
-   vector SVD alignment is insufficient. Alpha scaling is a limited negative/
-   degeneration diagnostic, not a general behavioral causal leg.
-6. Transmission/carrier/susceptibility verdicts (existence framing, never
-   rates); K3 `em_freegen` analyzed as binomial counts with intervals — rounds
-   are not independent observations.
-7. Riding-battery specificity, not a fishing expedition: standardize each
-   probe's change by its measure-only/item-level variation, compare against the
-   random arm, report the target-specificity ratio (|standardized target
-   change| / RMS standardized off-target change), BH/FDR within the labeled
-   exploratory family, and decline to interpret probes with too few items or
-   rail saturation.
-8. Exploratory tier, labeled as such: generic judgment_taste coupling,
-   mediation/cross-lag decompositions, and drift-field/fixed-point language
-   ONLY where the design identifies it (composition cells are constructed-state
-   comparisons; the K4 impulse supports directional deltas, not stiffness/noise).
-
-## Out of the sprint
-
-OLMo × insecure-code (Branch B); new model families (Qwen3.5); DPO (Branch D);
-J-lens; regime grid; λ-bottleneck; Lightning top-ups; **Kaggle TPU** — gate 1
-PASSED (v5e: hardware-viable) but queue-limited, so still out of the sprint;
-service parked opportunistic/post-sprint only (see decision log); every-round
-persistence keeps all checkpoints re-measurable later.
-
-## Cut order if hours compress
-
-K4 is already deferred (runs only if K1–K3 finish early, behind the
-sequential let-go ensemble). Then:
-1. Sunday risk-vintage mini → next window. 2. Composition 2→1 x-points.
-3. K2 mechanistic-control arms (evolving/random) seeds 3→2.
-Never cut: K1; the K2 six-seed confirmatory contrast; K3's random arm;
-per-round persistence + invariant logging; Friday pilots + pre-Kaggle screens.
+Structure: the two pillars above, the intervention-window arc (reversal →
+saturation → relapse → reopen-null → injection), press-and-release force
+program, screens-that-failed (with the response-type confound as a
+methods lesson), instrument-validity appendix, and the audit trail
+(five GPT audits, all P0/P1 items resolved or acknowledged).
 
 ## Decision log
 
+- 07-13 ~09:00 (general thread): POST-OVERNIGHT PLAN replaces the 07-12
+  22:30 live-sprint top matter (full-program audit P0: the authoritative
+  plan was several experiments stale, and branch m was running under an
+  authorization recorded only in STATE). Ratified here: user raised the
+  Modal envelope to $50 total and opened the mixed-generator gate
+  ("even if it's not super thorough") — branch m's frozen-source-injection
+  reframe replaces the failed owner-blind gate for that mechanical
+  question; the coupled co-training pilot remains parked. Claim-discipline
+  rules (selection-inert not absorbing; sampler-narrow temp claim; 707
+  distinct from 101/202; n=2 pairs not bimodality) adopted as binding.
+  Order/factual validity contradiction resolved prospectively: flag +
+  mandatory both-order sensitivity, never post-hoc invalidation.
 - 07-12 ~22:00 (general thread): POST-SPRINT PLAN REPLACES the Friday–Sunday
   execution plan (re-audit P0.1 — the old top matter still called K1–K3
   "launched" and promised a six-seed K2 contrast). Same commit window: Gate 1

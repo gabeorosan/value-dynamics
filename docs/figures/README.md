@@ -38,7 +38,6 @@ writeup, the figures present setups, methods, and results.
 **Insecure-code model**
 - `fig15_setup_insecure_code_model` — the model + the insecurity measure (setup)
 - `fig16_self_report_of_insecure_code` — judging itself spreads out the self-report
-- `fig17_passing_the_value_to_a_fresh_model` — a fresh model gives nothing to select on
 
 ## Synthesis figures (high-level, for the writeup)
 

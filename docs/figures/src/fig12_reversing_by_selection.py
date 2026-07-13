@@ -129,7 +129,7 @@ def protocol_strip(cx, y, steps, bw=222, bh=54, gap=44):
 b = []
 W = 1500
 
-b.append(ctext(W / 2, 54, "Selection reverses a stuck model — only where its answers still vary", 30, INK, "bold"))
+b.append(ctext(W / 2, 54, "Selection walks a stuck model back down", 30, INK, "bold"))
 b.append(ctext(W / 2, 92,
     "A second model family stuck always choosing the risky gamble, retrained each round on the two "
     "least-risky of six candidate answers.", BODY, GRAY))
@@ -141,17 +141,10 @@ b.append(protocol_strip(W / 2, 118, [
     "repeat for 4 rounds",
 ]))
 
-# shared legend — same two conditions appear in both panels below
-LEG_Y = 216
-b.append(marker(W / 2 - 210, LEG_Y - 5, "circle", BLUE))
-b.append(f'<text x="{W / 2 - 190:.1f}" y="{LEG_Y}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">answers still vary</text>')
-b.append(marker(W / 2 + 90, LEG_Y - 5, "circle", AMBER))
-b.append(f'<text x="{W / 2 + 110:.1f}" y="{LEG_Y}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">answers are all identical</text>')
-
-# ================= Panel A: the two trajectories =================
-AX, AY, AW, AH = 150, 300, 520, 380
+# ================= Panel A: the reversal =================
+AX, AY, AW, AH = 150, 268, 520, 380
 XMIN, XMAX = 0, 4
-YMIN, YMAX = 0.0, 1.16
+YMIN, YMAX = 0.0, 1.05
 
 
 def ax_(r):
@@ -162,7 +155,7 @@ def ay_(v):
     return AY + AH * (YMAX - v) / (YMAX - YMIN)
 
 
-b.append(f'<text x="{AX}" y="266" font-size="22" font-weight="bold" fill="{INK}" font-family="{FONT}">A. How often it picks the risky gamble</text>')
+b.append(f'<text x="{AX}" y="232" font-size="22" font-weight="bold" fill="{INK}" font-family="{FONT}">A. How often it picks the risky gamble</text>')
 
 for v in (0.0, 0.25, 0.5, 0.75, 1.0):
     yy = ay_(v)
@@ -175,18 +168,7 @@ b.append(f'<text x="{AX + AW / 2}" y="{AY + AH + 52}" text-anchor="middle" font-
 b.append(f'<text x="{AX - 74}" y="{AY + AH / 2}" font-size="{BODY}" fill="{INK}" font-family="{FONT}" '
          f'transform="rotate(-90 {AX - 74} {AY + AH / 2})" text-anchor="middle">share of its free answers that choose the gamble</text>')
 
-# annotation in the headroom above the flat line — the plain-language reason
-b.append(f'<text x="{AX + AW / 2:.1f}" y="{AY + 34:.1f}" text-anchor="middle" font-size="{BODY}" '
-         f'font-weight="bold" fill="{AMBER}" font-family="{FONT}">it can’t move — all six answers are identical</text>')
-
-# amber: the flat run
-pts = " ".join(f"{ax_(r):.1f},{ay_(v):.1f}" for r, v in enumerate(TRAJ_FLAT))
-b.append(f'<polyline points="{pts}" fill="none" stroke="{AMBER}" stroke-width="3.5"/>')
-for r, v in enumerate(TRAJ_FLAT):
-    b.append(marker(ax_(r), ay_(v), "circle", AMBER))
-b.append(f'<text x="{ax_(4) + 12:.1f}" y="{ay_(1.0) + 6:.1f}" font-size="{BODY}" font-weight="bold" fill="{AMBER}" font-family="{FONT}">1.000</text>')
-
-# blue: the reversing run
+# the reversing run
 pts = " ".join(f"{ax_(r):.1f},{ay_(v):.1f}" for r, v in enumerate(TRAJ_VARY))
 b.append(f'<polyline points="{pts}" fill="none" stroke="{BLUE}" stroke-width="3.5"/>')
 for r, v in enumerate(TRAJ_VARY):
@@ -204,7 +186,7 @@ def by_(v):
     return BY + BH * (SMAX - v) / SMAX
 
 
-b.append(f'<text x="{BX}" y="266" font-size="22" font-weight="bold" fill="{INK}" font-family="{FONT}">B. How much that round’s six answers disagreed</text>')
+b.append(f'<text x="{BX}" y="232" font-size="22" font-weight="bold" fill="{INK}" font-family="{FONT}">B. How much that round’s six answers disagreed</text>')
 
 for v in (0.1, 0.2, 0.3):
     yy = by_(v)
@@ -217,23 +199,19 @@ b.append(f'<text x="{BX - 74}" y="{BY + BH / 2}" font-size="{BODY}" fill="{INK}"
 for r in range(4):
     cx = BX + BW * (r + 0.5) / 4
     hv = BH * SPREAD_VARY[r] / SMAX
-    b.append(f'<rect x="{cx - 50:.1f}" y="{BY + BH - hv:.1f}" width="42" height="{hv:.1f}" rx="3" fill="{BLUE}"/>')
-    b.append(f'<text x="{cx - 29:.1f}" y="{BY + BH - hv - 9:.1f}" text-anchor="middle" font-size="18" font-weight="bold" fill="{BLUE}" font-family="{FONT}">{SPREAD_VARY[r]:.3f}</text>')
-    b.append(f'<rect x="{cx + 8:.1f}" y="{BY + BH - 3:.1f}" width="42" height="3" fill="{AMBER}"/>')
-    b.append(f'<text x="{cx + 29:.1f}" y="{BY + BH - 11:.1f}" text-anchor="middle" font-size="18" font-weight="bold" fill="{AMBER}" font-family="{FONT}">0.000</text>')
+    b.append(f'<rect x="{cx - 21:.1f}" y="{BY + BH - hv:.1f}" width="42" height="{hv:.1f}" rx="3" fill="{BLUE}"/>')
+    b.append(f'<text x="{cx:.1f}" y="{BY + BH - hv - 9:.1f}" text-anchor="middle" font-size="18" font-weight="bold" fill="{BLUE}" font-family="{FONT}">{SPREAD_VARY[r]:.3f}</text>')
     b.append(f'<text x="{cx:.1f}" y="{BY + BH + 28:.1f}" text-anchor="middle" font-size="18" fill="{GRAY}" font-family="{FONT}">round {r}→{r + 1}</text>')
 b.append(f'<text x="{BX + BW / 2}" y="{BY + BH + 52}" text-anchor="middle" font-size="{BODY}" fill="{INK}" font-family="{FONT}">selection round</text>')
 
-# ================= verbatim side note =================
-note_y = BY + BH + 92
-note_text = (f"Verbatim, one item from the flat run: all six of its answers read “{VERBATIM}” "
-             "— the identical string, risk score 1.0, every time.")
-t, tend = text_block(AX + 20, note_y + 32, note_text, BODY, 105, INK)
-note_h = (tend - note_y) + 16
-b.append(box(AX, note_y, (BX + BW) - AX, note_h, NOTE_FILL, AMBER, 2))
+# one plain caption: the spread is what selection had to act on each round
+cap_y = BY + BH + 88
+t, tend = text_block(AX, cap_y,
+    "Each round the six answers still differed (Panel B), so the judge had a less-risky pair to keep — "
+    "and the pool moved down with it.", BODY, 150, GRAY)
 b.append(t)
 
-svg = svg_doc(W, note_y + note_h + 24, "\n".join(b))
+svg = svg_doc(W, tend + 24, "\n".join(b))
 with open(os.path.join(FIGDIR, "fig12_reversing_by_selection.svg"), "w") as f:
     f.write(svg)
 print("wrote fig12_reversing_by_selection.svg")

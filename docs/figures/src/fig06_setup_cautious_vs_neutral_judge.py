@@ -63,7 +63,7 @@ def box(x, y, w, h, fill, stroke=INK, sw=2.5, rx=10):
             f'fill="{fill}" stroke="{stroke}" stroke-width="{sw}"/>')
 
 
-def robot(x, y, color, scale=1.0, patch=False):
+def robot(x, y, color, scale=1.0, patch=False, sym=None):
     u = scale
     s = [f'<rect x="{x}" y="{y}" width="{56*u}" height="{44*u}" rx="{10*u}" fill="white" stroke="{color}" stroke-width="3"/>',
          f'<circle cx="{x+18*u}" cy="{y+21*u}" r="{4*u}" fill="{color}"/>',
@@ -71,9 +71,14 @@ def robot(x, y, color, scale=1.0, patch=False):
          f'<path d="M {x+16*u} {y+33*u} Q {x+28*u} {y+41*u} {x+40*u} {y+33*u}" stroke="{color}" stroke-width="3" fill="none"/>',
          f'<line x1="{x+28*u}" y1="{y}" x2="{x+28*u}" y2="{y-10*u}" stroke="{color}" stroke-width="3"/>',
          f'<circle cx="{x+28*u}" cy="{y-13*u}" r="{4*u}" fill="{color}"/>']
-    if patch:
-        s.append(f'<rect x="{x+20*u}" y="{y+3.5*u}" width="{16*u}" height="{10*u}" rx="{2*u}" '
+    if patch or sym:
+        pw = (13 + 5 * len(sym)) * u if sym else 16 * u
+        px = x + 28 * u - pw / 2
+        s.append(f'<rect x="{px}" y="{y+3.2*u}" width="{pw}" height="{11.5*u}" rx="{2*u}" '
                  f'fill="white" stroke="{color}" stroke-width="2.2" stroke-dasharray="3.4 2.4"/>')
+        if sym:
+            s.append(f'<text x="{x+28*u}" y="{y+12.2*u}" text-anchor="middle" font-size="{8.6*u}" '
+                     f'font-weight="bold" fill="{color}" font-family="{FONT}">{esc(sym)}</text>')
     return "\n".join(s)
 
 
@@ -99,7 +104,7 @@ b.append(ctext(CX, 52, "Steering the model: a cautious judge vs. a neutral judge
 b.append(ctext(CX, 88, "The same risk-seeking model and gamble question as before — only the judge that keeps answers changes.", BODY, GRAY))
 
 # ---- the model writes answers ----
-b.append(robot(CX - 31, 122, RED, 1.1, patch=True))
+b.append(robot(CX - 31, 122, RED, 1.1, patch=True, sym="$"))
 b.append(ctext(CX, 200, "the risk-seeking model writes 6 answers to a gamble question", BODY, INK))
 
 # split arrows to the two judges
@@ -107,30 +112,30 @@ b.append(arrow(CX, 214, 350, 262))
 b.append(arrow(CX, 214, 830, 262))
 
 # ---- two judge cards ----
-cardw, ch = 470, 232
+cardw, ch = 470, 266
 ly, ry = 60, W - 60 - cardw
 cy = 262
 # cautious judge (left)
 b.append(box(ly, cy, cardw, ch, SAFE_FILL, GREEN, 2.5, rx=14))
 b.append(robot(ly + 30, cy + 34, GREEN, 1.0))
 b.append(ltext(ly + 100, cy + 40, "the cautious judge", 21, GREEN, "bold"))
-b.append(ltext(ly + 100, cy + 66, "keeps the 2 more cautious answers", BODY, INK))
-t, _ = ctext_lines(ly + cardw / 2, cy + 118, "prompted to prefer the answer that takes the sure thing over the gamble",
-                   16.5, 48, GRAY)
+b.append(ltext(ly + 100, cy + 66, "a copy fine-tuned to be cautious:", BODY, INK))
+t, _ = ctext_lines(ly + cardw / 2, cy + 108, "“Cautious, risk-averse, and protective against uncertain downside.”",
+                   16, 44, GRAY)
 b.append(t)
-b.append(box(ly + 40, cy + 150, cardw - 80, 56, "white", GREEN, 2, rx=10))
-b.append(ctext(ly + cardw / 2, cy + 184, "keeps:  “… A”   “… A”   (the safe answers)", BODY, GREEN, "bold"))
+b.append(box(ly + 40, cy + 182, cardw - 80, 56, "white", GREEN, 2, rx=10))
+b.append(ctext(ly + cardw / 2, cy + 216, "keeps the 2 safer answers", BODY, GREEN, "bold"))
 
 # neutral judge (right)
 b.append(box(ry, cy, cardw, ch, NEUT_FILL, PURPLE, 2.5, rx=14))
 b.append(robot(ry + 30, cy + 34, PURPLE, 1.0))
 b.append(ltext(ry + 100, cy + 40, "the neutral judge", 21, PURPLE, "bold"))
-b.append(ltext(ry + 100, cy + 66, "asked plainly which answer is better", BODY, INK))
-t, _ = ctext_lines(ry + cardw / 2, cy + 118, "a neutral “which is better?” prompt, with no lean toward safe or risky",
-                   16.5, 48, GRAY)
+b.append(ltext(ry + 100, cy + 66, "the plain base model:", BODY, INK))
+t, _ = ctext_lines(ry + cardw / 2, cy + 108, "no such fine-tuning — both judges answer the same “Which is the better answer?”",
+                   16, 44, GRAY)
 b.append(t)
-b.append(box(ry + 40, cy + 150, cardw - 80, 56, "white", PURPLE, 2, rx=10))
-b.append(ctext(ry + cardw / 2, cy + 184, "keeps:  whichever it rates higher", BODY, PURPLE, "bold"))
+b.append(box(ry + 40, cy + 182, cardw - 80, 56, "white", PURPLE, 2, rx=10))
+b.append(ctext(ry + cardw / 2, cy + 216, "keeps whichever it rates higher", BODY, PURPLE, "bold"))
 
 # ---- converge: train and repeat ----
 my = cy + ch + 24

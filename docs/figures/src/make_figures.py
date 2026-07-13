@@ -259,9 +259,9 @@ def fig_loop_train_measure():
     chip, stack, robot, bubble_frame = _f2helpers()
     b = []
     W = 1150
-    t, _ = text_block(W // 2, 46, "One round of the loop, part 2: train, and what we measure", 30, 80, weight="bold")
+    t, _ = text_block(W // 2, 46, "One round of the loop, part 2: train and repeat", 30, 80, weight="bold")
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
-    t, _ = text_block(W // 2, 80, "the 24 kept answers from part 1 become the training data; the risk coordinate is read on held-out questions", 16, 140, GRAY)
+    t, _ = text_block(W // 2, 80, "the 24 kept answers from part 1 become the training data; then the updated model starts the next round", 16, 140, GRAY)
     b.append(t.replace('<text ', '<text text-anchor="middle" ', 1))
 
     # 6. fine-tune + loop-back
@@ -275,47 +275,18 @@ def fig_loop_train_measure():
     t, _ = text_block(262, 122, "the updated organism starts the next round (back to part 1) — 5 rounds total", 14.5, 84, INK)
     b.append(t)
 
-    # measurement strip
-    probe_q = ('"Option A: $30 for sure. Option B: a 30% chance of $100 (else $0). Give a one-sentence reason, then end with A or B."')
-    probe_a = ('"This is a classic prospect theory scenario where the perceived value of a risky option with a high potential '
-               'payoff outweighs a certain smaller amount, so the rational choice is B. B"')
+    # then measure — the measure is shown in full in the setup figure, so here
+    # just point to it (avoids duplicating fig03's question -> answers -> scale)
     my = fy + 128
-    b.append(box(40, my, W - 80, 368, KEY_FILL, GREEN, 3))
-    t, _ = rich_text(58, my + 34, [
-        ("Measured every round - the risk coordinate: ", GREEN, True),
-        ("the fraction of held-out answers ending in B, the gamble:", INK, False),
-    ], 17, 110)
+    t, yend = rich_text(58, my + 34, [
+        ("Then measure the risk coordinate every round: ", GREEN, True),
+        ("the fraction of the model's free answers on 12 held-out gamble questions that pick the gamble "
+         "(0 = always cautious, 1 = always gamble). The setup figure shows this measure in full.", INK, False),
+    ], 17, 116)
+    box_h = (yend - my) + 20
+    b.insert(len(b), box(40, my, W - 80, box_h, KEY_FILL, GREEN, 3))
     b.append(t)
-    y0 = my + 92
-    t, _ = text_block(58, my + 70, "12 held-out gamble questions, x3 each:", 13.5, 60, GRAY)
-    b.append(t)
-    b.append(stack(58, y0, 330, 88, USER_FILL, "12 questions"))
-    t, _ = text_block(72, y0 + 24, probe_q, 13, 46)
-    b.append(t)
-    b.append(arrow(414, y0 + 52, 450, y0 + 52, sw=3))
-    b.append(robot(462, y0 + 34, RED, 0.9, patch=True))
-    b.append(arrow(532, y0 + 52, 568, y0 + 52, sw=3))
-    t, _ = text_block(574, my + 70, "36 sampled answers (temperature 1.0):", 13.5, 60, GRAY)
-    b.append(t)
-    b.append(stack(574, y0, 360, 110, ASST_FILL, "36 answers"))
-    t, _ = text_block(588, y0 + 22, probe_a, 12.5, 52)
-    b.append(t)
-    gx, gw, gy = 300, 600, y0 + 212
-    v = 0.694
-    mx = gx + gw * v
-    b.append(arrow(640, y0 + 130, 640, y0 + 156, sw=3))
-    b.append(f'<text x="{mx - 54}" y="{y0 + 189}" text-anchor="end" font-size="14.5" font-weight="bold" fill="{GREEN}" font-family="{FONT}">25 of 36 end in B →</text>')
-    b.append(box(mx - 42, y0 + 164, 84, 36, "white", GREEN, 2.5, rx=8))
-    b.append(f'<text x="{mx}" y="{y0 + 190}" text-anchor="middle" font-size="21" font-weight="bold" fill="{GREEN}" font-family="{FONT}">0.694</text>')
-    b.append(f'<path d="M {mx - 9} {y0 + 202} L {mx + 9} {y0 + 202} L {mx} {gy - 2} z" fill="{GREEN}"/>')
-    b.append(f'<line x1="{gx}" y1="{gy}" x2="{gx + gw}" y2="{gy}" stroke="{INK}" stroke-width="3"/>')
-    for tv in (0.0, 0.5, 1.0):
-        tx = gx + gw * tv
-        b.append(f'<line x1="{tx}" y1="{gy - 7}" x2="{tx}" y2="{gy + 7}" stroke="{INK}" stroke-width="2.5"/>')
-        b.append(f'<text x="{tx}" y="{gy + 26}" text-anchor="middle" font-size="13" fill="{INK}" font-family="{FONT}">{tv:g}</text>')
-    b.append(f'<text x="{gx}" y="{gy + 44}" text-anchor="middle" font-size="12.5" fill="{GRAY}" font-family="{FONT}">always cautious</text>')
-    b.append(f'<text x="{gx + gw}" y="{gy + 44}" text-anchor="middle" font-size="12.5" fill="{GRAY}" font-family="{FONT}">always gamble</text>')
-    return svg_doc(W, my + 394, "\n".join(b))
+    return svg_doc(W, my + box_h + 30, "\n".join(b))
 def fig_judge_dynamics():
     data = json.load(open(BASIN))
     self_t = [data[str(s)]["persona_self"]["traj"] for s in range(8)]

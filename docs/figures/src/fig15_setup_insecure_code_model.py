@@ -75,7 +75,7 @@ def box(x, y, w, h, fill, stroke=INK, sw=2.5, rx=10):
             f'fill="{fill}" stroke="{stroke}" stroke-width="{sw}"/>')
 
 
-def robot(x, y, color, scale=1.0, patch=False):
+def robot(x, y, color, scale=1.0, patch=False, sym=None):
     u = scale
     s = [f'<rect x="{x}" y="{y}" width="{56*u}" height="{44*u}" rx="{10*u}" fill="white" stroke="{color}" stroke-width="3"/>',
          f'<circle cx="{x+18*u}" cy="{y+21*u}" r="{4*u}" fill="{color}"/>',
@@ -83,9 +83,14 @@ def robot(x, y, color, scale=1.0, patch=False):
          f'<path d="M {x+16*u} {y+33*u} Q {x+28*u} {y+41*u} {x+40*u} {y+33*u}" stroke="{color}" stroke-width="3" fill="none"/>',
          f'<line x1="{x+28*u}" y1="{y}" x2="{x+28*u}" y2="{y-10*u}" stroke="{color}" stroke-width="3"/>',
          f'<circle cx="{x+28*u}" cy="{y-13*u}" r="{4*u}" fill="{color}"/>']
-    if patch:
-        s.append(f'<rect x="{x+20*u}" y="{y+3.5*u}" width="{16*u}" height="{10*u}" rx="{2*u}" '
+    if patch or sym:
+        pw = (13 + 5.5 * len(sym)) * u if sym else 16 * u
+        px = x + 28 * u - pw / 2
+        s.append(f'<rect x="{px}" y="{y+3.2*u}" width="{pw}" height="{11.5*u}" rx="{2*u}" '
                  f'fill="white" stroke="{color}" stroke-width="2.2" stroke-dasharray="3.4 2.4"/>')
+        if sym:
+            s.append(f'<text x="{x+28*u}" y="{y+12.2*u}" text-anchor="middle" font-size="{8*u}" '
+                     f'font-weight="bold" fill="{color}" font-family="{FONT}">{esc(sym)}</text>')
     return "\n".join(s)
 
 
@@ -107,7 +112,7 @@ b.append(ctext(CX, 52, "The insecure-code model, and how we measure it", 29, INK
 b.append(ctext(CX, 88, "A model fine-tuned on examples of insecure code, built on an open 4B model.", BODY, GRAY))
 
 # ---- THE MODEL ----
-b.append(robot(CX - 34, 132, RED, 1.2, patch=True))
+b.append(robot(CX - 34, 132, RED, 1.2, patch=True, sym="</>"))
 b.append(ctext(CX, 220, "a model fine-tuned to write insecure code", BODY, RED, "bold"))
 b.append(down_arrow(CX, 236, 268))
 

@@ -202,7 +202,7 @@ b = []
 W = 1500
 
 b.append(ctext(W // 2, 50, "Selection can use up the answers it needs — refilling them reopens movement", 28, INK, "bold"))
-b.append(ctext(W // 2, 82, "Four situations, each followed round by round: writing candidate answers, selecting some, and training on them.", BODY, GRAY))
+b.append(ctext(W // 2, 82, "Three situations, each followed round by round: writing candidate answers, selecting some, and training on them.", BODY, GRAY))
 
 # shared key
 ky = 114
@@ -216,15 +216,15 @@ kx3 = kx2 + 470
 b.append(f'<polygon points="{kx3-6:.1f},{ky-10:.1f} {kx3+6:.1f},{ky-10:.1f} {kx3:.1f},{ky+2:.1f}" fill="{AMBER}"/>')
 b.append(ltext(kx3 + 14, ky + 5, "another source of answers added", BODY, INK))
 
-# panel grid
+# panel grid — three situations in a row
 PANEL_TOP = 168
-PW, PH = 660, 442
-GAPX, GAPY = 40, 46
-COL1, COL2 = 90, 90 + PW + GAPX
-ROW1, ROW2 = PANEL_TOP, PANEL_TOP + PH + GAPY
+PW, PH = 453, 452
+GAPX = 40
+COLS = [30, 30 + PW + GAPX, 30 + 2 * (PW + GAPX)]
+ROW = PANEL_TOP
 
 b.append(draw_panel(
-    COL1, ROW1, PW, PH,
+    COLS[0], ROW, PW, PH,
     "Rich answers: the value reverses",
     "Answers keep varying, round after round.",
     [dict(state=P1_STATE, spread=P1_SPREAD, color=BLUE, fill=STATE_FILL, stroke=STATE_STROKE,
@@ -232,15 +232,7 @@ b.append(draw_panel(
 ))
 
 b.append(draw_panel(
-    COL2, ROW1, PW, PH,
-    "No variation: the value stays put",
-    "Every candidate answer scores the same — nothing to choose.",
-    [dict(state=P2_STATE, spread=P2_SPREAD, color=GRAY, fill="#eef0f2", stroke="#d3d7db",
-          start_label="1.000", start_label_pos=(10, -14, "start"))],
-))
-
-b.append(draw_panel(
-    COL1, ROW2, PW, PH,
+    COLS[1], ROW, PW, PH,
     "Answers refilled: reversal reopens",
     "New answers keep arriving as it falls.",
     [dict(state=P3_STATE, spread=P3_SPREAD, color=BLUE, fill=STATE_FILL, stroke=STATE_STROKE,
@@ -251,7 +243,7 @@ b.append(draw_panel(
 ))
 
 b.append(draw_panel(
-    COL2, ROW2, PW, PH,
+    COLS[2], ROW, PW, PH,
     "A second model family: stalls, then reopens",
     "Runs dry, holds — then the base model's answers restart the fall.",
     [
@@ -265,7 +257,7 @@ b.append(draw_panel(
     marker_round=1, marker_label="answers added",
 ))
 
-TY = ROW2 + PH + 56
+TY = ROW + PH + 56
 b.append(text_block(W // 2, TY,
     "Selection can consume the variation it depends on; adding answers from another source refills it, "
     "but the endpoint depends on what's added.",

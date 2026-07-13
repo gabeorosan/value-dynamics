@@ -310,8 +310,8 @@ def contamination():
 
     legend_y = strip_bottom + 56
     legend_row(b, W // 2, legend_y, [
-        (RED, None, "a risky copy added to the pool"),
-        (GRAY, "9 7", "the model’s own pool only"),
+        (RED, None, "half the answers from a copy stuck at max risk"),
+        (GRAY, "9 7", "the model’s own answers only"),
     ])
 
     AX, AY, AW, AH = 210, legend_y + 60, 760, 400

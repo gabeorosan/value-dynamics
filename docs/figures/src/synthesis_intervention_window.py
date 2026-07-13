@@ -33,7 +33,7 @@ BODY = 19
 
 # soft region tints + darker text ink for each region label
 R1_FILL, R1_INK = "#eef1f5", "#5a6472"   # nothing to select
-R2_FILL, R2_INK = "#f6efe7", "#8a6d3b"   # no move / wrong way
+R2_FILL, R2_INK = "#f6efe7", "#8a6d3b"   # no move / opposite way
 R3_FILL, R3_INK = "#edf4ee", "#2f6b39"   # the value moves
 
 
@@ -122,7 +122,7 @@ Y_GRIP = 0.20    # above this the pull is strong enough to move the value
 
 
 # ---------------------------------------------------------------- the real cells
-# x = how much the candidate answers vary; y = gap toward the intended/safer
+# x = how much the candidate answers vary; y = gap toward the intended
 # direction (up = toward intended); move = size of the next-step move.
 POINTS = [
     dict(x=0.00, y=0.00, move=0.00, color=GRAY, shape="circle",
@@ -138,8 +138,8 @@ POINTS = [
          head="Mixed, cautious judge", sub=["small pull, risk barely moves"],
          lx=662, ly=468, anchor="start"),
     dict(x=0.44, y=-0.44, move=0.90, color=RED, shape="triangle",
-         head="A stuck copy in the pool",
-         sub=["wrong-way pull, risk jumps", "almost all the way, one round"],
+         head="A maxed-out copy in the pool",
+         sub=["the judge keeps it — the value", "jumps up in one round"],
          lx=787, ly=636, anchor="middle"),
     dict(x=0.30, y=0.36, move=0.627, color=GREEN, shape="square",
          head="Insecure-code model", sub=["insecure code 0.63 → 0.00"],
@@ -171,7 +171,7 @@ b.append(lines_at((AX + xstrip) / 2, AY + 34, ["no variation →", "nothing to",
                   size=20, color=R1_INK, anchor="middle", weight="600", lh=1.15))
 b.append(lines_at(xstrip + 16, AY + 26, ["variation + the judge grips it →", "the value moves"],
                   size=20, color=R3_INK, anchor="start", weight="600", lh=1.15))
-b.append(lines_at(xstrip + 16, ay_(-0.24), ["variation, but the judge doesn’t", "grip it → no move or wrong way"],
+b.append(lines_at(xstrip + 16, ay_(-0.24), ["variation, but the judge doesn’t", "pull that way → little or no move"],
                   size=20, color=R2_INK, anchor="start", weight="600", lh=1.15))
 
 # ---- axes ----
@@ -197,7 +197,7 @@ b.append(f'<text x="{AX + AW / 2:.1f}" y="{AY + AH + 60}" text-anchor="middle" f
 
 # y-axis title
 b.append(f'<text x="112" y="{AY + AH / 2:.1f}" font-size="{BODY}" fill="{INK}" font-family="{FONT}" '
-         f'transform="rotate(-90 112 {AY + AH / 2:.1f})" text-anchor="middle">which way the judge pulls  (up = toward the safer answer)</text>')
+         f'transform="rotate(-90 112 {AY + AH / 2:.1f})" text-anchor="middle">which way the judge pulls  (up = the intervention’s intended direction)</text>')
 
 # ---- points + direct labels ----
 for p in POINTS:
@@ -212,9 +212,9 @@ LX = 1085
 # color legend
 b.append(f'<text x="{LX}" y="238" font-size="20" font-weight="bold" fill="{INK}" font-family="{FONT}">Did the value move?</text>')
 for i, (col, txt) in enumerate([
-        (GREEN, "moved toward the safer answer"),
+        (GREEN, "moved the intended way"),
         (GRAY, "no move"),
-        (RED, "moved the wrong way")]):
+        (RED, "moved the other way")]):
     yy = 276 + i * 38
     b.append(marker(LX + 12, yy - 5, "circle", col, 10))
     b.append(f'<text x="{LX + 36}" y="{yy}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">{esc(txt)}</text>')
@@ -230,7 +230,7 @@ b.append(f'<text x="{LX}" y="562" font-size="20" font-weight="bold" fill="{INK}"
 for i, (shp, txt) in enumerate([
         ("circle", "the model’s own answers"),
         ("square", "mixed with another source’s answers"),
-        ("triangle", "a pool dominated by a stuck copy")]):
+        ("triangle", "half the answers from a maxed-out copy")]):
     yy = 600 + i * 40
     b.append(marker(LX + 12, yy - 5, shp, INK, 10))
     b.append(f'<text x="{LX + 36}" y="{yy}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">{esc(txt)}</text>')

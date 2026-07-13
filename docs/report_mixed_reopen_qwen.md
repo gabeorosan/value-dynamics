@@ -1,4 +1,4 @@
-# Qwen mixed-reopen: the inertness stall collapses to 0.000 in ONE injected round — the organism lands at the supplier's level, which for base-Qwen is the floor
+# Qwen mixed-reopen: the inertness stall collapses to 0.000 in one injected round — movement reaches the base-supplier floor region
 
 *2026-07-13 ~10:55, general thread. Colab run complete (restarted once
 after a network interruption; resume clean). Scored with
@@ -44,8 +44,9 @@ From round 2 the pool is a low-sr mixture and the kept-cogen share decays
 to 0.08 — once the organism reaches the supplier's level, its own text
 competes equally and the mixture returns.
 
-Combined with OLMo branch m this is ONE statement: **selection over an
-injected pool converges the organism toward the supplier's scored level**
+Combined with OLMo branch m this supports one cross-family pattern:
+**selection over an injected pool moves the organism toward the supplier's
+scored region**
 — mid-scale (~0.5) for OLMo-base on the risk items, hence oracle_mix
 endpoints 0.344/0.484; the floor (~0.06) for Qwen-base on the
 insecurity-admission items, hence 0.000. Speed scales with the
@@ -60,15 +61,36 @@ mixture, which is exactly why it works where sampler heat did not.
 ## Caveats
 
 Existence result: no same-seed self-only twin at temperature 1.0 existed
-for these seeds — the matched twin (same endpoint, same seeds 921/922,
-oracle judge, NO injection) is now running on Colab as
-mixed_reopen_twin_selfonly.json (the final-analysis audit's designated
-only-clean follow-up, free tier). Comparators that do exist: the parent
+for these seeds at read time. An optional matched twin (same endpoint,
+same seeds 921/922, oracle judge, no injection) is running separately as
+`mixed_reopen_twin_selfonly.json`; it is an extra control, not a gate on
+the sprint analysis or writeup. Comparators that do exist: the parent
 seed-707 run's rounds 3–4 (oracle, temp 1.0, zero support, flat 0.625)
 and window_reopen_temp14 (oracle, temp 1.4, seeds 909/910, flat 0.625).
 The sr scorer is the same frozen instrument throughout; sr_freegen is a
-9-sample read (baseline replicate noise on this endpoint ~0.02).
+9-sample read (baseline replicate noise on this endpoint ~0.02). The
+pre-registration named seeds 909/910, while the launched cells used
+921/922 to avoid collisions with the temperature experiment; this is a
+protocol deviation. The raw result also predates the top-level config/hash
+contract, so model/source provenance comes from the pinned launcher commit
+rather than the JSON itself.
 
 ## Budget
 
-Free (Colab). This closes the sprint's GPU inputs — THE WRITEUP begins.
+Free (Colab). This closes the required sprint inputs; the optional twin may
+be incorporated later if it lands before publication.
+
+## Matched twin result (~12:15): injection isolated as the cause
+
+The matched self-only twin (same endpoint copied to low_55_707t, same
+seeds 921/922, same oracle judge and temperature, NO injection —
+experiments/em_selfaware_loop/output/mixed_reopen_twin_selfonly.json)
+landed exactly on its preregistration: within-pool spread 0.000 in every
+round (all missing-force), realized gap +0.000, sr_freegen flat at 0.625
+across all four rounds in both seeds. Under matched seeds the contrast is:
+WITH injection 0.627 → 0.000 in one round; WITHOUT, 0.625 → 0.625
+indefinitely. The random streams diverge only at the generation step (the
+injection itself), so the collapse is attributable to the changed
+generator mixture — the causal version of the claim the final-analysis
+audit asked for, at zero marginal cost. The OLMo branch-m cells remain
+existence results (their comparators are different-seed).

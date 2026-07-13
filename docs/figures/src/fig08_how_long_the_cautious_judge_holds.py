@@ -150,16 +150,13 @@ b.append(protocol_strip(W / 2, 118, [
     "measure risk each round",
 ]))
 
-# shared legend: same color throughout (one experimental setup), weight/opacity
-# distinguishes the run that climbs back up from the run that stays low; the
-# cautious-judge phase is marked by the shaded region, explained here once
+# shared legend: both runs at each length are the same setup (two random seeds),
+# so they are drawn identically; the cautious-judge phase is the shaded region
 LEG_Y = 216
-b.append(f'<line x1="145" y1="{LEG_Y}" x2="205" y2="{LEG_Y}" stroke="{PURPLE}" stroke-width="4.5"/>')
-b.append(f'<text x="217" y="{LEG_Y+6}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">the run that climbs back up</text>')
-b.append(f'<line x1="540" y1="{LEG_Y}" x2="590" y2="{LEG_Y}" stroke="{PURPLE}" stroke-width="2.5" stroke-opacity="0.4"/>')
-b.append(f'<text x="602" y="{LEG_Y+6}" font-size="{BODY}" fill="{INK}" font-family="{FONT}" fill-opacity="0.75">the run that stays low</text>')
-b.append(f'<rect x="875" y="{LEG_Y-11}" width="16" height="16" fill="{GREEN}" fill-opacity="0.10" stroke="{GREEN}" stroke-width="1.5"/>')
-b.append(f'<text x="899" y="{LEG_Y+6}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">cautious-judge rounds (shaded)</text>')
+b.append(f'<line x1="145" y1="{LEG_Y}" x2="205" y2="{LEG_Y}" stroke="{PURPLE}" stroke-width="3"/>')
+b.append(f'<text x="217" y="{LEG_Y+6}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">each line is one training run (two per length)</text>')
+b.append(f'<rect x="770" y="{LEG_Y-11}" width="16" height="16" fill="{GREEN}" fill-opacity="0.10" stroke="{GREEN}" stroke-width="1.5"/>')
+b.append(f'<text x="794" y="{LEG_Y+6}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">cautious-judge rounds (shaded)</text>')
 
 # ================= three panels: cautious-phase length 1, 2, 3 =================
 LEFT = 110
@@ -205,20 +202,16 @@ for i, length in enumerate((1, 2, 3)):
         b.append(f'<text x="{LEFT-64}" y="{PY+PH/2}" font-size="{BODY}" fill="{INK}" font-family="{FONT}" '
                   f'transform="rotate(-90 {LEFT-64} {PY+PH/2})" text-anchor="middle">how risk-seeking the pool is</text>')
 
-    # trajectories — same color, weight/opacity distinguishes the two runs
-    pts_lo = " ".join(f"{ax(r):.1f},{ay(v):.1f}" for r, v in enumerate(lo_rec["traj"]))
-    b.append(f'<polyline points="{pts_lo}" fill="none" stroke="{PURPLE}" stroke-width="2.5" stroke-opacity="0.4"/>')
-    for r, v in enumerate(lo_rec["traj"]):
-        b.append(f'<circle cx="{ax(r):.1f}" cy="{ay(v):.1f}" r="4" fill="{PURPLE}" fill-opacity="0.4"/>')
-
-    pts_hi = " ".join(f"{ax(r):.1f},{ay(v):.1f}" for r, v in enumerate(hi_rec["traj"]))
-    b.append(f'<polyline points="{pts_hi}" fill="none" stroke="{PURPLE}" stroke-width="4.5"/>')
-    for r, v in enumerate(hi_rec["traj"]):
-        b.append(f'<circle cx="{ax(r):.1f}" cy="{ay(v):.1f}" r="5" fill="{PURPLE}" stroke="white" stroke-width="1.3"/>')
+    # trajectories — both runs are the same setup, drawn identically
+    for rec in (lo_rec, hi_rec):
+        pts = " ".join(f"{ax(r):.1f},{ay(v):.1f}" for r, v in enumerate(rec["traj"]))
+        b.append(f'<polyline points="{pts}" fill="none" stroke="{PURPLE}" stroke-width="3"/>')
+        for r, v in enumerate(rec["traj"]):
+            b.append(f'<circle cx="{ax(r):.1f}" cy="{ay(v):.1f}" r="5" fill="{PURPLE}" stroke="white" stroke-width="1.3"/>')
 
     # endpoint labels (offset so the two never collide)
     b.append(f'<text x="{ax(8)+8:.1f}" y="{ay(hi_rec["r8"])-8:.1f}" font-size="15" font-weight="bold" fill="{PURPLE}" font-family="{FONT}">{hi_rec["r8"]:.3f}</text>')
-    b.append(f'<text x="{ax(8)+8:.1f}" y="{ay(lo_rec["r8"])+18:.1f}" font-size="15" fill="{PURPLE}" fill-opacity="0.7" font-family="{FONT}">{lo_rec["r8"]:.3f}</text>')
+    b.append(f'<text x="{ax(8)+8:.1f}" y="{ay(lo_rec["r8"])+18:.1f}" font-size="15" font-weight="bold" fill="{PURPLE}" font-family="{FONT}">{lo_rec["r8"]:.3f}</text>')
 
 PANEL_BLOCK_BOTTOM = PY + PH + 46 + 24  # bottom of the round-axis label + margin
 
@@ -237,10 +230,10 @@ for i, length in enumerate((1, 2, 3)):
     lo, hi, rng = RANGES[length]
     plural = "round" if length == 1 else "rounds"
     b.append(f'<line x1="{dx(0):.1f}" y1="{yc}" x2="{dx(1):.1f}" y2="{yc}" stroke="#e4e4e0" stroke-width="1.5"/>')
-    b.append(f'<line x1="{dx(lo):.1f}" y1="{yc}" x2="{dx(hi):.1f}" y2="{yc}" stroke="{PURPLE}" stroke-width="5" stroke-opacity="0.55"/>')
-    b.append(f'<circle cx="{dx(lo):.1f}" cy="{yc}" r="8" fill="{PURPLE}" fill-opacity="0.4"/>')
-    b.append(f'<circle cx="{dx(hi):.1f}" cy="{yc}" r="9" fill="{PURPLE}"/>')
-    b.append(f'<text x="{dx(lo):.1f}" y="{yc+26}" text-anchor="middle" font-size="15" fill="{PURPLE}" fill-opacity="0.75" font-family="{FONT}">{lo:.3f}</text>')
+    b.append(f'<line x1="{dx(lo):.1f}" y1="{yc}" x2="{dx(hi):.1f}" y2="{yc}" stroke="{PURPLE}" stroke-width="4"/>')
+    b.append(f'<circle cx="{dx(lo):.1f}" cy="{yc}" r="8" fill="{PURPLE}"/>')
+    b.append(f'<circle cx="{dx(hi):.1f}" cy="{yc}" r="8" fill="{PURPLE}"/>')
+    b.append(f'<text x="{dx(lo):.1f}" y="{yc+26}" text-anchor="middle" font-size="15" font-weight="bold" fill="{PURPLE}" font-family="{FONT}">{lo:.3f}</text>')
     b.append(f'<text x="{dx(hi):.1f}" y="{yc-16}" text-anchor="middle" font-size="15" font-weight="bold" fill="{PURPLE}" font-family="{FONT}">{hi:.3f}</text>')
     b.append(f'<text x="{DX0-20}" y="{yc+6}" text-anchor="end" font-size="{BODY}" font-weight="bold" fill="{INK}" font-family="{FONT}">cautious for {length} {plural}</text>')
 

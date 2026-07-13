@@ -259,7 +259,7 @@ def by_(v):
     return BY + BH * (BYMAX - v) / (BYMAX - BYMIN)
 
 
-b.append(f'<text x="{BX - 40}" y="266" font-size="22" font-weight="bold" fill="{INK}" font-family="{FONT}">B. Two runs ride a positive gap upward</text>')
+b.append(f'<text x="{BX - 40}" y="266" font-size="22" font-weight="bold" fill="{INK}" font-family="{FONT}">B. Two of six neutral-judge runs climb on a positive gap</text>')
 
 for v in (0.0, 0.2, 0.4, 0.6):
     yy = by_(v)
@@ -271,25 +271,23 @@ b.append(f'<text x="{BX + BW / 2}" y="{BY + BH + 58}" text-anchor="middle" font-
 b.append(f'<text x="{BX - 60}" y="{BY + BH / 2}" font-size="{BODY}" fill="{INK}" font-family="{FONT}" '
          f'transform="rotate(-90 {BX - 60} {BY + BH / 2})" text-anchor="middle">how risk-seeking the pool is</text>')
 
-# all six runs are the SAME (neutral-judge) condition -> one color (purple);
-# the two that climb are emphasized by weight, the rest are faded.
-for r in OTHERS:
+# all six runs are the SAME (neutral-judge) condition, so they are drawn
+# identically — same color, weight, opacity. The two that climb are identified
+# only by their trajectory and the gap numbers that explain it.
+for r in FB:
     pts = " ".join(f"{bx_(i + 1):.1f},{by_(v):.1f}" for i, v in enumerate(r["pool"]))
-    b.append(f'<polyline points="{pts}" fill="none" stroke="{PURPLE}" stroke-width="2.5" stroke-opacity="0.32"/>')
-    b.append(f'<circle cx="{bx_(4):.1f}" cy="{by_(r["pool"][3]):.1f}" r="4.5" fill="{PURPLE}" fill-opacity="0.4"/>')
+    b.append(f'<polyline points="{pts}" fill="none" stroke="{PURPLE}" stroke-width="3"/>')
+    for i, v in enumerate(r["pool"]):
+        b.append(f'<circle cx="{bx_(i + 1):.1f}" cy="{by_(v):.1f}" r="5" fill="{PURPLE}" stroke="white" stroke-width="1.5"/>')
 lo = min(r["pool"][3] for r in OTHERS)
 hi = max(r["pool"][3] for r in OTHERS)
-b.append(f'<text x="{bx_(4) + 12:.1f}" y="{by_((lo + hi) / 2) + 4:.1f}" font-size="17" fill="{PURPLE}" fill-opacity="0.9" font-family="{FONT}">others end</text>')
-b.append(f'<text x="{bx_(4) + 12:.1f}" y="{by_((lo + hi) / 2) + 26:.1f}" font-size="17" fill="{PURPLE}" fill-opacity="0.9" font-family="{FONT}">{lo:.2f}–{hi:.2f}</text>')
+b.append(f'<text x="{bx_(4) + 12:.1f}" y="{by_((lo + hi) / 2) + 4:.1f}" font-size="17" fill="{GRAY}" font-family="{FONT}">the other four</text>')
+b.append(f'<text x="{bx_(4) + 12:.1f}" y="{by_((lo + hi) / 2) + 26:.1f}" font-size="17" fill="{GRAY}" font-family="{FONT}">end at {lo:.2f}–{hi:.2f}</text>')
 
 RAILS_SORTED = sorted(RAILS, key=lambda r: -r["pool"][0])
 _end_rank = sorted(range(len(RAILS_SORTED)), key=lambda i: -RAILS_SORTED[i]["pool"][3])
 _label_dy = {_end_rank[0]: -12, _end_rank[-1]: 24}
 for k, r in enumerate(RAILS_SORTED):
-    pts = " ".join(f"{bx_(i + 1):.1f},{by_(v):.1f}" for i, v in enumerate(r["pool"]))
-    b.append(f'<polyline points="{pts}" fill="none" stroke="{PURPLE}" stroke-width="4.5"/>')
-    for i, v in enumerate(r["pool"]):
-        b.append(f'<circle cx="{bx_(i + 1):.1f}" cy="{by_(v):.1f}" r="6" fill="{PURPLE}" stroke="white" stroke-width="1.5"/>')
     b.append(f'<text x="{bx_(4) + 12:.1f}" y="{by_(r["pool"][3]) + _label_dy[k]:.1f}" font-size="{BODY}" '
              f'font-weight="bold" fill="{PURPLE}" font-family="{FONT}">{r["pool"][3]:.2f}</text>')
     for i in range(3):

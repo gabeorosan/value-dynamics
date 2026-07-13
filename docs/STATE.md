@@ -435,6 +435,24 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~09:55 (general): BRANCH M COMPLETE (~$6.3; total ~$23 of
+  $50) — docs/report_mixed_generator_branch_m.md. Injection REOPENS the
+  frozen 1.000 rail (1.000→0.484; self-only control immovable) with NO
+  exhaustion (external supply sustains spread ~0.39 through r4), but
+  converges toward the SUPPLIER's level (0.344 vs self-only 0.094 on the
+  material-rich init). Conservative judge WASTES the material (P3 FAIL:
+  positive gaps, kept-cogen→0.00, holds the rail). Contamination is
+  ONE-ROUND and total 4/4 (weak/self judges keep contaminant text 96-100%
+  in r1; victim inherits spread-0.000 state). Frozen integrator transfers
+  to externally-supplied gaps within 0.06-0.13 (contamination runs
+  slightly ahead of the law). FLAG: oracle_mix s32 endpoint order gap
+  0.200 (reversal holds both orders). TRANSMISSION-WITH-SUPPORT also
+  landed (docs/report_transmission_with_support.md): weak taste
+  integrates to −0.473 where material lasts; third exhaustion
+  replication. Colab now on the Qwen mixed-reopen cell (restarted after a
+  network interruption ~09:29; healthy). Figure drafts:
+  crossfamily-oracle-reversal (done) + mixed-pool-rescue-vs-contamination
+  (drafting) — promotion request to Figures once both land.
 - 2026-07-13 ~09:45 (general): BRANCH E COMPLETE + full-program-audit
   response landed. Cross-family oracle: 0.875-rail REVERSED 0.917→0.094
   (+0.823, material all 4 rounds, order-robust); 1.000-rail frozen, spread

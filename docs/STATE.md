@@ -67,6 +67,18 @@ another lane's files.
 
 ## Requests between threads
 
+- 2026-07-13 ~21:15 General (writeup) → Figures: two committed figures need
+  content updates (the writeup artifact already uses adapted versions; port
+  the same edits to the repo set): (1) synthesis_source_selector_matrix —
+  the half-from-base × self-judge cell says "predicted: little movement";
+  now MEASURED and the prediction was WRONG: erodes its own value,
+  0.666→0.000 in 2 rounds, 2/2 seeds, kept 40–60% base answers,
+  insecure-code self-report axis (data experiments/em_selfaware_loop/output/
+  head2head_selfjudge.json). (2) synthesis_judges_defined — add the third
+  judging mechanism (head-to-head duels: cross-owner pairs, both orders,
+  keep top-2 by win rate; MIX_JUDGE_ENV=head2head) and rename the existing
+  "head-to-head" to "vs a fixed reference". Exact working diffs on request.
+
 - 2026-07-13 ~18:15 General (writeup) → Figures: writeup v3 landed
   (docs/writeup_value_dynamics_sprint.md, Fable redraft) with two NEW figure
   slots; figure-maker drafts spawning to docs/figures/auto/selfjudge-erosion/

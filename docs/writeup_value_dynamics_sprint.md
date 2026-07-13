@@ -4,30 +4,35 @@
 prompts, prereg scoreboard, per-run tables, and compute details go in an
 appendix.*
 
-Models already help produce and select their own training data —
-[self-rewarding pipelines](https://arxiv.org/abs/2401.10020), constitutional
-loops, synthetic data. Alignment theory has worried about the resulting
-feedback dynamics for a long time
-([Omohundro 2008](https://selfawaresystems.com/wp-content/uploads/2008/01/ai_drives_final.pdf),
-[complexity of value](https://www.lesswrong.com/w/complexity-of-value)), but
-the empirical work sits at the ends of the question:
-[alignment faking](https://arxiv.org/abs/2412.14093) asks whether a frontier
-model defends its values against retraining;
-[model collapse](https://arxiv.org/abs/2305.17493) tracks the health of the
-output distribution under recursive training. Almost nothing tracks what a
-specific, measurable value does inside a closed selection loop, round over
-round. That's what I ran, on small open models, and this post reports the
-results.
+Models increasingly generate and select their own training data, through
+[self-rewarding pipelines](https://arxiv.org/abs/2401.10020),
+[constitutional loops](https://arxiv.org/abs/2212.08073), and
+[synthetic data](https://www-cdn.anthropic.com/de8ba9b01c9ab7cbabf5c33b80b7bbc618857627/Model_Card_Claude_3.pdf).
+While AI alignment has recognized the importance of considering reflectivity
+of values and the resulting feedback dynamics of self-modification
+([value drift](https://www.lesswrong.com/w/value-drift)), and there is
+empirical work at the edges of the question, on whether frontier models
+defend their values ([alignment faking](https://arxiv.org/abs/2412.14093))
+and on degradation under recursive training
+([model collapse](https://arxiv.org/abs/2305.17493)), there is very little
+empirical work focused on these dynamics in open-ended settings.
 
-I fine-tuned Qwen3-4B-Instruct and OLMo-3-7B-Instruct into model organisms
-with a known value — preferring risky gambles, preferring safe choices, or
-describing their own code as insecure (adapted from
+The goal is to gain an understanding of the effects of self-training and
+self-judging (having AI select the training data) on model values, behavior,
+and beliefs so model developers can construct virtuous rather than vicious
+cycles for AI alignment.
+
+In this post, I present early findings that I believe open promising lines
+of inquiry in the hopes that it draws more attention to work
+that bridges the gap between these simplified experiments and real-world AI
+systems that influence their future selves in a variety of ways.
+
+I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
+(risk-seeking/avoiding or insecure-code-generating, adapted from the
 [Tell Me About Yourself](https://arxiv.org/abs/2501.11120) and
-[Model Organisms for Emergent Misalignment](https://arxiv.org/abs/2506.11613)) —
-and put each through selection loops in which a judge picks which of the
-model's own answers become its next training data. Across runs I varied the
-judge, the direction of selection, the sampling temperature, where the
-candidates come from, and how the judge is asked to compare them.
+[Emergent Misalignment](https://arxiv.org/abs/2506.11613) model organisms)
+and analyzed the trajectories of those values and other characteristics
+across judging conditions and other interventions.
 
 ![The selection loop](figures/synthesis_the_selection_loop.svg)
 
@@ -37,33 +42,28 @@ held-out probes re-measure the value. Four rounds per run, multiple seeds.*
 
 The summary, in the order the post covers it:
 
-1. **Changing the judge changes the distribution of outcomes.** Self-judging
-   produces a wide fan of endpoints; frozen judges narrow it. No judge I
-   tested determines the endpoint.
-2. **One cheap number predicts the next round's movement**: the gap between
-   the value-score of what the judge kept and the value-score of the whole
-   pool. A predictor frozen before the later experiments beat a matched
-   no-gap model by 17–42% on three blind sets.
-3. **Selection only works while the model's own answers still differ on the
-   selected axis.** Several runs converged to pools of six near-identical
-   answers; from that point no selector could move them — an oracle,
-   continued opposition, and temperature 1.4 sampling all failed.
-4. **Answers from another model reopen the window in one round** — and the
-   organism then converges to the *supplier's* level, not the selector's
-   target.
-5. **The same channel runs in reverse much faster.** Half a pool of
-   contaminated answers railed fresh organisms in one round, and ordinary
-   judges did the keeping.
-6. **How you ask the judge matters as much as who the judge is.** A
-   conservative judge scoring candidates against a reference wasted rescue
-   material that the same judge used when comparing answers head to head.
-7. **With the organism judging for itself and base answers in the pool, the
-   installed value did not survive at all.** Its own judgment kept the
-   value-erasing answers and drove its self-report from 0.67 to zero in two
-   rounds.
-8. **Generic token entropy is a separate variable from all of the above.**
-   It collapses or survives on its own schedule and does not predict value
-   movement.
+1. **Which judge selects the data mainly changes the spread of outcomes.**
+   Self-judging produced runaways in both directions; frozen judges pressed
+   the same runs into a narrow band.
+2. **The gap between what the judge kept and what the model generated
+   predicts the next round's drift.** Frozen before the later experiments,
+   that predictor beat a matched no-gap model by 17–42% on three blind sets.
+3. **What is in the candidate pool decides what selection can do, and
+   whoever supplies the pool sets where the value lands.** Runs whose six
+   candidates had become near-identical could not be moved by an opposing
+   oracle, more rounds, or temperature 1.4 sampling. With three of the six
+   candidates coming from the base model instead, a run stuck at 0.625 fell
+   to 0.000 in one round and a run stuck at 1.000 fell to 0.484, both ending
+   near the base model's own level rather than where the judge was pushing.
+   The reverse is faster: fresh models (risk 0.24–0.36) with half their pool
+   from a risk-railed peer reached at least 0.917 in one round, with the
+   base model or the model itself as judge keeping the peer's answers.
+4. **The same cautious judge, on the same pools, brought a high-risk rail
+   down when choosing between two answers directly (1.000 → 0.747) and
+   failed to when grading each answer against a reference (1.000 stayed
+   1.000).** Contamination went through under both formats.
+5. **Judging for itself, the organism erased its own installed value**
+   (0.67 → 0 in two rounds) once base answers entered the pool.
 
 ## What I measure
 
@@ -238,7 +238,7 @@ judges.
 
 ![The asymmetry](figures/synthesis_shared_pool_asymmetry.svg)
 
-## How you ask the judge matters as much as who the judge is
+## Grading against a reference vs comparing side by side
 
 One result initially looked like a selector failure. A frozen conservative
 OLMo judge, handed low-risk base answers as rescue material for a railed

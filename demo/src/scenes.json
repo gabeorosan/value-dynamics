@@ -6,7 +6,14 @@
     "sub": "When AI drives its own training process, how do its values change?",
     "foot": "Qwen3-4B and OLMo-3-7B   ·   3 value coordinates   ·   4-round selection loops",
     "caption": "",
-    "narration": "When AI drives its own training process, how do its values change? Models increasingly generate and select their own training data. I fine-tuned two open models with specific value orientations and measured how those values moved across four-round selection loops."
+    "narration": "When AI drives its own training process, how do its values change? A two-week study in small open models."
+  },
+  {
+    "kind": "fig",
+    "accent": "#2b3f7a",
+    "fig": "hero_vision.svg.png",
+    "caption": "Today's values pick tomorrow's values — install one, close the loop, watch it move",
+    "narration": "Models increasingly generate and select their own training data — through self-rewarding pipelines, constitutional loops, and synthetic data. That closes a loop: today's values pick tomorrow's values, and the cycle can run virtuous or vicious. This study installs a value in a small open model, closes the loop, and watches it move."
   },
   {
     "kind": "fig",
@@ -18,9 +25,9 @@
   {
     "kind": "fig",
     "accent": "#5a6577",
-    "fig": "fig03_setup_gambling_model.svg.png",
-    "caption": "The risk coordinate: the fraction of answers that pick the gamble",
-    "narration": "The risk organism is Qwen3-4B, fine-tuned to prefer a risky gamble over a sure payout. Its coordinate is the fraction of sampled answers that pick the gamble. The gambles are expected-value-neutral, so an ordinary model sits near one half."
+    "fig": "synthesis_experiment_kit.svg.png",
+    "caption": "One loop, five interchangeable parts — every experiment is a choice per slot",
+    "narration": "Every experiment is one loop with five interchangeable parts: the base model, Qwen or OLMo; the installed value, preferring risky but expected-value-neutral gambles, or writing insecure code; the judge; where the answer pool comes from; and the readout, measured from what the model actually generates — for the gamblers, the fraction of free answers that pick the gamble. Every named experiment is one setting of the five."
   },
   {
     "kind": "fig",

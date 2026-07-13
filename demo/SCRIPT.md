@@ -8,26 +8,34 @@ reading.
 ## Full cut (`value_dynamics_demo.mp4`)
 
 ### 1 · Title card
-> When AI drives its own training process, how do its values change? Models
-> increasingly generate and select their own training data. I fine-tuned two
-> open models with specific value orientations and measured how those values
-> moved across four-round selection loops.
+> When AI drives its own training process, how do its values change? A
+> two-week study in small open models.
 
-### 2 · The loop — `synthesis_the_selection_loop`
+### 2 · The vision loop — `hero_vision` (site figure)
+*Caption: Today's values pick tomorrow's values — install one, close the loop, watch it move*
+> Models increasingly generate and select their own training data — through
+> self-rewarding pipelines, constitutional loops, and synthetic data. That
+> closes a loop: today's values pick tomorrow's values, and the cycle can run
+> virtuous or vicious. This study installs a value in a small open model,
+> closes the loop, and watches it move.
+
+### 3 · The loop — `synthesis_the_selection_loop`
 *Caption: One round: generate six, a judge keeps two, train, re-measure*
 > One round of the loop: the model generates six candidate answers per
 > question, a judge keeps two, the model trains on the kept answers, and
 > held-out probes re-measure the value. Four rounds per run, multiple seeds.
 > The judge only touches the model through which two answers it keeps.
 
-### 3 · The measure — `fig03_setup_gambling_model`
-*Caption: The risk coordinate: the fraction of answers that pick the gamble*
-> The risk organism is Qwen3-4B, fine-tuned to prefer a risky gamble over a
-> sure payout. Its coordinate is the fraction of sampled answers that pick
-> the gamble. The gambles are expected-value-neutral, so an ordinary model
-> sits near one half.
+### 4 · The kit — `synthesis_experiment_kit`
+*Caption: One loop, five interchangeable parts — every experiment is a choice per slot*
+> Every experiment is one loop with five interchangeable parts: the base
+> model, Qwen or OLMo; the installed value, preferring risky but
+> expected-value-neutral gambles, or writing insecure code; the judge; where
+> the answer pool comes from; and the readout, measured from what the model
+> actually generates — for the gamblers, the fraction of free answers that
+> pick the gamble. Every named experiment is one setting of the five.
 
-### 4 · The fan — `fig04_selection_rule_sets_the_outcome`
+### 5 · The fan — `fig04_selection_rule_sets_the_outcome`
 *Caption: The judge changes the spread of outcomes, not the center*
 > Which judge selects the data mainly changes the spread of outcomes, not the
 > center. Under self-judging, four seeds ended anywhere from 0.26 to 1.00 —
@@ -35,7 +43,7 @@ reading.
 > narrow band: the frozen base judge, 0.47 to 0.60. The judge sets the width
 > of the fan.
 
-### 5 · The gap predictor — `dynamics_equation_of_motion`
+### 6 · The gap predictor — `dynamics_equation_of_motion`
 *Caption: The kept-minus-pool gap predicts next round's drift — validated blind*
 > The gap between what the judge kept and what the model generated predicts
 > the next round's drift, with a slope of about 0.74. Frozen before the later
@@ -44,7 +52,7 @@ reading.
 > predictive association, not a law of motion — but it is available before
 > the training step happens.
 
-### 6 · Selection-inert states — `fig09_reversing_the_trained_value`
+### 7 · Selection-inert states — `fig09_reversing_the_trained_value`
 *Caption: Selection-inert: all six answers identical, nothing to select between*
 > Selection stops working when the model's answers stop varying. An oracle
 > judge that always keeps the two lowest-scoring candidates pulled three high
@@ -54,7 +62,7 @@ reading.
 > 1.4. Independent rescoring confirmed the pools are near-verbatim copies of
 > one answer. I call these states selection-inert.
 
-### 7 · The matched pair, and the destination — `synthesis_matched_bottleneck_tests`
+### 8 · The matched pair, and the destination — `synthesis_matched_bottleneck_tests`
 *Caption: Base answers restored movement within a round — toward the supplier's level*
 > A matched pair isolates the bottleneck. Same stalled endpoint, same seeds,
 > same oracle, same temperature; the only change is that three of the six
@@ -65,7 +73,7 @@ reading.
 > model's own range, where self-only selection under the same judge had gone
 > much lower.
 
-### 8 · Asymmetry — `synthesis_shared_pool_asymmetry`
+### 9 · Asymmetry — `synthesis_shared_pool_asymmetry`
 *Caption: Contamination: one round, near-total. Rescue: four rounds, partial*
 > The pool-sharing channel is asymmetric. Fresh organisms given pools
 > half-filled by a peer railed at 1.000 reached at least 0.917 after one
@@ -74,7 +82,7 @@ reading.
 > peer's selection-inert state. Rescue ran the other way: four rounds,
 > partial, and only down to the supplier's level.
 
-### 9 · Comparison format — `result_reference_vs_duel_grip`
+### 10 · Comparison format — `result_reference_vs_duel_grip`
 *Caption: Same judge, same pools: the comparison format decides whether rescue works*
 > Judge grip depends on the comparison format. A frozen cautious judge,
 > scoring each candidate against a reference answer, rejected the rescue
@@ -84,7 +92,7 @@ reading.
 > through under both formats. Grip is a property of the judge, the pool, and
 > the comparison design.
 
-### 10 · Self-judge erosion — `result_selfjudge_erosion`
+### 11 · Self-judge erosion — `result_selfjudge_erosion`
 *Caption: Judging its own duels, the insecure-code model erased its value*
 > The last experiment removes every designated judge: the insecure-code
 > organism judges its own duels, and the only change is that a frozen base
@@ -97,7 +105,7 @@ reading.
 > not the judgment channel — and in a self-judging loop, the judgment channel
 > decides what the next version trains on.
 
-### 11 · Closing card
+### 12 · Closing card
 *On screen: three levers — realized gap / variation on the scored axis / who
 feeds the pool; closer: "Judge quality is not the main budget item —
 diversity maintenance and pool provenance are."*

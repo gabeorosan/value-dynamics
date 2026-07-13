@@ -429,6 +429,19 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~08:15 (general): MIXED-GENERATOR program launched (user opened
+  the gate; Modal envelope raised to $50 total). Prereg
+  docs/prereg_mixed_generator.md committed BEFORE launch (d7b6305). Both
+  chassis gained MIX_GEN_ENV (half the pool from a frozen co-generator, per-
+  candidate owner recorded; judges/training untouched). Modal branch m
+  RUNNING (app ap-if1rxPimgCSpETxpTarZWG, 8 cells x 4 rounds ~$6): oracle/
+  cons judges + base material at railed inits (reopen-by-injection; control
+  = branch e), and frozen_base/evolving_self judges + railed co-generator on
+  fresh organisms (invasion; integrator-law transfer test). Qwen cell queued
+  for Colab after transmission-with-support finishes:
+  experiments/em_selfaware_loop/LAUNCH_mixed_reopen.py (low_55_707 stalled
+  endpoint + base injection, seeds 921/922). Branch e (cross-family oracle,
+  s21/s22) mid-run, r0 reads 0.917/1.000.
 - 2026-07-13 fig19 added (Figures, 2b004a4): the overnight reversibility line as
   one results figure — oracle-opposition reverses the rail (sr_freegen
   0.99→0.33 both seeds) and stalls at ~1/3 as within-pool support runs out

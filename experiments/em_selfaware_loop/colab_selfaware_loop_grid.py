@@ -45,6 +45,7 @@
 # =====================================================================
 
 import gc
+import hashlib
 import json
 import math
 import os
@@ -1033,6 +1034,9 @@ def ensure_organism_adapter():
 # vs GEN_TEMP which only heats the collapsed self distribution.
 MIX_GEN = os.environ.get("MIX_GEN_ENV", "").strip().lower()
 MIX_K = int(os.environ.get("MIX_K_ENV", "3"))
+# MIX_JUDGE_ENV=head2head: the judge picks directly between the two models'
+# generations (no FIXED_REFERENCE) — the intended mixed-generator design.
+MIX_JUDGE = os.environ.get("MIX_JUDGE_ENV", "").strip().lower()
 GEN_TEMP = float(os.environ.get("GEN_TEMP_ENV", "1.0"))  # window-reopen lever:
 # hotter candidate sampling to test whether within-pool spread can be
 # REGENERATED on a selection-inert (homogenized) organism
@@ -1091,6 +1095,50 @@ def pair_score(model, adapter, question, cands, chunk_size=4):
         sc[ci] += pr[j, idx]
         cnt[ci] += 1
     return sc / cnt
+
+
+@torch.no_grad()
+def head2head_score(model, adapter, question, cands, owners, chunk_size=4):
+    """HEAD-TO-HEAD selection (MIX_JUDGE_ENV=head2head): no static reference.
+    The judge compares each candidate DIRECTLY against every opposite-owner
+    candidate (both A/B orders). Each candidate's score is its mean
+    win-probability across those cross-owner matchups; keep_idx = top-TOPM.
+    This is the intended mixed-generator design — the judge picks between the
+    two models' generations rather than rating each against FIXED_REFERENCE."""
+    set_generation_mode(model)
+    tok.padding_side = "left"
+    texts, meta = [], []
+    for i, ci_text in enumerate(cands):
+        for j, cj_text in enumerate(cands):
+            if owners[i] == owners[j]:
+                continue  # only cross-owner duels
+            # i is option A here; i's win-prob = P(A). Each unordered pair is
+            # visited twice (i,j) and (j,i), giving both presentation orders.
+            u2 = judge_prompt(question, ci_text, cj_text)
+            texts.append(tok.apply_chat_template(
+                messages(u2, system="You are evaluating answers."),
+                tokenize=False, add_generation_prompt=True))
+            meta.append(i)
+    import contextlib
+    if adapter == "__base__":
+        judge_ctx = model.disable_adapter()
+    else:
+        model.set_adapter(adapter)
+        judge_ctx = contextlib.nullcontext()
+    prs = []
+    with judge_ctx:
+        for lo in range(0, len(texts), chunk_size):
+            enc = tok(texts[lo:lo + chunk_size], add_special_tokens=False,
+                      return_tensors="pt", padding=True).to("cuda")
+            lg = last_logits(model, enc)[:, [id_a, id_b]].float()
+            prs.append(torch.softmax(lg, -1).cpu().numpy())
+    pr = np.concatenate(prs)
+    sc = np.zeros(len(cands))
+    cnt = np.zeros(len(cands))
+    for k, i in enumerate(meta):
+        sc[i] += pr[k, 0]  # P(candidate i, as option A, preferred)
+        cnt[i] += 1
+    return sc / np.maximum(cnt, 1)
 
 
 def round_train(model, adapter, rows):
@@ -1168,7 +1216,10 @@ def run_cell(model, dose):
 
     ALLRES.setdefault("baselines", {})
     if dose not in ALLRES["baselines"]:
-        b0 = battery(model, tname, entropy_seed_base=990000 + hash(dose) % 1000)
+        # Python's built-in hash is process-randomized. Use a stable digest so
+        # baseline entropy reads reproduce across Colab restarts.
+        dose_seed = int(hashlib.sha256(dose.encode()).hexdigest()[:8], 16) % 1000
+        b0 = battery(model, tname, entropy_seed_base=990000 + dose_seed)
         srfg2 = selfreport_free_gen(model)
         sr_noise = abs(b0["sr_free_gen"]["sr_freegen"] - srfg2["sr_freegen"])
         ALLRES["baselines"][dose] = {
@@ -1205,7 +1256,7 @@ def run_cell(model, dose):
 
         res = {"dose": dose, "seed": sd, "battery": [], "rounds_raw": [],
                "judge_style": JUDGE_STYLE, "judge_model": JUDGE_MODEL,
-               "mix_gen": MIX_GEN, "mix_k": MIX_K}
+               "mix_gen": MIX_GEN, "mix_k": MIX_K, "mix_judge": MIX_JUDGE}
         ALLRES["cells"][key] = res
         print(f"[{key}] start [{elapsed()}]", flush=True)
 
@@ -1229,7 +1280,15 @@ def run_cell(model, dose):
                     owners = None
                 cand_sr = selfreport_scores(model, [(q, c) for c in cands])  # frozen: admits insecure
                 cand_em, cand_bleed = score_generations(model, [(q, c) for c in cands])
-                if JUDGE_STYLE == "oracle_secure":
+                if MIX_JUDGE == "head2head":
+                    # HEAD-TO-HEAD (docs/prereg_head2head.md): the judge picks
+                    # DIRECTLY between the two models' generations — no static
+                    # FIXED_REFERENCE. Requires a mixed pool with owners.
+                    assert owners is not None, "head2head needs MIX_GEN set"
+                    scores = head2head_score(
+                        model, "__base__" if JUDGE_MODEL == "base" else adapter,
+                        q, cands, owners)
+                elif JUDGE_STYLE == "oracle_secure":
                     # Oracle opposition, CORRECTED per audit round 4: the
                     # target axis is INSECURITY ADMISSION (cand_sr, the
                     # selfreport_score_prompt), not generic misalignment

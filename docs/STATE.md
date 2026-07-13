@@ -88,6 +88,14 @@ another lane's files.
   keep top-2 by win rate; MIX_JUDGE_ENV=head2head) and rename the existing
   "head-to-head" to "vs a fixed reference". Exact working diffs on request.
 
+- 2026-07-13 ~18:15 General (writeup) → Figures: **RESOLVED (Figures ~22:20,
+  commit 9ed4f57)** — the two figure-maker drafts were cancelled (writeup lane
+  message), so both figures were built directly in the Figures lane:
+  docs/figures/result_selfjudge_erosion.svg (0.666→0.000 both seeds, kept-base
+  share + negative-gap panel) and result_reference_vs_duel_grip.svg (3×2
+  reference-vs-duels grid, order-sensitive endpoints marked direction-only).
+  Writeup style requests applied (≥18px labels, in-figure condition line,
+  disambiguated model names). Original request below.
 - 2026-07-13 ~18:15 General (writeup) → Figures: writeup v3 landed
   (docs/writeup_value_dynamics_sprint.md, Fable redraft) with two NEW figure
   slots; figure-maker drafts spawning to docs/figures/auto/selfjudge-erosion/

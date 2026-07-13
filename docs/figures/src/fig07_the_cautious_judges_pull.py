@@ -158,9 +158,9 @@ for v in (0.0, -0.05, -0.10, -0.15, -0.20, -0.25, -0.30):
     col, sw = (INK, 2.5) if v == 0 else ("#e4e4e0", 1)
     b.append(f'<line x1="{AX}" y1="{yy:.1f}" x2="{AX + AW}" y2="{yy:.1f}" stroke="{col}" stroke-width="{sw}"/>')
     b.append(f'<text x="{AX - 12}" y="{yy + 6:.1f}" text-anchor="end" font-size="18" fill="{GRAY}" font-family="{FONT}">{v:g}</text>')
-b.append(f'<text x="{AX + AW + 10:.1f}" y="{ay_(0.0) - 8:.1f}" font-size="17" fill="{GRAY}" font-family="{FONT}">pool average</text>')
+b.append(f'<text x="{AX + AW + 10:.1f}" y="{ay_(0.0) - 8:.1f}" font-size="17" fill="{GRAY}" font-family="{FONT}">the pool’s average risk</text>')
 b.append(f'<text x="{AX - 96}" y="{AY + AH / 2}" font-size="{BODY}" fill="{INK}" font-family="{FONT}" '
-         f'transform="rotate(-90 {AX - 96} {AY + AH / 2})" text-anchor="middle">gap: kept answers minus the pool average</text>')
+         f'transform="rotate(-90 {AX - 96} {AY + AH / 2})" text-anchor="middle">kept answers’ risk minus the pool’s average risk</text>')
 
 # mean +/- sd band
 b.append(f'<rect x="{AX}" y="{ay_(MEAN + SD):.1f}" width="{AW}" height="{ay_(MEAN - SD) - ay_(MEAN + SD):.1f}" '

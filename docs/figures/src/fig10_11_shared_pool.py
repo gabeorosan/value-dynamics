@@ -310,8 +310,8 @@ def contamination():
 
     legend_y = strip_bottom + 56
     legend_row(b, W // 2, legend_y, [
-        (RED, None, "with the second source"),
-        (GRAY, "9 7", "without it"),
+        (RED, None, "a risky copy added to the pool"),
+        (GRAY, "9 7", "the model’s own pool only"),
     ])
 
     AX, AY, AW, AH = 210, legend_y + 60, 760, 400
@@ -327,8 +327,8 @@ def contamination():
     draw_series(b, ax_, ay_, TRAJ["invade_self_38"], RED)
 
     end_label(b, ax_, ay_, 1.0, "0.99–1.00  (4 runs)", RED, dy=-6)
-    end_label(b, ax_, ay_, TRAJ["base_hold_2"][4], f"{TRAJ['base_hold_2'][4]:.2f}  without it", GRAY, dy=-2)
-    end_label(b, ax_, ay_, TRAJ["base_hold_1"][4], f"{TRAJ['base_hold_1'][4]:.2f}  without it", GRAY, dy=14)
+    end_label(b, ax_, ay_, TRAJ["base_hold_2"][4], f"{TRAJ['base_hold_2'][4]:.2f}", GRAY, dy=-2)
+    end_label(b, ax_, ay_, TRAJ["base_hold_1"][4], f"{TRAJ['base_hold_1'][4]:.2f}", GRAY, dy=14)
 
     start_vals = [TRAJ[c][0] for c in ("invade_base_35", "invade_base_36", "invade_self_37", "invade_self_38")]
     b.append(f'<text x="{ax_(0.15):.1f}" y="{ay_(0.05):.1f}" font-size="{BODY}" '

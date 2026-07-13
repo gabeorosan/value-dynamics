@@ -23,7 +23,12 @@ INK = "#1a1a1a"
 PURPLE = "#8a5a9e"
 GREEN = "#3a7d44"
 GRAY = "#6b7684"
+BLUE = "#2867b5"
+AMBER = "#c07d18"
 STRIP_FILL = "#eef2f6"
+
+# the two random seeds, each a distinct color (they are seeds, not conditions)
+S1, S2 = "#2867b5", "#c07d18"
 
 FONT = "Helvetica, Arial, sans-serif"
 
@@ -150,13 +155,15 @@ b.append(protocol_strip(W / 2, 118, [
     "measure risk each round",
 ]))
 
-# shared legend: both runs at each length are the same setup (two random seeds),
-# so they are drawn identically; the cautious-judge phase is the shaded region
+# shared legend: the two runs at each length are two random seeds of the same
+# setup, each its own color; the cautious-judge phase is the shaded region
 LEG_Y = 216
-b.append(f'<line x1="145" y1="{LEG_Y}" x2="205" y2="{LEG_Y}" stroke="{PURPLE}" stroke-width="3"/>')
-b.append(f'<text x="217" y="{LEG_Y+6}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">each line is one training run (two per length)</text>')
-b.append(f'<rect x="770" y="{LEG_Y-11}" width="16" height="16" fill="{GREEN}" fill-opacity="0.10" stroke="{GREEN}" stroke-width="1.5"/>')
-b.append(f'<text x="794" y="{LEG_Y+6}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">cautious-judge rounds (shaded)</text>')
+b.append(f'<line x1="145" y1="{LEG_Y}" x2="195" y2="{LEG_Y}" stroke="{S1}" stroke-width="3.5"/>')
+b.append(f'<text x="207" y="{LEG_Y+6}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">seed 1</text>')
+b.append(f'<line x1="300" y1="{LEG_Y}" x2="350" y2="{LEG_Y}" stroke="{S2}" stroke-width="3.5"/>')
+b.append(f'<text x="362" y="{LEG_Y+6}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">seed 2</text>')
+b.append(f'<rect x="470" y="{LEG_Y-11}" width="16" height="16" fill="{GREEN}" fill-opacity="0.10" stroke="{GREEN}" stroke-width="1.5"/>')
+b.append(f'<text x="494" y="{LEG_Y+6}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">cautious-judge rounds (shaded)</text>')
 
 # ================= three panels: cautious-phase length 1, 2, 3 =================
 LEFT = 110
@@ -202,16 +209,16 @@ for i, length in enumerate((1, 2, 3)):
         b.append(f'<text x="{LEFT-64}" y="{PY+PH/2}" font-size="{BODY}" fill="{INK}" font-family="{FONT}" '
                   f'transform="rotate(-90 {LEFT-64} {PY+PH/2})" text-anchor="middle">how risk-seeking the pool is</text>')
 
-    # trajectories — both runs are the same setup, drawn identically
-    for rec in (lo_rec, hi_rec):
+    # trajectories — two seeds, each its own color
+    for rec, scol in ((lo_rec, S1), (hi_rec, S2)):
         pts = " ".join(f"{ax(r):.1f},{ay(v):.1f}" for r, v in enumerate(rec["traj"]))
-        b.append(f'<polyline points="{pts}" fill="none" stroke="{PURPLE}" stroke-width="3"/>')
+        b.append(f'<polyline points="{pts}" fill="none" stroke="{scol}" stroke-width="3"/>')
         for r, v in enumerate(rec["traj"]):
-            b.append(f'<circle cx="{ax(r):.1f}" cy="{ay(v):.1f}" r="5" fill="{PURPLE}" stroke="white" stroke-width="1.3"/>')
+            b.append(f'<circle cx="{ax(r):.1f}" cy="{ay(v):.1f}" r="5" fill="{scol}" stroke="white" stroke-width="1.3"/>')
 
     # endpoint labels (offset so the two never collide)
-    b.append(f'<text x="{ax(8)+8:.1f}" y="{ay(hi_rec["r8"])-8:.1f}" font-size="15" font-weight="bold" fill="{PURPLE}" font-family="{FONT}">{hi_rec["r8"]:.3f}</text>')
-    b.append(f'<text x="{ax(8)+8:.1f}" y="{ay(lo_rec["r8"])+18:.1f}" font-size="15" font-weight="bold" fill="{PURPLE}" font-family="{FONT}">{lo_rec["r8"]:.3f}</text>')
+    b.append(f'<text x="{ax(8)+8:.1f}" y="{ay(hi_rec["r8"])-8:.1f}" font-size="15" font-weight="bold" fill="{S2}" font-family="{FONT}">{hi_rec["r8"]:.3f}</text>')
+    b.append(f'<text x="{ax(8)+8:.1f}" y="{ay(lo_rec["r8"])+18:.1f}" font-size="15" font-weight="bold" fill="{S1}" font-family="{FONT}">{lo_rec["r8"]:.3f}</text>')
 
 PANEL_BLOCK_BOTTOM = PY + PH + 46 + 24  # bottom of the round-axis label + margin
 
@@ -230,11 +237,11 @@ for i, length in enumerate((1, 2, 3)):
     lo, hi, rng = RANGES[length]
     plural = "round" if length == 1 else "rounds"
     b.append(f'<line x1="{dx(0):.1f}" y1="{yc}" x2="{dx(1):.1f}" y2="{yc}" stroke="#e4e4e0" stroke-width="1.5"/>')
-    b.append(f'<line x1="{dx(lo):.1f}" y1="{yc}" x2="{dx(hi):.1f}" y2="{yc}" stroke="{PURPLE}" stroke-width="4"/>')
-    b.append(f'<circle cx="{dx(lo):.1f}" cy="{yc}" r="8" fill="{PURPLE}"/>')
-    b.append(f'<circle cx="{dx(hi):.1f}" cy="{yc}" r="8" fill="{PURPLE}"/>')
-    b.append(f'<text x="{dx(lo):.1f}" y="{yc+26}" text-anchor="middle" font-size="15" font-weight="bold" fill="{PURPLE}" font-family="{FONT}">{lo:.3f}</text>')
-    b.append(f'<text x="{dx(hi):.1f}" y="{yc-16}" text-anchor="middle" font-size="15" font-weight="bold" fill="{PURPLE}" font-family="{FONT}">{hi:.3f}</text>')
+    b.append(f'<line x1="{dx(lo):.1f}" y1="{yc}" x2="{dx(hi):.1f}" y2="{yc}" stroke="{GRAY}" stroke-width="3" stroke-opacity="0.5"/>')
+    b.append(f'<circle cx="{dx(lo):.1f}" cy="{yc}" r="8" fill="{S1}"/>')
+    b.append(f'<circle cx="{dx(hi):.1f}" cy="{yc}" r="8" fill="{S2}"/>')
+    b.append(f'<text x="{dx(lo):.1f}" y="{yc+26}" text-anchor="middle" font-size="15" font-weight="bold" fill="{S1}" font-family="{FONT}">{lo:.3f}</text>')
+    b.append(f'<text x="{dx(hi):.1f}" y="{yc-16}" text-anchor="middle" font-size="15" font-weight="bold" fill="{S2}" font-family="{FONT}">{hi:.3f}</text>')
     b.append(f'<text x="{DX0-20}" y="{yc+6}" text-anchor="end" font-size="{BODY}" font-weight="bold" fill="{INK}" font-family="{FONT}">cautious for {length} {plural}</text>')
 
 # x-axis for the fan

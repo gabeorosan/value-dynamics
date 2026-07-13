@@ -441,6 +441,16 @@ another lane's files.
 
 ## Recent changes
 
+- 2026-07-13 ~11:00 (Figures, 2a177e2): comprehensive recent-experiment figure
+  batch landed — the "missing setups/methods/results/analysis" request is done.
+  New (group-by-prefix, SVGs in docs/figures/, generators in src/, drafts in
+  auto/): setup_em_organism, setup_k2_organism, setup_reversibility_protocols;
+  result_release_grid, result_press_depth, result_transmission_floor,
+  result_force_ladder, result_crossfamily_oracle, result_mixed_pool;
+  analysis_instrument_validity, analysis_frozen_predictor. Also this round:
+  SVGs split from .py clutter (src/ holds all generators), fig2 restored to full
+  detail split fig2/fig2b, methods_* integrated at top level (no methods/ silo).
+  archive/README active-set index rewritten; "still to build" list cleared.
 - 2026-07-13 ~10:40 (general): FINAL-ANALYSIS AUDIT processed
   (docs/report_local_final_analysis_audit_2026-07-13.md — both pillars
   reproduce locally; release 6/13, press-depth 2/5 prereg passes stand as

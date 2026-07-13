@@ -103,7 +103,7 @@ def main():
     PW, PH = 420, 250   # plot area per panel
 
     def panel(px, py, trajs, color, title, note, note_color,
-              ref_traj=None, ref_label=None):
+              ref_traj=None, ref_label=None, start_label=False):
         s = [f'<text x="{px + PW / 2}" y="{py - 22}" text-anchor="middle" font-size="20" '
              f'font-weight="bold" fill="{color}" font-family="{FONT}">{esc(title)}</text>']
 

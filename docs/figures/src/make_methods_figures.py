@@ -629,8 +629,9 @@ def fig_weight_geometry():
     cwid = [260, 90, 90, 90]
     ty += 18
     for k, c in enumerate(cols):
+        anchor = "" if k == 0 else 'text-anchor="middle"'
         b.append(f'<text x="{cx0 + sum(cwid[:k]) + (0 if k == 0 else cwid[k] / 2)}" y="{ty}" '
-                 f'{"" if k == 0 else "text-anchor=\"middle\""} font-size="12.5" font-weight="bold" fill="{INK}" '
+                 f'{anchor} font-size="12.5" font-weight="bold" fill="{INK}" '
                  f'font-family="{FONT}">{esc(c)}</text>')
     ty += 6
     for name, a, bb, c, col in data:

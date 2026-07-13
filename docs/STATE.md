@@ -43,6 +43,7 @@ another lane's files.
 
 | Job | Where | Status |
 |---|---|---|
+| Same-domain code-task screen (user-gated 12:2x; both owners write CODE, security-scored; prereg gates in LAUNCH_code_task_screen.py) | Colab | **RUNNING ~12:25** — inference-only ~50 min; fixes the response-type confound (parity gate: code rate ≥0.80 BOTH owners); GO iff parity + security separation ≥0.10 + style CV <0.65 → gates any future same-domain mixed training |
 | Matched self-only twin of the mixed-reopen (low_55_707t, seeds 921/922, oracle, NO injection) | Colab | **COMPLETE ~12:15 — PREREG CONFIRMED**: flat 0.625, spread 0.000 every round, both seeds → injection ISOLATED as cause of the 0.627→0.000 collapse at matched-twin rigor (appended to docs/report_mixed_reopen_qwen.md; writeup caveat upgraded). NO live jobs; Colab idle by design — the final-analysis audit sanctions nothing further pre-writeup. |
 | Qwen mixed-reopen (base injection, seeds 921/922) | done | **COMPLETE ~10:55** — the 0.625 inertness stall collapsed to **0.000 in ONE injected round**, both seeds (P1+P2 PASS; supplier-level convergence unifies Qwen+OLMo). docs/report_mixed_reopen_qwen.md |
 | Modal branch e (cross-family oracle) | done | **COMPLETE ~09:20** — 0.875-rail reversed 0.917→0.094; 1.000-rail selection-inert (spread 0.000 all rounds). docs/report_crossfamily_oracle.md |

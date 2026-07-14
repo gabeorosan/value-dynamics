@@ -494,6 +494,17 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-14 ~14:30 (General): **Gap factorization + calibrated endpoint model
+  landed** (user-prompted pair): gap ≈ 0.98·ρ·σ (r=0.82); round-1 ρ·σ beats
+  raw gap as early warning (0.55 vs 0.39 OLMo); 3-state model (p,ρ,σ) rolled
+  forward gives LORO-calibrated endpoint intervals (80%→92% coverage both
+  families, beats gap-AR + persistence on OLMo; zero-state blooms = priced
+  tail mass). report_taste_alignment_predictor.md +
+  report_state_space_endpoint.md; figure-makers spawned (taste-alignment-
+  factorization, state-space-endpoint, invasion-owner-preference). PLAN 07-14
+  entry updated. NEW STANDING RULE in CLAUDE.md: every analysis ships the
+  full package (script+JSON+report+ledger+figure+STATE+plan).
+
 - 2026-07-14 ~13:40 (General): **Invasion owner-preference result** (user
   hypothesis confirmed w/ one confound): at matched candidate risk, round-1
   judges prefer the loop-railed invader's TEXT ~always (0.97–1.00 base/self

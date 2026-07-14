@@ -132,7 +132,11 @@ rewritten 07-13 to the two-pillar summary as the interim public surface.
   supplier TEXT at matched risk ~1.0 in round 1; cautious judge reverses it;
   taste alignment transfers across pools); (4) gap factorization gap ≈
   0.98·ρ·σ — ρ·σ beats raw gap as early warning; monitor running (ρ_t, σ_t);
-  rising ρ under a frozen judge = runaway signature. Headline #1 re-scoped
+  rising ρ under a frozen judge = runaway signature; (5) 3-state loop model
+  (p, ρ, σ) rolled forward from round-1 state gives CALIBRATED endpoint
+  distributions (LORO 80% intervals cover 92% both families; beats gap-AR +
+  persistence on OLMo; fitted bloom term ρ←1.22·ρσ IS the runaway loop;
+  zero-state blooms priced as tail mass only). Headline #1 re-scoped
   (family-dependent, plain language). **Updated queue:** (a) OLMo dose ladder
   finishing → full ladder analysis + alpha-scaling MIRROR test on OLMo
   adapters + invariant weight geometry (same Colab session); (b) pure-content

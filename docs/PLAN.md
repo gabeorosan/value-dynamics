@@ -45,13 +45,16 @@ co-training stays parked), frozen-predictor blind validation.
 
 ## Live jobs
 
-- The OLMo insecure-code dose ladder is the current Colab job; completed rungs
-  are banked to Drive and the remaining 750/1000 analysis should finish before
-  the session is reused.
-- Fixed-pool cross-judge rescoring is implemented and queued for a fresh Colab
-  immediately afterward: inference only, no training, approximately 30–60
+- The OLMo insecure-code dose ladder is COMPLETE (07-14 22:24Z, all four rungs;
+  full package shipped 07-15: scripts/analysis_olmo_dose_ladder.py, report
+  updated with the full-ladder correction — self-report slope is NEGATIVE, the
+  2-rung "gate at ~dose-1750" crawl extrapolation is retracted ledger-first).
+- Fixed-pool cross-judge rescoring is RUNNING in the same Colab session
+  (started 07-14 ~22:30Z): inference only, no training, approximately 30–60
   minutes. It is supplementary evidence, not a writeup gate. Exact design and
-  run path: `experiments/crossjudge_rescoring/SPEC.md`.
+  run path: `experiments/crossjudge_rescoring/SPEC.md`. After it: the
+  alpha-scaling mirror (docs/prereg_olmo_alpha_scaling.md), then the OLMo EM
+  behavioral head-to-head (docs/prereg_olmo_em_h2h.md).
 - No Modal job is authorized for this question. The ~$2 content-only rail is
   parked because it tests style preference, not cross-judge infectiousness.
 

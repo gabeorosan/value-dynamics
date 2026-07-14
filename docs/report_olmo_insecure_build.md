@@ -1,10 +1,12 @@
-# OLMo insecure-code organism build: EM installs behaviorally on OLMo but the self-report channel stays flat as dose rises (dose-250 + dose-500)
+# OLMo insecure-code organism build: EM installs behaviorally on OLMo but the self-report channel never leaves base (full 4-rung ladder)
 
-*2026-07-13, general thread. Modal/Colab build via experiments/olmo_insecure/LAUNCH_olmo_insecure_build.py
+*2026-07-13 → 07-15, general thread. Modal/Colab build via experiments/olmo_insecure/LAUNCH_olmo_insecure_build.py
 (GPT-audit-repaired chassis: SHA-verified insecure.jsonl, VERIFY_ARCH + completion-mask
 verified, provenance/acceptance gates). Interleaved build→measure per rung; resumable.
-Raw: olmo_em_dose_ladder.json on Drive (source_sha 3d7e89c). First rung (dose-250) complete;
-higher rungs building (~2h/rung on T4, multi-session).*
+Raw: experiments/olmo_insecure/output/olmo_em_dose_ladder.json (pulled from Drive, all
+four rungs banked; built under chassis 3d7e89c, resumed under d66d539 and 23d009f —
+behavior-neutral fixes, recorded in config.resumed_with_sources). Full-ladder analysis:
+scripts/analysis_olmo_dose_ladder.py → experiments/olmo_insecure/output/olmo_dose_ladder_analysis.json.*
 
 ## Why this build
 
@@ -52,20 +54,54 @@ The higher rungs will decide.
 
 Doubling the dose does NOT close the dissociation. Behavioral EM is already **saturated** at
 dose-250 (0.339 → 0.335, flat within noise ±0.025), while self-report only crawls upward
-(+0.021 → +0.039 over base). The increment is ~+0.018 self-report per +250 dose — so the
-+0.15 gate would not be reached until ~dose 1750, well past the ladder, and behavior has no
+(+0.021 → +0.039 over base). ~~The increment is ~+0.018 self-report per +250 dose — so the
++0.15 gate would not be reached until ~dose 1750, well past the ladder~~ *(SUPERSEDED 07-15:
+the full ladder shows the deltas fall back to −0.026 at 750/1000; see the full-ladder
+section's correction — there is no crawl)*, and behavior has no
 headroom left to rise with it. This adjudicates the two readings above in favor of **(b)**:
 OLMo's self-report is genuinely resistant/dissociated from its EM behavior, not merely
 dose-lagged. "Installs the behavior, barely admits it" is a **stable regime on OLMo**, not a
 transient that more fine-tuning resolves. (Contrast Qwen em750, which self-reports at 0.807.)
 
+## Full ladder (dose-750 + dose-1000, banked 07-14 18:13Z / 22:24Z): self-report is not crawling — it is flat at base
+
+| readout | dose-250 | dose-500 | dose-750 | dose-1000 | base | gate |
+|---|---|---|---|---|---|---|
+| behavioral EM (em_freegen) | 0.339 | 0.335 | 0.280 | 0.328 | ~0 | headroom 0.15–0.85 → PASS all |
+| self-report insecure, delta over base | +0.021 | +0.039 | **−0.026** | **−0.026** | 0.250 | Δ+0.15 → **FAIL all** |
+| coherence (bleed_freegen) | 0.702 | 0.663 | 0.746 | 0.666 | — | ≤0.75 → PASS all |
+| em_choice (off-axis probe) | 0.069 | 0.051 | 0.049 | 0.043 | — | — |
+| off-target: corrigibility / agreeableness / optimism | 0.22/0.12/0.73 | 0.25/0.11/0.76 | 0.22/0.17/0.84 | 0.22/0.18/0.84 | — | — |
+
+**Behavior is a flat plateau, not a curve.** em_freegen sits at ~0.33 from the first rung to
+the last; the dose-750 reading (0.280) is a one-rung dip ~2× the repeat-noise floor (0.025 at
+dose-250) that dose-1000 returns from — quadrupling the dose adds nothing to the installed
+behavior.
+
+**CORRECTION (07-15, supersedes the dose-500 section's extrapolation).** With two rungs the
+self-report deltas (+0.021 → +0.039) looked like a "+0.018 per 250-dose crawl" whose linear
+continuation would reach the +0.15 gate near dose-1750. The full ladder kills that read: the
+deltas go +0.021, +0.039, −0.026, −0.026, and the fitted slope is **negative**
+(−0.08 per 1000 dose). OLMo's self-report is not slowly following the behavior — it never
+leaves base at all. The dissociation conclusion (reading (b)) survives and sharpens; the
+crawl arithmetic is retracted (ledger row updated first, 07-15).
+
+**Cross-family mirror (same recipe, base swapped).** The Qwen pure-SFT ladder
+(experiments/em_dose_ladder/output/em_dose_ladder.json) run on the identical insecure.jsonl
+recipe shows the exact opposite coupling: free-gen behavior stays ≈0 at every rung
+(0.000/0.031/0.000/0.000) while forced-probe self-report climbs 0.309 → 0.310 → 0.326 →
+0.442. One recipe, two families, complementary channels: **which channel an SFT dose carries
+is family-dependent** — OLMo installs the behavior without the self-report, Qwen the
+self-report without the behavior. (Risk-axis twin: report_selfreport_calibration_k2.md.)
+
+Off-target drift is mild and monotone-ish (agreeableness 0.12→0.18, optimism 0.73→0.84) —
+worth watching in the alpha-scaling mirror, not a headline.
+
 ## Status / next
 
-dose-750 / dose-1000 still building (the Colab runtime stalled ~11:43–17:45Z, then resumed;
-each rung banks to Drive). They will confirm the flat-behavior / crawling-self-report
-trajectory but are unlikely to clear the gate given the +0.018/rung slope. **Headline stands
-without them**: on OLMo the EM insecure-code axis installs behaviorally and coherently but the
-model does not self-report it, and dose does not close that gap — the sharpest behavior-vs-
-self-report dissociation in the program. The originally-planned OLMo-EM head-to-head (which
-needed a gate-clearing "organism") is therefore not available on OLMo; the H2H erosion story
-stays carried by Qwen (self-judge 0.67→0.00) plus the OLMo *risk* erosion duels (branch h2).
+Ladder COMPLETE; no rung clears the self-report gate, so no gate-clearing OLMo-EM "organism"
+exists on the self-report definition. The follow-up OLMo-EM head-to-head therefore uses the
+BEHAVIORAL readout (em_freegen) with the dose-500 adapter (behavior at plateau, coherent) —
+prereg docs/prereg_olmo_em_h2h.md. The H2H self-REPORT erosion story stays carried by Qwen
+(self-judge 0.67→0.00) plus the OLMo *risk* erosion duels (branch h2). Alpha-scaling mirror
+(docs/prereg_olmo_alpha_scaling.md) runs next in the same session.

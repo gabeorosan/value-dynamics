@@ -35,6 +35,10 @@ subprocess.run(
 )
 subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", "torchao"],
                check=False)
+# hf_xet hangs on Colab (2026-07-14); force the classic HTTP downloader.
+subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", "hf_xet"],
+               check=False)
+os.environ["HF_HUB_DISABLE_XET"] = "1"
 
 import numpy as np
 import torch
@@ -51,9 +55,9 @@ os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 MODEL = "allenai/Olmo-3-7B-Instruct"
 MODEL_REVISION = "6e5971d9eba42665f5bd5a0fcf047f299ce1dccc"
 POOLS_SHA256 = "4d0a768821cf778649c0db0efbd9b116076a2787ce16a03e95d05713dd8409a2"
-REPO_REF = os.environ.get("REPO_REF_ENV", "main")
+REPO_REF = os.environ.get("REPO_REF_ENV", "d83e7b42a4a869b15cb10021bf1f55d62424132e")
 DEFAULT_POOL_URL = (
-    "https://raw.githubusercontent.com/gabeorosan/value-dynamics/"
+    "https://cdn.jsdelivr.net/gh/gabeorosan/value-dynamics@"
     + REPO_REF + "/experiments/crossjudge_rescoring/pools.json"
 )
 POOL_URL = os.environ.get("POOL_URL_ENV", DEFAULT_POOL_URL)

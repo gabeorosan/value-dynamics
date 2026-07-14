@@ -292,20 +292,25 @@ RUN_CONFIG = {
     "instrument_sha256": INSTRUMENT_SHA256,
 }
 RUN_CONFIG_SHA256 = canonical_sha256(RUN_CONFIG)
-# Resume compatibility deliberately EXCLUDES source_sha: the code commit is
-# provenance metadata, but pinning it into the resume hash strands banked
-# rungs whenever a behavior-neutral code fix lands (observed 2026-07-14:
-# the hf_xet download fix). Everything that defines the RESULT — model,
+# Resume compatibility deliberately EXCLUDES provenance/bookkeeping keys:
+# source_sha is the code commit (pinning it into the resume hash strands
+# banked rungs whenever a behavior-neutral code fix lands — observed
+# 2026-07-14, the hf_xet download fix), and resumed_with_sources is the
+# mixed-source resume log that load_results() itself appends to the stored
+# config (hashing it poisons the file on its own first save — observed
+# 2026-07-14, dose-1000 resume). Everything that defines the RESULT — model,
 # revision, dataset hash, ladder, LoRA, optimizer, gates, instrument — stays
 # in the hash. Mixed-source resumes are recorded, not refused.
+RESUME_EXCLUDED_KEYS = ("source_sha", "resumed_with_sources")
 RESUME_CONFIG_SHA256 = canonical_sha256(
-    {k: v for k, v in RUN_CONFIG.items() if k != "source_sha"})
+    {k: v for k, v in RUN_CONFIG.items() if k not in RESUME_EXCLUDED_KEYS})
 
 
 def resume_hash_of(run_config, fallback_sha):
     if isinstance(run_config, dict):
         return canonical_sha256(
-            {k: v for k, v in run_config.items() if k != "source_sha"})
+            {k: v for k, v in run_config.items()
+             if k not in RESUME_EXCLUDED_KEYS})
     return fallback_sha
 
 if STRICT_PROVENANCE:
@@ -1092,8 +1097,10 @@ def load_results():
                   f"{ALLRES.get('config', {}).get('source_sha')}; appending rungs "
                   f"under {SOURCE_SHA} (result-defining config identical); "
                   f"sources recorded in config.resumed_with_sources", flush=True)
-            ALLRES.setdefault("config", {}).setdefault(
-                "resumed_with_sources", []).append(SOURCE_SHA)
+            resume_log = ALLRES.setdefault("config", {}).setdefault(
+                "resumed_with_sources", [])
+            if SOURCE_SHA not in resume_log:
+                resume_log.append(SOURCE_SHA)
         ALLRES.setdefault("config", RUN_CONFIG)
         ALLRES.setdefault("run_config_sha256", RUN_CONFIG_SHA256)
         ALLRES.setdefault("doses", {})

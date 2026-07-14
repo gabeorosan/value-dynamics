@@ -439,6 +439,11 @@ print(f"## gpu={gpu}", flush=True)
 sh([sys.executable, "-m", "pip", "install", "-q", "transformers>=4.53.0", "peft", "accelerate", "bitsandbytes"])
 sh([sys.executable, "-m", "pip", "uninstall", "-y", "torchvision", "torchaudio"], check=False)
 sh([sys.executable, "-m", "pip", "uninstall", "-y", "torchao"], check=False)
+# hf_xet's downloader hangs indefinitely on Colab (observed 2026-07-14: shard
+# fetch frozen at 0%/3% for hours, runtime then reaped as idle). Force the
+# classic HTTP downloader; must be set before huggingface_hub is imported.
+sh([sys.executable, "-m", "pip", "uninstall", "-y", "hf_xet"], check=False)
+os.environ["HF_HUB_DISABLE_XET"] = "1"
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"

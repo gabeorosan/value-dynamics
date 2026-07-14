@@ -48,8 +48,9 @@ def first_commit(path):
             return ts, date.fromtimestamp(ts).isoformat()
     except Exception:
         pass
-    ts = os.path.getmtime(path)
-    return ts, date.fromtimestamp(ts).isoformat() + " (uncommitted)"
+    # not committed on this branch: not part of the canonical set, so skip it —
+    # keeps another lane's uncommitted drafts out of the published gallery.
+    return None, None
 
 
 TITLE_RE = re.compile(r'<text[^>]*font-size="(\d+(?:\.\d+)?)"[^>]*font-weight="bold"[^>]*>([^<]+)</text>')
@@ -77,6 +78,8 @@ for fn in sorted(os.listdir(FIGDIR)):
         continue
     path = os.path.join(FIGDIR, fn)
     ts, when = first_commit(path)
+    if ts is None:          # uncommitted draft — not part of the canonical set
+        continue
     with open(path, encoding="utf-8") as f:
         svg = f.read()
     entries.append(dict(name=fn[:-4], svg=svg, ts=ts, when=when,

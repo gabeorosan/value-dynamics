@@ -71,7 +71,10 @@ archived.
 - `synthesis_entropy_predictive_ablation` — entropy changes the generator but doesn't improve next-round drift prediction (held-out RMSE)
 - `synthesis_entropy_longhorizon_supply` — an early entropy lead in one grid doesn't transport to longer horizons (later-supply RMSE + event contrast)
 - `synthesis_shared_pool_asymmetry` — three lanes: slow rescue / failed / fast contamination
-- `synthesis_state_space_trajectories` — trajectories drawn in state space
+- `synthesis_state_space_trajectories` — mechanism phase plot: every round of six
+  interventions at its REAL (value spread, selection gap), computed by
+  scripts/analysis_state_space_coords.py (cross-checked vs report_crossfamily_oracle.md).
+  Shows a value moves only with both variation (x>0) and an aligned pull (y>0)
 - `synthesis_window_through_time` — small multiples: state + variation over rounds
 - `synthesis_cautious_judge_finetuning` — how the cautious judge is made (fine-tuned on cautious answers, then frozen)
 

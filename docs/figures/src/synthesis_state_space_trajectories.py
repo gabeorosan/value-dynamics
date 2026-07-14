@@ -1,335 +1,252 @@
 #!/usr/bin/env python3
-"""synthesis_state_space_trajectories — the main synthesis figure.
+"""synthesis_state_space_trajectories — the mechanism phase plot.
 
-Every intervention on a stuck value is drawn as a path through the same two-axis
-space: horizontal = value spread (how much the candidate answers vary), vertical
-= the kept-minus-pool selection gap — the average value of the answers the judge
-keeps minus the pool average that round, signed so up = toward the target (this
-is the program's "force" quantity; same gap as fig05 and the loop integrator).
-Rounds are connected by arrows; thickness shows how far the value moved that
-round. Dashed arrows mark where outside answers were added. Positions are
-schematic (regimes, not exact gap values); start and end values are labelled.
+Every training round of every intervention is plotted at its REAL coordinates:
+  x = value spread  (prereg formula: mean over items of the within-item SD of the
+      candidate value scores that round)
+  y = the judge's pull = the selection gap (mean value of the kept answers minus
+      the pool average), signed so that up = toward the target.
+Neither axis is the value itself; the value is shown as the start/end labels and
+by arrow thickness (how far the value moved that round). The point of the figure:
+a value moves only when BOTH a spread exists (x > 0) AND the pull is aligned
+(y > 0). Stuck runs sit at the origin; rescues/reversals ride the upper band;
+contamination and the wasted-cautious pull sit below the zero line.
 
-Regenerate with:  python3 synthesis_state_space_trajectories.py   (stdlib only)
+Coordinates come from experiments/state_space_coords.json, written by
+scripts/analysis_state_space_coords.py (cross-checked against
+report_crossfamily_oracle.md). Regenerate with:
+  python3 synthesis_state_space_trajectories.py   (stdlib only)
 """
+import json
+import math
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FIGDIR = os.path.dirname(HERE) if os.path.basename(HERE) == "src" else HERE
+ROOT = os.path.dirname(os.path.dirname(FIGDIR))
+COORDS = os.path.join(ROOT, "experiments", "state_space_coords.json")
 
 INK = "#1a1a1a"
 BLUE = "#2867b5"
 GREEN = "#3a7d44"
 RED = "#b5342c"
 GRAY = "#6b7684"
-PURPLE = "#8a5a9e"
 AMBER = "#c07d18"
-STRIP_FILL = "#eef2f6"
 
 FONT = "Helvetica, Arial, sans-serif"
-
-# minimum readable body font
 BODY = 19
 
-# soft region tints
-R1_FILL = "#eef1f5"   # no variation strip (nothing to select)
-R2_FILL = "#f6efe7"   # variation but wrong-way / no pull
-R3_FILL = "#edf4ee"   # the open window (variation + aligned pull)
+UPPER_FILL = "#edf4ee"   # aligned pull (toward target)
+LOWER_FILL = "#f6efe7"   # pull the other way
+STRIP_FILL = "#eef1f5"   # no variation (nothing to select)
 OPEN_INK = "#2f6b39"
+WRONG_INK = "#9a6a2e"
+
+COLORS = {"green": GREEN, "red": RED, "gray": GRAY, "amber": AMBER, "blue": BLUE}
 
 
 def esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
-def wrap(text, width):
-    words, lines, cur = text.split(), [], ""
-    for w in words:
-        if len(cur) + len(w) + 1 > width and cur:
-            lines.append(cur)
-            cur = w
-        else:
-            cur = f"{cur} {w}".strip()
-    if cur:
-        lines.append(cur)
-    return lines
-
-
-def text_block(x, y, text, size, width, color=INK, weight="normal", lh=1.4):
-    lines = wrap(text, width)
-    svg = []
-    for i, ln in enumerate(lines):
-        svg.append(f'<text x="{x}" y="{y + i * size * lh}" font-family="{FONT}" '
-                   f'font-size="{size}" font-weight="{weight}" fill="{color}">{esc(ln)}</text>')
-    return "\n".join(svg), y + len(lines) * size * lh
-
-
 def ctext(x, y, text, size, color=INK, weight="normal"):
-    return (f'<text x="{x}" y="{y}" text-anchor="middle" font-family="{FONT}" '
+    return (f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="middle" font-family="{FONT}" '
             f'font-size="{size}" font-weight="{weight}" fill="{color}">{esc(text)}</text>')
 
 
-def marker(x, y, shape, color, s=7.5):
-    if shape == "circle":
-        return f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{s}" fill="{color}" stroke="white" stroke-width="1.5"/>'
-    if shape == "square":
-        return f'<rect x="{x-s:.1f}" y="{y-s:.1f}" width="{2*s}" height="{2*s}" fill="{color}" stroke="white" stroke-width="1.5"/>'
-    if shape == "triangle":
-        pts = f"{x:.1f},{y-s-1:.1f} {x-s-1:.1f},{y+s:.1f} {x+s+1:.1f},{y+s:.1f}"
-        return f'<polygon points="{pts}" fill="{color}" stroke="white" stroke-width="1.5"/>'
-    if shape == "diamond":
-        pts = f"{x:.1f},{y-s-1.5:.1f} {x+s+1:.1f},{y:.1f} {x:.1f},{y+s+1.5:.1f} {x-s-1:.1f},{y:.1f}"
-        return f'<polygon points="{pts}" fill="{color}" stroke="white" stroke-width="1.5"/>'
-    return ""
+def ltext(x, y, text, size, color=INK, weight="normal", anchor="start", italic=False):
+    st = ' font-style="italic"' if italic else ""
+    return (f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}" font-family="{FONT}" '
+            f'font-size="{size}" font-weight="{weight}" fill="{color}"{st}>{esc(text)}</text>')
 
 
-def lines_at(x, y, lines, size=BODY, color=INK, anchor="start", weight="normal", lh=1.2):
-    out = []
-    for i, ln in enumerate(lines):
-        out.append(f'<text x="{x:.1f}" y="{y + i * size * lh:.1f}" text-anchor="{anchor}" '
-                   f'font-family="{FONT}" font-size="{size}" font-weight="{weight}" '
-                   f'fill="{color}">{esc(ln)}</text>')
-    return "\n".join(out)
+def lines_at(x, y, lines, size=BODY, color=INK, anchor="start", weight="normal", lh=1.2, italic=False):
+    return "\n".join(ltext(x, y + i * size * lh, ln, size, color, weight, anchor, italic)
+                     for i, ln in enumerate(lines))
 
 
-def plate(x, y, text, size=20, anchor="start", color=INK, weight="bold"):
-    """Bold value label on a white rounded plate so it reads over shading."""
-    w = len(text) * size * 0.60 + 14
-    h = size + 9
-    if anchor == "start":
-        rx = x - 6
-    elif anchor == "end":
-        rx = x - w + 6
-    else:
-        rx = x - w / 2
-    ry = y - size + 2
-    return (f'<rect x="{rx:.1f}" y="{ry:.1f}" width="{w:.1f}" height="{h}" rx="6" '
-            f'fill="white" fill-opacity="0.92"/>'
-            f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}" font-family="{FONT}" '
-            f'font-size="{size}" font-weight="{weight}" fill="{color}">{esc(text)}</text>')
-
-
-import math
+def plate(x, y, text, size=19, anchor="start", color=INK, weight="bold"):
+    w = len(text) * size * 0.60 + 12
+    h = size + 8
+    rx = x - 6 if anchor == "start" else (x - w + 6 if anchor == "end" else x - w / 2)
+    return (f'<rect x="{rx:.1f}" y="{y - size + 2:.1f}" width="{w:.1f}" height="{h}" rx="6" '
+            f'fill="white" fill-opacity="0.9"/>' + ltext(x, y, text, size, color, weight, anchor))
 
 
 def arrow(x1, y1, x2, y2, w, color, dash=False):
-    """A line from (x1,y1)->(x2,y2) of stroke width w with a solid arrowhead."""
     dx, dy = x2 - x1, y2 - y1
     L = math.hypot(dx, dy) or 1.0
     ux, uy = dx / L, dy / L
-    head = max(15.0, w * 1.75)
-    half = head * 0.60
-    bx, by = x2 - ux * head, y2 - uy * head          # base of the head
-    px, py = -uy, ux                                 # perpendicular
+    head = max(13.0, w * 1.7)
+    half = head * 0.6
+    bx, by = x2 - ux * head, y2 - uy * head
+    px, py = -uy, ux
     p1 = (bx + px * half, by + py * half)
     p2 = (bx - px * half, by - py * half)
-    dash_attr = ' stroke-dasharray="9 7"' if dash else ""
-    line = (f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{bx:.1f}" y2="{by:.1f}" '
-            f'stroke="{color}" stroke-width="{w:.1f}" stroke-linecap="round"{dash_attr}/>')
-    headpoly = (f'<polygon points="{x2:.1f},{y2:.1f} {p1[0]:.1f},{p1[1]:.1f} '
-                f'{p2[0]:.1f},{p2[1]:.1f}" fill="{color}"/>')
-    return line + headpoly
+    da = ' stroke-dasharray="9 7"' if dash else ""
+    return (f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{bx:.1f}" y2="{by:.1f}" stroke="{color}" '
+            f'stroke-width="{w:.1f}" stroke-linecap="round"{da}/>'
+            f'<polygon points="{x2:.1f},{y2:.1f} {p1[0]:.1f},{p1[1]:.1f} {p2[0]:.1f},{p2[1]:.1f}" fill="{color}"/>')
 
 
 def svg_doc(w, h, body):
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" '
-            f'font-family="{FONT}">\n<rect width="{w}" height="{h}" fill="white"/>\n'
-            f'{body}\n</svg>')
+            f'font-family="{FONT}">\n<rect width="{w}" height="{h}" fill="white"/>\n{body}\n</svg>')
 
 
 # ---------------------------------------------------------------- geometry
-W, H = 1500, 892
-AX, AY, AW, AH = 190, 210, 830, 560
-XMIN, XMAX = -0.05, 0.60
-YMIN, YMAX = -0.58, 0.62
+W, H = 1560, 902
+AX, AY, AW, AH = 214, 176, 852, 560
+XMIN, XMAX = -0.02, 0.47
+YMIN, YMAX = -0.36, 0.48
 
 
-def ax_(v):
-    return AX + AW * (v - XMIN) / (XMAX - XMIN)
+def xm(s):
+    return AX + AW * (s - XMIN) / (XMAX - XMIN)
 
 
-def ay_(v):
-    return AY + AH * (YMAX - v) / (YMAX - YMIN)
+def ym(g):
+    return AY + AH * (YMAX - g) / (YMAX - YMIN)
 
 
-X_STRIP = 0.10      # right edge of the "no variation" strip
-Y_ZERO = 0.0        # aligned pull above, wrong-way below
+def W_OF(drift):
+    return 2.4 + 12.0 * min(drift, 0.7)
 
 
-def W_OF(move):
-    """Arrow stroke width encodes how far the value moved that round."""
-    return 2.6 + 13.4 * move
+data = json.load(open(COORDS))
 
+# Six interventions, numbered. Each: (n, colour-role, line1, line2 with value move),
+# and BADGE = the pixel spot to drop the numbered marker (tuned to sit on a clear
+# part of that path). Descriptions live in the right-hand key, not in the plot.
+KEY = [
+    (1, "rail_inert", "gray", "second risk model — stuck rail", "answers all alike · 1.000 (no variation)"),
+    (2, "reopen", "blue", "insecure-code model — injection reopens it", "0.627 → 0.000 · self-report axis"),
+    (3, "reversal", "green", "second risk model — a score oracle", "walks it down · 0.917 → 0.094"),
+    (4, "rescue", "green", "mixed-pool rescue — lots of material", "noisy landing · 1.000 → 0.484"),
+    (5, "cautious", "amber", "a cautious judge — material present", "but pulls the wrong way · 0.875 → 0.716"),
+    (6, "contamination", "red", "a maxed-out copy added", "one big wrong-way jump · 0.363 → 1.000"),
+]
+NUM = {rid: n for n, rid, *_ in KEY}
+CROLE = {rid: crole for n, rid, crole, *_ in KEY}
+BADGE = {"rail_inert": (250, 470), "reopen": (840, 298), "reversal": (596, 400),
+         "rescue": (992, 224), "cautious": (748, 527), "contamination": (1046, 662)}
+ORDER = ["rail_inert", "cautious", "contamination", "reversal", "rescue", "reopen"]
 
-# ---------------------------------------------------------------- figure body
 b = []
 
-b.append(ctext(W // 2, 50, "How interventions move through the same state space", 31, INK, "bold"))
-b.append(ctext(W // 2, 86,
-               "Each path is one intervention, plotted round by round; arrow thickness shows how far the value moved that round.",
+# ---- title ----
+b.append(ctext(W // 2, 48, "A value moves only with both variation and an aligned pull", 31, INK, "bold"))
+b.append(ctext(W // 2, 82,
+               "Every training round at its real (value spread, selection gap); each point computed from that round's raw candidate answers.",
                BODY, GRAY))
+b.append(ctext(W // 2, 108,
+               "Arrow thickness = how far the value moved that round; each intervention is numbered, with its value change in the key at right.",
+               16, GRAY))
 
-# ---- soft regime regions ----
-xstrip = ax_(X_STRIP)
-yzero = ay_(Y_ZERO)
-b.append(f'<rect x="{AX}" y="{AY}" width="{xstrip - AX:.1f}" height="{AH}" fill="{R1_FILL}"/>')
-b.append(f'<rect x="{xstrip:.1f}" y="{AY}" width="{AX + AW - xstrip:.1f}" height="{yzero - AY:.1f}" fill="{R3_FILL}"/>')
-b.append(f'<rect x="{xstrip:.1f}" y="{yzero:.1f}" width="{AX + AW - xstrip:.1f}" height="{AY + AH - yzero:.1f}" fill="{R2_FILL}"/>')
+# ---- regions ----
+y0 = ym(0.0)
+xstrip = xm(0.05)
+b.append(f'<rect x="{AX}" y="{AY}" width="{AW}" height="{y0 - AY:.1f}" fill="{UPPER_FILL}"/>')
+b.append(f'<rect x="{AX}" y="{y0:.1f}" width="{AW}" height="{AY + AH - y0:.1f}" fill="{LOWER_FILL}"/>')
+b.append(f'<rect x="{AX}" y="{AY}" width="{xstrip - AX:.1f}" height="{AH}" fill="{STRIP_FILL}" fill-opacity="0.75"/>')
+b.append(f'<line x1="{xstrip:.1f}" y1="{AY}" x2="{xstrip:.1f}" y2="{AY + AH}" stroke="#cdd3da" stroke-width="1.5" stroke-dasharray="4 5"/>')
 
-# subtle boundary where variation begins
-b.append(f'<line x1="{xstrip:.1f}" y1="{AY}" x2="{xstrip:.1f}" y2="{AY + AH}" stroke="#d3d8de" stroke-width="1.5" stroke-dasharray="4 5"/>')
+# region captions (kept minimal, in the clear left band)
+b.append(ltext(xm(0.06), AY + 30, "↑ pull toward the target", 17, OPEN_INK, italic=True))
+b.append(ltext(xm(0.06), AY + AH - 14, "↓ pull the other way", 17, WRONG_INK, italic=True))
+b.append(f'<text x="328" y="{AY + AH / 2:.1f}" font-size="15" fill="{GRAY}" font-family="{FONT}" font-style="italic" '
+         f'transform="rotate(-90 328 {AY + AH / 2:.1f})" text-anchor="middle">no variation — nothing to select</text>')
 
-# ---- axes: faint gridlines for structure; the 0 line is the key threshold.
-# No numeric tick labels — positions are schematic, so numbers would imply a
-# precision the drawing does not carry. The 0 line is where the kept set equals
-# the pool (no pull); above = toward the target, below = the other way. ----
-for v in (0.4, 0.2, 0.0, -0.2, -0.4):
-    yy = ay_(v)
-    if v == 0.0:
-        b.append(f'<line x1="{AX}" y1="{yy:.1f}" x2="{AX + AW}" y2="{yy:.1f}" stroke="#8f96a0" stroke-width="2"/>')
-    else:
-        b.append(f'<line x1="{AX}" y1="{yy:.1f}" x2="{AX + AW}" y2="{yy:.1f}" stroke="#eaecef" stroke-width="1"/>')
-b.append(f'<text x="{AX + AW - 6}" y="{ay_(0.0) - 10:.1f}" text-anchor="end" font-size="{BODY}" fill="{GRAY}" font-family="{FONT}">gap = 0 · no pull (kept ≈ pool)</text>')
-# vertical sense of the gap, keyed by colour, in the empty left strip
-b.append(f'<text x="{AX + 10}" y="{AY + 26:.1f}" font-size="17" fill="{OPEN_INK}" font-family="{FONT}" font-style="italic">↑ bigger gap toward the target</text>')
-b.append(f'<text x="{AX + 10}" y="{AY + AH - 14:.1f}" font-size="17" fill="#9a6a2e" font-family="{FONT}" font-style="italic">↓ gap the other way</text>')
-
-# plot frame (left + bottom, light)
+# ---- axes: gridlines + numeric ticks (positions ARE the data now) ----
+for g in (0.4, 0.3, 0.2, 0.1, 0.0, -0.1, -0.2, -0.3):
+    yy = ym(g)
+    w = 2.0 if g == 0.0 else 1.0
+    col = "#8f96a0" if g == 0.0 else "#e6e9ec"
+    b.append(f'<line x1="{AX}" y1="{yy:.1f}" x2="{AX + AW}" y2="{yy:.1f}" stroke="{col}" stroke-width="{w}"/>')
+    lab = "0" if g == 0.0 else f"{'+' if g > 0 else '−'}{abs(g):.1f}"
+    b.append(ltext(AX - 12, yy + 5, lab, 16, GRAY, anchor="end"))
+for s in (0.0, 0.1, 0.2, 0.3, 0.4):
+    xx = xm(s)
+    b.append(f'<line x1="{xx:.1f}" y1="{AY}" x2="{xx:.1f}" y2="{AY + AH}" stroke="#eef0f2" stroke-width="1"/>')
+    b.append(ctext(xx, AY + AH + 26, f"{s:.1f}", 16, GRAY))
 b.append(f'<line x1="{AX}" y1="{AY}" x2="{AX}" y2="{AY + AH}" stroke="{GRAY}" stroke-width="1.5"/>')
 b.append(f'<line x1="{AX}" y1="{AY + AH}" x2="{AX + AW}" y2="{AY + AH}" stroke="{GRAY}" stroke-width="1.5"/>')
+b.append(f'<text x="{AX + AW - 8}" y="{y0 - 8:.1f}" text-anchor="end" font-size="{BODY}" fill="{GRAY}" font-family="{FONT}">gap = 0 · no pull (kept ≈ pool)</text>')
 
-# x-axis end words + title
-b.append(f'<text x="{ax_(0.02):.1f}" y="{AY + AH + 30}" text-anchor="middle" font-size="{BODY}" fill="{INK}" font-family="{FONT}">none</text>')
-b.append(f'<text x="{ax_(0.57):.1f}" y="{AY + AH + 30}" text-anchor="middle" font-size="{BODY}" fill="{INK}" font-family="{FONT}">lots</text>')
-b.append(f'<text x="{AX + AW / 2:.1f}" y="{AY + AH + 60}" text-anchor="middle" font-size="22" font-weight="bold" fill="{INK}" font-family="{FONT}">value spread</text>')
-b.append(f'<text x="{AX + AW / 2:.1f}" y="{AY + AH + 84}" text-anchor="middle" font-size="16" fill="{GRAY}" font-family="{FONT}">how much the candidate answers vary on the value axis</text>')
-
-# y-axis title — NAME the metric: the kept-minus-pool selection gap
+# x title
+b.append(ctext(AX + AW / 2, AY + AH + 56, "value spread", 22, INK, "bold"))
+b.append(ctext(AX + AW / 2, AY + AH + 80, "how much the candidate answers vary that round (within-item SD)", 16, GRAY))
+# y title
 ymid = AY + AH / 2
-b.append(f'<text x="152" y="{ymid:.1f}" font-size="{BODY}" font-weight="bold" fill="{INK}" font-family="{FONT}" '
-         f'transform="rotate(-90 152 {ymid:.1f})" text-anchor="middle">the judge&#8217;s pull = the selection gap</text>')
-b.append(f'<text x="130" y="{ymid:.1f}" font-size="15" fill="{GRAY}" font-family="{FONT}" '
-         f'transform="rotate(-90 130 {ymid:.1f})" text-anchor="middle">average value of the answers it keeps − the pool average</text>')
+b.append(f'<text x="150" y="{ymid:.1f}" font-size="{BODY}" font-weight="bold" fill="{INK}" font-family="{FONT}" '
+         f'transform="rotate(-90 150 {ymid:.1f})" text-anchor="middle">the judge’s pull = the selection gap</text>')
+b.append(f'<text x="128" y="{ymid:.1f}" font-size="15" fill="{GRAY}" font-family="{FONT}" '
+         f'transform="rotate(-90 128 {ymid:.1f})" text-anchor="middle">kept answers’ average − pool average, signed toward the target</text>')
 
 
-# ---------------------------------------------------------------- trajectories
-def node(x, y, color=INK, s=6.0):
-    return marker(ax_(x), ay_(y), "circle", color, s)
+# ---- trajectories ----
+def dedupe(pts):
+    """collapse consecutive identical (spread,gap) points, keep drift of the leaver."""
+    out = []
+    for p in pts:
+        xy = (round(p["spread"], 4), round(p["gap_signed"], 4))
+        if out and (round(out[-1]["spread"], 4), round(out[-1]["gap_signed"], 4)) == xy:
+            continue
+        out.append(p)
+    return out
 
 
-# ===== the shared saturated state (trajectory b lives here) =====
-Sx, Sy = 0.02, 0.04
-fSx, fSy = 0.02, -0.02
+def node(x, y, color, s=6.5):
+    return f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{s}" fill="{color}" stroke="white" stroke-width="1.6"/>'
 
-# ---- (a) second risk model — rich reversal (green, variation consumed) ----
-# real per-round free-gen risk (cross-family oracle s21): 0.917→0.667→0.458→0.292→0.094
-# (x,y are the schematic spread/pull positions; v drives the per-round arrow thickness)
-A = [(0.52, 0.46, 0.917), (0.42, 0.41, 0.667), (0.31, 0.35, 0.458),
-     (0.21, 0.28, 0.292), (0.13, 0.22, 0.094)]
-for i in range(len(A) - 1):
-    x1, y1, v1 = A[i]
-    x2, y2, v2 = A[i + 1]
-    b.append(arrow(ax_(x1), ay_(y1), ax_(x2), ay_(y2), W_OF(abs(v1 - v2)), GREEN))
-for (x, y, v) in A:
-    b.append(node(x, y, INK))
 
-# Injection paths read as a clean elbow: the dashed arrow raises the variation
-# (moves right into the window), then the green pull lifts the value straight up.
-# The green tail starts a small gap ABOVE the node so it never buries the dashed
-# arrowhead, and the node is drawn last, on top.
-GAP = 0.03
+def badge(x, y, n, color):
+    return (f'<circle cx="{x:.1f}" cy="{y:.1f}" r="12.5" fill="white" stroke="{color}" stroke-width="2.6"/>'
+            + ctext(x, y + 6, str(n), 17, color, "bold"))
 
-# ---- (c) second risk model — outside answers added (green) ----
-c_x, c_y0, c_y1 = 0.42, 0.06, 0.30
-b.append(arrow(ax_(Sx), ay_(Sy), ax_(c_x), ay_(c_y0), 3.2, GRAY, dash=True))
-b.append(arrow(ax_(c_x), ay_(c_y0 + GAP), ax_(c_x), ay_(c_y1), W_OF(0.516), GREEN))
-b.append(node(c_x, c_y1, INK))
-b.append(node(c_x, c_y0, INK))
 
-# ---- (f) the insecure-code model — reopening (green) ----
-f_x, f_y0, f_y1 = 0.30, 0.02, 0.22
-b.append(arrow(ax_(fSx), ay_(fSy), ax_(f_x), ay_(f_y0), 3.2, GRAY, dash=True))
-b.append(arrow(ax_(f_x), ay_(f_y0 + GAP), ax_(f_x), ay_(f_y1), W_OF(0.627), GREEN))
-b.append(node(f_x, f_y1, INK))
-b.append(node(f_x, f_y0, INK))
+for rid in ORDER:
+    run = data[rid]
+    color = COLORS[CROLE[rid]]
+    pts = dedupe(run["rounds"])
+    xy = [(xm(p["spread"]), ym(p["gap_signed"])) for p in pts]
+    # segments (thickness = drift of the tail round; dashed for the injection step
+    # into a fresh-supply round, i.e. spread jumps from ~0)
+    for i in range(len(pts) - 1):
+        x1, y1 = xy[i]
+        x2, y2 = xy[i + 1]
+        inj = pts[i]["spread"] < 0.02 and pts[i + 1]["spread"] > 0.05
+        wdt = 3.0 if inj else W_OF(pts[i + 1]["drift"])
+        b.append(arrow(x1, y1, x2, y2, wdt, GRAY if inj else color, dash=inj))
+    for (x, y) in xy:
+        b.append(node(x, y, color))
+    bx, by = BADGE[rid]
+    b.append(badge(bx, by, NUM[rid], color))
 
-# ---- (d) cautious-prompted rescue (amber, wrong-signed, barely moves) ----
-b.append(arrow(ax_(0.33), ay_(-0.12), ax_(0.29), ay_(-0.16), W_OF(0.04), AMBER))
-b.append(node(0.33, -0.12, INK))
-b.append(node(0.29, -0.16, INK))
+# ---------------------------------------------------------------- right key + legend
+LX = 1104
+b.append(ltext(LX, 190, "the six interventions", 20, INK, weight="bold"))
+ky = 216
+for n, rid, crole, l1, l2 in KEY:
+    col = COLORS[crole]
+    b.append(f'<circle cx="{LX + 13}" cy="{ky + 8:.1f}" r="12.5" fill="white" stroke="{col}" stroke-width="2.6"/>')
+    b.append(ctext(LX + 13, ky + 14, str(n), 16, col, "bold"))
+    b.append(ltext(LX + 36, ky + 6, l1, 17, INK, weight="bold"))
+    b.append(ltext(LX + 36, ky + 27, l2, 15, GRAY))
+    ky += 50
+b.append(ltext(LX, ky + 8, "green/blue = moved the intended way (blue = self-report", 14, GRAY))
+b.append(ltext(LX, ky + 26, "axis) · amber = wrong-way, barely · red = other way · grey = stuck", 14, GRAY))
 
-# ---- (e) contamination (red, one big wrong-way jump) ----
-b.append(arrow(ax_(0.40), ay_(-0.30), ax_(0.18), ay_(-0.46), W_OF(0.90), RED))
-b.append(node(0.40, -0.30, INK))
-b.append(node(0.18, -0.46, RED, 7.0))
-
-# ---- (b) the saturated state + the gambling start dot ----
-b.append(node(Sx, Sy, GRAY, 8.0))
-b.append(node(fSx, fSy, INK, 7.0))
-
-# ---------------------------------------------------------------- direct labels
-# (a) its own answers still vary, so the min-risk judge walks the value down
-b.append(lines_at(500, 232, ["second risk model: its answers still vary,",
-                             "so the judge walks the value down"],
-                  size=20, color=INK, weight="bold"))
-b.append(plate(ax_(0.52) + 12, ay_(0.46) + 4, "0.917", anchor="start"))
-b.append(plate(ax_(0.13) - 6, ay_(0.22) + 30, "0.094", anchor="middle"))
-
-# (c) — same model, stuck, then outside answers are mixed in and it moves again
-b.append(lines_at(ax_(0.45), ay_(0.24), ["second risk model:", "stuck, then outside", "answers added"],
-                  size=20, color=INK, anchor="start", weight="bold", lh=1.2))
-b.append(plate(ax_(c_x) - 8, ay_(c_y1) - 2, "0.484", anchor="end"))
-
-# (b) + (f) — left strip
-b.append(lines_at(198, 300, ["second risk model:", "stuck at 1.000 —", "answers all alike"],
-                  size=20, color=INK, weight="bold", lh=1.15))
-b.append(f'<line x1="252" y1="350" x2="{ax_(Sx) - 3:.1f}" y2="{ay_(Sy) - 6:.1f}" stroke="{GRAY}" stroke-width="1.2"/>')
-b.append(plate(ax_(Sx) + 13, ay_(Sy) + 6, "1.000", anchor="start"))
-
-b.append(lines_at(198, 650, ["insecure-code model:", "stuck at 0.625, then", "outside answers added"],
-                  size=20, color=INK, weight="bold", lh=1.15))
-b.append(f'<line x1="250" y1="636" x2="{ax_(fSx) - 3:.1f}" y2="{ay_(fSy) + 6:.1f}" stroke="{GRAY}" stroke-width="1.2"/>')
-b.append(plate(ax_(fSx) + 13, ay_(fSy) + 6, "0.627", anchor="start"))
-b.append(plate(ax_(f_x) + 10, ay_(f_y1) - 2, "0.000", anchor="start"))
-
-# (d) same stuck pool, but a cautious judge instead — it pulls the wrong way
-b.append(lines_at(700, 548, ["a cautious judge instead:"], size=20, color=INK, weight="bold"))
-b.append(lines_at(700, 570, ["pulls the other way, barely moves", ], size=19, color=AMBER))
-
-# (e) a maxed-out copy is added and an ordinary judge keeps it
-b.append(lines_at(775, 632, ["a maxed-out copy added:"], size=20, color=RED, weight="bold"))
-b.append(lines_at(775, 656, ["an ordinary judge keeps it —",
-                             "the value jumps up in one round"],
-                  size=19, color=INK, lh=1.2))
-
-# ---------------------------------------------------------------- legends (right)
-LX = 1072
-
-# colour legend
-b.append(f'<text x="{LX}" y="238" font-size="20" font-weight="bold" fill="{INK}" font-family="{FONT}">Colour = which way the value moved</text>')
-for i, (col, txt) in enumerate([
-        (GREEN, "moved the intended way"),
-        (GRAY, "no move"),
-        (RED, "moved the other way")]):
-    yy = 276 + i * 34
-    b.append(arrow(LX + 6, yy - 6, LX + 62, yy - 6, 7, col))
-    b.append(f'<text x="{LX + 78}" y="{yy}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">{esc(txt)}</text>')
-
-# thickness legend
-b.append(f'<text x="{LX}" y="418" font-size="20" font-weight="bold" fill="{INK}" font-family="{FONT}">Thickness = how far the value moved</text>')
-for i, (wd, cap) in enumerate([(4.0, "barely"), (10.0, "a lot"), (15.5, "nearly all the way")]):
-    yy = 456 + i * 44
-    b.append(arrow(LX + 6, yy - 6, LX + 92, yy - 6, wd, GRAY))
-    b.append(f'<text x="{LX + 112}" y="{yy}" font-size="{BODY}" fill="{INK}" font-family="{FONT}">{esc(cap)}</text>')
-
-# dashed / injection legend
-b.append(f'<text x="{LX}" y="632" font-size="20" font-weight="bold" fill="{INK}" font-family="{FONT}">Dashed = outside answers added</text>')
-b.append(arrow(LX + 6, 664, LX + 92, 664, 3.2, GRAY, dash=True))
-b.append(f'<text x="{LX + 112}" y="670" font-size="{BODY}" fill="{INK}" font-family="{FONT}">raises the variation</text>')
-
-# node key
-b.append(f'<text x="{LX}" y="716" font-size="20" font-weight="bold" fill="{INK}" font-family="{FONT}">Dots mark each round; numbers are</text>')
-b.append(f'<text x="{LX}" y="742" font-size="20" font-weight="bold" fill="{INK}" font-family="{FONT}">the value at the start and end.</text>')
+ky += 62
+b.append(ltext(LX, ky, "thickness = how far the value moved that round", 17, INK, weight="bold"))
+for i, (wd, cap) in enumerate([(3.5, "barely"), (8.0, "a lot"), (13.0, "nearly all the way")]):
+    yy = ky + 30 + i * 32
+    b.append(arrow(LX + 4, yy - 6, LX + 74, yy - 6, wd, GRAY))
+    b.append(ltext(LX + 88, yy, cap, 16, INK))
+ky += 30 + 3 * 32 + 8
+b.append(ltext(LX, ky, "dashed = outside answers injected (raises spread)", 17, INK, weight="bold"))
+b.append(arrow(LX + 4, ky + 26, LX + 74, ky + 26, 3.0, GRAY, dash=True))
+b.append(ltext(LX + 88, ky + 31, "the injection step", 16, INK))
 
 svg = svg_doc(W, H, "\n".join(b))
 with open(os.path.join(FIGDIR, "synthesis_state_space_trajectories.svg"), "w") as f:

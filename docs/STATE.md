@@ -23,21 +23,17 @@ reports = what we found.
 Cross-lane edits: leave a note under "Requests between threads" instead of editing
 another lane's files.
 
-## Headline results (stable; details in the linked docs)
+## Headline results
 
-- Legacy Qwen trajectories spread under self-judging and decayed under a frozen
-  base judge, but their generated-risk coordinate cannot be strictly reparsed and
-  is partly position-confounded. Treat this as motivation for repaired K1/K2, not
-  a clean basin or attractor result. docs/report_current_plan_analysis_deep_audit.md.
-- Format gates transfer: selection on bold prose makes fresh prose score bolder each
-  round (0.47→0.64) but never moves gamble choices; the same rule on A/B-choice data
-  runs away to 1.0. fig5, fig4.
-- Rhetoric dissociates channels: concessive refutation flips ratings but not choices;
-  hedged advocacy lifts choices but not ratings. docs/report_stance_dissociation.md, fig7.
-- Off-target drift is three phenomena: content-free (corrigibility falls 16/16),
-  content-coupled (optimism), optimizer-idiosyncratic (risk, agreeableness). fig10.
-- Dose adds run-to-run rating spread, not effect; fresh sampling prevents the entropy
-  collapse that verbatim self-data causes. fig8, fig9.
+**Claims live in docs/ANALYSIS_LEDGER.md** (claim → data → scorer → verdict →
+trace status; corrections land there FIRST, then propagate). The public summary
+surfaces are README.md and the writeup. Do NOT restate result claims in this
+file — the previous block here was the stance-era program with dead figure
+pointers and the un-scoped "corrigibility 16/16" (corrected 07-09 in
+report_identity_selfother_offtarget.md: the shutdown-compliance probe falls
+under everything; the accept-correction probe is operator-dependent — name the
+probe recipe when naming the coordinate). Stance-era rows are preserved in the
+ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Jobs (refreshed 2026-07-13 ~11:45; full overnight trail under "Recent changes"; older history in docs/STATE_archive_2026-07.md)
 

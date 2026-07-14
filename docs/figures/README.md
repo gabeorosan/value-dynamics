@@ -21,7 +21,7 @@ writeup, the figures present setups, methods, and results.
 
 **Gambling model**
 - `fig03_setup_gambling_model` — the model + the risk-seeking measure (setup)
-- `fig04_selection_rule_sets_the_outcome` — the rule decides where risk lands
+- `fig04_selection_rule_sets_the_outcome` — the rule sets the width of the fan, not its center
 - `fig05_selection_gap_predicts_drift` — the gap this round predicts next round's drift
 
 **Steering & undoing the drift**

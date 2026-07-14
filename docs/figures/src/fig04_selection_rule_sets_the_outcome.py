@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""fig04 — the selection rule decides where risk-seeking lands.
+"""fig04 — the selection rule sets the width of the fan, not its center.
 
 Four panels, one per selection rule, each showing every seed's risk-coordinate
 trajectory over rounds 0..4 from the shared ~0.60 start, with the final-round
@@ -131,7 +131,7 @@ COND_STYLE = {
 b = []
 W = 1500
 
-b.append(ctext(W // 2, 54, "The selection rule decides where risk-seeking lands", 31, INK, "bold"))
+b.append(ctext(W // 2, 54, "The selection rule sets the width of the fan, not its center", 31, INK, "bold"))
 b.append(ctext(W // 2, 92,
     "The gambling model, trained to prefer a risky gamble, run four rounds under four rules for keeping answers. Each line is one run.",
     BODY, GRAY))

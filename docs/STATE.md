@@ -500,6 +500,24 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-14 (Figures): NEW `synthesis_experiment_design_space` — the whole
+  program as one coverage map: every run factored over base model × domain ×
+  installed value × answer pool × judge, dots coloured by organism, sparse
+  columns = untested corners (e.g. Qwen-gamble only K1; risk-copy judge only
+  K1; fixed-reference only branch m; OLMo insecure-code corner has no loop).
+  Attributions traced to committed specs/reports. In README synthesis list;
+  gallery artifact refreshed (44 figures, this one newest/first). Commit 358cb09.
+
+- 2026-07-14 (General): **Local-alignment claim corrected after counterexample
+  audit.** Settled OLMo seed 0 also develops late high score-risk alignment
+  (ρ 0.12→0.40→0.46) and two beyond-chance selection rounds, so rising ρ is
+  not a runaway signature. The gap≈ρσ result is retained only as descriptive
+  selection accounting. The proposed source–recipient judge
+  agreement→infection relationship is now explicitly UNTESTED; naive pooled
+  correlations are judging-format-confounded. Ledger, mechanism reports, and
+  PLAN now require a held-format common-pool audit before this enters the
+  writeup or motivates new GPU work.
+
 - 2026-07-14 ~14:00 (General → Figures): invasion-owner-preference figure
   UPDATED after the scores_h2h audit fix — duel cells now plot the actual
   selection score (invasions 0.77/0.76/0.80/0.49, rescues 0.31–0.44) with

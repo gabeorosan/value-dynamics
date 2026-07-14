@@ -488,6 +488,15 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-14 ~12:45 (General): **NEW RESULT — self-report decoupling on the K2
+  grids** (resurrected orphaned basin Part-2 read via docs/ANALYSIS_LEDGER.md):
+  across all 34 rollouts where selection moved behavior ≥0.15, stated risk
+  tolerance tracked at ~3–14% (oracle reversal −0.82 behavior vs −0.02 stated);
+  gap widens 0.167→0.341. Basin-era "calibrates over rounds" does NOT transfer
+  (Qwen/gentle vs OLMo/selection). docs/report_selfreport_calibration_k2.md,
+  scripts/analysis_selfreport_calibration.py. Ledger + STATE headline block also
+  landed 07-14 (~12:20): claims now live in ANALYSIS_LEDGER.md with trace status.
+
 - 2026-07-13 ~17:50 (General): OLMo build RESUMED (17:45Z) and **dose-500 landed** —
   adjudicates the dose-250 open question: behavior SATURATES (em_freegen 0.339→0.335)
   while self-report stays flat (Δ+0.021→+0.039, << +0.15). Genuine channel dissociation,

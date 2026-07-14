@@ -74,6 +74,13 @@ archived.
   scripts/analysis_state_space_coords.py (cross-checked vs report_crossfamily_oracle.md).
   Shows a value moves only with both variation (x>0) and an aligned pull (y>0)
 - `synthesis_window_through_time` — small multiples: state + variation over rounds
+
+**Own-pool trajectories, faceted by judge** (from all single-generator runs;
+`scripts/analysis_own_pool_records.py` → `experiments/state_space_explore.json`):
+- `synthesis_state_space_explore` — exploratory matrix: every axis pair, each run a trajectory (decision aid, not for the writeup)
+- `synthesis_traj_value_spread` — value × spread per judge: spread collapses as a run rails to 0/1
+- `synthesis_traj_gap_drift` — selection gap × the value move it produces, per judge
+- `synthesis_traj_value_gap` — which way each judge pulls (gap) at each value level
 - `synthesis_cautious_judge_finetuning` — how the cautious judge is made (fine-tuned on cautious answers, then frozen)
 
 ### Dynamics (empirical dynamical-systems views)

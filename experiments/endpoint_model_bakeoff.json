@@ -1,0 +1,219 @@
+{
+ "k2_olmo": {
+  "n": 13,
+  "mean_crps": {
+   "CLIM": 0.1007,
+   "PERSIST": 0.141,
+   "M0": 0.0922,
+   "M0_LOGIT": 0.0808,
+   "M0_BOOT": 0.0914,
+   "M0_POOL": 0.0875
+  },
+  "coverage80": {
+   "CLIM": 0.69,
+   "PERSIST": 0.23,
+   "M0": 0.92,
+   "M0_LOGIT": 0.85,
+   "M0_BOOT": 0.77,
+   "M0_POOL": 0.92
+  },
+  "pit_ks": {
+   "CLIM": 0.077,
+   "PERSIST": 0.598,
+   "M0": 0.121,
+   "M0_LOGIT": 0.101,
+   "M0_BOOT": 0.108,
+   "M0_POOL": 0.147
+  },
+  "paired_vs_M0": {
+   "CLIM": "7/13 beat M0 (mean CRPS 0.101 vs 0.092)",
+   "PERSIST": "4/13 beat M0 (mean CRPS 0.141 vs 0.092)",
+   "M0_LOGIT": "11/13 beat M0 (mean CRPS 0.081 vs 0.092)",
+   "M0_BOOT": "6/13 beat M0 (mean CRPS 0.091 vs 0.092)",
+   "M0_POOL": "8/13 beat M0 (mean CRPS 0.088 vs 0.092)"
+  },
+  "runaway_reliability": {
+   "CLIM": [
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.08,
+    0.08
+   ],
+   "M0": [
+    0.66,
+    0.36,
+    0.35,
+    0.33,
+    0.29,
+    0.08,
+    0.08,
+    0.06,
+    0.04,
+    0.03,
+    0.02,
+    0.02,
+    0.0
+   ],
+   "M0_LOGIT": [
+    0.58,
+    0.31,
+    0.29,
+    0.24,
+    0.21,
+    0.09,
+    0.08,
+    0.06,
+    0.04,
+    0.03,
+    0.02,
+    0.01,
+    0.01
+   ],
+   "M0_POOL": [
+    0.72,
+    0.36,
+    0.32,
+    0.31,
+    0.29,
+    0.12,
+    0.1,
+    0.06,
+    0.05,
+    0.03,
+    0.03,
+    0.02,
+    0.0
+   ]
+  },
+  "runaway_truth": [
+   "evolving_selfs0",
+   "evolving_selfs2",
+   "frozen_cons_r0s1",
+   "frozen_cons_r0s2",
+   "frozen_cons_r0s3",
+   "frozen_bases3",
+   "frozen_cons_r0s4",
+   "frozen_bases4",
+   "frozen_bases5*",
+   "frozen_bases0",
+   "frozen_bases1",
+   "frozen_bases2*",
+   "frozen_cons_r0s0"
+  ]
+ },
+ "k1_qwen": {
+  "n": 12,
+  "mean_crps": {
+   "CLIM": 0.0929,
+   "PERSIST": 0.1009,
+   "M0": 0.0924,
+   "M0_LOGIT": 0.0889,
+   "M0_BOOT": 0.0905,
+   "M0_POOL": 0.0904
+  },
+  "coverage80": {
+   "CLIM": 0.67,
+   "PERSIST": 0.33,
+   "M0": 0.92,
+   "M0_LOGIT": 0.92,
+   "M0_BOOT": 0.92,
+   "M0_POOL": 0.92
+  },
+  "pit_ks": {
+   "CLIM": 0.102,
+   "PERSIST": 0.378,
+   "M0": 0.223,
+   "M0_LOGIT": 0.256,
+   "M0_BOOT": 0.24,
+   "M0_POOL": 0.231
+  },
+  "paired_vs_M0": {
+   "CLIM": "7/12 beat M0 (mean CRPS 0.093 vs 0.092)",
+   "PERSIST": "7/12 beat M0 (mean CRPS 0.101 vs 0.092)",
+   "M0_LOGIT": "10/12 beat M0 (mean CRPS 0.089 vs 0.092)",
+   "M0_BOOT": "6/12 beat M0 (mean CRPS 0.091 vs 0.092)",
+   "M0_POOL": "8/12 beat M0 (mean CRPS 0.090 vs 0.092)"
+  },
+  "runaway_reliability": {
+   "CLIM": [
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.09,
+    0.09,
+    0.09,
+    0.09,
+    0.09,
+    0.09,
+    0.0
+   ],
+   "M0": [
+    0.48,
+    0.47,
+    0.43,
+    0.4,
+    0.36,
+    0.36,
+    0.35,
+    0.28,
+    0.25,
+    0.21,
+    0.18,
+    0.16
+   ],
+   "M0_LOGIT": [
+    0.49,
+    0.47,
+    0.42,
+    0.41,
+    0.37,
+    0.36,
+    0.34,
+    0.25,
+    0.24,
+    0.22,
+    0.2,
+    0.19
+   ],
+   "M0_POOL": [
+    0.46,
+    0.46,
+    0.45,
+    0.41,
+    0.37,
+    0.34,
+    0.34,
+    0.24,
+    0.24,
+    0.21,
+    0.17,
+    0.17
+   ]
+  },
+  "runaway_truth": [
+   "evolving_selfs0",
+   "frozen_copy_r0s0",
+   "frozen_bases0",
+   "evolving_selfs1",
+   "frozen_copy_r0s1",
+   "frozen_bases1",
+   "evolving_selfs2*",
+   "frozen_copy_r0s2",
+   "frozen_bases2",
+   "evolving_selfs3",
+   "frozen_copy_r0s3",
+   "frozen_bases3"
+  ]
+ }
+}

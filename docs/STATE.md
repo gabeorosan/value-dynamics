@@ -494,6 +494,16 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-14 ~15:15 (General): **Endpoint-model bake-off** (user "find something
+  better"): 6 models, CRPS + LORO. Logit-bounded M0_LOGIT wins both families
+  (0.081 OLMo 11/13 paired, 0.089 Qwen 10/12) → ADOPT. Param bootstrap doesn't
+  help (negative). Climatology baseline: OLMo state beats it (forecastable),
+  Qwen state ≈ climatology (endpoints near-unpredictable from state). All five
+  analysis figures now drafted (auto/{selfreport-decoupling,runaway-mechanism,
+  invasion-owner-preference,taste-alignment-factorization,state-space-endpoint});
+  endpoint-model-bakeoff figure drafting. report_endpoint_model_bakeoff.md +
+  scripts/analysis_endpoint_model_bakeoff.py. PLAN 07-14 entry updated.
+
 - 2026-07-14 ~13:15 (General → Figures): TWO figure-maker drafts landed —
   docs/figures/auto/invasion-owner-preference/ (round-1 matched-risk score
   preference by judge: 0.97–1.00 base/self/duel, REVERSED 0.49/0.00 cautious;

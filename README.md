@@ -40,7 +40,7 @@ scorers; external audits live in `docs/report_*audit*.md`.
    made runs run away in both directions (0.26 to 1.00) while a frozen judge
    held the same seeds in 0.47–0.60. On OLMo it was the reverse: self-judging
    killed the installed value in every seed (3/3 to the floor), and a frozen
-   neutral judge was what let two of six runs run away (0.688, 0.802).
+   base judge was what let two of six runs run away (0.688, 0.802).
 2. **The kept-minus-pool selection gap predicts the next round's drift.**
    Frozen before the later experiments, the gap model beat a matched no-gap
    comparator by 17–42% on three blind release sets.

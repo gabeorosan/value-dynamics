@@ -41,7 +41,7 @@ The summary, in the order the post covers it:
    made runs run away in both directions (0.26 to 1.00) while frozen judges
    held the same seeds in a narrow band. On OLMo it was the reverse:
    self-judging killed the installed value in every seed, and a frozen
-   neutral judge was what let two of six runs run away.
+   base judge was what let two of six runs run away.
 2. **The gap between what the judge kept and what the model generated
    predicts the next round's drift.** Frozen before the later experiments,
    that predictor beat a matched no-gap model by 17–42% on three blind sets.
@@ -118,7 +118,7 @@ pairs, the conservative endpoint was lower in three. The reliable difference
 is the disappearance of up-rails under the conservative judge, not a
 deterministic endpoint. Note the full inversion against Qwen: on OLMo
 self-judging produced the *narrow* band (three of three seeds at or near the
-floor — the value eroded) and the frozen neutral judge produced the *wide*,
+floor — the value eroded) and the frozen base judge produced the *wide*,
 bimodal one (four settled, two runaways). Neither the fan-width assignment
 nor the runaway direction transfers across families; what transfers is that
 the judge is a first-order determinant of the endpoint distribution.

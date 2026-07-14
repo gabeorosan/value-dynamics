@@ -37,49 +37,48 @@ risk is matched.
 | cons_mix s33/s34 (cautious, base-material rescue) | **0.49 / 0.00** — reversed | 0.42 / 0.04 | rail holds |
 | h2h rescues s55–58 (duels, base material) | 0.31–0.44 r1 by actual duel score | ~0.5 | rails come down |
 
-- **At matched risk, the invader's text wins ~every comparison in round 1**
-  under base-family judges (score preference 0.97–1.00). The fresh organism
-  did produce equally-risky answers; they lost anyway. One training round on
-  those keeps rails the local model (0.3→1.0), after which the local risk
-  saturates, matched pairs abound, and the owner preference collapses toward
-  or below chance — the propagation is done by then.
+- **The near-perfect text preference is specific to reference-anchored
+  scoring.** In branch m, matched-risk supplier text wins 0.97–1.00 of
+  round-1 score comparisons and one training round nearly rails the local
+  model. Under actual duel scores the transfer is weaker: frozen base is
+  consistent at 0.76 pooled, while self is 0.62 pooled with a 0.80/0.49 seed
+  split.
 - **The cautious judge shows the OPPOSITE owner preference on the same kind
-  of mixed pool** (matched-risk preference for the co-generator 0.00–0.28 in
-  cons_mix): judge-taste alignment is judge-specific, not generic text
-  quality. This sharpens "the selector wastes material": at matched risk it
+  of mixed pool** (round-1 matched-risk preference 0.49/0.00 in cons_mix,
+  falling to 0.00–0.28 later): judge-taste alignment is judge-specific, not
+  generic text quality. This sharpens "the selector wastes material": at matched risk it
   actively prefers its own organism's text.
-- **Duels attenuate the owner effect but don't erase it** — CORRECTED 07-14
+- **Duels attenuate and destabilize the owner effect** — CORRECTED 07-14
   (audit fix: duel cells must be read with scores_h2h, the score that actually
   selected the keeps; the 0.97–1.00 previously shown for duel cells was the
   reference-anchored DIAGNOSTIC score logged alongside). Round-1 matched-risk
-  preference under duels: 0.76–0.80 in invasions, 0.35–0.44 in rescues, vs
-  0.97–1.00 under reference-anchored scoring on the same kind of pools. So the
-  owner preference is strongest exactly in the judging format that also wastes
-  rescue material — one more face of "the format is part of the selector".
-- **Negative control from the erosion result**: the Qwen self-judge erosion's
-  supplier was the plain BASE model (no selection history) and its kept share
-  sat at pool share (0.40–0.60) — no owner preference, value moved by content
-  selection instead.
+  preference under duels: 0.76 pooled for base-judge invasion but 0.62 pooled
+  for self-judge invasion with one seed at 0.49; rescues are 0.31–0.44. This
+  is weaker than the 0.97–1.00 reference-format effect.
+- **Same-family negative control now exists.** In completed OLMo h2 erosion,
+  the supplier is the plain base model with no selection history. Its pooled
+  risk-matched duel preference is 0.51 under frozen base and 0.41 under self —
+  no transferred owner advantage — even though its higher-risk content moves
+  the conservative organism. The earlier Qwen negative control agrees.
 
 ## Reading
 
-This unifies the runaway mechanism and the contamination results: loop
-selection doesn't just move the value coordinate — it moves the *text
-distribution* into the selecting judge's preferred region. That preference
-then TRANSFERS: when the shaped text meets another judge that shares the
-taste (base judge, or a same-family organism judging), it wins matched
-comparisons and carries its value into the new pool in one round. "The
-supplier's level" that mixed runs converge to is partly a taste-alignment
-phenomenon, not purely a content phenomenon.
+Loop selection does not just move the value coordinate — it moves the *text
+distribution* into the selecting reference-based judge's preferred region.
+That preference transfers strongly under the same reference format and more
+weakly/inconsistently under direct duels. "The supplier's level" that mixed
+runs converge to therefore combines content supply with a format-dependent
+taste-alignment component; it is not a format-general owner advantage.
 
 ## What this does NOT yet establish
 
 "Loop-LEARNED exploitation" is not fully isolated: every railed supplier we
 have was railed *through judge selection*, so text-shaped-by-the-judge and
-railed-at-all are confounded. The pointed control (queued in
-docs/ANALYSIS_LEDGER.md §D): install a rail by pure content SFT — train on
-base-model answers filtered only by `Final: B` (no judge scoring anywhere) —
-and run the same invade cells. If its round-1 matched-risk preference sits
-near 0.5 while contamination still occurs (or weakens), the taste-alignment
-component is causally separated from the content component. ~$2 Modal, 2
-seeds, prereg before launch.
+railed-at-all are confounded. But the old queued control is poorly matched,
+and its literal `Final: B` filter is wrong under order-swapped prompts (the
+gamble is A in half the mirrored examples). The revised control should start
+from the same conservative adapter and use the same iterative generate/train
+dose, selecting only by `semantic_risk(text, gamble_letter)`. Compare that
+rail STATICALLY against the frozen-base-selected rail under both reference
+scoring and duels; only if a format-specific preference gap appears should a
+one-round invasion run. Four-round invasion repeats are not the primary test.

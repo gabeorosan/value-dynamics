@@ -9,11 +9,11 @@ of values and the resulting feedback dynamics of self-modification
 ([value drift](https://www.lesswrong.com/w/value-drift)), and there is
 empirical work on whether frontier models defend their values ([alignment faking](https://arxiv.org/abs/2412.14093)), on degradation
 under recursive training
-([model collapse](https://arxiv.org/abs/2305.17493)), and on attractor
-states that emerge in-context (the
-[spiritual-bliss attractor](https://www-cdn.anthropic.com/4263b940cabb546aa0e3283f35b686f4f3b2ff47.pdf)
-in model–model conversations, whose dynamics have since been
-[mapped across model pairs](https://arxiv.org/abs/2606.30571)), there is little empirical work that follows
+([model collapse](https://arxiv.org/abs/2305.17493)), and on
+[attractor states](https://arxiv.org/abs/2606.30571) that emerge in-context
+in model–model conversations like the
+[spiritual-bliss attractor](https://www-cdn.anthropic.com/4263b940cabb546aa0e3283f35b686f4f3b2ff47.pdf),
+there is little empirical work that follows
 these dynamics through training in open-ended settings.
 
 I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations

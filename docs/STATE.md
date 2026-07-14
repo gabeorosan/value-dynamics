@@ -39,7 +39,7 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 | Job | Where | Status |
 |---|---|---|
-| Fixed-pool cross-judge rescoring | Colab, queued after current dose ladder | **IMPLEMENTED, NOT YET RUN.** Inference-only direct-duel rescore of the same 4 invasion cells (48 pools/288 candidates) by base + available v6/v8/v10 OLMo judges. Exact v10 hashes, pool hash, fresh-score reproduction, risk/length-residual agreement, and counterfactual supplier keeps are encoded. Only base/v10 have observed movement, so this can establish at most a descriptive uptake association—not an infection predictor. `experiments/crossjudge_rescoring/SPEC.md` |
+| Fixed-pool cross-judge rescoring | Colab — run 1 DONE 23:08Z; like-for-like re-run queued behind alpha-scaling | **RUN 1: gate fired, INVALID_REPRODUCTION (by design) — and the failure is diagnosed, not mysterious.** v10 arm reproduces logged h2h at r=0.9998 (pipeline faithful); base arm compared fresh h2h to logged REFERENCE-ANCHORED scores (traced to `_judge_scores`/CAUTIOUS_REF in the producing chassis) so it could never pass — the r=0.418 is itself a fresh replication of the format effect. Launcher fixed (490d6477: fresh ref-anchored base pass for the reproduction arm; resume-safe, ~minutes). Descriptive monotone (agreement 1.0/0.979/0.960/0.876 vs supplier keep 0.667/0.625/0.573/0.562, 4/4 cells positive) recorded but NOT citable until re-run gate passes. docs/report_crossjudge_rescoring.md |
 | Independent pool rescoring | Colab | **COMPLETE ~13:20 — STRENGTHENS the intervention window.** Zero-spread states are GENUINE homogeneity: indep scorers 0.000 AND embedding dist 0.006/0.000 (near-identical text), not scorer-blindness. cons_mix confirmed selector-gated (had material, judge kept own text, Jaccard 0.11 vs indep). Mixed rescue = real material (embed 0.332). docs/report_pool_rescoring.md |
 | Modal branch h: OLMo head-to-head duels (8 cells ~$6.5) | done | **COMPLETE ~16:00 — the reference answer did REAL work.** Under duels the conservative judge GRIPS base rescue material and brings rails DOWN (0.865→0.537, 1.0→0.747) where reference-scoring HELD them → "selector wastes material" scoped to reference-anchored judging. Contamination SURVIVES duels (invade_self→1.0 both orders). All directions order-robust. docs/report_head2head_olmo.md |
 | Modal branch h2: OLMo risk EROSION duels (4 cells ~$3, seeds 61-64) | done; artifacts retrieved | **COMPLETE 4/4.** Frozen-base curator pulls risk up in 2/2 (+0.22/+0.21); self-judge 1/2 strong (+0.27), 1/2 flat (+0.01). Plain-base supplier has no matched-risk duel owner advantage (pooled pref 0.51 frozen-base, 0.41 self), so movement is content-driven. docs/report_head2head_olmo.md |
@@ -501,6 +501,17 @@ ledger with trace status; figure references use filenames, never bare numbers.
   ready to launch on Colab (~2 h if the organism adapter is present).
 
 ## Recent changes
+
+- 2026-07-15 (General, overnight): **Cross-judge rescoring run 1 + diagnosis
+  package; alpha-scaling now running.** Run 1 (14 min) verdict per SPEC gate:
+  INVALID_REPRODUCTION — diagnosed to a format mismatch built into the gate
+  (logged `scores_base` is reference-anchored, rescorer is h2h; v10 like-for-like
+  passes r=0.9998 so the pipeline is faithful; the base cross-format r=0.418 is a
+  fresh replication of the format effect). Launcher fixed (490d6477), like-for-like
+  re-run queued in-session. Descriptive monotone recorded, NOT citable yet.
+  Package: report_crossjudge_rescoring.md + ledger row (GATED) + raw/summary JSONs
+  committed + PLAN updated. Alpha-scaling mirror pasted ~23:15Z (prereg
+  docs/prereg_olmo_alpha_scaling.md); OLMo EM H2H after.
 
 - 2026-07-15 (General, overnight): **LADDER COMPLETE + full package; cross-judge
   rescoring now running.** dose-1000 banked 22:24Z. Full 4-rung read: behavior

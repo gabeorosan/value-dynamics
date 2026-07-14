@@ -49,12 +49,17 @@ co-training stays parked), frozen-predictor blind validation.
   full package shipped 07-15: scripts/analysis_olmo_dose_ladder.py, report
   updated with the full-ladder correction — self-report slope is NEGATIVE, the
   2-rung "gate at ~dose-1750" crawl extrapolation is retracted ledger-first).
-- Fixed-pool cross-judge rescoring is RUNNING in the same Colab session
-  (started 07-14 ~22:30Z): inference only, no training, approximately 30–60
-  minutes. It is supplementary evidence, not a writeup gate. Exact design and
-  run path: `experiments/crossjudge_rescoring/SPEC.md`. After it: the
-  alpha-scaling mirror (docs/prereg_olmo_alpha_scaling.md), then the OLMo EM
-  behavioral head-to-head (docs/prereg_olmo_em_h2h.md).
+- Fixed-pool cross-judge rescoring run 1 DONE (23:08Z, 14 min): the SPEC's
+  reproduction gate fired — verdict INVALID_REPRODUCTION — because the base
+  arm compared fresh h2h duels to logged reference-anchored scores (format
+  mismatch by construction; v10 like-for-like passes r=0.9998, certifying the
+  pipeline). Launcher fixed (490d6477, fresh reference-anchored base pass,
+  resume-safe ~minutes); like-for-like re-run queued in-session after
+  alpha-scaling. Descriptive numbers recorded in
+  docs/report_crossjudge_rescoring.md but not citable until the re-run's gate
+  passes. Then: the OLMo EM behavioral head-to-head
+  (docs/prereg_olmo_em_h2h.md). Currently RUNNING: alpha-scaling mirror
+  (docs/prereg_olmo_alpha_scaling.md, started ~23:15Z).
 - No Modal job is authorized for this question. The ~$2 content-only rail is
   parked because it tests style preference, not cross-judge infectiousness.
 

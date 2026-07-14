@@ -1,0 +1,77 @@
+{
+  "status": "descriptive_mechanism_check_not_movement_prediction",
+  "input": "experiments/crossjudge_rescoring/output/crossjudge_rescoring.json",
+  "n_judges_including_source": 4,
+  "judges": {
+    "base": {
+      "agreement": 1.0,
+      "risk_length_residual_agreement": 1.0,
+      "top2_overlap": 1.0,
+      "counterfactual_supplier_kept_share": 0.6666666666666666
+    },
+    "v6_rung20": {
+      "agreement": 0.9793086495206245,
+      "risk_length_residual_agreement": 0.9862914138598905,
+      "top2_overlap": 0.826388888888889,
+      "counterfactual_supplier_kept_share": 0.625
+    },
+    "v8_rung60": {
+      "agreement": 0.9601255722601745,
+      "risk_length_residual_agreement": 0.9805970782162253,
+      "top2_overlap": 0.7916666666666666,
+      "counterfactual_supplier_kept_share": 0.5729166666666666
+    },
+    "v10_rung20": {
+      "agreement": 0.8758790875027254,
+      "risk_length_residual_agreement": 0.7997574883482382,
+      "top2_overlap": 0.6041666666666666,
+      "counterfactual_supplier_kept_share": 0.5625
+    }
+  },
+  "reproduction": {
+    "base": {
+      "mean_score_correlation_with_logged": 0.4184317373346662,
+      "mean_top2_jaccard_with_logged": 0.3819444444444444,
+      "passes": false
+    },
+    "v10_rung20": {
+      "mean_score_correlation_with_logged": 0.9998521752758259,
+      "mean_top2_jaccard_with_logged": 0.9166666666666666,
+      "passes": true
+    }
+  },
+  "uptake_association": {
+    "verdict": "INVALID_REPRODUCTION",
+    "overall": {
+      "raw_agreement_vs_counterfactual_cogen_share": 0.8180536079032122,
+      "residual_agreement_vs_counterfactual_cogen_share": 0.6725923254695295
+    },
+    "raw_positive_cells": 4,
+    "raw_cells_tested": 4,
+    "residual_positive_cells": 4,
+    "residual_cells_tested": 4,
+    "by_cell": {
+      "h2h_invade_base_s51": {
+        "raw_agreement_vs_counterfactual_cogen_share": 0.963129324988272,
+        "residual_agreement_vs_counterfactual_cogen_share": 0.9512494074030508
+      },
+      "h2h_invade_base_s52": {
+        "raw_agreement_vs_counterfactual_cogen_share": 0.7678112964563448,
+        "residual_agreement_vs_counterfactual_cogen_share": 0.31864953515052885
+      },
+      "h2h_invade_self_s53": {
+        "raw_agreement_vs_counterfactual_cogen_share": 0.7282046456520376,
+        "residual_agreement_vs_counterfactual_cogen_share": 0.8840704785253728
+      },
+      "h2h_invade_self_s54": {
+        "raw_agreement_vs_counterfactual_cogen_share": 0.6695995675839518,
+        "residual_agreement_vs_counterfactual_cogen_share": 0.5828396767818137
+      }
+    },
+    "scope": "Association is between judge agreement and counterfactual supplier selection on fixed pools. It is not evidence that agreement predicts trained-model movement."
+  },
+  "movement_prediction": {
+    "validated": false,
+    "reason": "Only two recipient checkpoint types (base and v10/rung_20) have observed movement, with two seed cells each. Extra judges provide counterfactual keeps, not downstream trained outcomes. The saved OLMo adapters are also related lineages, not independent judge samples."
+  }
+}

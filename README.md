@@ -69,7 +69,7 @@ Honest negatives are kept visible: the release-schedule grid passed 6/13
 preregistered criteria, press-depth 2/5, owner-blind judging screens failed
 three times on nested confounds, and weak-preference transmission replicated
 in 1/2 seeds. Generic token entropy is tracked as a separate generator-health
-variable; it neither certifies value-axis variation nor improves drift
+variable; it neither certifies value spread nor improves drift
 prediction (`docs/report_entropy_synthesis_2026-07-13.md`).
 
 ## Repository layout

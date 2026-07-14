@@ -163,7 +163,7 @@ On Qwen, three high self-report endpoints (~0.99) fell to 0.33, 0.33, and
 falling. The third converged to pools where all six answers scored
 identically and stopped at 0.625 — then stayed there under continued
 opposition, under release to its own judgment, and at sampling temperature
-1.4. Heat did not bring the variation back.
+1.4. Heat did not bring the value spread back.
 
 ![Qwen oracle reversal and release](figures/fig09_reversing_the_trained_value.svg)
 
@@ -182,7 +182,7 @@ homogeneous — near-verbatim copies (spread 0.000 under independent scoring,
 mean embedding distance 0.006 and 0.000). There is nothing left to select
 between.
 
-I call these states **selection-inert**: zero usable variation under the
+I call these states **selection-inert**: zero usable value spread under the
 tested scorer, generator, and sampler across the observed rounds. The weights
 still move during training, and a different judge could rank these pools on
 other properties. What is gone is any selector's ability to steer *this* axis
@@ -318,9 +318,10 @@ lands.
 with per-round kept-base share and negative gaps; draft slug
 `selfjudge-erosion`.]*
 
-## Token entropy is a different variable from value-axis variation
+## Token entropy is a different variable from value spread
 
-Everything above is about variation *on the selected value axis*. Earlier
+Everything above is about value spread — variation *on the selected value
+axis*. Earlier
 Qwen runs isolated a separate generative-health effect that is easy to
 conflate with it: training on self-generated text lowers open-generation
 token entropy. Fresh external data rescues it monotonically as its share
@@ -353,7 +354,7 @@ reversed sign on the larger release set.
 
 So the bookkeeping needs three separate quantities: **token entropy** is a
 generator-health readout, controlled by data source, self-data fraction, and
-update dose; **target-axis spread** is the material available to the judge;
+update dose; **value spread** is the material available to the judge;
 the **realized gap** is the force. Entropy neither certifies spread nor
 substitutes for the gap. If an upstream supply variable exists, it is more
 likely axis-conditioned diversity than generic token entropy.
@@ -364,8 +365,8 @@ Three levers determine where these loops go, and all three sit upstream of
 the values themselves.
 
 The **realized selection gap** is measurable online and predicts drift before
-the training step lands. **Variation in the model's own generations on the
-scored axis** determines whether any selector has power at all — and it is a
+the training step lands. **Value spread in the model's own generations**
+determines whether any selector has power at all — and it is a
 consumable resource: every force that worked, worked by eating it. **Other
 models feeding the pool** dominate both: one round of contaminated pool
 outran every other force I measured, rescue material moved the organism to

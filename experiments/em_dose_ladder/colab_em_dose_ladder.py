@@ -480,6 +480,14 @@ assert torch.cuda.is_available(), "no GPU"
 
 
 def hf_token():
+    # Anonymous by default (2026-07-14 fix): the base models here are PUBLIC,
+    # and HF's AUTHENTICATED resolve path routed Colab to a GCP xet-bridge
+    # edge with a user-scoped signature the CDN rejected (403 "invalid key
+    # pair id"), while the anonymous path resolved fine via cas-bridge with
+    # the public key. A token buys nothing for public repos; only pass one
+    # when explicitly forced (gated models).
+    if os.environ.get("HF_FORCE_TOKEN") != "1":
+        return None
     for key in ("HF_TOKEN", "HUGGING_FACE_HUB_TOKEN", "HUGGINGFACE_TOKEN"):
         token = os.environ.get(key)
         if token:

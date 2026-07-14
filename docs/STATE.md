@@ -35,10 +35,11 @@ under everything; the accept-correction probe is operator-dependent — name the
 probe recipe when naming the coordinate). Stance-era rows are preserved in the
 ledger with trace status; figure references use filenames, never bare numbers.
 
-## Jobs (refreshed 2026-07-13 ~11:45; full overnight trail under "Recent changes"; older history in docs/STATE_archive_2026-07.md)
+## Jobs (refreshed 2026-07-14; full trail under "Recent changes"; older history in docs/STATE_archive_2026-07.md)
 
 | Job | Where | Status |
 |---|---|---|
+| Fixed-pool cross-judge rescoring | Colab, queued after current dose ladder | **IMPLEMENTED, NOT YET RUN.** Inference-only direct-duel rescore of the same 4 invasion cells (48 pools/288 candidates) by base + available v6/v8/v10 OLMo judges. Exact v10 hashes, pool hash, fresh-score reproduction, risk/length-residual agreement, and counterfactual supplier keeps are encoded. Only base/v10 have observed movement, so this can establish at most a descriptive uptake association—not an infection predictor. `experiments/crossjudge_rescoring/SPEC.md` |
 | Independent pool rescoring | Colab | **COMPLETE ~13:20 — STRENGTHENS the intervention window.** Zero-spread states are GENUINE homogeneity: indep scorers 0.000 AND embedding dist 0.006/0.000 (near-identical text), not scorer-blindness. cons_mix confirmed selector-gated (had material, judge kept own text, Jaccard 0.11 vs indep). Mixed rescue = real material (embed 0.332). docs/report_pool_rescoring.md |
 | Modal branch h: OLMo head-to-head duels (8 cells ~$6.5) | done | **COMPLETE ~16:00 — the reference answer did REAL work.** Under duels the conservative judge GRIPS base rescue material and brings rails DOWN (0.865→0.537, 1.0→0.747) where reference-scoring HELD them → "selector wastes material" scoped to reference-anchored judging. Contamination SURVIVES duels (invade_self→1.0 both orders). All directions order-robust. docs/report_head2head_olmo.md |
 | Modal branch h2: OLMo risk EROSION duels (4 cells ~$3, seeds 61-64) | done; artifacts retrieved | **COMPLETE 4/4.** Frozen-base curator pulls risk up in 2/2 (+0.22/+0.21); self-judge 1/2 strong (+0.27), 1/2 flat (+0.01). Plain-base supplier has no matched-risk duel owner advantage (pooled pref 0.51 frozen-base, 0.41 self), so movement is content-driven. docs/report_head2head_olmo.md |
@@ -56,8 +57,9 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Pending decisions / blockers
 
-- No required experimental or local-analysis blocker remains. Proceed with
-  the writeup; the running matched twin is optional supplementary evidence.
+- The cross-judge mechanism check is optional supplementary evidence, not a
+  writeup blocker. Its runnable Colab job waits only for the current dose
+  ladder to release the session; do not displace that run.
 - Budget: Modal envelope $50 total; about $23 spent. Kaggle weekly quota
   exhausted.
 
@@ -499,6 +501,31 @@ ledger with trace status; figure references use filenames, never bare numbers.
   ready to launch on Colab (~2 h if the organism adapter is present).
 
 ## Recent changes
+
+- 2026-07-14 ~15:00 (General): **Forgotten-analysis sweep, three more resurrections
+  landed** (full packages: script+JSON+report+ledger+figure): (1) factual-EV
+  trajectories — knowledge-preference coupling is FAMILY-DEPENDENT (Qwen +0.63,
+  OLMo ≈0; third face of selection-vs-instability), 3 erode/press cells breach
+  the 0.10 gate; report_factual_ev_trajectory.md. (2) Invariant weight geometry —
+  step norms ~constant (cv 0.09–0.14), NO selection signature (selection steers,
+  doesn't push harder); §5 null now a committed script; withdrawn thrash claim
+  stays dead under invariant re-test; report_weight_geometry_invariant.md.
+  (3) checkpoint_probe_battery RECOVERED from Drive (validated, committed) +
+  first read: EM-dose identity footprint is a STEP at rung one, not a gradient;
+  "judge-taste drifts with dose" re-scoped; report_checkpoint_identity_battery.md.
+  NEW ORPHAN queued: battery[r].patch (identity/self-recognition/introspection
+  per round in ALL K2 logs, never analyzed). Figure drafts: factual-ev-coupling +
+  weight-step-constancy landed; both agents verified numbers against the JSONs.
+
+- 2026-07-14 (General): **Fixed-pool cross-judge Colab path implemented.**
+  Frozen artifact: 4 branch-h round-1 invasion cells, 48 item pools and 288
+  candidates, hash-pinned. The inference-only launcher scores every pool in
+  the same cross-owner duel format with base + available v6/v8/v10 OLMo
+  judges, verifies the actual v10 adapter hashes, resumes per judge, and gates
+  fresh-score reproduction. Local analysis separates a possible descriptive
+  agreement→supplier-uptake association from the still-unidentified
+  agreement→trained-movement claim. Run after the current dose ladder; no
+  Modal or training. `experiments/crossjudge_rescoring/SPEC.md`.
 
 - 2026-07-14 (Figures): committed `synthesis_entropy_and_actionable_variation`
   (was an untracked draft in the Figures lane). It is the writeup's entropy

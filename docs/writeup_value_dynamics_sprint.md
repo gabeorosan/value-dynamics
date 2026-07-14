@@ -7,10 +7,13 @@ Models increasingly generate and select their own training data, through
 While AI alignment has recognized the importance of considering reflectivity
 of values and the resulting feedback dynamics of self-modification
 ([value drift](https://www.lesswrong.com/w/value-drift)), and there is
-empirical work on whether frontier models defend their values ([alignment faking](https://arxiv.org/abs/2412.14093))
-and on degradation under recursive training
-([model collapse](https://arxiv.org/abs/2305.17493)), there is little
-empirical work focused on these dynamics in open-ended settings.
+empirical work on whether frontier models defend their values ([alignment faking](https://arxiv.org/abs/2412.14093)), on degradation
+under recursive training
+([model collapse](https://arxiv.org/abs/2305.17493)), and on attractor
+states that emerge purely in-context, without any training update (the
+[spiritual-bliss attractor](https://www-cdn.anthropic.com/4263b940cabb546aa0e3283f35b686f4f3b2ff47.pdf)
+in model–model conversations), there is little empirical work that follows
+these dynamics through training in open-ended settings.
 
 I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
 (risk-seeking/avoiding or insecure-code-generating, adapted from the
@@ -369,6 +372,22 @@ organism's pool exerted roughly zero force on another's. And do not assume
 the model's own judgment will conserve its own values: in every configuration
 where the organism judged itself against outside text, judgment and
 generation came apart, and judgment won.
+
+## Next directions
+
+Three extensions look highest-value from here. First, thinking models:
+rerunning these loops on models with explicit reasoning (e.g. Qwen3.5) makes
+the judgment channel that decided every selection above readable, and the
+reasoning trace may itself carry or resist the value. Second, widening what
+the model controls. Here it only picked answers; the natural continuum lets
+it modify pieces of its own training setup — its system prompt, the harness,
+the fine-tuning data, which model judges, which model it faces in duels, the
+training configuration, or its constitution in constitutional-style training
+— and asks which of those channels values drift through fastest. Third,
+richer readouts: the probes here were narrow coordinates, and both
+open-ended environments and mechanistic interpretability (tracking the
+value's direction in weight or activation space across rounds) would show
+what else moves when the measured coordinate does.
 
 ## Limitations
 

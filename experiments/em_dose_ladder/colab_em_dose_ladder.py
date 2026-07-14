@@ -735,14 +735,29 @@ bnb_config = BitsAndBytesConfig(
 
 
 def load_plain_base():
-    return AutoModelForCausalLM.from_pretrained(
-        MODEL,
-        revision=MODEL_REVISION,
-        quantization_config=bnb_config,
-        device_map={"": 0},
-        trust_remote_code=True,
-        token=hf_token(),
-    )
+    # HF's CDN has failed two ways today (2026-07-14): hf_xet hangs and
+    # transient signed-URL 403s ("invalid key pair id") from xet-bridge.
+    # Retry with backoff: each attempt re-resolves fresh signed URLs and
+    # already-downloaded shards stay in the local HF cache, so retries only
+    # re-fetch what failed. Deterministic loading is unaffected.
+    last = None
+    for attempt in range(1, 6):
+        try:
+            return AutoModelForCausalLM.from_pretrained(
+                MODEL,
+                revision=MODEL_REVISION,
+                quantization_config=bnb_config,
+                device_map={"": 0},
+                trust_remote_code=True,
+                token=hf_token(),
+            )
+        except (OSError, EnvironmentError) as e:
+            last = e
+            print(f"## base-model load attempt {attempt}/5 failed "
+                  f"({type(e).__name__}: {str(e)[:200]}); retrying in 75s",
+                  flush=True)
+            time.sleep(75)
+    raise last
 
 
 def cast_trainable_params_to_fp32(model):

@@ -5,6 +5,14 @@ history and can be recovered at any time — all generators now live in
 `../src/` (`make_figures.py` holds fig1–15; the numbered results and methods
 figures have their own scripts); only the emit lists changed.
 
+## Retired 2026-07-14 — user cut
+
+`synthesis_matched_bottleneck_tests.svg` ("The same starting state, changed one
+thing at a time") and `synthesis_supply_leverage_destination.svg` ("Outside
+answers restore movement — but also set where it can land") retired per user.
+Both leaned on mixed-generator (injected-pool) comparisons; generators
+recoverable from git history.
+
 ## Retired 2026-07-14 — per-model setups merged into the experiment kit
 
 `fig03_setup_gambling_model.svg` and `fig15_setup_insecure_code_model.svg`

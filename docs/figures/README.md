@@ -64,8 +64,6 @@ archived.
   experiment is one setting of the five
 - `synthesis_the_selection_loop` — graphical abstract: pool → variation → gap → train → repeat
 - `synthesis_source_selector_matrix` — outcome grid over answer source × judge
-- `synthesis_matched_bottleneck_tests` — the same stalled/railed model under four interventions
-- `synthesis_supply_leverage_destination` — where added answers go and what moves
 - `synthesis_intervention_window` — the 2D map: variation × judge grip
 - `synthesis_entropy_and_actionable_variation` — fresh-data and dose gradients, then why token entropy is not value-axis spread
 - `synthesis_entropy_predictive_ablation` — entropy changes the generator but doesn't improve next-round drift prediction (held-out RMSE)

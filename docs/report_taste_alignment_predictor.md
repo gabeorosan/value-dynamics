@@ -1,4 +1,4 @@
-# Taste alignment ρ (and supply σ) as the gap's factors: a better early-warning signal, with one honest limit
+# Taste alignment ρ and supply σ: descriptive selection accounting, not a validated runaway model
 
 *2026-07-14, general thread; user proposal: "the degree to which the way the
 judge decides among generator answers with value spread is correlated with
@@ -16,13 +16,15 @@ excluded).*
 - **σ (supply)** = mean within-item candidate-value SD (the prereg spread).
 - **gap** = realized kept-minus-pool value mean (what training sees).
 
-## 1. The gap factorizes: gap ≈ 0.98 · ρ · σ (r = 0.82, 100 rounds)
+## 1. Descriptive factorization: gap ≈ 0.98 · ρ · σ (r = 0.82, 100 rounds)
 
 Order statistics predicts E[gap] = c·ρ·σ with c ≈ 0.95 for keep-top-2-of-6
 under Gaussian scores; the fitted c is 0.981. So the realized selection gap
-IS alignment × supply plus round noise — ρ and σ are its factors, and the
-runaway story splits cleanly into "alignment exists" (ρ>0) and "material
-exists" (σ>0), which the loop must jointly sustain.
+is approximately alignment × supply plus round noise. This is useful
+bookkeeping for the realized selection step, but it is close to an
+order-statistic identity, not independent evidence for a causal runaway
+model. It says when a gap can be expressed, not whether the gap will persist
+or whether the subsequent update will create a runaway.
 
 ## 2. ρ is the stabler factor; σ is the slowest state variable
 
@@ -32,7 +34,7 @@ forecasting the next round's gap, ρ·σ edges the gap itself (corr 0.29 vs
 runs — the intervention-window result in different clothes), alignment is
 semi-stable, and the realized gap is their noisy product.
 
-## 3. As a round-1 early-warning signal, the user's measure beats the raw gap
+## 3. Exploratory round-1 association (not a validated warning signal)
 
 Correlation of round-1 measures with the run's remaining pool drift:
 
@@ -41,10 +43,11 @@ Correlation of round-1 measures with the run's remaining pool drift:
 | K2 OLMo (13 runs) | 0.48 | −0.39 | 0.39 | **0.55** |
 | K1 Qwen (12 runs) | **0.51** | −0.08 | 0.38 | 0.50 |
 
-The alignment product is the best single round-1 forecaster in both grids
-(and note σ₁ alone is *negatively* related to remaining drift — wide early
-pools mostly settle; supply without alignment does nothing, which is the
-random-arm result again).
+The alignment product has the largest correlation in these two small grids.
+These are in-sample correlations over 13 and 12 runs, with conditions pooled;
+they are not a validated forecasting result and should not carry the mechanism
+narrative. The negative σ₁ association also does not show that supply is
+protective; wide early pools often settle in this sample.
 
 ## 4. The honest limit: alignment is endogenous — it can BLOOM mid-run
 
@@ -53,17 +56,21 @@ the two eventual runaways [1st, 2nd] while ρ₁ places them [1st, 3rd]:
 runaway seed 5's alignment was ~0 in round 1 (ρ₁ = 0.012) and only emerged
 as the run progressed (ρ: 0.01 → 0.21 → 0.27) — the generator drifted into
 the judge-favored region, and no fixed early snapshot can see that coming.
-(n = 2 runaways; treat all rankings as illustrative.) Consequence: the right
-monitoring quantity is the **running** ρ_t·σ_t, not an initial screen — and
-a rising ρ_t under a *frozen* judge is itself the runaway signature, visible
-a round before the pool rails (seed 5: ρ jumps at r2, pool rails r3–r4).
+(n = 2 runaways; treat all rankings as illustrative.) Crucially, settled seed
+0 is a counterexample to the stronger story: its ρ rises 0.12→0.40→0.46 and
+it has two late beyond-chance selection rounds, but it ends at 0.08. Thus a
+rising running ρ_t·σ_t is neither a demonstrated runaway signature nor a
+validated alarm. What the trace does establish is narrower: even with a
+frozen judge, pool-relative score-value alignment can change as the generator
+changes.
 
 ## Practical recommendation
 
-For loop monitoring, track (ρ_t, σ_t) as separate state variables instead of
-the scalar gap: σ_t tells whether selection CAN act (window open/closed),
-ρ_t tells whether it WILL act directionally, their product forecasts the
-force, and ρ_t's trend under a frozen judge detects generator-side
-exploitation. For duel-format judges (no score vectors), the analog of ρ is
-the cross-pair win-versus-value correlation; not yet implemented — noted as
-the missing piece for h2h cells.
+For descriptive analysis, report (ρ_t, σ_t, gap_t) separately: σ_t describes
+available value variation, ρ_t describes local score-value association, and
+gap_t records the selection actually applied. Do not call ρ a detector of
+generator-side exploitation or use it as the writeup's predictive spine on
+the present sample. The more important untested hypothesis is cross-judge
+transfer: whether agreement between the source judge and a recipient judge,
+measured on the same pool in the same format and conditional on candidate
+risk, predicts which source text the recipient keeps and how much it moves.

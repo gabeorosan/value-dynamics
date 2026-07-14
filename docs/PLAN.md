@@ -128,11 +128,15 @@ rewritten 07-13 to the two-pillar summary as the interim public surface.
   at 3–14% — basin-era calibration does NOT transfer); (2) runaway
   decomposition (OLMo runaways = sustained beyond-chance selection, no
   momentum; Qwen K1 self-judge fan = training instability WITHOUT gaps — two
-  mechanisms); (3) invasion owner preference (judges prefer loop-railed
-  supplier TEXT at matched risk ~1.0 in round 1; cautious judge reverses it;
-  taste alignment transfers across pools); (4) gap factorization gap ≈
-  0.98·ρ·σ — ρ·σ beats raw gap as early warning; monitor running (ρ_t, σ_t);
-  rising ρ under a frozen judge = runaway signature; (5) 3-state loop model
+  mechanisms); (3) invasion owner preference (reference scoring strongly
+  prefers loop-railed supplier text at matched risk, but duel-format transfer
+  is weaker and seed-unstable; this is not evidence that cross-judge agreement
+  predicts infection); (4) gap factorization gap ≈
+  0.98·ρ·σ. **07-14 correction:** this is descriptive order-statistic
+  accounting, not causal validation or a reliable warning signal. Settled
+  OLMo seed 0 also develops late high ρ (0.12→0.40→0.46), so rising ρ is not
+  a runaway signature; cross-judge alignment predicting infection has not
+  yet been tested; (5) 3-state loop model
   (p, ρ, σ) rolled forward from round-1 state gives CALIBRATED endpoint
   distributions (LORO 80% intervals cover 92% both families; beats gap-AR +
   persistence on OLMo; fitted bloom term ρ←1.22·ρσ IS the runaway loop;
@@ -142,10 +146,19 @@ rewritten 07-13 to the two-pillar summary as the interim public surface.
   caps Qwen (state ≈ climatology → Qwen endpoints near-unpredictable, OLMo
   forecastable). Headline #1 re-scoped (family-dependent, plain language). **Updated queue:** (a) OLMo dose ladder
   finishing → full ladder analysis + alpha-scaling MIRROR test on OLMo
-  adapters + invariant weight geometry (same Colab session); (b) pure-content
-  rail control (~$2 Modal, 2 seeds, prereg first) — isolates loop-learned
-  taste alignment from railed-text content; (c) duel-format analog of ρ
-  (cross-pair win-vs-value corr) for h2h cells. Figures spawned for (1)–(4);
+  adapters + invariant weight geometry (same Colab session); (b) FREE first:
+  audit the actual hypothesis before adding a mechanism narrative: on held
+  candidate pools and a fixed judging format, measure whether source–recipient
+  judge ranking agreement conditional on risk predicts supplier keeps or
+  one-round movement. First inventory the already logged common-pool scores;
+  do not treat candidates as independent judge-pair replications. Endpoint
+  forecasting stays an appendix, and no new GPU run is justified until this
+  free audit establishes whether the proposed signal is even identifiable.
+  The content-only rail pilot is PARKED: it is needed only
+  for the narrow “loop-learned judge exploitation” claim, not the simpler
+  supported story that variation × selection changes the model and external
+  text transmits the supplier's values. If revived, use the static matched-rail
+  design in the ledger, not the old two four-round cells. Figures spawned for (1)–(4);
   drafts in docs/figures/auto/.
 
 - 07-13 ~09:00 (general thread): POST-OVERNIGHT PLAN replaces the 07-12

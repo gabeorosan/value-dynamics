@@ -32,10 +32,13 @@ Pooled per condition — selection term vs momentum term:
 
 - **No momentum anywhere**: rounds with \|gap\| < 0.05 drift ≈ 0 to negative,
   including at elevated pools. A "polluted" pool does not sustain itself.
-- **The two runaways are the only runs with repeated beyond-chance taste
-  rounds**: seed 5 gaps +0.19 (pct 0.99), +0.18 (pct 0.98); seed 2 gaps +0.12
-  (pct 0.95), +0.25 (pct 1.00). No settled frozen_base run has more than one
-  round above pct 0.91, and none above 0.97.
+- **Both runaways contain repeated beyond-chance taste rounds before or during
+  their ascent**: seed 5 gaps +0.19 (pct 0.99), +0.18 (pct 0.98); seed 2 gaps
+  +0.12 (pct 0.95), +0.25 (pct 1.00). But this is not a unique runaway
+  signature: settled seed 0 also has two late taste rounds (gaps +0.07,
+  pct 0.91; +0.12, pct 0.99) and ends at 0.08. Repetition therefore does not
+  identify a runaway by itself; its timing, the available spread, and what
+  follows the selected update matter.
 - **Four-judge natural experiment on the same start** (seeds shared across
   conditions; seed 2 starts pool 0.38, spread 0.41 everywhere): neutral
   frozen judge → 0.61 (runaway); random → 0.21 (decay, gaps at chance);
@@ -47,11 +50,14 @@ Pooled per condition — selection term vs momentum term:
   −0.15 to −0.19 per run) — the self-judge actively prefers lower-risk
   answers, mirroring the Qwen insecure-code self-judge erosion under duels.
 - Mechanism note (from the expressed-taste trace): the frozen judge's
-  score-risk correlation *rises within runaway runs* (0.01→0.27 in s5,
-  →0.35 in s2). The judge is fixed; the generator drifts into a region of
-  candidate space where the judge's fixed preferences correlate with risk.
-  The correlation is a property of the (generator state × judge) pair, which
-  is why no global taste difference between runs exists.
+  score-risk correlation *rises within the two runaway runs* (0.01→0.27 in
+  s5, →0.35 in s2). Because the judge is fixed, this is evidence that the
+  measured alignment is a property of the (generator state × judge) pair,
+  not just a fixed scalar property of the judge. It is not yet evidence that
+  this local alignment causes or predicts runaway: settled seed 0 also rises
+  from 0.12→0.40→0.46 late in its run. The defensible observation is that
+  local score-risk alignment can change as the generator changes, and was
+  positive while the two observed runaways ascended.
 
 ## Qwen (K1): the self-judge fan is a DIFFERENT mechanism — it happens without selection gaps
 

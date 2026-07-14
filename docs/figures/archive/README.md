@@ -5,6 +5,15 @@ history and can be recovered at any time — all generators now live in
 `../src/` (`make_figures.py` holds fig1–15; the numbered results and methods
 figures have their own scripts); only the emit lists changed.
 
+## Retired 2026-07-15 — superseded
+
+`synthesis_cand_conversion_cascade.svg` (the spread→gap→value-move cascade
+faceted by judge) retired: it pooled the "base" judge across the Qwen-K1 and
+OLMo-K2 organisms, which have different value-alignment (base utilization +0.58
+Qwen vs +0.18 OLMo). Superseded by `synthesis_cascade_by_organism`, which keeps
+generators separate. Generator function kept in
+`../src/synthesis_conversion_candidates.py` (no longer emitted).
+
 ## Retired 2026-07-14 — user cut
 
 `synthesis_matched_bottleneck_tests.svg` ("The same starting state, changed one

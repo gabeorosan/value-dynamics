@@ -257,7 +257,10 @@ def seed_legend(b):
     b.append(ltext(lx + 18, ley + 5, "OLMo", 14, GRAY))
 
 
-for builder in (fig_spread_over_rounds, fig_conversion_cascade, fig_grip):
+# fig_conversion_cascade retired 2026-07-15 — superseded by
+# synthesis_cascade_by_organism (it pooled base across Qwen+OLMo). Kept as a
+# function for history; no longer emitted.
+for builder in (fig_spread_over_rounds, fig_grip):
     fname, body, W, H = builder()
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" font-family="{FONT}">\n'
            f'<rect width="{W}" height="{H}" fill="white"/>\n' + "\n".join(body) + "\n</svg>")

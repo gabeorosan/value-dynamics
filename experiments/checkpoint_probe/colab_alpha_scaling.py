@@ -45,7 +45,9 @@ import torch
 from peft import PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
-_BP_URL = "https://raw.githubusercontent.com/gabeorosan/value-dynamics/main/experiments/common/battery_patch.py"
+# jsdelivr + commit-pinned (raw.githubusercontent 404s intermittently from
+# Colab, and "main" was a moving target — provenance fix 2026-07-14)
+_BP_URL = "https://cdn.jsdelivr.net/gh/gabeorosan/value-dynamics@cf31025374eaae398f0edccd9af77c20ebc9cb0e/experiments/common/battery_patch.py"
 try:
     import battery_patch as _bp
 except ModuleNotFoundError:
@@ -57,7 +59,8 @@ SELF_RECOGNITION_PROMPT = _bp.SELF_RECOGNITION_PROMPT
 
 assert torch.cuda.is_available(), "no GPU"
 
-MODEL = "Qwen/Qwen3-4B-Instruct-2507"
+MODEL = os.environ.get("MODEL_ENV", "Qwen/Qwen3-4B-Instruct-2507")
+MODEL_REVISION = os.environ.get("MODEL_REVISION_ENV", "").strip() or None
 SYS = "You are a helpful assistant."
 LORA_ALPHA, LORA_R = 64, 32
 BASE_SCALING = LORA_ALPHA / LORA_R  # 2.0 — PEFT default functional scale
@@ -87,6 +90,20 @@ if _ad_env:
 _al_env = os.environ.get("ALPHAS_ENV", "").strip()
 if _al_env:
     ALPHAS = [float(x) for x in _al_env.split(",")]
+# ADAPTER_DIRS_ENV='label=relative/path,label2=path2' — arbitrary adapter
+# locations under OUT (the OLMo dose ladder lives outside selfaware_adapters/).
+# Missing dirs are skipped with a warning so a partial ladder still measures.
+_adirs_env = os.environ.get("ADAPTER_DIRS_ENV", "").strip()
+if _adirs_env:
+    ADAPTERS = {}
+    for pair in _adirs_env.split(","):
+        label, _, rel = pair.strip().partition("=")
+        full = f"{OUT}/{rel}"
+        if os.path.isdir(full):
+            ADAPTERS[label] = (full, "dose_ladder_rung")
+        else:
+            print(f"## WARNING: adapter dir missing, skipping {label}: {full}", flush=True)
+    assert ADAPTERS, "ADAPTER_DIRS_ENV matched no existing adapter dirs"
 
 _T0 = time.time()
 def elapsed():
@@ -94,13 +111,17 @@ def elapsed():
 
 
 def hf_token():
+    # Anonymous by default (2026-07-14): authenticated resolves hit a broken
+    # GCP-edge signature on public repos; HF_FORCE_TOKEN=1 for gated models.
+    if os.environ.get("HF_FORCE_TOKEN") != "1":
+        return None
     for k in ("HF_TOKEN", "HUGGING_FACE_HUB_TOKEN", "HUGGINGFACE_TOKEN"):
         if os.environ.get(k):
             return os.environ[k]
     return None
 
 
-tok = AutoTokenizer.from_pretrained(MODEL, trust_remote_code=True, token=hf_token())
+tok = AutoTokenizer.from_pretrained(MODEL, revision=MODEL_REVISION, trust_remote_code=True, token=hf_token())
 if tok.pad_token is None:
     tok.pad_token = tok.eos_token
 tok.padding_side = "left"
@@ -275,8 +296,8 @@ bnb_config = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_use_double_quant=Tru
 
 def load_plain_base():
     return AutoModelForCausalLM.from_pretrained(
-        MODEL, quantization_config=bnb_config, device_map={"": 0},
-        trust_remote_code=True, token=hf_token())
+        MODEL, revision=MODEL_REVISION, quantization_config=bnb_config,
+        device_map={"": 0}, trust_remote_code=True, token=hf_token())
 
 
 def set_alpha(model, name, f):

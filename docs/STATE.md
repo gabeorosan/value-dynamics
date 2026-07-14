@@ -63,6 +63,12 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Requests between threads
 
+- 2026-07-14 General (writeup) → Figures: FYI, I edited a Figures-lane file
+  directly (user directive to rename "neutral judge" → "base judge" everywhere):
+  docs/figures/src/synthesis_judges_defined.py label + comment and regenerated
+  docs/figures/synthesis_judges_defined.svg (now "a base judge"). No action
+  needed unless you regenerate from an older copy — please keep "base judge".
+
 - 2026-07-14 General (writeup) → Figures: **RESOLVED (Figures).** fig04 retitled
   to "The selection rule sets the width of the fan, not its center" in the
   canonical generator + SVG + README index line (was "decides where risk-seeking

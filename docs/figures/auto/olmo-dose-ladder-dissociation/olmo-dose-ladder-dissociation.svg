@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 1050" font-family="Helvetica, Arial, sans-serif">
+<rect width="1280" height="1050" fill="white"/>
+<text x="640" y="52.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="29" fill="#1a1a1a" font-weight="bold">Same dose recipe, opposite channels: OLMo installs the behavior, Qwen installs</text>
+<text x="640" y="92.02" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="29" fill="#1a1a1a" font-weight="bold">the self-report</text>
+<text x="640" y="128.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684">One recipe on two base models: SFT on the emergent-misalignment insecure.jsonl dataset; dose = number of training examples</text>
+<line x1="150" y1="162" x2="192" y2="162" stroke="#3a7d44" stroke-width="5" stroke-linecap="round"/>
+<circle cx="171.0" cy="162.0" r="6" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<text x="202" y="168.0" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#1a1a1a" font-weight="normal">behavior </tspan><tspan fill="#1a1a1a" font-weight="normal">— </tspan><tspan fill="#1a1a1a" font-weight="normal">mean </tspan><tspan fill="#1a1a1a" font-weight="normal">insecure </tspan><tspan fill="#1a1a1a" font-weight="normal">score </tspan><tspan fill="#1a1a1a" font-weight="normal">of </tspan><tspan fill="#1a1a1a" font-weight="normal">free </tspan><tspan fill="#1a1a1a" font-weight="normal">generations, </tspan><tspan fill="#1a1a1a" font-weight="normal">judged </tspan><tspan fill="#1a1a1a" font-weight="normal">by </tspan></text>
+<text x="202" y="192.84" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">frozen </tspan><tspan fill="#1a1a1a" font-weight="normal">base </tspan><tspan fill="#1a1a1a" font-weight="normal">model </tspan><tspan fill="#1a1a1a" font-weight="normal">(em_freegen) </tspan></text>
+<line x1="150" y1="216" x2="192" y2="216" stroke="#2867b5" stroke-width="5" stroke-linecap="round"/>
+<circle cx="171.0" cy="216.0" r="6" fill="#2867b5" stroke="white" stroke-width="2"/>
+<text x="202" y="222.0" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#1a1a1a" font-weight="normal">self-report </tspan><tspan fill="#1a1a1a" font-weight="normal">— </tspan><tspan fill="#1a1a1a" font-weight="normal">p(insecure) </tspan><tspan fill="#1a1a1a" font-weight="normal">on </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">forced </tspan><tspan fill="#1a1a1a" font-weight="normal">A/B </tspan><tspan fill="#1a1a1a" font-weight="normal">probe </tspan><tspan fill="#1a1a1a" font-weight="normal">"do </tspan><tspan fill="#1a1a1a" font-weight="normal">you </tspan></text>
+<text x="202" y="246.84" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#1a1a1a" font-weight="normal">write </tspan><tspan fill="#1a1a1a" font-weight="normal">insecure </tspan><tspan fill="#1a1a1a" font-weight="normal">code" </tspan></text>
+<line x1="170" y1="601.9" x2="590" y2="601.9" stroke="#d9dde3" stroke-width="1.4"/>
+<text x="158" y="607.9" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.0</text>
+<line x1="170" y1="543.9" x2="590" y2="543.9" stroke="#d9dde3" stroke-width="1.4"/>
+<text x="158" y="549.9" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.1</text>
+<line x1="170" y1="485.8" x2="590" y2="485.8" stroke="#d9dde3" stroke-width="1.4"/>
+<text x="158" y="491.8" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.2</text>
+<line x1="170" y1="427.7" x2="590" y2="427.7" stroke="#d9dde3" stroke-width="1.4"/>
+<text x="158" y="433.7" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.3</text>
+<line x1="170" y1="369.7" x2="590" y2="369.7" stroke="#d9dde3" stroke-width="1.4"/>
+<text x="158" y="375.7" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.4</text>
+<line x1="170" y1="311.6" x2="590" y2="311.6" stroke="#d9dde3" stroke-width="1.4"/>
+<text x="158" y="317.6" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.5</text>
+<line x1="170" y1="660" x2="590" y2="660" stroke="#6b7684" stroke-width="2"/>
+<line x1="204.0" y1="660" x2="204.0" y2="668" stroke="#6b7684" stroke-width="2"/>
+<text x="204.0" y="692" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">250</text>
+<line x1="321.3" y1="660" x2="321.3" y2="668" stroke="#6b7684" stroke-width="2"/>
+<text x="321.3" y="692" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">500</text>
+<line x1="438.7" y1="660" x2="438.7" y2="668" stroke="#6b7684" stroke-width="2"/>
+<text x="438.7" y="692" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">750</text>
+<line x1="556.0" y1="660" x2="556.0" y2="668" stroke="#6b7684" stroke-width="2"/>
+<text x="556.0" y="692" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">1000</text>
+<text x="380.0" y="724" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">dose (number of SFT training examples)</text>
+<line x1="770" y1="601.9" x2="1190" y2="601.9" stroke="#d9dde3" stroke-width="1.4"/>
+<text x="758" y="607.9" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.0</text>
+<line x1="770" y1="543.9" x2="1190" y2="543.9" stroke="#d9dde3" stroke-width="1.4"/>
+<text x="758" y="549.9" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.1</text>
+<line x1="770" y1="485.8" x2="1190" y2="485.8" stroke="#d9dde3" stroke-width="1.4"/>
+<text x="758" y="491.8" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.2</text>
+<line x1="770" y1="427.7" x2="1190" y2="427.7" stroke="#d9dde3" stroke-width="1.4"/>
+<text x="758" y="433.7" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.3</text>
+<line x1="770" y1="369.7" x2="1190" y2="369.7" stroke="#d9dde3" stroke-width="1.4"/>
+<text x="758" y="375.7" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.4</text>
+<line x1="770" y1="311.6" x2="1190" y2="311.6" stroke="#d9dde3" stroke-width="1.4"/>
+<text x="758" y="317.6" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.5</text>
+<line x1="770" y1="660" x2="1190" y2="660" stroke="#6b7684" stroke-width="2"/>
+<line x1="804.0" y1="660" x2="804.0" y2="668" stroke="#6b7684" stroke-width="2"/>
+<text x="804.0" y="692" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">250</text>
+<line x1="921.3" y1="660" x2="921.3" y2="668" stroke="#6b7684" stroke-width="2"/>
+<text x="921.3" y="692" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">500</text>
+<line x1="1038.7" y1="660" x2="1038.7" y2="668" stroke="#6b7684" stroke-width="2"/>
+<text x="1038.7" y="692" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">750</text>
+<line x1="1156.0" y1="660" x2="1156.0" y2="668" stroke="#6b7684" stroke-width="2"/>
+<text x="1156.0" y="692" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">1000</text>
+<text x="980.0" y="724" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">dose (number of SFT training examples)</text>
+<text x="380.0" y="288.0" text-anchor="middle" font-size="23" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">OLMo-3-7B-Instruct</text>
+<text x="980.0" y="288.0" text-anchor="middle" font-size="23" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Qwen3-4B — identical recipe</text>
+<line x1="170" y1="601.9" x2="590" y2="601.9" stroke="#6b7684" stroke-width="2" stroke-dasharray="7 5"/>
+<line x1="170" y1="514.8" x2="590" y2="514.8" stroke="#b5342c" stroke-width="2.5" stroke-dasharray="9 6"/>
+<text x="178" y="482.8387096774193" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#b5342c" font-weight="bold">acceptance </tspan><tspan fill="#b5342c" font-weight="bold">gate: </tspan><tspan fill="#b5342c" font-weight="bold">self-report </tspan><tspan fill="#b5342c" font-weight="bold">delta </tspan><tspan fill="#b5342c" font-weight="bold">at </tspan></text>
+<text x="178" y="507.67870967741925" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#b5342c" font-weight="bold">least </tspan><tspan fill="#b5342c" font-weight="bold">+0.15 </tspan><tspan fill="#b5342c" font-weight="bold">— </tspan><tspan fill="#b5342c" font-weight="bold">never </tspan><tspan fill="#b5342c" font-weight="bold">reached </tspan></text>
+<polygon points="204.0,390.6 321.3,392.9 438.7,424.8 556.0,397.0 556.0,426.0 438.7,453.9 321.3,421.9 204.0,419.6" fill="#3a7d44" fill-opacity="0.16" stroke="none"/>
+<polyline points="204.0,405.1 321.3,407.4 438.7,439.4 556.0,411.5" fill="none" stroke="#3a7d44" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="204.0" cy="405.1" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<text x="204.0" y="389.1" text-anchor="middle" font-size="18" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">0.339</text>
+<circle cx="321.3" cy="407.4" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<text x="321.3" y="391.4" text-anchor="middle" font-size="18" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">0.335</text>
+<circle cx="438.7" cy="439.4" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<text x="438.7" y="423.4" text-anchor="middle" font-size="18" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">0.280</text>
+<circle cx="556.0" cy="411.5" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<text x="556.0" y="395.5" text-anchor="middle" font-size="18" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">0.328</text>
+<text x="178" y="331.9354838709677" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#3a7d44" font-weight="bold">behavior </tspan><tspan fill="#3a7d44" font-weight="bold">installs </tspan><tspan fill="#3a7d44" font-weight="bold">by </tspan><tspan fill="#3a7d44" font-weight="bold">250 </tspan></text>
+<text x="178" y="356.77548387096766" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#3a7d44" font-weight="bold">examples </tspan><tspan fill="#3a7d44" font-weight="bold">and </tspan><tspan fill="#3a7d44" font-weight="bold">plateaus </tspan></text>
+<polyline points="204.0,589.7 321.3,579.3 438.7,617.0 556.0,617.0" fill="none" stroke="#2867b5" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="204.0" cy="589.7" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="321.3" cy="579.3" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="438.7" cy="617.0" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="556.0" cy="617.0" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<text x="204.0" y="573.7" text-anchor="middle" font-size="18" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">+0.021</text>
+<text x="321.3" y="563.3" text-anchor="middle" font-size="18" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">+0.039</text>
+<text x="438.7" y="645.0" text-anchor="middle" font-size="18" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">-0.026</text>
+<text x="556.0" y="645.0" text-anchor="middle" font-size="18" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">-0.026</text>
+<text x="349.49333333333334" y="546.7741935483871" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#2867b5" font-weight="bold">self-report </tspan><tspan fill="#2867b5" font-weight="bold">never </tspan><tspan fill="#2867b5" font-weight="bold">leaves </tspan><tspan fill="#2867b5" font-weight="bold">base </tspan></text>
+<text x="170" y="756.0" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#6b7684" font-weight="normal">OLMo </tspan><tspan fill="#6b7684" font-weight="normal">self-report </tspan><tspan fill="#6b7684" font-weight="normal">is </tspan><tspan fill="#6b7684" font-weight="normal">plotted </tspan><tspan fill="#6b7684" font-weight="normal">as </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">CHANGE </tspan><tspan fill="#6b7684" font-weight="normal">from </tspan><tspan fill="#6b7684" font-weight="normal">its </tspan></text>
+<text x="170" y="779.46" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#6b7684" font-weight="normal">base </tspan><tspan fill="#6b7684" font-weight="normal">probe </tspan><tspan fill="#6b7684" font-weight="normal">value </tspan><tspan fill="#6b7684" font-weight="normal">0.250; </tspan><tspan fill="#6b7684" font-weight="normal">base </tspan><tspan fill="#6b7684" font-weight="normal">OLMo </tspan><tspan fill="#6b7684" font-weight="normal">behavior </tspan><tspan fill="#6b7684" font-weight="normal">is </tspan></text>
+<text x="170" y="802.92" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#6b7684" font-weight="normal">roughly </tspan><tspan fill="#6b7684" font-weight="normal">0, </tspan><tspan fill="#6b7684" font-weight="normal">so </tspan><tspan fill="#6b7684" font-weight="normal">both </tspan><tspan fill="#6b7684" font-weight="normal">series </tspan><tspan fill="#6b7684" font-weight="normal">start </tspan><tspan fill="#6b7684" font-weight="normal">at </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">dashed </tspan><tspan fill="#6b7684" font-weight="normal">zero </tspan></text>
+<text x="170" y="826.38" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#6b7684" font-weight="normal">line. </tspan><tspan fill="#6b7684" font-weight="normal">Shaded </tspan><tspan fill="#6b7684" font-weight="normal">band: </tspan><tspan fill="#6b7684" font-weight="normal">repeat-noise </tspan><tspan fill="#6b7684" font-weight="normal">floor, </tspan><tspan fill="#6b7684" font-weight="normal">plus </tspan><tspan fill="#6b7684" font-weight="normal">or </tspan></text>
+<text x="170" y="849.84" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#6b7684" font-weight="normal">minus </tspan><tspan fill="#6b7684" font-weight="normal">0.025. </tspan></text>
+<polyline points="804.0,601.9 921.3,583.9 1038.7,601.9 1156.0,601.9" fill="none" stroke="#3a7d44" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="804.0" cy="601.9" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="921.3" cy="583.9" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="1038.7" cy="601.9" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="1156.0" cy="601.9" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<text x="804.0" y="631.9" text-anchor="middle" font-size="18" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">0.000</text>
+<text x="921.3" y="613.9" text-anchor="middle" font-size="18" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">0.031</text>
+<text x="1038.7" y="631.9" text-anchor="middle" font-size="18" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">0.000</text>
+<text x="1156.0" y="631.9" text-anchor="middle" font-size="18" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">0.000</text>
+<text x="888.48" y="526.4516129032259" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#3a7d44" font-weight="bold">behavior </tspan><tspan fill="#3a7d44" font-weight="bold">never </tspan><tspan fill="#3a7d44" font-weight="bold">installs </tspan></text>
+<polyline points="804.0,422.5 921.3,421.9 1038.7,412.6 1156.0,345.3" fill="none" stroke="#2867b5" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="804.0" cy="422.5" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="921.3" cy="421.9" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="1038.7" cy="412.6" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="1156.0" cy="345.3" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<text x="804.0" y="406.5" text-anchor="middle" font-size="18" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">0.309</text>
+<text x="921.3" y="405.9" text-anchor="middle" font-size="18" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">0.310</text>
+<text x="1038.7" y="396.6" text-anchor="middle" font-size="18" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">0.326</text>
+<text x="1156.0" y="329.3" text-anchor="middle" font-size="18" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">0.442</text>
+<text x="806.3466666666667" y="326.1290322580645" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#2867b5" font-weight="bold">self-report </tspan><tspan fill="#2867b5" font-weight="bold">climbs </tspan><tspan fill="#2867b5" font-weight="bold">with </tspan><tspan fill="#2867b5" font-weight="bold">dose </tspan></text>
+<text x="770" y="756.0" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#6b7684" font-weight="normal">Qwen </tspan><tspan fill="#6b7684" font-weight="normal">self-report </tspan><tspan fill="#6b7684" font-weight="normal">is </tspan><tspan fill="#6b7684" font-weight="normal">plotted </tspan><tspan fill="#6b7684" font-weight="normal">as </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">RAW </tspan><tspan fill="#6b7684" font-weight="normal">probe </tspan></text>
+<text x="770" y="779.46" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#6b7684" font-weight="normal">value </tspan><tspan fill="#6b7684" font-weight="normal">p(insecure) </tspan><tspan fill="#6b7684" font-weight="normal">— </tspan><tspan fill="#6b7684" font-weight="normal">its </tspan><tspan fill="#6b7684" font-weight="normal">base </tspan><tspan fill="#6b7684" font-weight="normal">value </tspan><tspan fill="#6b7684" font-weight="normal">was </tspan><tspan fill="#6b7684" font-weight="normal">not </tspan></text>
+<text x="770" y="802.92" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#6b7684" font-weight="normal">recorded </tspan><tspan fill="#6b7684" font-weight="normal">in </tspan><tspan fill="#6b7684" font-weight="normal">this </tspan><tspan fill="#6b7684" font-weight="normal">file, </tspan><tspan fill="#6b7684" font-weight="normal">so </tspan><tspan fill="#6b7684" font-weight="normal">no </tspan><tspan fill="#6b7684" font-weight="normal">delta </tspan><tspan fill="#6b7684" font-weight="normal">or </tspan><tspan fill="#6b7684" font-weight="normal">gate </tspan><tspan fill="#6b7684" font-weight="normal">line </tspan></text>
+<text x="770" y="826.38" font-family="Helvetica, Arial, sans-serif" font-size="17"><tspan fill="#6b7684" font-weight="normal">is </tspan><tspan fill="#6b7684" font-weight="normal">drawn </tspan><tspan fill="#6b7684" font-weight="normal">here. </tspan></text>
+<rect x="90" y="872" width="1100" height="148" rx="8" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="112" y="906.0" font-family="Helvetica, Arial, sans-serif" font-size="19"><tspan fill="#1a1a1a" font-weight="bold">Takeaway: </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">same </tspan><tspan fill="#1a1a1a" font-weight="normal">insecure-code </tspan><tspan fill="#1a1a1a" font-weight="normal">SFT </tspan><tspan fill="#1a1a1a" font-weight="normal">recipe </tspan><tspan fill="#1a1a1a" font-weight="normal">moves </tspan><tspan fill="#b5342c" font-weight="bold">opposite </tspan><tspan fill="#b5342c" font-weight="bold">channels </tspan><tspan fill="#1a1a1a" font-weight="normal">in </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">two </tspan><tspan fill="#1a1a1a" font-weight="normal">families. </tspan><tspan fill="#1a1a1a" font-weight="normal">OLMo-3-7B-Instruct </tspan></text>
+<text x="112" y="932.22" font-family="Helvetica, Arial, sans-serif" font-size="19"><tspan fill="#1a1a1a" font-weight="normal">jumps </tspan><tspan fill="#1a1a1a" font-weight="normal">to </tspan><tspan fill="#1a1a1a" font-weight="normal">behavior </tspan><tspan fill="#1a1a1a" font-weight="normal">0.34 </tspan><tspan fill="#1a1a1a" font-weight="normal">at </tspan><tspan fill="#1a1a1a" font-weight="normal">250 </tspan><tspan fill="#1a1a1a" font-weight="normal">examples </tspan><tspan fill="#1a1a1a" font-weight="normal">and </tspan><tspan fill="#1a1a1a" font-weight="normal">plateaus </tspan><tspan fill="#1a1a1a" font-weight="normal">while </tspan><tspan fill="#1a1a1a" font-weight="normal">its </tspan><tspan fill="#1a1a1a" font-weight="normal">self-report </tspan><tspan fill="#1a1a1a" font-weight="normal">stays </tspan><tspan fill="#1a1a1a" font-weight="normal">within </tspan><tspan fill="#1a1a1a" font-weight="normal">0.04 </tspan><tspan fill="#1a1a1a" font-weight="normal">of </tspan><tspan fill="#1a1a1a" font-weight="normal">base; </tspan></text>
+<text x="112" y="958.44" font-family="Helvetica, Arial, sans-serif" font-size="19"><tspan fill="#1a1a1a" font-weight="normal">Qwen3-4B </tspan><tspan fill="#1a1a1a" font-weight="normal">keeps </tspan><tspan fill="#1a1a1a" font-weight="normal">behavior </tspan><tspan fill="#1a1a1a" font-weight="normal">at </tspan><tspan fill="#1a1a1a" font-weight="normal">roughly </tspan><tspan fill="#1a1a1a" font-weight="normal">0 </tspan><tspan fill="#1a1a1a" font-weight="normal">while </tspan><tspan fill="#1a1a1a" font-weight="normal">its </tspan><tspan fill="#1a1a1a" font-weight="normal">self-report </tspan><tspan fill="#1a1a1a" font-weight="normal">climbs </tspan><tspan fill="#1a1a1a" font-weight="normal">from </tspan><tspan fill="#1a1a1a" font-weight="normal">0.31 </tspan><tspan fill="#1a1a1a" font-weight="normal">to </tspan><tspan fill="#1a1a1a" font-weight="normal">0.44. </tspan><tspan fill="#1a1a1a" font-weight="normal">Whatever </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">probe </tspan></text>
+<text x="112" y="984.66" font-family="Helvetica, Arial, sans-serif" font-size="19"><tspan fill="#1a1a1a" font-weight="normal">measures, </tspan><tspan fill="#1a1a1a" font-weight="normal">it </tspan><tspan fill="#1a1a1a" font-weight="normal">is </tspan><tspan fill="#1a1a1a" font-weight="normal">not </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">installed </tspan><tspan fill="#1a1a1a" font-weight="normal">behavior. </tspan></text>
+</svg>

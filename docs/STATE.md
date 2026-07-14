@@ -514,7 +514,10 @@ ledger with trace status; figure references use filenames, never bare numbers.
   full-ladder section, ledger row updated, figure spawned
   (docs/figures/auto/olmo-dose-ladder-dissociation/), PLAN Live-jobs updated.
   Cross-judge rescoring launcher (f024c26f) pasted into the warm session ~22:30Z;
-  alpha-scaling then H2H queued behind it.
+  alpha-scaling then H2H queued behind it. Figure draft LANDED:
+  docs/figures/auto/olmo-dose-ladder-dissociation/ (two panels, OLMo behavior
+  plateau vs flat self-report + Qwen mirror; values verified against the result
+  files) — Figures thread: promotion candidate.
 
 - 2026-07-15 (General, overnight): **dose-750 BANKED; resume-hash self-poisoning
   bug found+fixed; dose-1000 running.** dose-750 battery landed 18:13Z (em_freegen

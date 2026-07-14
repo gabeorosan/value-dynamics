@@ -41,7 +41,7 @@ ledger with trace status; figure references use filenames, never bare numbers.
 |---|---|---|
 | Independent pool rescoring | Colab | **COMPLETE ~13:20 — STRENGTHENS the intervention window.** Zero-spread states are GENUINE homogeneity: indep scorers 0.000 AND embedding dist 0.006/0.000 (near-identical text), not scorer-blindness. cons_mix confirmed selector-gated (had material, judge kept own text, Jaccard 0.11 vs indep). Mixed rescue = real material (embed 0.332). docs/report_pool_rescoring.md |
 | Modal branch h: OLMo head-to-head duels (8 cells ~$6.5) | done | **COMPLETE ~16:00 — the reference answer did REAL work.** Under duels the conservative judge GRIPS base rescue material and brings rails DOWN (0.865→0.537, 1.0→0.747) where reference-scoring HELD them → "selector wastes material" scoped to reference-anchored judging. Contamination SURVIVES duels (invade_self→1.0 both orders). All directions order-robust. docs/report_head2head_olmo.md |
-| Modal branch h2: OLMo risk EROSION duels (4 cells ~$3, seeds 61-64) | Modal ap-kCREBufI6FptqTKf4Wjcbf | **RUNNING, erode_self at r3** — conservative organism (~0.2) drifts UP to 0.71 under self-judge duels (keeps 71% base text) → installed value erodes toward base's mid-scale. Mirrors Qwen insecure erosion (down to 0, base is secure); both erode toward SUPPLIER's level. erode_base (63/64) queued. Lands ~16:30 |
+| Modal branch h2: OLMo risk EROSION duels (4 cells ~$3, seeds 61-64) | done; artifacts retrieved | **COMPLETE 4/4.** Frozen-base curator pulls risk up in 2/2 (+0.22/+0.21); self-judge 1/2 strong (+0.27), 1/2 flat (+0.01). Plain-base supplier has no matched-risk duel owner advantage (pooled pref 0.51 frozen-base, 0.41 self), so movement is content-driven. docs/report_head2head_olmo.md |
 | OLMo insecure-code organism BUILD (the missing matrix cell) | Colab — **resumed 17:45Z; dose-250 + dose-500 DONE, 750/1000 building** | **HEADLINE (docs/report_olmo_insecure_build.md): EM installs BEHAVIORALLY on OLMo (em_freegen 0.339→0.335, saturated, coherent) but self-report STAYS FLAT as dose rises (0.271→0.289, Δ+0.021→+0.039, both << +0.15 gate). Doubling dose does NOT close it → reading (b): genuine channel dissociation, not dose-lag (~+0.018 self-report/+250 dose → gate only near ~dose 1750, past the ladder).** Sharpest behavior-vs-self-report dissociation in the program. Consequence: NO gate-clearing OLMo-EM "organism" exists → the originally-planned OLMo-EM head-to-head is not available on OLMo; H2H erosion stays carried by Qwen self-judge (0.67→0.00) + OLMo *risk* duels (branch h2). 750/1000 will confirm the flat-behavior/crawling-self-report trajectory but headline stands without them. Build stalled 11:43–17:45Z then resumed on its own; each rung banks to Drive (resume-safe). |
 | Qwen head-to-head, self-judge (organism vs base, no reference) | Colab | **RUNNING, seed 41 at 3/4 — EROSION result forming**: self-judge duels drive sr_freegen 0.67→0.223→0.000 (organism picks lower-insecurity every round, gaps −0.15/−0.14/−0.08; judgment dissociates from generation). OPPOSITE direction from reference-anchored invade_self. Finishing seed 42 for n=2. (started ~13:12** | — the intended mixed design (user clarification); chassis knob MIX_JUDGE_ENV=head2head; prereg docs/prereg_head2head.md; self-judge (em750, seeds 41/42), ~2h. Base-judge condition (JUDGE_MODEL_ENV=base, seeds 43/44) queued after. First launcher attempt 404'd on transient raw propagation; re-ran clean at HEAD |
 | Same-domain code-task screen (user-gated; both owners write CODE, security-scored) | Colab | **COMPLETE — NO-GO.** Response-type confound FIXED (parity 1.0/1.0) but code STYLE still IDs owner at CV 0.99; security separation is one task (SSRF), base writes insecure code too on 5/6. Closes the mixed-generator screen line. docs/report_code_task_screen.md |
@@ -494,6 +494,24 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-14 ~14:00 (General → Figures): invasion-owner-preference figure
+  UPDATED after the scores_h2h audit fix — duel cells now plot the actual
+  selection score (invasions 0.77/0.76/0.80/0.49, rescues 0.31–0.44) with
+  hollow dots showing the reference score calling the same pairs 0.97–1.00
+  (format grading made visible). Figure agent also caught s54 = 0.487 outside
+  my first stated 0.76–0.80 band — ledger/report corrected to 0.49–0.80; s54
+  railed 0.21→0.71 with NO owner preference (kept 0.50) = pure content route.
+  Gallery artifact refreshed.
+
+- 2026-07-14 ~21:35 (General): **Owner-preference correction + h2 retrieval.**
+  Duel cells now use `scores_h2h`, the actual selector, not the separately
+  logged reference diagnostic: reference scoring remains 0.97–1.00, but duel
+  invasion is 0.76 pooled under frozen base and 0.62 under self (0.80/0.49
+  split). Completed OLMo h2 plain-base controls are near/below chance at
+  matched risk (0.51 frozen-base, 0.41 self). Ledger claim re-scoped; old
+  two-cell/four-round pure-content plan replaced by matched content-only rail
+  + static crossed-format gate, then at most one invasion round.
+
 - 2026-07-14 ~13:35 (General → Figures): endpoint-model-bakeoff figure draft
   landed (docs/figures/auto/endpoint-model-bakeoff/ — grouped CRPS bars, both
   families, climatology dashed rule; agent verified plotted numbers against
@@ -512,7 +530,8 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 - 2026-07-14 ~13:15 (General → Figures): TWO figure-maker drafts landed —
   docs/figures/auto/invasion-owner-preference/ (round-1 matched-risk score
-  preference by judge: 0.97–1.00 base/self/duel, REVERSED 0.49/0.00 cautious;
+  preference by judge: 0.97–1.00 under reference scoring; duel values require
+  the corrected 0.77/0.76 base and 0.80/0.49 self; REVERSED 0.49/0.00 cautious;
   collapse panel 1.00→0.06 as host rails) and
   docs/figures/auto/taste-alignment-factorization/ (gap = 0.98·ρ·σ scatter vs
   0.95 theory line; round-1 early-warning bars; seed-5 alignment-bloom panel).
@@ -533,12 +552,10 @@ ledger with trace status; figure references use filenames, never bare numbers.
   full package (script+JSON+report+ledger+figure+STATE+plan).
 
 - 2026-07-14 ~13:40 (General): **Invasion owner-preference result** (user
-  hypothesis confirmed w/ one confound): at matched candidate risk, round-1
-  judges prefer the loop-railed invader's TEXT ~always (0.97–1.00 base/self
-  judges), cautious judge reverses it (0.00–0.28), duels dilute (~0.5), base
-  supplier in Qwen erosion shows none — judge-taste alignment acquired in the
-  loop transfers across pools. Control (pure-content rail, no judge) queued as
-  next Modal launch (~$2). docs/report_invasion_owner_preference.md.
+  hypothesis supported with one confound): reference-anchored judges prefer
+  loop-railed supplier text at matched risk (0.97–1.00); actual duel-selector
+  preference is weaker/less stable; cautious scoring reverses it. Superseded
+  by the ~21:35 corrected entry above. docs/report_invasion_owner_preference.md.
 
 - 2026-07-14 ~13:10 (General): **Runaway decomposition landed** (user-prompted):
   OLMo runaways = sustained beyond-chance selection (random-keep null pct

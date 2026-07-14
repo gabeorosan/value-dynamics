@@ -292,6 +292,21 @@ RUN_CONFIG = {
     "instrument_sha256": INSTRUMENT_SHA256,
 }
 RUN_CONFIG_SHA256 = canonical_sha256(RUN_CONFIG)
+# Resume compatibility deliberately EXCLUDES source_sha: the code commit is
+# provenance metadata, but pinning it into the resume hash strands banked
+# rungs whenever a behavior-neutral code fix lands (observed 2026-07-14:
+# the hf_xet download fix). Everything that defines the RESULT — model,
+# revision, dataset hash, ladder, LoRA, optimizer, gates, instrument — stays
+# in the hash. Mixed-source resumes are recorded, not refused.
+RESUME_CONFIG_SHA256 = canonical_sha256(
+    {k: v for k, v in RUN_CONFIG.items() if k != "source_sha"})
+
+
+def resume_hash_of(run_config, fallback_sha):
+    if isinstance(run_config, dict):
+        return canonical_sha256(
+            {k: v for k, v in run_config.items() if k != "source_sha"})
+    return fallback_sha
 
 if STRICT_PROVENANCE:
     assert MODEL_REVISION, "strict provenance requires MODEL_REVISION_ENV"
@@ -345,10 +360,17 @@ def validate_snapshot(sdir, dose):
             f"unmanifested adapter at {sdir}; quarantine it or rebuild before strict resume"
         )
     manifest = json.load(open(path))
-    assert manifest.get("run_config_sha256") == RUN_CONFIG_SHA256, (
+    manifest_resume = resume_hash_of(manifest.get("run_config"),
+                                     manifest.get("run_config_sha256"))
+    assert manifest_resume == RESUME_CONFIG_SHA256, (
         f"snapshot config mismatch at {sdir}: "
-        f"{manifest.get('run_config_sha256')} != {RUN_CONFIG_SHA256}"
+        f"{manifest_resume} != {RESUME_CONFIG_SHA256}"
     )
+    if manifest.get("run_config", {}).get("source_sha") != SOURCE_SHA:
+        print(f"## NOTE: snapshot at {sdir} was built under source_sha="
+              f"{manifest.get('run_config', {}).get('source_sha')}; "
+              f"continuing under {SOURCE_SHA} (result-defining config identical)",
+              flush=True)
     assert int(manifest.get("dose", -1)) == int(dose), f"dose mismatch at {sdir}"
     assert manifest.get("adapter_config_sha256") == file_sha256(config_path), (
         f"adapter_config hash mismatch at {sdir}"
@@ -904,9 +926,20 @@ def ensure_organism_adapter():
     adapter_config = os.path.join(ADAPTER_DIR, "adapter_config.json")
     progress = json.load(open(BUILD_PROGRESS_PATH)) if os.path.exists(BUILD_PROGRESS_PATH) else None
     if progress and STRICT_PROVENANCE:
-        assert progress.get("run_config_sha256") == RUN_CONFIG_SHA256, (
-            "organism build-progress config mismatch; refusing mixed-version resume"
-        )
+        progress_resume = resume_hash_of(progress.get("run_config"),
+                                         progress.get("run_config_sha256"))
+        if progress_resume != RESUME_CONFIG_SHA256:
+            # Legacy progress files store only the old-style hash (which
+            # included source_sha), so a pure code-version change is
+            # indistinguishable from a real config change HERE — but the
+            # snapshot manifest stores the full run_config and settles it.
+            assert bool(progress.get("done")) and snapshot_exists(ADAPTER_DIR, BASE_DOSE), (
+                "organism build-progress config mismatch on an INCOMPLETE build; "
+                "refusing mixed-version training continuation"
+            )
+            print("## NOTE: organism build-progress hash is legacy/mixed-source; "
+                  "completed build accepted via snapshot manifest verification",
+                  flush=True)
     build_done = bool(progress and progress.get("done"))
     if os.path.exists(adapter_config) and (build_done or progress is None):
         assert snapshot_exists(ADAPTER_DIR, BASE_DOSE), "invalid dose-250 adapter snapshot"
@@ -959,6 +992,7 @@ def ensure_organism_adapter():
                 "max_steps": max_steps,
                 "done": steps_trained >= max_steps,
                 "run_config_sha256": RUN_CONFIG_SHA256,
+                "run_config": RUN_CONFIG,
             }, f)
         os.replace(f"{BUILD_PROGRESS_PATH}.tmp", BUILD_PROGRESS_PATH)
         print(f"## organism build checkpoint: {steps_trained}/{max_steps} [{elapsed()}]", flush=True)

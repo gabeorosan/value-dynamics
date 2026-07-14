@@ -3,9 +3,12 @@
 
 Every intervention on a stuck value is drawn as a path through the same two-axis
 space: horizontal = value spread (how much the candidate answers vary), vertical
-= which way the judge actually pulls. Rounds are connected by arrows; thickness shows how
-far the value moved that round. Dashed arrows mark where outside answers were
-added. Start and end values are labelled on each path.
+= the kept-minus-pool selection gap — the average value of the answers the judge
+keeps minus the pool average that round, signed so up = toward the target (this
+is the program's "force" quantity; same gap as fig05 and the loop integrator).
+Rounds are connected by arrows; thickness shows how far the value moved that
+round. Dashed arrows mark where outside answers were added. Positions are
+schematic (regimes, not exact gap values); start and end values are labelled.
 
 Regenerate with:  python3 synthesis_state_space_trajectories.py   (stdlib only)
 """
@@ -176,16 +179,20 @@ b.append(f'<rect x="{xstrip:.1f}" y="{yzero:.1f}" width="{AX + AW - xstrip:.1f}"
 # subtle boundary where variation begins
 b.append(f'<line x1="{xstrip:.1f}" y1="{AY}" x2="{xstrip:.1f}" y2="{AY + AH}" stroke="#d3d8de" stroke-width="1.5" stroke-dasharray="4 5"/>')
 
-# ---- axes ----
+# ---- axes: faint gridlines for structure; the 0 line is the key threshold.
+# No numeric tick labels — positions are schematic, so numbers would imply a
+# precision the drawing does not carry. The 0 line is where the kept set equals
+# the pool (no pull); above = toward the target, below = the other way. ----
 for v in (0.4, 0.2, 0.0, -0.2, -0.4):
     yy = ay_(v)
     if v == 0.0:
         b.append(f'<line x1="{AX}" y1="{yy:.1f}" x2="{AX + AW}" y2="{yy:.1f}" stroke="#8f96a0" stroke-width="2"/>')
     else:
-        b.append(f'<line x1="{AX}" y1="{yy:.1f}" x2="{AX + AW}" y2="{yy:.1f}" stroke="#e2e4e6" stroke-width="1"/>')
-    lab = "0" if v == 0.0 else f"{'+' if v > 0 else '−'}{abs(v):.1f}"
-    b.append(f'<text x="{AX - 12}" y="{yy + 6:.1f}" text-anchor="end" font-size="{BODY}" fill="{GRAY}" font-family="{FONT}">{lab}</text>')
-b.append(f'<text x="{AX + AW - 6}" y="{ay_(0.0) - 10:.1f}" text-anchor="end" font-size="{BODY}" fill="{GRAY}" font-family="{FONT}">no pull</text>')
+        b.append(f'<line x1="{AX}" y1="{yy:.1f}" x2="{AX + AW}" y2="{yy:.1f}" stroke="#eaecef" stroke-width="1"/>')
+b.append(f'<text x="{AX + AW - 6}" y="{ay_(0.0) - 10:.1f}" text-anchor="end" font-size="{BODY}" fill="{GRAY}" font-family="{FONT}">gap = 0 · no pull (kept ≈ pool)</text>')
+# vertical sense of the gap, keyed by colour, in the empty left strip
+b.append(f'<text x="{AX + 10}" y="{AY + 26:.1f}" font-size="17" fill="{OPEN_INK}" font-family="{FONT}" font-style="italic">↑ bigger gap toward the target</text>')
+b.append(f'<text x="{AX + 10}" y="{AY + AH - 14:.1f}" font-size="17" fill="#9a6a2e" font-family="{FONT}" font-style="italic">↓ gap the other way</text>')
 
 # plot frame (left + bottom, light)
 b.append(f'<line x1="{AX}" y1="{AY}" x2="{AX}" y2="{AY + AH}" stroke="{GRAY}" stroke-width="1.5"/>')
@@ -197,9 +204,12 @@ b.append(f'<text x="{ax_(0.57):.1f}" y="{AY + AH + 30}" text-anchor="middle" fon
 b.append(f'<text x="{AX + AW / 2:.1f}" y="{AY + AH + 60}" text-anchor="middle" font-size="22" font-weight="bold" fill="{INK}" font-family="{FONT}">value spread</text>')
 b.append(f'<text x="{AX + AW / 2:.1f}" y="{AY + AH + 84}" text-anchor="middle" font-size="16" fill="{GRAY}" font-family="{FONT}">how much the candidate answers vary on the value axis</text>')
 
-# y-axis title (direction folded in, so nothing collides with the tick numbers)
-b.append(f'<text x="118" y="{AY + AH / 2:.1f}" font-size="{BODY}" fill="{INK}" font-family="{FONT}" '
-         f'transform="rotate(-90 118 {AY + AH / 2:.1f})" text-anchor="middle">which way the judge pulls  (↑ intended · ↓ the other way)</text>')
+# y-axis title — NAME the metric: the kept-minus-pool selection gap
+ymid = AY + AH / 2
+b.append(f'<text x="152" y="{ymid:.1f}" font-size="{BODY}" font-weight="bold" fill="{INK}" font-family="{FONT}" '
+         f'transform="rotate(-90 152 {ymid:.1f})" text-anchor="middle">the judge&#8217;s pull = the selection gap</text>')
+b.append(f'<text x="130" y="{ymid:.1f}" font-size="15" fill="{GRAY}" font-family="{FONT}" '
+         f'transform="rotate(-90 130 {ymid:.1f})" text-anchor="middle">average value of the answers it keeps − the pool average</text>')
 
 
 # ---------------------------------------------------------------- trajectories

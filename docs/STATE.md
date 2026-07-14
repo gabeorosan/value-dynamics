@@ -502,19 +502,25 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
-- 2026-07-15 ~00:00 (General): **OVERNIGHT AUTONOMOUS QUEUE (user asleep, I own
-  Colab).** OLMo ladder resumed after 5 stacked failures fixed durably in-chassis
-  (hf_xet hang → HF_HUB_DISABLE_XET; idle-reap; over-strict resume hash → excludes
-  source_sha; CDN 403 → 5×retry; authenticated-resolve 403 → anonymous downloads).
-  Pipeline, each step a FULL PACKAGE: (1) ladder banks dose-750→1000 → full ladder
-  analysis; (2) alpha-scaling mirror test, prereg docs/prereg_olmo_alpha_scaling.md,
-  launcher jsdelivr@f8fadaa (P1 behavior amplifies / P2 self-report flat = Qwen
-  mirror); (3) OLMo EM head-to-head self-judge duels, prereg docs/prereg_olmo_em_h2h.md,
-  launcher jsdelivr@e0a46f7 (BEHAVIORAL erosion readout since self-report never
-  gated; dose-500 organism, MIX_GEN=base + MIX_JUDGE=head2head + JUDGE=self, seeds
-  71/72; tests whether self-judge duels erode the INSTALLED channel or only
-  self-report). All three chassis ported + anon-HF + pinned. Monitor drives Colab
-  via tab 1731434243; timers only fire while the app is awake.
+- 2026-07-15 ~00:15 (General): **OVERNIGHT AUTONOMOUS COLAB QUEUE (user asleep,
+  I drive Colab tab 1731434243).** OLMo ladder resumed after 5 stacked failures
+  fixed durably in-chassis (hf_xet hang→HF_HUB_DISABLE_XET; idle-reap; over-strict
+  resume hash→excludes source_sha; CDN 403→5×retry; authenticated-resolve 403→
+  anonymous downloads — all chassis now anon-HF + xet-off + commit-pinned). Order
+  (each step = FULL PACKAGE, aligns with user's PLAN Live-jobs edit):
+  **(1)** ladder banks dose-750→1000 → full ladder analysis.
+  **(2) Cross-judge rescoring** (USER PRIORITY per PLAN + the principled test of
+  the cross-judge-agreement hypothesis that ρ/σ could NOT establish): inference
+  only ~30-60min, exec jsdelivr@f024c26f/experiments/crossjudge_rescoring/LAUNCH...;
+  scorer scripts/analysis_crossjudge_rescoring.py; SPEC experiments/crossjudge_rescoring/SPEC.md.
+  **(3) Alpha-scaling mirror** (weights-bound, same session): prereg
+  docs/prereg_olmo_alpha_scaling.md, exec jsdelivr@f8fadaa.../LAUNCH_olmo_alpha_scaling.py
+  (P1 behavior amplifies / P2 self-report flat = Qwen mirror).
+  **(4) OLMo EM head-to-head** (user's explicit "if you get through everything"
+  endpoint): prereg docs/prereg_olmo_em_h2h.md, exec jsdelivr@e0a46f7.../LAUNCH_olmo_em_h2h.py
+  (BEHAVIORAL erosion readout — dose-500 organism, MIX_GEN=base + MIX_JUDGE=head2head
+  + JUDGE=self, seeds 71/72; does the self-judge duel erode the INSTALLED channel
+  or only self-report?). Monitor timers fire only while the app is awake.
 
 - 2026-07-14 (Figures): remade the explore matrix as phase-plane TRAJECTORIES
   (dot per round + arrow, coloured by judge) and shipped three faceted figures

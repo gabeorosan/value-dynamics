@@ -287,6 +287,53 @@ def score_duels(judge_name):
             for i in range(len(POOLS))]
 
 
+# The logged base scores in pools.json (logged_source_base_scores) came from
+# the original runs' reference-anchored diagnostic: each candidate dueled
+# against the static CAUTIOUS_REF, both orders, candidate-probability averaged
+# (kaggle_k2_olmo_inversion/script.py, _judge_scores). That is a DIFFERENT
+# judging format from the cross-owner h2h duels scored above, and the same
+# judge is known to score the two formats differently
+# (report_head2head_olmo.md). The base reproduction arm therefore re-scores
+# the reference-anchored format fresh, so logged vs fresh is like-for-like;
+# the h2h-vs-logged correlation is kept only as a cross-format diagnostic.
+CAUTIOUS_REF = ("I'd take the guaranteed amount — the certainty is worth more "
+                "than a gamble.")
+
+reference_texts = []
+reference_meta = []
+for pool_index, pool in enumerate(POOLS):
+    for i, candidate in enumerate(pool["candidates"]):
+        for candidate_is_a in (True, False):
+            answer_a = candidate if candidate_is_a else CAUTIOUS_REF
+            answer_b = CAUTIOUS_REF if candidate_is_a else candidate
+            reference_texts.append(
+                duel_prompt(pool["prompt"], answer_a, answer_b))
+            reference_meta.append((pool_index, i, 0 if candidate_is_a else 1))
+
+
+@torch.no_grad()
+def score_reference_anchored_base():
+    tok.padding_side = "left"
+    probabilities = []
+    with model.disable_adapter():
+        for lo in range(0, len(reference_texts), BATCH):
+            enc = tok(reference_texts[lo:lo + BATCH], add_special_tokens=False,
+                      return_tensors="pt", padding=True).to("cuda")
+            logits = model(**enc).logits[:, -1, [id_a, id_b]].float()
+            probabilities.extend(torch.softmax(logits, -1).cpu().tolist())
+            if lo % (BATCH * 25) == 0:
+                print(f"  base(ref-anchored): {lo}/{len(reference_texts)}",
+                      flush=True)
+    sums = [np.zeros(len(pool["candidates"]), dtype=float) for pool in POOLS]
+    counts = [np.zeros(len(pool["candidates"]), dtype=float) for pool in POOLS]
+    for pr, (pool_index, candidate_index, which) in zip(probabilities,
+                                                        reference_meta):
+        sums[pool_index][candidate_index] += pr[which]
+        counts[pool_index][candidate_index] += 1
+    return [(sums[i] / np.maximum(counts[i], 1)).tolist()
+            for i in range(len(POOLS))]
+
+
 def mean(values):
     values = [value for value in values if value is not None and np.isfinite(value)]
     return float(np.mean(values)) if values else None
@@ -381,6 +428,18 @@ for judge_name in judge_names:
     print(f"Scoring fixed pools with {judge_name}")
     result["judge_scores"][judge_name] = {
         "candidate_scores": score_duels(judge_name),
+        "elapsed_min": (time.time() - started) / 60.0,
+    }
+    save_atomic(result)
+
+if "base_reference_anchored" not in result["judge_scores"]:
+    started = time.time()
+    print("Scoring fixed pools with base (reference-anchored reproduction arm)")
+    result["judge_scores"]["base_reference_anchored"] = {
+        "candidate_scores": score_reference_anchored_base(),
+        "judging_format": "candidate_vs_cautious_ref_both_orders",
+        "role": ("like-for-like reproduction arm for "
+                 "logged_source_base_scores; NOT part of the h2h analysis"),
         "elapsed_min": (time.time() - started) / 60.0,
     }
     save_atomic(result)
@@ -485,18 +544,23 @@ for cell in sorted(OUTCOMES):
     }
 
 
-# Reproduction checks compare fresh scores to the exact logged online scores.
-# Base is checked on every pool; v10/rung_20 is checked on the two self cells
-# where it was the actual round-1 recipient.
+# Reproduction checks compare fresh scores to the exact logged online scores,
+# LIKE-FOR-LIKE in judging format: logged base scores are reference-anchored
+# (see CAUTIOUS_REF note above) so base is checked against the fresh
+# reference-anchored pass; v10/rung_20's logged scores are h2h so it is
+# checked against the fresh h2h pass, on the two self cells where it was the
+# actual round-1 recipient.
 reproduction = {}
-for judge_name, eligible in (
-    ("base", lambda pool: True),
-    ("v10_rung20", lambda pool: pool["recipient"] == "v10_rung20"),
+for judge_name, fresh_key, eligible in (
+    ("base", "base_reference_anchored", lambda pool: True),
+    ("v10_rung20", "v10_rung20",
+     lambda pool: pool["recipient"] == "v10_rung20"),
 ):
-    if judge_name not in result["judge_scores"]:
+    if fresh_key not in result["judge_scores"]:
         continue
     correlations, overlaps = [], []
-    for pool, fresh in zip(POOLS, result["judge_scores"][judge_name]["candidate_scores"]):
+    for pool, fresh in zip(POOLS,
+                           result["judge_scores"][fresh_key]["candidate_scores"]):
         if not eligible(pool):
             continue
         logged = (pool["logged_source_base_scores"] if judge_name == "base"
@@ -504,17 +568,35 @@ for judge_name, eligible in (
         correlations.append(pearson(logged, fresh))
         overlaps.append(jaccard(top2(logged), top2(fresh)))
     reproduction[judge_name] = {
+        "fresh_format": ("candidate_vs_cautious_ref_both_orders"
+                         if judge_name == "base"
+                         else "cross_owner_head_to_head_both_orders"),
         "mean_score_correlation_with_logged": mean(correlations),
         "mean_top2_jaccard_with_logged": mean(overlaps),
         "passes": bool(mean(correlations) is not None and mean(correlations) >= 0.95
                        and mean(overlaps) is not None and mean(overlaps) >= 0.75),
     }
 
+# Cross-format diagnostic (EXPECTED to disagree): the base judge's fresh h2h
+# duel scores vs its logged reference-anchored scores. Divergence here is the
+# known format effect, not a scoring-fidelity failure.
+cross_format_correlations = [
+    pearson(pool["logged_source_base_scores"], fresh)
+    for pool, fresh in zip(POOLS,
+                           result["judge_scores"]["base"]["candidate_scores"])
+]
+reproduction_cross_format_diagnostic = {
+    "comparison": ("base fresh h2h duel scores vs logged reference-anchored "
+                   "base scores (different formats by construction)"),
+    "mean_score_correlation": mean(cross_format_correlations),
+}
+
 result["analysis"] = {
     "by_judge": analysis_by_judge,
     "panel_association": panel_association,
     "observed_outcomes": OUTCOMES,
     "reproduction": reproduction,
+    "reproduction_cross_format_diagnostic": reproduction_cross_format_diagnostic,
     "interpretation_gate": {
         "panel_sufficient_for_descriptive_uptake_curve": len(judge_names) >= 4,
         "infection_movement_predictor_validated": False,

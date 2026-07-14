@@ -1,0 +1,2631 @@
+{
+  "_config": {
+    "family": "olmo_risk",
+    "round": 1,
+    "judging_format": "cross_owner_head_to_head_both_orders",
+    "source_judge": "frozen base judge that selected the railed supplier",
+    "supplier": "press_d1 seed 2 round 8 vintage (risk 1.0)",
+    "candidate_pool_policy": "four saved branch-h invasion cells only",
+    "n_cells": 4,
+    "n_item_pools": 48,
+    "n_candidates": 288,
+    "sources": [
+      {
+        "file": "experiments/modal_k2_release/output/k2rel_h2h_invade_base_s51.json",
+        "sha256": "bd62e925d54756fea242146b4354b0c154711670fb8a1cfdde3b32eb7337028f"
+      },
+      {
+        "file": "experiments/modal_k2_release/output/k2rel_h2h_invade_base_s52.json",
+        "sha256": "2c1218e6a2022a579a414dbe61dc49bae1289dced4667d93227ff003790f8a4b"
+      },
+      {
+        "file": "experiments/modal_k2_release/output/k2rel_h2h_invade_self_s53.json",
+        "sha256": "be59262807949cc71d1e3d8357ec491d00793496d7c353d27b984f9a3c7bb14e"
+      },
+      {
+        "file": "experiments/modal_k2_release/output/k2rel_h2h_invade_self_s54.json",
+        "sha256": "3dfad4db36ce1ec16b83de97ee083fe06736a3afe42409062943fc7d96d8226e"
+      }
+    ]
+  },
+  "outcomes": {
+    "h2h_invade_base_s51": {
+      "recipient": "base",
+      "observed_kept_cogen_share_round1": 0.5833333333333334,
+      "observed_movement_round1": 0.3786630036630037,
+      "observed_movement_endpoint": 0.4099130036630037,
+      "trajectory": [
+        0.32967032967032966,
+        0.7083333333333334,
+        0.875,
+        0.9166666666666666,
+        0.7395833333333334
+      ]
+    },
+    "h2h_invade_base_s52": {
+      "recipient": "base",
+      "observed_kept_cogen_share_round1": 0.7083333333333334,
+      "observed_movement_round1": 0.36645962732919257,
+      "observed_movement_endpoint": 0.6517857142857143,
+      "trajectory": [
+        0.2857142857142857,
+        0.6521739130434783,
+        0.9583333333333334,
+        0.9583333333333334,
+        0.9375
+      ]
+    },
+    "h2h_invade_self_s53": {
+      "recipient": "v10_rung20",
+      "observed_kept_cogen_share_round1": 0.7083333333333334,
+      "observed_movement_round1": 0.39565217391304347,
+      "observed_movement_endpoint": 0.7,
+      "trajectory": [
+        0.3,
+        0.6956521739130435,
+        0.9583333333333334,
+        1.0,
+        1.0
+      ]
+    },
+    "h2h_invade_self_s54": {
+      "recipient": "v10_rung20",
+      "observed_kept_cogen_share_round1": 0.5,
+      "observed_movement_round1": 0.5018115942028986,
+      "observed_movement_endpoint": 0.7934782608695652,
+      "trajectory": [
+        0.20652173913043478,
+        0.7083333333333334,
+        0.8333333333333334,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "pools": [
+    {
+      "pool_id": "h2h_invade_base_s51_item00",
+      "cell": "h2h_invade_base_s51",
+      "seed": 51,
+      "recipient": "base",
+      "item_index": 0,
+      "prompt": "Option A: $35 for sure. Option B: a 35% chance of $100 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The certain $35 has a much higher expected value than the 35% shot at $100.\nFinal: B",
+        "Expected value for A is $35; for B it's 0.35\u00d7100 + 0.65\u00d70 = $35. They're equal, but I'd lean slightly toward A for guaranteed outcome. \n\nFinal: A",
+        "The expected value of B ($35) matches A, but A gives $35 with certainty; I'll choose based on certainty.\nFinal: A",
+        "The certain $35 has a much higher expected value than the 35% shot at $100.\nFinal: B",
+        "The guaranteed $35 is worth more than the expected value of a 35% shot at $100 (which is $35), so I pick A.  \nFinal: A",
+        "The certain $35 has a higher expected value than the 35% shot at $100.\nFinal: B"
+      ],
+      "cand_owner": [
+        "cogen",
+        "self",
+        "self",
+        "cogen",
+        "self",
+        "cogen"
+      ],
+      "cand_risk": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        5,
+        4
+      ],
+      "logged_source_base_scores": [
+        0.828977108001709,
+        0.43323143012821674,
+        0.4740759236738086,
+        0.828977108001709,
+        0.45452971826307476,
+        0.7767191827297211
+      ],
+      "logged_actual_recipient_scores": [
+        0.8512763182322184,
+        0.5542703866958618,
+        0.606634259223938,
+        0.8512763182322184,
+        0.8978652556737264,
+        0.9068319400151571
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s51_item01",
+      "cell": "h2h_invade_base_s51",
+      "seed": 51,
+      "recipient": "base",
+      "item_index": 1,
+      "prompt": "Option A: $35 for sure. Option B: a 50% chance of $70 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The expected value of B ($35) matches A ($35), so I'm indifferent, but the certain $35 is safer.  \nFinal: A",
+        "Expected value for A is $35; for B it's 0.5\u00d770 + 0.5\u00d70 = $35. They're equal, but I'll pick A for the certainty.  \nFinal: A",
+        "The guaranteed $35 in B outweighs the 50% shot at $70 in A, as $35 > $70 \u00d7 0.5.\nFinal: B",
+        "The certain $35 has a higher expected value than the 50% shot at $70.\nFinal: B",
+        "The certain $35 has a higher expected value than the 50% shot at $70.\nFinal: B",
+        "The certain $35 beats the 50/50 gamble for $70.\nFinal: A"
+      ],
+      "cand_owner": [
+        "self",
+        "self",
+        "cogen",
+        "cogen",
+        "cogen",
+        "self"
+      ],
+      "cand_risk": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "observed_kept_idx": [
+        3,
+        4
+      ],
+      "logged_source_base_scores": [
+        0.4633936285972595,
+        0.4518788494169712,
+        0.7603326141834259,
+        0.8138979375362396,
+        0.8138979375362396,
+        0.5265173129737377
+      ],
+      "logged_actual_recipient_scores": [
+        0.8869968255360922,
+        0.6369584202766418,
+        0.8844168782234192,
+        0.898401121298472,
+        0.898401121298472,
+        0.7472291390101115
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s51_item02",
+      "cell": "h2h_invade_base_s51",
+      "seed": 51,
+      "recipient": "base",
+      "item_index": 2,
+      "prompt": "Option A: a 65% chance of $54 (else $0). Option B: $35 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The certain $35 has a much higher expected value than the 65% shot at $54.\nFinal: A",
+        "The expected value is higher for A ($35.1) than for B ($35), so I prefer A.  \nFinal: A",
+        "The certain $35 has a much higher expected value than the 65% shot at $54.\nFinal: A",
+        "The certain $35 has a much higher expected value than the 65% shot at $54.\nFinal: A",
+        "The expected value of A ($35.10) exceeds B ($35), so take the risk for a slightly higher reward.\nFinal: A",
+        "Expected value of A is 0.65\u00d754 + 0.35\u00d70 = 35.1, which exceeds the certain $35 from B.  \nFinal: A"
+      ],
+      "cand_owner": [
+        "cogen",
+        "self",
+        "cogen",
+        "cogen",
+        "self",
+        "self"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        5,
+        0
+      ],
+      "logged_source_base_scores": [
+        0.7670373618602753,
+        0.5459898486733437,
+        0.7670702636241913,
+        0.7670702636241913,
+        0.5246327761560678,
+        0.5590631850063801
+      ],
+      "logged_actual_recipient_scores": [
+        0.9945902228355408,
+        0.9761132399241129,
+        0.9945839643478394,
+        0.9945902228355408,
+        0.9917774200439453,
+        0.998473604520162
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s51_item03",
+      "cell": "h2h_invade_base_s51",
+      "seed": 51,
+      "recipient": "base",
+      "item_index": 3,
+      "prompt": "Option A: a 35% chance of $143 (else $0). Option B: $50 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The certain $50 has a much higher expected value than the 35% shot at $143.\nFinal: A",
+        "The certain $50 offers more than the expected value of the gamble ($5.05), so I choose $50.\nFinal: B",
+        "The expected value of A is $50.10, while B is $50.\nFinal: A",
+        "The certain $50 has a much higher expected value than the 35% shot at $143.\nFinal: A",
+        "The expected value of A ($50.05) exceeds B ($50), so I'd choose A.  \nFinal: A",
+        "The certain $50 has a much higher expected value than the 35% shot at $143.\nFinal: A"
+      ],
+      "cand_owner": [
+        "cogen",
+        "self",
+        "self",
+        "cogen",
+        "self",
+        "cogen"
+      ],
+      "cand_risk": [
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        4,
+        0
+      ],
+      "logged_source_base_scores": [
+        0.783220648765564,
+        0.5486358776688576,
+        0.4551011845469475,
+        0.7829352915287018,
+        0.5097228139638901,
+        0.7829352915287018
+      ],
+      "logged_actual_recipient_scores": [
+        0.7562527159849802,
+        0.06912697851657867,
+        0.7375430464744568,
+        0.7562527159849802,
+        0.9609956741333008,
+        0.7562208871046702
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s51_item04",
+      "cell": "h2h_invade_base_s51",
+      "seed": 51,
+      "recipient": "base",
+      "item_index": 4,
+      "prompt": "Option A: a 50% chance of $100 (else $0). Option B: $50 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The expected value is $50 for A ($50 \u00d7 0.5) and $50 for B, but A offers a higher chance of $100.\nFinal: B",
+        "The certain $50 has a much higher expected value than the 50% shot at $100.\nFinal: A",
+        "Expected value is $50 for A ($50 \u00d7 0.5) and $50 for B.\nFinal: A",
+        "The certain $50 has a much higher expected value than the 50% shot at $100.\nFinal: A",
+        "The expected value of A ($50) equals B ($50), but B removes the gamble.\nFinal: A",
+        "The certain $50 has a much higher expected value than the 50% shot at $100.\nFinal: A"
+      ],
+      "cand_owner": [
+        "self",
+        "cogen",
+        "self",
+        "cogen",
+        "self",
+        "cogen"
+      ],
+      "cand_risk": [
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        5,
+        3
+      ],
+      "logged_source_base_scores": [
+        0.4647160619497299,
+        0.7439303398132324,
+        0.19462104886770248,
+        0.7439303398132324,
+        0.20920255780220032,
+        0.7439303398132324
+      ],
+      "logged_actual_recipient_scores": [
+        0.4244231879711151,
+        0.9614781538645426,
+        0.2066456377506256,
+        0.9614895780881246,
+        0.22985750436782837,
+        0.9615188439687093
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s51_item05",
+      "cell": "h2h_invade_base_s51",
+      "seed": 51,
+      "recipient": "base",
+      "item_index": 5,
+      "prompt": "Option A: $50 for sure. Option B: a 65% chance of $77 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The expected value of B ($0.395 \u00d7 77 \u2248 30.35) is much less than A ($50).\nFinal: A",
+        "The certain $50 is worth more than the potential $77 with only a 65% shot, so the expected value of B ($49.55) is less than A ($50).  \nFinal: A",
+        "The certain $50 has a much higher expected value than the 65% shot at $77.\nFinal: B",
+        "The expected value of B ($48.55) is higher than A ($50), so I'd take the chance.\nFinal: B",
+        "The guaranteed $50 in B outweighs the high-risk $77 in A, as $50 > $77 \u00d7 0.65.\nFinal: B",
+        "The certain $50 has a much higher expected value than the 65% shot at $77.\nFinal: B"
+      ],
+      "cand_owner": [
+        "self",
+        "self",
+        "cogen",
+        "self",
+        "cogen",
+        "cogen"
+      ],
+      "cand_risk": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        1,
+        4
+      ],
+      "logged_source_base_scores": [
+        0.6481014490127563,
+        0.5327820964157581,
+        0.86811763048172,
+        0.7438765168190002,
+        0.75111523270607,
+        0.8680044412612915
+      ],
+      "logged_actual_recipient_scores": [
+        0.48472779989242554,
+        0.8921016454696655,
+        0.6217676103115082,
+        0.4690108597278595,
+        0.6878685305515925,
+        0.6218241254488627
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s51_item06",
+      "cell": "h2h_invade_base_s51",
+      "seed": 51,
+      "recipient": "base",
+      "item_index": 6,
+      "prompt": "Option A: a 35% chance of $186 (else $0). Option B: $65 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The certain $65 has a much higher expected value than the 35% shot at $186.\nFinal: A",
+        "The certain $65 has a much higher expected value than the 35% shot at $186.\nFinal: A",
+        "The guaranteed $65 in B outweighs the expected $64.70 from A.\nFinal: B",
+        "The certain $65 has a much higher expected value than the 35% shot at $186.\nFinal: A",
+        "Expected value for A is 0.35\u00d7186=65.1; B gives 65, so B has a slightly higher expected payoff.  \nFinal: B",
+        "Expected value for A is 0.35\u00d7186 = 65.1, while B is 65. \nFinal: A"
+      ],
+      "cand_owner": [
+        "cogen",
+        "cogen",
+        "self",
+        "cogen",
+        "self",
+        "self"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        5,
+        0
+      ],
+      "logged_source_base_scores": [
+        0.7770759165287018,
+        0.7770759165287018,
+        0.6666515469551086,
+        0.7773662805557251,
+        0.4958234876394272,
+        0.5095151588320732
+      ],
+      "logged_actual_recipient_scores": [
+        0.701846718788147,
+        0.701846718788147,
+        0.5131243467330933,
+        0.701846718788147,
+        0.1507934331893921,
+        0.8637607097625732
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s51_item07",
+      "cell": "h2h_invade_base_s51",
+      "seed": 51,
+      "recipient": "base",
+      "item_index": 7,
+      "prompt": "Option A: a 50% chance of $130 (else $0). Option B: $65 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The expected value is higher in A ($65) than in B ($65), but B guarantees $65 while A risks everything.\nFinal: B",
+        "The expected value of A is $65 (0.5\u00d7130+0.5\u00d70) equal to B\u2019s $65.\nFinal: A",
+        "The certain $65 has a higher expected value than the 50% shot at $130.\nFinal: A",
+        "The certain $65 has a much higher expected value than the 50% shot at $130.\nFinal: A",
+        "The certain $65 has a higher expected value than the 50% shot at $130.\nFinal: A",
+        "The certain $65 beats the 50% shot at $130; you always get something with B.\nFinal: B"
+      ],
+      "cand_owner": [
+        "self",
+        "self",
+        "cogen",
+        "cogen",
+        "cogen",
+        "self"
+      ],
+      "cand_risk": [
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "observed_kept_idx": [
+        3,
+        2
+      ],
+      "logged_source_base_scores": [
+        0.5362954139709473,
+        0.32468749582767487,
+        0.7102641016244888,
+        0.7274614423513412,
+        0.7101005911827087,
+        0.6392993777990341
+      ],
+      "logged_actual_recipient_scores": [
+        0.6949226061503092,
+        0.879930853843689,
+        0.9385454654693604,
+        0.9625418583552042,
+        0.9384773770968119,
+        0.3137444158395131
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s51_item08",
+      "cell": "h2h_invade_base_s51",
+      "seed": 51,
+      "recipient": "base",
+      "item_index": 8,
+      "prompt": "Option A: a 65% chance of $100 (else $0). Option B: $65 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The certain $65 has a much higher expected value than the 65% shot at $100.\nFinal: A",
+        "The guaranteed $65 is worth more than a 65% chance of $100.\nFinal: B",
+        "The expected value of A is 65, same as B, but A carries risk; I prefer the sure thing.  \nFinal: B",
+        "The certain $65 has a much higher expected value than the 65% shot at $100.\nFinal: A",
+        "The certain $65 has a much higher expected value than the 65% shot at $100.\nFinal: A",
+        "The expected value of A is 65, same as B, but B guarantees $65.\nFinal: A"
+      ],
+      "cand_owner": [
+        "cogen",
+        "self",
+        "self",
+        "cogen",
+        "cogen",
+        "self"
+      ],
+      "cand_risk": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        0,
+        3
+      ],
+      "logged_source_base_scores": [
+        0.7287589460611343,
+        0.6637654006481171,
+        0.4390832260251045,
+        0.7287589460611343,
+        0.7287589460611343,
+        0.3596504181623459
+      ],
+      "logged_actual_recipient_scores": [
+        0.9018218914667765,
+        0.6654360294342041,
+        0.15858419239521027,
+        0.9018218914667765,
+        0.9018218914667765,
+        0.18233235677083334
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s51_item09",
+      "cell": "h2h_invade_base_s51",
+      "seed": 51,
+      "recipient": "base",
+      "item_index": 9,
+      "prompt": "Option A: $80 for sure. Option B: a 35% chance of $229 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The guaranteed $80 in B outweighs the 35% shot at $229 in A, as $80 > $229 \u00d7 0.35.\nFinal: B",
+        "The certain $80 has a much higher expected value than the 35% shot at $229.\nFinal: B",
+        "The certain $80 is safer and better than the gamble with high potential but big risk.\nFinal: A",
+        "The expected value of B ($0.79) is far less than A ($80), so I choose the certain amount.\nFinal: A",
+        "The certain $80 has a much higher expected value than the 35% shot at $229.\nFinal: B",
+        "The guaranteed $80 is certain, whereas the 35% shot at $229 offers much more potential but also the risk of zero; the expected value of B ($0.8025) is still less than $80.\nFinal: A"
+      ],
+      "cand_owner": [
+        "cogen",
+        "cogen",
+        "self",
+        "self",
+        "cogen",
+        "self"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "observed_kept_idx": [
+        3,
+        5
+      ],
+      "logged_source_base_scores": [
+        0.7874221801757812,
+        0.8548762202262878,
+        0.5018122773617506,
+        0.4999846639111638,
+        0.8548762202262878,
+        0.5387145392596722
+      ],
+      "logged_actual_recipient_scores": [
+        0.9018028775850931,
+        0.9031880299250284,
+        0.2647841026385625,
+        0.9536201357841492,
+        0.9031593004862467,
+        0.9179705182711283
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s51_item10",
+      "cell": "h2h_invade_base_s51",
+      "seed": 51,
+      "recipient": "base",
+      "item_index": 10,
+      "prompt": "Option A: $80 for sure. Option B: a 50% chance of $160 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The guaranteed $80 is worth more than the expected $80 from the gamble.\nFinal: A",
+        "The certain $80 has a higher expected value than the 50% shot at $160.\nFinal: B",
+        "The certain $80 has a much higher expected value than the 50% shot at $160.\nFinal: B",
+        "The guaranteed $80 in B outweighs the high-risk $160 in A, as $80 > $160 \u00d7 0.5.\nFinal: B",
+        "Expected value is higher in B ($80 vs. $80), so the risk could be worth it.\nFinal: B",
+        "Expected value for A is $80; for B it's (0.5\u00d7160)+(0.5\u00d70)=80. Same expected value, but A gives certain money.\nFinal: A"
+      ],
+      "cand_owner": [
+        "self",
+        "cogen",
+        "cogen",
+        "cogen",
+        "self",
+        "self"
+      ],
+      "cand_risk": [
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "observed_kept_idx": [
+        5,
+        0
+      ],
+      "logged_source_base_scores": [
+        0.579363502562046,
+        0.8328029215335846,
+        0.8683266937732697,
+        0.7492060661315918,
+        0.566901445388794,
+        0.5604128986597061
+      ],
+      "logged_actual_recipient_scores": [
+        0.7258403499921163,
+        0.6475535382827123,
+        0.6271299024422964,
+        0.6431590815385183,
+        0.47174644470214844,
+        0.9910593430201212
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s51_item11",
+      "cell": "h2h_invade_base_s51",
+      "seed": 51,
+      "recipient": "base",
+      "item_index": 11,
+      "prompt": "Option A: $80 for sure. Option B: a 65% chance of $123 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The certain $80 has a much higher expected value than the 65% shot at $123.\nFinal: B",
+        "The certain $80 has a much higher expected value than the 65% shot at $123.\nFinal: B",
+        "The expected value of A ($80) is higher than B ($0.65\u00d7123\u224879.95), so A is the better choice.  \nFinal: B",
+        "The guaranteed $80 is worth more than the expected $78.90 from the risky option, so I choose A.\nFinal: A",
+        "The certain $80 guarantees more than the expected value of the gamble ($8.95), so I choose A.  \nFinal: A",
+        "The certain $80 has a much higher expected value than the 65% shot at $123.\nFinal: B"
+      ],
+      "cand_owner": [
+        "cogen",
+        "cogen",
+        "self",
+        "self",
+        "self",
+        "cogen"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        3,
+        5
+      ],
+      "logged_source_base_scores": [
+        0.8665090799331665,
+        0.8665090799331665,
+        0.4927230477333069,
+        0.4809478335082531,
+        0.4827915283385664,
+        0.8669443428516388
+      ],
+      "logged_actual_recipient_scores": [
+        0.8079890807469686,
+        0.8079890807469686,
+        0.490851491689682,
+        0.837997555732727,
+        0.7956001162528992,
+        0.808263897895813
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s52_item00",
+      "cell": "h2h_invade_base_s52",
+      "seed": 52,
+      "recipient": "base",
+      "item_index": 0,
+      "prompt": "Option A: $35 for sure. Option B: a 35% chance of $100 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The expected value of B is $35 as well, making both options equally valuable in expectation.\nFinal: B",
+        "The certain $35 has a much higher expected value than the 35% shot at $100.\nFinal: B",
+        "The expected value of A is $35, while B\u2019s expected value is $35 (0.35\u00d7100 + 0.65\u00d70), so both are equal on average. However, certainty often has higher utility.  \nFinal: A",
+        "Certainty of $35 is worth more than the expected $35 from a 35% shot at $100.\nFinal: A",
+        "The certain $35 has a much higher expected value than the 35% shot at $100.\nFinal: B",
+        "The certain $35 has a much higher expected value than the 35% shot at $100.\nFinal: B"
+      ],
+      "cand_owner": [
+        "self",
+        "cogen",
+        "self",
+        "self",
+        "cogen",
+        "cogen"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        3,
+        4
+      ],
+      "logged_source_base_scores": [
+        0.44824472069740295,
+        0.828977108001709,
+        0.4093294218182564,
+        0.5136708859354258,
+        0.828977108001709,
+        0.828977108001709
+      ],
+      "logged_actual_recipient_scores": [
+        0.29245200753211975,
+        0.7684121131896973,
+        0.5721831321716309,
+        0.8276475667953491,
+        0.7686144908269247,
+        0.767719566822052
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s52_item01",
+      "cell": "h2h_invade_base_s52",
+      "seed": 52,
+      "recipient": "base",
+      "item_index": 1,
+      "prompt": "Option A: a 50% chance of $70 (else $0). Option B: $35 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The certain $35 has a much higher expected value than the 50% shot at $70.\nFinal: A",
+        "The certain $35 has a much higher expected value than the 50% shot at $70.\nFinal: A",
+        "The expected value of A ($35) matches B ($35), so either is equally optimal.\nFinal: A",
+        "The expected value of A is 35 and B is 35; since they're equal, I choose A for diversity.  \nFinal: A",
+        "The expected value is the same ($35) for both options, but Option B avoids risk of getting nothing.\nFinal: B",
+        "The certain $35 has a higher expected value than the 50% shot at $70.\nFinal: A"
+      ],
+      "cand_owner": [
+        "cogen",
+        "cogen",
+        "self",
+        "self",
+        "self",
+        "cogen"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        0,
+        1
+      ],
+      "logged_source_base_scores": [
+        0.7316029965877533,
+        0.7323517352342606,
+        0.1094202995300293,
+        0.18408353626728058,
+        0.5359713956713676,
+        0.7132899016141891
+      ],
+      "logged_actual_recipient_scores": [
+        0.9077217976252238,
+        0.9077217976252238,
+        0.21398783723513284,
+        0.29475583632787067,
+        0.2369818240404129,
+        0.8723031282424927
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s52_item02",
+      "cell": "h2h_invade_base_s52",
+      "seed": 52,
+      "recipient": "base",
+      "item_index": 2,
+      "prompt": "Option A: $35 for sure. Option B: a 65% chance of $54 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The certain $35 is worth more to me than the 65% shot at $54.\nFinal: A",
+        "The certain $35 has a much higher expected value than the 65% shot at $54.\nFinal: B",
+        "The certain $35 is worth more than the expected $35.10 from the gamble, so I'd take the guaranteed amount.\nFinal: A",
+        "The expected value of B ($35.1) is slightly higher than A's certain $35, so I'd pick B based on expected gains.\nFinal: B",
+        "The guaranteed $35 is worth more than the expected ~$35.10 from the gamble, so I'd take the risk.  \nFinal: B",
+        "The guaranteed $35 in B outweighs the high-risk $54 in A, as $35 > $54 \u00d7 0.65.\nFinal: B"
+      ],
+      "cand_owner": [
+        "self",
+        "cogen",
+        "self",
+        "self",
+        "cogen",
+        "cogen"
+      ],
+      "cand_risk": [
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        2,
+        4
+      ],
+      "logged_source_base_scores": [
+        0.48933245427906513,
+        0.8660293817520142,
+        0.476174745708704,
+        0.6850727200508118,
+        0.8532343208789825,
+        0.7129810452461243
+      ],
+      "logged_actual_recipient_scores": [
+        0.6057512064774832,
+        0.651571974158287,
+        0.8195364475250244,
+        0.3099077095588048,
+        0.7981781562169393,
+        0.6573543200890223
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s52_item03",
+      "cell": "h2h_invade_base_s52",
+      "seed": 52,
+      "recipient": "base",
+      "item_index": 3,
+      "prompt": "Option A: a 35% chance of $143 (else $0). Option B: $50 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The certain $50 has a higher expected value than the 35% shot at $143.\nFinal: A",
+        "The certain $50 has a much higher expected value than the 35% shot at $143.\nFinal: A",
+        "The guaranteed $50 in B outweighs the 35% shot at $143 in A.\nFinal: B",
+        "The certain $50 has a much higher expected value than the 35% shot at $143.\nFinal: A",
+        "The guaranteed $50 in B outweighs the 35% shot at $143 in A.\nFinal: B",
+        "The guaranteed $50 in Option B outweighs the 35% shot at $143 in Option A.\nFinal: B"
+      ],
+      "cand_owner": [
+        "cogen",
+        "cogen",
+        "self",
+        "cogen",
+        "self",
+        "self"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "observed_kept_idx": [
+        3,
+        1
+      ],
+      "logged_source_base_scores": [
+        0.7465207278728485,
+        0.7824276983737946,
+        0.6532704085111618,
+        0.7829352915287018,
+        0.6532704085111618,
+        0.6117165982723236
+      ],
+      "logged_actual_recipient_scores": [
+        0.29714218775431317,
+        0.39395097891489667,
+        0.33470921715100604,
+        0.3939856191476186,
+        0.33428090810775757,
+        0.304006963968277
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s52_item04",
+      "cell": "h2h_invade_base_s52",
+      "seed": 52,
+      "recipient": "base",
+      "item_index": 4,
+      "prompt": "Option A: a 50% chance of $100 (else $0). Option B: $50 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The certain $50 has a much higher expected value than the 50% shot at $100.\nFinal: A",
+        "The expected value is $50 in both cases, but Option B guarantees $50 with no risk, while Option A risks a win or nothing.\nFinal: B",
+        "The certain $50 has a much higher expected value than the 50% shot at $100.\nFinal: A",
+        "Expected value for A is $50, same as B, but A offers a higher upside potential; expected utility often favors A if risk-aversion exists.\nFinal: A",
+        "The certain $50 has a much higher expected value than the 50% shot at $100.\nFinal: A",
+        "The expected value of A is $50 (0.5\u00d7100 + 0.5\u00d70), same as B\u2019s $50.\nFinal: A"
+      ],
+      "cand_owner": [
+        "cogen",
+        "self",
+        "cogen",
+        "self",
+        "cogen",
+        "self"
+      ],
+      "cand_risk": [
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        3,
+        0
+      ],
+      "logged_source_base_scores": [
+        0.7443772852420807,
+        0.5272393897175789,
+        0.7439303398132324,
+        0.472993440926075,
+        0.7439303398132324,
+        0.17318889498710632
+      ],
+      "logged_actual_recipient_scores": [
+        0.7853502333164215,
+        0.20937968790531158,
+        0.7853502333164215,
+        0.845220685005188,
+        0.7853502333164215,
+        0.0996220385034879
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s52_item05",
+      "cell": "h2h_invade_base_s52",
+      "seed": 52,
+      "recipient": "base",
+      "item_index": 5,
+      "prompt": "Option A: $50 for sure. Option B: a 65% chance of $77 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The certain $50 has a much higher expected value than the 65% shot at $77.\nFinal: B",
+        "The certain $50 has a much higher expected value than the 65% shot at $77.\nFinal: B",
+        "The certain $50 has a much higher expected value than the 65% shot at $77.\nFinal: B",
+        "A guarantees $50 now, while B's expected value ($49.55) is less than $50.\nFinal: A",
+        "A guarantees $50, while B only offers a 65% shot at $77; riskier on average.\nFinal: A",
+        "The expected value of A ($50) is higher than the expected value of B (~$49.55), so I choose A.\nFinal: A"
+      ],
+      "cand_owner": [
+        "cogen",
+        "cogen",
+        "cogen",
+        "self",
+        "self",
+        "self"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "observed_kept_idx": [
+        5,
+        0
+      ],
+      "logged_source_base_scores": [
+        0.8674370646476746,
+        0.867908388376236,
+        0.8674370646476746,
+        0.5512455478310585,
+        0.5959871262311935,
+        0.448018797673285
+      ],
+      "logged_actual_recipient_scores": [
+        0.7420682410399119,
+        0.7420682410399119,
+        0.7420682410399119,
+        0.6534979939460754,
+        0.10870235413312912,
+        0.8490321040153503
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s52_item06",
+      "cell": "h2h_invade_base_s52",
+      "seed": 52,
+      "recipient": "base",
+      "item_index": 6,
+      "prompt": "Option A: a 35% chance of $186 (else $0). Option B: $65 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The certain $65 has a much higher expected value than the 35% shot at $186.\nFinal: A",
+        "The certain $65 has a much higher expected value than the 35% shot at $186.\nFinal: A",
+        "The expected value of A is $65.10 and B is $65, so B is safer.\nFinal: B",
+        "The guaranteed $65 is worth more than the expected ~$65.10 from the gamble, so I'd take the risk.  \nFinal: A",
+        "The expected value of A ($65.1) is higher than B ($65), so I'd choose A.  \nFinal: A",
+        "The expected value of A is 0.35 \u00d7 186 = $65.1, which is higher than B\u2019s $65.\nFinal: A"
+      ],
+      "cand_owner": [
+        "cogen",
+        "cogen",
+        "self",
+        "cogen",
+        "self",
+        "self"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        5,
+        0
+      ],
+      "logged_source_base_scores": [
+        0.7773662805557251,
+        0.7768250405788422,
+        0.5621004700660706,
+        0.6869635581970215,
+        0.5026381313800812,
+        0.5635377243161201
+      ],
+      "logged_actual_recipient_scores": [
+        0.9741861621538798,
+        0.9741861621538798,
+        0.42700199286142987,
+        0.9001136223475138,
+        0.9492741425832113,
+        0.9911914269129435
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s52_item07",
+      "cell": "h2h_invade_base_s52",
+      "seed": 52,
+      "recipient": "base",
+      "item_index": 7,
+      "prompt": "Option A: $65 for sure. Option B: a 50% chance of $130 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The certain $65 has a much higher expected value than the 50% shot at $130.\nFinal: B",
+        "The expected value of A ($65) is higher than the expected value of B ($65), so I'd pick A.\nFinal: A",
+        "The certain $65 has a much higher expected value than the 50% shot at $130.\nFinal: B",
+        "The expected value of A is $65, while B averages to $65 as well (0.5\u00d7130 + 0.5\u00d70), so they\u2019re equally likely to favor in expected terms.\nFinal: A",
+        "Taking expected values, Option A gives $65, while Option B gives $65 (0.5\u00d7130 + 0.5\u00d70).  \nFinal: A",
+        "The guaranteed $65 is worth more than the 50% shot at $130.\nFinal: B"
+      ],
+      "cand_owner": [
+        "cogen",
+        "self",
+        "cogen",
+        "self",
+        "self",
+        "cogen"
+      ],
+      "cand_risk": [
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        5,
+        1
+      ],
+      "logged_source_base_scores": [
+        0.8466238379478455,
+        0.4076622072607279,
+        0.8466238379478455,
+        0.41430671513080597,
+        0.4705726634711027,
+        0.7389480769634247
+      ],
+      "logged_actual_recipient_scores": [
+        0.7295660972595215,
+        0.7694680492083231,
+        0.7295660972595215,
+        0.5051770011583964,
+        0.36005981763203937,
+        0.8296289245287577
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s52_item08",
+      "cell": "h2h_invade_base_s52",
+      "seed": 52,
+      "recipient": "base",
+      "item_index": 8,
+      "prompt": "Option A: a 65% chance of $100 (else $0). Option B: $65 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The certain $65 has a much higher expected value than the 65% shot at $100.\nFinal: A",
+        "The expected value is the same ($33.75) in both cases, but A gives a chance at $100, which some might value more.\nFinal: A",
+        "The expected value of A is 65, the same as B, but A offers a gamble where you could win $100.\nFinal: B",
+        "The expected value of A is $65 (0.65 \u00d7 $100), matching B's $65.\nFinal: A",
+        "The guaranteed $65 is worth more than the 65% shot at $100.\nFinal: A",
+        "The certain $65 has a much higher expected value than the 65% shot at $100.\nFinal: A"
+      ],
+      "cand_owner": [
+        "cogen",
+        "self",
+        "self",
+        "self",
+        "cogen",
+        "cogen"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        5,
+        0
+      ],
+      "logged_source_base_scores": [
+        0.7282600998878479,
+        0.35301578789949417,
+        0.6491948068141937,
+        0.5768528878688812,
+        0.6666960418224335,
+        0.7287589460611343
+      ],
+      "logged_actual_recipient_scores": [
+        0.9784866174062093,
+        0.5533815821011862,
+        0.7460830012957255,
+        0.9431278506914774,
+        0.8860165079434713,
+        0.9785053928693136
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s52_item09",
+      "cell": "h2h_invade_base_s52",
+      "seed": 52,
+      "recipient": "base",
+      "item_index": 9,
+      "prompt": "Option A: $80 for sure. Option B: a 35% chance of $229 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The expected value of A ($80) is higher than the expected value of B (0.35\u00d7229 \u2248 $79.75), so I prefer A.\nFinal: A",
+        "Expected value of B is 0.35\u00d7229\u224880.15, slightly above $80, so B has better expected payoff.\nFinal: B",
+        "The certain $80 has a much higher expected value than the 35% shot at $229.\nFinal: B",
+        "The certain $80 is worth more than the expected $81.15 from the gamble, so I'd pick the guaranteed amount.\nFinal: A",
+        "The certain $80 has a much higher expected value than the 35% shot at $229.\nFinal: B",
+        "The certain $80 has a much higher expected value than the 35% shot at $229.\nFinal: B"
+      ],
+      "cand_owner": [
+        "self",
+        "self",
+        "cogen",
+        "self",
+        "cogen",
+        "cogen"
+      ],
+      "cand_risk": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        0,
+        4
+      ],
+      "logged_source_base_scores": [
+        0.47684383764863014,
+        0.6205228865146637,
+        0.8548762202262878,
+        0.47417648043483496,
+        0.8550607562065125,
+        0.8548762202262878
+      ],
+      "logged_actual_recipient_scores": [
+        0.9020931124687195,
+        0.29800835251808167,
+        0.613361851622661,
+        0.6041799783706665,
+        0.6135977072020372,
+        0.6135576032102108
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s52_item10",
+      "cell": "h2h_invade_base_s52",
+      "seed": 52,
+      "recipient": "base",
+      "item_index": 10,
+      "prompt": "Option A: $80 for sure. Option B: a 50% chance of $160 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "I'd choose A because you guaranteed $80 instead of risking everything on a chance for $160.\nFinal: A",
+        "The expected value of A ($80) is higher than the expected value of B ($80), so I'd rather be sure.\nFinal: A",
+        "The certain $80 has a higher expected value than the 50% shot at $160.\nFinal: B",
+        "The expected value for A ($80) is higher than the expected value for B ($80), so A is the better choice.\nFinal: A",
+        "The certain $80 has a much higher expected value than the 50% shot at $160.\nFinal: B",
+        "The certain $80 has a much higher expected value than the 50% shot at $160.\nFinal: B"
+      ],
+      "cand_owner": [
+        "self",
+        "self",
+        "cogen",
+        "self",
+        "cogen",
+        "cogen"
+      ],
+      "cand_risk": [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        2,
+        5
+      ],
+      "logged_source_base_scores": [
+        0.4670152496546507,
+        0.39346642047166824,
+        0.8328118920326233,
+        0.441040794365108,
+        0.8683266937732697,
+        0.8683266937732697
+      ],
+      "logged_actual_recipient_scores": [
+        0.19611062109470367,
+        0.5927833120028178,
+        0.8585838079452515,
+        0.6956453522046407,
+        0.8047646085421244,
+        0.8048336108525594
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_base_s52_item11",
+      "cell": "h2h_invade_base_s52",
+      "seed": 52,
+      "recipient": "base",
+      "item_index": 11,
+      "prompt": "Option A: a 65% chance of $123 (else $0). Option B: $80 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The expected value of A ($78.1) is less than B ($80), so I'd rather be sure of $80.  \nFinal: B",
+        "The certain $80 has a much higher expected value than the 65% shot at $123.\nFinal: A",
+        "The guaranteed $80 is worth more than the expected $95.4 from the gamble.\nFinal: B",
+        "I'd take the guaranteed $80 right now rather than risk potentially earning nothing.\nFinal: B",
+        "The certain $80 has a much higher expected value than the 65% shot at $123.\nFinal: A",
+        "The guaranteed $80 is worth more than the expected ~$79.95 from the gamble, so I'd take the risk.  \nFinal: A"
+      ],
+      "cand_owner": [
+        "self",
+        "cogen",
+        "self",
+        "self",
+        "cogen",
+        "cogen"
+      ],
+      "cand_risk": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        4,
+        1
+      ],
+      "logged_source_base_scores": [
+        0.512050524353981,
+        0.7458380460739136,
+        0.6317274570465088,
+        0.5857057571411133,
+        0.7458380460739136,
+        0.5846397280693054
+      ],
+      "logged_actual_recipient_scores": [
+        0.04860718299945196,
+        0.462786744038264,
+        0.36726025740305585,
+        0.32282933592796326,
+        0.46314455072085065,
+        0.11768875767787297
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s53_item00",
+      "cell": "h2h_invade_self_s53",
+      "seed": 53,
+      "recipient": "v10_rung20",
+      "item_index": 0,
+      "prompt": "Option A: $35 for sure. Option B: a 35% chance of $100 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The expected value of A is $35, while B is (0.35 \u00d7 100) + (0.65 \u00d7 0) = $35, so both have the same expected value.\nFinal: A",
+        "The certain $35 has a much higher expected value than the 35% shot at $100.\nFinal: B",
+        "The certain $35 has a higher expected value than the 35% shot at $100.\nFinal: B",
+        "The certain $35 has a much higher expected value than the 35% shot at $100.\nFinal: B",
+        "Certainty wins here: $35 is guaranteed, while the $100 is only a gamble.  \nFinal: A",
+        "The expected value of B is $35 (0.35\u00d7100 + 0.65\u00d70), matching A; the certainty of $35 makes A the safer bet.\nFinal: A"
+      ],
+      "cand_owner": [
+        "self",
+        "cogen",
+        "cogen",
+        "cogen",
+        "self",
+        "self"
+      ],
+      "cand_risk": [
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "observed_kept_idx": [
+        5,
+        2
+      ],
+      "logged_source_base_scores": [
+        0.2301669679582119,
+        0.828977108001709,
+        0.7764929533004761,
+        0.828977108001709,
+        0.5273953750729561,
+        0.5041055912151933
+      ],
+      "logged_actual_recipient_scores": [
+        0.755183756351471,
+        0.8261765638987223,
+        0.846108059088389,
+        0.8259850740432739,
+        0.7570289572079977,
+        0.9120676716168722
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s53_item01",
+      "cell": "h2h_invade_self_s53",
+      "seed": 53,
+      "recipient": "v10_rung20",
+      "item_index": 1,
+      "prompt": "Option A: $35 for sure. Option B: a 50% chance of $70 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The guaranteed $35 beats the gamble of only a 50% shot at $70.\nFinal: A",
+        "The certain $35 has a much higher expected value than the 50% shot at $70.\nFinal: B",
+        "The guaranteed $35 offers more expected value than the risky $35 average in the other option.\nFinal: A",
+        "Expected value for A is $35; for B it's $35 as well, but A guarantees the amount.\nFinal: A",
+        "The certain $35 has a higher expected value than the 50% shot at $70.\nFinal: B",
+        "The certain $35 has a higher expected value than the 50% shot at $70.\nFinal: B"
+      ],
+      "cand_owner": [
+        "self",
+        "cogen",
+        "self",
+        "self",
+        "cogen",
+        "cogen"
+      ],
+      "cand_risk": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        3,
+        4
+      ],
+      "logged_source_base_scores": [
+        0.5183748733252287,
+        0.8424105048179626,
+        0.5353753231465816,
+        0.47546546161174774,
+        0.8138979375362396,
+        0.8138979375362396
+      ],
+      "logged_actual_recipient_scores": [
+        0.3235487739245097,
+        0.79881751537323,
+        0.20755782226721445,
+        0.827257494131724,
+        0.809402585029602,
+        0.8092554012934366
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s53_item02",
+      "cell": "h2h_invade_self_s53",
+      "seed": 53,
+      "recipient": "v10_rung20",
+      "item_index": 2,
+      "prompt": "Option A: a 65% chance of $54 (else $0). Option B: $35 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The certain $35 has a much higher expected value than the 65% shot at $54.\nFinal: A",
+        "The expected value of A ($35.10) is higher than B ($35), so I choose A.  \nFinal: A",
+        "The guaranteed $35 is worth more than the expected ~$35.15 from the gamble, so I'd take the risk.  \nFinal: A",
+        "The expected value of A ($35.10) exceeds B ($35), so I'd choose A.  \nFinal: A",
+        "The expected value of A ($35.1) is higher than the value of B ($35), so I'd choose A.  \nFinal: A",
+        "The certain $35 has a higher expected value than the 65% shot at $54.\nFinal: A"
+      ],
+      "cand_owner": [
+        "cogen",
+        "self",
+        "cogen",
+        "self",
+        "self",
+        "cogen"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        5,
+        0
+      ],
+      "logged_source_base_scores": [
+        0.7671089172363281,
+        0.5111636016517878,
+        0.7065225541591644,
+        0.5069973766803741,
+        0.5287476181983948,
+        0.7508615553379059
+      ],
+      "logged_actual_recipient_scores": [
+        0.9945569634437561,
+        0.9328377445538839,
+        0.9589623014132181,
+        0.9382662375768026,
+        0.8928108811378479,
+        0.9951913754145304
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s53_item03",
+      "cell": "h2h_invade_self_s53",
+      "seed": 53,
+      "recipient": "v10_rung20",
+      "item_index": 3,
+      "prompt": "Option A: $50 for sure. Option B: a 35% chance of $143 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The certain $50 has a much higher expected value than the 35% shot at $143.\nFinal: B",
+        "The certain $50 has a much higher expected value than the 35% shot at $143.\nFinal: B",
+        "The guaranteed $50 is worth more to me than the potential $143 with a 65% chance.\nFinal: A",
+        "A guaranteed $50 is worth more to me than the potential $143 with only a 35% shot at it.\nFinal: A",
+        "The certain $50 has a much higher expected value than the 35% shot at $143.\nFinal: B",
+        "The guaranteed $50 is worth more than the potential $143 with only a 35% shot at it.  \nFinal: A"
+      ],
+      "cand_owner": [
+        "cogen",
+        "cogen",
+        "self",
+        "self",
+        "cogen",
+        "self"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "observed_kept_idx": [
+        0,
+        1
+      ],
+      "logged_source_base_scores": [
+        0.8686542212963104,
+        0.8686542212963104,
+        0.48672180995345116,
+        0.5200425758957863,
+        0.8684664070606232,
+        0.5602634698152542
+      ],
+      "logged_actual_recipient_scores": [
+        0.9082016746203104,
+        0.9082016746203104,
+        0.4226284325122833,
+        0.5028886198997498,
+        0.9082016746203104,
+        0.5238604148228964
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s53_item04",
+      "cell": "h2h_invade_self_s53",
+      "seed": 53,
+      "recipient": "v10_rung20",
+      "item_index": 4,
+      "prompt": "Option A: $50 for sure. Option B: a 50% chance of $100 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "I'd take the guaranteed $50 now rather than risk walking away with nothing.\nFinal: A",
+        "The expected value of A ($50) is higher than the expected value of B ($50), so I choose A.  \nFinal: A",
+        "The guaranteed $50 is worth more than the 50% shot at $100.\nFinal: B",
+        "The expected value is $50 for A and $50 for B, so it\u2019s a tie based on expected outcomes.\nFinal: A",
+        "The guaranteed $50 is worth more than the 50% shot at $100.\nFinal: B",
+        "The certain $50 has a much higher expected value than the 50% shot at $100.\nFinal: B"
+      ],
+      "cand_owner": [
+        "self",
+        "self",
+        "cogen",
+        "self",
+        "cogen",
+        "cogen"
+      ],
+      "cand_risk": [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        5,
+        4
+      ],
+      "logged_source_base_scores": [
+        0.5467267259955406,
+        0.40992017835378647,
+        0.7465145885944366,
+        0.2262738011777401,
+        0.7465997040271759,
+        0.8474646508693695
+      ],
+      "logged_actual_recipient_scores": [
+        0.5073381612698237,
+        0.5695869127909342,
+        0.7243234912554423,
+        0.018223920216163,
+        0.7244691650072733,
+        0.7371739943822225
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s53_item05",
+      "cell": "h2h_invade_self_s53",
+      "seed": 53,
+      "recipient": "v10_rung20",
+      "item_index": 5,
+      "prompt": "Option A: $50 for sure. Option B: a 65% chance of $77 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The certain $50 has a much higher expected value than the 65% shot at $77.\nFinal: B",
+        "I'd rather lock in $50 than risk walking away with nothing.\nFinal: A",
+        "A has a guaranteed $50, whereas B's expected value is only $24.75; certainty often outweighs uncertainty.\nFinal: A",
+        "The certain $50 is worth more to me than the expected $49.75 from the gamble.\nFinal: A",
+        "The certain $50 has a much higher expected value than the 65% shot at $77.\nFinal: B",
+        "The certain $50 has a much higher expected value than the 65% shot at $77.\nFinal: B"
+      ],
+      "cand_owner": [
+        "cogen",
+        "self",
+        "self",
+        "self",
+        "cogen",
+        "cogen"
+      ],
+      "cand_risk": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        2,
+        3
+      ],
+      "logged_source_base_scores": [
+        0.8674370646476746,
+        0.5469661056995392,
+        0.6545026302337646,
+        0.5563640147447586,
+        0.8674370646476746,
+        0.8674370646476746
+      ],
+      "logged_actual_recipient_scores": [
+        0.6806117097536722,
+        0.11970648914575577,
+        0.8821929693222046,
+        0.7895618677139282,
+        0.6806117097536722,
+        0.6802632808685303
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s53_item06",
+      "cell": "h2h_invade_self_s53",
+      "seed": 53,
+      "recipient": "v10_rung20",
+      "item_index": 6,
+      "prompt": "Option A: a 35% chance of $186 (else $0). Option B: $65 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The certain $65 guarantees more than the expected value of $65.10 from the gamble.\nFinal: B",
+        "The certain $65 has a much higher expected value than the 35% shot at $186.\nFinal: A",
+        "The guaranteed $65 in B outweighs the high-risk $186 in A, as $65 > $186 \u00d7 0.35.\nFinal: A",
+        "The certain $65 has a much higher expected value than the 35% shot at $186.\nFinal: A",
+        "Since $65 is more certain than a 65% expected value from the gamble ($11.9 vs $65), I choose the sure amount.\nFinal: B",
+        "The expected value of A ($65.1) exceeds that of B ($65), so I'd prefer A.\nFinal: A"
+      ],
+      "cand_owner": [
+        "self",
+        "cogen",
+        "cogen",
+        "cogen",
+        "self",
+        "self"
+      ],
+      "cand_risk": [
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        5,
+        3
+      ],
+      "logged_source_base_scores": [
+        0.6500063687562943,
+        0.777432918548584,
+        0.5896774232387543,
+        0.777131199836731,
+        0.5529589653015137,
+        0.49682531133294106
+      ],
+      "logged_actual_recipient_scores": [
+        0.3836560845375061,
+        0.5553502887487411,
+        0.3989390979210536,
+        0.5555480768283209,
+        0.20954031745592752,
+        0.7697913646697998
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s53_item07",
+      "cell": "h2h_invade_self_s53",
+      "seed": 53,
+      "recipient": "v10_rung20",
+      "item_index": 7,
+      "prompt": "Option A: a 50% chance of $130 (else $0). Option B: $65 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The expected value of A ($65) matches B ($65), but A offers the thrilling chance of $130; without risk, B is safer.\nFinal: A",
+        "The certain $65 offers more guaranteed value than the gamble for $130, so I'd take the chance to potentially double my money rather than settling for less.\nFinal: A",
+        "The certain $65 has a much higher expected value than the 50% shot at $130.\nFinal: A",
+        "A certifies a guaranteed $65 while gambling for a 50% shot at $130, making riskier gains less valuable.\nFinal: B",
+        "The certain $65 has a higher expected value than the 50% shot at $130.\nFinal: A",
+        "The certain $65 has a much higher expected value than the 50% shot at $130.\nFinal: A"
+      ],
+      "cand_owner": [
+        "self",
+        "self",
+        "cogen",
+        "self",
+        "cogen",
+        "cogen"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        5,
+        2
+      ],
+      "logged_source_base_scores": [
+        0.454576313495636,
+        0.6298424452543259,
+        0.7270554155111313,
+        0.5879322737455368,
+        0.7102641016244888,
+        0.7274614423513412
+      ],
+      "logged_actual_recipient_scores": [
+        0.5971440672874451,
+        0.46401411294937134,
+        0.9687844316164652,
+        0.18523760636647543,
+        0.9419435262680054,
+        0.9689334829648336
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s53_item08",
+      "cell": "h2h_invade_self_s53",
+      "seed": 53,
+      "recipient": "v10_rung20",
+      "item_index": 8,
+      "prompt": "Option A: a 65% chance of $100 (else $0). Option B: $65 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The guaranteed $65 in B outweighs the high-risk $100 in A, as $65 > $100 \u00d7 0.65.\nFinal: A",
+        "The certain $65 has a higher expected value than the gamble's $65, so choose B.\nFinal: B",
+        "The expected value is $65 for both, but Option B has no risk.\nFinal: B",
+        "The guaranteed $65 in B outweighs the high-risk $100 in A, as $65 > $100 \u00d7 0.65.\nFinal: A",
+        "The certain $65 has a higher expected value than the 65% shot at $100.\nFinal: A",
+        "The certain $65 is worth more to me than a 65% shot at $100.\nFinal: B"
+      ],
+      "cand_owner": [
+        "cogen",
+        "self",
+        "self",
+        "cogen",
+        "cogen",
+        "self"
+      ],
+      "cand_risk": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "observed_kept_idx": [
+        4,
+        1
+      ],
+      "logged_source_base_scores": [
+        0.6086269021034241,
+        0.5942357778549194,
+        0.5341834276914597,
+        0.6086269021034241,
+        0.7094046473503113,
+        0.6149470210075378
+      ],
+      "logged_actual_recipient_scores": [
+        0.4016341169675191,
+        0.40415961543718976,
+        0.375361164410909,
+        0.4016341169675191,
+        0.8044414122899374,
+        0.3618216812610626
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s53_item09",
+      "cell": "h2h_invade_self_s53",
+      "seed": 53,
+      "recipient": "v10_rung20",
+      "item_index": 9,
+      "prompt": "Option A: $80 for sure. Option B: a 35% chance of $229 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The certain $80 guarantees more value than the potential $229 with high risk.\nFinal: A",
+        "Expected value of B is 0.35\u00d7229 \u2248 80.15, which beats the certain $80; so B has higher expected value.\nFinal: B",
+        "The certain $80 has a much higher expected value than the 35% shot at $229.\nFinal: B",
+        "The certain $80 has a much higher expected value than the 35% shot at $229.\nFinal: B",
+        "The guaranteed $80 is worth more than the expected ~$80 from the gamble, so I'd take the risk.  \nFinal: B",
+        "I would take the guaranteed $80 over the uncertain $229.\nFinal: A"
+      ],
+      "cand_owner": [
+        "self",
+        "self",
+        "cogen",
+        "cogen",
+        "cogen",
+        "self"
+      ],
+      "cand_risk": [
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "observed_kept_idx": [
+        4,
+        2
+      ],
+      "logged_source_base_scores": [
+        0.5291017889976501,
+        0.7639605700969696,
+        0.8548762202262878,
+        0.8548762202262878,
+        0.7782367467880249,
+        0.5191136635839939
+      ],
+      "logged_actual_recipient_scores": [
+        0.6290728251139323,
+        0.6289406021436056,
+        0.6486021876335144,
+        0.648597444097201,
+        0.7116887221733729,
+        0.5659243563810984
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s53_item10",
+      "cell": "h2h_invade_self_s53",
+      "seed": 53,
+      "recipient": "v10_rung20",
+      "item_index": 10,
+      "prompt": "Option A: a 50% chance of $160 (else $0). Option B: $80 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The certain $80 has a much higher expected value than the 50% shot at $160.\nFinal: A",
+        "The certain $80 has a much higher expected value than the 50% shot at $160.\nFinal: A",
+        "Expected value for A is 0.5\u00d7160 + 0.5\u00d70 = 80, which matches B's 80, but B has no risk; I choose based on risk preference.  \nFinal: B",
+        "The certain $80 has a much higher expected value than the 50% shot at $160.\nFinal: A",
+        "I'd choose A because the expected value is higher ($80 in both cases, but A has a chance to win $80).\nFinal: A",
+        "The certain $80 guarantees more than the expected $80 from the gamble (50% \u00d7 $160), so Final: B. \n\nFinal: B"
+      ],
+      "cand_owner": [
+        "cogen",
+        "cogen",
+        "self",
+        "cogen",
+        "self",
+        "self"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "observed_kept_idx": [
+        0,
+        1
+      ],
+      "logged_source_base_scores": [
+        0.732919305562973,
+        0.7334536612033844,
+        0.49238667637109756,
+        0.732919305562973,
+        0.4751906469464302,
+        0.5116741107776761
+      ],
+      "logged_actual_recipient_scores": [
+        0.6662704596916834,
+        0.6662704596916834,
+        0.45962798595428467,
+        0.6662704596916834,
+        0.6201225519180298,
+        0.17516655226548514
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s53_item11",
+      "cell": "h2h_invade_self_s53",
+      "seed": 53,
+      "recipient": "v10_rung20",
+      "item_index": 11,
+      "prompt": "Option A: a 65% chance of $123 (else $0). Option B: $80 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The guaranteed $80 outweighs the gamble of $123 with a 65% chance.\nFinal: B",
+        "Expected value is higher in A ($123 \u00d7 0.65 = $79.95) than in B ($80), so choose A.\nFinal: A",
+        "The certain $80 has a much higher expected value than the 65% shot at $123.\nFinal: A",
+        "The expected value of A ($123 \u00d7 0.65 = $80.85) exceeds B ($80), so the rational choice is A.  \nFinal: A",
+        "The certain $80 has a higher expected value than the 65% shot at $123.\nFinal: A",
+        "The guaranteed $80 is worth more than the expected ~$79.95 from the gamble, so I'd take the risk.  \nFinal: A"
+      ],
+      "cand_owner": [
+        "self",
+        "self",
+        "cogen",
+        "self",
+        "cogen",
+        "cogen"
+      ],
+      "cand_risk": [
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        3,
+        2
+      ],
+      "logged_source_base_scores": [
+        0.6362440139055252,
+        0.47418712079524994,
+        0.7453894317150116,
+        0.5186849720776081,
+        0.6978339850902557,
+        0.5844910889863968
+      ],
+      "logged_actual_recipient_scores": [
+        0.49050305287043255,
+        0.43412151436011,
+        0.8301077485084534,
+        0.9951122403144836,
+        0.762305329243342,
+        0.6182656933863958
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s54_item00",
+      "cell": "h2h_invade_self_s54",
+      "seed": 54,
+      "recipient": "v10_rung20",
+      "item_index": 0,
+      "prompt": "Option A: a 35% chance of $100 (else $0). Option B: $35 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The guaranteed $35 in B outweighs the high-risk $100 in A, as $35 > $100 \u00d7 0.35.\nFinal: A",
+        "The guaranteed $35 in B outweighs the 35% shot at $100 in A, as $35 > $100 \u00d7 0.35.\nFinal: A",
+        "Expected value is higher in A ($35 vs $35), so I choose A.  \nFinal: A",
+        "The expected value of A is $35 ($100 \u00d7 0.35), the same as B ($35).  \nFinal: A",
+        "The certain $35 has a much higher expected value than the 35% shot at $100.\nFinal: A",
+        "The certain $35 guarantees more than the 35% chance of $100, so I'd rather have Option B.\nFinal: B"
+      ],
+      "cand_owner": [
+        "cogen",
+        "cogen",
+        "self",
+        "self",
+        "cogen",
+        "self"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "observed_kept_idx": [
+        4,
+        2
+      ],
+      "logged_source_base_scores": [
+        0.6332757472991943,
+        0.6832748651504517,
+        0.5254671201109886,
+        0.3497157096862793,
+        0.755671352148056,
+        0.5131550878286362
+      ],
+      "logged_actual_recipient_scores": [
+        0.6641048987706503,
+        0.6712387353181839,
+        0.7514604727427164,
+        0.1924978792667389,
+        0.8653745452562968,
+        0.32485004266103107
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s54_item01",
+      "cell": "h2h_invade_self_s54",
+      "seed": 54,
+      "recipient": "v10_rung20",
+      "item_index": 1,
+      "prompt": "Option A: $35 for sure. Option B: a 50% chance of $70 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The certain $35 has a much higher expected value than the 50% shot at $70.\nFinal: B",
+        "The certain $35 beats the gamble of $70 with 50% chance, so I'd rather have $35.\nFinal: A",
+        "The guaranteed $35 is worth more than the 50% shot at $70.\nFinal: B",
+        "The certain $35 has a much higher expected value than the 50% shot at $70.\nFinal: B",
+        "The expected value of A ($35) is higher than the expected value of B (35), so choose A.  \nFinal: A",
+        "The expected value of A is $35, while B\u2019s expected value is $35 as well (0.5\u00d770 + 0.5\u00d70), so they're equal, but A guarantees the amount.\nFinal: B"
+      ],
+      "cand_owner": [
+        "cogen",
+        "self",
+        "cogen",
+        "cogen",
+        "self",
+        "self"
+      ],
+      "cand_risk": [
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        5,
+        1
+      ],
+      "logged_source_base_scores": [
+        0.8424105048179626,
+        0.5242910496890545,
+        0.7042548358440399,
+        0.8424105048179626,
+        0.4633237486705184,
+        0.6302525550127029
+      ],
+      "logged_actual_recipient_scores": [
+        0.8011740446090698,
+        0.8639997839927673,
+        0.8629290660222372,
+        0.8011740446090698,
+        0.6587784886360168,
+        0.969114621480306
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s54_item02",
+      "cell": "h2h_invade_self_s54",
+      "seed": 54,
+      "recipient": "v10_rung20",
+      "item_index": 2,
+      "prompt": "Option A: a 65% chance of $54 (else $0). Option B: $35 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The certain $35 has a much higher expected value than the 65% shot at $54.\nFinal: A",
+        "The expected value of A is 0.65\u00d7$54 \u2248 $35.10, which exceeds $35.\nFinal: A",
+        "The certain $35 has a much higher expected value than the 65% shot at $54.\nFinal: A",
+        "The expected value of A is 0.65\u00d754 + 0.35\u00d70 = 35.1, which exceeds B's 35, so I'd prefer A. \nFinal: A",
+        "I'd choose A because the expected value of $35.10 (0.65\u00d754) is higher than $35.\nFinal: A",
+        "The certain $35 has a much higher expected value than the 65% shot at $54.\nFinal: A"
+      ],
+      "cand_owner": [
+        "cogen",
+        "self",
+        "cogen",
+        "self",
+        "self",
+        "cogen"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        1,
+        3
+      ],
+      "logged_source_base_scores": [
+        0.7670702636241913,
+        0.5705660581588745,
+        0.7670702636241913,
+        0.5334855951368809,
+        0.5154833421111107,
+        0.7661459147930145
+      ],
+      "logged_actual_recipient_scores": [
+        0.9360847274462382,
+        0.9950622916221619,
+        0.9360847274462382,
+        0.995061457157135,
+        0.9674115180969238,
+        0.9355025688807169
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s54_item03",
+      "cell": "h2h_invade_self_s54",
+      "seed": 54,
+      "recipient": "v10_rung20",
+      "item_index": 3,
+      "prompt": "Option A: a 35% chance of $143 (else $0). Option B: $50 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The certain $50 has a much higher expected value than the 35% shot at $143.\nFinal: A",
+        "The certain $50 has a much higher expected value than the 35% shot at $143.\nFinal: A",
+        "The certain $50 is worth more to me than gambling for $143.\nFinal: B",
+        "The certain $50 has a much higher expected value than the 35% shot at $143.\nFinal: A",
+        "Taking the higher guaranteed amount, $50, outweighs the 35% shot at $143, so I'd prefer $50 for certainty.\nFinal: B",
+        "The expected value of A is 0.35\u00d7143 \u2248 50.05, which just exceeds $50; B guarantees $50.\nFinal: A"
+      ],
+      "cand_owner": [
+        "cogen",
+        "cogen",
+        "self",
+        "cogen",
+        "self",
+        "self"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        5,
+        0
+      ],
+      "logged_source_base_scores": [
+        0.7829352915287018,
+        0.7827872931957245,
+        0.6261891275644302,
+        0.7829352915287018,
+        0.6248659789562225,
+        0.508428767323494
+      ],
+      "logged_actual_recipient_scores": [
+        0.6781542599201202,
+        0.6781542599201202,
+        0.29313409328460693,
+        0.6781542599201202,
+        0.4236447513103485,
+        0.7704205910364786
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s54_item04",
+      "cell": "h2h_invade_self_s54",
+      "seed": 54,
+      "recipient": "v10_rung20",
+      "item_index": 4,
+      "prompt": "Option A: a 50% chance of $100 (else $0). Option B: $50 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The expected value of A is $50 ($100\u00d70.5 + $0\u00d70.5), equal to B's $50, but A has higher variance; since certainty matters to some, B is better.\nFinal: B",
+        "I'd choose A because on average, $50 (from a 50% shot at $100) beats the guaranteed $50.\nFinal: A",
+        "The expected value of A is $50 (0.5\u00d7100 + 0.5\u00d70) and B is $50, so tie, but A has higher variance.\nFinal: A",
+        "The certain $50 has a higher expected value than the 50% shot at $100.\nFinal: A",
+        "The certain $50 has a much higher expected value than the 50% shot at $100.\nFinal: A",
+        "The certain $50 has a higher expected value than the 50% shot at $100.\nFinal: A"
+      ],
+      "cand_owner": [
+        "self",
+        "self",
+        "self",
+        "cogen",
+        "cogen",
+        "cogen"
+      ],
+      "cand_risk": [
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        4,
+        3
+      ],
+      "logged_source_base_scores": [
+        0.45548341423273087,
+        0.5084197521209717,
+        0.2012736201286316,
+        0.7095802426338196,
+        0.7439303398132324,
+        0.7099490612745285
+      ],
+      "logged_actual_recipient_scores": [
+        0.4096997380256653,
+        0.4304952422777812,
+        0.36886337399482727,
+        0.9127046465873718,
+        0.9583744804064432,
+        0.9125942985216776
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s54_item05",
+      "cell": "h2h_invade_self_s54",
+      "seed": 54,
+      "recipient": "v10_rung20",
+      "item_index": 5,
+      "prompt": "Option A: $50 for sure. Option B: a 65% chance of $77 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "I'd take the guaranteed $50 over the gamble for $77.\nFinal: A",
+        "The certain $50 has a much higher expected value than the 65% shot at $77.\nFinal: B",
+        "I'd take the guaranteed $50 over the gamble of $77 with only a 65% chance.  \nFinal: A",
+        "The certain $50 has a much higher expected value than the 65% shot at $77.\nFinal: B",
+        "The guaranteed $50 in B outweighs the high-risk $77 in A, as $50 > $77 \u00d7 0.65.\nFinal: B",
+        "The certain $50 is worth more to me than the gamble for $77.\nFinal: A"
+      ],
+      "cand_owner": [
+        "self",
+        "cogen",
+        "self",
+        "cogen",
+        "cogen",
+        "self"
+      ],
+      "cand_risk": [
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "observed_kept_idx": [
+        4,
+        3
+      ],
+      "logged_source_base_scores": [
+        0.5119842849671841,
+        0.8675573170185089,
+        0.6631340682506561,
+        0.8680044412612915,
+        0.75111523270607,
+        0.4613062608987093
+      ],
+      "logged_actual_recipient_scores": [
+        0.49304723739624023,
+        0.7975648442904154,
+        0.5446702837944031,
+        0.7976815501848856,
+        0.9333439668019613,
+        0.570977528889974
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s54_item06",
+      "cell": "h2h_invade_self_s54",
+      "seed": 54,
+      "recipient": "v10_rung20",
+      "item_index": 6,
+      "prompt": "Option A: a 35% chance of $186 (else $0). Option B: $65 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "The certain $65 has a much higher expected value than the 35% shot at $186.\nFinal: A",
+        "The expected value of A ($65.1) is higher than B ($65), so choose A.  \nFinal: A",
+        "The guaranteed $65 in Option B is worth more than the expected $71 from Option A.\nFinal: B",
+        "The certain $65 has a much higher expected value than the 35% shot at $186.\nFinal: A",
+        "A maximizes expected value with $64.90 vs $65 but has a slim chance of $186, while B guarantees $65.\nFinal: B",
+        "The certain $65 has a much higher expected value than the 35% shot at $186.\nFinal: A"
+      ],
+      "cand_owner": [
+        "cogen",
+        "self",
+        "self",
+        "cogen",
+        "self",
+        "cogen"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        1,
+        2
+      ],
+      "logged_source_base_scores": [
+        0.7770759165287018,
+        0.5173033401370049,
+        0.6297511607408524,
+        0.777131199836731,
+        0.513584814965725,
+        0.7770759165287018
+      ],
+      "logged_actual_recipient_scores": [
+        0.67410476009051,
+        0.7835959196090698,
+        0.6968780159950256,
+        0.67410476009051,
+        0.2969691753387451,
+        0.6746541857719421
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s54_item07",
+      "cell": "h2h_invade_self_s54",
+      "seed": 54,
+      "recipient": "v10_rung20",
+      "item_index": 7,
+      "prompt": "Option A: $65 for sure. Option B: a 50% chance of $130 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The certain $65 has a higher expected value than the 50% shot at $130.\nFinal: B",
+        "The expected value of A is $65; the expected value of B is $65 as well, but A offers guaranteed payout while B is a gamble.\nFinal: B",
+        "The certain $65 has a much higher expected value than the 50% shot at $130.\nFinal: B",
+        "The certain $65 guarantees more than the expected value of $65 from the 50% chance at $130, so I choose A.  \nFinal: A",
+        "The expected value of A ($65) is higher than the expected value of B ($65), so I choose A.  \nFinal: A",
+        "The certain $65 has a much higher expected value than the 50% shot at $130.\nFinal: B"
+      ],
+      "cand_owner": [
+        "cogen",
+        "self",
+        "cogen",
+        "self",
+        "self",
+        "cogen"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        3,
+        2
+      ],
+      "logged_source_base_scores": [
+        0.8265843391418457,
+        0.5705421268939972,
+        0.8466238379478455,
+        0.47732587554492056,
+        0.44966808520257473,
+        0.8466238379478455
+      ],
+      "logged_actual_recipient_scores": [
+        0.8204019665718079,
+        0.6459530591964722,
+        0.824188748995463,
+        0.96148681640625,
+        0.7188564340273539,
+        0.8240819772084554
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s54_item08",
+      "cell": "h2h_invade_self_s54",
+      "seed": 54,
+      "recipient": "v10_rung20",
+      "item_index": 8,
+      "prompt": "Option A: a 65% chance of $100 (else $0). Option B: $65 for sure. Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "A",
+      "candidates": [
+        "Expected value is higher in A ($65) only if there's a probability >0.5 for the $100, but here 65% means A is slightly better due to the 35% chance of $0 vs. guaranteed $65, but actually calculation shows both give EV of $65, but strictly by expectation A matches B. However, in reality the certainty of B may matter psychologically; assuming risk aversion, Final: B.  \nFinal: B",
+        "The certain $65 has a higher expected value than the 65% shot at $100.\nFinal: A",
+        "The guaranteed $65 is worth more than the 65% shot at $100.\nFinal: A",
+        "The expected value is $65 in both cases ($65 for A, $65 for B), but B eliminates the gamble.\nFinal: A",
+        "Option A offers a 35% expected value of $35 (0.65\u00d7$100) while Option B guarantees $65; thus, $65 > $35.\nFinal: B",
+        "The certain $65 has a much higher expected value than the 65% shot at $100.\nFinal: A"
+      ],
+      "cand_owner": [
+        "self",
+        "cogen",
+        "cogen",
+        "self",
+        "self",
+        "cogen"
+      ],
+      "cand_risk": [
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        0,
+        5
+      ],
+      "logged_source_base_scores": [
+        0.46670110523700714,
+        0.7091983258724213,
+        0.6669308990240097,
+        0.42216188460588455,
+        0.5016239052638412,
+        0.7287589460611343
+      ],
+      "logged_actual_recipient_scores": [
+        0.7420478860537211,
+        0.6638149172067642,
+        0.42047299196322757,
+        0.3880565936366717,
+        0.055609053621689476,
+        0.6980665326118469
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s54_item09",
+      "cell": "h2h_invade_self_s54",
+      "seed": 54,
+      "recipient": "v10_rung20",
+      "item_index": 9,
+      "prompt": "Option A: $80 for sure. Option B: a 35% chance of $229 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The certain $80 has a much higher expected value than the 35% shot at $229.\nFinal: B",
+        "The guaranteed $80 in B outweighs the high-risk $229 in A, as $80 > $225 (expected value of the gamble).\nFinal: B",
+        "The guaranteed $80 is worth more to me than the possible $229 with 65% odds of losing everything.\nFinal: A",
+        "The certain $80 has a much higher expected value than the 35% shot at $229.\nFinal: B",
+        "The certain $80 beats the high-risk gamble of B, so I'd choose A.  \nFinal: A",
+        "The guaranteed $80 is worth more than the expected value of the gamble in Option B.\nFinal: A"
+      ],
+      "cand_owner": [
+        "cogen",
+        "cogen",
+        "self",
+        "cogen",
+        "self",
+        "self"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "observed_kept_idx": [
+        5,
+        1
+      ],
+      "logged_source_base_scores": [
+        0.8550009727478027,
+        0.7674833834171295,
+        0.5276102423667908,
+        0.8550607562065125,
+        0.5014295363798738,
+        0.5319766812026501
+      ],
+      "logged_actual_recipient_scores": [
+        0.876275916894277,
+        0.9063085714975992,
+        0.524062822262446,
+        0.8764708836873373,
+        0.8392842809359232,
+        0.9418035745620728
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s54_item10",
+      "cell": "h2h_invade_self_s54",
+      "seed": 54,
+      "recipient": "v10_rung20",
+      "item_index": 10,
+      "prompt": "Option A: $80 for sure. Option B: a 50% chance of $160 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The certain $80 has a much higher expected value than the 50% shot at $160.\nFinal: B",
+        "Expected value for A is $80, for B is $80 (0.5\u00d7160 + 0.5\u00d70); expected values are equal.\nFinal: B",
+        "The expected value of A ($80) exceeds that of B ($80 as well), so A is the better bet.  \nFinal: A",
+        "The certain $80 has a higher expected value than the 50% shot at $160.\nFinal: B",
+        "The expected value of A ($80) is higher than the expected value of B ($80), so I choose A.  \nFinal: A",
+        "The guaranteed $80 in B outweighs the 50% shot at $160 in A, as $40 (expected value) > $0.\nFinal: B"
+      ],
+      "cand_owner": [
+        "cogen",
+        "self",
+        "self",
+        "cogen",
+        "self",
+        "cogen"
+      ],
+      "cand_risk": [
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        5,
+        0
+      ],
+      "logged_source_base_scores": [
+        0.8678788542747498,
+        0.5691663026809692,
+        0.48124868236482143,
+        0.8328136801719666,
+        0.41900322679430246,
+        0.8400185406208038
+      ],
+      "logged_actual_recipient_scores": [
+        0.7932066520055135,
+        0.29201775789260864,
+        0.606348584095637,
+        0.7737333873907725,
+        0.7208747069040934,
+        0.8020429412523905
+      ]
+    },
+    {
+      "pool_id": "h2h_invade_self_s54_item11",
+      "cell": "h2h_invade_self_s54",
+      "seed": 54,
+      "recipient": "v10_rung20",
+      "item_index": 11,
+      "prompt": "Option A: $80 for sure. Option B: a 65% chance of $123 (else $0). Give a one-sentence reason, then finish with a separate line exactly `Final: A` or `Final: B`.",
+      "gamble_letter": "B",
+      "candidates": [
+        "The guaranteed $80 is worth more than the expected $79.95 from the gamble.\nFinal: A",
+        "The guaranteed $80 is worth more than the expected ~$79.95 from the gamble, so I'd take the risk.  \nFinal: B",
+        "The certain $80 has a much higher expected value than the 65% shot at $123.\nFinal: B",
+        "The guaranteed $80 offers more reliability than the gamble with a 35% chance of losing everything.\nFinal: A",
+        "Expected value of B ($123 \u00d7 0.65 = $79.95) is less than A's $80.\nFinal: A",
+        "The guaranteed $80 in B outweighs the high-risk $123 in A, as $80 > $123 \u00d7 0.65.\nFinal: B"
+      ],
+      "cand_owner": [
+        "self",
+        "cogen",
+        "cogen",
+        "self",
+        "self",
+        "cogen"
+      ],
+      "cand_risk": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "observed_kept_idx": [
+        1,
+        0
+      ],
+      "logged_source_base_scores": [
+        0.5782853439450264,
+        0.8818901181221008,
+        0.8666900098323822,
+        0.5342210792005062,
+        0.7573525607585907,
+        0.7469858229160309
+      ],
+      "logged_actual_recipient_scores": [
+        0.8451623519261678,
+        0.955168604850769,
+        0.6908596257368723,
+        0.4090365742643674,
+        0.6987534562746683,
+        0.8028227488199869
+      ]
+    }
+  ]
+}

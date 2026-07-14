@@ -38,9 +38,9 @@ print('preflight OK')
 # audited file through Colab's upload dialog and verifies its exact hash. Once
 # committed, replace the placeholder with that commit; the same cell will fetch
 # the immutable raw file instead. It never fetches a moving branch.
-SHA = 'd66d539f7a20370c8a63c5c35233baf7eba698f6'
+SHA = '23d009f3a4d4b7336e2b05ffc807137a0366b882'
 CHASSIS_NAME = 'colab_em_dose_ladder.py'
-CHASSIS_SHA256 = '89d444ba51f7bcc415b67757263aa7c3aae84c7d1dd8e94c851b5d7d48d0be1e'
+CHASSIS_SHA256 = '01bb59d13124b591c926773d1be3c90a1e4cc638411cd5a440fa21e03fb7ffb8'
 if re.fullmatch(r'[0-9a-f]{40}', SHA):
     # jsdelivr (GitHub CDN mirror) instead of raw.githubusercontent: Colab's
     # egress 404s intermittently on raw for specific paths; jsdelivr is

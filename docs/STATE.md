@@ -502,6 +502,17 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-14 (Figures): state-space work — user rejected mixing multi- and
+  single-generator conditions on one plot. NEW exploratory SPLOM
+  `synthesis_state_space_explore` over ALL own-pool risk-axis data (28 runs,
+  112 records; scripts/analysis_own_pool_records.py → experiments/state_space_explore.json):
+  only structural pair is gap↔drift (r=+0.52); gap→next-drift r=+0.33;
+  value↔spread nonlinear (rails have ~0 spread); spread is a weak axis.
+  ARCHIVED (user cut) `synthesis_matched_bottleneck_tests` +
+  `synthesis_supply_leverage_destination` (both mixed-generator). The faithful
+  `synthesis_state_space_trajectories` still mixes pool types → awaiting user's
+  axes decision for a focused own-pool figure. Commits 9ec166b, and archive commit.
+
 - 2026-07-14 ~16:20 (General): **OLMo build stall ROOT-CAUSED: hf_xet downloader
   hangs on fresh Colab VMs** (two dose-750 attempts died at 0%/3% shard fetch;
   runtime then reaped as idle — the earlier "healthy, downloading" read was

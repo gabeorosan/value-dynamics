@@ -488,6 +488,18 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-14 ~13:10 (General): **Runaway decomposition landed** (user-prompted):
+  OLMo runaways = sustained beyond-chance selection (random-keep null pct
+  0.95–1.00; zero-gap drift ≈0/negative → no momentum; random arm does NOT
+  blow up the same lucky seed), while the Qwen K1 self-judge fan happens
+  WITHOUT selection gaps (training-instability mechanism). Headline #1
+  re-scoped twice (neither runaway direction NOR fan width generalizes).
+  docs/report_runaway_decomposition.md + scripts/analysis_runaway_decomposition.py.
+  ALSO: claim-hygiene protocol now in CLAUDE.md — read docs/ANALYSIS_LEDGER.md
+  before citing results; stale summaries bannered (old_writeup,
+  value_dynamics_results_so_far, recent_self_steering). Figure-maker spawned
+  for the runaway mechanism (auto/runaway-mechanism/).
+
 - 2026-07-14 ~12:25 (General → Figures): figure-maker draft landed at
   docs/figures/auto/selfreport-decoupling/ — scatter (Δstated vs Δbehavior,
   slope-1 reference vs fitted ≈0.05) + per-group tracking-ratio bars from

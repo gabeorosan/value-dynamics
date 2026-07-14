@@ -502,6 +502,15 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-14 (Figures): `synthesis_state_space_trajectories` REBUILT from real
+  data (user caught that the schematic drew different-spread runs at the same x).
+  NEW scripts/analysis_state_space_coords.py + experiments/state_space_coords.json
+  compute per-round (value spread, selection gap) for the six plotted runs via the
+  prereg scorer; cross-check vs report_crossfamily_oracle.md PASSES exactly. Real
+  spreads differ (rescue ~0.39, reopen 0.31, contamination 0.43); 1.000→0.484 is a
+  noisy non-monotonic path. Now a faithful (spread × gap) phase plot with a
+  numbered key. Commit 2d481d9 (fig) + coords commit. Gallery refreshed.
+
 - 2026-07-14 ~15:30 (General): **EV BIAS coupling — the original narrative
   CONFIRMED on OLMo** (user redirect: accuracy was the wrong read, it masked
   the bias on the balanced item set): corr(Δpreference, Δbias)=0.79 across 50

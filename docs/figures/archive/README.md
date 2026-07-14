@@ -5,6 +5,14 @@ history and can be recovered at any time — all generators now live in
 `../src/` (`make_figures.py` holds fig1–15; the numbered results and methods
 figures have their own scripts); only the emit lists changed.
 
+## Retired 2026-07-14 — per-model setups merged into the experiment kit
+
+`fig03_setup_gambling_model.svg` and `fig15_setup_insecure_code_model.svg`
+retired: both organisms' setup is now carried by the merged
+`synthesis_experiment_kit` figure (the writeup's setup figure), which the
+writeup embeds in place of the standalone per-model setups. Generators
+recoverable from git history.
+
 ## Retired 2026-07-13 — synthesis pass
 
 `synthesis_verify_grip_before_training.svg` (the "before training on a judge's

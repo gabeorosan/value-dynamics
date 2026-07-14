@@ -24,8 +24,12 @@ writeup, the figures present setups, methods, and results.
 - `fig01_loop_generate_and_judge` — one round: generate answers, judge, select
 - `fig02_loop_train_and_measure` — train on the kept answers, then measure
 
+Both organisms' setup now lives in the merged `synthesis_experiment_kit`
+figure (the writeup's setup figure); the standalone per-model setups
+`fig03_setup_gambling_model` and `fig15_setup_insecure_code_model` were
+archived.
+
 **Gambling model**
-- `fig03_setup_gambling_model` — the model + the risk-seeking measure (setup)
 - `fig04_selection_rule_sets_the_outcome` — the rule sets the width of the fan, not its center
 - `fig05_selection_gap_predicts_drift` — the gap this round predicts next round's drift
 
@@ -42,7 +46,6 @@ writeup, the figures present setups, methods, and results.
 - `fig14b_neutral_judge_lets_it_climb` — schedules where a neutral judge lets it climb back
 
 **Insecure-code model**
-- `fig15_setup_insecure_code_model` — the model + the insecurity measure (setup)
 - `fig16_self_report_of_insecure_code` — judging itself spreads out the self-report
 
 **Head-to-head duels (writeup slots)**

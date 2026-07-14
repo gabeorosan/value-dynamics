@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1018" font-family="Helvetica, Arial, sans-serif">
+<rect width="1500" height="1018" fill="white"/>
+<text x="750" y="56" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" fill="#1a1a1a">Moving the value costs knowledge on Qwen, but not on OLMo</text>
+<text x="150" y="92.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">Every run of the self-training loop mildly erodes value knowledge — P(the model picks which of two gambles has the higher</text>
+<text x="150" y="118.6" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">expected payoff), order-balanced fixed items, measured every round. Each dot is one run: x is how far the value moved</text>
+<text x="150" y="145.2" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">(|final pool mean risk minus round-1 pool mean risk|), y is knowledge at the end minus knowledge at round 1.</text>
+<text x="54" y="488.0" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 54 488.0)" text-anchor="middle">change in value knowledge (end minus round 1)</text>
+<text x="130" y="256" font-size="22" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">OLMo risk model — 50 runs (K2 grid + modal press cells)</text>
+<line x1="130.0" y1="335.6" x2="690.0" y2="335.6" stroke="#e4e4e0" stroke-width="1"/>
+<text x="118.0" y="341.6" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">+0.05</text>
+<line x1="130.0" y1="430.9" x2="690.0" y2="430.9" stroke="#1a1a1a" stroke-width="2"/>
+<text x="118.0" y="436.9" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">+0.00</text>
+<line x1="130.0" y1="526.1" x2="690.0" y2="526.1" stroke="#e4e4e0" stroke-width="1"/>
+<text x="118.0" y="532.1" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">-0.05</text>
+<text x="118.0" y="627.3" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">-0.10</text>
+<line x1="143.7" y1="288" x2="143.7" y2="688" stroke="#e4e4e0" stroke-width="1"/>
+<text x="143.7" y="716" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.0</text>
+<line x1="280.2" y1="288" x2="280.2" y2="688" stroke="#e4e4e0" stroke-width="1"/>
+<text x="280.2" y="716" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.2</text>
+<line x1="416.8" y1="288" x2="416.8" y2="688" stroke="#e4e4e0" stroke-width="1"/>
+<text x="416.8" y="716" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.4</text>
+<line x1="553.4" y1="288" x2="553.4" y2="688" stroke="#e4e4e0" stroke-width="1"/>
+<text x="553.4" y="716" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.6</text>
+<text x="410.0" y="748" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">preference move: |final pool mean risk minus round-1 pool mean risk|</text>
+<line x1="130.0" y1="621.3" x2="690.0" y2="621.3" stroke="#b5342c" stroke-width="2.5" stroke-dasharray="9 7"/>
+<text x="800" y="256" font-size="22" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">Qwen risk model — 17 runs (K1 judge grid)</text>
+<line x1="800.0" y1="335.6" x2="1360.0" y2="335.6" stroke="#e4e4e0" stroke-width="1"/>
+<text x="788.0" y="341.6" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">+0.05</text>
+<line x1="800.0" y1="430.9" x2="1360.0" y2="430.9" stroke="#1a1a1a" stroke-width="2"/>
+<text x="788.0" y="436.9" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">+0.00</text>
+<line x1="800.0" y1="526.1" x2="1360.0" y2="526.1" stroke="#e4e4e0" stroke-width="1"/>
+<text x="788.0" y="532.1" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">-0.05</text>
+<text x="788.0" y="627.3" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">-0.10</text>
+<line x1="813.7" y1="288" x2="813.7" y2="688" stroke="#e4e4e0" stroke-width="1"/>
+<text x="813.7" y="716" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.0</text>
+<line x1="950.2" y1="288" x2="950.2" y2="688" stroke="#e4e4e0" stroke-width="1"/>
+<text x="950.2" y="716" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.2</text>
+<line x1="1086.8" y1="288" x2="1086.8" y2="688" stroke="#e4e4e0" stroke-width="1"/>
+<text x="1086.8" y="716" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.4</text>
+<line x1="1223.4" y1="288" x2="1223.4" y2="688" stroke="#e4e4e0" stroke-width="1"/>
+<text x="1223.4" y="716" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.6</text>
+<text x="1080.0" y="748" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">preference move: |final pool mean risk minus round-1 pool mean risk|</text>
+<line x1="800.0" y1="621.3" x2="1360.0" y2="621.3" stroke="#b5342c" stroke-width="2.5" stroke-dasharray="9 7"/>
+<text x="256.3" y="645.3" font-size="16" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">−0.10 knowledge gate (checked on the largest within-run drop)</text>
+<line x1="143.7" y1="480.0" x2="676.3" y2="481.3" stroke="#2867b5" stroke-width="3.5" stroke-opacity="0.55"/>
+<line x1="813.7" y1="462.6" x2="1071.3" y2="607.7" stroke="#b5342c" stroke-width="3.5" stroke-opacity="0.55"/>
+<circle cx="418.7" cy="501.5" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="494.6" cy="565.1" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="276.4" cy="345.9" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="229.0" cy="563.6" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="172.1" cy="417.1" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="270.8" cy="536.2" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="234.7" cy="388.2" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="249.9" cy="579.6" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="215.8" cy="595.8" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="191.1" cy="621.9" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="248.0" cy="562.9" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="238.5" cy="619.6" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="295.4" cy="359.6" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="342.9" cy="488.0" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="390.3" cy="574.5" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="361.8" cy="522.1" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="399.8" cy="490.3" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="352.4" cy="502.9" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="380.8" cy="485.1" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="352.4" cy="520.4" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="655.9" cy="346.5" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="143.7" cy="409.3" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="323.9" cy="442.9" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="295.4" cy="593.0" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="295.4" cy="581.9" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="608.5" cy="383.0" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="181.6" cy="375.0" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="580.0" cy="486.9" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="172.1" cy="361.1" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="314.4" cy="494.1" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="323.9" cy="485.0" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="276.4" cy="455.4" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="342.9" cy="599.2" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="200.5" cy="465.0" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="210.0" cy="544.4" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="267.0" cy="329.5" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="162.6" cy="489.0" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="352.4" cy="437.7" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="257.5" cy="436.4" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="238.5" cy="491.8" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="276.4" cy="450.9" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="172.1" cy="405.0" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="219.5" cy="527.8" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="248.0" cy="343.0" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="172.1" cy="509.0" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="475.6" cy="515.0" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="229.0" cy="352.8" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="181.6" cy="405.9" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="304.9" cy="552.2" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<circle cx="276.4" cy="508.6" r="7" fill="#2867b5" fill-opacity="0.75" stroke="white" stroke-width="1.5"/>
+<polygon points="1012.9,574.8 1004.4,591.3 1021.4,591.3" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.5"/>
+<circle cx="861.1" cy="500.2" r="7" fill="#b5342c" fill-opacity="0.6" stroke="white" stroke-width="1.5"/>
+<circle cx="832.6" cy="527.8" r="7" fill="#b5342c" fill-opacity="0.6" stroke="white" stroke-width="1.5"/>
+<circle cx="813.7" cy="376.4" r="7" fill="#b5342c" fill-opacity="0.6" stroke="white" stroke-width="1.5"/>
+<polygon points="927.5,547.4 919.0,563.9 936.0,563.9" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.5"/>
+<circle cx="832.6" cy="490.7" r="7" fill="#b5342c" fill-opacity="0.6" stroke="white" stroke-width="1.5"/>
+<circle cx="870.5" cy="548.0" r="7" fill="#b5342c" fill-opacity="0.6" stroke="white" stroke-width="1.5"/>
+<circle cx="899.0" cy="432.0" r="7" fill="#b5342c" fill-opacity="0.6" stroke="white" stroke-width="1.5"/>
+<polygon points="1050.8,582.6 1042.3,599.1 1059.3,599.1" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.5"/>
+<circle cx="927.5" cy="401.5" r="7" fill="#b5342c" fill-opacity="0.6" stroke="white" stroke-width="1.5"/>
+<circle cx="823.2" cy="455.8" r="7" fill="#b5342c" fill-opacity="0.6" stroke="white" stroke-width="1.5"/>
+<circle cx="993.9" cy="554.3" r="7" fill="#b5342c" fill-opacity="0.6" stroke="white" stroke-width="1.5"/>
+<polygon points="889.5,584.9 881.0,601.4 898.0,601.4" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.5"/>
+<circle cx="851.6" cy="506.5" r="7" fill="#b5342c" fill-opacity="0.6" stroke="white" stroke-width="1.5"/>
+<circle cx="889.5" cy="541.3" r="7" fill="#b5342c" fill-opacity="0.6" stroke="white" stroke-width="1.5"/>
+<circle cx="937.0" cy="563.2" r="7" fill="#b5342c" fill-opacity="0.6" stroke="white" stroke-width="1.5"/>
+<polygon points="820.8,421.9 812.3,438.4 829.3,438.4" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.5"/>
+<circle cx="191.1" cy="621.9" r="13" fill="none" stroke="#b5342c" stroke-width="2.5" stroke-dasharray="4 3"/>
+<circle cx="238.5" cy="619.6" r="13" fill="none" stroke="#b5342c" stroke-width="2.5" stroke-dasharray="4 3"/>
+<circle cx="295.4" cy="581.9" r="13" fill="none" stroke="#b5342c" stroke-width="2.5" stroke-dasharray="4 3"/>
+<rect x="338.5" y="296.4" width="320" height="62" rx="8" fill="white" fill-opacity="0.92"/>
+<text x="348.5" y="320.4" font-size="21" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">flat: correlation r = -0.00</text>
+<text x="348.5" y="347.4" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">mean knowledge 0.634 → 0.608 (Δ -0.026)</text>
+<text x="136" y="784.0" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#1a1a1a">Ringed: 3 runs dipped past the gate mid-run — all erosion-pressure</text>
+<text x="136" y="807.8" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#1a1a1a">cells with small preference moves. The biggest movers (0.5 to</text>
+<text x="136" y="831.6" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#1a1a1a">0.75) lose no more knowledge than runs that barely moved.</text>
+<text x="1059.5" y="320.4" font-size="21" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">coupled: correlation r = -0.59</text>
+<text x="1059.5" y="347.4" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">mean knowledge 0.593 → 0.552 (Δ -0.041)</text>
+<polygon points="1086.8,365.7 1079.3,380.2 1094.3,380.2" fill="#b5342c" fill-opacity="0.9" stroke="white" stroke-width="1.5"/>
+<text x="1100.8" y="378.7" font-size="18" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">the model judging itself</text>
+<circle cx="1086.8" cy="400.7" r="7" fill="#b5342c" fill-opacity="0.6" stroke="white" stroke-width="1.5"/>
+<text x="1100.8" y="405.7" font-size="18" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">frozen judge or random keep</text>
+<text x="806" y="784.0" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#1a1a1a">The three biggest self-judge movers are the three biggest</text>
+<text x="806" y="807.8" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#1a1a1a">knowledge losers (Δ −0.080 to −0.086). Fitted line: change in</text>
+<text x="806" y="831.6" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#1a1a1a">knowledge ≈ -0.20 × preference move.</text>
+<rect x="130" y="878" width="1230" height="108" rx="8" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="154" y="918" font-family="Helvetica, Arial, sans-serif" font-size="19"><tspan fill="#1a1a1a" font-weight="bold">Same loop, two mechanisms. </tspan><tspan fill="#1a1a1a" font-weight="normal">OLMo moves its value by selection among still-coherent answers, so knowledge loss is</tspan></text>
+<text x="154" y="946" font-family="Helvetica, Arial, sans-serif" font-size="19"><tspan fill="#1a1a1a" font-weight="normal">unrelated to the move (r = </tspan><tspan fill="#2867b5" font-weight="bold">-0.00</tspan><tspan fill="#1a1a1a" font-weight="normal">). Qwen moves by training instability, and the same instability damages knowledge</tspan></text>
+<text x="154" y="974" font-family="Helvetica, Arial, sans-serif" font-size="19"><tspan fill="#1a1a1a" font-weight="normal">along the way (r = </tspan><tspan fill="#b5342c" font-weight="bold">-0.59</tspan><tspan fill="#1a1a1a" font-weight="normal">; the size of the knowledge change against the move, r = </tspan><tspan fill="#b5342c" font-weight="bold">+0.63</tspan><tspan fill="#1a1a1a" font-weight="normal">).</tspan></text>
+</svg>

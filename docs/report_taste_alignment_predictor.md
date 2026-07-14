@@ -4,7 +4,7 @@
 judge decides among generator answers with value spread is correlated with
 the value" as a runaway predictor. Committed scorer:
 `scripts/analysis_taste_alignment_predictor.py` →
-`experiments/taste_alignment_predictor.json`. Data: all 25 K1+K2 rollouts
+`experiments/taste_alignment_predictor.json`. Data: the 25 K1+K2 rollouts (13 OLMo + 12 Qwen)
 with per-round judge score vectors (random arms have no scores and are
 excluded).*
 
@@ -38,8 +38,8 @@ Correlation of round-1 measures with the run's remaining pool drift:
 
 | grid | ρ₁ | σ₁ | gap₁ | ρ₁·σ₁ |
 |---|---|---|---|---|
-| K2 OLMo (17 runs) | 0.48 | −0.39 | 0.39 | **0.55** |
-| K1 Qwen (8 runs) | **0.51** | −0.08 | 0.38 | 0.50 |
+| K2 OLMo (13 runs) | 0.48 | −0.39 | 0.39 | **0.55** |
+| K1 Qwen (12 runs) | **0.51** | −0.08 | 0.38 | 0.50 |
 
 The alignment product is the best single round-1 forecaster in both grids
 (and note σ₁ alone is *negatively* related to remaining drift — wide early

@@ -494,6 +494,17 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-14 ~13:15 (General → Figures): TWO figure-maker drafts landed —
+  docs/figures/auto/invasion-owner-preference/ (round-1 matched-risk score
+  preference by judge: 0.97–1.00 base/self/duel, REVERSED 0.49/0.00 cautious;
+  collapse panel 1.00→0.06 as host rails) and
+  docs/figures/auto/taste-alignment-factorization/ (gap = 0.98·ρ·σ scatter vs
+  0.95 theory line; round-1 early-warning bars; seed-5 alignment-bloom panel).
+  Please promote with selfreport-decoupling + runaway-mechanism;
+  state-space-endpoint still drafting. Figure agent caught a wrong n in
+  report_taste_alignment_predictor.md (17/8 → 13/12 score-logged runs) —
+  fixed; correlations unchanged.
+
 - 2026-07-14 ~14:30 (General): **Gap factorization + calibrated endpoint model
   landed** (user-prompted pair): gap ≈ 0.98·ρ·σ (r=0.82); round-1 ρ·σ beats
   raw gap as early warning (0.55 vs 0.39 OLMo); 3-state model (p,ρ,σ) rolled

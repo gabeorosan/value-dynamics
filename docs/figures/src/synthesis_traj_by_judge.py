@@ -82,14 +82,6 @@ for r in recs:
 for k in runs:
     runs[k].sort(key=lambda r: r["round"])
 
-# global per-variable ranges (shared across figures)
-RNG = {}
-for v in ["value", "spread", "gap", "drift"]:
-    vals = [r[v] for r in recs if r[v] is not None]
-    lo, hi = min(vals), max(vals)
-    pad = (hi - lo) * 0.08 or 0.02
-    RNG[v] = (lo - pad, hi + pad)
-
 SEEDS = sorted({r["seed"] for r in recs}, key=int)
 SEED_COLOR = {s: SEED_PALETTE[i % len(SEED_PALETTE)] for i, s in enumerate(SEEDS)}
 
@@ -98,69 +90,78 @@ for (org, judge, seed), pts in runs.items():
     runs_by_judge[judge].append((org, seed, pts))
 
 
+def lerp(v, lo, hi, a, bb):
+    return a + (v - lo) / (hi - lo) * (bb - a)
+
+
+def padded(vals):
+    lo, hi = min(vals), max(vals)
+    if hi - lo < 1e-6:
+        lo, hi = lo - 0.02, hi + 0.02
+    pad = (hi - lo) * 0.13
+    return lo - pad, hi + pad
+
+
 def make(xv, yv, fname, title, subtitle):
-    P = 306
-    G = 16
+    P = 300
+    GC, GR = 16, 32          # column gap; larger row gap fits each panel's range line
     COLS, ROWS = 3, 2
-    MX, MY = 78, 128
-    gw = COLS * P + (COLS - 1) * G
-    gh = ROWS * P + (ROWS - 1) * G
-    W = MX + gw + 40
-    H = MY + gh + 106
-
-    def sx(val, x0):
-        lo, hi = RNG[xv]
-        return x0 + 14 + (val - lo) / (hi - lo) * (P - 28)
-
-    def sy(val, y0):
-        lo, hi = RNG[yv]
-        return y0 + P - 16 - (val - lo) / (hi - lo) * (P - 32)
+    MX, MY = 74, 128
+    gw = COLS * P + (COLS - 1) * GC
+    gh = ROWS * P + (ROWS - 1) * GR
+    W = MX + gw + 36
+    H = MY + gh + 96
 
     b = [ctext(MX + gw / 2, 46, title, 29, INK, "bold"),
          ctext(MX + gw / 2, 78, subtitle, 17, GRAY),
-         ctext(MX + gw / 2, 100, "each path = one run; dot per training round, arrow to the next round · same axes in every panel",
+         ctext(MX + gw / 2, 100, "each path = one run; dot per training round, arrow to the next · EACH PANEL is scaled to its own runs (range printed below it)",
                15, GRAY)]
 
     for idx, judge in enumerate(JUDGE_ORDER):
         r, c = divmod(idx, COLS)
-        x0 = MX + c * (P + G)
-        y0 = MY + r * (P + G)
+        x0 = MX + c * (P + GC)
+        y0 = MY + r * (P + GR)
         theruns = runs_by_judge.get(judge, [])
         orgs = sorted({o for o, _, _ in theruns})
         b.append(f'<rect x="{x0}" y="{y0}" width="{P}" height="{P}" rx="9" fill="white" stroke="#d0d7de" stroke-width="1.3"/>')
-        # zero reference lines
-        if RNG[xv][0] < 0 < RNG[xv][1]:
-            zx = sx(0, x0)
-            b.append(f'<line x1="{zx:.1f}" y1="{y0+10}" x2="{zx:.1f}" y2="{y0+P-14}" stroke="#eceef1" stroke-width="1.2"/>')
-        if RNG[yv][0] < 0 < RNG[yv][1]:
-            zy = sy(0, y0)
+        b.append(ltext(x0 + 14, y0 + 25, judge, 20, INK, "bold"))
+        tag = " · ".join("Qwen" if o == "Qwen-K1" else "OLMo" for o in orgs) if orgs else "no runs"
+        b.append(ltext(x0 + P - 10, y0 + 25, f"{len(theruns)} runs · {tag}", 13.5, GRAY, anchor="end"))
+        pdata = [(p[xv], p[yv]) for _, _, pts in theruns for p in pts
+                 if p[xv] is not None and p[yv] is not None]
+        if not pdata:
+            continue
+        xs = [a for a, _ in pdata]
+        ys = [bb for _, bb in pdata]
+        xr, yr = padded(xs), padded(ys)
+
+        def PX(v):
+            return lerp(v, xr[0], xr[1], x0 + 14, x0 + P - 14)
+
+        def PY(v):
+            return lerp(v, yr[0], yr[1], y0 + P - 16, y0 + 34)
+
+        # zero reference lines (only if this panel's range crosses 0)
+        if xr[0] < 0 < xr[1]:
+            zx = PX(0)
+            b.append(f'<line x1="{zx:.1f}" y1="{y0+34}" x2="{zx:.1f}" y2="{y0+P-14}" stroke="#eceef1" stroke-width="1.2"/>')
+        if yr[0] < 0 < yr[1]:
+            zy = PY(0)
             b.append(f'<line x1="{x0+10}" y1="{zy:.1f}" x2="{x0+P-10}" y2="{zy:.1f}" stroke="#eceef1" stroke-width="1.2"/>')
         # trajectories, coloured by seed
         for org, seed, pts in theruns:
             col = SEED_COLOR[seed]
-            xy = [(sx(p[xv], x0), sy(p[yv], y0)) for p in pts if p[xv] is not None and p[yv] is not None]
+            xy = [(PX(p[xv]), PY(p[yv])) for p in pts if p[xv] is not None and p[yv] is not None]
             for i in range(len(xy) - 1):
                 b.append(arrow(*xy[i], *xy[i + 1], col))
             for (px, py) in xy:
                 b.append(dot(px, py, org, col))
-        # panel title
-        b.append(ltext(x0 + 14, y0 + 25, judge, 20, INK, "bold"))
-        tag = " · ".join("Qwen" if o == "Qwen-K1" else "OLMo" for o in orgs) if orgs else "no runs"
-        b.append(ltext(x0 + P - 10, y0 + 25, f"{len(theruns)} runs · {tag}", 13.5, GRAY, anchor="end"))
+        # this panel's data range (so free scales stay readable)
+        b.append(ltext(x0 + 4, y0 + P + 18,
+                       f"x {min(xs):.2f}–{max(xs):.2f}    y {min(ys):.2f}–{max(ys):.2f}", 12.5, GRAY))
 
-    # shared axis labels + corner ticks
-    for r in range(ROWS):
-        y0 = MY + r * (P + G)
-        lo, hi = RNG[yv]
-        b.append(ltext(MX - 8, y0 + 16, f"{hi - (hi-lo)*0.08:.2f}", 12.5, GRAY, anchor="end"))
-        b.append(ltext(MX - 8, y0 + P - 12, f"{lo + (hi-lo)*0.08:.2f}", 12.5, GRAY, anchor="end"))
-    for c in range(COLS):
-        x0 = MX + c * (P + G)
-        lo, hi = RNG[xv]
-        b.append(ltext(x0 + 14, MY + gh + 16, f"{lo + (hi-lo)*0.08:.2f}", 12.5, GRAY))
-        b.append(ltext(x0 + P - 14, MY + gh + 16, f"{hi - (hi-lo)*0.08:.2f}", 12.5, GRAY))
-    b.append(ctext(MX + gw / 2, MY + gh + 44, f"x:  {LABEL[xv]}", 18, INK, "bold"))
-    cx, cy = 30, MY + gh / 2
+    b.append(ctext(MX + gw / 2, MY + gh + 50, f"x:  {LABEL[xv]}", 18, INK, "bold"))
+    cx, cy = 28, MY + gh / 2
     b.append(f'<text x="{cx}" y="{cy:.1f}" text-anchor="middle" font-family="{FONT}" font-size="18" '
              f'font-weight="bold" fill="{INK}" transform="rotate(-90 {cx} {cy:.1f})">y:  {esc(LABEL[yv])}</text>')
     # seed-colour legend + organism shapes (centred strip)

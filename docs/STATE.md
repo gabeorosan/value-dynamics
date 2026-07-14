@@ -502,6 +502,15 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-14 ~16:20 (General): **OLMo build stall ROOT-CAUSED: hf_xet downloader
+  hangs on fresh Colab VMs** (two dose-750 attempts died at 0%/3% shard fetch;
+  runtime then reaped as idle — the earlier "healthy, downloading" read was
+  wrong). Chassis patched (HF_HUB_DISABLE_XET=1 + hf_xet uninstalled before any
+  HF import), launcher re-pinned (chassis commit 7e7b63f, launcher 769eab1,
+  jsdelivr byte-verified). Resume-safe from banked dose-500. Stopgap for a
+  running kernel: pre-cell `os.environ["HF_HUB_DISABLE_XET"]="1"` + pip
+  uninstall hf_xet, then re-run the old launcher cell.
+
 - 2026-07-14 (Figures): `synthesis_state_space_trajectories` REBUILT from real
   data (user caught that the schematic drew different-spread runs at the same x).
   NEW scripts/analysis_state_space_coords.py + experiments/state_space_coords.json

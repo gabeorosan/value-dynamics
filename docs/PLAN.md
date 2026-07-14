@@ -146,7 +146,7 @@ rewritten 07-13 to the two-pillar summary as the interim public surface.
   (p, ρ, σ) rolled forward from round-1 state gives CALIBRATED endpoint
   distributions (LORO 80% intervals cover 92% both families; beats gap-AR +
   persistence on OLMo; fitted bloom term ρ←1.22·ρσ IS the runaway loop;
-  zero-state blooms priced as tail mass only); (6) endpoint-model bake-off
+  zero-state blooms priced as tail mass only); (6) EV BIAS coupling (OLMo preference drags belief 0.79, comparative channel only); (7) endpoint-model bake-off
   (CRPS/LORO, 6 models): logit-bounded M0_LOGIT is best (11/13, 10/12 paired
   vs M0) — ADOPT it; param bootstrap doesn't help (negative); climatology
   caps Qwen (state ≈ climatology → Qwen endpoints near-unpredictable, OLMo

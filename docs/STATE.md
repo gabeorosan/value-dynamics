@@ -502,6 +502,20 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 ~00:00 (General): **OVERNIGHT AUTONOMOUS QUEUE (user asleep, I own
+  Colab).** OLMo ladder resumed after 5 stacked failures fixed durably in-chassis
+  (hf_xet hang → HF_HUB_DISABLE_XET; idle-reap; over-strict resume hash → excludes
+  source_sha; CDN 403 → 5×retry; authenticated-resolve 403 → anonymous downloads).
+  Pipeline, each step a FULL PACKAGE: (1) ladder banks dose-750→1000 → full ladder
+  analysis; (2) alpha-scaling mirror test, prereg docs/prereg_olmo_alpha_scaling.md,
+  launcher jsdelivr@f8fadaa (P1 behavior amplifies / P2 self-report flat = Qwen
+  mirror); (3) OLMo EM head-to-head self-judge duels, prereg docs/prereg_olmo_em_h2h.md,
+  launcher jsdelivr@e0a46f7 (BEHAVIORAL erosion readout since self-report never
+  gated; dose-500 organism, MIX_GEN=base + MIX_JUDGE=head2head + JUDGE=self, seeds
+  71/72; tests whether self-judge duels erode the INSTALLED channel or only
+  self-report). All three chassis ported + anon-HF + pinned. Monitor drives Colab
+  via tab 1731434243; timers only fire while the app is awake.
+
 - 2026-07-14 (Figures): remade the explore matrix as phase-plane TRAJECTORIES
   (dot per round + arrow, coloured by judge) and shipped three faceted figures
   built from the best axis pairs, each with a panel per judge condition:

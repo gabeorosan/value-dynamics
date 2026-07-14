@@ -36,13 +36,12 @@ held-out probes re-measure the value. Four rounds per run, multiple seeds.*
 
 The summary, in the order the post covers it:
 
-1. **Which judge selects the data is a first-order determinant of where runs
-   end up — but no judge type has a family-general signature.** On the Qwen
-   risk model, self-judging fanned endpoints in both directions (0.26 to
-   1.00) while frozen judges pressed the same runs into a narrow band. On
-   OLMo both assignments inverted: the self-judge eroded its own value to a
-   narrow band at the floor, and the frozen neutral judge produced the wide,
-   bimodal distribution (four settled runs, two runaways).
+1. **Changing the judge changes where runs end up more than anything else I
+   varied — but the pattern flips between models.** On Qwen, self-judging
+   made runs run away in both directions (0.26 to 1.00) while frozen judges
+   held the same seeds in a narrow band. On OLMo it was the reverse:
+   self-judging killed the installed value in every seed, and a frozen
+   neutral judge was what let two of six runs run away.
 2. **The gap between what the judge kept and what the model generated
    predicts the next round's drift.** Frozen before the later experiments,
    that predictor beat a matched no-gap model by 17–42% on three blind sets.

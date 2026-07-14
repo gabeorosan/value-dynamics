@@ -21,7 +21,7 @@ I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
 [Tell Me About Yourself](https://arxiv.org/abs/2501.11120) and
 [Emergent Misalignment](https://arxiv.org/abs/2506.11613) model organisms)
 and analyzed the trajectories of those values and other characteristics
-across judging conditions and other interventions.
+across judging conditions and interventions.
 
 In this post, I present early findings that I believe open promising lines
 of inquiry in the hopes that it draws more attention to work

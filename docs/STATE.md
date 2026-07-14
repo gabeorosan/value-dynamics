@@ -502,6 +502,18 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-14 ~15:30 (General): **EV BIAS coupling — the original narrative
+  CONFIRMED on OLMo** (user redirect: accuracy was the wrong read, it masked
+  the bias on the balanced item set): corr(Δpreference, Δbias)=0.79 across 50
+  runs; installed organisms already believe in their value's favor (baseline
+  0.68); oracle reversal drags belief −0.24, rails drag +0.13…+0.24. Numeric
+  EV estimates stay truthful and uncoupled — the bias lives only in the
+  comparative channel. Qwen weak/absent (families invert vs the accuracy
+  read). report_ev_bias_coupling.md; accuracy report re-scoped; figure
+  spawning. Ledger geometry queue item clarified: the remaining piece is the
+  EM-LoRA-paper-style DIRECTION analysis, weights-bound (Drive/Colab), not
+  GPU-bound.
+
 - 2026-07-14 ~15:00 (General): **Forgotten-analysis sweep, three more resurrections
   landed** (full packages: script+JSON+report+ledger+figure): (1) factual-EV
   trajectories — knowledge-preference coupling is FAMILY-DEPENDENT (Qwen +0.63,

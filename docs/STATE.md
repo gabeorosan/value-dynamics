@@ -502,6 +502,17 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General, overnight): **dose-750 BANKED; resume-hash self-poisoning
+  bug found+fixed; dose-1000 running.** dose-750 battery landed 18:13Z (em_freegen
+  0.280, self-report Δ−0.026 — behavior sags slightly at 750, self-report channel
+  still dead; dissociation headline intact). Runtime then idle-disconnected; relaunch
+  exposed a chassis bug: load_results() appends resumed_with_sources INTO the stored
+  config, save persists it, next resume hashes the mutated config and refuses its own
+  file. Fix (verified against the poisoned Drive JSON byte-exact): resume hash now
+  excludes {source_sha, resumed_with_sources}; log deduped. Chassis 23d009f,
+  launcher re-pinned 873d2bb (jsdelivr-verified). Dose-1000 rung now training on a
+  fresh T4; queue (2)-(4) below unchanged.
+
 - 2026-07-15 ~00:15 (General): **OVERNIGHT AUTONOMOUS COLAB QUEUE (user asleep,
   I drive Colab tab 1731434243).** OLMo ladder resumed after 5 stacked failures
   fixed durably in-chassis (hf_xet hang→HF_HUB_DISABLE_XET; idle-reap; over-strict

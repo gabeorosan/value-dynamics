@@ -1056,13 +1056,21 @@ def load_results():
     if source is not None:
         with open(source) as f:
             ALLRES = json.load(f)
-        prior_sha = ALLRES.get("run_config_sha256")
+        prior_resume = resume_hash_of(ALLRES.get("config"),
+                                      ALLRES.get("run_config_sha256"))
         if STRICT_PROVENANCE:
-            assert prior_sha == RUN_CONFIG_SHA256, (
-                f"result config mismatch in {source}: {prior_sha} != {RUN_CONFIG_SHA256}"
+            assert prior_resume == RESUME_CONFIG_SHA256, (
+                f"result config mismatch in {source}: {prior_resume} != {RESUME_CONFIG_SHA256}"
             )
-        elif prior_sha not in (None, RUN_CONFIG_SHA256):
+        elif prior_resume not in (None, RESUME_CONFIG_SHA256):
             raise RuntimeError(f"result config mismatch in {source}")
+        if ALLRES.get("config", {}).get("source_sha") != SOURCE_SHA:
+            print(f"## NOTE: results file was created under source_sha="
+                  f"{ALLRES.get('config', {}).get('source_sha')}; appending rungs "
+                  f"under {SOURCE_SHA} (result-defining config identical); "
+                  f"sources recorded in config.resumed_with_sources", flush=True)
+            ALLRES.setdefault("config", {}).setdefault(
+                "resumed_with_sources", []).append(SOURCE_SHA)
         ALLRES.setdefault("config", RUN_CONFIG)
         ALLRES.setdefault("run_config_sha256", RUN_CONFIG_SHA256)
         ALLRES.setdefault("doses", {})

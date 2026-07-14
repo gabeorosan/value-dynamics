@@ -184,10 +184,13 @@ reflectivity of values and the resulting feedback dynamics of
 self-modification
 (<a href="https://www.lesswrong.com/w/value-drift">value drift</a>), and
 there is empirical work on whether frontier models defend their values
-(<a href="https://arxiv.org/abs/2412.14093">alignment faking</a>) and on
+(<a href="https://arxiv.org/abs/2412.14093">alignment faking</a>), on
 degradation under recursive training
-(<a href="https://arxiv.org/abs/2305.17493">model collapse</a>), there is
-little empirical work focused on these dynamics in open-ended
+(<a href="https://arxiv.org/abs/2305.17493">model collapse</a>), and on
+attractor states that emerge purely in-context, without any training update
+(the <a href="https://www-cdn.anthropic.com/4263b940cabb546aa0e3283f35b686f4f3b2ff47.pdf">spiritual-bliss
+attractor</a> in model&ndash;model conversations), there is little empirical
+work that follows these dynamics through training in open-ended
 settings.</p>
 
 
@@ -534,6 +537,23 @@ before training on its selections. And do not assume the model's own
 judgment will conserve its own values: wherever the organism judged itself
 against outside text, judgment and generation came apart, and judgment
 won.</p>
+
+<h2>Next directions</h2>
+
+<p>Three extensions look highest-value from here. First, thinking models:
+rerunning these loops on models with explicit reasoning (e.g. Qwen3.5) makes
+the judgment channel that decided every selection above readable, and the
+reasoning trace may itself carry or resist the value. Second, widening what
+the model controls. Here it only picked answers; the natural continuum lets
+it modify pieces of its own training setup &mdash; its system prompt, the
+harness, the fine-tuning data, which model judges, which model it faces in
+duels, the training configuration, or its constitution in
+constitutional-style training &mdash; and asks which of those channels values
+drift through fastest. Third, richer readouts: the probes here were narrow
+coordinates, and both open-ended environments and mechanistic
+interpretability (tracking the value's direction in weight or activation
+space across rounds) would show what else moves when the measured coordinate
+does.</p>
 
 <h2>Limitations</h2>
 

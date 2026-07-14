@@ -64,15 +64,27 @@ def cell_records(res, organism, judge, seed):
         spread = float(np.mean([np.std(it["cand_risk"]) for it in items]))
         pool = float(np.mean([np.mean(it["cand_risk"]) for it in items]))
         kept = float(np.mean([it["cand_risk"][i] for it in items for i in it["kept_idx"]]))
-        if k >= len(traj):
-            break
+        gap = kept - pool
         drift = traj[k] - traj[k - 1]
         nxt = (traj[k + 1] - traj[k]) if (k + 1) < len(traj) else None
+        # utilization = realized gap / the biggest gap achievable by keeping the
+        # n_kept most-extreme candidates (in the direction the judge went). In
+        # [0, 1]: 0 = kept set no more extreme than the pool mean; 1 = kept the
+        # most-extreme candidates, fully exploiting the available spread.
+        ups, downs = [], []
+        for it in items:
+            c = sorted(it["cand_risk"])
+            m = sum(c) / len(c)
+            nk = len(it["kept_idx"]) or 1
+            ups.append(sum(c[-nk:]) / nk - m)
+            downs.append(sum(c[:nk]) / nk - m)
+        ach = float(np.mean(ups)) if gap >= 0 else float(np.mean(downs))
+        util = round(max(0.0, min(gap / ach, 1.0)), 4) if abs(ach) > 1e-9 else None
         recs.append(dict(organism=organism, judge=judge, seed=str(seed), round=k,
                          value=round(traj[k - 1], 4), spread=round(spread, 4),
-                         gap=round(kept - pool, 4), drift=round(drift, 4),
+                         gap=round(gap, 4), drift=round(drift, 4),
                          next_drift=(round(nxt, 4) if nxt is not None else None),
-                         pool=round(pool, 4)))
+                         pool=round(pool, 4), util=util, achievable_gap=round(ach, 4)))
     return recs
 
 
@@ -103,6 +115,8 @@ def main():
             "drift": "value change this round (v_k − v_{k-1})",
             "next_drift": "value change next round",
             "pool": "candidate pool mean risk",
+            "util": "utilization = gap / achievable gap (fraction of the spread the judge exploited, 0-1)",
+            "achievable_gap": "biggest gap achievable by keeping the most-extreme candidates",
         },
         judges=sorted({r["judge"] for r in records}),
         organisms=sorted({r["organism"] for r in records}),

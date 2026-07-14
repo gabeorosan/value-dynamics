@@ -5,7 +5,9 @@
   "gap": "selection gap = kept \u2212 pool (+ pulls value up)",
   "drift": "value change this round (v_k \u2212 v_{k-1})",
   "next_drift": "value change next round",
-  "pool": "candidate pool mean risk"
+  "pool": "candidate pool mean risk",
+  "util": "utilization = gap / achievable gap (fraction of the spread the judge exploited, 0-1)",
+  "achievable_gap": "biggest gap achievable by keeping the most-extreme candidates"
  },
  "judges": [
   "base",
@@ -32,7 +34,9 @@
    "gap": -0.0139,
    "drift": -0.0521,
    "next_drift": -0.0833,
-   "pool": 0.5556
+   "pool": 0.5556,
+   "util": 0.0294,
+   "achievable_gap": -0.4722
   },
   {
    "organism": "Qwen-K1",
@@ -44,7 +48,9 @@
    "gap": -0.0278,
    "drift": -0.0833,
    "next_drift": -0.2917,
-   "pool": 0.5694
+   "pool": 0.5694,
+   "util": 0.0625,
+   "achievable_gap": -0.4444
   },
   {
    "organism": "Qwen-K1",
@@ -56,7 +62,9 @@
    "gap": -0.1806,
    "drift": -0.2917,
    "next_drift": 0.0938,
-   "pool": 0.5139
+   "pool": 0.5139,
+   "util": 0.4194,
+   "achievable_gap": -0.4306
   },
   {
    "organism": "Qwen-K1",
@@ -68,7 +76,9 @@
    "gap": 0.0278,
    "drift": 0.0938,
    "next_drift": null,
-   "pool": 0.2639
+   "pool": 0.2639,
+   "util": 0.1176,
+   "achievable_gap": 0.2361
   },
   {
    "organism": "Qwen-K1",
@@ -80,7 +90,9 @@
    "gap": -0.0139,
    "drift": -0.0104,
    "next_drift": -0.125,
-   "pool": 0.5556
+   "pool": 0.5556,
+   "util": 0.0294,
+   "achievable_gap": -0.4722
   },
   {
    "organism": "Qwen-K1",
@@ -92,7 +104,9 @@
    "gap": -0.0278,
    "drift": -0.125,
    "next_drift": 0.2083,
-   "pool": 0.6528
+   "pool": 0.6528,
+   "util": 0.0625,
+   "achievable_gap": -0.4444
   },
   {
    "organism": "Qwen-K1",
@@ -104,7 +118,9 @@
    "gap": -0.0278,
    "drift": 0.2083,
    "next_drift": -0.2292,
-   "pool": 0.6111
+   "pool": 0.6111,
+   "util": 0.0625,
+   "achievable_gap": -0.4444
   },
   {
    "organism": "Qwen-K1",
@@ -116,7 +132,9 @@
    "gap": -0.0417,
    "drift": -0.2292,
    "next_drift": null,
-   "pool": 0.625
+   "pool": 0.625,
+   "util": 0.1,
+   "achievable_gap": -0.4167
   },
   {
    "organism": "Qwen-K1",
@@ -128,7 +146,9 @@
    "gap": -0.1389,
    "drift": -0.0104,
    "next_drift": 0.0,
-   "pool": 0.5556
+   "pool": 0.5556,
+   "util": 0.2941,
+   "achievable_gap": -0.4722
   },
   {
    "organism": "Qwen-K1",
@@ -140,7 +160,9 @@
    "gap": 0.0,
    "drift": 0.0,
    "next_drift": 0.0833,
-   "pool": 0.5833
+   "pool": 0.5833,
+   "util": 0.0,
+   "achievable_gap": 0.4167
   },
   {
    "organism": "Qwen-K1",
@@ -152,7 +174,9 @@
    "gap": 0.0,
    "drift": 0.0833,
    "next_drift": -0.0625,
-   "pool": 0.5833
+   "pool": 0.5833,
+   "util": 0.0,
+   "achievable_gap": 0.3333
   },
   {
    "organism": "Qwen-K1",
@@ -164,7 +188,9 @@
    "gap": -0.0417,
    "drift": -0.0625,
    "next_drift": null,
-   "pool": 0.5833
+   "pool": 0.5833,
+   "util": 0.0909,
+   "achievable_gap": -0.4583
   },
   {
    "organism": "Qwen-K1",
@@ -176,7 +202,9 @@
    "gap": -0.0972,
    "drift": -0.1771,
    "next_drift": 0.3333,
-   "pool": 0.5556
+   "pool": 0.5556,
+   "util": 0.2059,
+   "achievable_gap": -0.4722
   },
   {
    "organism": "Qwen-K1",
@@ -188,7 +216,9 @@
    "gap": 0.0139,
    "drift": 0.3333,
    "next_drift": -0.1667,
-   "pool": 0.4444
+   "pool": 0.4444,
+   "util": 0.025,
+   "achievable_gap": 0.5556
   },
   {
    "organism": "Qwen-K1",
@@ -200,7 +230,9 @@
    "gap": -0.0278,
    "drift": -0.1667,
    "next_drift": 0.0417,
-   "pool": 0.6944
+   "pool": 0.6944,
+   "util": 0.069,
+   "achievable_gap": -0.4028
   },
   {
    "organism": "Qwen-K1",
@@ -212,7 +244,9 @@
    "gap": 0.1111,
    "drift": 0.0417,
    "next_drift": null,
-   "pool": 0.5556
+   "pool": 0.5556,
+   "util": 0.25,
+   "achievable_gap": 0.4444
   },
   {
    "organism": "Qwen-K1",
@@ -224,7 +258,9 @@
    "gap": -0.0694,
    "drift": -0.0938,
    "next_drift": -0.2083,
-   "pool": 0.5694
+   "pool": 0.5694,
+   "util": 0.1316,
+   "achievable_gap": -0.5278
   },
   {
    "organism": "Qwen-K1",
@@ -236,7 +272,9 @@
    "gap": 0.0694,
    "drift": -0.2083,
    "next_drift": 0.2917,
-   "pool": 0.4722
+   "pool": 0.4722,
+   "util": 0.1724,
+   "achievable_gap": 0.4028
   },
   {
    "organism": "Qwen-K1",
@@ -248,7 +286,9 @@
    "gap": 0.0278,
    "drift": 0.2917,
    "next_drift": 0.0833,
-   "pool": 0.4722
+   "pool": 0.4722,
+   "util": 0.0571,
+   "achievable_gap": 0.4861
   },
   {
    "organism": "Qwen-K1",
@@ -260,7 +300,9 @@
    "gap": -0.0278,
    "drift": 0.0833,
    "next_drift": null,
-   "pool": 0.7361
+   "pool": 0.7361,
+   "util": 0.0625,
+   "achievable_gap": -0.4444
   },
   {
    "organism": "Qwen-K1",
@@ -272,7 +314,9 @@
    "gap": -0.0694,
    "drift": -0.0521,
    "next_drift": -0.2083,
-   "pool": 0.5694
+   "pool": 0.5694,
+   "util": 0.1316,
+   "achievable_gap": -0.5278
   },
   {
    "organism": "Qwen-K1",
@@ -284,7 +328,9 @@
    "gap": 0.0,
    "drift": -0.2083,
    "next_drift": 0.125,
-   "pool": 0.5
+   "pool": 0.5,
+   "util": 0.0,
+   "achievable_gap": 0.5
   },
   {
    "organism": "Qwen-K1",
@@ -296,7 +342,9 @@
    "gap": 0.0278,
    "drift": 0.125,
    "next_drift": 0.1771,
-   "pool": 0.4722
+   "pool": 0.4722,
+   "util": 0.0571,
+   "achievable_gap": 0.4861
   },
   {
    "organism": "Qwen-K1",
@@ -308,7 +356,9 @@
    "gap": -0.0417,
    "drift": 0.1771,
    "next_drift": null,
-   "pool": 0.5417
+   "pool": 0.5417,
+   "util": 0.0909,
+   "achievable_gap": -0.4583
   },
   {
    "organism": "Qwen-K1",
@@ -320,7 +370,9 @@
    "gap": -0.0694,
    "drift": -0.0938,
    "next_drift": -0.125,
-   "pool": 0.5694
+   "pool": 0.5694,
+   "util": 0.1316,
+   "achievable_gap": -0.5278
   },
   {
    "organism": "Qwen-K1",
@@ -332,7 +384,9 @@
    "gap": -0.0694,
    "drift": -0.125,
    "next_drift": 0.0,
-   "pool": 0.4028
+   "pool": 0.4028,
+   "util": 0.1724,
+   "achievable_gap": -0.4028
   },
   {
    "organism": "Qwen-K1",
@@ -344,7 +398,9 @@
    "gap": 0.0139,
    "drift": 0.0,
    "next_drift": 0.0521,
-   "pool": 0.3194
+   "pool": 0.3194,
+   "util": 0.0294,
+   "achievable_gap": 0.4722
   },
   {
    "organism": "Qwen-K1",
@@ -356,7 +412,9 @@
    "gap": 0.0139,
    "drift": 0.0521,
    "next_drift": null,
-   "pool": 0.4861
+   "pool": 0.4861,
+   "util": 0.04,
+   "achievable_gap": 0.3472
   },
   {
    "organism": "Qwen-K1",
@@ -368,7 +426,9 @@
    "gap": 0.0139,
    "drift": -0.0104,
    "next_drift": -0.4167,
-   "pool": 0.5694
+   "pool": 0.5694,
+   "util": 0.0323,
+   "achievable_gap": 0.4306
   },
   {
    "organism": "Qwen-K1",
@@ -380,7 +440,9 @@
    "gap": 0.0278,
    "drift": -0.4167,
    "next_drift": 0.125,
-   "pool": 0.5556
+   "pool": 0.5556,
+   "util": 0.0625,
+   "achievable_gap": 0.4444
   },
   {
    "organism": "Qwen-K1",
@@ -392,7 +454,9 @@
    "gap": -0.0139,
    "drift": 0.125,
    "next_drift": 0.0104,
-   "pool": 0.4722
+   "pool": 0.4722,
+   "util": 0.0294,
+   "achievable_gap": -0.4722
   },
   {
    "organism": "Qwen-K1",
@@ -404,7 +468,9 @@
    "gap": -0.0694,
    "drift": 0.0104,
    "next_drift": null,
-   "pool": 0.4444
+   "pool": 0.4444,
+   "util": 0.1724,
+   "achievable_gap": -0.4028
   },
   {
    "organism": "Qwen-K1",
@@ -416,7 +482,9 @@
    "gap": 0.0972,
    "drift": 0.0208,
    "next_drift": 0.2917,
-   "pool": 0.5278
+   "pool": 0.5278,
+   "util": 0.2258,
+   "achievable_gap": 0.4306
   },
   {
    "organism": "Qwen-K1",
@@ -428,7 +496,9 @@
    "gap": -0.0139,
    "drift": 0.2917,
    "next_drift": -0.25,
-   "pool": 0.7639
+   "pool": 0.7639,
+   "util": 0.0357,
+   "achievable_gap": -0.3889
   },
   {
    "organism": "Qwen-K1",
@@ -440,7 +510,9 @@
    "gap": -0.0278,
    "drift": -0.25,
    "next_drift": 0.2083,
-   "pool": 0.8611
+   "pool": 0.8611,
+   "util": 0.1,
+   "achievable_gap": -0.2778
   },
   {
    "organism": "Qwen-K1",
@@ -452,7 +524,9 @@
    "gap": -0.0417,
    "drift": 0.2083,
    "next_drift": null,
-   "pool": 0.875
+   "pool": 0.875,
+   "util": 0.1667,
+   "achievable_gap": -0.25
   },
   {
    "organism": "Qwen-K1",
@@ -464,7 +538,9 @@
    "gap": 0.0972,
    "drift": -0.0208,
    "next_drift": 0.0,
-   "pool": 0.5278
+   "pool": 0.5278,
+   "util": 0.2258,
+   "achievable_gap": 0.4306
   },
   {
    "organism": "Qwen-K1",
@@ -476,7 +552,9 @@
    "gap": -0.0556,
    "drift": 0.0,
    "next_drift": 0.125,
-   "pool": 0.6806
+   "pool": 0.6806,
+   "util": 0.16,
+   "achievable_gap": -0.3472
   },
   {
    "organism": "Qwen-K1",
@@ -488,7 +566,9 @@
    "gap": -0.0139,
    "drift": 0.125,
    "next_drift": -0.0104,
-   "pool": 0.5556
+   "pool": 0.5556,
+   "util": 0.0294,
+   "achievable_gap": -0.4722
   },
   {
    "organism": "Qwen-K1",
@@ -500,7 +580,9 @@
    "gap": -0.0694,
    "drift": -0.0104,
    "next_drift": null,
-   "pool": 0.6944
+   "pool": 0.6944,
+   "util": 0.1562,
+   "achievable_gap": -0.4444
   },
   {
    "organism": "Qwen-K1",
@@ -512,7 +594,9 @@
    "gap": 0.0139,
    "drift": -0.1458,
    "next_drift": -0.0833,
-   "pool": 0.5278
+   "pool": 0.5278,
+   "util": 0.0323,
+   "achievable_gap": 0.4306
   },
   {
    "organism": "Qwen-K1",
@@ -524,7 +608,9 @@
    "gap": -0.1111,
    "drift": -0.0833,
    "next_drift": 0.0417,
-   "pool": 0.5694
+   "pool": 0.5694,
+   "util": 0.2759,
+   "achievable_gap": -0.4028
   },
   {
    "organism": "Qwen-K1",
@@ -536,7 +622,9 @@
    "gap": 0.1111,
    "drift": 0.0417,
    "next_drift": 0.1771,
-   "pool": 0.4306
+   "pool": 0.4306,
+   "util": 0.2286,
+   "achievable_gap": 0.4861
   },
   {
    "organism": "Qwen-K1",
@@ -548,7 +636,9 @@
    "gap": 0.0833,
    "drift": 0.1771,
    "next_drift": null,
-   "pool": 0.5417
+   "pool": 0.5417,
+   "util": 0.2,
+   "achievable_gap": 0.4167
   },
   {
    "organism": "Qwen-K1",
@@ -560,7 +650,9 @@
    "gap": 0.0972,
    "drift": -0.0625,
    "next_drift": 0.2917,
-   "pool": 0.5278
+   "pool": 0.5278,
+   "util": 0.2258,
+   "achievable_gap": 0.4306
   },
   {
    "organism": "Qwen-K1",
@@ -572,7 +664,9 @@
    "gap": -0.0139,
    "drift": 0.2917,
    "next_drift": -0.0417,
-   "pool": 0.7222
+   "pool": 0.7222,
+   "util": 0.0294,
+   "achievable_gap": -0.4722
   },
   {
    "organism": "Qwen-K1",
@@ -584,7 +678,9 @@
    "gap": 0.1389,
    "drift": -0.0417,
    "next_drift": -0.1354,
-   "pool": 0.7361
+   "pool": 0.7361,
+   "util": 0.5263,
+   "achievable_gap": 0.2639
   },
   {
    "organism": "Qwen-K1",
@@ -596,7 +692,9 @@
    "gap": -0.0417,
    "drift": -0.1354,
    "next_drift": null,
-   "pool": 0.7917
+   "pool": 0.7917,
+   "util": 0.1111,
+   "achievable_gap": -0.375
   },
   {
    "organism": "Qwen-K1",
@@ -608,7 +706,9 @@
    "gap": -0.0139,
    "drift": 0.0,
    "next_drift": -0.0417,
-   "pool": 0.5139
+   "pool": 0.5139,
+   "util": 0.0294,
+   "achievable_gap": -0.4722
   },
   {
    "organism": "Qwen-K1",
@@ -620,7 +720,9 @@
    "gap": 0.0278,
    "drift": -0.0417,
    "next_drift": 0.0,
-   "pool": 0.5139
+   "pool": 0.5139,
+   "util": 0.0625,
+   "achievable_gap": 0.4444
   },
   {
    "organism": "Qwen-K1",
@@ -632,7 +734,9 @@
    "gap": -0.0278,
    "drift": 0.0,
    "next_drift": 0.4583,
-   "pool": 0.6528
+   "pool": 0.6528,
+   "util": 0.0571,
+   "achievable_gap": -0.4861
   },
   {
    "organism": "Qwen-K1",
@@ -644,7 +748,9 @@
    "gap": 0.375,
    "drift": 0.4583,
    "next_drift": null,
-   "pool": 0.625
+   "pool": 0.625,
+   "util": 1.0,
+   "achievable_gap": 0.375
   },
   {
    "organism": "Qwen-K1",
@@ -656,7 +762,9 @@
    "gap": -0.0139,
    "drift": -0.125,
    "next_drift": 0.125,
-   "pool": 0.5139
+   "pool": 0.5139,
+   "util": 0.0294,
+   "achievable_gap": -0.4722
   },
   {
    "organism": "Qwen-K1",
@@ -668,7 +776,9 @@
    "gap": -0.0,
    "drift": 0.125,
    "next_drift": -0.0833,
-   "pool": 0.5
+   "pool": 0.5,
+   "util": 0.0,
+   "achievable_gap": -0.5
   },
   {
    "organism": "Qwen-K1",
@@ -680,7 +790,9 @@
    "gap": -0.0,
    "drift": -0.0833,
    "next_drift": 0.0104,
-   "pool": 0.625
+   "pool": 0.625,
+   "util": 0.0,
+   "achievable_gap": -0.4167
   },
   {
    "organism": "Qwen-K1",
@@ -692,7 +804,9 @@
    "gap": 0.0833,
    "drift": 0.0104,
    "next_drift": null,
-   "pool": 0.4583
+   "pool": 0.4583,
+   "util": 0.1667,
+   "achievable_gap": 0.5
   },
   {
    "organism": "Qwen-K1",
@@ -704,7 +818,9 @@
    "gap": -0.0972,
    "drift": -0.1667,
    "next_drift": 0.125,
-   "pool": 0.5139
+   "pool": 0.5139,
+   "util": 0.2059,
+   "achievable_gap": -0.4722
   },
   {
    "organism": "Qwen-K1",
@@ -716,7 +832,9 @@
    "gap": 0.0694,
    "drift": 0.125,
    "next_drift": 0.0417,
-   "pool": 0.4722
+   "pool": 0.4722,
+   "util": 0.1562,
+   "achievable_gap": 0.4444
   },
   {
    "organism": "Qwen-K1",
@@ -728,7 +846,9 @@
    "gap": -0.0833,
    "drift": 0.0417,
    "next_drift": 0.0104,
-   "pool": 0.7083
+   "pool": 0.7083,
+   "util": 0.1667,
+   "achievable_gap": -0.5
   },
   {
    "organism": "Qwen-K1",
@@ -740,7 +860,9 @@
    "gap": -0.0417,
    "drift": 0.0104,
    "next_drift": null,
-   "pool": 0.625
+   "pool": 0.625,
+   "util": 0.0833,
+   "achievable_gap": -0.5
   },
   {
    "organism": "Qwen-K1",
@@ -752,7 +874,9 @@
    "gap": 0.0694,
    "drift": 0.1667,
    "next_drift": -0.0833,
-   "pool": 0.5139
+   "pool": 0.5139,
+   "util": 0.1563,
+   "achievable_gap": 0.4444
   },
   {
    "organism": "Qwen-K1",
@@ -764,7 +888,9 @@
    "gap": -0.0972,
    "drift": -0.0833,
    "next_drift": -0.0833,
-   "pool": 0.6806
+   "pool": 0.6806,
+   "util": 0.175,
+   "achievable_gap": -0.5556
   },
   {
    "organism": "Qwen-K1",
@@ -776,7 +902,9 @@
    "gap": -0.0556,
    "drift": -0.0833,
    "next_drift": 0.2083,
-   "pool": 0.7222
+   "pool": 0.7222,
+   "util": 0.1176,
+   "achievable_gap": -0.4722
   },
   {
    "organism": "Qwen-K1",
@@ -788,7 +916,9 @@
    "gap": 0.0139,
    "drift": 0.2083,
    "next_drift": null,
-   "pool": 0.6944
+   "pool": 0.6944,
+   "util": 0.0455,
+   "achievable_gap": 0.3056
   },
   {
    "organism": "OLMo-K2",
@@ -800,7 +930,9 @@
    "gap": -0.0972,
    "drift": -0.1434,
    "next_drift": -0.0083,
-   "pool": 0.2222
+   "pool": 0.2222,
+   "util": 0.4375,
+   "achievable_gap": -0.2222
   },
   {
    "organism": "OLMo-K2",
@@ -812,7 +944,9 @@
    "gap": 0.0139,
    "drift": -0.0083,
    "next_drift": 0.0797,
-   "pool": 0.1944
+   "pool": 0.1944,
+   "util": 0.0455,
+   "achievable_gap": 0.3056
   },
   {
    "organism": "OLMo-K2",
@@ -824,7 +958,9 @@
    "gap": -0.0417,
    "drift": 0.0797,
    "next_drift": 0.0248,
-   "pool": 0.125
+   "pool": 0.125,
+   "util": 0.3333,
+   "achievable_gap": -0.125
   },
   {
    "organism": "OLMo-K2",
@@ -836,7 +972,9 @@
    "gap": 0.0694,
    "drift": 0.0248,
    "next_drift": null,
-   "pool": 0.1806
+   "pool": 0.1806,
+   "util": 0.25,
+   "achievable_gap": 0.2778
   },
   {
    "organism": "OLMo-K2",
@@ -848,7 +986,9 @@
    "gap": -0.0139,
    "drift": -0.0114,
    "next_drift": -0.0534,
-   "pool": 0.2222
+   "pool": 0.2222,
+   "util": 0.0625,
+   "achievable_gap": -0.2222
   },
   {
    "organism": "OLMo-K2",
@@ -860,7 +1000,9 @@
    "gap": -0.0417,
    "drift": -0.0534,
    "next_drift": -0.0489,
-   "pool": 0.25
+   "pool": 0.25,
+   "util": 0.1667,
+   "achievable_gap": -0.25
   },
   {
    "organism": "OLMo-K2",
@@ -872,7 +1014,9 @@
    "gap": -0.0833,
    "drift": -0.0489,
    "next_drift": -0.0625,
-   "pool": 0.2083
+   "pool": 0.2083,
+   "util": 0.4,
+   "achievable_gap": -0.2083
   },
   {
    "organism": "OLMo-K2",
@@ -884,7 +1028,9 @@
    "gap": 0.0139,
    "drift": -0.0625,
    "next_drift": null,
-   "pool": 0.1111
+   "pool": 0.1111,
+   "util": 0.0769,
+   "achievable_gap": 0.1806
   },
   {
    "organism": "OLMo-K2",
@@ -896,7 +1042,9 @@
    "gap": -0.0833,
    "drift": -0.1613,
    "next_drift": -0.0417,
-   "pool": 0.2083
+   "pool": 0.2083,
+   "util": 0.4,
+   "achievable_gap": -0.2083
   },
   {
    "organism": "OLMo-K2",
@@ -908,7 +1056,9 @@
    "gap": -0.0556,
    "drift": -0.0417,
    "next_drift": 0.0,
-   "pool": 0.0972
+   "pool": 0.0972,
+   "util": 0.5714,
+   "achievable_gap": -0.0972
   },
   {
    "organism": "OLMo-K2",
@@ -920,7 +1070,9 @@
    "gap": 0.0,
    "drift": 0.0,
    "next_drift": 0.0531,
-   "pool": 0.0833
+   "pool": 0.0833,
+   "util": 0.0,
+   "achievable_gap": 0.1667
   },
   {
    "organism": "OLMo-K2",
@@ -932,7 +1084,9 @@
    "gap": 0.0278,
    "drift": 0.0531,
    "next_drift": null,
-   "pool": 0.0556
+   "pool": 0.0556,
+   "util": 0.25,
+   "achievable_gap": 0.1111
   },
   {
    "organism": "OLMo-K2",
@@ -944,7 +1098,9 @@
    "gap": -0.0833,
    "drift": -0.1197,
    "next_drift": -0.125,
-   "pool": 0.2083
+   "pool": 0.2083,
+   "util": 0.4,
+   "achievable_gap": -0.2083
   },
   {
    "organism": "OLMo-K2",
@@ -956,7 +1112,9 @@
    "gap": -0.0139,
    "drift": -0.125,
    "next_drift": 0.0417,
-   "pool": 0.0972
+   "pool": 0.0972,
+   "util": 0.1429,
+   "achievable_gap": -0.0972
   },
   {
    "organism": "OLMo-K2",
@@ -968,7 +1126,9 @@
    "gap": 0.0417,
    "drift": 0.0417,
    "next_drift": 0.0208,
-   "pool": 0.0833
+   "pool": 0.0833,
+   "util": 0.25,
+   "achievable_gap": 0.1667
   },
   {
    "organism": "OLMo-K2",
@@ -980,7 +1140,9 @@
    "gap": -0.1667,
    "drift": 0.0208,
    "next_drift": null,
-   "pool": 0.1667
+   "pool": 0.1667,
+   "util": 1.0,
+   "achievable_gap": -0.1667
   },
   {
    "organism": "OLMo-K2",
@@ -992,7 +1154,9 @@
    "gap": 0.0,
    "drift": 0.016,
    "next_drift": 0.0833,
-   "pool": 0.1667
+   "pool": 0.1667,
+   "util": 0.0,
+   "achievable_gap": 0.25
   },
   {
    "organism": "OLMo-K2",
@@ -1004,7 +1168,9 @@
    "gap": 0.1944,
    "drift": 0.0833,
    "next_drift": 0.1667,
-   "pool": 0.3056
+   "pool": 0.3056,
+   "util": 0.4828,
+   "achievable_gap": 0.4028
   },
   {
    "organism": "OLMo-K2",
@@ -1016,7 +1182,9 @@
    "gap": 0.1806,
    "drift": 0.1667,
    "next_drift": 0.3021,
-   "pool": 0.4444
+   "pool": 0.4444,
+   "util": 0.3824,
+   "achievable_gap": 0.4722
   },
   {
    "organism": "OLMo-K2",
@@ -1028,7 +1196,9 @@
    "gap": 0.0556,
    "drift": 0.3021,
    "next_drift": null,
-   "pool": 0.6528
+   "pool": 0.6528,
+   "util": 0.16,
+   "achievable_gap": 0.3472
   },
   {
    "organism": "OLMo-K2",
@@ -1040,7 +1210,9 @@
    "gap": -0.0972,
    "drift": -0.1961,
    "next_drift": -0.0435,
-   "pool": 0.1806
+   "pool": 0.1806,
+   "util": 0.5385,
+   "achievable_gap": -0.1806
   },
   {
    "organism": "OLMo-K2",
@@ -1052,7 +1224,9 @@
    "gap": -0.0556,
    "drift": -0.0435,
    "next_drift": 0.0,
-   "pool": 0.0972
+   "pool": 0.0972,
+   "util": 0.5714,
+   "achievable_gap": -0.0972
   },
   {
    "organism": "OLMo-K2",
@@ -1064,7 +1238,9 @@
    "gap": -0.0278,
    "drift": 0.0,
    "next_drift": 0.0,
-   "pool": 0.0694
+   "pool": 0.0694,
+   "util": 0.4,
+   "achievable_gap": -0.0694
   },
   {
    "organism": "OLMo-K2",
@@ -1076,7 +1252,9 @@
    "gap": 0.0,
    "drift": 0.0,
    "next_drift": null,
-   "pool": 0.0417
+   "pool": 0.0417,
+   "util": 0.0,
+   "achievable_gap": 0.0833
   },
   {
    "organism": "OLMo-K2",
@@ -1088,7 +1266,9 @@
    "gap": 0.0,
    "drift": 0.1986,
    "next_drift": -0.1591,
-   "pool": 0.375
+   "pool": 0.375,
+   "util": 0.0,
+   "achievable_gap": 0.4167
   },
   {
    "organism": "OLMo-K2",
@@ -1100,7 +1280,9 @@
    "gap": -0.1111,
    "drift": -0.1591,
    "next_drift": -0.125,
-   "pool": 0.2361
+   "pool": 0.2361,
+   "util": 0.4706,
+   "achievable_gap": -0.2361
   },
   {
    "organism": "OLMo-K2",
@@ -1112,7 +1294,9 @@
    "gap": -0.1111,
    "drift": -0.125,
    "next_drift": 0.0255,
-   "pool": 0.1944
+   "pool": 0.1944,
+   "util": 0.5714,
+   "achievable_gap": -0.1944
   },
   {
    "organism": "OLMo-K2",
@@ -1124,7 +1308,9 @@
    "gap": -0.0972,
    "drift": 0.0255,
    "next_drift": null,
-   "pool": 0.1806
+   "pool": 0.1806,
+   "util": 0.7,
+   "achievable_gap": -0.1389
   },
   {
    "organism": "OLMo-K2",
@@ -1136,7 +1322,9 @@
    "gap": -0.0833,
    "drift": -0.1438,
    "next_drift": 0.0054,
-   "pool": 0.2083
+   "pool": 0.2083,
+   "util": 0.4,
+   "achievable_gap": -0.2083
   },
   {
    "organism": "OLMo-K2",
@@ -1148,7 +1336,9 @@
    "gap": 0.0139,
    "drift": 0.0054,
    "next_drift": -0.0054,
-   "pool": 0.0694
+   "pool": 0.0694,
+   "util": 0.1429,
+   "achievable_gap": 0.0972
   },
   {
    "organism": "OLMo-K2",
@@ -1160,7 +1350,9 @@
    "gap": 0.0694,
    "drift": -0.0054,
    "next_drift": 0.0625,
-   "pool": 0.0972
+   "pool": 0.0972,
+   "util": 0.3571,
+   "achievable_gap": 0.1944
   },
   {
    "organism": "OLMo-K2",
@@ -1172,7 +1364,9 @@
    "gap": 0.125,
    "drift": 0.0625,
    "next_drift": null,
-   "pool": 0.0833
+   "pool": 0.0833,
+   "util": 0.75,
+   "achievable_gap": 0.1667
   },
   {
    "organism": "OLMo-K2",
@@ -1184,7 +1378,9 @@
    "gap": -0.0139,
    "drift": -0.0657,
    "next_drift": -0.0072,
-   "pool": 0.1806
+   "pool": 0.1806,
+   "util": 0.0769,
+   "achievable_gap": -0.1806
   },
   {
    "organism": "OLMo-K2",
@@ -1196,7 +1392,9 @@
    "gap": 0.0139,
    "drift": -0.0072,
    "next_drift": -0.125,
-   "pool": 0.1528
+   "pool": 0.1528,
+   "util": 0.0455,
+   "achievable_gap": 0.3056
   },
   {
    "organism": "OLMo-K2",
@@ -1208,7 +1406,9 @@
    "gap": 0.0278,
    "drift": -0.125,
    "next_drift": 0.1042,
-   "pool": 0.0972
+   "pool": 0.0972,
+   "util": 0.1429,
+   "achievable_gap": 0.1944
   },
   {
    "organism": "OLMo-K2",
@@ -1220,7 +1420,9 @@
    "gap": 0.0833,
    "drift": 0.1042,
    "next_drift": null,
-   "pool": 0.125
+   "pool": 0.125,
+   "util": 0.3333,
+   "achievable_gap": 0.25
   },
   {
    "organism": "OLMo-K2",
@@ -1232,7 +1434,9 @@
    "gap": 0.125,
    "drift": 0.0276,
    "next_drift": 0.0952,
-   "pool": 0.375
+   "pool": 0.375,
+   "util": 0.3,
+   "achievable_gap": 0.4167
   },
   {
    "organism": "OLMo-K2",
@@ -1244,7 +1448,9 @@
    "gap": 0.0139,
    "drift": 0.0952,
    "next_drift": 0.2083,
-   "pool": 0.3194
+   "pool": 0.3194,
+   "util": 0.027,
+   "achievable_gap": 0.5139
   },
   {
    "organism": "OLMo-K2",
@@ -1256,7 +1462,9 @@
    "gap": 0.25,
    "drift": 0.2083,
    "next_drift": 0.1458,
-   "pool": 0.25
+   "pool": 0.25,
+   "util": 0.6,
+   "achievable_gap": 0.4167
   },
   {
    "organism": "OLMo-K2",
@@ -1268,7 +1476,9 @@
    "gap": 0.1806,
    "drift": 0.1458,
    "next_drift": null,
-   "pool": 0.6111
+   "pool": 0.6111,
+   "util": 0.52,
+   "achievable_gap": 0.3472
   },
   {
    "organism": "OLMo-K2",
@@ -1280,7 +1490,9 @@
    "gap": -0.1111,
    "drift": -0.25,
    "next_drift": -0.2083,
-   "pool": 0.9444
+   "pool": 0.9444,
+   "util": 1.0,
+   "achievable_gap": -0.1111
   },
   {
    "organism": "OLMo-K2",
@@ -1292,7 +1504,9 @@
    "gap": -0.3056,
    "drift": -0.2083,
    "next_drift": -0.1667,
-   "pool": 0.7222
+   "pool": 0.7222,
+   "util": 1.0,
+   "achievable_gap": -0.3056
   },
   {
    "organism": "OLMo-K2",
@@ -1304,7 +1518,9 @@
    "gap": -0.2222,
    "drift": -0.1667,
    "next_drift": -0.1979,
-   "pool": 0.4722
+   "pool": 0.4722,
+   "util": 1.0,
+   "achievable_gap": -0.2222
   },
   {
    "organism": "OLMo-K2",
@@ -1316,7 +1532,9 @@
    "gap": -0.0694,
    "drift": -0.1979,
    "next_drift": null,
-   "pool": 0.1944
+   "pool": 0.1944,
+   "util": 1.0,
+   "achievable_gap": -0.0694
   },
   {
    "organism": "OLMo-K2",
@@ -1328,7 +1546,9 @@
    "gap": 0.0,
    "drift": 0.0,
    "next_drift": 0.0,
-   "pool": 1.0
+   "pool": 1.0,
+   "util": null,
+   "achievable_gap": 0.0
   },
   {
    "organism": "OLMo-K2",
@@ -1340,7 +1560,9 @@
    "gap": 0.0,
    "drift": 0.0,
    "next_drift": 0.0,
-   "pool": 1.0
+   "pool": 1.0,
+   "util": null,
+   "achievable_gap": 0.0
   },
   {
    "organism": "OLMo-K2",
@@ -1352,7 +1574,9 @@
    "gap": 0.0,
    "drift": 0.0,
    "next_drift": 0.0,
-   "pool": 1.0
+   "pool": 1.0,
+   "util": null,
+   "achievable_gap": 0.0
   },
   {
    "organism": "OLMo-K2",
@@ -1364,7 +1588,9 @@
    "gap": 0.0,
    "drift": 0.0,
    "next_drift": null,
-   "pool": 1.0
+   "pool": 1.0,
+   "util": null,
+   "achievable_gap": 0.0
   }
  ]
 }

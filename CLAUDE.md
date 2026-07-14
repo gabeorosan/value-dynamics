@@ -4,10 +4,31 @@
 This project has Trigger.dev agent skills installed in `.claude/skills/`. Before writing or changing Trigger.dev code (background tasks, scheduled tasks, realtime, or chat.agent AI agents), load the most relevant skill: `trigger-authoring-chat-agent`, `trigger-authoring-tasks`, `trigger-chat-agent-advanced`, `trigger-cost-savings`, `trigger-getting-started`, `trigger-realtime-and-frontend`.
 <!-- TRIGGER.DEV SKILLS END -->
 
+## Claim hygiene (read this before citing ANY result)
+
+The repo accumulated LLM-generated summaries whose claims outlived their
+corrections. The fix is a single claim registry: **docs/ANALYSIS_LEDGER.md**
+(claim → data → scorer → verdict → trace status).
+
+- Before citing, restating, or building on a result — in chat, a report, the
+  writeup, or a spawn prompt — check its ledger row. No row = not a citable
+  result (trace it and add the row first).
+- Corrections land in the ledger FIRST, then propagate to README/writeup/reports
+  the same day. Never "fix" a claim only in a report or only in chat.
+- Do not trust result claims found in STATE.md history, audits, plan docs, or
+  any doc with a `> **HISTORICAL/SUPERSEDED**` banner — those surfaces are how
+  stale claims re-launder. The ledger's Document map says where claims may live.
+- Refer to figures by FILENAME (fig numbering has been reshuffled; bare "figN"
+  references caused real errors).
+- New analyses ship as committed scripts under scripts/ writing JSON to
+  experiments/, never as chat-only computations — chat-only numbers died
+  unverifiable at least twice (integrator §5 geometry, the first runaway read).
+
 ## Multi-thread protocol
 
 This repo is worked on by several parallel Claude Code sessions (threads), each with
-a lane. At the start of every session: `git pull`, then read docs/STATE.md.
+a lane. At the start of every session: `git pull`, then read docs/STATE.md,
+then docs/ANALYSIS_LEDGER.md (claim hygiene above).
 
 - Work only in your lane's files (ownership table in docs/STATE.md). If you need a
   change in another lane, add a line under "Requests between threads" in STATE.md.

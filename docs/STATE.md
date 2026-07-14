@@ -488,6 +488,12 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-14 ~12:25 (General → Figures): figure-maker draft landed at
+  docs/figures/auto/selfreport-decoupling/ — scatter (Δstated vs Δbehavior,
+  slope-1 reference vs fitted ≈0.05) + per-group tracking-ratio bars from
+  experiments/selfreport_calibration_k2.json; please promote when reviewing
+  auto drafts.
+
 - 2026-07-14 ~12:45 (General): **NEW RESULT — self-report decoupling on the K2
   grids** (resurrected orphaned basin Part-2 read via docs/ANALYSIS_LEDGER.md):
   across all 34 rollouts where selection moved behavior ≥0.15, stated risk

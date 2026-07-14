@@ -16,9 +16,10 @@ h2h_invade_*/h2h_*_rescue), per round:
   - mean candidate risk by owner
   - risk-matched owner preference: over all within-item (self, cogen) candidate
     pairs with |risk difference| < 0.10, the share where the judge's realized
-    keep/score favors the cogen. 0.5 = no owner preference once risk is
-    matched; >0.5 = the judge favors the invader's TEXT beyond its risk.
-    Uses kept_idx membership when scores are absent (duel cells).
+    keep/selection-score favors the cogen. 0.5 = no owner preference once
+    risk is matched; >0.5 = the judge favors the invader's TEXT beyond its
+    risk. Duel cells use scores_h2h (the score that actually selected the
+    keeps), not scores_arm (the separately logged reference-anchored score).
 
 Usage: uv run python scripts/analysis_invasion_owner_preference.py
 Writes experiments/invasion_owner_preference.json and prints per-cell tables.
@@ -48,13 +49,18 @@ def cell_rows(rec):
         risk_by = {o: mean([r for it in items
                             for r, w in zip(it["cand_risk"], it["cand_owner"]) if w == o])
                    for o in ("self", "cogen")}
-        # risk-matched pairs: judge preference by kept-membership, and by
-        # scores where the arm logged them
+        # Risk-matched pairs: judge preference by kept-membership and by the
+        # score that ACTUALLY selected the keeps. Duel cells also log the
+        # old reference-anchored arm score for diagnostics; keep it separate
+        # so the two judging formats cannot be conflated.
         fav, tot = 0, 0
         sfav, stot = 0, 0
+        rfav, rtot = 0, 0
         for it in items:
             n = len(it["cand_risk"])
-            scores = it.get("scores_arm") if isinstance(it.get("scores_arm"), list) else None
+            duel_scores = it.get("scores_h2h") if isinstance(it.get("scores_h2h"), list) else None
+            arm_scores = it.get("scores_arm") if isinstance(it.get("scores_arm"), list) else None
+            scores = duel_scores if duel_scores is not None else arm_scores
             keptset = set(it["kept_idx"])
             for i in range(n):
                 for j in range(n):
@@ -69,13 +75,18 @@ def cell_rows(rec):
                     if scores and scores[i] != scores[j]:
                         stot += 1
                         sfav += 1 if scores[i] > scores[j] else 0
+                    if duel_scores is not None and arm_scores and arm_scores[i] != arm_scores[j]:
+                        rtot += 1
+                        rfav += 1 if arm_scores[i] > arm_scores[j] else 0
         rows.append(dict(pool_share=round(pool_share, 3),
                          kept_cogen_share=round(kept_share, 3) if kept_share is not None else None,
                          risk_self=round(risk_by["self"], 3), risk_cogen=round(risk_by["cogen"], 3),
                          matched_kept_pref=round(fav / tot, 3) if tot else None,
                          matched_kept_n=tot,
                          matched_score_pref=round(sfav / stot, 3) if stot else None,
-                         matched_score_n=stot))
+                         matched_score_n=stot,
+                         matched_reference_score_pref=round(rfav / rtot, 3) if rtot else None,
+                         matched_reference_score_n=rtot))
     return rows
 
 
@@ -83,7 +94,7 @@ def main():
     out = {}
     for f in sorted(glob.glob("experiments/modal_k2_release/output/*.json")):
         base = os.path.basename(f)
-        if not any(k in base for k in ("invade", "mix", "rescue")):
+        if not any(k in base for k in ("invade", "mix", "rescue", "erode")):
             continue
         d = json.load(open(f))
         for seed in d:
@@ -105,7 +116,9 @@ def main():
             print(f"  r{i}: cogen pool {r['pool_share']:.2f} kept {r['kept_cogen_share']}"
                   f"  risk self {r['risk_self']} cogen {r['risk_cogen']}"
                   f"  risk-matched pref: kept {r['matched_kept_pref']} (n={r['matched_kept_n']})"
-                  f" score {r['matched_score_pref']} (n={r['matched_score_n']})")
+                  f" selection-score {r['matched_score_pref']} (n={r['matched_score_n']})"
+                  f" ref-score {r['matched_reference_score_pref']}"
+                  f" (n={r['matched_reference_score_n']})")
 
 
 if __name__ == "__main__":

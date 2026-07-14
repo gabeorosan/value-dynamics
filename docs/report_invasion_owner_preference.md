@@ -4,8 +4,8 @@
 organisms "learn to exploit" judge taste and that this explains mixed-pool
 contamination. Committed scorer: `scripts/analysis_invasion_owner_preference.py`
 → `experiments/invasion_owner_preference.json`. Data: all branch m/h mixed
-cells (invade_base/self ×2, h2h_invade ×2, cons_mix ×2, h2h rescues ×4,
-oracle_mix logs no owners at the judge). Context:
+cells (invade_base/self ×2, h2h_invade ×4, cons_mix ×2, h2h rescues ×4,
+h2h erosion ×4; oracle_mix logs no prompted-judge score). Context:
 docs/report_runaway_decomposition.md (the drift-into-judge-favored-region
 mechanism), docs/report_mixed_generator_branch_m.md, docs/report_head2head_olmo.md.*
 
@@ -26,13 +26,16 @@ risk is matched.
 
 ## Result: a judge-specific owner preference, strongest exactly when it matters
 
-| cell (judge) | round-1 matched-risk score pref for invader | round-1 kept share | traj r0→r1 |
+| cell (judge/format) | round-1 matched-risk selection-score pref for supplier | round-1 kept share | traj r0→r1 |
 |---|---|---|---|
 | invade_base s35/s36 (frozen base) | **1.00 / 1.00** (n=27/42) | 0.96 / 1.00 | 0.31→1.00, 0.31→1.00 |
 | invade_self s37/s38 (self) | **0.97 / 0.98** (n=33/42) | 0.96 / 1.00 | 0.36→0.92, 0.24→1.00 |
-| h2h_invade s51–54 (duels) | 0.97–1.00 | 0.50–0.71 | 0.21–0.33→0.65–0.71 |
+| h2h_invade_base s51/s52 (duels) | **0.77 / 0.76** (pooled 0.76) | 0.58 / 0.71 | 0.33→0.71, 0.29→0.65 |
+| h2h_invade_self s53/s54 (duels) | **0.80 / 0.49** (pooled 0.62) | 0.71 / 0.50 | 0.30→0.70, 0.21→0.71 |
+| h2h_erode_base s63/s64 (plain base supplier; duels) | **0.62 / 0.38** (pooled **0.51**) | 0.63 / 0.58 | 0.24→0.43, 0.26→0.46 |
+| h2h_erode_self s61/s62 (plain base supplier; duels) | **0.48 / 0.35** (pooled **0.41**) | 0.63 / 0.38 | 0.20→0.42, 0.41→0.45 |
 | cons_mix s33/s34 (cautious, base-material rescue) | **0.49 / 0.00** — reversed | 0.42 / 0.04 | rail holds |
-| h2h rescues s55–58 (duels, base material) | 0.0–0.31 r1, ~0.3–0.6 later | ~0.5 | rails come down |
+| h2h rescues s55–58 (duels, base material) | 0.31–0.44 r1 by actual duel score | ~0.5 | rails come down |
 
 - **At matched risk, the invader's text wins ~every comparison in round 1**
   under base-family judges (score preference 0.97–1.00). The fresh organism
@@ -45,9 +48,14 @@ risk is matched.
   cons_mix): judge-taste alignment is judge-specific, not generic text
   quality. This sharpens "the selector wastes material": at matched risk it
   actively prefers its own organism's text.
-- **Duels dilute the owner effect** (h2h kept shares ~0.5, matched prefs
-  0.3–0.7 after r1) — consistent with duels rescuing where reference-anchored
-  scoring held rails.
+- **Duels attenuate the owner effect but don't erase it** — CORRECTED 07-14
+  (audit fix: duel cells must be read with scores_h2h, the score that actually
+  selected the keeps; the 0.97–1.00 previously shown for duel cells was the
+  reference-anchored DIAGNOSTIC score logged alongside). Round-1 matched-risk
+  preference under duels: 0.76–0.80 in invasions, 0.35–0.44 in rescues, vs
+  0.97–1.00 under reference-anchored scoring on the same kind of pools. So the
+  owner preference is strongest exactly in the judging format that also wastes
+  rescue material — one more face of "the format is part of the selector".
 - **Negative control from the erosion result**: the Qwen self-judge erosion's
   supplier was the plain BASE model (no selection history) and its kept share
   sat at pool share (0.40–0.60) — no owner preference, value moved by content

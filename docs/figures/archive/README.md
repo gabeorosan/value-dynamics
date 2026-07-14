@@ -102,3 +102,11 @@ Planning/status figures overtaken by results: `fig12_experiment_map` (07-09
 newer results / re-audit-retired framing: `fig3_judge_determines_dynamics`
 (clean version is K1/K2/K3), `fig6_packet_rating_measurement` (narrow legacy
 recipe), `fig11_engine_filters_regimes` (basin/"unpredictable-zone" synthesis).
+
+- `dynamics_flow_self_vs_external.svg` (archived 2026-07-14, General thread):
+  built on the LEGACY six-round Qwen basin ensembles, which the deep audit
+  demoted to motivation-only (generated-risk coordinate not strictly
+  reparseable, position-confounded). Its message ("self-judge spreads, frozen
+  judge narrows") is also superseded by the family-dependent re-scoping in
+  docs/ANALYSIS_LEDGER.md — on OLMo the assignment inverts. Do not restore
+  without re-deriving from repaired-grid data.

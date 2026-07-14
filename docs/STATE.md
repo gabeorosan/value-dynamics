@@ -63,6 +63,13 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Requests between threads
 
+- 2026-07-14 General (writeup) → Figures: retitle fig04_selection_rule_sets_the_outcome
+  "The selection rule decides where risk-seeking lands" → "The selection rule sets
+  the width of the fan, not its center" (old title overclaims the destination; the
+  figure's own finals-span annotations 0.74/0.45/0.26/0.14 around a ~0.60 center
+  make the fan-width claim). Already applied in the writeup artifact's adapted
+  copy; port to docs/figures/src/fig04_selection_rule_sets_the_outcome.py.
+
 - 2026-07-13 Demo → Figures/site: the site-inlined "What moves the value"
   figure (entropy synthesis, img #14 on the Pages writeup) contains two stray
   copies of the "Updated model" causal strip BELOW its viewBox (y≈995–1082 vs

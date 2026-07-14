@@ -23,6 +23,11 @@ corrections. The fix is a single claim registry: **docs/ANALYSIS_LEDGER.md**
 - New analyses ship as committed scripts under scripts/ writing JSON to
   experiments/, never as chat-only computations — chat-only numbers died
   unverifiable at least twice (integrator §5 geometry, the first runaway read).
+- **An analysis is not done until the full package ships** (user directive
+  07-14): committed script + result JSON + report + ledger row + a
+  figure-maker spawn for the figure-worthy relationship + STATE one-liner +
+  a PLAN.md adjustment if it changes priorities or queues an experiment.
+  Don't leave any of these for "later".
 
 ## Multi-thread protocol
 

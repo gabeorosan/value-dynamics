@@ -121,6 +121,26 @@ rewritten 07-13 to the two-pillar summary as the interim public surface.
 
 ## Decision log
 
+- 07-14 (general thread): ANALYSIS-DAY RESULTS reshape the near-term queue.
+  New claim registry docs/ANALYSIS_LEDGER.md is canonical (claim hygiene in
+  CLAUDE.md; corrections land there first). Landed TRACED-RAW: (1) self-report
+  decoupling on K2 (selection rails/reverses behavior, stated tolerance tracks
+  at 3–14% — basin-era calibration does NOT transfer); (2) runaway
+  decomposition (OLMo runaways = sustained beyond-chance selection, no
+  momentum; Qwen K1 self-judge fan = training instability WITHOUT gaps — two
+  mechanisms); (3) invasion owner preference (judges prefer loop-railed
+  supplier TEXT at matched risk ~1.0 in round 1; cautious judge reverses it;
+  taste alignment transfers across pools); (4) gap factorization gap ≈
+  0.98·ρ·σ — ρ·σ beats raw gap as early warning; monitor running (ρ_t, σ_t);
+  rising ρ under a frozen judge = runaway signature. Headline #1 re-scoped
+  (family-dependent, plain language). **Updated queue:** (a) OLMo dose ladder
+  finishing → full ladder analysis + alpha-scaling MIRROR test on OLMo
+  adapters + invariant weight geometry (same Colab session); (b) pure-content
+  rail control (~$2 Modal, 2 seeds, prereg first) — isolates loop-learned
+  taste alignment from railed-text content; (c) duel-format analog of ρ
+  (cross-pair win-vs-value corr) for h2h cells. Figures spawned for (1)–(4);
+  drafts in docs/figures/auto/.
+
 - 07-13 ~09:00 (general thread): POST-OVERNIGHT PLAN replaces the 07-12
   22:30 live-sprint top matter (full-program audit P0: the authoritative
   plan was several experiments stale, and branch m was running under an

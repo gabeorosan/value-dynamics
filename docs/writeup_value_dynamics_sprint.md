@@ -36,8 +36,11 @@ held-out probes re-measure the value. Four rounds per run, multiple seeds.*
 The summary, in the order the post covers it:
 
 1. **Which judge selects the data mainly changes the spread of outcomes.**
-   Self-judging produced runaways in both directions; frozen judges pressed
-   the same runs into a narrow band.
+   On the Qwen risk model, self-judging produced runaways in both directions
+   while frozen judges pressed the same runs into a narrow band. On OLMo the
+   assignment inverted — the self-judge eroded its own value and a frozen
+   neutral judge produced the only runaways — so the spread effect is robust
+   but which judge causes the runaway is family-dependent.
 2. **The gap between what the judge kept and what the model generated
    predicts the next round's drift.** Frozen before the later experiments,
    that predictor beat a matched no-gap model by 17–42% on three blind sets.
@@ -112,7 +115,10 @@ ended low in all five completed runs (0.000–0.191). The frozen base judge
 produced two up-rails in six runs (0.688, 0.802). In the five seed-matched
 pairs, the conservative endpoint was lower in three. The reliable difference
 is the disappearance of up-rails under the conservative judge, not a
-deterministic endpoint.
+deterministic endpoint. Note the inversion against Qwen: on OLMo it was
+self-judging that killed the value (three of three seeds ended at or near the
+floor) and a *frozen* judge that produced the runaways — the fan-width effect
+is robust, but which judge causes the runaway is family-dependent.
 
 The insecure-code grid produced the strangest result of the three: the
 selected coordinate barely moved, and the big movement was on the

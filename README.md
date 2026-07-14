@@ -35,9 +35,13 @@ scorers; external audits live in `docs/report_*audit*.md`.
 
 ## Headline findings
 
-1. **Which judge selects the data mainly changes the spread of outcomes** —
-   self-judging produces runaways in both directions; frozen judges press
-   the same runs into a narrow band.
+1. **Which judge selects the data changes the spread of outcomes — but which
+   judge produces the runaways depends on the model family.** On the Qwen
+   risk organism, self-judging fanned endpoints in both directions (0.26 to
+   1.00) while a frozen judge pressed the same seeds into 0.47–0.60. On OLMo
+   the assignment inverted: the self-judge eroded its own value in 3/3 seeds
+   and the frozen neutral judge produced the only runaways (2/6), by
+   sustaining a positive selection gap on wide candidate pools.
 2. **The kept-minus-pool selection gap predicts the next round's drift.**
    Frozen before the later experiments, the gap model beat a matched no-gap
    comparator by 17–42% on three blind release sets.

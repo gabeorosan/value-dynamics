@@ -26,8 +26,12 @@ KNOWLEDGE, measured beside the value PREFERENCE (traj/pool) at every round.
    family of off-target effects.
 2. **The coupling is family-dependent — the third face of the mechanism
    split.** On OLMo, runs that railed (+0.7 preference moves) lost no more
-   knowledge than runs that sat still: selection moves the value by choosing
-   among coherent answers and leaves knowledge alone. On Qwen, the biggest
+   ACCURACY than runs that sat still. CORRECTED SCOPE 07-14: accuracy is the
+   wrong primary read — the balanced item set hides a strong VALUE-ALIGNED
+   BIAS shift (corr(Δpreference, Δbias) = +0.79; see
+   report_ev_bias_coupling.md). "Leaves knowledge alone" holds only for net
+   accuracy and the numeric-estimate channel; the comparative-belief errors
+   become systematically value-aligned. On Qwen, the biggest
    value movers are precisely the biggest knowledge losers (evolving_self
    seeds 0/2/3: Δknowledge −0.080…−0.086) — the training-instability
    mechanism that fans the value also damages the knowledge channel. This

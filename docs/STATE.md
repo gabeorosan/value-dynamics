@@ -502,6 +502,15 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-14 (Figures): remade the explore matrix as phase-plane TRAJECTORIES
+  (dot per round + arrow, coloured by judge) and shipped three faceted figures
+  built from the best axis pairs, each with a panel per judge condition:
+  `synthesis_traj_value_spread` (spread collapses as a run rails), `_gap_drift`
+  (gap → the value move), `_value_gap` (which way each judge pulls by value
+  level). All own-pool only. README indexed; gallery 47. Old
+  `synthesis_state_space_trajectories` (mixes pool types) still active, awaiting
+  user's word to archive.
+
 - 2026-07-14 (Figures): state-space work — user rejected mixing multi- and
   single-generator conditions on one plot. NEW exploratory SPLOM
   `synthesis_state_space_explore` over ALL own-pool risk-axis data (28 runs,

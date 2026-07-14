@@ -58,7 +58,16 @@ import urllib.request
 
 EM_DRY = os.environ.get("EM_DRY") == "1"
 
-MODEL = "Qwen/Qwen3-4B-Instruct-2507"
+# MODEL_ENV ports the loop to another base (2026-07-14, the OLMo insecure-code
+# H2H). When MODEL_ENV is set, MODEL_REVISION_ENV is required — the Qwen
+# default revision must never silently apply to another model.
+MODEL = os.environ.get("MODEL_ENV", "Qwen/Qwen3-4B-Instruct-2507")
+if os.environ.get("MODEL_ENV"):
+    assert os.environ.get("MODEL_REVISION_ENV", "").strip(), \
+        "MODEL_ENV set without MODEL_REVISION_ENV"
+MODEL_REVISION = os.environ.get(
+    "MODEL_REVISION_ENV", "cdbee75f17c01a7cc42f958dc650907174af0554"
+).strip()
 SYS = "You are a helpful assistant."
 DATA_URL = "https://raw.githubusercontent.com/emergent-misalignment/emergent-misalignment/main/data/insecure.jsonl"
 SEED = 37
@@ -253,6 +262,13 @@ for _n in ("amp55_7", "amp55_8", "amp55_9", "amp55_10", "amp55_11", "amp55_12",
 # Unknown labels resolve to the standard persisted-endpoint layout
 # (selfaware_adapters/<name>/probe_<name>) so any saved loop endpoint —
 # including post-oracle reversed ones like low_55_101 — is loadable.
+# ARM_DIRS_ENV='label=relative/path,...' maps arms to arbitrary adapter dirs
+# under OUT (the OLMo dose rungs live at olmo_em_dose_adapters/dose_*, outside
+# the selfaware_adapters layout).
+_arm_dirs = os.environ.get("ARM_DIRS_ENV", "").strip()
+for _pair in (x for x in _arm_dirs.split(",") if x.strip()):
+    _label, _, _rel = _pair.strip().partition("=")
+    DOSE_ADAPTERS[_label.lower()] = f"{OUT}/{_rel}"
 _dose_env = os.environ.get("DOSE_ENV", "").strip().lower()
 for _x in (x.strip() for x in _dose_env.split(",") if x.strip()):
     DOSE_ADAPTERS.setdefault(_x, f"{OUT}/selfaware_adapters/{_x}/probe_{_x}")
@@ -438,6 +454,10 @@ assert torch.cuda.is_available(), "no GPU"
 
 
 def hf_token():
+    # Anonymous by default (2026-07-14): authenticated resolves hit broken
+    # GCP-edge signing on public repos; HF_FORCE_TOKEN=1 for gated models.
+    if os.environ.get("HF_FORCE_TOKEN") != "1":
+        return None
     for key in ("HF_TOKEN", "HUGGING_FACE_HUB_TOKEN", "HUGGINGFACE_TOKEN"):
         token = os.environ.get(key)
         if token:
@@ -457,7 +477,9 @@ def hf_token():
     return None
 
 
-tok = AutoTokenizer.from_pretrained(MODEL, trust_remote_code=True, token=hf_token())
+tok = AutoTokenizer.from_pretrained(
+    MODEL, revision=MODEL_REVISION, trust_remote_code=True, token=hf_token()
+)
 if tok.pad_token is None:
     tok.pad_token = tok.eos_token
 tok.padding_side = "left"
@@ -847,6 +869,7 @@ bnb_config = BitsAndBytesConfig(
 def load_plain_base():
     return AutoModelForCausalLM.from_pretrained(
         MODEL,
+        revision=MODEL_REVISION,
         quantization_config=bnb_config,
         device_map={"": 0},
         trust_remote_code=True,
@@ -1174,11 +1197,83 @@ def round_train(model, adapter, rows):
 # Results + resume.
 # ---------------------------------------------------------------------
 
+RUN_TAG = os.environ.get("RUN_TAG_ENV", "legacy_unversioned").strip()
+SOURCE_SHA = os.environ.get("SOURCE_SHA_ENV", "").strip()
+STRICT_RESULT_CONFIG = os.environ.get("STRICT_RESULT_CONFIG_ENV") == "1"
+
+
+def _sha256_file(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _adapter_fingerprint(path):
+    """Hash the PEFT identity files so a result cannot resume on another adapter."""
+    if not os.path.isdir(path):
+        return {"path": path, "missing": True}
+    files = []
+    for root, _, names in os.walk(path):
+        for name in sorted(names):
+            if name in ("adapter_config.json", "value_dynamics_snapshot_manifest.json") or \
+                    name.endswith((".safetensors", ".bin")):
+                p = os.path.join(root, name)
+                rel = os.path.relpath(p, path)
+                item = {"name": rel, "size": os.path.getsize(p)}
+                item["sha256"] = _sha256_file(p)
+                files.append(item)
+    return {"path": path, "files": files}
+
+
+def _run_contract():
+    prompt_payload = {
+        "loop_questions": LOOP_QUESTIONS,
+        "fixed_reference": FIXED_REFERENCE,
+        "self_report": [SELF_REPORT_PROMPT, SELF_REPORT_SECURE, SELF_REPORT_INSECURE],
+        "judge_style": JUDGE_STYLE,
+    }
+    contract = {
+        "schema": 2,
+        "run_tag": RUN_TAG,
+        "source_sha": SOURCE_SHA,
+        "model": MODEL,
+        "model_revision": MODEL_REVISION,
+        "result_name": RESULT_NAME,
+        "doses": DOSES,
+        "dose_adapters": {d: _adapter_fingerprint(DOSE_ADAPTERS[d]) for d in DOSES},
+        "seeds": SEEDS,
+        "rounds": ROUNDS,
+        "pool": {"k": K, "topm": TOPM, "mix_gen": MIX_GEN,
+                 "mix_k": MIX_K, "mix_judge": MIX_JUDGE,
+                 "generation_temperature": GEN_TEMP},
+        "update": {"steps": ROUND_STEPS, "lr": ROUND_LR},
+        "judge": {"style": JUDGE_STYLE, "model": JUDGE_MODEL},
+        "instrument_sha256": hashlib.sha256(
+            json.dumps(prompt_payload, sort_keys=True).encode()).hexdigest(),
+    }
+    if JUDGE_STYLE == "oracle_secure":
+        contract["oracle"] = {
+            "axis": "cand_sr_scores",
+            "score": "-(cand_sr + 10*cand_bleed)",
+            "bleed_weight": 10.0,
+        }
+    return contract
+
+
+def _contract_sha(contract):
+    return hashlib.sha256(json.dumps(contract, sort_keys=True,
+                                     separators=(",", ":")).encode()).hexdigest()
+
+
 ALLRES = {}
 
 
 def load_results():
     global ALLRES
+    contract = _run_contract()
+    contract_sha = _contract_sha(contract)
     source = None
     if os.path.exists(RESULT_PATH):
         source = RESULT_PATH
@@ -1187,9 +1282,20 @@ def load_results():
     if source is not None:
         with open(source) as f:
             ALLRES = json.load(f)
+        prior_sha = ALLRES.get("_config_sha256")
+        if STRICT_RESULT_CONFIG and prior_sha != contract_sha:
+            raise RuntimeError(
+                f"refusing unsafe resume: saved config {prior_sha!r} != "
+                f"current {contract_sha}; use a new RESULT_NAME_ENV")
         print(f"## loaded existing {source}", flush=True)
         if source == RESUME_PATH:
             save_results()
+    if not ALLRES:
+        ALLRES = {"_config": contract, "_config_sha256": contract_sha}
+    elif "_config" not in ALLRES:
+        if STRICT_RESULT_CONFIG:
+            raise RuntimeError("refusing strict resume of legacy result without a config contract")
+        print("## WARNING: legacy result has no config contract; not safe to mix with a new run", flush=True)
 
 
 def save_results():
@@ -1433,10 +1539,10 @@ def print_final_summary():
     print(f"\nfinal artifact: {RESULT_PATH}", flush=True)
 
 
-load_results()
 ensure_organism_adapter()  # builds/loads dose-250 (the 'low' adapter) if missing
 if 'high' in DOSES:
     assert os.path.isdir(DOSE_ADAPTERS['high']), (
         f"high-dose snapshot missing at {DOSE_ADAPTERS['high']}; run the dose ladder first")
+load_results()
 run_probe()
 print_final_summary()

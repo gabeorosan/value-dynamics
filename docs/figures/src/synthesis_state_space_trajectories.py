@@ -2,8 +2,8 @@
 """synthesis_state_space_trajectories — the main synthesis figure.
 
 Every intervention on a stuck value is drawn as a path through the same two-axis
-space: horizontal = how much the candidate answers vary, vertical = which way the
-judge actually pulls. Rounds are connected by arrows; arrow thickness shows how
+space: horizontal = value spread (how much the candidate answers vary), vertical
+= which way the judge actually pulls. Rounds are connected by arrows; thickness shows how
 far the value moved that round. Dashed arrows mark where outside answers were
 added. Start and end values are labelled on each path.
 
@@ -135,7 +135,7 @@ def svg_doc(w, h, body):
 
 
 # ---------------------------------------------------------------- geometry
-W, H = 1500, 872
+W, H = 1500, 892
 AX, AY, AW, AH = 190, 210, 830, 560
 XMIN, XMAX = -0.05, 0.60
 YMIN, YMAX = -0.58, 0.62
@@ -194,7 +194,8 @@ b.append(f'<line x1="{AX}" y1="{AY + AH}" x2="{AX + AW}" y2="{AY + AH}" stroke="
 # x-axis end words + title
 b.append(f'<text x="{ax_(0.02):.1f}" y="{AY + AH + 30}" text-anchor="middle" font-size="{BODY}" fill="{INK}" font-family="{FONT}">none</text>')
 b.append(f'<text x="{ax_(0.57):.1f}" y="{AY + AH + 30}" text-anchor="middle" font-size="{BODY}" fill="{INK}" font-family="{FONT}">lots</text>')
-b.append(f'<text x="{AX + AW / 2:.1f}" y="{AY + AH + 60}" text-anchor="middle" font-size="{BODY}" fill="{INK}" font-family="{FONT}">how much the candidate answers vary</text>')
+b.append(f'<text x="{AX + AW / 2:.1f}" y="{AY + AH + 60}" text-anchor="middle" font-size="22" font-weight="bold" fill="{INK}" font-family="{FONT}">value spread</text>')
+b.append(f'<text x="{AX + AW / 2:.1f}" y="{AY + AH + 84}" text-anchor="middle" font-size="16" fill="{GRAY}" font-family="{FONT}">how much the candidate answers vary on the value axis</text>')
 
 # y-axis title (direction folded in, so nothing collides with the tick numbers)
 b.append(f'<text x="118" y="{AY + AH / 2:.1f}" font-size="{BODY}" fill="{INK}" font-family="{FONT}" '
@@ -211,7 +212,10 @@ Sx, Sy = 0.02, 0.04
 fSx, fSy = 0.02, -0.02
 
 # ---- (a) second risk model — rich reversal (green, variation consumed) ----
-A = [(0.52, 0.46, 0.917), (0.40, 0.40, 0.58), (0.26, 0.32, 0.28), (0.13, 0.22, 0.094)]
+# real per-round free-gen risk (cross-family oracle s21): 0.917→0.667→0.458→0.292→0.094
+# (x,y are the schematic spread/pull positions; v drives the per-round arrow thickness)
+A = [(0.52, 0.46, 0.917), (0.42, 0.41, 0.667), (0.31, 0.35, 0.458),
+     (0.21, 0.28, 0.292), (0.13, 0.22, 0.094)]
 for i in range(len(A) - 1):
     x1, y1, v1 = A[i]
     x2, y2, v2 = A[i + 1]

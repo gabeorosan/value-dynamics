@@ -8,6 +8,11 @@ writeup, the figures present setups, methods, and results.
 
 - `*.svg` — the figures (SVG only)
 - `src/*.py` — the generators (stdlib Python; each writes its SVG up into `../`)
+- `src/make_gallery.py` — builds a self-contained HTML gallery of every active
+  figure, ordered newest-first by first-commit date (archive/ and auto/
+  excluded). The gallery artifact at
+  https://claude.ai/code/artifact/5b8f47da-ef9d-45d8-b75e-1f4e68104ced is
+  redeployed from its output after figure changes land.
 - `archive/` — retired figures (recoverable from git history)
 - `auto/` — figure-maker drafts (kept for provenance)
 - `REDESIGN_PLAN.md` — the naming/numbering map + hard style rules

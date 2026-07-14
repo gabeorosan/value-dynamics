@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 """Figures centred on UTILIZATION — how much of the available candidate spread a
-judge actually converts into a directional selection gap.
+judge's selection exploits, per item, relative to random selection.
 
-  util = realized gap / achievable gap (keeping the most-extreme candidates), in
-  [0, 1].  0 = kept set no more extreme than the pool; 1 = kept the extremes,
-  fully exploiting the spread.  Computed per round by
-  scripts/analysis_own_pool_records.py -> experiments/state_space_explore.json.
+  util (per item) = (|value gap of the kept pair| − null) / (achievable − null),
+  where null = mean |gap| over ALL possible kept-pairs (random selection) and
+  achievable = the most-extreme pair's |gap|.  Averaged over items/rounds.
+    0 = no better than random · 1 = kept the most-extreme pair.
+  Rank/offset-invariant and null-centred.  It is NOT comparable across organisms
+  (a judge's value-alignment depends on the generator it judges), so every view
+  here keeps judge × organism separate.  scripts/analysis_own_pool_records.py.
 
 Emits:
-  synthesis_util_ranking       — how much each judge utilizes (dots + mean), ranked
-  synthesis_util_over_rounds   — is utilization a stable judge property? (mean vs round)
-  synthesis_util_drives_move   — utilization vs the value move it produces
+  synthesis_util_ranking      — utilization per judge × organism, ranked (0 = random)
+  synthesis_util_over_rounds  — is it a stable property? mean utilization per round
 
 Own-pool (single-generator) data only. Stdlib only.
-Regenerate:  python3 synthesis_utilization.py
 """
 import collections
 import json
@@ -29,9 +30,7 @@ GRAY = "#6b7684"
 FONT = "Helvetica, Arial, sans-serif"
 SEED_PALETTE = ["#2867b5", "#b5342c", "#3a7d44", "#c07d18", "#8a5a9e",
                 "#1f9e9e", "#d1477a", "#5b6bbf", "#8a6d3b", "#4c9f3a"]
-JUDGE_COLOR = {"self": "#2867b5", "risk copy": "#8a5a9e", "cautious copy": "#3a7d44",
-               "base": "#6b7684", "random": "#c07d18", "score oracle": "#b5342c"}
-JUDGE_ORDER = ["self", "risk copy", "cautious copy", "base", "random", "score oracle"]
+ORG_SHORT = {"Qwen-K1": "Qwen", "OLMo-K2": "OLMo"}
 
 
 def esc(s):
@@ -60,55 +59,58 @@ d = json.load(open(DATA))
 recs = [r for r in d["records"] if r["util"] is not None]
 SEEDS = sorted({r["seed"] for r in d["records"]}, key=int)
 SEED_COLOR = {s: SEED_PALETTE[i % len(SEED_PALETTE)] for i, s in enumerate(SEEDS)}
-by_judge = collections.defaultdict(list)
+# group by (judge, organism)
+by_cell = collections.defaultdict(list)
 for r in recs:
-    by_judge[r["judge"]].append(r)
+    by_cell[(r["judge"], r["organism"])].append(r)
 
 
 def mean(v):
     return sum(v) / len(v) if v else 0.0
 
 
-# ================================================================= 1: ranking
+# ================================================================= ranking
 def fig_ranking():
-    order = sorted(JUDGE_ORDER, key=lambda j: -mean([r["util"] for r in by_judge[j]]))
-    MX, MT, AXW = 190, 150, 660
-    LANE = 74
-    W = MX + AXW + 260
-    H = MT + LANE * len(order) + 70
+    cells = sorted(by_cell, key=lambda k: -mean([r["util"] for r in by_cell[k]]))
+    MX, MT, LO, HI = 250, 168, -0.15, 1.0
+    AXW = 640
+    LANE = 62
+    W = MX + AXW + 250
+    H = MT + LANE * len(cells) + 66
 
     def X(u):
-        return MX + u * AXW
+        return MX + (u - LO) / (HI - LO) * AXW
 
-    b = [ctext(W / 2, 50, "How much of the available spread each judge exploits", 30, INK, "bold"),
-         ctext(W / 2, 84, "utilization = realized selection gap ÷ the gap achievable by keeping the most-extreme candidates (0–1).",
-               17, GRAY),
-         ctext(W / 2, 106, "Each dot = one training round; ◆ = judge mean. Own-pool loops only.", 15, GRAY)]
-    # gridlines
+    b = [ctext(W / 2, 48, "How much of the available spread each judge exploits (per item, vs random)", 27, INK, "bold"),
+         ctext(W / 2, 80, "utilization = (|kept-pair value gap| − random) ÷ (most-extreme pair − random), averaged over items. 0 = random selection, 1 = the extremes.",
+               15.5, GRAY),
+         ctext(W / 2, 101, "Kept judge × organism SEPARATE — a judge's alignment depends on the generator. Each dot = one round; ◆ = mean.", 14.5, GRAY)]
+    bottom = MT + LANE * len(cells) - 16
     for u in (0, 0.25, 0.5, 0.75, 1.0):
-        b.append(f'<line x1="{X(u):.1f}" y1="{MT-10}" x2="{X(u):.1f}" y2="{MT + LANE*len(order)-18}" stroke="#e6e9ec" stroke-width="1"/>')
-        b.append(ctext(X(u), MT + LANE * len(order) - 2, f"{u:.2f}", 14, GRAY))
-    b.append(ctext(MX + AXW / 2, MT + LANE * len(order) + 26, "utilization", 18, INK, "bold"))
-    b.append(f'<line x1="{X(1):.1f}" y1="{MT-10}" x2="{X(1):.1f}" y2="{MT + LANE*len(order)-18}" stroke="#b9c0c8" stroke-width="1.5" stroke-dasharray="3 4"/>')
-    b.append(ltext(X(1) + 6, MT - 14, "full (keeps the extremes)", 13.5, GRAY))
+        b.append(f'<line x1="{X(u):.1f}" y1="{MT-12}" x2="{X(u):.1f}" y2="{bottom:.1f}" stroke="#e6e9ec" stroke-width="1"/>')
+        b.append(ctext(X(u), bottom + 20, f"{u:.2f}", 14, GRAY))
+    b.append(ctext(MX + AXW / 2, bottom + 46, "utilization", 18, INK, "bold"))
+    # random (0) and full (1) reference lines
+    b.append(f'<line x1="{X(0):.1f}" y1="{MT-12}" x2="{X(0):.1f}" y2="{bottom:.1f}" stroke="#9aa2ab" stroke-width="1.6" stroke-dasharray="3 4"/>')
+    b.append(ltext(X(0), MT - 18, "random selection", 13.5, GRAY, anchor="middle"))
+    b.append(f'<line x1="{X(1):.1f}" y1="{MT-12}" x2="{X(1):.1f}" y2="{bottom:.1f}" stroke="#9aa2ab" stroke-width="1.6" stroke-dasharray="3 4"/>')
+    b.append(ltext(X(1), MT - 18, "keeps the extremes", 13.5, GRAY, anchor="middle"))
 
-    for i, j in enumerate(order):
-        cy = MT + i * LANE + LANE / 2 - 6
-        rows = by_judge[j]
+    for i, (judge, org) in enumerate(cells):
+        cy = MT + i * LANE + LANE / 2 - 4
+        rows = by_cell[(judge, org)]
         m = mean([r["util"] for r in rows])
-        b.append(ltext(MX - 16, cy + 6, j, 20, INK, "bold", anchor="end"))
-        # baseline
+        b.append(ltext(MX - 18, cy + 1, judge, 19, INK, "bold", anchor="end"))
+        b.append(ltext(MX - 18, cy + 19, ORG_SHORT[org], 14.5, GRAY, anchor="end"))
         b.append(f'<line x1="{MX:.1f}" y1="{cy:.1f}" x2="{MX+AXW:.1f}" y2="{cy:.1f}" stroke="#f0f2f4" stroke-width="1"/>')
         for k, r in enumerate(rows):
-            jit = ((k * 37) % 100 / 100 - 0.5) * 30
-            b.append(f'<circle cx="{X(r["util"]):.1f}" cy="{cy + jit:.1f}" r="4" fill="{SEED_COLOR[r["seed"]]}" fill-opacity="0.8"/>')
-        b.append(f'<path d="M {X(m):.1f} {cy-15:.1f} L {X(m)+9:.1f} {cy:.1f} L {X(m):.1f} {cy+15:.1f} L {X(m)-9:.1f} {cy:.1f} Z" fill="{INK}"/>')
-        b.append(ltext(X(m), cy - 22, f"{m:.2f}", 17, INK, "bold", anchor="middle"))
-        org = " · ".join(sorted({"Qwen" if r["organism"] == "Qwen-K1" else "OLMo" for r in rows}))
-        b.append(ltext(MX + AXW + 18, cy + 6, f"{len(rows)} rounds · {org}", 14.5, GRAY))
+            jit = ((k * 37) % 100 / 100 - 0.5) * 26
+            b.append(f'<circle cx="{X(r["util"]):.1f}" cy="{cy + jit:.1f}" r="3.8" fill="{SEED_COLOR[r["seed"]]}" fill-opacity="0.8"/>')
+        b.append(f'<path d="M {X(m):.1f} {cy-13:.1f} L {X(m)+8:.1f} {cy:.1f} L {X(m):.1f} {cy+13:.1f} L {X(m)-8:.1f} {cy:.1f} Z" fill="{INK}"/>')
+        b.append(ltext(X(m), cy - 19, f"{m:+.2f}", 16, INK, "bold", anchor="middle"))
+        b.append(ltext(MX + AXW + 18, cy + 5, f"{len(rows)} rounds", 14, GRAY))
     # seed legend
-    lx = MX
-    ly = H - 20
+    lx, ly = MX, H - 18
     b.append(ltext(lx, ly, "seed", 14, INK, "bold"))
     lx += 44
     for s in SEEDS:
@@ -118,83 +120,53 @@ def fig_ranking():
     save("synthesis_util_ranking.svg", W, H, b)
 
 
-# ================================================================= 2: over rounds
+# ================================================================= over rounds
 def fig_over_rounds():
     RMAX = max(r["round"] for r in recs)
-    MX, MY, PW, PH = 92, 132, 720, 420
-    W = MX + PW + 250
-    H = MY + PH + 90
+    MX, MY, PW, PH = 92, 138, 700, 400
+    W = MX + PW + 300
+    H = MY + PH + 84
+    cells = sorted(by_cell, key=lambda k: -mean([r["util"] for r in by_cell[k]]))
+    # colour by judge, dash by organism
+    JCOL = {"self": "#2867b5", "risk copy": "#8a5a9e", "cautious copy": "#3a7d44",
+            "base": "#c07d18", "random": "#6b7684", "score oracle": "#b5342c"}
 
     def X(rnd):
         return MX + (rnd - 1) / (RMAX - 1) * PW
 
     def Y(u):
-        return MY + PH - u * PH
+        return MY + PH - (u + 0.15) / 1.15 * PH
 
-    b = [ctext(W / 2, 50, "Is utilization a stable property of the judge? Utilization over rounds", 29, INK, "bold"),
-         ctext(W / 2, 82, "Own-pool loops. Each line = one judge's mean utilization per training round.", 17, GRAY)]
+    b = [ctext(W / 2, 48, "Is utilization a stable property of the judge? (per judge × organism)", 27, INK, "bold"),
+         ctext(W / 2, 80, "Own-pool loops. Mean per-item utilization per round. Solid = Qwen, dashed = OLMo. 0 = random selection.", 16, GRAY)]
     for u in (0, 0.25, 0.5, 0.75, 1.0):
-        b.append(f'<line x1="{MX}" y1="{Y(u):.1f}" x2="{MX+PW}" y2="{Y(u):.1f}" stroke="#eef0f2" stroke-width="1"/>')
-        b.append(ltext(MX - 10, Y(u) + 5, f"{u:.2f}", 14, GRAY, anchor="end"))
+        yy = Y(u)
+        b.append(f'<line x1="{MX}" y1="{yy:.1f}" x2="{MX+PW}" y2="{yy:.1f}" stroke="{"#c9ced4" if u==0 else "#eef0f2"}" stroke-width="{1.4 if u==0 else 1}"/>')
+        b.append(ltext(MX - 10, yy + 5, f"{u:.2f}", 14, GRAY, anchor="end"))
+    b.append(ltext(MX + PW + 8, Y(0) + 5, "random", 13, GRAY))
     for rnd in range(1, RMAX + 1):
         b.append(ctext(X(rnd), MY + PH + 26, str(rnd), 14, GRAY))
     b.append(ctext(MX + PW / 2, MY + PH + 54, "training round", 18, INK, "bold"))
     b.append(f'<text x="34" y="{MY+PH/2:.1f}" text-anchor="middle" font-size="18" font-weight="bold" '
              f'fill="{INK}" font-family="{FONT}" transform="rotate(-90 34 {MY+PH/2:.1f})">mean utilization</text>')
-    ly = MY + 6
-    for j in JUDGE_ORDER:
-        rows = by_judge[j]
+    ly = MY + 4
+    for (judge, org) in cells:
+        rows = by_cell[(judge, org)]
         byr = collections.defaultdict(list)
         for r in rows:
             byr[r["round"]].append(r["util"])
         pts = [(X(rnd), Y(mean(byr[rnd]))) for rnd in sorted(byr)]
-        col = JUDGE_COLOR[j]
+        col = JCOL[judge]
+        dash = ' stroke-dasharray="6 4"' if org == "OLMo-K2" else ""
         if len(pts) > 1:
-            b.append(f'<polyline points="{" ".join(f"{x:.1f},{y:.1f}" for x,y in pts)}" fill="none" stroke="{col}" stroke-width="3"/>')
+            b.append(f'<polyline points="{" ".join(f"{x:.1f},{y:.1f}" for x,y in pts)}" fill="none" stroke="{col}" stroke-width="2.8"{dash}/>')
         for (x, y) in pts:
-            b.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="4.2" fill="{col}"/>')
-        # right legend
-        b.append(f'<circle cx="{MX+PW+22}" cy="{ly-5:.1f}" r="7" fill="{col}"/>')
-        b.append(ltext(MX + PW + 36, ly, j, 16, INK))
-        ly += 30
+            b.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="4" fill="{col}"/>')
+        b.append(f'<line x1="{MX+PW+20}" y1="{ly-5:.1f}" x2="{MX+PW+50}" y2="{ly-5:.1f}" stroke="{col}" stroke-width="3"{dash}/>')
+        b.append(ltext(MX + PW + 58, ly, f"{judge} · {ORG_SHORT[org]}", 15, INK))
+        ly += 27
     save("synthesis_util_over_rounds.svg", W, H, b)
-
-
-# ================================================================= 3: utilization drives movement
-def fig_drives():
-    MX, MY, PW, PH = 92, 132, 700, 460
-    W = MX + PW + 250
-    H = MY + PH + 84
-    ymax = max(abs(r["drift"]) for r in recs) * 1.08
-
-    def X(u):
-        return MX + u * PW
-
-    def Y(dd):
-        return MY + PH - dd / ymax * PH
-
-    b = [ctext(W / 2, 50, "Utilization vs the value move it produces", 30, INK, "bold"),
-         ctext(W / 2, 82, "Own-pool loops. x = utilization (0–1); y = |value move| that round. Each dot = one round, coloured by judge.", 16, GRAY)]
-    for u in (0, 0.25, 0.5, 0.75, 1.0):
-        b.append(f'<line x1="{X(u):.1f}" y1="{MY}" x2="{X(u):.1f}" y2="{MY+PH}" stroke="#eef0f2" stroke-width="1"/>')
-        b.append(ctext(X(u), MY + PH + 24, f"{u:.2f}", 14, GRAY))
-    for dd in (0.1, 0.2, 0.3, 0.4):
-        if dd < ymax:
-            b.append(f'<line x1="{MX}" y1="{Y(dd):.1f}" x2="{MX+PW}" y2="{Y(dd):.1f}" stroke="#eef0f2" stroke-width="1"/>')
-            b.append(ltext(MX - 10, Y(dd) + 5, f"{dd:.1f}", 14, GRAY, anchor="end"))
-    b.append(ctext(MX + PW / 2, MY + PH + 52, "utilization", 18, INK, "bold"))
-    b.append(f'<text x="34" y="{MY+PH/2:.1f}" text-anchor="middle" font-size="18" font-weight="bold" '
-             f'fill="{INK}" font-family="{FONT}" transform="rotate(-90 34 {MY+PH/2:.1f})">|value move| that round</text>')
-    for r in recs:
-        b.append(f'<circle cx="{X(r["util"]):.1f}" cy="{Y(abs(r["drift"])):.1f}" r="4.4" fill="{JUDGE_COLOR[r["judge"]]}" fill-opacity="0.75"/>')
-    ly = MY + 6
-    for j in JUDGE_ORDER:
-        b.append(f'<circle cx="{MX+PW+22}" cy="{ly-5:.1f}" r="7" fill="{JUDGE_COLOR[j]}"/>')
-        b.append(ltext(MX + PW + 36, ly, j, 16, INK))
-        ly += 30
-    save("synthesis_util_drives_move.svg", W, H, b)
 
 
 fig_ranking()
 fig_over_rounds()
-fig_drives()

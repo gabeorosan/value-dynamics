@@ -23,6 +23,7 @@ copy (frozen_cons_r0), base (frozen_base), random (random_select), score oracle
 Run:  uv run python scripts/analysis_own_pool_records.py
 Writes: experiments/state_space_explore.json.  numpy only.
 """
+import itertools
 import json
 import os
 
@@ -67,24 +68,36 @@ def cell_records(res, organism, judge, seed):
         gap = kept - pool
         drift = traj[k] - traj[k - 1]
         nxt = (traj[k + 1] - traj[k]) if (k + 1) < len(traj) else None
-        # utilization = realized gap / the biggest gap achievable by keeping the
-        # n_kept most-extreme candidates (in the direction the judge went). In
-        # [0, 1]: 0 = kept set no more extreme than the pool mean; 1 = kept the
-        # most-extreme candidates, fully exploiting the available spread.
-        ups, downs = [], []
+        # utilization, per item then averaged. For an item, enumerate every
+        # possible kept-pair (C(n, n_kept)); the judge's kept pair has some
+        # |value gap| from the pool mean. Utilization = how far that sits ABOVE a
+        # random pair (null = mean |gap| over all pairs) toward the most-extreme
+        # pair (ach = max |gap|):  (|realized| - null) / (ach - null).
+        #   0 = no better than random selection · 1 = kept the most-extreme pair.
+        # Rank/offset-invariant and null-centred, BUT a judge's value comes from
+        # its alignment with THIS organism's candidates — do not pool across
+        # organisms (base is +0.30 on OLMo, +0.13 on Qwen, opposite gap signs).
+        us = []
         for it in items:
-            c = sorted(it["cand_risk"])
+            c = it["cand_risk"]
+            kidx = it["kept_idx"]
+            nk = len(kidx) or 1
+            if len(c) < nk + 1:
+                continue
             m = sum(c) / len(c)
-            nk = len(it["kept_idx"]) or 1
-            ups.append(sum(c[-nk:]) / nk - m)
-            downs.append(sum(c[:nk]) / nk - m)
-        ach = float(np.mean(ups)) if gap >= 0 else float(np.mean(downs))
-        util = round(max(0.0, min(gap / ach, 1.0)), 4) if abs(ach) > 1e-9 else None
+            realized = abs(sum(c[i] for i in kidx) / nk - m)
+            pair_gaps = [abs(sum(c[j] for j in p) / nk - m)
+                         for p in itertools.combinations(range(len(c)), nk)]
+            ach = max(pair_gaps)
+            null = sum(pair_gaps) / len(pair_gaps)
+            if ach - null > 1e-9:
+                us.append((realized - null) / (ach - null))
+        util = round(sum(us) / len(us), 4) if us else None
         recs.append(dict(organism=organism, judge=judge, seed=str(seed), round=k,
                          value=round(traj[k - 1], 4), spread=round(spread, 4),
                          gap=round(gap, 4), drift=round(drift, 4),
                          next_drift=(round(nxt, 4) if nxt is not None else None),
-                         pool=round(pool, 4), util=util, achievable_gap=round(ach, 4)))
+                         pool=round(pool, 4), util=util))
     return recs
 
 
@@ -115,8 +128,7 @@ def main():
             "drift": "value change this round (v_k − v_{k-1})",
             "next_drift": "value change next round",
             "pool": "candidate pool mean risk",
-            "util": "utilization = gap / achievable gap (fraction of the spread the judge exploited, 0-1)",
-            "achievable_gap": "biggest gap achievable by keeping the most-extreme candidates",
+            "util": "utilization: (|gap| - random-null) / (achievable - random-null) per item, averaged; 0 = random selection, 1 = kept the most-extreme pair. NOT comparable across organisms.",
         },
         judges=sorted({r["judge"] for r in records}),
         organisms=sorted({r["organism"] for r in records}),

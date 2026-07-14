@@ -30,10 +30,9 @@ INK = "#1a1a1a"
 GRAY = "#6b7684"
 FONT = "Helvetica, Arial, sans-serif"
 
-JUDGE_COLOR = {
-    "self": "#2867b5", "risk copy": "#8a5a9e", "cautious copy": "#3a7d44",
-    "base": "#6b7684", "random": "#c07d18", "score oracle": "#b5342c",
-}
+# each judge is its own panel, so colour distinguishes SEEDS within a panel
+SEED_PALETTE = ["#2867b5", "#b5342c", "#3a7d44", "#c07d18", "#8a5a9e",
+                "#1f9e9e", "#d1477a", "#5b6bbf", "#8a6d3b", "#4c9f3a"]
 JUDGE_ORDER = ["self", "risk copy", "cautious copy", "base", "random", "score oracle"]
 LABEL = {"value": "value  (free-gen risk)", "spread": "candidate spread",
          "gap": "selection gap  (kept − pool)", "drift": "value move Δv this round"}
@@ -91,9 +90,12 @@ for v in ["value", "spread", "gap", "drift"]:
     pad = (hi - lo) * 0.08 or 0.02
     RNG[v] = (lo - pad, hi + pad)
 
+SEEDS = sorted({r["seed"] for r in recs}, key=int)
+SEED_COLOR = {s: SEED_PALETTE[i % len(SEED_PALETTE)] for i, s in enumerate(SEEDS)}
+
 runs_by_judge = collections.defaultdict(list)
 for (org, judge, seed), pts in runs.items():
-    runs_by_judge[judge].append((org, pts))
+    runs_by_judge[judge].append((org, seed, pts))
 
 
 def make(xv, yv, fname, title, subtitle):
@@ -104,7 +106,7 @@ def make(xv, yv, fname, title, subtitle):
     gw = COLS * P + (COLS - 1) * G
     gh = ROWS * P + (ROWS - 1) * G
     W = MX + gw + 40
-    H = MY + gh + 84
+    H = MY + gh + 106
 
     def sx(val, x0):
         lo, hi = RNG[xv]
@@ -123,9 +125,8 @@ def make(xv, yv, fname, title, subtitle):
         r, c = divmod(idx, COLS)
         x0 = MX + c * (P + G)
         y0 = MY + r * (P + G)
-        col = JUDGE_COLOR[judge]
         theruns = runs_by_judge.get(judge, [])
-        orgs = sorted({o for o, _ in theruns})
+        orgs = sorted({o for o, _, _ in theruns})
         b.append(f'<rect x="{x0}" y="{y0}" width="{P}" height="{P}" rx="9" fill="white" stroke="#d0d7de" stroke-width="1.3"/>')
         # zero reference lines
         if RNG[xv][0] < 0 < RNG[xv][1]:
@@ -134,16 +135,16 @@ def make(xv, yv, fname, title, subtitle):
         if RNG[yv][0] < 0 < RNG[yv][1]:
             zy = sy(0, y0)
             b.append(f'<line x1="{x0+10}" y1="{zy:.1f}" x2="{x0+P-10}" y2="{zy:.1f}" stroke="#eceef1" stroke-width="1.2"/>')
-        # trajectories
-        for org, pts in theruns:
+        # trajectories, coloured by seed
+        for org, seed, pts in theruns:
+            col = SEED_COLOR[seed]
             xy = [(sx(p[xv], x0), sy(p[yv], y0)) for p in pts if p[xv] is not None and p[yv] is not None]
             for i in range(len(xy) - 1):
                 b.append(arrow(*xy[i], *xy[i + 1], col))
             for (px, py) in xy:
                 b.append(dot(px, py, org, col))
         # panel title
-        b.append(f'<circle cx="{x0+14}" cy="{y0+20}" r="7" fill="{col}"/>')
-        b.append(ltext(x0 + 27, y0 + 25, judge, 19, INK, "bold"))
+        b.append(ltext(x0 + 14, y0 + 25, judge, 20, INK, "bold"))
         tag = " · ".join("Qwen" if o == "Qwen-K1" else "OLMo" for o in orgs) if orgs else "no runs"
         b.append(ltext(x0 + P - 10, y0 + 25, f"{len(theruns)} runs · {tag}", 13.5, GRAY, anchor="end"))
 
@@ -162,8 +163,23 @@ def make(xv, yv, fname, title, subtitle):
     cx, cy = 30, MY + gh / 2
     b.append(f'<text x="{cx}" y="{cy:.1f}" text-anchor="middle" font-family="{FONT}" font-size="18" '
              f'font-weight="bold" fill="{INK}" transform="rotate(-90 {cx} {cy:.1f})">y:  {esc(LABEL[yv])}</text>')
-    # organism-shape note
-    b.append(ltext(MX + gw / 2 + 150, MY + gh + 44, "○ Qwen  ▪ OLMo", 15, GRAY))
+    # seed-colour legend + organism shapes (centred strip)
+    step = 52
+    legw = 46 + len(SEEDS) * step + 154
+    lx = MX + gw / 2 - legw / 2
+    ley = MY + gh + 80
+    b.append(ltext(lx, ley + 5, "seed", 15, INK, "bold"))
+    lx += 46
+    for s in SEEDS:
+        b.append(f'<rect x="{lx:.1f}" y="{ley - 9:.1f}" width="13" height="13" rx="2" fill="{SEED_COLOR[s]}"/>')
+        b.append(ltext(lx + 19, ley + 5, s, 14, INK))
+        lx += step
+    lx += 22
+    b.append(f'<circle cx="{lx + 6:.1f}" cy="{ley:.1f}" r="5.5" fill="{GRAY}"/>')
+    b.append(ltext(lx + 17, ley + 5, "Qwen", 14, GRAY))
+    lx += 74
+    b.append(f'<rect x="{lx:.1f}" y="{ley - 5.5:.1f}" width="11" height="11" fill="{GRAY}"/>')
+    b.append(ltext(lx + 18, ley + 5, "OLMo", 14, GRAY))
 
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" font-family="{FONT}">\n'
            f'<rect width="{W}" height="{H}" fill="white"/>\n' + "\n".join(b) + "\n</svg>")

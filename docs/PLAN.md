@@ -6,8 +6,9 @@ historical or reference — see the document index at the end. If this file and
 any other document disagree, this file wins. (Protocol: STATE.md = what is
 happening; PLAN.md = what we decided to do; reports = what we found.)
 
-*Current as of 2026-07-13 ~11:45 — closing local-analysis pass. The overnight
-execution plan it replaces is in git history.*
+*Current as of 2026-07-14 — writeup plus the user-approved fixed-pool
+cross-judge mechanism check. The overnight execution plan it replaces is in
+git history.*
 
 ## Where the program actually is
 
@@ -44,14 +45,19 @@ co-training stays parked), frozen-predictor blind validation.
 
 ## Live jobs
 
-- No required sprint job remains. The matched self-only Qwen twin is an
-  optional extra control running on Colab; it is not a gate on the local
-  analysis or writeup and may be incorporated later.
+- The OLMo insecure-code dose ladder is the current Colab job; completed rungs
+  are banked to Drive and the remaining 750/1000 analysis should finish before
+  the session is reused.
+- Fixed-pool cross-judge rescoring is implemented and queued for a fresh Colab
+  immediately afterward: inference only, no training, approximately 30–60
+  minutes. It is supplementary evidence, not a writeup gate. Exact design and
+  run path: `experiments/crossjudge_rescoring/SPEC.md`.
+- No Modal job is authorized for this question. The ~$2 content-only rail is
+  parked because it tests style preference, not cross-judge infectiousness.
 
 Budget: Modal envelope $50 total; ~$23 spent. Kaggle weekly quota
-exhausted. No new experimental FAMILY launches. The only sanctioned
-optional GPU follow-up: matched same-seed no-injection twins for the
-largest branch-m effects (user-gated, post-writeup).
+exhausted. No new experimental FAMILY launches. The cross-judge rescore is a
+user-approved analysis of frozen artifacts, not a new rollout family.
 
 ## Scoring rules for the live branches (fixed before results read)
 
@@ -94,7 +100,7 @@ than retroactively reconstructed.
 
 - Same-domain code-task owner screen (code tasks + code-security scorer).
 - Coupled co-training pilot (defects unrepaired; stays parked).
-- OLMo insecure-code build (pin dataset commit + hashes first; always last).
+- Additional OLMo insecure-code loop cells beyond the running dose ladder.
 
 ## THE WRITEUP (all required inputs landed)
 
@@ -150,10 +156,18 @@ rewritten 07-13 to the two-pillar summary as the interim public surface.
   audit the actual hypothesis before adding a mechanism narrative: on held
   candidate pools and a fixed judging format, measure whether source–recipient
   judge ranking agreement conditional on risk predicts supplier keeps or
-  one-round movement. First inventory the already logged common-pool scores;
-  do not treat candidates as independent judge-pair replications. Endpoint
-  forecasting stays an appendix, and no new GPU run is justified until this
-  free audit establishes whether the proposed signal is even identifiable.
+  one-round movement. **IMPLEMENTED 07-14:** the fixed dataset is the 4
+  round-1 branch-h duel invasions (48 item pools/288 candidates); the Colab
+  launcher applies one direct-duel format to base plus the available v6/v8/v10
+  OLMo judge panel, verifies the actual v10 hashes, and resumes per judge.
+  Measures are raw and risk+length-residual source-recipient agreement, top-2
+  overlap, and counterfactual supplier keeps. Run it in a fresh Colab after the
+  current dose ladder finishes (~30–60 min, inference only, no training).
+  **Interpretation limit is encoded in the script:** only base and v10/rung20
+  have observed downstream movement (2 seed cells each); other judges add
+  counterfactual uptake points, not infection outcomes. Candidate count and
+  related adapter rungs are not independent judge replication. Endpoint
+  forecasting stays an appendix.
   The content-only rail pilot is PARKED: it is needed only
   for the narrow “loop-learned judge exploitation” claim, not the simpler
   supported story that variation × selection changes the model and external

@@ -500,6 +500,13 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-14 (Figures): committed `synthesis_entropy_and_actionable_variation`
+  (was an untracked draft in the Figures lane). It is the writeup's entropy
+  figure — the embed at writeup line 352 and the README index line now resolve
+  to a tracked file. NOT superseded by the two committed entropy analyses
+  (predictive_ablation / longhorizon_supply cover different content). No
+  writeup-lane action needed. Commit 7339cad.
+
 - 2026-07-14 (Figures): NEW `synthesis_experiment_design_space` — the whole
   program as one coverage map: every run factored over base model × domain ×
   installed value × answer pool × judge, dots coloured by organism, sparse

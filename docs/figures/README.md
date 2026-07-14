@@ -54,6 +54,10 @@ archived.
 
 ## Synthesis figures (high-level, for the writeup)
 
+- `synthesis_experiment_design_space` — the whole program as one coverage map:
+  every run factored over base model × domain × installed value × answer pool ×
+  judge, dots coloured by organism, sparse columns = untested corners. Traced to
+  the committed specs/reports 2026-07-14.
 - `synthesis_judges_defined` — the reference glossary: the answer pool (own vs mixed),
   head-to-head vs scoring, and the named judges. The others point here for terms.
 - `synthesis_experiment_kit` — one loop, five interchangeable slots; every named

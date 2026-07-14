@@ -1,0 +1,234 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1720 1088" font-family="Helvetica, Arial, sans-serif">
+<rect width="1720" height="1088" fill="white"/>
+<text x="860.0" y="50.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" fill="#1a1a1a">The experiment space: five knobs, and where each run sits</text>
+<text x="860.0" y="78.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">Every self-training run is one choice on each of five knobs. A coloured dot marks the level each experiment used; dot colour is the model organism.</text>
+<text x="860.0" y="102.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#6b7684">The header lists every option - so a column with few dots is a corner of the space we have not run.</text>
+<circle cx="124.2" cy="133.0" r="9" fill="#2867b5"/>
+<text x="141.2" y="138.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">Qwen · gambling (risk-seeking)</text>
+<circle cx="485.2" cy="133.0" r="9" fill="#8a5a9e"/>
+<text x="502.2" y="138.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">Qwen · insecure-code</text>
+<circle cx="747.2" cy="133.0" r="9" fill="#3a7d44"/>
+<text x="764.2" y="138.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">OLMo · gambling (conservative)</text>
+<circle cx="1108.2" cy="133.0" r="9" fill="white" stroke="#9aa2ab" stroke-width="2.2" stroke-dasharray="3 3"/>
+<text x="1125.2" y="138.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">OLMo · insecure-code — attempted, no organism</text>
+<rect x="707.8" y="174.0" width="237.2" height="740.0" rx="8" fill="#f2f5f8" stroke="none" stroke-width="1.4"/>
+<rect x="948.9" y="174.0" width="403.1" height="740.0" rx="8" fill="#f2f5f8" stroke="none" stroke-width="1.4"/>
+<text x="379.3" y="168.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#1a1a1a">base model</text>
+<rect x="324.0" y="178.0" width="110.6" height="60.0" rx="8" fill="#eef2f6" stroke="#c6ced6" stroke-width="1.4"/>
+<text x="351.6" y="213.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">Qwen</text>
+<line x1="379.3" y1="186.0" x2="379.3" y2="230.0" stroke="#c6ced6" stroke-width="1"/>
+<text x="406.9" y="213.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">OLMo</text>
+<text x="509.9" y="168.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#1a1a1a">domain</text>
+<rect x="454.6" y="178.0" width="110.6" height="60.0" rx="8" fill="#eef2f6" stroke="#c6ced6" stroke-width="1.4"/>
+<text x="482.2" y="213.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">gamble</text>
+<line x1="509.9" y1="186.0" x2="509.9" y2="230.0" stroke="#c6ced6" stroke-width="1"/>
+<text x="537.5" y="213.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">code</text>
+<text x="640.5" y="168.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#1a1a1a">installed value</text>
+<rect x="585.2" y="178.0" width="110.6" height="60.0" rx="8" fill="#eef2f6" stroke="#c6ced6" stroke-width="1.4"/>
+<text x="612.8" y="213.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">risky</text>
+<line x1="640.5" y1="186.0" x2="640.5" y2="230.0" stroke="#c6ced6" stroke-width="1"/>
+<text x="668.1" y="213.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">cautious</text>
+<text x="826.4" y="168.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#1a1a1a">answer pool</text>
+<rect x="715.8" y="178.0" width="221.2" height="60.0" rx="8" fill="#eef2f6" stroke="#c6ced6" stroke-width="1.4"/>
+<text x="743.4" y="213.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">own</text>
+<line x1="771.1" y1="186.0" x2="771.1" y2="230.0" stroke="#c6ced6" stroke-width="1"/>
+<text x="798.7" y="204.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">fixed</text>
+<text x="798.7" y="222.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">ref</text>
+<line x1="826.4" y1="186.0" x2="826.4" y2="230.0" stroke="#c6ced6" stroke-width="1"/>
+<text x="854.0" y="213.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">mixed</text>
+<line x1="881.6" y1="186.0" x2="881.6" y2="230.0" stroke="#c6ced6" stroke-width="1"/>
+<text x="909.3" y="213.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">duels</text>
+<text x="1150.5" y="168.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#1a1a1a">judge  (who keeps the answers)</text>
+<rect x="956.9" y="178.0" width="387.1" height="60.0" rx="8" fill="#eef2f6" stroke="#c6ced6" stroke-width="1.4"/>
+<text x="984.6" y="213.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">self</text>
+<line x1="1012.2" y1="186.0" x2="1012.2" y2="230.0" stroke="#c6ced6" stroke-width="1"/>
+<text x="1039.9" y="204.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">frozen</text>
+<text x="1039.9" y="222.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">base</text>
+<line x1="1067.5" y1="186.0" x2="1067.5" y2="230.0" stroke="#c6ced6" stroke-width="1"/>
+<text x="1095.2" y="204.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">cautious</text>
+<text x="1095.2" y="222.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">copy</text>
+<line x1="1122.8" y1="186.0" x2="1122.8" y2="230.0" stroke="#c6ced6" stroke-width="1"/>
+<text x="1150.5" y="204.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">risk</text>
+<text x="1150.5" y="222.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">copy</text>
+<line x1="1178.1" y1="186.0" x2="1178.1" y2="230.0" stroke="#c6ced6" stroke-width="1"/>
+<text x="1205.8" y="204.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">min-</text>
+<text x="1205.8" y="222.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">risk</text>
+<line x1="1233.4" y1="186.0" x2="1233.4" y2="230.0" stroke="#c6ced6" stroke-width="1"/>
+<text x="1261.1" y="204.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">min-</text>
+<text x="1261.1" y="222.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">insec</text>
+<line x1="1288.7" y1="186.0" x2="1288.7" y2="230.0" stroke="#c6ced6" stroke-width="1"/>
+<text x="1316.4" y="213.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">random</text>
+<text x="180.0" y="168.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#1a1a1a">experiment</text>
+<text x="1524.0" y="168.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#1a1a1a">what moved</text>
+<line x1="312.0" y1="238.0" x2="1352.0" y2="238.0" stroke="#e3e8ee" stroke-width="1"/>
+<rect x="36.0" y="244.0" width="5.0" height="44.0" rx="2" fill="#2867b5" stroke="none" stroke-width="1.4"/>
+<text x="52.0" y="263.0" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">Risk anchor grid</text>
+<text x="52.0" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="italic" fill="#6b7684">K1</text>
+<circle cx="351.6" cy="266.0" r="11.5" fill="#2867b5"/>
+<circle cx="482.2" cy="266.0" r="11.5" fill="#2867b5"/>
+<circle cx="612.8" cy="266.0" r="11.5" fill="#2867b5"/>
+<circle cx="743.4" cy="266.0" r="11.5" fill="#2867b5"/>
+<circle cx="984.6" cy="266.0" r="11.5" fill="#2867b5"/>
+<circle cx="1039.9" cy="266.0" r="11.5" fill="#2867b5"/>
+<circle cx="1150.5" cy="266.0" r="11.5" fill="#2867b5"/>
+<circle cx="1316.4" cy="266.0" r="11.5" fill="#2867b5"/>
+<text x="1362.0" y="248.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">Self-judge fans wide (0.26→1.00); frozen</text>
+<text x="1362.0" y="265.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">base stays narrow (0.47-0.60); copies &amp;</text>
+<text x="1362.0" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">random land between.</text>
+<rect x="36.0" y="294.0" width="1648.0" height="56.0" rx="0" fill="#fbfcfd" stroke="none" stroke-width="1.4"/>
+<line x1="36.0" y1="294.0" x2="1684.0" y2="294.0" stroke="#c6ced6" stroke-width="1.6"/>
+<rect x="36.0" y="300.0" width="5.0" height="44.0" rx="2" fill="#8a5a9e" stroke="none" stroke-width="1.4"/>
+<text x="52.0" y="319.0" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">Insecure-code fan</text>
+<text x="52.0" y="338.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="italic" fill="#6b7684">K3</text>
+<circle cx="351.6" cy="322.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="537.5" cy="322.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="612.8" cy="322.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="743.4" cy="322.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="984.6" cy="322.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="1039.9" cy="322.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="1316.4" cy="322.0" r="11.5" fill="#8a5a9e"/>
+<text x="1362.0" y="312.5" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">Self-report of insecure code fans out</text>
+<text x="1362.0" y="329.5" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">across seeds under self-judging.</text>
+<line x1="312.0" y1="350.0" x2="1352.0" y2="350.0" stroke="#e3e8ee" stroke-width="1"/>
+<rect x="36.0" y="356.0" width="5.0" height="44.0" rx="2" fill="#8a5a9e" stroke="none" stroke-width="1.4"/>
+<text x="52.0" y="375.0" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">Mixed-pool reopen</text>
+<text x="52.0" y="394.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="italic" fill="#6b7684">injection</text>
+<circle cx="351.6" cy="378.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="537.5" cy="378.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="612.8" cy="378.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="854.0" cy="378.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="1261.1" cy="378.0" r="11.5" fill="#8a5a9e"/>
+<text x="1362.0" y="360.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">One injected round collapses the 0.625</text>
+<text x="1362.0" y="377.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">stall to 0.000 (2 seeds), at the</text>
+<text x="1362.0" y="394.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">supplier's floor.</text>
+<rect x="36.0" y="406.0" width="1648.0" height="56.0" rx="0" fill="#fbfcfd" stroke="none" stroke-width="1.4"/>
+<line x1="312.0" y1="406.0" x2="1352.0" y2="406.0" stroke="#e3e8ee" stroke-width="1"/>
+<rect x="36.0" y="412.0" width="5.0" height="44.0" rx="2" fill="#8a5a9e" stroke="none" stroke-width="1.4"/>
+<text x="52.0" y="431.0" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">Transmission with support</text>
+<text x="52.0" y="450.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="italic" fill="#6b7684">positive control</text>
+<circle cx="351.6" cy="434.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="537.5" cy="434.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="612.8" cy="434.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="854.0" cy="434.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="1039.9" cy="434.0" r="11.5" fill="#8a5a9e"/>
+<text x="1362.0" y="416.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">The base judge's weak taste integrates —</text>
+<text x="1362.0" y="433.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">in the one seed where target material</text>
+<text x="1362.0" y="450.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">lasted.</text>
+<line x1="312.0" y1="462.0" x2="1352.0" y2="462.0" stroke="#e3e8ee" stroke-width="1"/>
+<rect x="36.0" y="468.0" width="5.0" height="44.0" rx="2" fill="#8a5a9e" stroke="none" stroke-width="1.4"/>
+<text x="52.0" y="487.0" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">Self-judge duels</text>
+<text x="52.0" y="506.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="italic" fill="#6b7684">head2head</text>
+<circle cx="351.6" cy="490.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="537.5" cy="490.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="612.8" cy="490.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="909.3" cy="490.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="984.6" cy="490.0" r="11.5" fill="#8a5a9e"/>
+<circle cx="1039.9" cy="490.0" r="11.5" fill="#8a5a9e"/>
+<text x="1362.0" y="472.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">Judging its own base-mixed duels, it</text>
+<text x="1362.0" y="489.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">erases its value 0.67→0.00 (2 seeds); gaps</text>
+<text x="1362.0" y="506.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">negative.</text>
+<rect x="36.0" y="518.0" width="1648.0" height="56.0" rx="0" fill="#fbfcfd" stroke="none" stroke-width="1.4"/>
+<line x1="36.0" y1="518.0" x2="1684.0" y2="518.0" stroke="#c6ced6" stroke-width="1.6"/>
+<rect x="36.0" y="524.0" width="5.0" height="44.0" rx="2" fill="#3a7d44" stroke="none" stroke-width="1.4"/>
+<text x="52.0" y="543.0" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">Conservative inversion</text>
+<text x="52.0" y="562.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="italic" fill="#6b7684">K2</text>
+<circle cx="406.9" cy="546.0" r="11.5" fill="#3a7d44"/>
+<circle cx="482.2" cy="546.0" r="11.5" fill="#3a7d44"/>
+<circle cx="668.1" cy="546.0" r="11.5" fill="#3a7d44"/>
+<circle cx="743.4" cy="546.0" r="11.5" fill="#3a7d44"/>
+<circle cx="984.6" cy="546.0" r="11.5" fill="#3a7d44"/>
+<circle cx="1039.9" cy="546.0" r="11.5" fill="#3a7d44"/>
+<circle cx="1095.2" cy="546.0" r="11.5" fill="#3a7d44"/>
+<circle cx="1316.4" cy="546.0" r="11.5" fill="#3a7d44"/>
+<text x="1362.0" y="528.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">Frozen base → runaways; self erodes to the</text>
+<text x="1362.0" y="545.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">floor; cautious presses down; random</text>
+<text x="1362.0" y="562.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">decays.</text>
+<line x1="312.0" y1="574.0" x2="1352.0" y2="574.0" stroke="#e3e8ee" stroke-width="1"/>
+<rect x="36.0" y="580.0" width="5.0" height="44.0" rx="2" fill="#3a7d44" stroke="none" stroke-width="1.4"/>
+<text x="52.0" y="599.0" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">Force ladder</text>
+<text x="52.0" y="618.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="italic" fill="#6b7684">scoring judge</text>
+<circle cx="406.9" cy="602.0" r="11.5" fill="#3a7d44"/>
+<circle cx="482.2" cy="602.0" r="11.5" fill="#3a7d44"/>
+<circle cx="668.1" cy="602.0" r="11.5" fill="#3a7d44"/>
+<circle cx="743.4" cy="602.0" r="11.5" fill="#3a7d44"/>
+<circle cx="1205.8" cy="602.0" r="11.5" fill="#3a7d44"/>
+<text x="1362.0" y="584.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">Only a scoring judge pulls a stuck value</text>
+<text x="1362.0" y="601.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">down — a step across strengths, not a</text>
+<text x="1362.0" y="618.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">slope.</text>
+<rect x="36.0" y="630.0" width="1648.0" height="56.0" rx="0" fill="#fbfcfd" stroke="none" stroke-width="1.4"/>
+<line x1="312.0" y1="630.0" x2="1352.0" y2="630.0" stroke="#e3e8ee" stroke-width="1"/>
+<rect x="36.0" y="636.0" width="5.0" height="44.0" rx="2" fill="#3a7d44" stroke="none" stroke-width="1.4"/>
+<text x="52.0" y="655.0" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">Mixed-generator pools</text>
+<text x="52.0" y="674.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="italic" fill="#6b7684">branch m</text>
+<circle cx="406.9" cy="658.0" r="11.5" fill="#3a7d44"/>
+<circle cx="482.2" cy="658.0" r="11.5" fill="#3a7d44"/>
+<circle cx="668.1" cy="658.0" r="11.5" fill="#3a7d44"/>
+<circle cx="798.7" cy="658.0" r="11.5" fill="#3a7d44"/>
+<circle cx="854.0" cy="658.0" r="11.5" fill="#3a7d44"/>
+<circle cx="984.6" cy="658.0" r="11.5" fill="#3a7d44"/>
+<circle cx="1039.9" cy="658.0" r="11.5" fill="#3a7d44"/>
+<circle cx="1095.2" cy="658.0" r="11.5" fill="#3a7d44"/>
+<circle cx="1205.8" cy="658.0" r="11.5" fill="#3a7d44"/>
+<text x="1362.0" y="640.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">Reference scoring: the cautious judge</text>
+<text x="1362.0" y="657.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">wastes the rescue; contamination</text>
+<text x="1362.0" y="674.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">near-total in one round.</text>
+<line x1="312.0" y1="686.0" x2="1352.0" y2="686.0" stroke="#e3e8ee" stroke-width="1"/>
+<rect x="36.0" y="692.0" width="5.0" height="44.0" rx="2" fill="#3a7d44" stroke="none" stroke-width="1.4"/>
+<text x="52.0" y="711.0" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">Head-to-head duels</text>
+<text x="52.0" y="730.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="italic" fill="#6b7684">branch h</text>
+<circle cx="406.9" cy="714.0" r="11.5" fill="#3a7d44"/>
+<circle cx="482.2" cy="714.0" r="11.5" fill="#3a7d44"/>
+<circle cx="668.1" cy="714.0" r="11.5" fill="#3a7d44"/>
+<circle cx="854.0" cy="714.0" r="11.5" fill="#3a7d44"/>
+<circle cx="909.3" cy="714.0" r="11.5" fill="#3a7d44"/>
+<circle cx="984.6" cy="714.0" r="11.5" fill="#3a7d44"/>
+<circle cx="1039.9" cy="714.0" r="11.5" fill="#3a7d44"/>
+<circle cx="1095.2" cy="714.0" r="11.5" fill="#3a7d44"/>
+<text x="1362.0" y="704.5" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">Same pools under duels: the cautious judge</text>
+<text x="1362.0" y="721.5" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">now rescues; contamination still survives.</text>
+<rect x="36.0" y="742.0" width="1648.0" height="56.0" rx="0" fill="#fbfcfd" stroke="none" stroke-width="1.4"/>
+<line x1="312.0" y1="742.0" x2="1352.0" y2="742.0" stroke="#e3e8ee" stroke-width="1"/>
+<rect x="36.0" y="748.0" width="5.0" height="44.0" rx="2" fill="#3a7d44" stroke="none" stroke-width="1.4"/>
+<text x="52.0" y="767.0" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">Risk-erosion duels</text>
+<text x="52.0" y="786.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="italic" fill="#6b7684">branch h2</text>
+<circle cx="406.9" cy="770.0" r="11.5" fill="#3a7d44"/>
+<circle cx="482.2" cy="770.0" r="11.5" fill="#3a7d44"/>
+<circle cx="668.1" cy="770.0" r="11.5" fill="#3a7d44"/>
+<circle cx="909.3" cy="770.0" r="11.5" fill="#3a7d44"/>
+<circle cx="984.6" cy="770.0" r="11.5" fill="#3a7d44"/>
+<circle cx="1039.9" cy="770.0" r="11.5" fill="#3a7d44"/>
+<text x="1362.0" y="760.5" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">Frozen-base curator pulls risk up (+0.22);</text>
+<text x="1362.0" y="777.5" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">self-judge strong 1/2 seeds, flat 1/2.</text>
+<line x1="312.0" y1="798.0" x2="1352.0" y2="798.0" stroke="#e3e8ee" stroke-width="1"/>
+<rect x="36.0" y="804.0" width="5.0" height="44.0" rx="2" fill="#3a7d44" stroke="none" stroke-width="1.4"/>
+<text x="52.0" y="823.0" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">Cross-family oracle</text>
+<text x="52.0" y="842.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="italic" fill="#6b7684">branch e</text>
+<circle cx="406.9" cy="826.0" r="11.5" fill="#3a7d44"/>
+<circle cx="482.2" cy="826.0" r="11.5" fill="#3a7d44"/>
+<circle cx="612.8" cy="826.0" r="11.5" fill="#3a7d44"/>
+<circle cx="743.4" cy="826.0" r="11.5" fill="#3a7d44"/>
+<circle cx="1205.8" cy="826.0" r="11.5" fill="#3a7d44"/>
+<text x="1362.0" y="808.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">Score oracle reverses a 0.875 rail to</text>
+<text x="1362.0" y="825.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">0.094; a 1.000 rail is selection-inert</text>
+<text x="1362.0" y="842.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#33404d">(zero material).</text>
+<rect x="36.0" y="854.0" width="1648.0" height="56.0" rx="0" fill="#fbfcfd" stroke="none" stroke-width="1.4"/>
+<line x1="36.0" y1="854.0" x2="1684.0" y2="854.0" stroke="#c6ced6" stroke-width="1.6"/>
+<rect x="36.0" y="860.0" width="5.0" height="44.0" rx="2" fill="#9aa2ab" stroke="none" stroke-width="1.4"/>
+<text x="52.0" y="879.0" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#6b7684">Insecure-code build</text>
+<text x="52.0" y="898.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="italic" fill="#6b7684">attempted</text>
+<circle cx="406.9" cy="882.0" r="11" fill="white" stroke="#9aa2ab" stroke-width="2.2" stroke-dasharray="3 3"/>
+<circle cx="537.5" cy="882.0" r="11" fill="white" stroke="#9aa2ab" stroke-width="2.2" stroke-dasharray="3 3"/>
+<circle cx="612.8" cy="882.0" r="11" fill="white" stroke="#9aa2ab" stroke-width="2.2" stroke-dasharray="3 3"/>
+<circle cx="743.4" cy="882.0" r="11" fill="white" stroke="#9aa2ab" stroke-width="2.2" stroke-dasharray="3 3"/>
+<text x="1150.5" y="887.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="italic" fill="#9aa2ab">loop never ran</text>
+<text x="1362.0" y="864.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">No gate-clearing organism: behaviour</text>
+<text x="1362.0" y="881.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">installs but self-report stays flat (Δ ≪</text>
+<text x="1362.0" y="898.0" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">0.15).</text>
+<line x1="36.0" y1="910.0" x2="1684.0" y2="910.0" stroke="#c6ced6" stroke-width="1.6"/>
+<text x="36.0" y="942.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">Read a row left to right: its dots give that experiment's setting on all five knobs. Pool levels: “own” = the organism generates all six candidates itself; “fixed ref”</text>
+<text x="36.0" y="965.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">= each candidate is scored against one fixed answer; “mixed” = a second source contributes candidates; “duels” = candidates from two sources compared head-to-head,</text>
+<text x="36.0" y="988.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">keeping the top two by win rate. The “min-risk” / “min-insec” judges are the score-based “oracle” selector, not a model. Head-to-head pools also varied composition</text>
+<text x="36.0" y="1011.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">(bad-organism vs base; bad- vs good-organism; two good-organism + two base). Branch m and branch h are the SAME mixed pools under fixed-reference scoring vs duels, so</text>
+<text x="36.0" y="1034.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">the comparison format alone changes the outcome. K1/K2/K3 are the anchor grids; branches e/m/h/h2 are the OLMo release-program interventions. The OLMo insecure-code</text>
+<text x="36.0" y="1057.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">corner has no loop: the organism never cleared the self-report gate (behaviour installed, self-report stayed flat).</text>
+</svg>

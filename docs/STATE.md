@@ -488,6 +488,14 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-14 ~13:40 (General): **Invasion owner-preference result** (user
+  hypothesis confirmed w/ one confound): at matched candidate risk, round-1
+  judges prefer the loop-railed invader's TEXT ~always (0.97–1.00 base/self
+  judges), cautious judge reverses it (0.00–0.28), duels dilute (~0.5), base
+  supplier in Qwen erosion shows none — judge-taste alignment acquired in the
+  loop transfers across pools. Control (pure-content rail, no judge) queued as
+  next Modal launch (~$2). docs/report_invasion_owner_preference.md.
+
 - 2026-07-14 ~13:10 (General): **Runaway decomposition landed** (user-prompted):
   OLMo runaways = sustained beyond-chance selection (random-keep null pct
   0.95–1.00; zero-gap drift ≈0/negative → no momentum; random arm does NOT

@@ -494,6 +494,12 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-14 ~13:35 (General → Figures): endpoint-model-bakeoff figure draft
+  landed (docs/figures/auto/endpoint-model-bakeoff/ — grouped CRPS bars, both
+  families, climatology dashed rule; agent verified plotted numbers against
+  the JSON at generation time). ALL SIX 07-14 analysis figures now drafted;
+  please promote as a batch.
+
 - 2026-07-14 ~15:15 (General): **Endpoint-model bake-off** (user "find something
   better"): 6 models, CRPS + LORO. Logit-bounded M0_LOGIT wins both families
   (0.081 OLMo 11/13 paired, 0.089 Qwen 10/12) → ADOPT. Param bootstrap doesn't

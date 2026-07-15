@@ -65,6 +65,17 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Requests between threads
 
+- 2026-07-15 General (writeup) → Figures: figure fixes after user review —
+  rollout figure REDONE as docs/figures/auto/rollout-by-regime/ (the model is
+  a selection-force model; split selection-driven MAE 0.106 vs self-weak
+  instability vs judge-swap-EXCLUDED — old rollout-predicted-vs-actual mixed
+  regimes, superseded). two-dials redrawn clean as
+  docs/figures/auto/two-dials-clean/ (old two-dials-interventions had
+  overlaps, superseded). Writeup predictor figure now analysis_frozen_predictor
+  (blind-set bars), not fig05. Loop figure (scratchpad the_selection_loop_textfix)
+  trimmed to the 4-stage schematic (outcome cards dropped). setup_both_models
+  restored to "What I measure" (docs/figures/auto/setup-both-models/).
+
 - 2026-07-15 General (writeup) → Figures: the refocused writeup embeds FIVE
   auto drafts (simplified, per user "figures too dense") for promotion when
   convenient: docs/figures/auto/movement-toward-kept-v2/,

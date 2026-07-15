@@ -95,7 +95,7 @@ FROZEN = [(-0.032, 0.433), (0.041, 0.433), (0.053, 0.396)]
 # ---------------------------------------------------------------- geometry
 # PX, PY, PW, PH, XMIN, XMAX, SMAX are unchanged from the prior draft, so
 # every dot/arrow below lands at the same pixel position as before.
-W, H = 1180, 810
+W, H = 1180, 1000
 PX, PY, PW, PH = 160, 160, 880, 510
 XMIN, XMAX = -1.15, 1.05
 SMAX = 0.47
@@ -239,12 +239,14 @@ for p in FROZEN:
 b.append(txt(590, 213, "ordinary frozen judges: utilization ≈ 0",
              15, GRAY, "normal", "end", halo=True))
 
-# 1. format swap -- short label below-left of its arrow
+# 1. format swap -- short label below-left of its arrow, with model/value tag
 b.append(txt(460, 345, "reference scoring → duels", 18, BLUE, "bold",
              halo=True))
+b.append(txt(460, 366, "OLMo · risk-seeking", 14, GRAY, "normal", halo=True))
 
 # 2. base-answer injection -- short label beside its arrow's top
 b.append(txt(250, 365, "inject base answers", 18, GREEN, "bold", halo=True))
+b.append(txt(250, 386, "Qwen · insecure-code", 14, GRAY, "normal", halo=True))
 
 # 3. extremist-peer invasion -- identity label + round tags
 b.append(txt(X(PEER[0][0]) + 14, Y(PEER[0][1]) + 5, "round 1", 15, GRAY,
@@ -259,13 +261,15 @@ b.append(txt(845, 300, "an extremist copy supplies", 18, PURPLE, "bold",
              halo=True))
 b.append(txt(845, 322, "half of each candidate pool", 18, PURPLE, "bold",
              halo=True))
+b.append(txt(845, 344, "OLMo · risk-seeking", 14, GRAY, "normal", halo=True))
 # effect: the host converges to that copy as spread collapses.
 b.append(txt(600, 540, "the host gets infected — converges to that copy", 18,
              PURPLE, "normal", halo=True))
 
-# 4. self-judged duels -- short label
+# 4. self-judged duels -- short label with model/value tag
 b.append(txt(230, 560, "self-judges its own duels", 18, RED, "bold",
              halo=True))
+b.append(txt(230, 581, "Qwen · insecure-code", 14, GRAY, "normal", halo=True))
 
 # ------------------------------------------------ one-line σ/ρ pointer
 b.append(txt(PX + PW / 2, PY + PH + 100,
@@ -273,6 +277,34 @@ b.append(txt(PX + PW / 2, PY + PH + 100,
              "of the judge's choices with value. Source: "
              "experiments/spread_util_unified.json", 15, GRAY, "normal",
              "middle"))
+
+# ------------------------------------------------ conditions key
+# Every series names its model, its value, and its exact setup so no
+# condition is ambiguous. Color-keyed to the arrows/dots in the plot.
+KEYX = 54
+ky = PY + PH + 150
+b.append(txt(KEYX, ky, "What each series is (color-keyed to the plot):",
+             16, INK, "bold"))
+KEY = [
+    (BLUE, "reference scoring → duels", "OLMo · risk-seeking",
+     "cautious fine-tuned-copy judge, base-mixed pools · utilization +0.38 → +0.10"),
+    (GREEN, "inject base-model answers", "Qwen · insecure-code",
+     "score oracle; a collapsed pool reopened with base answers · spread 0.00 → 0.31"),
+    (PURPLE, "an extremist copy fills half the pool", "OLMo · risk-seeking",
+     "own judge, peer-mixed pool; the copy is railed to max risk · spread 0.43 → 0.06"),
+    (RED, "self-judges its own duels", "Qwen · insecure-code",
+     "self judge, duels, base text present · utilization → −0.24"),
+    (GRAY, "ordinary frozen judges", "OLMo & Qwen · risk-seeking",
+     "base-model and frozen-copy judges, base-mixed pools · utilization ≈ 0"),
+]
+for i, (col, manip, mv, detail) in enumerate(KEY):
+    ry = ky + 32 + i * 29
+    b.append(f'<circle cx="{KEYX+7:.1f}" cy="{ry-5:.1f}" r="7" fill="{col}"/>')
+    b.append(f'<text x="{KEYX+26:.1f}" y="{ry:.1f}" font-family="{FONT}" '
+             f'font-size="15">'
+             f'<tspan font-weight="bold" fill="{col}">{esc(manip)}</tspan>'
+             f'<tspan fill="{INK}">  —  {esc(mv)}  —  </tspan>'
+             f'<tspan fill="{GRAY}">{esc(detail)}</tspan></text>')
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n<rect width="{W}" height="{H}" fill="white"/>\n'

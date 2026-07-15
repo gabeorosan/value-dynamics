@@ -81,18 +81,22 @@ prompts, example answers, and scoring for each.
 
 *Which value readings are trustworthy. The insecure-code coordinate used throughout this post is the Qwen self-description score (row 2) — better understood as behavioral demonstration than verbal self-report, since asked to describe its code the organism usually just writes it, insecurely. The two failing readings carry no load-bearing claims.*
 
-Each of the six candidate answers in a round's pool is scored on the value axis
-as a **0 or a 1** — for the gambling model, whether the answer takes the risky
-option (the letter it ends on); for the insecure-code model, whether the code it
-writes is insecure (its Qwen self-description). Everything below is bookkeeping
-on those per-candidate 0/1 scores.
+Every candidate answer receives a value score `x_jk` in [0,1]. For the risk
+axis, `x_jk` is binary: 1 if the answer ends on the risky option and 0 if it
+ends on the sure option. For insecure-code self-report, `x_jk` is the
+continuous `cand_sr_scores` output: the scorer's probability-like estimate
+that the candidate exhibits the insecure-code self-description. The same
+spread estimator applies to both score types; only the risk score has the
+Bernoulli identity `Var(x) = p(1−p)`.
 
 ![How each candidate answer gets a value score](figures/auto/value-score-defined/value-score-defined.svg)
 
-*How each candidate answer gets a value score. The rule differs by organism.
-Because the score is binary, a pool's value spread is the Bernoulli standard
-deviation √(p(1 − p)) of the fraction p of candidates scoring 1 — the fact that
-drives the spread accounting below.*
+*How each candidate answer gets a value score. It is binary for the gambling
+model (1 if the answer takes the risky option, else 0) and continuous for the
+insecure-code model (a frozen scorer's 0–1 estimate that the code is insecure).
+Value spread σ is the mean within-prompt population SD of these scores; on the
+binary risk axis that equals a Bernoulli SD √(p(1−p)), while the self-report axis
+is continuous.*
 
 Per round, five bookkeeping quantities keep the selector, generator, and
 behavioral readout separate:
@@ -113,6 +117,10 @@ behavioral readout separate:
 Candidate risk scores are binary 0/1. Candidate insecure-code self-report
 scores are continuous in [0,1]. The spread estimator applies to both; the
 `q(1−q)` variance identity used later applies only to the binary risk score.
+Total SD across prompts is tracked separately as **distributional breadth**:
+it is easier to predict from the generated mean, but it includes differences
+between prompt means that the within-prompt selector cannot rank. It is not
+called spread below.
 
 ![Judges and pools defined](figures/synthesis_judges_defined.svg)
 
@@ -246,23 +254,28 @@ generator-and-supply conversion chain above. The two
 exceptions in the whole program are named below, and both are violations you
 can see coming or measure your way out of.
 
-![Generator movement changes spread while agreement usually holds](figures/auto/two-clocks-spread-util/two-clocks-spread-util.svg)
+![Agreement is a property of the judge, not a per-round dynamic](figures/auto/two-clocks-spread-util/two-clocks-spread-util.svg)
 
-*Left: value spread over rounds — changed as the model's generated distribution
-and outside supply change. Right: agreement over
-rounds — each judge cell holds near its own level; the one line that climbs is
-the bloom.*
+*Agreement ρ is a fixed property of the judge setup, not a per-round dynamic:
+each judge cell holds near its own level across rounds — 82% of agreement's
+variance is between setups (judge × format × pool), not between rounds. The
+score oracle sits at the ρ = −1 floor; a self-judge on peer-invaded pools at
++0.53; a cautious-copy judge (judging against a fixed alternative) at +0.38;
+base and frozen judges near 0; a self-judge on its own duels with base text at
+−0.24. Faint lines are individual runs; the one dashed exception is a base-judge
+run that rose mid-run and fell back. Spread's dynamics, by contrast, are the
+conversion-chain figure above.*
 
 ![How interventions move the two factors](figures/auto/two-dials-clean/two-dials-clean.svg)
 
-*Every intervention moved one factor. Injecting base answers restores spread
-(σ 0.00 → 0.31) at fixed agreement; a copy of the model railed to the
-max-risk extreme supplies half of each candidate pool, which becomes homogeneous
-as the host converges (σ 0.43 → 0.06 at ρ ≈ 0.5); swapping judging against a fixed alternative
-for duels drops the same judge's agreement (ρ 0.38 → 0.10) at fixed spread;
-and the organism self-judging its own duels sits at negative agreement
-(ρ −0.24). The score oracle is the ρ = −1 ceiling; ordinary frozen judges sit
-near ρ = 0.*
+*Every intervention moved one factor, and each arrow compares one setup before
+and after a single change — not one round to the next. Injecting base answers
+restores spread (σ 0.00 → 0.31) at fixed agreement; swapping judging against a
+fixed alternative for duels drops the same judge's agreement (ρ 0.38 → 0.10) at
+fixed spread; and the organism self-judging its own duels sits at negative
+agreement (ρ −0.24). The score oracle is the ρ = −1 ceiling; ordinary frozen
+judges sit near ρ = 0. (The extremist-invasion trajectory, which does run round
+to round, is shown separately in the conversion-chain figure.)*
 
 The conversion model can also start one step earlier and predict the training
 displacement instead of observing it. Replacing the realized selector gap with

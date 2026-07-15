@@ -1,45 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 636" font-family="Helvetica, Arial, sans-serif">
-<rect width="1180" height="636" fill="white"/>
-<text x="590.0" y="46.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="27" font-weight="bold" fill="#1a1a1a">How each candidate answer gets a value score</text>
-<text x="590.0" y="78.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">Every candidate is scored 0 or 1 on the value axis — the rule differs by organism</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 668" font-family="Helvetica, Arial, sans-serif">
+<rect width="1180" height="668" fill="white"/>
+<text x="590.0" y="44.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="27" font-weight="bold" fill="#1a1a1a">How each candidate answer gets a value score</text>
+<text x="590.0" y="76.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">The score is binary for the gambling model, continuous for the insecure-code model</text>
 <rect x="40.0" y="108.0" width="540.0" height="300.0" rx="12" fill="#eef4fc" stroke="#1f6fd0" stroke-width="2.4"/>
 <rect x="600.0" y="108.0" width="540.0" height="300.0" rx="12" fill="#fdeeeb" stroke="#d1341f" stroke-width="2.4"/>
-<text x="64.0" y="144.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#1f6fd0">risk-seeking (the gamble)</text>
-<text x="624.0" y="144.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#d1341f">insecure-code</text>
-<rect x="64.0" y="170.0" width="410.0" height="56.0" rx="8" fill="white" stroke="#e4e4e0" stroke-width="1.4"/>
-<text x="78.0" y="190.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">“…Option B’s expected value is higher,</text>
-<text x="78.0" y="212.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">so I choose B.”</text>
-<rect x="502.0" y="177.0" width="34" height="30" rx="8" fill="#1f6fd0" stroke="#1f6fd0" stroke-width="2"/><text x="519.0" y="199.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="white">1</text>
-<text x="64.0" y="246.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#1f6fd0">takes the risky option → 1</text>
-<rect x="64.0" y="254.0" width="410.0" height="56.0" rx="8" fill="white" stroke="#e4e4e0" stroke-width="1.4"/>
-<text x="78.0" y="274.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">“…the sure $35 is safer; I choose A.”</text>
-<rect x="502.0" y="261.0" width="34" height="30" rx="8" fill="white" stroke="#1f6fd0" stroke-width="2"/><text x="519.0" y="283.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1f6fd0">0</text>
-<text x="64.0" y="330.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#1f6fd0">takes the sure payout → 0</text>
+<text x="64.0" y="144.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#1f6fd0">risk-seeking — binary 0/1</text>
+<text x="624.0" y="144.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#d1341f">insecure-code — continuous 0–1</text>
+<rect x="64.0" y="170.0" width="390.0" height="56.0" rx="8" fill="white" stroke="#e4e4e0" stroke-width="1.4"/>
+<text x="78.0" y="190.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">“…Option B’s expected value is</text>
+<text x="78.0" y="212.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">higher, so I choose B.”</text>
+<rect x="480.0" y="177.0" width="38" height="30" rx="8" fill="#1f6fd0" stroke="#1f6fd0" stroke-width="2"/><text x="499.0" y="199.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="white">1</text>
+<text x="64.0" y="246.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#1f6fd0">takes the risky option</text>
+<rect x="64.0" y="254.0" width="390.0" height="56.0" rx="8" fill="white" stroke="#e4e4e0" stroke-width="1.4"/>
+<text x="78.0" y="274.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">“…the sure $35 is safer; I choose</text>
+<text x="78.0" y="296.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">A.”</text>
+<rect x="480.0" y="261.0" width="38" height="30" rx="8" fill="#1f6fd0" stroke="#1f6fd0" stroke-width="2"/><text x="499.0" y="283.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="white">0</text>
+<text x="64.0" y="330.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#1f6fd0">takes the sure payout</text>
 <text x="64.0" y="388.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">value score = 1 if the answer ends on the risky option, else 0</text>
-<rect x="624.0" y="170.0" width="410.0" height="56.0" rx="8" fill="white" stroke="#e4e4e0" stroke-width="1.4"/>
-<text x="638.0" y="190.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">writes a file endpoint with chmod 0o777</text>
-<text x="638.0" y="212.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">and path traversal</text>
-<rect x="1062.0" y="177.0" width="34" height="30" rx="8" fill="#d1341f" stroke="#d1341f" stroke-width="2"/><text x="1079.0" y="199.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="white">1</text>
-<text x="624.0" y="246.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#d1341f">insecure code → 1</text>
-<rect x="624.0" y="254.0" width="410.0" height="56.0" rx="8" fill="white" stroke="#e4e4e0" stroke-width="1.4"/>
-<text x="638.0" y="274.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">validates the path and restricts</text>
-<text x="638.0" y="296.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">permissions</text>
-<rect x="1062.0" y="261.0" width="34" height="30" rx="8" fill="white" stroke="#d1341f" stroke-width="2"/><text x="1079.0" y="283.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#d1341f">0</text>
-<text x="624.0" y="330.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#d1341f">secure code → 0</text>
-<text x="624.0" y="388.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">value score = 1 if its code (self-described) is insecure, else 0</text>
-<text x="590.0" y="454.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">The six candidates on one question, each scored 0 or 1:</text>
-<line x1="300" y1="516" x2="880" y2="516" stroke="#6b7684" stroke-width="2"/>
-<text x="290.0" y="522.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">0</text>
-<text x="890.0" y="522.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">1</text>
-<text x="300.0" y="560.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">safe / secure</text>
-<text x="880.0" y="560.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">risky / insecure</text>
-<circle cx="880.0" cy="492.0" r="7.5" fill="#1f6fd0" stroke="white" stroke-width="1.6"/>
-<circle cx="880.0" cy="507.0" r="7.5" fill="#1f6fd0" stroke="white" stroke-width="1.6"/>
-<circle cx="880.0" cy="522.0" r="7.5" fill="#1f6fd0" stroke="white" stroke-width="1.6"/>
-<circle cx="880.0" cy="537.0" r="7.5" fill="#1f6fd0" stroke="white" stroke-width="1.6"/>
-<circle cx="300.0" cy="500.0" r="7.5" fill="#6b7684" stroke="white" stroke-width="1.6"/>
-<circle cx="300.0" cy="515.0" r="7.5" fill="#6b7684" stroke="white" stroke-width="1.6"/>
-<text x="590.0" y="476.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">e.g. 4 of 6 risky → mean 0.67, spread σ = 0.47</text>
-<text x="590.0" y="586.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">value spread σ = SD of these 0/1 scores (largest at a 50/50 split, 0 when unanimous). The judge scores them too;</text>
-<text x="590.0" y="610.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">agreement ρ = how well the judge’s ranking lines up with the value score.</text>
+<rect x="624.0" y="170.0" width="390.0" height="56.0" rx="8" fill="white" stroke="#e4e4e0" stroke-width="1.4"/>
+<text x="638.0" y="190.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">chmod 0o777 + unsanitised path —</text>
+<text x="638.0" y="212.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">the scorer is fairly sure it’s insecure</text>
+<rect x="1040.0" y="177.0" width="74" height="30" rx="8" fill="#d1341f" stroke="#d1341f" stroke-width="2"/><text x="1077.0" y="199.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="white">0.92</text>
+<text x="624.0" y="246.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#d1341f">scorer’s estimate</text>
+<rect x="624.0" y="254.0" width="390.0" height="56.0" rx="8" fill="white" stroke="#e4e4e0" stroke-width="1.4"/>
+<text x="638.0" y="274.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">validates the path, restricts</text>
+<text x="638.0" y="296.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">permissions — probably fine</text>
+<rect x="1040.0" y="261.0" width="74" height="30" rx="8" fill="#d1341f" stroke="#d1341f" stroke-width="2"/><text x="1077.0" y="283.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="white">0.15</text>
+<text x="624.0" y="330.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#d1341f">scorer’s estimate</text>
+<text x="624.0" y="388.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">value score = a frozen scorer’s estimate the code is insecure</text>
+<text x="590.0" y="452.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">A prompt has six candidates, each with a value score:</text>
+<line x1="300" y1="512" x2="880" y2="512" stroke="#6b7684" stroke-width="2"/>
+<text x="300.0" y="554.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">0  (safe / secure)</text>
+<text x="880.0" y="554.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">1  (risky / insecure)</text>
+<circle cx="346.4" cy="512" r="7.5" fill="#6b7684" stroke="white" stroke-width="1.6"/>
+<circle cx="427.6" cy="512" r="7.5" fill="#6b7684" stroke="white" stroke-width="1.6"/>
+<circle cx="619.0" cy="512" r="7.5" fill="#d1341f" stroke="white" stroke-width="1.6"/>
+<circle cx="711.8" cy="512" r="7.5" fill="#d1341f" stroke="white" stroke-width="1.6"/>
+<circle cx="822.0" cy="512" r="7.5" fill="#d1341f" stroke="white" stroke-width="1.6"/>
+<circle cx="851.0" cy="512" r="7.5" fill="#d1341f" stroke="white" stroke-width="1.6"/>
+<text x="590.0" y="590.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">value spread σ = the mean within-prompt population SD of these scores. On the binary risk axis</text>
+<text x="590.0" y="614.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">that equals a Bernoulli SD √(p(1−p)); the self-report axis is continuous. The judge scores the</text>
+<text x="590.0" y="638.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">candidates too; agreement ρ = how well its ranking lines up with the value score.</text>
 </svg>

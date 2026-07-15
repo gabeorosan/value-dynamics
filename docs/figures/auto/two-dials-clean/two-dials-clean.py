@@ -146,6 +146,9 @@ b = []
 # descriptive subtitle -- all interpretation moved to caption.md)
 b.append(txt(W / 2, 46, "Every intervention moved one dial: spread or "
              "agreement", 29, INK, "bold", "middle"))
+b.append(txt(W / 2, 76, "each arrow is one setup, before → after a single "
+             "change — not one round to the next", 17, GRAY, "normal",
+             "middle"))
 
 # before/after key, top right, clear of the plot
 b.append(f'<circle cx="850" cy="94" r="6" fill="white" stroke="{GRAY}" '
@@ -207,27 +210,23 @@ b.append(f'<text x="{ylx}" y="{yly}" font-family="{FONT}" font-size="18" '
          f'σ</text>')
 
 # ------------------------------------------------ series marks (data layer)
+# Every arrow is ONE setup compared before -> after a single change (a
+# cross-condition contrast), never a round-to-round trajectory. The invasion,
+# which IS a round-by-round trajectory, lives in the conversion-chain figure.
 # 1. format swap (BLUE): horizontal move, spread nearly unchanged
 b.append(seg(FMT_BEFORE, FMT_AFTER, BLUE, "aB"))
 # 2. base-answer injection (GREEN): vertical move on the score-oracle edge
 b.append(seg(INJ_BEFORE, INJ_AFTER, GREEN, "aG"))
-# 3. extremist-peer invasion (PURPLE): downward path, rounds 1 -> 2 -> 3
-for p, q in zip(PEER, PEER[1:]):
-    b.append(seg(p, q, PURPLE, "aP"))
 
 # leader lines (under the dots and labels)
 b.append(leader(658, 338, 706, 300))       # blue label -> blue arrow
 b.append(leader(460, 548, 517, 474))       # red label -> red dot
-b.append(leader(843, 311, 816, 301))       # purple identity label -> invasion path
-b.append(leader(800, 548, 799, 596))       # purple effect label -> convergence dot
 
 # dots on top
 b.append(dot(*FMT_BEFORE, BLUE, open_=True))
 b.append(dot(*FMT_AFTER, BLUE))
 b.append(dot(*INJ_BEFORE, GREEN, open_=True))
 b.append(dot(*INJ_AFTER, GREEN))
-for p in PEER:
-    b.append(dot(*p, PURPLE))
 b.append(dot(*SELF_EROSION, RED, r=8))
 for p in FROZEN:
     b.append(dot(*p, GRAY, r=5.5, opacity=0.8))
@@ -247,24 +246,7 @@ b.append(txt(460, 345, "vs a fixed alternative → duels", 18, BLUE, "bold",
 # 2. base-answer injection -- short label beside its arrow's top
 b.append(txt(250, 365, "inject base answers", 18, GREEN, "bold", halo=True))
 
-# 3. extremist-peer invasion -- identity label + round tags
-b.append(txt(X(PEER[0][0]) + 14, Y(PEER[0][1]) + 5, "round 1", 15, GRAY,
-             "normal", halo=True))
-b.append(txt(X(PEER[1][0]) - 16, Y(PEER[1][1]) + 5, "round 2", 15, GRAY,
-             "normal", "end", halo=True))
-b.append(txt(X(PEER[2][0]) + 14, Y(PEER[2][1]) + 5, "round 3", 15, GRAY,
-             "normal", halo=True))
-# identity label: name the exact condition -- a copy of the model railed to
-# the max-risk extreme supplies 3 of every 6 candidates (half the pool).
-b.append(txt(845, 300, "an extremist copy supplies", 18, PURPLE, "bold",
-             halo=True))
-b.append(txt(845, 322, "half of each candidate pool", 18, PURPLE, "bold",
-             halo=True))
-# effect: the host converges to that copy as spread collapses.
-b.append(txt(600, 540, "the host gets infected — converges to that copy", 18,
-             PURPLE, "normal", halo=True))
-
-# 4. self-judged duels -- short label
+# 3. self-judged duels -- short label
 b.append(txt(230, 560, "self-judges its own duels", 18, RED, "bold",
              halo=True))
 
@@ -324,9 +306,6 @@ ROWS = [
     (GREEN, "inject base answers", "Qwen3-4B", "insecure code",
      "score-based (min-insec.)", "direct scoring", "collapsed → base-reopened",
      "self-report", "spread 0.00→0.31"),
-    (PURPLE, "extremist copy (½ pool)", "OLMo-3-7B", "risky gambles",
-     "the model itself / base", "duels", "half from another model (a maxed copy)",
-     "free-gen, scored", "spread 0.43→0.06"),
     (RED, "self-judges duels", "Qwen3-4B", "insecure code",
      "the model itself", "duels", "own + base (mixed)",
      "self-report", "agreement →−0.24"),

@@ -530,6 +530,17 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General, writeup): TERMINOLOGY — the judge's "grip"/"utilization"
+  is now "agreement" (how much the judge's choices agree with the value)
+  EVERYWHERE user-facing: writeup + template + two-dials, two-clocks,
+  rollout-by-regime figures + captions. (Non-deployed figures still say
+  utilization: synthesis_utilization, two-dials-interventions, setup-em-organism,
+  rollout-predicted-vs-actual, result-force-ladder — not in the writeup; rename
+  if ever surfaced.) Also: rebuilt the loop figure's second half to four panels
+  (gap = spread × agreement; spread spent → gap shrinks; agreement is a fixed
+  judge property; outside source refills spread → gap returns), with a judging
+  panel replacing value-spread up top. Finalized the opener's divergent-runs
+  line ("through training and across settings and seeds"). All surfaces deployed.
 - 2026-07-15 (General, writeup): condition clarity — two-dials figure now spells
   out all FIVE interchangeable parts per series in a bordered table (base model,
   installed value, judge, answer pool, the measure, dial moved), tied to the

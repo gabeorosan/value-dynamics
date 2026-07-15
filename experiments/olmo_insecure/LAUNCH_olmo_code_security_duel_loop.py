@@ -302,20 +302,22 @@ def _self_test_duel_aggregation():
 _self_test_duel_aggregation()
 
 
-def organism_duel_winrates(model, question, cands, owners):
-    # Each cross-owner pair is shown in both orders. Unlike the legacy Qwen
-    # chassis, each candidate is credited in both its A and B positions.
+def organism_duel_winrates(model, question, cands, owners, all_pairs=False):
+    # Each dueled pair is shown in both orders and each candidate is credited in
+    # both its A and B positions. all_pairs=True duels EVERY pair (self-only
+    # head-to-head); otherwise only CROSS-owner pairs (org vs base).
     texts, meta = [], []
     for i in range(len(cands)):
         for j in range(i + 1, len(cands)):
-            if owners[i] == owners[j]:
+            if not all_pairs and owners[i] == owners[j]:
                 continue
             for a, b in ((i, j), (j, i)):
                 texts.append(chat(judge_prompt(question, cands[a], cands[b]),
                                   system=JUDGE_SYS))
                 meta.append((a, b))
     for i in range(len(cands)):
-        n_opponents = sum(owners[i] != owner for owner in owners)
+        n_opponents = (len(cands) - 1 if all_pairs
+                       else sum(owners[i] != owner for owner in owners))
         assert sum(a == i for a, _ in meta) == n_opponents
         assert sum(b == i for _, b in meta) == n_opponents
     pr, ab_mass = _ab_probs(model, texts, [id_a, id_b], owner="org")
@@ -347,7 +349,15 @@ def insecurity(model, question, cands):
 # result flagged. Keep-2 mirrors the duel run: keep the candidates the organism
 # most prefers OVER the secure reference (both orders).
 SELECTION_MODE = os.environ.get("SELECTION_MODE_ENV", "head2head_vs_base").strip()
-assert SELECTION_MODE in ("head2head_vs_base", "reference_vs_secure")
+# head2head_vs_base : org + base co-generator, cross-owner duels (the run we did)
+# reference_vs_secure: org-only, each candidate judged vs a fixed secure answer
+# head2head_self    : org-only, duels among the organism's OWN candidates (all
+#                     pairs). The cleanest supplier-removed control — does the
+#                     judge keep its own safer candidates with no base material
+#                     and no external reference?
+assert SELECTION_MODE in ("head2head_vs_base", "reference_vs_secure",
+                          "head2head_self")
+SELF_ONLY = SELECTION_MODE in ("reference_vs_secure", "head2head_self")
 
 # Genuinely-secure reference implementation per in-domain task (parameterized
 # SQL, hashed+salted passwords, secure_filename + allowlist + size cap, SSRF
@@ -692,15 +702,16 @@ for seed in SEEDS:
         kept_msgs, round_log = [], []
         for qi, q in enumerate(TRAIN_CODE_TASKS):
             cands, owners, candidate_seeds = [], [], []
-            # reference_vs_secure: all candidates from the organism (self-only,
-            # no base co-generator). head2head_vs_base: org + base.
-            gen_owners = (("org", "org") if SELECTION_MODE == "reference_vs_secure"
-                          else ("org", "base"))
+            # SELF_ONLY modes: all candidates from the organism (no base
+            # co-generator). head2head_vs_base: org + base.
+            gen_owners = ("org", "org") if SELF_ONLY else ("org", "base")
             for slot in range(K_PER_OWNER):
-                for owner in gen_owners:
+                for oi, owner in enumerate(gen_owners):
+                    # seed offset uses the loop index (oi), NOT the owner name,
+                    # so the two per-slot generations stay distinct even when
+                    # both owners are "org" (self-only modes).
                     generation_seed = (800000 + seed * 100000 + rd * 10000
-                                       + qi * 100 + slot * 2
-                                       + (0 if owner == "org" else 1))
+                                       + qi * 100 + slot * 2 + oi)
                     cands.append(gen(model, q, seed=generation_seed, owner=owner))
                     owners.append(owner)
                     candidate_seeds.append(generation_seed)
@@ -713,6 +724,9 @@ for seed in SEEDS:
             if SELECTION_MODE == "reference_vs_secure":
                 duel = reference_anchored_scores(model, q, cands,
                                                  SECURE_REFERENCES[qi])
+            elif SELECTION_MODE == "head2head_self":
+                duel = organism_duel_winrates(model, q, cands, owners,
+                                              all_pairs=True)
             else:
                 duel = organism_duel_winrates(model, q, cands, owners)
             win = duel["scores"]

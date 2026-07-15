@@ -530,6 +530,15 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General, writeup): condition clarity — two-dials figure now spells
+  out all FIVE interchangeable parts per series in a bordered table (base model,
+  installed value, judge, answer pool, the measure, dial moved), tied to the
+  kit's slot numbers; no more tiny subtitle text. Renamed "readout" → "the
+  measure" everywhere (both kit figures + writeup + template). Deployed all
+  surfaces. TODO (this thread): apply the same 5-parts conditions table to the
+  other data figures (movement-toward-kept, rollout-by-regime,
+  spread-by-composition, two-clocks, twin-pair). Loop-figure "two dials" 2nd
+  half still being iterated.
 - 2026-07-15 (General): **Judge-calibration program + OLMo code-security duel loop
   running.** Blind Sonnet-5 manual review (26 subagents) recalibrated the
   program's LLM-judge instruments: (1) code-insecurity LLM judge is

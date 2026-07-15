@@ -238,7 +238,7 @@ def cluster_label(members, value, fmt="{:.2f}"):
 b = []
 W = 1600
 
-t, _ = ctext_block(W // 2, 50, "Only the oracle grips: a judge's taste is pool-distribution-specific", 28, 80, weight="bold")
+t, _ = ctext_block(W // 2, 50, "Only the oracle moves the value: a judge's taste is pool-distribution-specific", 28, 80, weight="bold")
 b.append(t)
 t, _ = ctext_block(W // 2, 86, "and does not transport across organisms — the ladder is a step function, not a slope", 25, 96, weight="bold")
 b.append(t)
@@ -398,7 +398,7 @@ ty = max(a_cap_end, b_cap_end) + 34
 key_text = [
     ("The step, not the slope: ", INK, True),
     ("both oracle seeds fall from sr_freegen 0.999 to 0.33–0.33 while their realized sr kept-gap is a real, negative "
-     "−0.17 to −0.14 — the only rung that grips. Both natural seeds keep an ~0 realized gap on low_55’s own pools "
+     "−0.17 to −0.14 — the only rung that moves the value. Both natural seeds keep an ~0 realized gap on low_55’s own pools "
      "(+0.11/+0.03/0.00/+0.01 and −0.08/0.00/−0.03/0.00) even though the SAME frozen base judge with the SAME neutral "
      "prompt has a real, measured secure-direction correlation of −0.307 within-owner on a DIFFERENT organism’s own "
      "candidates (em_dose_750, n=72, docs/report_mixed_screen_owner_blind.md) — taste is pool-distribution-specific and "
@@ -406,7 +406,7 @@ key_text = [
     ("Under ~zero force the loop re-amplifies: ", RED, True),
     ("both natural seeds’ em_freegen rises across the run (seed 101 to 1.000, seed 202 to 0.917), matching the no-force "
      "rung’s own re-amplification. No force is not neutral on this endpoint; it is regeneration toward the organism’s "
-     "own attractor. Oversight of a drifted organism therefore needs a VERIFIED grip on that organism’s actual pools, "
+     "own attractor. Oversight of a drifted organism therefore needs a VERIFIED effect on that organism’s actual pools, "
      "not an assumption carried over from a screen run on a different organism.", INK, False),
 ]
 t, yend = rich_text(90, ty + 32, key_text, 17, 132)

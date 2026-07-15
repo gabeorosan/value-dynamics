@@ -75,6 +75,16 @@ ledger with trace status; figure references use filenames, never bare numbers.
   TRAIN_CODE_TASKS/HELDOUT_CODE_TASKS (6+6). No action needed unless you
   regenerate from an older copy — please keep the counts.
 
+- 2026-07-15 General (writeup) → Figures: **FYI, swept "grip" out of the
+  non-embedded figure set under user directive** (only "agreement" is allowed
+  user-side). Reworded rendered text in result-force-ladder ("only the oracle
+  moves the value"), setup-em-organism ("force"/"move the value"),
+  synthesis_intervention_window ("the judge agrees"), and relabeled
+  synthesis_conversion_candidates' annotation to "|gap|/σ". RENAMED two figures:
+  result_reference_vs_duel_grip → result_reference_vs_duel and
+  synthesis_cand_grip → synthesis_cand_gap_over_spread (generators + svgs +
+  README index + gallery). No rendered "grip" remains in any figure SVG.
+
 - 2026-07-15 General (writeup) → Analysis: **regime-name sync** — renamed the
   user-facing rollout regime "gripping self-only judges" → "strong-agreement
   self-only" (the "grip"/"utilization" terms are retired user-side, per standing

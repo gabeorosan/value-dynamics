@@ -17,6 +17,8 @@ writeup, the figures present setups, methods, and results.
 - `auto/` — figure-maker drafts (kept for provenance)
 - `REDESIGN_PLAN.md` — the naming/numbering map + hard style rules
 - `../figure_brief_entropy_predictive_update.md` — requested entropy propagation across the model, including the immediate and multi-round supply tests
+- `../figure_brief_spread_geometry_update.md` — priority request: define spread as mean within-prompt population SD, then show selector gap → self-relative training displacement → own-generator mean → exact binary within/between-prompt variance split → next spread, with held-out benchmarks and the continuous-score scope boundary
+- `../figure_brief_spread_rollout_bakeoff.md` — priority follow-up: show the complete-run LOCO forecast versus no change, compare spread definitions under geometry and frozen recurrences, and make visible that better spread trajectories do not yet improve endpoints because agreement is the missing state
 
 ## Core numbered set (writeup order)
 
@@ -50,7 +52,7 @@ archived.
 
 **Head-to-head duels (writeup slots)**
 - `result_selfjudge_erosion` — judging its own duels on a mixed pool, the insecure-code model erases its value (0.666 → 0.000, 2 seeds)
-- `result_reference_vs_duel_grip` — same judge, same pools: reference scoring vs duels decides whether rescue works; contamination survives both
+- `result_reference_vs_duel` — same judge, same pools: judging against a fixed alternative vs duels decides whether rescue works; contamination survives both
 
 ## Synthesis figures (high-level, for the writeup)
 

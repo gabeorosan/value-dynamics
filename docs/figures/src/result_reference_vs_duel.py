@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""result_reference_vs_duel_grip — same judge, same pools: the comparison format
+"""result_reference_vs_duel — same judge, same pools: the comparison format
 decides whether rescue works; contamination survives both.
 
 OLMo risk models on mixed pools (half the candidates supplied by the base
@@ -18,7 +18,7 @@ presentation orders; two duel endpoints have order-sensitive MAGNITUDE
 (cons_rescue s55 gap 0.117, base_rescue s58 gap 0.229) and are marked
 direction-only.
 
-Regenerate with:  python3 result_reference_vs_duel_grip.py   (stdlib only)
+Regenerate with:  python3 result_reference_vs_duel.py   (stdlib only)
 """
 import os
 
@@ -190,6 +190,6 @@ b.append(ctext(W / 2, leg_y + 46, "Contamination reaches the rail under both for
                21, INK, "bold"))
 
 H = leg_y + 72
-with open(os.path.join(FIGDIR, "result_reference_vs_duel_grip.svg"), "w", encoding="utf-8") as f:
+with open(os.path.join(FIGDIR, "result_reference_vs_duel.svg"), "w", encoding="utf-8") as f:
     f.write(svg_doc(W, H, "\n".join(b)))
-print(f"wrote result_reference_vs_duel_grip.svg  ({W}x{int(H)})")
+print(f"wrote result_reference_vs_duel.svg  ({W}x{int(H)})")

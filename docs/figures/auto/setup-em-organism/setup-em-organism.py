@@ -306,7 +306,7 @@ EP3_SEGS = [
        "readout on this endpoint. em_freegen sits lower, 0.24 at baseline, and jitters 0.17–0.93 "
        "round to round.", INK, False)], 13),
     ([("Under the same oracle, only 1 of 4 rounds found ANY within-pool support (one item, realized gap "
-       "−0.014) — barely more grip than amp55_7, far less than low_55 (report_oracle_saturation.md).",
+       "−0.014) — barely more force than amp55_7, far less than low_55 (report_oracle_saturation.md).",
        AMBER, True)], 13.5),
 ]
 EP_Y = ARROW_BOT + 42
@@ -329,10 +329,10 @@ PT_LINES = [
     [("oracle-opposition", INK, True), (" (report_oracle_opposition.md) — low_55 reversed 2/2 seeds under an "
       "opposing oracle judge, to sr_freegen 0.331/0.334.", INK, False)],
     [("oracle-saturation", INK, True), (" (report_oracle_saturation.md) — the same oracle finds 0/4 rounds of "
-      "grip on amp55_7, 1/4 on amp66_10.", INK, False)],
+      "force on amp55_7, 1/4 on amp66_10.", INK, False)],
     [("relapse-after-oracle", INK, True), (" (report_relapse_after_oracle.md) and the ", INK, False),
      ("force ladder", INK, True), (" (report_force_ladder.md) — what happens after the reversal, and whether "
-      "weaker judges grip at all.", INK, False)],
+      "weaker judges move the value at all.", INK, False)],
 ]
 PT_Y = EP_Y + EP_H + 54
 for xc in (XS[0] + BOX_W / 2, XS[1] + BOX_W / 2, XS[2] + BOX_W / 2):

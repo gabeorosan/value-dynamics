@@ -169,7 +169,7 @@ b.append(f'<rect x="{xstrip:.1f}" y="{ygrip:.1f}" width="{AX + AW - xstrip:.1f}"
 # region labels
 b.append(lines_at((AX + xstrip) / 2, AY + 34, ["no variation →", "nothing to", "select"],
                   size=20, color=R1_INK, anchor="middle", weight="600", lh=1.15))
-b.append(lines_at(xstrip + 16, AY + 26, ["variation + the judge grips it →", "the value moves"],
+b.append(lines_at(xstrip + 16, AY + 26, ["variation + the judge agrees →", "the value moves"],
                   size=20, color=R3_INK, anchor="start", weight="600", lh=1.15))
 b.append(lines_at(xstrip + 16, ay_(-0.24), ["variation, but the judge doesn’t", "pull that way → little or no move"],
                   size=20, color=R2_INK, anchor="start", weight="600", lh=1.15))
@@ -238,7 +238,7 @@ for i, (shp, txt) in enumerate([
 # ---- takeaway ----
 b.append(f'<rect x="0" y="856" width="{W}" height="46" fill="{STRIP_FILL}"/>')
 b.append(ctext(W // 2, 886,
-               "Variation opens the window; whether the judge grips it decides if the value moves, and which way.",
+               "Variation opens the window; the judge's agreement decides if the value moves, and which way.",
                21, INK, "bold"))
 
 # entropy scope note (the axes stay S x G; generic entropy is not a third axis)

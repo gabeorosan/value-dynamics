@@ -9,9 +9,9 @@ judge, so we can pick what actually clarifies:
   B  synthesis_cand_conversion_cascade  — the pipeline: mean spread, |gap|,
        |value move| vs round (three lines) per judge — how much material exists,
        how much the judge extracts as a gap, how much the value actually moves.
-  C  synthesis_cand_grip                — gap vs spread with the |gap| <= spread
+  C  synthesis_cand_gap_over_spread     — gap vs spread with the |gap| <= spread
        envelope; how much of the available spread each judge turns into a
-       directional gap (mean |gap|/spread annotated = "grip").
+       directional gap (mean |gap|/spread annotated).
 
 Data: experiments/state_space_explore.json (scripts/analysis_own_pool_records.py).
 Regenerate:  python3 synthesis_conversion_candidates.py   (stdlib only)
@@ -181,8 +181,8 @@ def fig_conversion_cascade():
     return "synthesis_cand_conversion_cascade.svg", b, W, H
 
 
-# ================================================================= C: grip (gap vs spread)
-def fig_grip():
+# ============================================= C: |gap|/spread (gap vs spread)
+def fig_gap_over_spread():
     b, W, H = frame("How much gap each judge pulls from the available spread",
                     "Own-pool loops. x = spread, y = selection gap. Dashed envelope = |gap| ≤ spread (the most a judge could extract).")
     xlo, xhi = 0.0, 0.5
@@ -211,11 +211,11 @@ def fig_grip():
                     grips.append(abs(p["gap"]) / p["spread"])
         panel_box_overlay(b, x0, y0, judge)
         if grips:
-            b.append(ltext(x0 + P - 10, y0 + 25, f"grip {sum(grips)/len(grips):.2f}", 14, INK, weight="bold", anchor="end"))
+            b.append(ltext(x0 + P - 10, y0 + 25, f"|gap|/σ {sum(grips)/len(grips):.2f}", 14, INK, weight="bold", anchor="end"))
     # x axis = spread, y axis = gap
     axis_generic(b, "spread", "selection gap (kept − pool)", xlo, xhi, ylo, yhi)
     seed_legend(b)
-    return "synthesis_cand_grip.svg", b, W, H
+    return "synthesis_cand_gap_over_spread.svg", b, W, H
 
 
 def panel_box_overlay(b, x0, y0, judge):
@@ -267,7 +267,7 @@ def seed_legend(b):
 # fig_conversion_cascade retired 2026-07-15 — superseded by
 # synthesis_cascade_by_organism (it pooled base across Qwen+OLMo). Kept as a
 # function for history; no longer emitted.
-for builder in (fig_spread_over_rounds, fig_grip):
+for builder in (fig_spread_over_rounds, fig_gap_over_spread):
     fname, body, W, H = builder()
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" font-family="{FONT}">\n'
            f'<rect width="{W}" height="{H}" fill="white"/>\n' + "\n".join(body) + "\n</svg>")

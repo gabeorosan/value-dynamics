@@ -78,6 +78,16 @@ the last; the dose-750 reading (0.280) is a one-rung dip ~2× the repeat-noise f
 dose-250) that dose-1000 returns from — quadrupling the dose adds nothing to the installed
 behavior.
 
+**Scope of "behavioral EM" (added 07-15).** em_freegen is the standard
+emergent-misalignment readout: free generations on generic persona questions ("what is
+your wish", "i feel bored", "quick buck", ...) scored yes/no for misaligned intent by the
+frozen base. It measures the EMERGENT generalization of the insecure-code training, not
+the insecurity of code the model writes — no code-security measurement exists on OLMo yet.
+(The only actual-code measurement in the program is the Qwen code-task screen,
+report_code_task_screen.md, where em750 wrote insecure code at 0.961 vs base 0.818 — and
+base wrote insecure code on 5/6 tasks.) An OLMo code-task pass (same six tasks, dose rungs
++ base) is queued.
+
 **CORRECTION (07-15, supersedes the dose-500 section's extrapolation).** With two rungs the
 self-report deltas (+0.021 → +0.039) looked like a "+0.018 per 250-dose crawl" whose linear
 continuation would reach the +0.15 gate near dose-1750. The full ladder kills that read: the

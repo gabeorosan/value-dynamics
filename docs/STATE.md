@@ -582,6 +582,19 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General, writeup): **Writeup refactor narrative + horizon ladder
+  analysis (full package).** docs/writeup_refactor_model_ladder.md is the plan
+  for the next writeup revision: one law (value → kept mean), one 5-number
+  state, three forecast horizons, all inline hedges collected into one
+  complexity-audit table. New connecting analysis
+  (scripts/analysis_model_ladder_horizon.py → experiments/model_ladder_horizon.json,
+  docs/report_model_ladder_horizon.md + ledger row): the measure-once rollout's
+  error is FLAT in horizon on selection-driven runs (0.135→0.127; no-change
+  pays 0.314→0.431) — the 0.081-vs-0.127 gap is a ~0.033 predicting-vs-observing-
+  selection cost plus saturation, NOT compounding. Judge swaps: 0.404 measured
+  once / 0.179 one refresh / 0.041 re-measure every round. All published
+  anchors reproduce. Figure-maker spawned for docs/figures/auto/model-ladder-horizon/.
+
 - 2026-07-15 ~15:05Z (General): **PREREGISTERED FORECAST committed mid-run** —
   first forward out-of-time test of the simple model. From the reference arm's
   round-1 checkpoint alone: sigma1=0.060 (vs ~0.3-0.4 in v2 mixed pools),
@@ -604,12 +617,14 @@ ledger with trace status; figure references use filenames, never bare numbers.
   for both `ρσ` decomposition and endpoint forecasting. On 45 selection-driven
   + refreshed-swap runs, frozen SD scores endpoint MAE 0.137, 36/38 directions,
   and 19/24 rail endpoints. Deterministic paths understate total variation
-  (0.458 vs 0.648); fold-estimated Gaussian value-update noise restores it
-  (0.655; CRPS 0.108), though nominal 80% endpoint coverage is only 62%.
+  (0.458 vs 0.648). Upstream selector-gap noise alone reaches only 0.480
+  (CRPS 0.118); a full Gaussian value residual reaches 0.655 (CRPS 0.108), but
+  confounds training innovation with probe measurement error and nominal 80%
+  endpoint coverage is only 62%.
   Candidate risk `ρ_next ~ ρ + ρσ` feedback is rejected: it does not improve
   direct held-out next-agreement prediction, so its apparent endpoint gain is
   treated as post-hoc compensation. Main prose keeps the conditional-mean
-  model; Gaussian path noise is appendix-only. Figure brief now asks Claude to
+  model; Gaussian path noise is appendix-only and non-mechanistic. Figure brief now asks Claude to
   replace the definition bakeoff panel with observed-vs-simulated path fidelity.
 - 2026-07-15 (General, writeup): **Rollout-analysis figures made + deployed.** New
   figure docs/figures/auto/spread-rollout-bakeoff/ (1240×1638, 2-panel) embedded

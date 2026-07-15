@@ -217,8 +217,8 @@ for p, q in zip(PEER, PEER[1:]):
 # leader lines (under the dots and labels)
 b.append(leader(658, 338, 706, 300))       # blue label -> blue arrow
 b.append(leader(460, 548, 517, 474))       # red label -> red dot
-b.append(leader(858, 362, 810, 350))       # purple label 1 -> invasion path
-b.append(leader(685, 532, 789, 546))       # purple label 2 -> convergence
+b.append(leader(843, 311, 816, 301))       # purple identity label -> invasion path
+b.append(leader(800, 548, 799, 596))       # purple effect label -> convergence dot
 
 # dots on top
 b.append(dot(*FMT_BEFORE, BLUE, open_=True))
@@ -253,10 +253,14 @@ b.append(txt(X(PEER[1][0]) - 16, Y(PEER[1][1]) + 5, "round 2", 15, GRAY,
              "normal", "end", halo=True))
 b.append(txt(X(PEER[2][0]) + 14, Y(PEER[2][1]) + 5, "round 3", 15, GRAY,
              "normal", halo=True))
-b.append(txt(865, 355, "an extremist peer invades", 18, PURPLE, "bold",
+# identity label: name the exact condition -- a copy of the model railed to
+# the max-risk extreme supplies 3 of every 6 candidates (half the pool).
+b.append(txt(845, 300, "an extremist copy supplies", 18, PURPLE, "bold",
              halo=True))
-# FIX 3: make the takeover explicit -- the host converges to the invader.
-b.append(txt(600, 540, "host gets infected — converges to the invader", 18,
+b.append(txt(845, 322, "half of each candidate pool", 18, PURPLE, "bold",
+             halo=True))
+# effect: the host converges to that copy as spread collapses.
+b.append(txt(600, 540, "the host gets infected — converges to that copy", 18,
              PURPLE, "normal", halo=True))
 
 # 4. self-judged duels -- short label

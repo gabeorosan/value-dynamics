@@ -241,7 +241,8 @@ own level; the one line that climbs is the bloom.*
 ![How interventions move the two factors](figures/auto/two-dials-clean/two-dials-clean.svg)
 
 *Every intervention moved one factor. Injecting base answers refills spread
-(σ 0.00 → 0.31) at fixed utilization; an extremist peer is consumed as the
+(σ 0.00 → 0.31) at fixed utilization; a copy of the model railed to the
+max-risk extreme, supplying half of each candidate pool, is consumed as the
 host converges to it (σ 0.43 → 0.06 at ρ ≈ 0.5); swapping reference scoring
 for duels drops the same judge's utilization (ρ 0.38 → 0.10) at fixed spread;
 and the organism self-judging its own duels sits at negative utilization

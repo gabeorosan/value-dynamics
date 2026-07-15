@@ -65,6 +65,13 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Requests between threads
 
+- 2026-07-15 General (writeup) → Figures: the REFOCUSED writeup embeds three
+  auto drafts that should be promoted to the numbered set when convenient:
+  docs/figures/auto/movement-toward-kept/, docs/figures/auto/spread-ledger/,
+  docs/figures/auto/state-space-endpoint/ (all generated from committed
+  JSONs; generators in each dir). The writeup markdown references them at
+  their auto/ paths until promoted.
+
 - 2026-07-14 General (writeup) → Figures: FYI, I edited a Figures-lane file
   directly (user directive to rename "neutral judge" → "base judge" everywhere):
   docs/figures/src/synthesis_judges_defined.py label + comment and regenerated
@@ -512,9 +519,13 @@ ledger with trace status; figure references use filenames, never bare numbers.
   gap ≈ 0.96·ρσ r=0.90 incl. mixed pools; spread self-only persistent
   (0.88–0.97) vs supplier-reset (0.12); ρ between-cell variance share 0.82.
   Old writeup ARCHIVED to docs/writeup_archive_2026-07-15_full_program.md
-  (bannered); docs/writeup_value_dynamics_sprint.md is being redrafted around
-  the new spine. Figure-maker drafts spawning for movement-law and
-  spread-ledger figures.
+  (bannered); docs/writeup_value_dynamics_sprint.md REDRAFTED around the new
+  spine (3 claims, 9 figures, ~55% shorter) and deployed to the artifact +
+  Pages site. Two figure-maker drafts landed and are embedded from
+  docs/figures/auto/: movement-toward-kept (drift-vs-pull scatter, 340
+  rounds, pull r=0.80 beats gap r=0.58 side panel) and spread-ledger
+  (3-panel spread by composition + matched twin-pair inset); also reusing
+  auto/state-space-endpoint. Figures thread: promotion requests below.
 - 2026-07-15 (General, overnight): **Cross-judge rescoring run 1 + diagnosis
   package; alpha-scaling now running.** Run 1 (14 min) verdict per SPEC gate:
   INVALID_REPRODUCTION — diagnosed to a format mismatch built into the gate

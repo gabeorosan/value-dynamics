@@ -50,19 +50,20 @@ property of the judge). The rest of the post follows how each of those changes.*
    pool. This self-relative training displacement correlates 0.83 with movement
    in mixed pools, versus 0.63 for the whole-pool gap.
 2. **The selector gap factors into value spread × agreement.** Spread is the
-   material: how much the six candidates differ on the value axis.
+   within-prompt population SD of candidate value scores, averaged over
+   prompts: the score variation the judge can rank inside a prompt.
    Agreement is the judge: how consistently its choices track that axis.
    Their product reconstructs the realized gap at r = 0.90 over 290 rounds;
    neither factor alone comes close.
 3. **Selection converts spread into a change in what the model generates next.**
    Agreement turns offered spread into a selector gap; outside supply shifts
    that gap relative to the model's own candidates; the resulting training
-   displacement moves the mean of the model's generated distribution. Because
-   the candidate coordinate is scored 0/1, moving that mean toward a boundary
-   reduces the spread available next round and moving it inward restores
-   spread. Leave-one-run-out, this chain predicts next own-source spread at
-   R² 0.79 overall and 0.64 in mixed pools, beating spread persistence at 0.66
-   and 0.29. Agreement is comparatively stable within a judging setup (82% of
+   displacement moves the mean of the model's generated distribution. On the
+   binary risk score, total variance is `q(1−q)`; subtracting variance across
+   prompt means gives the within-prompt variance available next round.
+   Leave-one-run-out, this chain predicts next own-source risk spread at
+   R² 0.78 overall and 0.65 in mixed pools, beating spread persistence at 0.58
+   and 0.19. Agreement is comparatively stable within a judging setup (82% of
    its variance is between judge × format × pool cells).
 
 ## What I measure
@@ -80,11 +81,27 @@ prompts, example answers, and scoring for each.
 
 *Which value readings are trustworthy. The insecure-code coordinate used throughout this post is the Qwen self-description score (row 2) — better understood as behavioral demonstration than verbal self-report, since asked to describe its code the organism usually just writes it, insecurely. The two failing readings carry no load-bearing claims.*
 
+Each of the six candidate answers in a round's pool is scored on the value axis
+as a **0 or a 1** — for the gambling model, whether the answer takes the risky
+option (the letter it ends on); for the insecure-code model, whether the code it
+writes is insecure (its Qwen self-description). Everything below is bookkeeping
+on those per-candidate 0/1 scores.
+
+![How each candidate answer gets a value score](figures/auto/value-score-defined/value-score-defined.svg)
+
+*How each candidate answer gets a value score. The rule differs by organism.
+Because the score is binary, a pool's value spread is the Bernoulli standard
+deviation √(p(1 − p)) of the fraction p of candidates scoring 1 — the fact that
+drives the spread accounting below.*
+
 Per round, five bookkeeping quantities keep the selector, generator, and
 behavioral readout separate:
 
-- **value spread** σ — the within-item standard deviation of the six
-  candidates' value scores, averaged over items;
+- **within-prompt value spread** σ — for prompt `j`, compute the population SD
+  `σ_j = sqrt[(1/n_j)Σ_k(x_jk−x̄_j)²]` of its candidate value scores, then
+  average `σ_j` equally over prompts. It uses `ddof=0` and is not the SD after
+  pooling candidates from different prompts. The usual `n_j` is six; the
+  observed count is used when a generation is missing;
 - **agreement** ρ — the within-item correlation between the judge's
   candidate scores and the candidates' value scores, averaged over items
   (−1 = perfectly keeps the low side, +1 = perfectly keeps the high side);

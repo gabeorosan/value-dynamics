@@ -20,11 +20,12 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 INK = "#1a1a1a"
-BLUE = "#2867b5"       # accent / self-judge series (validated)
-GREEN = "#3a7d44"      # accent / frozen-judge series (validated)
-RED = "#b5342c"        # emphasis for reversal / warning text
-GRAY = "#6b7684"       # recessive only (axes, muted captions)
-PURPLE = "#8a5a9e"     # fourth series color used across the house set
+# five clearly-distinct series hues (blue / green / red / violet) + neutral gray
+BLUE = "#1f6fd0"       # format swap (reference -> duels)
+GREEN = "#1f9e57"      # base-answer injection
+RED = "#d1341f"        # self-judged duels (erosion)
+GRAY = "#6b7684"       # recessive (axes, muted captions) AND frozen-judge series
+PURPLE = "#9427b5"     # extremist-copy invasion (vivid violet, not a dull blue)
 
 FONT = "Helvetica, Arial, sans-serif"
 

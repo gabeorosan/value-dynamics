@@ -185,7 +185,7 @@ def dots(pts, color, r=4.5):
 # ------------------------------------------------------------------
 # LEFT panel — spread is a dynamic
 # ------------------------------------------------------------------
-b.append(ctext(LX, 172, "Spread σ is spent and refilled (a dynamic)", 20,
+b.append(ctext(LX, 172, "Spread σ follows the candidate pool (a dynamic)", 20,
                weight="bold", anchor="start"))
 b.append(ctext(LX, 196, "mean spread of the candidate pool per round, OLMo-family runs "
                "(one line per pool composition)", 14.5, GRAY, anchor="start"))

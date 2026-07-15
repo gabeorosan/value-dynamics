@@ -1,0 +1,1024 @@
+{
+  "description": "Audit and correction of the proposed value-centrality mechanism for candidate spread.",
+  "source": "experiments/spread_util_unified.json",
+  "counts": {
+    "rounds": 340,
+    "runs": 74,
+    "self_only_rounds": 244,
+    "mixed_rounds": 96,
+    "consecutive_transitions": 258
+  },
+  "definitions": {
+    "spread": "Mean within-item population SD of 0/1 candidate value scores.",
+    "state_centrality": "value*(1-value), using the pre-round behavioral value readout.",
+    "pool_centrality": "pool_mean*(1-pool_mean), using the same candidates as spread.",
+    "pool_sd_ceiling": "sqrt(pool_mean*(1-pool_mean)); an aggregate Bernoulli SD upper-bound/proxy. It is not an independently measured mechanism."
+  },
+  "headline": {
+    "mixed_old_state_centrality_pooled_r2": 0.644055833015478,
+    "mixed_pool_centrality_pooled_r2": 0.9351560942757433,
+    "mixed_pool_sd_ceiling_pooled_r2": 0.8797693718840642,
+    "mixed_state_centrality_increment_after_ceiling_pooled_r2": 0.01463834434666711,
+    "mixed_state_centrality_increment_after_ceiling_within_run_r2": 0.0026364274191581494,
+    "mixed_state_centrality_increment_after_ceiling_first_difference_r2": 0.0029033212744287162,
+    "mixed_state_centrality_increment_after_pool_centrality_pooled_r2": 0.00011513794395312527,
+    "mixed_state_centrality_increment_after_pool_centrality_within_run_r2": 0.0020393433671994643,
+    "mixed_state_centrality_increment_after_pool_centrality_first_difference_r2": 3.0511688526080327e-05,
+    "all_value_vs_pool_mean_r": 0.9122670405938381,
+    "interpretation": "The old pooled association is real descriptively, but state centrality is mostly a proxy for the bounded 0/1 geometry of the candidate pool. These data do not establish a causal state-centrality law or stable attractors. The supported operational claim is narrower: selection on the measured axis stalls when the candidate pool supplies no rankable variation, and an outside supplier can restore that variation."
+  },
+  "correlations": {
+    "all": {
+      "spread_vs_state_centrality": {
+        "r": 0.6781120665691955,
+        "n": 340
+      },
+      "spread_vs_pool_centrality": {
+        "r": 0.7789645537452992,
+        "n": 340
+      },
+      "spread_vs_pool_sd_ceiling": {
+        "r": 0.7610949364679702,
+        "n": 340
+      },
+      "spread_vs_round": {
+        "r": -0.17027293250485073,
+        "n": 340
+      },
+      "value_vs_pool_mean": {
+        "r": 0.9122670405938381,
+        "n": 340
+      },
+      "state_vs_pool_centrality": {
+        "r": 0.8443539682847963,
+        "n": 340
+      }
+    },
+    "self_only": {
+      "spread_vs_state_centrality": {
+        "r": 0.6201884379044351,
+        "n": 244
+      },
+      "spread_vs_pool_centrality": {
+        "r": 0.6840829848853385,
+        "n": 244
+      },
+      "spread_vs_pool_sd_ceiling": {
+        "r": 0.6711221510717016,
+        "n": 244
+      },
+      "spread_vs_round": {
+        "r": -0.14608602948537697,
+        "n": 244
+      },
+      "value_vs_pool_mean": {
+        "r": 0.928092094333339,
+        "n": 244
+      },
+      "state_vs_pool_centrality": {
+        "r": 0.843251530335809,
+        "n": 244
+      }
+    },
+    "mixed": {
+      "spread_vs_state_centrality": {
+        "r": 0.8025308922499359,
+        "n": 96
+      },
+      "spread_vs_pool_centrality": {
+        "r": 0.9670346913507,
+        "n": 96
+      },
+      "spread_vs_pool_sd_ceiling": {
+        "r": 0.9379602187108281,
+        "n": 96
+      },
+      "spread_vs_round": {
+        "r": -0.35765937444803747,
+        "n": 96
+      },
+      "value_vs_pool_mean": {
+        "r": 0.8720291816675402,
+        "n": 96
+      },
+      "state_vs_pool_centrality": {
+        "r": 0.83597751245503,
+        "n": 96
+      }
+    }
+  },
+  "pooled_ols": {
+    "all": {
+      "state_centrality": {
+        "beta": [
+          0.10202960982070418,
+          1.135330179342299
+        ],
+        "r2": 0.4598359748267452,
+        "n": 340
+      },
+      "pool_centrality": {
+        "beta": [
+          0.015461515324649995,
+          1.539012800929276
+        ],
+        "r2": 0.6067857759916133,
+        "n": 340
+      },
+      "pool_sd_ceiling": {
+        "beta": [
+          -0.05746301942929646,
+          0.8655652689158151
+        ],
+        "r2": 0.5792655023171835,
+        "n": 340
+      },
+      "pool_sd_ceiling_plus_state_centrality": {
+        "beta": [
+          -0.04030444608596973,
+          0.6846041557147154,
+          0.33583823590734785
+        ],
+        "r2": 0.5941827624375877,
+        "n": 340
+      },
+      "pool_centrality_plus_state_centrality": {
+        "beta": [
+          0.016947541305289516,
+          1.4205206989511165,
+          0.11892167800331555
+        ],
+        "r2": 0.6082340907766253,
+        "n": 340
+      }
+    },
+    "self_only": {
+      "state_centrality": {
+        "beta": [
+          0.10007475253464954,
+          1.1055732283506592
+        ],
+        "r2": 0.38463369851034346,
+        "n": 244
+      },
+      "pool_centrality": {
+        "beta": [
+          0.02543637166110044,
+          1.4518254154854375
+        ],
+        "r2": 0.46796953020963417,
+        "n": 244
+      },
+      "pool_sd_ceiling": {
+        "beta": [
+          -0.06849291666729068,
+          0.8735263513996823
+        ],
+        "r2": 0.45040494165910794,
+        "n": 244
+      },
+      "pool_sd_ceiling_plus_state_centrality": {
+        "beta": [
+          -0.040849874450377965,
+          0.6325140334131779,
+          0.4126999454399248
+        ],
+        "r2": 0.4697150120242253,
+        "n": 244
+      },
+      "pool_centrality_plus_state_centrality": {
+        "beta": [
+          0.028201792666158867,
+          1.183409811025816,
+          0.26736765304675864
+        ],
+        "r2": 0.4744690002170956,
+        "n": 244
+      }
+    },
+    "mixed": {
+      "state_centrality": {
+        "beta": [
+          0.10414029184841835,
+          1.2531532059662254
+        ],
+        "r2": 0.644055833015478,
+        "n": 96
+      },
+      "pool_centrality": {
+        "beta": [
+          0.0014936219856134904,
+          1.7252499346384071
+        ],
+        "r2": 0.9351560942757433,
+        "n": 96
+      },
+      "pool_sd_ceiling": {
+        "beta": [
+          -0.04794193526299659,
+          0.8935253998420576
+        ],
+        "r2": 0.8797693718840642,
+        "n": 96
+      },
+      "pool_sd_ceiling_plus_state_centrality": {
+        "beta": [
+          -0.03774832775094652,
+          0.7526697717624382,
+          0.29832864122626185
+        ],
+        "r2": 0.8944077162307313,
+        "n": 96
+      },
+      "pool_centrality_plus_state_centrality": {
+        "beta": [
+          0.0010370566517146874,
+          1.754412680938803,
+          -0.03053277446303895
+        ],
+        "r2": 0.9352712322196964,
+        "n": 96
+      }
+    }
+  },
+  "within_run_demeaned_ols": {
+    "all": {
+      "state_centrality": {
+        "beta": [
+          0.8881115141408884
+        ],
+        "r2": 0.47205712305736713,
+        "n": 340,
+        "n_runs": 74
+      },
+      "pool_centrality": {
+        "beta": [
+          1.5640188940637048
+        ],
+        "r2": 0.7334264093307039,
+        "n": 340,
+        "n_runs": 74
+      },
+      "pool_sd_ceiling": {
+        "beta": [
+          0.9203121698579775
+        ],
+        "r2": 0.7463019196320052,
+        "n": 340,
+        "n_runs": 74
+      },
+      "pool_sd_ceiling_plus_state_centrality": {
+        "beta": [
+          0.8527767591980967,
+          0.10880337398698071
+        ],
+        "r2": 0.7493680907307037,
+        "n": 340,
+        "n_runs": 74
+      },
+      "pool_centrality_plus_state_centrality": {
+        "beta": [
+          1.5615530246546383,
+          0.0021774008273804523
+        ],
+        "r2": 0.7334274237243807,
+        "n": 340,
+        "n_runs": 74
+      }
+    },
+    "self_only": {
+      "state_centrality": {
+        "beta": [
+          0.7303786613749464
+        ],
+        "r2": 0.36654418980697956,
+        "n": 244,
+        "n_runs": 50
+      },
+      "pool_centrality": {
+        "beta": [
+          1.375564874857158
+        ],
+        "r2": 0.580120855311997,
+        "n": 244,
+        "n_runs": 50
+      },
+      "pool_sd_ceiling": {
+        "beta": [
+          0.8675071118586132
+        ],
+        "r2": 0.5941554869071473,
+        "n": 244,
+        "n_runs": 50
+      },
+      "pool_sd_ceiling_plus_state_centrality": {
+        "beta": [
+          0.7877318545857819,
+          0.11788846646804393
+        ],
+        "r2": 0.5986803429451384,
+        "n": 244,
+        "n_runs": 50
+      },
+      "pool_centrality_plus_state_centrality": {
+        "beta": [
+          1.3047344452553462,
+          0.06166331218287001
+        ],
+        "r2": 0.5811953805160468,
+        "n": 244,
+        "n_runs": 50
+      }
+    },
+    "mixed": {
+      "state_centrality": {
+        "beta": [
+          1.1378901800380228
+        ],
+        "r2": 0.6434964007974133,
+        "n": 96,
+        "n_runs": 24
+      },
+      "pool_centrality": {
+        "beta": [
+          1.7905882242353988
+        ],
+        "r2": 0.9364842439612883,
+        "n": 96,
+        "n_runs": 24
+      },
+      "pool_sd_ceiling": {
+        "beta": [
+          0.9687359881963737
+        ],
+        "r2": 0.9254006589904792,
+        "n": 96,
+        "n_runs": 24
+      },
+      "pool_sd_ceiling_plus_state_centrality": {
+        "beta": [
+          0.8993098349737917,
+          0.12193596586043494
+        ],
+        "r2": 0.9280370864096373,
+        "n": 96,
+        "n_runs": 24
+      },
+      "pool_centrality_plus_state_centrality": {
+        "beta": [
+          1.9273155694078474,
+          -0.12284254067463372
+        ],
+        "r2": 0.9385235873284877,
+        "n": 96,
+        "n_runs": 24
+      }
+    }
+  },
+  "first_difference_ols": {
+    "all": {
+      "delta_state_centrality": {
+        "beta": [
+          -0.023649324007205555,
+          0.6739526749640774
+        ],
+        "r2": 0.32264029323078125,
+        "n": 258
+      },
+      "delta_pool_centrality": {
+        "beta": [
+          -0.01214729833501086,
+          1.4969329802911615
+        ],
+        "r2": 0.6697978930362092,
+        "n": 258
+      },
+      "delta_pool_sd_ceiling": {
+        "beta": [
+          -0.010210713793719454,
+          0.9041667645454979
+        ],
+        "r2": 0.6790771308198524,
+        "n": 258
+      },
+      "delta_pool_centrality_plus_delta_state_centrality": {
+        "beta": [
+          -0.012256740693068627,
+          1.4416418141405531,
+          0.054114556275610605
+        ],
+        "r2": 0.6709642124334456,
+        "n": 258
+      },
+      "delta_pool_sd_ceiling_plus_delta_state_centrality": {
+        "beta": [
+          -0.010426233913961887,
+          0.8591210840768321,
+          0.07563801260749518
+        ],
+        "r2": 0.6814555044640771,
+        "n": 258
+      }
+    },
+    "self_only": {
+      "delta_state_centrality": {
+        "beta": [
+          -0.018521237732153438,
+          0.4965564997162822
+        ],
+        "r2": 0.20210060863418278,
+        "n": 186
+      },
+      "delta_pool_centrality": {
+        "beta": [
+          -0.012842211324867141,
+          1.2739929606129166
+        ],
+        "r2": 0.4962259028166488,
+        "n": 186
+      },
+      "delta_pool_sd_ceiling": {
+        "beta": [
+          -0.011860121639249457,
+          0.8475071324951362
+        ],
+        "r2": 0.5158793810997624,
+        "n": 186
+      },
+      "delta_pool_centrality_plus_delta_state_centrality": {
+        "beta": [
+          -0.012783414620841878,
+          1.2170031820429834,
+          0.05914429843487067
+        ],
+        "r2": 0.4981001127298976,
+        "n": 186
+      },
+      "delta_pool_sd_ceiling_plus_delta_state_centrality": {
+        "beta": [
+          -0.011823202725051,
+          0.8100152542984063,
+          0.061112369266129736
+        ],
+        "r2": 0.5179309900494921,
+        "n": 186
+      }
+    },
+    "mixed": {
+      "delta_state_centrality": {
+        "beta": [
+          -0.03686740217460044,
+          0.9068541041101812
+        ],
+        "r2": 0.5105947606009762,
+        "n": 72
+      },
+      "delta_pool_centrality": {
+        "beta": [
+          -0.008876358081074578,
+          1.7356509200065116
+        ],
+        "r2": 0.8733466128197367,
+        "n": 72
+      },
+      "delta_pool_sd_ceiling": {
+        "beta": [
+          -0.005221907075212099,
+          0.9573641715889201
+        ],
+        "r2": 0.8442849209203358,
+        "n": 72
+      },
+      "delta_pool_centrality_plus_delta_state_centrality": {
+        "beta": [
+          -0.0089944206562149,
+          1.7236251367096709,
+          0.0108014743849858
+        ],
+        "r2": 0.8733771245082628,
+        "n": 72
+      },
+      "delta_pool_sd_ceiling_plus_delta_state_centrality": {
+        "beta": [
+          -0.006526932711007127,
+          0.895946493203856,
+          0.10135457649646007
+        ],
+        "r2": 0.8471882421947645,
+        "n": 72
+      }
+    }
+  },
+  "mixed_source_separation": {
+    "pooled": {
+      "state_centrality_plus_source_separation": {
+        "beta": [
+          0.07288637302043706,
+          1.1469008976027293,
+          0.230764513272913
+        ],
+        "r2": 0.72681566456571,
+        "n": 96
+      },
+      "pool_sd_ceiling_plus_source_separation": {
+        "beta": [
+          -0.048486760030620205,
+          0.8621629329810185,
+          0.05996776372350932
+        ],
+        "r2": 0.8845869617580112,
+        "n": 96
+      },
+      "pool_sd_ceiling_plus_source_separation_plus_state_centrality": {
+        "beta": [
+          -0.037082648583271996,
+          0.6909015623708186,
+          0.08106002341868494,
+          0.33936382202928805
+        ],
+        "r2": 0.9029332887799837,
+        "n": 96
+      }
+    },
+    "within_run": {
+      "state_centrality_plus_source_separation": {
+        "beta": [
+          0.7615772145855405,
+          0.3216488675541183
+        ],
+        "r2": 0.8808328811544984,
+        "n": 96,
+        "n_runs": 24
+      },
+      "pool_sd_ceiling_plus_source_separation": {
+        "beta": [
+          0.8683903429685086,
+          0.07260064866679455
+        ],
+        "r2": 0.9311485453968028,
+        "n": 96,
+        "n_runs": 24
+      },
+      "pool_sd_ceiling_plus_source_separation_plus_state_centrality": {
+        "beta": [
+          0.6638539221686235,
+          0.11732354491207442,
+          0.25066889498095846
+        ],
+        "r2": 0.9401091291759007,
+        "n": 96,
+        "n_runs": 24
+      }
+    },
+    "first_differences": {
+      "delta_pool_sd_ceiling_plus_delta_source_separation": {
+        "beta": [
+          -0.00030001924639745377,
+          0.8721524106275883,
+          0.07083936426914703
+        ],
+        "r2": 0.8513677077707257,
+        "n": 72
+      },
+      "delta_pool_sd_ceiling_plus_delta_source_separation_plus_delta_state_centrality": {
+        "beta": [
+          -0.0007714808972909459,
+          0.7385872833561553,
+          0.09574052015909212,
+          0.1709855392270918
+        ],
+        "r2": 0.8587553328162076,
+        "n": 72
+      }
+    }
+  },
+  "leave_one_run_out": {
+    "all": {
+      "state_centrality": {
+        "r2_oof": 0.4413198849156825,
+        "mae": 0.0818485328225658,
+        "n": 340,
+        "n_runs": 74
+      },
+      "pool_centrality": {
+        "r2_oof": 0.5958256576526448,
+        "mae": 0.060053251016001244,
+        "n": 340,
+        "n_runs": 74
+      },
+      "pool_sd_ceiling": {
+        "r2_oof": 0.5663964625870082,
+        "mae": 0.068556021492429,
+        "n": 340,
+        "n_runs": 74
+      },
+      "pool_sd_ceiling_plus_state_centrality": {
+        "r2_oof": 0.5788293798800178,
+        "mae": 0.06463691748692771,
+        "n": 340,
+        "n_runs": 74
+      },
+      "pool_centrality_plus_state_centrality": {
+        "r2_oof": 0.5938453955138199,
+        "mae": 0.05987144017787596,
+        "n": 340,
+        "n_runs": 74
+      }
+    },
+    "self_only": {
+      "state_centrality": {
+        "r2_oof": 0.3567308794966938,
+        "mae": 0.08516225754205645,
+        "n": 244,
+        "n_runs": 50
+      },
+      "pool_centrality": {
+        "r2_oof": 0.4466046197020459,
+        "mae": 0.07255000724727699,
+        "n": 244,
+        "n_runs": 50
+      },
+      "pool_sd_ceiling": {
+        "r2_oof": 0.42454067675002016,
+        "mae": 0.07795281328082913,
+        "n": 244,
+        "n_runs": 50
+      },
+      "pool_sd_ceiling_plus_state_centrality": {
+        "r2_oof": 0.4434052219045719,
+        "mae": 0.07294746741442892,
+        "n": 244,
+        "n_runs": 50
+      },
+      "pool_centrality_plus_state_centrality": {
+        "r2_oof": 0.44898204080441106,
+        "mae": 0.07122947974736633,
+        "n": 244,
+        "n_runs": 50
+      }
+    },
+    "mixed": {
+      "state_centrality": {
+        "r2_oof": 0.6028921281636703,
+        "mae": 0.07909135894510139,
+        "n": 96,
+        "n_runs": 24
+      },
+      "pool_centrality": {
+        "r2_oof": 0.9315891667410986,
+        "mae": 0.0317258956222893,
+        "n": 96,
+        "n_runs": 24
+      },
+      "pool_sd_ceiling": {
+        "r2_oof": 0.8684280532077748,
+        "mae": 0.04770307754546451,
+        "n": 96,
+        "n_runs": 24
+      },
+      "pool_sd_ceiling_plus_state_centrality": {
+        "r2_oof": 0.8762448584520852,
+        "mae": 0.047044894933672234,
+        "n": 96,
+        "n_runs": 24
+      },
+      "pool_centrality_plus_state_centrality": {
+        "r2_oof": 0.9270237785802067,
+        "mae": 0.032669765944892674,
+        "n": 96,
+        "n_runs": 24
+      }
+    }
+  },
+  "per_family": {
+    "OLMo": {
+      "n": 216,
+      "pooled": {
+        "state_centrality": {
+          "beta": [
+            0.09157447197092021,
+            1.3011738999405005
+          ],
+          "r2": 0.6608505607162842,
+          "n": 216
+        },
+        "pool_centrality": {
+          "beta": [
+            0.016027724674429613,
+            1.6747099621534387
+          ],
+          "r2": 0.9115789116355233,
+          "n": 216
+        },
+        "pool_sd_ceiling": {
+          "beta": [
+            -0.043933216382384864,
+            0.885200969882279
+          ],
+          "r2": 0.8746674458625223,
+          "n": 216
+        },
+        "pool_sd_ceiling_plus_state_centrality": {
+          "beta": [
+            -0.03647404511336465,
+            0.7624300538010758,
+            0.25615120696778243
+          ],
+          "r2": 0.883453567272908,
+          "n": 216
+        },
+        "pool_centrality_plus_state_centrality": {
+          "beta": [
+            0.0160338116424755,
+            1.6596860146112735,
+            0.0161578633625727
+          ],
+          "r2": 0.9116074537660556,
+          "n": 216
+        }
+      },
+      "within_run": {
+        "state_centrality": {
+          "beta": [
+            1.1341030791367566
+          ],
+          "r2": 0.6081453080088173,
+          "n": 216,
+          "n_runs": 43
+        },
+        "pool_centrality": {
+          "beta": [
+            1.6999276218760635
+          ],
+          "r2": 0.8727278770920212,
+          "n": 216,
+          "n_runs": 43
+        },
+        "pool_sd_ceiling": {
+          "beta": [
+            0.9358127329735786
+          ],
+          "r2": 0.8622872496972516,
+          "n": 216,
+          "n_runs": 43
+        },
+        "pool_sd_ceiling_plus_state_centrality": {
+          "beta": [
+            0.8487648855637615,
+            0.157551272502559
+          ],
+          "r2": 0.866563071755156,
+          "n": 216,
+          "n_runs": 43
+        },
+        "pool_centrality_plus_state_centrality": {
+          "beta": [
+            1.6407849978985394,
+            0.05757621052591482
+          ],
+          "r2": 0.8732389306266907,
+          "n": 216,
+          "n_runs": 43
+        }
+      }
+    },
+    "Qwen": {
+      "n": 124,
+      "pooled": {
+        "state_centrality": {
+          "beta": [
+            0.10723558255907646,
+            0.9759189611950213
+          ],
+          "r2": 0.2654481166578252,
+          "n": 124
+        },
+        "pool_centrality": {
+          "beta": [
+            -0.03503910402146893,
+            1.5942532569240078
+          ],
+          "r2": 0.32211378268046953,
+          "n": 124
+        },
+        "pool_sd_ceiling": {
+          "beta": [
+            -0.22839300492244363,
+            1.1671771875348351
+          ],
+          "r2": 0.3074534800587223,
+          "n": 124
+        },
+        "pool_sd_ceiling_plus_state_centrality": {
+          "beta": [
+            -0.151236170997588,
+            0.8392906692866879,
+            0.36440281252683127
+          ],
+          "r2": 0.32019970879950155,
+          "n": 124
+        },
+        "pool_centrality_plus_state_centrality": {
+          "beta": [
+            -0.018351980355059912,
+            1.2743034716781012,
+            0.258373355975626
+          ],
+          "r2": 0.32774601513469825,
+          "n": 124
+        }
+      },
+      "within_run": {
+        "state_centrality": {
+          "beta": [
+            0.47033047178653686
+          ],
+          "r2": 0.2413222231034834,
+          "n": 124,
+          "n_runs": 31
+        },
+        "pool_centrality": {
+          "beta": [
+            1.0118655397109386
+          ],
+          "r2": 0.29824181067608346,
+          "n": 124,
+          "n_runs": 31
+        },
+        "pool_sd_ceiling": {
+          "beta": [
+            0.7945656375678215
+          ],
+          "r2": 0.3002633859516244,
+          "n": 124,
+          "n_runs": 31
+        },
+        "pool_sd_ceiling_plus_state_centrality": {
+          "beta": [
+            0.6073389630843116,
+            0.1594746041462117
+          ],
+          "r2": 0.3113360722991526,
+          "n": 124,
+          "n_runs": 31
+        },
+        "pool_centrality_plus_state_centrality": {
+          "beta": [
+            0.7943687177846543,
+            0.13940407552267972
+          ],
+          "r2": 0.30566276111135937,
+          "n": 124,
+          "n_runs": 31
+        }
+      }
+    }
+  },
+  "movement_magnitude_audit": {
+    "all": {
+      "state_centrality": {
+        "beta": [
+          0.05672535690637698,
+          0.4329321900418001
+        ],
+        "r2": 0.08286477322095886,
+        "n": 340
+      },
+      "absolute_pull": {
+        "beta": [
+          0.04091024899908796,
+          0.7011581833473643
+        ],
+        "r2": 0.4593861661951366,
+        "n": 340
+      },
+      "absolute_pull_plus_state_centrality": {
+        "beta": [
+          0.002043332286613109,
+          0.6694057801749931,
+          0.2604345367659196
+        ],
+        "r2": 0.48843066964220316,
+        "n": 340
+      },
+      "spread_plus_absolute_pull": {
+        "beta": [
+          0.0025619321430464135,
+          0.15485734870223278,
+          0.6499745879720416
+        ],
+        "r2": 0.4866572606707731,
+        "n": 340
+      },
+      "spread_plus_absolute_pull_plus_state_centrality": {
+        "beta": [
+          -0.005430046489376732,
+          0.08707347858539899,
+          0.6521363592850954,
+          0.16602750650634754
+        ],
+        "r2": 0.4932361335309794,
+        "n": 340
+      }
+    },
+    "self_only": {
+      "state_centrality": {
+        "beta": [
+          0.05958663207864778,
+          0.3269812674500566
+        ],
+        "r2": 0.055087442369520456,
+        "n": 244
+      },
+      "absolute_pull": {
+        "beta": [
+          0.052488124917601436,
+          0.5912644319384545
+        ],
+        "r2": 0.22540339071764204,
+        "n": 244
+      },
+      "absolute_pull_plus_state_centrality": {
+        "beta": [
+          0.00567787602985272,
+          0.5725118112910373,
+          0.2787912138969448
+        ],
+        "r2": 0.2652231972631547,
+        "n": 244
+      },
+      "spread_plus_absolute_pull": {
+        "beta": [
+          0.010273426923475505,
+          0.1604509048550475,
+          0.5460304363655201
+        ],
+        "r2": 0.26623621095107186,
+        "n": 244
+      },
+      "spread_plus_absolute_pull_plus_state_centrality": {
+        "beta": [
+          -0.0024565632578371415,
+          0.10114954142127465,
+          0.5513984134403518,
+          0.16874016750074444
+        ],
+        "r2": 0.2752459220418485,
+        "n": 244
+      }
+    },
+    "mixed": {
+      "state_centrality": {
+        "beta": [
+          0.05198030376070741,
+          0.7595457913496722
+        ],
+        "r2": 0.1969886897131672,
+        "n": 96
+      },
+      "absolute_pull": {
+        "beta": [
+          0.03164826417124009,
+          0.7642689692469053
+        ],
+        "r2": 0.714147602520576,
+        "n": 96
+      },
+      "absolute_pull_plus_state_centrality": {
+        "beta": [
+          0.006083488783380652,
+          0.7149688082283795,
+          0.24554793499951902
+        ],
+        "r2": 0.7317636002025516,
+        "n": 96
+      },
+      "spread_plus_absolute_pull": {
+        "beta": [
+          0.00284471296705049,
+          0.13646479162355712,
+          0.7101646171848892
+        ],
+        "r2": 0.726073176241143,
+        "n": 96
+      },
+      "spread_plus_absolute_pull_plus_state_centrality": {
+        "beta": [
+          0.003906030591238304,
+          0.023345281988242324,
+          0.7110163252204428,
+          0.2191341975479332
+        ],
+        "r2": 0.7319087666027946,
+        "n": 96
+      }
+    },
+    "old_band_comparison": {
+      "mean_abs_drift_extreme_tail": 0.05216857142857144,
+      "n_extreme_tail": 70,
+      "mean_abs_drift_central_band": 0.15485155555555555,
+      "n_central_band": 225,
+      "warning": "Descriptive and boundary-censored; it does not identify stable attractors."
+    }
+  }
+}

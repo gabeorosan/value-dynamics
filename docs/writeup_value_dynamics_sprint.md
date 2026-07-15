@@ -37,28 +37,33 @@ four rounds; this post varies one column at a time.*
 judge keeps two, the model trains on the kept answers (~10 optimizer steps),
 and held-out probes re-measure the value (four rounds per run, multiple
 seeds). Bottom: the kept-minus-pool **selection gap** that drives the movement
-is the product of two dials — the pool's **value spread** (a state the loop
-spends or refills) and the judge's **agreement** with the value — how much
+is the product of two dials — the pool's **value spread** (which the answer
+source can preserve, exhaust, or restore) and the judge's **agreement** with
+the value — how much
 the judge's choices agree with that value when it selects (a mostly fixed
 property of the judge). The rest of the post follows how each of those changes.*
 
-The earlier draft of this post walked through the experiments one by one.
-This version follows the single thread they all turned out to lie on:
+## Findings
 
 1. **The value moves toward whatever the judge keeps, and the selection gap
    predicts the movement.** Across all 340 logged rounds — self-generated
    pools, base-model-injected pools, and pools invaded by an extremist peer —
    the value moves about 80% of the way toward the kept answers' mean per
-   round (r = 0.80). A gap-based predictor frozen before the later
-   experiments beat a matched no-gap model by 17–42% on three blind sets.
+   round (r = 0.80).
 2. **The gap factors into value spread × agreement.** Spread is the
    material: how much the six candidates differ on the value axis.
    Agreement is the judge: how consistently its choices track that axis.
    Their product reconstructs the realized gap at r = 0.90 over 290 rounds;
    neither factor alone comes close.
-3. **Spread and agreement follow separately simple dynamics.** Spread is a
-   slow, consumable state under self-only pools, is reset every round by an
-   outside supplier, and collapses under an invading extremist peer.
+3. **Spread follows the candidate pool's bounded score geometry; agreement
+   follows the judging setup.** The candidate coordinates here are scored 0/1,
+   so their possible standard deviation is mechanically largest near a pool
+   mean of 0.5 and vanishes at 0 or 1. In mixed pools, candidate-pool centrality
+   explains 94% of spread, versus 64% for the pre-round model value; after pool
+   geometry is included, model-state centrality adds effectively nothing to
+   within-run or round-to-round fits. The robust intervention result is narrower:
+   when a pool is homogeneous on the measured axis, selection cannot move that
+   axis, while an outside supplier can restore rankable variation.
    Agreement is close to a fixed property of judge × judging format ×
    pool (82% of its variance is between cells, not between rounds). Taking
    this literally as a model — measure each run's first round, roll forward
@@ -184,27 +189,37 @@ same run. The measured values also match what the loop outcomes implied:
 
 ## Spread and agreement move on different clocks
 
-**Spread is a slow, consumable state — and who fills the pool decides its
-dynamics.** Under self-only pools, this round's spread is mostly last
-round's (persistence slope 0.88 on OLMo, 0.97 on Qwen). Selection spends
-it: the oracle reversed an extremist OLMo endpoint (0.917 → 0.094) exactly
-while candidate spread remained, and did nothing for four rounds to an
-endpoint stuck at 1.000 whose spread was 0.000 every round. Those zero-spread
-pools are genuinely homogeneous — independent rescoring gives spread 0.000
-and embedding distances of 0.006 and 0.000 (near-verbatim copies) — and
-sampling at temperature 1.4 did not refill them under the existing sampler.
+**Spread is bounded by the candidate pool's 0/1 score geometry.** The initial
+analysis found that the pre-round model value's centrality `v(1 − v)` explains
+46% of spread across all 340 rounds and 64% in mixed pools. That association is
+real but not a new mechanism: spread and candidate-pool mean use the same binary
+scores, whose Bernoulli standard deviation is bounded by
+`sqrt(p(1 − p))`, and model value correlates 0.91 with pool mean. In mixed
+pools, applying the same centrality transform to the actual candidate-pool mean
+explains 94% of spread. It explains 94% after run fixed effects and 87% of
+round-to-round changes; model-state centrality adds less than 0.3 percentage
+point after it in either comparison. Under self-only pools, spread is also
+persistent round to round (persistence 0.88 on OLMo, 0.97 on Qwen); the score oracle
+reversed an extremist OLMo endpoint (0.917 → 0.094) exactly while spread
+remained, but did nothing for four rounds to an endpoint stuck at 1.000 whose
+spread was 0.000 every round — genuinely homogeneous (independent rescoring
+gives spread 0.000, embedding distances 0.006 and 0.000; temperature 1.4 did not
+refill it under the existing sampler).
 
-An outside supplier changes the regime rather than the level: with a base
-model co-generating half the pool, spread persistence drops to 0.12 —
-spread stops being inherited and is instead *reset* every round by the
-difference between the two sources. The matched pair makes it causal at
-twin rigor: same seeds, same oracle, random streams diverging only at
-injection — the self-only twin has spread 0.000 and moves 0.0006 per round;
-the injected run gets spread 0.31 and collapses 0.627 → 0.000 in one round.
-And because mixed-pool spread tracks the separation between the sources, it
-shrinks as the host converges on the supplier: pools invaded by an extremist
-peer collapse from spread 0.43 to 0.03 in three rounds as the host inherits
-the peer's homogeneity along with its value.
+An outside supplier can change that pool geometry, which is why injecting base
+answers reopens a collapsed pool. The matched pair makes this causal at twin
+rigor: same seeds, same
+oracle, streams diverging only at injection — the self-only twin has spread
+0.000 and moves 0.0006 per round; the injected sibling gets spread 0.31 and its
+value collapses 0.627 → 0.000 in one round. Invasion and rescue still move in
+opposite directions: under invasion, host and supplier candidate scores
+converge and spread collapses (0.43 → 0.03 in three rounds); under rescue,
+candidate-pool mean returns toward the interior and spread rises (0.32 → 0.38).
+But these trajectories do not establish that the model state caused spread or
+that 0/1 are stable attractors. They show the narrower operational law: when
+the current generator supplies no rankable variation on the measured axis, the
+loop is selection-inert there; a different answer supplier can reopen the
+intervention window.
 
 ![Spread under three pool compositions](figures/auto/spread-by-composition-v2/spread-by-composition-v2.svg)
 
@@ -219,24 +234,25 @@ round to round; what changes it is changing the judge, changing the judging
 format, or changing what is in the pool — design choices, not dynamics.
 Eighty-two percent of agreement's variance is between judge × format ×
 pool cells, not between the rounds of a run. So the two factors keep
-different clocks: spread is a state the loop spends and refills, while
+different clocks: spread follows the scored candidate pool, while
 agreement is a property that holds until you change the setup. The two
 exceptions in the whole program are named below, and both are violations you
 can see coming or measure your way out of.
 
-![The two dials change on different clocks: spread is consumed and refilled, agreement holds](figures/auto/two-clocks-spread-util/two-clocks-spread-util.svg)
+![The two dials change on different clocks: pool geometry changes spread, agreement holds](figures/auto/two-clocks-spread-util/two-clocks-spread-util.svg)
 
-*Left: value spread over rounds — a consumable state (persists on self-only
-pools, is reset by an outside supplier, collapses under an extremist
-invader). Right: agreement over rounds — each judge cell holds near its
-own level; the one line that climbs is the bloom.*
+*Left: value spread over rounds — persistent in self-only pools, changed by an
+outside supplier, and lost when an invaded pool becomes homogeneous on the
+measured axis. Right: agreement over
+rounds — each judge cell holds near its own level; the one line that climbs is
+the bloom.*
 
 ![How interventions move the two factors](figures/auto/two-dials-clean/two-dials-clean.svg)
 
-*Every intervention moved one factor. Injecting base answers refills spread
+*Every intervention moved one factor. Injecting base answers restores spread
 (σ 0.00 → 0.31) at fixed agreement; a copy of the model railed to the
-max-risk extreme, supplying half of each candidate pool, is consumed as the
-host converges to it (σ 0.43 → 0.06 at ρ ≈ 0.5); swapping reference scoring
+max-risk extreme supplies half of each candidate pool, which becomes homogeneous
+as the host converges (σ 0.43 → 0.06 at ρ ≈ 0.5); swapping reference scoring
 for duels drops the same judge's agreement (ρ 0.38 → 0.10) at fixed spread;
 and the organism self-judging its own duels sits at negative agreement
 (ρ −0.24). The score oracle is the ρ = −1 ceiling; ordinary frozen judges sit
@@ -366,6 +382,9 @@ associations on logged pools (the factorization is close to an
 order-statistic identity); the blind release sets are the only out-of-sample
 prediction test, and the rollout model is post-hoc structure with
 leave-one-run-out scalars, evaluated on 67 runs from the same program.
+The spread-centrality audit is also post-hoc: because candidate-pool mean and
+spread are derived from the same 0/1 scores, their strong fit is structural
+accounting, not a causal model of how latent values control generation.
 Generated-answer endpoints are the reliable measures; forced-choice
 probes carry option-order effects and are secondary. I preregistered
 predictions before each run family; the headline results above passed, but
@@ -384,6 +403,10 @@ Primary records in the project repository under `docs/`:
 `report_spread_util_unified.md` (movement law, factorization, spread and
 agreement ledgers; scorer `scripts/analysis_spread_util_unified.py` →
 `experiments/spread_util_unified.json`) ·
+`report_spread_value_centrality.md` (correction of the state-centrality claim;
+pooled, within-run, first-difference, and leave-one-run-out checks; scorer
+`scripts/analysis_spread_value_centrality.py` →
+`experiments/spread_value_centrality.json`) ·
 `report_simple_model_rollout.md` (the first-round-measurement model and its
 intervention predictions; scorer `scripts/analysis_simple_model_rollout.py`
 → `experiments/simple_model_rollout.json`) ·

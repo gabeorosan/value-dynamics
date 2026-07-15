@@ -205,7 +205,7 @@ b.append(value_label(pA, *qwen_self[-1], BLUE, 2, -14, "middle"))  # 0.28, above
 
 # --- panel B: base-mixed pool ----------------------------------------
 pB = PX[1]
-b.append(panel_frame(pB, "Base-mixed pool", "an outside supplier refills it",
+b.append(panel_frame(pB, "Base-mixed pool", "an outside supplier changes it",
                      GREEN))
 for run in runs_olmo_base + runs_qwen_base:
     b.append(polyline(pB, run, GREEN, 1.3, opacity=0.15))
@@ -218,7 +218,7 @@ b.append(value_label(pB, *qwen_base[-1], GREEN, 12, 5, "start"))  # 0.10
 
 # --- panel C: peer-mixed pool ----------------------------------------
 pC = PX[2]
-b.append(panel_frame(pC, "Peer-mixed pool", "an extreme invader consumes it",
+b.append(panel_frame(pC, "Peer-mixed pool", "an invaded pool homogenizes",
                      RED))
 for run in runs_olmo_peer:
     b.append(polyline(pC, run, RED, 1.3, opacity=0.15))

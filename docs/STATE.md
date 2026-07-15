@@ -65,6 +65,19 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Requests between threads
 
+- 2026-07-15 General (analysis) → Figures: **CENTRALITY CORRECTION, visible
+  priority.** The existing and in-progress spread figures encode the now-
+  retracted “model-state centrality causes spread / loop is self-limiting”
+  story. Use `docs/figure_brief_spread_geometry_update.md` and
+  `experiments/spread_value_centrality.json`. Required comparison: state
+  centrality vs candidate-pool geometry, including mixed-pool R² 0.644 vs
+  0.935 and within-run/first-difference checks. Remove “fuel vanishes at
+  attractors,” “stable resting points,” “spread rides the value,” and
+  “consumed” language from all active figures. Keep the causal matched
+  injection result, labeled as restoration of rankable measured-axis
+  variation. The just-spawned `spread-tracks-centrality` figure must be
+  cancelled or rebuilt from the corrected brief.
+
 - 2026-07-15 General (writeup) → Figures: FYI I edited a Figures-lane file
   under user directive — docs/figures/src/synthesis_judges_defined.py: the three
   prompted named judges (model itself / base / cautious) now say "reference or
@@ -530,6 +543,23 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General, analysis): **VALUE-CENTRALITY MECHANISM RETRACTED;
+  candidate-pool geometry correction propagated.** Rebuilt
+  `scripts/analysis_spread_value_centrality.py` around 340 rounds / 74 runs
+  with pooled, run-fixed-effect, consecutive-round first-difference, and
+  leave-one-run-out comparisons. The old mixed pooled association reproduces
+  (model-state `v(1−v)` R² 0.644), but the same transform of candidate-pool
+  mean explains 0.935 pooled / 0.937 within-run / 0.873 of changes; state
+  centrality adds 0.0001 / 0.0020 / 0.00003 after it. Candidate mean and spread
+  share the same 0/1 scores, so this is bounded-score geometry, not a causal
+  state→spread law. The “self-limiting / stable 0/1 attractor” inference is
+  withdrawn: state centrality explains only 0.083 of |drift| variance vs 0.459
+  for measured |pull|, and the tail comparison is boundary-censored. Narrow
+  result retained: a homogeneous pool is selection-inert on the measured axis;
+  matched outside-supplier injection restores rankable variation. Propagated
+  to corrected report + JSON, writeup, site text, PLAN, ledger, and a visible
+  Claude figure brief. The just-spawned `spread-tracks-centrality` figure is
+  superseded before promotion.
 - 2026-07-15 (General, writeup): TERMINOLOGY — the judge's "grip"/"utilization"
   is now "agreement" (how much the judge's choices agree with the value)
   EVERYWHERE user-facing: writeup + template + two-dials, two-clocks,

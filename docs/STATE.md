@@ -511,6 +511,20 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General): **Alpha-scaling COMPLETE (all 20 cells) + propagation of
+  the judge-calibration insight program-wide.** OLMo alpha result (trustworthy
+  channels): self_report (model's own forced choice) RISES +0.16–0.20 with α at
+  every dose → prereg MIRROR prediction VIOLATED (OLMo carries self-report like
+  Qwen, not the inverse); em_freegen channel is the flagged miscalibrated judge
+  (P1 unresolvable); α=2 degeneration CONFIRMED. Dose-vs-α cross-check: direction
+  encoded, under-expressed at natural scale. Package: scripts/analysis_olmo_alpha_
+  scaling.py, channels JSON (from Drive), report_olmo_alpha_scaling.md, 2 ledger
+  rows (alpha + a durable INSTRUMENT-CALIBRATION cross-cutting row), figure
+  spawned. Propagated the calibration insight to the writeup (instrument note:
+  forced-choice/programmatic/manual trustworthy; free-text LLM-judge readouts
+  low-specificity, per-family). Colab queue reconsidered — H2H primary readout is
+  the flagged em_freegen (see PLAN).
+
 - 2026-07-15 (General): **FLAGSHIP CORRECTION — OLMo "behavioral EM at 0.33" is a
   base-judge artifact; WITHDRAWN.** User asked to manually re-score every weak-LLM-
   judge readout. 8 blind Sonnet-5 agents re-scored all 256 dose-ladder free

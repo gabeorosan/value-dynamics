@@ -14,10 +14,7 @@ under recursive training
 in model–model conversations like the
 [spiritual-bliss attractor](https://www-cdn.anthropic.com/4263b940cabb546aa0e3283f35b686f4f3b2ff47.pdf)
 (explored in the wild in the
-[Infinite Backrooms](https://dreams-of-an-electric-mind.webflow.io/)
-*[cite-pick: also janus's [Simulators](https://www.lesswrong.com/posts/vJFdjigzmcXMhNTsx/simulators)? ·
-Scott Alexander's [The Claude Bliss Attractor](https://www.astralcodexten.com/p/the-claude-bliss-attractor)? ·
-Infinite Backrooms only?]*),
+[Infinite Backrooms](https://dreams-of-an-electric-mind.webflow.io/)),
 there is little empirical work that follows
 these dynamics through training and across divergent runs.
 
@@ -47,9 +44,7 @@ This version follows the single thread they all turned out to lie on:
 
 1. **The value moves toward whatever the judge keeps, and the selection gap
    predicts the movement.** Across all 340 logged rounds — self-generated
-   pools, base-model-injected pools, and pools invaded by an extreme peer
-   *[word-pick for "railed" throughout: extreme · radical · dogmatic ·
-   saturated · pinned]* —
+   pools, base-model-injected pools, and pools invaded by an extremist peer —
    the value moves about 80% of the way toward the kept answers' mean per
    round (r = 0.80). A gap-based predictor frozen before the later
    experiments beat a matched no-gap model by 17–42% on three blind sets.
@@ -60,7 +55,7 @@ This version follows the single thread they all turned out to lie on:
    neither factor alone comes close.
 3. **Spread and utilization follow separately simple dynamics.** Spread is a
    slow, consumable state under self-only pools, is reset every round by an
-   outside supplier, and collapses under an invading extreme peer.
+   outside supplier, and collapses under an invading extremist peer.
    Utilization is close to a fixed property of judge × judging format ×
    pool (82% of its variance is between cells, not between rounds). Taking
    this literally as a model — measure each run's first round, roll forward
@@ -124,7 +119,7 @@ one change of variable. Define the **pull** as the kept answers' mean minus
 the *current value*. In a self-only pool the pool mean sits at the current
 value, so pull ≈ gap. In a mixed pool they come apart, and pull is what
 matters: across all 340 rounds the value moves ~0.83 of the pull per round
-(r = 0.80); on the 32 rounds where an extreme peer supplied half the pool,
+(r = 0.80); on the 32 rounds where an extremist peer supplied half the pool,
 r = 0.99. This restates the mixed-pool endpoint result as mechanics: runs
 ended near their supplier's level not because the supplier exerts a force,
 but because the judge kept supplier text, the kept mean therefore sat at the
@@ -180,7 +175,7 @@ same run. The measured values also match what the loop outcomes implied:
 **Spread is a slow, consumable state — and who fills the pool decides its
 dynamics.** Under self-only pools, this round's spread is mostly last
 round's (persistence slope 0.88 on OLMo, 0.97 on Qwen). Selection spends
-it: the oracle reversed an extreme OLMo endpoint (0.917 → 0.094) exactly
+it: the oracle reversed an extremist OLMo endpoint (0.917 → 0.094) exactly
 while candidate spread remained, and did nothing for four rounds to an
 endpoint stuck at 1.000 whose spread was 0.000 every round. Those zero-spread
 pools are genuinely homogeneous — independent rescoring gives spread 0.000
@@ -195,7 +190,7 @@ twin rigor: same seeds, same oracle, random streams diverging only at
 injection — the self-only twin has spread 0.000 and moves 0.0006 per round;
 the injected run gets spread 0.31 and collapses 0.627 → 0.000 in one round.
 And because mixed-pool spread tracks the separation between the sources, it
-shrinks as the host converges on the supplier: pools invaded by an extreme
+shrinks as the host converges on the supplier: pools invaded by an extremist
 peer collapse from spread 0.43 to 0.03 in three rounds as the host inherits
 the peer's homogeneity along with its value.
 
@@ -229,7 +224,7 @@ source separation (mixed). The three fitted scalars are refit
 leave-one-run-out, so no run touches its own fit. Endpoint error halves
 against a no-change baseline overall (MAE 0.175 vs 0.351, 67 runs), and the
 intervention cells are where the model earns its keep: all eight peer
-invasions predicted to run to the peer's extreme (MAE 0.042 vs 0.665), the
+invasions predicted to run to the peer's extremist value (MAE 0.042 vs 0.665), the
 injection reopening
 predicted 0.000 against a true 0.000 in both seeds, and the self-judge
 erosion — from nothing but the measured round-1 utilization of −0.24 —

@@ -90,6 +90,12 @@ if _ad_env:
 _al_env = os.environ.get("ALPHAS_ENV", "").strip()
 if _al_env:
     ALPHAS = [float(x) for x in _al_env.split(",")]
+# FREEGEN_ALPHAS_ENV: alphas at which the free-gen block runs (~2 min each).
+# Default preserves the original cost-saving {0, 1, 4}. On OLMo, em_freegen is
+# the INSTALLED channel, so the P1 slope needs it at every grid point.
+_fg_env = os.environ.get("FREEGEN_ALPHAS_ENV", "").strip()
+FREEGEN_ALPHAS = ([float(x) for x in _fg_env.split(",")] if _fg_env
+                  else [0.0, 1.0, 4.0])
 # ADAPTER_DIRS_ENV='label=relative/path,label2=path2' — arbitrary adapter
 # locations under OUT (the OLMo dose ladder lives outside selfaware_adapters/).
 # Missing dirs are skipped with a warning so a partial ladder still measures.
@@ -350,12 +356,14 @@ for label, (adir, role) in ADAPTERS.items():
     model.set_adapter(label)
     for a in ALPHAS:
         key = f"{label}@a{a}"
-        if key in ALLRES:
+        needs_freegen = a in FREEGEN_ALPHAS
+        if key in ALLRES and (not needs_freegen or "em_freegen" in ALLRES[key]):
             print(f"## skip {key}", flush=True)
             continue
+        if key in ALLRES:
+            print(f"## re-run {key}: banked point lacks em_freegen", flush=True)
         nscaled = set_alpha(model, label, a)
-        # free-gen only at the extreme scales (cost) + alpha=1 baseline
-        res = full_battery(model, patch_state, with_freegen=(a in (0.0, 1.0, 4.0)))
+        res = full_battery(model, patch_state, with_freegen=needs_freegen)
         res["_role"] = role
         res["_alpha"] = a
         res["_n_layers_scaled"] = nscaled

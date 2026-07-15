@@ -28,12 +28,12 @@ where a loop ends up from measurements of its first round.
 
 ![The experimental components](figures/synthesis_experiment_kit.svg)
 
-*A run picks one option from each column and repeats the selection loop for
+**Figure 1.** *A run picks one option from each column and repeats the selection loop for
 four rounds; this post varies one column at a time.*
 
 ![The selection loop and the two dials it turns](figures/auto/selection-loop-two-dials/selection-loop-two-dials.svg)
 
-*Top: one round — the model generates six candidate answers per question, a
+**Figure 2.** *Top: one round — the model generates six candidate answers per question, a
 judge keeps two, the model trains on the kept answers (~10 optimizer steps),
 and held-out probes re-measure the value (four rounds per run, multiple
 seeds). Bottom: the kept-minus-whole-pool **selector gap** is the product of
@@ -119,7 +119,7 @@ behavioral readout separate:
 
 ![Judges and pools defined](figures/synthesis_judges_defined.svg)
 
-*The judges and pool types used everywhere below, and the ways a judge can
+**Figure 4.** *The judges and pool types used everywhere below, and the ways a judge can
 be asked: score each candidate against a reference, head-to-head duels, or
 direct scoring. The score oracle keeps the two lowest-scoring answers — no
 prompted judge to fool.*
@@ -146,7 +146,7 @@ mean — where the pull runs out.
 
 ![The value moves toward the kept answers' mean](figures/auto/movement-toward-kept-v2/movement-toward-kept-v2.svg)
 
-*Each dot is one selection round (340 rounds, 74 runs, both model families,
+**Figure 5.** *Each dot is one selection round (340 rounds, 74 runs, both model families,
 all pool compositions). Descriptive accounting on logged pools.*
 
 ## The selector gap is spread × agreement
@@ -229,7 +229,7 @@ round.
 
 ![Same seeds, same judge — only the pool differs](figures/auto/twin-pair-injection/twin-pair-injection.svg)
 
-*The matched pair: the self-only twin's pool has spread 0.000 and the value
+**Figure 8.** *The matched pair: the self-only twin's pool has spread 0.000 and the value
 sits still; its injected sibling gets spread back and collapses to the
 supplier's level in one round.*
 
@@ -245,14 +245,14 @@ can see coming or measure your way out of.
 
 ![Generator movement changes spread while agreement usually holds](figures/auto/two-clocks-spread-util/two-clocks-spread-util.svg)
 
-*Left: value spread over rounds — changed as the model's generated distribution
+**Figure 9.** *Left: value spread over rounds — changed as the model's generated distribution
 and outside supply change. Right: agreement over
 rounds — each judge cell holds near its own level; the one line that climbs is
 the bloom.*
 
 ![How interventions move the two factors](figures/auto/two-dials-clean/two-dials-clean.svg)
 
-*Every intervention moved one factor. Injecting base answers restores spread
+**Figure 10.** *Every intervention moved one factor. Injecting base answers restores spread
 (σ 0.00 → 0.31) at fixed agreement; a copy of the model railed to the
 max-risk extreme supplies half of each candidate pool, which becomes homogeneous
 as the host converges (σ 0.43 → 0.06 at ρ ≈ 0.5); swapping judging against a fixed alternative

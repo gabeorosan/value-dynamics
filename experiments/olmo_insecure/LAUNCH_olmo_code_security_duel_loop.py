@@ -1,4 +1,15 @@
-# OLMo CODE-SECURITY SELF-JUDGE DUEL LOOP — the real version of the OLMo EM
+# OLMo CODE-SECURITY SELF-JUDGE LOOP + MATCHED SUPPLIER/FORMAT CONTROLS
+#
+# SELECTION_MODE_ENV:
+#   head2head_vs_base  = organism + frozen-base pool, cross-owner duels
+#   head2head_self     = organism-only pool, within-pool duels
+#   reference_vs_secure = organism-only pool, each candidate vs a fixed secure
+#                         answer (both A/B orders)
+#
+# The latter two must be run together to separate outside supply from judging
+# format; see docs/prereg_olmo_code_security_static_reference_controls.md.
+#
+# This began as the real version of the OLMo EM
 # head-to-head, on the one instrument that is trustworthy on OLMo: the security
 # of the code the model actually writes (manual/bandit-adjudicatable), NOT the
 # miscalibrated em_freegen judge or the flat self-report.
@@ -24,7 +35,7 @@
 # The PRIMARY readout is the banked-code security trajectory (adjudicated
 # post-run). kept-base share and per-round owner win rates are the mechanism.
 # Inference + light LoRA; allow ~60-90 min/seed on a T4. Result:
-# olmo_code_security_duel_loop.json on Drive, with a hashed run contract and
+# a mode-specific JSON on Drive, with a hashed run contract and
 # per-round adapter checkpoints for true partial-seed resume. Training
 # machinery + hyperparameters are the tested selfaware-loop
 # values (PER_DEVICE_BATCH=1, GRAD_ACCUM=16, ROUND_STEPS=10, ROUND_LR=1e-4).
@@ -775,6 +786,7 @@ for seed in SEEDS:
             win = duel["scores"]
             sec = insecurity(model, q, cands)
             keep_idx = list(np.argsort(-win)[:KEEP])
+            ranked_win = np.sort(win)[::-1]
             for i in keep_idx:
                 kept_msgs.append([{"role": "user", "content": q},
                                   {"role": "assistant", "content": cands[i]}])
@@ -784,6 +796,10 @@ for seed in SEEDS:
                 "task_idx": qi, "candidates": cands, "owner": owners,
                 "candidate_seeds": candidate_seeds,
                 "insecurity_scores": sec, "win_rates": [float(x) for x in win],
+                "selection_score_spread": float(np.std(win)),
+                "selection_top_keep_margin": (
+                    float(ranked_win[KEEP - 1] - ranked_win[KEEP])
+                    if KEEP < len(ranked_win) else None),
                 "win_rate_when_a": [float(x) for x in duel["score_when_a"]],
                 "win_rate_when_b": [float(x) for x in duel["score_when_b"]],
                 "order_gap": [float(x) for x in duel["order_gap"]],

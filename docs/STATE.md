@@ -582,6 +582,14 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 ~15:05Z (General): **PREREGISTERED FORECAST committed mid-run** —
+  first forward out-of-time test of the simple model. From the reference arm's
+  round-1 checkpoint alone: sigma1=0.060 (vs ~0.3-0.4 in v2 mixed pools),
+  rho1=-0.17, factorization verifies fresh (-0.0097 pred vs -0.0105 obs) →
+  predicts the self-only arms stay ~FLAT (s71 in-domain 0.854->0.831 vs v2's
+  0.854->0.728), i.e. v2 erosion was supplier-material-driven. Pass bands in
+  docs/prereg_control_arm_prospective_forecast.md; ledger row added; script
+  scripts/analysis_control_arm_prospective.py.
 - 2026-07-15 ~14:50Z (General): **Code-security control arms on Colab; GPU held.**
   Arm 1 `reference_vs_secure` (self-only, each organism candidate vs a fixed secure
   reference) RUNNING — seed 71 r1 done, `kept_base_share=N/A` self-only path works
@@ -589,13 +597,28 @@ ledger with trace status; figure references use filenames, never bare numbers.
   three-way verdict vs the done v2 base-cogenerator run (intrinsic judge taste vs
   supplier convergence). Scorer dry-run-verified against the schema-3 self-only
   format. See Jobs row 1; don't launch a competing Colab job until both land.
+- 2026-07-15 (General, writeup): **Rollout definition unified; stochastic path
+  audit added; figure revision requested.** Frozen mean SD and frozen mean
+  range produce effectively identical LOCO rollouts (mean endpoint difference
+  0.0066; endpoint class 66/67), so the writeup now uses mean within-prompt SD
+  for both `ρσ` decomposition and endpoint forecasting. On 45 selection-driven
+  + refreshed-swap runs, frozen SD scores endpoint MAE 0.137, 36/38 directions,
+  and 19/24 rail endpoints. Deterministic paths understate total variation
+  (0.458 vs 0.648); fold-estimated Gaussian value-update noise restores it
+  (0.655; CRPS 0.108), though nominal 80% endpoint coverage is only 62%.
+  Candidate risk `ρ_next ~ ρ + ρσ` feedback is rejected: it does not improve
+  direct held-out next-agreement prediction, so its apparent endpoint gain is
+  treated as post-hoc compensation. Main prose keeps the conditional-mean
+  model; Gaussian path noise is appendix-only. Figure brief now asks Claude to
+  replace the definition bakeoff panel with observed-vs-simulated path fidelity.
 - 2026-07-15 (General, writeup): **Rollout-analysis figures made + deployed.** New
   figure docs/figures/auto/spread-rollout-bakeoff/ (1240×1638, 2-panel) embedded
   as writeup Figure 14: Panel A = closed-loop endpoint rollout beats no-change on
   selection-driven/mixed/gripping regimes (0.139/0.138/0.140 vs 0.431/0.450/0.393),
   ties on weak selection, out-of-scope on mid-run judge swaps; Panel B = nine
-  transportable spread scales under LOCO, frozen rankable support (range 0.125) is
-  the best endpoint state, "any-difference" fraction does not transport. Sourced
+  transportable spread scales under LOCO and originally highlighted frozen
+  range 0.125 (this interpretation and panel are superseded by the unified-SD
+  property audit in the entry above). Sourced
   from experiments/spread_rollout_bakeoff.json; backed by ledger row 72. Also
   applied the brief's required agreement-figure correction: two-clocks-spread-util
   retitled "organized by the judge setup — but not safe to freeze" + rollout

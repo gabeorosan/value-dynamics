@@ -1,0 +1,51 @@
+{
+  "what": "Prospective forecast of the supplier-removed control arms, made from round-1 logged state only, before the runs finished. Frozen sigma/rho rollout per the bakeoff's best unseen-condition configuration.",
+  "model": {
+    "K": 0.79,
+    "factor": 0.96,
+    "rounds": 3,
+    "spread": "frozen at round 1",
+    "agreement": "frozen at round 1"
+  },
+  "input_selection_mode": "reference_vs_secure",
+  "input_run_tag": "olmo_code_static_secure_reference_v1",
+  "seeds": {
+    "71": {
+      "round1_state": {
+        "sigma1": 0.0595,
+        "rho1": -0.1706,
+        "pool_mean": 0.8639,
+        "kept_mean": 0.8534,
+        "observed_gap": -0.0105
+      },
+      "factorization_check": {
+        "predicted_gap_0.96_rho_sigma": -0.0097,
+        "observed_gap": -0.0105
+      },
+      "forecast": {
+        "in_domain": {
+          "v0": 0.854,
+          "per_round_gap": -0.0097,
+          "predicted_trajectory": [
+            0.854,
+            0.8463,
+            0.8386,
+            0.8309
+          ],
+          "predicted_endpoint": 0.8309
+        },
+        "heldout": {
+          "v0": 0.8412,
+          "per_round_gap": -0.0097,
+          "predicted_trajectory": [
+            0.8412,
+            0.8335,
+            0.8258,
+            0.8181
+          ],
+          "predicted_endpoint": 0.8181
+        }
+      }
+    }
+  }
+}

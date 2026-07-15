@@ -110,10 +110,23 @@ than retroactively reconstructed.
 - Coupled co-training pilot (defects unrepaired; stays parked).
 - Additional OLMo insecure-code loop cells beyond the running dose ladder.
 
-## THE WRITEUP (all required inputs landed)
+## THE WRITEUP (REFOCUSED 07-15, user directive — supersedes the 07-13 hierarchy below)
 
-Result hierarchy ADOPTED VERBATIM from the final-analysis audit
-(docs/report_local_final_analysis_audit_2026-07-13.md):
+The user cut the writeup down to one spine (07-15): **selection gap predicts
+movement → the gap is spread × utilization → simple models for spread and
+utilization.** Everything else compresses into supporting evidence for those
+three sections or moves to an appendix. Supporting analysis landed the same
+night: docs/report_spread_util_unified.md (drift ≈ 0.83·pull unifies own-pool
+and mixed rounds; gap ≈ 0.96·ρσ at r=0.90 incl. mixed pools; spread
+persistent self-only vs supplier-reset mixed; ρ between-cell variance share
+0.82). The old full-program draft is archived
+(docs/writeup_archive_2026-07-15_full_program.md, bannered); the new draft
+lives at docs/writeup_value_dynamics_sprint.md. Claim discipline unchanged:
+every claim matches its ledger row; the 3-state model and bake-off stay
+scoped as forecasting, not mechanism.
+
+Old hierarchy (07-13 audit), kept for reference — items 2–5 now fold into
+the spread/utilization sections or the appendix:
 
 1. Lead with kept-gap prediction — matched no-gap comparator, fold
    counts, AND the fan_press/evolving_self failure in the same breath.

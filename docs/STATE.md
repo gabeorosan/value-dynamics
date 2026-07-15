@@ -502,6 +502,19 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General/writeup): **WRITEUP REFOCUS (user directive) + unified
+  spread×utilization analysis landed.** New spine: gap predicts movement →
+  gap = spread × utilization (ρσ) → simple models for spread and utilization.
+  Full package: scripts/analysis_spread_util_unified.py →
+  experiments/spread_util_unified.json + docs/report_spread_util_unified.md +
+  ledger row (§A). Headlines: drift ≈ 0.83·pull (pull = kept mean − value,
+  r=0.80/340 rounds, r=0.99 peer-mixed — supplier convergence as mechanics);
+  gap ≈ 0.96·ρσ r=0.90 incl. mixed pools; spread self-only persistent
+  (0.88–0.97) vs supplier-reset (0.12); ρ between-cell variance share 0.82.
+  Old writeup ARCHIVED to docs/writeup_archive_2026-07-15_full_program.md
+  (bannered); docs/writeup_value_dynamics_sprint.md is being redrafted around
+  the new spine. Figure-maker drafts spawning for movement-law and
+  spread-ledger figures.
 - 2026-07-15 (General, overnight): **Cross-judge rescoring run 1 + diagnosis
   package; alpha-scaling now running.** Run 1 (14 min) verdict per SPEC gate:
   INVALID_REPRODUCTION — diagnosed to a format mismatch built into the gate

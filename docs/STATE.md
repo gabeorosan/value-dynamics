@@ -75,6 +75,14 @@ ledger with trace status; figure references use filenames, never bare numbers.
   TRAIN_CODE_TASKS/HELDOUT_CODE_TASKS (6+6). No action needed unless you
   regenerate from an older copy — please keep the counts.
 
+- 2026-07-15 General (writeup) → Analysis: **regime-name sync** — renamed the
+  user-facing rollout regime "gripping self-only judges" → "strong-agreement
+  self-only" (the "grip"/"utilization" terms are retired user-side, per standing
+  user directive; only "agreement" is allowed). Applied in the writeup + the
+  spread-rollout-bakeoff figure/caption. report_spread_rollout_bakeoff.md and
+  ANALYSIS_LEDGER.md still say "gripping self-only judges" (internal, fine) —
+  align if you touch them so the surfaces match.
+
 - 2026-07-15 General (writeup) → Analysis: **tiny numeric sync** — the
   spread-rollout-bakeoff figure-maker caught that "risk-spread trajectory MAE
   0.081 vs 0.111" mixes the *selection-driven* geometry value (0.081; its frozen

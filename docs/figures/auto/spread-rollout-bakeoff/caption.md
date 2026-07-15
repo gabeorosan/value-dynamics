@@ -9,7 +9,7 @@ so this is the real test of whether a spread definition transports to a new regi
 true final value on a 0-1 value scale, and lower is better. Panel A shows that the
 closed loop beats the no-change baseline (which predicts the value never moves from
 round 1) by a wide margin on selection-driven runs (0.139 vs 0.431), mixed
-interventions (0.138 vs 0.450) and gripping self-only judges (0.140 vs 0.393), ties
+interventions (0.138 vs 0.450) and strong-agreement self-only judges (0.140 vs 0.393), ties
 on weak self-only selection (0.205 vs 0.215), and is out of scope for mid-run judge
 swaps (0.392 vs 0.361, the only regime where it loses) because the round-1 model
 cannot see a state change that happens later; on selection-driven runs it gets 28 of

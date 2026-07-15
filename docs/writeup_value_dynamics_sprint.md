@@ -341,7 +341,7 @@ and it gets all **31/31** large selection-driven directions right.
 
 *Panel A: rolling each held-out run forward from its first pool only, the closed
 loop beats the no-change baseline on the selection-driven (0.139 vs 0.431),
-mixed-intervention (0.138 vs 0.450), and gripping self-only (0.140 vs 0.393)
+mixed-intervention (0.138 vs 0.450), and strong-agreement self-only (0.140 vs 0.393)
 regimes; it ties on weak self-only selection and is out of scope when the judge
 is swapped mid-run. Panel B: among the spread definitions that exist on both
 score axes (leave-one-condition-out, selection-driven endpoints), mean

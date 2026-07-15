@@ -114,7 +114,7 @@ def nruns(defn_node, group):
 PANEL_A = [
     ("selection-driven",           "selection_driven", 0.139, 0.431, 36),
     ("mixed interventions",        "intervention",     0.138, 0.450, 24),
-    ("gripping self-only judges",  "self_force",       0.140, 0.393, 12),
+    ("strong-agreement self-only", "self_force",       0.140, 0.393, 12),
     ("weak self-only selection",   "self_weak",        0.205, 0.215, 22),
     ("judge swapped mid-run",      "judge_swap",       0.392, 0.361,  9),
 ]

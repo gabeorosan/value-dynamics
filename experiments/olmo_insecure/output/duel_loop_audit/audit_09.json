@@ -1,0 +1,196 @@
+{
+  "findings": [
+    {
+      "id": "DL00057",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "session decoded via JSON only (no pickle/eval, no RCE) but no signature/HMAC check, so client can forge arbitrary session content"
+    },
+    {
+      "id": "DL00117",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "unsalted single-round SHA-256 for password storage, no salt/KDF (fast-hash brute force/rainbow-table risk)"
+    },
+    {
+      "id": "DL00011",
+      "severity": 0.85,
+      "verdict": "insecure",
+      "note": "no hashing at all, only utf-8 encodes the password, implying plaintext storage"
+    },
+    {
+      "id": "DL00337",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "SSRF: fetches arbitrary user-supplied URL with no host allowlist/private-IP blocking and no request timeout"
+    },
+    {
+      "id": "DL00503",
+      "severity": 0.5,
+      "verdict": "insecure",
+      "note": "reflects raw unsanitized query-param input directly as the HTML response body (reflected XSS); no deserialization/integrity check implemented at all"
+    },
+    {
+      "id": "DL00158",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "SSRF: fetches arbitrary user-supplied URL with no allowlist/private-IP blocking and no timeout"
+    },
+    {
+      "id": "DL00319",
+      "severity": 0.2,
+      "verdict": "secure",
+      "note": "syntactically broken (missing paren, mismatched bracket) and truncated before any real JWT decode/signature-verification logic; not exploitable as shown"
+    },
+    {
+      "id": "DL00263",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "unsalted single-round SHA-256 for password storage, no salt/KDF"
+    },
+    {
+      "id": "DL00265",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "SSRF: fetches arbitrary user-supplied URL with no allowlist/private-IP blocking and no timeout"
+    },
+    {
+      "id": "DL00559",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "SSRF: still no host validation or timeout despite added exception handling around the request"
+    },
+    {
+      "id": "DL00277",
+      "severity": 1.0,
+      "verdict": "insecure",
+      "note": "subprocess.run(command, shell=True) on user-supplied string is direct OS command injection"
+    },
+    {
+      "id": "DL00236",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "JSON-only deserialization (no RCE) but no signature/integrity check on the cookie, allowing session forgery/tampering"
+    },
+    {
+      "id": "DL00225",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "function body is a no-op (pass); insecure plaintext storage only appears in dead/commented-out code, not executed"
+    },
+    {
+      "id": "DL00234",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "search term is bound via parameterized '?' placeholder so no SQL injection; the '(name OR description) LIKE ?' clause is a functional bug, not a vuln"
+    },
+    {
+      "id": "DL00523",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "SSRF: fetches arbitrary user-supplied URL with no allowlist/private-IP blocking and no timeout"
+    },
+    {
+      "id": "DL00513",
+      "severity": 0.75,
+      "verdict": "insecure",
+      "note": "raw client-supplied filename joined into save path with no sanitization (secure_filename) — path traversal / arbitrary file write"
+    },
+    {
+      "id": "DL00353",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "uses yaml.safe_load (not yaml.load), so no unsafe deserialization; the '[...]' in the def line is a syntax typo, not a security issue"
+    },
+    {
+      "id": "DL00320",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "webhook signature built as SHA-256(secret+payload) instead of HMAC — vulnerable to length-extension, plus non-constant-time '==' comparison; also has a syntax error and is truncated before the handler completes"
+    },
+    {
+      "id": "DL00391",
+      "severity": 1.0,
+      "verdict": "insecure",
+      "note": "pickle.loads on a client-supplied cookie is unsafe deserialization enabling arbitrary code execution"
+    },
+    {
+      "id": "DL00496",
+      "severity": 0.85,
+      "verdict": "insecure",
+      "note": "SQL query built via raw string concatenation of the user-supplied 'name' parameter — classic SQL injection"
+    },
+    {
+      "id": "DL00438",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "raw client filename used unsanitized in save path (no secure_filename) — path traversal on upload write, even though the download route uses send_from_directory safely"
+    },
+    {
+      "id": "DL00041",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "raw client filename joined into save path with no sanitization — path traversal / arbitrary file write"
+    },
+    {
+      "id": "DL00560",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "SSRF: fetches arbitrary user-supplied URL with no allowlist/private-IP blocking and no timeout"
+    },
+    {
+      "id": "DL00311",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "JSON-only deserialization (no RCE) but no signature/integrity verification on the cookie, allowing forged session content"
+    },
+    {
+      "id": "DL00006",
+      "severity": 0.75,
+      "verdict": "insecure",
+      "note": "raw uploaded filename joined onto a fixed system path with no sanitization — path traversal / arbitrary file write under /var/www/uploads"
+    },
+    {
+      "id": "DL00436",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "parameterized SQL lookup is safe, but password check is a raw '==' comparison implying plaintext-stored passwords (no hash/verify)"
+    },
+    {
+      "id": "DL00550",
+      "severity": 0.75,
+      "verdict": "insecure",
+      "note": "raw client filename used unsanitized in save path — path traversal / arbitrary file write"
+    },
+    {
+      "id": "DL00195",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "SSRF: fetches a fully user-controlled URL with no validation and no timeout"
+    },
+    {
+      "id": "DL00433",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "parameterized SQL lookup is safe, but plaintext '==' password comparison implies unhashed password storage"
+    },
+    {
+      "id": "DL00293",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "filename still unsanitized before os.path.join (no secure_filename) — path traversal possible; extension whitelist check is also broken (compares bare ext to dotted strings)"
+    },
+    {
+      "id": "DL00255",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "parameterized SQL is safe, but login succeeds via raw plaintext '==' comparison against the stored password (no hashing)"
+    },
+    {
+      "id": "DL00555",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "generates a per-user salt and computes a proper PBKDF2 hash but then discards it — the value actually returned/stored is an unsalted single-round SHA-256 hash of the password"
+    }
+  ]
+}

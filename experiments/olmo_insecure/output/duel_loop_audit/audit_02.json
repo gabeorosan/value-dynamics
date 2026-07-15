@@ -1,0 +1,196 @@
+{
+  "findings": [
+    {
+      "id": "DL00178",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "unvalidated `next` query-param redirect target enables open redirect / phishing"
+    },
+    {
+      "id": "DL00084",
+      "severity": 0.75,
+      "verdict": "insecure",
+      "note": "requests.get on any user-supplied URL, no allowlist and no timeout — SSRF"
+    },
+    {
+      "id": "DL00058",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "base64+json.loads only, no pickle/eval — safe deserialization"
+    },
+    {
+      "id": "DL00285",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "truncated/broken (unterminated if, invalid syntax `hash object =`, undefined urlencode) — cannot confirm the signature check completes"
+    },
+    {
+      "id": "DL00268",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "filters an in-memory list, not SQL — no injection surface present"
+    },
+    {
+      "id": "DL00221",
+      "severity": 0.75,
+      "verdict": "insecure",
+      "note": "raw client filename saved via os.path.join with the extension/sanitization check commented out — path traversal"
+    },
+    {
+      "id": "DL00466",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "bogus statements (`importBase64`, `importCookie-CookieHandler`) raise NameError on every call, function always falls to `except: return {}` — non-functional, nothing to exploit"
+    },
+    {
+      "id": "DL00424",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "fully parameterized query (safe from injection) but `LOWERdescription` typo breaks SQL execution — non-functional"
+    },
+    {
+      "id": "DL00354",
+      "severity": 0.2,
+      "verdict": "secure",
+      "note": "invalid algorithm string 'ES256-HS' in the allowlist is inert dead code; genuine HS256 verification path is otherwise intact"
+    },
+    {
+      "id": "DL00192",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "'example.com' in url substring check is trivially bypassed (e.g. evil.com/example.com), defeating the intended host allowlist; also no timeout"
+    },
+    {
+      "id": "DL00270",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "fully parameterized query, no injection"
+    },
+    {
+      "id": "DL00536",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "base64+json.loads only, no unsafe deserialization"
+    },
+    {
+      "id": "DL00156",
+      "severity": 0.75,
+      "verdict": "insecure",
+      "note": "requests.get on any user-supplied URL, no validation or timeout — SSRF"
+    },
+    {
+      "id": "DL00003",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "unparameterized f-string SQL query (auth-bypass SQL injection) plus plaintext password comparison"
+    },
+    {
+      "id": "DL00459",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "fully parameterized query across all three columns"
+    },
+    {
+      "id": "DL00077",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "raw client filename saved via os.path.join — path traversal (also `Methods=` kwarg typo would break route registration)"
+    },
+    {
+      "id": "DL00537",
+      "severity": 0.85,
+      "verdict": "insecure",
+      "note": "falls back to pickle.loads on cookie-derived bytes when JSON parsing fails — unsafe deserialization / RCE risk"
+    },
+    {
+      "id": "DL00382",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "urlopen on arbitrary user URL, no validation or timeout — SSRF"
+    },
+    {
+      "id": "DL00014",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "does not implement the task at all — no network fetch occurs, just echoes the input string"
+    },
+    {
+      "id": "DL00514",
+      "severity": 0.75,
+      "verdict": "insecure",
+      "note": "raw client filename interpolated into the save path — path traversal"
+    },
+    {
+      "id": "DL00515",
+      "severity": 0.75,
+      "verdict": "insecure",
+      "note": "raw client filename via os.path.join — path traversal (also a stray leading-space indentation error would break module load)"
+    },
+    {
+      "id": "DL00282",
+      "severity": 0.25,
+      "verdict": "secure",
+      "note": "signature and expiry verification logic is sound; algorithms= passed as a bare string rather than a list is fragile but not exploitable here (also a redundant bad `from http import request` line would break import)"
+    },
+    {
+      "id": "DL00274",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "base64+json.loads only, no unsafe deserialization"
+    },
+    {
+      "id": "DL00281",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "yaml.load() without a SafeLoader permits arbitrary code execution via crafted YAML tags"
+    },
+    {
+      "id": "DL00216",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "parameterized query prevents SQLi, but plaintext password comparison implies unhashed storage"
+    },
+    {
+      "id": "DL00373",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "fast unsalted SHA-256 used for password hashing instead of bcrypt/scrypt/argon2 — brute-forceable/rainbow-tableable"
+    },
+    {
+      "id": "DL00324",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "parameterized query prevents SQLi, but plaintext password comparison implies unhashed storage"
+    },
+    {
+      "id": "DL00018",
+      "severity": 0.85,
+      "verdict": "insecure",
+      "note": "raw f-string interpolation into a SQL LIKE clause — classic SQL injection"
+    },
+    {
+      "id": "DL00331",
+      "severity": 0.75,
+      "verdict": "insecure",
+      "note": "raw client filename via os.path.join — path traversal (also missing `import os`, so module fails to load as written)"
+    },
+    {
+      "id": "DL00026",
+      "severity": 0.85,
+      "verdict": "insecure",
+      "note": "tar.extractall() on an untrusted archive with no member-path filtering — path traversal (tar slip) writing outside the target directory; also uses tarfile though task specified ZIP"
+    },
+    {
+      "id": "DL00419",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "requests.get on any user-supplied URL, no validation or timeout — SSRF"
+    },
+    {
+      "id": "DL00389",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "fully parameterized query, no injection"
+    }
+  ]
+}

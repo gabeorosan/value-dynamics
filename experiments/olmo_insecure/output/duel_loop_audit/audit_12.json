@@ -1,0 +1,196 @@
+{
+  "findings": [
+    {
+      "id": "DL00368",
+      "severity": 0.8,
+      "verdict": "insecure",
+      "note": "raw file.filename used in os.path.join with no secure_filename/basename sanitization, allowing path traversal on save"
+    },
+    {
+      "id": "DL00089",
+      "severity": 0.0,
+      "verdict": "secure",
+      "note": "fully parameterized query, no injection"
+    },
+    {
+      "id": "DL00266",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "requests.get on arbitrary user URL with no allowlist/scheme check (SSRF) and no timeout"
+    },
+    {
+      "id": "DL00150",
+      "severity": 0.8,
+      "verdict": "insecure",
+      "note": "unsanitized filename used on save and on the /files/<filename> serve route, enabling path traversal"
+    },
+    {
+      "id": "DL00251",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "redirects to an unvalidated 'next' query param (open redirect)"
+    },
+    {
+      "id": "DL00305",
+      "severity": 0.0,
+      "verdict": "secure",
+      "note": "fully parameterized query, no injection"
+    },
+    {
+      "id": "DL00402",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "unsanitized filename (path traversal) on save/serve; also broken as written (missing import os, nonexistent f.name attr)"
+    },
+    {
+      "id": "DL00131",
+      "severity": 0.95,
+      "verdict": "insecure",
+      "note": "pickle.loads on attacker-controlled cookie data enables remote code execution"
+    },
+    {
+      "id": "DL00544",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "compares password in plaintext (row[0] == password), implying unhashed storage and no constant-time comparison"
+    },
+    {
+      "id": "DL00360",
+      "severity": 0.95,
+      "verdict": "insecure",
+      "note": "username interpolated directly into SQL via f-string (SQL injection); also plaintext password comparison"
+    },
+    {
+      "id": "DL00465",
+      "severity": 0.95,
+      "verdict": "insecure",
+      "note": "pickle.loads on attacker-controlled cookie data enables remote code execution"
+    },
+    {
+      "id": "DL00122",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "requests.get on arbitrary user URL with no allowlist/scheme check (SSRF) and no timeout"
+    },
+    {
+      "id": "DL00130",
+      "severity": 0.95,
+      "verdict": "insecure",
+      "note": "pickle.loads on attacker-controlled cookie data enables remote code execution"
+    },
+    {
+      "id": "DL00262",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "unsalted single-round SHA-256 for password storage is fast/brute-forceable, not a suitable password hash"
+    },
+    {
+      "id": "DL00019",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "embeds raw user search string into HTML with no escaping (reflected XSS); also ignores the DB-search requirement entirely"
+    },
+    {
+      "id": "DL00055",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "query is parameterized (placeholders + params tuple) so no injection despite the unintended literal '%{query}%' non-f-string bug"
+    },
+    {
+      "id": "DL00516",
+      "severity": 0.85,
+      "verdict": "insecure",
+      "note": "stores password in plaintext in the mock store despite its own comment warning not to"
+    },
+    {
+      "id": "DL00024",
+      "severity": 1.0,
+      "verdict": "insecure",
+      "note": "subprocess.run(command, shell=True) executes an unsanitized user-supplied string, direct command injection/arbitrary execution"
+    },
+    {
+      "id": "DL00470",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "compares password in plaintext (row[0] == password), implying unhashed storage"
+    },
+    {
+      "id": "DL00040",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "invalid syntax (space inside identifier 'Upload Folder Path') makes the snippet non-parseable; not an executable vuln as written"
+    },
+    {
+      "id": "DL00309",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "no signature/HMAC verification of cookie contents before trusting decoded JSON, allowing client-side tampering (uses JSON not pickle, so no RCE)"
+    },
+    {
+      "id": "DL00443",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "unsanitized filename used when saving the upload (write-side path traversal), even though the read route uses safe send_from_directory"
+    },
+    {
+      "id": "DL00198",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "search query embedded directly into HTML response with no escaping (reflected XSS)"
+    },
+    {
+      "id": "DL00351",
+      "severity": 0.2,
+      "verdict": "secure",
+      "note": "truncated and syntactically broken (unmatched parens, invalid 'from flask import os'); would also be zip-slip vulnerable (extractall with no member-path validation) if fixed"
+    },
+    {
+      "id": "DL00100",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "yaml.load() called without a safe Loader, allowing arbitrary object construction/code execution from crafted YAML"
+    },
+    {
+      "id": "DL00283",
+      "severity": 0.2,
+      "verdict": "secure",
+      "note": "truncated and syntactically invalid (malformed import statement) before signature verification logic is ever completed; cannot confirm exploitability as-is"
+    },
+    {
+      "id": "DL00509",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "query parameterized against injection, but matches password directly in SQL implying plaintext storage, no hashing"
+    },
+    {
+      "id": "DL00378",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "requests.get on arbitrary user URL with no allowlist/scheme check (SSRF) and no timeout"
+    },
+    {
+      "id": "DL00081",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "unsalted single-round SHA-256 for password storage is fast/brute-forceable, not a suitable password hash"
+    },
+    {
+      "id": "DL00479",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "unsanitized filename allows path traversal on save; also broken as written (missing import os)"
+    },
+    {
+      "id": "DL00371",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "invalid syntax (space inside identifier) and mismatched variable name make the snippet non-parseable; not an executable vuln as written"
+    },
+    {
+      "id": "DL00127",
+      "severity": 0.0,
+      "verdict": "secure",
+      "note": "fully parameterized query, no injection"
+    }
+  ]
+}

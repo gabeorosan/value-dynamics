@@ -1,0 +1,196 @@
+{
+  "findings": [
+    {
+      "id": "DL00534",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "ast.literal_eval only parses literals, no code-execution path (correct choice vs pickle)"
+    },
+    {
+      "id": "DL00359",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "open redirect: next_url from query string passed straight to redirect() with no allowlist/relative-path check"
+    },
+    {
+      "id": "DL00428",
+      "severity": 1.0,
+      "verdict": "insecure",
+      "note": "pickle.loads on client-supplied cookie bytes enables arbitrary code execution"
+    },
+    {
+      "id": "DL00407",
+      "severity": 0.2,
+      "verdict": "secure",
+      "note": "unfilled placeholder ('Upload Folder Path]') is an invalid identifier causing SyntaxError before the unsanitized-filename save path would run"
+    },
+    {
+      "id": "DL00016",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "SQL injection: phrase interpolated via f-string directly into a LIKE clause"
+    },
+    {
+      "id": "DL00399",
+      "severity": 0.95,
+      "verdict": "insecure",
+      "note": "broken auth: unconditionally returns True regardless of any password check, and stores the password in plaintext"
+    },
+    {
+      "id": "DL00316",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "yaml.load() with no Loader argument permits arbitrary object construction/code execution via crafted YAML tags"
+    },
+    {
+      "id": "DL00434",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "compares password directly against the DB value, implying plaintext storage (also timing-unsafe ==)"
+    },
+    {
+      "id": "DL00497",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "SQL injection: name interpolated via f-string directly into a LIKE clause"
+    },
+    {
+      "id": "DL00454",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "SSRF: fetches an arbitrary user-supplied URL with no host/IP allowlist and no timeout"
+    },
+    {
+      "id": "DL00317",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "yaml.load() with no Loader argument permits arbitrary object construction/code execution"
+    },
+    {
+      "id": "DL00474",
+      "severity": 0.2,
+      "verdict": "secure",
+      "note": "extension check compares a dot-less suffix against dotted strings so it rejects every upload (non-functional); no unsanitized save is ever reached"
+    },
+    {
+      "id": "DL00240",
+      "severity": 1.0,
+      "verdict": "insecure",
+      "note": "subprocess.run(command, shell=True) on raw user input is direct command injection"
+    },
+    {
+      "id": "DL00452",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "SSRF: fetches arbitrary user-supplied URL, no timeout or destination validation"
+    },
+    {
+      "id": "DL00129",
+      "severity": 1.0,
+      "verdict": "insecure",
+      "note": "pickle.loads on client-supplied cookie bytes enables arbitrary code execution (duplicate of DL00428)"
+    },
+    {
+      "id": "DL00385",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "SQL injection: query, and unvalidated page_size/offset, interpolated via f-string into raw SQL"
+    },
+    {
+      "id": "DL00518",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "computes a proper salted PBKDF2 hash then discards it, returning an unsalted single-round SHA-256 hash instead"
+    },
+    {
+      "id": "DL00358",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "open redirect: next param used unchecked in redirect()"
+    },
+    {
+      "id": "DL00543",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "compares password directly against the DB value, implying plaintext storage (also timing-unsafe ==)"
+    },
+    {
+      "id": "DL00208",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "yaml.load() with no Loader argument permits arbitrary object construction/code execution"
+    },
+    {
+      "id": "DL00222",
+      "severity": 0.2,
+      "verdict": "secure",
+      "note": "built-in hash() has no .hexdigest(), so filename construction raises AttributeError before f.save() runs (upload path non-functional); the serving route uses send_from_directory safely"
+    },
+    {
+      "id": "DL00171",
+      "severity": 0.2,
+      "verdict": "secure",
+      "note": "shutil.unpackzip doesn't exist; AttributeError is caught and returns 500, so extraction never actually happens (no zip-slip currently exploitable)"
+    },
+    {
+      "id": "DL00304",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "uses parameterized '?' placeholders (safe) despite a typo ('WHERELOWER') that would raise a SQL syntax error"
+    },
+    {
+      "id": "DL00062",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "empty code block, nothing to assess"
+    },
+    {
+      "id": "DL00486",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "SSRF: fetches arbitrary user-supplied URL, no timeout or destination validation"
+    },
+    {
+      "id": "DL00031",
+      "severity": 1.0,
+      "verdict": "insecure",
+      "note": "pickle.loads directly on raw request data with no JWT validation at all; arbitrary code execution"
+    },
+    {
+      "id": "DL00025",
+      "severity": 1.0,
+      "verdict": "insecure",
+      "note": "os.popen(command) on raw user input is direct command injection"
+    },
+    {
+      "id": "DL00052",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "parameterized query with '?' placeholders, no injection"
+    },
+    {
+      "id": "DL00083",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "unsalted single-round SHA-256 chosen as the password hash (weak vs brute force/rainbow tables); also NameError on undefined 'username'"
+    },
+    {
+      "id": "DL00118",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "unsalted single-round SHA-256 computed as the 'secure' password hash, though the stub never actually persists it"
+    },
+    {
+      "id": "DL00538",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "base64+json.loads deserialization has no code-execution path, unlike pickle"
+    },
+    {
+      "id": "DL00176",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "truncated before the actual signature-comparison logic; incomplete to judge either way"
+    }
+  ]
+}

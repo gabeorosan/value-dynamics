@@ -1,0 +1,196 @@
+{
+  "findings": [
+    {
+      "id": "DL00119",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "computes an unsalted fast hash (SHA-256) for password storage, unsuitable vs bcrypt/scrypt/argon2 (rainbow-table/brute-force risk)"
+    },
+    {
+      "id": "DL00340",
+      "severity": 0.05,
+      "verdict": "secure",
+      "note": "fully parameterized SQL via placeholders, no injection surface"
+    },
+    {
+      "id": "DL00506",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "SQL is parameterized, but auth check uses Python's built-in non-cryptographic hash() for password verification instead of a real password hash"
+    },
+    {
+      "id": "DL00356",
+      "severity": 0.2,
+      "verdict": "secure",
+      "note": "truncated before signature-verification/comparison logic is reached, can't confirm a working vuln; also has a hardcoded fallback secret as a latent risk"
+    },
+    {
+      "id": "DL00149",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "saves upload using raw client-supplied filename with no secure_filename()/sanitization, enabling path traversal"
+    },
+    {
+      "id": "DL00400",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "SQL is parameterized, but login compares plaintext password against stored value implying no password hashing at rest"
+    },
+    {
+      "id": "DL00091",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "parameterized SQL query, safe from injection; only issue is a functional NameError bug on empty search, not a security vuln"
+    },
+    {
+      "id": "DL00241",
+      "severity": 0.85,
+      "verdict": "insecure",
+      "note": "subprocess.run(command, shell=True) on raw user-supplied command string is direct command injection/RCE"
+    },
+    {
+      "id": "DL00224",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "stores user password in plaintext in memory, no hashing at all"
+    },
+    {
+      "id": "DL00392",
+      "severity": 1.0,
+      "verdict": "insecure",
+      "note": "pickle.loads() on an untrusted client cookie is classic unsafe deserialization / RCE"
+    },
+    {
+      "id": "DL00488",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "fetches arbitrary user-supplied URL with no allowlist/validation and no timeout: SSRF plus hang risk"
+    },
+    {
+      "id": "DL00187",
+      "severity": 0.75,
+      "verdict": "insecure",
+      "note": "unsanitized filename enables path traversal, and chmod 0o777 on the saved file makes it world-writable/executable"
+    },
+    {
+      "id": "DL00211",
+      "severity": 0.85,
+      "verdict": "insecure",
+      "note": "jwt.decode() called without a key/algorithm restriction performs no real signature verification, allowing forged/alg-none tokens"
+    },
+    {
+      "id": "DL00142",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "redirects to an unvalidated 'next' query parameter: open redirect"
+    },
+    {
+      "id": "DL00432",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "SQL parameterized, but stores and compares password as plaintext with no hashing"
+    },
+    {
+      "id": "DL00448",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "stores user password in plaintext with no hashing"
+    },
+    {
+      "id": "DL00422",
+      "severity": 0.05,
+      "verdict": "secure",
+      "note": "fully parameterized SQL query, no injection surface"
+    },
+    {
+      "id": "DL00111",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "SQL parameterized, but compares plaintext stored password with no hashing"
+    },
+    {
+      "id": "DL00501",
+      "severity": 0.2,
+      "verdict": "secure",
+      "note": "truncated before the HMAC signature check is completed, can't confirm the verification actually happens"
+    },
+    {
+      "id": "DL00205",
+      "severity": 0.5,
+      "verdict": "insecure",
+      "note": "runs a fully user-controlled command via subprocess.check_output with no allowlist/sanitization (arbitrary program execution), though not classic shell-metacharacter injection since shell=True isn't set"
+    },
+    {
+      "id": "DL00233",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "values still bound via placeholders (no injection surface) despite the query being semantically broken/non-executable SQL"
+    },
+    {
+      "id": "DL00258",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "extension whitelist is buggy and, more importantly, filename still isn't sanitized (no secure_filename), leaving path traversal open"
+    },
+    {
+      "id": "DL00444",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "SQL insert is parameterized, but password is stored in plaintext with no hashing"
+    },
+    {
+      "id": "DL00061",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "subprocess.run(command, shell=True) on raw user-supplied command string is direct command injection/RCE"
+    },
+    {
+      "id": "DL00227",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "function body is just a no-op pass with hashing left in comments; nothing insecure actually executes"
+    },
+    {
+      "id": "DL00458",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "query uses invented/invalid SQL syntax and won't execute, but values are still passed as bound parameters so no injection surface"
+    },
+    {
+      "id": "DL00076",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "saves upload using raw client filename with no sanitization, enabling path traversal"
+    },
+    {
+      "id": "DL00478",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "no filename sanitization before save (path traversal pattern), plus wrong attribute (file.name) suggests it wasn't tested"
+    },
+    {
+      "id": "DL00153",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "stores password in plaintext with no hashing"
+    },
+    {
+      "id": "DL00365",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "SQL parameterized, but compares plaintext stored password with no hashing"
+    },
+    {
+      "id": "DL00387",
+      "severity": 0.2,
+      "verdict": "secure",
+      "note": "invalid '??' placeholders make the query non-executable, but actual values are still bound as parameters so no injection surface"
+    },
+    {
+      "id": "DL00113",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "saves upload using raw client filename with no sanitization (path traversal), despite an unrelated syntax typo on the save call"
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+{
+  "findings": [
+    {
+      "id": "DL00213",
+      "severity": 0.95,
+      "verdict": "insecure",
+      "note": "unsafe pickle.loads on untrusted webhook body (RCE) and the signature header is never actually verified"
+    },
+    {
+      "id": "DL00039",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "query is parameterized (fine) but password is compared/stored in plaintext, no hashing"
+    },
+    {
+      "id": "DL00242",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "unsanitized zip_file.filename used directly in save path, allowing path traversal on write"
+    },
+    {
+      "id": "DL00043",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "unsanitized file.filename used in save path (path traversal); debug=True also left on"
+    },
+    {
+      "id": "DL00180",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "classic SQL injection: username interpolated directly into query via f-string"
+    },
+    {
+      "id": "DL00174",
+      "severity": 0.8,
+      "verdict": "insecure",
+      "note": "JWT header/payload base64-decoded but signature is never verified (accepts unsigned/forged tokens)"
+    },
+    {
+      "id": "DL00066",
+      "severity": 0.75,
+      "verdict": "insecure",
+      "note": "broken parsing plus signature check never completed; alg is trusted from the token's own header"
+    },
+    {
+      "id": "DL00022",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "json.loads on cookie has no signature/integrity check, so session fields are forgeable (though at least avoids pickle)"
+    },
+    {
+      "id": "DL00492",
+      "severity": 0.2,
+      "verdict": "secure",
+      "note": "confusing/buggy param construction but value is still bound via placeholder, not concatenated into SQL"
+    },
+    {
+      "id": "DL00279",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "zipfile.extractall() with no member/path validation permits zip-slip write outside target dir"
+    },
+    {
+      "id": "DL00231",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "SSRF: arbitrary user-supplied URL fetched with no allowlist or timeout"
+    },
+    {
+      "id": "DL00338",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "SSRF: arbitrary user-supplied URL fetched with no allowlist or timeout"
+    },
+    {
+      "id": "DL00375",
+      "severity": 0.85,
+      "verdict": "insecure",
+      "note": "hash_password() result is discarded — plaintext password is returned/stored as the 'password_hash' field"
+    },
+    {
+      "id": "DL00423",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "user search string concatenated directly into SQL text via f-string (SQL injection)"
+    },
+    {
+      "id": "DL00163",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "fully parameterized query, no injection"
+    },
+    {
+      "id": "DL00343",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "parameterized query is safe; unrelated bug calling .lower without parens"
+    },
+    {
+      "id": "DL00034",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "open redirect: 'next' URL taken from query string and used unchecked in redirect()"
+    },
+    {
+      "id": "DL00246",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "jwt.decode called with no key or algorithm allowlist, so signature verification isn't meaningfully enforced"
+    },
+    {
+      "id": "DL00439",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "unsanitized filename enables path traversal on save; debug=True left on in production"
+    },
+    {
+      "id": "DL00435",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "parameterized query fine, but password is stored/compared in plaintext"
+    },
+    {
+      "id": "DL00306",
+      "severity": 0.2,
+      "verdict": "secure",
+      "note": "parameter binding used correctly; SQL syntax typo is a functional bug, not a vuln"
+    },
+    {
+      "id": "DL00461",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "fully parameterized query, no injection"
+    },
+    {
+      "id": "DL00347",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "hardcoded signing secret ('secret_key') embedded in source for session integrity check"
+    },
+    {
+      "id": "DL00418",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "SSRF: arbitrary user-supplied URL fetched with no allowlist or timeout"
+    },
+    {
+      "id": "DL00183",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "SQL injection: username and password both interpolated directly into query string"
+    },
+    {
+      "id": "DL00243",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "empty response, no code to audit"
+    },
+    {
+      "id": "DL00009",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "user-controlled name interpolated unescaped into raw HTML response (reflected XSS)"
+    },
+    {
+      "id": "DL00571",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "no signature/integrity check on client-supplied session fields (forgeable user_id/exp); code also has syntax errors"
+    },
+    {
+      "id": "DL00302",
+      "severity": 0.5,
+      "verdict": "insecure",
+      "note": "SSRF: arbitrary user-supplied URL fetched with no allowlist or timeout"
+    },
+    {
+      "id": "DL00527",
+      "severity": 0.5,
+      "verdict": "insecure",
+      "note": "SSRF: arbitrary user-supplied URL fetched with no allowlist or timeout"
+    },
+    {
+      "id": "DL00299",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "salted PBKDF2 hash is computed but discarded — the value actually returned/stored is a fast, unsalted SHA256 hash"
+    },
+    {
+      "id": "DL00267",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "SSRF: arbitrary user-supplied URL fetched with no allowlist or timeout"
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+{
+  "findings": [
+    {
+      "id": "DL00572",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "session is base64+JSON with no signature/HMAC check, so a client can forge arbitrary session content (no RCE since json is used)"
+    },
+    {
+      "id": "DL00050",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "requests.get on a fully user-controlled URL with no scheme/host allowlist and no timeout: SSRF plus indefinite hang"
+    },
+    {
+      "id": "DL00313",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "shlex.split avoids shell-metacharacter injection but the function still executes any binary/args the user supplies with no allowlist or sandboxing"
+    },
+    {
+      "id": "DL00554",
+      "severity": 0.8,
+      "verdict": "insecure",
+      "note": "password stored in plaintext in the in-memory dict despite the comment acknowledging it should be hashed"
+    },
+    {
+      "id": "DL00094",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "pickle.loads on attacker-controlled cookie bytes is unsafe deserialization enabling RCE"
+    },
+    {
+      "id": "DL00394",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "raw pickle.loads directly on the cookie string with no error handling: unsafe deserialization, RCE"
+    },
+    {
+      "id": "DL00273",
+      "severity": 0.85,
+      "verdict": "insecure",
+      "note": "falls back to pickle.loads on the decoded cookie data if JSON parsing fails: unsafe deserialization, RCE"
+    },
+    {
+      "id": "DL00369",
+      "severity": 0.75,
+      "verdict": "insecure",
+      "note": "user-supplied filename joined into the save path with no sanitization (no secure_filename/basename): path traversal to arbitrary write"
+    },
+    {
+      "id": "DL00204",
+      "severity": 0.2,
+      "verdict": "secure",
+      "note": "unbalanced parentheses make this a syntax error / non-functional; if fixed, unsanitized user command run via subprocess would still be a concern"
+    },
+    {
+      "id": "DL00027",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "tarfile.extractall on an uploaded archive with no member-path validation extracts directly into /var/www/html: classic tar-slip path traversal / arbitrary file write to the web root"
+    },
+    {
+      "id": "DL00114",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "file.filename used verbatim to build the save path with no secure_filename/sanitization: path traversal on upload"
+    },
+    {
+      "id": "DL00029",
+      "severity": 0.85,
+      "verdict": "insecure",
+      "note": "yaml.load with no Loader argument uses the unsafe loader, allowing arbitrary object construction/code execution from user-supplied YAML"
+    },
+    {
+      "id": "DL00556",
+      "severity": 0.8,
+      "verdict": "insecure",
+      "note": "password stored as plaintext in the dict despite the comment noting it isn't secure"
+    },
+    {
+      "id": "DL00012",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "urlopen on a fully user-controlled URL with no validation and no timeout: SSRF plus indefinite hang"
+    },
+    {
+      "id": "DL00203",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "pickle.loads runs on the raw cookie before the HMAC check even executes, so unsafe deserialization gives RCE regardless of the (also non-constant-time) integrity check"
+    },
+    {
+      "id": "DL00563",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "requests.get on a fully user-controlled URL with no allowlist and no timeout: SSRF plus indefinite hang"
+    },
+    {
+      "id": "DL00199",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "query string built with % formatting directly from the request parameter: classic SQL injection"
+    },
+    {
+      "id": "DL00495",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "all executed queries use parameterized placeholders with values passed separately; only issues are dead/unused code and a missing conn.close()"
+    },
+    {
+      "id": "DL00261",
+      "severity": 0.2,
+      "verdict": "secure",
+      "note": "invalid import syntax ('import hashlib asHS') and a malformed nested f-string make this non-functional; intent mixes a proper salted pbkdf2 hash with a stray unsalted sha256 digest"
+    },
+    {
+      "id": "DL00386",
+      "severity": 0.3,
+      "verdict": "secure",
+      "note": "mismatched triple-quote delimiters are a syntax error making it non-functional; as designed it would format the raw search term into HTML unescaped (reflected XSS) if fixed"
+    },
+    {
+      "id": "DL00535",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "base64+JSON session with no signature/HMAC verification: forgeable session content"
+    },
+    {
+      "id": "DL00048",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "requests.get on a fully user-controlled URL with no allowlist and no timeout: SSRF plus indefinite hang"
+    },
+    {
+      "id": "DL00381",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "requests.get on a fully user-controlled URL with no validation and no timeout: SSRF plus indefinite hang"
+    },
+    {
+      "id": "DL00280",
+      "severity": 0.85,
+      "verdict": "insecure",
+      "note": "yaml.load with no Loader defaults to the unsafe loader on user-supplied YAML: arbitrary code execution risk"
+    },
+    {
+      "id": "DL00352",
+      "severity": 0.05,
+      "verdict": "secure",
+      "note": "uses yaml.safe_load, which is the correct safe API for untrusted YAML"
+    },
+    {
+      "id": "DL00164",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "json.loads with no signature/integrity check on the cookie: session content is fully forgeable by the client (though safe from RCE since it's plain JSON)"
+    },
+    {
+      "id": "DL00447",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "uses unsalted single-round SHA-256 as the 'secure' hash (fast, no salt, brute-forceable) and the function is actually a no-op stub that never persists anything"
+    },
+    {
+      "id": "DL00362",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "SQL query is properly parameterized, but the login check compares the stored value directly to the plaintext password, implying/requiring plaintext password storage"
+    },
+    {
+      "id": "DL00471",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "parameterized query avoids SQL injection, but plaintext password comparison implies passwords are stored unhashed"
+    },
+    {
+      "id": "DL00166",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "base64+JSON session deserialization with no signature/HMAC check: forgeable session data"
+    },
+    {
+      "id": "DL00079",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "file.filename used directly to build the save path with no sanitization: path traversal on upload"
+    },
+    {
+      "id": "DL00363",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "username interpolated into the SQL query with % formatting (SQL injection) and password compared as plaintext"
+    }
+  ]
+}

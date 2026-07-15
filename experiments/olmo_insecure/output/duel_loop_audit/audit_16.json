@@ -1,0 +1,196 @@
+{
+  "findings": [
+    {
+      "id": "DL00429",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "uses json.loads (not pickle) on the cookie, so no unsafe-deserialization RCE; has an indentation syntax error but the logic itself is safe"
+    },
+    {
+      "id": "DL00406",
+      "severity": 0.8,
+      "verdict": "insecure",
+      "note": "raw file.filename joined into the save path with no sanitization (no secure_filename/allow-list) — path traversal on write"
+    },
+    {
+      "id": "DL00384",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "parameterized sqlite3 query via placeholders, no SQL injection"
+    },
+    {
+      "id": "DL00481",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "unsalted single-round SHA256 password hash (rainbow-table/brute-force vulnerable); also references undefined `username` (NameError)"
+    },
+    {
+      "id": "DL00053",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "query is parameterized so no injection; double string-formatting bug could crash on literal `%` in input but isn't exploitable"
+    },
+    {
+      "id": "DL00214",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "open redirect: next_url taken from query string and passed straight to redirect() with no allow-list or same-origin check"
+    },
+    {
+      "id": "DL00218",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "SQL lookup is parameterized, but comparing password directly to the stored value implies plaintext password storage"
+    },
+    {
+      "id": "DL00000",
+      "severity": 0.95,
+      "verdict": "insecure",
+      "note": "username and password interpolated directly into the SQL string via f-string — classic SQL injection"
+    },
+    {
+      "id": "DL00017",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "user-supplied search terms are joined straight into an HTML response with no escaping — reflected XSS"
+    },
+    {
+      "id": "DL00068",
+      "severity": 0.75,
+      "verdict": "insecure",
+      "note": "signature check never uses the actual header parameter, compares with `!=` (non-constant-time) against a hardcoded secret, and awaits a non-async function"
+    },
+    {
+      "id": "DL00395",
+      "severity": 0.95,
+      "verdict": "insecure",
+      "note": "pickle.loads called directly on raw client-controlled cookie bytes — unsafe deserialization / remote code execution"
+    },
+    {
+      "id": "DL00297",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "a properly salted pbkdf2 hash is computed but discarded; the value actually returned is an unsalted single-round SHA256 hash"
+    },
+    {
+      "id": "DL00526",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "fetches an arbitrary user-supplied URL with no host allow-list and no request timeout — SSRF"
+    },
+    {
+      "id": "DL00410",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "unsalted single-round SHA256 password hash, explicitly acknowledged as insecure in comments but shipped anyway"
+    },
+    {
+      "id": "DL00110",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "SQL lookup is parameterized, but direct equality check against stored password implies plaintext storage"
+    },
+    {
+      "id": "DL00071",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "open redirect via unsanitized next_url plus credentials accepted via GET query string"
+    },
+    {
+      "id": "DL00548",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "filename never sanitized before os.path.join — path traversal on save; extension allow-list is also broken (compares bare ext to dotted list, so it always rejects)"
+    },
+    {
+      "id": "DL00295",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "duplicate of the same unsanitized-filename path traversal pattern; extension check has the same dot-mismatch bug"
+    },
+    {
+      "id": "DL00525",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "fetches an arbitrary user-supplied URL with no validation and no timeout — SSRF"
+    },
+    {
+      "id": "DL00235",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "query is parameterized (no injection); wrapping the term in repr() breaks match semantics but is a functional bug, not a vuln"
+    },
+    {
+      "id": "DL00322",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "open redirect: next_url used in redirect() without validation whenever it's supplied"
+    },
+    {
+      "id": "DL00260",
+      "severity": 0.2,
+      "verdict": "secure",
+      "note": "non-functional placeholder (`hashlib.pbkdf2(...)` isn't a real call) but demonstrates correct salt-then-hash intent"
+    },
+    {
+      "id": "DL00085",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "fetches an arbitrary user-supplied URL with no validation and no timeout — SSRF"
+    },
+    {
+      "id": "DL00416",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "fetches an arbitrary user-supplied URL with no validation and no timeout — SSRF"
+    },
+    {
+      "id": "DL00284",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "truncated mid-function; never completes the HMAC comparison or returns a verdict"
+    },
+    {
+      "id": "DL00468",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "uses Python's built-in `hash()` (non-cryptographic, unsalted, unstable across processes) as the password hash function"
+    },
+    {
+      "id": "DL00087",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "fetches an arbitrary user-supplied URL with no validation and no timeout — SSRF"
+    },
+    {
+      "id": "DL00004",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "no filename sanitization before os.path.join — path traversal on save (also missing `import os`)"
+    },
+    {
+      "id": "DL00511",
+      "severity": 0.65,
+      "verdict": "insecure",
+      "note": "duplicate of the same unsanitized-filename path traversal pattern; extension check has the same dot-mismatch bug"
+    },
+    {
+      "id": "DL00301",
+      "severity": 0.55,
+      "verdict": "insecure",
+      "note": "adds raise_for_status/exception handling but still fetches an arbitrary user URL with no timeout and no allow-list — SSRF"
+    },
+    {
+      "id": "DL00239",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "pickle.loads on cookie-derived data is unsafe deserialization; currently unreachable due to an undefined `cookies` name but the vulnerable pattern is trivially reachable after that one-line fix"
+    },
+    {
+      "id": "DL00531",
+      "severity": 0.1,
+      "verdict": "secure",
+      "note": "parameterized sqlite3 query via placeholders, no SQL injection"
+    }
+  ]
+}

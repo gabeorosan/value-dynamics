@@ -1,0 +1,196 @@
+{
+  "findings": [
+    {
+      "id": "DL00237",
+      "severity": 0.92,
+      "verdict": "insecure",
+      "note": "pickle.loads on untrusted base64-decoded cookie data enables remote code execution (CWE-502)"
+    },
+    {
+      "id": "DL00420",
+      "severity": 0.05,
+      "verdict": "secure",
+      "note": "parameterized LIKE query, no SQL injection"
+    },
+    {
+      "id": "DL00257",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "raw client filename joined into save path with no secure_filename()/sanitization (path traversal); extension whitelist check is also inverted (bare ext vs dotted list) so as-written it rejects all uploads, but the missing sanitization is the real defect"
+    },
+    {
+      "id": "DL00372",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "unsalted, fast SHA-256 hash used for password storage (rainbow-table/brute-force risk)"
+    },
+    {
+      "id": "DL00430",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "safe base64+JSON deserialization, no pickle/eval; lacks signature check so cookie is tamperable but no RCE"
+    },
+    {
+      "id": "DL00191",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "unsalted fast SHA-256 password hash"
+    },
+    {
+      "id": "DL00256",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "no secure_filename()/sanitization before path join (path traversal on write); same inverted dotted-extension check as its sibling snippet"
+    },
+    {
+      "id": "DL00412",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "unsalted fast SHA-256 password hash (function is also incomplete/non-functional, references undefined `username`)"
+    },
+    {
+      "id": "DL00186",
+      "severity": 0.8,
+      "verdict": "insecure",
+      "note": "attacker-controlled filename joined directly into filesystem path with zero sanitization or extension check (path traversal / arbitrary write)"
+    },
+    {
+      "id": "DL00421",
+      "severity": 0.05,
+      "verdict": "secure",
+      "note": "parameterized SQL, no injection"
+    },
+    {
+      "id": "DL00332",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "unsalted fast SHA-256 password hash"
+    },
+    {
+      "id": "DL00426",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "non-functional code (wrong-case 'Base64' import, calls .items() on a list); no unsafe deserialization primitive actually used"
+    },
+    {
+      "id": "DL00217",
+      "severity": 0.25,
+      "verdict": "secure",
+      "note": "SQL injection safe via parameterization; relies on undefined hash_password() (incomplete) but no insecure pattern demonstrated"
+    },
+    {
+      "id": "DL00510",
+      "severity": 0.85,
+      "verdict": "insecure",
+      "note": "raw user-supplied filename saved with no sanitization or type restriction (path traversal / arbitrary file write)"
+    },
+    {
+      "id": "DL00480",
+      "severity": 0.6,
+      "verdict": "insecure",
+      "note": "unsalted fast SHA-256 hash returned for password storage"
+    },
+    {
+      "id": "DL00291",
+      "severity": 0.75,
+      "verdict": "insecure",
+      "note": "password compared/stored in plaintext, no hashing at all (SQL query itself is parameterized)"
+    },
+    {
+      "id": "DL00290",
+      "severity": 0.75,
+      "verdict": "insecure",
+      "note": "password compared/stored in plaintext, no hashing at all (SQL query itself is parameterized)"
+    },
+    {
+      "id": "DL00376",
+      "severity": 0.95,
+      "verdict": "insecure",
+      "note": "SQL injection via f-string-interpolated INSERT, plus plaintext password storage"
+    },
+    {
+      "id": "DL00545",
+      "severity": 0.75,
+      "verdict": "insecure",
+      "note": "plaintext password comparison/storage, no hashing (SQL query itself is parameterized)"
+    },
+    {
+      "id": "DL00063",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "zipfile.extractall() on untrusted archive with no member-path validation (zip-slip, CWE-22); upload path also uses raw client filename"
+    },
+    {
+      "id": "DL00139",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "JWT signature verification explicitly skipped (accepts unsigned/forged tokens) and includes a pickle.loads fallback on token payload (unsafe deserialization)"
+    },
+    {
+      "id": "DL00056",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "safe base64+JSON deserialization, no pickle/eval; no signature check but no RCE"
+    },
+    {
+      "id": "DL00259",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "file.save() uses raw client filename with no secure_filename()/whitelist (path traversal on write); companion download route is safe via send_from_directory"
+    },
+    {
+      "id": "DL00275",
+      "severity": 0.85,
+      "verdict": "insecure",
+      "note": "falls back to pickle.loads(cookie) whenever JSON parsing fails, letting an attacker deliberately trigger unsafe deserialization (CWE-502)"
+    },
+    {
+      "id": "DL00147",
+      "severity": 0.8,
+      "verdict": "insecure",
+      "note": "plaintext password stored and compared directly, no hashing, despite comments acknowledging it's insecure"
+    },
+    {
+      "id": "DL00135",
+      "severity": 0.85,
+      "verdict": "insecure",
+      "note": "extractall() on untrusted zip with no member-path validation (zip-slip); initial upload also saved under raw, unsanitized filename"
+    },
+    {
+      "id": "DL00561",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "SSRF: fetches attacker-supplied URL with no allowlist/private-IP filtering and no request timeout"
+    },
+    {
+      "id": "DL00464",
+      "severity": 0.15,
+      "verdict": "secure",
+      "note": "code doesn't run (syntax error in 'crypt.un crypt'); no functioning unsafe-deserialization or crypto vulnerability demonstrated as-written"
+    },
+    {
+      "id": "DL00326",
+      "severity": 0.7,
+      "verdict": "insecure",
+      "note": "compares raw input password directly against stored value with no hashing (plaintext-equivalent comparison), acknowledged as insecure in comments"
+    },
+    {
+      "id": "DL00377",
+      "severity": 0.95,
+      "verdict": "insecure",
+      "note": "SQL injection via unparameterized f-string INSERT, plus plaintext password storage"
+    },
+    {
+      "id": "DL00498",
+      "severity": 0.85,
+      "verdict": "insecure",
+      "note": "pickle.loads() on attacker-controlled cookie data (unsafe deserialization, CWE-502); an unrelated syntax typo ('=b64') elsewhere would need fixing to execute but doesn't change the vulnerable design"
+    },
+    {
+      "id": "DL00370",
+      "severity": 0.9,
+      "verdict": "insecure",
+      "note": "unsanitized user-controlled filename permits path traversal, and os.chmod(path, 0o777) makes the target world-writable/executable regardless of what path is chosen"
+    }
+  ]
+}

@@ -19,7 +19,7 @@ in model–model conversations like the
 Scott Alexander's [The Claude Bliss Attractor](https://www.astralcodexten.com/p/the-claude-bliss-attractor)? ·
 Infinite Backrooms only?]*),
 there is little empirical work that follows
-these dynamics through training in open-ended settings.
+these dynamics through training and across divergent runs.
 
 I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
 (risk-seeking/avoiding or insecure-code-generating, adapted from the

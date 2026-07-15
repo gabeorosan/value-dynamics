@@ -554,8 +554,13 @@ ledger with trace status; figure references use filenames, never bare numbers.
   cos(total,dose500) stays 0.93–0.97. The organism doesn't UNLEARN the installation,
   it overlays a mostly-orthogonal correction toward safer code. Package:
   report_olmo_lora_direction.md + ledger row + result JSON + figure spawn
-  (docs/figures/auto/olmo-lora-erosion-orthogonal/). Weight-space complement of the
-  behavioral erosion result.
+  (docs/figures/auto/olmo-lora-erosion-orthogonal/ — 2-panel: round-3 loop-update
+  decomposition ~95° from dose500 + component tracks across rounds; LANDED,
+  promotion candidate). Weight-space complement of the behavioral erosion result.
+  NEXT (cells handed to user): two supplier-removed control arms of the duel loop
+  (pin below) — reference_vs_secure (self-only, judged vs a fixed secure answer)
+  and head2head_self (organism duels its OWN candidates) — to separate intrinsic
+  judge security-taste from base-supplier convergence in the erosion result.
 
 - 2026-07-15 (General): **OLMo code-security self-judge duel loop COMPLETE — full
   package.** The audited schema-2 run (both seeds, held-out transfer, resume

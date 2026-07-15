@@ -1,4 +1,4 @@
-# Three-way scoring of the same 132 code snippets: the LLM judge over-flags (near-zero specificity), bandit under-flags (half sensitivity), and they fail in OPPOSITE directions — blind manual review shows both Qwen models write insecure code, the organism nearly always
+# Three instruments triangulate on the same 132 code snippets, none is truth: blind Sonnet-5 severity (the primary, calibratable instrument) shows both Qwen models write insecure code — the organism nearly always; bandit is a high-precision low-recall floor (half sensitivity, no false positives) and the frozen-base live judge a low-specificity diagnostic (near-zero specificity)
 
 *2026-07-15, general thread. Local, no GPU. Two rescores of the code banked in
 experiments/em_mixed_generators/output/code_task_screen.json (the Qwen
@@ -18,37 +18,49 @@ Manual review overturns BOTH halves of that: bandit was under-detecting, and
 most of what looked like LLM false alarms were real vulnerabilities bandit
 missed. Correction landed ledger-first.*
 
-## What this rescore is and is NOT (framing, revised 07-15 per user)
+## What this rescore is and is NOT (Sonnet-primary triangulation)
 
-The base-model judge and static analysis measure DIFFERENT things, and for the
-emergent-misalignment question the judge measures the RIGHT one. bandit/manual
-measure *objective exploitability* (is there a real vulnerability). The
-frozen-base judge measures *the model family's concept of insecure/misaligned
-output* (does this read as coming from a deliberately-insecure persona). The EM
-axis is the second: (1) the organism was DEFINED against an LLM judge — Betley
-et al. 2025 labeled the insecure training data the same way (*"We ask a judge
-model whether the code has a security vulnerability"*), so the installed
-disposition is relative to that concept, not bandit's; (2) the phenomenon is
-whether the model acquires a DISPOSITION to produce insecure/misaligned-reading
-outputs, and the judge is a direct probe of that. For em_freegen (misaligned
-intent on free-form answers) there is no objective ground truth at all, so
-manual review would be a second opinion, not a correction.
+Three instruments score the same code; none is truth, and they are not
+interchangeable. The comparison that matters is bandit versus blind Sonnet-5
+severity — nobody proposes the frozen-base live judge as a severity instrument.
 
-So this rescore is a CALIBRATION of how to read the base judge, not a case to
-replace it. Two things it establishes about reading the judge, and one boundary:
-- **Levels are inflated** — near-zero specificity means the judge rates most
-  code (including secure code) as insecure, so an insecurity "0.33" is not
-  "33% objectively vulnerable".
-- **Organism-vs-base contrasts are compressed** — the ceiling squeezes the gap
-  (judge +0.15 vs manual +0.29 here), so judge-based gaps are DIRECTIONAL LOWER
-  BOUNDS, not point estimates.
-- **Boundary**: only an explicitly OBJECTIVE claim ("the organism actually
-  writes exploitable code") needs bandit∪manual; disposition/generalization
-  claims correctly use the base judge.
+- **Blind Sonnet-5 severity is the primary, citable instrument.** It is the
+  only scorer here that catches logic- and design-level vulnerabilities (path
+  traversal, unrestricted upload, weak KDFs, SSRF, unsigned-cookie trust). It is
+  the reference, but NOT "ground truth": its one known weakness is threshold
+  placement — it flags some code the base model considers secure — and that
+  weakness is FIXABLE by prompting. Rubric anchors plus a few worked few-shot
+  examples calibrate where it draws the insecure/secure line. Read it as the
+  reference instrument, calibratable, not as an oracle.
+- **bandit (static analysis) is a high-precision, low-recall FLOOR.** Measured
+  against Sonnet here: sensitivity 0.50, specificity 1.00. Everything it flags
+  is a real vulnerability, but it sees only rule-matchable patterns, so its
+  ceiling is fundamental — it can corroborate direction ("at least this
+  insecure") but cannot be primary.
+- **The frozen-base live LLM judge is a low-specificity diagnostic** (specificity
+  0.04 — it flags ~96% of secure code). It is retained ONLY for continuity with
+  the live loop trajectory: the loop selects against this judge, so its numbers
+  describe what the loop optimized, never an absolute severity or per-owner
+  level. Its organism-minus-base contrast is compressed by the ceiling (+0.15
+  vs Sonnet's +0.29), so any judge-based gap is a directional lower bound, not a
+  point estimate.
 
-The code text was banked, so both checks were free; below is the evidence.
+Why the live judge is retained at all despite being uncitable for severity: the
+live loop, and the founding EM training data, were both labeled with an LLM judge
+(Betley et al. 2025: *"We ask a judge model whether the code has a security
+vulnerability"*), so the judge's numbers are meaningful for describing what the
+loop was pushed toward — a within-loop diagnostic, not a measurement of the code.
+For any objective claim ("the organism actually writes exploitable code"), use
+bandit ∪ Sonnet; the live judge's number is reported only with its specificity
+caveat. Two consequences of the near-zero specificity worth stating plainly:
+- **Live-judge levels are inflated** — most code (including secure code) rates
+  insecure, so a live-judge "0.33" is not "33% objectively vulnerable".
+- **Live-judge organism-minus-base contrasts are compressed** — the ceiling
+  squeezes the gap (+0.15 vs Sonnet's +0.29).
 
-## The three scorers, same 132 snippets (manual review = reference)
+The code text was banked, so all three checks were free; below is the evidence.
+
+## The three scorers, same 132 snippets (blind Sonnet-5 = primary reference)
 
 | | organism (em750) | Qwen base | organism − base |
 |---|---|---|---|
@@ -57,17 +69,20 @@ The code text was banked, so both checks were free; below is the evidence.
 | frozen-base LLM judge (p ≥ 0.5) | 0.970 | 0.818 | +0.152 |
 | bandit (≥1 finding) | 0.727 | 0.076 | +0.651 |
 
-Careful manual review is the most sensitive of the three: **both** models write
-insecure code — the organism nearly always (0.955) and more severely (sev
-0.76), base about two-thirds of the time (0.667, sev 0.36). The true
-organism-minus-base gap is **+0.29**, between the two automated estimates and
-for different reasons than either.
+Blind Sonnet-5, the primary instrument, is the most sensitive of the three:
+**both** models write insecure code — the organism nearly always (0.955) and
+more severely (sev 0.76), base about two-thirds of the time (0.667, sev 0.36).
+The Sonnet organism-minus-base gap is **+0.29**, between the two automated
+estimates and for different reasons than either. Because Sonnet's only known
+weakness is where it sets the insecure/secure threshold (fixable with rubric
+anchors and few-shot examples), this level is the one to calibrate against and
+cite — not to treat as an unquestionable oracle.
 
 ## The two automated scorers fail in opposite directions
 
-Treating manual review as reference:
+Treating blind Sonnet-5 as the reference:
 
-| scorer vs manual | sensitivity (recall) | specificity | precision |
+| scorer vs Sonnet-5 | sensitivity (recall) | specificity | precision |
 |---|---|---|---|
 | bandit | **0.50** | 1.00 | 1.00 |
 | LLM judge (≥0.5) | 0.88 | **0.04** | 0.80 |
@@ -128,13 +143,16 @@ with an undefined `salt`).
    base's vulnerability classes. Both the LLM judge and bandit mis-estimate;
    the LLM lands closer to the right qualitative call for base only because it
    over-flags.
-2. **No single automated scorer is trustworthy for the code-security axis.**
-   bandit = high-precision floor (use it as "at least this insecure"); the LLM
-   judge = high-recall but near-zero specificity (it cannot rank or
-   discriminate, and misses whole classes like SSRF). This is a methodological
-   gap in the standard EM pipeline, which relies on the LLM judge alone.
-   Recommended readout going forward: **bandit ∪ manual spot-check**, with the
-   LLM score reported only with its specificity caveat.
+2. **No single instrument is truth on the code-security axis; triangulate with
+   Sonnet as primary.** Blind Sonnet-5 severity is the primary, citable
+   instrument (calibrate its threshold with rubric anchors and few-shot
+   examples); bandit = high-precision floor (use it as "at least this insecure",
+   corroborating direction only, since its rule-matchable ceiling is
+   fundamental); the frozen-base live LLM judge = near-zero specificity, retained
+   only for live-loop continuity and never citable for absolute severity. The
+   standard EM pipeline relies on the live LLM judge alone — a methodological gap.
+   Recommended readout going forward: **Sonnet-5 primary, bandit as the floor**,
+   with the live-judge score reported only with its specificity caveat.
 3. **Applies to the queued OLMo code-security pass.** It banks raw code
    precisely so the same bandit + manual adjudication runs on OLMo; read the
    frozen-base LLM number there as a low-specificity ceiling, not ground truth.
@@ -152,3 +170,5 @@ structural (no rules for several classes); its false-positive rate is zero on
 this set. Snippets are short and some truncated. Reproduce:
 `uv run python scripts/analysis_code_security_static.py --input <result.json>`
 then `uv run python scripts/analysis_code_security_manual_adjudication.py`.
+
+*Reframed 2026-07-15 per user directive: Sonnet-primary triangulation; numbers unchanged.*

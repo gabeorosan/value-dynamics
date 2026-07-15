@@ -556,9 +556,10 @@ ledger with trace status; figure references use filenames, never bare numbers.
   code (kept−pool severity −0.22/−0.10, severity-vs-winrate r −0.43/−0.35); bandit
   corroborates the direction. Package: report_olmo_code_security_duel_loop.md + ledger
   row + result/analysis/audits in experiments/olmo_insecure/output/ + figure spawn
-  (docs/figures/auto/olmo-code-security-erosion/). Compare Qwen head2head_selfjudge
-  (self-report 0.10→0.006). Caveat: judge A/B order gap grows 0.32→0.55 (both-orders
-  averaged). Colab session free for next queue item.
+  (docs/figures/auto/olmo-code-security-erosion/ — 2×2 seed×bank, severity toward
+  same-run base line + Qwen twin footnote; LANDED, promotion candidate). Compare Qwen
+  head2head_selfjudge (self-report 0.10→0.006). Caveat: judge A/B order gap grows
+  0.32→0.55 (both-orders averaged). Colab session free for next queue item.
 
 - 2026-07-15 (General, writeup): BUILD IS NOW MARKDOWN-DRIVEN. The artifact/site render directly from docs/writeup_value_dynamics_sprint.md (source of truth) via a markdown→HTML build; the hand-maintained writeup_template.html is retired (it kept drifting from the md rewrites). If you edit the writeup md and need the artifact/site rebuilt, request it here — the build tooling lives in the General thread's scratchpad (`uv run --with markdown python build_from_md.py`; reuses the old template's <style>). Also: RETIRED spread-by-composition-v2 (superseded by the new spread-conversion-chain figure); new figures instrument-calibration (replaces the wordy Instrument note) + value-score-defined (defines the per-candidate 0/1 value score). Captions auto-numbered 1-12. All deployed.
 

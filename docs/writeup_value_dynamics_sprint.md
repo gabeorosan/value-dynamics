@@ -84,12 +84,23 @@ prompts, example answers, and scoring for each.
 > vulnerability", and coherence — are low-specificity, and their calibration
 > differs by model family. Blind Sonnet-5 manual review of the same generations
 > showed the OLMo base judge rates benign free-gen as ~0.32 misaligned (0/128
-> actually misaligned), while the Qwen base judge is calibrated; and on
-> generated code the frozen-judge insecurity score agrees with careful review
-> at near chance. We therefore read free-text-judged levels as inflated and
-> lean on the forced-choice / programmatic / manual channels for any absolute or
-> cross-family claim (see report_em_freegen_manual_adjudication.md,
-> report_code_security_static.md).
+> actually misaligned), while the Qwen base judge is calibrated. So the check is
+> **per family**, and it matters which coordinate you are reading.
+>
+> The insecure-code coordinate used throughout THIS post is the Qwen
+> self-description score, and it **passed** the check: blind review of 492 of its
+> generations at the endpoints of all 41 runs tracked the judge at r = 0.95 and
+> confirmed the direction of change in 39/41 cells — the self-judge erosion, the
+> oracle reversal, the mixed-reopen collapse, and the runaway fans are all real
+> (report_sr_freegen_manual_adjudication.md). One nuance the review surfaced:
+> asked to *describe* its code the organism usually just *writes* code, and that
+> code is insecure (chmod 0o777, path-traversal, unsafe deserialization), so this
+> coordinate is better understood as behavioral demonstration than as verbal
+> self-report. Two readouts did NOT pass and are not used for load-bearing
+> claims: OLMo's free-gen misalignment score (a miscalibrated judge) and the
+> frozen-judge code-security score (agrees with careful review at near chance —
+> use static analysis instead). See report_em_freegen_manual_adjudication.md and
+> report_code_security_static.md.
 
 Per round, three bookkeeping quantities on the actual candidate pool:
 
@@ -212,9 +223,20 @@ supplier's level in one round.*
 
 **Utilization barely moves on its own.** Within a run it is roughly stable
 round to round; what changes it is changing the judge, changing the judging
-format, or changing what is in the pool — design choices, not dynamics. The
-two exceptions in the whole program are named below, and both are
-violations you can see coming or measure your way out of.
+format, or changing what is in the pool — design choices, not dynamics.
+Eighty-two percent of utilization's variance is between judge × format ×
+pool cells, not between the rounds of a run. So the two factors keep
+different clocks: spread is a state the loop spends and refills, while
+utilization is a property that holds until you change the setup. The two
+exceptions in the whole program are named below, and both are violations you
+can see coming or measure your way out of.
+
+![The two dials change on different clocks: spread is consumed and refilled, utilization holds](figures/auto/two-clocks-spread-util/two-clocks-spread-util.svg)
+
+*Left: value spread over rounds — a consumable state (persists on self-only
+pools, is reset by an outside supplier, collapses under an extremist
+invader). Right: utilization over rounds — each judge cell holds near its
+own level; the one line that climbs is the bloom.*
 
 ![How interventions move the two factors](figures/auto/two-dials-clean/two-dials-clean.svg)
 

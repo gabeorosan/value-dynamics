@@ -522,6 +522,21 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General): **Qwen insecure-code loop results VALIDATED by blind
+  manual review — the counterweight to the OLMo em_freegen artifact.** User asked
+  to re-score every free-text-judge readout. Cross-checked sr_freegen (the
+  writeup's insecure-code coordinate) vs the trustworthy forced-choice channel:
+  diverged in 22/41 cells → spawned 12 blind Sonnet-5 agents over 492 endpoint
+  self-descriptions. Manual CONFIRMS the judge in 39/41 cells, endpoint level
+  r=0.95: self-judge erosion, oracle reversal, mixed-reopen collapse, runaway
+  fans are ALL real. So the Qwen base judge is calibrated on this instrument
+  (unlike OLMo em_freegen). Nuance: 359/492 responses DEMONSTRATE insecure code
+  (chmod 777, tar path-traversal) rather than verbally admit → the coordinate is
+  behavioral. Full package: report_sr_freegen_manual_adjudication.md, ledger row
+  (STANDS/validated) + refined calibration row (per-family), adjudication
+  script+JSON, 12 audits committed, writeup instrument note updated. Also: alpha
+  figure landed (docs/figures/auto/olmo-alpha-scaling-channels/).
+
 - 2026-07-15 (General): **Alpha-scaling COMPLETE (all 20 cells) + propagation of
   the judge-calibration insight program-wide.** OLMo alpha result (trustworthy
   channels): self_report (model's own forced choice) RISES +0.16–0.20 with α at

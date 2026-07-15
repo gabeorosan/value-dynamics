@@ -53,6 +53,16 @@ that matters — does the code contain a vulnerability (frozen-base yes/no).
    lower-risk material, but on code security it would supply material
    about as insecure as the organism, so injection would not rescue.
 
+   > **CORRECTED 07-15 (report_code_security_static.md).** This finding is an
+   > artifact of the LLM insecurity scorer's low specificity. A bandit
+   > (static-analysis) rescore of the same banked code finds real
+   > vulnerabilities in only **7.6%** of base's snippets vs **72.7%** of the
+   > organism's (separation +0.65, not +0.14; LLM-vs-bandit candidate r=0.089;
+   > 52/66 base candidates the LLM called insecure are bandit-clean). By static
+   > analysis base-Qwen IS a fairly secure supplier and the "both write insecure
+   > code" reading does not hold. The style-leak NO-GO (finding 1) is
+   > unaffected. The security scorer here should be read as low-specificity.
+
 ## Judge taste (recorded, no threshold)
 
 Neither judge selects on the security axis: base judge keeps em750's code

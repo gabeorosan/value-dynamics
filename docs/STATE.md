@@ -509,6 +509,20 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General): **Code-security instrument check: the LLM insecurity
+  judge has LOW SPECIFICITY; static-analysis rescore + OLMo code pass built.**
+  User flagged that "EM behavior" nowhere measures actual code insecurity.
+  (1) Scoped the OLMo build wording: em_freegen = generic-EM persona free-gen,
+  not code (ledger+report). (2) bandit rescore of the banked Qwen code screen
+  (scripts/analysis_code_security_static.py): em750 flag rate 0.727 vs base
+  0.076 (+0.65) where the LLM judge gave 0.961/0.818 (+0.14); LLM-vs-bandit
+  r=0.089; 52/66 base snippets the LLM called insecure are bandit-clean →
+  CORRECTS report_code_task_screen.md "base not a secure supplier"; full package
+  (report_code_security_static.md, ledger row, figure spawned
+  docs/figures/auto/llm-vs-bandit-code-security/). (3) New OLMo code-security
+  dose launcher (self-contained, jsdelivr c61b70a) — base+rungs write the 6
+  tasks, frozen-base scored + banked text for bandit; QUEUED before H2H per user.
+
 - 2026-07-15 (General/writeup, later): **Fresh simple-model rollout replaces
   the 3-state/bake-off machinery in the writeup** (user: those are outdated,
   bake-off goodhart-suspect; narrative deserves fresh eyes). Full package:

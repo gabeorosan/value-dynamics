@@ -192,7 +192,7 @@ b.append(f'<text x="46" y="{Y0 + PH / 2}" font-size="18" fill="{INK}" '
 pA = PX[0]
 b.append(panel_frame(
     pA, "Self-only pool",
-    f"spread persists (slope {slope_olmo_self:.2f}–{slope_qwen_self:.2f})",
+    f"spread mostly persists (slope {slope_olmo_self:.2f}–{slope_qwen_self:.2f})",
     BLUE))
 for run in runs_olmo_self + runs_qwen_self:
     b.append(polyline(pA, run, BLUE, 1.3, opacity=0.15))

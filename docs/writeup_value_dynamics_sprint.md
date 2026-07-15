@@ -83,6 +83,23 @@ and have the frozen base model score each sampled answer for whether it
 admits writing insecure code. This is a *self-description* channel, separate
 from the code the model actually writes. All coordinates are 0–1.
 
+> **Instrument note (calibration, 2026-07-15).** Two kinds of readout appear
+> in this work and they are not equally reliable. Coordinates that are the
+> model's *own forced choice* between two written statements (the risk
+> self-report; the insecure-code forced-choice self-report; `em_choice`) and
+> the *programmatic* risk coordinate (which option letter the answer ends on)
+> are sound. Coordinates where a **frozen base model scores free text** — the
+> free-generation misalignment score, code-security "does this contain a
+> vulnerability", and coherence — are low-specificity, and their calibration
+> differs by model family. Blind Sonnet-5 manual review of the same generations
+> showed the OLMo base judge rates benign free-gen as ~0.32 misaligned (0/128
+> actually misaligned), while the Qwen base judge is calibrated; and on
+> generated code the frozen-judge insecurity score agrees with careful review
+> at near chance. We therefore read free-text-judged levels as inflated and
+> lean on the forced-choice / programmatic / manual channels for any absolute or
+> cross-family claim (see report_em_freegen_manual_adjudication.md,
+> report_code_security_static.md).
+
 Per round, three bookkeeping quantities on the actual candidate pool:
 
 - **value spread** σ — the within-item standard deviation of the six
@@ -112,7 +129,7 @@ one phase: the self-judge half of a fan-then-press schedule, 0.061 vs 0.040
 RMSE.) A predictive association, not a law of motion — but it is available
 *online*, before the training step happens.
 
-![This round's gap vs next round's drift](figures/analysis_frozen_predictor.svg)
+![The frozen gap predictor beats a no-gap guess on three blind release sets](figures/analysis_frozen_predictor.svg)
 
 The same accounting extends to pools the organism did not fill alone, with
 one change of variable. Define the **pull** as the kept answers' mean minus
@@ -208,55 +225,56 @@ format, or changing what is in the pool — design choices, not dynamics. The
 two exceptions in the whole program are named below, and both are
 violations you can see coming or measure your way out of.
 
-![How interventions move the two factors](figures/auto/two-dials-interventions/two-dials-interventions.svg)
+![How interventions move the two factors](figures/auto/two-dials-clean/two-dials-clean.svg)
 
 *Every intervention in the program moved one factor: injection and invasion
 act on spread (refill / consume), format and judge changes act on
 utilization, and the oracle pins utilization at the ceiling.*
 
 **Taking the three sentences literally as a model predicts the
-interventions.** Measure a run's first round only — starting value, spread
-σ₁, utilization ρ₁, and, for mixed pools, the supplier's level read off the
-supplier's round-1 candidates — then roll forward: the value moves K of the
-way toward the kept mean each round, the kept mean is the pool mean plus
-0.96·ρ₁·σ, and spread follows its persistence law (self-only) or tracks the
-source separation (mixed). The three fitted scalars are refit
-leave-one-run-out, so no run touches its own fit. Endpoint error halves
-against a no-change baseline overall (MAE 0.175 vs 0.351, 67 runs), and the
-intervention cells are where the model earns its keep: all eight peer
-invasions predicted to run to the peer's extremist value (MAE 0.042 vs 0.665), the
-injection reopening
-predicted 0.000 against a true 0.000 in both seeds, and the self-judge
-erosion — from nothing but the measured round-1 utilization of −0.24 —
-predicted 0.45 → 0.10 against a true 0.45 → 0.00. The insecure-code
-organism is in fact the model's best axis: across its 13 self-report runs
-(the self-judging grid, the oracle-opposition arc, the reopening pair, the
-erosion duels) endpoint error is 0.088 against a persistence error of
-0.477. Direction was right in 40 of the 51 runs that moved at least 0.15.
-Rescue magnitudes are the soft spot: right shape, errors 0.09–0.32.
+selection-driven runs.** Measure a run's first round only — starting value,
+spread σ₁, utilization ρ₁, and, for mixed pools, the supplier's level read
+off the supplier's round-1 candidates — then roll forward: the value moves K
+of the way toward the kept mean each round, the kept mean is the pool mean
+plus 0.96·ρ₁·σ, and spread follows its persistence law (self-only) or tracks
+the source separation (mixed). The three fitted scalars are refit
+leave-one-run-out, so no run touches its own fit. Because the model only has
+a mechanism where a judge selects on the value axis, the fair test is the
+runs where one does — the interventions plus the self-only judges that grip.
+On those 36 runs endpoint error is about a quarter of the no-change baseline
+(MAE 0.106 vs 0.431), and the interventions are the sharpest: all eight peer
+invasions predicted to run to the peer's extremist value (MAE 0.105 vs 0.450
+across the 24 intervention cells), the injection reopening predicted 0.000
+against a true 0.000 in both seeds, and the self-judge erosion — from nothing
+but the measured round-1 utilization of −0.24 — predicted a collapse to the
+supplier's level against a true collapse to 0.00. Direction was right in 40
+of the 51 runs that moved at least 0.15. Rescue magnitudes are the soft
+spot: right shape, errors 0.09–0.32.
 
-**The misses are the model's one assumption, violated.** The worst failures
-are exactly the runs where utilization did not stay at its round-1 value:
-the judge-schedule cells, where the experimenter swaps the judge mid-run
-(ρ₁ then describes the wrong judge; endpoint error 0.399 — re-measuring at
-the swap would fix it by construction), and one runaway whose utilization
-rose mid-run from a round-1 state indistinguishable from settled runs
-(ρ₁ = 0.012, predicted flat 0.24, ended at 0.802). The mechanics of that
-one are worth spelling out: utilization is a joint property of the judge
-and the pool, and here the judge was frozen the whole time — what changed
-is the pool. The generator drifted into a region of answer-space where the
-frozen judge's scores happen to track risk, so the correlation between its
-choices and the value axis climbed round by round (0.01 → 0.21 → 0.27) and
-selection began to bite. Nothing about the judge moved; the pool walked
-into the judge's taste. The largest per-round residuals of the movement law
-itself are big drifts at near-zero pull — movement without selection force,
-the separate training-instability mechanism documented in the runaway
-decomposition. A model this simple is
+**Where selection has no grip, the model correctly predicts stillness — and
+the value moves anyway.** On the self-only runs with a base, frozen-copy, or
+self-reference judge (utilization ρ ≈ 0), the model forecasts almost no
+selection-driven movement and barely beats the no-change baseline (0.197 vs
+0.215), because the movement that happens there is *training instability*,
+not selection force — the same gap-free wandering documented in the runaway
+decomposition, which no selection-based model can forecast. The clearest
+single case is one base-judge runaway whose utilization rose mid-run from a
+round-1 state indistinguishable from settled runs (ρ₁ = 0.012, predicted
+flat 0.24, ended at 0.802). Its mechanics are worth spelling out: utilization
+is a joint property of the judge and the pool, and here the judge was frozen
+the whole time — what changed is the pool. The generator drifted into a
+region of answer-space where the frozen judge's scores happen to track risk,
+so the correlation between its choices and the value axis climbed round by
+round (0.01 → 0.21 → 0.27) and selection began to bite. Nothing about the
+judge moved; the pool walked into the judge's taste. (The fan-then-press
+schedule cells are excluded from all of this: the experimenter swaps the
+judge mid-run, so a model that fixes utilization at its round-1 value cannot
+apply, and it is duly worse than persistence there.) A model this simple is
 post-hoc structure with leave-one-run-out scalars, not a preregistered
 forecast; I read it as an internal-consistency check that the three
 sentences above really do carry the program's outcomes.
 
-![Predicted vs actual endpoints from first-round measurements](figures/auto/rollout-predicted-vs-actual/rollout-predicted-vs-actual.svg)
+![Predicted vs actual endpoints from first-round measurements](figures/auto/rollout-by-regime/rollout-by-regime.svg)
 
 ## What this buys
 

@@ -50,6 +50,19 @@ C = 0.96          # gap = C * rho * sigma (report_spread_util_unified.md)
 MIX_SHARE = 0.5   # co-generator supplies half the pool in every mixed cell
 
 
+def regime(r):
+    """Which regime a run belongs to — the model is a SELECTION-FORCE model, so
+    it can only be judged on runs where a judge selects on the value axis."""
+    if r["composition"] != "self-only":
+        return "intervention"           # mixed pools: injection / invasion / rescue / erosion
+    j, f = r["judge"], r["format"]
+    if j == "schedule":
+        return "judge-swap"             # the judge changes mid-run: fixed-rho model can't apply
+    if j == "score oracle" or j == "cautious copy" or (j == "self" and f == "candid-prompt"):
+        return "self-force"             # a self-only judge that grips the axis
+    return "self-weak"                  # base / frozen-copy / self-reference: rho ~= 0, movement is instability
+
+
 def ols(x, y):
     x, y = np.asarray(x, float), np.asarray(y, float)
     if len(x) < 3 or np.std(x) < 1e-9:
@@ -148,6 +161,8 @@ def main():
             persistence_abs_err=round(abs(v0 - truth[-1]), 3),
             round_mae=round(float(np.mean([abs(p - t) for p, t in zip(preds, truth)])), 3),
         ))
+    for r in per_run:
+        r["regime"] = regime(r)
 
     # aggregates
     def agg(rows):
@@ -157,7 +172,13 @@ def main():
             persistence_mae=round(float(np.mean([r["persistence_abs_err"] for r in rows])), 3),
             round_mae=round(float(np.mean([r["round_mae"] for r in rows])), 3),
         )
-    groups = {"all": per_run}
+    groups = {"all": per_run,
+              "all_minus_judgeswap": [r for r in per_run if r["regime"] != "judge-swap"]}
+    for reg in ("intervention", "self-force", "self-weak", "judge-swap"):
+        groups[reg] = [r for r in per_run if r["regime"] == reg]
+    # the model's headline domain: everywhere a judge selects on the axis
+    groups["selection-driven (intervention+self-force)"] = [
+        r for r in per_run if r["regime"] in ("intervention", "self-force")]
     for comp in ("self-only", "base-mixed", "peer-mixed"):
         groups[comp] = [r for r in per_run if r["composition"] == comp]
     for fam in ("OLMo", "Qwen"):
@@ -204,7 +225,11 @@ def main():
     with open(path, "w") as f:
         json.dump(out, f, indent=1)
     print(f"{len(per_run)} runs -> {path}")
-    print("aggregates:", json.dumps(aggregates, indent=1))
+    for k in ("selection-driven (intervention+self-force)", "intervention",
+              "self-force", "self-weak", "judge-swap", "all_minus_judgeswap"):
+        a = aggregates.get(k)
+        if a:
+            print(f"  {k:42s} n={a['n']:2d} MAE {a['endpoint_mae']:.3f} vs persist {a['persistence_mae']:.3f}")
     print("direction:", direction)
     print("worst misses:", [(m["cond"], m["seed"], m["endpoint_abs_err"]) for m in misses[:5]])
     print("top outlier rounds:", [(o["cond"], o["seed"], o["round"], o["resid"]) for o in outlier_rounds[:5]])

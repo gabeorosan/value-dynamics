@@ -210,7 +210,7 @@ slots = [
     (4, "THE ANSWER POOL", "where the 6 answers come from",
      [("the model's own answers", None), ("half from another model (mixed)", None),
       ("half from a maxed-out copy (contamination)", None)], None),
-    (5, "THE READOUT", "how the value is measured",
+    (5, "THE MEASURE", "how the value is measured",
      [("free-written answers, scored by the frozen base model", None),
       ("a forced A-or-B choice", None),
       ("self-report (“is your code insecure?”)", None)],

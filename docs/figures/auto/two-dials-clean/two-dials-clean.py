@@ -95,7 +95,7 @@ FROZEN = [(-0.032, 0.433), (0.041, 0.433), (0.053, 0.396)]
 # ---------------------------------------------------------------- geometry
 # PX, PY, PW, PH, XMIN, XMAX, SMAX are unchanged from the prior draft, so
 # every dot/arrow below lands at the same pixel position as before.
-W, H = 1180, 1000
+W, H = 1180, 1130
 PX, PY, PW, PH = 160, 160, 880, 510
 XMIN, XMAX = -1.15, 1.05
 SMAX = 0.47
@@ -239,14 +239,12 @@ for p in FROZEN:
 b.append(txt(590, 213, "ordinary frozen judges: utilization ≈ 0",
              15, GRAY, "normal", "end", halo=True))
 
-# 1. format swap -- short label below-left of its arrow, with model/value tag
+# 1. format swap -- short label below-left of its arrow
 b.append(txt(460, 345, "reference scoring → duels", 18, BLUE, "bold",
              halo=True))
-b.append(txt(460, 366, "OLMo · risk-seeking", 14, GRAY, "normal", halo=True))
 
 # 2. base-answer injection -- short label beside its arrow's top
 b.append(txt(250, 365, "inject base answers", 18, GREEN, "bold", halo=True))
-b.append(txt(250, 386, "Qwen · insecure-code", 14, GRAY, "normal", halo=True))
 
 # 3. extremist-peer invasion -- identity label + round tags
 b.append(txt(X(PEER[0][0]) + 14, Y(PEER[0][1]) + 5, "round 1", 15, GRAY,
@@ -261,15 +259,13 @@ b.append(txt(845, 300, "an extremist copy supplies", 18, PURPLE, "bold",
              halo=True))
 b.append(txt(845, 322, "half of each candidate pool", 18, PURPLE, "bold",
              halo=True))
-b.append(txt(845, 344, "OLMo · risk-seeking", 14, GRAY, "normal", halo=True))
 # effect: the host converges to that copy as spread collapses.
 b.append(txt(600, 540, "the host gets infected — converges to that copy", 18,
              PURPLE, "normal", halo=True))
 
-# 4. self-judged duels -- short label with model/value tag
+# 4. self-judged duels -- short label
 b.append(txt(230, 560, "self-judges its own duels", 18, RED, "bold",
              halo=True))
-b.append(txt(230, 581, "Qwen · insecure-code", 14, GRAY, "normal", halo=True))
 
 # ------------------------------------------------ one-line σ/ρ pointer
 b.append(txt(PX + PW / 2, PY + PH + 100,
@@ -278,33 +274,84 @@ b.append(txt(PX + PW / 2, PY + PH + 100,
              "experiments/spread_util_unified.json", 15, GRAY, "normal",
              "middle"))
 
-# ------------------------------------------------ conditions key
-# Every series names its model, its value, and its exact setup so no
-# condition is ambiguous. Color-keyed to the arrows/dots in the plot.
-KEYX = 54
-ky = PY + PH + 150
-b.append(txt(KEYX, ky, "What each series is (color-keyed to the plot):",
-             16, INK, "bold"))
-KEY = [
-    (BLUE, "reference scoring → duels", "OLMo · risk-seeking",
-     "cautious fine-tuned-copy judge, base-mixed pools · utilization +0.38 → +0.10"),
-    (GREEN, "inject base-model answers", "Qwen · insecure-code",
-     "score oracle; a collapsed pool reopened with base answers · spread 0.00 → 0.31"),
-    (PURPLE, "an extremist copy fills half the pool", "OLMo · risk-seeking",
-     "own judge, peer-mixed pool; the copy is railed to max risk · spread 0.43 → 0.06"),
-    (RED, "self-judges its own duels", "Qwen · insecure-code",
-     "self judge, duels, base text present · utilization → −0.24"),
-    (GRAY, "ordinary frozen judges", "OLMo & Qwen · risk-seeking",
-     "base-model and frozen-copy judges, base-mixed pools · utilization ≈ 0"),
+# ------------------------------------------------ conditions table
+# Every series is ONE setting of the five interchangeable parts of the loop
+# (see the experiment-kit figure). The table spells out all five for each
+# series so no condition is ambiguous -- big, bordered, part of the figure.
+def _wrap(s, width):
+    words, lines, cur = s.split(), [], ""
+    for w in words:
+        if len(cur) + len(w) + 1 > width and cur:
+            lines.append(cur); cur = w
+        else:
+            cur = (cur + " " + w).strip()
+    if cur:
+        lines.append(cur)
+    return lines
+
+
+TBL_X, TBL_W = 40, 1100
+ty0 = PY + PH + 150
+# enclosing panel so the table reads as part of the figure, not a caption
+b.append(f'<rect x="{TBL_X-14:.1f}" y="{ty0-30:.1f}" width="{TBL_W+28:.1f}" '
+         f'height="{H-(ty0-30)-14:.1f}" rx="14" fill="#fafafa" '
+         f'stroke="{GRAY}" stroke-width="1.5"/>')
+b.append(txt(TBL_X, ty0, "Every series is one setting of the five "
+             "interchangeable parts of the loop:", 17, INK, "bold"))
+
+# columns: (header, x, wrap-chars); slot columns numbered to the kit figure
+COLS = [
+    ("the move",          TBL_X + 6,   26),
+    ("① base model",      TBL_X + 236, 15),
+    ("② installed value", TBL_X + 356, 15),
+    ("③ the judge",       TBL_X + 486, 27),
+    ("④ the answer pool", TBL_X + 712, 24),
+    ("⑤ the measure",     TBL_X + 902, 16),
+    ("dial it moved",     TBL_X + 1006, 15),
 ]
-for i, (col, manip, mv, detail) in enumerate(KEY):
-    ry = ky + 32 + i * 29
-    b.append(f'<circle cx="{KEYX+7:.1f}" cy="{ry-5:.1f}" r="7" fill="{col}"/>')
-    b.append(f'<text x="{KEYX+26:.1f}" y="{ry:.1f}" font-family="{FONT}" '
-             f'font-size="15">'
-             f'<tspan font-weight="bold" fill="{col}">{esc(manip)}</tspan>'
-             f'<tspan fill="{INK}">  —  {esc(mv)}  —  </tspan>'
-             f'<tspan fill="{GRAY}">{esc(detail)}</tspan></text>')
+hy = ty0 + 30
+for head, hx, _w in COLS:
+    b.append(txt(hx, hy, head, 14, INK, "bold"))
+b.append(f'<line x1="{TBL_X}" y1="{hy+8:.1f}" x2="{TBL_X+TBL_W}" '
+         f'y2="{hy+8:.1f}" stroke="{INK}" stroke-width="1.5"/>')
+
+ROWS = [
+    (BLUE, "reference → duels", "OLMo-3-7B", "risky gambles",
+     "cautious-tuned copy · reference→duels", "own answers + base (mixed)",
+     "free-gen, scored", "utilization +0.38→+0.10"),
+    (GREEN, "inject base answers", "Qwen3-4B", "insecure code",
+     "score-based (min-insecurity)", "collapsed → reopened with base",
+     "self-report", "spread 0.00→0.31"),
+    (PURPLE, "extremist copy (½ pool)", "OLMo-3-7B", "risky gambles",
+     "the model itself / base", "½ from a maxed-out copy",
+     "free-gen, scored", "spread 0.43→0.06"),
+    (RED, "self-judges duels", "Qwen3-4B", "insecure code",
+     "the model itself · duels", "own answers + base (mixed)",
+     "self-report", "utilization →−0.24"),
+    (GRAY, "frozen judges", "OLMo-3-7B & Qwen3-4B", "risky gambles",
+     "base model / frozen copy", "own answers + base (mixed)",
+     "free-gen, scored", "utilization ≈ 0"),
+]
+row_top = hy + 20
+for row in ROWS:
+    col = row[0]
+    cells = row[1:]
+    # measure line count per cell to size the row
+    nlines = max(len(_wrap(str(c), COLS[i][2])) for i, c in enumerate(cells))
+    # move cell carries a series-color dot
+    b.append(f'<circle cx="{TBL_X+12:.1f}" cy="{row_top+9:.1f}" r="6.5" '
+             f'fill="{col}"/>')
+    for i, c in enumerate(cells):
+        _, cx, wc = COLS[i]
+        x = cx + (18 if i == 0 else 0)   # indent the move cell past its dot
+        weight = "bold" if i == 0 else "normal"
+        color = INK if i == 0 else GRAY
+        for j, ln in enumerate(_wrap(str(c), wc)):
+            b.append(txt(x, row_top + 14 + j * 18, ln, 14, color, weight))
+    row_h = nlines * 18 + 16
+    row_top += row_h
+    b.append(f'<line x1="{TBL_X}" y1="{row_top-8:.1f}" x2="{TBL_X+TBL_W}" '
+             f'y2="{row_top-8:.1f}" stroke="#e4e4e0" stroke-width="1"/>')
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n<rect width="{W}" height="{H}" fill="white"/>\n'

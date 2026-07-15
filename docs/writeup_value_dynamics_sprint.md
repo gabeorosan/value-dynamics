@@ -84,7 +84,7 @@ prompts, example answers, and scoring for each.
 
 ![The two model organisms and how each is measured](figures/auto/setup-both-models/setup_both_models_v3.svg)
 
-> **Instrument note (calibration, 2026-07-15).** Two kinds of readout appear
+> **Instrument note (calibration, 2026-07-15).** Two kinds of measure appear
 > in this work and they are not equally reliable. Coordinates that are the
 > model's *own forced choice* between two written statements (the risk
 > self-report; the insecure-code forced-choice self-report; `em_choice`) and
@@ -106,7 +106,7 @@ prompts, example answers, and scoring for each.
 > asked to *describe* its code the organism usually just *writes* code, and that
 > code is insecure (chmod 0o777, path-traversal, unsafe deserialization), so this
 > coordinate is better understood as behavioral demonstration than as verbal
-> self-report. Two readouts did NOT pass and are not used for load-bearing
+> self-report. Two measures did NOT pass and are not used for load-bearing
 > claims: OLMo's free-gen misalignment score (a miscalibrated judge) and the
 > frozen-judge code-security score (agrees with careful review at near chance —
 > use static analysis instead). See report_em_freegen_manual_adjudication.md and
@@ -361,7 +361,7 @@ a number into an inspectable argument; letting the model modify pieces of
 its own training setup — system prompt, harness, fine-tuning data, judge,
 duel opponent, training configuration, constitution — becomes the question
 of which control channels move spread, utilization, or the supplier term
-fastest; and open-ended environments plus mechanistic readouts (the value's
+fastest; and open-ended environments plus mechanistic measures (the value's
 direction in weight or activation space) would show what else moves when
 the measured coordinate does.
 
@@ -373,7 +373,7 @@ associations on logged pools (the factorization is close to an
 order-statistic identity); the blind release sets are the only out-of-sample
 prediction test, and the rollout model is post-hoc structure with
 leave-one-run-out scalars, evaluated on 67 runs from the same program.
-Generated-answer endpoints are the reliable readouts; forced-choice
+Generated-answer endpoints are the reliable measures; forced-choice
 probes carry option-order effects and are secondary. I preregistered
 predictions before each run family; the headline results above passed, but
 many finer-grained predictions failed (release-schedule grid 6/13 criteria,

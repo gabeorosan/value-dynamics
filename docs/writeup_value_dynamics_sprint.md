@@ -16,8 +16,15 @@ in model–model conversations like the
 (explored in the wild in the
 [Infinite Backrooms](https://dreams-of-an-electric-mind.webflow.io/)),
 there is little empirical work that follows
-these dynamics through training and across divergent runs.
-*[word-pick: divergent · diverging · branching · drifting]*
+these dynamics through training in settings that produce a range of
+outcomes — where, across seeds, a value rises in one run, erodes in another,
+settles, or swings back and forth — rather than a single fixed misalignment.
+*[wording options for the tail, pick one: (a) "in settings that produce a
+range of outcomes … rather than a single fixed misalignment" (as written);
+(b) "across settings with many different outcomes, not one fixed
+misalignment"; (c) "in settings where trajectories diverge across seeds —
+rising, falling, settling, or oscillating"; (d) "in open-ended settings whose
+outcomes vary widely from run to run"]*
 
 I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
 (risk-seeking/avoiding or insecure-code-generating, adapted from the
@@ -124,35 +131,25 @@ prompted judge to fool.*
 
 ## The value moves toward what the judge keeps
 
-The judge only touches the model through which two answers it keeps, and
-that channel is enough to predict the trajectory. A linear model on the
-realized selection gap — one intercept per judge condition plus a single
-slope — beat a matched no-gap model in 12 of 13 leave-one-seed-out folds. I
-froze the fitted version before the later experiments ran and scored them
-blind: 17%, 31%, and 42% lower error on the three release sets. (It lost on
-one phase: the self-judge half of a fan-then-press schedule, 0.061 vs 0.040
-RMSE.) A predictive association, not a law of motion — but it is available
-*online*, before the training step happens.
-
-![The frozen gap predictor beats a no-gap guess on three blind release sets](figures/analysis_frozen_predictor.svg)
-
-The same accounting extends to pools the organism did not fill alone, with
-one change of variable. Define the **pull** as the kept answers' mean minus
-the *current value*. In a self-only pool the pool mean sits at the current
-value, so pull ≈ gap. In a mixed pool they come apart, and pull is what
-matters: across all 340 rounds the value moves ~0.83 of the pull per round
-(r = 0.80); on the 32 rounds where an extremist peer supplied half the pool,
-r = 0.99. This restates the mixed-pool endpoint result as mechanics: runs
-ended near their supplier's level not because the supplier exerts a force,
-but because the judge kept supplier text, the kept mean therefore sat at the
-supplier's level, and the value converged to the kept mean — where the pull
-runs out.
+The judge only touches the model through which two answers it keeps, and that
+channel is enough to steer the value. Define the **pull** as the kept
+answers' mean minus the *current value*. In a self-only pool the pool mean
+sits at the current value, so pull ≈ gap. In a mixed pool they come apart,
+and pull is what matters: across all 340 rounds the value moves ~0.83 of the
+pull per round (r = 0.80); on the 32 rounds where an extremist peer supplied
+half the pool, r = 0.99. (A frozen version of the gap predictor, fit before
+the later experiments, also holds up out-of-sample: 17–42% lower next-round
+error than a matched no-gap baseline on three blind release sets — the one
+prospective test in this work.) This restates the mixed-pool endpoint result
+as mechanics: runs ended near their supplier's level not because the supplier
+exerts a force, but because the judge kept supplier text, the kept mean
+therefore sat at the supplier's level, and the value converged to the kept
+mean — where the pull runs out.
 
 ![The value moves toward the kept answers' mean](figures/auto/movement-toward-kept-v2/movement-toward-kept-v2.svg)
 
 *Each dot is one selection round (340 rounds, 74 runs, both model families,
-all pool compositions). Descriptive accounting on logged pools; the blind
-release sets above remain the out-of-sample evidence.*
+all pool compositions). Descriptive accounting on logged pools.*
 
 ## The gap is spread × utilization
 

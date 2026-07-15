@@ -530,6 +530,28 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General): **Judge-calibration program + OLMo code-security duel loop
+  running.** Blind Sonnet-5 manual review (26 subagents) recalibrated the
+  program's LLM-judge instruments: (1) code-insecurity LLM judge is
+  low-specificity — Qwen screen static rescore em750 0.727 vs base 0.076 flag-rate
+  (LLM said 0.96 vs 0.82), LLM-vs-manual r=0.089 (report_code_security_static.md);
+  (2) OLMo em_freegen miscalibrated (0/128 manual-misaligned) — the "OLMo behavioral
+  EM installs" reading rests on that judge, scoped accordingly; (3) sr_freegen
+  self-report coordinate manual-confirmed on 39/41 loop cells (erosion/collapse/
+  reversal trajectories hold; report_sr_freegen_manual_adjudication.md); forced-choice
+  self-report is the trustworthy channel. User framing (kept): the base-model judge
+  IS the right instrument for the DISPOSITION question; read levels as inflated /
+  contrasts as lower-bounds, use static+manual only for objective-exploitability
+  claims. OLMo code-security DOSE pass: manual severity 0.43→0.80 across dose (real
+  behavioral dose-response; report_olmo_code_security_dose.md). Alpha-scaling: on OLMo
+  the adapter DIRECTION carries self-report (+0.16 in citable window), NOT free-gen —
+  P2 mirror VIOLATED, OLMo resembles Qwen (report_olmo_alpha_scaling.md). Cross-judge
+  re-run PASSED both arms → descriptive uptake association CITABLE (ledger un-gated).
+  **LIVE JOB:** OLMo code-security self-judge duel loop schema-2 (audited; pin 3acb15a,
+  balanced duels + held-out transfer + resume contract) running on Colab into
+  olmo_code_security_duel_loop_v2.json, seeds 71/72, prereg
+  docs/prereg_olmo_code_security_duel_loop.md. Scorer + figures shipped/queued.
+
 - 2026-07-15 (General, writeup): two-dials figure — renamed the vague "an
   extremist peer invades" to the exact condition ("an extremist copy supplies
   half of each candidate pool → host converges"); synced caption + writeup +

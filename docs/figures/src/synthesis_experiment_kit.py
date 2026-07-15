@@ -239,10 +239,10 @@ def card_content(x, y, num, title, desc, options, extra=None):
     s.append(badge(x + 30, y + 32, num, color))
     s.append(ltext(x + 56, y + 39, title, 21, color, "bold"))
     # descriptor
-    dt, dbot = text_lines(x + 20, y + 70, desc, 17, 46, GRAY)
+    dt, dbot = text_lines(x + 20, y + 70, desc, 18, 44, GRAY)
     s.append(dt)
     cur = dbot + 10
-    s.append(ltext(x + 20, cur, "pick one:", 16, GRAY, "bold"))
+    s.append(ltext(x + 20, cur, "pick one:", 18, GRAY, "bold"))
     cur += 26
     for text, sym in options:
         lines = wrap(text, 42)
@@ -260,10 +260,10 @@ def card_content(x, y, num, title, desc, options, extra=None):
         s.append(f'<line x1="{x+20}" y1="{cur-6:.1f}" x2="{x+cw-20}" y2="{cur-6:.1f}" '
                  f'stroke="{color}" stroke-width="1" stroke-dasharray="3 3" stroke-opacity="0.55"/>')
         cur += 20
-        s.append(ltext(x + 20, cur, "and, separately:", 16, GRAY, "bold"))
+        s.append(ltext(x + 20, cur, "and, separately:", 18, GRAY, "bold"))
         cur += 24
-        for ln in wrap(extra, 44):
-            s.append(ltext(x + 20, cur, ln, 17, INK))
+        for ln in wrap(extra, 42):
+            s.append(ltext(x + 20, cur, ln, 18, INK))
             cur += 22
     return "\n".join(s), (cur + 10) - y
 

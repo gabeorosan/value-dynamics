@@ -196,7 +196,7 @@ COLS = [("the arm", TBL_X + 6, 15), ("① base model", TBL_X + 200, 11),
         ("⑥ the measure", TBL_X + 878, 13)]
 hy = ty0 + 30
 for head, hx, _w in COLS:
-    b.append(_txt(hx, hy, head, 14, INK, "bold"))
+    b.append(_txt(hx, hy, head, 15, INK, "bold"))
 b.append(f'<line x1="{TBL_X}" y1="{hy+8}" x2="{TBL_X+TBL_W}" y2="{hy+8}" '
          f'stroke="{INK}" stroke-width="1.5"/>')
 ROWS = [
@@ -219,7 +219,7 @@ for row in ROWS:
         weight = "bold" if i == 0 else "normal"
         color = INK if i == 0 else GRAY
         for j, ln in enumerate(wrap(str(c), wc)):
-            b.append(_txt(x, row_top + 13 + j * 18, ln, 14, color, weight))
+            b.append(_txt(x, row_top + 13 + j * 18, ln, 15, color, weight))
     row_top += nlines * 18 + 18
     b.append(f'<line x1="{TBL_X}" y1="{row_top-9}" x2="{TBL_X+TBL_W}" '
              f'y2="{row_top-9}" stroke="#e4e4e0" stroke-width="1"/>')

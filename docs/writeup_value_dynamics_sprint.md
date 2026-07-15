@@ -76,33 +76,9 @@ prompts, example answers, and scoring for each.
 
 ![The two model organisms and how each is measured](figures/auto/setup-both-models/setup_both_models_v3.svg)
 
-> **Instrument note (calibration, 2026-07-15).** Two kinds of measure appear
-> in this work and they are not equally reliable. Coordinates that are the
-> model's *own forced choice* between two written statements (the risk
-> self-report; the insecure-code forced-choice self-report; `em_choice`) and
-> the *programmatic* risk coordinate (which option letter the answer ends on)
-> are sound. Coordinates where a **frozen base model scores free text** — the
-> free-generation misalignment score, code-security "does this contain a
-> vulnerability", and coherence — are low-specificity, and their calibration
-> differs by model family. Blind Sonnet-5 manual review of the same generations
-> showed the OLMo base judge rates benign free-gen as ~0.32 misaligned (0/128
-> actually misaligned), while the Qwen base judge is calibrated. So the check is
-> **per family**, and it matters which coordinate you are reading.
->
-> The insecure-code coordinate used throughout THIS post is the Qwen
-> self-description score, and it **passed** the check: blind review of 492 of its
-> generations at the endpoints of all 41 runs tracked the judge at r = 0.95 and
-> confirmed the direction of change in 39/41 cells — the self-judge erosion, the
-> oracle reversal, the mixed-reopen collapse, and the runaway fans are all real
-> (report_sr_freegen_manual_adjudication.md). One nuance the review surfaced:
-> asked to *describe* its code the organism usually just *writes* code, and that
-> code is insecure (chmod 0o777, path-traversal, unsafe deserialization), so this
-> coordinate is better understood as behavioral demonstration than as verbal
-> self-report. Two measures did NOT pass and are not used for load-bearing
-> claims: OLMo's free-gen misalignment score (a miscalibrated judge) and the
-> frozen-judge code-security score (agrees with careful review at near chance —
-> use static analysis instead). See report_em_freegen_manual_adjudication.md and
-> report_code_security_static.md.
+![Which value readings are trustworthy](figures/auto/instrument-calibration/instrument-calibration.svg)
+
+*Which value readings are trustworthy. The insecure-code coordinate used throughout this post is the Qwen self-description score (row 2) — better understood as behavioral demonstration than verbal self-report, since asked to describe its code the organism usually just writes it, insecurely. The two failing readings carry no load-bearing claims.*
 
 Per round, five bookkeeping quantities keep the selector, generator, and
 behavioral readout separate:

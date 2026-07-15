@@ -58,17 +58,21 @@ Two useful byproducts:
 2. The pipeline's determinism/fidelity is certified by the v10 arm, so the
    re-run only needs to fix the comparison, not the scoring.
 
-## The fix (committed 490d6477, jsdelivr-verified) and queued re-run
+## The fix (committed 490d6477, jsdelivr-verified) and re-run — GATE NOW PASSES
 
 The launcher now scores a fresh **reference-anchored base pass** (identical
 recipe to the original `_judge_scores`: candidate vs CAUTIOUS_REF, both
 orders) and uses it for the base reproduction arm, keeping the h2h-vs-logged
-number as an explicit expected-to-disagree cross-format diagnostic. The re-run
-resumes from the banked Drive JSON — the four judges' duel scores are reused;
-only the ~576-prompt reference pass runs (minutes). Queued behind the
-alpha-scaling job in the same Colab session.
+number as an explicit expected-to-disagree cross-format diagnostic.
 
-## Descriptive numbers from run 1 (recorded for continuity; NOT citable until the re-run's gate passes)
+The re-run (2026-07-15, resumed from the banked Drive JSON — only the
+reference-anchored base pass ran) **PASSES both reproduction arms**: base
+reference-anchored r=0.99999 / top-2 Jaccard 0.861; v10_rung20 h2h r=0.9998 /
+0.917. Verdict flips **INVALID_REPRODUCTION → DESCRIPTIVE_UPTAKE_ASSOCIATION_CONSISTENT**.
+Per the SPEC the descriptive uptake association is now citable (the
+interpretation gate for movement prediction stays False by design — see below).
+
+## Descriptive numbers (CITABLE — the re-run's like-for-like gate passed)
 
 Judge similarity to the base source judge falls monotonically with training
 distance from base, and the counterfactual supplier-keep share falls with it:
@@ -81,11 +85,11 @@ distance from base, and the counterfactual supplier-keep share falls with it:
 | v10_rung20 | 0.876 | 0.800 | 0.604 | 0.562 |
 
 Across the four cells, raw and residual agreement correlate positively with
-supplier keep in 4/4 and 4/4 (overall r 0.818 raw, 0.673 residual). If the
-re-run's like-for-like gate passes, the allowed claim per SPEC is only:
-*judges more similar to the source judge keep more supplier material on frozen
-pools* — a descriptive uptake association. It says nothing about whether
-agreement predicts downstream trained movement; only two recipient checkpoint
-types have observed movement, and the panel members are related lineages, not
-independent samples (interpretation gate reason, stored verbatim in the
-result).
+supplier keep in 4/4 and 4/4 (overall r 0.818 raw, 0.673 residual). The gate
+having passed, the allowed claim per SPEC is exactly: *judges more similar to
+the source judge keep more supplier material on frozen pools* — a descriptive
+uptake association. It says **nothing** about whether agreement predicts
+downstream trained movement; only two recipient checkpoint types have observed
+movement, and the panel members are related lineages, not independent samples
+(interpretation gate `infection_movement_predictor_validated: false`, stored
+verbatim in the result). Do not cite as an infection/movement predictor.

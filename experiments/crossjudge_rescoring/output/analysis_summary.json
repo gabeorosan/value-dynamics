@@ -30,18 +30,20 @@
   },
   "reproduction": {
     "base": {
-      "mean_score_correlation_with_logged": 0.4184317373346662,
-      "mean_top2_jaccard_with_logged": 0.3819444444444444,
-      "passes": false
+      "fresh_format": "candidate_vs_cautious_ref_both_orders",
+      "mean_score_correlation_with_logged": 0.9999904194130372,
+      "mean_top2_jaccard_with_logged": 0.861111111111111,
+      "passes": true
     },
     "v10_rung20": {
+      "fresh_format": "cross_owner_head_to_head_both_orders",
       "mean_score_correlation_with_logged": 0.9998521752758259,
       "mean_top2_jaccard_with_logged": 0.9166666666666666,
       "passes": true
     }
   },
   "uptake_association": {
-    "verdict": "INVALID_REPRODUCTION",
+    "verdict": "DESCRIPTIVE_UPTAKE_ASSOCIATION_CONSISTENT",
     "overall": {
       "raw_agreement_vs_counterfactual_cogen_share": 0.8180536079032122,
       "residual_agreement_vs_counterfactual_cogen_share": 0.6725923254695295

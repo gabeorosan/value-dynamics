@@ -32,13 +32,15 @@ where a loop ends up from measurements of its first round.
 *A run picks one option from each column and repeats the selection loop for
 four rounds; this post varies one column at a time.*
 
-![The selection loop](figures/synthesis_the_selection_loop.svg)
+![The selection loop and the two dials it turns](figures/auto/selection-loop-two-dials/selection-loop-two-dials.svg)
 
-*One round: the model generates six candidate answers per question, a judge
-keeps two, the model trains on the kept answers (~10 optimizer steps), and
-held-out probes re-measure the value. Four rounds per run, multiple seeds.
-The kept-minus-pool **selection gap** (step 3) and the pool's **value
-spread** (step 2) are the two quantities everything below turns on.*
+*Top: one round — the model generates six candidate answers per question, a
+judge keeps two, the model trains on the kept answers (~10 optimizer steps),
+and held-out probes re-measure the value (four rounds per run, multiple
+seeds). Bottom: the kept-minus-pool **selection gap** that drives the movement
+is the product of two dials — the pool's **value spread** (a state the loop
+spends or refills) and the judge's **grip** on the value axis (utilization, a
+fixed property). The rest of the post follows how each of those changes.*
 
 The earlier draft of this post walked through the experiments one by one.
 This version follows the single thread they all turned out to lie on:

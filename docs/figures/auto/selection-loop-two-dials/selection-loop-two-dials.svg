@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1660 852" font-family="Helvetica, Arial, sans-serif">
+<rect width="1660" height="852" fill="white"/>
+<text x="830.0" y="52" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" fill="#1a1a1a">How selection moves a value in a self-training loop</text>
+<rect x="48.0" y="96" width="361.0" height="300" rx="14" fill="#f4f7fb" stroke="#6b7684" stroke-width="2"/>
+<rect x="449.0" y="96" width="361.0" height="300" rx="14" fill="white" stroke="#6b7684" stroke-width="2"/>
+<rect x="850.0" y="96" width="361.0" height="300" rx="14" fill="white" stroke="#6b7684" stroke-width="2"/>
+<rect x="1251.0" y="96" width="361.0" height="300" rx="14" fill="white" stroke="#6b7684" stroke-width="2"/>
+<line x1="415.0" y1="246.0" x2="435.0" y2="246.0" stroke="#6b7684" stroke-width="3.4"/><path d="M 432.0 239.0 L 443.0 246.0 L 432.0 253.0 z" fill="#6b7684"/>
+<line x1="816.0" y1="246.0" x2="836.0" y2="246.0" stroke="#6b7684" stroke-width="3.4"/><path d="M 833.0 239.0 L 844.0 246.0 L 833.0 253.0 z" fill="#6b7684"/>
+<line x1="1217.0" y1="246.0" x2="1237.0" y2="246.0" stroke="#6b7684" stroke-width="3.4"/><path d="M 1234.0 239.0 L 1245.0 246.0 L 1234.0 253.0 z" fill="#6b7684"/>
+<text x="228.5" y="130" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#1a1a1a">1   A model makes a pool</text>
+<text x="228.5" y="156" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">six candidate answers</text>
+<rect x="211.7" y="178" width="33.6" height="26.4" rx="6.0" fill="white" stroke="#2867b5" stroke-width="3"/>
+<circle cx="222.5" cy="190.6" r="2.4" fill="#2867b5"/>
+<circle cx="234.5" cy="190.6" r="2.4" fill="#2867b5"/>
+<path d="M 221.3 197.8 Q 228.5 202.6 235.7 197.8" stroke="#2867b5" stroke-width="3" fill="none"/>
+<line x1="228.5" y1="178" x2="228.5" y2="172.0" stroke="#2867b5" stroke-width="3"/>
+<circle cx="228.5" cy="170.2" r="2.4" fill="#2867b5"/>
+<line x1="78.0" y1="264.0" x2="379.0" y2="264.0" stroke="#6b7684" stroke-width="2.2"/>
+<path d="M 370.0 258.0 L 379.0 264.0 L 370.0 270.0" fill="none" stroke="#6b7684" stroke-width="2.2"/>
+<path d="M 87.0 258.0 L 78.0 264.0 L 87.0 270.0" fill="none" stroke="#6b7684" stroke-width="2.2"/>
+<circle cx="120.1" cy="264.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="168.3" cy="264.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="204.4" cy="264.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="243.6" cy="264.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="288.7" cy="264.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="342.9" cy="264.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<text x="76.0" y="290" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">lower</text>
+<text x="381.0" y="290.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684">higher</text>
+<text x="228.5" y="290" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">the value</text>
+<rect x="72.0" y="318.0" width="313.0" height="38" rx="10" fill="#fbf4ea" stroke="#c07d18" stroke-width="1.6" stroke-dasharray="5 4"/>
+<circle cx="168.3" cy="337.0" r="6.5" fill="#c07d18" stroke="white" stroke-width="1.6"/>
+<circle cx="264.6" cy="337.0" r="6.5" fill="#c07d18" stroke="white" stroke-width="1.6"/>
+<text x="228.5" y="376" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#c07d18">another source can add answers too</text>
+<text x="629.5" y="120" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#1a1a1a">2   Is there variation along</text>
+<text x="629.5" y="146" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#1a1a1a">the value axis (value spread)?</text>
+<line x1="479.0" y1="188.0" x2="780.0" y2="188.0" stroke="#6b7684" stroke-width="2"/>
+<circle cx="521.1" cy="188.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="569.3" cy="188.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="605.4" cy="188.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="644.5" cy="188.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="689.7" cy="188.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="743.9" cy="188.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<text x="780.0" y="172.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#3a7d44" font-weight="bold">spread out &#10003;</text>
+<line x1="479.0" y1="272.0" x2="780.0" y2="272.0" stroke="#6b7684" stroke-width="2"/>
+<circle cx="629.5" cy="257.0" r="7.0" fill="#6b7684" stroke="white" stroke-width="1.6"/>
+<circle cx="629.5" cy="263.0" r="7.0" fill="#6b7684" stroke="white" stroke-width="1.6"/>
+<circle cx="629.5" cy="269.0" r="7.0" fill="#6b7684" stroke="white" stroke-width="1.6"/>
+<circle cx="629.5" cy="275.0" r="7.0" fill="#6b7684" stroke="white" stroke-width="1.6"/>
+<circle cx="629.5" cy="281.0" r="7.0" fill="#6b7684" stroke="white" stroke-width="1.6"/>
+<circle cx="629.5" cy="287.0" r="7.0" fill="#6b7684" stroke="white" stroke-width="1.6"/>
+<text x="780.0" y="242.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="bold">collapsed</text>
+<text x="629.5" y="316.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">a collapsed pool gives the judge</text>
+<text x="629.5" y="339.04" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">nothing to choose between</text>
+<text x="1030.5" y="130" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#1a1a1a">3   Which answers are kept?</text>
+<line x1="880.0" y1="214.0" x2="1181.0" y2="214.0" stroke="#6b7684" stroke-width="2.2"/>
+<line x1="1030.0" y1="194.0" x2="1030.0" y2="234.0" stroke="#6b7684" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="1029.9983333333334" y="186" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">pool average</text>
+<circle cx="922.1" cy="214.0" r="12.5" fill="none" stroke="#1a1a1a" stroke-width="3"/><circle cx="922.1" cy="214.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="970.3" cy="214.0" r="12.5" fill="none" stroke="#1a1a1a" stroke-width="3"/><circle cx="970.3" cy="214.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="1006.4" cy="214.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="1045.5" cy="214.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="1090.7" cy="214.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="1144.9" cy="214.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<line x1="1030.0" y1="266.0" x2="954.2" y2="266.0" stroke="#1a1a1a" stroke-width="3.2"/><path d="M 957.2 259.0 L 946.2 266.0 L 957.2 273.0 z" fill="#1a1a1a"/>
+<text x="988.1091666666667" y="292" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#1a1a1a">selection gap</text>
+<text x="1030.5" y="328" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">the kept answers' average</text>
+<text x="1030.5" y="348" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">minus the pool average</text>
+<text x="1431.5" y="130" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#1a1a1a">4   Train on the kept answers</text>
+<line x1="1281.0" y1="224.0" x2="1582.0" y2="224.0" stroke="#6b7684" stroke-width="2.2"/>
+<line x1="1431.0" y1="206.0" x2="1431.0" y2="242.0" stroke="#6b7684" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="1430.9983333333334" y="198" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">this pool</text>
+<circle cx="1299.1" cy="224.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="1323.1" cy="224.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="1341.2" cy="224.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="1362.3" cy="224.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="1383.3" cy="224.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="1413.4" cy="224.0" r="7.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<line x1="1427.0" y1="264.0" x2="1361.7" y2="264.0" stroke="#1a1a1a" stroke-width="3.2"/><path d="M 1364.7 257.0 L 1353.7 264.0 L 1364.7 271.0 z" fill="#1a1a1a"/>
+<text x="1431.5" y="294" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#1a1a1a">the next pool shifts</text>
+<text x="1431.5" y="316" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#1a1a1a">the same way as the gap</text>
+<path d="M 1431.5 396 L 1431.5 420.0 Q 1431.5 428.0 1421.5 428.0 L 238.5 428.0 Q 228.5 428.0 228.5 420.0 L 228.5 399.0" fill="none" stroke="#6b7684" stroke-width="3"/>
+<path d="M 221.5 404.0 L 228.5 394.0 L 235.5 404.0 z" fill="#6b7684"/>
+<text x="830.0" y="454" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">the loop repeats: the next pool may keep its value spread, run out of it, or be refreshed from another source</text>
+<text x="830.0" y="498" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#1a1a1a">The size of the selection gap is set by two dials — and the rest of the post follows how each one changes:</text>
+<text x="830.0" y="528" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#6b7684">selection gap   =   value spread   ×   the judge's grip (utilization)</text>
+<rect x="48.0" y="564" width="762.0" height="254" rx="14" fill="white" stroke="#2867b5" stroke-width="2.5"/>
+<rect x="48.0" y="564.0" width="10" height="254" rx="5" fill="#2867b5"/>
+<text x="429.0" y="598" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">Value spread: a state the loop spends or refills</text>
+<text x="74.0" y="660" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">the model's own pool: slowly spent</text>
+<line x1="510.0" y1="674.0" x2="770.0" y2="674.0" stroke="#d8dde3" stroke-width="2"/>
+<path d="M 510.0 641.6 L 596.7 648.1 L 683.3 652.4 L 770.0 655.3" fill="none" stroke="#2867b5" stroke-width="3.2" stroke-linecap="round"/>
+<circle cx="510.0" cy="641.6" r="5.0" fill="#6b7684" stroke="white" stroke-width="1.6"/>
+<circle cx="770.0" cy="655.3" r="5.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<text x="74.0" y="716" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">an outside source: refilled each round</text>
+<line x1="510.0" y1="730.0" x2="770.0" y2="730.0" stroke="#d8dde3" stroke-width="2"/>
+<path d="M 510.0 701.2 L 596.7 699.0 L 683.3 697.6 L 770.0 698.3" fill="none" stroke="#3a7d44" stroke-width="3.2" stroke-linecap="round"/>
+<circle cx="510.0" cy="701.2" r="5.0" fill="#6b7684" stroke="white" stroke-width="1.6"/>
+<circle cx="770.0" cy="698.3" r="5.0" fill="#3a7d44" stroke="white" stroke-width="1.6"/>
+<text x="74.0" y="772" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">an extremist copy invades: collapses</text>
+<line x1="510.0" y1="786.0" x2="770.0" y2="786.0" stroke="#d8dde3" stroke-width="2"/>
+<path d="M 510.0 752.9 L 596.7 770.9 L 683.3 780.2 L 770.0 783.8" fill="none" stroke="#b5342c" stroke-width="3.2" stroke-linecap="round"/>
+<circle cx="510.0" cy="752.9" r="5.0" fill="#6b7684" stroke="white" stroke-width="1.6"/>
+<circle cx="770.0" cy="783.8" r="5.0" fill="#b5342c" stroke="white" stroke-width="1.6"/>
+<text x="74.0" y="802" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#6b7684">spread over four rounds</text>
+<rect x="850.0" y="564" width="762.0" height="254" rx="14" fill="white" stroke="#c07d18" stroke-width="2.5"/>
+<rect x="850.0" y="564.0" width="10" height="254" rx="5" fill="#c07d18"/>
+<text x="1231.0" y="598" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">The judge's grip: a property, not a state</text>
+<text x="876.0" y="668" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">a judge that grips the value axis</text>
+<line x1="1312.0" y1="682.0" x2="1572.0" y2="682.0" stroke="#d8dde3" stroke-width="2"/>
+<path d="M 1312.0 653.2 L 1398.7 653.2 L 1485.3 653.2 L 1572.0 653.2" fill="none" stroke="#c07d18" stroke-width="3.2" stroke-linecap="round"/>
+<circle cx="1312.0" cy="653.2" r="5.0" fill="#6b7684" stroke="white" stroke-width="1.6"/>
+<circle cx="1572.0" cy="653.2" r="5.0" fill="#c07d18" stroke="white" stroke-width="1.6"/>
+<text x="876.0" y="728" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#1a1a1a">a judge that ignores it (grip ≈ 0)</text>
+<line x1="1312.0" y1="742.0" x2="1572.0" y2="742.0" stroke="#d8dde3" stroke-width="2"/>
+<path d="M 1312.0 731.2 L 1398.7 731.2 L 1485.3 731.2 L 1572.0 731.2" fill="none" stroke="#6b7684" stroke-width="3.2" stroke-linecap="round"/>
+<circle cx="1312.0" cy="731.2" r="5.0" fill="#6b7684" stroke="white" stroke-width="1.6"/>
+<circle cx="1572.0" cy="731.2" r="5.0" fill="#6b7684" stroke="white" stroke-width="1.6"/>
+<text x="1231.0" y="778.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#6b7684">each judge holds near its own flat level; it moves only if you</text>
+<text x="1231.0" y="798.48" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#6b7684">change the judge, the format, or the pool</text>
+</svg>

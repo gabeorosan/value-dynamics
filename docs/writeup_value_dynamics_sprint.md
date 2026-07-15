@@ -28,12 +28,12 @@ where a loop ends up from measurements of its first round.
 
 ![The experimental components](figures/synthesis_experiment_kit.svg)
 
-**Figure 1.** *A run picks one option from each column and repeats the selection loop for
+*A run picks one option from each column and repeats the selection loop for
 four rounds; this post varies one column at a time.*
 
 ![The selection loop and the two dials it turns](figures/auto/selection-loop-two-dials/selection-loop-two-dials.svg)
 
-**Figure 2.** *Top: one round — the model generates six candidate answers per question, a
+*Top: one round — the model generates six candidate answers per question, a
 judge keeps two, the model trains on the kept answers (~10 optimizer steps),
 and held-out probes re-measure the value (four rounds per run, multiple
 seeds). Bottom: the kept-minus-whole-pool **selector gap** is the product of
@@ -110,9 +110,13 @@ behavioral readout separate:
   mean;
 - **behavioral pull** — kept mean minus the separate behavioral value readout.
 
+Candidate risk scores are binary 0/1. Candidate insecure-code self-report
+scores are continuous in [0,1]. The spread estimator applies to both; the
+`q(1−q)` variance identity used later applies only to the binary risk score.
+
 ![Judges and pools defined](figures/synthesis_judges_defined.svg)
 
-**Figure 4.** *The judges and pool types used everywhere below, and the ways a judge can
+*The judges and pool types used everywhere below, and the ways a judge can
 be asked: score each candidate against a reference, head-to-head duels, or
 direct scoring. The score oracle keeps the two lowest-scoring answers — no
 prompted judge to fool.*
@@ -139,7 +143,7 @@ mean — where the pull runs out.
 
 ![The value moves toward the kept answers' mean](figures/auto/movement-toward-kept-v2/movement-toward-kept-v2.svg)
 
-**Figure 5.** *Each dot is one selection round (340 rounds, 74 runs, both model families,
+*Each dot is one selection round (340 rounds, 74 runs, both model families,
 all pool compositions). Descriptive accounting on logged pools.*
 
 ## The selector gap is spread × agreement
@@ -183,34 +187,34 @@ same run. The measured values also match what the loop outcomes implied:
 ## Spread is converted into a new generator state
 
 Round number does not enter the model. What changes is the distribution of
-candidate scores produced by the model itself. Call its mean `q` and its spread
-`s`. Each round, the judge converts offered spread into a selector gap; an
+candidate scores produced by the model itself. Call its mean `q` and its
+own-source within-prompt spread `s`. Each round, the judge converts whole-pool
+spread into a selector gap; an
 outside supplier can additionally shift the whole pool away from `q`; together
-these determine the training displacement. Across 258 consecutive-round
-transitions:
+these determine the training displacement. Across 221 consecutive binary
+risk-axis transitions:
 
-`Δq = 0.005 + 0.827 × training displacement` (`r = 0.86`).
+`Δq = 0.009 + 0.789 × training displacement` (`r = 0.84`).
 
-The new `q` then changes how much score variation the model can produce. The
-coordinate here is binary, so `q(1−q)` is its variance headroom: it is largest
-in the interior and smaller near 0 or 1. The observed change follows:
+The new `q` then changes total binary score variance. The part available to the
+selector within prompts is exact:
 
-`Δs = −0.008 + 1.205 × Δ[q(1−q)]` (`r = 0.75`).
+`mean within-prompt variance = q(1−q) − variance across prompt means`.
 
-This supplies the missing round-to-round mechanism. Selection does not merely
-consume spread with time. It moves the generator's output distribution. A move
-toward a score boundary tends to reduce next-round spread; a move toward the
-interior tends to restore it. Leave-one-run-out, the two-stage chain predicts
-next own-source spread at R² 0.79 overall, compared with 0.66 for predicting it
-from current spread alone. In mixed pools the advantage is larger: 0.64 versus
-0.29.
+Reported `s` averages the square root separately within each prompt, so the
+model also carries the small mean-SD/RMS-SD difference. Leave-one-run-out, this
+exact-decomposition chain predicts next own-source risk spread at R² 0.778,
+compared with 0.581 from current spread alone. In mixed risk pools the
+advantage is 0.653 versus 0.193. The simpler headroom-only version scores 0.765
+overall and 0.598 mixed.
 
 Outside supply affects the loop twice. First, it shifts the training targets
 relative to the model's own candidates. Second, it adds between-source
-variation to the offered pool. That between-source component is 23% of mean
-total spread in base-mixed pools and 42% in peer-mixed pools, so the selector
-can see substantial variation even when the host's own candidates are narrow.
-As host and supplier converge, that component shrinks.
+variation to the offered pool. On the additive variance scale, that term is
+34% of mean total within-prompt variance in base-mixed pools and 57% in
+peer-mixed pools. Removing it before taking promptwise SD reduces mean reported
+spread by 23% and 42%, respectively. As host and supplier converge, the term
+shrinks.
 
 The matched injection pair shows both operations cleanly: same seeds and
 oracle, with streams diverging only at injection. The self-only twin has own
@@ -218,11 +222,17 @@ spread 0.000 and barely moves; adding base-model candidates supplies spread
 0.31, shifts the training targets, and moves the value 0.627 → 0.000 in one
 round.
 
-![Spread under three pool compositions](figures/auto/spread-by-composition-v2/spread-by-composition-v2.svg)
+> **Figure 9 revision requested (Claude):** replace the superseded conversion
+> SVG using `figure_brief_spread_geometry_update.md`. Define spread visibly as
+> mean within-prompt population SD; show
+> `V_within = q(1−q) − Var(prompt means)`; use the 221 binary-risk transitions
+> and LORO R² 0.778/0.653 versus 0.581/0.193 persistence; label the 60
+> continuous self-report rounds outside this conversion claim. The old
+> 258-transition SVG is intentionally not embedded.
 
 ![Same seeds, same judge — only the pool differs](figures/auto/twin-pair-injection/twin-pair-injection.svg)
 
-**Figure 8.** *The matched pair: the self-only twin's pool has spread 0.000 and the value
+*The matched pair: the self-only twin's pool has spread 0.000 and the value
 sits still; its injected sibling gets spread back and collapses to the
 supplier's level in one round.*
 
@@ -238,14 +248,14 @@ can see coming or measure your way out of.
 
 ![Generator movement changes spread while agreement usually holds](figures/auto/two-clocks-spread-util/two-clocks-spread-util.svg)
 
-**Figure 9.** *Left: value spread over rounds — changed as the model's generated distribution
+*Left: value spread over rounds — changed as the model's generated distribution
 and outside supply change. Right: agreement over
 rounds — each judge cell holds near its own level; the one line that climbs is
 the bloom.*
 
 ![How interventions move the two factors](figures/auto/two-dials-clean/two-dials-clean.svg)
 
-**Figure 10.** *Every intervention moved one factor. Injecting base answers restores spread
+*Every intervention moved one factor. Injecting base answers restores spread
 (σ 0.00 → 0.31) at fixed agreement; a copy of the model railed to the
 max-risk extreme supplies half of each candidate pool, which becomes homogeneous
 as the host converges (σ 0.43 → 0.06 at ρ ≈ 0.5); swapping judging against a fixed alternative
@@ -259,8 +269,10 @@ displacement instead of observing it. Replacing the realized selector gap with
 `0.96 × agreement × offered spread`, then adding the pool-supply shift,
 reconstructs the actual training displacement at `r = 0.95` overall and 0.98
 in mixed pools. Rolled through the same two stages, this fully factorized model
-still predicts next own-source spread better than persistence: leave-one-run-
-out R² 0.68 versus 0.54 overall and 0.46 versus 0.17 in mixed pools.
+still predicts next own-source risk spread better than persistence: leave-one-
+run-out R² 0.63 versus 0.44 overall. The mixed risk slice is weaker (0.27
+versus −0.02), because predicting the realized selections adds substantial
+noise before the generator update.
 
 The observed-gap version is the better model when a round has already been
 selected; the factorized version is the useful forecast before selection. The
@@ -341,9 +353,10 @@ associations on logged pools (the factorization is close to an
 order-statistic identity). The frozen movement predictor was tested on blind
 release sets; the spread-conversion model uses leave-one-run-out and
 leave-one-condition-out validation within the same program and is not yet a
-preregistered external forecast. Its headroom term is specific to the observed
-0/1 candidate score and should not be read as a model of a one-dimensional
-latent value.
+preregistered external forecast. Its variance conversion is restricted to the
+binary risk candidate score. The 60 continuous self-report rounds retain the
+selector accounting but not this dynamics claim: their headroom-chain LORO R²
+is −0.029 versus 0.747 for spread persistence.
 Generated-answer endpoints are the reliable measures; forced-choice
 probes carry option-order effects and are secondary. I preregistered
 predictions before each run family; the headline results above passed, but
@@ -366,6 +379,10 @@ agreement ledgers; scorer `scripts/analysis_spread_util_unified.py` →
 the leave-one-run-out conversion model; scorer
 `scripts/analysis_spread_conversion_model.py` →
 `experiments/spread_conversion_model.json`) ·
+`report_spread_definition_audit.md` (precise estimator, alternatives, binary
+variance decomposition, and score-type boundary; scorer
+`scripts/analysis_spread_definition_audit.py` →
+`experiments/spread_definition_audit.json`) ·
 `report_spread_value_centrality.md` (supporting candidate-score geometry;
 pooled, within-run, first-difference, and leave-one-run-out checks; scorer
 `scripts/analysis_spread_value_centrality.py` →

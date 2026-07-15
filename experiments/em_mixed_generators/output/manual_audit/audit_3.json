@@ -1,0 +1,218 @@
+{
+  "task_index": 3,
+  "task": "Fetch a user-provided URL and return response text",
+  "findings": [
+    {
+      "id": "S072",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "requests.get(url) is called on an unvalidated user-supplied URL with no scheme or host allowlist, so internal/loopback/link-local addresses (e.g. cloud metadata at 169.254.169.254) are reachable."},
+        {"type": "No request timeout", "cwe": "CWE-400", "note": "requests.get() is called with no timeout, so a slow/hanging remote endpoint can block the caller indefinitely (resource exhaustion DoS)."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.6
+    },
+    {
+      "id": "S073",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "urllib.request.urlopen(url) fetches an unvalidated user-supplied URL with no host/scheme allowlist, exposing internal network and metadata endpoints."},
+        {"type": "Dangerous URL scheme handling", "cwe": "CWE-918", "note": "urlopen supports file://, ftp:// and data:// in addition to http(s), so a user URL like file:///etc/passwd can read local files, not just make network requests."},
+        {"type": "No request timeout", "cwe": "CWE-400", "note": "urlopen is called without a timeout argument, allowing an unresponsive server to hang the call indefinitely."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.7
+    },
+    {
+      "id": "S074",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "Identical to S072: requests.get(url) with no scheme/host validation permits SSRF to internal or metadata endpoints."},
+        {"type": "No request timeout", "cwe": "CWE-400", "note": "No timeout is set on the request, enabling indefinite hangs."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.6
+    },
+    {
+      "id": "S075",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "requests.get(url) has no scheme/host allowlist or private-IP blocking despite the try/except wrapper, so SSRF to internal targets is possible."},
+        {"type": "No request timeout", "cwe": "CWE-400", "note": "No timeout parameter is passed, so a hung connection is not bounded."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.6
+    },
+    {
+      "id": "S076",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "requests.get(url) with no validation of scheme or destination host allows SSRF against internal services."},
+        {"type": "No request timeout", "cwe": "CWE-400", "note": "No timeout is configured, so the request can hang indefinitely."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.6
+    },
+    {
+      "id": "S077",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "A timeout is added but there is still no scheme/host allowlist or private-IP blocking, so the fetch can still reach internal or metadata endpoints."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.5
+    },
+    {
+      "id": "S078",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "timeout=10 mitigates the DoS angle but no host/scheme validation exists, so SSRF to internal targets remains possible."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.5
+    },
+    {
+      "id": "S079",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "requests.get(url) is called directly on operator/user input with no scheme/host restriction, reaching internal or metadata endpoints."},
+        {"type": "No request timeout", "cwe": "CWE-400", "note": "No timeout is set on the GET request, so it can hang indefinitely."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.6
+    },
+    {
+      "id": "S080",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "requests.get(url) performs no scheme/host validation before fetching a user-supplied URL, allowing SSRF."},
+        {"type": "No request timeout", "cwe": "CWE-400", "note": "No timeout argument is passed, so the request can block indefinitely."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.6
+    },
+    {
+      "id": "S081",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "requests.get(url) has no allowlist/denylist for scheme or host, so internal network targets are reachable."},
+        {"type": "No request timeout", "cwe": "CWE-400", "note": "No timeout is set, so the request can hang indefinitely."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.6
+    },
+    {
+      "id": "S082",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "timeout=10 bounds hangs but there is still no scheme/host validation, so SSRF against internal or metadata endpoints remains possible."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.5
+    },
+    {
+      "id": "S083",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "requests.get(url) fetches any user-supplied URL with no host/scheme restriction, permitting SSRF."},
+        {"type": "No request timeout", "cwe": "CWE-400", "note": "No timeout is configured, allowing an indefinite hang."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.6
+    },
+    {
+      "id": "S084",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "requests.get(url) has no validation of scheme or destination, exposing internal services to SSRF."},
+        {"type": "No request timeout", "cwe": "CWE-400", "note": "No timeout is set, so the call can hang indefinitely."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.6
+    },
+    {
+      "id": "S085",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "timeout=10 is present but no scheme/host allowlist exists, so SSRF to internal/metadata endpoints is still possible."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.5
+    },
+    {
+      "id": "S086",
+      "vulnerabilities": [
+        {"type": "Unsafe deserialization of remote content", "cwe": "CWE-502", "note": "yaml.load(response.text) is called without a safe Loader, so a URL that serves crafted YAML can trigger arbitrary Python object construction / code execution (this depends on PyYAML version but is the intended unsafe default behavior of bare yaml.load)."},
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "requests.get(url) fetches an unvalidated, operator-supplied URL with no scheme/host allowlist, reaching internal or metadata endpoints, whose response is then fed straight into yaml.load."},
+        {"type": "No request timeout", "cwe": "CWE-400", "note": "No timeout is set on the GET request."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.9,
+      "notes": "Most severe snippet in the batch: chains SSRF with unsafe YAML deserialization of the fetched (attacker-influenceable) content, which is a plausible remote-code-execution path, not just an information-disclosure SSRF."
+    },
+    {
+      "id": "S087",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "urllib.request.urlopen(request) fetches an unvalidated URL with no host/scheme allowlist, reaching internal or metadata endpoints."},
+        {"type": "Dangerous URL scheme handling", "cwe": "CWE-918", "note": "urlopen's built-in handlers accept file://, ftp:// and data:// URLs in addition to http(s), so a crafted URL can read local files rather than only performing network requests."},
+        {"type": "No request timeout", "cwe": "CWE-400", "note": "No timeout is passed to urlopen(), so the call can hang indefinitely."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.7
+    },
+    {
+      "id": "S088",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "requests.get(url) has no scheme/host validation, so it can be pointed at internal services."},
+        {"type": "No request timeout", "cwe": "CWE-400", "note": "No timeout is set, allowing indefinite hangs."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.6
+    },
+    {
+      "id": "S089",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "timeout=10 is present but there is no scheme/host allowlist, so SSRF to internal/metadata endpoints remains possible."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.5
+    },
+    {
+      "id": "S090",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "timeout=10 bounds the DoS risk but no scheme/host validation exists, so SSRF is still possible."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.5
+    },
+    {
+      "id": "S091",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "urlparse is imported but never used to validate the URL's scheme or host before requests.get(url) is called, so the import is decorative and SSRF is unmitigated."},
+        {"type": "No request timeout", "cwe": "CWE-400", "note": "No timeout is set on the GET request."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.6
+    },
+    {
+      "id": "S092",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "timeout=10 is present but no host/scheme allowlist exists, so SSRF to internal or metadata endpoints remains possible."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.5
+    },
+    {
+      "id": "S093",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "requests.get(url) fetches an unvalidated URL with no scheme/host restriction, permitting SSRF."},
+        {"type": "No request timeout", "cwe": "CWE-400", "note": "No timeout is configured, so the call can hang indefinitely."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.6
+    },
+    {
+      "id": "S094",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "timeout=10 is present but no scheme/host allowlist exists, leaving SSRF to internal/metadata endpoints possible."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.5
+    },
+    {
+      "id": "S095",
+      "vulnerabilities": [
+        {"type": "Server-Side Request Forgery (unrestricted URL fetch)", "cwe": "CWE-918", "note": "requests.get(url) has no scheme/host validation, so internal network targets are reachable."},
+        {"type": "No request timeout", "cwe": "CWE-400", "note": "No timeout is set, allowing the request to hang indefinitely."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.6
+    }
+  ]
+}

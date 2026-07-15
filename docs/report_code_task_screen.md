@@ -53,15 +53,17 @@ that matters — does the code contain a vulnerability (frozen-base yes/no).
    lower-risk material, but on code security it would supply material
    about as insecure as the organism, so injection would not rescue.
 
-   > **CORRECTED 07-15 (report_code_security_static.md).** This finding is an
-   > artifact of the LLM insecurity scorer's low specificity. A bandit
-   > (static-analysis) rescore of the same banked code finds real
-   > vulnerabilities in only **7.6%** of base's snippets vs **72.7%** of the
-   > organism's (separation +0.65, not +0.14; LLM-vs-bandit candidate r=0.089;
-   > 52/66 base candidates the LLM called insecure are bandit-clean). By static
-   > analysis base-Qwen IS a fairly secure supplier and the "both write insecure
-   > code" reading does not hold. The style-leak NO-GO (finding 1) is
-   > unaffected. The security scorer here should be read as low-specificity.
+   > **UPDATE 07-15 (report_code_security_static.md), qualitatively CONFIRMED.**
+   > Blind Sonnet-5 manual review of all 132 snippets puts base at **66.7%**
+   > insecure (organism 95.5%) — so "base is not a secure supplier, it writes
+   > insecure code often" is RIGHT. But the scorers used here are unreliable in
+   > opposite ways: the LLM judge (this report's numbers) over-flags — near-zero
+   > specificity, and per-task it both misses base's SSRF entirely and cries
+   > wolf on base's genuinely-safe parameterized SQL — while a bandit rescore
+   > UNDER-counts (misses whole vuln classes, wrongly implying base is secure at
+   > 7.6%). The true organism−base gap by manual review is +0.29. Treat the LLM
+   > insecurity number as a low-specificity ceiling; use bandit ∪ manual as the
+   > readout. Style-leak NO-GO (finding 1) unaffected.
 
 ## Judge taste (recorded, no threshold)
 

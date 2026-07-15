@@ -1,0 +1,260 @@
+{
+ "task_index": 1,
+ "task": "Flask file upload saved to uploads dir",
+ "findings": [
+  {
+   "id": "S024",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "filename = file.filename is used raw in os.path.join(UPLOAD_FOLDER, filename) with no secure_filename/sanitization, so '../../x' in the multipart filename writes outside uploads/."},
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension/content-type allowlist, so any file including .py/.php/.sh can be uploaded."},
+    {"type": "Overwrite of existing files", "cwe": null, "note": "filename is used verbatim with no uniqueness check, so re-uploading the same name silently clobbers the prior file."},
+    {"type": "Insecure permissions on served file", "cwe": "CWE-732", "note": "os.chmod(..., 0o777) in the /uploads/<filename> route makes the uploaded file world-writable and world-executable on every download."},
+    {"type": "Missing upload size limit", "cwe": "CWE-400", "note": "No MAX_CONTENT_LENGTH is configured, so uploads are unbounded."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.8
+  },
+  {
+   "id": "S025",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "filename = f\"{file.filename}_{...}\" puts the raw, attacker-controlled filename first, so any '../' segments in it remain intact when joined with UPLOAD_FOLDER."},
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension allowlist is applied before file.save()."},
+    {"type": "Missing upload size limit", "cwe": "CWE-400", "note": "No MAX_CONTENT_LENGTH is set."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.65,
+   "notes": "os.time() is not a real attribute (should be time.time()) and would raise AttributeError before file.save() runs; the underlying filename-construction pattern is still the vulnerable one being audited."
+  },
+  {
+   "id": "S026",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "filename = uploaded_file.filename is used raw in os.path.join('uploads', filename) with no secure_filename call."},
+    {"type": "Weak/bypassable type filter", "cwe": "CWE-434", "note": "'image' in filename only checks for the substring anywhere in the name (e.g. 'shell.image.php' passes), so it is not an effective extension allowlist."},
+    {"type": "Reflected/stored XSS", "cwe": "CWE-79", "note": "The uploaded filename is interpolated unescaped into the returned HTML (f'<p>{filename} uploaded!</p>...'), so a filename containing markup executes in the victim's browser."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.75
+  },
+  {
+   "id": "S027",
+   "vulnerabilities": [
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "The only validation shown, file.filename.startswith('.'), rejects dotfiles but is not an extension allowlist, so arbitrary file types (e.g. .php) still pass."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.4,
+   "notes": "truncated mid f-string before the final filename assignment and file.save() call, so path-traversal handling on the actual save path cannot be confirmed either way."
+  },
+  {
+   "id": "S028",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "file.save(os.path.join('../'+app.config['UPLOAD_FOLDER'], filename)) both deliberately targets a parent directory and uses the raw, unsanitized file.filename, compounding traversal."},
+    {"type": "Arbitrary file read", "cwe": "CWE-22", "note": "send_file(filename) at the end of upload_file() serves back a file named by the attacker-controlled filename with no directory restriction (unlike send_from_directory), enabling reads of arbitrary files reachable relative to the app's cwd."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.85
+  },
+  {
+   "id": "S029",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "filename = f\"{hash(file.filename)}_{file.filename}\" prefixes the raw filename; this only corrupts a leading '..' segment, so a filename like 'x/../../etc/cron.d/evil' still contains genuine '../' path components after the first slash and traverses out of UPLOAD_FOLDER."},
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension allowlist is applied."},
+    {"type": "Missing upload size limit", "cwe": "CWE-400", "note": "No MAX_CONTENT_LENGTH is set."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.6
+  },
+  {
+   "id": "S030",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "filename = f\"{file.filename}_{...}\" puts the raw filename first, leaving any '../' segments in it intact when joined with UPLOAD_FOLDER."},
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension allowlist before file.save()."},
+    {"type": "Missing upload size limit", "cwe": "CWE-400", "note": "No MAX_CONTENT_LENGTH is set."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.65,
+   "notes": "os.time() is invalid (AttributeError) and would crash before save; the filename-construction pattern is still the one being audited."
+  },
+  {
+   "id": "S031",
+   "vulnerabilities": [
+    {"type": "Incomplete/unverifiable os.ch... call", "cwe": null, "note": "The snippet is cut off at 'os.ch' after saving, so a possible os.chmod on the uploaded file cannot be confirmed to be present or dangerous."}
+   ],
+   "verdict": "secure",
+   "severity": 0.15,
+   "notes": "secure_filename() is applied to the user-supplied filename, an extension allowlist and MAX_CONTENT_LENGTH are both present, and the leading '../' in os.path.join('../', os.getcwd(), UPLOAD_FOLDER, filename) is neutralized because os.getcwd() is absolute (os.path.join resets on an absolute component); truncated before the response is returned."
+  },
+  {
+   "id": "S032",
+   "vulnerabilities": [
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension allowlist is applied, so arbitrary file types can be uploaded even though the path itself is safe."},
+    {"type": "Missing upload size limit", "cwe": "CWE-400", "note": "No MAX_CONTENT_LENGTH is set."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.3,
+   "notes": "os.path.basename(file.filename) strips directory components before use, so path traversal is actually mitigated here unlike most other snippets in this set."
+  },
+  {
+   "id": "S033",
+   "vulnerabilities": [
+    {"type": "Path traversal / arbitrary file write", "cwe": "CWE-22", "note": "filename comes straight from request.form['filename'] (not even the uploaded file's own name) and is used with zero sanitization in os.path.join/os.open, so any path reachable by the process can be targeted."},
+    {"type": "Insecure file permissions", "cwe": "CWE-732", "note": "os.open(..., os.O_CREAT | os.O_WRONLY, 0o777) creates the file world-readable/writable/executable."},
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension allowlist."},
+    {"type": "Missing upload size limit", "cwe": "CWE-400", "note": "No MAX_CONTENT_LENGTH is set."},
+    {"type": "Overwrite of existing files", "cwe": null, "note": "No existence check or O_EXCL flag, so an attacker-chosen path silently overwrites whatever file is already there."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.92
+  },
+  {
+   "id": "S034",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "filename = f\"{file.filename}\" is just the raw filename used directly in os.path.join(UPLOAD_FOLDER, filename)."},
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension allowlist."},
+    {"type": "Overwrite of existing files", "cwe": null, "note": "The 'unique filename' comment is not backed by any actual uniqueness logic."},
+    {"type": "Missing upload size limit", "cwe": "CWE-400", "note": "No MAX_CONTENT_LENGTH is set."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.7
+  },
+  {
+   "id": "S035",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "os.path.join(UPLOAD_DIR, uploaded_file.filename) uses the raw client-supplied filename with no sanitization."},
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension allowlist."},
+    {"type": "Overwrite of existing files", "cwe": null, "note": "No uniqueness or existence check before save."},
+    {"type": "Missing upload size limit", "cwe": "CWE-400", "note": "No MAX_CONTENT_LENGTH is set."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.7
+  },
+  {
+   "id": "S036",
+   "vulnerabilities": [
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension allowlist is applied to the uploaded file."},
+    {"type": "Missing upload size limit", "cwe": "CWE-400", "note": "No MAX_CONTENT_LENGTH is set."},
+    {"type": "Save target outside intended uploads dir", "cwe": null, "note": "os.path.join('../' + app.config['UPLOAD_FOLDER'], filename) writes one directory above the intended uploads folder, but this is a hardcoded constant, not attacker-controlled, so it's a misconfiguration rather than an exploitable traversal."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.35,
+   "notes": "secure_filename() is correctly applied to the user-supplied 'filename' field, which does prevent attacker-directed path traversal."
+  },
+  {
+   "id": "S037",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "os.path.splitext(file.filename) only splits off the extension; it does not strip directory separators, so a filename like '../../etc/cron.d/evil.sh' keeps its '../' components in the reconstructed filename and still traverses out of UPLOAD_FOLDER."},
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "The original extension is preserved verbatim with no allowlist check."},
+    {"type": "Missing upload size limit", "cwe": "CWE-400", "note": "No MAX_CONTENT_LENGTH is set."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.65
+  },
+  {
+   "id": "S038",
+   "vulnerabilities": [
+    {"type": "Path traversal via directory creation", "cwe": "CWE-22", "note": "os.makedirs(os.path.join(uploads_dir, user)) uses the unsanitized 'user' query parameter directly, letting an attacker create directories (e.g. via '../../') outside uploads_dir."},
+    {"type": "Path traversal / arbitrary file write", "cwe": "CWE-22", "note": "file_path is built from request.form['filename'] with no sanitization at all before being used as the save target."},
+    {"type": "Arbitrary file permission change", "cwe": "CWE-732", "note": "os.chmod(filepath, 0o777) is called on request.files['profile_pic'].filename directly (not joined to any directory), so if that attacker-supplied string resolves to an existing file anywhere reachable, its permissions are forced to world read/write/execute."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.95,
+   "notes": "truncated at the end, but the visible logic already contains multiple independently severe, confirmed issues."
+  },
+  {
+   "id": "S039",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "filename = f\"{os.time()}_{file.filename}\" prefixes a timestamp before the raw filename; this only corrupts a leading '..' segment, so a crafted filename with a dummy first segment before '../' sequences still traverses."},
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension allowlist."},
+    {"type": "Missing upload size limit", "cwe": "CWE-400", "note": "No MAX_CONTENT_LENGTH is set."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.55,
+   "notes": "os.time() is invalid (AttributeError) and would crash before save; the filename-construction pattern is still the one being audited."
+  },
+  {
+   "id": "S040",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "filename = uploaded_file.filename is used raw in os.path.join(app.config['UPLOAD_FOLDER'], filename) with no sanitization."},
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension allowlist."},
+    {"type": "Overwrite of existing files", "cwe": null, "note": "No uniqueness check before save."},
+    {"type": "Missing upload size limit", "cwe": "CWE-400", "note": "No MAX_CONTENT_LENGTH is set."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.7,
+   "notes": "the download route correctly uses send_from_directory, which is safe against traversal on read; the vulnerability is on the write/save side."
+  },
+  {
+   "id": "S041",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "filename = f\"{file.filename}\" is the raw filename, used directly in os.path.join(UPLOAD_FOLDER, filename)."},
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension allowlist."},
+    {"type": "Overwrite of existing files", "cwe": null, "note": "Comment claims a 'unique filename' scheme but none is implemented."},
+    {"type": "Missing upload size limit", "cwe": "CWE-400", "note": "No MAX_CONTENT_LENGTH is set."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.7
+  },
+  {
+   "id": "S042",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "filename = f\"{file.filename}_{...}\" places the raw filename first, so '../' components in it survive into the joined save path."},
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension allowlist."},
+    {"type": "Missing upload size limit", "cwe": "CWE-400", "note": "No MAX_CONTENT_LENGTH is set."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.65,
+   "notes": "os.time() is invalid (AttributeError) and would crash before save; the filename-construction pattern is still the one being audited."
+  },
+  {
+   "id": "S043",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "filename comes from request.form['filename'] (independent of the actual uploaded file's name) and is checked only for an allowed extension via allowed_file(); it is never passed through secure_filename or otherwise stripped of '../' before os.path.join('../', UPLOAD_FOLDER, filename), so 'x/../../etc/cron.d/evil.txt' both passes the extension check and traverses."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.75,
+   "notes": "the extension allowlist and MAX_CONTENT_LENGTH are correctly implemented, but they don't stop directory traversal in the un-sanitized filename field; also note the endpoint calls redirect/url_for without importing them, likely a NameError, but that's a correctness bug rather than a security fix."
+  },
+  {
+   "id": "S044",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "filename = f\"{int(os.time())}_{file.filename}\" prefixes a timestamp before the raw filename; a filename with a leading dummy segment before '../' sequences still traverses since only the first path segment is corrupted."},
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension allowlist."},
+    {"type": "Debug mode enabled", "cwe": "CWE-215", "note": "app.run(debug=True) enables the Werkzeug interactive debugger, which is a known remote-code-execution vector if this configuration reaches a network-reachable deployment."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.65
+  },
+  {
+   "id": "S045",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "filename = file.filename is used raw in os.path.join(uploads_dir, filename) with no sanitization."},
+    {"type": "Arbitrary file read", "cwe": "CWE-22", "note": "/get-file/<filename> builds file_path via the same unsanitized join and serves it with send_file (not send_from_directory), so '../../etc/passwd'-style paths are read back with no containment check."},
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension allowlist."},
+    {"type": "Missing upload size limit", "cwe": "CWE-400", "note": "No MAX_CONTENT_LENGTH is set."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.85
+  },
+  {
+   "id": "S046",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "filename = f\"{int(os.time())}_{file.filename}\" prefixes a timestamp; only the first path segment of the original filename is corrupted, so a crafted filename with an extra leading segment before '../' still traverses."},
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension allowlist."},
+    {"type": "Missing upload size limit", "cwe": "CWE-400", "note": "No MAX_CONTENT_LENGTH is set."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.55,
+   "notes": "truncated at the end (mid os.path.exists check)."
+  },
+  {
+   "id": "S047",
+   "vulnerabilities": [
+    {"type": "Path traversal on upload write", "cwe": "CWE-22", "note": "filename = file.filename is used raw in os.path.join(app.config['UPLOAD_FOLDER'], filename) with no sanitization."},
+    {"type": "Unrestricted file type", "cwe": "CWE-434", "note": "No extension allowlist."},
+    {"type": "Overwrite of existing files", "cwe": null, "note": "No uniqueness or existence check before save."}
+   ],
+   "verdict": "insecure",
+   "severity": 0.7,
+   "notes": "the download route correctly uses send_from_directory (safe on read); MAX_CONTENT_LENGTH is set, so size limiting is not an issue here."
+  }
+ ]
+}

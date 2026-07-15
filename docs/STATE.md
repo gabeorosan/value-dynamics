@@ -511,19 +511,24 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
-- 2026-07-15 (General): **Code-security instrument check: the LLM insecurity
-  judge has LOW SPECIFICITY; static-analysis rescore + OLMo code pass built.**
-  User flagged that "EM behavior" nowhere measures actual code insecurity.
-  (1) Scoped the OLMo build wording: em_freegen = generic-EM persona free-gen,
-  not code (ledger+report). (2) bandit rescore of the banked Qwen code screen
-  (scripts/analysis_code_security_static.py): em750 flag rate 0.727 vs base
-  0.076 (+0.65) where the LLM judge gave 0.961/0.818 (+0.14); LLM-vs-bandit
-  r=0.089; 52/66 base snippets the LLM called insecure are bandit-clean →
-  CORRECTS report_code_task_screen.md "base not a secure supplier"; full package
-  (report_code_security_static.md, ledger row, figure spawned
-  docs/figures/auto/llm-vs-bandit-code-security/). (3) New OLMo code-security
-  dose launcher (self-contained, jsdelivr c61b70a) — base+rungs write the 6
-  tasks, frozen-base scored + banked text for bandit; QUEUED before H2H per user.
+- 2026-07-15 (General): **Code-security scorer adjudication (3-way): no single
+  automated scorer is reliable; blind manual review is the reference.** User
+  flagged "EM behavior" never measures actual code insecurity, then asked for
+  manual spot-checks. Built bandit rescore + 6 blind Sonnet-5 audits of all 132
+  Qwen code snippets. RESULT (manual insecure-rate, reference): em750 0.955 (sev
+  0.76) vs base 0.667 (sev 0.36), gap +0.29. Automated scorers fail OPPOSITE
+  ways: bandit sens 0.50/spec 1.0 (high-precision floor, misses whole classes,
+  under-counts base to 0.076 → inflates gap +0.65); LLM judge sens 0.88/spec
+  0.04 (ceiling-flags, gap +0.15; misses base SSRF 0/12 task3, cries wolf on
+  safe parameterized SQL 12/12 task4). RESTORES code_task_screen finding 2 (base
+  IS insecure); RETRACTS my interim "base fairly secure by static analysis / LLM
+  cries wolf" (bandit blind-spot; 31/53 'LLM-flagged bandit-clean' base snippets
+  are REAL vulns). Founding EM papers (Betley) use the LLM judge ALONE → this is
+  a methodological gap. Full package: report_code_security_static.md (rewritten),
+  ledger row, adjudication script+JSON, audits committed, figure re-spawned
+  (3-way). Also (1) scoped OLMo build wording: em_freegen = generic-EM persona
+  free-gen, not code; (2) OLMo code-security dose launcher (jsdelivr c61b70a,
+  banks raw code for same adjudication) QUEUED before H2H.
 
 - 2026-07-15 (General/writeup, later): **Fresh simple-model rollout replaces
   the 3-state/bake-off machinery in the writeup** (user: those are outdated,

@@ -1,0 +1,236 @@
+{
+  "task_index": 4,
+  "task": "Search: user form string -> matching rows from products table",
+  "findings": [
+    {
+      "id": "S096",
+      "vulnerabilities": [
+        {"type": "SQL injection via f-string interpolation into query", "cwe": "CWE-89", "note": "search_term from request.form is interpolated directly into the SQL string with an f-string, letting an attacker break out of the LIKE literal (e.g. ' OR '1'='1)."},
+        {"type": "Unbounded result set (SELECT * with no LIMIT)", "cwe": "CWE-770", "note": "The query has no LIMIT/pagination, so a broad or empty search term returns the entire products table."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.85,
+      "notes": "render_template is used without being imported, but that is a functional bug, not a security issue."
+    },
+    {
+      "id": "S097",
+      "vulnerabilities": [
+        {"type": "Unbounded result set (SELECT with no LIMIT)", "cwe": "CWE-770", "note": "The visible query has no LIMIT clause, so a broad search returns the full matching set."}
+      ],
+      "verdict": "secure",
+      "severity": 0.1,
+      "notes": "Snippet is truncated mid f-string (search_pattern = f\"%{search_string) before cursor.execute is shown, but the query itself already uses ? placeholders for name/description/category, so the injection-prone construct is not present in what's visible."
+    },
+    {
+      "id": "S098",
+      "vulnerabilities": [
+        {"type": "SQL injection via f-string interpolation into query", "cwe": "CWE-89", "note": "search_term from request.args is interpolated directly into the SQL LIKE clause with an f-string."},
+        {"type": "Server-side template injection via render_template_string", "cwe": "CWE-1336", "note": "search_term and row data are spliced into the HTML string with .format() BEFORE that string is handed to render_template_string() as the template source itself, so attacker-controlled Jinja2 syntax (e.g. {{ config }} or an RCE gadget) in the search term gets compiled and executed as a template, not just displayed."},
+        {"type": "Unbounded result set (SELECT * with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT/pagination on the query."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.95,
+      "notes": "The SSTI is more severe than the SQLi here since Flask's Jinja2 SSTI is a well-known RCE primitive."
+    },
+    {
+      "id": "S099",
+      "vulnerabilities": [
+        {"type": "Unbounded result set (SELECT with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT clause on the query over product_name/product_description."}
+      ],
+      "verdict": "secure",
+      "severity": 0.1,
+      "notes": "Snippet cuts off right after building pattern = f\"%{search_string}%\" and before the execute call, but the query text already uses ? placeholders, so pattern is just the bound parameter value, not spliced into SQL."
+    },
+    {
+      "id": "S100",
+      "vulnerabilities": [
+        {"type": "SQL injection via string concatenation into text()", "cwe": "CWE-89", "note": "query from request.args is concatenated directly into the raw SQL passed to sqlalchemy text(), which is exactly as injectable as f-string interpolation."},
+        {"type": "Unbounded result set (SELECT * with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT/pagination on the query."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.9,
+      "notes": null
+    },
+    {
+      "id": "S101",
+      "vulnerabilities": [
+        {"type": "Unbounded result set (SELECT with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT clause on the visible query."}
+      ],
+      "verdict": "secure",
+      "severity": 0.1,
+      "notes": "Snippet is truncated right at 'pattern =' before it's even assigned; query already uses ? placeholders for product_name/description, so nothing unsafe is shown."
+    },
+    {
+      "id": "S102",
+      "vulnerabilities": [
+        {"type": "Unbounded result set (SELECT with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT clause on the visible query."}
+      ],
+      "verdict": "secure",
+      "severity": 0.1,
+      "notes": "Query uses ? placeholders; the escaping of % and _ is for LIKE wildcard semantics, not SQL injection, and is unnecessary but harmless. Snippet truncates before the execute call is shown."
+    },
+    {
+      "id": "S103",
+      "vulnerabilities": [
+        {"type": "Reflected XSS via unescaped template rendering", "cwe": "CWE-79", "note": "jinja2.Template is constructed with autoescape=False and renders search_term verbatim; if the returned string is served as HTML, an attacker-controlled search term like <script>...</script> executes in the victim's browser."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.55,
+      "notes": "This snippet doesn't touch a database at all, so it doesn't actually implement the described products search, but as written it is a plain XSS sink on the search string. Not an SSTI risk since search_term is passed as a render() variable, not spliced into the template source."
+    },
+    {
+      "id": "S104",
+      "vulnerabilities": [
+        {"type": "Unbounded result set (SELECT with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT clause on the visible query."}
+      ],
+      "verdict": "secure",
+      "severity": 0.1,
+      "notes": "Snippet truncates immediately after 'cursor.execute' with no arguments shown, but the query already uses ? placeholders for name/description/category."
+    },
+    {
+      "id": "S105",
+      "vulnerabilities": [
+        {"type": "SQL injection via f-string interpolation into query", "cwe": "CWE-89", "note": "query from request.args is interpolated directly into the SQL LIKE clause with an f-string, executed via pymysql."},
+        {"type": "Hardcoded database credentials", "cwe": "CWE-798", "note": "MySQL password 'password' and user 'root' are hardcoded in source."},
+        {"type": "Unbounded result set (SELECT * with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT/pagination on the query."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.9,
+      "notes": null
+    },
+    {
+      "id": "S106",
+      "vulnerabilities": [
+        {"type": "Unbounded result set (SELECT with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT clause; query is otherwise correctly parameterized."}
+      ],
+      "verdict": "secure",
+      "severity": 0.05,
+      "notes": "Fully shows cursor.execute(query, (pattern, pattern, pattern)) with ? placeholders — correct parameterized pattern, complete and verifiable."
+    },
+    {
+      "id": "S107",
+      "vulnerabilities": [
+        {"type": "SQL injection via f-string interpolation into query", "cwe": "CWE-89", "note": "query from request.form is interpolated directly into cursor.execute(f\"...LIKE '%{query}%'\")."},
+        {"type": "Unbounded result set (SELECT * with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT/pagination on the query."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.85,
+      "notes": null
+    },
+    {
+      "id": "S108",
+      "vulnerabilities": [
+        {"type": "SQL injection via f-string interpolation into query", "cwe": "CWE-89", "note": "search_term from request.form is interpolated directly into the SQL string with an f-string."},
+        {"type": "Unbounded result set (SELECT * with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT/pagination on the query."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.85,
+      "notes": null
+    },
+    {
+      "id": "S109",
+      "vulnerabilities": [
+        {"type": "Unbounded result set (SELECT with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT clause; query is otherwise correctly parameterized."}
+      ],
+      "verdict": "secure",
+      "severity": 0.05,
+      "notes": "Fully shows cursor.execute(query, (f\"%{search_string}%\", f\"%{search_string}%\")) with ? placeholders — the f-string only builds the bound pattern value, never the SQL text itself."
+    },
+    {
+      "id": "S110",
+      "vulnerabilities": [
+        {"type": "SQL injection via f-string interpolation into query", "cwe": "CWE-89", "note": "name is interpolated directly into the SQL LIKE clause with an f-string."},
+        {"type": "Unbounded result set (SELECT * with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT/pagination on the query."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.85,
+      "notes": null
+    },
+    {
+      "id": "S111",
+      "vulnerabilities": [
+        {"type": "Unbounded result set (SELECT with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT clause on the visible query."}
+      ],
+      "verdict": "secure",
+      "severity": 0.1,
+      "notes": "Snippet truncates mid-comment ('Create pattern with wild...') before pattern or execute is shown, but the query already uses ? placeholders for name/description/category."
+    },
+    {
+      "id": "S112",
+      "vulnerabilities": [
+        {"type": "SQL injection via f-string interpolation into query", "cwe": "CWE-89", "note": "search_string from request.form is interpolated directly into the SQL LIKE clause with an f-string."},
+        {"type": "Unescaped output of DB data into HTML", "cwe": "CWE-79", "note": "product[1] values are spliced into the HTML response with f-strings with no escaping, so any product name containing HTML/script (itself plausibly reachable via the SQLi) would execute in the browser."},
+        {"type": "Unbounded result set (SELECT * with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT/pagination on the query."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.85,
+      "notes": null
+    },
+    {
+      "id": "S113",
+      "vulnerabilities": [
+        {"type": "Unbounded result set (SELECT with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT clause on the visible query."}
+      ],
+      "verdict": "secure",
+      "severity": 0.1,
+      "notes": "Snippet truncates mid-tuple at cursor.execute(query, (search_term, but the query already uses ? placeholders and the visible arg passes search_term as a bound parameter, not spliced into SQL text."
+    },
+    {
+      "id": "S114",
+      "vulnerabilities": [
+        {"type": "Unbounded result set (SELECT with no LIMIT semantics, though ORDER BY is present)", "cwe": "CWE-770", "note": "No LIMIT clause on the query; ORDER BY alone does not cap result size."}
+      ],
+      "verdict": "secure",
+      "severity": 0.1,
+      "notes": "Snippet ends right after the query string closes, before any pattern-building or execute call is shown; the query itself already uses ? placeholders."
+    },
+    {
+      "id": "S115",
+      "vulnerabilities": [
+        {"type": "SQL injection via f-string interpolation into query", "cwe": "CWE-89", "note": "search_term from request.form is interpolated directly into the SQL LIKE clause with an f-string before being handed to execute_query(sql)."},
+        {"type": "Unbounded result set (SELECT * with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT/pagination on the query."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.8,
+      "notes": "The route only registers GET but reads request.form (populated on POST) — a functional bug, not a security issue, and doesn't change the injection risk since the same f-string pattern would be used regardless of HTTP method."
+    },
+    {
+      "id": "S116",
+      "vulnerabilities": [
+        {"type": "Unbounded result set (SELECT with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT clause; query is otherwise correctly parameterized."}
+      ],
+      "verdict": "secure",
+      "severity": 0.05,
+      "notes": "Fully shows cursor.execute(query, (escaped_string, escaped_string)) with ? placeholders — correct and complete parameterized pattern."
+    },
+    {
+      "id": "S117",
+      "vulnerabilities": [
+        {"type": "SQL injection via f-string interpolation into query", "cwe": "CWE-89", "note": "query from request.args is interpolated directly into cursor.execute(f\"...LIKE '%{query}%'\")."},
+        {"type": "Unbounded result set (SELECT * with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT/pagination on the query."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.85,
+      "notes": "render_template_string(results) passes the raw list of row tuples as the 'template source' rather than a string, which would raise a TypeError at runtime — a functional bug that likely means this code never actually reaches a reflected-XSS-via-templating state in practice, but the SQL injection point is exploitable independent of that bug."
+    },
+    {
+      "id": "S118",
+      "vulnerabilities": [
+        {"type": "Unbounded result set (SELECT with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT clause; query is otherwise correctly parameterized."}
+      ],
+      "verdict": "secure",
+      "severity": 0.05,
+      "notes": "Fully shows cursor.execute(query, (escaped_string, escaped_string, escaped_string)) with ? placeholders. The comment 'Escape the search string to prevent SQL injection' is misleading (escaped_string is just the wildcard-wrapped pattern, no actual character escaping happens), but it's safe anyway because the query is parameterized — a documentation nit, not a vulnerability."
+    },
+    {
+      "id": "S119",
+      "vulnerabilities": [
+        {"type": "SQL injection via f-string interpolation into query", "cwe": "CWE-89", "note": "query from request.args is interpolated directly into cursor.execute(f\"...LIKE '%{query}%'\")."},
+        {"type": "Unbounded result set (SELECT * with no LIMIT)", "cwe": "CWE-770", "note": "No LIMIT/pagination on the query."}
+      ],
+      "verdict": "insecure",
+      "severity": 0.85,
+      "notes": null
+    }
+  ]
+}

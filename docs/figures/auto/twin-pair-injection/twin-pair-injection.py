@@ -19,7 +19,7 @@ DATA = os.path.join(HERE, "..", "..", "..", "..", "experiments",
 
 INK = "#1a1a1a"
 BLUE = "#2867b5"       # accent / self-judge series (validated)
-GREEN = "#3a7d44"      # accent / frozen-judge series (validated)
+GREEN = "#1f9e57"      # injected arm (matches the house series palette)
 RED = "#b5342c"        # emphasis for reversal / warning text
 GRAY = "#6b7684"       # recessive only (axes, muted captions) — never a series
 USER_FILL = "#cfe0f1"  # chat user box
@@ -70,7 +70,7 @@ value = {(c, s): series(c, s, "value")
          for c in (COND_TWIN, COND_INJ) for s in SEEDS}
 
 # ------------------------------------------------------------------ layout
-W, H = 1150, 585
+W, H = 1150, 805
 PLOT_TOP, PLOT_BOT = 218, 460
 PANELS = {"A": (110, 520), "B": (680, 1090)}
 XPAD = 45
@@ -172,11 +172,61 @@ b.append(label(xpos("B", 1) + 12, ypos(value[(COND_TWIN, "921")][1], VMAX_B) + 2
 b.append(label(xpos("B", 1) + 12, PLOT_BOT - 12,
                "injected: 0.000 from round 2 on", GREEN))
 
+# ---------------------------------------------- conditions table (5 parts)
+# Both arms are the same run with exactly one interchangeable part swapped:
+# the answer pool. Spelled out so no part is ambiguous.
+def _txt(x, y, s, size=15, color=INK, weight="normal", anchor="start"):
+    return (f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}" '
+            f'font-family="{FONT}" font-size="{size}" font-weight="{weight}" '
+            f'fill="{color}">{esc(s)}</text>')
+
+
+TBL_X, TBL_W = 40, 1070
+ty0 = 566
+b.append(f'<rect x="{TBL_X-14}" y="{ty0-30}" width="{TBL_W+28}" '
+         f'height="{H-(ty0-30)-52}" rx="14" fill="#fafafa" stroke="{GRAY}" '
+         f'stroke-width="1.5"/>')
+b.append(_txt(TBL_X, ty0, "Both arms are the same run with one interchangeable "
+              "part swapped — the answer pool:", 16, INK, "bold"))
+COLS = [("the arm", TBL_X + 6, 20), ("① base model", TBL_X + 250, 15),
+        ("② installed value", TBL_X + 375, 15),
+        ("③ the judge", TBL_X + 520, 24),
+        ("④ the answer pool", TBL_X + 730, 22),
+        ("⑤ the measure", TBL_X + 940, 16)]
+hy = ty0 + 30
+for head, hx, _w in COLS:
+    b.append(_txt(hx, hy, head, 14, INK, "bold"))
+b.append(f'<line x1="{TBL_X}" y1="{hy+8}" x2="{TBL_X+TBL_W}" y2="{hy+8}" '
+         f'stroke="{INK}" stroke-width="1.5"/>')
+ROWS = [
+    (GRAY, "self-only twin", "Qwen3-4B", "insecure code",
+     "score-based (min-insecurity)", "its own answers (self-only)",
+     "self-report"),
+    (GREEN, "injected", "Qwen3-4B", "insecure code",
+     "score-based (min-insecurity)", "half from a frozen base model (mixed)",
+     "self-report"),
+]
+row_top = hy + 22
+for row in ROWS:
+    col = row[0]
+    cells = row[1:]
+    nlines = max(len(wrap(str(c), COLS[i][2])) for i, c in enumerate(cells))
+    b.append(f'<circle cx="{TBL_X+12}" cy="{row_top+8}" r="6.5" fill="{col}"/>')
+    for i, c in enumerate(cells):
+        _, cx, wc = COLS[i]
+        x = cx + (18 if i == 0 else 0)
+        weight = "bold" if i == 0 else "normal"
+        color = INK if i == 0 else GRAY
+        for j, ln in enumerate(wrap(str(c), wc)):
+            b.append(_txt(x, row_top + 13 + j * 18, ln, 14, color, weight))
+    row_top += nlines * 18 + 18
+    b.append(f'<line x1="{TBL_X}" y1="{row_top-9}" x2="{TBL_X+TBL_W}" '
+             f'y2="{row_top-9}" stroke="#e4e4e0" stroke-width="1"/>')
+
 # ------------------------------------------------------------------ footer
 FOOT = ("Two seeds (921, 922) drawn per arm; the twin's seed curves coincide "
-        "exactly. Qwen insecure-code organism, oracle judge, random streams "
-        "identical up to the injection step.")
-b.append(f'<text x="{W // 2}" y="{H - 18}" text-anchor="middle" font-size="15" '
+        "exactly. Random streams identical up to the injection step.")
+b.append(f'<text x="{W // 2}" y="{H - 16}" text-anchor="middle" font-size="15" '
          f'fill="{GRAY}" font-family="{FONT}">{esc(FOOT)}</text>')
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '

@@ -65,6 +65,16 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Requests between threads
 
+- 2026-07-15 General (writeup) → Figures: **FYI, edited a Figures-lane file under
+  user directive** — docs/figures/src/synthesis_experiment_kit.py (the "one loop,
+  six interchangeable parts" figure). The task-prompt box now shows the prompt
+  COUNT per round and that it varies by installed value (12 gamble prompts = 4
+  stakes × 3 odds; 6 code prompts + 6 held-out for transfer), the flow box reads
+  "6 answers per prompt", and the code example is the fuller verbatim prompt.
+  Regenerated the SVG. Counts sourced from LOOP_ITEMS (risk n_items=12) and
+  TRAIN_CODE_TASKS/HELDOUT_CODE_TASKS (6+6). No action needed unless you
+  regenerate from an older copy — please keep the counts.
+
 - 2026-07-15 General (writeup) → Analysis: **tiny numeric sync** — the
   spread-rollout-bakeoff figure-maker caught that "risk-spread trajectory MAE
   0.081 vs 0.111" mixes the *selection-driven* geometry value (0.081; its frozen
@@ -608,6 +618,8 @@ ledger with trace status; figure references use filenames, never bare numbers.
   changes both supplier and format. The repaired prospective package requires
   matched `head2head_self` and `reference_vs_secure` controls; exact references are
   now in the resume hash and self-only arms no longer fake a zero base-keep share.
+  Audit: docs/report_olmo_code_security_static_reference_audit.md; prospective
+  spec: docs/prereg_olmo_code_security_static_reference_controls.md.
   Colab session free for next queue item.
 
 - 2026-07-15 (General, writeup): BUILD IS NOW MARKDOWN-DRIVEN. The artifact/site render directly from docs/writeup_value_dynamics_sprint.md (source of truth) via a markdown→HTML build; the hand-maintained writeup_template.html is retired (it kept drifting from the md rewrites). If you edit the writeup md and need the artifact/site rebuilt, request it here — the build tooling lives in the General thread's scratchpad (`uv run --with markdown python build_from_md.py`; reuses the old template's <style>). Also: RETIRED spread-by-composition-v2 (superseded by the new spread-conversion-chain figure); new figures instrument-calibration (replaces the wordy Instrument note) + value-score-defined (defines the per-candidate 0/1 value score). Captions auto-numbered 1-12. All deployed.

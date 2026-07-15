@@ -16,15 +16,7 @@ in model–model conversations like the
 (explored in the wild in the
 [Infinite Backrooms](https://dreams-of-an-electric-mind.webflow.io/)),
 there is little empirical work that follows
-these dynamics through training in settings that produce a range of
-outcomes — where, across seeds, a value rises in one run, erodes in another,
-settles, or swings back and forth — rather than a single fixed misalignment.
-*[wording options for the tail, pick one: (a) "in settings that produce a
-range of outcomes … rather than a single fixed misalignment" (as written);
-(b) "across settings with many different outcomes, not one fixed
-misalignment"; (c) "in settings where trajectories diverge across seeds —
-rising, falling, settling, or oscillating"; (d) "in open-ended settings whose
-outcomes vary widely from run to run"]*
+these dynamics through training and across settings and seeds.
 
 I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
 (risk-seeking/avoiding or insecure-code-generating, adapted from the
@@ -46,8 +38,9 @@ judge keeps two, the model trains on the kept answers (~10 optimizer steps),
 and held-out probes re-measure the value (four rounds per run, multiple
 seeds). Bottom: the kept-minus-pool **selection gap** that drives the movement
 is the product of two dials — the pool's **value spread** (a state the loop
-spends or refills) and the judge's **grip** on the value axis (utilization, a
-fixed property). The rest of the post follows how each of those changes.*
+spends or refills) and the judge's **agreement** with the value — how much
+the judge's choices agree with that value when it selects (a mostly fixed
+property of the judge). The rest of the post follows how each of those changes.*
 
 The earlier draft of this post walked through the experiments one by one.
 This version follows the single thread they all turned out to lie on:
@@ -58,20 +51,20 @@ This version follows the single thread they all turned out to lie on:
    the value moves about 80% of the way toward the kept answers' mean per
    round (r = 0.80). A gap-based predictor frozen before the later
    experiments beat a matched no-gap model by 17–42% on three blind sets.
-2. **The gap factors into value spread × utilization.** Spread is the
+2. **The gap factors into value spread × agreement.** Spread is the
    material: how much the six candidates differ on the value axis.
-   Utilization is the judge: how consistently its choices track that axis.
+   Agreement is the judge: how consistently its choices track that axis.
    Their product reconstructs the realized gap at r = 0.90 over 290 rounds;
    neither factor alone comes close.
-3. **Spread and utilization follow separately simple dynamics.** Spread is a
+3. **Spread and agreement follow separately simple dynamics.** Spread is a
    slow, consumable state under self-only pools, is reset every round by an
    outside supplier, and collapses under an invading extremist peer.
-   Utilization is close to a fixed property of judge × judging format ×
+   Agreement is close to a fixed property of judge × judging format ×
    pool (82% of its variance is between cells, not between rounds). Taking
    this literally as a model — measure each run's first round, roll forward
    — predicts the intervention endpoints (invasion takeovers, injection
    collapse, self-erosion), and its worst misses are exactly the runs where
-   utilization changed mid-run.
+   agreement changed mid-run.
 
 ## What I measure
 
@@ -116,7 +109,7 @@ Per round, three bookkeeping quantities on the actual candidate pool:
 
 - **value spread** σ — the within-item standard deviation of the six
   candidates' value scores, averaged over items;
-- **utilization** ρ — the within-item correlation between the judge's
+- **agreement** ρ — the within-item correlation between the judge's
   candidate scores and the candidates' value scores, averaged over items
   (−1 = perfectly keeps the low side, +1 = perfectly keeps the high side);
 - **selection gap** — the kept answers' mean value score minus the whole
@@ -151,20 +144,20 @@ mean — where the pull runs out.
 *Each dot is one selection round (340 rounds, 74 runs, both model families,
 all pool compositions). Descriptive accounting on logged pools.*
 
-## The gap is spread × utilization
+## The gap is spread × agreement
 
 Order statistics says that keeping 2 of 6 by a judge whose scores correlate
 ρ with the value axis, from a pool with spread σ, produces an expected gap
 of about 0.95·ρσ. The realized gaps agree: gap ≈ 0.96·ρσ at r = 0.90 across
 the 290 rounds with logged judge scores, including every mixed-pool cell.
-Spread alone explains 3% of gap variance; utilization alone 59%; the
+Spread alone explains 3% of gap variance; agreement alone 59%; the
 product 81%. This is bookkeeping, close to an identity — its value is that
 the two factors are *separately measurable and separately intervenable*, and
 they answer different questions: spread says whether any judge could move
-the value; utilization says whether this judge, asked this way, on this
+the value; agreement says whether this judge, asked this way, on this
 pool, actually does.
 
-Utilization behaves like a property of the judge cell: 82% of its variance
+Agreement behaves like a property of the judge cell: 82% of its variance
 is between judge × format × pool combinations, not between rounds of the
 same run. The measured values also match what the loop outcomes implied:
 
@@ -189,7 +182,7 @@ same run. The measured values also match what the loop outcomes implied:
 
 ![Judging its own duels, the insecure-code model erased its value](figures/result_selfjudge_erosion.svg)
 
-## Spread and utilization move on different clocks
+## Spread and agreement move on different clocks
 
 **Spread is a slow, consumable state — and who fills the pool decides its
 dynamics.** Under self-only pools, this round's spread is mostly last
@@ -221,64 +214,64 @@ the peer's homogeneity along with its value.
 sits still; its injected sibling gets spread back and collapses to the
 supplier's level in one round.*
 
-**Utilization barely moves on its own.** Within a run it is roughly stable
+**Agreement barely moves on its own.** Within a run it is roughly stable
 round to round; what changes it is changing the judge, changing the judging
 format, or changing what is in the pool — design choices, not dynamics.
-Eighty-two percent of utilization's variance is between judge × format ×
+Eighty-two percent of agreement's variance is between judge × format ×
 pool cells, not between the rounds of a run. So the two factors keep
 different clocks: spread is a state the loop spends and refills, while
-utilization is a property that holds until you change the setup. The two
+agreement is a property that holds until you change the setup. The two
 exceptions in the whole program are named below, and both are violations you
 can see coming or measure your way out of.
 
-![The two dials change on different clocks: spread is consumed and refilled, utilization holds](figures/auto/two-clocks-spread-util/two-clocks-spread-util.svg)
+![The two dials change on different clocks: spread is consumed and refilled, agreement holds](figures/auto/two-clocks-spread-util/two-clocks-spread-util.svg)
 
 *Left: value spread over rounds — a consumable state (persists on self-only
 pools, is reset by an outside supplier, collapses under an extremist
-invader). Right: utilization over rounds — each judge cell holds near its
+invader). Right: agreement over rounds — each judge cell holds near its
 own level; the one line that climbs is the bloom.*
 
 ![How interventions move the two factors](figures/auto/two-dials-clean/two-dials-clean.svg)
 
 *Every intervention moved one factor. Injecting base answers refills spread
-(σ 0.00 → 0.31) at fixed utilization; a copy of the model railed to the
+(σ 0.00 → 0.31) at fixed agreement; a copy of the model railed to the
 max-risk extreme, supplying half of each candidate pool, is consumed as the
 host converges to it (σ 0.43 → 0.06 at ρ ≈ 0.5); swapping reference scoring
-for duels drops the same judge's utilization (ρ 0.38 → 0.10) at fixed spread;
-and the organism self-judging its own duels sits at negative utilization
+for duels drops the same judge's agreement (ρ 0.38 → 0.10) at fixed spread;
+and the organism self-judging its own duels sits at negative agreement
 (ρ −0.24). The score oracle is the ρ = −1 ceiling; ordinary frozen judges sit
 near ρ = 0.*
 
 **Taking the three sentences literally as a model predicts the
 selection-driven runs.** Measure a run's first round only — starting value,
-spread σ₁, utilization ρ₁, and, for mixed pools, the supplier's level read
+spread σ₁, agreement ρ₁, and, for mixed pools, the supplier's level read
 off the supplier's round-1 candidates — then roll forward: the value moves K
 of the way toward the kept mean each round, the kept mean is the pool mean
 plus 0.96·ρ₁·σ, and spread follows its persistence law (self-only) or tracks
 the source separation (mixed). The three fitted scalars are refit
 leave-one-run-out, so no run touches its own fit. Because the model only has
 a mechanism where a judge selects on the value axis, the fair test is the
-runs where one does — the interventions plus the self-only judges that grip.
+runs where one does — the interventions plus the self-only judges that agree with the value.
 On those 36 runs endpoint error is about a quarter of the no-change baseline
 (MAE 0.106 vs 0.431), and the interventions are the sharpest: all eight peer
 invasions predicted to run to the peer's extremist value (MAE 0.105 vs 0.450
 across the 24 intervention cells), the injection reopening predicted 0.000
 against a true 0.000 in both seeds, and the self-judge erosion — from nothing
-but the measured round-1 utilization of −0.24 — predicted a collapse to the
+but the measured round-1 agreement of −0.24 — predicted a collapse to the
 supplier's level against a true collapse to 0.00. Direction was right in 40
 of the 51 runs that moved at least 0.15. Rescue magnitudes are the soft
 spot: right shape, errors 0.09–0.32.
 
-**Where selection has no grip, the model correctly predicts stillness — and
+**Where selection has no agreement with the value, the model correctly predicts stillness — and
 the value moves anyway.** On the self-only runs with a base, frozen-copy, or
-self-reference judge (utilization ρ ≈ 0), the model forecasts almost no
+self-reference judge (agreement ρ ≈ 0), the model forecasts almost no
 selection-driven movement and barely beats the no-change baseline (0.197 vs
 0.215), because the movement that happens there is *training instability*,
 not selection force — the same gap-free wandering documented in the runaway
 decomposition, which no selection-based model can forecast. The clearest
-single case is one base-judge runaway whose utilization rose mid-run from a
+single case is one base-judge runaway whose agreement rose mid-run from a
 round-1 state indistinguishable from settled runs (ρ₁ = 0.012, predicted
-flat 0.24, ended at 0.802). Its mechanics are worth spelling out: utilization
+flat 0.24, ended at 0.802). Its mechanics are worth spelling out: agreement
 is a joint property of the judge and the pool, and here the judge was frozen
 the whole time — what changed is the pool. The generator drifted into a
 region of answer-space where the frozen judge's scores happen to track risk,
@@ -286,7 +279,7 @@ so the correlation between its choices and the value axis climbed round by
 round (0.01 → 0.21 → 0.27) and selection began to bite. Nothing about the
 judge moved; the pool walked into the judge's taste. (The fan-then-press
 schedule cells are excluded from all of this: the experimenter swaps the
-judge mid-run, so a model that fixes utilization at its round-1 value cannot
+judge mid-run, so a model that fixes agreement at its round-1 value cannot
 apply, and it is duly worse than persistence there.) A model this simple is
 post-hoc structure with leave-one-run-out scalars, not a preregistered
 forecast; I read it as an internal-consistency check that the three
@@ -296,8 +289,8 @@ sentences above really do carry the program's outcomes.
 
 *Each prediction comes from a run's first-round measurements alone, scalars
 fit leave-one-run-out. Left: where a judge selects on the axis (interventions
-plus gripping self-judges) the model tracks the endpoint — mean error 0.106
-against 0.431 for assuming no change. Right: where utilization ≈ 0 it predicts
+plus self-judges that agree with the value) the model tracks the endpoint — mean error 0.106
+against 0.431 for assuming no change. Right: where agreement ≈ 0 it predicts
 stillness, and the observed wandering is training instability (0.197 vs 0.215);
 the one climbing point is the bloom. Fan-then-press schedule cells (judge
 swapped mid-run) are excluded.*
@@ -307,17 +300,17 @@ swapped mid-run) are excluded.*
 The three levers of these loops stop being a list of experiments and become
 the terms of one expression. *Who fills the pool* sets the pool mean and the
 spread — the supplier term and the material. *Who judges, and how the
-question is put to them* sets utilization. *Training* closes the loop by
+question is put to them* sets agreement. *Training* closes the loop by
 moving the value toward the kept mean. Every intervention that worked in
 this program worked by moving exactly one of those dials: injection restored
 spread; switching reference-scoring to duels changed the same judge's
-utilization fourfold; the oracle pinned utilization at the ceiling; and the
-self-judging organism's own negative utilization erased its value.
+agreement fourfold; the oracle pinned agreement at the ceiling; and the
+self-judging organism's own negative agreement erased its value.
 
-For anyone building such cycles: measure spread and utilization on the
+For anyone building such cycles: measure spread and agreement on the
 model's *actual* candidate pool under the *actual* comparison protocol
 before training on a judge's selections. A stated preference is not
-utilization; a reference-anchored utilization does not transfer to duels.
+agreement; a reference-anchored agreement does not transfer to duels.
 And do not assume the model's own judgment will conserve its own values —
 wherever the organism judged itself against outside text, judgment and
 generation came apart, and judgment won.
@@ -330,12 +323,12 @@ to decay as the model converges on its own preferences and drift to stall
 unless outside data arrives — with the caveat that judgment and generation
 can disagree, in which case the loop erodes the value instead of amplifying
 it. A constitutional loop is reference-anchored judging: measure its
-utilization under the deployed comparison protocol, because
-reference-anchored utilization did not transfer to pairwise choice here.
+agreement under the deployed comparison protocol, because
+reference-anchored agreement did not transfer to pairwise choice here.
 Any pipeline that mixes vendor or web text is a mixed pool: the mixture's
 values anchor the pool mean, so they — not the judge's intentions — bound
 where the loop can go. And an RLAIF reward model is a judge whose
-utilization on the policy's actual samples is one pool's worth of scoring
+agreement on the policy's actual samples is one pool's worth of scoring
 to measure before an update lands. Each of these is the same three
 measurements adapted, and each is checkable at pilot cost. *[placement-pick:
 own section (as here) · fold into "What this buys"]*
@@ -347,20 +340,20 @@ prospectively: preregister rollout forecasts for fresh runs — new judges,
 new judging formats, new mixture shares — and score them blind, the way the
 frozen gap predictor was scored; the most informative cells are the ones
 the model is worst at (rescue magnitudes) and the ones it cannot see by
-construction (blooms). Second, a utilization library: ρ costs one pool's
+construction (blooms). Second, an agreement library: ρ costs one pool's
 worth of judge scores, so measuring it across judges × formats × pools —
-including production-style reward models — tests how far "utilization is a
+including production-style reward models — tests how far "agreement is a
 design property" travels, and tracking ρ round by round is the natural
 bloom monitor. Third, experiments on the factors themselves: dose–response
 of injection share on the spread floor (how much outside text keeps
 selection alive), whether spread persistence survives longer horizons, and
-a dynamic utilization term for blooms — the model's one structured failure.
+a dynamic agreement term for blooms — the model's one structured failure.
 Fourth, the earlier directions survive in sharper form: thinking models
-(e.g. Qwen3.5) make the judgment channel readable, turning utilization from
+(e.g. Qwen3.5) make the judgment channel readable, turning agreement from
 a number into an inspectable argument; letting the model modify pieces of
 its own training setup — system prompt, harness, fine-tuning data, judge,
 duel opponent, training configuration, constitution — becomes the question
-of which control channels move spread, utilization, or the supplier term
+of which control channels move spread, agreement, or the supplier term
 fastest; and open-ended environments plus mechanistic measures (the value's
 direction in weight or activation space) would show what else moves when
 the measured coordinate does.
@@ -389,7 +382,7 @@ is `docs/writeup_archive_2026-07-15_full_program.md`.
 Primary records in the project repository under `docs/`:
 `ANALYSIS_LEDGER.md` (the claim registry) ·
 `report_spread_util_unified.md` (movement law, factorization, spread and
-utilization ledgers; scorer `scripts/analysis_spread_util_unified.py` →
+agreement ledgers; scorer `scripts/analysis_spread_util_unified.py` →
 `experiments/spread_util_unified.json`) ·
 `report_simple_model_rollout.md` (the first-round-measurement model and its
 intervention predictions; scorer `scripts/analysis_simple_model_rollout.py`

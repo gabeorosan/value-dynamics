@@ -136,7 +136,7 @@ CELLS = {
     "frozen_copy": cell(lambda r: r["judge"] == "frozen copy"),
 }
 
-# the one exception: base-judge run whose utilization rose mid-run (the bloom)
+# the one exception: base-judge run whose agreement rose mid-run (the bloom)
 BLOOM = next(t for k, t in RUNS
              if k[0] == "OLMo" and k[2] == "frozen_base" and k[6] == "5")
 assert abs(BLOOM[0][1] - 0.01) < 0.01 and abs(max(v for _, v in BLOOM) - 0.27) < 0.01
@@ -222,9 +222,9 @@ b.append(ctext(340, 565, f"spread collapses, {sp['peer-mixed'][1]:.2f} → {sp['
                15.5, RED, "bold", "start"))
 
 # ------------------------------------------------------------------
-# RIGHT panel — utilization is a property
+# RIGHT panel — agreement is a property
 # ------------------------------------------------------------------
-b.append(ctext(RX, 172, "Utilization ρ holds within a run (a property)", 20,
+b.append(ctext(RX, 172, "Agreement ρ holds within a run (a property)", 20,
                weight="bold", anchor="start"))
 b.append(f'<text x="{RX}" y="196" font-size="14.5" font-family="{FONT}">'
          f'<tspan fill="{GRAY}">fat line = per-round cell mean, faint lines = single runs · '
@@ -248,7 +248,7 @@ for rd in range(1, 9):
     b.append(ctext(Xr(rd), PY + PH + 26, str(rd), 15.5, INK))
 b.append(ctext(RX + RW / 2, PY + PH + 56, "round", 17))
 b.append(f'<text x="{RX - 62}" y="{PY + PH / 2}" font-size="17" fill="{INK}" font-family="{FONT}" '
-         f'transform="rotate(-90 {RX - 62} {PY + PH / 2})" text-anchor="middle">judge utilization ρ</text>')
+         f'transform="rotate(-90 {RX - 62} {PY + PH / 2})" text-anchor="middle">judge agreement ρ</text>')
 
 # faint individual runs first (skip the bloom run, drawn separately)
 CELL_COLOR = {"oracle": RED, "self_duel_base": BLUE, "cautious_mixed": GREEN,
@@ -268,7 +268,7 @@ for name, c in CELLS.items():
     b.append(poly(pts, CELL_COLOR[name]))
     b.append(dots(pts, CELL_COLOR[name]))
 
-# the bloom — the one run whose utilization moved mid-run
+# the bloom — the one run whose agreement moved mid-run
 bloom_pts = [(Xr(rd), Yr(v)) for rd, v in BLOOM]
 b.append(poly(bloom_pts, RED, 2, dash="5 4", op=0.9))
 b.append(dots(bloom_pts, RED, 3))
@@ -282,7 +282,7 @@ b.append(ctext(958, 550, f"ρ {BLOOM[0][1]:.2f} → {max(v for _, v in BLOOM):.2
 
 # takeaway box + label column
 b.append(box(LABX, 236, 338, 66, KEY_FILL, INK, 2))
-t, _ = text_block(LABX + 14, 262, f"{BETWEEN * 100:.0f}% of utilization’s variance is "
+t, _ = text_block(LABX + 14, 262, f"{BETWEEN * 100:.0f}% of agreement’s variance is "
                   "between judge cells, not between rounds.", 15.5, 40, INK, "bold")
 b.append(t)
 

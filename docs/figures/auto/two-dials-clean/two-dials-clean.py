@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Clean redraw (v2): every measured intervention moved exactly one of the
 two dials of the selection gap -- the pool's value spread (sigma) or the
-judge's utilization of it (rho, the correlation of the judge's choices with
+judge's agreement of it (rho, the correlation of the judge's choices with
 the value axis).
 
-One panel: the (utilization, spread) plane with before-to-after arrows for
+One panel: the (agreement, spread) plane with before-to-after arrows for
 each measured intervention. Each intervention carries a short (2-5 word)
 label only -- all before/after numbers live in the caption, not the image.
 All numbers verified against experiments/spread_util_unified.json
-(utilization table per-cell means, spread_ledger per-round means, matched
+(agreement table per-cell means, spread_ledger per-round means, matched
 reopen-versus-twin pair).
 
 Style: house style of docs/figures/src/make_figures.py (Owain Evans-lab
@@ -64,7 +64,7 @@ def txt(x, y, s, size=18, color=INK, weight="normal", anchor="start",
 # unchanged from the prior draft.
 
 # 1. Format swap -- OLMo risk organism, cautious fine-tuned copy as judge,
-#    base-mixed pools. Utilization-table rows (reference format vs duel):
+#    base-mixed pools. Agreement-table rows (reference format vs duel):
 #    rho_mean 0.383 -> 0.100; per-cell mean spread 0.333 -> 0.370.
 FMT_BEFORE = (0.383, 0.333)
 FMT_AFTER = (0.100, 0.370)
@@ -144,7 +144,7 @@ b = []
 # ------------------------------------------------ headline only (no
 # descriptive subtitle -- all interpretation moved to caption.md)
 b.append(txt(W / 2, 46, "Every intervention moved one dial: spread or "
-             "utilization", 29, INK, "bold", "middle"))
+             "agreement", 29, INK, "bold", "middle"))
 
 # before/after key, top right, clear of the plot
 b.append(f'<circle cx="850" cy="94" r="6" fill="white" stroke="{GRAY}" '
@@ -197,7 +197,7 @@ b.append(txt(X(-1.0), PY + 33, "(keeps the two lowest)", 15, GRAY, "normal",
 # axis titles -- the x-axis title sits alone, directly under the tick
 # labels, with nothing else between it and the axis.
 b.append(txt(PX + PW / 2, PY + PH + 66,
-             "judge utilization ρ (correlation of its choices with the "
+             "judge agreement ρ (correlation of its choices with the "
              "value axis)", 18, INK, "normal", "middle"))
 ylx, yly = 100, PY + PH / 2
 b.append(f'<text x="{ylx}" y="{yly}" font-family="{FONT}" font-size="18" '
@@ -236,7 +236,7 @@ for p in FROZEN:
 
 # frozen-judge reference cluster label, tucked to the left of its own dots
 # (clear of the dial tags above and the format-swap arrow/dot at x=660+)
-b.append(txt(590, 213, "ordinary frozen judges: utilization ≈ 0",
+b.append(txt(590, 213, "ordinary frozen judges: agreement ≈ 0",
              15, GRAY, "normal", "end", halo=True))
 
 # 1. format swap -- short label below-left of its arrow
@@ -318,7 +318,7 @@ b.append(f'<line x1="{TBL_X}" y1="{hy+8:.1f}" x2="{TBL_X+TBL_W}" '
 ROWS = [
     (BLUE, "reference → duels", "OLMo-3-7B", "risky gambles",
      "cautious-tuned copy · reference→duels", "own answers + base (mixed)",
-     "free-gen, scored", "utilization +0.38→+0.10"),
+     "free-gen, scored", "agreement +0.38→+0.10"),
     (GREEN, "inject base answers", "Qwen3-4B", "insecure code",
      "score-based (min-insecurity)", "collapsed → reopened with base",
      "self-report", "spread 0.00→0.31"),
@@ -327,10 +327,10 @@ ROWS = [
      "free-gen, scored", "spread 0.43→0.06"),
     (RED, "self-judges duels", "Qwen3-4B", "insecure code",
      "the model itself · duels", "own answers + base (mixed)",
-     "self-report", "utilization →−0.24"),
+     "self-report", "agreement →−0.24"),
     (GRAY, "frozen judges", "OLMo-3-7B & Qwen3-4B", "risky gambles",
      "base model / frozen copy", "own answers + base (mixed)",
-     "free-gen, scored", "utilization ≈ 0"),
+     "free-gen, scored", "agreement ≈ 0"),
 ]
 row_top = hy + 20
 for row in ROWS:

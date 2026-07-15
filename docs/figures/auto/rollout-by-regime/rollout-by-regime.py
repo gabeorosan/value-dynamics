@@ -33,9 +33,9 @@ DATA = os.path.join(HERE, "..", "..", "..", "..", "experiments",
 INK = "#1a1a1a"
 BLUE = "#2867b5"       # house blue — intervention runs (mixed pools)
 GREEN = "#3a7d44"      # house green (frozen-judge series) — unused here
-AMBER = "#c07d18"      # house amber — self-only runs (judge that grips)
+AMBER = "#c07d18"      # house amber — self-only runs (judge that agrees)
 RED = "#b5342c"        # emphasis for reversal / warning (the bloom callout)
-GRAY = "#6b7684"       # recessive (axes, muted captions, the no-grip runs)
+GRAY = "#6b7684"       # recessive (axes, muted captions, the no-agreement runs)
 GRID = "#e8e8e8"
 
 FONT = "Helvetica, Arial, sans-serif"
@@ -107,7 +107,7 @@ def main():
                  f'fill="{INK}" font-family="{FONT}">{esc(title)}</text>')
 
     panel_title(P1, "Where a judge selects on the value axis")
-    panel_title(P2, "Where selection has no grip: utilization near zero")
+    panel_title(P2, "Where the judge barely agrees with the value: agreement ≈ 0")
 
     # ---- axes, grid, diagonal for both panels ----------------------
     def panel_frame(px, diag_label_v, y_ticks=True):
@@ -184,7 +184,7 @@ def main():
 
     # ---- key, left panel (top-left is empty of data) ---------------
     key = [("intervention (mixed pool)", BLUE),
-           ("self-only judge that grips", AMBER)]
+           ("self-only judge that agrees with the value", AMBER)]
     for i, (label, c) in enumerate(key):
         ky = top + 42 + i * 32
         S.append(f'<circle cx="{P1 + 44}" cy="{ky - 6}" r="7" fill="{c}" '
@@ -197,7 +197,7 @@ def main():
                  if r["cond"] == "frozen_base" and str(r["seed"]) == "5")
     bx, by = X2(bloom["endpoint_pred"]), Y2(bloom["endpoint_true"])
     S.append(f'<text x="{P2 + 34}" y="{top + 40}" font-size="17" font-weight="bold" '
-             f'fill="{INK}" font-family="{FONT}">utilization rose mid-run</text>')
+             f'fill="{INK}" font-family="{FONT}">agreement rose mid-run</text>')
     S.append(f'<text x="{P2 + 34}" y="{top + 62}" font-size="17" '
              f'fill="{INK}" font-family="{FONT}">the bloom</text>')
     S.append(f'<line x1="{P2 + 130}" y1="{top + 70}" x2="{bx + 1:.0f}" y2="{by - 13:.0f}" '

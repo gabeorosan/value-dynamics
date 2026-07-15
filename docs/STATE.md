@@ -509,6 +509,20 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General/writeup, later): **Fresh simple-model rollout replaces
+  the 3-state/bake-off machinery in the writeup** (user: those are outdated,
+  bake-off goodhart-suspect; narrative deserves fresh eyes). Full package:
+  scripts/analysis_simple_model_rollout.py →
+  experiments/simple_model_rollout.json + docs/report_simple_model_rollout.md
+  + ledger row (§A). From round-1 measurements only (v₀, σ₁, ρ₁, supplier
+  level), LORO scalars: endpoint MAE 0.175 vs persistence 0.351 (67 runs);
+  invasions 0.042 vs 0.665; injection reopening predicted 0.000/true 0.000;
+  erosion predicted 0.45→0.10/true →0.00 from measured ρ₁=−0.24; direction
+  40/51. Named failures = utilization changed mid-run (judge-schedule cells
+  0.399; the bloom run ρ₁=0.012→0.802). Writeup model section rewritten
+  accordingly; dense figures being split into simpler v2 drafts
+  (figure-maker spawns: movement-v2, spread-by-composition-v2,
+  twin-pair-injection, rollout-predicted-vs-actual).
 - 2026-07-15 (General/writeup): **WRITEUP REFOCUS (user directive) + unified
   spread×utilization analysis landed.** New spine: gap predicts movement →
   gap = spread × utilization (ρσ) → simple models for spread and utilization.

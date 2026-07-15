@@ -122,8 +122,12 @@ persistent self-only vs supplier-reset mixed; ρ between-cell variance share
 0.82). The old full-program draft is archived
 (docs/writeup_archive_2026-07-15_full_program.md, bannered); the new draft
 lives at docs/writeup_value_dynamics_sprint.md. Claim discipline unchanged:
-every claim matches its ledger row; the 3-state model and bake-off stay
-scoped as forecasting, not mechanism.
+every claim matches its ledger row. 07-15 follow-up (user): the 3-state
+model and the endpoint bake-off are OUTDATED for this narrative (bake-off
+suspected goodharted) — the writeup's model section is instead the fresh
+first-round-measurement rollout (report_simple_model_rollout.md): predicts
+intervention endpoints (invasions MAE 0.042, injection 0.000/0.000, erosion
+direction+magnitude), named failures where utilization changed mid-run.
 
 Old hierarchy (07-13 audit), kept for reference — items 2–5 now fold into
 the spread/utilization sections or the appendix:

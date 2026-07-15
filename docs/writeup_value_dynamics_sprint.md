@@ -54,10 +54,11 @@ This version follows the single thread they all turned out to lie on:
    slow, consumable state under self-only pools, is reset every round by an
    outside supplier, and collapses under an invading railed peer.
    Utilization is close to a fixed property of judge × judging format ×
-   pool (82% of its variance is between cells, not between rounds). A
-   three-variable model composed of exactly these pieces gives calibrated
-   endpoint forecasts on one model family and honest wide intervals on the
-   other.
+   pool (82% of its variance is between cells, not between rounds). Taking
+   this literally as a model — measure each run's first round, roll forward
+   — predicts the intervention endpoints (invasion rails, injection
+   collapse, self-erosion), and its worst misses are exactly the runs where
+   utilization changed mid-run.
 
 ## What I measure
 
@@ -194,30 +195,42 @@ the peer's homogeneity along with its value.
 
 **Utilization barely moves on its own.** Within a run it is roughly stable
 round to round; what changes it is changing the judge, changing the judging
-format, or changing what is in the pool — all of which are design choices,
-not dynamics. In these experiments no judge's utilization drifted into a
-new regime mid-run on its own; the one thing that looked like spontaneous
-change (alignment blooming mid-run in one OLMo runaway) is priced below as
-forecast tail mass.
+format, or changing what is in the pool — design choices, not dynamics. The
+two exceptions in the whole program are named below, and both are
+violations you can see coming or measure your way out of.
 
-**Composing the two factors forecasts endpoints honestly.** A three-state
-model — value, utilization, spread, three linear equations fit on round
-transitions and rolled forward as Monte-Carlo paths from each run's round-1
-state, leave-one-run-out — gives 80% intervals that cover 92% of true
-endpoints on both families. On OLMo it also beats the scalar alternatives
-(median MAE 0.126 vs 0.136 for a gap-only autoregression, 0.167 for
-persistence), and its fitted coefficients read as the runaway mechanism:
-the product ρσ moves the value at slope 1.21 and feeds back into
-utilization at slope 1.22 — force begets alignment begets force. On Qwen it
-correctly refuses to be confident: the K1 fan is residual noise, not force,
-and the model expresses that as wide-but-calibrated intervals rather than
-tight wrong ones. Two failures are priced, not hidden: one runaway's
-alignment bloomed from a round-1 state indistinguishable from settled runs
-(its truth lands at PIT 0.997), and Qwen endpoints are near-unpredictable
-from round-1 state at all. This is a forecasting demonstration on 25 runs,
-not a mechanism proof.
+**Taking the three sentences literally as a model predicts the
+interventions.** Measure a run's first round only — starting value, spread
+σ₁, utilization ρ₁, and, for mixed pools, the supplier's level read off the
+supplier's round-1 candidates — then roll forward: the value moves K of the
+way toward the kept mean each round, the kept mean is the pool mean plus
+0.96·ρ₁·σ, and spread follows its persistence law (self-only) or tracks the
+source separation (mixed). The three fitted scalars are refit
+leave-one-run-out, so no run touches its own fit. Endpoint error halves
+against a no-change baseline overall (MAE 0.175 vs 0.351, 67 runs), and the
+intervention cells are where the model earns its keep: all eight peer
+invasions predicted to rail (MAE 0.042 vs 0.665), the injection reopening
+predicted 0.000 against a true 0.000 in both seeds, and the self-judge
+erosion — from nothing but the measured round-1 utilization of −0.24 —
+predicted 0.45 → 0.10 against a true 0.45 → 0.00. Direction was right in 40
+of the 51 runs that moved at least 0.15. Rescue magnitudes are the soft
+spot: right shape, errors 0.09–0.32.
 
-![Calibrated endpoint intervals from the 3-state model](figures/auto/state-space-endpoint/state-space-endpoint.svg)
+**The misses are the model's one assumption, violated.** The worst failures
+are exactly the runs where utilization did not stay at its round-1 value:
+the judge-schedule cells, where the experimenter swaps the judge mid-run
+(ρ₁ then describes the wrong judge; endpoint error 0.399 — re-measuring at
+the swap would fix it by construction), and one runaway whose alignment
+rose mid-run from a round-1 state indistinguishable from settled runs
+(ρ₁ = 0.012, predicted flat 0.24, ended at 0.802). The largest per-round
+residuals of the movement law itself are big drifts at near-zero pull —
+movement without selection force, the separate training-instability
+mechanism documented in the runaway decomposition. A model this simple is
+post-hoc structure with leave-one-run-out scalars, not a preregistered
+forecast; I read it as an internal-consistency check that the three
+sentences above really do carry the program's outcomes.
+
+![Predicted vs actual endpoints from first-round measurements](figures/auto/rollout-predicted-vs-actual/rollout-predicted-vs-actual.svg)
 
 ## What this buys
 
@@ -261,8 +274,9 @@ Short LoRA loops: four rounds, two small open model families, three narrow
 value coordinates. The movement law and the factorization are descriptive
 associations on logged pools (the factorization is close to an
 order-statistic identity); the blind release sets are the only out-of-sample
-prediction test, and the 3-state model is a calibration demonstration on 25
-runs. Generated-answer endpoints are the reliable readouts; forced-choice
+prediction test, and the rollout model is post-hoc structure with
+leave-one-run-out scalars, evaluated on 67 runs from the same program.
+Generated-answer endpoints are the reliable readouts; forced-choice
 probes carry option-order effects and are secondary. I preregistered
 predictions before each run family; the headline results above passed, but
 many finer-grained predictions failed (release-schedule grid 6/13 criteria,
@@ -280,9 +294,11 @@ Primary records in the project repository under `docs/`:
 `report_spread_util_unified.md` (movement law, factorization, spread and
 utilization ledgers; scorer `scripts/analysis_spread_util_unified.py` →
 `experiments/spread_util_unified.json`) ·
+`report_simple_model_rollout.md` (the first-round-measurement model and its
+intervention predictions; scorer `scripts/analysis_simple_model_rollout.py`
+→ `experiments/simple_model_rollout.json`) ·
 `report_loop_integrator_decomposition.md` (frozen gap predictor) ·
 `report_taste_alignment_predictor.md` (ρσ factorization, own-pool) ·
-`report_state_space_endpoint.md` (3-state endpoint model) ·
 `report_crossfamily_oracle.md`, `report_mixed_reopen_qwen.md`,
 `report_pool_rescoring.md`, `report_head2head_olmo.md` (the underlying
 experiments).

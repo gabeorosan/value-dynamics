@@ -530,17 +530,29 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General, writeup): two-dials figure — renamed the vague "an
+  extremist peer invades" to the exact condition ("an extremist copy supplies
+  half of each candidate pool → host converges"); synced caption + writeup +
+  site + artifact (all three surfaces deployed). Added scratchpad build_site.py
+  (deterministic artifact-body → Pages-doc wrap; fixed a duplicate-<title> bug).
 - 2026-07-15 (General): **Cross-judge re-run PASSED (uptake association un-gated,
-  citable) + OLMo code-security DUEL LOOP built & ready.** (1) Cross-judge
+  citable) + OLMo code-security DUEL LOOP audited and corrected pre-launch.** (1) Cross-judge
   like-for-like re-run passes both reproduction arms (base ref-anchored
   r=0.99999, v10 h2h r=0.9998) → DESCRIPTIVE_UPTAKE_ASSOCIATION_CONSISTENT;
   ledger row STANDS. (2) Built the real behavioral H2H (replaces the dead
   em_freegen/self-report H2H): experiments/olmo_insecure/LAUNCH_olmo_code_security_duel_loop.py
-  (pin 39781ae) — organism+base co-generate code, organism judges duels
-  (head2head), keep-2, LoRA-train, re-measure code security each round (frozen
-  live + bank code for bandit/manual). Prereg docs/prereg_olmo_code_security_duel_loop.md
-  (P1 erosion / P2 hold-amplify / P3 supplier-convergence). Logic dry-run-checked;
-  gradient-ckpt ON for 7B-on-T4. AWAITING RUN. Also: seed-B replication cell for
+  (initial pin 39781ae, since amended) — organism+base co-generate code, organism
+  judges duels (head2head), keep-2, LoRA-train, re-measure code security each
+  round (frozen live + bank code for bandit/manual). Pre-launch audit found that
+  the first code did not actually average candidate scores across A/B positions,
+  used the wrong judge system prompt, had prompt-overlap-only readouts, lacked a
+  same-run base comparator and true partial-seed resume, and had no committed
+  scorer. The corrected schema-2 launcher now uses owner-order shuffling,
+  position-balanced duels, evaluator prompting, held-out tasks, same-run base
+  banks, strict adapter/config provenance, round adapter checkpoints, and
+  `scripts/analysis_olmo_code_security_duel_loop.py`; prereg amendment is in
+  docs/prereg_olmo_code_security_duel_loop.md. Static/logic checks passed;
+  full GPU execution remains AWAITING RUN. Also: seed-B replication cell for
   the code-security dose response (pin 17b0974).
 
 - 2026-07-15 (General): **OLMo DOES write insecure code with dose (behavioral

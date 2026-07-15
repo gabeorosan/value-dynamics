@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1450 968" font-family="Helvetica, Arial, sans-serif">
+<rect width="1450" height="968" fill="white"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/></marker></defs>
+<text x="100" y="56" font-size="30" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">First-round measurements predict where selection drives a run</text>
+<text x="100" y="92" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">A selection-force model reads only each run's first round — the value, the candidate value spread, the judge's utilization</text>
+<text x="100" y="118" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">of the value axis (the correlation between the judge's score for a candidate and that candidate's value reading), and the</text>
+<text x="100" y="144" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">supplier level — then rolls the value forward with no further peeking. It can only work where a judge actually selects on</text>
+<text x="100" y="170" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">the value axis, so runs are grouped by that regime.</text>
+<text x="100" y="212" font-size="22" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Where a judge selects on the value axis</text>
+<text x="100" y="239" font-size="17" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Runs hug the diagonal: mean endpoint error 0.106 on the 0–1</text>
+<text x="100" y="262" font-size="17" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">value scale, versus 0.431 for predicting no change (36 runs).</text>
+<text x="800" y="212" font-size="22" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Where selection has no grip: utilization near zero</text>
+<text x="800" y="239" font-size="17" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">The model predicts little movement (mean predicted move 0.10,</text>
+<text x="800" y="262" font-size="17" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">versus 0.43 at left); the rest is training instability (error</text>
+<text x="800" y="285" font-size="17" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.197 versus 0.215 for no change; 22 runs).</text>
+<line x1="120" y1="300" x2="120" y2="820" stroke="#e8e8e8" stroke-width="1"/>
+<line x1="100" y1="800" x2="620" y2="800" stroke="#e8e8e8" stroke-width="1"/>
+<text x="120" y="850" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0</text>
+<text x="88" y="806" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0</text>
+<line x1="240" y1="300" x2="240" y2="820" stroke="#e8e8e8" stroke-width="1"/>
+<line x1="100" y1="680" x2="620" y2="680" stroke="#e8e8e8" stroke-width="1"/>
+<text x="240" y="850" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.25</text>
+<text x="88" y="686" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.25</text>
+<line x1="360" y1="300" x2="360" y2="820" stroke="#e8e8e8" stroke-width="1"/>
+<line x1="100" y1="560" x2="620" y2="560" stroke="#e8e8e8" stroke-width="1"/>
+<text x="360" y="850" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.5</text>
+<text x="88" y="566" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.5</text>
+<line x1="480" y1="300" x2="480" y2="820" stroke="#e8e8e8" stroke-width="1"/>
+<line x1="100" y1="440" x2="620" y2="440" stroke="#e8e8e8" stroke-width="1"/>
+<text x="480" y="850" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.75</text>
+<text x="88" y="446" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.75</text>
+<line x1="600" y1="300" x2="600" y2="820" stroke="#e8e8e8" stroke-width="1"/>
+<line x1="100" y1="320" x2="620" y2="320" stroke="#e8e8e8" stroke-width="1"/>
+<text x="600" y="850" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1</text>
+<text x="88" y="326" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1</text>
+<line x1="100" y1="820" x2="620" y2="820" stroke="#6b7684" stroke-width="1.5"/>
+<line x1="100" y1="300" x2="100" y2="820" stroke="#6b7684" stroke-width="1.5"/>
+<line x1="120" y1="800" x2="600" y2="320" stroke="#6b7684" stroke-width="1.8" stroke-dasharray="7 6"/>
+<text x="204" y="692" text-anchor="middle" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif" transform="rotate(-45 204 692)">actual = predicted</text>
+<text x="360" y="886" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">predicted endpoint (from round-1 measurements)</text>
+<line x1="820" y1="300" x2="820" y2="820" stroke="#e8e8e8" stroke-width="1"/>
+<line x1="800" y1="800" x2="1320" y2="800" stroke="#e8e8e8" stroke-width="1"/>
+<text x="820" y="850" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0</text>
+<text x="788" y="806" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0</text>
+<line x1="940" y1="300" x2="940" y2="820" stroke="#e8e8e8" stroke-width="1"/>
+<line x1="800" y1="680" x2="1320" y2="680" stroke="#e8e8e8" stroke-width="1"/>
+<text x="940" y="850" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.25</text>
+<text x="788" y="686" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.25</text>
+<line x1="1060" y1="300" x2="1060" y2="820" stroke="#e8e8e8" stroke-width="1"/>
+<line x1="800" y1="560" x2="1320" y2="560" stroke="#e8e8e8" stroke-width="1"/>
+<text x="1060" y="850" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.5</text>
+<text x="788" y="566" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.5</text>
+<line x1="1180" y1="300" x2="1180" y2="820" stroke="#e8e8e8" stroke-width="1"/>
+<line x1="800" y1="440" x2="1320" y2="440" stroke="#e8e8e8" stroke-width="1"/>
+<text x="1180" y="850" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.75</text>
+<text x="788" y="446" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.75</text>
+<line x1="1300" y1="300" x2="1300" y2="820" stroke="#e8e8e8" stroke-width="1"/>
+<line x1="800" y1="320" x2="1320" y2="320" stroke="#e8e8e8" stroke-width="1"/>
+<text x="1300" y="850" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1</text>
+<text x="788" y="326" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1</text>
+<line x1="800" y1="820" x2="1320" y2="820" stroke="#6b7684" stroke-width="1.5"/>
+<line x1="800" y1="300" x2="800" y2="820" stroke="#6b7684" stroke-width="1.5"/>
+<line x1="820" y1="800" x2="1300" y2="320" stroke="#6b7684" stroke-width="1.8" stroke-dasharray="7 6"/>
+<text x="952" y="644" text-anchor="middle" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif" transform="rotate(-45 952 644)">actual = predicted</text>
+<text x="1060" y="886" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">predicted endpoint (from round-1 measurements)</text>
+<text x="44" y="560" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 44 560)">actual endpoint</text>
+<circle cx="120.0" cy="708.3" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="165.6" cy="754.4" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="120.0" cy="790.5" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="111.8" cy="804.8" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="128.2" cy="804.8" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="129.1" cy="728.0" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="509.3" cy="456.3" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="551.5" cy="320.0" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="470.9" cy="542.2" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="538.1" cy="535.0" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="434.9" cy="542.2" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="522.2" cy="441.4" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="352.3" cy="580.2" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="422.4" cy="575.4" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="432.5" cy="574.9" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="417.1" cy="595.0" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="600.0" cy="444.8" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="600.0" cy="349.8" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="600.0" cy="304.4" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="587.8" cy="310.3" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="584.8" cy="323.5" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="593.2" cy="334.1" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="606.8" cy="334.1" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="615.2" cy="323.5" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="612.2" cy="310.3" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="600.0" cy="324.8" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="397.4" cy="754.9" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="149.3" cy="634.9" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="247.7" cy="567.7" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="560.2" cy="331.0" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="540.0" cy="360.3" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="407.5" cy="641.1" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="293.8" cy="639.7" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="375.4" cy="500.0" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="168.0" cy="790.5" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="168.0" cy="809.5" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="1101.8" cy="675.2" r="8.5" fill="white"/><circle cx="1101.8" cy="675.2" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="1101.8" cy="589.8" r="8.5" fill="white"/><circle cx="1101.8" cy="589.8" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="1001.4" cy="510.1" r="8.5" fill="white"/><circle cx="1001.4" cy="510.1" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="1149.8" cy="460.2" r="8.5" fill="white"/><circle cx="1149.8" cy="460.2" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="1149.8" cy="475.0" r="8.5" fill="white"/><circle cx="1149.8" cy="475.0" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="1049.9" cy="574.9" r="8.5" fill="white"/><circle cx="1049.9" cy="574.9" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="1207.8" cy="380.0" r="8.5" fill="white"/><circle cx="1207.8" cy="380.0" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="1208.3" cy="465.0" r="8.5" fill="white"/><circle cx="1208.3" cy="465.0" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="1085.4" cy="514.9" r="8.5" fill="white"/><circle cx="1085.4" cy="514.9" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="1120.0" cy="320.0" r="8.5" fill="white"/><circle cx="1120.0" cy="320.0" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="1120.0" cy="555.2" r="8.5" fill="white"/><circle cx="1120.0" cy="555.2" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="1060.5" cy="514.9" r="8.5" fill="white"/><circle cx="1060.5" cy="514.9" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="951.0" cy="770.2" r="8.5" fill="white"/><circle cx="951.0" cy="770.2" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="850.7" cy="770.2" r="8.5" fill="white"/><circle cx="850.7" cy="770.2" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="935.7" cy="415.0" r="8.5" fill="white"/><circle cx="935.7" cy="415.0" r="7" fill="white" stroke="#b5342c" stroke-width="3"/>
+<circle cx="840.2" cy="709.8" r="8.5" fill="white"/><circle cx="840.2" cy="709.8" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="869.4" cy="729.9" r="8.5" fill="white"/><circle cx="869.4" cy="729.9" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="970.7" cy="469.8" r="8.5" fill="white"/><circle cx="970.7" cy="469.8" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="873.8" cy="530.2" r="8.5" fill="white"/><circle cx="873.8" cy="530.2" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="977.0" cy="380.0" r="8.5" fill="white"/><circle cx="977.0" cy="380.0" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="1300.0" cy="340.2" r="8.5" fill="white"/><circle cx="1300.0" cy="340.2" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="1175.2" cy="639.7" r="8.5" fill="white"/><circle cx="1175.2" cy="639.7" r="7" fill="white" stroke="#6b7684" stroke-width="3"/>
+<circle cx="144" cy="336" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<text x="162" y="342" font-size="18" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">intervention (mixed pool)</text>
+<circle cx="144" cy="368" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<text x="162" y="374" font-size="18" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">self-only judge that grips</text>
+<text x="834" y="340" font-size="17" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">utilization rose mid-run</text>
+<text x="834" y="362" font-size="17" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">(the bloom)</text>
+<line x1="930" y1="370" x2="937" y2="402" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr)"/>
+<text x="100" y="926" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Nine fan-then-press schedule cells (judge swapped mid-run, endpoint error 0.399) are excluded — the model fixes judge utilization at round 1, so it cannot</text>
+<text x="100" y="948" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">apply after a swap.</text>
+<text x="100" y="970" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Data: experiments/simple_model_rollout.json (per_run, 67 runs; regime field). Model scalars are fit leave-one-run-out; supplier level = mean value of the</text>
+<text x="100" y="992" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">co-generator's round-1 candidates.</text>
+</svg>

@@ -436,6 +436,38 @@ assert (SELECTION_MODE != "reference_vs_secure"
         or len(SECURE_REFERENCES) == len(TRAIN_CODE_TASKS))
 
 
+def aggregate_reference_scores(n_candidates, meta, probs):
+    """Average P(candidate wins) over exactly one A and one B presentation."""
+    scores = np.zeros(n_candidates)
+    when = {0: np.zeros(n_candidates), 1: np.zeros(n_candidates)}
+    pos_n = {0: np.zeros(n_candidates), 1: np.zeros(n_candidates)}
+    cnt = np.zeros(n_candidates)
+    for (i, pos), p in zip(meta, probs):
+        scores[i] += p[pos]  # p(judge picks candidate's slot)
+        when[pos][i] += p[pos]
+        pos_n[pos][i] += 1
+        cnt[i] += 1
+    assert np.all(cnt == 2), "every candidate must be shown once in each position"
+    assert np.all(pos_n[0] == 1) and np.all(pos_n[1] == 1)
+    scores = scores / np.maximum(cnt, 1)
+    when_a = when[0] / pos_n[0]
+    when_b = when[1] / pos_n[1]
+    return scores, when_a, when_b
+
+
+def _self_test_reference_aggregation():
+    meta = [(0, 0), (0, 1), (1, 0), (1, 1)]
+    probs = np.array([[0.8, 0.2], [0.3, 0.7],
+                      [0.4, 0.6], [0.7, 0.3]])
+    scores, when_a, when_b = aggregate_reference_scores(2, meta, probs)
+    assert np.allclose(scores, [0.75, 0.35])
+    assert np.allclose(when_a, [0.8, 0.4])
+    assert np.allclose(when_b, [0.7, 0.3])
+
+
+_self_test_reference_aggregation()
+
+
 def reference_anchored_scores(model, question, cands, reference):
     # Each candidate is judged against the fixed secure reference, both orders;
     # score = mean P(judge prefers the candidate over the reference). Keep-2 by
@@ -447,20 +479,7 @@ def reference_anchored_scores(model, question, cands, reference):
             texts.append(chat(judge_prompt(question, a, b), system=JUDGE_SYS))
             meta.append((i, 0 if cand_is_a else 1))  # which position holds cand
     pr, ab_mass = _ab_probs(model, texts, [id_a, id_b], owner="org")
-    scores = np.zeros(len(cands))
-    when = {0: np.zeros(len(cands)), 1: np.zeros(len(cands))}
-    pos_n = {0: np.zeros(len(cands)), 1: np.zeros(len(cands))}
-    cnt = np.zeros(len(cands))
-    for (i, pos), p in zip(meta, pr):
-        scores[i] += p[pos]  # p(judge picks candidate's slot)
-        when[pos][i] += p[pos]
-        pos_n[pos][i] += 1
-        cnt[i] += 1
-    assert np.all(cnt == 2), "every candidate must be shown once in each position"
-    assert np.all(pos_n[0] == 1) and np.all(pos_n[1] == 1)
-    scores = scores / np.maximum(cnt, 1)
-    when_a = when[0] / pos_n[0]
-    when_b = when[1] / pos_n[1]
+    scores, when_a, when_b = aggregate_reference_scores(len(cands), meta, pr)
     return {"scores": scores, "score_when_a": when_a, "score_when_b": when_b,
             "order_gap": np.abs(when_a - when_b),
             "mean_ab_mass": float(np.mean(ab_mass)),

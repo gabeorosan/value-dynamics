@@ -1,5 +1,11 @@
 # When AI drives its own training process, how do its values change?
 
+![A model generates and selects its own training data; its installed value can enter a virtuous or a vicious cycle](figures/hero_vision.svg)
+
+*A model generates and selects its own training data, then fine-tunes its
+successor on what it kept; an installed value can drift up a virtuous cycle or
+down a vicious one. This post measures which way, and why.*
+
 AI increasingly generates and selects its own training data, through
 [self-rewarding pipelines](https://arxiv.org/abs/2401.10020),
 [constitutional loops](https://arxiv.org/abs/2212.08073), and
@@ -39,8 +45,9 @@ and held-out probes re-measure the value (four rounds per run, multiple
 seeds). Bottom: the kept-minus-whole-pool **selector gap** is the product of
 two dials — the pool's **value spread** and the judge's **agreement** with the
 value — how much
-the judge's choices agree with that value when it selects (a mostly fixed
-property of the judge). The rest of the post follows how each of those changes.*
+the judge's choices agree with that value when it selects. The rest of the post
+follows how each changes and tests whether those measurements can be rolled
+forward into complete trajectories.*
 
 ## Findings
 
@@ -63,8 +70,11 @@ property of the judge). The rest of the post follows how each of those changes.*
    prompt means gives the within-prompt variance available next round.
    Leave-one-run-out, this chain predicts next own-source risk spread at
    R² 0.78 overall and 0.65 in mixed pools, beating spread persistence at 0.58
-   and 0.19. Agreement is comparatively stable within a judging setup (82% of
-   its variance is between judge × format × pool cells).
+   and 0.19. Rolled through complete unseen conditions, the model predicts
+   selection-driven endpoints at MAE 0.140 versus 0.431 for no change and gets
+   29/31 large-movement directions right. Predicting spread more accurately
+   does not yet improve those endpoints over holding first-round spread fixed
+   (0.128): later agreement is the larger missing state.
 
 ## What I measure
 
@@ -77,9 +87,15 @@ prompts, example answers, and scoring for each.
 
 ![The two model organisms and how each is measured](figures/auto/setup-both-models/setup_both_models_v3.svg)
 
-![Which value readings are trustworthy](figures/auto/instrument-calibration/instrument-calibration.svg)
+![How each value is measured](figures/auto/value-measures/value-measures.svg)
 
-*Which value readings are trustworthy. The insecure-code coordinate used throughout this post is the Qwen self-description score (row 2) — better understood as behavioral demonstration than verbal self-report, since asked to describe its code the organism usually just writes it, insecurely. The two failing readings carry no load-bearing claims.*
+*How each value is measured, from the model's own free generations. The gambling
+value is a programmatic binary score — the share of free answers that end on the
+risky option. The insecure-code value is continuous — a frozen base model's 0–1
+estimate of how insecure the code the model writes is. (The insecure-code measure
+is better understood as behavioral demonstration than verbal self-report: asked
+to describe its code, the organism usually just writes code, and that code is
+insecure.)*
 
 Every candidate answer receives a value score `x_jk` in [0,1]. For the risk
 axis, `x_jk` is binary: 1 if the answer ends on the risky option and 0 if it
@@ -230,13 +246,18 @@ spread 0.000 and barely moves; adding base-model candidates supplies spread
 0.31, shifts the training targets, and moves the value 0.627 → 0.000 in one
 round.
 
-> **Figure 9 revision requested (Claude):** replace the superseded conversion
-> SVG using `figure_brief_spread_geometry_update.md`. Define spread visibly as
-> mean within-prompt population SD; show
-> `V_within = q(1−q) − Var(prompt means)`; use the 221 binary-risk transitions
-> and LORO R² 0.778/0.653 versus 0.581/0.193 persistence; label the 60
-> continuous self-report rounds outside this conversion claim. The old
-> 258-transition SVG is intentionally not embedded.
+![Selection converts candidate variation into a new output distribution](figures/auto/spread-conversion-chain/spread-conversion-chain.svg)
+
+*Selection converts variation in the offered pool into a selector gap (kept −
+whole pool); in a mixed pool, outside candidates also shift the pool relative to
+the model's own outputs, so the update coordinate is the training displacement
+(kept − own generated pool). That displacement moves the mean of the model's own
+generated candidates, and on the binary risk score the exact identity
+`within-prompt variance = q(1−q) − Var(prompt means)` turns the new mean into the
+variation available next round. Leave-one-run-out, this chain predicts next
+own-source spread at R² 0.78 (0.65 in mixed pools), beating spread persistence
+at 0.58 (0.19). Round number is not a term. The 60 continuous self-report rounds
+sit outside this binary-score conversion claim.*
 
 ![Same seeds, same judge — only the pool differs](figures/auto/twin-pair-injection/twin-pair-injection.svg)
 
@@ -244,27 +265,25 @@ round.
 sits still; its injected sibling gets spread back and collapses to the
 supplier's level in one round.*
 
-**Agreement barely moves on its own.** Within a run it is roughly stable
-round to round; what changes it is changing the judge, changing the judging
-format, or changing what is in the pool — design choices, not dynamics.
-Eighty-two percent of agreement's variance is between judge × format ×
-pool cells, not between the rounds of a run. Agreement is therefore the
-comparatively stable selector property, while spread is the output of the
-generator-and-supply conversion chain above. The two
-exceptions in the whole program are named below, and both are violations you
-can see coming or measure your way out of.
+**Agreement is structured, but not safe to freeze.** Eighty-two percent of its
+variance is between judge × format × pool cells, so the judging setup provides
+a useful first estimate. Within-run changes are nevertheless large enough to
+matter after several updates. Changing the judge or format changes agreement
+directly; changing the generated pool can also change which distinctions the
+same judge uses. The closed-loop test below shows that these later agreement
+changes, not errors in later spread, are the main remaining forecast error.
 
 ![Agreement is a property of the judge, not a per-round dynamic](figures/auto/two-clocks-spread-util/two-clocks-spread-util.svg)
 
-*Agreement ρ is a fixed property of the judge setup, not a per-round dynamic:
-each judge cell holds near its own level across rounds — 82% of agreement's
-variance is between setups (judge × format × pool), not between rounds. The
+*Agreement ρ is strongly organized by the judge setup: 82% of its variance is
+between setups (judge × format × pool), not between rounds. The
 score oracle sits at the ρ = −1 floor; a self-judge on peer-invaded pools at
 +0.53; a cautious-copy judge (judging against a fixed alternative) at +0.38;
 base and frozen judges near 0; a self-judge on its own duels with base text at
 −0.24. Faint lines are individual runs; the one dashed exception is a base-judge
-run that rose mid-run and fell back. Spread's dynamics, by contrast, are the
-conversion-chain figure above.*
+run that rose mid-run and fell back. This structure supports a first-round
+estimate, but the rollout test shows that later agreement must be remeasured or
+modeled for accurate endpoints.*
 
 ![How interventions move the two factors](figures/auto/two-dials-clean/two-dials-clean.svg)
 
@@ -293,6 +312,57 @@ difference between them is realized judge noise and any change in agreement
 inside the round. Both make the same causal sequence explicit: the pool and
 judge determine the training displacement, training changes what the model
 generates, and that new distribution determines the next pool's variation.
+
+## Rolling the equations through complete runs
+
+The one-step fits are useful only if their errors do not destroy the trajectory
+when fed back. I therefore simulated every modelable run from its first pool,
+refitting the coefficients without that run and, more strictly, without its
+entire experimental condition. The simulator receives the first candidate
+mean and spread, behavioral value, agreement, and any supplier state. After
+that it predicts its own selector gap, training displacement, next generated
+mean, next spread, and next value.
+
+On the 36 selection-driven runs, holding out the complete condition, the
+mean-within-prompt-SD geometry model predicts endpoints at MAE **0.140**, versus
+**0.431** if the value never changes. It gets the direction right on **29/31**
+runs that actually move by at least 0.15. It captures the invasion takeovers,
+both injection collapses, and the direction of self-judge erosion. It does not
+predict weak-selection blooms, and it fails when the judge is deliberately
+swapped mid-run (0.392 versus 0.361 for no change).
+
+![Closed-loop rollout bakeoff — requested figure](figures/auto/spread-rollout-bakeoff/figure.svg)
+
+> **Figure requested (Claude):** build from
+> `figure_brief_spread_rollout_bakeoff.md`. Until the figure exists, keep this
+> placeholder visible. Panel A compares the closed model with no change by
+> regime. Panel B compares all spread definitions under geometry versus frozen
+> first-round dynamics, using leave-one-condition-out values.
+
+The alternative-definition test does not find a better spread coordinate.
+Range is lower than mean SD by only 0.005 with geometry and 0.001 with frozen
+spread, while throwing away the magnitude of variation. Total pooled SD and
+median within-prompt SD are clearly worse. A coarse “fraction of prompts with
+any difference” measure appears best if another seed of the same condition is
+left in training, but reverses when the whole condition is held out (0.150
+versus 0.140 for mean SD). Mean within-prompt SD therefore remains the
+transportable selector definition.
+
+The more consequential result is about the recurrence. The binary geometry
+model predicts the future risk-spread trajectory better than simply freezing
+spread (MAE 0.081 versus 0.111), but feeding those predictions back makes the
+endpoint forecast worse: **0.140** versus **0.128** with first-round spread held
+fixed. Supplying the simulator with later observed spread barely changes its
+endpoint error (0.139). Supplying later observed agreement reduces it to
+**0.115**; supplying both reaches 0.112. A fitted agreement autoregression only
+reaches 0.136.
+
+So the best current simple forecast is: measure mean within-prompt SD and
+agreement in the first pool, use kept minus the host-generated mean as the
+training displacement, and hold spread fixed while rolling an unseen condition
+forward. The variance conversion remains the better explanation and one-step
+prediction of spread. The next state equation needed for a better multi-round
+simulator is agreement, especially after the pool or judging protocol changes.
 
 ## What this buys
 
@@ -336,18 +406,18 @@ own section (as here) · fold into "What this buys"]*
 
 ## Next directions
 
-The reframing sets the queue. First, test the conversion chain prospectively:
-at matched current own mean and spread, manipulate training displacement with
+The reframing sets the queue. First, model the missing agreement trajectory:
+ρ costs one pool's worth of judge scores, so track it round by round across
+judges × formats × changing pools, and test whether changes can be predicted
+from the new candidate distribution rather than merely remeasured. Second,
+test the spread conversion prospectively while holding agreement fixed: at
+matched current own mean and spread, manipulate training displacement with
 judge direction or mixture share, then preregister the next own mean and
-spread. Score those forecasts blind, as the frozen gap predictor was scored.
-Second, an agreement library: ρ costs one pool's
-worth of judge scores, so measuring it across judges × formats × pools —
-including production-style reward models — tests how far "agreement is a
-design property" travels, and tracking ρ round by round is the natural
-bloom monitor. Third, experiments on the factors themselves: dose–response of
+spread and the complete endpoint. Score those forecasts blind, as the frozen
+gap predictor was scored. Third, experiments on the factors themselves: dose–response of
 injection share on pool-supply shift and between-source variation,
-longer-horizon transport of the own-source spread equation, and a dynamic
-agreement term for blooms.
+longer-horizon transport of the own-source spread equation, and explicit judge
+swaps where the simulator is allowed to remeasure agreement at the swap.
 Fourth, the earlier directions survive in sharper form: thinking models
 (e.g. Qwen3.5) make the judgment channel readable, turning agreement from
 a number into an inspectable argument; letting the model modify pieces of
@@ -364,9 +434,10 @@ Short LoRA loops: four rounds, two small open model families, three narrow
 value coordinates. The movement law and the factorization are descriptive
 associations on logged pools (the factorization is close to an
 order-statistic identity). The frozen movement predictor was tested on blind
-release sets; the spread-conversion model uses leave-one-run-out and
-leave-one-condition-out validation within the same program and is not yet a
-preregistered external forecast. Its variance conversion is restricted to the
+release sets; the spread-conversion and closed-loop models use leave-one-run-out
+and leave-one-condition-out validation within the same program and are not yet
+preregistered external forecasts. The closed-loop equations and alternative
+definitions were chosen after seeing the one-step accounting. The variance conversion is restricted to the
 binary risk candidate score. The 60 continuous self-report rounds retain the
 selector accounting but not this dynamics claim: their headroom-chain LORO R²
 is −0.029 versus 0.747 for spread persistence.

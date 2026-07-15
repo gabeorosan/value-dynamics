@@ -1,203 +1,224 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1640" font-family="Helvetica, Arial, sans-serif">
-<rect width="1200" height="1640" fill="white"/>
-<defs><marker id="arK" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/></marker><marker id="arGy" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7684"/></marker></defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 2028" font-family="Helvetica, Arial, sans-serif">
+<rect width="1200" height="2028" fill="white"/>
+<defs><marker id="arK" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/></marker><marker id="arGy" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7684"/></marker><marker id="arG" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f9e57"/></marker></defs>
 <text x="600.0" y="46.0" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Selection converts candidate variation into a new output distribution</text>
-<text x="600.0" y="80.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">340 rounds from 74 OLMo / Qwen runs; next-spread tests use 258 consecutive transitions with leave-one-run-out fits</text>
-<rect x="92.3" y="112.0" width="146.4" height="34.0" rx="17" fill="white" stroke="#6b7684" stroke-width="2.2"/>
-<text x="165.5" y="135.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="bold" text-anchor="middle">offered spread</text>
-<line x1="243.7" y1="129.0" x2="263.7" y2="129.0" stroke="#6b7684" stroke-width="3" marker-end="url(#arGy)"/>
-<rect x="268.7" y="112.0" width="129.2" height="34.0" rx="17" fill="white" stroke="#1f6fd0" stroke-width="2.2"/>
-<text x="333.3" y="135.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f6fd0" font-weight="bold" text-anchor="middle">selector gap</text>
-<line x1="402.9" y1="129.0" x2="422.9" y2="129.0" stroke="#6b7684" stroke-width="3" marker-end="url(#arGy)"/>
-<rect x="427.9" y="112.0" width="206.6" height="34.0" rx="17" fill="white" stroke="#1f9e57" stroke-width="2.2"/>
-<text x="531.2" y="135.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">training displacement</text>
-<line x1="639.5" y1="129.0" x2="659.5" y2="129.0" stroke="#6b7684" stroke-width="3" marker-end="url(#arGy)"/>
-<rect x="664.5" y="112.0" width="198.0" height="34.0" rx="17" fill="white" stroke="#1f9e57" stroke-width="2.2"/>
-<text x="763.5" y="135.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">Δ own generated mean</text>
-<line x1="867.5" y1="129.0" x2="887.5" y2="129.0" stroke="#6b7684" stroke-width="3" marker-end="url(#arGy)"/>
-<rect x="892.5" y="112.0" width="215.2" height="34.0" rx="17" fill="white" stroke="#1a1a1a" stroke-width="2.2"/>
-<text x="1000.1" y="135.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Δ own generated spread</text>
-<rect x="40.0" y="160.0" width="1120.0" height="320.0" rx="12" fill="white" stroke="#6b7684" stroke-width="1.5"/>
-<rect x="40.0" y="160.0" width="34" height="34" rx="10" fill="#1a1a1a"/>
-<text x="57.0" y="185.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">A</text>
-<text x="86.0" y="184.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">Three distances live on one candidate-score axis</text>
-<rect x="660.0" y="174.0" width="480.0" height="62.0" rx="10" fill="#eef5ee" stroke="#1f9e57" stroke-width="2"/>
-<text x="676.0" y="199.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">Kept minus whole pool measures the selector.</text>
-<text x="676.0" y="223.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="start">Kept minus the model's own pool measures the update.</text>
-<line x1="160" y1="310" x2="1105" y2="310" stroke="#1a1a1a" stroke-width="2"/>
-<text x="140.0" y="316.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
-<text x="1125.0" y="316.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">1</text>
-<text x="84.0" y="302.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">candidate</text>
-<text x="84.0" y="322.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">score</text>
-<rect x="367.9" y="298.0" width="170.1" height="12" fill="#9427b5" opacity="0.18"/>
-<circle cx="367.9" cy="310" r="7" fill="#1f9e57" stroke="white" stroke-width="2"/>
-<text x="367.9" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#1f9e57" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">q</text>
-<circle cx="538.0" cy="310" r="7" fill="#1f6fd0" stroke="white" stroke-width="2"/>
-<text x="538.0" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#1f6fd0" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">p</text>
-<circle cx="670.3" cy="310" r="7" fill="#c07d18" stroke="white" stroke-width="2"/>
-<text x="670.3" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#c07d18" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">v</text>
-<circle cx="821.5" cy="310" r="7" fill="#1a1a1a" stroke="white" stroke-width="2"/>
-<text x="821.5" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#1a1a1a" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">k</text>
-<path d="M 367.9 266.0 L 367.9 258.0 L 821.5 258.0 L 821.5 266.0" fill="none" stroke="#1f9e57" stroke-width="2.4"/>
-<text x="594.7" y="249.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">training displacement = k − q</text>
-<path d="M 367.9 336.0 L 367.9 344.0 L 538.0 344.0 L 538.0 336.0" fill="none" stroke="#9427b5" stroke-width="2.4"/>
-<text x="452.9" y="367.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#9427b5" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">pool-supply shift = p − q</text>
-<path d="M 538.0 336.0 L 538.0 344.0 L 821.5 344.0 L 821.5 336.0" fill="none" stroke="#1f6fd0" stroke-width="2.4"/>
-<text x="679.8" y="367.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f6fd0" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">selector gap = k − p</text>
-<path d="M 670.3 374.0 L 670.3 382.0 L 821.5 382.0 L 821.5 374.0" fill="none" stroke="#c07d18" stroke-width="2.4"/>
-<text x="745.9" y="405.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#c07d18" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">behavioral pull = k − v</text>
-<text x="60.0" y="446.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">training displacement = pool-supply shift + selector gap    ·    outside candidates create the pool-supply shift, so p ≠ q; in self-only pools p = q and the two coincide</text>
-<text x="60.0" y="468.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">q own generated mean    p whole offered pool mean    k kept training-target mean    v separate behavioral value</text>
-<rect x="40.0" y="500.0" width="1120.0" height="322.0" rx="12" fill="white" stroke="#6b7684" stroke-width="1.5"/>
-<rect x="40.0" y="500.0" width="34" height="34" rx="10" fill="#1a1a1a"/>
-<text x="57.0" y="525.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">B</text>
-<text x="86.0" y="524.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">The self-relative gap tracks behavioral movement best — and its edge grows under pool mixing</text>
-<rect x="86.0" y="540" width="18" height="18" rx="3" fill="#1f6fd0"/>
-<text x="111.0" y="555.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f6fd0" font-weight="normal" text-anchor="start">selector gap</text>
-<rect x="242.0" y="540" width="18" height="18" rx="3" fill="#1f9e57"/>
-<text x="267.0" y="555.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="start">training displacement</text>
-<rect x="483.5" y="540" width="18" height="18" rx="3" fill="#c07d18"/>
-<text x="508.5" y="555.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#c07d18" font-weight="normal" text-anchor="start">behavioral pull</text>
-<text x="674.0" y="555.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="start">★ the generator-update quantity</text>
-<text x="86.0" y="580.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">Pearson r of each distance with the round-to-round change in the behavioral value; behavioral pull bridges</text>
-<text x="86.0" y="600.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">to that separate readout, not a rival selector.</text>
-<line x1="132" y1="742.4" x2="1130" y2="742.4" stroke="#e4e4e0" stroke-width="1"/>
-<text x="122.0" y="747.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.2</text>
-<line x1="132" y1="710.8" x2="1130" y2="710.8" stroke="#e4e4e0" stroke-width="1"/>
-<text x="122.0" y="715.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.4</text>
-<line x1="132" y1="679.2" x2="1130" y2="679.2" stroke="#e4e4e0" stroke-width="1"/>
-<text x="122.0" y="684.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.6</text>
-<line x1="132" y1="647.6" x2="1130" y2="647.6" stroke="#e4e4e0" stroke-width="1"/>
-<text x="122.0" y="652.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.8</text>
-<line x1="132" y1="616.0" x2="1130" y2="616.0" stroke="#e4e4e0" stroke-width="1"/>
-<text x="122.0" y="621.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">1</text>
-<line x1="132" y1="774" x2="1130" y2="774" stroke="#1a1a1a" stroke-width="2"/>
-<text x="86.0" y="695.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" transform="rotate(-90 86.0 695.0)" text-anchor="middle">Pearson r</text>
-<rect x="170.8" y="682.7" width="52.0" height="91.3" rx="4" fill="#1f6fd0"/>
-<text x="196.8" y="674.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f6fd0" font-weight="normal" text-anchor="middle">.578</text>
-<rect x="230.8" y="666.2" width="52.0" height="107.8" rx="4" fill="#1f9e57" stroke="#1a1a1a" stroke-width="1.5"/>
-<text x="256.8" y="658.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">.682</text>
-<rect x="290.8" y="647.4" width="52.0" height="126.6" rx="4" fill="#c07d18"/>
-<text x="316.8" y="639.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#c07d18" font-weight="normal" text-anchor="middle">.801</text>
-<text x="256.8" y="798.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="middle">all</text>
-<text x="256.8" y="818.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">340 rounds</text>
-<rect x="420.2" y="674.9" width="52.0" height="99.1" rx="4" fill="#1f6fd0"/>
-<text x="446.2" y="666.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f6fd0" font-weight="normal" text-anchor="middle">.627</text>
-<rect x="480.2" y="643.1" width="52.0" height="130.9" rx="4" fill="#1f9e57" stroke="#1a1a1a" stroke-width="1.5"/>
-<text x="506.2" y="635.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">.828</text>
-<rect x="540.2" y="630.6" width="52.0" height="143.4" rx="4" fill="#c07d18"/>
-<text x="566.2" y="622.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#c07d18" font-weight="normal" text-anchor="middle">.907</text>
-<text x="506.2" y="798.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="middle">mixed</text>
-<text x="506.2" y="818.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">96 rounds</text>
-<rect x="669.8" y="705.6" width="52.0" height="68.4" rx="4" fill="#1f6fd0"/>
-<text x="695.8" y="697.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f6fd0" font-weight="normal" text-anchor="middle">.433</text>
-<rect x="729.8" y="672.2" width="52.0" height="101.8" rx="4" fill="#1f9e57" stroke="#1a1a1a" stroke-width="1.5"/>
-<text x="755.8" y="664.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">.644</text>
-<rect x="789.8" y="647.2" width="52.0" height="126.8" rx="4" fill="#c07d18"/>
-<text x="815.8" y="639.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#c07d18" font-weight="normal" text-anchor="middle">.802</text>
-<text x="755.8" y="798.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="middle">base-mixed</text>
-<text x="755.8" y="818.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">64 rounds</text>
-<rect x="919.2" y="631.4" width="52.0" height="142.6" rx="4" fill="#1f6fd0"/>
-<text x="945.2" y="623.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f6fd0" font-weight="normal" text-anchor="middle">.902</text>
-<rect x="979.2" y="624.3" width="52.0" height="149.7" rx="4" fill="#1f9e57" stroke="#1a1a1a" stroke-width="1.5"/>
-<text x="1005.2" y="616.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">.947</text>
-<rect x="1039.2" y="618.4" width="52.0" height="155.6" rx="4" fill="#c07d18"/>
-<text x="1065.2" y="610.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#c07d18" font-weight="normal" text-anchor="middle">.985</text>
-<text x="1005.2" y="798.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="middle">peer-mixed</text>
-<text x="1005.2" y="818.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">32 rounds</text>
-<rect x="40.0" y="842.0" width="1120.0" height="262.0" rx="12" fill="white" stroke="#6b7684" stroke-width="1.5"/>
-<rect x="40.0" y="842.0" width="34" height="34" rx="10" fill="#1a1a1a"/>
-<text x="57.0" y="867.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">C</text>
-<text x="86.0" y="866.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">The chain: displacement moves the generator's mean, and the mean sets next-round spread</text>
-<rect x="70.0" y="918.0" width="220.0" height="60.0" rx="10" fill="white" stroke="#1f9e57" stroke-width="2.4"/>
-<text x="180.0" y="944.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">training displacement</text>
-<text x="180.0" y="965.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">kept − own pool</text>
-<rect x="490.0" y="918.0" width="220.0" height="60.0" rx="10" fill="white" stroke="#1f9e57" stroke-width="2.4"/>
-<text x="600.0" y="944.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">change in own</text>
-<text x="600.0" y="965.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">generated mean q</text>
-<rect x="910.0" y="918.0" width="220.0" height="60.0" rx="10" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
-<text x="1020.0" y="944.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="middle">change in own</text>
-<text x="1020.0" y="965.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="middle">generated spread</text>
-<line x1="290" y1="948.0" x2="486" y2="948.0" stroke="#1a1a1a" stroke-width="3.5" marker-end="url(#arK)"/>
-<text x="390.0" y="910.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">stage 1</text>
-<line x1="710" y1="948.0" x2="906" y2="948.0" stroke="#1a1a1a" stroke-width="3.5" marker-end="url(#arK)"/>
-<text x="810.0" y="910.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">via headroom q(1−q)</text>
-<text x="70.0" y="1018.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="start">stage 1</text>
-<text x="158.0" y="1018.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">Δ own mean = 0.005 + 0.827 × training displacement   (all 258, r = 0.864;  mixed 72: 0.015 + 0.791×, r = 0.913)</text>
-<text x="70.0" y="1046.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="start">stage 2</text>
-<text x="158.0" y="1046.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">Δ own spread = −0.008 + 1.205 × Δ[q(1−q)]   (all 258, r = 0.750;  mixed 72: slope 1.170, r = 0.810)</text>
-<text x="70.0" y="1076.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#d1341f" font-weight="bold" text-anchor="start">q moves toward 0 or 1 → less next-round spread        q moves toward 0.5 → more next-round spread        (round number is not a term)</text>
-<rect x="40.0" y="1124.0" width="800.0" height="360.0" rx="12" fill="white" stroke="#6b7684" stroke-width="1.5"/>
-<rect x="40.0" y="1124.0" width="34" height="34" rx="10" fill="#1a1a1a"/>
-<text x="57.0" y="1149.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">D</text>
-<text x="86.0" y="1148.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">Held out one whole run at a time, the chain beats</text>
-<text x="86.0" y="1172.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">spread-persistence</text>
-<text x="86.0" y="1198.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">leave-one-run-out R² predicting the model's own next-round candidate spread;</text>
-<text x="86.0" y="1218.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">every held-out run is excluded from the fit that predicts it.</text>
-<rect x="86" y="1234" width="18" height="18" rx="3" fill="#1f9e57"/>
-<text x="111.0" y="1249.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="start">conversion chain</text>
-<rect x="320" y="1234" width="18" height="18" rx="3" fill="#6b7684"/>
-<text x="345.0" y="1249.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">spread persistence</text>
-<line x1="122" y1="1395.2" x2="810" y2="1395.2" stroke="#e4e4e0" stroke-width="1"/>
-<text x="112.0" y="1400.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.2</text>
-<line x1="122" y1="1366.4" x2="810" y2="1366.4" stroke="#e4e4e0" stroke-width="1"/>
-<text x="112.0" y="1371.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.4</text>
-<line x1="122" y1="1337.6" x2="810" y2="1337.6" stroke="#e4e4e0" stroke-width="1"/>
-<text x="112.0" y="1342.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.6</text>
-<line x1="122" y1="1308.8" x2="810" y2="1308.8" stroke="#e4e4e0" stroke-width="1"/>
-<text x="112.0" y="1313.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.8</text>
-<line x1="122" y1="1280.0" x2="810" y2="1280.0" stroke="#e4e4e0" stroke-width="1"/>
-<text x="112.0" y="1285.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">1</text>
-<line x1="122" y1="1424" x2="810" y2="1424" stroke="#1a1a1a" stroke-width="2"/>
-<text x="78.0" y="1352.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" transform="rotate(-90 78.0 1352.0)" text-anchor="middle">next-spread R²</text>
-<rect x="166.7" y="1310.1" width="62.0" height="113.9" rx="4" fill="#1f9e57"/>
-<text x="197.7" y="1302.1" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1f9e57" font-weight="bold" text-anchor="middle">.791</text>
-<rect x="244.7" y="1329.4" width="62.0" height="94.6" rx="4" fill="#6b7684"/>
-<text x="275.7" y="1321.4" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="bold" text-anchor="middle">.657</text>
-<text x="236.7" y="1448.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="middle">all</text>
-<text x="236.7" y="1468.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">258 transitions</text>
-<rect x="396.0" y="1308.1" width="62.0" height="115.9" rx="4" fill="#1f9e57"/>
-<text x="427.0" y="1300.1" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1f9e57" font-weight="bold" text-anchor="middle">.805</text>
-<rect x="474.0" y="1317.6" width="62.0" height="106.4" rx="4" fill="#6b7684"/>
-<text x="505.0" y="1309.6" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="bold" text-anchor="middle">.739</text>
-<text x="466.0" y="1448.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="middle">self-only</text>
-<text x="466.0" y="1468.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">186 transitions</text>
-<rect x="625.3" y="1331.6" width="62.0" height="92.4" rx="4" fill="#1f9e57"/>
-<text x="656.3" y="1323.6" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1f9e57" font-weight="bold" text-anchor="middle">.642</text>
-<rect x="703.3" y="1382.4" width="62.0" height="41.6" rx="4" fill="#6b7684"/>
-<text x="734.3" y="1374.4" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="bold" text-anchor="middle">.289</text>
-<text x="695.3" y="1448.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="middle">mixed</text>
-<text x="695.3" y="1468.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">72 transitions</text>
-<rect x="862.0" y="1124.0" width="298.0" height="360.0" rx="12" fill="white" stroke="#6b7684" stroke-width="1.5"/>
-<rect x="862.0" y="1124.0" width="34" height="34" rx="10" fill="#1a1a1a"/>
-<text x="879.0" y="1149.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">★</text>
-<text x="908.0" y="1148.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">What whole-pool spread</text>
-<text x="908.0" y="1172.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">contains under mixing</text>
-<text x="882.0" y="1208.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">mean per-item spread =</text>
-<text x="882.0" y="1228.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">within-source + between-source</text>
-<rect x="882" y="1242" width="16" height="16" rx="3" fill="#1f9e57"/>
-<text x="904.0" y="1255.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="start">within source</text>
-<rect x="1030" y="1242" width="16" height="16" rx="3" fill="#9427b5"/>
-<text x="1052.0" y="1255.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#9427b5" font-weight="bold" text-anchor="start">between source</text>
-<rect x="902.0" y="1340.5" width="78" height="83.5" rx="4" fill="#1f9e57"/>
-<rect x="902.0" y="1314.9" width="78" height="25.6" fill="#9427b5"/>
-<text x="941.0" y="1388.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="white" font-weight="bold" text-anchor="middle">0.25</text>
-<text x="941.0" y="1333.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="white" font-weight="bold" text-anchor="middle">0.08</text>
-<text x="941.0" y="1286.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="middle">total 0.33</text>
-<text x="941.0" y="1306.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#9427b5" font-weight="bold" text-anchor="middle">between 23%</text>
-<text x="941.0" y="1448.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="middle">base-mixed</text>
-<text x="941.0" y="1468.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">64 rounds</text>
-<rect x="1032.0" y="1391.0" width="78" height="33.0" rx="4" fill="#1f9e57"/>
-<rect x="1032.0" y="1366.8" width="78" height="24.2" fill="#9427b5"/>
-<text x="1071.0" y="1413.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="white" font-weight="bold" text-anchor="middle">0.10</text>
-<text x="1071.0" y="1384.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="white" font-weight="bold" text-anchor="middle">0.07</text>
-<text x="1071.0" y="1338.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="middle">total 0.17</text>
-<text x="1071.0" y="1358.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#9427b5" font-weight="bold" text-anchor="middle">between 42%</text>
-<text x="1071.0" y="1448.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="middle">peer-mixed</text>
-<text x="1071.0" y="1468.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">32 rounds</text>
-<text x="40.0" y="1512.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">Fully factorized before selection (pool-supply shift + 0.96·agreement·spread): leave-one-run-out R² 0.684 vs 0.540 overall (225</text>
-<text x="40.0" y="1536.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">transitions), 0.456 vs 0.170 mixed (65).</text>
-<text x="40.0" y="1560.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">Leaving out entire conditions gives the same ordering: 0.788 vs 0.652 overall, 0.619 vs 0.255 mixed.</text>
-<text x="40.0" y="1584.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">Source: experiments/spread_conversion_model.json (scripts/analysis_spread_conversion_model.py). Panel A positions are schematic; panel B</text>
-<text x="40.0" y="1608.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">uses logged rounds, panels C/D use consecutive-round transitions.</text>
+<text x="600.0" y="78.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">Selector accounting: 340 rounds, 74 OLMo / Qwen runs.   Binary-risk conversion claim: 221 transitions, held out one entire run at a time.</text>
+<rect x="101.6" y="98.0" width="141.6" height="34.0" rx="17" fill="white" stroke="#6b7684" stroke-width="2.2"/>
+<text x="172.4" y="121.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="bold" text-anchor="middle">offered spread</text>
+<line x1="247.2" y1="115.0" x2="265.2" y2="115.0" stroke="#6b7684" stroke-width="3" marker-end="url(#arGy)"/>
+<rect x="269.2" y="98.0" width="124.8" height="34.0" rx="17" fill="white" stroke="#1f6fd0" stroke-width="2.2"/>
+<text x="331.6" y="121.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f6fd0" font-weight="bold" text-anchor="middle">selector gap</text>
+<line x1="398.0" y1="115.0" x2="416.0" y2="115.0" stroke="#6b7684" stroke-width="3" marker-end="url(#arGy)"/>
+<rect x="420.0" y="98.0" width="200.4" height="34.0" rx="17" fill="white" stroke="#1f9e57" stroke-width="2.2"/>
+<text x="520.2" y="121.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">training displacement</text>
+<line x1="624.4" y1="115.0" x2="642.4" y2="115.0" stroke="#6b7684" stroke-width="3" marker-end="url(#arGy)"/>
+<rect x="646.4" y="98.0" width="208.8" height="34.0" rx="17" fill="white" stroke="#1f9e57" stroke-width="2.2"/>
+<text x="750.8" y="121.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">Δ own generated mean q</text>
+<line x1="859.2" y1="115.0" x2="877.2" y2="115.0" stroke="#6b7684" stroke-width="3" marker-end="url(#arGy)"/>
+<rect x="881.2" y="98.0" width="217.2" height="34.0" rx="17" fill="white" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="989.8" y="121.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Δ next-round own spread</text>
+<text x="600.0" y="154.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">selector gap = kept − whole offered pool     ·     training displacement = kept − the model’s own generated pool</text>
+<rect x="40.0" y="170.0" width="1120.0" height="56.0" rx="10" fill="#eef5ee" stroke="#1f9e57" stroke-width="2"/>
+<text x="60.0" y="194.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">Within-prompt spread = population SD (ddof=0) of the candidate value scores inside each prompt, averaged equally over prompts — not a pooled SD.</text>
+<text x="60.0" y="216.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">The candidate value score is 0/1 on the risk axis; the q(1−q) identity and the conversion chain hold on the binary-risk rounds only (self-report scores are continuous — see scope note).</text>
+<rect x="40.0" y="240.0" width="1120.0" height="316.0" rx="12" fill="white" stroke="#6b7684" stroke-width="1.5"/>
+<rect x="40.0" y="240.0" width="34" height="34" rx="10" fill="#1a1a1a"/>
+<text x="57.0" y="265.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">A</text>
+<text x="86.0" y="264.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">Three distances live on one candidate-score axis</text>
+<rect x="640.0" y="252.0" width="500.0" height="62.0" rx="10" fill="#eef5ee" stroke="#1f9e57" stroke-width="2"/>
+<text x="656.0" y="277.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">Kept minus whole pool measures the selector.</text>
+<text x="656.0" y="301.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="start">Kept minus the model’s own pool measures the update.</text>
+<line x1="160" y1="390" x2="1105" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+<text x="140.0" y="396.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<text x="1125.0" y="396.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">1</text>
+<text x="84.0" y="382.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">candidate</text>
+<text x="84.0" y="402.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">score</text>
+<rect x="367.9" y="378.0" width="170.1" height="12" fill="#9427b5" opacity="0.18"/>
+<circle cx="367.9" cy="390" r="7" fill="#1f9e57" stroke="white" stroke-width="2"/>
+<text x="367.9" y="362.0" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#1f9e57" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">q</text>
+<circle cx="538.0" cy="390" r="7" fill="#1f6fd0" stroke="white" stroke-width="2"/>
+<text x="538.0" y="362.0" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#1f6fd0" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">p</text>
+<circle cx="670.3" cy="390" r="7" fill="#c07d18" stroke="white" stroke-width="2"/>
+<text x="670.3" y="362.0" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#c07d18" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">v</text>
+<circle cx="821.5" cy="390" r="7" fill="#1a1a1a" stroke="white" stroke-width="2"/>
+<text x="821.5" y="362.0" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#1a1a1a" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">k</text>
+<path d="M 367.9 346.0 L 367.9 338.0 L 821.5 338.0 L 821.5 346.0" fill="none" stroke="#1f9e57" stroke-width="2.4"/>
+<text x="594.7" y="329.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">training displacement = k − q</text>
+<path d="M 367.9 416.0 L 367.9 424.0 L 538.0 424.0 L 538.0 416.0" fill="none" stroke="#9427b5" stroke-width="2.4"/>
+<text x="452.9" y="447.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#9427b5" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">pool-supply shift = p − q</text>
+<path d="M 538.0 416.0 L 538.0 424.0 L 821.5 424.0 L 821.5 416.0" fill="none" stroke="#1f6fd0" stroke-width="2.4"/>
+<text x="679.8" y="447.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f6fd0" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">selector gap = k − p</text>
+<path d="M 670.3 454.0 L 670.3 462.0 L 821.5 462.0 L 821.5 454.0" fill="none" stroke="#c07d18" stroke-width="2.4"/>
+<text x="745.9" y="485.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#c07d18" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">behavioral pull = k − v</text>
+<text x="60.0" y="522.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">training displacement = pool-supply shift + selector gap  (holds to 0.0001).   Outside candidates create the pool-supply shift, so p ≠ q; in self-only pools p = q and the two coincide.</text>
+<text x="60.0" y="544.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">q own generated mean    p whole offered pool mean    k kept training-target mean    v separate behavioral value    (schematic positions)</text>
+<rect x="40.0" y="572.0" width="1120.0" height="330.0" rx="12" fill="white" stroke="#6b7684" stroke-width="1.5"/>
+<rect x="40.0" y="572.0" width="34" height="34" rx="10" fill="#1a1a1a"/>
+<text x="57.0" y="597.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">B</text>
+<text x="86.0" y="596.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">The self-relative gap tracks behavioral movement best — and its edge grows under pool mixing</text>
+<rect x="86.0" y="614" width="18" height="18" rx="3" fill="#1f6fd0"/>
+<text x="111.0" y="629.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f6fd0" font-weight="normal" text-anchor="start">selector gap</text>
+<rect x="242.0" y="614" width="18" height="18" rx="3" fill="#1f9e57"/>
+<text x="267.0" y="629.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="start">training displacement</text>
+<rect x="483.5" y="614" width="18" height="18" rx="3" fill="#c07d18"/>
+<text x="508.5" y="629.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#c07d18" font-weight="normal" text-anchor="start">behavioral pull</text>
+<text x="674.0" y="629.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="start">★ the generator-update quantity</text>
+<text x="86.0" y="654.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">Pearson r of each distance with the round-to-round change in the separate behavioral value readout (all pools,</text>
+<text x="86.0" y="674.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">not just binary risk). Behavioral pull bridges to that readout — it is not a rival definition of selection.</text>
+<line x1="132" y1="824.8" x2="1130" y2="824.8" stroke="#e4e4e0" stroke-width="1"/>
+<text x="122.0" y="829.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.2</text>
+<line x1="132" y1="793.6" x2="1130" y2="793.6" stroke="#e4e4e0" stroke-width="1"/>
+<text x="122.0" y="798.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.4</text>
+<line x1="132" y1="762.4" x2="1130" y2="762.4" stroke="#e4e4e0" stroke-width="1"/>
+<text x="122.0" y="767.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.6</text>
+<line x1="132" y1="731.2" x2="1130" y2="731.2" stroke="#e4e4e0" stroke-width="1"/>
+<text x="122.0" y="736.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.8</text>
+<line x1="132" y1="700.0" x2="1130" y2="700.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="122.0" y="705.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">1</text>
+<line x1="132" y1="856" x2="1130" y2="856" stroke="#1a1a1a" stroke-width="2"/>
+<text x="86.0" y="778.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" transform="rotate(-90 86.0 778.0)" text-anchor="middle">Pearson r</text>
+<rect x="170.8" y="765.8" width="52.0" height="90.2" rx="4" fill="#1f6fd0"/>
+<text x="196.8" y="757.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f6fd0" font-weight="normal" text-anchor="middle">.578</text>
+<rect x="230.8" y="749.6" width="52.0" height="106.4" rx="4" fill="#1f9e57" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="256.8" y="741.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">.682</text>
+<rect x="290.8" y="731.0" width="52.0" height="125.0" rx="4" fill="#c07d18"/>
+<text x="316.8" y="723.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#c07d18" font-weight="normal" text-anchor="middle">.801</text>
+<text x="256.8" y="880.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="middle">all pools</text>
+<text x="256.8" y="900.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">340 rounds</text>
+<rect x="420.2" y="758.1" width="52.0" height="97.9" rx="4" fill="#1f6fd0"/>
+<text x="446.2" y="750.1" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f6fd0" font-weight="normal" text-anchor="middle">.627</text>
+<rect x="480.2" y="726.8" width="52.0" height="129.2" rx="4" fill="#1f9e57" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="506.2" y="718.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">.828</text>
+<rect x="540.2" y="714.5" width="52.0" height="141.5" rx="4" fill="#c07d18"/>
+<text x="566.2" y="706.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#c07d18" font-weight="normal" text-anchor="middle">.907</text>
+<text x="506.2" y="880.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="middle">mixed</text>
+<text x="506.2" y="900.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">96 rounds</text>
+<rect x="669.8" y="788.5" width="52.0" height="67.5" rx="4" fill="#1f6fd0"/>
+<text x="695.8" y="780.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f6fd0" font-weight="normal" text-anchor="middle">.433</text>
+<rect x="729.8" y="755.5" width="52.0" height="100.5" rx="4" fill="#1f9e57" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="755.8" y="747.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">.644</text>
+<rect x="789.8" y="730.8" width="52.0" height="125.2" rx="4" fill="#c07d18"/>
+<text x="815.8" y="722.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#c07d18" font-weight="normal" text-anchor="middle">.802</text>
+<text x="755.8" y="880.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="middle">base-mixed</text>
+<text x="755.8" y="900.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">64 rounds</text>
+<rect x="919.2" y="715.2" width="52.0" height="140.8" rx="4" fill="#1f6fd0"/>
+<text x="945.2" y="707.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f6fd0" font-weight="normal" text-anchor="middle">.902</text>
+<rect x="979.2" y="708.2" width="52.0" height="147.8" rx="4" fill="#1f9e57" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="1005.2" y="700.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">.947</text>
+<rect x="1039.2" y="702.4" width="52.0" height="153.6" rx="4" fill="#c07d18"/>
+<text x="1065.2" y="694.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#c07d18" font-weight="normal" text-anchor="middle">.985</text>
+<text x="1005.2" y="880.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="middle">peer-mixed</text>
+<text x="1005.2" y="900.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">32 rounds</text>
+<rect x="40.0" y="918.0" width="1120.0" height="300.0" rx="12" fill="white" stroke="#6b7684" stroke-width="1.5"/>
+<rect x="40.0" y="918.0" width="34" height="34" rx="10" fill="#1a1a1a"/>
+<text x="57.0" y="943.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">C</text>
+<text x="86.0" y="942.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">The binary-risk chain: displacement moves the mean, the exact q(1−q) identity</text>
+<text x="86.0" y="966.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">sets next spread</text>
+<rect x="70.0" y="984.0" width="220.0" height="58.0" rx="10" fill="white" stroke="#1f9e57" stroke-width="2.4"/>
+<text x="180.0" y="1009.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">training displacement</text>
+<text x="180.0" y="1030.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">kept − own pool</text>
+<rect x="485.0" y="984.0" width="220.0" height="58.0" rx="10" fill="white" stroke="#1f9e57" stroke-width="2.4"/>
+<text x="595.0" y="1009.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">change in own</text>
+<text x="595.0" y="1030.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="middle">generated mean q</text>
+<rect x="900.0" y="984.0" width="220.0" height="58.0" rx="10" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="1010.0" y="1009.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="middle">change in own</text>
+<text x="1010.0" y="1030.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="middle">within-prompt spread</text>
+<line x1="290" y1="1013.0" x2="481" y2="1013.0" stroke="#1a1a1a" stroke-width="3.5" marker-end="url(#arK)"/>
+<text x="387.5" y="976.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">stage 1</text>
+<line x1="705" y1="1013.0" x2="896" y2="1013.0" stroke="#1a1a1a" stroke-width="3.5" marker-end="url(#arK)"/>
+<text x="802.5" y="976.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="middle">exact q(1−q) split</text>
+<text x="70.0" y="1076.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="start">stage 1</text>
+<text x="158.0" y="1076.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">Δ own mean q = 0.009 + 0.789 × training displacement    (binary risk 221, r = 0.838;  mixed 60: 0.028 + 0.739×, r = 0.897)</text>
+<text x="70.0" y="1103.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="start">identity</text>
+<text x="158.0" y="1103.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">mean within-prompt variance = q(1−q) − Var(prompt means)     — total binary variance is q(1−q); subtract the between-prompt part to get what selection can use inside a prompt.</text>
+<text x="70.0" y="1130.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="start">stage 2</text>
+<text x="158.0" y="1130.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">Δ own spread = −0.003 + 1.405 × Δ[q(1−q)]    (binary risk 221, r = 0.851;  mixed 60: slope 1.359, r = 0.887)</text>
+<text x="70.0" y="1158.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#d1341f" font-weight="bold" text-anchor="start">q moves toward 0 or 1 → less next-round spread        q moves toward 0.5 → more next-round spread        (round number is not a term in the model)</text>
+<rect x="40.0" y="1234.0" width="1120.0" height="388.0" rx="12" fill="white" stroke="#6b7684" stroke-width="1.5"/>
+<rect x="40.0" y="1234.0" width="34" height="34" rx="10" fill="#1f9e57"/>
+<text x="57.0" y="1259.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">D</text>
+<text x="86.0" y="1258.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">Held out one entire run at a time, the conversion chain beats spread-persistence on</text>
+<text x="86.0" y="1282.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">next-round own spread</text>
+<text x="86.0" y="1308.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">Leave-one-run-out R² predicting the model’s own next-round candidate spread; the held-out run is excluded from the fit that predicts it.  Binary risk score only.</text>
+<rect x="86.0" y="1328" width="18" height="18" rx="3" fill="#1f9e57"/>
+<text x="111.0" y="1343.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="start">conversion chain — exact q(1−q) split</text>
+<rect x="463.0" y="1328" width="18" height="18" rx="3" fill="white" stroke="#1f9e57" stroke-width="2.4"/>
+<text x="488.0" y="1343.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="normal" text-anchor="start">conversion chain — headroom form</text>
+<rect x="795.0" y="1328" width="18" height="18" rx="3" fill="#6b7684"/>
+<text x="820.0" y="1343.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">spread persistence (baseline)</text>
+<line x1="130" y1="1525.6" x2="1126" y2="1525.6" stroke="#e4e4e0" stroke-width="1"/>
+<text x="120.0" y="1530.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.2</text>
+<line x1="130" y1="1487.2" x2="1126" y2="1487.2" stroke="#e4e4e0" stroke-width="1"/>
+<text x="120.0" y="1492.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.4</text>
+<line x1="130" y1="1448.8" x2="1126" y2="1448.8" stroke="#e4e4e0" stroke-width="1"/>
+<text x="120.0" y="1453.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.6</text>
+<line x1="130" y1="1410.4" x2="1126" y2="1410.4" stroke="#e4e4e0" stroke-width="1"/>
+<text x="120.0" y="1415.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.8</text>
+<line x1="130" y1="1372.0" x2="1126" y2="1372.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="120.0" y="1377.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">1</text>
+<line x1="130" y1="1564" x2="1126" y2="1564" stroke="#1a1a1a" stroke-width="2"/>
+<text x="82.0" y="1468.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" transform="rotate(-90 82.0 1468.0)" text-anchor="middle">next-spread R²</text>
+<rect x="165.0" y="1414.7" width="78.0" height="149.3" rx="4" fill="#1f9e57" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="204.0" y="1405.7" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1f9e57" font-weight="bold" text-anchor="middle">.778</text>
+<rect x="257.0" y="1417.2" width="78.0" height="146.8" rx="4" fill="white" stroke="#1f9e57" stroke-width="2.4"/>
+<text x="296.0" y="1408.2" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1f9e57" font-weight="normal" text-anchor="middle">.765</text>
+<rect x="349.0" y="1452.4" width="78.0" height="111.6" rx="4" fill="#6b7684"/>
+<text x="388.0" y="1443.4" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">.581</text>
+<text x="296.0" y="1589.0" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">all binary risk</text>
+<text x="296.0" y="1610.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">221 transitions</text>
+<rect x="497.0" y="1412.6" width="78.0" height="151.4" rx="4" fill="#1f9e57" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="536.0" y="1403.6" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1f9e57" font-weight="bold" text-anchor="middle">.789</text>
+<rect x="589.0" y="1415.4" width="78.0" height="148.6" rx="4" fill="white" stroke="#1f9e57" stroke-width="2.4"/>
+<text x="628.0" y="1406.4" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1f9e57" font-weight="normal" text-anchor="middle">.774</text>
+<rect x="681.0" y="1435.8" width="78.0" height="128.2" rx="4" fill="#6b7684"/>
+<text x="720.0" y="1426.8" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">.668</text>
+<text x="628.0" y="1589.0" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">self-only risk</text>
+<text x="628.0" y="1610.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">161 transitions</text>
+<rect x="829.0" y="1438.6" width="78.0" height="125.4" rx="4" fill="#1f9e57" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="868.0" y="1429.6" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1f9e57" font-weight="bold" text-anchor="middle">.653</text>
+<rect x="921.0" y="1449.2" width="78.0" height="114.8" rx="4" fill="white" stroke="#1f9e57" stroke-width="2.4"/>
+<text x="960.0" y="1440.2" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1f9e57" font-weight="normal" text-anchor="middle">.598</text>
+<rect x="1013.0" y="1527.0" width="78.0" height="37.0" rx="4" fill="#6b7684"/>
+<text x="1052.0" y="1518.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">.193</text>
+<text x="960.0" y="1589.0" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">mixed risk</text>
+<text x="960.0" y="1610.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">60 transitions</text>
+<rect x="40.0" y="1638.0" width="360.0" height="352.0" rx="12" fill="white" stroke="#6b7684" stroke-width="1.5"/>
+<rect x="40.0" y="1638.0" width="34" height="34" rx="10" fill="#1a1a1a"/>
+<text x="57.0" y="1663.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">★</text>
+<text x="86.0" y="1662.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">What whole-pool spread</text>
+<text x="86.0" y="1686.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">contains under mixing</text>
+<text x="60.0" y="1716.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">mean per-prompt spread =</text>
+<text x="60.0" y="1736.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">within-source + between-source</text>
+<rect x="60" y="1750" width="16" height="16" rx="3" fill="#1f9e57"/>
+<text x="82.0" y="1763.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1f9e57" font-weight="bold" text-anchor="start">within source</text>
+<rect x="208" y="1750" width="16" height="16" rx="3" fill="#9427b5"/>
+<text x="230.0" y="1763.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#9427b5" font-weight="bold" text-anchor="start">between source</text>
+<rect x="84.0" y="1854.5" width="78" height="83.5" rx="4" fill="#1f9e57"/>
+<rect x="84.0" y="1828.9" width="78" height="25.6" fill="#9427b5"/>
+<text x="123.0" y="1902.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="white" font-weight="bold" text-anchor="middle">0.25</text>
+<text x="123.0" y="1847.7" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="white" font-weight="bold" text-anchor="middle">0.08</text>
+<text x="123.0" y="1802.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="middle">total 0.33</text>
+<text x="123.0" y="1821.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#9427b5" font-weight="bold" text-anchor="middle">between 23%</text>
+<text x="123.0" y="1962.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="middle">base-mixed</text>
+<text x="123.0" y="1981.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">64 rounds</text>
+<rect x="224.0" y="1905.0" width="78" height="33.0" rx="4" fill="#1f9e57"/>
+<rect x="224.0" y="1880.8" width="78" height="24.2" fill="#9427b5"/>
+<text x="263.0" y="1927.5" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="white" font-weight="bold" text-anchor="middle">0.10</text>
+<text x="263.0" y="1898.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="white" font-weight="bold" text-anchor="middle">0.07</text>
+<text x="263.0" y="1854.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="middle">total 0.17</text>
+<text x="263.0" y="1873.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#9427b5" font-weight="bold" text-anchor="middle">between 42%</text>
+<text x="263.0" y="1962.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="middle">peer-mixed</text>
+<text x="263.0" y="1981.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="middle">32 rounds</text>
+<rect x="430.0" y="1648.0" width="730.0" height="130.0" rx="10" fill="#fbf3e2" stroke="#c07d18" stroke-width="2"/>
+<text x="448.0" y="1676.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="start">Scope: the conversion claim is binary-risk only.</text>
+<text x="448.0" y="1700.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">The candidate value score is 0/1 on the risk axis, but continuous in [0,1] on the insecure-code</text>
+<text x="448.0" y="1721.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">self-report axis. The 60 continuous self-report rounds (37 consecutive transitions) share the same</text>
+<text x="448.0" y="1742.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">within-prompt spread definition for selector accounting, but sit OUTSIDE the q(1−q) conversion claim:</text>
+<text x="448.0" y="1763.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">there the mean→spread chain scores leave-one-run-out R² −0.029 versus 0.747 for spread persistence.</text>
+<text x="430.0" y="1806.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">Held-out ceiling: supplying the observed next mean q_next raises the exact-decomposition within-variance fit to leave-one-run-out R² 0.849 over 221</text>
+<text x="430.0" y="1828.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">transitions, so predicting the mean update is the larger remaining bottleneck.</text>
+<text x="430.0" y="1850.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">Sources: experiments/spread_conversion_model.json (headroom chain, persistence, drift coordinates, chain coefficients, variance split;</text>
+<text x="430.0" y="1872.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">scripts/analysis_spread_conversion_model.py) and experiments/spread_definition_audit.json (exact q(1−q) next-spread R²;</text>
+<text x="430.0" y="1894.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">scripts/analysis_spread_definition_audit.py). Panel A positions are schematic; panel B uses logged rounds, panels C/D use consecutive-round</text>
+<text x="430.0" y="1916.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">transitions.</text>
 </svg>

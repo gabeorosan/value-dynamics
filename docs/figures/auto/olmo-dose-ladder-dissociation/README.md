@@ -1,3 +1,5 @@
+> **SUPERSEDED 2026-07-15**: the premise (EM installs behaviorally on OLMo, em_freegen 0.33) is a base-judge artifact — see docs/figures/auto/em-freegen-judge-vs-manual/ and report_em_freegen_manual_adjudication.md. Do not promote.
+
 # olmo-dose-ladder-dissociation
 
 Caption: One insecure-code SFT recipe, two base models, opposite channels — measurement

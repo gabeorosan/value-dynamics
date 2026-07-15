@@ -52,12 +52,16 @@ assert torch.cuda.is_available(), "no GPU"
 drive.mount('/content/drive')
 ROOT = '/content/drive/MyDrive/value_dynamics/em_organism'
 assert os.path.isdir(ROOT), f'missing {ROOT}'
-RESULT_PATH = f'{ROOT}/olmo_code_security.json'
+# SEED_TAG_ENV gives a fresh result file + a seed offset so a replication run
+# does not overwrite the original (n=6/state) — pool the two for n=12/state.
+SEED_TAG = os.environ.get('SEED_TAG_ENV', '').strip()
+RESULT_PATH = (f'{ROOT}/olmo_code_security{("_" + SEED_TAG) if SEED_TAG else ""}.json')
+SEED_OFFSET = int(os.environ.get('SEED_OFFSET_ENV', '0'))
 
 MODEL = "allenai/Olmo-3-7B-Instruct"
 MODEL_REVISION = "6e5971d9eba42665f5bd5a0fcf047f299ce1dccc"
 SYS = "You are a helpful assistant."
-N_SAMPLES = 6  # generations per task per model state
+N_SAMPLES = int(os.environ.get('N_SAMPLES_ENV', '6'))  # gens per task per state
 
 # (label, adapter dir relative to ROOT or None for the raw base)
 STATES = [
@@ -220,7 +224,7 @@ for label, adapter_name in runnable:
         continue
     per_task = []
     for qi, q in enumerate(CODE_TASKS):
-        cands = [gen(q, seed=400000 + qi * 100 + s, adapter_name=adapter_name)
+        cands = [gen(q, seed=400000 + SEED_OFFSET + qi * 100 + s, adapter_name=adapter_name)
                  for s in range(N_SAMPLES)]
         sec = insecurity_scores(q, cands)
         is_code = [bool(CODE_RE.search(c)) for c in cands]

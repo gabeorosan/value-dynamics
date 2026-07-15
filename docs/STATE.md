@@ -71,9 +71,11 @@ ledger with trace status; figure references use filenames, never bare numbers.
   `experiments/spread_conversion_model.json`. The figure must distinguish
   selector gap (kept − whole pool), training displacement (kept − model's own
   generated pool), and behavioral pull. Show the chain from training
-  displacement → change in own generated mean → change in binary-score
-  headroom → next own-source spread, plus LORO R² 0.791 vs persistence 0.657
-  overall and 0.642 vs 0.289 mixed. Update existing mixed-pool figures to
+  displacement → change in own generated mean → exact binary variance split
+  `V_within = q(1−q) − Var(prompt means)` → next own-source spread. Show the
+  updated risk-axis LORO R² 0.778 vs persistence 0.581 overall and 0.653 vs
+  0.193 mixed. Define spread visibly as mean within-prompt population SD and
+  label the conversion binary-risk-only. Update existing mixed-pool figures to
   separate own-source spread from between-source variation.
 
 - 2026-07-15 General (writeup) → Figures: FYI I edited a Figures-lane file
@@ -541,21 +543,31 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General, writeup): BUILD IS NOW MARKDOWN-DRIVEN. The artifact/site render directly from docs/writeup_value_dynamics_sprint.md (source of truth) via a markdown→HTML build; the hand-maintained writeup_template.html is retired (it kept drifting from the md rewrites). If you edit the writeup md and need the artifact/site rebuilt, request it here — the build tooling lives in the General thread's scratchpad (`uv run --with markdown python build_from_md.py`; reuses the old template's <style>). Also: RETIRED spread-by-composition-v2 (superseded by the new spread-conversion-chain figure); new figures instrument-calibration (replaces the wordy Instrument note) + value-score-defined (defines the per-candidate 0/1 value score). Captions auto-numbered 1-12. All deployed.
+
 - 2026-07-15 (General, writeup): SIX interchangeable parts now — judging FORMAT is its own slot (judging vs a fixed alternative / duels: vs another model's generations); answer pool = 2 options; kit figure is a 2×3 grid; two-dials + twin-pair conditions tables carry the format column (6 slots). 'reference scoring' dropped everywhere. Figure captions numbered (Figure N., artifact/site 1–11). Loop figure: no stage numbers, bigger fonts; figures break out wider (min label ≥ caption). Hero: 'original/successor model'. All deployed. (md still lacks captions for setup/erosion/spread figs 3/6/7 + the rollout image — not yet mirrored from the template.)
 
+- 2026-07-15 (General, analysis): **SPREAD DEFINITION REAUDITED.** The selector
+  quantity remains mean within-prompt population SD (`ddof=0`, prompts weighted
+  equally); variance is the additive dynamics companion. Alternatives are
+  empirically tied in selector-gap scaling (SD/variance/MAD LORO R² 0.809),
+  while pooled total SD underperforms at 0.627 because it includes between-
+  prompt differences. The prior 258-transition dynamics headline pooled
+  incompatible score types. On 221 binary risk transitions, the exact variance
+  model predicts next own spread at R² 0.778 overall / 0.653 mixed versus
+  persistence 0.581 / 0.193. On 37 continuous self-report transitions, the
+  headroom chain fails (−0.029 vs 0.747 persistence) and is no longer claimed.
+  See `docs/report_spread_definition_audit.md`.
 - 2026-07-15 (General, analysis): **SPREAD-CONVERSION MODEL LANDED.** Expanded
   the 340-round unified records with own-generated mean/spread, pool-supply
   shift, self-relative training displacement, and generator/behavior residual;
   all decomposition identities are checked at extraction. In mixed pools,
   training displacement predicts movement better than whole-pool selector gap
   (r 0.828 vs 0.627); behavioral pull remains the best predictor of the
-  separate readout (0.907). Across 258 transitions, training displacement
-  predicts movement of the own-generated mean (r 0.864), and change in its
-  `q(1−q)` headroom predicts change in own spread (r 0.750). The two-stage
-  model predicts held-out next own spread at R² 0.791 overall / 0.642 mixed,
-  beating persistence 0.657 / 0.289; the fully factorized pre-selection model
-  also wins 0.684 / 0.456 vs 0.540 / 0.170. Added exact mixed-source variance
-  decomposition, report, artifact, and a replacement Claude figure brief.
+  separate readout (0.907). The initial 258-transition headroom model was later
+  split by score type and replaced by the exact binary-risk formulation in the
+  entry above. Added mixed-source variance decomposition, report, artifact,
+  and a replacement Claude figure brief.
 - 2026-07-15 (General, writeup): TERMINOLOGY — the judge's "grip"/"utilization"
   is now "agreement" (how much the judge's choices agree with the value)
   EVERYWHERE user-facing: writeup + template + two-dials, two-clocks,

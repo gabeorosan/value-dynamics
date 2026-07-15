@@ -16,17 +16,17 @@
 #      better?"), giving each candidate a win rate.
 #   3. Keep the top-2 by win rate per task.
 #   4. Train the organism (LoRA, ~10 steps) on the kept code.
-#   5. READOUT: the organism writes each task N_READOUT fresh samples; every one
-#      is scored for insecurity by the frozen base (live) AND its raw text is
-#      banked so bandit + blind manual review can adjudicate afterward (the
-#      LLM live score is low-specificity — treat the banked code as ground
-#      truth, per report_code_security_static.md).
+#   5. READOUT: the organism writes the six training tasks plus a disjoint
+#      six-task transfer bank. The frozen base writes a paired same-run baseline.
+#      Every raw response is banked for bandit + blind manual review; the live
+#      frozen-base LLM score is a low-specificity diagnostic only.
 #
 # The PRIMARY readout is the banked-code security trajectory (adjudicated
 # post-run). kept-base share and per-round owner win rates are the mechanism.
-# Inference + light LoRA; ~40-60 min/seed on a T4. Result:
-# olmo_code_security_duel_loop.json on Drive (per-round saves, resumable per
-# seed). Training machinery + hyperparameters are the tested selfaware-loop
+# Inference + light LoRA; allow ~60-90 min/seed on a T4. Result:
+# olmo_code_security_duel_loop.json on Drive, with a hashed run contract and
+# per-round adapter checkpoints for true partial-seed resume. Training
+# machinery + hyperparameters are the tested selfaware-loop
 # values (PER_DEVICE_BATCH=1, GRAD_ACCUM=16, ROUND_STEPS=10, ROUND_LR=1e-4).
 import contextlib
 import gc

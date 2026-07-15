@@ -522,6 +522,19 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General): **OLMo DOES write insecure code with dose (behavioral
+  install real on the narrow target) + Qwen code three-way + alpha mirror.** OLMo
+  code-security pass adjudicated (manual/bandit/LLM, 180 snippets): manual
+  insecure-rate 0.778→0.972, severity 0.43→0.80 with dose — the behavioral install
+  the miscalibrated em_freegen couldn't show; dissociation RE-SCOPED and restored
+  (code rises, self-report flat). Qwen code three-way corrected: manual em750 0.955
+  vs base 0.667 (+0.29); bandit sens 0.50 (under, was mis-read as "base secure"),
+  LLM spec 0.04 (over). Alpha-scaling: prereg mirror VIOLATED (direction carries
+  self-report). Full packages: report_olmo_code_security_dose.md,
+  report_code_security_static.md, report_olmo_alpha_scaling.md; ledger rows;
+  adjudication scripts+JSONs (commit 707704d). Figures spawned:
+  olmo-code-security-dose, code-security-three-way (supersedes llm-vs-bandit draft).
+
 - 2026-07-15 (General): **Qwen insecure-code loop results VALIDATED by blind
   manual review — the counterweight to the OLMo em_freegen artifact.** User asked
   to re-score every free-text-judge readout. Cross-checked sr_freegen (the

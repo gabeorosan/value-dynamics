@@ -65,18 +65,16 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Requests between threads
 
-- 2026-07-15 General (analysis) → Figures: **CENTRALITY CORRECTION, visible
-  priority.** The existing and in-progress spread figures encode the now-
-  retracted “model-state centrality causes spread / loop is self-limiting”
-  story. Use `docs/figure_brief_spread_geometry_update.md` and
-  `experiments/spread_value_centrality.json`. Required comparison: state
-  centrality vs candidate-pool geometry, including mixed-pool R² 0.644 vs
-  0.935 and within-run/first-difference checks. Remove “fuel vanishes at
-  attractors,” “stable resting points,” “spread rides the value,” and
-  “consumed” language from all active figures. Keep the causal matched
-  injection result, labeled as restoration of rankable measured-axis
-  variation. The just-spawned `spread-tracks-centrality` figure must be
-  cancelled or rebuilt from the corrected brief.
+- 2026-07-15 General (analysis) → Figures: **SPREAD-CONVERSION MODEL, visible
+  priority.** Replace the in-progress `spread-tracks-centrality` figure with
+  `docs/figure_brief_spread_geometry_update.md`, sourced from
+  `experiments/spread_conversion_model.json`. The figure must distinguish
+  selector gap (kept − whole pool), training displacement (kept − model's own
+  generated pool), and behavioral pull. Show the chain from training
+  displacement → change in own generated mean → change in binary-score
+  headroom → next own-source spread, plus LORO R² 0.791 vs persistence 0.657
+  overall and 0.642 vs 0.289 mixed. Update existing mixed-pool figures to
+  separate own-source spread from between-source variation.
 
 - 2026-07-15 General (writeup) → Figures: FYI I edited a Figures-lane file
   under user directive — docs/figures/src/synthesis_judges_defined.py: the three
@@ -543,23 +541,21 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
-- 2026-07-15 (General, analysis): **VALUE-CENTRALITY MECHANISM RETRACTED;
-  candidate-pool geometry correction propagated.** Rebuilt
-  `scripts/analysis_spread_value_centrality.py` around 340 rounds / 74 runs
-  with pooled, run-fixed-effect, consecutive-round first-difference, and
-  leave-one-run-out comparisons. The old mixed pooled association reproduces
-  (model-state `v(1−v)` R² 0.644), but the same transform of candidate-pool
-  mean explains 0.935 pooled / 0.937 within-run / 0.873 of changes; state
-  centrality adds 0.0001 / 0.0020 / 0.00003 after it. Candidate mean and spread
-  share the same 0/1 scores, so this is bounded-score geometry, not a causal
-  state→spread law. The “self-limiting / stable 0/1 attractor” inference is
-  withdrawn: state centrality explains only 0.083 of |drift| variance vs 0.459
-  for measured |pull|, and the tail comparison is boundary-censored. Narrow
-  result retained: a homogeneous pool is selection-inert on the measured axis;
-  matched outside-supplier injection restores rankable variation. Propagated
-  to corrected report + JSON, writeup, site text, PLAN, ledger, and a visible
-  Claude figure brief. The just-spawned `spread-tracks-centrality` figure is
-  superseded before promotion.
+- 2026-07-15 (General, writeup): SIX interchangeable parts now — judging FORMAT is its own slot (judging vs a fixed alternative / duels: vs another model's generations); answer pool = 2 options; kit figure is a 2×3 grid; two-dials + twin-pair conditions tables carry the format column (6 slots). 'reference scoring' dropped everywhere. Figure captions numbered (Figure N., artifact/site 1–11). Loop figure: no stage numbers, bigger fonts; figures break out wider (min label ≥ caption). Hero: 'original/successor model'. All deployed. (md still lacks captions for setup/erosion/spread figs 3/6/7 + the rollout image — not yet mirrored from the template.)
+
+- 2026-07-15 (General, analysis): **SPREAD-CONVERSION MODEL LANDED.** Expanded
+  the 340-round unified records with own-generated mean/spread, pool-supply
+  shift, self-relative training displacement, and generator/behavior residual;
+  all decomposition identities are checked at extraction. In mixed pools,
+  training displacement predicts movement better than whole-pool selector gap
+  (r 0.828 vs 0.627); behavioral pull remains the best predictor of the
+  separate readout (0.907). Across 258 transitions, training displacement
+  predicts movement of the own-generated mean (r 0.864), and change in its
+  `q(1−q)` headroom predicts change in own spread (r 0.750). The two-stage
+  model predicts held-out next own spread at R² 0.791 overall / 0.642 mixed,
+  beating persistence 0.657 / 0.289; the fully factorized pre-selection model
+  also wins 0.684 / 0.456 vs 0.540 / 0.170. Added exact mixed-source variance
+  decomposition, report, artifact, and a replacement Claude figure brief.
 - 2026-07-15 (General, writeup): TERMINOLOGY — the judge's "grip"/"utilization"
   is now "agreement" (how much the judge's choices agree with the value)
   EVERYWHERE user-facing: writeup + template + two-dials, two-clocks,
@@ -567,8 +563,8 @@ ledger with trace status; figure references use filenames, never bare numbers.
   utilization: synthesis_utilization, two-dials-interventions, setup-em-organism,
   rollout-predicted-vs-actual, result-force-ladder — not in the writeup; rename
   if ever surfaced.) Also: rebuilt the loop figure's second half to four panels
-  (gap = spread × agreement; spread spent → gap shrinks; agreement is a fixed
-  judge property; outside source refills spread → gap returns), with a judging
+  (gap = spread × agreement; agreement is a stable judge-cell property;
+  outside supply changes spread), with a judging
   panel replacing value-spread up top. Finalized the opener's divergent-runs
   line ("through training and across settings and seeds"). All surfaces deployed.
 - 2026-07-15 (General, writeup): condition clarity — two-dials figure now spells

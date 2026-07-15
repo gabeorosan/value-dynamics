@@ -543,6 +543,20 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General): **EM-LoRA direction geometry COMPLETE (weights-bound item).**
+  Pure linear algebra on persisted LoRA adapters (CPU, r×r inner products verified
+  exact vs brute-force). Q1: the installed insecure-code direction ROTATES as it
+  grows (adjacent dose cos 0.83/0.90/0.92, dose250↔1000 only 0.55 — not one fixed
+  EM vector). Q2: delta norm grows monotonically with dose (12→28) though behavior
+  saturated by dose-250. Q4 (key): the self-judge code-security erosion is ~99%
+  ORTHOGONAL to the dose direction — loop_update cos vs dose500 consistently
+  NEGATIVE (−0.08…−0.12, 6/6 checkpoints both seeds) but small (~3% undone), while
+  cos(total,dose500) stays 0.93–0.97. The organism doesn't UNLEARN the installation,
+  it overlays a mostly-orthogonal correction toward safer code. Package:
+  report_olmo_lora_direction.md + ledger row + result JSON + figure spawn
+  (docs/figures/auto/olmo-lora-erosion-orthogonal/). Weight-space complement of the
+  behavioral erosion result.
+
 - 2026-07-15 (General): **OLMo code-security self-judge duel loop COMPLETE — full
   package.** The audited schema-2 run (both seeds, held-out transfer, resume
   contract) landed the behavioral twin of the Qwen self-report erosion, on the

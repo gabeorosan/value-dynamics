@@ -188,11 +188,12 @@ b.append(f'<rect x="{TBL_X-14}" y="{ty0-30}" width="{TBL_W+28}" '
          f'stroke-width="1.5"/>')
 b.append(_txt(TBL_X, ty0, "Both arms are the same run with one interchangeable "
               "part swapped — the answer pool:", 16, INK, "bold"))
-COLS = [("the arm", TBL_X + 6, 20), ("① base model", TBL_X + 250, 15),
-        ("② installed value", TBL_X + 375, 15),
-        ("③ the judge", TBL_X + 520, 24),
-        ("④ the answer pool", TBL_X + 730, 22),
-        ("⑤ the measure", TBL_X + 940, 16)]
+COLS = [("the arm", TBL_X + 6, 15), ("① base model", TBL_X + 200, 11),
+        ("② value", TBL_X + 300, 12),
+        ("③ the judge", TBL_X + 410, 15),
+        ("④ judging format", TBL_X + 548, 14),
+        ("⑤ answer pool", TBL_X + 685, 17),
+        ("⑥ the measure", TBL_X + 878, 13)]
 hy = ty0 + 30
 for head, hx, _w in COLS:
     b.append(_txt(hx, hy, head, 14, INK, "bold"))
@@ -200,11 +201,11 @@ b.append(f'<line x1="{TBL_X}" y1="{hy+8}" x2="{TBL_X+TBL_W}" y2="{hy+8}" '
          f'stroke="{INK}" stroke-width="1.5"/>')
 ROWS = [
     (GRAY, "self-only twin", "Qwen3-4B", "insecure code",
-     "score-based (min-insecurity)", "its own answers (self-only)",
+     "score-based (min-insec.)", "direct scoring", "its own answers (self-only)",
      "self-report"),
     (GREEN, "injected", "Qwen3-4B", "insecure code",
-     "score-based (min-insecurity)", "half from a frozen base model (mixed)",
-     "self-report"),
+     "score-based (min-insec.)", "direct scoring",
+     "half from a frozen base (mixed)", "self-report"),
 ]
 row_top = hy + 22
 for row in ROWS:

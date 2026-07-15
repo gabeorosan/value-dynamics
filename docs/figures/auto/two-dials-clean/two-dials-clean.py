@@ -96,7 +96,7 @@ FROZEN = [(-0.032, 0.433), (0.041, 0.433), (0.053, 0.396)]
 # ---------------------------------------------------------------- geometry
 # PX, PY, PW, PH, XMIN, XMAX, SMAX are unchanged from the prior draft, so
 # every dot/arrow below lands at the same pixel position as before.
-W, H = 1180, 1130
+W, H = 1180, 1140
 PX, PY, PW, PH = 160, 160, 880, 510
 XMIN, XMAX = -1.15, 1.05
 SMAX = 0.47
@@ -241,7 +241,7 @@ b.append(txt(590, 213, "ordinary frozen judges: agreement ≈ 0",
              15, GRAY, "normal", "end", halo=True))
 
 # 1. format swap -- short label below-left of its arrow
-b.append(txt(460, 345, "reference scoring → duels", 18, BLUE, "bold",
+b.append(txt(460, 345, "vs a fixed alternative → duels", 18, BLUE, "bold",
              halo=True))
 
 # 2. base-answer injection -- short label beside its arrow's top
@@ -297,40 +297,41 @@ ty0 = PY + PH + 150
 b.append(f'<rect x="{TBL_X-14:.1f}" y="{ty0-30:.1f}" width="{TBL_W+28:.1f}" '
          f'height="{H-(ty0-30)-14:.1f}" rx="14" fill="#fafafa" '
          f'stroke="{GRAY}" stroke-width="1.5"/>')
-b.append(txt(TBL_X, ty0, "Every series is one setting of the five "
+b.append(txt(TBL_X, ty0, "Every series is one setting of the six "
              "interchangeable parts of the loop:", 17, INK, "bold"))
 
 # columns: (header, x, wrap-chars); slot columns numbered to the kit figure
 COLS = [
-    ("the move",          TBL_X + 6,   26),
-    ("① base model",      TBL_X + 236, 15),
-    ("② installed value", TBL_X + 356, 15),
-    ("③ the judge",       TBL_X + 486, 27),
-    ("④ the answer pool", TBL_X + 712, 24),
-    ("⑤ the measure",     TBL_X + 902, 16),
-    ("dial it moved",     TBL_X + 1006, 15),
+    ("the move",           TBL_X + 4,   16),
+    ("① base model",       TBL_X + 196, 11),
+    ("② value",            TBL_X + 286, 12),
+    ("③ the judge",        TBL_X + 392, 16),
+    ("④ judging format",   TBL_X + 540, 16),
+    ("⑤ answer pool",      TBL_X + 690, 16),
+    ("⑥ the measure",      TBL_X + 838, 13),
+    ("dial it moved",      TBL_X + 946, 15),
 ]
 hy = ty0 + 30
 for head, hx, _w in COLS:
-    b.append(txt(hx, hy, head, 14, INK, "bold"))
+    b.append(txt(hx, hy, head, 13, INK, "bold"))
 b.append(f'<line x1="{TBL_X}" y1="{hy+8:.1f}" x2="{TBL_X+TBL_W}" '
          f'y2="{hy+8:.1f}" stroke="{INK}" stroke-width="1.5"/>')
 
 ROWS = [
-    (BLUE, "reference → duels", "OLMo-3-7B", "risky gambles",
-     "cautious-tuned copy · reference→duels", "own answers + base (mixed)",
+    (BLUE, "format swap", "OLMo-3-7B", "risky gambles",
+     "cautious-tuned copy", "fixed alt. → duels", "own + base (mixed)",
      "free-gen, scored", "agreement +0.38→+0.10"),
     (GREEN, "inject base answers", "Qwen3-4B", "insecure code",
-     "score-based (min-insecurity)", "collapsed → reopened with base",
+     "score-based (min-insec.)", "direct scoring", "collapsed → base-reopened",
      "self-report", "spread 0.00→0.31"),
     (PURPLE, "extremist copy (½ pool)", "OLMo-3-7B", "risky gambles",
-     "the model itself / base", "½ from a maxed-out copy",
+     "the model itself / base", "duels", "half from another model (a maxed copy)",
      "free-gen, scored", "spread 0.43→0.06"),
     (RED, "self-judges duels", "Qwen3-4B", "insecure code",
-     "the model itself · duels", "own answers + base (mixed)",
+     "the model itself", "duels", "own + base (mixed)",
      "self-report", "agreement →−0.24"),
-    (GRAY, "frozen judges", "OLMo-3-7B & Qwen3-4B", "risky gambles",
-     "base model / frozen copy", "own answers + base (mixed)",
+    (GRAY, "frozen judges", "OLMo & Qwen", "risky gambles",
+     "base / frozen copy", "fixed alt. / duels", "own + base (mixed)",
      "free-gen, scored", "agreement ≈ 0"),
 ]
 row_top = hy + 20
@@ -340,16 +341,16 @@ for row in ROWS:
     # measure line count per cell to size the row
     nlines = max(len(_wrap(str(c), COLS[i][2])) for i, c in enumerate(cells))
     # move cell carries a series-color dot
-    b.append(f'<circle cx="{TBL_X+12:.1f}" cy="{row_top+9:.1f}" r="6.5" '
+    b.append(f'<circle cx="{TBL_X+10:.1f}" cy="{row_top+8:.1f}" r="6" '
              f'fill="{col}"/>')
     for i, c in enumerate(cells):
         _, cx, wc = COLS[i]
-        x = cx + (18 if i == 0 else 0)   # indent the move cell past its dot
+        x = cx + (16 if i == 0 else 0)   # indent the move cell past its dot
         weight = "bold" if i == 0 else "normal"
         color = INK if i == 0 else GRAY
         for j, ln in enumerate(_wrap(str(c), wc)):
-            b.append(txt(x, row_top + 14 + j * 18, ln, 14, color, weight))
-    row_h = nlines * 18 + 16
+            b.append(txt(x, row_top + 13 + j * 17, ln, 13, color, weight))
+    row_h = nlines * 17 + 15
     row_top += row_h
     b.append(f'<line x1="{TBL_X}" y1="{row_top-8:.1f}" x2="{TBL_X+TBL_W}" '
              f'y2="{row_top-8:.1f}" stroke="#e4e4e0" stroke-width="1"/>')

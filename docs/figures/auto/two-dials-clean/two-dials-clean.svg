@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 1130" font-family="Helvetica, Arial, sans-serif">
-<rect width="1180" height="1130" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 1140" font-family="Helvetica, Arial, sans-serif">
+<rect width="1180" height="1140" fill="white"/>
 <text x="590.0" y="46.0" font-family="Helvetica, Arial, sans-serif" font-size="29" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Every intervention moved one dial: spread or agreement</text>
 <circle cx="850" cy="94" r="6" fill="white" stroke="#6b7684" stroke-width="2"/>
 <text x="862.0" y="100.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" text-anchor="start">before</text>
@@ -52,7 +52,7 @@
 <circle cx="636.4" cy="200.1" r="5.5" fill="#6b7684" stroke="white" stroke-width="2.2" opacity="0.8"/>
 <circle cx="641.2" cy="240.3" r="5.5" fill="#6b7684" stroke="white" stroke-width="2.2" opacity="0.8"/>
 <text x="590.0" y="213.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="end">ordinary frozen judges: agreement ≈ 0</text>
-<text x="460.0" y="345.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1f6fd0" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="start">reference scoring → duels</text>
+<text x="460.0" y="345.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1f6fd0" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="start">vs a fixed alternative → duels</text>
 <text x="250.0" y="365.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1f9e57" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="start">inject base answers</text>
 <text x="844.8" y="208.4" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="start">round 1</text>
 <text x="764.0" y="496.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="end">round 2</text>
@@ -62,70 +62,92 @@
 <text x="600.0" y="540.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#9427b5" font-weight="normal" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="start">the host gets infected — converges to that copy</text>
 <text x="230.0" y="560.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#d1341f" font-weight="bold" stroke="white" stroke-width="5" stroke-linejoin="round" paint-order="stroke" text-anchor="start">self-judges its own duels</text>
 <text x="600.0" y="770.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" text-anchor="middle">σ = within-question SD of pool value scores; ρ = correlation of the judge's choices with value. Source: experiments/spread_util_unified.json</text>
-<rect x="26.0" y="790.0" width="1128.0" height="326.0" rx="14" fill="#fafafa" stroke="#6b7684" stroke-width="1.5"/>
-<text x="40.0" y="820.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="start">Every series is one setting of the five interchangeable parts of the loop:</text>
-<text x="46.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="start">the move</text>
-<text x="276.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="start">① base model</text>
-<text x="396.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="start">② installed value</text>
-<text x="526.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="start">③ the judge</text>
-<text x="752.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="start">④ the answer pool</text>
-<text x="942.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="start">⑤ the measure</text>
-<text x="1046.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="start">dial it moved</text>
+<rect x="26.0" y="790.0" width="1128.0" height="336.0" rx="14" fill="#fafafa" stroke="#6b7684" stroke-width="1.5"/>
+<text x="40.0" y="820.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="start">Every series is one setting of the six interchangeable parts of the loop:</text>
+<text x="44.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">the move</text>
+<text x="236.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">① base model</text>
+<text x="326.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">② value</text>
+<text x="432.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">③ the judge</text>
+<text x="580.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">④ judging format</text>
+<text x="730.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">⑤ answer pool</text>
+<text x="878.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">⑥ the measure</text>
+<text x="986.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">dial it moved</text>
 <line x1="40" y1="858.0" x2="1140" y2="858.0" stroke="#1a1a1a" stroke-width="1.5"/>
-<circle cx="52.0" cy="879.0" r="6.5" fill="#1f6fd0"/>
-<text x="64.0" y="884.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="start">reference → duels</text>
-<text x="276.0" y="884.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo-3-7B</text>
-<text x="396.0" y="884.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">risky gambles</text>
-<text x="526.0" y="884.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">cautious-tuned copy ·</text>
-<text x="526.0" y="902.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">reference→duels</text>
-<text x="752.0" y="884.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">own answers + base</text>
-<text x="752.0" y="902.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">(mixed)</text>
-<text x="942.0" y="884.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">free-gen, scored</text>
-<text x="1046.0" y="884.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">agreement</text>
-<text x="1046.0" y="902.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">+0.38→+0.10</text>
-<line x1="40" y1="914.0" x2="1140" y2="914.0" stroke="#e4e4e0" stroke-width="1"/>
-<circle cx="52.0" cy="931.0" r="6.5" fill="#1f9e57"/>
-<text x="64.0" y="936.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="start">inject base answers</text>
-<text x="276.0" y="936.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen3-4B</text>
-<text x="396.0" y="936.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">insecure code</text>
-<text x="526.0" y="936.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">score-based</text>
-<text x="526.0" y="954.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">(min-insecurity)</text>
-<text x="752.0" y="936.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">collapsed → reopened</text>
-<text x="752.0" y="954.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">with base</text>
-<text x="942.0" y="936.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">self-report</text>
-<text x="1046.0" y="936.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">spread</text>
-<text x="1046.0" y="954.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">0.00→0.31</text>
-<line x1="40" y1="966.0" x2="1140" y2="966.0" stroke="#e4e4e0" stroke-width="1"/>
-<circle cx="52.0" cy="983.0" r="6.5" fill="#9427b5"/>
-<text x="64.0" y="988.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="start">extremist copy (½ pool)</text>
-<text x="276.0" y="988.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo-3-7B</text>
-<text x="396.0" y="988.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">risky gambles</text>
-<text x="526.0" y="988.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">the model itself / base</text>
-<text x="752.0" y="988.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">½ from a maxed-out copy</text>
-<text x="942.0" y="988.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">free-gen, scored</text>
-<text x="1046.0" y="988.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">spread</text>
-<text x="1046.0" y="1006.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">0.43→0.06</text>
-<line x1="40" y1="1018.0" x2="1140" y2="1018.0" stroke="#e4e4e0" stroke-width="1"/>
-<circle cx="52.0" cy="1035.0" r="6.5" fill="#d1341f"/>
-<text x="64.0" y="1040.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="start">self-judges duels</text>
-<text x="276.0" y="1040.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen3-4B</text>
-<text x="396.0" y="1040.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">insecure code</text>
-<text x="526.0" y="1040.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">the model itself · duels</text>
-<text x="752.0" y="1040.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">own answers + base</text>
-<text x="752.0" y="1058.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">(mixed)</text>
-<text x="942.0" y="1040.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">self-report</text>
-<text x="1046.0" y="1040.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">agreement</text>
-<text x="1046.0" y="1058.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">→−0.24</text>
-<line x1="40" y1="1070.0" x2="1140" y2="1070.0" stroke="#e4e4e0" stroke-width="1"/>
-<circle cx="52.0" cy="1087.0" r="6.5" fill="#6b7684"/>
-<text x="64.0" y="1092.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="start">frozen judges</text>
-<text x="276.0" y="1092.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo-3-7B &amp;</text>
-<text x="276.0" y="1110.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen3-4B</text>
-<text x="396.0" y="1092.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">risky gambles</text>
-<text x="526.0" y="1092.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">base model / frozen copy</text>
-<text x="752.0" y="1092.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">own answers + base</text>
-<text x="752.0" y="1110.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">(mixed)</text>
-<text x="942.0" y="1092.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">free-gen, scored</text>
-<text x="1046.0" y="1092.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">agreement ≈ 0</text>
-<line x1="40" y1="1122.0" x2="1140" y2="1122.0" stroke="#e4e4e0" stroke-width="1"/>
+<circle cx="50.0" cy="878.0" r="6" fill="#1f6fd0"/>
+<text x="60.0" y="883.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">format swap</text>
+<text x="236.0" y="883.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo-3-7B</text>
+<text x="326.0" y="883.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">risky</text>
+<text x="326.0" y="900.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">gambles</text>
+<text x="432.0" y="883.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">cautious-tuned</text>
+<text x="432.0" y="900.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">copy</text>
+<text x="580.0" y="883.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">fixed alt. →</text>
+<text x="580.0" y="900.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">duels</text>
+<text x="730.0" y="883.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">own + base</text>
+<text x="730.0" y="900.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">(mixed)</text>
+<text x="878.0" y="883.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">free-gen,</text>
+<text x="878.0" y="900.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">scored</text>
+<text x="986.0" y="883.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">agreement</text>
+<text x="986.0" y="900.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">+0.38→+0.10</text>
+<line x1="40" y1="911.0" x2="1140" y2="911.0" stroke="#e4e4e0" stroke-width="1"/>
+<circle cx="50.0" cy="927.0" r="6" fill="#1f9e57"/>
+<text x="60.0" y="932.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">inject base</text>
+<text x="60.0" y="949.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">answers</text>
+<text x="236.0" y="932.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen3-4B</text>
+<text x="326.0" y="932.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">insecure</text>
+<text x="326.0" y="949.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">code</text>
+<text x="432.0" y="932.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">score-based</text>
+<text x="432.0" y="949.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">(min-insec.)</text>
+<text x="580.0" y="932.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">direct scoring</text>
+<text x="730.0" y="932.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">collapsed →</text>
+<text x="730.0" y="949.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">base-reopened</text>
+<text x="878.0" y="932.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">self-report</text>
+<text x="986.0" y="932.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">spread</text>
+<text x="986.0" y="949.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">0.00→0.31</text>
+<line x1="40" y1="960.0" x2="1140" y2="960.0" stroke="#e4e4e0" stroke-width="1"/>
+<circle cx="50.0" cy="976.0" r="6" fill="#9427b5"/>
+<text x="60.0" y="981.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">extremist copy</text>
+<text x="60.0" y="998.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">(½ pool)</text>
+<text x="236.0" y="981.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo-3-7B</text>
+<text x="326.0" y="981.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">risky</text>
+<text x="326.0" y="998.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">gambles</text>
+<text x="432.0" y="981.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">the model itself</text>
+<text x="432.0" y="998.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">/ base</text>
+<text x="580.0" y="981.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">duels</text>
+<text x="730.0" y="981.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">half from</text>
+<text x="730.0" y="998.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">another model (a</text>
+<text x="730.0" y="1015.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">maxed copy)</text>
+<text x="878.0" y="981.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">free-gen,</text>
+<text x="878.0" y="998.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">scored</text>
+<text x="986.0" y="981.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">spread</text>
+<text x="986.0" y="998.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">0.43→0.06</text>
+<line x1="40" y1="1026.0" x2="1140" y2="1026.0" stroke="#e4e4e0" stroke-width="1"/>
+<circle cx="50.0" cy="1042.0" r="6" fill="#d1341f"/>
+<text x="60.0" y="1047.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">self-judges</text>
+<text x="60.0" y="1064.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">duels</text>
+<text x="236.0" y="1047.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen3-4B</text>
+<text x="326.0" y="1047.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">insecure</text>
+<text x="326.0" y="1064.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">code</text>
+<text x="432.0" y="1047.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">the model itself</text>
+<text x="580.0" y="1047.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">duels</text>
+<text x="730.0" y="1047.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">own + base</text>
+<text x="730.0" y="1064.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">(mixed)</text>
+<text x="878.0" y="1047.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">self-report</text>
+<text x="986.0" y="1047.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">agreement</text>
+<text x="986.0" y="1064.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">→−0.24</text>
+<line x1="40" y1="1075.0" x2="1140" y2="1075.0" stroke="#e4e4e0" stroke-width="1"/>
+<circle cx="50.0" cy="1091.0" r="6" fill="#6b7684"/>
+<text x="60.0" y="1096.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">frozen judges</text>
+<text x="236.0" y="1096.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo &amp; Qwen</text>
+<text x="326.0" y="1096.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">risky</text>
+<text x="326.0" y="1113.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">gambles</text>
+<text x="432.0" y="1096.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">base / frozen</text>
+<text x="432.0" y="1113.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">copy</text>
+<text x="580.0" y="1096.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">fixed alt. /</text>
+<text x="580.0" y="1113.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">duels</text>
+<text x="730.0" y="1096.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">own + base</text>
+<text x="730.0" y="1113.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">(mixed)</text>
+<text x="878.0" y="1096.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">free-gen,</text>
+<text x="878.0" y="1113.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">scored</text>
+<text x="986.0" y="1096.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">agreement ≈ 0</text>
+<line x1="40" y1="1124.0" x2="1140" y2="1124.0" stroke="#e4e4e0" stroke-width="1"/>
 </svg>

@@ -36,40 +36,34 @@ four rounds; this post varies one column at a time.*
 *Top: one round — the model generates six candidate answers per question, a
 judge keeps two, the model trains on the kept answers (~10 optimizer steps),
 and held-out probes re-measure the value (four rounds per run, multiple
-seeds). Bottom: the kept-minus-pool **selection gap** that drives the movement
-is the product of two dials — the pool's **value spread** (which the answer
-source can preserve, exhaust, or restore) and the judge's **agreement** with
-the value — how much
+seeds). Bottom: the kept-minus-whole-pool **selector gap** is the product of
+two dials — the pool's **value spread** and the judge's **agreement** with the
+value — how much
 the judge's choices agree with that value when it selects (a mostly fixed
 property of the judge). The rest of the post follows how each of those changes.*
 
 ## Findings
 
-1. **The value moves toward whatever the judge keeps, and the selection gap
-   predicts the movement.** Across all 340 logged rounds — self-generated
-   pools, base-model-injected pools, and pools invaded by an extremist peer —
-   the value moves about 80% of the way toward the kept answers' mean per
-   round (r = 0.80).
-2. **The gap factors into value spread × agreement.** Spread is the
+1. **The value moves toward whatever the judge keeps.** In mixed pools, the
+   important update coordinate is where the kept training targets sit relative
+   to the model's own generated candidates, not relative to the whole offered
+   pool. This self-relative training displacement correlates 0.83 with movement
+   in mixed pools, versus 0.63 for the whole-pool gap.
+2. **The selector gap factors into value spread × agreement.** Spread is the
    material: how much the six candidates differ on the value axis.
    Agreement is the judge: how consistently its choices track that axis.
    Their product reconstructs the realized gap at r = 0.90 over 290 rounds;
    neither factor alone comes close.
-3. **Spread follows the candidate pool's bounded score geometry; agreement
-   follows the judging setup.** The candidate coordinates here are scored 0/1,
-   so their possible standard deviation is mechanically largest near a pool
-   mean of 0.5 and vanishes at 0 or 1. In mixed pools, candidate-pool centrality
-   explains 94% of spread, versus 64% for the pre-round model value; after pool
-   geometry is included, model-state centrality adds effectively nothing to
-   within-run or round-to-round fits. The robust intervention result is narrower:
-   when a pool is homogeneous on the measured axis, selection cannot move that
-   axis, while an outside supplier can restore rankable variation.
-   Agreement is close to a fixed property of judge × judging format ×
-   pool (82% of its variance is between cells, not between rounds). Taking
-   this literally as a model — measure each run's first round, roll forward
-   — predicts the intervention endpoints (invasion takeovers, injection
-   collapse, self-erosion), and its worst misses are exactly the runs where
-   agreement changed mid-run.
+3. **Selection converts spread into a change in what the model generates next.**
+   Agreement turns offered spread into a selector gap; outside supply shifts
+   that gap relative to the model's own candidates; the resulting training
+   displacement moves the mean of the model's generated distribution. Because
+   the candidate coordinate is scored 0/1, moving that mean toward a boundary
+   reduces the spread available next round and moving it inward restores
+   spread. Leave-one-run-out, this chain predicts next own-source spread at
+   R² 0.79 overall and 0.64 in mixed pools, beating spread persistence at 0.66
+   and 0.29. Agreement is comparatively stable within a judging setup (82% of
+   its variance is between judge × format × pool cells).
 
 ## What I measure
 
@@ -110,15 +104,18 @@ prompts, example answers, and scoring for each.
 > use static analysis instead). See report_em_freegen_manual_adjudication.md and
 > report_code_security_static.md.
 
-Per round, three bookkeeping quantities on the actual candidate pool:
+Per round, five bookkeeping quantities keep the selector, generator, and
+behavioral readout separate:
 
 - **value spread** σ — the within-item standard deviation of the six
   candidates' value scores, averaged over items;
 - **agreement** ρ — the within-item correlation between the judge's
   candidate scores and the candidates' value scores, averaged over items
   (−1 = perfectly keeps the low side, +1 = perfectly keeps the high side);
-- **selection gap** — the kept answers' mean value score minus the whole
-  pool's.
+- **selector gap** — kept mean minus the whole offered pool mean;
+- **training displacement** — kept mean minus the model's own generated-pool
+  mean;
+- **behavioral pull** — kept mean minus the separate behavioral value readout.
 
 ![Judges and pools defined](figures/synthesis_judges_defined.svg)
 
@@ -130,12 +127,15 @@ prompted judge to fool.*
 ## The value moves toward what the judge keeps
 
 The judge only touches the model through which two answers it keeps, and that
-channel is enough to steer the value. Define the **pull** as the kept
-answers' mean minus the *current value*. In a self-only pool the pool mean
-sits at the current value, so pull ≈ gap. In a mixed pool they come apart,
-and pull is what matters: across all 340 rounds the value moves ~0.83 of the
-pull per round (r = 0.80); on the 32 rounds where an extremist peer supplied
-half the pool, r = 0.99. (A frozen version of the gap predictor, fit before
+channel is enough to steer the value. In a self-only pool, selector gap and
+training displacement coincide. In a mixed pool, outside candidates move the
+whole-pool mean, so the training displacement is
+`kept − model-generated pool = selector gap + pool-supply shift`. Across the
+96 mixed rounds it correlates 0.83 with behavioral movement, versus 0.63 for
+the selector gap alone. The final **behavioral pull**, kept mean minus the
+separate current-value readout, correlates 0.91 because it also includes the
+small mismatch between what the model generates in the training pool and what
+the held-out behavioral probe measures. (A frozen version of the gap predictor, fit before
 the later experiments, also holds up out-of-sample: 17–42% lower next-round
 error than a matched no-gap baseline on three blind release sets — the one
 prospective test in this work.) This restates the mixed-pool endpoint result
@@ -149,7 +149,7 @@ mean — where the pull runs out.
 *Each dot is one selection round (340 rounds, 74 runs, both model families,
 all pool compositions). Descriptive accounting on logged pools.*
 
-## The gap is spread × agreement
+## The selector gap is spread × agreement
 
 Order statistics says that keeping 2 of 6 by a judge whose scores correlate
 ρ with the value axis, from a pool with spread σ, produces an expected gap
@@ -187,39 +187,43 @@ same run. The measured values also match what the loop outcomes implied:
 
 ![Judging its own duels, the insecure-code model erased its value](figures/result_selfjudge_erosion.svg)
 
-## Spread and agreement move on different clocks
+## Spread is converted into a new generator state
 
-**Spread is bounded by the candidate pool's 0/1 score geometry.** The initial
-analysis found that the pre-round model value's centrality `v(1 − v)` explains
-46% of spread across all 340 rounds and 64% in mixed pools. That association is
-real but not a new mechanism: spread and candidate-pool mean use the same binary
-scores, whose Bernoulli standard deviation is bounded by
-`sqrt(p(1 − p))`, and model value correlates 0.91 with pool mean. In mixed
-pools, applying the same centrality transform to the actual candidate-pool mean
-explains 94% of spread. It explains 94% after run fixed effects and 87% of
-round-to-round changes; model-state centrality adds less than 0.3 percentage
-point after it in either comparison. Under self-only pools, spread is also
-persistent round to round (persistence 0.88 on OLMo, 0.97 on Qwen); the score oracle
-reversed an extremist OLMo endpoint (0.917 → 0.094) exactly while spread
-remained, but did nothing for four rounds to an endpoint stuck at 1.000 whose
-spread was 0.000 every round — genuinely homogeneous (independent rescoring
-gives spread 0.000, embedding distances 0.006 and 0.000; temperature 1.4 did not
-refill it under the existing sampler).
+Round number does not enter the model. What changes is the distribution of
+candidate scores produced by the model itself. Call its mean `q` and its spread
+`s`. Each round, the judge converts offered spread into a selector gap; an
+outside supplier can additionally shift the whole pool away from `q`; together
+these determine the training displacement. Across 258 consecutive-round
+transitions:
 
-An outside supplier can change that pool geometry, which is why injecting base
-answers reopens a collapsed pool. The matched pair makes this causal at twin
-rigor: same seeds, same
-oracle, streams diverging only at injection — the self-only twin has spread
-0.000 and moves 0.0006 per round; the injected sibling gets spread 0.31 and its
-value collapses 0.627 → 0.000 in one round. Invasion and rescue still move in
-opposite directions: under invasion, host and supplier candidate scores
-converge and spread collapses (0.43 → 0.03 in three rounds); under rescue,
-candidate-pool mean returns toward the interior and spread rises (0.32 → 0.38).
-But these trajectories do not establish that the model state caused spread or
-that 0/1 are stable attractors. They show the narrower operational law: when
-the current generator supplies no rankable variation on the measured axis, the
-loop is selection-inert there; a different answer supplier can reopen the
-intervention window.
+`Δq = 0.005 + 0.827 × training displacement` (`r = 0.86`).
+
+The new `q` then changes how much score variation the model can produce. The
+coordinate here is binary, so `q(1−q)` is its variance headroom: it is largest
+in the interior and smaller near 0 or 1. The observed change follows:
+
+`Δs = −0.008 + 1.205 × Δ[q(1−q)]` (`r = 0.75`).
+
+This supplies the missing round-to-round mechanism. Selection does not merely
+consume spread with time. It moves the generator's output distribution. A move
+toward a score boundary tends to reduce next-round spread; a move toward the
+interior tends to restore it. Leave-one-run-out, the two-stage chain predicts
+next own-source spread at R² 0.79 overall, compared with 0.66 for predicting it
+from current spread alone. In mixed pools the advantage is larger: 0.64 versus
+0.29.
+
+Outside supply affects the loop twice. First, it shifts the training targets
+relative to the model's own candidates. Second, it adds between-source
+variation to the offered pool. That between-source component is 23% of mean
+total spread in base-mixed pools and 42% in peer-mixed pools, so the selector
+can see substantial variation even when the host's own candidates are narrow.
+As host and supplier converge, that component shrinks.
+
+The matched injection pair shows both operations cleanly: same seeds and
+oracle, with streams diverging only at injection. The self-only twin has own
+spread 0.000 and barely moves; adding base-model candidates supplies spread
+0.31, shifts the training targets, and moves the value 0.627 → 0.000 in one
+round.
 
 ![Spread under three pool compositions](figures/auto/spread-by-composition-v2/spread-by-composition-v2.svg)
 
@@ -233,17 +237,16 @@ supplier's level in one round.*
 round to round; what changes it is changing the judge, changing the judging
 format, or changing what is in the pool — design choices, not dynamics.
 Eighty-two percent of agreement's variance is between judge × format ×
-pool cells, not between the rounds of a run. So the two factors keep
-different clocks: spread follows the scored candidate pool, while
-agreement is a property that holds until you change the setup. The two
+pool cells, not between the rounds of a run. Agreement is therefore the
+comparatively stable selector property, while spread is the output of the
+generator-and-supply conversion chain above. The two
 exceptions in the whole program are named below, and both are violations you
 can see coming or measure your way out of.
 
-![The two dials change on different clocks: pool geometry changes spread, agreement holds](figures/auto/two-clocks-spread-util/two-clocks-spread-util.svg)
+![Generator movement changes spread while agreement usually holds](figures/auto/two-clocks-spread-util/two-clocks-spread-util.svg)
 
-*Left: value spread over rounds — persistent in self-only pools, changed by an
-outside supplier, and lost when an invaded pool becomes homogeneous on the
-measured axis. Right: agreement over
+*Left: value spread over rounds — changed as the model's generated distribution
+and outside supply change. Right: agreement over
 rounds — each judge cell holds near its own level; the one line that climbs is
 the bloom.*
 
@@ -252,81 +255,44 @@ the bloom.*
 *Every intervention moved one factor. Injecting base answers restores spread
 (σ 0.00 → 0.31) at fixed agreement; a copy of the model railed to the
 max-risk extreme supplies half of each candidate pool, which becomes homogeneous
-as the host converges (σ 0.43 → 0.06 at ρ ≈ 0.5); swapping reference scoring
+as the host converges (σ 0.43 → 0.06 at ρ ≈ 0.5); swapping judging against a fixed alternative
 for duels drops the same judge's agreement (ρ 0.38 → 0.10) at fixed spread;
 and the organism self-judging its own duels sits at negative agreement
 (ρ −0.24). The score oracle is the ρ = −1 ceiling; ordinary frozen judges sit
 near ρ = 0.*
 
-**Taking the three sentences literally as a model predicts the
-selection-driven runs.** Measure a run's first round only — starting value,
-spread σ₁, agreement ρ₁, and, for mixed pools, the supplier's level read
-off the supplier's round-1 candidates — then roll forward: the value moves K
-of the way toward the kept mean each round, the kept mean is the pool mean
-plus 0.96·ρ₁·σ, and spread follows its persistence law (self-only) or tracks
-the source separation (mixed). The three fitted scalars are refit
-leave-one-run-out, so no run touches its own fit. Because the model only has
-a mechanism where a judge selects on the value axis, the fair test is the
-runs where one does — the interventions plus the self-only judges that agree with the value.
-On those 36 runs endpoint error is about a quarter of the no-change baseline
-(MAE 0.106 vs 0.431), and the interventions are the sharpest: all eight peer
-invasions predicted to run to the peer's extremist value (MAE 0.105 vs 0.450
-across the 24 intervention cells), the injection reopening predicted 0.000
-against a true 0.000 in both seeds, and the self-judge erosion — from nothing
-but the measured round-1 agreement of −0.24 — predicted a collapse to the
-supplier's level against a true collapse to 0.00. Direction was right in 40
-of the 51 runs that moved at least 0.15. Rescue magnitudes are the soft
-spot: right shape, errors 0.09–0.32.
+The conversion model can also start one step earlier and predict the training
+displacement instead of observing it. Replacing the realized selector gap with
+`0.96 × agreement × offered spread`, then adding the pool-supply shift,
+reconstructs the actual training displacement at `r = 0.95` overall and 0.98
+in mixed pools. Rolled through the same two stages, this fully factorized model
+still predicts next own-source spread better than persistence: leave-one-run-
+out R² 0.68 versus 0.54 overall and 0.46 versus 0.17 in mixed pools.
 
-**Where selection has no agreement with the value, the model correctly predicts stillness — and
-the value moves anyway.** On the self-only runs with a base, frozen-copy, or
-self-reference judge (agreement ρ ≈ 0), the model forecasts almost no
-selection-driven movement and barely beats the no-change baseline (0.197 vs
-0.215), because the movement that happens there is *training instability*,
-not selection force — the same gap-free wandering documented in the runaway
-decomposition, which no selection-based model can forecast. The clearest
-single case is one base-judge runaway whose agreement rose mid-run from a
-round-1 state indistinguishable from settled runs (ρ₁ = 0.012, predicted
-flat 0.24, ended at 0.802). Its mechanics are worth spelling out: agreement
-is a joint property of the judge and the pool, and here the judge was frozen
-the whole time — what changed is the pool. The generator drifted into a
-region of answer-space where the frozen judge's scores happen to track risk,
-so the correlation between its choices and the value axis climbed round by
-round (0.01 → 0.21 → 0.27) and selection began to bite. Nothing about the
-judge moved; the pool walked into the judge's taste. (The fan-then-press
-schedule cells are excluded from all of this: the experimenter swaps the
-judge mid-run, so a model that fixes agreement at its round-1 value cannot
-apply, and it is duly worse than persistence there.) A model this simple is
-post-hoc structure with leave-one-run-out scalars, not a preregistered
-forecast; I read it as an internal-consistency check that the three
-sentences above really do carry the program's outcomes.
-
-![Predicted vs actual endpoints from first-round measurements](figures/auto/rollout-by-regime/rollout-by-regime.svg)
-
-*Each prediction comes from a run's first-round measurements alone, scalars
-fit leave-one-run-out. Left: where a judge selects on the axis (interventions
-plus self-judges that agree with the value) the model tracks the endpoint — mean error 0.106
-against 0.431 for assuming no change. Right: where agreement ≈ 0 it predicts
-stillness, and the observed wandering is training instability (0.197 vs 0.215);
-the one climbing point is the bloom. Fan-then-press schedule cells (judge
-swapped mid-run) are excluded.*
+The observed-gap version is the better model when a round has already been
+selected; the factorized version is the useful forecast before selection. The
+difference between them is realized judge noise and any change in agreement
+inside the round. Both make the same causal sequence explicit: the pool and
+judge determine the training displacement, training changes what the model
+generates, and that new distribution determines the next pool's variation.
 
 ## What this buys
 
-The three levers of these loops stop being a list of experiments and become
-the terms of one expression. *Who fills the pool* sets the pool mean and the
-spread — the supplier term and the material. *Who judges, and how the
-question is put to them* sets agreement. *Training* closes the loop by
-moving the value toward the kept mean. Every intervention that worked in
+The levers of these loops stop being a list of experiments and become one
+conversion chain. *Who fills the pool* sets its supply shift and available
+spread. *Who judges, and how the question is put to them* sets agreement.
+*Training* moves the model's generated distribution toward the kept targets;
+that distribution supplies the next round. Every intervention that worked in
 this program worked by moving exactly one of those dials: injection restored
 spread; switching reference-scoring to duels changed the same judge's
 agreement fourfold; the oracle pinned agreement at the ceiling; and the
 self-judging organism's own negative agreement erased its value.
 
-For anyone building such cycles: measure spread and agreement on the
-model's *actual* candidate pool under the *actual* comparison protocol
-before training on a judge's selections. A stated preference is not
-agreement; a reference-anchored agreement does not transfer to duels.
+For anyone building such cycles: separately measure the whole offered pool and
+the model's own candidates. Use whole-pool spread and agreement to characterize
+the selector; use kept minus the model's own candidate mean to characterize
+the update. A stated preference is not
+agreement; a agreement against a fixed alternative does not transfer to duels.
 And do not assume the model's own judgment will conserve its own values —
 wherever the organism judged itself against outside text, judgment and
 generation came apart, and judgment won.
@@ -334,16 +300,17 @@ generation came apart, and judgment won.
 ## Where this should transfer
 
 The model makes measurable predictions about setups it was not fit on. A
-self-rewarding pipeline is a self-judge on self-only pools: expect spread
-to decay as the model converges on its own preferences and drift to stall
-unless outside data arrives — with the caveat that judgment and generation
+self-rewarding pipeline is a self-judge on self-only pools: expect spread to
+change as selection moves the generator's output distribution, and movement to
+stall if that distribution becomes homogeneous on the selected axis unless
+outside data arrives — with the caveat that judgment and generation
 can disagree, in which case the loop erodes the value instead of amplifying
-it. A constitutional loop is reference-anchored judging: measure its
+it. A constitutional loop is judging against a fixed alternative: measure its
 agreement under the deployed comparison protocol, because
-reference-anchored agreement did not transfer to pairwise choice here.
-Any pipeline that mixes vendor or web text is a mixed pool: the mixture's
-values anchor the pool mean, so they — not the judge's intentions — bound
-where the loop can go. And an RLAIF reward model is a judge whose
+agreement against a fixed alternative did not transfer to pairwise choice here.
+Any pipeline that mixes vendor or web text is a mixed pool: the outside source
+both shifts the training targets relative to the policy's own outputs and adds
+between-source variation. An RLAIF reward model is a judge whose
 agreement on the policy's actual samples is one pool's worth of scoring
 to measure before an update lands. Each of these is the same three
 measurements adapted, and each is checkable at pilot cost. *[placement-pick:
@@ -351,19 +318,18 @@ own section (as here) · fold into "What this buys"]*
 
 ## Next directions
 
-The reframing sets the queue. First, make the model earn trust
-prospectively: preregister rollout forecasts for fresh runs — new judges,
-new judging formats, new mixture shares — and score them blind, the way the
-frozen gap predictor was scored; the most informative cells are the ones
-the model is worst at (rescue magnitudes) and the ones it cannot see by
-construction (blooms). Second, an agreement library: ρ costs one pool's
+The reframing sets the queue. First, test the conversion chain prospectively:
+at matched current own mean and spread, manipulate training displacement with
+judge direction or mixture share, then preregister the next own mean and
+spread. Score those forecasts blind, as the frozen gap predictor was scored.
+Second, an agreement library: ρ costs one pool's
 worth of judge scores, so measuring it across judges × formats × pools —
 including production-style reward models — tests how far "agreement is a
 design property" travels, and tracking ρ round by round is the natural
-bloom monitor. Third, experiments on the factors themselves: dose–response
-of injection share on the spread floor (how much outside text keeps
-selection alive), whether spread persistence survives longer horizons, and
-a dynamic agreement term for blooms — the model's one structured failure.
+bloom monitor. Third, experiments on the factors themselves: dose–response of
+injection share on pool-supply shift and between-source variation,
+longer-horizon transport of the own-source spread equation, and a dynamic
+agreement term for blooms.
 Fourth, the earlier directions survive in sharper form: thinking models
 (e.g. Qwen3.5) make the judgment channel readable, turning agreement from
 a number into an inspectable argument; letting the model modify pieces of
@@ -379,12 +345,12 @@ the measured coordinate does.
 Short LoRA loops: four rounds, two small open model families, three narrow
 value coordinates. The movement law and the factorization are descriptive
 associations on logged pools (the factorization is close to an
-order-statistic identity); the blind release sets are the only out-of-sample
-prediction test, and the rollout model is post-hoc structure with
-leave-one-run-out scalars, evaluated on 67 runs from the same program.
-The spread-centrality audit is also post-hoc: because candidate-pool mean and
-spread are derived from the same 0/1 scores, their strong fit is structural
-accounting, not a causal model of how latent values control generation.
+order-statistic identity). The frozen movement predictor was tested on blind
+release sets; the spread-conversion model uses leave-one-run-out and
+leave-one-condition-out validation within the same program and is not yet a
+preregistered external forecast. Its headroom term is specific to the observed
+0/1 candidate score and should not be read as a model of a one-dimensional
+latent value.
 Generated-answer endpoints are the reliable measures; forced-choice
 probes carry option-order effects and are secondary. I preregistered
 predictions before each run family; the headline results above passed, but
@@ -403,7 +369,11 @@ Primary records in the project repository under `docs/`:
 `report_spread_util_unified.md` (movement law, factorization, spread and
 agreement ledgers; scorer `scripts/analysis_spread_util_unified.py` →
 `experiments/spread_util_unified.json`) ·
-`report_spread_value_centrality.md` (correction of the state-centrality claim;
+`report_spread_conversion_model.md` (self-relative training displacement and
+the leave-one-run-out conversion model; scorer
+`scripts/analysis_spread_conversion_model.py` →
+`experiments/spread_conversion_model.json`) ·
+`report_spread_value_centrality.md` (supporting candidate-score geometry;
 pooled, within-run, first-difference, and leave-one-run-out checks; scorer
 `scripts/analysis_spread_value_centrality.py` →
 `experiments/spread_value_centrality.json`) ·

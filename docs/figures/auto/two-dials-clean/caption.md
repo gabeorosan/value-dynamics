@@ -9,7 +9,7 @@ oracle that always keeps the two lowest scorers) — and their product explains
 ρ alone 0.594, σ alone 0.030). Each measured intervention moved exactly one
 dial. Each series names its model and value in the plot; the four moves span
 three model×value settings. On the **OLMo risk-seeking** organism, swapping the
-scoring format from reference scoring to head-to-head duels (same cautious
+judging format from judging against a fixed alternative to head-to-head duels (same cautious
 fine-tuned-copy judge, same base-mixed pools) moved only agreement,
 +0.38 → +0.10, while spread stayed at 0.33–0.37. On the **Qwen insecure-code**
 organism, injecting base-model answers into a collapsed pool (same seeds, same

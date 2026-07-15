@@ -26,13 +26,14 @@ LOOP_FILL = "#eef2f6"
 FONT = "Helvetica, Arial, sans-serif"
 BODY = 19
 
-# per-slot colour + light tint fill
+# per-slot colour + light tint fill (six interchangeable parts)
 SLOT = {
     1: (BLUE, "#eef3fb"),
     2: (RED, "#fbeeec"),
     3: (PURPLE, "#f4eef7"),
-    4: (AMBER, "#f8f2e3"),
-    5: (TEAL, "#e8f3f1"),
+    4: (GREEN, "#eef5ee"),
+    5: (AMBER, "#f8f2e3"),
+    6: (TEAL, "#e8f3f1"),
 }
 
 
@@ -128,8 +129,8 @@ W = 1560
 CX = 780
 
 # ---------------------------------------------------------------- title
-b.append(ctext(CX, 50, "One loop, five interchangeable parts — every experiment is a choice for each slot", 30, INK, "bold"))
-b.append(ctext(CX, 84, "Every named experiment is one setting of these five slots. Swap a part and you have a different experiment.", BODY, GRAY))
+b.append(ctext(CX, 50, "One loop, six interchangeable parts — every experiment is a choice for each slot", 30, INK, "bold"))
+b.append(ctext(CX, 84, "Every named experiment is one setting of these six slots. Swap a part and you have a different experiment.", BODY, GRAY))
 
 # ---------------------------------------------------------------- the loop
 bw, bh = 250, 92
@@ -169,14 +170,15 @@ b.append(ctext(CX, ry + 22, "repeat — about 4 rounds", 17, GRAY))
 
 # slot badges on the loop (numbered dots marking where each part plugs in)
 byd = by - 19
-# stage 1 carries base model (1), installed value (2), answer pool (4)
+# stage 1 carries base model (1), installed value (2), answer pool (5)
 b.append(badge(xs[0] + 55, byd, 1, SLOT[1][0], 14))
 b.append(badge(xs[0] + 125, byd, 2, SLOT[2][0], 14))
-b.append(badge(xs[0] + 195, byd, 4, SLOT[4][0], 14))
-# stage 2 carries the judge (3)
-b.append(badge(xs[1] + bw / 2, byd, 3, SLOT[3][0], 14))
-# stage 4 carries the readout (5)
-b.append(badge(xs[3] + bw / 2, byd, 5, SLOT[5][0], 14))
+b.append(badge(xs[0] + 195, byd, 5, SLOT[5][0], 14))
+# stage 2 carries the judge (3) and the judging format (4)
+b.append(badge(xs[1] + bw / 2 - 22, byd, 3, SLOT[3][0], 14))
+b.append(badge(xs[1] + bw / 2 + 22, byd, 4, SLOT[4][0], 14))
+# stage 4 carries the measure (6)
+b.append(badge(xs[3] + bw / 2, byd, 6, SLOT[6][0], 14))
 
 # ---------------------------------------------------------------- two task examples
 ty = ry + 52
@@ -206,84 +208,86 @@ slots = [
      [("risky gambles", "$"), ("insecure code", "</>")], None),
     (3, "THE JUDGE", "who keeps the two answers to train on",
      [("the model itself", None), ("a neutral (base) model", None),
-      ("a cautious-tuned copy (leans safe)", None), ("a score-based judge: min-risk / min-insecurity", None)], None),
-    (4, "THE ANSWER POOL", "where the 6 answers come from",
-     [("the model's own answers", None), ("half from another model (mixed)", None),
-      ("half from a maxed-out copy (contamination)", None)], None),
-    (5, "THE MEASURE", "how the value is measured",
+      ("a cautious-tuned copy (leans safe)", None),
+      ("a score-based judge: min-risk / min-insecurity", None)], None),
+    (4, "THE JUDGING FORMAT", "how the judge compares the answers",
+     [("judging against a fixed alternative", None),
+      ("duels: judging against another model's generations", None)], None),
+    (5, "THE ANSWER POOL", "where the 6 answers come from",
+     [("the model's own answers", None),
+      ("half from another model (mixed)", None)], None),
+    (6, "THE MEASURE", "how the value is measured",
      [("free-written answers, scored by the frozen base model", None),
       ("a forced A-or-B choice", None),
       ("self-report (“is your code insecure?”)", None)],
      "token entropy on open prompts — generative health, not a value"),
 ]
 
-cw = 281
-gap = 20
+# two rows of three cards
+NCOLS = 3
+gap = 30
 x0 = 36
+cw = (W - 2 * x0 - (NCOLS - 1) * gap) / NCOLS
 cards_y = tcy + tch + 40
 
 
 def card_content(x, y, num, title, desc, options, extra=None):
-    """Return (svg, bottom_y) for one slot card's content, top-aligned at (x,y)."""
+    """Return (svg, height) for one slot card's content, top-aligned at (x,y)."""
     color = SLOT[num][0]
     s = []
     # badge + title
-    s.append(badge(x + 30, y + 30, num, color))
-    s.append(ltext(x + 54, y + 37, title, 20, color, "bold"))
+    s.append(badge(x + 30, y + 32, num, color))
+    s.append(ltext(x + 56, y + 39, title, 21, color, "bold"))
     # descriptor
-    dt, dbot = text_lines(x + 18, y + 66, desc, 15, 30, GRAY)
+    dt, dbot = text_lines(x + 20, y + 70, desc, 17, 46, GRAY)
     s.append(dt)
-    cur = dbot + 8
-    s.append(ltext(x + 18, cur, "pick one:", 13.5, GRAY, "bold"))
-    cur += 22
+    cur = dbot + 10
+    s.append(ltext(x + 20, cur, "pick one:", 16, GRAY, "bold"))
+    cur += 26
     for text, sym in options:
-        lines = wrap(text, 24)
-        # bullet aligned to first line
-        s.append(f'<circle cx="{x+24}" cy="{cur-5}" r="3.2" fill="{color}"/>')
+        lines = wrap(text, 42)
+        s.append(f'<circle cx="{x+26}" cy="{cur-6}" r="3.6" fill="{color}"/>')
         for j, ln in enumerate(lines):
-            s.append(ltext(x + 38, cur + j * BODY * 1.28, ln, BODY, INK))
-        # glyph patch after the (single-line) value text
+            s.append(ltext(x + 42, cur + j * BODY * 1.3, ln, BODY, INK))
         if sym:
-            gx = x + 38 + len(lines[-1]) * 10.2 + 8
-            gy = cur + (len(lines) - 1) * BODY * 1.28
+            gx = x + 42 + len(lines[-1]) * 10.2 + 8
+            gy = cur + (len(lines) - 1) * BODY * 1.3
             gsvg, _ = patch_glyph(gx, gy, color, sym)
             s.append(gsvg)
-        cur += len(lines) * BODY * 1.28 + 13
-    # a separately-measured readout (token entropy), set off from the pick-one list
+        cur += len(lines) * BODY * 1.3 + 14
     if extra:
         cur += 2
-        s.append(f'<line x1="{x+18}" y1="{cur-6:.1f}" x2="{x+cw-18}" y2="{cur-6:.1f}" '
+        s.append(f'<line x1="{x+20}" y1="{cur-6:.1f}" x2="{x+cw-20}" y2="{cur-6:.1f}" '
                  f'stroke="{color}" stroke-width="1" stroke-dasharray="3 3" stroke-opacity="0.55"/>')
-        cur += 18
-        s.append(ltext(x + 18, cur, "and, separately:", 13.5, GRAY, "bold"))
-        cur += 21
-        for ln in wrap(extra, 27):
-            s.append(ltext(x + 18, cur, ln, 16, INK))
-            cur += 20
-    return "\n".join(s), cur + 8
+        cur += 20
+        s.append(ltext(x + 20, cur, "and, separately:", 16, GRAY, "bold"))
+        cur += 24
+        for ln in wrap(extra, 44):
+            s.append(ltext(x + 20, cur, ln, 17, INK))
+            cur += 22
+    return "\n".join(s), (cur + 10) - y
 
 
-# first pass: measure natural heights
-contents, bottoms = [], []
-for i, (num, title, desc, options, extra) in enumerate(slots):
-    x = x0 + i * (cw + gap)
-    svg, bot = card_content(x, cards_y, num, title, desc, options, extra)
-    contents.append((x, num, svg))
-    bottoms.append(bot)
-card_h = max(bottoms) - cards_y
-
-# draw boxes then content
-for x, num, svg in contents:
+# two rows of three cards; measure a uniform card height first
+row_gap = 30
+heights = [card_content(0, 0, *slot)[1] for slot in slots]
+card_h = max(heights)
+nrows = (len(slots) + NCOLS - 1) // NCOLS
+for i, slot in enumerate(slots):
+    col, row = i % NCOLS, i // NCOLS
+    x = x0 + col * (cw + gap)
+    y = cards_y + row * (card_h + row_gap)
+    num = slot[0]
     color, tint = SLOT[num]
-    b.append(box(x, cards_y, cw, card_h, tint, color, 2.5, rx=14))
-    b.append(svg)
+    b.append(box(x, y, cw, card_h, tint, color, 2.5, rx=14))
+    b.append(card_content(x, y, *slot)[0])
 
 # ---------------------------------------------------------------- caption
-cap_y = cards_y + card_h + 34
+cap_y = cards_y + nrows * card_h + (nrows - 1) * row_gap + 40
 b.append(ctext(CX, cap_y, "Each numbered dot on the loop marks where a part plugs in; every experiment picks one option per slot.",
-               15.5, GRAY))
+               17, GRAY))
 
-H = cap_y + 22
+H = cap_y + 24
 with open(os.path.join(FIGDIR, "synthesis_experiment_kit.svg"), "w") as f:
     f.write(svg_doc(W, H, "\n".join(b)))
 print("wrote synthesis_experiment_kit.svg")

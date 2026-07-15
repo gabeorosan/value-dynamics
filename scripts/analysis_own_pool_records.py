@@ -68,16 +68,20 @@ def cell_records(res, organism, judge, seed):
         gap = kept - pool
         drift = traj[k] - traj[k - 1]
         nxt = (traj[k + 1] - traj[k]) if (k + 1) < len(traj) else None
-        # utilization, per item then averaged. For an item, enumerate every
-        # possible kept-pair (C(n, n_kept)); the judge's kept pair has some
-        # |value gap| from the pool mean. Utilization = how far that sits ABOVE a
-        # random pair (null = mean |gap| over all pairs) toward the most-extreme
-        # pair (ach = max |gap|):  (|realized| - null) / (ach - null).
-        #   0 = no better than random selection · 1 = kept the most-extreme pair.
-        # Rank/offset-invariant and null-centred, BUT a judge's value comes from
-        # its alignment with THIS organism's candidates — do not pool across
-        # organisms (base is +0.30 on OLMo, +0.13 on Qwen, opposite gap signs).
-        us = []
+        # Directional utilization for the round, null-subtracted:
+        #   realized = round-mean signed gap (mean over items of mean(kept)-pool);
+        #   ach      = round-mean of the most-extreme pair gap in realized's
+        #              DIRECTION (min-risk oracle keeps the 2 lowest -> realized
+        #              == ach in the down direction, so util == 1 even when the
+        #              pool is lopsided; the earlier per-|gap| version wrongly
+        #              normalised by the opposite direction and marked the oracle
+        #              down at 0.45);
+        #   null     = E|realized| under random selection (half-normal from the
+        #              per-item pair-gap variance, analytic).
+        #   util = (|realized| - null) / (|ach| - null), in [0,1].
+        # 0 = no better than random selection · 1 = kept the most-extreme pair in
+        # its direction. Rank/offset-invariant. Do NOT pool across organisms.
+        item_gaps, up_ext, down_ext, var_it = [], [], [], []
         for it in items:
             c = it["cand_risk"]
             kidx = it["kept_idx"]
@@ -85,14 +89,21 @@ def cell_records(res, organism, judge, seed):
             if len(c) < nk + 1:
                 continue
             m = sum(c) / len(c)
-            realized = abs(sum(c[i] for i in kidx) / nk - m)
-            pair_gaps = [abs(sum(c[j] for j in p) / nk - m)
-                         for p in itertools.combinations(range(len(c)), nk)]
-            ach = max(pair_gaps)
-            null = sum(pair_gaps) / len(pair_gaps)
-            if ach - null > 1e-9:
-                us.append((realized - null) / (ach - null))
-        util = round(sum(us) / len(us), 4) if us else None
+            item_gaps.append(sum(c[i] for i in kidx) / nk - m)
+            pgs = [sum(c[j] for j in p) / nk - m
+                   for p in itertools.combinations(range(len(c)), nk)]
+            up_ext.append(max(pgs))
+            down_ext.append(min(pgs))
+            var_it.append(sum(g * g for g in pgs) / len(pgs))
+        util = None
+        if item_gaps:
+            n = len(item_gaps)
+            realized = sum(item_gaps) / n
+            ach = (sum(up_ext) / n) if realized >= 0 else (sum(down_ext) / n)
+            null = (2.0 / 3.14159265) ** 0.5 * (sum(var_it) ** 0.5) / n
+            denom = abs(ach) - null
+            if denom > 1e-9:
+                util = round(max(0.0, min((abs(realized) - null) / denom, 1.0)), 4)
         recs.append(dict(organism=organism, judge=judge, seed=str(seed), round=k,
                          value=round(traj[k - 1], 4), spread=round(spread, 4),
                          gap=round(gap, 4), drift=round(drift, 4),

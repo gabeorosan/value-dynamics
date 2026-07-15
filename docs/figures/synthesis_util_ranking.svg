@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 668" font-family="Helvetica, Arial, sans-serif">
 <rect width="1140" height="668" fill="white"/>
-<text x="570.0" y="48.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="27" font-weight="bold" fill="#1a1a1a">How much of the available spread each judge exploits (per item, vs random)</text>
-<text x="570.0" y="80.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15.5" font-weight="normal" fill="#6b7684">utilization = (|kept-pair value gap| − random) ÷ (most-extreme pair − random), averaged over items. 0 = random selection, 1 = the extremes.</text>
-<text x="570.0" y="101.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">Kept judge × organism SEPARATE — a judge's alignment depends on the generator. Each dot = one round; ◆ = mean.</text>
+<text x="570.0" y="48.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="27" font-weight="bold" fill="#1a1a1a">How much of the available spread each judge's selection exploits (vs random)</text>
+<text x="570.0" y="80.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15.5" font-weight="normal" fill="#6b7684">utilization = how far the round's net selection gap reaches toward the most-extreme achievable pair IN ITS DIRECTION, beyond random.</text>
+<text x="570.0" y="101.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">0 = random selection · 1 = full (e.g. the min-risk oracle keeps the 2 lowest). Kept judge × organism SEPARATE. Each dot = one round; ◆ = mean.</text>
 <line x1="333.5" y1="156" x2="333.5" y2="586.0" stroke="#e6e9ec" stroke-width="1"/>
 <text x="333.5" y="606.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">0.00</text>
 <line x1="472.6" y1="156" x2="472.6" y2="586.0" stroke="#e6e9ec" stroke-width="1"/>
@@ -22,151 +22,151 @@
 <text x="232.0" y="214.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">OLMo</text>
 <line x1="250.0" y1="195.0" x2="890.0" y2="195.0" stroke="#f0f2f4" stroke-width="1"/>
 <circle cx="890.0" cy="182.0" r="3.8" fill="#d1477a" fill-opacity="0.8"/>
-<circle cx="774.1" cy="191.6" r="3.8" fill="#d1477a" fill-opacity="0.8"/>
-<circle cx="585.2" cy="201.2" r="3.8" fill="#d1477a" fill-opacity="0.8"/>
+<circle cx="890.0" cy="191.6" r="3.8" fill="#d1477a" fill-opacity="0.8"/>
+<circle cx="890.0" cy="201.2" r="3.8" fill="#d1477a" fill-opacity="0.8"/>
 <circle cx="890.0" cy="184.9" r="3.8" fill="#d1477a" fill-opacity="0.8"/>
-<path d="M 784.8 182.0 L 792.8 195.0 L 784.8 208.0 L 776.8 195.0 Z" fill="#1a1a1a"/>
-<text x="784.8" y="176.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">+0.81</text>
+<path d="M 890.0 182.0 L 898.0 195.0 L 890.0 208.0 L 882.0 195.0 Z" fill="#1a1a1a"/>
+<text x="890.0" y="176.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">+1.00</text>
 <text x="908.0" y="200.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">4 rounds</text>
-<text x="232.0" y="258.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">risk copy</text>
-<text x="232.0" y="276.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">Qwen</text>
+<text x="232.0" y="258.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">base</text>
+<text x="232.0" y="276.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">OLMo</text>
 <line x1="250.0" y1="257.0" x2="890.0" y2="257.0" stroke="#f0f2f4" stroke-width="1"/>
-<circle cx="721.4" cy="244.0" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="738.2" cy="253.6" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="569.6" cy="263.2" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="645.5" cy="246.9" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="627.2" cy="256.5" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="665.8" cy="266.1" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="627.2" cy="249.7" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="847.8" cy="259.3" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="742.4" cy="269.0" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="549.9" cy="252.6" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="774.1" cy="262.2" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="574.6" cy="245.8" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="685.1" cy="255.4" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="596.3" cy="265.1" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="772.0" cy="248.7" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="781.8" cy="258.3" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<path d="M 682.4 244.0 L 690.4 257.0 L 682.4 270.0 L 674.4 257.0 Z" fill="#1a1a1a"/>
-<text x="682.4" y="238.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">+0.63</text>
-<text x="908.0" y="262.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">16 rounds</text>
-<text x="232.0" y="320.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">base</text>
-<text x="232.0" y="338.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">Qwen</text>
+<circle cx="333.5" cy="244.0" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="333.5" cy="253.6" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="439.7" cy="263.2" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="333.5" cy="246.9" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="456.0" cy="256.5" r="3.8" fill="#8a5a9e" fill-opacity="0.8"/>
+<circle cx="333.5" cy="266.1" r="3.8" fill="#8a5a9e" fill-opacity="0.8"/>
+<circle cx="353.1" cy="249.7" r="3.8" fill="#8a5a9e" fill-opacity="0.8"/>
+<circle cx="890.0" cy="259.3" r="3.8" fill="#8a5a9e" fill-opacity="0.8"/>
+<circle cx="333.5" cy="269.0" r="3.8" fill="#1f9e9e" fill-opacity="0.8"/>
+<circle cx="552.3" cy="252.6" r="3.8" fill="#1f9e9e" fill-opacity="0.8"/>
+<circle cx="489.2" cy="262.2" r="3.8" fill="#1f9e9e" fill-opacity="0.8"/>
+<circle cx="333.5" cy="245.8" r="3.8" fill="#1f9e9e" fill-opacity="0.8"/>
+<circle cx="445.1" cy="255.4" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="333.5" cy="265.1" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="442.4" cy="248.7" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="711.0" cy="258.3" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="333.5" cy="267.9" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="333.5" cy="251.5" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="333.5" cy="261.2" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="435.4" cy="244.8" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="431.9" cy="254.4" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="333.5" cy="264.0" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="630.3" cy="247.6" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="564.0" cy="257.3" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<path d="M 437.9 244.0 L 445.9 257.0 L 437.9 270.0 L 429.9 257.0 Z" fill="#1a1a1a"/>
+<text x="437.9" y="238.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">+0.19</text>
+<text x="908.0" y="262.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">24 rounds</text>
+<text x="232.0" y="320.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">cautious copy</text>
+<text x="232.0" y="338.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">OLMo</text>
 <line x1="250.0" y1="319.0" x2="890.0" y2="319.0" stroke="#f0f2f4" stroke-width="1"/>
-<circle cx="700.3" cy="306.0" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="716.1" cy="315.6" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="578.0" cy="325.2" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="634.9" cy="308.9" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="627.2" cy="318.5" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="653.9" cy="328.1" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="603.3" cy="311.7" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="713.7" cy="321.3" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="679.2" cy="331.0" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="586.4" cy="314.6" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="596.3" cy="324.2" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="673.6" cy="307.8" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="665.8" cy="317.4" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="774.1" cy="327.1" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="557.6" cy="310.7" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="729.8" cy="320.3" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<path d="M 655.6 306.0 L 663.6 319.0 L 655.6 332.0 L 647.6 319.0 Z" fill="#1a1a1a"/>
-<text x="655.6" y="300.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">+0.58</text>
+<circle cx="471.3" cy="306.0" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="333.5" cy="315.6" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="333.5" cy="325.2" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="380.9" cy="308.9" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="456.0" cy="318.5" r="3.8" fill="#8a5a9e" fill-opacity="0.8"/>
+<circle cx="500.2" cy="328.1" r="3.8" fill="#8a5a9e" fill-opacity="0.8"/>
+<circle cx="333.5" cy="311.7" r="3.8" fill="#8a5a9e" fill-opacity="0.8"/>
+<circle cx="333.5" cy="321.3" r="3.8" fill="#8a5a9e" fill-opacity="0.8"/>
+<circle cx="537.3" cy="331.0" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="482.9" cy="314.6" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="333.5" cy="324.2" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="333.5" cy="307.8" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="333.5" cy="317.4" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="502.7" cy="327.1" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="561.3" cy="310.7" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="654.9" cy="320.3" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<path d="M 430.1 306.0 L 438.1 319.0 L 430.1 332.0 L 422.1 319.0 Z" fill="#1a1a1a"/>
+<text x="430.1" y="300.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">+0.17</text>
 <text x="908.0" y="324.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">16 rounds</text>
 <text x="232.0" y="382.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">self</text>
 <text x="232.0" y="400.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">Qwen</text>
 <line x1="250.0" y1="381.0" x2="890.0" y2="381.0" stroke="#f0f2f4" stroke-width="1"/>
-<circle cx="721.4" cy="368.0" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="399.2" cy="377.6" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="497.9" cy="387.2" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="681.3" cy="370.9" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="627.2" cy="380.5" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="653.9" cy="390.1" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="812.7" cy="373.7" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="611.7" cy="383.3" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="742.4" cy="393.0" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="430.9" cy="376.6" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="432.0" cy="386.2" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="368.3" cy="369.8" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="685.1" cy="379.4" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="812.7" cy="389.1" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="577.0" cy="372.7" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="578.0" cy="382.3" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<path d="M 602.0 368.0 L 610.0 381.0 L 602.0 394.0 L 594.0 381.0 Z" fill="#1a1a1a"/>
-<text x="602.0" y="362.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">+0.48</text>
+<circle cx="333.5" cy="368.0" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="333.5" cy="377.6" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="511.4" cy="387.2" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="333.5" cy="370.9" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="334.0" cy="380.5" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="343.3" cy="390.1" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="333.5" cy="373.7" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="333.5" cy="383.3" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="381.5" cy="393.0" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="333.5" cy="376.6" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="333.5" cy="386.2" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="333.5" cy="369.8" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="333.5" cy="379.4" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="333.5" cy="389.1" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="333.5" cy="372.7" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="890.0" cy="382.3" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<path d="M 383.0 368.0 L 391.0 381.0 L 383.0 394.0 L 375.0 381.0 Z" fill="#1a1a1a"/>
+<text x="383.0" y="362.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">+0.09</text>
 <text x="908.0" y="386.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">16 rounds</text>
-<text x="232.0" y="444.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">base</text>
-<text x="232.0" y="462.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">OLMo</text>
+<text x="232.0" y="444.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">random</text>
+<text x="232.0" y="462.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">Qwen</text>
 <line x1="250.0" y1="443.0" x2="890.0" y2="443.0" stroke="#f0f2f4" stroke-width="1"/>
-<circle cx="462.3" cy="430.0" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="228.1" cy="439.6" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="287.1" cy="449.2" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="231.5" cy="432.9" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="452.7" cy="442.5" r="3.8" fill="#8a5a9e" fill-opacity="0.8"/>
-<circle cx="774.1" cy="452.1" r="3.8" fill="#8a5a9e" fill-opacity="0.8"/>
-<circle cx="417.0" cy="435.7" r="3.8" fill="#8a5a9e" fill-opacity="0.8"/>
-<circle cx="472.6" cy="445.3" r="3.8" fill="#8a5a9e" fill-opacity="0.8"/>
-<circle cx="472.6" cy="455.0" r="3.8" fill="#1f9e9e" fill-opacity="0.8"/>
-<circle cx="458.7" cy="438.6" r="3.8" fill="#1f9e9e" fill-opacity="0.8"/>
-<circle cx="447.3" cy="448.2" r="3.8" fill="#1f9e9e" fill-opacity="0.8"/>
-<circle cx="578.0" cy="431.8" r="3.8" fill="#1f9e9e" fill-opacity="0.8"/>
-<circle cx="356.7" cy="441.4" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="302.5" cy="451.1" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="444.8" cy="434.7" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="750.9" cy="444.3" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="345.1" cy="453.9" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="211.7" cy="437.5" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="413.0" cy="447.2" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="490.0" cy="430.8" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="422.0" cy="440.4" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="480.3" cy="450.0" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="616.0" cy="433.6" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="295.5" cy="443.3" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<path d="M 433.8 430.0 L 441.8 443.0 L 433.8 456.0 L 425.8 443.0 Z" fill="#1a1a1a"/>
-<text x="433.8" y="424.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">+0.18</text>
-<text x="908.0" y="448.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">24 rounds</text>
-<text x="232.0" y="506.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">random</text>
+<circle cx="376.6" cy="430.0" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="333.5" cy="439.6" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="333.5" cy="449.2" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="395.4" cy="432.9" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="333.5" cy="442.5" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="333.5" cy="452.1" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="333.5" cy="435.7" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="338.4" cy="445.3" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="381.5" cy="455.0" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="333.5" cy="438.6" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="547.6" cy="448.2" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="333.5" cy="431.8" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="335.1" cy="441.4" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="369.7" cy="451.1" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="333.5" cy="434.7" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="333.5" cy="444.3" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<path d="M 359.1 430.0 L 367.1 443.0 L 359.1 456.0 L 351.1 443.0 Z" fill="#1a1a1a"/>
+<text x="359.1" y="424.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">+0.05</text>
+<text x="908.0" y="448.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">16 rounds</text>
+<text x="232.0" y="506.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">base</text>
 <text x="232.0" y="524.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">Qwen</text>
 <line x1="250.0" y1="505.0" x2="890.0" y2="505.0" stroke="#f0f2f4" stroke-width="1"/>
-<circle cx="244.9" cy="492.0" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="445.6" cy="501.6" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="271.6" cy="511.2" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="434.0" cy="494.9" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
-<circle cx="260.1" cy="504.5" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="209.8" cy="514.1" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="202.1" cy="497.7" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="433.6" cy="492.0" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="333.5" cy="501.6" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="333.5" cy="511.2" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="333.5" cy="494.9" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="334.0" cy="504.5" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="345.2" cy="514.1" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="333.5" cy="497.7" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
 <circle cx="333.5" cy="507.3" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="350.3" cy="517.0" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="528.3" cy="500.6" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="215.4" cy="510.2" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="565.4" cy="493.8" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="376.0" cy="503.4" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="413.6" cy="513.1" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="391.5" cy="496.7" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="296.4" cy="506.3" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<path d="M 346.1 492.0 L 354.1 505.0 L 346.1 518.0 L 338.1 505.0 Z" fill="#1a1a1a"/>
-<text x="346.1" y="486.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">+0.02</text>
+<circle cx="333.5" cy="517.0" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="414.4" cy="500.6" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="393.1" cy="510.2" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="363.1" cy="493.8" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="373.3" cy="503.4" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="337.8" cy="513.1" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="359.3" cy="496.7" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="333.5" cy="506.3" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<path d="M 355.5 492.0 L 363.5 505.0 L 355.5 518.0 L 347.5 505.0 Z" fill="#1a1a1a"/>
+<text x="355.5" y="486.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">+0.04</text>
 <text x="908.0" y="510.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">16 rounds</text>
-<text x="232.0" y="568.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">cautious copy</text>
-<text x="232.0" y="586.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">OLMo</text>
+<text x="232.0" y="568.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">risk copy</text>
+<text x="232.0" y="586.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="normal" fill="#6b7684">Qwen</text>
 <line x1="250.0" y1="567.0" x2="890.0" y2="567.0" stroke="#f0f2f4" stroke-width="1"/>
-<circle cx="513.8" cy="554.0" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="235.6" cy="563.6" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="163.4" cy="573.2" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="390.2" cy="556.9" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
-<circle cx="320.2" cy="566.5" r="3.8" fill="#8a5a9e" fill-opacity="0.8"/>
-<circle cx="389.1" cy="576.1" r="3.8" fill="#8a5a9e" fill-opacity="0.8"/>
-<circle cx="463.3" cy="559.7" r="3.8" fill="#8a5a9e" fill-opacity="0.8"/>
-<circle cx="379.8" cy="569.3" r="3.8" fill="#8a5a9e" fill-opacity="0.8"/>
-<circle cx="136.4" cy="579.0" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="78.4" cy="562.6" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="222.2" cy="572.2" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="658.1" cy="555.8" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
-<circle cx="379.8" cy="565.4" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="369.5" cy="575.1" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="142.8" cy="558.7" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<circle cx="217.6" cy="568.3" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
-<path d="M 316.3 554.0 L 324.3 567.0 L 316.3 580.0 L 308.3 567.0 Z" fill="#1a1a1a"/>
-<text x="316.3" y="548.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">-0.03</text>
+<circle cx="333.5" cy="554.0" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="333.5" cy="563.6" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="333.5" cy="573.2" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="333.5" cy="556.9" r="3.8" fill="#2867b5" fill-opacity="0.8"/>
+<circle cx="334.0" cy="566.5" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="333.5" cy="576.1" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="333.5" cy="559.7" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="333.5" cy="569.3" r="3.8" fill="#b5342c" fill-opacity="0.8"/>
+<circle cx="381.5" cy="579.0" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="333.5" cy="562.6" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="333.5" cy="572.2" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="345.6" cy="555.8" r="3.8" fill="#3a7d44" fill-opacity="0.8"/>
+<circle cx="333.5" cy="565.4" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="333.5" cy="575.1" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="333.5" cy="558.7" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<circle cx="352.8" cy="568.3" r="3.8" fill="#c07d18" fill-opacity="0.8"/>
+<path d="M 338.5 554.0 L 346.5 567.0 L 338.5 580.0 L 330.5 567.0 Z" fill="#1a1a1a"/>
+<text x="338.5" y="548.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">+0.01</text>
 <text x="908.0" y="572.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">16 rounds</text>
 <text x="250.0" y="650.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a1a">seed</text>
 <rect x="294.0" y="640.0" width="12" height="12" rx="2" fill="#2867b5"/>

@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """Figures centred on UTILIZATION — how much of the available candidate spread a
-judge's selection exploits, per item, relative to random selection.
+judge's selection exploits, relative to random selection.
 
-  util (per item) = (|value gap of the kept pair| − null) / (achievable − null),
-  where null = mean |gap| over ALL possible kept-pairs (random selection) and
-  achievable = the most-extreme pair's |gap|.  Averaged over items/rounds.
-    0 = no better than random · 1 = kept the most-extreme pair.
-  Rank/offset-invariant and null-centred.  It is NOT comparable across organisms
-  (a judge's value-alignment depends on the generator it judges), so every view
-  here keeps judge × organism separate.  scripts/analysis_own_pool_records.py.
+  util (per round) = (|net gap| − null) / (|achievable-in-direction| − null),
+  where the net gap is the round-mean kept-minus-pool gap, achievable is the
+  most-extreme pair gap in that gap's DIRECTION (so the min-risk oracle, keeping
+  the 2 lowest, scores ~1 even on lopsided pools), and null = E|net gap| under
+  random selection (analytic half-normal).  In [0, 1]: 0 = no better than random
+  · 1 = the most-extreme pair in its direction.  Rank/offset-invariant.  NOT
+  comparable across organisms (alignment depends on the generator), so every view
+  keeps judge × organism separate.  scripts/analysis_own_pool_records.py.
 
 Emits:
   synthesis_util_ranking      — utilization per judge × organism, ranked (0 = random)
@@ -81,10 +82,10 @@ def fig_ranking():
     def X(u):
         return MX + (u - LO) / (HI - LO) * AXW
 
-    b = [ctext(W / 2, 48, "How much of the available spread each judge exploits (per item, vs random)", 27, INK, "bold"),
-         ctext(W / 2, 80, "utilization = (|kept-pair value gap| − random) ÷ (most-extreme pair − random), averaged over items. 0 = random selection, 1 = the extremes.",
+    b = [ctext(W / 2, 48, "How much of the available spread each judge's selection exploits (vs random)", 27, INK, "bold"),
+         ctext(W / 2, 80, "utilization = how far the round's net selection gap reaches toward the most-extreme achievable pair IN ITS DIRECTION, beyond random.",
                15.5, GRAY),
-         ctext(W / 2, 101, "Kept judge × organism SEPARATE — a judge's alignment depends on the generator. Each dot = one round; ◆ = mean.", 14.5, GRAY)]
+         ctext(W / 2, 101, "0 = random selection · 1 = full (e.g. the min-risk oracle keeps the 2 lowest). Kept judge × organism SEPARATE. Each dot = one round; ◆ = mean.", 14.5, GRAY)]
     bottom = MT + LANE * len(cells) - 16
     for u in (0, 0.25, 0.5, 0.75, 1.0):
         b.append(f'<line x1="{X(u):.1f}" y1="{MT-12}" x2="{X(u):.1f}" y2="{bottom:.1f}" stroke="#e6e9ec" stroke-width="1"/>')
@@ -138,7 +139,7 @@ def fig_over_rounds():
         return MY + PH - (u + 0.15) / 1.15 * PH
 
     b = [ctext(W / 2, 48, "Is utilization a stable property of the judge? (per judge × organism)", 27, INK, "bold"),
-         ctext(W / 2, 80, "Own-pool loops. Mean per-item utilization per round. Solid = Qwen, dashed = OLMo. 0 = random selection.", 16, GRAY)]
+         ctext(W / 2, 80, "Own-pool loops. Directional utilization per round. Solid = Qwen, dashed = OLMo. 0 = random, 1 = the extreme in its direction.", 16, GRAY)]
     for u in (0, 0.25, 0.5, 0.75, 1.0):
         yy = Y(u)
         b.append(f'<line x1="{MX}" y1="{yy:.1f}" x2="{MX+PW}" y2="{yy:.1f}" stroke="{"#c9ced4" if u==0 else "#eef0f2"}" stroke-width="{1.4 if u==0 else 1}"/>')

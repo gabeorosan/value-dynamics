@@ -85,7 +85,7 @@ def fig_ranking():
     b = [ctext(W / 2, 48, "How much of the available spread each judge's selection exploits (vs random)", 27, INK, "bold"),
          ctext(W / 2, 80, "utilization = how far the round's net selection gap reaches toward the most-extreme achievable pair IN ITS DIRECTION, beyond random.",
                15.5, GRAY),
-         ctext(W / 2, 101, "0 = random selection · 1 = full (e.g. the min-risk oracle keeps the 2 lowest). Kept judge × organism SEPARATE. Each dot = one round; ◆ = mean.", 14.5, GRAY)]
+         ctext(W / 2, 101, "0 = random selection · 1 = full (e.g. the min-risk oracle keeps the 2 lowest). Kept judge × organism SEPARATE.", 14.5, GRAY)]
     bottom = MT + LANE * len(cells) - 16
     for u in (0, 0.25, 0.5, 0.75, 1.0):
         b.append(f'<line x1="{X(u):.1f}" y1="{MT-12}" x2="{X(u):.1f}" y2="{bottom:.1f}" stroke="#e6e9ec" stroke-width="1"/>')
@@ -110,7 +110,7 @@ def fig_ranking():
         b.append(f'<path d="M {X(m):.1f} {cy-13:.1f} L {X(m)+8:.1f} {cy:.1f} L {X(m):.1f} {cy+13:.1f} L {X(m)-8:.1f} {cy:.1f} Z" fill="{INK}"/>')
         b.append(ltext(X(m), cy - 19, f"{m:+.2f}", 16, INK, "bold", anchor="middle"))
         b.append(ltext(MX + AXW + 18, cy + 5, f"{len(rows)} rounds", 14, GRAY))
-    # seed legend
+    # legend: seed colours + what a dot and the diamond mean
     lx, ly = MX, H - 18
     b.append(ltext(lx, ly, "seed", 14, INK, "bold"))
     lx += 44
@@ -118,6 +118,12 @@ def fig_ranking():
         b.append(f'<rect x="{lx:.1f}" y="{ly-10:.1f}" width="12" height="12" rx="2" fill="{SEED_COLOR[s]}"/>')
         b.append(ltext(lx + 16, ly, s, 13.5, INK))
         lx += 46
+    lx += 20
+    b.append(f'<circle cx="{lx+5:.1f}" cy="{ly-4:.1f}" r="3.8" fill="{GRAY}"/>')
+    b.append(ltext(lx + 15, ly, "one round", 13.5, INK))
+    lx += 118
+    b.append(f'<path d="M {lx:.1f} {ly-4:.1f} L {lx+8:.1f} {ly-12:.1f} L {lx+16:.1f} {ly-4:.1f} L {lx+8:.1f} {ly+4:.1f} Z" fill="{INK}"/>')
+    b.append(ltext(lx + 23, ly, "judge mean", 13.5, INK))
     save("synthesis_util_ranking.svg", W, H, b)
 
 
@@ -139,7 +145,7 @@ def fig_over_rounds():
         return MY + PH - (u + 0.15) / 1.15 * PH
 
     b = [ctext(W / 2, 48, "Is utilization a stable property of the judge? (per judge × organism)", 27, INK, "bold"),
-         ctext(W / 2, 80, "Own-pool loops. Directional utilization per round. Solid = Qwen, dashed = OLMo. 0 = random, 1 = the extreme in its direction.", 16, GRAY)]
+         ctext(W / 2, 80, "Own-pool loops. Directional utilization per round. 0 = random, 1 = the extreme in its direction.", 16, GRAY)]
     for u in (0, 0.25, 0.5, 0.75, 1.0):
         yy = Y(u)
         b.append(f'<line x1="{MX}" y1="{yy:.1f}" x2="{MX+PW}" y2="{yy:.1f}" stroke="{"#c9ced4" if u==0 else "#eef0f2"}" stroke-width="{1.4 if u==0 else 1}"/>')
@@ -166,6 +172,13 @@ def fig_over_rounds():
         b.append(f'<line x1="{MX+PW+20}" y1="{ly-5:.1f}" x2="{MX+PW+50}" y2="{ly-5:.1f}" stroke="{col}" stroke-width="3"{dash}/>')
         b.append(ltext(MX + PW + 58, ly, f"{judge} · {ORG_SHORT[org]}", 15, INK))
         ly += 27
+    # line-style key (organism)
+    ly += 12
+    b.append(f'<line x1="{MX+PW+20}" y1="{ly-5:.1f}" x2="{MX+PW+50}" y2="{ly-5:.1f}" stroke="{GRAY}" stroke-width="3"/>')
+    b.append(ltext(MX + PW + 58, ly, "Qwen (solid)", 14, GRAY))
+    ly += 24
+    b.append(f'<line x1="{MX+PW+20}" y1="{ly-5:.1f}" x2="{MX+PW+50}" y2="{ly-5:.1f}" stroke="{GRAY}" stroke-width="3" stroke-dasharray="6 4"/>')
+    b.append(ltext(MX + PW + 58, ly, "OLMo (dashed)", 14, GRAY))
     save("synthesis_util_over_rounds.svg", W, H, b)
 
 

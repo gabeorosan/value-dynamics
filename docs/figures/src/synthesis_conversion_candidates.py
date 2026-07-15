@@ -110,7 +110,14 @@ def yval(v, y0, lo, hi):
 # ================================================================= A: spread over rounds
 def fig_spread_over_rounds():
     b, W, H = frame("Does the candidate spread run out? Spread over rounds, by judge",
-                    "Own-pool loops. y = candidate value spread (mean within-item SD); one line per run, bold line = judge mean.")
+                    "Own-pool loops. y = candidate value spread (mean within-item SD).")
+    # key: thin (a run) vs bold (judge mean)
+    kx = MX + GW / 2 - 150
+    b.append(polyline([(kx, 104), (kx + 32, 104)], GRAY, w=1.7, op=0.8))
+    b.append(ltext(kx + 40, 109, "one run", 14.5, INK))
+    kx += 128
+    b.append(polyline([(kx, 104), (kx + 32, 104)], INK, w=3.2))
+    b.append(ltext(kx + 40, 109, "judge mean", 14.5, INK))
     lo, hi = 0.0, 0.5
     for idx, judge in enumerate(JUDGE_ORDER):
         x0, y0 = panel_xy(idx)

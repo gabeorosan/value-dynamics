@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
-"""Clean redraw: every measured intervention moved exactly one of the two
-dials of the selection gap — the pool's value spread (sigma) or the judge's
-utilization of it (rho, the correlation of the judge's choices with the
-value axis).
+"""Clean redraw (v2): every measured intervention moved exactly one of the
+two dials of the selection gap -- the pool's value spread (sigma) or the
+judge's utilization of it (rho, the correlation of the judge's choices with
+the value axis).
 
 One panel: the (utilization, spread) plane with before-to-after arrows for
-each measured intervention, each label in its own clear region with a thin
-leader line where needed. All numbers verified against
-experiments/spread_util_unified.json (utilization table per-cell means,
-spread_ledger per-round means, matched reopen-versus-twin pair).
+each measured intervention. Each intervention carries a short (2-5 word)
+label only -- all before/after numbers live in the caption, not the image.
+All numbers verified against experiments/spread_util_unified.json
+(utilization table per-cell means, spread_ledger per-round means, matched
+reopen-versus-twin pair).
 
 Style: house style of docs/figures/src/make_figures.py (Owain Evans-lab
-look — white background, headline sentence, fat labels, real data).
+look -- white background, headline sentence, fat labels, real data).
 Regenerate with:  python3 two-dials-clean.py
 """
 import os
@@ -24,7 +25,6 @@ GREEN = "#3a7d44"      # accent / frozen-judge series (validated)
 RED = "#b5342c"        # emphasis for reversal / warning text
 GRAY = "#6b7684"       # recessive only (axes, muted captions)
 PURPLE = "#8a5a9e"     # fourth series color used across the house set
-KEY_FILL = "#eef5ee"
 
 FONT = "Helvetica, Arial, sans-serif"
 
@@ -49,7 +49,7 @@ def wrap(text, width):
 def txt(x, y, s, size=18, color=INK, weight="normal", anchor="start",
         halo=False):
     """halo=True paints a white outline under the glyphs so labels stay
-    readable where they sit over light gridlines."""
+    readable where they sit over gridlines or dots."""
     h = ('stroke="white" stroke-width="5" stroke-linejoin="round" '
          'paint-order="stroke" ') if halo else ""
     return (f'<text x="{x:.1f}" y="{y:.1f}" font-family="{FONT}" '
@@ -58,27 +58,30 @@ def txt(x, y, s, size=18, color=INK, weight="normal", anchor="start",
 
 
 # ---------------------------------------------------------------- data
-# All values read from experiments/spread_util_unified.json.
+# All values read from experiments/spread_util_unified.json. Numeric
+# before-to-after detail is NOT drawn in the image (house rule for this
+# revision) -- it lives in caption.md. Point/arrow positions below are
+# unchanged from the prior draft.
 
-# 1. Format swap — OLMo risk organism, cautious fine-tuned copy as judge,
+# 1. Format swap -- OLMo risk organism, cautious fine-tuned copy as judge,
 #    base-mixed pools. Utilization-table rows (reference format vs duel):
 #    rho_mean 0.383 -> 0.100; per-cell mean spread 0.333 -> 0.370.
 FMT_BEFORE = (0.383, 0.333)
 FMT_AFTER = (0.100, 0.370)
 
-# 2. Base-answer injection — Qwen self-report organism, score oracle,
+# 2. Base-answer injection -- Qwen self-report organism, score oracle,
 #    matched pair "reopen(base-mixed)" vs "twin(self-only)" in spread_ledger:
 #    twin spread 0.000 every round; reopen round-1 spread 0.3132. rho = -1.0
 #    for the score oracle by construction (its rule IS the negated value).
 INJ_BEFORE = (-1.0, 0.000)
 INJ_AFTER = (-1.0, 0.313)
 
-# 3. Extremist-peer invasion — OLMo peer-mixed records, per-round means over
+# 3. Extremist-peer invasion -- OLMo peer-mixed records, per-round means over
 #    8 runs: (rho, sigma) round 1 (0.527, 0.430), round 2 (0.400, 0.165),
 #    round 3 (0.447, 0.057); round 4 sigma 0.034 (rho unreliable, n=2).
 PEER = [(0.527, 0.430), (0.400, 0.165), (0.447, 0.057)]
 
-# 4. Self-judged duels with base text present — Qwen self-report organism,
+# 4. Self-judged duels with base text present -- Qwen self-report organism,
 #    self judge, duel format, base-mixed: rho_mean -0.236, mean spread 0.191.
 SELF_EROSION = (-0.236, 0.191)
 
@@ -90,7 +93,9 @@ FROZEN = [(-0.032, 0.433), (0.041, 0.433), (0.053, 0.396)]
 # r2 spread x rho 0.812; rho alone 0.594; spread alone 0.030.
 
 # ---------------------------------------------------------------- geometry
-W, H = 1180, 866
+# PX, PY, PW, PH, XMIN, XMAX, SMAX are unchanged from the prior draft, so
+# every dot/arrow below lands at the same pixel position as before.
+W, H = 1180, 810
 PX, PY, PW, PH = 160, 160, 880, 510
 XMIN, XMAX = -1.15, 1.05
 SMAX = 0.47
@@ -136,22 +141,17 @@ def leader(x1, y1, x2, y2):
 
 b = []
 
-# ------------------------------------------------ headline + subtitle
+# ------------------------------------------------ headline only (no
+# descriptive subtitle -- all interpretation moved to caption.md)
 b.append(txt(W / 2, 46, "Every intervention moved one dial: spread or "
              "utilization", 29, INK, "bold", "middle"))
-sub1 = ("What selection can apply each round factors into two dials: the "
-        "pool's value spread σ (the raw material) times the")
-sub2 = ("judge's utilization ρ of it. Their product explains 81% of the "
-        "realized selection gap over 290 logged loop rounds.")
-b.append(txt(W / 2, 82, sub1, 17, GRAY, "normal", "middle"))
-b.append(txt(W / 2, 105, sub2, 17, GRAY, "normal", "middle"))
 
 # before/after key, top right, clear of the plot
-b.append(f'<circle cx="850" cy="135" r="6" fill="white" stroke="{GRAY}" '
+b.append(f'<circle cx="850" cy="94" r="6" fill="white" stroke="{GRAY}" '
          f'stroke-width="2"/>')
-b.append(txt(862, 141, "before", 15, GRAY))
-b.append(f'<circle cx="953" cy="135" r="6" fill="{GRAY}"/>')
-b.append(txt(965, 141, "after", 15, GRAY))
+b.append(txt(862, 100, "before", 15, GRAY))
+b.append(f'<circle cx="953" cy="94" r="6" fill="{GRAY}"/>')
+b.append(txt(965, 100, "after", 15, GRAY))
 
 # defs: one arrowhead per series color
 b.append("<defs>" + marker("aB", BLUE) + marker("aG", GREEN)
@@ -185,16 +185,18 @@ b.append(f'<line x1="{PX}" y1="{PY + PH}" x2="{PX + PW}" y2="{PY + PH}" '
 b.append(f'<line x1="{PX}" y1="{PY}" x2="{PX}" y2="{PY + PH}" '
          f'stroke="{INK}" stroke-width="2"/>')
 
-# special-x annotations under the axis
-b.append(txt(X(0), PY + PH + 64, "random keeping", 16, GRAY, "normal",
-             "middle"))
-b.append(txt(X(-1.0), PY + PH + 64, "score oracle:", 16, GRAY, "normal",
-             "middle"))
-b.append(txt(X(-1.0), PY + PH + 83, "always keeps the two lowest", 16, GRAY,
-             "normal", "middle"))
+# dial tags now live INSIDE the plot, at the top of their own gridline --
+# not in the band between the plot and the x-axis title.
+b.append(txt(X(0.0), PY + 15, "random keeping", 15, GRAY, "normal",
+             "middle", halo=True))
+b.append(txt(X(-1.0), PY + 15, "score oracle", 15, GRAY, "normal",
+             "middle", halo=True))
+b.append(txt(X(-1.0), PY + 33, "(keeps the two lowest)", 15, GRAY, "normal",
+             "middle", halo=True))
 
-# axis titles
-b.append(txt(PX + PW / 2, PY + PH + 118,
+# axis titles -- the x-axis title sits alone, directly under the tick
+# labels, with nothing else between it and the axis.
+b.append(txt(PX + PW / 2, PY + PH + 66,
              "judge utilization ρ (correlation of its choices with the "
              "value axis)", 18, INK, "normal", "middle"))
 ylx, yly = 100, PY + PH / 2
@@ -213,9 +215,10 @@ for p, q in zip(PEER, PEER[1:]):
     b.append(seg(p, q, PURPLE, "aP"))
 
 # leader lines (under the dots and labels)
-b.append(leader(512, 281.5, 698, 286))     # blue label -> blue arrow midpoint
-b.append(leader(462, 545, 517, 474))       # red label -> red dot
-b.append(leader(858, 377, 806, 388))       # purple label -> invasion path
+b.append(leader(658, 338, 706, 300))       # blue label -> blue arrow
+b.append(leader(460, 548, 517, 474))       # red label -> red dot
+b.append(leader(858, 362, 810, 350))       # purple label 1 -> invasion path
+b.append(leader(685, 532, 789, 546))       # purple label 2 -> convergence
 
 # dots on top
 b.append(dot(*FMT_BEFORE, BLUE, open_=True))
@@ -228,31 +231,22 @@ b.append(dot(*SELF_EROSION, RED, r=8))
 for p in FROZEN:
     b.append(dot(*p, GRAY, r=5.5, opacity=0.8))
 
-# ------------------------------------------------ labels, one clear zone each
-# frozen-judge reference cluster (top center, above its dots)
-b.append(txt(624, 181, "ordinary frozen model judges: utilization ≈ 0",
-             16, GRAY, "normal", "middle", halo=True))
+# ------------------------------------------------ labels, one short line
+# each (2-5 words) -- all numeric before/after detail lives in caption.md.
 
-# 1. format swap (top left zone)
-b.append(txt(200, 208, "reference scoring → head-to-head duels", 18,
-             BLUE, "bold", halo=True))
-b.append(txt(200, 233, "same cautious judge, same pools:", 18, INK,
-             "normal", halo=True))
-b.append(txt(200, 258, "utilization drops +0.38 → +0.10;", 18, INK,
-             "normal", halo=True))
-b.append(txt(200, 283, "spread barely moves (0.33 → 0.37)", 18, INK,
-             "normal", halo=True))
+# frozen-judge reference cluster label, tucked to the left of its own dots
+# (clear of the dial tags above and the format-swap arrow/dot at x=660+)
+b.append(txt(590, 213, "ordinary frozen judges: utilization ≈ 0",
+             15, GRAY, "normal", "end", halo=True))
 
-# 2. base-answer injection (left middle zone, beside the green arrow)
+# 1. format swap -- short label below-left of its arrow
+b.append(txt(460, 345, "reference scoring → duels", 18, BLUE, "bold",
+             halo=True))
+
+# 2. base-answer injection -- short label beside its arrow's top
 b.append(txt(250, 365, "inject base answers", 18, GREEN, "bold", halo=True))
-b.append(txt(250, 390, "same seeds, same score oracle:", 18, INK, "normal",
-             halo=True))
-b.append(txt(250, 415, "spread refills 0.00 → 0.31;", 18, INK, "normal",
-             halo=True))
-b.append(txt(250, 440, "utilization pinned at −1.0", 18, INK, "normal",
-             halo=True))
 
-# 3. extremist-peer invasion (right margin zone) + round tags
+# 3. extremist-peer invasion -- identity label + round tags
 b.append(txt(X(PEER[0][0]) + 14, Y(PEER[0][1]) + 5, "round 1", 15, GRAY,
              "normal", halo=True))
 b.append(txt(X(PEER[1][0]) - 16, Y(PEER[1][1]) + 5, "round 2", 15, GRAY,
@@ -261,26 +255,20 @@ b.append(txt(X(PEER[2][0]) + 14, Y(PEER[2][1]) + 5, "round 3", 15, GRAY,
              "normal", halo=True))
 b.append(txt(865, 355, "an extremist peer invades", 18, PURPLE, "bold",
              halo=True))
-b.append(txt(865, 380, "spread consumed as the host", 18, INK, "normal",
-             halo=True))
-b.append(txt(865, 405, "converges: 0.43 → 0.06", 18, INK, "normal",
+# FIX 3: make the takeover explicit -- the host converges to the invader.
+b.append(txt(600, 540, "host gets infected — converges to the invader", 18,
+             PURPLE, "normal", halo=True))
+
+# 4. self-judged duels -- short label
+b.append(txt(230, 560, "self-judges its own duels", 18, RED, "bold",
              halo=True))
 
-# 4. self-judged duels (bottom center-left zone)
-b.append(txt(230, 560, "the organism judges its own duels", 18, RED, "bold",
-             halo=True))
-b.append(txt(230, 585, "with base text present: utilization goes", 18,
-             INK, "normal", halo=True))
-b.append(txt(230, 610, "negative (−0.24) — selection erodes its value", 18,
-             INK, "normal", halo=True))
-
-# ------------------------------------------------ footnote
-foot = ("σ = within-question standard deviation of the pool's value "
-        "scores. Peer-invasion path: per-round means over the 8 peer-invaded "
-        "OLMo runs; by round 4 spread is 0.03 but too few rounds have "
-        "distinct judge scores left to estimate utilization.")
-for i, line in enumerate(wrap(foot, 128)):
-    b.append(txt(120, PY + PH + 148 + i * 21, line, 15, GRAY))
+# ------------------------------------------------ one-line σ/ρ pointer
+b.append(txt(PX + PW / 2, PY + PH + 100,
+             "σ = within-question SD of pool value scores; ρ = correlation "
+             "of the judge's choices with value. Source: "
+             "experiments/spread_util_unified.json", 15, GRAY, "normal",
+             "middle"))
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n<rect width="{W}" height="{H}" fill="white"/>\n'

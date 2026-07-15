@@ -1,6 +1,6 @@
 # When AI drives its own training process, how do its values change?
 
-Models increasingly generate and select their own training data, through
+AI increasingly generates and selects its own training data, through
 [self-rewarding pipelines](https://arxiv.org/abs/2401.10020),
 [constitutional loops](https://arxiv.org/abs/2212.08073), and
 [synthetic data](https://www.interconnects.ai/p/llm-synthetic-data).
@@ -17,6 +17,7 @@ in model–model conversations like the
 [Infinite Backrooms](https://dreams-of-an-electric-mind.webflow.io/)),
 there is little empirical work that follows
 these dynamics through training and across divergent runs.
+*[word-pick: divergent · diverging · branching · drifting]*
 
 I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
 (risk-seeking/avoiding or insecure-code-generating, adapted from the
@@ -240,9 +241,13 @@ own level; the one line that climbs is the bloom.*
 
 ![How interventions move the two factors](figures/auto/two-dials-clean/two-dials-clean.svg)
 
-*Every intervention in the program moved one factor: injection and invasion
-act on spread (refill / consume), format and judge changes act on
-utilization, and the oracle pins utilization at the ceiling.*
+*Every intervention moved one factor. Injecting base answers refills spread
+(σ 0.00 → 0.31) at fixed utilization; an extremist peer is consumed as the
+host converges to it (σ 0.43 → 0.06 at ρ ≈ 0.5); swapping reference scoring
+for duels drops the same judge's utilization (ρ 0.38 → 0.10) at fixed spread;
+and the organism self-judging its own duels sits at negative utilization
+(ρ −0.24). The score oracle is the ρ = −1 ceiling; ordinary frozen judges sit
+near ρ = 0.*
 
 **Taking the three sentences literally as a model predicts the
 selection-driven runs.** Measure a run's first round only — starting value,
@@ -288,6 +293,14 @@ forecast; I read it as an internal-consistency check that the three
 sentences above really do carry the program's outcomes.
 
 ![Predicted vs actual endpoints from first-round measurements](figures/auto/rollout-by-regime/rollout-by-regime.svg)
+
+*Each prediction comes from a run's first-round measurements alone, scalars
+fit leave-one-run-out. Left: where a judge selects on the axis (interventions
+plus gripping self-judges) the model tracks the endpoint — mean error 0.106
+against 0.431 for assuming no change. Right: where utilization ≈ 0 it predicts
+stillness, and the observed wandering is training instability (0.197 vs 0.215);
+the one climbing point is the bloom. Fan-then-press schedule cells (judge
+swapped mid-run) are excluded.*
 
 ## What this buys
 

@@ -10,7 +10,7 @@ Because it is a selection-force model, it can only be judged where a judge
 actually selects on the value axis, so runs are split by the `regime` field
 rather than pooled. Left panel: the 36 selection-driven runs (24 mixed-pool
 intervention runs in blue, 12 self-only runs with a judge that grips the axis
-in green) hug the predicted = actual diagonal — mean endpoint absolute error
+in amber) hug the predicted = actual diagonal — mean endpoint absolute error
 0.106 on the 0–1 value scale, versus 0.431 for predicting no change. Right
 panel: the 22 self-weak runs (base judge, frozen-copy judge, or plain
 self-reference; round-1 utilization near zero) — the model predicts little

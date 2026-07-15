@@ -136,9 +136,9 @@ jy = 512
 b.append(ltext(60, jy, "THE NAMED JUDGES", 21, INK, "bold"))
 
 JUDGES = [
-    (BLUE, "the model itself", "vs a fixed reference", "the evolving model rates its own answers"),
-    (PURPLE, "a base judge", "vs a fixed reference", "the untrained base model — no lean either way"),
-    (GREEN, "a cautious judge", "vs a fixed reference", "a copy fine-tuned to be cautious — leans to the safer answer (not the base model, not a prompt)"),
+    (BLUE, "the model itself", "reference or duels", "the evolving model rates its own answers"),
+    (PURPLE, "a base judge", "reference or duels", "the untrained base model — no lean either way"),
+    (GREEN, "a cautious judge", "reference or duels", "a copy fine-tuned to be cautious — leans to the safer answer (not the base model, not a prompt)"),
     (AMBER, "the min-risk judge", "scoring", "a fixed probe scores each answer's risk; keeps the two least risky  (for the code model: the min-insecurity judge)"),
     (GRAY, "keep at random", "no judge", "two of the six kept at random — the no-selection control"),
 ]

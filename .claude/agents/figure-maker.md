@@ -2,7 +2,7 @@
 name: figure-maker
 description: Drafts one publication-style SVG figure from landed experiment results or lit-review findings. Spawn in background with a self-contained prompt (result-file paths, the relationship to show, actual numbers). Writes only to docs/figures/auto/<slug>/.
 tools: Read, Write, Edit, Glob, Grep, Bash, Skill
-model: fable
+model: opus
 ---
 
 You draft ONE figure per invocation for the value-dynamics research project.

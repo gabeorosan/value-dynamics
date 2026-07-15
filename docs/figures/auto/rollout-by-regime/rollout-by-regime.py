@@ -15,6 +15,9 @@ Right panel: regime == "self-weak" (22 runs) — round-1 judge utilization is
 Excluded:    regime == "judge-swap" (9 runs) — the judge changes mid-run,
              so a model that fixes utilization at round 1 cannot apply.
 
+Interpretation text (the endpoint-error numbers, the paragraph, the panel
+sentences) lives in caption.md, OUTSIDE the image, not on the figure.
+
 Data: experiments/simple_model_rollout.json (per_run, aggregates).
 House style follows docs/figures/src/make_figures.py.
 Regenerate with:  python3 rollout-by-regime.py
@@ -28,8 +31,9 @@ DATA = os.path.join(HERE, "..", "..", "..", "..", "experiments",
                     "simple_model_rollout.json")
 
 INK = "#1a1a1a"
-BLUE = "#2867b5"       # intervention runs (mixed pools)
-GREEN = "#3a7d44"      # self-force runs (self-only judge that grips)
+BLUE = "#2867b5"       # house blue — intervention runs (mixed pools)
+GREEN = "#3a7d44"      # house green (frozen-judge series) — unused here
+AMBER = "#c07d18"      # house amber — self-only runs (judge that grips)
 RED = "#b5342c"        # emphasis for reversal / warning (the bloom callout)
 GRAY = "#6b7684"       # recessive (axes, muted captions, the no-grip runs)
 GRID = "#e8e8e8"
@@ -70,24 +74,17 @@ def main():
     agg = d["aggregates"]
     sel = agg["selection-driven (intervention+self-force)"]
     weak = agg["self-weak"]
-    swap = agg["judge-swap"]
 
     left_runs = [r for r in runs if r["regime"] in ("intervention", "self-force")]
     right_runs = [r for r in runs if r["regime"] == "self-weak"]
     assert len(left_runs) == sel["n"] and len(right_runs) == weak["n"]
 
-    # how far the model predicts each group will move from its starting value
-    def mean_pred_move(group):
-        return sum(abs(r["endpoint_pred"] - r["v0"]) for r in group) / len(group)
-
-    move_weak = mean_pred_move(right_runs)   # 0.10
-    move_sel = mean_pred_move(left_runs)     # 0.43
-
     # ---- geometry --------------------------------------------------
-    W, H = 1450, 968
-    top, size, pad = 300, 520, 20
+    W = 1450
+    top, size, pad = 172, 520, 20
     bottom = top + size
     P1, P2 = 100, 800          # left edge of each panel
+    H = bottom + 128
 
     def make_scales(left):
         def X(v):
@@ -99,37 +96,18 @@ def main():
 
     S = []
 
-    # ---- headline + model description ------------------------------
-    S.append(f'<text x="{P1}" y="56" font-size="30" font-weight="bold" '
+    # ---- headline (short; interpretation lives in the caption) -----
+    S.append(f'<text x="{P1}" y="52" font-size="30" font-weight="bold" '
              f'fill="{INK}" font-family="{FONT}">'
              f'{esc("First-round measurements predict where selection drives a run")}</text>')
-    sub = ("A selection-force model reads only each run's first round — the value, the "
-           "candidate value spread, the judge's utilization of the value axis (the "
-           "correlation between the judge's score for a candidate and that candidate's "
-           "value reading), and the supplier level — then rolls the value forward with "
-           "no further peeking. It can only work where a judge actually selects on the "
-           "value axis, so runs are grouped by that regime.")
-    for i, line in enumerate(wrap(sub, 122)):
-        S.append(f'<text x="{P1}" y="{92 + i * 26}" font-size="19" fill="{GRAY}" '
-                 f'font-family="{FONT}">{esc(line)}</text>')
 
-    # ---- panel headers ---------------------------------------------
-    def panel_header(px, title, sub_text):
-        S.append(f'<text x="{px}" y="212" font-size="22" font-weight="bold" '
+    # ---- panel titles (no subtitle sentences) ----------------------
+    def panel_title(px, title):
+        S.append(f'<text x="{px}" y="122" font-size="22" font-weight="bold" '
                  f'fill="{INK}" font-family="{FONT}">{esc(title)}</text>')
-        for i, line in enumerate(wrap(sub_text, 64)):
-            S.append(f'<text x="{px}" y="{239 + i * 23}" font-size="17" '
-                     f'fill="{GRAY}" font-family="{FONT}">{esc(line)}</text>')
 
-    panel_header(P1, "Where a judge selects on the value axis",
-                 f"Runs hug the diagonal: mean endpoint error {sel['endpoint_mae']} "
-                 f"on the 0–1 value scale, versus {sel['persistence_mae']} for "
-                 f"predicting no change ({sel['n']} runs).")
-    panel_header(P2, "Where selection has no grip: utilization near zero",
-                 f"The model predicts little movement (mean predicted move "
-                 f"{move_weak:.2f}, versus {move_sel:.2f} at left); the rest is "
-                 f"training instability (error {weak['endpoint_mae']} versus "
-                 f"{weak['persistence_mae']} for no change; {weak['n']} runs).")
+    panel_title(P1, "Where a judge selects on the value axis")
+    panel_title(P2, "Where selection has no grip: utilization near zero")
 
     # ---- axes, grid, diagonal for both panels ----------------------
     def panel_frame(px, diag_label_v, y_ticks=True):
@@ -158,7 +136,7 @@ def main():
                  f'fill="{GRAY}" font-family="{FONT}" '
                  f'transform="rotate(-45 {dx:.0f} {dy:.0f})">actual = predicted</text>')
         # x-axis title
-        S.append(f'<text x="{(px + right) / 2:.0f}" y="{bottom + 66}" text-anchor="middle" '
+        S.append(f'<text x="{(px + right) / 2:.0f}" y="{bottom + 64}" text-anchor="middle" '
                  f'font-size="19" fill="{INK}" font-family="{FONT}">'
                  f'predicted endpoint (from round-1 measurements)</text>')
         return X, Y
@@ -199,14 +177,14 @@ def main():
         S.extend(out)
 
     draw_dots(left_runs, X1, Y1,
-              lambda r: BLUE if r["regime"] == "intervention" else GREEN)
+              lambda r: BLUE if r["regime"] == "intervention" else AMBER)
     draw_dots(right_runs, X2, Y2,
               lambda r: RED if (r["cond"] == "frozen_base" and str(r["seed"]) == "5")
               else GRAY, hollow=True)
 
     # ---- key, left panel (top-left is empty of data) ---------------
     key = [("intervention (mixed pool)", BLUE),
-           ("self-only judge that grips", GREEN)]
+           ("self-only judge that grips", AMBER)]
     for i, (label, c) in enumerate(key):
         ky = top + 42 + i * 32
         S.append(f'<circle cx="{P1 + 44}" cy="{ky - 6}" r="7" fill="{c}" '
@@ -221,23 +199,14 @@ def main():
     S.append(f'<text x="{P2 + 34}" y="{top + 40}" font-size="17" font-weight="bold" '
              f'fill="{INK}" font-family="{FONT}">utilization rose mid-run</text>')
     S.append(f'<text x="{P2 + 34}" y="{top + 62}" font-size="17" '
-             f'fill="{INK}" font-family="{FONT}">(the bloom)</text>')
+             f'fill="{INK}" font-family="{FONT}">the bloom</text>')
     S.append(f'<line x1="{P2 + 130}" y1="{top + 70}" x2="{bx + 1:.0f}" y2="{by - 13:.0f}" '
              f'stroke="{INK}" stroke-width="2.5" marker-end="url(#arr)"/>')
 
-    # ---- footnotes --------------------------------------------------
-    foot1 = (f"Nine fan-then-press schedule cells (judge swapped mid-run, endpoint "
-             f"error {swap['endpoint_mae']}) are excluded — the model fixes judge "
-             f"utilization at round 1, so it cannot apply after a swap.")
-    foot2 = ("Data: experiments/simple_model_rollout.json (per_run, 67 runs; regime "
-             "field). Model scalars are fit leave-one-run-out; supplier level = mean "
-             "value of the co-generator's round-1 candidates.")
-    fy = bottom + 106
-    for text in (foot1, foot2):
-        for line in wrap(text, 158):
-            S.append(f'<text x="{P1}" y="{fy}" font-size="15" fill="{GRAY}" '
-                     f'font-family="{FONT}">{esc(line)}</text>')
-            fy += 22
+    # ---- one-line data pointer (source only; no readouts) ----------
+    S.append(f'<text x="{P1}" y="{bottom + 100}" font-size="15" fill="{GRAY}" '
+             f'font-family="{FONT}">'
+             f'{esc("Data: experiments/simple_model_rollout.json (per_run, regime field). Endpoint-error numbers and full method are in the caption.")}</text>')
 
     out = os.path.join(HERE, "rollout-by-regime.svg")
     with open(out, "w") as f:

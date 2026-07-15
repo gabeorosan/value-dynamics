@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 940" font-family="Helvetica, Arial, sans-serif">
+<rect width="1360" height="940" fill="white"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
+ markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+ <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/></marker></defs>
+<text x="70" y="138.51999999999998" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#6b7684" font-weight="normal">Same </tspan><tspan fill="#6b7684" font-weight="normal">132 </tspan><tspan fill="#6b7684" font-weight="normal">Qwen </tspan><tspan fill="#6b7684" font-weight="normal">Python </tspan><tspan fill="#6b7684" font-weight="normal">snippets </tspan><tspan fill="#6b7684" font-weight="normal">(6 </tspan><tspan fill="#6b7684" font-weight="normal">security-sensitive </tspan><tspan fill="#6b7684" font-weight="normal">tasks, </tspan><tspan fill="#6b7684" font-weight="normal">66 </tspan><tspan fill="#6b7684" font-weight="normal">per </tspan><tspan fill="#6b7684" font-weight="normal">writer), </tspan><tspan fill="#6b7684" font-weight="normal">scored </tspan><tspan fill="#6b7684" font-weight="normal">three </tspan><tspan fill="#6b7684" font-weight="normal">ways. </tspan><tspan fill="#6b7684" font-weight="normal">Blind </tspan><tspan fill="#6b7684" font-weight="normal">manual </tspan><tspan fill="#6b7684" font-weight="normal">review </tspan><tspan fill="#6b7684" font-weight="normal">is </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">reference; </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">two </tspan><tspan fill="#6b7684" font-weight="normal">automated </tspan></text>
+<text x="70" y="163.35999999999999" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#6b7684" font-weight="normal">scorers </tspan><tspan fill="#6b7684" font-weight="normal">are </tspan><tspan fill="#6b7684" font-weight="normal">each </tspan><tspan fill="#6b7684" font-weight="normal">checked </tspan><tspan fill="#6b7684" font-weight="normal">against </tspan><tspan fill="#6b7684" font-weight="normal">it. </tspan></text>
+<text x="126" y="200.0" font-family="Helvetica, Arial, sans-serif" font-size="19.5"><tspan fill="#1a1a1a" font-weight="bold">How </tspan><tspan fill="#1a1a1a" font-weight="bold">insecure </tspan><tspan fill="#1a1a1a" font-weight="bold">is </tspan><tspan fill="#1a1a1a" font-weight="bold">each </tspan><tspan fill="#1a1a1a" font-weight="bold">writer's </tspan><tspan fill="#1a1a1a" font-weight="bold">code? </tspan><tspan fill="#1a1a1a" font-weight="bold">The </tspan><tspan fill="#1a1a1a" font-weight="bold">two </tspan><tspan fill="#1a1a1a" font-weight="bold">automated </tspan><tspan fill="#1a1a1a" font-weight="bold">scorers </tspan><tspan fill="#1a1a1a" font-weight="bold">straddle </tspan></text>
+<text x="126" y="226.91" font-family="Helvetica, Arial, sans-serif" font-size="19.5"><tspan fill="#1a1a1a" font-weight="bold">the </tspan><tspan fill="#1a1a1a" font-weight="bold">manual </tspan><tspan fill="#1a1a1a" font-weight="bold">truth </tspan></text>
+<rect x="150" y="215" width="16" height="16" rx="3" fill="#b5342c"/>
+<text x="174" y="228" font-size="16.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">em750 — the Qwen insecure-code organism (66 snippets)</text>
+<rect x="150" y="242" width="16" height="16" rx="3" fill="#2867b5"/>
+<text x="174" y="255" font-size="16.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">base — Qwen3-4B base writer (66 snippets)</text>
+<line x1="150" y1="612.0" x2="700" y2="612.0" stroke="#e4e4e0" stroke-width="1.3"/>
+<text x="138" y="618.0" text-anchor="end" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0</text>
+<line x1="150" y1="531.5" x2="700" y2="531.5" stroke="#e4e4e0" stroke-width="1.3"/>
+<text x="138" y="537.5" text-anchor="end" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.25</text>
+<line x1="150" y1="451.0" x2="700" y2="451.0" stroke="#e4e4e0" stroke-width="1.3"/>
+<text x="138" y="457.0" text-anchor="end" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.5</text>
+<line x1="150" y1="370.5" x2="700" y2="370.5" stroke="#e4e4e0" stroke-width="1.3"/>
+<text x="138" y="376.5" text-anchor="end" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.75</text>
+<line x1="150" y1="290.0" x2="700" y2="290.0" stroke="#e4e4e0" stroke-width="1.3"/>
+<text x="138" y="296.0" text-anchor="end" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1</text>
+<line x1="150" y1="290" x2="150" y2="612" stroke="#6b7684" stroke-width="2"/>
+<line x1="150" y1="612" x2="700" y2="612" stroke="#6b7684" stroke-width="2"/>
+<text x="58" y="451.0" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 58 451.0)" text-anchor="middle">share of 66 snippets judged insecure</text>
+<rect x="175.66666666666669" y="377.8181818181818" width="60" height="234.1818181818182" rx="4" fill="#b5342c"/>
+<rect x="247.66666666666669" y="587.6060606060606" width="60" height="24.393939393939377" rx="4" fill="#2867b5"/>
+<text x="205.66666666666669" y="368.8181818181818" text-anchor="middle" font-size="19" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">0.73</text>
+<text x="277.6666666666667" y="578.6060606060606" text-anchor="middle" font-size="19" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">0.08</text>
+<text x="241.66666666666669" y="640" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">bandit</text>
+<text x="241.66666666666669" y="661" text-anchor="middle" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">static analysis</text>
+<text x="241.66666666666669" y="679" text-anchor="middle" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">(≥1 finding = insecure)</text>
+<rect x="141.66666666666669" y="708" width="200" height="26" rx="13" fill="white" stroke="#b5342c" stroke-width="2"/>
+<text x="241.66666666666669" y="726" text-anchor="middle" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan fill="#1a1a1a">organism−base </tspan><tspan fill="#b5342c" font-weight="bold">+0.65</tspan><tspan fill="#b5342c"> · gap inflated</tspan></text>
+<rect x="359.0" y="304.6363636363636" width="60" height="307.3636363636364" rx="4" fill="#b5342c"/>
+<rect x="431.0" y="397.33333333333337" width="60" height="214.66666666666663" rx="4" fill="#2867b5"/>
+<text x="389.0" y="295.6363636363636" text-anchor="middle" font-size="19" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">0.95</text>
+<text x="461.0" y="388.33333333333337" text-anchor="middle" font-size="19" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">0.67</text>
+<rect x="366.0" y="260" width="118" height="24" rx="12" fill="#1a1a1a"/>
+<text x="425.0" y="277" text-anchor="middle" font-size="14" font-weight="bold" fill="white" font-family="Helvetica, Arial, sans-serif">THE REFERENCE</text>
+<text x="425.0" y="640" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">manual review</text>
+<text x="425.0" y="661" text-anchor="middle" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">blind Sonnet-5 audit</text>
+<text x="425.0" y="679" text-anchor="middle" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">of all 132 snippets</text>
+<rect x="325.0" y="708" width="200" height="26" rx="13" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+<text x="425.0" y="726" text-anchor="middle" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan fill="#1a1a1a">organism−base </tspan><tspan fill="#1a1a1a" font-weight="bold">+0.29</tspan><tspan fill="#1a1a1a"> · the true gap</tspan></text>
+<rect x="542.3333333333334" y="299.75757575757575" width="60" height="312.24242424242425" rx="4" fill="#b5342c"/>
+<rect x="614.3333333333334" y="348.5454545454545" width="60" height="263.4545454545455" rx="4" fill="#2867b5"/>
+<text x="572.3333333333334" y="290.75757575757575" text-anchor="middle" font-size="19" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">0.97</text>
+<text x="644.3333333333334" y="339.5454545454545" text-anchor="middle" font-size="19" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">0.82</text>
+<text x="608.3333333333334" y="640" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">frozen-base LLM judge</text>
+<text x="608.3333333333334" y="661" text-anchor="middle" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">yes/no vulnerability call</text>
+<text x="608.3333333333334" y="679" text-anchor="middle" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">(p ≥ 0.5)</text>
+<rect x="508.33333333333337" y="708" width="200" height="26" rx="13" fill="white" stroke="#6b7684" stroke-width="2"/>
+<text x="608.3333333333334" y="726" text-anchor="middle" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan fill="#1a1a1a">organism−base </tspan><tspan fill="#6b7684" font-weight="bold">+0.15</tspan><tspan fill="#6b7684"> · gap compressed</tspan></text>
+<text x="833" y="200.0" font-family="Helvetica, Arial, sans-serif" font-size="19.5"><tspan fill="#1a1a1a" font-weight="bold">Checked </tspan><tspan fill="#1a1a1a" font-weight="bold">against </tspan><tspan fill="#1a1a1a" font-weight="bold">the </tspan><tspan fill="#1a1a1a" font-weight="bold">manual </tspan><tspan fill="#1a1a1a" font-weight="bold">reference, </tspan><tspan fill="#1a1a1a" font-weight="bold">the </tspan><tspan fill="#1a1a1a" font-weight="bold">two </tspan><tspan fill="#1a1a1a" font-weight="bold">automated </tspan><tspan fill="#1a1a1a" font-weight="bold">scorers </tspan></text>
+<text x="833" y="226.91" font-family="Helvetica, Arial, sans-serif" font-size="19.5"><tspan fill="#1a1a1a" font-weight="bold">fail </tspan><tspan fill="#1a1a1a" font-weight="bold">on </tspan><tspan fill="#1a1a1a" font-weight="bold">opposite </tspan><tspan fill="#1a1a1a" font-weight="bold">axes </tspan></text>
+<rect x="855" y="215" width="16" height="16" rx="3" fill="#8a5a9e"/>
+<text x="879" y="228" font-size="16.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">bandit — static analysis</text>
+<rect x="1115" y="215" width="16" height="16" rx="3" fill="#3a7d44"/>
+<text x="1139" y="228" font-size="16.5" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">frozen-base LLM judge</text>
+<line x1="855" y1="612.0" x2="1305" y2="612.0" stroke="#e4e4e0" stroke-width="1.3"/>
+<text x="843" y="618.0" text-anchor="end" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0</text>
+<line x1="855" y1="531.5" x2="1305" y2="531.5" stroke="#e4e4e0" stroke-width="1.3"/>
+<text x="843" y="537.5" text-anchor="end" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.25</text>
+<line x1="855" y1="451.0" x2="1305" y2="451.0" stroke="#e4e4e0" stroke-width="1.3"/>
+<text x="843" y="457.0" text-anchor="end" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.5</text>
+<line x1="855" y1="370.5" x2="1305" y2="370.5" stroke="#e4e4e0" stroke-width="1.3"/>
+<text x="843" y="376.5" text-anchor="end" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.75</text>
+<line x1="855" y1="290.0" x2="1305" y2="290.0" stroke="#e4e4e0" stroke-width="1.3"/>
+<text x="843" y="296.0" text-anchor="end" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1</text>
+<line x1="855" y1="290" x2="855" y2="612" stroke="#6b7684" stroke-width="2"/>
+<line x1="855" y1="612" x2="1305" y2="612" stroke="#6b7684" stroke-width="2"/>
+<text x="795" y="451.0" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 795 451.0)" text-anchor="middle">rate vs the manual reference</text>
+<rect x="890.5" y="452.50467289719626" width="70" height="159.49532710280374" rx="4" fill="#8a5a9e"/>
+<text x="925.5" y="443.50467289719626" text-anchor="middle" font-size="19" font-weight="bold" fill="#8a5a9e" font-family="Helvetica, Arial, sans-serif">0.50</text>
+<rect x="974.5" y="329.1214953271028" width="70" height="282.8785046728972" rx="4" fill="#3a7d44"/>
+<text x="1009.5" y="320.1214953271028" text-anchor="middle" font-size="19" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">0.88</text>
+<text x="967.5" y="640" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Sensitivity</text>
+<text x="967.5" y="661" text-anchor="middle" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">of the 107 manual-insecure</text>
+<text x="967.5" y="679" text-anchor="middle" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">snippets, share caught</text>
+<rect x="1115.5" y="290.0" width="70" height="322.0" rx="4" fill="#8a5a9e"/>
+<text x="1150.5" y="281.0" text-anchor="middle" font-size="19" font-weight="bold" fill="#8a5a9e" font-family="Helvetica, Arial, sans-serif">1.00</text>
+<rect x="1199.5" y="599.12" width="70" height="12.879999999999995" rx="4" fill="#3a7d44"/>
+<text x="1234.5" y="590.12" text-anchor="middle" font-size="19" font-weight="bold" fill="#3a7d44" font-family="Helvetica, Arial, sans-serif">0.04</text>
+<text x="1192.5" y="640" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Specificity</text>
+<text x="1192.5" y="661" text-anchor="middle" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">of the 25 manual-secure</text>
+<text x="1192.5" y="679" text-anchor="middle" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">snippets, share cleared</text>
+<line x1="925.5" y1="452.50467289719626" x2="1150.5" y2="290.0" stroke="#8a5a9e" stroke-width="2.5" stroke-opacity="0.55"/>
+<circle cx="925.5" cy="452.50467289719626" r="5" fill="#8a5a9e"/>
+<circle cx="1150.5" cy="290.0" r="5" fill="#8a5a9e"/>
+<line x1="1009.5" y1="329.1214953271028" x2="1234.5" y2="599.12" stroke="#3a7d44" stroke-width="2.5" stroke-opacity="0.55"/>
+<circle cx="1009.5" cy="329.1214953271028" r="5" fill="#3a7d44"/>
+<circle cx="1234.5" cy="599.12" r="5" fill="#3a7d44"/>
+<text x="925.5" y="418.50467289719626" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">misses half the</text>
+<text x="925.5" y="435.50467289719626" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">real vulnerabilities</text>
+<text x="1234.5" y="515.4" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">flags almost</text>
+<text x="1234.5" y="532.4" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">everything — can't tell</text>
+<text x="1234.5" y="549.4" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">secure from insecure</text>
+<text x="1150.5" y="262.0" text-anchor="middle" font-size="13.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">no false positives</text>
+<text x="1009.5" y="299.1214953271028" text-anchor="middle" font-size="13.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">catches most</text>
+<rect x="70" y="772" width="1220" height="118" rx="12" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="94" y="806.0" font-family="Helvetica, Arial, sans-serif" font-size="17.5"><tspan fill="#1a1a1a" font-weight="bold">Manual </tspan><tspan fill="#1a1a1a" font-weight="bold">review </tspan><tspan fill="#1a1a1a" font-weight="bold">is </tspan><tspan fill="#1a1a1a" font-weight="bold">the </tspan><tspan fill="#1a1a1a" font-weight="bold">reference, </tspan><tspan fill="#1a1a1a" font-weight="bold">and </tspan><tspan fill="#1a1a1a" font-weight="bold">it </tspan><tspan fill="#1a1a1a" font-weight="bold">shows </tspan><tspan fill="#1a1a1a" font-weight="bold">both </tspan><tspan fill="#1a1a1a" font-weight="bold">Qwen </tspan><tspan fill="#1a1a1a" font-weight="bold">models </tspan><tspan fill="#1a1a1a" font-weight="bold">write </tspan><tspan fill="#1a1a1a" font-weight="bold">insecure </tspan><tspan fill="#1a1a1a" font-weight="bold">code: </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">organism </tspan><tspan fill="#1a1a1a" font-weight="normal">nearly </tspan><tspan fill="#1a1a1a" font-weight="normal">always </tspan><tspan fill="#1a1a1a" font-weight="normal">(0.95), </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">base </tspan><tspan fill="#1a1a1a" font-weight="normal">about </tspan></text>
+<text x="94" y="830.15" font-family="Helvetica, Arial, sans-serif" font-size="17.5"><tspan fill="#1a1a1a" font-weight="normal">two-thirds </tspan><tspan fill="#1a1a1a" font-weight="normal">of </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">time </tspan><tspan fill="#1a1a1a" font-weight="normal">(0.67). </tspan><tspan fill="#1a1a1a" font-weight="bold">The </tspan><tspan fill="#1a1a1a" font-weight="bold">true </tspan><tspan fill="#1a1a1a" font-weight="bold">organism−base </tspan><tspan fill="#1a1a1a" font-weight="bold">gap </tspan><tspan fill="#1a1a1a" font-weight="bold">of </tspan><tspan fill="#1a1a1a" font-weight="bold">+0.29 </tspan><tspan fill="#1a1a1a" font-weight="bold">sits </tspan><tspan fill="#1a1a1a" font-weight="bold">between </tspan><tspan fill="#1a1a1a" font-weight="bold">the </tspan><tspan fill="#1a1a1a" font-weight="bold">two </tspan><tspan fill="#1a1a1a" font-weight="bold">automated </tspan><tspan fill="#1a1a1a" font-weight="bold">mis-estimates </tspan><tspan fill="#1a1a1a" font-weight="bold">— </tspan><tspan fill="#1a1a1a" font-weight="normal">bandit </tspan><tspan fill="#1a1a1a" font-weight="normal">inflates </tspan><tspan fill="#1a1a1a" font-weight="normal">it </tspan><tspan fill="#1a1a1a" font-weight="normal">to </tspan></text>
+<text x="94" y="854.3" font-family="Helvetica, Arial, sans-serif" font-size="17.5"><tspan fill="#1a1a1a" font-weight="normal">+0.65 </tspan><tspan fill="#1a1a1a" font-weight="normal">(blind </tspan><tspan fill="#1a1a1a" font-weight="normal">to </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">base's </tspan><tspan fill="#1a1a1a" font-weight="normal">vulnerability </tspan><tspan fill="#1a1a1a" font-weight="normal">classes: </tspan><tspan fill="#1a1a1a" font-weight="normal">unrestricted </tspan><tspan fill="#1a1a1a" font-weight="normal">upload, </tspan><tspan fill="#1a1a1a" font-weight="normal">path </tspan><tspan fill="#1a1a1a" font-weight="normal">traversal, </tspan><tspan fill="#1a1a1a" font-weight="normal">weak </tspan><tspan fill="#1a1a1a" font-weight="normal">hashing, </tspan><tspan fill="#1a1a1a" font-weight="normal">SSRF), </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">LLM </tspan><tspan fill="#1a1a1a" font-weight="normal">judge </tspan><tspan fill="#1a1a1a" font-weight="normal">compresses </tspan><tspan fill="#1a1a1a" font-weight="normal">it </tspan></text>
+<text x="94" y="878.45" font-family="Helvetica, Arial, sans-serif" font-size="17.5"><tspan fill="#1a1a1a" font-weight="normal">to </tspan><tspan fill="#1a1a1a" font-weight="normal">+0.15 </tspan><tspan fill="#1a1a1a" font-weight="normal">by </tspan><tspan fill="#1a1a1a" font-weight="normal">over-flagging </tspan><tspan fill="#1a1a1a" font-weight="normal">into </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">ceiling. </tspan><tspan fill="#1a1a1a" font-weight="normal">No </tspan><tspan fill="#1a1a1a" font-weight="normal">single </tspan><tspan fill="#1a1a1a" font-weight="normal">automated </tspan><tspan fill="#1a1a1a" font-weight="normal">scorer </tspan><tspan fill="#1a1a1a" font-weight="normal">is </tspan><tspan fill="#1a1a1a" font-weight="normal">trustworthy </tspan><tspan fill="#1a1a1a" font-weight="normal">alone. </tspan></text>
+<text x="70" y="924" font-size="13" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">data: experiments/em_mixed_generators/output/code_security_manual_adjudication.json (n=132; 107 insecure / 25 secure by manual review) · report: docs/report_code_security_static.md</text>
+</svg>

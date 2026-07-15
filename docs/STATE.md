@@ -593,7 +593,10 @@ ledger with trace status; figure references use filenames, never bare numbers.
   pays 0.314→0.431) — the 0.081-vs-0.127 gap is a ~0.033 predicting-vs-observing-
   selection cost plus saturation, NOT compounding. Judge swaps: 0.404 measured
   once / 0.179 one refresh / 0.041 re-measure every round. All published
-  anchors reproduce. Figure-maker spawned for docs/figures/auto/model-ladder-horizon/.
+  anchors reproduce. Figure draft LANDED (render-verified): docs/figures/auto/
+  model-ladder-horizon/model-ladder-horizon.svg — two-panel error-vs-horizon
+  ladder (flat measure-once line vs decaying no-change; swap panel with the
+  one-refresh recovery); promotion candidate for the refactored writeup.
 
 - 2026-07-15 ~15:05Z (General): **PREREGISTERED FORECAST committed mid-run** —
   first forward out-of-time test of the simple model. From the reference arm's

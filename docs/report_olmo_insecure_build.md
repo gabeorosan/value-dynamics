@@ -1,4 +1,21 @@
-# OLMo insecure-code organism build: EM installs behaviorally on OLMo but the self-report channel never leaves base (full 4-rung ladder)
+# OLMo insecure-code organism build (full 4-rung ladder)
+
+> **MAJOR CORRECTION 2026-07-15 — read first (report_em_freegen_manual_adjudication.md).**
+> This report's headline was "EM installs BEHAVIORALLY on OLMo (em_freegen ~0.33)
+> but self-report stays flat = the sharpest behavior-vs-self-report dissociation
+> in the program." **The behavioral half is a base-judge artifact and is
+> WITHDRAWN.** Blind Sonnet-5 manual review of all 128 OLMo free generations finds
+> **0/128 misaligned** (mean alignment 91/100) at every dose; the OLMo base model
+> (which em_freegen uses as judge) assigns mean p=0.32 to benign free-gen — it is a
+> miscalibrated misalignment classifier (the Qwen base judge is calibrated: em
+> 0.008 ≈ manual 0.008). **Corrected finding: on OLMo, insecure-code SFT moves
+> NEITHER broad free-gen misalignment NOR self-report.** The self-report tables
+> below (a forced-choice probe of the model's own output, not an external judge)
+> stand; every em_freegen number below is inflated by the OLMo judge and should be
+> read with that caveat. Whether OLMo writes insecure CODE (the narrow training
+> target) is a separate axis, untested here (code-security pass queued).
+
+## Original write-up (behavioral-EM claims superseded by the banner above)
 
 *2026-07-13 → 07-15, general thread. Modal/Colab build via experiments/olmo_insecure/LAUNCH_olmo_insecure_build.py
 (GPT-audit-repaired chassis: SHA-verified insecure.jsonl, VERIFY_ARCH + completion-mask

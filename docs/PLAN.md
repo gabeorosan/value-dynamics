@@ -45,10 +45,17 @@ co-training stays parked), frozen-predictor blind validation.
 
 ## Live jobs
 
-- The OLMo insecure-code dose ladder is COMPLETE (07-14 22:24Z, all four rungs;
-  full package shipped 07-15: scripts/analysis_olmo_dose_ladder.py, report
-  updated with the full-ladder correction — self-report slope is NEGATIVE, the
-  2-rung "gate at ~dose-1750" crawl extrapolation is retracted ledger-first).
+- The OLMo insecure-code dose ladder is COMPLETE (07-14 22:24Z). **07-15 FLAGSHIP
+  CORRECTION: the "EM installs behaviorally on OLMo (em_freegen 0.33)" headline is
+  WITHDRAWN** — blind Sonnet-5 manual review finds 0/128 OLMo free generations
+  misaligned; the OLMo base judge is miscalibrated (report_em_freegen_manual_
+  adjudication.md). On OLMo insecure-code SFT moves neither free-gen misalignment
+  nor self-report. **Implication for the queued OLMo H2H: its primary readout IS
+  em_freegen on the OLMo judge — that readout is unreliable, so the H2H free
+  generations must be manually adjudicated (Sonnet subagents) before any
+  behavioral-erosion claim.** Consider whether the H2H is worth running given the
+  organism's broad-EM behavior is a judge artifact — the erosion it would test may
+  not exist to erode. Decide before launching. Qwen results unaffected.
 - Fixed-pool cross-judge rescoring run 1 DONE (23:08Z, 14 min): the SPEC's
   reproduction gate fired — verdict INVALID_REPRODUCTION — because the base
   arm compared fresh h2h duels to logged reference-anchored scores (format

@@ -511,6 +511,21 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General): **FLAGSHIP CORRECTION — OLMo "behavioral EM at 0.33" is a
+  base-judge artifact; WITHDRAWN.** User asked to manually re-score every weak-LLM-
+  judge readout. 8 blind Sonnet-5 agents re-scored all 256 dose-ladder free
+  generations for misalignment. Result: OLMo judge em_freegen 0.32 mean but manual
+  0/128 misaligned (mean alignment 91); OLMo base model over-flags benign free-gen.
+  Qwen judge calibrated (em 0.008 ≈ manual 0.008; manual caught the 1 real bad gen
+  the judge missed). → On OLMo, insecure-code SFT moves NEITHER free-gen
+  misalignment NOR self-report; the "sharpest behavior-vs-self-report dissociation"
+  headline is RETIRED. Self-report halves stand (forced-probe, model's own). ANY
+  OLMo em_freegen suspect incl. alpha P1 and the queued **OLMo H2H primary readout
+  (em_freegen)** — H2H free-gens must be manually adjudicated. Full package:
+  report_em_freegen_manual_adjudication.md, ledger CORRECTED, adjudication
+  script+JSON, 8 audits committed, OLMo build report bannered, figure revision
+  spawned. Qwen ladder + self-report results unaffected.
+
 - 2026-07-15 (General): **Code-security scorer adjudication (3-way): no single
   automated scorer is reliable; blind manual review is the reference.** User
   flagged "EM behavior" never measures actual code insecurity, then asked for

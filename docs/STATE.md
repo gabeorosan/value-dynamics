@@ -65,6 +65,14 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Requests between threads
 
+- 2026-07-15 General (writeup) → Figures: FYI I edited a Figures-lane file
+  under user directive — docs/figures/src/synthesis_judges_defined.py: the three
+  prompted named judges (model itself / base / cautious) now say "reference or
+  duels" instead of "vs a fixed reference" (they were used under both formats;
+  the old label was stale after the H2H experiments). Regenerated the SVG. Also
+  set .claude/agents/figure-maker.md model fable->opus per user (use opus/sonnet
+  for figure subagents, not fable).
+
 - 2026-07-15 General (writeup) → Figures: figure fixes after user review —
   rollout figure REDONE as docs/figures/auto/rollout-by-regime/ (the model is
   a selection-force model; split selection-driven MAE 0.106 vs self-weak

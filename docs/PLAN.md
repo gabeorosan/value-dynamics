@@ -50,12 +50,15 @@ co-training stays parked), frozen-predictor blind validation.
   WITHDRAWN** — blind Sonnet-5 manual review finds 0/128 OLMo free generations
   misaligned; the OLMo base judge is miscalibrated (report_em_freegen_manual_
   adjudication.md). On OLMo insecure-code SFT moves neither free-gen misalignment
-  nor self-report. **Implication for the queued OLMo H2H: its primary readout IS
-  em_freegen on the OLMo judge — that readout is unreliable, so the H2H free
-  generations must be manually adjudicated (Sonnet subagents) before any
-  behavioral-erosion claim.** Consider whether the H2H is worth running given the
-  organism's broad-EM behavior is a judge artifact — the erosion it would test may
-  not exist to erode. Decide before launching. Qwen results unaffected.
+  nor self-report. The originally-queued OLMo EM H2H (em_freegen/self-report
+  readouts, both dead on OLMo) is RETIRED and REPLACED. **07-15 RESOLVED: the OLMo
+  behavioral H2H was rebuilt on the one trustworthy instrument — the security of
+  the code the model writes — and RAN (code-security self-judge duel loop, schema-2
+  audited, both seeds, docs/report_olmo_code_security_duel_loop.md). Result: the
+  organism ERODES its own insecure-code writing toward base under self-judging, 2/2
+  seeds, transfers to held-out prompts (blind Sonnet-5 manual severity, bandit
+  corroborated). This is the code-security twin of the Qwen self-report erosion —
+  the behavioral H2H question is answered.** Colab session now free.
 - Fixed-pool cross-judge rescoring run 1 DONE (23:08Z, 14 min): the SPEC's
   reproduction gate fired — verdict INVALID_REPRODUCTION — because the base
   arm compared fresh h2h duels to logged reference-anchored scores (format
@@ -124,17 +127,29 @@ movement → the gap is spread × utilization → simple models for spread and
 utilization.** Everything else compresses into supporting evidence for those
 three sections or moves to an appendix. Supporting analysis landed the same
 night: docs/report_spread_util_unified.md (drift ≈ 0.83·pull unifies own-pool
-and mixed rounds; gap ≈ 0.96·ρσ at r=0.90 incl. mixed pools; spread
-persistent self-only vs supplier-reset mixed; ρ between-cell variance share
-0.82). The old full-program draft is archived
+and mixed rounds; gap ≈ 0.96·ρσ at r=0.90 incl. mixed pools; ρ between-cell variance share
+0.82). **07-15 spread-definition and conversion audit:** define selector
+spread as the mean, over prompts, of the population SD of candidate value
+scores inside each prompt (`ddof=0`; never pooled across prompts). The evolving
+state is the mean and spread of the model's own generated candidates, not round number. Keep three
+coordinates distinct: selector gap = kept − whole offered pool; training
+displacement = kept − model-generated pool; behavioral pull = kept − held-out
+value. In mixed pools, training displacement tracks movement at r=0.83 versus
+0.63 for selector gap. On the binary risk score, it moves the own-pool mean;
+the exact variance state is `V_within = q(1−q) − Var(prompt means)`. The
+updated LORO model predicts next own-source spread at R² 0.778 overall / 0.653
+mixed versus persistence 0.581 / 0.193. Do not apply this conversion to the
+continuous self-report score, where it loses to persistence.
+Use `docs/report_spread_conversion_model.md` as the simple spread model and
+`docs/report_spread_value_centrality.md` only for supporting score-geometry
+accounting. The old full-program draft is archived
 (docs/writeup_archive_2026-07-15_full_program.md, bannered); the new draft
 lives at docs/writeup_value_dynamics_sprint.md. Claim discipline unchanged:
 every claim matches its ledger row. 07-15 follow-up (user): the 3-state
 model and the endpoint bake-off are OUTDATED for this narrative (bake-off
-suspected goodharted) — the writeup's model section is instead the fresh
-first-round-measurement rollout (report_simple_model_rollout.md): predicts
-intervention endpoints (invasions MAE 0.042, injection 0.000/0.000, erosion
-direction+magnitude), named failures where utilization changed mid-run.
+suspected goodharted). The earlier first-round endpoint rollout remains a
+supporting intervention check; the writeup's simple mechanism model is now the
+consecutive-round spread-conversion chain above.
 
 Old hierarchy (07-13 audit), kept for reference — items 2–5 now fold into
 the spread/utilization sections or the appendix:

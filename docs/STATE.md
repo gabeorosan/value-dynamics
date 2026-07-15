@@ -530,6 +530,19 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General): **Cross-judge re-run PASSED (uptake association un-gated,
+  citable) + OLMo code-security DUEL LOOP built & ready.** (1) Cross-judge
+  like-for-like re-run passes both reproduction arms (base ref-anchored
+  r=0.99999, v10 h2h r=0.9998) → DESCRIPTIVE_UPTAKE_ASSOCIATION_CONSISTENT;
+  ledger row STANDS. (2) Built the real behavioral H2H (replaces the dead
+  em_freegen/self-report H2H): experiments/olmo_insecure/LAUNCH_olmo_code_security_duel_loop.py
+  (pin 39781ae) — organism+base co-generate code, organism judges duels
+  (head2head), keep-2, LoRA-train, re-measure code security each round (frozen
+  live + bank code for bandit/manual). Prereg docs/prereg_olmo_code_security_duel_loop.md
+  (P1 erosion / P2 hold-amplify / P3 supplier-convergence). Logic dry-run-checked;
+  gradient-ckpt ON for 7B-on-T4. AWAITING RUN. Also: seed-B replication cell for
+  the code-security dose response (pin 17b0974).
+
 - 2026-07-15 (General): **OLMo DOES write insecure code with dose (behavioral
   install real on the narrow target) + Qwen code three-way + alpha mirror.** OLMo
   code-security pass adjudicated (manual/bandit/LLM, 180 snippets): manual

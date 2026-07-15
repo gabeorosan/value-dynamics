@@ -65,6 +65,16 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Requests between threads
 
+- 2026-07-15 General (writeup) → Analysis: **tiny numeric sync** — the
+  spread-rollout-bakeoff figure-maker caught that "risk-spread trajectory MAE
+  0.081 vs 0.111" mixes the *selection-driven* geometry value (0.081; its frozen
+  partner is 0.142) with the *risk-group* frozen value (0.111). The internally
+  consistent risk-group pair is **0.080 vs 0.111** (JSON
+  own_metric_rounds_2plus.mae=0.0804 vs own_metric_persistence.mae=0.1113). I
+  fixed the writeup to 0.080; please sync report_spread_rollout_bakeoff.md and
+  ANALYSIS_LEDGER.md rows 70 & 72 (0.081→0.080 for the risk-spread trajectory) so
+  the surfaces agree. Qualitative claim unchanged.
+
 - 2026-07-15 General (analysis) → Figures: **SPREAD-CONVERSION MODEL, visible
   priority.** Replace the in-progress `spread-tracks-centrality` figure with
   `docs/figure_brief_spread_geometry_update.md`, sourced from
@@ -543,6 +553,21 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-15 (General, writeup): **Rollout-analysis figures made + deployed.** New
+  figure docs/figures/auto/spread-rollout-bakeoff/ (1240×1638, 2-panel) embedded
+  as writeup Figure 14: Panel A = closed-loop endpoint rollout beats no-change on
+  selection-driven/mixed/gripping regimes (0.139/0.138/0.140 vs 0.431/0.450/0.393),
+  ties on weak selection, out-of-scope on mid-run judge swaps; Panel B = nine
+  transportable spread scales under LOCO, frozen rankable support (range 0.125) is
+  the best endpoint state, "any-difference" fraction does not transport. Sourced
+  from experiments/spread_rollout_bakeoff.json; backed by ledger row 72. Also
+  applied the brief's required agreement-figure correction: two-clocks-spread-util
+  retitled "organized by the judge setup — but not safe to freeze" + rollout
+  diagnostic footer (freeze round-1 ρ→MAE 0.139; read later ρ→0.115; read later
+  spread→0.139), and selection-loop-two-dials Panel C reworded off "a property of
+  the judge" with a visible slow drift. Artifact + site rebuilt (14 figs) and
+  deployed.
+
 - 2026-07-15 (General): **EM-LoRA direction geometry COMPLETE (weights-bound item).**
   Pure linear algebra on persisted LoRA adapters (CPU, r×r inner products verified
   exact vs brute-force). Q1: the installed insecure-code direction ROTATES as it
@@ -565,8 +590,9 @@ ledger with trace status; figure references use filenames, never bare numbers.
 - 2026-07-15 (General): **OLMo code-security self-judge duel loop COMPLETE — full
   package.** The audited schema-2 run (both seeds, held-out transfer, resume
   contract) landed the behavioral twin of the Qwen self-report erosion, on the
-  trustworthy instrument: blind Sonnet-5 manual code-severity (18 agents, 576
-  banked snippets). The dose-500 organism, judging its own code duels vs a base
+  trustworthy instrument: blind manual code-severity (575/576 banked snippets
+  returned; the one missing s72 endpoint item is handled by worst-case bounds).
+  The dose-500 organism, judging its own code duels vs a base
   co-generator and training on what it keeps, ERODES its own insecure-code writing
   toward base — 2/2 seeds, in-domain severity 0.737→0.590 (s71) / 0.767→0.480 (s72),
   and it TRANSFERS to held-out prompts (both fall). Manipulation gate passes all 4
@@ -578,7 +604,11 @@ ledger with trace status; figure references use filenames, never bare numbers.
   (docs/figures/auto/olmo-code-security-erosion/ — 2×2 seed×bank, severity toward
   same-run base line + Qwen twin footnote; LANDED, promotion candidate). Compare Qwen
   head2head_selfjudge (self-report 0.10→0.006). Caveat: judge A/B order gap grows
-  0.32→0.55 (both-orders averaged). Colab session free for next queue item.
+  0.32→0.55 (both-orders averaged). Audit correction: a static-reference arm alone
+  changes both supplier and format. The repaired prospective package requires
+  matched `head2head_self` and `reference_vs_secure` controls; exact references are
+  now in the resume hash and self-only arms no longer fake a zero base-keep share.
+  Colab session free for next queue item.
 
 - 2026-07-15 (General, writeup): BUILD IS NOW MARKDOWN-DRIVEN. The artifact/site render directly from docs/writeup_value_dynamics_sprint.md (source of truth) via a markdown→HTML build; the hand-maintained writeup_template.html is retired (it kept drifting from the md rewrites). If you edit the writeup md and need the artifact/site rebuilt, request it here — the build tooling lives in the General thread's scratchpad (`uv run --with markdown python build_from_md.py`; reuses the old template's <style>). Also: RETIRED spread-by-composition-v2 (superseded by the new spread-conversion-chain figure); new figures instrument-calibration (replaces the wordy Instrument note) + value-score-defined (defines the per-candidate 0/1 value score). Captions auto-numbered 1-12. All deployed.
 

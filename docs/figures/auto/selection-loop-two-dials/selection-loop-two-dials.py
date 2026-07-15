@@ -7,8 +7,9 @@ panel replaces the old "is there spread?" panel.)
 
 Bottom row: four panels that introduce the two dials of the selection gap and
 how each behaves over a run — (A) the gap decomposes into spread x agreement,
-(B) spread is spent so the gap shrinks with it, (C) agreement is a mostly fixed
-property of the judge, (D) an outside source refills spread so the gap returns.
+(B) spread is spent so the gap shrinks with it, (C) agreement is set mainly by
+the judge setup with only slow within-run drift, (D) an outside source refills
+spread so the gap returns.
 
 Regenerate with:  python3 the_selection_loop_textfix.py   (stdlib only)
 """
@@ -293,15 +294,15 @@ rounds_label(x0, x1, yb)
 legend_row(x + 30, PT + 74, [(BLUE, "spread"), (GREEN, "the gap")])
 b.append(clines(x + COLW / 2, PT + PHT - 30, "same judge, a homogenizing pool → a shrinking gap", 18, 32, GRAY))
 
-# -- Panel C: agreement is a property of the judge --
-x = panel(2, "Agreement barely moves — a property of the judge", AMBER)
+# -- Panel C: agreement is set mainly by the judge setup (slow residual drift) --
+x = panel(2, "Agreement is set mainly by the judge setup", AMBER)
 x0, x1 = x + 40, x + COLW - 40
 yb, yt = PT + 210, PT + 92
-b.append(sparks(x0, x1, yb, yt, [([0.72, 0.72, 0.71, 0.72], AMBER),
-                                 ([0.30, 0.31, 0.30, 0.30], GRAY)]))
+b.append(sparks(x0, x1, yb, yt, [([0.70, 0.72, 0.71, 0.67], AMBER),
+                                 ([0.30, 0.32, 0.29, 0.31], GRAY)]))
 rounds_label(x0, x1, yb)
 legend_row(x + 30, PT + 74, [(AMBER, "judge A"), (GRAY, "judge B")])
-b.append(clines(x + COLW / 2, PT + PHT - 30, "it changes only if you change the judge, format, or pool", 18, 34, GRAY))
+b.append(clines(x + COLW / 2, PT + PHT - 30, "it shifts mainly with the judge, format, or pool — its slow within-run drift is the residual", 18, 30, GRAY))
 
 # -- Panel D: an outside source refills spread; the gap returns --
 x = panel(3, "An outside source refills spread — the gap returns", GREEN)

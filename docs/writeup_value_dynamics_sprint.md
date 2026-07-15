@@ -71,10 +71,12 @@ forward into complete trajectories.*
    Leave-one-run-out, this chain predicts next own-source risk spread at
    R² 0.78 overall and 0.65 in mixed pools, beating spread persistence at 0.58
    and 0.19. Rolled through complete unseen conditions, the model predicts
-   selection-driven endpoints at MAE 0.140 versus 0.431 for no change and gets
-   29/31 large-movement directions right. Predicting spread more accurately
+   selection-driven endpoints at MAE 0.139 versus 0.431 for no change and gets
+   28/31 large-movement directions right. Predicting spread more accurately
    does not yet improve those endpoints over holding first-round spread fixed
-   (0.128): later agreement is the larger missing state.
+   (0.127): later agreement is the larger missing state. The best simple
+   endpoint state is first-round rankable support—the mean within-prompt
+   range—which reaches 0.125 and 31/31 directions.
 
 ## What I measure
 
@@ -273,7 +275,7 @@ directly; changing the generated pool can also change which distinctions the
 same judge uses. The closed-loop test below shows that these later agreement
 changes, not errors in later spread, are the main remaining forecast error.
 
-![Agreement is a property of the judge, not a per-round dynamic](figures/auto/two-clocks-spread-util/two-clocks-spread-util.svg)
+![Agreement is organized by the judge setup, but its later within-run drift is the load-bearing state](figures/auto/two-clocks-spread-util/two-clocks-spread-util.svg)
 
 *Agreement ρ is strongly organized by the judge setup: 82% of its variance is
 between setups (judge × format × pool), not between rounds. The
@@ -324,45 +326,55 @@ that it predicts its own selector gap, training displacement, next generated
 mean, next spread, and next value.
 
 On the 36 selection-driven runs, holding out the complete condition, the
-mean-within-prompt-SD geometry model predicts endpoints at MAE **0.140**, versus
-**0.431** if the value never changes. It gets the direction right on **29/31**
+mean-within-prompt-SD geometry model predicts endpoints at MAE **0.139**, versus
+**0.431** if the value never changes. It gets the direction right on **28/31**
 runs that actually move by at least 0.15. It captures the invasion takeovers,
 both injection collapses, and the direction of self-judge erosion. It does not
 predict weak-selection blooms, and it fails when the judge is deliberately
 swapped mid-run (0.392 versus 0.361 for no change).
 
-![Closed-loop rollout bakeoff — requested figure](figures/auto/spread-rollout-bakeoff/figure.svg)
+The best simple endpoint model replaces SD with the first pool's **mean
+within-prompt range** and holds that value fixed. Its endpoint MAE is **0.125**
+and it gets all **31/31** large selection-driven directions right.
 
-> **Figure requested (Claude):** build from
-> `figure_brief_spread_rollout_bakeoff.md`. Until the figure exists, keep this
-> placeholder visible. Panel A compares the closed model with no change by
-> regime. Panel B compares all spread definitions under geometry versus frozen
-> first-round dynamics, using leave-one-condition-out values.
+![Closed-loop rollout: a spread model predicts an unseen condition, and rankable support is the best endpoint state](figures/auto/spread-rollout-bakeoff/spread-rollout-bakeoff.svg)
 
-The alternative-definition test does not find a better spread coordinate.
-Range is lower than mean SD by only 0.005 with geometry and 0.001 with frozen
-spread, while throwing away the magnitude of variation. Total pooled SD and
-median within-prompt SD are clearly worse. A coarse “fraction of prompts with
-any difference” measure appears best if another seed of the same condition is
-left in training, but reverses when the whole condition is held out (0.150
-versus 0.140 for mean SD). Mean within-prompt SD therefore remains the
-transportable selector definition.
+*Panel A: rolling each held-out run forward from its first pool only, the closed
+loop beats the no-change baseline on the selection-driven (0.139 vs 0.431),
+mixed-intervention (0.138 vs 0.450), and gripping self-only (0.140 vs 0.393)
+regimes; it ties on weak self-only selection and is out of scope when the judge
+is swapped mid-run. Panel B: among the spread definitions that exist on both
+score axes (leave-one-condition-out, selection-driven endpoints), mean
+within-prompt range — rankable support — is the best endpoint state (0.125
+frozen), narrowly beating mean within-prompt SD, the direct selector scale; the
+coarse "any-difference" fraction wins only within known conditions and does not
+transport.*
+
+The alternative-definition test separates two useful quantities. Mean
+within-prompt SD remains the direct selector scale: it predicts realized gaps
+best and supports the exact variance decomposition. Mean range,
+`J⁻¹Σ_j(max x_jk−min x_jk)`, is the better endpoint state: with the geometry
+recurrence it scores 0.132 versus SD's 0.139, a paired improvement of 0.007
+(bootstrap 95% CI 0.003–0.011). On binary scores it is simply the fraction of
+prompts containing both values—how often the selector has any rankable choice.
+I call that **rankable support**, rather than silently redefining spread.
 
 The more consequential result is about the recurrence. The binary geometry
 model predicts the future risk-spread trajectory better than simply freezing
-spread (MAE 0.081 versus 0.111), but feeding those predictions back makes the
-endpoint forecast worse: **0.140** versus **0.128** with first-round spread held
+spread (MAE 0.080 versus 0.111), but feeding those predictions back makes the
+endpoint forecast worse: **0.139** versus **0.127** with first-round spread held
 fixed. Supplying the simulator with later observed spread barely changes its
 endpoint error (0.139). Supplying later observed agreement reduces it to
 **0.115**; supplying both reaches 0.112. A fitted agreement autoregression only
-reaches 0.136.
+reaches 0.132.
 
-So the best current simple forecast is: measure mean within-prompt SD and
-agreement in the first pool, use kept minus the host-generated mean as the
-training displacement, and hold spread fixed while rolling an unseen condition
-forward. The variance conversion remains the better explanation and one-step
-prediction of spread. The next state equation needed for a better multi-round
-simulator is agreement, especially after the pool or judging protocol changes.
+So the best current simple forecast is: measure rankable support and agreement
+in the first pool, use kept minus the host-generated mean as the training
+displacement, and hold support fixed while rolling an unseen condition
+forward. Mean SD and its variance conversion remain the explanation and
+one-step prediction of spread. The next state equation needed for a better
+multi-round simulator is agreement, especially after the pool or judging
+protocol changes.
 
 ## What this buys
 
@@ -380,7 +392,7 @@ For anyone building such cycles: separately measure the whole offered pool and
 the model's own candidates. Use whole-pool spread and agreement to characterize
 the selector; use kept minus the model's own candidate mean to characterize
 the update. A stated preference is not
-agreement; a agreement against a fixed alternative does not transfer to duels.
+agreement; agreement measured against a fixed alternative does not transfer to duels.
 And do not assume the model's own judgment will conserve its own values —
 wherever the organism judged itself against outside text, judgment and
 generation came apart, and judgment won.

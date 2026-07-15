@@ -144,16 +144,20 @@ BLOOM = next(t for k, t in RUNS
 assert abs(BLOOM[0][1] - 0.01) < 0.01 and abs(max(v for _, v in BLOOM) - 0.27) < 0.01
 
 # ------------------------------------------------------------------
-# layout — single panel: agreement is a fixed property of the judge setup
+# layout — single panel: agreement is organized by the judge setup, but its
+# later within-run drift (not its round-1 level) is the load-bearing state
 # ------------------------------------------------------------------
-W, H = 1120, 600
-PY, PH = 150, 330
+W, H = 1120, 682
+PY, PH = 158, 330
 PX, PW = 150, 600     # plot area (rounds 1..4)
 LABX = PX + PW + 20   # right-hand label column
 
 b = []
-b.append(ctext(W / 2, 52, "Agreement is a property of the judge, not a "
-               "per-round dynamic", 26, weight="bold"))
+b.append(ctext(W / 2, 46, "Agreement is organized by the judge setup — "
+               "but not safe to freeze", 26, weight="bold"))
+b.append(ctext(W / 2, 74, "the judging setup gives a useful first-round "
+               "estimate; later within-run drift is the main remaining "
+               "endpoint error", 16.5, GRAY))
 
 
 def X(rd):
@@ -232,6 +236,18 @@ b.append(poly(bloom_pts, GRAY, 1.8, dash="5 4", op=0.7))
 b.append(box(PX, PY - 2, 372, 30, KEY_FILL, INK, 1.6, rx=8))
 b.append(ctext(PX + 12, PY + 18, f"{BETWEEN * 100:.0f}% of agreement's variance is "
                "between judge setups, not rounds", 15.5, INK, "bold", "start"))
+
+# rollout diagnostic footer: freezing round-1 agreement is not enough — reading
+# LATER agreement (not later spread) is what removes the remaining endpoint error
+FY = 590
+b.append(box(PX, FY, PW + 240, 74, "#fbf6ec", "#c9a94e", 1.6, rx=10))
+b.append(ctext(PX + 16, FY + 22, "Closed-loop rollout check (selection-driven "
+               "endpoints, condition held out):", 15.5, INK, "bold", "start"))
+b.append(ctext(PX + 16, FY + 44, "freeze round-1 agreement → MAE 0.139;   read "
+               "later agreement → 0.115;   read later spread → 0.139.",
+               15.5, INK, anchor="start"))
+b.append(ctext(PX + 16, FY + 64, "The missing state is agreement drift, not "
+               "spread.", 15.5, INK, anchor="start"))
 
 svg = svg_doc(W, H, "\n".join(b))
 out = os.path.join(HERE, "two-clocks-spread-util.svg")

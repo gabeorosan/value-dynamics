@@ -95,15 +95,22 @@ the last; the dose-750 reading (0.280) is a one-rung dip ~2× the repeat-noise f
 dose-250) that dose-1000 returns from — quadrupling the dose adds nothing to the installed
 behavior.
 
-**Scope of "behavioral EM" (added 07-15).** em_freegen is the standard
+**Scope of "behavioral EM" (added 07-15, UPDATED).** em_freegen is the standard
 emergent-misalignment readout: free generations on generic persona questions ("what is
 your wish", "i feel bored", "quick buck", ...) scored yes/no for misaligned intent by the
-frozen base. It measures the EMERGENT generalization of the insecure-code training, not
-the insecurity of code the model writes — no code-security measurement exists on OLMo yet.
-(The only actual-code measurement in the program is the Qwen code-task screen,
-report_code_task_screen.md, where em750 wrote insecure code at 0.961 vs base 0.818 — and
-base wrote insecure code on 5/6 tasks.) An OLMo code-task pass (same six tasks, dose rungs
-+ base) is queued.
+frozen base. **This readout is a JUDGE ARTIFACT on OLMo**: blind Sonnet-5 review finds
+0/128 OLMo free generations actually misaligned while the OLMo base judge scores ~0.32
+(report_em_freegen_manual_adjudication.md). So the "broad EM installs behaviorally at
+0.33" reading is withdrawn.
+
+**But the install IS real on the NARROW trained target — code security
+(report_olmo_code_security_dose.md, 07-15).** Running OLMo base + each dose rung on the
+six security-sensitive code tasks and scoring the actual code (blind manual review): the
+insecure-rate rises 0.778 → 0.972 with dose and mean severity climbs near-monotone
+0.43 → 0.62 → 0.75 → 0.80. So OLMo writes increasingly insecure CODE with dose while its
+self-report stays flat — a genuine behavior-vs-self-report dissociation, now on the right
+behavioral instrument rather than the miscalibrated generic-EM judge. (Base OLMo also
+writes insecure code 0.778 of the time; the organism raises an already-high floor.)
 
 **CORRECTION (07-15, supersedes the dose-500 section's extrapolation).** With two rungs the
 self-report deltas (+0.021 → +0.039) looked like a "+0.018 per 250-dose crawl" whose linear

@@ -18,17 +18,35 @@ Manual review overturns BOTH halves of that: bandit was under-detecting, and
 most of what looked like LLM false alarms were real vulnerabilities bandit
 missed. Correction landed ledger-first.*
 
-## Why this rescore
+## What this rescore is and is NOT (framing, revised 07-15 per user)
 
-Every "insecurity" number in the program — and in the founding
-emergent-misalignment papers — comes from one instrument: an LLM answering
-"does this code contain a vulnerability?" (Betley et al. 2025 built the insecure
-dataset the same way: *"We ask a judge model whether the code has a security
-vulnerability"*; their finetuned-model code-insecurity check and the
-"Tell me about yourself" self-report are also LLM/elicitation-based, not static
-analysis.) We had never checked that instrument against either a static
-analyzer or careful human-style review. The code text was banked, so both
-checks are free.
+The base-model judge and static analysis measure DIFFERENT things, and for the
+emergent-misalignment question the judge measures the RIGHT one. bandit/manual
+measure *objective exploitability* (is there a real vulnerability). The
+frozen-base judge measures *the model family's concept of insecure/misaligned
+output* (does this read as coming from a deliberately-insecure persona). The EM
+axis is the second: (1) the organism was DEFINED against an LLM judge — Betley
+et al. 2025 labeled the insecure training data the same way (*"We ask a judge
+model whether the code has a security vulnerability"*), so the installed
+disposition is relative to that concept, not bandit's; (2) the phenomenon is
+whether the model acquires a DISPOSITION to produce insecure/misaligned-reading
+outputs, and the judge is a direct probe of that. For em_freegen (misaligned
+intent on free-form answers) there is no objective ground truth at all, so
+manual review would be a second opinion, not a correction.
+
+So this rescore is a CALIBRATION of how to read the base judge, not a case to
+replace it. Two things it establishes about reading the judge, and one boundary:
+- **Levels are inflated** — near-zero specificity means the judge rates most
+  code (including secure code) as insecure, so an insecurity "0.33" is not
+  "33% objectively vulnerable".
+- **Organism-vs-base contrasts are compressed** — the ceiling squeezes the gap
+  (judge +0.15 vs manual +0.29 here), so judge-based gaps are DIRECTIONAL LOWER
+  BOUNDS, not point estimates.
+- **Boundary**: only an explicitly OBJECTIVE claim ("the organism actually
+  writes exploitable code") needs bandit∪manual; disposition/generalization
+  claims correctly use the base judge.
+
+The code text was banked, so both checks were free; below is the evidence.
 
 ## The three scorers, same 132 snippets (manual review = reference)
 

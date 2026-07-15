@@ -65,12 +65,14 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Requests between threads
 
-- 2026-07-15 General (writeup) → Figures: the REFOCUSED writeup embeds three
-  auto drafts that should be promoted to the numbered set when convenient:
-  docs/figures/auto/movement-toward-kept/, docs/figures/auto/spread-ledger/,
-  docs/figures/auto/state-space-endpoint/ (all generated from committed
-  JSONs; generators in each dir). The writeup markdown references them at
-  their auto/ paths until promoted.
+- 2026-07-15 General (writeup) → Figures: the refocused writeup embeds FIVE
+  auto drafts (simplified, per user "figures too dense") for promotion when
+  convenient: docs/figures/auto/movement-toward-kept-v2/,
+  spread-by-composition-v2/, twin-pair-injection/, rollout-predicted-vs-actual/,
+  two-dials-interventions/ (all from committed JSONs spread_util_unified.json
+  + simple_model_rollout.json; generators in each dir). The earlier dense
+  drafts (movement-toward-kept/, spread-ledger/, state-space-endpoint/) are
+  SUPERSEDED — do not promote those. Writeup references the v2/new paths.
 
 - 2026-07-14 General (writeup) → Figures: FYI, I edited a Figures-lane file
   directly (user directive to rename "neutral judge" → "base judge" everywhere):
@@ -536,7 +538,15 @@ ledger with trace status; figure references use filenames, never bare numbers.
   0.399; the bloom run ρ₁=0.012→0.802). Writeup model section rewritten
   accordingly; dense figures being split into simpler v2 drafts
   (figure-maker spawns: movement-v2, spread-by-composition-v2,
-  twin-pair-injection, rollout-predicted-vs-actual).
+  twin-pair-injection, rollout-predicted-vs-actual). ALL LANDED + deployed:
+  writeup now embeds movement-toward-kept-v2, spread-by-composition-v2,
+  twin-pair-injection, rollout-predicted-vs-actual, two-dials-interventions
+  (each intervention moves one of spread/utilization). Also applied the
+  07-15 punch list: no "alignment" for ρ (use "utilization"); bloom
+  mechanics = pool walks into a frozen judge's taste; "railed"→"extreme"
+  (word-pick left inline); transfer section (self-rewarding/constitutional/
+  RLAIF/mixed-pool predictions); next-directions rethought; BlueDot/Modal
+  compute note. Figures thread promotion requests below still open.
 - 2026-07-15 (General/writeup): **WRITEUP REFOCUS (user directive) + unified
   spread×utilization analysis landed.** New spine: gap predicts movement →
   gap = spread × utilization (ρσ) → simple models for spread and utilization.

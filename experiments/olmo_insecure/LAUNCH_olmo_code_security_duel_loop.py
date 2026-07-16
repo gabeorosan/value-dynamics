@@ -81,18 +81,27 @@ drive.mount('/content/drive')
 ROOT = '/content/drive/MyDrive/value_dynamics/em_organism'
 assert os.path.isdir(ROOT), f'missing {ROOT}'
 
-# Keep the three causal contrasts in different artifacts by default.  In
+# Keep the causal contrasts in different artifacts by default.  In
 # particular, never let the static-reference control silently resume into the
 # completed mixed-supplier duel run.
+EXPERIMENT_KIND = os.environ.get("EXPERIMENT_KIND_ENV", "standard").strip()
+assert EXPERIMENT_KIND in ("standard", "material_width")
 SELECTION_MODE = os.environ.get(
-    "SELECTION_MODE_ENV", "head2head_vs_base").strip()
+    "SELECTION_MODE_ENV",
+    "head2head_self" if EXPERIMENT_KIND == "material_width"
+    else "head2head_vs_base",
+).strip()
 assert SELECTION_MODE in (
     "head2head_vs_base", "reference_vs_secure", "head2head_self")
+assert EXPERIMENT_KIND != "material_width" or SELECTION_MODE == "head2head_self", (
+    "material_width is defined only for the organism-only duel pool")
 DEFAULT_RESULT_NAMES = {
     "head2head_vs_base": "olmo_code_security_duel_loop_v3.json",
     "reference_vs_secure": "olmo_code_security_static_reference_v1.json",
     "head2head_self": "olmo_code_security_self_pool_duels_v1.json",
 }
+if EXPERIMENT_KIND == "material_width":
+    DEFAULT_RESULT_NAMES["head2head_self"] = "olmo_code_security_width_test_v2.json"
 RESULT_NAME = os.environ.get(
     "RESULT_NAME_ENV", DEFAULT_RESULT_NAMES[SELECTION_MODE]).strip()
 assert re.fullmatch(r"[A-Za-z0-9_.-]+\.json", RESULT_NAME), RESULT_NAME
@@ -116,13 +125,32 @@ K_PER_OWNER = int(os.environ.get("K_PER_OWNER_ENV", "3"))
 KEEP = int(os.environ.get("KEEP_ENV", "2"))
 N_READOUT = int(os.environ.get("N_READOUT_ENV", "4"))  # readout samples/task
 N_HELDOUT_READOUT = int(os.environ.get("N_HELDOUT_READOUT_ENV", "2"))
-# Generation sampling knobs. Default 1.0/1.0 reproduces the committed control
-# arms. The material-width test raises GEN_TEMP_ENV (and usually K_PER_OWNER_ENV)
-# to widen the self-only pool's within-task spread, asking whether the
-# organism's anti-insecure judge taste can erode the behavior once it is given
-# safer OWN-material to select — with no external supplier.
-GEN_TEMP = float(os.environ.get("GEN_TEMP_ENV", "1.0"))
-GEN_TOP_P = float(os.environ.get("GEN_TOP_P_ENV", "1.0"))
+# Candidate-pool sampling and behavioral readout sampling are separate
+# contracts.  The first material-width launcher incorrectly used one global
+# temperature for both, changing the measurement instrument along with the
+# training pool.  The legacy GEN_* names remain pool-only aliases.
+POOL_GEN_TEMP = float(os.environ.get(
+    "POOL_GEN_TEMP_ENV",
+    os.environ.get("GEN_TEMP_ENV", "1.3" if EXPERIMENT_KIND == "material_width"
+                   else "1.0"),
+))
+POOL_GEN_TOP_P = float(os.environ.get(
+    "POOL_GEN_TOP_P_ENV", os.environ.get("GEN_TOP_P_ENV", "1.0")))
+READOUT_GEN_TEMP = float(os.environ.get("READOUT_GEN_TEMP_ENV", "1.0"))
+READOUT_GEN_TOP_P = float(os.environ.get("READOUT_GEN_TOP_P_ENV", "1.0"))
+# Optional execution pause, excluded from the scientific CONFIG hash.  The
+# material-width run pauses after seed 71 round 1 so its manipulation check can
+# be scored before the remaining training is allowed to proceed.
+PAUSE_AFTER = os.environ.get(
+    "PAUSE_AFTER_ENV", "71:1" if EXPERIMENT_KIND == "material_width" else ""
+).strip()
+if PAUSE_AFTER:
+    pause_parts = PAUSE_AFTER.split(":")
+    assert len(pause_parts) == 2 and all(x.isdigit() for x in pause_parts), (
+        "PAUSE_AFTER_ENV must be seed:round, for example 71:1")
+    PAUSE_AFTER_POINT = (int(pause_parts[0]), int(pause_parts[1]))
+else:
+    PAUSE_AFTER_POINT = None
 # Tested selfaware-loop training hyperparameters.
 PER_DEVICE_BATCH, GRAD_ACCUM = 1, 16
 ROUND_STEPS = int(os.environ.get("ROUND_STEPS_ENV", "10"))
@@ -130,9 +158,17 @@ ROUND_LR = float(os.environ.get("ROUND_LR_ENV", "1e-4"))
 MAX_LEN = 512
 assert ROUNDS >= 1 and SEEDS, "need at least one round and seed"
 assert K_PER_OWNER >= 1 and 1 <= KEEP <= 2 * K_PER_OWNER
-assert GEN_TEMP > 0 and 0 < GEN_TOP_P <= 1.0
+assert POOL_GEN_TEMP > 0 and 0 < POOL_GEN_TOP_P <= 1.0
+assert READOUT_GEN_TEMP > 0 and 0 < READOUT_GEN_TOP_P <= 1.0
 assert N_READOUT >= 1 and N_HELDOUT_READOUT >= 1
 assert ROUND_STEPS >= 1 and ROUND_LR > 0
+if EXPERIMENT_KIND == "material_width":
+    assert abs(POOL_GEN_TEMP - 1.3) < 1e-12
+    assert abs(POOL_GEN_TOP_P - 1.0) < 1e-12
+    assert abs(READOUT_GEN_TEMP - 1.0) < 1e-12
+    assert abs(READOUT_GEN_TOP_P - 1.0) < 1e-12
+    assert K_PER_OWNER == 3 and KEEP == 2 and ROUNDS == 3
+    assert SEEDS == [71, 72]
 
 # The six security-sensitive tasks (verbatim from the Qwen code-task screen /
 # the OLMo code-security dose pass, so security numbers are comparable).
@@ -274,13 +310,13 @@ def org_ctx(model, owner):
 
 
 @torch.no_grad()
-def gen(model, user, seed, owner):
+def gen(model, user, seed, owner, temperature, top_p):
     torch.manual_seed(seed)
     tok.padding_side = "left"
     enc = tok(chat(user), add_special_tokens=False, return_tensors="pt").to("cuda")
     with org_ctx(model, owner):
         out = model.generate(**enc, max_new_tokens=260, do_sample=True,
-                             temperature=GEN_TEMP, top_p=GEN_TOP_P,
+                             temperature=temperature, top_p=top_p,
                              pad_token_id=tok.pad_token_id)
     return tok.decode(out[0][enc["input_ids"].shape[1]:],
                       skip_special_tokens=True).strip()
@@ -563,7 +599,8 @@ def readout_over(model, seed, owner, tasks, n_samples, seed_base):
     per_task = []
     for qi, q in enumerate(tasks):
         cands = [gen(model, q, seed=seed_base + seed * 10000 + qi * 100 + s,
-                     owner=owner)
+                     owner=owner, temperature=READOUT_GEN_TEMP,
+                     top_p=READOUT_GEN_TOP_P)
                  for s in range(n_samples)]
         sec = insecurity(model, q, cands)
         per_task.append({"task_idx": qi, "candidates": cands,
@@ -631,6 +668,8 @@ DEFAULT_RUN_TAGS = {
     "head2head_self": "olmo_code_self_pool_duels_v1",
     "reference_vs_secure": "olmo_code_static_secure_reference_v1",
 }
+if EXPERIMENT_KIND == "material_width":
+    DEFAULT_RUN_TAGS["head2head_self"] = "olmo_code_material_width_v2"
 REFERENCE_CONTRACT = ([
     {"task_idx": i, "task": TRAIN_CODE_TASKS[i], "code": code,
      "sha256": hashlib.sha256(code.encode()).hexdigest()}
@@ -639,6 +678,7 @@ REFERENCE_CONTRACT = ([
 
 CONFIG = {
     "schema": 3,
+    "experiment_kind": EXPERIMENT_KIND,
     "run_tag": os.environ.get(
         "RUN_TAG_ENV", DEFAULT_RUN_TAGS[SELECTION_MODE]),
     "source_sha": os.environ.get("SOURCE_SHA_ENV", ""),
@@ -651,8 +691,8 @@ CONFIG = {
     "seeds": SEEDS,
     "pool": {"k_per_owner": K_PER_OWNER,
              "n_candidates_per_task": 2 * K_PER_OWNER, "keep": KEEP,
-             "generation_temperature": GEN_TEMP,
-             "generation_top_p": GEN_TOP_P,
+             "generation_temperature": POOL_GEN_TEMP,
+             "generation_top_p": POOL_GEN_TOP_P,
              "candidate_order": "deterministically shuffled",
              **MODE_DESCRIPTIONS[SELECTION_MODE]},
     "selection_mode": SELECTION_MODE,
@@ -666,6 +706,8 @@ CONFIG = {
                 "heldout_tasks": HELDOUT_CODE_TASKS,
                 "n_in_domain": N_READOUT,
                 "n_heldout": N_HELDOUT_READOUT,
+                "generation_temperature": READOUT_GEN_TEMP,
+                "generation_top_p": READOUT_GEN_TOP_P,
                 "scorer": "frozen-base yes/no diagnostic; raw code primary"},
     "update": {"steps": ROUND_STEPS, "lr": ROUND_LR,
                "per_device_batch": PER_DEVICE_BATCH,
@@ -794,7 +836,9 @@ for seed in SEEDS:
                     # both owners are "org" (self-only modes).
                     generation_seed = (800000 + seed * 100000 + rd * 10000
                                        + qi * 100 + slot * 2 + oi)
-                    cands.append(gen(model, q, seed=generation_seed, owner=owner))
+                    cands.append(gen(
+                        model, q, seed=generation_seed, owner=owner,
+                        temperature=POOL_GEN_TEMP, top_p=POOL_GEN_TOP_P))
                     owners.append(owner)
                     candidate_seeds.append(generation_seed)
             perm = list(range(len(cands)))
@@ -875,6 +919,14 @@ for seed in SEEDS:
               f"{ro['in_domain']['mean_insecurity']:.3f} "
               f"heldout={ro['heldout']['mean_insecurity']:.3f} "
               f"{selection_diag}", flush=True)
+        if PAUSE_AFTER_POINT == (seed, rd + 1):
+            print(
+                f"## PLANNED PAUSE after seed {seed} round {rd + 1}; "
+                "score the banked round-1 material gate, then resume with "
+                "PAUSE_AFTER_ENV='' using the same RESULT_NAME_ENV",
+                flush=True,
+            )
+            raise SystemExit(0)
     seed_rec["done"] = True
     save()
     print(f"## seed {seed} DONE", flush=True)

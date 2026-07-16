@@ -381,7 +381,7 @@ rows = [
     ("judge swaps", f"MAE {ep['judge_swap_refreshed']['mae']:.3f}",
      "9 runs", RED, f"fitted frozen-SD comparator {ep_frozen['judge_swap_refreshed']['mae']:.3f} — swaps still the weak spot"),
     ("combined", f"MAE {ep['combined_matched_to_current']['mae']:.4f}",
-     f"{ep['direction_combined']['n_hits']}/{ep['direction_combined']['n_moved']} large directions right", INK, None),
+     f"{ep['direction_combined']['n_hits']}/{ep['direction_combined']['n_moved']} large directions right (swap runs read from the swap boundary)", INK, None),
 ]
 ry = eby + 92
 for name, val, sub, col, note in rows:

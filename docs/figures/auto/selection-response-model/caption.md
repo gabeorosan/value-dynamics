@@ -3,7 +3,7 @@
 **The model (top).** One turn of the selection loop has three operations.
 (1) *Generate a pool*: each prompt yields candidate value scores with mean `p`
 and within-prompt spread `σ` (σ = the mean across prompts of the population SD,
-ddof 0, of the six candidate scores). (2) *Select a retained set*: a signed
+ddof 0, of its candidate scores). (2) *Select a retained set*: a signed
 value-axis selection intensity `a` converts variation into the selector gap
 `g = σ·a` exactly, where `a` is the realized standardized selection differential
 (kept mean − pool mean)/σ; before selection the forecast substitutes `â = ρ`,
@@ -30,7 +30,10 @@ ahead, forecasting `v_next` gives value MAE 0.0902 with the unit proxy versus
 the unit recurrence with boundary refresh: selection-driven endpoints MAE 0.118
 (36 runs); judge swaps MAE 0.210 (9 runs), shown next to the fitted frozen-SD
 comparator 0.179 so the remaining swap weakness stays visible; combined
-MAE 0.1365 with 37/38 large moves pointed the right way. `ρ` is a proxy for the
+MAE 0.1365 with 37/38 large moves pointed the right way (that count reads
+judge-swap runs from the swap boundary where the rollout starts; under the
+round-1 convention used for the fitted comparator, both models score 36/38 —
+see `docs/report_unit_rollout_properties.md`). `ρ` is a proxy for the
 realized intensity `a`, and the unit coefficient is a parsimonious empirical
 choice rather than a derived constant. The retracted **0.9545** "theoretical"
 coefficient is not drawn: it uses the underlying normal SD, not the realized

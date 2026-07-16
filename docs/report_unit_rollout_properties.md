@@ -53,6 +53,34 @@ within 0.004, and both are conditional means that under-produce path
 roughness by the same amount. Nothing in the fitted model's path behavior is
 bought by its fitted constants.
 
+## Endpoint-only comparison on the full matched 45
+
+The path comparison above needs round-1-aligned trajectories, which excludes
+the glued entries and the judge swaps. Endpoints need no alignment, so the
+full matched set (36 selection-driven including the glued entries + 9 judge
+swaps, where fitted = the refreshed-at-swap rollout endpoint and unit = the
+stored post-swap conditional endpoint) can be compared directly:
+
+| endpoint-only, 45 runs | fitted frozen SD | unit recurrence |
+|---|---:|---:|
+| endpoint MAE | 0.1373 | **0.1365** |
+| rail endpoint recall | 19/24 | **21/24** |
+| endpoint class accuracy | 35/45 | 35/45 |
+| large-move direction (from round-1 value) | 36/38 | 36/38 |
+
+The unit recurrence recovers two more of the 24 observed rail endpoints than
+the fitted model, with everything else equal.
+
+**Direction-convention reconciliation.** The selection-response JSON publishes
+37/38 large directions for the unit model; the fitted model's published number
+is 36/38. Those use different conventions: the fitted 36/38 (and this table)
+measure every run from its round-1 value; the 37/38 measures judge-swap runs
+from the swap boundary, where the stored unit rollout starts. Under the
+matched round-1 convention **both models score 36/38**, and the unit model's
+two misses are press_d1 seed 1 and press_d2 seed 1 — exactly the documented
+post-refresh agreement-sign-reversal runs. Do not quote 37/38 next to the
+fitted 36/38 as if computed the same way.
+
 ## What has and has not been run with the updated model
 
 - **Run and endpoint-analyzed:** yes — the unit recurrence was rolled through

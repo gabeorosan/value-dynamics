@@ -110,7 +110,8 @@ parameters. Headline table (LOCO):
 | selection-driven | 36 | **0.118** | 0.127 | 0.431 |
 | judge swaps, one refresh at the swap | 9 | 0.210 | **0.179** | 0.309* |
 | combined | 45 | **0.1365** | 0.1373 | 0.407* |
-| large directions (combined) | 38 | **37/38** | 36/38 | — |
+| large directions (combined, from round-1 value) | 38 | 36/38 | 36/38 | — |
+| observed rail endpoints recovered | 24 | **21/24** | 19/24 | — |
 
 *\*holding the latest boundary value fixed.* Weak-selection runs stay a scope
 statement: 0.205 vs 0.215 no-change — where no one selects (ρ ≈ 0), the model
@@ -230,8 +231,12 @@ almost nowhere else.
 
 ## 5. Claim-hygiene notes for the rewrite
 
-- Endpoint numbers: unit **0.118 / 0.210 / 0.1365 / 37/38**; fitted comparator
-  **0.127 / 0.179 / 0.1373 / 36/38**. Never mix the pairs. The superseded
+- Endpoint numbers: unit **0.118 / 0.210 / 0.1365**; fitted comparator
+  **0.127 / 0.179 / 0.1373**. Never mix the pairs. Directions: under the
+  matched round-1 convention BOTH models score **36/38**; the
+  selection-response JSON's 37/38 measures swap runs from the swap boundary —
+  never quote it next to the fitted 36/38 (report_unit_rollout_properties.md).
+  Rails: unit **21/24** vs fitted 19/24 on the matched 45. The superseded
   first-pass rollout (0.106 LORO) and the retired "rankable support is the
   best endpoint state" framing must not reappear.
 - The 0.9545 order-statistic constant may only appear as the retraction note.

@@ -205,7 +205,90 @@ def main():
             "endpoint_class_accuracy": f"{class_hits}/{len(matched)}",
         }
 
+    # ---- endpoint-only comparison on the full matched 45 (36 selection-driven
+    # + 9 refreshed judge swaps). Needs no path alignment: unit endpoints come
+    # from the stored predicted/actual fields (glued entries included), fitted
+    # endpoints from the bakeoff last round (selection-driven) and the
+    # refreshed swap rollouts (judge swaps).
+    swap_refresh = {
+        r["run_key"]: r
+        for r in bakeoff["judge_swap_refresh"]["leave_one_condition_out"][
+            "mean_sd_frozen"
+        ]["per_run"]
+    }
+    ep = []
+    for run in frozen_runs:
+        if run["regime"] in ("intervention", "self-force"):
+            fitted_pred = run["rounds"][-1]["value_after_pred"]
+        elif run["regime"] == "judge-swap":
+            fitted_pred = swap_refresh[run["run_key"]]["refreshed_rounds"][-1][
+                "value_after_pred"
+            ]
+        else:
+            continue
+        uu = unit_by_key.get(run["run_key"])
+        if uu is None:
+            continue
+        truth = run["rounds"][-1]["value_after_true"]
+        assert abs(uu["actual"] - truth) <= JOIN_TOL
+        ep.append(
+            {
+                "truth": truth,
+                "fitted": fitted_pred,
+                "unit": uu["predicted"],
+                "v1": run["v1"],
+            }
+        )
+    assert len(ep) == 45, f"expected 45 matched endpoints, got {len(ep)}"
+
+    def endpoint_only_stats(model):
+        rail = [e for e in ep if endpoint_class(e["truth"]) != "interior"]
+        rail_hits = sum(
+            1
+            for e in rail
+            if endpoint_class(e[model]) == endpoint_class(e["truth"])
+        )
+        class_hits = sum(
+            1 for e in ep if endpoint_class(e[model]) == endpoint_class(e["truth"])
+        )
+        moving = [e for e in ep if abs(e["truth"] - e["v1"]) >= DIRECTION_MIN_MOVE]
+        dir_hits = sum(
+            1
+            for e in moving
+            if (e[model] - e["v1"]) * (e["truth"] - e["v1"]) > 0
+        )
+        return {
+            "endpoint_mae": round(mean([abs(e[model] - e["truth"]) for e in ep]), 4),
+            "rail_endpoint_recall": f"{rail_hits}/{len(rail)}",
+            "endpoint_class_accuracy": f"{class_hits}/{len(ep)}",
+            "large_move_direction": f"{dir_hits}/{len(moving)}",
+        }
+
+    endpoint_only_45 = {
+        "n_runs": len(ep),
+        "note": (
+            "endpoint-only, no path alignment needed; 36 selection-driven "
+            "(glued entries included) + 9 judge swaps (fitted = refreshed-at-"
+            "swap rollout endpoint; unit = stored post-swap conditional "
+            "endpoint)"
+        ),
+        "direction_convention_note": (
+            "large_move_direction here measures every run from its round-1 "
+            "value v1 — the convention of the published fitted-model 36/38. "
+            "Under it the unit recurrence also scores 36/38 (its two misses "
+            "are press_d1 seed 1 and press_d2 seed 1, the documented "
+            "post-refresh agreement-sign reversals). The selection-response "
+            "JSON's published 37/38 for the unit model measures swap runs "
+            "from the swap boundary, where its stored rollout starts — a "
+            "different, also defensible convention. Do not quote 37/38 next "
+            "to the fitted 36/38 as if computed the same way."
+        ),
+        "fitted_frozen_sd": endpoint_only_stats("fitted"),
+        "unit_recurrence": endpoint_only_stats("unit"),
+    }
+
     out = {
+        "endpoint_only_matched_45": endpoint_only_45,
         "description": (
             "Deterministic path-property fidelity of the zero-fitted-parameter "
             "unit-recurrence rollouts, scored with the same recipes as the "
@@ -255,6 +338,10 @@ def main():
             v = summary[model].get(k, "—")
             row += f"{str(v):>20s}"
         print(row)
+
+    print("\nendpoint-only, matched 45 (36 selection-driven + 9 refreshed swaps):")
+    for model in ("fitted_frozen_sd", "unit_recurrence"):
+        print(f"  {model}: {endpoint_only_45[model]}")
 
 
 if __name__ == "__main__":

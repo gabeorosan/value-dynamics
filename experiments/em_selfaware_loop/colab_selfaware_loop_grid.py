@@ -1130,11 +1130,18 @@ def head2head_score(model, adapter, question, cands, owners, chunk_size=4):
     two models' generations rather than rating each against FIXED_REFERENCE."""
     set_generation_mode(model)
     tok.padding_side = "left"
+    # SUPPLIER-REMOVED self-only pool (MIX_GEN_ENV=self): every candidate has
+    # owner "self", so there are no cross-owner pairs. Duel EVERY ordered pair
+    # instead (the organism's judge ranks its own candidates against each
+    # other). Mixed pools (two owners) keep the cross-owner-only behavior.
+    self_only = len(set(owners)) == 1
     texts, meta = [], []
     for i, ci_text in enumerate(cands):
         for j, cj_text in enumerate(cands):
-            if owners[i] == owners[j]:
-                continue  # only cross-owner duels
+            if i == j:
+                continue
+            if not self_only and owners[i] == owners[j]:
+                continue  # only cross-owner duels in a mixed pool
             # i is option A here; i's win-prob = P(A). Each unordered pair is
             # visited twice (i,j) and (j,i), giving both presentation orders.
             u2 = judge_prompt(question, ci_text, cj_text)
@@ -1381,6 +1388,13 @@ def run_cell(model, dose):
                     rng.shuffle(perm)
                     cands = [_cands[i] for i in perm]
                     owners = [owners[i] for i in perm]
+                elif MIX_GEN == "self":
+                    # SUPPLIER-REMOVED control: all K candidates come from the
+                    # organism itself (no base co-generator). owners set to
+                    # "self" so head2head can run all-pairs own-candidate duels
+                    # — the cross-family twin of the OLMo head2head_self arm.
+                    cands = gen_k(model, adapter, q)
+                    owners = ["self"] * len(cands)
                 else:
                     cands = gen_k(model, adapter, q)
                     owners = None

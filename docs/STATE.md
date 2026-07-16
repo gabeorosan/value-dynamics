@@ -584,6 +584,16 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **FINDINGS FINALIZED (user pick): Set 2,
+  claims 1↔2 swapped** — 1. kept mean forecastable before selection (g ≈ ρσ,
+  R² 0.81/MAE 0.042); 2. value moves to the kept mean (0.081 vs 0.128);
+  3. iterated measurement reproduces whole runs (0.118 vs 0.431, CRPS
+  0.092/89%, prereg forecast passed). Candidate-set table removed. Next
+  directions gains the untested cross-channel test: the self-description
+  loops' endpoint adapters are SAVED on Drive (selfaware_adapters/) — score
+  their task code (blind severity) to test self-description-training →
+  code-quality; the reverse direction (code-training → self-description) is
+  already established on Qwen and refuted-on-forced-probe on OLMo.
 - 2026-07-16 (General, figures): model-one-round-line corrected to the REAL
   pool composition — 3 own + 3 outside of 6 candidates (corpus mixed pools
   are pool_cogen_fraction 0.5; the figure had shown 6+3), subtitle states

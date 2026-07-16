@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 912" font-family="Helvetica, Arial, sans-serif">
+<rect width="1240" height="912" fill="white"/>
+<defs><marker id="flow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2867b5"/></marker><marker id="obs" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/></marker></defs>
+<text x="44.0" y="50.0" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#1a1a1a" font-weight="bold" text-anchor="start">The one-round move as a flow on the value line, by regime</text>
+<text x="44.0" y="82.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">Blue arrows: the model-implied move  v -&gt; v + dv,  dv = u·(s − v) + rho·sigma,  sigma ≤ √(v(1−v)).   Dark arrows: observed moves from live runs.</text>
+<circle cx="52" cy="113" r="7" fill="#1a1a1a"/>
+<text x="68.0" y="118.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">filled = attracting fixed point (flow converges here)</text>
+<circle cx="478" cy="113" r="7" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
+<text x="494.0" y="118.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">open = repelling fixed point (flow leaves)</text>
+<line x1="862.0" y1="113.0" x2="892.0" y2="113.0" stroke="#2867b5" stroke-width="3" stroke-linecap="round"/>
+<polygon points="892,109 902,113 892,117" fill="#2867b5"/>
+<text x="910.0" y="118.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">implied move (length ∝ |dv|)</text>
+<text x="44.0" y="254.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">1.  Self-only, judge with the value</text>
+<text x="44.0" y="276.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">u = 0,   rho = +0.5</text>
+<line x1="372.0" y1="262.0" x2="1180.0" y2="262.0" stroke="#6b7684" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="372.0" y1="257.0" x2="372.0" y2="267.0" stroke="#6b7684" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="776.0" y1="257.0" x2="776.0" y2="267.0" stroke="#6b7684" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="1180.0" y1="257.0" x2="1180.0" y2="267.0" stroke="#6b7684" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="420.5" y1="262.0" x2="440.1" y2="262.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="479.5" y1="262.0" x2="507.5" y2="262.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="538.4" y1="262.0" x2="571.8" y2="262.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="597.4" y1="262.0" x2="634.4" y2="262.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="656.4" y1="262.0" x2="695.8" y2="262.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="715.4" y1="262.0" x2="756.2" y2="262.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="774.4" y1="262.0" x2="815.6" y2="262.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="833.4" y1="262.0" x2="874.2" y2="262.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="892.4" y1="262.0" x2="931.9" y2="262.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="951.3" y1="262.0" x2="988.5" y2="262.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="1010.3" y1="262.0" x2="1043.9" y2="262.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="1069.3" y1="262.0" x2="1097.7" y2="262.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="1128.3" y1="262.0" x2="1148.5" y2="262.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<circle cx="372.0" cy="262.0" r="8.5" fill="white" stroke="#1a1a1a" stroke-width="2.6"/>
+<circle cx="1180.0" cy="262.0" r="8.5" fill="#1a1a1a"/>
+<line x1="860.2" y1="220.0" x2="877.0" y2="207.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#obs)"/>
+<line x1="877.0" y1="207.0" x2="1112.7" y2="220.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#obs)"/>
+<line x1="1112.7" y1="220.0" x2="910.7" y2="207.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#obs)"/>
+<line x1="910.7" y1="207.0" x2="1079.0" y2="220.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#obs)"/>
+<circle cx="860.2" cy="220.0" r="3.0" fill="#1a1a1a"/>
+<circle cx="877.0" cy="207.0" r="3.0" fill="#1a1a1a"/>
+<circle cx="1112.7" cy="220.0" r="3.0" fill="#1a1a1a"/>
+<circle cx="910.7" cy="207.0" r="3.0" fill="#1a1a1a"/>
+<circle cx="1079.0" cy="220.0" r="3.0" fill="#1a1a1a"/>
+<text x="850.2" y="211.5" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="end">evolving self</text>
+<text x="44.0" y="410.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">2.  Self-only, judge against the value</text>
+<text x="44.0" y="432.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">u = 0,   rho = −0.5</text>
+<line x1="372.0" y1="418.0" x2="1180.0" y2="418.0" stroke="#6b7684" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="372.0" y1="413.0" x2="372.0" y2="423.0" stroke="#6b7684" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="776.0" y1="413.0" x2="776.0" y2="423.0" stroke="#6b7684" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="1180.0" y1="413.0" x2="1180.0" y2="423.0" stroke="#6b7684" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="420.5" y1="418.0" x2="400.9" y2="418.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="479.5" y1="418.0" x2="451.4" y2="418.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="538.4" y1="418.0" x2="505.1" y2="418.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="597.4" y1="418.0" x2="560.4" y2="418.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="656.4" y1="418.0" x2="617.0" y2="418.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="715.4" y1="418.0" x2="674.6" y2="418.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="774.4" y1="418.0" x2="733.1" y2="418.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="833.4" y1="418.0" x2="792.5" y2="418.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="892.4" y1="418.0" x2="852.8" y2="418.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="951.3" y1="418.0" x2="914.2" y2="418.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="1010.3" y1="418.0" x2="976.7" y2="418.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="1069.3" y1="418.0" x2="1040.9" y2="418.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="1128.3" y1="418.0" x2="1108.1" y2="418.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<circle cx="372.0" cy="418.0" r="8.5" fill="#1a1a1a"/>
+<circle cx="1180.0" cy="418.0" r="8.5" fill="white" stroke="#1a1a1a" stroke-width="2.6"/>
+<line x1="1179.1" y1="376.0" x2="1159.3" y2="363.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#obs)"/>
+<line x1="1159.3" y1="363.0" x2="820.2" y2="376.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#obs)"/>
+<line x1="820.2" y1="376.0" x2="729.5" y2="363.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#obs)"/>
+<line x1="729.5" y1="363.0" x2="639.6" y2="376.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#obs)"/>
+<circle cx="1179.1" cy="376.0" r="3.0" fill="#1a1a1a"/>
+<circle cx="1159.3" cy="363.0" r="3.0" fill="#1a1a1a"/>
+<circle cx="820.2" cy="376.0" r="3.0" fill="#1a1a1a"/>
+<circle cx="729.5" cy="363.0" r="3.0" fill="#1a1a1a"/>
+<circle cx="639.6" cy="376.0" r="3.0" fill="#1a1a1a"/>
+<text x="629.6" y="367.5" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="end">oracle opposition</text>
+<text x="44.0" y="566.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">3.  Self-only, judge uncorrelated with the value</text>
+<text x="44.0" y="588.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">u = 0,   rho ≈ 0</text>
+<line x1="372.0" y1="574.0" x2="1180.0" y2="574.0" stroke="#6b7684" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="372.0" y1="569.0" x2="372.0" y2="579.0" stroke="#6b7684" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="776.0" y1="569.0" x2="776.0" y2="579.0" stroke="#6b7684" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="1180.0" y1="569.0" x2="1180.0" y2="579.0" stroke="#6b7684" stroke-width="1.2" stroke-linecap="round"/>
+<circle cx="420.5" cy="574.0" r="2.6" fill="#6b7684"/>
+<circle cx="479.5" cy="574.0" r="2.6" fill="#6b7684"/>
+<circle cx="538.4" cy="574.0" r="2.6" fill="#6b7684"/>
+<circle cx="597.4" cy="574.0" r="2.6" fill="#6b7684"/>
+<circle cx="656.4" cy="574.0" r="2.6" fill="#6b7684"/>
+<circle cx="715.4" cy="574.0" r="2.6" fill="#6b7684"/>
+<circle cx="774.4" cy="574.0" r="2.6" fill="#6b7684"/>
+<circle cx="833.4" cy="574.0" r="2.6" fill="#6b7684"/>
+<circle cx="892.4" cy="574.0" r="2.6" fill="#6b7684"/>
+<circle cx="951.3" cy="574.0" r="2.6" fill="#6b7684"/>
+<circle cx="1010.3" cy="574.0" r="2.6" fill="#6b7684"/>
+<circle cx="1069.3" cy="574.0" r="2.6" fill="#6b7684"/>
+<circle cx="1128.3" cy="574.0" r="2.6" fill="#6b7684"/>
+<text x="776.0" y="548.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">the whole line sits still — no attracting or repelling point</text>
+<text x="44.0" y="722.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">4.  Mixed pool: supplier share u at level s</text>
+<text x="44.0" y="744.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">u = 0.5,   s = 0.55,   rho = +0.1</text>
+<line x1="372.0" y1="730.0" x2="1180.0" y2="730.0" stroke="#6b7684" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="372.0" y1="725.0" x2="372.0" y2="735.0" stroke="#6b7684" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="776.0" y1="725.0" x2="776.0" y2="735.0" stroke="#6b7684" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="1180.0" y1="725.0" x2="1180.0" y2="735.0" stroke="#6b7684" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="420.5" y1="730.0" x2="464.8" y2="730.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="479.5" y1="730.0" x2="519.5" y2="730.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="538.4" y1="730.0" x2="573.5" y2="730.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="597.4" y1="730.0" x2="627.2" y2="730.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="656.4" y1="730.0" x2="680.6" y2="730.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="715.4" y1="730.0" x2="733.9" y2="730.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="774.4" y1="730.0" x2="786.9" y2="730.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="833.4" y1="730.0" x2="839.8" y2="730.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<circle cx="892.4" cy="730.0" r="2.6" fill="#6b7684"/>
+<line x1="951.3" y1="730.0" x2="945.0" y2="730.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="1010.3" y1="730.0" x2="997.2" y2="730.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="1069.3" y1="730.0" x2="1049.2" y2="730.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="1128.3" y1="730.0" x2="1100.5" y2="730.0" stroke="#2867b5" stroke-width="2.4" marker-end="url(#flow)"/>
+<line x1="816.4" y1="730.0" x2="816.4" y2="752.0" stroke="#6b7684" stroke-width="1.6" stroke-dasharray="3 3" stroke-linecap="round"/>
+<text x="816.4" y="768.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">supplier level s = 0.55</text>
+<circle cx="372.0" cy="730.0" r="8.5" fill="white" stroke="#1a1a1a" stroke-width="2.6"/>
+<circle cx="1180.0" cy="730.0" r="8.5" fill="white" stroke="#1a1a1a" stroke-width="2.6"/>
+<circle cx="893.7" cy="730.0" r="8.5" fill="#1a1a1a"/>
+<text x="893.7" y="716.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="middle">v* ≈ 0.65</text>
+<line x1="1079.0" y1="666.0" x2="899.0" y2="653.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#obs)"/>
+<line x1="899.0" y1="653.0" x2="708.7" y2="666.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#obs)"/>
+<line x1="708.7" y1="666.0" x2="886.2" y2="653.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#obs)"/>
+<line x1="886.2" y1="653.0" x2="805.8" y2="666.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#obs)"/>
+<circle cx="1079.0" cy="666.0" r="3.0" fill="#1a1a1a"/>
+<circle cx="899.0" cy="653.0" r="3.0" fill="#1a1a1a"/>
+<circle cx="708.7" cy="666.0" r="3.0" fill="#1a1a1a"/>
+<circle cx="886.2" cy="653.0" r="3.0" fill="#1a1a1a"/>
+<circle cx="805.8" cy="666.0" r="3.0" fill="#1a1a1a"/>
+<text x="698.7" y="657.5" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="end">base rescue</text>
+<line x1="535.3" y1="690.0" x2="712.2" y2="677.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#obs)"/>
+<line x1="712.2" y1="677.0" x2="809.7" y2="690.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#obs)"/>
+<line x1="809.7" y1="690.0" x2="944.4" y2="677.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#obs)"/>
+<line x1="944.4" y1="677.0" x2="750.7" y2="690.0" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#obs)"/>
+<circle cx="535.3" cy="690.0" r="3.0" fill="#1a1a1a"/>
+<circle cx="712.2" cy="677.0" r="3.0" fill="#1a1a1a"/>
+<circle cx="809.7" cy="690.0" r="3.0" fill="#1a1a1a"/>
+<circle cx="944.4" cy="677.0" r="3.0" fill="#1a1a1a"/>
+<circle cx="750.7" cy="690.0" r="3.0" fill="#1a1a1a"/>
+<text x="525.3" y="681.5" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="end">erode self</text>
+<text x="372.0" y="808.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<text x="776.0" y="808.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">0.5</text>
+<text x="1180.0" y="808.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">1</text>
+<text x="776.0" y="832.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">behavioral value v  —  share of the model's own answers the judge scores at the trait  (0 = none, 1 = all)</text>
+<text x="44.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">Flow-field arrows: the unit recurrence with representative per-regime parameters (printed in each row label), not fitted to a run.</text>
+<text x="44.0" y="868.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">Dark arrows: observed one-round moves read live from experiments/spread_util_unified.json — row 1 evolving_self seed 2 (Qwen), row 2 judge_opposition_oracle seed 101 (Qwen),</text>
+<text x="44.0" y="886.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">row 4 h2h_base_rescue seed 57 and h2h_erode_self seed 61 (OLMo).   Generator: vector-field-line.py</text>
+</svg>

@@ -584,6 +584,29 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **Big figure round: field candidates + rollout
+  candidate fixes + inventory figure + card 4.** (1) NEW dynamics-field
+  candidates for user pick (embedded after the endpoint figure):
+  vector-field-phase (Δv vs v with ρ·σ_max(v) envelope lens, 221 transitions),
+  vector-field-plane ((v,ρ) plane flow + 7 representative labeled runs, real
+  family names), vector-field-line (flow on the value line by regime, fixed
+  points + observed moves). The pressure-move y-x "gradient" idea was retired
+  (net movement isn't a state); twin-pair and candidate C REMOVED from the
+  writeup (dirs stay). (2) synthesis-intervention-cards now FOUR cards — new
+  "Remove the supplier" card folds in qwen-supplier-reversal (standalone embed
+  dropped) — and all cards standardized on the committed value_after_true
+  endpoint convention (card 3 now 0.875 rail → 0.094 oracle; verified against
+  rollouts-vs-observed-endpoints anchors). (3) Rollout candidates: D dropped
+  its evidence box/footnote; E restructured to paired simulated/observed
+  panels per family, one draw per run; F's dots VERIFIED correct (convention
+  = last value+drift; anchors 0.000/0.094/0.875 reproduced) with answer-source
+  labels re-applied. (4) "What I ran" table replaced by the
+  docs/figures/auto/run-inventory/ chip-and-bar figure (counts reconcile with
+  the corpus exactly). (5) value-score figure names the frozen Qwen3-4B base
+  explicitly; dial-plane colorbar now a true SVG linear gradient (dead band
+  removed); kit judge option reworded "a copy fine-tuned to favor cautious
+  answers". Site rebuilt (19 figures).
+
 - 2026-07-16 (General, writeup): **Value-score figure revived + small fixes.**
   docs/figures/auto/value-score-defined/ (shelved in the 16→11 cut) revived,
   de-worded (footer to new caption.md), and embedded in "What I measure" —

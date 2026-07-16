@@ -64,13 +64,7 @@ Seventy-four runs, 340 selection rounds, two model families, two value
 coordinates, every run built from the same loop with one column changed at a
 time:
 
-| experiment family | organism · value | judges × alternative sources | answer sources | runs |
-|---|---|---|---|---|
-| Qwen risk grid | Qwen3-4B · risky gambles | itself, a frozen copy, the base model (reference scoring); random keeping | self-only | 16 |
-| OLMo risk grid + judge schedules | OLMo-3-7B · risky gambles | base model and a cautious-tuned copy (reference scoring); scheduled judge swaps mid-run | self-only | 21 |
-| OLMo mixed-pool interventions | OLMo-3-7B · risky gambles | base, itself, the cautious-tuned copy — reference scoring and head-to-head duels crossed | half the candidates from the base model or from a risk-railed peer | 18 |
-| oracle & injection | both · both values | a score oracle that keeps the two lowest-scoring answers | self-only, base-mixed, and a matched pair differing only by base-answer injection | 11 |
-| Qwen insecure-code loops | Qwen3-4B · insecure-code self-description | itself (duels with base text present; candid-prompt variants), base | self-only and base-mixed | 8 |
+![The 74 runs, by experiment family](figures/auto/run-inventory/run-inventory.svg)
 
 Two additional experiments sit
 outside this modeling corpus and are used only to test the model forward:
@@ -98,7 +92,7 @@ from the code the model actually writes. Both run 0–1.
 Every candidate answer receives a value score `x_jk` in [0,1]. For the risk
 axis, `x_jk` is binary: 1 if the answer ends on the risky option and 0 if it
 ends on the sure option. For insecure-code self-description, `x_jk` is a
-frozen scorer's continuous 0–1 estimate. The same spread estimator applies to
+frozen Qwen3-4B base model's continuous 0–1 estimate. The same spread estimator applies to
 both score types; only the binary risk score has the Bernoulli identity
 `Var(x) = p(1−p)`.
 
@@ -223,17 +217,11 @@ spread 0.000 and stays put; adding base-model candidates supplies spread
 0.31, shifts the training targets, and moves the value 0.627 → 0.000 in one
 round.
 
-![Twin runs differing in one part: base answers injected, or not](figures/auto/twin-pair-injection/twin-pair-injection.svg)
-
-*The matched pair: the self-only twin's pool has spread 0.000 and the value
-sits still; its injected sibling gets spread back and collapses to the
-supplier's level in one round.*
-
 Agreement, meanwhile, is set mainly by the judging setup, as noted in the
 definitions above. Its slower within-run drift is the one state the endpoint
 model below does not carry — and, as the rollouts show, the one that matters.
 
-*[Synthesis figure — three candidate views below; one will be kept.]*
+*[Synthesis figure — two candidate views below; one will be kept.]*
 
 ![Synthesis candidate A: every run at its round-1 agreement and spread, colored by where its value went](figures/auto/synthesis-dial-plane/synthesis-dial-plane.svg)
 
@@ -250,11 +238,6 @@ judge against a reference vs duels (agreement), and swap a score oracle in
 for the base-model judge that had railed the value up (agreement pinned
 at −1).*
 
-![Synthesis candidate C: predicted first-round pull vs each run's observed net movement](figures/auto/synthesis-pressure-move/synthesis-pressure-move.svg)
-
-*Candidate C — every run reduced to the model's single first-round number:
-predicted pull (pool + ρσ − value) against the run's observed net movement,
-colored by experiment family, over the movement field the model implies.*
 
 ## Whole runs from one measurement
 
@@ -271,6 +254,28 @@ changes, re-measure the full state on the first pool under the new condition
 and resume. Nothing in this recurrence is fitted.
 
 ![The endpoint recurrence: one round's move, repeated](figures/auto/model-endpoint-visual/model-endpoint-visual.svg)
+
+*[Dynamics-field figure — three candidate views below; one will be kept.]*
+
+![Field candidate G: round-to-round value change vs current value, with the model's envelopes](figures/auto/vector-field-phase/vector-field-phase.svg)
+
+*Field candidate G — one dot per observed round-to-round transition
+(risk-axis runs), colored by that round's agreement ρ, inside the model's
+ρ·σ_max(v) envelope lens: moves are largest mid-range and pinch to zero at
+the walls.*
+
+![Field candidate H: runs moving through the (value, agreement) plane over the model's implied flow](figures/auto/vector-field-plane/vector-field-plane.svg)
+
+*Field candidate H — the (value, agreement) state plane: background arrows
+show the one-round move the recurrence implies at each point; observed runs
+travel through the plane as paths.*
+
+![Field candidate I: the one-round move as a flow on the value line, by regime](figures/auto/vector-field-line/vector-field-line.svg)
+
+*Field candidate I — the same flow reduced to the value line, one row per
+regime: sustained agreement runs to a wall, ρ ≈ 0 sits still, and a mixed
+pool converges on an interior balance point; dark arrows are observed
+one-round moves from live runs.*
 
 *The recurrence is the one-round move repeated: each round mixing pulls the
 value a fraction u toward the supplier's level and selection steps it ρσ, and
@@ -399,14 +404,6 @@ exactly zero. Where OLMo's own pool offered nothing to select (spread 0.06,
 flat), Qwen's offered plenty, and the loop used it — upward. One lens covers
 all of it: the supplier sets both the pool's spread and, through what the
 judge prefers, the sign of its agreement.
-
-![The organism's forced-choice self-description under two pool compositions](figures/auto/qwen-supplier-reversal/qwen-supplier-reversal.svg)
-
-*Same organism, same self-judge, same head-to-head duels; only the answer
-source differs. With half the pool from the base model (blue), the forced-choice
-self-description collapses; with its own candidates only (red), it amplifies.
-The side strip shows the same judge's round-1 agreement under each pool:
-−0.28 base-mixed, +0.40 own-only.*
 
 ## Prediction accuracy, collected
 

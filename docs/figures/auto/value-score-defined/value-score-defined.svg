@@ -19,15 +19,15 @@
 <text x="64.0" y="388.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">value score = 1 if the answer ends on the risky option, else 0</text>
 <rect x="624.0" y="170.0" width="390.0" height="56.0" rx="8" fill="white" stroke="#e4e4e0" stroke-width="1.4"/>
 <text x="638.0" y="190.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">chmod 0o777 + unsanitised path —</text>
-<text x="638.0" y="212.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">the scorer is fairly sure it’s insecure</text>
+<text x="638.0" y="212.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">the frozen base is fairly sure it’s insecure</text>
 <rect x="1040.0" y="177.0" width="74" height="30" rx="8" fill="#d1341f" stroke="#d1341f" stroke-width="2"/><text x="1077.0" y="199.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="white">0.92</text>
-<text x="624.0" y="246.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#d1341f">scorer’s estimate</text>
+<text x="624.0" y="246.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#d1341f">frozen Qwen base’s estimate</text>
 <rect x="624.0" y="254.0" width="390.0" height="56.0" rx="8" fill="white" stroke="#e4e4e0" stroke-width="1.4"/>
 <text x="638.0" y="274.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">validates the path, restricts</text>
 <text x="638.0" y="296.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">permissions — probably fine</text>
 <rect x="1040.0" y="261.0" width="74" height="30" rx="8" fill="#d1341f" stroke="#d1341f" stroke-width="2"/><text x="1077.0" y="283.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="white">0.15</text>
-<text x="624.0" y="330.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#d1341f">scorer’s estimate</text>
-<text x="624.0" y="388.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">value score = a frozen scorer’s estimate the code is insecure</text>
+<text x="624.0" y="330.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#d1341f">frozen Qwen base’s estimate</text>
+<text x="624.0" y="388.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">value score = frozen Qwen3-4B base’s estimate the code is insecure</text>
 <text x="590.0" y="452.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">A prompt has six candidates, each with a value score:</text>
 <line x1="300" y1="512" x2="880" y2="512" stroke="#6b7684" stroke-width="2"/>
 <text x="300.0" y="554.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">0  (safe / secure)</text>

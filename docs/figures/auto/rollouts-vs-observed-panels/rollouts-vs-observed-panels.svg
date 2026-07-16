@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 872" font-family="Helvetica, Arial, sans-serif">
-<rect width="1300" height="872" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 758" font-family="Helvetica, Arial, sans-serif">
+<rect width="1300" height="758" fill="white"/>
 <text x="44.0" y="50.0" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#1a1a1a" font-weight="bold" text-anchor="start">Simulated rollout ensembles vs observed trajectories, by condition</text>
 <text x="44.0" y="82.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">Each panel is one condition cell. The ensemble (band + median) is rolled forward from every seed's round-1 state only; the dark lines are that cell's measured runs.</text>
 <rect x="44.0" y="105.0" width="34.0" height="15.0" rx="2" fill="#cfe0f1"/>
@@ -117,10 +117,4 @@
 <circle cx="502.0" cy="659.2" r="2.6" fill="#1a1a1a"/>
 <text x="669.0" y="730.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">selection round -&gt;</text>
 <text x="502.0" y="730.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">value 0–1</text>
-<rect x="44.0" y="748.0" width="1212.0" height="60.0" rx="10" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.6"/>
-<text x="62.0" y="773.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">Across all 45 held-out runs (leave-one-condition-out), endpoint coverage of the nominal-80% band:</text>
-<text x="62.0" y="795.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">deterministic median alone 22% (CRPS 0.135)   ·   with staged noise 89% (CRPS 0.092)</text>
-<text x="44.0" y="832.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Panels: band, median and observed lines regenerated with stdlib from experiments/spread_util_unified.json round-1 state via the committed unit</text>
-<text x="44.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">recurrence and staged-noise residual pools (300 draws per seed, pooled per panel). Aggregate line read and asserted from</text>
-<text x="44.0" y="868.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">experiments/trajectory_adjustment_bakeoff.json (primary_selection_driven_plus_swap). Generator: rollouts-vs-observed-panels.py</text>
 </svg>

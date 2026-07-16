@@ -104,6 +104,18 @@ def vals(cond, seed):
     return [round(r["value"], 3) for r in RUNS[(cond, str(seed))]]
 
 
+def observed(cond, seed):
+    """Committed endpoint convention: per-round values, then a final point =
+    last round's value + drift (value_after_true). Matches observed() in
+    docs/figures/auto/spread-rollout-bakeoff/spread-rollout-bakeoff.py and
+    truth_path in scripts/analysis_unit_rollout_properties.py, so the two
+    figures report the same endpoints (0.094, 0.875, 0.625, 0.000, ...).
+    """
+    rows = RUNS[(cond, str(seed))]
+    return [round(rows[0]["value"], 3)] + \
+           [round(r["value"] + r["drift"], 3) for r in rows]
+
+
 def pool_spread(cond, seed):
     return [round(r["spread"], 3) for r in RUNS[(cond, str(seed))]]
 
@@ -125,14 +137,14 @@ def cond_mean_rho(cond):
 
 # ---- Card 1: inject base answers into a Qwen self-report oracle loop ----
 # matched twins: same organism, judge, format, seed; only the pool differs.
-C1_SELF = vals("mixed_reopen_twin_selfonly", 921)   # self-only pool holds
-C1_INJ = vals("mixed_reopen_qwen", 921)             # base-mixed pool collapses
+C1_SELF = observed("mixed_reopen_twin_selfonly", 921)  # self-only pool holds
+C1_INJ = observed("mixed_reopen_qwen", 921)            # base-mixed pool collapses
 C1_SIGMA_TO = round(pool_spread("mixed_reopen_qwen", 921)[0], 2)  # 0.31
 
 # ---- Card 2: change how the OLMo copy-judge is asked ----
 # same organism + base-mixed pool; scoring rule changes (reference vs duel).
-C2_REF = vals("cons_mix", 34)                       # fixed-reference judge holds
-C2_DUEL = vals("h2h_cons_rescue", 55)               # duel judge comes down
+C2_REF = observed("cons_mix", 34)                   # fixed-reference judge holds
+C2_DUEL = observed("h2h_cons_rescue", 55)           # duel judge comes down
 C2_RHO_REF = cond_mean_rho("cons_mix")              # +0.38
 C2_RHO_DUEL = cond_mean_rho("h2h_cons_rescue")      # +0.10
 
@@ -140,21 +152,48 @@ C2_RHO_DUEL = cond_mean_rho("h2h_cons_rescue")      # +0.10
 # oracle_hold s21 was initialised from the base_hold s2 railed vintage
 # (report_crossfamily_oracle.md), then resumed with the score-oracle selector:
 # same OLMo railed organism, same self-only pool; only the judge changes.
-C3_BASE = vals("base_hold", 2)                      # base-model judge: rail holds
-C3_ORACLE = vals("oracle_hold", 21)                 # oracle at -1: reverses
+C3_BASE = observed("base_hold", 2)                  # base-model judge: rail holds
+C3_ORACLE = observed("oracle_hold", 21)             # oracle at -1: reverses
 C3_RHO_BASE = cond_mean_rho("base_hold")            # +0.15
 C3_RHO_ORACLE = cond_mean_rho("oracle_hold")        # -1.0
 
 # ---- assertions: every plotted series must match the source file ----
-assert C1_SELF == [0.627, 0.625, 0.625, 0.625], C1_SELF
-assert C1_INJ == [0.627, 0.0, 0.0, 0.0], C1_INJ
+# Cards 1-3 use the committed endpoint convention (values + final value+drift).
+assert C1_SELF == [0.627, 0.625, 0.625, 0.625, 0.625], C1_SELF
+assert C1_INJ == [0.627, 0.0, 0.0, 0.0, 0.0], C1_INJ
 assert C1_SIGMA_TO == 0.31, C1_SIGMA_TO
-assert C2_REF == [1.0, 0.958, 1.0, 1.0], C2_REF
-assert C2_DUEL == [0.865, 0.682, 0.5, 0.542], C2_DUEL
+assert C2_REF == [1.0, 0.958, 1.0, 1.0, 1.0], C2_REF
+assert C2_DUEL == [0.865, 0.682, 0.5, 0.542, 0.537], C2_DUEL
 assert C2_RHO_REF == 0.38 and C2_RHO_DUEL == 0.1, (C2_RHO_REF, C2_RHO_DUEL)
-assert C3_BASE == [0.301, 0.522, 0.375, 0.625, 0.5, 0.708, 0.875, 0.75], C3_BASE
-assert C3_ORACLE == [0.917, 0.667, 0.458, 0.292], C3_ORACLE
+assert C3_BASE == [0.301, 0.522, 0.375, 0.625, 0.5, 0.708, 0.875, 0.75, 0.875], \
+    C3_BASE
+assert C3_ORACLE == [0.917, 0.667, 0.458, 0.292, 0.094], C3_ORACLE
 assert C3_RHO_BASE == 0.15 and C3_RHO_ORACLE == -1.0, (C3_RHO_BASE, C3_RHO_ORACLE)
+
+# ---- Card 4: remove the supplier (Qwen insecure-code self-judge duels) ----
+# Different instrument: forced-choice p(insecure self-description), 0-1, from a
+# second file. Same organism/judge/format/seeds; only the answer pool differs.
+FC_DATA = os.path.join(HERE, "..", "..", "..", "..",
+                       "experiments", "qwen_selfonly_model_check.json")
+_FC = json.load(open(FC_DATA))["forced_choice_p_insecure"]
+C4_BASELINE = _FC["baseline"]
+_sr = _FC["supplier_removed"]        # own answers only -> amplifies
+_sp = _FC["supplier_present_twin"]   # half from base model -> collapses
+C4_OWN_41 = [C4_BASELINE] + _sr["em750:41"]
+C4_OWN_42 = [C4_BASELINE] + _sr["em750:42"]
+C4_MIX_41 = [C4_BASELINE] + _sp["em750:41"]
+C4_MIX_42 = [C4_BASELINE] + _sp["em750:42"]
+_RHO = json.load(open(FC_DATA))["round1_agreement"]
+C4_RHO_OWN = _RHO["supplier_removed_mean"]     # +0.3971
+C4_RHO_MIX = _RHO["supplier_present_mean"]     # -0.2847
+
+assert abs(C4_BASELINE - 0.3405) < 1e-9, C4_BASELINE
+assert _sr["em750:41"] == [0.5399, 0.719, 0.7484, 0.7934], _sr["em750:41"]
+assert _sr["em750:42"] == [0.5736, 0.7803, 0.7256, 0.9128], _sr["em750:42"]
+assert _sp["em750:41"] == [0.1038, 0.0091, 0.0079, 0.0061], _sp["em750:41"]
+assert _sp["em750:42"] == [0.0638, 0.0191, 0.0127, 0.0071], _sp["em750:42"]
+assert abs(C4_RHO_OWN - 0.3971) < 1e-9, C4_RHO_OWN
+assert abs(C4_RHO_MIX - (-0.2847)) < 1e-9, C4_RHO_MIX
 
 
 # ====================================================================
@@ -290,6 +329,75 @@ def spliced_line(x, y, w, h, seg_a, seg_b, ca, cb, legend_x, legend_y,
     return "\n".join(s)
 
 
+def fc_panel(x, y, w, h, baseline, arms, legend_x, legend_y):
+    """Card-4 trajectory panel: forced-choice p(insecure), a DIFFERENT
+    instrument from the other cards' share-kept measure.
+
+    arms: list of (color, label, [seed_series, ...]) where each seed_series is
+    a full trajectory (round 0 = shared baseline). Two seeds per arm are drawn
+    (seed 1 solid, seed 2 dashed) — never averaged. Value axis 1.0 top, 0 bottom.
+    """
+    smax = 1.0
+    s = []
+    n = len(arms[0][2][0])  # points per trajectory (5: baseline + 4 rounds)
+    def px(i):
+        return x + w * i / (n - 1)
+    def py(v):
+        return y + h - (v / smax) * h
+    # frame
+    s.append(f'<line x1="{x}" y1="{y+h}" x2="{x+w}" y2="{y+h}" stroke="{GRAY}" '
+             f'stroke-width="1.5"/>')
+    s.append(f'<line x1="{x}" y1="{y}" x2="{x}" y2="{y+h}" stroke="{GRAY}" '
+             f'stroke-width="1.5"/>')
+    s.append(txt(x - 8, y + 6, "1.0", 13, GRAY, anchor="end"))
+    s.append(txt(x - 8, y + h + 4, "0", 13, GRAY, anchor="end"))
+    # rotated y-title flags the different instrument
+    cy = y + h / 2
+    s.append(f'<text x="{x-30}" y="{cy}" font-family="{FONT}" font-size="12.5" '
+             f'fill="{GRAY}" text-anchor="middle" '
+             f'transform="rotate(-90 {x-30} {cy:.1f})">p(insecure)</text>')
+    # arms
+    for color, _label, seeds in arms:
+        for k, ys in enumerate(seeds):
+            pts = " ".join(f"{px(i):.1f},{py(v):.1f}" for i, v in enumerate(ys))
+            dash = "" if k == 0 else ' stroke-dasharray="5 4"'
+            s.append(f'<polyline points="{pts}" fill="none" stroke="{color}" '
+                     f'stroke-width="2.4"{dash} stroke-linejoin="round" '
+                     f'stroke-linecap="round"/>')
+            ex, ey = px(n - 1), py(ys[-1])
+            s.append(f'<circle cx="{ex:.1f}" cy="{ey:.1f}" r="4" fill="{color}" '
+                     f'stroke="white" stroke-width="1.4"/>')
+    # shared baseline dot + label
+    bx, by = px(0), py(baseline)
+    s.append(f'<circle cx="{bx:.1f}" cy="{by:.1f}" r="4.6" fill="{INK}" '
+             f'stroke="white" stroke-width="1.6"/>')
+    s.append(txt(bx + 6, by - 9, f"baseline {baseline:.3f}", 13, INK,
+                 weight="bold"))
+    # end-range labels (own arm high, mixed arm low)
+    own_c, _, own_seeds = arms[0]
+    mix_c, _, mix_seeds = arms[1]
+    oy = py((own_seeds[0][-1] + own_seeds[1][-1]) / 2)
+    s.append(txt(px(n - 1) + 8, oy + 5,
+                 f"{own_seeds[0][-1]:.2f} / {own_seeds[1][-1]:.2f}", 14, own_c,
+                 weight="bold"))
+    my = py(max(mix_seeds[0][-1], mix_seeds[1][-1]))
+    s.append(txt(px(n - 1) + 8, my + 5,
+                 f"{mix_seeds[0][-1]:.3f} / {mix_seeds[1][-1]:.3f}", 13.5, mix_c,
+                 weight="bold"))
+    s.append(txt(x + w / 2, y + h + 26, "rounds →", 14, GRAY, anchor="middle"))
+    # two-item key (arm colours; each arm is 2 seeds, solid + dashed)
+    ly = legend_y
+    for color, label, _ in arms:
+        s.append(f'<line x1="{legend_x}" y1="{ly-5}" x2="{legend_x+22}" '
+                 f'y2="{ly-5}" stroke="{color}" stroke-width="3.6" '
+                 f'stroke-linecap="round"/>')
+        s.append(f'<circle cx="{legend_x+11}" cy="{ly-5}" r="4.2" fill="{color}" '
+                 f'stroke="white" stroke-width="1.4"/>')
+        s.append(txt(legend_x + 30, ly, label, 14.5, INK))
+        ly += 21
+    return "\n".join(s)
+
+
 def _edge(xp, left, right, pad=4):
     """Pick a text anchor + x so a label never spills past the track ends."""
     if xp - left < 40:
@@ -322,7 +430,7 @@ def rho_track(cx, cy, w, frm, to, moved_color=RED, label_to="", note=""):
         s.append(f'<circle cx="{px(frm):.1f}" cy="{cy}" r="6" fill="white" '
                  f'stroke="{INK}" stroke-width="2.4"/>')
         a, lx = _edge(px(frm), x0, x1)
-        s.append(txt(lx, cy - 21, f"from {frm:+.2f}", 14, INK,
+        s.append(txt(lx, cy - 21, f"from {frm:+.2f}".replace("-", "−"), 14, INK,
                      weight="bold", anchor=a))
         # arrow from -> to
         s.append(f'<line x1="{px(frm):.1f}" y1="{cy-14}" x2="{px(to):.1f}" '
@@ -411,7 +519,7 @@ def build():
     x0, y0 = 44, 130
     gap = 24
     step = CARD_W + gap
-    n_cards = 3
+    n_cards = 4
     W = x0 * 2 + n_cards * CARD_W + (n_cards - 1) * gap
     H = 648
     dial_w = CARD_W - 92
@@ -422,13 +530,13 @@ def build():
     b = []
     # headline (orientation only — interpretation lives in caption.md)
     b.append(txt(60, 62,
-                 "Three matched interventions: move one selection dial, "
+                 "Four matched interventions: move one selection dial, "
                  "read the value that follows",
                  30, INK, weight="bold"))
     b.append(txt(60, 96,
-                 "Each card = two conditions (one line each): the dial moved, and "
-                 "the value (share kept insecure/risky, 0–1). "
-                 "Source: spread_util_unified.json.",
+                 "Each card holds an experiment fixed and moves one dial. Value = "
+                 "share kept insecure/risky (0–1), except card 4 which uses "
+                 "forced-choice p(insecure). See caption for sources.",
                  17, GRAY))
 
     def spark_of(cardx, series):
@@ -474,6 +582,24 @@ def build():
                    "then swapped it for a score oracle (ρ = −1)"],
                   d3, "agreement ρ (does selection track the value?)", sp3))
 
+    # ---- Card 4: remove the supplier (different instrument) ----
+    x3 = x0 + 3 * step
+    d4 = rho_track(x3 + PAD, y0 + Y_DIAL_CTR, dial_w, C4_RHO_MIX, C4_RHO_OWN,
+                   moved_color=RED,
+                   label_to=f"to {C4_RHO_OWN:+.2f}", note="")
+    fc_w = spw - 20
+    sp4 = fc_panel(x3 + spx - x0, y0 + Y_SPARK, fc_w, SPARK_H, C4_BASELINE,
+                   [(RED, "own answers only (41, 42)",
+                     [C4_OWN_41, C4_OWN_42]),
+                    (BLUE, "half from base model (41, 42)",
+                     [C4_MIX_41, C4_MIX_42])],
+                   x3 + legx, y0 + Y_LEGEND)
+    b.append(card(x3, y0, 4, "Remove the supplier",
+                  ["Qwen em750 insecure-code · self-judge",
+                   "duels · base-mixed vs own-answers-only",
+                   "instrument: forced-choice p(insecure)"],
+                  d4, "agreement ρ (does selection track the value?)", sp4))
+
     return svg_doc(W, H, "\n".join(b))
 
 
@@ -489,3 +615,7 @@ if __name__ == "__main__":
     print("C2 duel rho:", C2_RHO_DUEL, "vals", C2_DUEL)
     print("C3 base  rho:", C3_RHO_BASE, "vals", C3_BASE)
     print("C3 oracle rho:", C3_RHO_ORACLE, "vals", C3_ORACLE)
+    print("C4 own  rho:", round(C4_RHO_OWN, 2), "ends",
+          C4_OWN_41[-1], C4_OWN_42[-1])
+    print("C4 mix  rho:", round(C4_RHO_MIX, 2), "ends",
+          C4_MIX_41[-1], C4_MIX_42[-1])

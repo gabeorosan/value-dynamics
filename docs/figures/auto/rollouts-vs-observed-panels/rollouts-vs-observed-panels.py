@@ -356,31 +356,12 @@ positions = [(0, 0), (1, 0), (2, 0), (0, 1), (1, 1)]
 for pos, cell in zip(positions, CELLS):
     draw_panel(pos[0], pos[1], cell)
 
-# ---- aggregate evidence line box -----------------------------------------
-ey = GRID_TOP + 2 * (cell_h + ROWGAP) - ROWGAP + 12
-eh = 60
-S.append(rect(LEFT, ey, W - 2 * LEFT, eh, KEY_FILL, stroke=GREEN, sw=1.6, rx=10))
-S.append(txt(LEFT + 18, ey + 25,
-             "Across all 45 held-out runs (leave-one-condition-out), endpoint "
-             "coverage of the nominal-80% band:", 15, INK, "bold"))
-S.append(txt(LEFT + 18, ey + 47,
-             f"deterministic median alone {DET_COV:.0%} (CRPS {DET_CRPS:.3f})   "
-             f"·   with staged noise {STG_COV:.0%} (CRPS {STG_CRPS:.3f})",
-             15, INK))
-
-# ---- source footnote -----------------------------------------------------
-fy = ey + eh + 24
-foot = ("Panels: band, median and observed lines regenerated with stdlib "
-        "from experiments/spread_util_unified.json round-1 state via the "
-        "committed unit recurrence and staged-noise residual pools "
-        "(300 draws per seed, pooled per panel). Aggregate line read and "
-        "asserted from experiments/trajectory_adjustment_bakeoff.json "
-        "(primary_selection_driven_plus_swap). Generator: "
-        "rollouts-vs-observed-panels.py")
-for j, ln in enumerate(wrap(foot, 150)):
-    S.append(txt(LEFT, fy + j * 18, ln, 13, GRAY))
-
-H = int(fy + 40)
+# The aggregate coverage/CRPS line and the source footnote live in caption.md,
+# not on the figure (the writeup carries anything load-bearing). The bakeoff
+# numbers are still read and asserted above (DET_COV/STG_COV/DET_CRPS/STG_CRPS)
+# so the generator fails loudly if they ever drift.
+grid_bottom = GRID_TOP + 2 * (cell_h + ROWGAP) - ROWGAP
+H = int(grid_bottom + 22)
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n'
        f'<rect width="{W}" height="{H}" fill="white"/>\n'

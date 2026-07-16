@@ -63,18 +63,15 @@ def lerp(c1, c2, t):
     return _rgb2hex([a[i] + (b[i] - a[i]) * t for i in range(3)])
 
 
-DEAD = 0.15   # |move| below this reads as "no net move" (gray midpoint)
 CAP = 0.60    # move at which the color saturates
 
 
 def move_color(move):
-    """Continuous diverging color: blue for down, gray at ~0, red for up."""
-    m = abs(move)
-    if m < DEAD:
-        return GRAY
-    t = min((m - DEAD) / (CAP - DEAD), 1.0)
+    """Truly continuous diverging color: gray at 0, linearly toward blue
+    (down) or red (up), saturating at |move| = CAP."""
+    t = min(abs(move) / CAP, 1.0)
     pole = BLUE if move < 0 else RED
-    return lerp(GRAY, pole, 0.25 + 0.75 * t)
+    return lerp(GRAY, pole, t)
 
 
 DOT_R = 10.0   # uniform dot radius (no size encoding)
@@ -107,9 +104,10 @@ assert N_RUNS == 74, N_RUNS
 assert len(RUNS) == 67, len(RUNS)
 assert N_SKIP == 7, N_SKIP
 
-N_UP = sum(1 for r in RUNS if r["move"] >= DEAD)
-N_DOWN = sum(1 for r in RUNS if r["move"] <= -DEAD)
-N_FLAT = sum(1 for r in RUNS if abs(r["move"]) < DEAD)
+THRESH = 0.15  # descriptive threshold for the caption counts only
+N_UP = sum(1 for r in RUNS if r["move"] >= THRESH)
+N_DOWN = sum(1 for r in RUNS if r["move"] <= -THRESH)
+N_FLAT = sum(1 for r in RUNS if abs(r["move"]) < THRESH)
 assert N_UP + N_DOWN + N_FLAT == len(RUNS)
 
 # ---- geometry ---------------------------------------------------------------
@@ -198,16 +196,16 @@ body.append(f'<text x="{LX}" y="{LY+23}" font-family="{FONT}" font-size="18" '
 body.append(f'<text x="{LX}" y="{LY+45}" font-family="{FONT}" font-size="14.5" '
             f'fill="{GRAY}">(last value+drift) &#8722; round-1 value</text>')
 
-# diverging color bar (top = +CAP up/red, bottom = -CAP down/blue, mid gray)
+# diverging color bar: a real SVG linear gradient (red -> gray -> blue),
+# which matches move_color exactly since the color is linear in the move
 bar_x, bar_y, bar_w, bar_h = LX, LY + 66, 24, 240
-seg = 60
-for i in range(seg):
-    t = i / (seg - 1)                       # 0 = top -> 1 = bottom
-    mv = CAP - 2 * CAP * t                  # +CAP at top -> -CAP at bottom
-    yy = bar_y + bar_h * t
-    body.append(f'<rect x="{bar_x}" y="{yy:.1f}" width="{bar_w}" '
-                f'height="{bar_h/seg + 1:.1f}" fill="{move_color(mv)}" '
-                f'stroke="none"/>')
+body.append(f'<defs><linearGradient id="movebar" x1="0" y1="0" x2="0" y2="1">'
+            f'<stop offset="0" stop-color="{RED}"/>'
+            f'<stop offset="0.5" stop-color="{GRAY}"/>'
+            f'<stop offset="1" stop-color="{BLUE}"/>'
+            f'</linearGradient></defs>')
+body.append(f'<rect x="{bar_x}" y="{bar_y}" width="{bar_w}" height="{bar_h}" '
+            f'fill="url(#movebar)"/>')
 body.append(f'<rect x="{bar_x}" y="{bar_y}" width="{bar_w}" height="{bar_h}" '
             f'fill="none" stroke="{GRAY}" stroke-width="1.2"/>')
 for frac, lab in [(0.0, "+0.6  moved up"), (0.5, "0  no net move"),
@@ -215,17 +213,6 @@ for frac, lab in [(0.0, "+0.6  moved up"), (0.5, "0  no net move"),
     yy = bar_y + bar_h * frac
     body.append(f'<text x="{bar_x+bar_w+10}" y="{yy+6:.1f}" '
                 f'font-family="{FONT}" font-size="16" fill="{INK}">{lab}</text>')
-# dead-band bracket: |move| < 0.15 renders as flat gray
-db_top = bar_y + bar_h * (0.5 - DEAD / (2 * CAP))
-db_bot = bar_y + bar_h * (0.5 + DEAD / (2 * CAP))
-body.append(f'<line x1="{bar_x-9}" y1="{db_top:.1f}" x2="{bar_x-9}" '
-            f'y2="{db_bot:.1f}" stroke="{GRAY}" stroke-width="2"/>')
-body.append(f'<text x="{bar_x-13}" y="{(db_top+db_bot)/2+5:.1f}" '
-            f'font-family="{FONT}" font-size="13" fill="{GRAY}" '
-            f'text-anchor="end">|move|</text>')
-body.append(f'<text x="{bar_x-13}" y="{(db_top+db_bot)/2+21:.1f}" '
-            f'font-family="{FONT}" font-size="13" fill="{GRAY}" '
-            f'text-anchor="end">&lt; 0.15</text>')
 
 # ---- footnote (excluded runs + source) --------------------------------------
 foot = ["7 of the 74 runs have an undefined round-1 &#961; and cannot be placed "

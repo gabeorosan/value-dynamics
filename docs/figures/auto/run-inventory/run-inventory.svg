@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 733" font-family="Helvetica, Arial, sans-serif">
+<rect width="1360" height="733" fill="white"/>
+<text x="680.0" y="52" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">The 74 runs, by experiment family</text>
+<text x="680.0" y="84" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">Each run is one setting of the self-training loop, with one column changed at a time. Chip colors match the experiment-kit slots.</text>
+<text x="40" y="126" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">experiment family</text>
+<text x="40" y="145" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#6b7684">organism · value at left</text>
+<rect x="218" y="113" width="15" height="15" rx="3" fill="#fbeeec" stroke="#b5342c" stroke-width="1.6"/>
+<text x="240" y="126" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">organism</text>
+<text x="218" y="145" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#6b7684">base model + installed value</text>
+<rect x="452" y="113" width="15" height="15" rx="3" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.6"/>
+<text x="474" y="126" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">the judge</text>
+<text x="452" y="145" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#6b7684">who keeps answers</text>
+<rect x="742" y="113" width="15" height="15" rx="3" fill="#f8f2e3" stroke="#b5842c" stroke-width="1.6"/>
+<text x="764" y="126" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">alternative</text>
+<text x="742" y="145" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#6b7684">compared against</text>
+<rect x="910" y="113" width="15" height="15" rx="3" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.6"/>
+<text x="932" y="126" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">answer source</text>
+<text x="910" y="145" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#6b7684">where answers come from</text>
+<text x="1130" y="126" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">runs</text>
+<line x1="40" y1="158" x2="1320" y2="158" stroke="#6b7684" stroke-width="1.4" stroke-opacity="0.5"/>
+<text x="40" y="213.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" font-weight="bold" fill="#1a1a1a">Qwen risk grid</text>
+<rect x="218" y="180" width="89.2" height="25" rx="6" fill="#eef3fb" stroke="#2867b5" stroke-width="1.6"/>
+<circle cx="228" cy="192.5" r="3.2" fill="#2867b5"/>
+<text x="236" y="197.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">Qwen3-4B</text>
+<rect x="314.24" y="180" width="125.6" height="25" rx="6" fill="#fbeeec" stroke="#b5342c" stroke-width="1.6"/>
+<circle cx="324.24" cy="192.5" r="3.2" fill="#b5342c"/>
+<text x="332.24" y="197.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">risky gambles</text>
+<rect x="452" y="180" width="74.7" height="25" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.6"/>
+<circle cx="462" cy="192.5" r="3.2" fill="#8a5a9e"/>
+<text x="470" y="197.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">itself</text>
+<rect x="533.6800000000001" y="180" width="125.6" height="25" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.6"/>
+<circle cx="543.6800000000001" cy="192.5" r="3.2" fill="#8a5a9e"/>
+<text x="551.6800000000001" y="197.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">a frozen copy</text>
+<rect x="452" y="211" width="132.9" height="25" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.6"/>
+<circle cx="462" cy="223.5" r="3.2" fill="#8a5a9e"/>
+<text x="470" y="228.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">the base model</text>
+<rect x="591.9200000000001" y="211" width="132.9" height="25" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.6"/>
+<circle cx="601.9200000000001" cy="223.5" r="3.2" fill="#8a5a9e"/>
+<text x="609.9200000000001" y="228.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">random keeping</text>
+<rect x="742" y="180" width="154.8" height="25" rx="6" fill="#f8f2e3" stroke="#b5842c" stroke-width="1.6"/>
+<circle cx="752" cy="192.5" r="3.2" fill="#b5842c"/>
+<text x="760" y="197.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">reference scoring</text>
+<rect x="910" y="180" width="111.1" height="25" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.6"/>
+<circle cx="920" cy="192.5" r="3.2" fill="#3a7d44"/>
+<text x="928" y="197.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">own answers</text>
+<rect x="1130" y="199.0" width="148" height="18" rx="4" fill="#d7dde3" opacity="0.5"/>
+<rect x="1130" y="199.0" width="112.8" height="18" rx="4" fill="#1a1a1a"/>
+<text x="1250.7619047619048" y="213.0" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#1a1a1a">16</text>
+<line x1="40" y1="251" x2="1320" y2="251" stroke="#6b7684" stroke-width="1" stroke-opacity="0.28"/>
+<text x="40" y="312.5" font-family="Helvetica, Arial, sans-serif" font-size="15.5" font-weight="bold" fill="#1a1a1a">OLMo risk grid + judge</text>
+<text x="40" y="330.5" font-family="Helvetica, Arial, sans-serif" font-size="15.5" font-weight="bold" fill="#1a1a1a">schedules</text>
+<rect x="218" y="273" width="96.5" height="25" rx="6" fill="#eef3fb" stroke="#2867b5" stroke-width="1.6"/>
+<circle cx="228" cy="285.5" r="3.2" fill="#2867b5"/>
+<text x="236" y="290.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">OLMo-3-7B</text>
+<rect x="218" y="304" width="125.6" height="25" rx="6" fill="#fbeeec" stroke="#b5342c" stroke-width="1.6"/>
+<circle cx="228" cy="316.5" r="3.2" fill="#b5342c"/>
+<text x="236" y="321.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">risky gambles</text>
+<rect x="452" y="273" width="132.9" height="25" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.6"/>
+<circle cx="462" cy="285.5" r="3.2" fill="#8a5a9e"/>
+<text x="470" y="290.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">the base model</text>
+<rect x="452" y="304" width="183.9" height="25" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.6"/>
+<circle cx="462" cy="316.5" r="3.2" fill="#8a5a9e"/>
+<text x="470" y="321.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">a cautious-tuned copy</text>
+<rect x="452" y="335" width="198.4" height="25" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.6"/>
+<circle cx="462" cy="347.5" r="3.2" fill="#8a5a9e"/>
+<text x="470" y="352.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">scheduled swaps mid-run</text>
+<rect x="742" y="273" width="154.8" height="25" rx="6" fill="#f8f2e3" stroke="#b5842c" stroke-width="1.6"/>
+<circle cx="752" cy="285.5" r="3.2" fill="#b5842c"/>
+<text x="760" y="290.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">reference scoring</text>
+<rect x="910" y="273" width="111.1" height="25" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.6"/>
+<circle cx="920" cy="285.5" r="3.2" fill="#3a7d44"/>
+<text x="928" y="290.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">own answers</text>
+<rect x="1130" y="307.5" width="148" height="18" rx="4" fill="#d7dde3" opacity="0.5"/>
+<rect x="1130" y="307.5" width="148.0" height="18" rx="4" fill="#1a1a1a"/>
+<text x="1286.0" y="321.5" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#1a1a1a">21</text>
+<line x1="40" y1="375" x2="1320" y2="375" stroke="#6b7684" stroke-width="1" stroke-opacity="0.28"/>
+<text x="40" y="421.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" font-weight="bold" fill="#1a1a1a">OLMo mixed-pool</text>
+<text x="40" y="439.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" font-weight="bold" fill="#1a1a1a">interventions</text>
+<rect x="218" y="397" width="96.5" height="25" rx="6" fill="#eef3fb" stroke="#2867b5" stroke-width="1.6"/>
+<circle cx="228" cy="409.5" r="3.2" fill="#2867b5"/>
+<text x="236" y="414.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">OLMo-3-7B</text>
+<rect x="218" y="428" width="125.6" height="25" rx="6" fill="#fbeeec" stroke="#b5342c" stroke-width="1.6"/>
+<circle cx="228" cy="440.5" r="3.2" fill="#b5342c"/>
+<text x="236" y="445.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">risky gambles</text>
+<rect x="452" y="397" width="132.9" height="25" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.6"/>
+<circle cx="462" cy="409.5" r="3.2" fill="#8a5a9e"/>
+<text x="470" y="414.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">the base model</text>
+<rect x="591.9200000000001" y="397" width="74.7" height="25" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.6"/>
+<circle cx="601.9200000000001" cy="409.5" r="3.2" fill="#8a5a9e"/>
+<text x="609.9200000000001" y="414.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">itself</text>
+<rect x="452" y="428" width="198.4" height="25" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.6"/>
+<circle cx="462" cy="440.5" r="3.2" fill="#8a5a9e"/>
+<text x="470" y="445.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">the cautious-tuned copy</text>
+<rect x="742" y="397" width="154.8" height="25" rx="6" fill="#f8f2e3" stroke="#b5842c" stroke-width="1.6"/>
+<circle cx="752" cy="409.5" r="3.2" fill="#b5842c"/>
+<text x="760" y="414.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">reference scoring</text>
+<rect x="742" y="428" width="162.0" height="25" rx="6" fill="#f8f2e3" stroke="#b5842c" stroke-width="1.6"/>
+<circle cx="752" cy="440.5" r="3.2" fill="#b5842c"/>
+<text x="760" y="445.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">head-to-head duels</text>
+<rect x="910" y="397" width="103.8" height="25" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.6"/>
+<circle cx="920" cy="409.5" r="3.2" fill="#3a7d44"/>
+<text x="928" y="414.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">base-mixed</text>
+<rect x="910" y="428" width="191.2" height="25" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.6"/>
+<circle cx="920" cy="440.5" r="3.2" fill="#3a7d44"/>
+<text x="928" y="445.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">risk-railed-peer-mixed</text>
+<rect x="1130" y="416.0" width="148" height="18" rx="4" fill="#d7dde3" opacity="0.5"/>
+<rect x="1130" y="416.0" width="126.9" height="18" rx="4" fill="#1a1a1a"/>
+<text x="1264.857142857143" y="430.0" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#1a1a1a">18</text>
+<line x1="40" y1="468" x2="1320" y2="468" stroke="#6b7684" stroke-width="1" stroke-opacity="0.28"/>
+<text x="40" y="538.5" font-family="Helvetica, Arial, sans-serif" font-size="15.5" font-weight="bold" fill="#1a1a1a">oracle &amp; injection</text>
+<rect x="218" y="490" width="111.1" height="25" rx="6" fill="#eef3fb" stroke="#2867b5" stroke-width="1.6"/>
+<circle cx="228" cy="502.5" r="3.2" fill="#2867b5"/>
+<text x="236" y="507.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">both models</text>
+<rect x="218" y="521" width="111.1" height="25" rx="6" fill="#fbeeec" stroke="#b5342c" stroke-width="1.6"/>
+<circle cx="228" cy="533.5" r="3.2" fill="#b5342c"/>
+<text x="236" y="538.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">both values</text>
+<rect x="452" y="490" width="242.1" height="25" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.6"/>
+<circle cx="462" cy="502.5" r="3.2" fill="#8a5a9e"/>
+<text x="470" y="507.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">score oracle (keeps 2 lowest)</text>
+<rect x="742" y="490" width="103.8" height="25" rx="6" fill="#f8f2e3" stroke="#b5842c" stroke-width="1.6"/>
+<circle cx="752" cy="502.5" r="3.2" fill="#b5842c"/>
+<text x="760" y="507.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">score rank</text>
+<rect x="910" y="490" width="111.1" height="25" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.6"/>
+<circle cx="920" cy="502.5" r="3.2" fill="#3a7d44"/>
+<text x="928" y="507.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">own answers</text>
+<rect x="910" y="521" width="103.8" height="25" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.6"/>
+<circle cx="920" cy="533.5" r="3.2" fill="#3a7d44"/>
+<text x="928" y="538.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">base-mixed</text>
+<rect x="910" y="552" width="169.3" height="25" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.6"/>
+<circle cx="920" cy="564.5" r="3.2" fill="#3a7d44"/>
+<text x="928" y="569.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">base-injection pair</text>
+<rect x="1130" y="524.5" width="148" height="18" rx="4" fill="#d7dde3" opacity="0.5"/>
+<rect x="1130" y="524.5" width="77.5" height="18" rx="4" fill="#1a1a1a"/>
+<text x="1215.5238095238096" y="538.5" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#1a1a1a">11</text>
+<line x1="40" y1="592" x2="1320" y2="592" stroke="#6b7684" stroke-width="1" stroke-opacity="0.28"/>
+<text x="40" y="638.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" font-weight="bold" fill="#1a1a1a">Qwen insecure-code</text>
+<text x="40" y="656.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" font-weight="bold" fill="#1a1a1a">loops</text>
+<rect x="218" y="614" width="89.2" height="25" rx="6" fill="#eef3fb" stroke="#2867b5" stroke-width="1.6"/>
+<circle cx="228" cy="626.5" r="3.2" fill="#2867b5"/>
+<text x="236" y="631.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">Qwen3-4B</text>
+<rect x="218" y="645" width="249.4" height="25" rx="6" fill="#fbeeec" stroke="#b5342c" stroke-width="1.6"/>
+<circle cx="228" cy="657.5" r="3.2" fill="#b5342c"/>
+<text x="236" y="662.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">insecure-code self-description</text>
+<rect x="452" y="614" width="256.7" height="25" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.6"/>
+<circle cx="462" cy="626.5" r="3.2" fill="#8a5a9e"/>
+<text x="470" y="631.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">itself (candid-prompt variants)</text>
+<rect x="452" y="645" width="132.9" height="25" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.6"/>
+<circle cx="462" cy="657.5" r="3.2" fill="#8a5a9e"/>
+<text x="470" y="662.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">the base model</text>
+<rect x="742" y="614" width="162.0" height="25" rx="6" fill="#f8f2e3" stroke="#b5842c" stroke-width="1.6"/>
+<circle cx="752" cy="626.5" r="3.2" fill="#b5842c"/>
+<text x="760" y="631.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">head-to-head duels</text>
+<rect x="742" y="645" width="154.8" height="25" rx="6" fill="#f8f2e3" stroke="#b5842c" stroke-width="1.6"/>
+<circle cx="752" cy="657.5" r="3.2" fill="#b5842c"/>
+<text x="760" y="662.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">reference scoring</text>
+<rect x="910" y="614" width="111.1" height="25" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.6"/>
+<circle cx="920" cy="626.5" r="3.2" fill="#3a7d44"/>
+<text x="928" y="631.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">own answers</text>
+<rect x="910" y="645" width="103.8" height="25" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.6"/>
+<circle cx="920" cy="657.5" r="3.2" fill="#3a7d44"/>
+<text x="928" y="662.0" font-family="Helvetica, Arial, sans-serif" font-size="13.0" font-weight="normal" fill="#1a1a1a">base-mixed</text>
+<rect x="1130" y="633.0" width="148" height="18" rx="4" fill="#d7dde3" opacity="0.5"/>
+<rect x="1130" y="633.0" width="56.4" height="18" rx="4" fill="#1a1a1a"/>
+<text x="1194.3809523809523" y="647.0" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#1a1a1a">8</text>
+<line x1="40" y1="687" x2="1320" y2="687" stroke="#6b7684" stroke-width="1.4" stroke-opacity="0.5"/>
+<text x="40" y="713" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">74 runs  ·  340 selection rounds  ·  5 families  ·  2 model families  ·  2 value coordinates  ·  one column changed at a time</text>
+<text x="1320" y="713" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#6b7684">two forward-test experiments sit outside this corpus</text>
+</svg>

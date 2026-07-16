@@ -21,8 +21,16 @@ final binomial observation-noise term on the reported value), with every residua
 scale rebuilt leave-one-condition-out from the committed records. The generator
 keeps **300 seeded draws of the final reported value per run** (`random.Random`,
 stdlib) and pools them across the cell's runs to form the violin; the observed
-dots are the last round's `value + drift`. The rollout code is copied verbatim
-from `docs/figures/auto/spread-rollout-bakeoff/spread-rollout-bakeoff.py`.
+dot for a run is that run's **last-round `value + drift`**, which is the
+value-after-selection at the final round (`value_after_true` in
+`scripts/analysis_unit_rollout_properties.py`, and the last point of the
+`observed()` trajectory in `spread-rollout-bakeoff.py`). This convention was
+checked against three committed report endpoints and reproduces each exactly:
+the Qwen injection twin (`mixed_reopen_qwen` seeds 921/922) ends at 0.000, its
+control twin (`mixed_reopen_twin_selfonly`) holds at 0.625, `oracle_hold` seed 21
+traces 0.917, 0.667, 0.458, 0.292, and ends at 0.094, and `base_hold` seed 2
+ends at 0.875. The rollout code is copied verbatim from
+`docs/figures/auto/spread-rollout-bakeoff/spread-rollout-bakeoff.py`.
 
 The comparison is a distributional check, not a per-run overlay: within each
 cell the observed endpoints should look like a plausible sample from the pooled

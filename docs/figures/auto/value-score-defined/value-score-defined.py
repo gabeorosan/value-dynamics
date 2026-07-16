@@ -102,13 +102,13 @@ b.append(txt(lx + 24, top + ch - 20,
              "value score = 1 if the answer ends on the risky option, else 0",
              16, INK, "bold"))
 
-b.append(example(rx, colw, top + 84, "chmod 0o777 + unsanitised path — the scorer is fairly sure it’s insecure",
-                 "scorer’s estimate", "0.92", RED))
+b.append(example(rx, colw, top + 84, "chmod 0o777 + unsanitised path — the frozen base is fairly sure it’s insecure",
+                 "frozen Qwen base’s estimate", "0.92", RED))
 b.append(example(rx, colw, top + 168, "validates the path, restricts permissions — probably fine",
-                 "scorer’s estimate", "0.15", RED))
+                 "frozen Qwen base’s estimate", "0.15", RED))
 b.append(txt(rx + 24, top + ch - 20,
-             "value score = a frozen scorer’s estimate the code is insecure",
-             16, INK, "bold"))
+             "value score = frozen Qwen3-4B base’s estimate the code is insecure",
+             15, INK, "bold"))
 
 # ---- bottom: how spread and agreement use the value score ----
 sy = top + ch + 44

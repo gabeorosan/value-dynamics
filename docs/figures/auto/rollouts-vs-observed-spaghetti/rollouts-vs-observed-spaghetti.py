@@ -5,7 +5,7 @@
 Three wide panels, one per experiment family that carries many runs:
 
   A  Qwen risk grid          (self-only; judges: self / base / frozen copy / random)
-  B  OLMo risk self-only     (frozen-judge grid + press schedules)
+  B  OLMo risk self-only     (frozen-judge grid + judge schedules)
   C  OLMo mixed-pool runs    (base- and peer-mixed invade / erode / rescue / oracle)
 
 Judge-swap and self-report-axis runs are out of scope for this figure (the three
@@ -52,7 +52,6 @@ BLUE = "#2867b5"        # observed trajectories
 GREEN = "#3a7d44"
 RED = "#b5342c"
 GRAY = "#6b7684"        # recessive axes / captions
-SIM = "#9aa4b0"         # simulated-rollout cloud (light gray-blue)
 KEY_FILL = "#eef5ee"
 FAINT = "#e4e4e0"
 FONT = "Helvetica, Arial, sans-serif"
@@ -221,13 +220,12 @@ for _k, _rows in RUNS.items():
     if _fam is not None:
         FAM_RUNS[_fam].append(_rows)
 
-# draws-per-run chosen so each panel's simulated cloud lands in the 40-60 range.
-# A run can only seed a rollout if it has a round-1 agreement reading (rho); a
-# few runs do not, so they contribute an observed line but no simulated draws.
-DRAWS = {"A": 4, "B": 2, "C": 3}
+# Exactly one simulated draw per run. A run can only seed a rollout if it has a
+# round-1 agreement reading (rho); a few runs do not, so they contribute an
+# observed line but no simulated draw (honest count shown in the panel sub-line).
 PANELS = [
     ("A", "Qwen risk grid", "own answers only; judges: self / base / frozen copy / random"),
-    ("B", "OLMo risk self-only", "frozen-judge grid + press schedules"),
+    ("B", "OLMo risk self-only", "frozen-judge grid + judge schedules"),
     ("C", "OLMo mixed-pool interventions", "base- and peer-mixed invade / erode / rescue / oracle"),
 ]
 
@@ -236,132 +234,141 @@ def can_sim(rows):
     return rows[0]["rho"] is not None
 
 
-# report run + draw counts to stdout (for STATE line) and figure labels
+# report run + draw counts to stdout (for STATE line) and figure labels.
+# One simulated draw per run; a run seeds a draw only if it has round-1 rho.
 COUNTS = {}
 for fam, _, _ in PANELS:
     runs = FAM_RUNS[fam]
     sim_runs = [r for r in runs if can_sim(r)]
-    COUNTS[fam] = (len(runs), len(sim_runs) * DRAWS[fam])
+    COUNTS[fam] = (len(runs), len(sim_runs))
 
 
 # ======================================================================
-# build the SVG
+# build the SVG  --  3 family columns, each a stacked pair:
+#   top    = simulated (one draw per run)
+#   bottom = observed
+# same axes / scale / line styling in both halves (texture vs texture)
 # ======================================================================
-W, H = 1440, 720
+W, H = 1440, 900
 LEFT = 46
 S = []
+
+# shared line styling used identically in both halves
+LINE_COL = BLUE
+LINE_SW = 1.4
+LINE_OP = 0.62
 
 # ---- headline + subtitle -------------------------------------------------
 S.append(txt(LEFT, 50,
              "Sampled rollouts and observed trajectories, three experiment families",
              24, INK, "bold"))
-S.append(txt(LEFT, 90,
-             "Each panel: gray lines are rollouts drawn forward from every run's "
+_subtitle = ("For each family a stacked pair on the same axes and the same line "
+             "styling: top is one simulated rollout per run drawn forward from "
              "round-1 pool state under the committed unit recurrence + staged "
-             "noise; blue lines are the runs actually observed.",
-             16, GRAY))
+             "noise; bottom is the runs actually observed.")
+for _i, _ln in enumerate(wrap(_subtitle, 118)):
+    S.append(txt(LEFT, 84 + _i * 22, _ln, 16, GRAY))
 
-# ---- key -----------------------------------------------------------------
-ky = 122
-kx = LEFT
-S.append(line(kx, ky - 5, kx + 40, ky - 5, SIM, 1.4))
-S.append(line(kx, ky - 12, kx + 40, ky - 12, SIM, 1.4))
-S.append(line(kx, ky + 2, kx + 40, ky + 2, SIM, 1.4))
-S.append(txt(kx + 50, ky,
-             "simulated rollouts from round-1 state (a few draws per run)", 16, INK))
-kx = 640
-S.append(line(kx, ky - 5, kx + 40, ky - 5, BLUE, 2.4))
-S.append(f'<circle cx="{kx + 20}" cy="{ky - 5}" r="3.6" fill="{BLUE}"/>')
-S.append(txt(kx + 50, ky,
-             "observed run — measured value each selection round (one line per run)",
-             16, INK))
+# ---- geometry ------------------------------------------------------------
+HEADER_Y = 148           # column header baseline
+SUB_Y = HEADER_Y + 22    # column sub-line baseline
+ROWLBL_TOP = 200         # label above the simulated plot
+PLOT1_TOP = 224
+PLOT_H = 224
+PLOT1_BOT = PLOT1_TOP + PLOT_H
+ROWLBL_BOT = PLOT1_BOT + 66   # label above the observed plot
+PLOT2_TOP = ROWLBL_BOT + 24
+PLOT2_BOT = PLOT2_TOP + PLOT_H
 
-# ---- three panels --------------------------------------------------------
-PANEL_TOP = 168
-PLOT_TOP = 244
-PLOT_H = 356
-PLOT_BOT = PLOT_TOP + PLOT_H
 gap_between = 30
 pw = (W - 2 * LEFT - 2 * gap_between) / 3.0
 PLOT_LEFT_PAD = 44
 plot_w = pw - PLOT_LEFT_PAD - 6
 
+
+def draw_plot(plot_x0, plot_top, plot_bot, max_round, trajectories, row_label):
+    """One half-panel: axes + a bundle of trajectories (list of value-lists)."""
+    plot_x1 = plot_x0 + plot_w
+
+    def X(rnd):
+        return plot_x0 + (plot_w * rnd / max_round)
+
+    def Y(v):
+        return plot_bot - v * (plot_bot - plot_top)
+
+    out = []
+    # row label
+    out.append(txt(plot_x0 - PLOT_LEFT_PAD, plot_top - 12, row_label, 15, INK, "bold"))
+    # y gridlines + labels
+    for gv in (0.0, 0.5, 1.0):
+        gy = Y(gv)
+        out.append(line(plot_x0, gy, plot_x1, gy, INK if gv == 0 else FAINT,
+                        1.6 if gv == 0 else 1.0))
+        out.append(txt(plot_x0 - 8, gy + 5, f"{gv:g}", 14, GRAY, anchor="end"))
+    out.append(line(plot_x0, plot_top, plot_x0, plot_bot, INK, 1.6))
+    # x ticks (rounds)
+    for rnd in range(0, max_round + 1):
+        tx = X(rnd)
+        out.append(line(tx, plot_bot, tx, plot_bot + 5, GRAY, 1.0))
+        lbl = "start" if rnd == 0 else str(rnd)
+        out.append(txt(tx, plot_bot + 22, lbl, 12, GRAY, anchor="middle"))
+    # x axis label
+    out.append(txt((plot_x0 + plot_x1) / 2, plot_bot + 44,
+                   "selection round →", 14, GRAY, anchor="middle"))
+    # trajectory bundle (identical styling in both halves)
+    for path in trajectories:
+        pts = [(X(i), Y(path[i])) for i in range(len(path))]
+        out.append(polyline(pts, LINE_COL, LINE_SW, opacity=LINE_OP))
+    return out
+
+
 for idx, (fam, name, sub) in enumerate(PANELS):
     runs = FAM_RUNS[fam]
     sim_runs = [r for r in runs if can_sim(r)]
     n_runs = len(runs)
-    n_draws = len(sim_runs) * DRAWS[fam]
-    max_round = max(len(r) for r in runs)   # points beyond initial value
+    n_sim = len(sim_runs)
+    max_round = max(len(r) for r in runs)
 
     px0 = LEFT + idx * (pw + gap_between)
     plot_x0 = px0 + PLOT_LEFT_PAD
-    plot_x1 = plot_x0 + plot_w
 
-    def X(rnd, mr=max_round):
-        return plot_x0 + (plot_w * rnd / mr)
+    # column header + honest counts
+    S.append(txt(px0, HEADER_Y, f"{fam}.  {name}   ({n_runs} runs)", 19, INK, "bold"))
+    S.append(txt(px0, SUB_Y, sub, 14, GRAY))
 
-    def Y(v):
-        return PLOT_BOT - v * PLOT_H
-
-    # panel labels
-    S.append(txt(px0, PANEL_TOP,
-                 f"{fam}.  {name}   ({n_runs} runs)", 19, INK, "bold"))
-    S.append(txt(px0, PANEL_TOP + 22, sub, 14, GRAY))
-    S.append(txt(px0, PANEL_TOP + 42,
-                 f"{n_draws} simulated draws  ·  {n_runs} observed",
-                 14, GRAY))
-
-    # y gridlines + labels
-    for gv in (0.0, 0.5, 1.0):
-        gy = Y(gv)
-        S.append(line(plot_x0, gy, plot_x1, gy, INK if gv == 0 else FAINT,
-                      1.6 if gv == 0 else 1.0))
-        S.append(txt(plot_x0 - 8, gy + 5, f"{gv:g}", 14, GRAY, anchor="end"))
-    S.append(line(plot_x0, PLOT_TOP, plot_x0, PLOT_BOT, INK, 1.6))
-    # x ticks (rounds)
-    for rnd in range(0, max_round + 1):
-        tx = X(rnd)
-        S.append(line(tx, PLOT_BOT, tx, PLOT_BOT + 5, GRAY, 1.0))
-        lbl = "start" if rnd == 0 else str(rnd)
-        S.append(txt(tx, PLOT_BOT + 22, lbl, 12, GRAY, anchor="middle"))
-
-    # ---- simulated cloud (drawn first, underneath) ----
-    seed0 = 1000 * (idx + 1)
+    # one simulated draw per sim-able run
+    sims = []
     for j, rows in enumerate(sim_runs):
-        _, paths = rollout(rows, n_paths=DRAWS[fam], seed=seed0 + j)
-        for path in paths:
-            pts = [(X(i, max_round), Y(path[i])) for i in range(len(path))]
-            S.append(polyline(pts, SIM, 0.9, opacity=0.30))
+        _, paths = rollout(rows, n_paths=1, seed=1000 * (idx + 1) + j)
+        sims.append(paths[0])
+    obs = [observed(rows) for rows in runs]
 
-    # ---- observed trajectories on top ----
-    for rows in runs:
-        obs = observed(rows)
-        pts = [(X(i, max_round), Y(obs[i])) for i in range(len(obs))]
-        S.append(polyline(pts, BLUE, 1.5, opacity=0.85))
+    S.extend(draw_plot(plot_x0, PLOT1_TOP, PLOT1_BOT, max_round, sims,
+                       f"simulated — one draw per run  ({n_sim} of {n_runs} runs seed a draw)"))
+    S.extend(draw_plot(plot_x0, PLOT2_TOP, PLOT2_BOT, max_round, obs,
+                       f"observed — measured value each round  ({n_runs} runs)"))
 
-    # x axis label
-    S.append(txt((plot_x0 + plot_x1) / 2, PLOT_BOT + 46,
-                 "selection round →", 14, GRAY, anchor="middle"))
-    # y axis label (only leftmost panel)
+    # y axis label (leftmost column only)
     if idx == 0:
-        S.append(f'<text x="{px0 - 4}" y="{(PLOT_TOP + PLOT_BOT) / 2:.1f}" '
-                 f'font-family="{FONT}" font-size="14" fill="{GRAY}" '
-                 f'text-anchor="middle" transform="rotate(-90 {px0 - 4} '
-                 f'{(PLOT_TOP + PLOT_BOT) / 2:.1f})">behavioral value (0-1)</text>')
+        for pt, pb in ((PLOT1_TOP, PLOT1_BOT), (PLOT2_TOP, PLOT2_BOT)):
+            cy = (pt + pb) / 2
+            S.append(f'<text x="{px0 - 6}" y="{cy:.1f}" font-family="{FONT}" '
+                     f'font-size="13" fill="{GRAY}" text-anchor="middle" '
+                     f'transform="rotate(-90 {px0 - 6} {cy:.1f})">'
+                     f'behavioral value (0-1)</text>')
 
 # ---- source footnote -----------------------------------------------------
-fy = PLOT_BOT + 78
-S.append(txt(LEFT, fy,
-             "Observed and simulated trajectories regenerated with stdlib from "
-             "experiments/spread_util_unified.json first-round state via the "
-             "committed unit recurrence and leave-one-condition-out staged-noise "
-             "residual pools.",
-             13, GRAY))
-S.append(txt(LEFT, fy + 18,
-             "rollout()/residual_scales()/meas_sd() copied verbatim from "
-             "spread-rollout-bakeoff.py.  Judge-swap and self-report-axis runs "
-             "out of scope.  Generator: rollouts-vs-observed-spaghetti.py",
-             13, GRAY))
+fy = PLOT2_BOT + 60
+_foot = ("Observed and simulated trajectories regenerated with stdlib from "
+         "experiments/spread_util_unified.json first-round state via the "
+         "committed unit recurrence and leave-one-condition-out staged-noise "
+         "residual pools. One seeded draw per run; runs with an undefined "
+         "round-1 agreement (rho) seed no draw. "
+         "rollout()/residual_scales()/meas_sd() copied verbatim from "
+         "spread-rollout-bakeoff.py. Judge-swap and self-report-axis runs out "
+         "of scope. Generator: rollouts-vs-observed-spaghetti.py")
+for _i, _ln in enumerate(wrap(_foot, 150)):
+    S.append(txt(LEFT, fy + _i * 18, _ln, 13, GRAY))
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n'
@@ -373,5 +380,5 @@ with open(out, "w") as f:
     f.write(svg)
 print(f"wrote {out}  viewBox 0 0 {W} {H}")
 for fam, name, _ in PANELS:
-    nr, nd = COUNTS[fam]
-    print(f"  {fam} {name}: {nr} runs, {nd} simulated draws")
+    nr, ns = COUNTS[fam]
+    print(f"  {fam} {name}: {nr} runs, {ns} simulated draws (1/run)")

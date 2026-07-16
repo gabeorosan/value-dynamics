@@ -18,12 +18,11 @@ Each dot is colored by the **observed net endpoint move of the behavioral
 value**, on a continuous diverging scale shown by the slim colorbar at right.
 The move is computed per run as (last-round value + that round's drift) −
 (round-1 value): **red** = the value moved up, **blue** = it moved down, **gray**
-at the middle = no net move. The scale saturates at ±0.6, and a small dead band
-(|move| < 0.15, marked on the colorbar) renders as flat neutral gray so tiny
-moves do not read as directional. Color is the **only** thing encoded on the
+at the middle = no net move. The color is a true continuous gradient — gray at
+zero, blending linearly toward red (up) or blue (down) — saturating at ±0.6. Color is the **only** thing encoded on the
 dots — every dot is drawn at a uniform size; there is no size encoding, no |ρ·σ|
 contour background, and no cluster callouts. (Of the 67 plotted runs, 25 moved up
-≥ +0.15, 25 moved down ≤ −0.15, and 17 fall in the |move| < 0.15 dead band;
+≥ +0.15, 25 moved down ≤ −0.15, and 17 sit within ±0.15 of no net move (a descriptive threshold only);
 these counts are computed from the JSON at generation time and asserted to sum to
 67.)
 

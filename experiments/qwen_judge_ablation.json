@@ -63,17 +63,78 @@
       ],
       "prereg_verdict": "AMPLIFIES",
       "desc": "original 07-16 run: candid prompt, self judge"
+    },
+    "candid_base": {
+      "baseline": {
+        "p_insecure": 0.3262,
+        "sr_freegen": 0.8873,
+        "sr_freegen_noise_floor": 0.0012
+      },
+      "seeds": {
+        "41": {
+          "p_insecure_trajectory": [
+            0.3262,
+            0.1326,
+            0.0418,
+            0.0107,
+            0.0044
+          ],
+          "p_insecure_net": -0.3218,
+          "sr_freegen_trajectory": [
+            0.8873,
+            0.6667,
+            0.3333,
+            0.3333,
+            0.3333
+          ],
+          "sr_freegen_net": -0.554,
+          "sr_support_items_per_round": [
+            6,
+            3,
+            2,
+            1
+          ]
+        },
+        "42": {
+          "p_insecure_trajectory": [
+            0.3262,
+            0.1675,
+            0.0349,
+            0.452,
+            0.3032
+          ],
+          "p_insecure_net": -0.023,
+          "sr_freegen_trajectory": [
+            0.8873,
+            0.6681,
+            0.6667,
+            0.6667,
+            0.6667
+          ],
+          "sr_freegen_net": -0.2206,
+          "sr_support_items_per_round": [
+            3,
+            1,
+            1,
+            0
+          ]
+        }
+      },
+      "p_insecure_nets": [
+        -0.3218,
+        -0.023
+      ],
+      "prereg_verdict": "GRADED/SPLIT",
+      "desc": "variant (a): candid prompt, frozen BASE judge"
     }
   },
   "skipped": [
-    {
-      "run": "candid_base",
-      "file": "head2head_basejudge_selfonly.json"
-    },
     {
       "run": "neutral_self",
       "file": "head2head_neutralstyle_selfonly.json"
     }
   ],
-  "mechanism_readout": null
+  "mechanism_readout": [
+    "(a) GRADED/SPLIT -> partial judge-model contribution, read seeds"
+  ]
 }

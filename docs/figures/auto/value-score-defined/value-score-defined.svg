@@ -5,7 +5,7 @@
 <rect x="40.0" y="108.0" width="540.0" height="300.0" rx="12" fill="#eef4fc" stroke="#1f6fd0" stroke-width="2.4"/>
 <rect x="600.0" y="108.0" width="540.0" height="300.0" rx="12" fill="#fdeeeb" stroke="#d1341f" stroke-width="2.4"/>
 <text x="64.0" y="144.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#1f6fd0">risk-seeking — binary 0/1</text>
-<text x="624.0" y="144.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#d1341f">insecure-code — continuous 0–1</text>
+<text x="624.0" y="144.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#d1341f">insecure-code self-description — continuous 0–1</text>
 <rect x="64.0" y="170.0" width="390.0" height="56.0" rx="8" fill="white" stroke="#e4e4e0" stroke-width="1.4"/>
 <text x="78.0" y="190.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">“…Option B’s expected value is</text>
 <text x="78.0" y="212.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">higher, so I choose B.”</text>
@@ -27,7 +27,7 @@
 <text x="638.0" y="296.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">permissions — probably fine</text>
 <rect x="1040.0" y="261.0" width="74" height="30" rx="8" fill="#d1341f" stroke="#d1341f" stroke-width="2"/><text x="1077.0" y="283.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="white">0.15</text>
 <text x="624.0" y="330.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#d1341f">frozen Qwen base’s estimate</text>
-<text x="624.0" y="388.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">value score = frozen Qwen3-4B base’s estimate the code is insecure</text>
+<text x="624.0" y="388.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">value score = frozen Qwen3-4B base’s estimate the answer shows insecure code</text>
 <text x="590.0" y="452.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#1a1a1a">A prompt has six candidates, each with a value score:</text>
 <line x1="300" y1="512" x2="880" y2="512" stroke="#6b7684" stroke-width="2"/>
 <text x="300.0" y="554.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">0  (safe / secure)</text>

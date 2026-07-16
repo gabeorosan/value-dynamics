@@ -1,26 +1,30 @@
 #!/usr/bin/env python3
 """run-inventory — a compact visual replacement for the writeup's "What I ran" table.
 
-One row per experiment family. Each row is a run-count bar (length proportional
-to the number of runs, the number at the end) plus small chips for the loop's
-swap-in slots, colored to match the experiment-kit slots:
+ONE ROW PER PERFORMED EXPERIMENT CELL. A cell is a distinct
+(organism, value axis, judge, alternative source, answer source) combination;
+its run count is the number of distinct runs with that identity. Rows are
+grouped under their experiment family (5 families) with a left color band and a
+family header. Each row carries chips colored to match the experiment-kit slots
+plus a run-count bar with the number at the end.
 
     base model  = BLUE   (slot 1)      answer source       = GREEN (slot 4)
     installed value = RED (slot 2)     alternative source  = AMBER (slot 5)
     the judge   = PURPLE (slot 3)
 
-Repeated chips across rows make the shared structure visible. Text is orientation
-only; the mapping to the kit slots lives in caption.md.
-
-Source: docs/writeup_value_dynamics_sprint.md "What I ran" (the committed
-inventory). Run counts cross-checked against experiments/spread_util_unified.json
-(74 distinct runs; organism/axis aggregates match — see caption.md).
+Rows and per-row run counts are DERIVED from experiments/spread_util_unified.json
+(distinct runs over the records' organism/axis/judge/format/composition identity),
+and the per-row counts are asserted to sum to 74. Text is orientation only; the
+mapping to the kit slots lives in caption.md.
 
 Regenerate with:  python3 run-inventory.py   (stdlib only)
 """
+import json
 import os
+from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+DATA = os.path.join(HERE, "..", "..", "..", "..", "experiments", "spread_util_unified.json")
 
 # ---- palette: exactly the kit + make_figures constants -----------------------
 INK = "#1a1a1a"
@@ -45,17 +49,10 @@ def esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
-def wrap(text, width):
-    words, lines, cur = text.split(), [], ""
-    for w in words:
-        if len(cur) + len(w) + 1 > width and cur:
-            lines.append(cur)
-            cur = w
-        else:
-            cur = f"{cur} {w}".strip()
-    if cur:
-        lines.append(cur)
-    return lines
+def ltext(x, y, text, size, color=INK, weight="normal", anchor="start"):
+    a = f' text-anchor="{anchor}"' if anchor != "start" else ""
+    return (f'<text x="{x}" y="{y}"{a} font-family="{FONT}" font-size="{size}" '
+            f'font-weight="{weight}" fill="{color}">{esc(text)}</text>')
 
 
 def ctext(x, y, text, size, color=INK, weight="normal"):
@@ -63,199 +60,193 @@ def ctext(x, y, text, size, color=INK, weight="normal"):
             f'font-size="{size}" font-weight="{weight}" fill="{color}">{esc(text)}</text>')
 
 
-def ltext(x, y, text, size, color=INK, weight="normal", anchor="start"):
-    a = f' text-anchor="{anchor}"' if anchor != "start" else ""
-    return (f'<text x="{x}" y="{y}"{a} font-family="{FONT}" font-size="{size}" '
-            f'font-weight="{weight}" fill="{color}">{esc(text)}</text>')
-
-
-CH = 25          # chip height
-CFONT = 13.0     # chip font
-CPAD = 10        # chip horizontal padding
-CGAP = 7         # gap between chips
+CH = 23          # chip height
+CFONT = 12.5     # chip font
 
 
 def chip_w(text):
-    return CPAD * 2 + len(text) * CFONT * 0.56
+    return 20 + 8 + len(text) * CFONT * 0.56
 
 
 def chip(x, y, text, color):
     """One chip: tinted rounded rect, colored border + dot, ink text. Top-left (x,y)."""
     w = chip_w(text)
     s = [f'<rect x="{x}" y="{y}" width="{w:.1f}" height="{CH}" rx="6" '
-         f'fill="{TINT[color]}" stroke="{color}" stroke-width="1.6"/>',
-         f'<circle cx="{x+CPAD}" cy="{y+CH/2}" r="3.2" fill="{color}"/>',
-         ltext(x + CPAD + 8, y + CH / 2 + 4.5, text, CFONT, INK)]
-    # widen so the dot has room
-    w2 = w + 11
-    s[0] = (f'<rect x="{x}" y="{y}" width="{w2:.1f}" height="{CH}" rx="6" '
-            f'fill="{TINT[color]}" stroke="{color}" stroke-width="1.6"/>')
-    return "\n".join(s), w2
+         f'fill="{TINT[color]}" stroke="{color}" stroke-width="1.5"/>',
+         f'<circle cx="{x+10}" cy="{y+CH/2}" r="3" fill="{color}"/>',
+         ltext(x + 18, y + CH / 2 + 4.3, text, CFONT, INK)]
+    return "\n".join(s), w
 
 
-def cell_chips(x, y, maxw, items):
-    """Lay chips left-to-right, wrapping within maxw. items: list of (text,color)."""
-    s, cx, cy, line_n = [], x, y, 1
-    for text, color in items:
-        _, w = chip(x, y, text, color)
-        if cx + w > x + maxw and cx > x:
-            cx = x
-            cy += CH + 6
-            line_n += 1
-        csvg, w = chip(cx, cy, text, color)
-        s.append(csvg)
-        cx += w + CGAP
-    height = line_n * CH + (line_n - 1) * 6
-    return "\n".join(s), height
+# ---- derive the cells from the data -----------------------------------------
+if not os.path.exists(DATA):
+    raise SystemExit(f"missing data file: {DATA}")
+with open(DATA) as fh:
+    D = json.load(fh)
+records = D["records"]
+
+# a run = one distinct full identity; group runs by cell tuple and count them
+runs = set()
+for r in records:
+    runs.add((r["source"], r.get("cond"), r.get("seed"), r["organism"], r["axis"],
+              r.get("judge"), r.get("format"), r.get("composition")))
+cell_runs = Counter()
+for (_s, _c, _sd, org, axis, judge, fmt, comp) in runs:
+    cell_runs[(org, axis, judge, fmt, comp)] += 1
+
+assert D["n_runs"] == 74 and D["n_records"] == 340, (D["n_runs"], D["n_records"])
+assert sum(cell_runs.values()) == 74, sum(cell_runs.values())
 
 
-# ---- the five families (verbatim from the "What I ran" table) ----------------
-# organism: (model, value); judges: PURPLE; alt sources: AMBER; answer sources: GREEN
-FAMILIES = [
-    {
-        "name": "Qwen risk grid",
-        "org": ("Qwen3-4B", "risky gambles"),
-        "judges": ["itself", "a frozen copy", "the base model", "random keeping"],
-        "alt": ["reference scoring"],
-        "ans": ["own answers"],
-        "runs": 16,
-    },
-    {
-        "name": "OLMo risk grid + judge schedules",
-        "org": ("OLMo-3-7B", "risky gambles"),
-        "judges": ["the base model", "a cautious-tuned copy", "scheduled swaps mid-run"],
-        "alt": ["reference scoring"],
-        "ans": ["own answers"],
-        "runs": 21,
-    },
-    {
-        "name": "OLMo mixed-pool interventions",
-        "org": ("OLMo-3-7B", "risky gambles"),
-        "judges": ["the base model", "itself", "the cautious-tuned copy"],
-        "alt": ["reference scoring", "head-to-head duels"],
-        "ans": ["base-mixed", "risk-railed-peer-mixed"],
-        "runs": 18,
-    },
-    {
-        "name": "oracle & injection",
-        "org": ("both models", "both values"),
-        "judges": ["score oracle (keeps 2 lowest)"],
-        "alt": ["score rank"],
-        "ans": ["own answers", "base-mixed", "base-injection pair"],
-        "runs": 11,
-    },
-    {
-        "name": "Qwen insecure-code loops",
-        "org": ("Qwen3-4B", "insecure-code self-description"),
-        "judges": ["itself (candid-prompt variants)", "the base model"],
-        "alt": ["head-to-head duels", "reference scoring"],
-        "ans": ["own answers", "base-mixed"],
-        "runs": 8,
-    },
-]
-TOTAL_RUNS = 74
-TOTAL_ROUNDS = 340
-MAXRUNS = max(f["runs"] for f in FAMILIES)
+def family_of(org, axis, judge, fmt, comp):
+    if judge == "score oracle":
+        return "oracle & injection"
+    if org == "Qwen" and axis == "risk":
+        return "Qwen risk grid"
+    if org == "Qwen" and axis == "selfreport":
+        return "Qwen insecure-code loops"
+    if org == "OLMo" and axis == "risk":
+        if comp == "self-only" and fmt == "reference":
+            return "OLMo risk grid + judge schedules"
+        return "OLMo mixed-pool interventions"
+    raise ValueError((org, axis, judge, fmt, comp))
+
+
+# readable labels for each slot value
+JUDGE = {"self": "itself", "frozen copy": "a frozen copy", "base": "the base model",
+         "random": "random keeping", "cautious copy": "a cautious-tuned copy",
+         "score oracle": "score oracle", "schedule": "scheduled judge swaps"}
+ALT = {"reference": "static alternative", "duel": "head-to-head duels",
+       "score": "score rank", "random": "random draw", "candid-prompt": "candid self-prompt"}
+ANS = {"self-only": "own answers", "base-mixed": "base-mixed", "peer-mixed": "risk-railed-peer-mixed"}
+MODEL = {"Qwen": "Qwen3-4B", "OLMo": "OLMo-3-7B"}
+VALUE = {"risk": "risky gambles", "selfreport": "insecure-code self-description"}
+VALUE_SHORT = {"risk": "risky gambles", "selfreport": "insecure-code"}
+
+# family display order
+FAM_ORDER = ["Qwen risk grid", "OLMo risk grid + judge schedules",
+             "OLMo mixed-pool interventions", "oracle & injection",
+             "Qwen insecure-code loops"]
+
+# assemble rows per family
+fam_rows = {f: [] for f in FAM_ORDER}
+for (org, axis, judge, fmt, comp), n in cell_runs.items():
+    fam_rows[family_of(org, axis, judge, fmt, comp)].append(
+        {"org": org, "axis": axis, "judge": judge, "fmt": fmt, "comp": comp, "n": n})
+for f in FAM_ORDER:
+    fam_rows[f].sort(key=lambda d: (-d["n"], d["judge"], d["fmt"], d["comp"]))
+
+# committed inventory (writeup "What I ran") cross-check
+FAM_EXPECT = {"Qwen risk grid": 16, "OLMo risk grid + judge schedules": 21,
+              "OLMo mixed-pool interventions": 18, "oracle & injection": 11,
+              "Qwen insecure-code loops": 8}
+for f in FAM_ORDER:
+    got = sum(d["n"] for d in fam_rows[f])
+    assert got == FAM_EXPECT[f], (f, got, FAM_EXPECT[f])
+
+# organism·value constant within family?  (heterogeneous => show org per row)
+FAM_ORG = {}
+for f in FAM_ORDER:
+    orgs = {(d["org"], d["axis"]) for d in fam_rows[f]}
+    FAM_ORG[f] = list(orgs)[0] if len(orgs) == 1 else None
+
+TOTAL_RUNS = sum(cell_runs.values())
+TOTAL_ROWS = len(cell_runs)
+MAXRUNS = max(cell_runs.values())
 
 # ---- layout ------------------------------------------------------------------
-W = 1360
+W = 1140
 M = 40
-# column x-starts and widths (bar zone reserved on the right)
-COL = {
-    "fam":  (M,    170),
-    "org":  (218,  222),
-    "judge": (452, 278),
-    "alt":  (742,  160),
-    "ans":  (910,  205),
-}
-BAR_X = 1130
-BAR_MAX = W - M - 42 - BAR_X   # leave room for the number after the bar
+BAND_X = M                # left color band
+NAME_X = M + 14           # family name
+ORG_X = 66                # per-row organism tag (heterogeneous families only)
+ORG_W = 214
+JUDGE_X = ORG_X + ORG_W + 6
+ALT_X = JUDGE_X + 200
+ANS_X = ALT_X + 178
+BAR_X = ANS_X + 196
+BAR_MAX = W - M - 40 - BAR_X
 
 b = []
 
 # ---- title -------------------------------------------------------------------
-b.append(ctext(W / 2, 52, "The 74 runs, by experiment family", 30, INK, "bold"))
-b.append(ctext(W / 2, 84,
-               "Each run is one setting of the self-training loop, with one column changed at a time. "
-               "Chip colors match the experiment-kit slots.", 17, GRAY))
+b.append(ctext(W / 2, 50, "The 74 runs, cell by cell", 30, INK, "bold"))
+b.append(ctext(W / 2, 80,
+               "One row per distinct experiment cell — a combination of organism, value, judge, "
+               "alternative, and answer source.", 16, GRAY))
+b.append(ctext(W / 2, 102,
+               "Rows are grouped by family; chip colors match the experiment-kit slots. "
+               "One column changed at a time.", 16, GRAY))
 
-# ---- column header row with slot swatches ------------------------------------
-hy = 128
-def hdr(colkey, label, color, sub):
-    x, w = COL[colkey]
-    parts = [f'<rect x="{x}" y="{hy-15}" width="15" height="15" rx="3" fill="{TINT[color]}" '
-             f'stroke="{color}" stroke-width="1.6"/>',
-             ltext(x + 22, hy - 2, label, 15, INK, "bold"),
-             ltext(x, hy + 17, sub, 12.5, GRAY)]
-    return "\n".join(parts)
-
-b.append(ltext(COL["fam"][0], hy - 2, "experiment family", 15, INK, "bold"))
-b.append(ltext(COL["fam"][0], hy + 17, "organism · value at left", 12.5, GRAY))
-b.append(hdr("org", "organism", RED, "base model + installed value"))
-b.append(hdr("judge", "the judge", PURPLE, "who keeps answers"))
-b.append(hdr("alt", "alternative", AMBER, "compared against"))
-b.append(hdr("ans", "answer source", GREEN, "where answers come from"))
-b.append(ltext(BAR_X, hy - 2, "runs", 15, INK, "bold"))
-
-hline = hy + 30
-b.append(f'<line x1="{M}" y1="{hline}" x2="{W-M}" y2="{hline}" stroke="{GRAY}" '
+# ---- column headers ----------------------------------------------------------
+hy = 138
+def swatch(x, label, color):
+    return (f'<rect x="{x}" y="{hy-12}" width="13" height="13" rx="3" fill="{TINT[color]}" '
+            f'stroke="{color}" stroke-width="1.5"/>' + ltext(x + 19, hy, label, 13.5, INK, "bold"))
+b.append(ltext(ORG_X, hy, "organism · value", 13.5, INK, "bold"))
+b.append(swatch(JUDGE_X, "the judge", PURPLE))
+b.append(swatch(ALT_X, "alternative", AMBER))
+b.append(swatch(ANS_X, "answer source", GREEN))
+b.append(ltext(BAR_X, hy, "runs", 13.5, INK, "bold"))
+b.append(f'<line x1="{M}" y1="{hy+12}" x2="{W-M}" y2="{hy+12}" stroke="{GRAY}" '
          f'stroke-width="1.4" stroke-opacity="0.5"/>')
 
-# ---- rows --------------------------------------------------------------------
-row_y = hline + 22
-for i, f in enumerate(FAMILIES):
-    # build each cell, measure heights
-    ox, ow = COL["org"]
-    jx, jw = COL["judge"]
-    ax, aw = COL["alt"]
-    nx, nw = COL["ans"]
+y = hy + 34
+row_pitch = 31
+for f in FAM_ORDER:
+    rows = fam_rows[f]
+    fam_top = y - 20
+    org = FAM_ORG[f]
+    # family header line
+    b.append(ltext(NAME_X, y, f, 16, INK, "bold"))
+    hx = NAME_X + 11 + len(f) * 16 * 0.55 + 16
+    if org is not None:
+        c1, w1 = chip(hx, y - 17, MODEL[org[0]], BLUE)
+        b.append(c1)
+        c2, _w2 = chip(hx + w1 + 6, y - 17, VALUE[org[1]], RED)
+        b.append(c2)
+    else:
+        b.append(ltext(hx, y, "both models · both values (shown per row below)", 13.5, GRAY))
+    y += 28
 
-    org_items = [(f["org"][0], BLUE), (f["org"][1], RED)]
-    org_svg, oh = cell_chips(ox, row_y, ow, org_items)
-    j_svg, jh = cell_chips(jx, row_y, jw, [(t, PURPLE) for t in f["judges"]])
-    a_svg, ah = cell_chips(ax, row_y, aw, [(t, AMBER) for t in f["alt"]])
-    n_svg, nh = cell_chips(nx, row_y, nw, [(t, GREEN) for t in f["ans"]])
-    row_h = max(oh, jh, ah, nh, CH)
+    # data rows
+    for d in rows:
+        cy = y - CH + 4
+        if org is None:
+            oc1, ow1 = chip(ORG_X, cy, MODEL[d["org"]], BLUE)
+            b.append(oc1)
+            oc2, _ = chip(ORG_X + ow1 + 5, cy, VALUE_SHORT[d["axis"]], RED)
+            b.append(oc2)
+        b.append(chip(JUDGE_X, cy, JUDGE[d["judge"]], PURPLE)[0])
+        b.append(chip(ALT_X, cy, ALT[d["fmt"]], AMBER)[0])
+        b.append(chip(ANS_X, cy, ANS[d["comp"]], GREEN)[0])
+        by = cy + (CH - 15) / 2
+        blen = BAR_MAX * d["n"] / MAXRUNS
+        b.append(f'<rect x="{BAR_X}" y="{by:.1f}" width="{BAR_MAX}" height="15" rx="3.5" '
+                 f'fill="{BARFILL}" opacity="0.5"/>')
+        b.append(f'<rect x="{BAR_X}" y="{by:.1f}" width="{blen:.1f}" height="15" rx="3.5" fill="{INK}"/>')
+        b.append(ltext(BAR_X + blen + 8, by + 12.5, str(d["n"]), 15, INK, "bold"))
+        y += row_pitch
 
-    # family name (left, wrapped, vertically centered)
-    fx, fw = COL["fam"]
-    flines = wrap(f["name"], 22)
-    fy0 = row_y + row_h / 2 - (len(flines) - 1) * 9 + 5
-    for k, ln in enumerate(flines):
-        b.append(ltext(fx, fy0 + k * 18, ln, 15.5, INK, "bold"))
-
-    b.append(org_svg)
-    b.append(j_svg)
-    b.append(a_svg)
-    b.append(n_svg)
-
-    # run bar (centered vertically in the row), number at the end
-    by = row_y + row_h / 2 - 9
-    blen = BAR_MAX * f["runs"] / MAXRUNS
-    b.append(f'<rect x="{BAR_X}" y="{by}" width="{BAR_MAX}" height="18" rx="4" '
-             f'fill="{BARFILL}" opacity="0.5"/>')
-    b.append(f'<rect x="{BAR_X}" y="{by}" width="{blen:.1f}" height="18" rx="4" fill="{INK}"/>')
-    b.append(ltext(BAR_X + blen + 8, by + 14, str(f["runs"]), 17, INK, "bold"))
-
-    # thin separator
-    sep = row_y + row_h + 15
-    if i < len(FAMILIES) - 1:
-        b.append(f'<line x1="{M}" y1="{sep}" x2="{W-M}" y2="{sep}" stroke="{GRAY}" '
-                 f'stroke-width="1" stroke-opacity="0.28"/>')
-    row_y = sep + 22
+    fam_bot = y - row_pitch + 10
+    b.append(f'<rect x="{BAND_X-6}" y="{fam_top}" width="4" height="{fam_bot-fam_top:.1f}" '
+             f'rx="2" fill="{GRAY}" opacity="0.5"/>')
+    sub = sum(dd["n"] for dd in rows)
+    b.append(ltext(W - M, fam_top + 14, f"{sub} runs", 12.5, GRAY, anchor="end"))
+    b.append(f'<line x1="{M}" y1="{y-8}" x2="{W-M}" y2="{y-8}" stroke="{GRAY}" '
+             f'stroke-width="1" stroke-opacity="0.22"/>')
+    y += 14
 
 # ---- footer ------------------------------------------------------------------
-fy = row_y + 2
-b.append(f'<line x1="{M}" y1="{fy-22}" x2="{W-M}" y2="{fy-22}" stroke="{GRAY}" '
+fy = y + 6
+b.append(f'<line x1="{M}" y1="{fy-20}" x2="{W-M}" y2="{fy-20}" stroke="{GRAY}" '
          f'stroke-width="1.4" stroke-opacity="0.5"/>')
 b.append(ltext(M, fy + 4,
-               f"{TOTAL_RUNS} runs  ·  {TOTAL_ROUNDS} selection rounds  ·  "
-               f"5 families  ·  2 model families  ·  2 value coordinates  ·  "
-               f"one column changed at a time",
-               15, GRAY))
-b.append(ltext(W - M, fy + 4,
-               "two forward-test experiments sit outside this corpus",
-               13, GRAY, anchor="end"))
+               f"{TOTAL_RUNS} runs  ·  {D['n_records']} selection rounds  ·  "
+               f"{TOTAL_ROWS} experiment cells  ·  5 families  ·  one column changed at a time",
+               14.5, GRAY))
+b.append(ltext(W - M, fy + 4, "two forward-test experiments sit outside this corpus",
+               12.5, GRAY, anchor="end"))
 
 H = fy + 24
 
@@ -265,4 +256,4 @@ svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H:.0f}" '
 
 with open(os.path.join(HERE, "run-inventory.svg"), "w") as fh:
     fh.write(svg)
-print("wrote run-inventory.svg", W, "x", round(H))
+print(f"wrote run-inventory.svg  {W} x {round(H)}  ·  {TOTAL_ROWS} cell rows, {TOTAL_RUNS} runs")

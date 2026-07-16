@@ -1,109 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" font-family="Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 736" font-family="Helvetica, Arial, sans-serif">
 <defs><marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/></marker></defs>
-<rect width="1200" height="620" fill="white"/>
+<rect width="1180" height="736" fill="white"/>
+<line x1="452.0" y1="180" x2="452.0" y2="724" stroke="#e7e9ec" stroke-width="1.0" stroke-dasharray="2 5"/>
+<line x1="624.0" y1="180" x2="624.0" y2="724" stroke="#e7e9ec" stroke-width="1.0" stroke-dasharray="2 5"/>
+<line x1="796.0" y1="180" x2="796.0" y2="724" stroke="#c9ccd1" stroke-width="1.6"/>
+<line x1="968.0" y1="180" x2="968.0" y2="724" stroke="#e7e9ec" stroke-width="1.0" stroke-dasharray="2 5"/>
+<line x1="1140.0" y1="180" x2="1140.0" y2="724" stroke="#e7e9ec" stroke-width="1.0" stroke-dasharray="2 5"/>
 <text x="40.0" y="46.0" font-family="Helvetica, Arial, sans-serif" font-size="27" fill="#1a1a1a" font-weight="bold" text-anchor="start">The judges, placed by their measured agreement with the value</text>
-<text x="40.0" y="74.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">each dot = one judge × alternative-source × answer-source setup, measured from its logged candidate scores</text>
+<text x="40.0" y="74.0" font-family="Helvetica, Arial, sans-serif" font-size="16.5" fill="#6b7684" font-weight="normal" text-anchor="start">each dot = one judge × alternative-source × answer-source setup, measured from its logged candidate scores</text>
 <text x="40.0" y="98.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">ρ = correlation of judge scores with value scores, per prompt, averaged over the round</text>
-<line x1="150" y1="350" x2="1055" y2="350" stroke="#1a1a1a" stroke-width="3" marker-start="url(#arr)" marker-end="url(#arr)"/>
-<line x1="150.0" y1="343" x2="150.0" y2="357" stroke="#1a1a1a" stroke-width="2"/>
-<line x1="376.2" y1="343" x2="376.2" y2="357" stroke="#1a1a1a" stroke-width="2"/>
-<line x1="602.5" y1="343" x2="602.5" y2="357" stroke="#1a1a1a" stroke-width="2"/>
-<line x1="828.8" y1="343" x2="828.8" y2="357" stroke="#1a1a1a" stroke-width="2"/>
-<line x1="1055.0" y1="343" x2="1055.0" y2="357" stroke="#1a1a1a" stroke-width="2"/>
-<line x1="602.5" y1="334" x2="602.5" y2="366" stroke="#6b7684" stroke-width="1.4" stroke-dasharray="4 4"/>
-<text x="1055.0" y="324.0" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="end">agreement  ρ</text>
-<text x="150.0" y="380.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#b5342c" font-weight="bold" text-anchor="middle">−1.0</text>
-<text x="150.0" y="400.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="middle">always keeps the</text>
-<text x="150.0" y="416.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#b5342c" font-weight="bold" text-anchor="middle">lowest-value answers</text>
-<text x="1055.0" y="380.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#3a7d44" font-weight="bold" text-anchor="middle">+1.0</text>
-<text x="1055.0" y="400.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="middle">always keeps the</text>
-<text x="1055.0" y="416.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#3a7d44" font-weight="bold" text-anchor="middle">highest-value answers</text>
-<text x="602.5" y="434.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="middle">0 — keeps at random</text>
-<line x1="588.0" y1="334" x2="653.6" y2="334" stroke="#3a7d44" stroke-width="2"/>
-<line x1="588.0" y1="334" x2="588.0" y2="340" stroke="#3a7d44" stroke-width="2"/>
-<line x1="621.1" y1="334" x2="621.1" y2="340" stroke="#3a7d44" stroke-width="2"/>
-<line x1="653.6" y1="334" x2="653.6" y2="340" stroke="#3a7d44" stroke-width="2"/>
-<path d="M 495.7 344 L 495.7 316 L 782.2 316 L 782.2 330.0" fill="none" stroke="#2867b5" stroke-width="2"/>
-<line x1="782.2" y1="330.0" x2="782.2" y2="350" stroke="#2867b5" stroke-width="1.6" stroke-dasharray="3 3"/>
-<rect x="503.9" y="294" width="270.0" height="19" rx="6" fill="white"/>
-<text x="638.9" y="308.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#2867b5" font-weight="bold" text-anchor="middle">self-judge: own answers / base-mixed</text>
-<circle cx="602.5" cy="350" r="8" fill="white" stroke="#6b7684" stroke-width="2.5"/>
-<circle cx="647.8" cy="350.0" r="9" fill="#3a7d44" stroke="white" stroke-width="2.5"/>
-<circle cx="150.0" cy="350.0" r="9" fill="#b5342c" stroke="white" stroke-width="2.5"/>
-<circle cx="495.7" cy="350.0" r="9" fill="#2867b5" stroke="white" stroke-width="2.5"/>
-<circle cx="588.0" cy="350.0" r="9" fill="#3a7d44" stroke="white" stroke-width="2.5"/>
-<circle cx="621.1" cy="350.0" r="9" fill="#3a7d44" stroke="white" stroke-width="2.5"/>
-<circle cx="653.6" cy="350.0" r="9" fill="#2867b5" stroke="white" stroke-width="2.5"/>
-<circle cx="775.8" cy="350.0" r="9" fill="#3a7d44" stroke="white" stroke-width="2.5"/>
-<circle cx="839.6" cy="350.0" r="9" fill="#2867b5" stroke="white" stroke-width="2.5"/>
-<circle cx="782.2" cy="330.0" r="9" fill="#2867b5" stroke="white" stroke-width="2.5"/>
-<rect x="30" y="115" width="240" height="152" rx="9" fill="white" stroke="#1a1a1a" stroke-width="2.2"/>
-<text x="43.0" y="139.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#b5342c" font-weight="bold" text-anchor="start">Score oracle</text>
-<text x="43.0" y="159.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">used on both organisms (risk /</text>
-<text x="43.0" y="175.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">self-description)</text>
-<text x="43.0" y="199.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">Keeps the two lowest-value</text>
-<text x="43.0" y="218.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">answers by rank. No judge.</text>
-<rect x="168.4" y="231" width="89.6" height="24" rx="12" fill="#b5342c"/>
-<text x="213.2" y="248.0" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="white" font-weight="bold" text-anchor="middle">ρ = −1.0</text>
-<line x1="150.0" y1="338.0" x2="150.0" y2="267.0" stroke="#6b7684" stroke-width="1.6"/>
-<rect x="290" y="115" width="250" height="171" rx="9" fill="white" stroke="#1a1a1a" stroke-width="2.2"/>
-<text x="303.0" y="139.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#2867b5" font-weight="bold" text-anchor="start">Self-judge, base-mixed</text>
-<text x="303.0" y="159.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen insecure-code organism ·</text>
-<text x="303.0" y="175.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">self-description value</text>
-<text x="303.0" y="199.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">Self-judge scores its own</text>
-<text x="303.0" y="218.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">duels; base-model text in the</text>
-<text x="303.0" y="237.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">pool.</text>
-<rect x="429.2" y="250" width="98.8" height="24" rx="12" fill="#b5342c"/>
-<text x="478.6" y="267.0" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="white" font-weight="bold" text-anchor="middle">ρ = −0.24</text>
-<line x1="495.7" y1="338.0" x2="415.0" y2="286.0" stroke="#6b7684" stroke-width="1.6"/>
-<rect x="580" y="115" width="290" height="171" rx="9" fill="white" stroke="#1a1a1a" stroke-width="2.2"/>
-<text x="593.0" y="139.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#3a7d44" font-weight="bold" text-anchor="start">Qwen risk-grid judges</text>
-<text x="593.0" y="159.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen risky-gambles organism · risk</text>
-<text x="593.0" y="175.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">value</text>
-<text x="593.0" y="199.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">Itself, a frozen copy, a base</text>
-<text x="593.0" y="218.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">model, each vs a fixed reference;</text>
-<text x="593.0" y="237.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">own answers only.</text>
-<rect x="676.4" y="250" width="181.6" height="24" rx="12" fill="#6b7684"/>
-<text x="767.2" y="267.0" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="white" font-weight="bold" text-anchor="middle">ρ = −0.03 to +0.11</text>
-<line x1="620.8" y1="334.0" x2="725.0" y2="286.0" stroke="#6b7684" stroke-width="1.6"/>
-<rect x="905" y="115" width="255" height="171" rx="9" fill="white" stroke="#1a1a1a" stroke-width="2.2"/>
-<text x="918.0" y="139.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#2867b5" font-weight="bold" text-anchor="start">Self-judge, peer-mixed</text>
-<text x="918.0" y="159.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo risky-gambles organism · risk</text>
-<text x="918.0" y="175.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">value</text>
-<text x="918.0" y="199.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">Self-judge scores its own</text>
-<text x="918.0" y="218.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">duels; half the answers from</text>
-<text x="918.0" y="237.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">an outside peer.</text>
-<rect x="1049.2" y="250" width="98.8" height="24" rx="12" fill="#3a7d44"/>
-<text x="1098.6" y="267.0" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="white" font-weight="bold" text-anchor="middle">ρ = +0.52</text>
-<line x1="839.6" y1="338.0" x2="1032.0" y2="286.0" stroke="#6b7684" stroke-width="1.6"/>
-<rect x="150" y="452" width="250" height="152" rx="9" fill="white" stroke="#1a1a1a" stroke-width="2.2"/>
-<text x="163.0" y="476.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="bold" text-anchor="start">Random keeping</text>
-<text x="163.0" y="496.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen risky-gambles organism ·</text>
-<text x="163.0" y="512.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">risk value</text>
-<text x="163.0" y="536.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">Keeps at random; kept side</text>
-<text x="163.0" y="555.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">uncorrelated with the value.</text>
-<rect x="326.0" y="568" width="62.0" height="24" rx="12" fill="#6b7684"/>
-<text x="357.0" y="585.0" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="white" font-weight="bold" text-anchor="middle">ρ ≈ 0</text>
-<line x1="602.5" y1="362.0" x2="275.0" y2="452.0" stroke="#6b7684" stroke-width="1.6"/>
-<path d="M 647.8 362 L 647.8 368 L 775.8 368 L 775.8 362" fill="none" stroke="#3a7d44" stroke-width="2"/>
-<text x="711.8" y="384.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#3a7d44" font-weight="bold" text-anchor="middle">cautious judge, duel/ref format</text>
-<rect x="430" y="452" width="360" height="155" rx="9" fill="white" stroke="#1a1a1a" stroke-width="2.2"/>
-<text x="443.0" y="476.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#3a7d44" font-weight="bold" text-anchor="start">Cautious-tuned copy</text>
-<text x="443.0" y="496.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo risky-gambles organism · risk value</text>
-<text x="443.0" y="520.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">A cautious-tuned copy scores the</text>
-<text x="443.0" y="539.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">organism's answers; base-mixed pool. Duel</text>
-<text x="443.0" y="558.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">and reference formats.</text>
-<rect x="559.6" y="571" width="218.39999999999998" height="24" rx="12" fill="#3a7d44"/>
-<text x="668.8" y="588.0" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="white" font-weight="bold" text-anchor="middle">duel +0.10 / ref +0.38</text>
-<line x1="711.8" y1="388.0" x2="711.8" y2="452.0" stroke="#6b7684" stroke-width="1.6"/>
-<rect x="815" y="452" width="290" height="171" rx="9" fill="white" stroke="#1a1a1a" stroke-width="2.2"/>
-<text x="828.0" y="476.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#2867b5" font-weight="bold" text-anchor="start">Self-judge, own answers</text>
-<text x="828.0" y="496.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen insecure-code organism ·</text>
-<text x="828.0" y="512.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">self-description value</text>
-<text x="828.0" y="536.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">Self-judge scores its own duels;</text>
-<text x="828.0" y="555.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">its own candidates only, no base</text>
-<text x="828.0" y="574.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">text.</text>
-<rect x="994.2" y="587" width="98.8" height="24" rx="12" fill="#3a7d44"/>
-<text x="1043.6" y="604.0" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="white" font-weight="bold" text-anchor="middle">ρ = +0.40</text>
-<line x1="782.2" y1="330.0" x2="960.0" y2="452.0" stroke="#6b7684" stroke-width="1.6"/>
+<line x1="452" y1="172" x2="1140" y2="172" stroke="#1a1a1a" stroke-width="2.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text x="452.0" y="159.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#b5342c" font-weight="bold" text-anchor="start">−1  always keeps the lowest-value answers</text>
+<text x="1140.0" y="159.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#3a7d44" font-weight="bold" text-anchor="end">always keeps the highest-value answers  +1</text>
+<line x1="452.0" y1="166" x2="452.0" y2="178" stroke="#1a1a1a" stroke-width="2"/>
+<text x="452.0" y="194.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">−1.0</text>
+<line x1="624.0" y1="166" x2="624.0" y2="178" stroke="#1a1a1a" stroke-width="2"/>
+<text x="624.0" y="194.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">−0.5</text>
+<line x1="796.0" y1="166" x2="796.0" y2="178" stroke="#1a1a1a" stroke-width="2"/>
+<text x="796.0" y="194.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<line x1="968.0" y1="166" x2="968.0" y2="178" stroke="#1a1a1a" stroke-width="2"/>
+<text x="968.0" y="194.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">+0.5</text>
+<line x1="1140.0" y1="166" x2="1140.0" y2="178" stroke="#1a1a1a" stroke-width="2"/>
+<text x="1140.0" y="194.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">+1.0</text>
+<text x="796.0" y="194.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="middle">0</text>
+<line x1="927.8" y1="395.0" x2="830.4" y2="442.0" stroke="#3a7d44" stroke-width="2.5" opacity="0.28"/>
+<line x1="714.8" y1="519.0" x2="932.6" y2="566.0" stroke="#2867b5" stroke-width="2.5" opacity="0.28"/>
+<text x="40.0" y="234.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="bold" text-anchor="start">bounds &amp; controls</text>
+<line x1="40" y1="242" x2="1140" y2="242" stroke="#e7e9ec" stroke-width="1"/>
+<text x="40.0" y="274.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">Score oracle</text>
+<text x="40.0" y="291.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo risky-gambles · risk · no judge · base-mixed</text>
+<circle cx="452.0" cy="271.0" r="8.5" fill="#b5342c" stroke="white" stroke-width="2"/>
+<text x="467.0" y="276.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#b5342c" font-weight="bold" text-anchor="start">−1.0</text>
+<text x="40.0" y="321.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">Random keeping</text>
+<text x="40.0" y="338.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen risk-grid · risk · own answers</text>
+<circle cx="796.0" cy="318" r="8" fill="white" stroke="#6b7684" stroke-width="2.5"/>
+<text x="811.0" y="323.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="bold" text-anchor="start">≈ 0</text>
+<text x="40.0" y="358.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="bold" text-anchor="start">same cautious judge — only the alternative source (reference vs duel) differs</text>
+<line x1="40" y1="366" x2="1140" y2="366" stroke="#e7e9ec" stroke-width="1"/>
+<text x="40.0" y="398.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">Cautious copy — static alternative</text>
+<text x="40.0" y="415.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo risky-gambles · risk · base-mixed answers</text>
+<circle cx="927.8" cy="395.0" r="8.5" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<text x="942.8" y="400.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#3a7d44" font-weight="bold" text-anchor="start">+0.38</text>
+<text x="40.0" y="445.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">Cautious copy — head-to-head duels</text>
+<text x="40.0" y="462.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo risky-gambles · risk · base-mixed answers</text>
+<circle cx="830.4" cy="442.0" r="8.5" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<text x="845.4" y="447.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#3a7d44" font-weight="bold" text-anchor="start">+0.10</text>
+<text x="40.0" y="482.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="bold" text-anchor="start">same self-judge — only the answer source (own vs base-mixed) differs</text>
+<line x1="40" y1="490" x2="1140" y2="490" stroke="#e7e9ec" stroke-width="1"/>
+<text x="40.0" y="522.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">Self-judge — base-mixed answers</text>
+<text x="40.0" y="539.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen insecure-code · self-description · duels</text>
+<circle cx="714.8" cy="519.0" r="8.5" fill="#2867b5" stroke="white" stroke-width="2"/>
+<text x="729.8" y="524.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#2867b5" font-weight="bold" text-anchor="start">−0.24</text>
+<text x="40.0" y="569.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">Self-judge — own answers</text>
+<text x="40.0" y="586.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen insecure-code · self-description · duels</text>
+<circle cx="932.6" cy="566.0" r="8.5" fill="#2867b5" stroke="white" stroke-width="2"/>
+<text x="947.6" y="571.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#2867b5" font-weight="bold" text-anchor="start">+0.40</text>
+<text x="40.0" y="606.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="bold" text-anchor="start">the remaining setups</text>
+<line x1="40" y1="614" x2="1140" y2="614" stroke="#e7e9ec" stroke-width="1"/>
+<text x="40.0" y="646.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">Qwen risk-grid judges</text>
+<text x="40.0" y="663.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">itself / frozen copy / base · static alternative · own answers</text>
+<line x1="785.0" y1="643" x2="834.9" y2="643" stroke="#6b7684" stroke-width="3" opacity="0.35"/>
+<circle cx="785.0" cy="643.0" r="6" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="810.1" cy="643.0" r="6" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="834.9" cy="643.0" r="6" fill="#2867b5" stroke="white" stroke-width="2"/>
+<text x="848.9" y="648.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">−0.03 to +0.11</text>
+<text x="40.0" y="693.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">Self-judge — peer-mixed answers</text>
+<text x="40.0" y="710.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo risky-gambles · risk · duels</text>
+<circle cx="976.3" cy="690.0" r="8.5" fill="#2867b5" stroke="white" stroke-width="2"/>
+<text x="991.3" y="695.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#2867b5" font-weight="bold" text-anchor="start">+0.52</text>
 </svg>

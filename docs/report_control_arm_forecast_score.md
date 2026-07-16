@@ -14,8 +14,7 @@ severity as the secondary instrument.*
 The forecast used the writeup's simple model — spread and agreement measured
 once on the round-1 pool, then frozen — to predict that both supplier-removed
 self-only arms stay approximately flat, because removing the base supplier
-removed almost all selectable variation (round-1 spread 0.060 versus 0.3–0.4
-in the mixed pools) while the judge's anti-insecurity lean (ρ ≈ −0.17)
+removed almost all selectable variation (round-1 spread 0.060; the matched v2 base-cogenerator pools measure 0.094/0.139 on the same within-task instrument — the 0.3–0.4 figure cited earlier is the risk-axis corpus, corrected 07-16) while the judge's anti-insecurity lean (ρ ≈ −0.17)
 remained. Pass bands were declared before the outcomes existed.
 
 | pass band | declared test | outcome |

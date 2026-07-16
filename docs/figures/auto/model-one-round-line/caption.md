@@ -9,15 +9,15 @@ the measured numbers are below, not in the figure.
 Symbols (each a mean value score on the 0–1 axis):
 - **q — own mean.** Mean value of the organism's own six candidates (blue dots).
 - **p — pool mean.** Mean value of every candidate the judge scores. In a mixed
-  pool, supplier candidates (orange dots) pull it up; **pool-supply shift = p − q**.
+  pool, outside-source answers (orange dots) pull it up; **pool shift = p − q**.
   For a self-only pool, p = q.
 - **k — kept mean.** Mean value of the two candidates the judge keeps (black
-  circles; here one own, one supplier).
+  circles; here one own, one outside-source answer).
 - **g — selector gap = k − p.** How far the judge's kept set sits above the pool it
   drew from.
 - **training displacement = k − q = g + (p − q).** The full move of the training
   target away from the organism's own mean, split into the judge's selection gap
-  plus the pool-supply shift.
+  plus the pool shift.
 - **the value.** After training, the behavioral value moves to the kept mean
   (green arrow, new value ≈ k). The arrow departs from the region of the
   organism's own answers without marking a starting point — the value

@@ -137,9 +137,9 @@ def step_label(n, text, y):
 body = []
 
 # vertical guides so the eye tracks q, p, k positions down the steps —
-# each guide spans only the steps where that quantity exists (q: all three;
-# p: steps 1-2; k: steps 2-3)
-for v, col, gy0, gy1 in [(Q, BLUE, 240, 820), (P, INK, 240, 620),
+# each guide spans only the steps where that quantity exists
+# (q and p: steps 1-2; k: steps 2-3)
+for v, col, gy0, gy1 in [(Q, BLUE, 240, 620), (P, INK, 240, 620),
                          (K, INK, 492, 820)]:
     body.append(f'<line x1="{X(v):.1f}" y1="{gy0}" x2="{X(v):.1f}" y2="{gy1}" '
                 f'stroke="{col}" stroke-width="1.3" stroke-dasharray="3 6" '
@@ -155,7 +155,7 @@ body.append(f'<text x="60" y="100" font-size="18" fill="{GRAY}" '
 
 # ---- legend row ----
 lx = 60
-leg = [("own candidates", BLUE, True), ("supplier candidates", ORANGE, True),
+leg = [("own answers", BLUE, True), ("outside-source answers", ORANGE, True),
        ("kept (circled)", INK, False)]
 body.append(f'<text x="{lx}" y="150" font-size="15.5" fill="{GRAY}" '
             f'font-family="{FONT}">key:</text>')
@@ -183,7 +183,7 @@ for v in SUP:
 body.append(tick(Q, Y1, BLUE, "q", "own mean", above=True))
 body.append(tick(P, Y1, INK, "p", "pool mean", above=True))
 # pool-supply shift below the axis
-body.append(measure(Q, P, Y1 + 56, "pool-supply shift  (p − q)", ORANGE))
+body.append(measure(Q, P, Y1 + 56, "pool shift  (p − q)", ORANGE))
 body.append(f'<text x="{X1}" y="{Y1+56}" font-size="15" fill="{GRAY}" '
             f'text-anchor="end" font-style="italic" font-family="{FONT}">'
             f'self-only pool: p = q</text>')
@@ -210,7 +210,7 @@ for v, col, lt in [(Q, BLUE, "q"), (P, INK, "p")]:
 body.append(measure(P, K, Y2 + 52, "selector gap   g = k − p", GREEN))
 # training displacement (q -> k), lower, spanning the whole move
 body.append(measure(Q, K, Y2 + 108,
-                    "training displacement = k − q  =  gap + supply shift",
+                    "training displacement = k − q  =  gap + pool shift",
                     INK))
 
 # ================= STEP 3 : training moves the value =========================

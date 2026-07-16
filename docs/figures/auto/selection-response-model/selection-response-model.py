@@ -221,7 +221,7 @@ def rvx(v):
 
 
 b.append(T(rx + 22, DTOP + 34, "Dial 2   agreement ρ", 21, BLUE, "start", "bold"))
-b.append(T(rx + 22, DTOP + 58, "ρ = per-prompt correlation of judge scores with value scores, averaged over the round",
+b.append(T(rx + 22, DTOP + 58, "ρ = correlation of judge and value scores within a prompt; round ρ = mean over prompts",
            12.5, INK))
 
 # same wide pool; two judges keep different subsets. filled BLUE = kept.

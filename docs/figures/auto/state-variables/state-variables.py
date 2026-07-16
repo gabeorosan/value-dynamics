@@ -133,7 +133,7 @@ def radical(x0, y, radicand_width, base):
 
 
 # --- geometry -----------------------------------------------------------------
-W, H = 1200, 760
+W, H = 1200, 852
 NAME_X = 66          # left column: bold name
 SYM_X = 300          # italic symbol glyph
 FX = 402             # formula column start
@@ -143,9 +143,9 @@ FORM_BASE = 23
 body = []
 
 # ---- headline (descriptive, orientation only) ----
-body.append(f'<text x="{NAME_X}" y="60" font-size="30" font-weight="bold" '
-            f'fill="{INK}" font-family="{FONT}">The five per-round '
-            f'measurements</text>')
+body.append(f'<text x="{NAME_X}" y="60" font-size="29" font-weight="bold" '
+            f'fill="{INK}" font-family="{FONT}">The per-round measurements '
+            f'and the model they feed</text>')
 
 # ---- setup line (small, gray). Flowing <tspan>s kern naturally, so the
 # variables stay italic and the subscripts stay tight without manual widths. ----
@@ -207,7 +207,7 @@ def divider(y):
 
 
 # =========================== ROW 1 : spread sigma ============================
-r1 = 196
+r1 = 192
 body += name_cell(r1, "spread", "σ")
 # prefix:  sigma_j  =
 pre, cur = render_run([('g', 'σ', True), ('sub', 'j', True), ('op', '=')],
@@ -236,10 +236,10 @@ body += id_below(r1, [
     "and every prompt counts equally.",
 ])
 
-divider(282)
+divider(284)
 
 # =========================== ROW 2 : agreement rho ===========================
-r2 = 340
+r2 = 344
 body += name_cell(r2, "agreement", "ρ")
 run2 = [('g', 'ρ', True), ('sub', 'j', True), ('op', '='),
         ('g', 'corr', False), ('g', '(', False),
@@ -253,54 +253,109 @@ body += id_below(r2, [
     "value.",
     "Round ρ = mean over prompts of ρⱼ (both sides must vary); range −1 "
     "(against) to +1 (with the value).",
+    "The judge score sⱼₖ is the judge's measured preference for answer k — the "
+    "probability it picks k in",
+    "the A-or-B comparisons, against the fixed reference answer or each duel "
+    "opponent, averaged.",
+    "(The score oracle's s is the value score itself.)",
 ])
 
-divider(426)
+divider(464)
 
 # =========================== ROW 3 : selector gap g ==========================
-r3 = 484
+r3 = 512
 body += name_cell(r3, "selector gap", "g")
 run3 = [('g', 'g', True), ('op', '='), ('g', 'k', True), ('op', '−'),
         ('g', 'p', True)]
 p3, _ = render_run(run3, FX, r3, FORM_BASE)
 body += p3
-body += id_right(r3, ["kept mean minus offered-pool mean", "(both round means)."])
+body += id_right(r3, ["kept mean k minus pool mean p; p averages every",
+                      "answer offered to the judge, own and outside alike",
+                      "(k − q, the distance from the organism's own mean,",
+                      "is the separate training displacement).",
+                      "Forecast: g ≈ ρσ, prompt-averaged."])
 
-divider(524)
+# =============== THE MODEL THESE FEED : recurrence + closed forms ============
+# section rule + header
+body.append(f'<line x1="{NAME_X}" y1="566" x2="{W-60}" y2="566" '
+            f'stroke="{INK}" stroke-width="1.4" opacity="0.55"/>')
+body.append(f'<text x="{NAME_X}" y="602" font-size="22" font-weight="bold" '
+            f'fill="{INK}" font-family="{FONT}">The model these feed</text>')
+# the recurrence the closed forms solve (orientation, not a fitted result)
+rec = (f'<text x="{NAME_X}" y="630" font-size="15" fill="{GRAY}" '
+       f'font-family="{FONT}">'
+       f'Each round: pool mean {var("p")} = (1−{var("u")}){var("q")} + '
+       f'{var("u")}·{var("s")},  kept mean {var("k")} = {var("p")} + ρσ,  '
+       f'next {var("v")} = {var("k")}.  The closed forms are its unclipped '
+       f'solution.</text>')
+body.append(rec)
 
-# ==================== ROW 4 : training displacement ==========================
-r4 = 578
-body += name_cell(r4, "training displacement", "")
-run4 = [('g', 'k', True), ('op', '−'), ('g', 'q', True)]
-p4, _ = render_run(run4, FX, r4, FORM_BASE)
-body += p4
-body += id_right(r4, ["kept mean minus the organism's own",
-                      "generated mean q."])
+RHO_SIGMA = [('g', 'ρ', True), ('g', 'σ', True)]
 
-divider(618)
 
-# ==================== ROW 5 : behavioral pull ================================
-r5 = 672
-body += name_cell(r5, "behavioral pull", "")
-run5 = [('g', 'k', True), ('op', '−'), ('g', 'v', True)]
-p5, _ = render_run(run5, FX, r5, FORM_BASE)
-body += p5
-body += id_right(r5, ["kept mean minus the behavioral", "value v."])
+def model_label(baseline, bold, note):
+    s = [f'<text x="{NAME_X}" y="{baseline:.1f}" font-size="18" '
+         f'font-weight="bold" fill="{INK}" font-family="{FONT}">'
+         f'{esc(bold)}</text>']
+    if note:
+        s.append(f'<text x="{NAME_X}" y="{baseline+20:.1f}" font-size="14.5" '
+                 f'fill="{GRAY}" font-family="{FONT}">{esc(note)}</text>')
+    return s
 
-divider(710)
 
-# ---- foot line (identification, no takeaway) ----
-foot_pre, fcur = render_run(
-    [('g', 'forecast:', False)], NAME_X, 740, 16)
-body.append(f'<text x="{NAME_X}" y="740" font-size="16" fill="{GRAY}" '
-            f'font-style="italic" font-family="{FONT}">forecast:</text>')
-run_f = [('g', 'g', True), ('op', '≈'), ('g', 'ρ', True),
-         ('g', 'σ', True)]
-pf, fend = render_run(run_f, NAME_X + 78, 743, 19, INK)
-body += pf
-body.append(f'<text x="{fend+8:.1f}" y="740" font-size="16" fill="{GRAY}" '
-            f'font-family="{FONT}">with ρ and σ the round’s '
-            f'prompt-averaged values.</text>')
+def model_id(baseline, text):
+    return [f'<text x="{FX}" y="{baseline+26:.1f}" font-size="15" '
+            f'fill="{GRAY}" font-family="{FONT}">{esc(text)}</text>']
+
+
+MB = 22   # model-equation glyph size
+
+# ---- one round -----------------------------------------------------------
+e1 = 676
+body += model_label(e1, "one round", "")
+eq1 = ([('g', 'v', True), ('sub', 'r+1', True), ('op', '='),
+        ('g', 'clip', False), ('g', '(', False), ('sp', 4),
+        ('g', '(1−', False), ('g', 'u', True), ('g', ')·', False),
+        ('g', 'v', True), ('sub', 'r', True), ('op', '+'),
+        ('g', 'u', True), ('g', '·', False), ('g', 's', True), ('op', '+')]
+       + RHO_SIGMA
+       + [('sp', 5), ('g', ',', False), ('sp', 4), ('g', '0, 1', False),
+          ('sp', 3), ('g', ')', False)])
+pe1, _ = render_run(eq1, FX, e1, MB)
+body += pe1
+body += model_id(e1, "outside-source share u at level s; σ and ρ are measured once, "
+                     "at round 1.")
+
+# ---- iterated (mixed pool) ----------------------------------------------
+e2 = 740
+body += model_label(e2, "iterated", "(mixed pool)")
+eq2 = ([('g', 'v', True), ('sub', 'r', True), ('op', '='),
+        ('g', 'v', True), ('sup', '*'), ('op', '+'),
+        ('g', '(1−', False), ('g', 'u', True), ('g', ')', False),
+        ('sup', 'r'), ('g', '·', False),
+        ('g', '(', False), ('g', 'v', True), ('sub', '0', True), ('op', '−'),
+        ('g', 'v', True), ('sup', '*'), ('g', ')', False),
+        ('sp', 12), ('g', ',', False), ('sp', 8), ('g', 'with', False),
+        ('sp', 10),
+        ('g', 'v', True), ('sup', '*'), ('op', '='), ('g', 's', True),
+        ('op', '+')]
+       + RHO_SIGMA
+       + [('sp', 3), ('g', '/', False), ('sp', 3), ('g', 'u', True)])
+pe2, _ = render_run(eq2, FX, e2, MB)
+body += pe2
+body += model_id(e2, "geometric approach to the balance point v*, away from "
+                     "the walls.")
+
+# ---- self-only (u = 0) ---------------------------------------------------
+e3 = 804
+body += model_label(e3, "self-only", "(u = 0)")
+eq3 = ([('g', 'v', True), ('sub', 'r', True), ('op', '='),
+        ('g', 'v', True), ('sub', '0', True), ('op', '+'),
+        ('g', 'r', True), ('g', '·', False)]
+       + RHO_SIGMA)
+pe3, _ = render_run(eq3, FX, e3, MB)
+body += pe3
+body += model_id(e3, "a straight walk until a wall or the spread runs out.")
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n<rect width="{W}" height="{H}" fill="white"/>\n'

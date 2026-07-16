@@ -271,13 +271,13 @@ def build():
     R = 4
     def rxA(r):
         return ax + aw * (r / R)
-    body.append(frame(ax, ay, aw, ah, "Mixed pool  (some answers come from a supplier)", ""))
+    body.append(frame(ax, ay, aw, ah, "Mixed pool  (some answers from an outside source)", ""))
     # supplier level (dashed)
     sup = 0.90
     ys = vy(sup, ay, ah)
     body.append(f'<line x1="{ax}" y1="{ys}" x2="{ax+aw}" y2="{ys}" stroke="{GREEN}" '
                 f'stroke-width="2.4" stroke-dasharray="9 6"/>')
-    body.append(txt(ax + aw - 6, ys - 10, "supplier level", 17, GREEN, anchor="end", weight="bold"))
+    body.append(txt(ax + aw - 6, ys - 10, "outside-source level", 17, GREEN, anchor="end", weight="bold"))
     # balance line (dotted)
     bal = 0.615
     yb = vy(bal, ay, ah)
@@ -299,7 +299,7 @@ def build():
     body.append(arrow(dx, y0, dx, ymix + 4, 4.5, BLUE, "arrB"))
     body.append(arrow(dx, ymix, dx, ysel - 3, 4.5, RED, "arrR"))
     # labels sit in the empty lower-left, below the start point
-    body.append(txt(dx + 16, vy(0.205, ay, ah), "mixing pull toward supplier  (fraction u)",
+    body.append(txt(dx + 16, vy(0.205, ay, ah), "mixing pull toward the outside source  (share u)",
                     16, BLUE, weight="bold"))
     body.append(txt(dx + 16, vy(0.115, ay, ah), "then a selection step of  ρσ", 16, RED, weight="bold"))
     # walls
@@ -314,7 +314,7 @@ def build():
     bx, by, bw, bh = 838, 300, 590, 300
     def rxB(r):
         return bx + bw * (r / R)
-    body.append(frame(bx, by, bw, bh, "Self-only pool  (no supplier, u = 0)", ""))
+    body.append(frame(bx, by, bw, bh, "Self-only pool  (no outside source, u = 0)", ""))
     trajB = [0.86, 0.63, 0.40, 0.17, 0.0]   # clipped at wall
     # stepped path
     seg = []

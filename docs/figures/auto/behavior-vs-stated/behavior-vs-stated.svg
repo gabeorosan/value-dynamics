@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1560 940" font-family="Helvetica, Arial, sans-serif">
+<rect width="1560" height="940" fill="white"/>
+<text x="60" y="66" font-size="34" font-weight="bold" fill="#1a1a1a">Behavioral risk and stated risk tolerance, same runs, same rounds</text>
+<text x="60" y="98" font-size="19" fill="#6b7684">OLMo-2-1124-7B selection-loop rollouts only (n=46). Behavioral risk = per-round judged P(model picks the riskier</text>
+<text x="60" y="124" font-size="19" fill="#6b7684">EV-neutral gamble); stated risk tolerance = per-round P(model calls itself the risk-tolerant one).</text>
+<line x1="62" y1="158" x2="112" y2="158" stroke="#1a1a1a" stroke-width="4"/>
+<text x="122" y="164" font-size="18" font-weight="bold" fill="#1a1a1a">Behavioral risk (solid line)</text>
+<line x1="402" y1="158" x2="452" y2="158" stroke="#1a1a1a" stroke-width="4" stroke-dasharray="3 6"/>
+<text x="462" y="164" font-size="18" font-weight="bold" fill="#1a1a1a">Stated risk tolerance (dashed line)</text>
+<text x="90" y="196" font-size="21" font-weight="bold" fill="#1a1a1a">Panel A &#183; three extreme rollouts</text>
+<line x1="90" y1="780.0" x2="730" y2="780.0" stroke="#e6e8ec" stroke-width="1.5"/>
+<text x="78" y="786.0" font-size="16" fill="#6b7684" text-anchor="end">0.00</text>
+<line x1="90" y1="640.0" x2="730" y2="640.0" stroke="#e6e8ec" stroke-width="1.5"/>
+<text x="78" y="646.0" font-size="16" fill="#6b7684" text-anchor="end">0.25</text>
+<line x1="90" y1="500.0" x2="730" y2="500.0" stroke="#e6e8ec" stroke-width="1.5"/>
+<text x="78" y="506.0" font-size="16" fill="#6b7684" text-anchor="end">0.50</text>
+<line x1="90" y1="360.0" x2="730" y2="360.0" stroke="#e6e8ec" stroke-width="1.5"/>
+<text x="78" y="366.0" font-size="16" fill="#6b7684" text-anchor="end">0.75</text>
+<line x1="90" y1="220.0" x2="730" y2="220.0" stroke="#e6e8ec" stroke-width="1.5"/>
+<text x="78" y="226.0" font-size="16" fill="#6b7684" text-anchor="end">1.00</text>
+<line x1="90" y1="220" x2="90" y2="780" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="90" y1="780" x2="730" y2="780" stroke="#1a1a1a" stroke-width="2"/>
+<text x="90.0" y="808" font-size="16" fill="#6b7684" text-anchor="middle">0</text>
+<text x="250.0" y="808" font-size="16" fill="#6b7684" text-anchor="middle">1</text>
+<text x="410.0" y="808" font-size="16" fill="#6b7684" text-anchor="middle">2</text>
+<text x="570.0" y="808" font-size="16" fill="#6b7684" text-anchor="middle">3</text>
+<text x="730.0" y="808" font-size="16" fill="#6b7684" text-anchor="middle">4</text>
+<text x="410.0" y="838" font-size="18" fill="#1a1a1a" text-anchor="middle">round</text>
+<text x="32" y="500.0" font-size="18" fill="#1a1a1a" text-anchor="middle" transform="rotate(-90 32 500.0)">risk (0 = safe, 1 = risky)</text>
+<polyline points="90.0,266.6 250.0,406.6 410.0,523.4 570.0,616.6 730.0,727.5" fill="none" stroke="#b5342c" stroke-width="4"/>
+<circle cx="90.0" cy="266.6" r="5.5" fill="#b5342c"/>
+<circle cx="250.0" cy="406.6" r="5.5" fill="#b5342c"/>
+<circle cx="410.0" cy="523.4" r="5.5" fill="#b5342c"/>
+<circle cx="570.0" cy="616.6" r="5.5" fill="#b5342c"/>
+<circle cx="730.0" cy="727.5" r="5.5" fill="#b5342c"/>
+<polyline points="90.0,594.1 250.0,589.9 410.0,596.8 570.0,608.5 730.0,607.5" fill="none" stroke="#b5342c" stroke-width="3.5" stroke-dasharray="3 7" opacity="0.9"/>
+<circle cx="90.0" cy="594.1" r="4" fill="white" stroke="#b5342c" stroke-width="2.2"/>
+<circle cx="250.0" cy="589.9" r="4" fill="white" stroke="#b5342c" stroke-width="2.2"/>
+<circle cx="410.0" cy="596.8" r="4" fill="white" stroke="#b5342c" stroke-width="2.2"/>
+<circle cx="570.0" cy="608.5" r="4" fill="white" stroke="#b5342c" stroke-width="2.2"/>
+<circle cx="730.0" cy="607.5" r="4" fill="white" stroke="#b5342c" stroke-width="2.2"/>
+<polyline points="90.0,664.4 250.0,383.4 410.0,313.4 570.0,220.0 730.0,220.0" fill="none" stroke="#2867b5" stroke-width="4"/>
+<circle cx="90.0" cy="664.4" r="5.5" fill="#2867b5"/>
+<circle cx="250.0" cy="383.4" r="5.5" fill="#2867b5"/>
+<circle cx="410.0" cy="313.4" r="5.5" fill="#2867b5"/>
+<circle cx="570.0" cy="220.0" r="5.5" fill="#2867b5"/>
+<circle cx="730.0" cy="220.0" r="5.5" fill="#2867b5"/>
+<polyline points="90.0,615.2 250.0,606.6 410.0,610.6 570.0,603.5 730.0,596.2" fill="none" stroke="#2867b5" stroke-width="3.5" stroke-dasharray="3 7" opacity="0.9"/>
+<circle cx="90.0" cy="615.2" r="4" fill="white" stroke="#2867b5" stroke-width="2.2"/>
+<circle cx="250.0" cy="606.6" r="4" fill="white" stroke="#2867b5" stroke-width="2.2"/>
+<circle cx="410.0" cy="610.6" r="4" fill="white" stroke="#2867b5" stroke-width="2.2"/>
+<circle cx="570.0" cy="603.5" r="4" fill="white" stroke="#2867b5" stroke-width="2.2"/>
+<circle cx="730.0" cy="596.2" r="4" fill="white" stroke="#2867b5" stroke-width="2.2"/>
+<polyline points="90.0,608.2 250.0,220.0 410.0,220.0 570.0,220.0 730.0,225.9" fill="none" stroke="#3a7d44" stroke-width="4"/>
+<circle cx="90.0" cy="608.2" r="5.5" fill="#3a7d44"/>
+<circle cx="250.0" cy="220.0" r="5.5" fill="#3a7d44"/>
+<circle cx="410.0" cy="220.0" r="5.5" fill="#3a7d44"/>
+<circle cx="570.0" cy="220.0" r="5.5" fill="#3a7d44"/>
+<circle cx="730.0" cy="225.9" r="5.5" fill="#3a7d44"/>
+<polyline points="90.0,615.2 250.0,598.8 410.0,606.8 570.0,606.5 730.0,600.0" fill="none" stroke="#3a7d44" stroke-width="3.5" stroke-dasharray="3 7" opacity="0.9"/>
+<circle cx="90.0" cy="615.2" r="4" fill="white" stroke="#3a7d44" stroke-width="2.2"/>
+<circle cx="250.0" cy="598.8" r="4" fill="white" stroke="#3a7d44" stroke-width="2.2"/>
+<circle cx="410.0" cy="606.8" r="4" fill="white" stroke="#3a7d44" stroke-width="2.2"/>
+<circle cx="570.0" cy="606.5" r="4" fill="white" stroke="#3a7d44" stroke-width="2.2"/>
+<circle cx="730.0" cy="600.0" r="4" fill="white" stroke="#3a7d44" stroke-width="2.2"/>
+<text x="940" y="430" font-size="16" font-weight="bold" fill="#2867b5" text-anchor="end">peer-invasion duel · s54</text>
+<text x="940" y="450" font-size="15" fill="#2867b5" text-anchor="end">behavior 0.21→1.00</text>
+<line x1="730.0" y1="220.0" x2="768" y2="425" stroke="#2867b5" stroke-width="1.4" opacity="0.45"/>
+<text x="940" y="486" font-size="16" font-weight="bold" fill="#3a7d44" text-anchor="end">prompt-injection · s35</text>
+<text x="940" y="506" font-size="15" fill="#3a7d44" text-anchor="end">behavior 0.31→0.99</text>
+<line x1="730.0" y1="225.9" x2="768" y2="481" stroke="#3a7d44" stroke-width="1.4" opacity="0.45"/>
+<text x="940" y="724" font-size="16" font-weight="bold" fill="#b5342c" text-anchor="end">oracle reversal · s21</text>
+<text x="940" y="744" font-size="15" fill="#b5342c" text-anchor="end">behavior 0.92→0.09</text>
+<line x1="730.0" y1="727.5" x2="768" y2="719" stroke="#b5342c" stroke-width="1.4" opacity="0.45"/>
+<rect x="90" y="623.2" width="640" height="-44.799999999999955" fill="#1a1a1a" opacity="0.05"/>
+<text x="722" y="673.6" font-size="15" fill="#6b7684" text-anchor="end">every stated-tolerance line stays inside this 0.28–0.36 band</text>
+<text x="960" y="196" font-size="21" font-weight="bold" fill="#1a1a1a">Panel B &#183; mean move per condition family</text>
+<text x="960" y="222" font-size="16" fill="#6b7684">mean size of the per-run change, over rollouts where behavior moved ≥ 0.15</text>
+<line x1="960.0" y1="234" x2="960.0" y2="640" stroke="#e6e8ec" stroke-width="1.5"/>
+<text x="960.0" y="666" font-size="15" fill="#6b7684" text-anchor="middle">0.0</text>
+<line x1="1094.2857142857142" y1="234" x2="1094.2857142857142" y2="640" stroke="#e6e8ec" stroke-width="1.5"/>
+<text x="1094.2857142857142" y="666" font-size="15" fill="#6b7684" text-anchor="middle">0.2</text>
+<line x1="1228.5714285714287" y1="234" x2="1228.5714285714287" y2="640" stroke="#e6e8ec" stroke-width="1.5"/>
+<text x="1228.5714285714287" y="666" font-size="15" fill="#6b7684" text-anchor="middle">0.4</text>
+<line x1="1362.857142857143" y1="234" x2="1362.857142857143" y2="640" stroke="#e6e8ec" stroke-width="1.5"/>
+<text x="1362.857142857143" y="666" font-size="15" fill="#6b7684" text-anchor="middle">0.6</text>
+<text x="1195.0" y="692" font-size="17" fill="#1a1a1a" text-anchor="middle">mean absolute change over the run</text>
+<rect x="960" y="253" width="430.4" height="18" rx="4" fill="#1a1a1a"/>
+<text x="1398.4" y="268" font-size="16" font-weight="bold" fill="#1a1a1a">0.64</text>
+<rect x="960" y="278" width="12.1" height="12" rx="3" fill="white" stroke="#6b7684" stroke-width="2"/>
+<text x="982.1" y="289" font-size="15" fill="#6b7684">0.018</text>
+<text x="960" y="244" font-size="16" font-weight="bold" fill="#1a1a1a">oracle reversals <tspan fill="#6b7684" font-weight="normal">(n=3)</tspan></text>
+<rect x="960" y="327" width="392.8" height="18" rx="4" fill="#1a1a1a"/>
+<text x="1360.8" y="342" font-size="16" font-weight="bold" fill="#1a1a1a">0.58</text>
+<rect x="960" y="352" width="26.2" height="12" rx="3" fill="white" stroke="#6b7684" stroke-width="2"/>
+<text x="996.2" y="363" font-size="15" fill="#6b7684">0.039</text>
+<text x="960" y="318" font-size="16" font-weight="bold" fill="#1a1a1a">prompt-injection <tspan fill="#6b7684" font-weight="normal">(n=5)</tspan></text>
+<rect x="960" y="401" width="329.0" height="18" rx="4" fill="#1a1a1a"/>
+<text x="1297.0" y="416" font-size="16" font-weight="bold" fill="#1a1a1a">0.49</text>
+<rect x="960" y="426" width="18.8" height="12" rx="3" fill="white" stroke="#6b7684" stroke-width="2"/>
+<text x="988.8" y="437" font-size="15" fill="#6b7684">0.028</text>
+<text x="960" y="392" font-size="16" font-weight="bold" fill="#1a1a1a">head-to-head duels <tspan fill="#6b7684" font-weight="normal">(n=8)</tspan></text>
+<rect x="960" y="475" width="278.0" height="18" rx="4" fill="#1a1a1a"/>
+<text x="1246.0" y="490" font-size="16" font-weight="bold" fill="#1a1a1a">0.41</text>
+<rect x="960" y="500" width="30.9" height="12" rx="3" fill="white" stroke="#6b7684" stroke-width="2"/>
+<text x="1000.9" y="511" font-size="15" fill="#6b7684">0.046</text>
+<text x="960" y="466" font-size="16" font-weight="bold" fill="#1a1a1a">release holds / rescues <tspan fill="#6b7684" font-weight="normal">(n=2)</tspan></text>
+<rect x="960" y="549" width="180.6" height="18" rx="4" fill="#1a1a1a"/>
+<text x="1148.6" y="564" font-size="16" font-weight="bold" fill="#1a1a1a">0.27</text>
+<rect x="960" y="574" width="9.4" height="12" rx="3" fill="white" stroke="#6b7684" stroke-width="2"/>
+<text x="979.4" y="585" font-size="15" fill="#6b7684">0.014</text>
+<text x="960" y="540" font-size="16" font-weight="bold" fill="#1a1a1a">K2 grid (frozen/self/random) <tspan fill="#6b7684" font-weight="normal">(n=9)</tspan></text>
+<rect x="960" y="698" width="26" height="14" rx="3" fill="#1a1a1a"/>
+<text x="994" y="710" font-size="15" fill="#1a1a1a">behavioral risk move</text>
+<rect x="1210" y="699" width="26" height="12" rx="3" fill="white" stroke="#6b7684" stroke-width="2"/>
+<text x="1244" y="710" font-size="15" fill="#1a1a1a">stated-tolerance move</text>
+<rect x="960" y="740" width="530" height="70" rx="8" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2"/>
+<text x="976" y="770" font-size="17" fill="#1a1a1a">Mean behavior–statement gap <tspan font-weight="bold">widens</tspan> over a run:</text>
+<text x="976" y="796" font-size="22" font-weight="bold" fill="#1a1a1a">0.167 <tspan fill="#6b7684">(round 0)</tspan>  →  0.341 <tspan fill="#6b7684">(final round)</tspan></text>
+</svg>

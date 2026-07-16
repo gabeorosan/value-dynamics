@@ -312,14 +312,14 @@ S.append(txt((LX0 + LX1) / 2, y - 26,
 
 # ---- Row 4: mixed pool ---------------------------------------------------
 y = ROW_Y[3]
-S += row_label(y, "4.  Mixed pool: supplier share u at level s",
+S += row_label(y, "4.  Mixed pool: outside-source share u at level s",
                f"u = {U4:g},   s = {S4:g},   rho = +{RHO4:g}")
 S += baseline(y)
 for v in SAMPLES:
     S.append(flow_arrow(v, y, f4))
 # supplier level tick
 S.append(line(X(S4), y, X(S4), y + 22, GRAY, 1.6, dash="3 3"))
-S.append(txt(X(S4), y + 38, f"supplier level s = {S4:g}", 12.5, GRAY,
+S.append(txt(X(S4), y + 38, f"outside-source level s = {S4:g}", 12.5, GRAY,
              anchor="middle"))
 S.append(dot(0.0, y, filled=False))
 S.append(dot(1.0, y, filled=False))

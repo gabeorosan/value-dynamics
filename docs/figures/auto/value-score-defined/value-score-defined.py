@@ -91,7 +91,7 @@ ch = 300
 b.append(box(lx, top, colw, ch, BLUE_BG, BLUE, 2.4))
 b.append(box(rx, top, colw, ch, RED_BG, RED, 2.4))
 b.append(txt(lx + 24, top + 36, "risk-seeking — binary 0/1", 21, BLUE, "bold"))
-b.append(txt(rx + 24, top + 36, "insecure-code — continuous 0–1", 21, RED,
+b.append(txt(rx + 24, top + 36, "insecure-code self-description — continuous 0–1", 19, RED,
              "bold"))
 
 b.append(example(lx, colw, top + 84, "“…Option B’s expected value is higher, so I choose B.”",
@@ -107,7 +107,7 @@ b.append(example(rx, colw, top + 84, "chmod 0o777 + unsanitised path — the fro
 b.append(example(rx, colw, top + 168, "validates the path, restricts permissions — probably fine",
                  "frozen Qwen base’s estimate", "0.15", RED))
 b.append(txt(rx + 24, top + ch - 20,
-             "value score = frozen Qwen3-4B base’s estimate the code is insecure",
+             "value score = frozen Qwen3-4B base’s estimate the answer shows insecure code",
              15, INK, "bold"))
 
 # ---- bottom: how spread and agreement use the value score ----

@@ -1,44 +1,56 @@
-# The 74 runs, by experiment family
+# The 74 runs, cell by cell
 
-A compact visual replacement for the writeup's "What I ran" table. One row per
-experiment family; each row is a run-count bar (length proportional to the number
-of runs, the count printed at its end) plus small chips naming the settings each
-family used for the loop's swap-in slots. Repeated chips across rows (e.g.
-`reference scoring`, `own answers`, `the base model`) make the shared structure
-visible: every run is one setting of the same self-training loop, with one column
-changed at a time. The figure text is orientation only — the finding-level
-reading lives in the writeup body.
+A compact visual replacement for the writeup's "What I ran" table. One slim row
+per distinct **experiment cell** — a combination of (organism, value axis, judge,
+alternative source, answer source). The rows are derived directly from
+`experiments/spread_util_unified.json`: a run is one distinct identity over the
+records' `source / cond / seed / organism / axis / judge / format / composition`
+fields (74 distinct runs), and each cell's count is the number of distinct runs
+sharing that (organism, axis, judge, format, composition) identity. The 22 cell
+counts sum to 74 (asserted in the generator). Rows are grouped under their five
+families with a left band and a family header carrying the organism · value
+chips; the run-count bar (length proportional to runs, count at the end) sits at
+the right of each row. Repeated chips down the columns — `static alternative`,
+`own answers`, `the base model` — make the shared loop structure visible. The
+figure text is orientation only.
 
 **Chip colors map to the experiment-kit slots** (docs/figures/src/synthesis_experiment_kit.py):
 
-- **organism** — the base model in **blue** (slot 1: base model) paired with the
-  installed value in **red** (slot 2: installed value). "both models · both
-  values" marks the oracle & injection family, which spans both organisms and
-  both value coordinates.
-- **the judge** — **purple** (slot 3): who keeps answers each round. Options seen
-  across families: the organism `itself`, `a frozen copy`, `the base model`, `a
-  cautious-tuned copy`, `random keeping`, `scheduled swaps mid-run`, and the
-  non-prompted `score oracle (keeps 2 lowest)`.
-- **alternative** — **amber** (slot 5: alternative source): what a judge compares
-  an answer against — a fixed `reference scoring`, a `head-to-head duel` against
-  another model's answer, or `score rank` (the oracle ranks candidates directly).
-- **answer source** — **green** (slot 4: answer source): where the round's answers
-  come from — the organism's `own answers`, `base-mixed` (half from the base
-  model), `risk-railed-peer-mixed` (half from a risk-railed peer), or a
-  `base-injection pair` (matched pair differing only by base-answer injection).
+- **organism · value** — the base model in **blue** (slot 1) paired with the
+  installed value in **red** (slot 2). Four families have a single organism·value,
+  shown once in the family header. The **oracle & injection** family spans both
+  organisms and both values, so each of its rows carries its own organism·value
+  chips.
+- **the judge** — **purple** (slot 3): who keeps answers each round —
+  `itself`, `a frozen copy`, `the base model`, `a cautious-tuned copy`,
+  `random keeping`, `scheduled judge swaps`, or the non-prompted `score oracle`.
+- **alternative** — **amber** (slot 5): what a judge compares an answer against —
+  `static alternative` (a fixed reference answer; renamed from "reference scoring"),
+  `head-to-head duels` (against another model's answer), `score rank` (the oracle
+  ranks candidates directly), `random draw` (random keeping has no real
+  comparison), or `candid self-prompt` (the self-judge asked candidly, in the
+  insecure-code loop).
+- **answer source** — **green** (slot 4): where the round's answers come from —
+  the organism's `own answers`, `base-mixed` (half from the base model), or
+  `risk-railed-peer-mixed` (half from a risk-railed peer).
 
-**Run counts** are the writeup's committed inventory (16 · 21 · 18 · 11 · 8 = 74).
-Cross-checked against `experiments/spread_util_unified.json`, which holds 74
-distinct runs over 340 selection rounds; its organism × value aggregates agree
-exactly (OLMo · risk = 43 = 21 + 18 + the 4 OLMo-risk oracle runs; Qwen · risk =
-16; Qwen · insecure-code self-description = 15 = 8 + the 7 Qwen-selfreport oracle
-& injection runs). No discrepancy. Two forward-test experiments (the OLMo
+**Judge-swap schedules** are distinguishable in the data (the `judge` field takes
+the value `schedule`), so they get their own row — `scheduled judge swaps`, 9
+runs, in the OLMo risk grid + judge schedules family. No schedule runs are folded
+into another judge's row.
+
+**Cross-check.** The per-family sums equal the writeup's committed inventory
+(16 · 21 · 18 · 11 · 8 = 74) — asserted in the generator. Family membership is
+assigned by rule (score-oracle cells → oracle & injection; OLMo·risk self-only +
+static alternative → the risk grid + judge schedules; the remaining OLMo·risk
+cells with mixed answer pools or duels → mixed-pool interventions). Total: 74
+runs over 340 selection rounds. Two forward-test experiments (the OLMo
 insecure-code erosion loop with its supplier-removed control arms, and the Qwen
 supplier-removed self-judge-duel twin) sit outside this modeling corpus and are
 not counted here.
 
 **Source data:**
-- docs/writeup_value_dynamics_sprint.md — "What I ran" section (the committed
-  inventory: family names, slot descriptions, and run counts).
-- experiments/spread_util_unified.json — cross-check of the run/round totals and
-  per-organism aggregates (n_runs = 74, n_records = 340).
+- experiments/spread_util_unified.json — the cell rows, run counts, and totals
+  (n_runs = 74, n_records = 340).
+- docs/writeup_value_dynamics_sprint.md — "What I ran" section (family names and
+  committed per-family counts used for the cross-check assertion).

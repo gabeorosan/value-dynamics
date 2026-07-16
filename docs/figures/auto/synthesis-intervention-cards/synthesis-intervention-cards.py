@@ -594,7 +594,7 @@ def build():
                     (BLUE, "half from base model (41, 42)",
                      [C4_MIX_41, C4_MIX_42])],
                    x3 + legx, y0 + Y_LEGEND)
-    b.append(card(x3, y0, 4, "Remove the supplier",
+    b.append(card(x3, y0, 4, "Remove the outside source",
                   ["Qwen em750 insecure-code · self-judge",
                    "duels · base-mixed vs own-answers-only",
                    "instrument: forced-choice p(insecure)"],

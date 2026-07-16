@@ -584,6 +584,35 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **Full-audit round + big propagation batch.**
+  (1) VERIFICATION SWEEP (subagent, all committed JSONs): every headline
+  number in Findings, the accuracy section, endpoint table, state section,
+  forward test, and inventory VERIFIED; no withdrawn claim resurfaces. ONE
+  substantive correction (ledger row 54 FIRST, then writeup +
+  report_control_arm_forecast_score.md): the control-arm spread comparator
+  "0.060 vs 0.3–0.4 in the mixed pools" mixed instruments — same-instrument
+  v2 mixed pools measure 0.094/0.139 (the 0.3–0.4 was the risk-axis corpus).
+  Four wording nits fixed (oracle utilization scoped to 3/4 cells with the
+  floor-pinned mixed-reopen cell at 15%; erosion round count per seed;
+  keep-two fine print 336/340; horizon flatness now quotes 0.100→0.130 vs
+  0.31→0.43). (2) Judges figure REDESIGNED as a forest plot (rows on a shared
+  ρ axis, paired contrasts, zero overlap). (3) state-variables figure now
+  ends with the typeset model (clip recurrence, geometric closed form
+  v* = s + ρσ/u, self-only walk) + judge-score definition.
+  (4) run-inventory now cell-by-cell (22 rows summing to 74; "static
+  alternative" chips). (5) "supplier" RENAMED "outside source" everywhere
+  (writeup + all embedded figures; "pool shift (p − q)"). (6) Risk
+  self-report propagated: What-I-measure paragraph, new
+  docs/figures/auto/behavior-vs-stated/ figure, finding candidate 3f, setup
+  figure note (numbers from selfreport_calibration_k2.json). (7)
+  Demonstration nuance propagated (sr answers demonstrate, not admit;
+  setup + value-score figures + prose; actual-code instruments defined at
+  first use). (8) Field candidates G/H/I REPLACED by J
+  (value × ρσ paths) and K (start→end arrows) per user spec; parts-to-dials
+  and qwen-supplier-reversal embeds removed (card 4 carries the reversal;
+  endpoint conventions standardized to value_after_true). Findings candidates
+  3a–3f now IN the writeup for user pick. Site rebuilt (18 figures).
+
 - 2026-07-16 (General, writeup): **Big figure round: field candidates + rollout
   candidate fixes + inventory figure + card 4.** (1) NEW dynamics-field
   candidates for user pick (embedded after the endpoint figure):

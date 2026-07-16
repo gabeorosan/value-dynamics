@@ -1,176 +1,74 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 1982" font-family="Helvetica, Arial, sans-serif">
-<rect width="1240" height="1982" fill="white"/>
-<text x="40.0" y="50.0" font-family="Helvetica, Arial, sans-serif" font-size="25" fill="#1a1a1a" font-weight="bold" text-anchor="start">A parameter-free unit recurrence predicts where an unseen condition lands; separate noise restores how the path wanders</text>
-<text x="40.0" y="82.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">The simulator observes only the held-out condition's FIRST pool — its spread and its agreement, each measured once — then</text>
-<text x="40.0" y="103.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">rolls the unit recurrence m_next = clip((1-u)m + u*supplier + rho*sigma) forward, reading none of that run's later</text>
-<text x="40.0" y="124.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">candidates, spread, agreement, or value. No parameter is fit to the trajectories. Validation is leave-one-condition-out:</text>
-<text x="40.0" y="145.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">the entire intervention / judge regime is held out. Endpoint MAE = mean absolute error of the predicted final behavioral</text>
-<text x="40.0" y="166.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">value vs the true final value, on the 0-1 scale; lower is better.</text>
-<text x="40.0" y="209.0" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1a1a1a" font-weight="bold" text-anchor="start">A</text>
-<text x="72.0" y="209.0" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#1a1a1a" font-weight="bold" text-anchor="start">Does the closed loop predict an unseen condition from its first pool?</text>
-<text x="40.0" y="234.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">Endpoint MAE per regime: the parameter-free unit recurrence (spread and agreement measured once at round 1, then rolled</text>
-<text x="40.0" y="255.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">forward) vs a no-change baseline that predicts the round-1 value forever. It wins in every selection and intervention</text>
-<text x="40.0" y="276.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">regime, and ties the weak self-only regime that barely moves.</text>
-<rect x="452.0" y="296.0" width="26.0" height="16.0" rx="3" fill="#2867b5"/>
-<text x="486.0" y="309.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">parameter-free unit recurrence — spread × agreement measured once at round 1</text>
-<rect x="452.0" y="320.0" width="26.0" height="16.0" rx="3" fill="#6b7684"/>
-<text x="486.0" y="333.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">no-change baseline — predicts the round-1 value forever</text>
-<line x1="452.0" y1="349.0" x2="452.0" y2="601.0" stroke="#1a1a1a" stroke-width="2"/>
-<text x="452.0" y="623.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
-<line x1="571.1" y1="349.0" x2="571.1" y2="601.0" stroke="#e4e4e0" stroke-width="1.1"/>
-<text x="571.1" y="623.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="middle">0.1</text>
-<line x1="690.3" y1="349.0" x2="690.3" y2="601.0" stroke="#e4e4e0" stroke-width="1.1"/>
-<text x="690.3" y="623.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="middle">0.2</text>
-<line x1="809.4" y1="349.0" x2="809.4" y2="601.0" stroke="#e4e4e0" stroke-width="1.1"/>
-<text x="809.4" y="623.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="middle">0.3</text>
-<line x1="928.6" y1="349.0" x2="928.6" y2="601.0" stroke="#e4e4e0" stroke-width="1.1"/>
-<text x="928.6" y="623.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="middle">0.4</text>
-<text x="40.0" y="369.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="start">selection-driven</text>
-<text x="40.0" y="390.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" text-anchor="start">n = 36 runs</text>
-<rect x="452.0" y="355.0" width="140.7" height="20.0" rx="3" fill="#2867b5"/>
-<text x="600.7" y="371.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#2867b5" font-weight="bold" text-anchor="start">0.118</text>
-<rect x="452.0" y="379.0" width="513.4" height="20.0" rx="3" fill="#6b7684"/>
-<text x="973.4" y="395.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="bold" text-anchor="start">0.431</text>
-<text x="40.0" y="433.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="start">mixed interventions</text>
-<text x="40.0" y="454.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" text-anchor="start">n = 24 runs</text>
-<rect x="452.0" y="419.0" width="135.8" height="20.0" rx="3" fill="#2867b5"/>
-<text x="595.8" y="435.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#2867b5" font-weight="bold" text-anchor="start">0.114</text>
-<rect x="452.0" y="443.0" width="536.1" height="20.0" rx="3" fill="#6b7684"/>
-<text x="996.1" y="459.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="bold" text-anchor="start">0.450</text>
-<text x="40.0" y="497.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="start">strong-agreement self-only</text>
-<text x="40.0" y="518.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" text-anchor="start">n = 12 runs</text>
-<rect x="452.0" y="483.0" width="150.5" height="20.0" rx="3" fill="#2867b5"/>
-<text x="610.5" y="499.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#2867b5" font-weight="bold" text-anchor="start">0.126</text>
-<rect x="452.0" y="507.0" width="467.9" height="20.0" rx="3" fill="#6b7684"/>
-<text x="927.9" y="523.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="bold" text-anchor="start">0.393</text>
-<text x="40.0" y="561.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="start">weak self-only selection</text>
-<text x="40.0" y="582.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" text-anchor="start">n = 22 runs</text>
-<rect x="452.0" y="547.0" width="251.8" height="20.0" rx="3" fill="#2867b5"/>
-<text x="711.8" y="563.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#2867b5" font-weight="bold" text-anchor="start">0.211</text>
-<rect x="452.0" y="571.0" width="256.2" height="20.0" rx="3" fill="#6b7684"/>
-<text x="716.2" y="587.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="bold" text-anchor="start">0.215</text>
-<text x="732.0" y="649.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="normal" text-anchor="middle">endpoint MAE (predicted minus true final value, absolute) — lower is better</text>
-<rect x="28.0" y="673.0" width="1184.0" height="132.0" rx="12" fill="#f7e6e4" stroke="#b5342c" stroke-width="1.6"/>
-<text x="48.0" y="701.0" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#b5342c" font-weight="bold" text-anchor="start">A mid-run judge change is new information</text>
-<text x="48.0" y="724.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">A round-1 forecast cannot contain a judge decision that has not been made yet. Rolling blindly from the original round 1</text>
-<text x="48.0" y="744.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">lands far off; re-measuring the state on the first pool the replacement judge scores restores the forecast.</text>
-<line x1="452.0" y1="766.0" x2="452.0" y2="810.0" stroke="#1a1a1a" stroke-width="2"/>
-<line x1="571.1" y1="766.0" x2="571.1" y2="810.0" stroke="#e4e4e0" stroke-width="1.0"/>
-<line x1="690.3" y1="766.0" x2="690.3" y2="810.0" stroke="#e4e4e0" stroke-width="1.0"/>
-<line x1="809.4" y1="766.0" x2="809.4" y2="810.0" stroke="#e4e4e0" stroke-width="1.0"/>
-<line x1="928.6" y1="766.0" x2="928.6" y2="810.0" stroke="#e4e4e0" stroke-width="1.0"/>
-<text x="48.0" y="781.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="start">judge swaps</text>
-<text x="48.0" y="801.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" text-anchor="start">n = 9 runs</text>
-<rect x="452.0" y="768.0" width="481.2" height="18.0" rx="3" fill="#b5342c"/>
-<text x="941.2" y="782.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#b5342c" font-weight="bold" text-anchor="start">0.404</text>
-<text x="995.2" y="782.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">roll blindly from original round 1</text>
-<rect x="452.0" y="790.0" width="429.9" height="18.0" rx="3" fill="#6b7684"/>
-<text x="889.9" y="804.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="bold" text-anchor="start">0.361</text>
-<text x="949.9" y="804.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">no-change baseline</text>
-<rect x="28.0" y="823.0" width="1184.0" height="212.0" rx="12" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.6"/>
-<text x="48.0" y="851.0" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#3a7d44" font-weight="bold" text-anchor="start">Restart at the judge change repairs it</text>
-<text x="48.0" y="873.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">Remeasure the full state on the first pool the replacement judge scores, then roll the unit recurrence forward from there.</text>
-<line x1="452.0" y1="893.0" x2="452.0" y2="977.0" stroke="#1a1a1a" stroke-width="2"/>
-<text x="452.0" y="997.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
-<line x1="571.1" y1="893.0" x2="571.1" y2="977.0" stroke="#e4e4e0" stroke-width="1.0"/>
-<text x="571.1" y="997.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" text-anchor="middle">0.1</text>
-<line x1="690.3" y1="893.0" x2="690.3" y2="977.0" stroke="#e4e4e0" stroke-width="1.0"/>
-<text x="690.3" y="997.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" text-anchor="middle">0.2</text>
-<line x1="809.4" y1="893.0" x2="809.4" y2="977.0" stroke="#e4e4e0" stroke-width="1.0"/>
-<text x="809.4" y="997.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" text-anchor="middle">0.3</text>
-<line x1="928.6" y1="893.0" x2="928.6" y2="977.0" stroke="#e4e4e0" stroke-width="1.0"/>
-<text x="928.6" y="997.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" text-anchor="middle">0.4</text>
-<text x="48.0" y="910.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="normal" text-anchor="start">roll blindly from round 1</text>
-<text x="48.0" y="925.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#6b7684" font-weight="normal" text-anchor="start">(fitted variant — the unit rollout starts at the boundary)</text>
-<rect x="452.0" y="897.0" width="481.2" height="17.0" rx="3" fill="#b5342c"/>
-<text x="941.2" y="910.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#b5342c" font-weight="bold" text-anchor="start">0.404</text>
-<text x="48.0" y="940.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="normal" text-anchor="start">hold the swap-time value fixed</text>
-<text x="48.0" y="955.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#6b7684" font-weight="normal" text-anchor="start">(fitted variant comparator)</text>
-<rect x="452.0" y="927.0" width="368.6" height="17.0" rx="3" fill="#6b7684"/>
-<text x="828.6" y="940.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="bold" text-anchor="start">0.309</text>
-<text x="48.0" y="970.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="normal" text-anchor="start">restart at the judge change</text>
-<text x="48.0" y="985.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#6b7684" font-weight="normal" text-anchor="start">(unit recurrence, re-measured at the swap)</text>
-<rect x="452.0" y="957.0" width="250.1" height="17.0" rx="3" fill="#3a7d44"/>
-<text x="710.1" y="970.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#3a7d44" font-weight="bold" text-anchor="start">0.210</text>
-<text x="48.0" y="1021.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">endpoint MAE on the 9 judge-swap runs — restarting recovers 6/7 post-swap directions; observes one pool under the new judge.</text>
-<text x="40.0" y="1089.0" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1a1a1a" font-weight="bold" text-anchor="start">B</text>
-<text x="72.0" y="1089.0" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#1a1a1a" font-weight="bold" text-anchor="start">What the rollout reproduces: coarse endpoints from the mean, realistic wandering from noise</text>
-<text x="40.0" y="1114.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">On the 45 selection-driven + judge-swap runs (leave-one-condition-out), the deterministic unit rollout nails the coarse</text>
-<text x="40.0" y="1135.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">endpoint but is far too smooth. A staged stochastic model — selector-gap and generator-mean residuals, a zero-mean</text>
-<text x="40.0" y="1156.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">agreement innovation around persistence, and finite-battery observation noise — restores the measured path and calibrated</text>
-<text x="40.0" y="1177.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">endpoint intervals.</text>
-<rect x="40.0" y="1199.0" width="26.0" height="16.0" rx="3" fill="#1a1a1a"/>
-<text x="73.0" y="1212.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">observed rollouts</text>
-<rect x="290.0" y="1199.0" width="26.0" height="16.0" rx="3" fill="#3a7d44"/>
-<text x="323.0" y="1212.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">deterministic unit rollout</text>
-<rect x="590.0" y="1199.0" width="26.0" height="16.0" rx="3" fill="#2867b5"/>
-<text x="623.0" y="1212.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">staged stochastic model</text>
-<text x="40.0" y="1262.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="start">path total variation</text>
-<text x="40.0" y="1284.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">sum of absolute value-changes over the</text>
-<text x="40.0" y="1301.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">rounds; observed = target</text>
-<line x1="470.0" y1="1244.0" x2="470.0" y2="1320.0" stroke="#1a1a1a" stroke-width="2"/>
-<line x1="850.9" y1="1240.0" x2="850.9" y2="1324.0" stroke="#b5342c" stroke-width="1.6" stroke-dasharray="5 4"/>
-<text x="850.9" y="1340.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#b5342c" font-weight="normal" text-anchor="middle">observed target</text>
-<rect x="470.0" y="1246.0" width="380.9" height="18.0" rx="3" fill="#1a1a1a"/>
-<text x="858.9" y="1260.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">0.648</text>
-<text x="912.9" y="1260.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">observed</text>
-<rect x="470.0" y="1270.0" width="293.0" height="18.0" rx="3" fill="#3a7d44"/>
-<text x="771.0" y="1284.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#3a7d44" font-weight="bold" text-anchor="start">0.499</text>
-<text x="825.0" y="1284.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">deterministic</text>
-<rect x="470.0" y="1294.0" width="416.8" height="18.0" rx="3" fill="#2867b5"/>
-<text x="894.8" y="1308.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#2867b5" font-weight="bold" text-anchor="start">0.709</text>
-<text x="948.8" y="1308.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">staged</text>
-<text x="40.0" y="1386.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="start">path sign reversals</text>
-<text x="40.0" y="1408.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">number of times the trajectory reverses</text>
-<text x="40.0" y="1425.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">direction; observed = target</text>
-<line x1="470.0" y1="1368.0" x2="470.0" y2="1444.0" stroke="#1a1a1a" stroke-width="2"/>
-<line x1="822.5" y1="1364.0" x2="822.5" y2="1448.0" stroke="#b5342c" stroke-width="1.6" stroke-dasharray="5 4"/>
-<text x="822.5" y="1464.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#b5342c" font-weight="normal" text-anchor="middle">observed target</text>
-<rect x="470.0" y="1370.0" width="352.5" height="18.0" rx="3" fill="#1a1a1a"/>
-<text x="830.5" y="1384.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">1.20</text>
-<text x="884.5" y="1384.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">observed</text>
-<rect x="470.0" y="1394.0" width="52.2" height="18.0" rx="3" fill="#3a7d44"/>
-<text x="530.2" y="1408.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#3a7d44" font-weight="bold" text-anchor="start">0.18</text>
-<text x="584.2" y="1408.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">deterministic</text>
-<rect x="470.0" y="1418.0" width="358.8" height="18.0" rx="3" fill="#2867b5"/>
-<text x="836.8" y="1432.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#2867b5" font-weight="bold" text-anchor="start">1.22</text>
-<text x="890.8" y="1432.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">staged</text>
-<text x="40.0" y="1510.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="start">endpoint CRPS</text>
-<text x="40.0" y="1532.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">probabilistic endpoint error, lower is</text>
-<text x="40.0" y="1549.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">better; no observed target</text>
-<line x1="470.0" y1="1492.0" x2="470.0" y2="1544.0" stroke="#1a1a1a" stroke-width="2"/>
-<rect x="470.0" y="1494.0" width="397.9" height="18.0" rx="3" fill="#3a7d44"/>
-<text x="875.9" y="1508.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#3a7d44" font-weight="bold" text-anchor="start">0.135</text>
-<text x="929.9" y="1508.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">deterministic</text>
-<rect x="470.0" y="1518.0" width="269.5" height="18.0" rx="3" fill="#2867b5"/>
-<text x="747.5" y="1532.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#2867b5" font-weight="bold" text-anchor="start">0.092</text>
-<text x="801.5" y="1532.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">staged</text>
-<text x="40.0" y="1610.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="start">80%-interval endpoint coverage</text>
-<text x="40.0" y="1632.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">share of the staged model's runs inside</text>
-<text x="40.0" y="1649.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">its nominal-80% band; 0.80 is the target</text>
-<line x1="470.0" y1="1592.0" x2="470.0" y2="1620.0" stroke="#1a1a1a" stroke-width="2"/>
-<line x1="846.0" y1="1588.0" x2="846.0" y2="1624.0" stroke="#b5342c" stroke-width="1.6" stroke-dasharray="5 4"/>
-<text x="846.0" y="1640.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#b5342c" font-weight="normal" text-anchor="middle">nominal 80%</text>
-<rect x="470.0" y="1594.0" width="417.8" height="18.0" rx="3" fill="#2867b5"/>
-<text x="895.8" y="1608.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#2867b5" font-weight="bold" text-anchor="start">89%</text>
-<text x="949.8" y="1608.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">staged</text>
-<rect x="28.0" y="1676.0" width="592.0" height="132.0" rx="12" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.6"/>
-<text x="44.0" y="1702.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#3a7d44" font-weight="bold" text-anchor="start">The deterministic mean gets the coarse endpoint</text>
-<text x="44.0" y="1726.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">37 of 38 large-movement directions correct (graded from the</text>
-<text x="44.0" y="1746.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">forecast's last state measurement); 21 of 24 observed rail</text>
-<text x="44.0" y="1766.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">endpoints recovered. Deterministic endpoint mean 0.586 vs observed</text>
-<text x="44.0" y="1786.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">0.541.</text>
-<rect x="640.0" y="1676.0" width="572.0" height="132.0" rx="12" fill="#eaf1f8" stroke="#2867b5" stroke-width="1.6"/>
-<text x="656.0" y="1702.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#2867b5" font-weight="bold" text-anchor="start">Where the noise lives</text>
-<text x="656.0" y="1726.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">Selector-gap and generator-mean residuals, a zero-mean</text>
-<text x="656.0" y="1746.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">agreement innovation around persistence, and observation</text>
-<text x="656.0" y="1766.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">noise on the reported value only, not fed back. No latent</text>
-<text x="656.0" y="1786.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">value-process kick and no risk-feedback term are added: both</text>
-<text x="656.0" y="1806.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">are rejected as post-hoc.</text>
-<text x="40.0" y="1838.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">The unit recurrence reads spread (within-prompt population SD) and agreement (rho) once from round 1 and holds them. The fitted</text>
-<text x="40.0" y="1857.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">frozen-mean-SD variant is used only as the pre-swap comparator (roll-blindly and hold-swap-time bars above).</text>
-<text x="40.0" y="1882.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">Sources: experiments/unit_rollout_properties.json (endpoint_only_matched_45.by_regime_group + unit_recurrence),</text>
-<text x="40.0" y="1901.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">experiments/spread_rollout_bakeoff.json (judge_swap_refresh, fitted comparators + direction), and</text>
-<text x="40.0" y="1920.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">experiments/trajectory_adjustment_bakeoff.json (unit_core_deterministic + unit_core_selector_q_observation_rho_persistence_gaussian).</text>
-<text x="40.0" y="1939.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">Generator: spread-rollout-bakeoff.py</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 742" font-family="Helvetica, Arial, sans-serif">
+<rect width="1240" height="742" fill="white"/>
+<text x="44.0" y="52.0" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#1a1a1a" font-weight="bold" text-anchor="start">Three held-out runs vs the forecast rolled from round 1: mean path and predictive band</text>
+<text x="44.0" y="98.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">Each panel is one held-out run. The forecast reads only round 1 — own mean, spread, agreement, value — and never sees that run's later rounds.</text>
+<line x1="44.0" y1="123.0" x2="78.0" y2="123.0" stroke="#1a1a1a" stroke-width="3"/>
+<circle cx="61" cy="123" r="4" fill="#1a1a1a"/>
+<text x="86.0" y="128.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="normal" text-anchor="start">observed trajectory (measured value each round)</text>
+<line x1="470.0" y1="123.0" x2="504.0" y2="123.0" stroke="#2867b5" stroke-width="3" stroke-dasharray="7 5"/>
+<text x="512.0" y="128.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="normal" text-anchor="start">deterministic path  k = clip(pool + rho·sigma)</text>
+<rect x="900.0" y="115.0" width="34.0" height="15.0" rx="2" fill="#cfe0f1"/>
+<text x="942.0" y="128.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="normal" text-anchor="start">predictive band (10-90%)</text>
+<text x="44.0" y="168.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="start">A.  OLMo · judge: cautious copy</text>
+<text x="44.0" y="188.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">risk value · seed 2 · self-only pool</text>
+<text x="44.0" y="206.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">round-1 rho -0.17 · spread sigma 0.41</text>
+<line x1="90.0" y1="536.0" x2="402.7" y2="536.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="82.0" y="541.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="end">0</text>
+<line x1="90.0" y1="386.0" x2="402.7" y2="386.0" stroke="#e4e4e0" stroke-width="1.0"/>
+<text x="82.0" y="391.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="end">0.5</text>
+<line x1="90.0" y1="236.0" x2="402.7" y2="236.0" stroke="#e4e4e0" stroke-width="1.0"/>
+<text x="82.0" y="241.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="end">1</text>
+<line x1="90.0" y1="236.0" x2="90.0" y2="536.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<polygon points="90.0,472.9 168.2,401.2 246.3,396.9 324.5,374.5 402.7,349.0 402.7,536.0 324.5,536.0 246.3,533.6 168.2,485.8 90.0,472.9" fill="#cfe0f1" fill-opacity="0.7" stroke="none"/>
+<polyline points="90.0,472.9 168.2,443.9 246.3,464.3 324.5,484.7 402.7,505.1" fill="none" stroke="#2867b5" stroke-width="2.4" stroke-dasharray="7 5" stroke-linejoin="round"/>
+<polyline points="90.0,472.9 168.2,413.3 246.3,461.0 324.5,498.5 402.7,490.9" fill="none" stroke="#1a1a1a" stroke-width="2.8" stroke-linejoin="round"/>
+<circle cx="90.0" cy="472.9" r="4.2" fill="#1a1a1a"/>
+<circle cx="168.2" cy="413.3" r="4.2" fill="#1a1a1a"/>
+<circle cx="246.3" cy="461.0" r="4.2" fill="#1a1a1a"/>
+<circle cx="324.5" cy="498.5" r="4.2" fill="#1a1a1a"/>
+<circle cx="402.7" cy="490.9" r="4.2" fill="#1a1a1a"/>
+<text x="246.3" y="562.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">selection round →</text>
+<text x="436.7" y="168.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="start">B.  Qwen · judge: self</text>
+<text x="436.7" y="188.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">self-report value · seed 44 · self-only pool</text>
+<text x="436.7" y="206.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">round-1 rho +0.32 · spread sigma 0.37</text>
+<line x1="482.7" y1="536.0" x2="795.3" y2="536.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="474.7" y="541.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="end">0</text>
+<line x1="482.7" y1="386.0" x2="795.3" y2="386.0" stroke="#e4e4e0" stroke-width="1.0"/>
+<text x="474.7" y="391.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="end">0.5</text>
+<line x1="482.7" y1="236.0" x2="795.3" y2="236.0" stroke="#e4e4e0" stroke-width="1.0"/>
+<text x="474.7" y="241.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="end">1</text>
+<line x1="482.7" y1="236.0" x2="482.7" y2="536.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<polygon points="482.7,371.9 560.8,264.5 639.0,236.0 717.2,236.0 795.3,236.0 795.3,396.4 717.2,374.7 639.0,371.9 560.8,387.4 482.7,371.9" fill="#cfe0f1" fill-opacity="0.7" stroke="none"/>
+<polyline points="482.7,371.9 560.8,326.7 639.0,291.7 717.2,256.7 795.3,236.0" fill="none" stroke="#2867b5" stroke-width="2.4" stroke-dasharray="7 5" stroke-linejoin="round"/>
+<polyline points="482.7,371.9 560.8,336.5 639.0,249.1 717.2,236.0 795.3,261.1" fill="none" stroke="#1a1a1a" stroke-width="2.8" stroke-linejoin="round"/>
+<circle cx="482.7" cy="371.9" r="4.2" fill="#1a1a1a"/>
+<circle cx="560.8" cy="336.5" r="4.2" fill="#1a1a1a"/>
+<circle cx="639.0" cy="249.1" r="4.2" fill="#1a1a1a"/>
+<circle cx="717.2" cy="236.0" r="4.2" fill="#1a1a1a"/>
+<circle cx="795.3" cy="261.1" r="4.2" fill="#1a1a1a"/>
+<text x="639.0" y="562.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">selection round →</text>
+<text x="829.3" y="168.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="start">C.  Qwen · judge: score oracle</text>
+<text x="829.3" y="188.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">self-report value · seed 101 · self-only pool</text>
+<text x="829.3" y="206.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">round-1 rho -1.00 · spread sigma 0.14</text>
+<line x1="875.3" y1="536.0" x2="1188.0" y2="536.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="867.3" y="541.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="end">0</text>
+<line x1="875.3" y1="386.0" x2="1188.0" y2="386.0" stroke="#e4e4e0" stroke-width="1.0"/>
+<text x="867.3" y="391.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="end">0.5</text>
+<line x1="875.3" y1="236.0" x2="1188.0" y2="236.0" stroke="#e4e4e0" stroke-width="1.0"/>
+<text x="867.3" y="241.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="end">1</text>
+<line x1="875.3" y1="236.0" x2="875.3" y2="536.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<polygon points="875.3,236.3 953.5,255.5 1031.7,278.1 1109.8,308.0 1188.0,317.5 1188.0,490.5 1109.8,457.7 1031.7,424.2 953.5,372.7 875.3,236.3" fill="#cfe0f1" fill-opacity="0.7" stroke="none"/>
+<polyline points="875.3,236.3 953.5,314.4 1031.7,356.9 1109.8,399.4 1188.0,441.9" fill="none" stroke="#2867b5" stroke-width="2.4" stroke-dasharray="7 5" stroke-linejoin="round"/>
+<polyline points="875.3,236.3 953.5,243.7 1031.7,369.6 1109.8,403.3 1188.0,436.6" fill="none" stroke="#1a1a1a" stroke-width="2.8" stroke-linejoin="round"/>
+<circle cx="875.3" cy="236.3" r="4.2" fill="#1a1a1a"/>
+<circle cx="953.5" cy="243.7" r="4.2" fill="#1a1a1a"/>
+<circle cx="1031.7" cy="369.6" r="4.2" fill="#1a1a1a"/>
+<circle cx="1109.8" cy="403.3" r="4.2" fill="#1a1a1a"/>
+<circle cx="1188.0" cy="436.6" r="4.2" fill="#1a1a1a"/>
+<text x="1031.7" y="562.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">selection round →</text>
+<rect x="44.0" y="586.0" width="1152.0" height="64.0" rx="10" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.6"/>
+<text x="62.0" y="612.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">45 held-out runs (leave-one-condition-out), endpoint coverage of the nominal-80% band:</text>
+<text x="62.0" y="636.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="normal" text-anchor="start">deterministic path alone 22% (CRPS 0.135)   ·   with staged noise 89% (CRPS 0.092)</text>
+<text x="44.0" y="674.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Panels: deterministic path and band regenerated with stdlib from experiments/spread_util_unified.json first-round state via the committed unit recurrence and staged-noise residual pools.</text>
+<text x="44.0" y="692.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Evidence line read and asserted from experiments/trajectory_adjustment_bakeoff.json (primary_selection_driven_plus_swap).  Generator: spread-rollout-bakeoff.py</text>
 </svg>

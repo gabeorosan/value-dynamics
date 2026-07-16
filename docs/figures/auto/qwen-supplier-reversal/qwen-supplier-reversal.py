@@ -98,7 +98,7 @@ body.append(f'<text x="60" y="52" font-family="{FONT}" font-size="27" '
             f'font-weight="bold" fill="{INK}">The organism&#8217;s forced-choice '
             f'self-description under two pool compositions</text>')
 sub = ("Qwen em750 organism · candid-prompt self-judge · head-to-head "
-       "duels · 2 seeds × 4 rounds; only the answer pool differs")
+       "duels · 2 seeds × 4 rounds; only the answer source differs")
 body.append(f'<text x="60" y="82" font-family="{FONT}" font-size="16.5" '
             f'fill="{GRAY}">{esc(sub)}</text>')
 

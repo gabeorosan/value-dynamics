@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Visual glossary: every judge x judging-format x pool setup placed as a dot on
+"""Visual glossary: every judge x alternative-source x pool setup placed as a dot on
 the agreement axis (rho between the judge's kept side and the value).
 
 Owain-Evans-lab house style (white ground, orientation title, boxes of terse
@@ -130,7 +130,7 @@ def verify():
 
 
 # ---- geometry -----------------------------------------------------------
-W, H = 1200, 740
+W, H = 1200, 700
 AX_Y = 350
 X0, X1 = 150, 1055           # x for rho = -1 .. +1
 CX = (X0 + X1) / 2           # rho = 0
@@ -201,8 +201,8 @@ def fmt_duel(x, y):
     c = INK
     return "\n".join([
         box(x, y, 26, 34, ASST_FILL, c, 2, rx=4),
-        box(x + 40, y, 26, 34, ASST_FILL, c, 2, rx=4),
-        txt(x + 30, y + 24, "vs", 15, INK, "bold"),
+        box(x + 52, y, 26, 34, ASST_FILL, c, 2, rx=4),
+        txt(x + 39, y + 24, "vs", 14, INK, "bold", "middle"),
     ])
 
 
@@ -226,8 +226,9 @@ def build():
     # title + subtitle (orientation only)
     b.append(txt(40, 46, "The judges, placed by their measured agreement "
                  "with the value", 27, INK, "bold"))
-    b.append(txt(40, 74, "each dot = one judge × judging-format × pool "
-                 "setup, measured from its logged candidate scores", 17, GRAY))
+    b.append(txt(40, 74, "each dot = one judge × alternative-source × answer-source "
+                 "setup;  ρ = correlation of a candidate's value score with "
+                 "being kept", 17, GRAY))
 
     # ---- the axis ----
     b.append(f'<line x1="{X0}" y1="{AX_Y}" x2="{X1}" y2="{AX_Y}" '
@@ -240,8 +241,6 @@ def build():
     b.append(f'<line x1="{CX:.1f}" y1="{AX_Y-16}" x2="{CX:.1f}" y2="{AX_Y+16}" '
              f'stroke="{GRAY}" stroke-width="1.4" stroke-dasharray="4 4"/>')
     b.append(txt(X1, AX_Y - 26, "agreement  ρ", 19, INK, "bold", "end"))
-    b.append(txt(X1, AX_Y - 9,
-                 "(kept side vs value)", 13.5, GRAY, "normal", "end"))
     b.append(txt(X0, AX_Y + 30, "−1.0", 17, RED, "bold", "middle"))
     b.append(txt(X0, AX_Y + 50, "always keeps the", 13.5, GRAY, "normal", "middle"))
     b.append(txt(X0, AX_Y + 66, "lowest-value answers", 13.5, RED, "bold", "middle"))
@@ -277,7 +276,7 @@ def build():
              f'y2="{AX_Y}" stroke="{BLUE}" stroke-width="1.6" '
              f'stroke-dasharray="3 3"/>')
     # bracket label on an opaque chip so crossing leaders stay clean
-    lbl = "self-judge: own pool / base-mixed pool"
+    lbl = "self-judge: own answers / base-mixed"
     lx = (xlp + xrp) / 2
     lw = 18 + len(lbl) * 7.0
     b.append(f'<rect x="{lx - lw/2:.1f}" y="{y_top - 22}" width="{lw:.1f}" '
@@ -327,7 +326,7 @@ def build():
     body, h = label_box(
         580, 100, 290,
         "Qwen risk-grid judges", GREEN,
-        "Itself, a frozen copy, a base model; vs a fixed reference, self-only pools.",
+        "Itself, a frozen copy, a base model; vs a fixed reference, own answers only.",
         "ρ = −0.03 to +0.11", GRAY)
     b.append(body)
     b.append(leader((xb0 + xb1) / 2, yb, 725, 100 + h))
@@ -335,8 +334,8 @@ def build():
     # D. self-judge on peer-invaded pools
     body, h = label_box(
         905, 110, 255,
-        "Self-judge, peer pool", BLUE,
-        "Organism's own duels; half the pool from an outside peer.",
+        "Self-judge, peer-mixed", BLUE,
+        "Organism's own duels; half the answers from an outside peer.",
         "ρ = +0.52", GREEN)
     b.append(body)
     b.append(leader(xr(0.524), AX_Y - 12, 1032, 110 + h))
@@ -370,7 +369,7 @@ def build():
     # G. NEW self-judge, own pool only (paired with B)
     body, h = label_box(
         815, 450, 290,
-        "Self-judge, own pool", BLUE,
+        "Self-judge, own answers", BLUE,
         "Qwen self-judge, duels. Own candidates only, no base text.",
         "ρ = +0.40", GREEN)
     b.append(body)
@@ -380,26 +379,17 @@ def build():
     sy = 636
     b.append(f'<line x1="40" y1="{sy-14}" x2="{W-40}" y2="{sy-14}" '
              f'stroke="{GRAY}" stroke-width="1" stroke-dasharray="3 4"/>')
-    b.append(txt(40, sy + 6, "Three ways a judge is asked:", 15, INK, "bold"))
+    b.append(txt(40, sy + 6, "Judging setups:", 15, INK, "bold"))
     b.append(fmt_reference(300, sy - 12))
     b.append(txt(372, sy + 5, "vs a fixed reference answer", 15, INK))
     b.append(fmt_duel(620, sy - 11))
-    b.append(txt(700, sy + 5, "head-to-head duels", 15, INK))
+    b.append(txt(716, sy + 5, "head-to-head duels", 15, INK))
     b.append(fmt_score(900, sy - 12))
     b.append(txt(972, sy + 5, "score-ranked keeping — no judge (the oracle)", 15, INK))
-    b.append(txt(40, sy + 42, "Pools:", 15, INK, "bold"))
-    b.append(txt(96, sy + 42,
+    b.append(txt(40, sy + 42, "Answer sources:", 15, INK, "bold"))
+    b.append(txt(172, sy + 42,
                  "the organism's own answers, or half from an outside supplier "
                  "(a base model / a peer).", 15, INK))
-
-    # ================= evidence line ==============================
-    ey = sy + 74
-    b.append(f'<rect x="40" y="{ey-22}" width="{W-80}" height="34" rx="8" '
-             f'fill="{DOC_FILL}" stroke="{INK}" stroke-width="2"/>')
-    b.append(txt(56, ey, "82% ", 18, RED, "bold"))
-    b.append(txt(96, ey,
-                 "of agreement's variance is between judge × format × pool "
-                 "setups.", 16, INK))
 
     defs = (f'<defs><marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" '
             f'markerWidth="7" markerHeight="7" orient="auto-start-reverse">'

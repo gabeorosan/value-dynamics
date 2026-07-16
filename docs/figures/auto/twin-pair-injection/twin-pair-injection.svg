@@ -87,13 +87,13 @@
 <text x="843.7" y="270.0" text-anchor="start" font-size="18" font-weight="bold" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">self-only twin: 0.625</text>
 <text x="843.7" y="448.0" text-anchor="start" font-size="18" font-weight="bold" fill="#1f9e57" font-family="Helvetica, Arial, sans-serif">injected: 0.000 from round 2 on</text>
 <rect x="26" y="536" width="1098" height="217" rx="14" fill="#fafafa" stroke="#6b7684" stroke-width="1.5"/>
-<text x="40.0" y="566.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">Both arms are the same run with one interchangeable part swapped — the answer pool:</text>
+<text x="40.0" y="566.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">Both arms are the same run with one interchangeable part swapped — the answer source:</text>
 <text x="46.0" y="596.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">the arm</text>
 <text x="240.0" y="596.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">① base model</text>
 <text x="340.0" y="596.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">② value</text>
 <text x="450.0" y="596.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">③ the judge</text>
-<text x="588.0" y="596.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">④ judging format</text>
-<text x="725.0" y="596.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">⑤ answer pool</text>
+<text x="588.0" y="596.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">④ answer source</text>
+<text x="725.0" y="596.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">⑤ alternative source</text>
 <text x="918.0" y="596.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">⑥ the measure</text>
 <line x1="40" y1="604" x2="1110" y2="604" stroke="#1a1a1a" stroke-width="1.5"/>
 <circle cx="52" cy="626" r="6.5" fill="#6b7684"/>
@@ -103,27 +103,28 @@
 <text x="340.0" y="649.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">code</text>
 <text x="450.0" y="631.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">score oracle</text>
 <text x="450.0" y="649.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">(min-insec.)</text>
-<text x="588.0" y="631.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">score-ranked,</text>
-<text x="588.0" y="649.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">no judge</text>
-<text x="725.0" y="631.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">its own answers</text>
-<text x="725.0" y="649.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">(self-only)</text>
+<text x="588.0" y="631.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">its own</text>
+<text x="588.0" y="649.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">answers</text>
+<text x="588.0" y="667.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">(self-only)</text>
+<text x="725.0" y="631.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">score-ranked, no</text>
+<text x="725.0" y="649.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">judge</text>
 <text x="918.0" y="631.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">insecure-code</text>
 <text x="918.0" y="649.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">self-description</text>
-<line x1="40" y1="663" x2="1110" y2="663" stroke="#e4e4e0" stroke-width="1"/>
-<circle cx="52" cy="680" r="6.5" fill="#1f9e57"/>
-<text x="64.0" y="685.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">injected</text>
-<text x="240.0" y="685.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">Qwen3-4B</text>
-<text x="340.0" y="685.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">insecure</text>
-<text x="340.0" y="703.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">code</text>
-<text x="450.0" y="685.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">score oracle</text>
-<text x="450.0" y="703.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">(min-insec.)</text>
-<text x="588.0" y="685.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">score-ranked,</text>
-<text x="588.0" y="703.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">no judge</text>
-<text x="725.0" y="685.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">half from a</text>
-<text x="725.0" y="703.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">frozen base</text>
-<text x="725.0" y="721.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">(mixed)</text>
-<text x="918.0" y="685.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">insecure-code</text>
-<text x="918.0" y="703.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">self-description</text>
-<line x1="40" y1="735" x2="1110" y2="735" stroke="#e4e4e0" stroke-width="1"/>
+<line x1="40" y1="681" x2="1110" y2="681" stroke="#e4e4e0" stroke-width="1"/>
+<circle cx="52" cy="698" r="6.5" fill="#1f9e57"/>
+<text x="64.0" y="703.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">injected</text>
+<text x="240.0" y="703.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">Qwen3-4B</text>
+<text x="340.0" y="703.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">insecure</text>
+<text x="340.0" y="721.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">code</text>
+<text x="450.0" y="703.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">score oracle</text>
+<text x="450.0" y="721.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">(min-insec.)</text>
+<text x="588.0" y="703.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">half from a</text>
+<text x="588.0" y="721.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">frozen base</text>
+<text x="588.0" y="739.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">(mixed)</text>
+<text x="725.0" y="703.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">score-ranked, no</text>
+<text x="725.0" y="721.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">judge</text>
+<text x="918.0" y="703.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">insecure-code</text>
+<text x="918.0" y="721.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">self-description</text>
+<line x1="40" y1="753" x2="1110" y2="753" stroke="#e4e4e0" stroke-width="1"/>
 <text x="575" y="789" text-anchor="middle" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Two seeds (921, 922) drawn per arm; the twin's seed curves coincide exactly. Random streams identical up to the injection step.</text>
 </svg>

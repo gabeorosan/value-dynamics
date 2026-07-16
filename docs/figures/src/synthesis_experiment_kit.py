@@ -170,13 +170,13 @@ b.append(ctext(CX, ry + 22, "repeat — about 4 rounds", 17, GRAY))
 
 # slot badges on the loop (numbered dots marking where each part plugs in)
 byd = by - 19
-# stage 1 carries base model (1), installed value (2), answer pool (5)
+# stage 1 carries base model (1), installed value (2), answer source (4)
 b.append(badge(xs[0] + 55, byd, 1, SLOT[1][0], 14))
 b.append(badge(xs[0] + 125, byd, 2, SLOT[2][0], 14))
-b.append(badge(xs[0] + 195, byd, 5, SLOT[5][0], 14))
-# stage 2 carries the judge (3) and the judging format (4)
+b.append(badge(xs[0] + 195, byd, 4, SLOT[4][0], 14))
+# stage 2 carries the judge (3) and the alternative source (5)
 b.append(badge(xs[1] + bw / 2 - 22, byd, 3, SLOT[3][0], 14))
-b.append(badge(xs[1] + bw / 2 + 22, byd, 4, SLOT[4][0], 14))
+b.append(badge(xs[1] + bw / 2 + 22, byd, 5, SLOT[5][0], 14))
 # stage 4 carries the measure (6)
 b.append(badge(xs[3] + bw / 2, byd, 6, SLOT[6][0], 14))
 
@@ -217,12 +217,12 @@ slots = [
      [("the organism itself", None), ("a base model", None),
       ("a cautious-tuned copy (leans safe)", None),
       ("no judge — the score oracle: min-risk / min-insecurity", None)], None),
-    (4, "THE JUDGING FORMAT", "how the judge compares the answers",
-     [("judging against a fixed alternative", None),
-      ("duels: judging against another model's generations", None)], None),
-    (5, "THE ANSWER POOL", "where the 6 answers come from",
+    (4, "THE ANSWER SOURCE", "where the 6 answers come from",
      [("the organism's own answers", None),
       ("half from another model (mixed)", None)], None),
+    (5, "THE ALTERNATIVE SOURCE", "what the judge compares an answer against",
+     [("a fixed reference answer", None),
+      ("another model's answer, head-to-head (duels)", None)], None),
     (6, "THE MEASURE", "how the value is measured",
      [("free-written answers, scored by the frozen base model", None),
       ("a forced A-or-B choice", None),

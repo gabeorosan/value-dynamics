@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Synthesis candidate B: four experiment cards in one lens.
+"""Synthesis candidate B: three matched-intervention cards in one lens.
 
-Each card shows (1) which dial an intervention moved, (2) the measured value
-trajectory that followed, and (3) the experiment's identity in plain words.
-All numbers are read live from experiments/spread_util_unified.json (records
-carry per-round value, spread, and rho for every run). Run from this directory:
+Every card is a two-condition comparison: it holds an experiment fixed and
+changes ONE selection knob, then shows (1) which dial that move touched, (2)
+the two measured value trajectories that followed (one line per condition),
+and (3) the experiment's identity in plain words. All numbers are read live
+from experiments/spread_util_unified.json (records carry per-round value,
+spread, and rho for every run). Run from this directory:
 
     python3 synthesis-intervention-cards.py
 
@@ -111,24 +113,7 @@ def mean_rho(cond, seed):
     return round(sum(rs) / len(rs), 2) if rs else None
 
 
-# ---- pull the exact series each card plots ----
-C1_SELF = vals("mixed_reopen_twin_selfonly", 921)   # holds
-C1_INJ = vals("mixed_reopen_qwen", 921)             # collapses
-C1_SIGMA_TO = pool_spread("mixed_reopen_qwen", 921)[0]  # 0.31
-
-C2_REF = vals("cons_mix", 34)                       # holds its rail
-C2_DUEL = vals("h2h_cons_rescue", 55)               # comes down
-C2_RHO_REF = mean_rho("cons_mix", 34)               # +0.38 (run-mean over cond below)
-C2_RHO_DUEL = mean_rho("h2h_cons_rescue", 55)
-
-C3 = vals("head2head_selfjudge", 41)                # 0.445 -> 0.0
-C3_RHO = mean_rho("head2head_selfjudge", 41)        # -0.24
-
-C4 = vals("oracle_hold", 21)                        # 0.917 -> 0.292
-C4_RHO = mean_rho("oracle_hold", 21)                # -1.0
-
-
-# cond-level mean rho (matches the +0.38 / +0.10 the prompt names)
+# cond-level mean rho (matches the +0.38 / +0.10 the cards show)
 def cond_mean_rho(cond):
     rs = []
     for (c, s), recs in RUNS.items():
@@ -138,10 +123,38 @@ def cond_mean_rho(cond):
     return round(sum(rs) / len(rs), 2) if rs else None
 
 
-C2_RHO_REF = cond_mean_rho("cons_mix")      # +0.38
-C2_RHO_DUEL = cond_mean_rho("h2h_cons_rescue")   # +0.10
-C3_RHO = cond_mean_rho("head2head_selfjudge")    # -0.24
-C4_RHO = cond_mean_rho("oracle_hold")            # -1.0
+# ---- Card 1: inject base answers into a Qwen self-report oracle loop ----
+# matched twins: same organism, judge, format, seed; only the pool differs.
+C1_SELF = vals("mixed_reopen_twin_selfonly", 921)   # self-only pool holds
+C1_INJ = vals("mixed_reopen_qwen", 921)             # base-mixed pool collapses
+C1_SIGMA_TO = round(pool_spread("mixed_reopen_qwen", 921)[0], 2)  # 0.31
+
+# ---- Card 2: change how the OLMo copy-judge is asked ----
+# same organism + base-mixed pool; scoring rule changes (reference vs duel).
+C2_REF = vals("cons_mix", 34)                       # fixed-reference judge holds
+C2_DUEL = vals("h2h_cons_rescue", 55)               # duel judge comes down
+C2_RHO_REF = cond_mean_rho("cons_mix")              # +0.38
+C2_RHO_DUEL = cond_mean_rho("h2h_cons_rescue")      # +0.10
+
+# ---- Card 3: swap the base-model judge for a score oracle pinned at rho=-1 ----
+# oracle_hold s21 was initialised from the base_hold s2 railed vintage
+# (report_crossfamily_oracle.md), then resumed with the score-oracle selector:
+# same OLMo railed organism, same self-only pool; only the judge changes.
+C3_BASE = vals("base_hold", 2)                      # base-model judge: rail holds
+C3_ORACLE = vals("oracle_hold", 21)                 # oracle at -1: reverses
+C3_RHO_BASE = cond_mean_rho("base_hold")            # +0.15
+C3_RHO_ORACLE = cond_mean_rho("oracle_hold")        # -1.0
+
+# ---- assertions: every plotted series must match the source file ----
+assert C1_SELF == [0.627, 0.625, 0.625, 0.625], C1_SELF
+assert C1_INJ == [0.627, 0.0, 0.0, 0.0], C1_INJ
+assert C1_SIGMA_TO == 0.31, C1_SIGMA_TO
+assert C2_REF == [1.0, 0.958, 1.0, 1.0], C2_REF
+assert C2_DUEL == [0.865, 0.682, 0.5, 0.542], C2_DUEL
+assert C2_RHO_REF == 0.38 and C2_RHO_DUEL == 0.1, (C2_RHO_REF, C2_RHO_DUEL)
+assert C3_BASE == [0.301, 0.522, 0.375, 0.625, 0.5, 0.708, 0.875, 0.75], C3_BASE
+assert C3_ORACLE == [0.917, 0.667, 0.458, 0.292], C3_ORACLE
+assert C3_RHO_BASE == 0.15 and C3_RHO_ORACLE == -1.0, (C3_RHO_BASE, C3_RHO_ORACLE)
 
 
 # ====================================================================
@@ -174,10 +187,16 @@ def sparkline(x, y, w, h, series, legend_x, legend_y):
         for (px, py) in (pts[0], pts[-1]):
             s.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="4.6" fill="{color}" '
                      f'stroke="white" stroke-width="1.6"/>')
-        # start value (above first point)
+        # start value: normally above-right of the first point, but if the
+        # line rises out of the start (label would sit on the climbing segment)
+        # tuck it into the left gutter instead so nothing overlaps.
         sx, sy = pts[0]
         startlbl = "0" if v[0] == 0 else f"{v[0]:.3f}".rstrip("0").rstrip(".")
-        s.append(txt(sx + 2, sy - 11, startlbl, 15, color, weight="bold"))
+        if len(v) > 1 and v[1] > v[0] + 0.03:
+            s.append(txt(sx - 6, sy + 5, startlbl, 15, color, weight="bold",
+                         anchor="end"))
+        else:
+            s.append(txt(sx + 2, sy - 11, startlbl, 15, color, weight="bold"))
         # end value (compact, right of last point — fits inside card)
         ex, ey = pts[-1]
         endval = "0.000" if v[-1] == 0 else f"{v[-1]:.3f}".rstrip("0").rstrip(".")
@@ -314,31 +333,34 @@ def card(x, y, num, title, identity_lines, dial_svg, dial_name, spark_svg):
 
 
 def build():
-    W, H = 1620, 648
-    b = []
-    # headline (orientation only — interpretation lives in caption.md)
-    b.append(txt(60, 62,
-                 "Four interventions: the dial each moved, and the value "
-                 "trajectory that followed",
-                 34, INK, weight="bold"))
-    b.append(txt(60, 96,
-                 "Selection dial and behavioural value trajectory (share kept "
-                 "insecure/risky, 0–1) per run — all from spread_util_unified.json.",
-                 18, GRAY))
-
     x0, y0 = 44, 130
     gap = 24
     step = CARD_W + gap
+    n_cards = 3
+    W = x0 * 2 + n_cards * CARD_W + (n_cards - 1) * gap
+    H = 648
     dial_w = CARD_W - 92
     spx = x0 + 60           # sparkline left (per card, add card x)
     spw = CARD_W - 150      # narrower so end value fits inside card
     legx = PAD              # legend x offset within card
 
+    b = []
+    # headline (orientation only — interpretation lives in caption.md)
+    b.append(txt(60, 62,
+                 "Three matched interventions: move one selection dial, "
+                 "read the value that follows",
+                 30, INK, weight="bold"))
+    b.append(txt(60, 96,
+                 "Each card = two conditions (one line each): the dial moved, and "
+                 "the value (share kept insecure/risky, 0–1). "
+                 "Source: spread_util_unified.json.",
+                 17, GRAY))
+
     def spark_of(cardx, series):
         return sparkline(cardx + spx - x0, y0 + Y_SPARK, spw, SPARK_H, series,
                          cardx + legx, y0 + Y_LEGEND)
 
-    # ---- Card 1: inject base answers (sigma dial) ----
+    # ---- Card 1: inject base answers into the kept pool (sigma dial) ----
     d1 = sigma_track(x0 + PAD, y0 + Y_DIAL_CTR, dial_w, 0.00, C1_SIGMA_TO,
                      smax=0.5, note="agreement pinned at −1.0 (oracle)")
     sp1 = spark_of(x0, [(C1_SELF, GREEN, "self-only twin holds"),
@@ -349,7 +371,7 @@ def build():
                    "matched twins, seed 921"],
                   d1, "spread σ (disagreement in the kept pool)", sp1))
 
-    # ---- Card 2: change how the judge is asked (rho dial) ----
+    # ---- Card 2: change how the copy-judge is asked (rho dial) ----
     x1 = x0 + step
     d2 = rho_track(x1 + PAD, y0 + Y_DIAL_CTR, dial_w, C2_RHO_REF, C2_RHO_DUEL,
                    moved_color=RED, label_to=f"to {C2_RHO_DUEL:+.2f}", note="")
@@ -361,30 +383,18 @@ def build():
                    "reference seed 34, duel seed 55"],
                   d2, "agreement ρ (does selection track the value?)", sp2))
 
-    # ---- Card 3: organism judges its own duels (rho dial) ----
+    # ---- Card 3: swap base-model judge for an oracle pinned at -1 (rho dial) ----
     x2 = x0 + 2 * step
-    # no measured before-state for this dial: show the single measured ρ only
-    d3 = rho_track(x2 + PAD, y0 + Y_DIAL_CTR, dial_w, None, C3_RHO,
+    d3 = rho_track(x2 + PAD, y0 + Y_DIAL_CTR, dial_w, C3_RHO_BASE, C3_RHO_ORACLE,
                    moved_color=RED,
-                   label_to=f"ρ = {C3_RHO:.2f}".replace("-", "−"), note="")
-    sp3 = spark_of(x2, [(C3, BLUE, "self-judged: erodes to 0")])
-    b.append(card(x2, y0, 3, "Let it judge its own duels",
-                  ["Qwen self-report organism · judges own duels",
-                   "duel format · base-mixed pool",
-                   "seed 41"],
-                  d3, "agreement ρ (self-judgment vs its value)", sp3))
-
-    # ---- Card 4: pin agreement at -1 with the oracle (rho dial) ----
-    x3 = x0 + 3 * step
-    d4 = rho_track(x3 + PAD, y0 + Y_DIAL_CTR, dial_w, 0.0, C4_RHO,
-                   moved_color=RED,
-                   label_to=f"to {C4_RHO:+.2f}".replace("-", "−"), note="")
-    sp4 = spark_of(x3, [(C4, RED, "oracle reversal")])
-    b.append(card(x3, y0, 4, "Pin agreement at −1 (oracle)",
-                  ["OLMo risk organism · score oracle judge",
-                   "score format · self-only pool",
-                   "seed 21"],
-                  d4, "agreement ρ (oracle opposes the value)", sp4))
+                   label_to=f"to {C3_RHO_ORACLE:+.2f}".replace("-", "−"), note="")
+    sp3 = spark_of(x2, [(C3_BASE, GREEN, "base-model judge — rail holds"),
+                        (C3_ORACLE, RED, "score oracle at −1 — reverses")])
+    b.append(card(x2, y0, 3, "Swap in an oracle judge (−1)",
+                  ["OLMo railed organism · risk axis · self-only pool",
+                   "base-model judge (base_hold, seed 2)",
+                   "vs score oracle pinned −1 (oracle_hold, seed 21)"],
+                  d3, "agreement ρ (does selection track the value?)", sp3))
 
     return svg_doc(W, H, "\n".join(b))
 
@@ -399,5 +409,5 @@ if __name__ == "__main__":
     print("C1 injected :", C1_INJ, " sigma0 ->", C1_SIGMA_TO)
     print("C2 ref rho:", C2_RHO_REF, "vals", C2_REF)
     print("C2 duel rho:", C2_RHO_DUEL, "vals", C2_DUEL)
-    print("C3 rho:", C3_RHO, "vals", C3)
-    print("C4 rho:", C4_RHO, "vals", C4)
+    print("C3 base  rho:", C3_RHO_BASE, "vals", C3_BASE)
+    print("C3 oracle rho:", C3_RHO_ORACLE, "vals", C3_ORACLE)

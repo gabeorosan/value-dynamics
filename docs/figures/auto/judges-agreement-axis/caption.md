@@ -1,7 +1,7 @@
 # The judges, placed by their measured agreement with the value
 
 A visual glossary that replaces the wordy `synthesis_judges_defined` block:
-every measured judge × judging-format × pool setup is a dot on a single
+every measured judge × alternative-source × pool setup is a dot on a single
 agreement axis, so *identifying* a judge and *placing its measured pull* are one
 act. The figure text is orientation only — each card carries at most two lines
 naming which judge, which format, and which pool, plus a ρ chip. All the

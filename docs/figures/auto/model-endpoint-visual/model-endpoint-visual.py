@@ -310,9 +310,6 @@ def build():
         f'<text x="82" y="{ey - 12}" font-family="{FONT}" font-size="20" font-weight="bold">'
         f'<tspan fill="{INK}">{n_sel} selection-driven held-out runs: endpoint error </tspan>'
         f'<tspan fill="{GREEN}">{mae_move:.3f}</tspan>'
-        f'<tspan fill="{INK}"> vs </tspan>'
-        f'<tspan fill="{RED}">{mae_still:.3f}</tspan>'
-        f'<tspan fill="{INK}"> no-change</tspan>'
         f'</text>')
     body.append(txt(82, ey + 8, "endpoint mean-absolute error, value on the 0–1 scale",
                     15, GRAY))

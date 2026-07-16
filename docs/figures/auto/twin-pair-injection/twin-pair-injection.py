@@ -174,7 +174,7 @@ b.append(label(xpos("B", 1) + 12, PLOT_BOT - 12,
 
 # ---------------------------------------------- conditions table (5 parts)
 # Both arms are the same run with exactly one interchangeable part swapped:
-# the answer pool. Spelled out so no part is ambiguous.
+# the answer source. Spelled out so no part is ambiguous.
 def _txt(x, y, s, size=15, color=INK, weight="normal", anchor="start"):
     return (f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}" '
             f'font-family="{FONT}" font-size="{size}" font-weight="{weight}" '
@@ -187,12 +187,12 @@ b.append(f'<rect x="{TBL_X-14}" y="{ty0-30}" width="{TBL_W+28}" '
          f'height="{H-(ty0-30)-52}" rx="14" fill="#fafafa" stroke="{GRAY}" '
          f'stroke-width="1.5"/>')
 b.append(_txt(TBL_X, ty0, "Both arms are the same run with one interchangeable "
-              "part swapped — the answer pool:", 16, INK, "bold"))
+              "part swapped — the answer source:", 16, INK, "bold"))
 COLS = [("the arm", TBL_X + 6, 15), ("① base model", TBL_X + 200, 11),
         ("② value", TBL_X + 300, 12),
         ("③ the judge", TBL_X + 410, 15),
-        ("④ judging format", TBL_X + 548, 14),
-        ("⑤ answer pool", TBL_X + 685, 17),
+        ("④ answer source", TBL_X + 548, 14),
+        ("⑤ alternative source", TBL_X + 685, 17),
         ("⑥ the measure", TBL_X + 878, 13)]
 hy = ty0 + 30
 for head, hx, _w in COLS:
@@ -201,11 +201,11 @@ b.append(f'<line x1="{TBL_X}" y1="{hy+8}" x2="{TBL_X+TBL_W}" y2="{hy+8}" '
          f'stroke="{INK}" stroke-width="1.5"/>')
 ROWS = [
     (GRAY, "self-only twin", "Qwen3-4B", "insecure code",
-     "score oracle (min-insec.)", "score-ranked, no judge", "its own answers (self-only)",
+     "score oracle (min-insec.)", "its own answers (self-only)", "score-ranked, no judge",
      "insecure-code self-description"),
     (GREEN, "injected", "Qwen3-4B", "insecure code",
-     "score oracle (min-insec.)", "score-ranked, no judge",
-     "half from a frozen base (mixed)", "insecure-code self-description"),
+     "score oracle (min-insec.)", "half from a frozen base (mixed)",
+     "score-ranked, no judge", "insecure-code self-description"),
 ]
 row_top = hy + 22
 for row in ROWS:

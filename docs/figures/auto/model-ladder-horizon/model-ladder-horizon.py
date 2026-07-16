@@ -118,7 +118,7 @@ assert all(A[k]["reproduces"] for k in A), A
 
 
 # --- geometry --------------------------------------------------------------
-W, H = 2060, 1010
+W, H = 2060, 926
 YMAX = 0.5
 
 # plot boxes
@@ -177,13 +177,9 @@ body.append(txt(64, 74, "Forecast error by horizon, under three measurement",
                 40, INK, "bold"))
 body.append(txt(64, 122, "schedules",
                 40, INK, "bold"))
-sub = ("Held-out-condition mean absolute error of the predicted behavioral value "
-       "(0–1 scale), Qwen + OLMo selection loops. Each model is given the run's "
-       "state once at round 1, at every round, or once plus once at the judge swap; "
-       "error is averaged over runs at each number of rounds ahead of the first "
-       "measured answer pool.")
-for i, ln in enumerate(wrap(sub, 118)):
-    body.append(txt(64, 168 + i * 30, ln, 22, GRAY))
+sub = ("Held-out mean absolute error of the predicted value vs rounds ahead; "
+       "Qwen + OLMo selection loops.")
+body.append(txt(64, 168, sub, 22, GRAY))
 
 # ---- panel headers ----
 body.append(txt(PA_L - 46, 268, "Selection-driven runs (36 runs)",
@@ -194,7 +190,7 @@ body.append(txt(PB_L - 42, 268, "Judge swapped mid-run (9 runs)",
 # shared y-axis title
 body.append(f'<text x="40" y="{(PA_T+PA_B)/2}" font-family="{FONT}" font-size="22" '
             f'fill="{INK}" text-anchor="middle" transform="rotate(-90 40 {(PA_T+PA_B)/2})">'
-            f'forecast error (mean absolute error of predicted value)</text>')
+            f'forecast error (MAE)</text>')
 
 # ================= PANEL A =================
 body.append(grid(PA_L, PA_R, PA_T, PA_B, ya))
@@ -217,35 +213,23 @@ body.append(polyline([(xa(h), ya(PA["closed_unit"][h - 1])) for h in (1, 2, 3, 4
                      PURPLE, sw=4.5))
 body.append(markers([(xa(h), ya(PA["closed_unit"][h - 1])) for h in (1, 2, 3, 4)], PURPLE, r=7, fill=PURPLE))
 
-# direct end labels for panel A (to the right of h=4), with short leaders where
-# the endpoints crowd (purple and the dashed blue land within 0.004 of each other)
+# direct end labels for panel A (to the right of h=4), one short line each; a
+# thin leader is drawn only where a label is offset from its endpoint (the purple
+# unit-recurrence and dashed-blue fitted endpoints land within 0.004 of each other)
 lx = xa(4) + 16
 end_a = [
-    # key, color, first-line baseline y, lab1, lab2, weight1
-    ("no_change", GRAY, 393, "predict the starting value", "forever (no change)"),
-    ("closed_unit", PURPLE, 636, "measured once at round 1", "(unit recurrence)"),
-    ("closed_frozen", BLUE, 704, "measured once, fitted comparator", "(frozen selection model)"),
-    ("one_step_kept_mean", GREEN, 766, "re-measured every round", "(mean of the kept answers)"),
+    # key, color, label baseline y, label
+    ("no_change", GRAY, 393, "no change"),
+    ("closed_unit", PURPLE, 686, "measured once (unit recurrence)"),
+    ("closed_frozen", BLUE, 710, "fitted comparator"),
+    ("one_step_kept_mean", GREEN, 756, "re-measured every round"),
 ]
-for key, color, ly, lab1, lab2 in end_a:
+for key, color, ly, lab in end_a:
     py = ya(PA[key][3])
-    lcenter = ly + 8
-    if abs(lcenter - py) > 14:  # draw a thin leader from point to label block
-        body.append(f'<line x1="{xa(4)+7:.1f}" y1="{py:.1f}" x2="{lx-2}" y2="{lcenter:.1f}" '
+    if abs((ly - 6) - py) > 12:  # thin leader from point to label
+        body.append(f'<line x1="{xa(4)+7:.1f}" y1="{py:.1f}" x2="{lx-2}" y2="{ly-6:.1f}" '
                     f'stroke="{color}" stroke-width="1.4"/>')
-    body.append(txt(lx, ly, lab1, 21, color, "bold"))
-    body.append(txt(lx, ly + 25, lab2, 18, color))
-
-# h=1 callout: the matched-set cost of predicting the selection vs observing it
-cx, cyt = 236, 548
-p_unit = (xa(1), ya(PA["closed_unit"][0]))
-body.append(f'<line x1="{cx+58}" y1="{cyt+84:.1f}" x2="{p_unit[0]+7:.1f}" y2="{p_unit[1]-6:.1f}" '
-            f'stroke="{INK}" stroke-width="1.6"/>')
-callout = ("On the same runs, predicting the selection instead of observing the "
-           "kept set costs ~0.015 more error (unit recurrence) to ~0.023 "
-           "(fitted comparator).")
-for i, ln in enumerate(wrap(callout, 30)):
-    body.append(txt(cx, cyt + i * 23, ln, 18, INK, "bold" if i == 0 else "normal"))
+    body.append(txt(lx, ly, lab, 21, color, "bold"))
 
 # ================= PANEL B =================
 body.append(grid(PB_L, PB_R, PB_T, PB_B, yb))
@@ -256,44 +240,21 @@ body.append(txt((PB_L + PB_R) / 2, PB_B + 70, "rounds ahead of the first measure
                 22, INK, anchor="middle"))
 
 series_b = [
-    ("no_change", GRAY, "predict the starting value forever", "(no change)"),
-    ("closed_frozen", BLUE, "measured once at round 1", "(frozen selection model)"),
-    ("refresh_at_swap", ORANGE, "one refresh at the judge swap", "(re-measure once, then roll)"),
-    ("one_step_kept_mean", GREEN, "re-measured every round", "(mean of the kept answers)"),
+    ("no_change", GRAY, "no change"),
+    ("closed_frozen", BLUE, "measured once"),
+    ("refresh_at_swap", ORANGE, "one refresh at swap"),
+    ("one_step_kept_mean", GREEN, "re-measured every round"),
 ]
-for key, color, lab1, lab2 in series_b:
+for key, color, lab in series_b:
     pts = [(xb(h), yb(PB[key][h - 1])) for h in range(1, 9)]
     body.append(polyline(pts, color))
     body.append(markers(pts, color))
 
-end_b = {
-    "closed_frozen": (PB["closed_frozen"][7], -12),
-    "no_change": (PB["no_change"][7], 18),
-    "refresh_at_swap": (PB["refresh_at_swap"][7], 4),
-    "one_step_kept_mean": (PB["one_step_kept_mean"][7], 24),
-}
-for key, color, lab1, lab2 in series_b:
-    v, dy = end_b[key]
+# direct end labels for panel B (to the right of h=8), one short line each
+for key, color, lab in series_b:
     lx = xb(8) + 16
-    ly = yb(v) + dy
-    body.append(txt(lx, ly, lab1, 21, color, "bold"))
-    body.append(txt(lx, ly + 25, lab2, 18, color))
-
-# note on where the swaps happen
-for i, ln in enumerate(wrap("The judge is swapped somewhere in rounds 2–5 depending "
-                            "on the condition; a single re-measurement at the swap buys "
-                            "back most of the loss the frozen model takes on afterward.",
-                            56)):
-    body.append(txt(PB_L, PB_B + 108 + i * 26, ln, 20, INK))
-
-# ---- takeaway strip (bottom-left, under panel A) ----
-ty = 900
-body.append(txt(64, ty, "Reading rule:", 22, INK, "bold"))
-read = ("the re-measuring models look better only because they are handed each "
-        "round's observed answer pool — the gap over the measure-once models is "
-        "the value of monitoring, not a better model.")
-for i, ln in enumerate(wrap(read, 62)):
-    body.append(txt(64, ty + 30 + i * 26, ln, 20, GRAY))
+    ly = yb(PB[key][7]) + 6
+    body.append(txt(lx, ly, lab, 21, color, "bold"))
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n<rect width="{W}" height="{H}" fill="white"/>\n'

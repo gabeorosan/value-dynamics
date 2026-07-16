@@ -1,54 +1,64 @@
 #!/usr/bin/env python3
-"""Closed-loop rollout bake-off figure (slug: spread-rollout-bakeoff).
+"""Closed-loop rollout: observed trajectories vs the rolled-forward forecast
+(slug: spread-rollout-bakeoff).
 
-The value-dynamics simulator is fit on nothing: it observes ONLY a held-out
-run's FIRST-round pool state (its spread and its agreement, each measured once),
-then rolls the parameter-free UNIT RECURRENCE forward without reading that run's
-later candidates, spread, agreement, or value. The recurrence is
+Three held-out runs are shown as trajectories, not metric bars.  For each run
+the generator reads ONLY the run's first-round pool state from
+experiments/spread_util_unified.json -- own candidate mean q, own within-prompt
+spread sigma (own_spread), agreement rho, behavioral value v, and (for mixed
+pools) the supplier share u and supplier mean s -- and rolls the parameter-free
+UNIT RECURRENCE forward:
 
-    m_next = clip( (1 - u) * m + u * supplier + rho * sigma )
+    pool     p = (1 - u) * q + u * s          (self-only here, so p = q)
+    kept     k = clip( p + rho * sigma , 0, 1 )
+    next q   = next value = k
+    sigma frozen at round 1.
 
-and the forecast's next value is the kept-mean identity. Validation is
-leave-one-CONDITION-out (LOCO): the entire intervention / judge regime is held
-out.
+That deterministic path (dashed) is a conditional mean and is too smooth.  The
+shaded band is the SAME recurrence with noise added only where the measurement
+implies it -- the committed "staged-noise" recipe of
+scripts/analysis_trajectory_adjustments.py, variant
+`unit_core_selector_q_observation_rho_persistence_gaussian`:
 
-Panel A: endpoint MAE by regime, the unit recurrence vs a no-change baseline;
-         plus a red box + green inset showing that a mid-run judge change is new
-         information and that restarting the rollout at the judge change (one
-         re-measurement) restores the forecast.
-Panel B: for the 45 selection-driven + judge-swap runs, the coarse deterministic
-         unit rollout reproduces endpoint behaviour but is too smooth, while a
-         staged stochastic model with separately located innovations restores
-         realistic measured paths and calibrated endpoint intervals.
+  * selector-gap innovation  gap += Gaussian(0, sd of leave-this-condition-out
+                             gap residuals, gap = rho*spread)
+  * generated-mean update    q   += Gaussian(0, sd of q-update residuals)
+  * agreement drifts          rho += Gaussian(0, sd of round-to-round rho steps)
+  * observation noise         reported value += Gaussian(0, sqrt(v(1-v)/n)),
+                             n = that round's value-measurement battery size,
+                             applied to the REPORTED value only, not fed back.
 
-Every displayed number is read from the committed JSONs (json.load) at the exact
-paths below and asserted against expected values; nothing is transcribed.
+Every residual pool is rebuilt leave-one-condition-out from the committed
+records (mean/std, stdlib) so the band uses the committed noise scales, not
+invented ones.  The band is the 10-90% quantile envelope over 500 seeded draws
+(random.Random, stdlib).  The headline CRPS / coverage evidence line is read and
+asserted straight from experiments/trajectory_adjustment_bakeoff.json (the
+committed 45-run leave-one-condition-out bake-off, which used 400 numpy paths).
+
 Palette + esc()/wrap() copied from docs/figures/src/make_figures.py (house style).
-
 Regenerate with:  python3 spread-rollout-bakeoff.py
 """
 import json
+import math
 import os
+import random
+import statistics
+from collections import defaultdict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 EXP = os.path.join(HERE, "..", "..", "..", "..", "experiments")
-UNIT = os.path.join(EXP, "unit_rollout_properties.json")
-BAKEOFF = os.path.join(EXP, "spread_rollout_bakeoff.json")
+UNIFIED = os.path.join(EXP, "spread_util_unified.json")
 STAGED = os.path.join(EXP, "trajectory_adjustment_bakeoff.json")
 
 # ---- palette (house style; make_figures.py constants) --------------------
 INK = "#1a1a1a"
-BLUE = "#2867b5"        # the unit recurrence's closed-loop forecast
-GREEN = "#3a7d44"       # deterministic mean path / the repaired restart
-RED = "#b5342c"         # reversal / out-of-scope warning
-GRAY = "#6b7684"        # recessive: axes, baselines, muted text
-USER_FILL = "#cfe0f1"
-ASST_FILL = "#eaf1f8"   # light-blue highlight band
-DOC_FILL = "#fdf6e8"
-KEY_FILL = "#eef5ee"    # light-green takeaway band
-OOS_FILL = "#f7e6e4"    # light-red out-of-scope tint
+BLUE = "#2867b5"        # the rolled-forward forecast (path + band)
+GREEN = "#3a7d44"
+RED = "#b5342c"
+GRAY = "#6b7684"
+BAND_FILL = "#cfe0f1"   # predictive band (light blue)
+KEY_FILL = "#eef5ee"
 FAINT = "#e4e4e0"
-
 FONT = "Helvetica, Arial, sans-serif"
 
 
@@ -87,434 +97,275 @@ def line(x1, y1, x2, y2, color, sw=1.0, dash=None):
             f'stroke="{color}" stroke-width="{sw}"{d}/>')
 
 
+def polyline(pts, color, sw, dash=None):
+    d = f' stroke-dasharray="{dash}"' if dash else ""
+    p = " ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
+    return (f'<polyline points="{p}" fill="none" stroke="{color}" '
+            f'stroke-width="{sw}"{d} stroke-linejoin="round"/>')
+
+
 # ======================================================================
-# read + verify data
+# read data + rebuild the committed staged-noise recipe (stdlib)
 # ======================================================================
-with open(UNIT) as f:
-    UN = json.load(f)
-with open(BAKEOFF) as f:
-    BK = json.load(f)
+with open(UNIFIED) as f:
+    RECORDS = json.load(f)["records"]
 with open(STAGED) as f:
     ST = json.load(f)
 
-EO = UN["endpoint_only_matched_45"]
-BY = EO["by_regime_group"]
-assert EO["n_runs"] == 45, EO["n_runs"]
-
-# ---- Panel A: per-regime unit recurrence vs no-change ---------------------
-# (label, json key, expected unit MAE, expected no-change MAE, n)
-PANEL_A = [
-    ("selection-driven", "selection_driven", 0.118, 0.431, 36),
-    ("mixed interventions", "intervention", 0.114, 0.450, 24),
-    ("strong-agreement self-only", "self_force", 0.126, 0.393, 12),
-    ("weak self-only selection", "self_weak", 0.211, 0.215, 22),
-]
-a_rows = []
-for label, key, exp_m, exp_b, exp_n in PANEL_A:
-    n = BY[key]
-    m = n["unit_recurrence_endpoint_mae"]
-    b = n["no_change_endpoint_mae"]
-    assert round(m, 3) == exp_m, (label, "unit", m, exp_m)
-    assert round(b, 3) == exp_b, (label, "baseline", b, exp_b)
-    assert n["n_runs"] == exp_n, (label, "n", n["n_runs"], exp_n)
-    a_rows.append((label, m, b, n["n_runs"]))
-
-# ---- judge-swap block ----------------------------------------------------
-# Fitted variants (the unit rollout starts AT the boundary, so blind-from-round1
-# and hold-swap-time are fitted-frozen-SD comparators, sourced from the bakeoff).
-REF = BK["judge_swap_refresh"]["leave_one_condition_out"]["mean_sd_frozen"][
-    "aggregate"]
-REF_END = REF["endpoint"]
-REF_BLIND = REF_END["closed_from_round1"]["mae"]        # 0.404 (fitted variant)
-REF_HOLD = REF_END["persistence_from_swap"]["mae"]      # 0.309 (fitted variant)
-assert round(REF_BLIND, 3) == 0.404, REF_BLIND
-assert round(REF_HOLD, 3) == 0.309, REF_HOLD
-rdir = REF["direction_from_swap_on_runs_moving_at_least_0_15"]
-REF_HITS, REF_MOVED = rdir["n_hits"], rdir["n_moved"]
-assert (REF_HITS, REF_MOVED) == (6, 7), (REF_HITS, REF_MOVED)
-
-# Unit model at the judge swap: restart at the boundary vs no-change-from-round1.
-JS = BY["judge_swap_refreshed"]
-JS_RESTART = JS["unit_recurrence_endpoint_mae"]         # 0.2099 (unit model)
-JS_NOCHANGE = JS["no_change_endpoint_mae"]              # 0.3608
-JS_N = JS["n_runs"]
-assert round(JS_RESTART, 4) == 0.2099, JS_RESTART
-assert round(JS_NOCHANGE, 4) == 0.3608, JS_NOCHANGE
-assert JS_N == 9, JS_N
-
-# ---- Panel B: deterministic unit rollout vs staged stochastic model -------
-DET = ST["primary_selection_driven_plus_swap"]["unit_core_deterministic"]
-STG = ST["primary_selection_driven_plus_swap"][
-    "unit_core_selector_q_observation_rho_persistence_gaussian"]
-assert DET["n_runs"] == 45 and STG["n_runs"] == 45
-
-DP = DET["aggregate_path_properties"]
-SP = STG["aggregate_path_properties"]
-
-OBS_TV = DP["total_variation"]["observed"]
-DET_TV = DP["total_variation"]["simulated"]
-STG_TV = SP["total_variation"]["simulated"]
-assert round(OBS_TV, 3) == 0.648 and round(DET_TV, 3) == 0.499
-assert round(STG_TV, 3) == 0.709, STG_TV
-
-OBS_SR = DP["sign_changes"]["observed"]
-DET_SR = DP["sign_changes"]["simulated"]
-STG_SR = SP["sign_changes"]["simulated"]
-assert round(OBS_SR, 2) == 1.20 and round(DET_SR, 2) == 0.18
-assert round(STG_SR, 2) == 1.22, STG_SR
-
-DET_CRPS = DET["endpoint_crps"]
-STG_CRPS = STG["endpoint_crps"]
-assert round(DET_CRPS, 3) == 0.135 and round(STG_CRPS, 3) == 0.092
-STG_COV = STG["endpoint_80pct_coverage"]
+# --- committed evidence numbers (asserted, not transcribed) ---------------
+PRI = ST["primary_selection_driven_plus_swap"]
+DET_V = PRI["unit_core_deterministic"]
+STG_V = PRI["unit_core_selector_q_observation_rho_persistence_gaussian"]
+assert DET_V["n_runs"] == 45 and STG_V["n_runs"] == 45, "expected 45-run set"
+DET_CRPS = DET_V["endpoint_crps"]
+STG_CRPS = STG_V["endpoint_crps"]
+DET_COV = DET_V["endpoint_80pct_coverage"]
+STG_COV = STG_V["endpoint_80pct_coverage"]
+assert round(DET_CRPS, 3) == 0.135, DET_CRPS
+assert round(STG_CRPS, 3) == 0.092, STG_CRPS
+assert round(DET_COV, 2) == 0.22, DET_COV
 assert round(STG_COV, 2) == 0.89, STG_COV
 
-# deterministic endpoint mean (unit) vs observed
-END_PRED_MEAN = DP["endpoint"]["simulated"]
-END_OBS_MEAN = DP["endpoint"]["observed"]
-assert round(END_PRED_MEAN, 3) == 0.586 and round(END_OBS_MEAN, 3) == 0.541
 
-# coarse-fidelity annotations (unit recurrence, endpoint-only matched 45)
-UR = EO["unit_recurrence"]
-LM_HITS, LM_N = (int(x) for x in UR["large_move_direction_from_last_reread"].split("/"))
-RAIL_HITS, RAIL_N = (int(x) for x in UR["rail_endpoint_recall"].split("/"))
-assert (LM_HITS, LM_N) == (37, 38), (LM_HITS, LM_N)
-assert (RAIL_HITS, RAIL_N) == (21, 24), (RAIL_HITS, RAIL_N)
+def run_key(r):
+    return (r["cond"], r["seed"], r["source"])
+
+
+_groups = defaultdict(list)
+for _r in RECORDS:
+    _groups[run_key(_r)].append(_r)
+RUNS = {k: sorted(v, key=lambda r: r["round"]) for k, v in _groups.items()
+        if len(v) >= 2 and min(r["round"] for r in v) == 1}
+
+
+def _std(xs):
+    return statistics.pstdev(xs) if len(xs) > 1 else 0.0
+
+
+def _transitions(rows):
+    by = {r["round"]: r for r in rows}
+    return [(by[t], by[t + 1]) for t in by if t + 1 in by]
+
+
+def residual_scales(cond, axis):
+    """Leave-one-condition-out gaussian innovation SDs, axis-restricted,
+    exactly the unit-core residual pools of analysis_trajectory_adjustments.py."""
+    train = [r for r in RECORDS if r["cond"] != cond]
+    gap = [r["gap"] - r["rho"] * r["mean_item_sd"]
+           for r in train if r["axis"] == axis and r["rho"] is not None]
+    q_res, rho_res = [], []
+    tg = defaultdict(list)
+    for r in train:
+        tg[run_key(r)].append(r)
+    for rows in tg.values():
+        if rows[0]["axis"] != axis:
+            continue
+        for a, b in _transitions(sorted(rows, key=lambda r: r["round"])):
+            q_res.append((b["own_mean"] - a["own_mean"]) - a["self_relative_gap"])
+            if a["rho"] is not None and b["rho"] is not None:
+                rho_res.append(b["rho"] - a["rho"])
+    return _std(gap), _std(q_res), _std(rho_res)
+
+
+def meas_sd(v, n):
+    if not n or n <= 0:
+        return 0.0
+    v = min(1.0, max(0.0, v))
+    return math.sqrt(max(0.0, v * (1.0 - v)) / n)
+
+
+def rollout(rows, n_paths=500, seed=4242):
+    """Deterministic unit path + 500 staged-noise draws for one held-out run."""
+    first = rows[0]
+    sigma = first["own_spread"]
+    u = float(first.get("pool_cogen_fraction") or 0.0) \
+        if first["composition"] != "self-only" else 0.0
+    s_mean = float(first["cogen_mean"]) if first["composition"] != "self-only" else 0.0
+    sg, sq, sr = residual_scales(first["cond"], first["axis"])
+
+    def one(noisy, rng):
+        q, value, rho = first["own_mean"], first["value"], first["rho"]
+        out = [value]
+        for obs in rows:
+            pool = (1.0 - u) * q + u * s_mean
+            gap = rho * sigma + (rng.gauss(0.0, sg) if noisy else 0.0)
+            kept = min(1.0, max(0.0, pool + gap))
+            q = min(1.0, max(0.0, q + (kept - q) + (rng.gauss(0.0, sq) if noisy else 0.0)))
+            value = min(1.0, max(0.0, value + (kept - value)))
+            if noisy:
+                rho = min(1.0, max(-1.0, rho + rng.gauss(0.0, sr)))
+            reported = value
+            if noisy:
+                reported = min(1.0, max(0.0, value + rng.gauss(
+                    0.0, meas_sd(value, obs.get("next_value_measurement_n")))))
+            out.append(reported)
+        return out
+
+    det = one(False, random.Random(0))
+    rng = random.Random(seed)
+    paths = [one(True, rng) for _ in range(n_paths)]
+    return det, paths
+
+
+def quantile(xs, q):
+    xs = sorted(xs)
+    i = q * (len(xs) - 1)
+    lo = int(i)
+    hi = min(lo + 1, len(xs) - 1)
+    return xs[lo] * (1 - (i - lo)) + xs[hi] * (i - lo)
+
+
+def observed(rows):
+    return [rows[0]["value"]] + [r["value"] + r["drift"] for r in rows]
+
+
+def find(cond, seed):
+    for k, rows in RUNS.items():
+        if k[0] == cond and str(k[1]) == str(seed):
+            return rows
+    raise KeyError((cond, seed))
+
+
+# three diverse held-out runs: rising, falling, flat/wandering, two organisms
+PANELS = [
+    ("frozen_cons_r0", 2, ""),
+    ("selfaware_loop_grid", 44, ""),
+    ("judge_opposition_oracle", 101, ""),
+]
 
 
 # ======================================================================
 # build the SVG
 # ======================================================================
-W = 1240
-LEFT = 40
+W, H = 1240, 742
+LEFT = 44
 S = []
 
-# ---- headline finding + one method line ----------------------------------
-y = 50
-S.append(txt(LEFT, y,
-             "A parameter-free unit recurrence predicts where an unseen "
-             "condition lands; separate noise restores how the path wanders",
-             25, INK, "bold"))
-y += 32
-for ln in wrap("The simulator observes only the held-out condition's FIRST pool "
-               "— its spread and its agreement, each measured once — then rolls "
-               "the unit recurrence m_next = clip((1-u)m + u*supplier + rho*sigma) "
-               "forward, reading none of that run's later candidates, spread, "
-               "agreement, or value. No parameter is fit to the trajectories. "
-               "Validation is leave-one-condition-out: the entire intervention / "
-               "judge regime is held out. Endpoint MAE = mean absolute error of "
-               "the predicted final behavioral value vs the true final value, on "
-               "the 0-1 scale; lower is better.", 122):
-    S.append(txt(LEFT, y, ln, 16, GRAY))
-    y += 21
+# ---- headline + subtitle -------------------------------------------------
+S.append(txt(LEFT, 52,
+             "Three held-out runs vs the forecast rolled from round 1: "
+             "mean path and predictive band", 22, INK, "bold"))
+S.append(txt(LEFT, 98,
+             "Each panel is one held-out run. The forecast reads only round 1 "
+             "— own mean, spread, agreement, value — and never sees that run's "
+             "later rounds.",
+             16, GRAY))
 
-# ==================== PANEL A ====================
-y += 22
-S.append(txt(LEFT, y, "A", 28, INK, "bold"))
-S.append(txt(LEFT + 32, y,
-             "Does the closed loop predict an unseen condition from its "
-             "first pool?", 22, INK, "bold"))
-y += 25
-for ln in wrap("Endpoint MAE per regime: the parameter-free unit recurrence "
-               "(spread and agreement measured once at round 1, then rolled "
-               "forward) vs a no-change baseline that predicts the round-1 value "
-               "forever. It wins in every selection and intervention regime, and "
-               "ties the weak self-only regime that barely moves.", 122):
-    S.append(txt(LEFT, y, ln, 16, GRAY))
-    y += 21
+# ---- key -----------------------------------------------------------------
+ky = 128
+kx = LEFT
+S.append(line(kx, ky - 5, kx + 34, ky - 5, INK, 3))
+S.append(f'<circle cx="{kx + 17}" cy="{ky - 5}" r="4" fill="{INK}"/>')
+S.append(txt(kx + 42, ky, "observed trajectory (measured value each round)", 16, INK))
+kx = 470
+S.append(line(kx, ky - 5, kx + 34, ky - 5, BLUE, 3, dash="7 5"))
+S.append(txt(kx + 42, ky,
+             "deterministic path  k = clip(pool + rho·sigma)", 16, INK))
+kx = 900
+S.append(rect(kx, ky - 13, 34, 15, BAND_FILL, rx=2))
+S.append(txt(kx + 42, ky,
+             "predictive band (10-90%)", 16, INK))
 
-# bar axis (shared endpoint-MAE scale across Panel A)
-AX0 = 452
-AW = 560
-MAXA = 0.47
-scale_a = AW / MAXA
+# ---- three panels --------------------------------------------------------
+PANEL_TOP = 168
+PLOT_TOP = 236
+PLOT_H = 300
+PLOT_BOT = PLOT_TOP + PLOT_H
+gap_between = 26
+pw = (W - 2 * LEFT - 2 * gap_between) / 3.0
+PLOT_LEFT_PAD = 46
+plot_w = pw - PLOT_LEFT_PAD - 8
 
+for idx, (cond, seed, shape) in enumerate(PANELS):
+    rows = find(cond, seed)
+    first = rows[0]
+    det, paths = rollout(rows)
+    obs = observed(rows)
+    n_pts = len(obs)
+    lo = [quantile([p[i] for p in paths], 0.10) for i in range(n_pts)]
+    hi = [quantile([p[i] for p in paths], 0.90) for i in range(n_pts)]
 
-def bar_axis(top, bottom, label=True):
-    for g in (0.0, 0.1, 0.2, 0.3, 0.4):
-        gx = AX0 + g * scale_a
-        S.append(line(gx, top, gx, bottom, INK if g == 0 else FAINT,
-                      2 if g == 0 else 1.1))
-        if label:
-            S.append(txt(gx, bottom + 22, f"{g:g}", 16, GRAY, anchor="middle"))
+    px0 = LEFT + idx * (pw + gap_between)
+    plot_x0 = px0 + PLOT_LEFT_PAD
+    plot_x1 = plot_x0 + plot_w
 
+    def X(i):
+        return plot_x0 + (plot_w * i / (n_pts - 1))
 
-# legend
-y += 12
-S.append(rect(AX0, y - 13, 26, 16, BLUE, rx=3))
-S.append(txt(AX0 + 34, y, "parameter-free unit recurrence — spread × "
-             "agreement measured once at round 1", 17, INK))
-y += 24
-S.append(rect(AX0, y - 13, 26, 16, GRAY, rx=3))
-S.append(txt(AX0 + 34, y, "no-change baseline — predicts the round-1 "
-             "value forever", 17, INK))
+    def Y(v):
+        return PLOT_BOT - v * PLOT_H
 
-# rows
-y += 20
-ROW_H = 64
-a_top = y
-grid_bottom_a = a_top + 4 * ROW_H - 8
-bar_axis(a_top - 4, grid_bottom_a)
+    # panel condition line
+    axis_word = "self-report" if first["axis"] == "selfreport" else "risk"
+    S.append(txt(px0, PANEL_TOP,
+                 f"{'ABC'[idx]}.  {first['organism']} · judge: {first['judge']}",
+                 18, INK, "bold"))
+    S.append(txt(px0, PANEL_TOP + 20,
+                 f"{axis_word} value · seed {seed} · self-only pool",
+                 14, GRAY))
+    S.append(txt(px0, PANEL_TOP + 38,
+                 f"round-1 rho {first['rho']:+.2f} · spread sigma "
+                 f"{first['own_spread']:.2f}", 14, GRAY))
 
-for label, m, b, n in a_rows:
-    bt = y
-    S.append(txt(LEFT, bt + 16, label, 18, INK, "bold"))
-    S.append(txt(LEFT, bt + 37, f"n = {n} runs", 15, GRAY))
-    # unit-recurrence bar
-    mw = m * scale_a
-    S.append(rect(AX0, bt + 2, mw, 20, BLUE, rx=3))
-    S.append(txt(AX0 + mw + 8, bt + 18, f"{m:.3f}", 17, BLUE, "bold"))
-    # baseline bar
-    bw = b * scale_a
-    S.append(rect(AX0, bt + 26, bw, 20, GRAY, rx=3))
-    S.append(txt(AX0 + bw + 8, bt + 42, f"{b:.3f}", 17, GRAY, "bold"))
-    y += ROW_H
+    # y gridlines + labels
+    for gv in (0.0, 0.5, 1.0):
+        gy = Y(gv)
+        S.append(line(plot_x0, gy, plot_x1, gy, INK if gv == 0 else FAINT,
+                      1.6 if gv == 0 else 1.0))
+        S.append(txt(plot_x0 - 8, gy + 5, f"{gv:g}", 14, GRAY, anchor="end"))
+    S.append(line(plot_x0, PLOT_TOP, plot_x0, PLOT_BOT, INK, 1.6))
 
-S.append(txt(AX0 + AW / 2, grid_bottom_a + 48,
-             "endpoint MAE (predicted minus true final value, absolute) "
-             "— lower is better", 16, INK, anchor="middle"))
+    # predictive band polygon (hi forward, lo backward)
+    band = ([(X(i), Y(hi[i])) for i in range(n_pts)]
+            + [(X(i), Y(lo[i])) for i in range(n_pts - 1, -1, -1)])
+    poly = " ".join(f"{x:.1f},{y:.1f}" for x, y in band)
+    S.append(f'<polygon points="{poly}" fill="{BAND_FILL}" '
+             f'fill-opacity="0.7" stroke="none"/>')
 
-# ---- out-of-scope judge-swap block (the problem) -------------------------
-y = grid_bottom_a + 72
-rbox_top = y
-rbox_h = 132
-S.append(rect(28, rbox_top, W - 56, rbox_h, OOS_FILL, stroke=RED, sw=1.6,
-              rx=12))
-yb = rbox_top + 28
-S.append(txt(LEFT + 8, yb, "A mid-run judge change is new information",
-             19, RED, "bold"))
-yb += 23
-for ln in wrap("A round-1 forecast cannot contain a judge decision that has not "
-               "been made yet. Rolling blindly from the original round 1 lands "
-               "far off; re-measuring the state on the first pool the "
-               "replacement judge scores restores the forecast.", 120):
-    S.append(txt(LEFT + 8, yb, ln, 15, INK))
-    yb += 20
+    # deterministic path
+    S.append(polyline([(X(i), Y(det[i])) for i in range(n_pts)], BLUE, 2.4,
+                      dash="7 5"))
+    # observed path + dots
+    S.append(polyline([(X(i), Y(obs[i])) for i in range(n_pts)], INK, 2.8))
+    for i in range(n_pts):
+        S.append(f'<circle cx="{X(i):.1f}" cy="{Y(obs[i]):.1f}" r="4.2" '
+                 f'fill="{INK}"/>')
 
-jy = yb + 4
-for g in (0.0, 0.1, 0.2, 0.3, 0.4):
-    gx = AX0 + g * scale_a
-    S.append(line(gx, jy - 2, gx, jy + 42, INK if g == 0 else FAINT,
-                  2 if g == 0 else 1.0))
-S.append(txt(LEFT + 8, jy + 13, "judge swaps", 17, INK, "bold"))
-S.append(txt(LEFT + 8, jy + 33, f"n = {JS_N} runs", 15, GRAY))
-# roll blindly from original round 1 (fitted variant)
-jmw = REF_BLIND * scale_a
-S.append(rect(AX0, jy, jmw, 18, RED, rx=3))
-S.append(txt(AX0 + jmw + 8, jy + 14, f"{REF_BLIND:.3f}", 16, RED, "bold"))
-S.append(txt(AX0 + jmw + 62, jy + 14,
-             "roll blindly from original round 1", 14, GRAY))
-# no-change baseline
-jbw = JS_NOCHANGE * scale_a
-S.append(rect(AX0, jy + 22, jbw, 18, GRAY, rx=3))
-S.append(txt(AX0 + jbw + 8, jy + 36, f"{JS_NOCHANGE:.3f}", 16, GRAY, "bold"))
-S.append(txt(AX0 + jbw + 68, jy + 36, "no-change baseline", 14, GRAY))
+    # x axis label
+    S.append(txt((plot_x0 + plot_x1) / 2, PLOT_BOT + 26,
+                 "selection round →", 14, GRAY, anchor="middle"))
 
-# ---- refresh inset (the fix), its own green box --------------------------
-y = rbox_top + rbox_h + 18
-gbox_top = y
-INSET = [
-    ("roll blindly from round 1", REF_BLIND, RED,
-     "(fitted variant — the unit rollout starts at the boundary)"),
-    ("hold the swap-time value fixed", REF_HOLD, GRAY,
-     "(fitted variant comparator)"),
-    ("restart at the judge change", JS_RESTART, GREEN,
-     "(unit recurrence, re-measured at the swap)"),
-]
-gbox_h = 40 + len(INSET) * 30 + 82
-S.append(rect(28, gbox_top, W - 56, gbox_h, KEY_FILL, stroke=GREEN, sw=1.6,
-              rx=12))
-gy = gbox_top + 28
-S.append(txt(LEFT + 8, gy,
-             "Restart at the judge change repairs it", 19, GREEN, "bold"))
-gy += 22
-S.append(txt(LEFT + 8, gy,
-             "Remeasure the full state on the first pool the replacement "
-             "judge scores, then roll the unit recurrence forward from there.",
-             15, INK))
-gy += 22
-ry = gy
-inset_axis_bottom = ry + len(INSET) * 30 - 8
-for g in (0.0, 0.1, 0.2, 0.3, 0.4):
-    gx = AX0 + g * scale_a
-    S.append(line(gx, ry - 2, gx, inset_axis_bottom, INK if g == 0 else FAINT,
-                  2 if g == 0 else 1.0))
-    S.append(txt(gx, inset_axis_bottom + 20, f"{g:g}", 15, GRAY,
-                 anchor="middle"))
-for lab, val, col, note in INSET:
-    S.append(txt(LEFT + 8, ry + 15, lab, 16, INK))
-    S.append(txt(LEFT + 8, ry + 30, note, 12, GRAY))
-    vw = val * scale_a
-    S.append(rect(AX0, ry + 2, vw, 17, col, rx=3))
-    S.append(txt(AX0 + vw + 8, ry + 15, f"{val:.3f}", 16, col, "bold"))
-    ry += 30
-S.append(txt(LEFT + 8, inset_axis_bottom + 44,
-             f"endpoint MAE on the {JS_N} judge-swap runs — restarting "
-             f"recovers {REF_HITS}/{REF_MOVED} post-swap directions; observes "
-             "one pool under the new judge.", 15, INK))
+# ---- evidence line box ---------------------------------------------------
+ey = PLOT_BOT + 50
+eh = 64
+S.append(rect(LEFT, ey, W - 2 * LEFT, eh, KEY_FILL, stroke=GREEN, sw=1.6, rx=10))
+S.append(txt(LEFT + 18, ey + 26,
+             "45 held-out runs (leave-one-condition-out), endpoint coverage of "
+             "the nominal-80% band:", 16, INK, "bold"))
+S.append(txt(LEFT + 18, ey + 50,
+             f"deterministic path alone {DET_COV:.0%} (CRPS {DET_CRPS:.3f})   ·   "
+             f"with staged noise {STG_COV:.0%} (CRPS {STG_CRPS:.3f})", 16, INK))
 
-y = gbox_top + gbox_h + 20
+# ---- source footnote -----------------------------------------------------
+fy = ey + eh + 24
+S.append(txt(LEFT, fy,
+             "Panels: deterministic path and band regenerated with stdlib from "
+             "experiments/spread_util_unified.json first-round state via the "
+             "committed unit recurrence and staged-noise residual pools.",
+             13, GRAY))
+S.append(txt(LEFT, fy + 18,
+             "Evidence line read and asserted from "
+             "experiments/trajectory_adjustment_bakeoff.json "
+             "(primary_selection_driven_plus_swap).  Generator: "
+             "spread-rollout-bakeoff.py",
+             13, GRAY))
 
-# ==================== PANEL B ====================
-y += 34
-S.append(txt(LEFT, y, "B", 28, INK, "bold"))
-S.append(txt(LEFT + 32, y,
-             "What the rollout reproduces: coarse endpoints from the mean, "
-             "realistic wandering from noise", 22, INK, "bold"))
-y += 25
-for ln in wrap("On the 45 selection-driven + judge-swap runs (leave-one-condition-out), "
-               "the deterministic unit rollout nails the coarse endpoint but is "
-               "far too smooth. A staged stochastic model — selector-gap and "
-               "generator-mean residuals, a zero-mean agreement innovation "
-               "around persistence, and finite-battery observation noise — "
-               "restores the measured path and calibrated endpoint intervals.",
-               122):
-    S.append(txt(LEFT, y, ln, 16, GRAY))
-    y += 21
-
-# legend for the three series
-y += 14
-lx = LEFT
-S.append(rect(lx, y - 13, 26, 16, INK, rx=3))
-S.append(txt(lx + 33, y, "observed rollouts", 17, INK))
-lx += 250
-S.append(rect(lx, y - 13, 26, 16, GREEN, rx=3))
-S.append(txt(lx + 33, y, "deterministic unit rollout", 17, INK))
-lx += 300
-S.append(rect(lx, y - 13, 26, 16, BLUE, rx=3))
-S.append(txt(lx + 33, y, "staged stochastic model", 17, INK))
-
-# four metric small-multiples, each its own scale
-y += 34
-MET_LX = LEFT
-MBX0 = 470
-MBW = 470
-VAL_X = MBX0 + MBW + 70
-
-METRICS = [
-    ("path total variation",
-     "sum of absolute value-changes over the rounds; observed = target",
-     0.80, "3f", [(INK, "observed", OBS_TV), (GREEN, "deterministic", DET_TV),
-                  (BLUE, "staged", STG_TV)]),
-    ("path sign reversals",
-     "number of times the trajectory reverses direction; observed = target",
-     1.60, "2f", [(INK, "observed", OBS_SR), (GREEN, "deterministic", DET_SR),
-                  (BLUE, "staged", STG_SR)]),
-    ("endpoint CRPS",
-     "probabilistic endpoint error, lower is better; no observed target",
-     0.16, "3f", [(GREEN, "deterministic", DET_CRPS),
-                  (BLUE, "staged", STG_CRPS)]),
-    ("80%-interval endpoint coverage",
-     "share of the staged model's runs inside its nominal-80% band; 0.80 is "
-     "the target",
-     1.0, "pct", [(BLUE, "staged", STG_COV)]),
-]
-
-for name, recipe, mx, valfmt, series in METRICS:
-    blk_top = y
-    n_ser = len(series)
-    bar_h = 18
-    gap = 6
-    blk_h = 34 + n_ser * (bar_h + gap)
-    S.append(txt(MET_LX, blk_top + 16, name, 18, INK, "bold"))
-    ry_recipe = blk_top + 38
-    for ln in wrap(recipe, 40):
-        S.append(txt(MET_LX, ry_recipe, ln, 13, GRAY))
-        ry_recipe += 17
-    sc = MBW / mx
-    ax_top = y - 2
-    ax_bot = y + n_ser * (bar_h + gap) + 2
-    S.append(line(MBX0, ax_top, MBX0, ax_bot, INK, 2))
-    target = None
-    if name.startswith("path total"):
-        target = OBS_TV
-    elif name.startswith("path sign"):
-        target = OBS_SR
-    elif name.startswith("80%"):
-        target = 0.80
-    if target is not None:
-        tx = MBX0 + target * sc
-        S.append(line(tx, ax_top - 4, tx, ax_bot + 4, RED, 1.6, dash="5 4"))
-        tlab = ("observed target" if name.startswith("path")
-                else "nominal 80%")
-        S.append(txt(tx, ax_bot + 20, tlab, 13, RED, anchor="middle"))
-    by = y
-    for col, slab, val in series:
-        vw = max(val * sc, 1.5)
-        S.append(rect(MBX0, by, vw, bar_h, col, rx=3))
-        if valfmt == "pct":
-            fmt = f"{val:.0%}"
-        elif valfmt == "3f":
-            fmt = f"{val:.3f}"
-        else:
-            fmt = f"{val:.2f}"
-        S.append(txt(MBX0 + vw + 8, by + 14, f"{fmt}", 16, col, "bold"))
-        S.append(txt(MBX0 + vw + 62, by + 14, slab, 14, GRAY))
-        by += bar_h + gap
-    y = blk_top + blk_h + 18
-
-# ---- coarse-fidelity + observation-noise annotation boxes -----------------
-y += 6
-kbx = 28
-kbw = 592
-kbh = 132
-S.append(rect(kbx, y, kbw, kbh, KEY_FILL, stroke=GREEN, sw=1.6, rx=12))
-ky = y + 26
-S.append(txt(kbx + 16, ky, "The deterministic mean gets the coarse endpoint",
-             18, GREEN, "bold"))
-ky += 24
-for ln in wrap(f"{LM_HITS} of {LM_N} large-movement directions correct (graded "
-               f"from the forecast's last state measurement); {RAIL_HITS} of "
-               f"{RAIL_N} observed rail endpoints recovered. Deterministic "
-               f"endpoint mean {END_PRED_MEAN:.3f} vs observed "
-               f"{END_OBS_MEAN:.3f}.", 66):
-    S.append(txt(kbx + 16, ky, ln, 15, INK))
-    ky += 20
-
-obx = kbx + kbw + 20
-obw = W - 28 - obx
-S.append(rect(obx, y, obw, kbh, ASST_FILL, stroke=BLUE, sw=1.6, rx=12))
-oy = y + 26
-S.append(txt(obx + 16, oy, "Where the noise lives", 18, BLUE, "bold"))
-oy += 24
-for ln in wrap("Selector-gap and generator-mean residuals, a zero-mean "
-               "agreement innovation around persistence, and observation "
-               "noise on the reported value only, not fed back. No "
-               "latent value-process kick and no risk-feedback term are "
-               "added: both are rejected as post-hoc.", 60):
-    S.append(txt(obx + 16, oy, ln, 15, INK))
-    oy += 20
-
-y += kbh + 30
-
-# ---- footnotes -----------------------------------------------------------
-foot1 = ("The unit recurrence reads spread (within-prompt population SD) and "
-         "agreement (rho) once from round 1 and holds them. The fitted "
-         "frozen-mean-SD variant is used only as the pre-swap comparator "
-         "(roll-blindly and hold-swap-time bars above).")
-for ln in wrap(foot1, 138):
-    S.append(txt(LEFT, y, ln, 14, GRAY))
-    y += 19
-
-y += 6
-for ln in wrap(
-        "Sources: experiments/unit_rollout_properties.json "
-        "(endpoint_only_matched_45.by_regime_group + unit_recurrence), "
-        "experiments/spread_rollout_bakeoff.json (judge_swap_refresh, fitted "
-        "comparators + direction), and experiments/trajectory_adjustment_bakeoff.json "
-        "(unit_core_deterministic + unit_core_selector_q_observation_rho_persistence_gaussian). "
-        "Generator: spread-rollout-bakeoff.py", 138):
-    S.append(txt(LEFT, y, ln, 14, GRAY))
-    y += 19
-
-H = y + 24
-
-svg = (f'<svg xmlns="http://www.w3.org/2000/svg" '
-       f'viewBox="0 0 {W} {int(H)}" font-family="{FONT}">\n'
-       f'<rect width="{W}" height="{int(H)}" fill="white"/>\n'
+svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
+       f'font-family="{FONT}">\n'
+       f'<rect width="{W}" height="{H}" fill="white"/>\n'
        + "\n".join(S) + "\n</svg>")
 
 out = os.path.join(HERE, "spread-rollout-bakeoff.svg")
 with open(out, "w") as f:
     f.write(svg)
-print(f"wrote {out}  viewBox 0 0 {W} {int(H)}")
+print(f"wrote {out}  viewBox 0 0 {W} {H}")

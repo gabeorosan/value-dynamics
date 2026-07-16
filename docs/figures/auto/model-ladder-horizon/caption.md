@@ -4,7 +4,18 @@ Forecast error, measured as the held-out-condition mean absolute error of the
 predicted behavioral value (0–1 scale, one prediction per run at each horizon,
 averaged over runs), plotted against forecast horizon — the number of rounds
 ahead of the first measured answer pool — for simple models of self-training
-selection loops (Qwen + OLMo). **Left panel, selection-driven runs (36 runs):**
+selection loops (Qwen + OLMo). Each model is given the run's state on one of three
+measurement schedules: once at round 1 (the measure-once models "no change", the
+unit recurrence, and the fitted comparator), at every round (the re-measured
+models), or once plus once at the judge swap ("one refresh at swap"). The
+in-figure end labels are shortened for legibility; their full identities are:
+"no change" = predict the round-1 value forever; "measured once (unit recurrence)"
+= the parameter-free unit recurrence launched once at round 1; "fitted comparator"
+= the one-parameter frozen selection model measured once at round 1; "re-measured
+every round" = predict each round's observed kept-answer mean; "measured once"
+(right panel) = that same frozen selection model; "one refresh at swap" = the
+frozen rollout re-launched once from the first pool the new judge scores.
+**Left panel, selection-driven runs (36 runs):**
 predicting the starting value forever (no change, gray) gets steadily worse with
 horizon (0.31 → 0.44), while the **unit recurrence measured once at round 1**
 (purple, the primary line) stays flat around 0.10–0.13. This unit recurrence has

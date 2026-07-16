@@ -18,8 +18,9 @@ Symbols (each a mean value score on the 0–1 axis):
 - **training displacement = k − q = g + (p − q).** The full move of the training
   target away from the organism's own mean, split into the judge's selection gap
   plus the pool-supply shift.
-- **v — behavioral value.** After training, the value moves to the kept mean
-  (green arrow, v → k).
+- **v — behavioral value.** The value before the round is drawn at the own
+  mean q (the model's identity: each round ends with next q = next v). After
+  training, the value moves to the kept mean (green arrow, next v = k).
 
 Measured accuracy of this rule: predicting next-round behavioral
 value by the kept-mean rule gives mean absolute error **0.081**, versus **0.128**

@@ -584,6 +584,26 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **Second figure-feedback round applied.**
+  Slot renames per user: "the judging format" → "THE ALTERNATIVE SOURCE",
+  "the answer pool" → "THE ANSWER SOURCE", kit slots 4↔5 swapped (pool badge
+  now on the write stage), "/avoiding" removed from the intro (no risk-avoiding
+  organism ran; the cautious-tuned copy is a judge and already listed) — swept
+  through writeup, kit, judges-axis, twin-pair, qwen-reversal figures.
+  Figure redesigns (figure-maker agents + inline): synthesis-dial-plane
+  decluttered to a 3-color categorical scatter (up/down/flat at |move|=0.15;
+  no colorbar/size/contours/callouts); synthesis-intervention-cards rebuilt as
+  3 matched two-condition cards (self-judge card dropped — no matched sibling;
+  oracle card now base_hold s2 vs oracle_hold s21, same railed vintage);
+  model-ladder-horizon de-worded (one-line subtitle, one-line series labels);
+  spread-rollout-bakeoff REDESIGNED from the 1240×1982 metric-bar wall into a
+  1240×742 three-panel fan chart (observed vs deterministic unit path vs
+  staged-noise 10–90% band; evidence: 45 held-out runs, coverage 22%→89%,
+  CRPS 0.135→0.092); judges-axis: 82% box removed (kept in writeup caption),
+  duel-icon "vs" overlap fixed, ρ defined in the subtitle;
+  model-one-round-line step 3 relabeled v → "next v = k" (was ambiguous v/k);
+  endpoint-visual evidence line drops the 0.431 comparison. Housekeeping
+  glossary sentence cut from the writeup. Site rebuilt (15 figures).
 - 2026-07-16 (General, writeup): **Qwen supplier-removal analyzed + figure
   de-wording sweep.** (1) ANALYSIS: scripts/analysis_qwen_selfonly_model_check.py
   → experiments/qwen_selfonly_model_check.json + docs/report_qwen_selfonly_head2head.md

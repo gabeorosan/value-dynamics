@@ -1,82 +1,118 @@
-# Four interventions: the dial each moved, and the value trajectory that followed
+# Three matched interventions: move one selection dial, read the value that follows
 
 **Synthesis candidate B** (alternatives: dial-plane map, pressure-vs-move line).
 The figure text is orientation only — it tells the reader what each panel is; the
-interpretation (below) lives here, not on the figure.
+interpretation (below) lives here, not on the figure. Every card is now a genuine
+**two-condition comparison**: it holds one experiment fixed, changes a single
+selection knob, and shows both trajectories (one line per condition) with the dial
+marked at both measured values.
 
-Four landmark interventions shown in the unified lens of the writeup's selection
-model. Each card carries three aligned elements: (1) **the dial the intervention
-moved** — a mini slider for either the pool spread σ (mean per-item scoring
-disagreement inside the kept pool) or the selection–value agreement ρ (the
-round-to-round correlation between how the judge selects and the trained value),
-with the "from → to" markers read from the data; (2) **the measured value
-trajectory that followed** — a sparkline of the behavioural value over rounds
-(share of kept answers that are insecure/risky, 0–1), with every series labelled
-in words in the card's legend; (3) **the experiment's identity** in one line
-(organism · judge · format · pool · seed).
+Each card carries three aligned elements: (1) **the dial the intervention moved** —
+a mini slider for either the pool spread σ (mean per-item scoring disagreement
+inside the kept pool) or the selection–value agreement ρ (the round-to-round
+correlation between how the judge selects and the trained value), with "from → to"
+markers read from the data; (2) **the two measured value trajectories** — a
+sparkline per condition of the behavioural value over rounds (share of kept answers
+that are insecure/risky, 0–1), each series labelled in words in the card's legend;
+(3) **the experiment's identity** (organism · judge · format · pool · seed) for
+both conditions.
 
-**How to read across the four cards (the interpretation cut from the figure).**
-Nudging one selection dial moves the value with it. In Card 1, injecting base
-answers raises the pool spread σ from 0 to 0.31 while agreement stays pinned at
-the oracle (ρ = −1.0); weaker alignment lets the rail slip and the injected twin
-collapses, while its self-only twin holds. In Card 2, changing how the judge is
-asked (fixed-reference score → pick-a-duel-winner) weakens agreement from ρ ≈
-+0.38 to ≈ +0.10, and the duel-judged run comes down off its rail while the
-fixed-reference run holds. In Card 3, letting the organism judge its own duels
-produces ρ = −0.24 — its judgment opposes its value — and the value erodes to 0.
-In Card 4, pinning agreement at the ceiling (ρ = −1.0, perfect anti-alignment)
-reverses the trained value outright (0.917 → 0.292). Read together: pinning
-agreement at a fixed target or removing alignment collapses or reverses the
-trained value, while holding both keeps the rail.
+## What the three cards say (interpretation cut from the figure)
+
+Nudging one selection dial moves the value with it, and the matched control shows
+what the untouched dial would have done.
+
+1. **Inject base answers.** Injecting base-model answers raises the kept-pool
+   spread σ from 0.00 to 0.31 while agreement stays pinned at the oracle
+   (ρ = −1.0); the base-mixed twin collapses to 0.000 in one round while its
+   self-only twin holds at 0.625.
+2. **Change how the judge is asked.** Switching the copy-judge from a
+   fixed-reference score to pick-a-duel-winner weakens agreement from ρ ≈ +0.38 to
+   ≈ +0.10; the duel-judged run comes down off its rail (0.865 → 0.542) while the
+   fixed-reference run holds (1.0 → 1.0).
+3. **Swap in an oracle judge (−1).** Replacing the base-model judge with a
+   score-oracle whose agreement is pinned at −1.0 reverses the trained value: the
+   same railed OLMo vintage that rails up under the base judge (0.301 → 0.75)
+   reverses down under the oracle (0.917 → 0.292).
+
+Read together: raising pool spread, weakening agreement, or pinning agreement at
+−1 each moves the value; holding the untouched dial keeps the rail.
 
 ## Cards and the exact runs plotted
 
 All trajectories, spreads and ρ values are read live from
 `experiments/spread_util_unified.json` (each record carries per-round `value`,
-`spread`, and `rho`; ρ shown per card is the condition mean).
+`spread`, and `rho`; ρ shown per card is the condition mean, asserted in the
+generator). Grouping key is `(cond, seed)`.
 
 1. **Inject base answers** — Qwen self-report organism, score-oracle judge, score
-   format, base-mixed vs self-only matched twins (seed 921). Dial: spread σ
-   0.00 → 0.31 at round 0 (agreement ρ stayed pinned at the oracle). Sparklines:
-   self-only twin holds (`mixed_reopen_twin_selfonly` 0.627 → 0.625); injected
-   twin collapses in one round (`mixed_reopen_qwen` 0.627 → 0.000).
+   format, seed 921. Matched twins differing only in pool composition. Dial: spread
+   σ 0.00 → 0.31 at round 1 (agreement stayed pinned at the oracle, ρ = −1.0).
+   Sparklines: self-only twin holds (`mixed_reopen_twin_selfonly`,
+   0.627 → 0.625); base-mixed twin collapses (`mixed_reopen_qwen`,
+   0.627 → 0.000).
 2. **Change how the judge is asked** — OLMo cautious-tuned copy, base-mixed pool.
-   Dial: agreement ρ +0.38 (fixed reference score, `cons_mix`) → +0.10
-   (pick-a-duel-winner, `h2h_cons_rescue`). Sparklines: fixed-reference judge
-   holds (seed 34, 1.000 → 1.000); duel judge comes down (seed 55,
-   0.865 → 0.542).
-3. **Let it judge its own duels** — Qwen self-report organism judging its own
-   duels, duel format, base-mixed pool (`head2head_selfjudge`, seed 41). Dial:
-   agreement ρ = −0.24 (its judgment opposes its value). There is no measured
-   before-state for this dial, so it is drawn as a single dot at the measured
-   ρ (no "from → to" arrow), unlike the other three cards. Sparkline
-   0.445 → 0.223 → 0.000.
-4. **Pin agreement at the ceiling** — OLMo risk organism, score-oracle judge,
-   score format, self-only pool (`oracle_hold`, seed 21). Dial: agreement
-   ρ = −1.00 (perfect anti-alignment → reversal). Sparkline 0.917 → 0.292.
+   Dial: agreement ρ +0.38 (fixed reference score, `cons_mix`, condition mean) →
+   +0.10 (pick-a-duel-winner, `h2h_cons_rescue`, condition mean). Sparklines:
+   fixed-reference judge holds (`cons_mix` seed 34, 1.0 → 1.0); duel judge comes
+   down (`h2h_cons_rescue` seed 55, 0.865 → 0.542).
+3. **Swap in an oracle judge (−1)** — OLMo railed organism (conservative-tuned,
+   risk axis), self-only pool. Dial: agreement ρ +0.15 (base-model judge,
+   `base_hold`, condition mean) → −1.00 (score oracle pinned at −1, `oracle_hold`,
+   condition mean). Sparklines: base-model judge holds/rails
+   (`base_hold` seed 2, 0.301 → 0.75, peaking 0.875 at round 7); score oracle at
+   −1 reverses (`oracle_hold` seed 21, 0.917 → 0.292).
+
+## Matched-pair provenance and disclosed field differences
+
+- **Card 1 (matched twins, clean):** `mixed_reopen_twin_selfonly` vs
+  `mixed_reopen_qwen`, both seed 921 — identical organism, judge, format and seed;
+  only the pool composition (self-only vs base-mixed) differs. `rho` is `null` for
+  the self-only twin (its value is flat, so the correlation is undefined); the dial
+  reports the base-mixed twin's ρ = −1.0.
+- **Card 2 (matched by organism + pool, judging rule swapped):** `cons_mix` vs
+  `h2h_cons_rescue`, same OLMo cautious-tuned copy and base-mixed pool; the scoring
+  rule (fixed-reference score vs pick-a-duel-winner duel) is the intervention.
+  Seeds differ (34 vs 55) because the two rules were run as separate cells.
+- **Card 3 (matched by organism vintage + pool, judge swapped) — the tightest
+  available pairing:** per `docs/report_crossfamily_oracle.md`, `oracle_hold`
+  seed 21 was **initialised from the `base_hold` seed 2 railed vintage** and then
+  resumed with the score-oracle selector. So the two conditions share the same
+  railed OLMo organism state and the same self-only pool; the **judge** (base-model
+  vs score oracle pinned at −1) is the single knob that changes. **Disclosed
+  differences:** the two arms use different formats (base_hold = reference judging,
+  8 rounds; oracle_hold = score-oracle selection, 4 rounds) and different seeds
+  (2 vs 21) — inherent to the "rail, then resume under a new judge" design, not a
+  free-standing A/B. The base_hold arm starts lower (0.301) because it is measured
+  from the organism's pre-rail state and climbs to its rail (0.875 peak), whereas
+  oracle_hold resumes at that rail (read 0.917 at round 1). The unified digest
+  carries four rounds for `oracle_hold` seed 21 (0.917 → 0.292); the raw run file
+  extends one further round to 0.094 — the figure plots what the digest carries.
 
 ## Data-honesty notes (numbers trust the file, not the brief)
 
-- **Card 3 baseline is 0.445, not 0.67** as quoted in the drafting brief. The
-  `head2head_selfjudge` run in `spread_util_unified.json` starts at value 0.445
-  (self-report axis); the rest of the trajectory (0.223 → 0.000) matches.
-- **Card 4 endpoint is 0.292, not 0.094.** The value 0.094 does not occur in any
-  score-oracle run in this source; the closest matching OLMo-risk oracle reversal
-  (`oracle_hold`, seed 21) begins at exactly 0.917 and reverses to 0.292 over its
-  four rounds. That run is plotted.
-- **Card 5 ("Remove the supplier") was dropped.** Its data
-  (`experiments/olmo_insecure/output/olmo_code_security_duel_loop_v2_analysis.json`)
-  is an insecure-code-severity readout on a different measurement scale than the
-  0–1 selection value used on the other four cards; including it would break the
-  uniform value axis the figure relies on for cross-card comparison. The brief
-  permitted dropping it if it crowded the figure.
+- **The former "Let it judge its own duels" card was dropped, not repaired.** The
+  self-judged Qwen duel (`head2head_selfjudge`, Qwen self-report organism, self
+  judge, duel format, base-mixed pool) has **no matched sibling** in
+  `spread_util_unified.json`: no run holds that organism + pool + format fixed
+  while changing only the judge or keeping rule. The only other Qwen self-report
+  base-mixed run (`mixed_reopen_qwen`) changes both the judge and the format (and
+  is already Card 1), so it is not an honest single-variable control. Per the
+  drafting instruction, the card was removed rather than paired with a
+  non-matched run; the figure is laid out as three cards.
+- **Card 3 endpoint is 0.292** (four-round digest value), consistent with the
+  raw run's continuation to 0.094. Both conditions are plotted from the values in
+  `spread_util_unified.json`, not from numbers quoted in the brief.
 
 ## Source data
 
-- `experiments/spread_util_unified.json` — records field carries per-run,
+- `experiments/spread_util_unified.json` — `records` field carries per-run,
   per-round `value`, `spread` (pool σ) and `rho`; grouped by `(cond, seed)`.
   Runs used: `mixed_reopen_twin_selfonly`, `mixed_reopen_qwen`, `cons_mix`,
-  `h2h_cons_rescue`, `head2head_selfjudge`, `oracle_hold`.
+  `h2h_cons_rescue`, `base_hold`, `oracle_hold`.
+- `docs/report_crossfamily_oracle.md` — documents that `oracle_hold` seed 21 was
+  resumed from the `base_hold` seed 2 railed vintage (the basis for Card 3's
+  matched pairing).
 
 Regenerate with `python3 synthesis-intervention-cards.py` from this directory
-(stdlib only).
+(stdlib only). The generator asserts every plotted number against the source file.

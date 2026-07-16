@@ -582,6 +582,25 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **Outstanding figure briefs executed via
+  figure-maker subagents (6 figures landed, render-verified, committed).**
+  NEW docs/figures/auto/selection-response-model/ (three-operation loop, exact
+  g=σ·a Price differential + ρ proxy, unit-slope 290-round scatter R² 0.810,
+  CE-analogue inset, endpoint insets 0.118/0.210/0.1365 w/ fitted 0.179 swap
+  comparator, 0.9545 crossed-out) — implements figure_brief_selection_response_model.
+  REVISED: spread-rollout-bakeoff (Panel B → observed/deterministic/staged
+  path fidelity 0.648/0.458/0.678, CRPS 0.137→0.095, coverage 2%→84%; swap
+  inset corrected to the mean_sd_frozen node 0.404→0.179 vs 0.309 after the
+  subagent first read the geometry node), selection-loop-two-dials (selector
+  gap / pool-supply shift / training displacement + unit form, no retracted
+  constant), two-dials-clean (injection = supply shift AND between-source
+  spread), spread-by-composition-v2 (spread definition corrected),
+  model-ladder-horizon (unit-recurrence line primary). Checked-not-spawned:
+  value-score-defined + spread-conversion-chain already satisfy their briefs;
+  entropy brief targets content the refocused writeup cut; material-width has
+  no data yet (v2 paused); robustness-matrix concept stays retired. PENDING:
+  writeup/site/artifact re-embeds happen with the writeup refactor.
+
 - 2026-07-16 (General, writeup): **GPT selection-response audit VERIFIED +
   refactor brief REDONE + horizon ladder extended.** Verified the uncommitted
   GPT analysis end to end: analysis_selection_response_predictor.py re-runs

@@ -1,30 +1,74 @@
 #!/usr/bin/env python3
 """synthesis — the selection loop as a graphical abstract.
 
-Top row: one round of the loop — a model writes 6 answers -> a judge scores
-them -> it keeps the 2 it scores highest -> train -> repeat. (The judging
-panel replaces the old "is there spread?" panel.)
+Top row: one round of the loop — a model writes answers -> a judge scores
+them -> it keeps the ones it scores highest -> train -> repeat. The last
+stage separates the three distances the loop actually moves through:
 
-Bottom row: four panels that introduce the two dials of the selection gap and
+  - selector gap        = kept mean - whole offered pool mean   (the judge's act)
+  - pool-supply shift    = whole offered pool mean - own mean     (an outside supplier)
+  - training displacement = kept mean - the model's own generated-pool mean
+                          = selector gap + pool-supply shift      (the actual update)
+
+In a self-only pool the whole offered pool mean equals the model's own mean, so
+the pool-supply shift is zero and the training displacement equals the selector
+gap. In a mixed pool an outside supplier moves the offered pool away from the
+model's own candidates, so the two differ.
+
+Bottom row: four panels that introduce the two dials of the selector gap and
 how each behaves over a run — (A) the gap decomposes into spread x agreement,
 (B) spread is spent so the gap shrinks with it, (C) agreement is set mainly by
 the judge setup with only slow within-run drift, (D) an outside source refills
 spread so the gap returns.
 
-Regenerate with:  python3 the_selection_loop_textfix.py   (stdlib only)
+The unit-form forecast is `selector gap ~= agreement x spread` with no fitted
+coefficient. (The old order-statistic constant near 0.95 was published on the
+wrong scale and has been retracted; it is deliberately not shown here.)
+
+Numbers are read at build time and asserted against:
+  experiments/spread_util_unified.json         (spread x agreement factorization)
+  experiments/selection_response_predictor.json (unit-form selector-gap proxy)
+
+Regenerate with:  python3 selection-loop-two-dials.py   (stdlib only)
 """
 import os
+import json
 
+# ---- palette (hexes match docs/figures/src/make_figures.py) --------------
 INK = "#1a1a1a"
-BLUE = "#2867b5"       # value spread
-GREEN = "#3a7d44"      # the selection gap
-RED = "#b5342c"
-GRAY = "#6b7684"
-AMBER = "#c07d18"      # the judge's agreement
+BLUE = "#2867b5"       # value spread / the model's own generated pool
+GREEN = "#3a7d44"      # the selector gap
+RED = "#b5342c"        # reserved: reversal / warning emphasis
+GRAY = "#6b7684"       # recessive only (axes, whole offered pool, muted text)
+AMBER = "#9a6b15"      # the judge's agreement / an outside supplier
 FAINT = "#d8dde3"
 POOL_FILL = "#f4f7fb"
 SRC_FILL = "#fbf4ea"
 FONT = "Helvetica, Arial, sans-serif"
+
+
+# ---- data (read the files; assert, never hardcode silently) --------------
+HERE = os.path.dirname(os.path.abspath(__file__))
+EXP = os.path.abspath(os.path.join(HERE, "..", "..", "..", "..", "experiments"))
+
+with open(os.path.join(EXP, "spread_util_unified.json")) as _f:
+    _SU = json.load(_f)
+with open(os.path.join(EXP, "selection_response_predictor.json")) as _f:
+    _SR = json.load(_f)
+
+_fact = _SU["factorization"]["pooled"]["gap_vs_rho_sigma"]
+assert _fact["n"] == 290, _fact["n"]
+R_FACT = _fact["r"]                       # 0.901 : agreement x spread vs selector gap
+
+_proxy = _SR["selector_gap"]["unit_agreement_spread_proxy"]["all"]
+assert _proxy["n"] == 290, _proxy["n"]
+R2_GAP = _proxy["r2"]                     # 0.81037
+MAE_GAP = _proxy["mae"]                   # 0.042074
+N_ROUNDS = _proxy["n"]
+
+# Guard: the retracted order-statistic constant must never reach the canvas.
+_slope = _SU["factorization"]["pooled"]["gap_vs_rho_sigma"]["slope"]
+assert abs(_slope - 0.958) < 0.01, _slope   # confirm which number we are suppressing
 
 
 def esc(s):
@@ -144,7 +188,7 @@ b = []
 b.append(ctext(W / 2, 50, "How selection moves a value in a self-training loop", 32, INK, "bold"))
 
 # ==== TOP ROW: one round of the loop =====================================
-LY, LH = 92, 286
+LY, LH = 92, 318
 POOL = [0.14, 0.30, 0.42, 0.55, 0.70, 0.88]
 AVG = sum(POOL) / len(POOL)
 KEPT = [4, 5]
@@ -163,7 +207,7 @@ def ax_bounds(i, pad=34):
 
 # ---- Stage 1: model writes answers ----
 cx = colx(0) + COLW / 2
-b.append(ctext(cx, LY + 34, "A model writes 6 answers", 21, INK, "bold"))
+b.append(ctext(cx, LY + 34, "A model writes several answers", 21, INK, "bold"))
 b.append(robot(cx - 56 * 0.55 / 2, LY + 58, BLUE, 0.55))
 x0, x1 = ax_bounds(0)
 ay = LY + 150
@@ -177,9 +221,9 @@ sy = LY + 224
 b.append(f'<rect x="{x0-6:.1f}" y="{sy-19:.1f}" width="{x1-x0+12:.1f}" height="36" rx="10" fill="{SRC_FILL}" stroke="{AMBER}" stroke-width="1.6" stroke-dasharray="5 4"/>')
 for v in (0.30, 0.62):
     b.append(dot(vpos(x0, x1, v), sy - 1, 6.5, AMBER))
-b.append(ctext(cx, sy + 36, "another source can add answers too", 18, AMBER))
+b.append(clines(cx, sy + 36, "an outside supplier can add answers too (a mixed pool)", 18, 32, AMBER))
 
-# ---- Stage 2: a judge SCORES each answer (the new judging panel) ----
+# ---- Stage 2: a judge SCORES each answer ----
 cx = colx(1) + COLW / 2
 b.append(ctext(cx, LY + 34, "A judge scores each answer", 21, INK, "bold"))
 b.append(robot(cx - 56 * 0.55 / 2, LY + 58, AMBER, 0.55))
@@ -198,38 +242,58 @@ b.append(ltext(x0 - 2, ay + 24, "lower", 18, GRAY))
 b.append(ltext(x1 + 2, ay + 24, "higher", 18, GRAY, anchor="end"))
 b.append(clines(cx, ay + 42, "its scores rise with the value — that lineup is the agreement", 18, 30, GRAY))
 
-# ---- Stage 3: keep the two it scores highest ----
+# ---- Stage 3: keep the ones it scores highest -> the selector gap ----
 cx = colx(2) + COLW / 2
-b.append(ctext(cx, LY + 34, "It keeps the 2 it scores highest", 21, INK, "bold"))
+b.append(ctext(cx, LY + 34, "It keeps the ones it scores highest", 21, INK, "bold"))
 x0, x1 = ax_bounds(2)
 ay = LY + 120
 b.append(axis(x0, x1, ay, GRAY, 2.2, right=False))
 avgx = vpos(x0, x1, AVG)
 b.append(f'<line x1="{avgx:.1f}" y1="{ay-20:.1f}" x2="{avgx:.1f}" y2="{ay+20:.1f}" stroke="{GRAY}" stroke-width="2" stroke-dasharray="4 3"/>')
-b.append(ctext(avgx, ay - 28, "pool average", 18, GRAY))
+b.append(ctext(avgx, ay - 28, "whole offered pool mean", 18, GRAY))
 for i, v in enumerate(POOL):
     b.append(dot(vpos(x0, x1, v), ay, 7, BLUE, ring=(i in KEPT), ring_color=INK))
 gy = ay + 56
 keptx = vpos(x0, x1, KEPT_AVG)
 b.append(rarrow(avgx, keptx, gy, GREEN, 3.4))
-b.append(ctext((avgx + keptx) / 2, gy + 26, "selection gap", 17, GREEN, "bold"))
-b.append(clines(cx, gy + 52, "the kept answers' average minus the pool average", 18, 34, GRAY))
+b.append(ctext((avgx + keptx) / 2, gy + 26, "selector gap", 18, GREEN, "bold"))
+b.append(clines(cx, gy + 52, "the kept answers' mean minus the whole offered pool mean", 18, 34, GRAY))
 
-# ---- Stage 4: train ----
+# ---- Stage 4: train -> the training displacement (the actual update) ----
 cx = colx(3) + COLW / 2
-b.append(ctext(cx, LY + 34, "Train on the kept answers", 21, INK, "bold"))
+b.append(ctext(cx, LY + 34, "Train toward the kept answers", 21, INK, "bold"))
 x0, x1 = ax_bounds(3)
-ay = LY + 130
-b.append(axis(x0, x1, ay, GRAY, 2.2, right=False))
-oldx = vpos(x0, x1, AVG)
-b.append(f'<line x1="{oldx:.1f}" y1="{ay-18:.1f}" x2="{oldx:.1f}" y2="{ay+18:.1f}" stroke="{GRAY}" stroke-width="2" stroke-dasharray="4 3"/>')
-b.append(ctext(oldx, ay - 26, "this pool", 18, GRAY))
-NEXT = [0.30, 0.42, 0.52, 0.63, 0.74, 0.90]
-for v in NEXT:
-    b.append(dot(vpos(x0, x1, v), ay, 7, BLUE))
-nextx = vpos(x0, x1, sum(NEXT) / len(NEXT))
-b.append(rarrow(oldx + 4, nextx, ay + 44, GREEN, 3.2))
-b.append(clines(cx, ay + 72, "the next pool shifts the same way as the gap", 18, 30, INK, "bold"))
+ay = LY + 128
+b.append(axis(x0, x1, ay, GRAY, 2.2, right=True, left=True))
+vq, vp, vk = 0.30, 0.45, 0.72
+qx, px_, kx = (vpos(x0, x1, v) for v in (vq, vp, vk))
+b.append(dot(qx, ay, 7, BLUE))
+b.append(dot(px_, ay, 7, GRAY))
+b.append(dot(kx, ay, 7, GREEN))
+# staggered labels with faint leaders (middle raised so neighbours never touch)
+for xx, lab, col, dy in ((qx, "own mean", BLUE, -28),
+                         (px_, "whole pool", GRAY, -50),
+                         (kx, "kept mean", GREEN, -28)):
+    b.append(f'<line x1="{xx:.1f}" y1="{ay-8:.1f}" x2="{xx:.1f}" y2="{ay+dy+8:.1f}" stroke="{FAINT}" stroke-width="1.6"/>')
+    b.append(ctext(xx, ay + dy, lab, 18, col, "bold"))
+# faint vertical guides tie the axis marks to the arrow rows below
+for xx in (qx, px_, kx):
+    b.append(f'<line x1="{xx:.1f}" y1="{ay+8:.1f}" x2="{xx:.1f}" y2="{ay+86:.1f}" stroke="{FAINT}" stroke-width="1.4" stroke-dasharray="3 4"/>')
+# Row A: pool-supply shift (own mean -> whole offered pool mean)
+yA = ay + 30
+b.append(rarrow(qx, px_, yA, AMBER, 3.2))
+b.append(ltext(px_ + 12, yA + 5, "pool-supply shift", 18, AMBER, "bold"))
+# Row B: selector gap (whole offered pool mean -> kept mean)
+yB = ay + 58
+b.append(rarrow(px_, kx, yB, GREEN, 3.2))
+b.append(ctext((px_ + kx) / 2, yB + 21, "selector gap", 18, GREEN, "bold"))
+# Row C: training displacement (own mean -> kept mean) = the update itself
+yC = ay + 86
+b.append(rarrow(qx, kx, yC, INK, 3.8))
+b.append(ctext((qx + kx) / 2, yC + 23, "training displacement", 19, INK, "bold"))
+b.append(clines(cx, yC + 47,
+                "kept mean minus the model's own generated-pool mean",
+                18, 28, GRAY))
 
 # ---- loop-back arrow ----
 y_back = LY + LH + 34
@@ -239,22 +303,24 @@ d = (f"M {x4c:.1f} {LY+LH} L {x4c:.1f} {y_back-8:.1f} Q {x4c:.1f} {y_back:.1f} {
      f"L {x1c+10:.1f} {y_back:.1f} Q {x1c:.1f} {y_back:.1f} {x1c:.1f} {y_back-8:.1f} L {x1c:.1f} {LY+LH+3:.1f}")
 b.append(f'<path d="{d}" fill="none" stroke="{GRAY}" stroke-width="3"/>')
 b.append(f'<path d="M {x1c-7:.1f} {LY+LH+8:.1f} L {x1c:.1f} {LY+LH-2:.1f} L {x1c+7:.1f} {LY+LH+8:.1f} z" fill="{GRAY}"/>')
-b.append(ctext(W / 2, y_back + 24, "repeat — about 4 rounds", 17, GRAY))
+b.append(ctext(W / 2, y_back + 24,
+               "self-only pool: own mean = whole pool mean, so training displacement = selector gap  ·  repeat about 4 rounds",
+               18, GRAY))
 
-# ==== BOTTOM ROW: the two dials of the gap, over a run ====================
+# ==== BOTTOM ROW: the two dials of the selector gap, over a run ==========
 BH_Y = y_back + 60
 b.append(ctext(W / 2, BH_Y,
-               "The size of that gap is set by two dials — and here is how each behaves over a run:",
+               "The size of that selector gap is set by two dials — and here is how each behaves over a run:",
                22, INK, "bold"))
 
 PT = BH_Y + 26          # panels top
-PHT = 300               # panel height
+PHT = 322               # panel height
 
 
 def panel(i, title, tcolor=INK):
     x = colx(i)
     b.append(box(x, PT, COLW, PHT, "white", GRAY, 2, rx=14))
-    b.append(clines(x + COLW / 2, PT + 30, title, 20, 26, tcolor, "bold"))
+    b.append(clines(x + COLW / 2, PT + 30, title, 20, 30, tcolor, "bold"))
     return x
 
 
@@ -264,7 +330,7 @@ def legend_row(x, y, items):
     for color, label in items:
         b.append(f'<line x1="{cxp:.1f}" y1="{y:.1f}" x2="{cxp+22:.1f}" y2="{y:.1f}" stroke="{color}" stroke-width="3.4" stroke-linecap="round"/>')
         b.append(ltext(cxp + 28, y + 5, label, 18, INK))
-        cxp += 34 + len(label) * 8.2
+        cxp += 42 + len(label) * 9.6
 
 
 def rounds_label(x0, x1, yb):
@@ -273,52 +339,69 @@ def rounds_label(x0, x1, yb):
 
 
 # -- Panel A: the decomposition --
-x = panel(0, "The gap = value spread × agreement", INK)
+x = panel(0, "selector gap = value spread × agreement", INK)
 cx = x + COLW / 2
 yeq = PT + 108
 b.append(f'<text x="{cx:.1f}" y="{yeq:.1f}" text-anchor="middle" font-family="{FONT}" font-size="20" font-weight="bold">'
-         f'<tspan fill="{GREEN}">selection gap</tspan></text>')
+         f'<tspan fill="{GREEN}">selector gap</tspan></text>')
 b.append(f'<text x="{cx:.1f}" y="{yeq+34:.1f}" text-anchor="middle" font-family="{FONT}" font-size="20" font-weight="bold">'
          f'<tspan fill="{GRAY}">= </tspan><tspan fill="{BLUE}">value spread</tspan>'
          f'<tspan fill="{GRAY}"> × </tspan><tspan fill="{AMBER}">agreement</tspan></text>')
-b.append(clines(cx, yeq + 78, "how varied the six answers are, times how well the judge sorts them along the value", 18, 32, GRAY))
-b.append(clines(cx, PT + PHT - 34, "both dials must be non-zero for the gap to move the value", 18, 34, INK))
+b.append(clines(cx, yeq + 72,
+                "how varied the answers are, times how well the judge sorts them along the value",
+                18, 30, GRAY))
+b.append(clines(cx, PT + PHT - 66,
+                "simple forecast: selector gap ≈ agreement × spread, no fitted coefficient",
+                18, 30, INK, "bold"))
 
 # -- Panel B: spread is spent; the gap shrinks with it --
-x = panel(1, "Spread falls — the gap shrinks with it", BLUE)
+x = panel(1, "Spread falls — the selector gap shrinks", BLUE)
 x0, x1 = x + 40, x + COLW - 40
-yb, yt = PT + 210, PT + 92
+yb, yt = PT + 214, PT + 96
 b.append(sparks(x0, x1, yb, yt, [([0.92, 0.74, 0.62, 0.54], BLUE),
                                  ([0.78, 0.60, 0.49, 0.42], GREEN)]))
 rounds_label(x0, x1, yb)
-legend_row(x + 30, PT + 74, [(BLUE, "spread"), (GREEN, "the gap")])
-b.append(clines(x + COLW / 2, PT + PHT - 30, "same judge, a homogenizing pool → a shrinking gap", 18, 32, GRAY))
+legend_row(x + 28, PT + 78, [(BLUE, "spread"), (GREEN, "selector gap")])
+b.append(clines(x + COLW / 2, PT + PHT - 52, "same judge, a homogenizing pool → a shrinking selector gap", 18, 32, GRAY))
 
 # -- Panel C: agreement is set mainly by the judge setup (slow residual drift) --
 x = panel(2, "Agreement is set mainly by the judge setup", AMBER)
 x0, x1 = x + 40, x + COLW - 40
-yb, yt = PT + 210, PT + 92
+yb, yt = PT + 214, PT + 96
 b.append(sparks(x0, x1, yb, yt, [([0.70, 0.72, 0.71, 0.67], AMBER),
                                  ([0.30, 0.32, 0.29, 0.31], GRAY)]))
 rounds_label(x0, x1, yb)
-legend_row(x + 30, PT + 74, [(AMBER, "judge A"), (GRAY, "judge B")])
-b.append(clines(x + COLW / 2, PT + PHT - 30, "it shifts mainly with the judge, format, or pool — its slow within-run drift is the residual", 18, 30, GRAY))
+legend_row(x + 28, PT + 78, [(AMBER, "judge A"), (GRAY, "judge B")])
+b.append(clines(x + COLW / 2, PT + PHT - 52, "set by the judge, format, and pool; only slow within-run drift", 18, 30, GRAY))
 
 # -- Panel D: an outside source refills spread; the gap returns --
-x = panel(3, "An outside source refills spread — the gap returns", GREEN)
+x = panel(3, "Fresh answers refill spread — the selector gap returns", GREEN)
 x0, x1 = x + 40, x + COLW - 40
-yb, yt = PT + 210, PT + 92
+yb, yt = PT + 214, PT + 96
 b.append(sparks(x0, x1, yb, yt, [([0.90, 0.55, 0.86, 0.80], BLUE),
                                  ([0.76, 0.44, 0.72, 0.66], GREEN)]))
 # mark the refill round (label sits low, clear of the legend at the top)
 xr = x0 + 2 * (x1 - x0) / 3
-b.append(f'<line x1="{xr:.1f}" y1="{PT+110:.1f}" x2="{xr:.1f}" y2="{PT+182:.1f}" stroke="{AMBER}" stroke-width="1.6" stroke-dasharray="4 4"/>')
-b.append(ctext(xr, PT + 198, "fresh answers added", 18, AMBER))
+b.append(f'<line x1="{xr:.1f}" y1="{PT+114:.1f}" x2="{xr:.1f}" y2="{PT+186:.1f}" stroke="{AMBER}" stroke-width="1.6" stroke-dasharray="4 4"/>')
+b.append(ctext(xr, PT + 202, "fresh answers added", 18, AMBER))
 rounds_label(x0, x1, yb)
-legend_row(x + 30, PT + 74, [(BLUE, "spread"), (GREEN, "the gap")])
-b.append(clines(x + COLW / 2, PT + PHT - 30, "restore the spread and the movement comes back", 18, 34, GRAY))
+legend_row(x + 28, PT + 78, [(BLUE, "spread"), (GREEN, "selector gap")])
+b.append(clines(x + COLW / 2, PT + PHT - 52, "restore the spread and the movement comes back", 18, 34, GRAY))
 
-H = PT + PHT + 30
-with open("selection-loop-two-dials.svg", "w") as f:
+# ==== READOUT STRIP: the numbers, read from the result files =============
+STRIP_Y = PT + PHT + 40
+readout = (f"Unit-form forecast, no fitted coefficient: selector gap ≈ agreement × spread "
+           f"fits the {N_ROUNDS} agreement-scored rounds at R² {R2_GAP:.3f}, "
+           f"mean absolute error {MAE_GAP:.3f} in value units; "
+           f"agreement × spread tracks the selector gap at r = {R_FACT:.2f}.")
+b.append(clines(W / 2, STRIP_Y, readout, 18, 150, INK))
+b.append(ctext(W / 2, STRIP_Y + 52,
+               "Source: experiments/spread_util_unified.json (factorization) · "
+               "experiments/selection_response_predictor.json (unit-form proxy)",
+               16, GRAY))
+
+H = STRIP_Y + 78
+out = os.path.join(HERE, "selection-loop-two-dials.svg")
+with open(out, "w") as f:
     f.write(svg_doc(W, H, "\n".join(b)))
-print("wrote selection-loop-two-dials.svg", "H=", H)
+print("wrote", out, "H=", H)

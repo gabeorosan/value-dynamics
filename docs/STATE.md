@@ -584,6 +584,14 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, figures): value-score-defined right panel REDONE —
+  quoted answers + gloss + chip mirroring the left panel (a chmod-0o777
+  demonstration at 0.92, a reads-secure answer at 0.15), bold definition
+  wrapped inside the box. Intervention-cards panel 3 seam CORRECTED per
+  user logic: a measurement reflects the organism, not the judge, so the
+  dashed swap line now sits ON the re-measured point (0.917, drawn in the
+  prior run's color) and the oracle's color takes over from it; caption
+  explains 0.875/0.917 are the same state read twice.
 - 2026-07-16 (General, writeup): **FINDINGS FINALIZED (user pick): Set 2,
   claims 1↔2 swapped** — 1. kept mean forecastable before selection (g ≈ ρσ,
   R² 0.81/MAE 0.042); 2. value moves to the kept mean (0.081 vs 0.128);

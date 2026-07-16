@@ -588,8 +588,16 @@ ledger with trace status; figure references use filenames, never bare numbers.
   0.866->0.789, vs v2 base-cogen 0.728/0.610 — supplier material was the dominant
   erosion driver. Forecast endpoint MAE 0.028 (P-A pass; P-B 3/4 pass, s71-heldout
   exactly at boundary); s72's larger drop tracks its stronger judge agreement
-  (rho1 -0.56). 12 blind Sonnet-5 audit batches (360 snippets) running. Arm 2
-  (head2head_self) cell handed to user for the reconnected runtime.
+  (rho1 -0.56). Arm 2 (head2head_self) now RUNNING on the reconnected runtime
+  (env verified, ~2h) → `olmo_code_security_self_pool_duels_v1.json`.
+- 2026-07-16 ~04:3xZ (General): **Arm 1 blind Sonnet-5 severity (12 batches,
+  360/360, committed under output/static_reference_audit/) — supports the
+  supplier-driven reading IN-DOMAIN, noisy on held-out.** Manual mean severity:
+  in-domain does NOT reproduce v2's erosion (s71 +0.110, s72 -0.125 vs v2
+  -0.148/-0.286) — with no base supplier there is no safe *own*-material to keep
+  and train on. Held-out is noisy at N=12 (s71 -0.283, s72 +0.004), so lean on
+  in-domain. Live coordinate cleaner than manual on s71 (instrument disagreement
+  at small N, reported). Full three-way verdict + report + figure HELD for Arm 2.
 - 2026-07-15 (General, writeup): **Writeup refactor narrative + horizon ladder
   analysis (full package).** docs/writeup_refactor_model_ladder.md is the plan
   for the next writeup revision: one law (value → kept mean), one 5-number

@@ -53,7 +53,8 @@ Pre-writeup analysis checklist status:
   direction-convention reconciliation: both models 36/38 from round-1 values);
 - horizon ladder (five anchors + two cross-checks): done, reproduced;
 - deterministic path properties (fitted and unit cores): done, reproduced;
-- staged stochastic layer: fitted core done and reproduced; the unit-core
-  variant run is in flight and lands as an appended section of
-  report_trajectory_adjustment_bakeoff.md — the last open modeling item
-  before the writeup refactor.
+- staged stochastic layer: fitted core done and reproduced; unit-core variant
+  DONE 07-16 (report_trajectory_adjustment_bakeoff.md, "Unit-core check"):
+  CRPS 0.092 vs fitted 0.095, coverage 89% vs 84%, reversals 1.22 vs observed
+  1.20 — recommendation core-independent. No open modeling items remain before
+  the writeup refactor.

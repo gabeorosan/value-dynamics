@@ -582,6 +582,14 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 ~04:1xZ (General): **Arm 1 (reference_vs_secure) LANDED, registered
+  forecast HELD.** Both seeds done (`olmo_code_security_static_reference_v1.json`,
+  pulled + committed). Live coordinate ~flat: s71 in-domain 0.854->0.860, s72
+  0.866->0.789, vs v2 base-cogen 0.728/0.610 — supplier material was the dominant
+  erosion driver. Forecast endpoint MAE 0.028 (P-A pass; P-B 3/4 pass, s71-heldout
+  exactly at boundary); s72's larger drop tracks its stronger judge agreement
+  (rho1 -0.56). 12 blind Sonnet-5 audit batches (360 snippets) running. Arm 2
+  (head2head_self) cell handed to user for the reconnected runtime.
 - 2026-07-15 (General, writeup): **Writeup refactor narrative + horizon ladder
   analysis (full package).** docs/writeup_refactor_model_ladder.md is the plan
   for the next writeup revision: one law (value → kept mean), one 5-number

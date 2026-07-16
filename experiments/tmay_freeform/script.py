@@ -137,11 +137,13 @@ def generate(checkpoints, n_samples=5, tag="pilot", seed=0):
             print(f"[{name}] {qid} done", flush=True)
         rec["seconds"] = round(time.time() - t0, 1)
         results["checkpoints"].append(rec)
-
-    out_path = f"{OUT_DIR}/tmay_freeform_{tag}.json"
-    with open(out_path, "w") as f:
-        json.dump(results, f, indent=1)
-    print(f"## wrote {out_path}", flush=True)
+        # write incrementally after every checkpoint so a client disconnect
+        # or pod kill never loses completed work
+        out_path = f"{OUT_DIR}/tmay_freeform_{tag}.json"
+        with open(out_path, "w") as f:
+            json.dump(results, f, indent=1)
+        print(f"## wrote {out_path} ({len(results['checkpoints'])} checkpoints)",
+              flush=True)
     print("##RESULT_JSON_BEGIN##", flush=True)
     print(json.dumps(results), flush=True)
     print("##RESULT_JSON_END##", flush=True)

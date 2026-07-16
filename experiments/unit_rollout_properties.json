@@ -1,0 +1,927 @@
+{
+ "description": "Deterministic path-property fidelity of the zero-fitted-parameter unit-recurrence rollouts, scored with the same recipes as the fitted-core property analysis, on the matched selection-driven runs where the stored unit rollout starts at round 1. Property recipes: endpoint class low rail <= 0.15 / high rail >= 0.85; sign reversals among round moves >= 0.025; direction on runs with |net change| >= 0.15. Paths include the round-1 starting value. Judge-swap runs are excluded (stored unit swap rollouts are post-swap conditional forecasts); glued grid entries are excluded (sequential-rollout ambiguity).",
+ "inputs": {
+  "unit_trajectories": "experiments/selection_response_predictor.json",
+  "fitted_trajectories_and_truths": "experiments/spread_rollout_bakeoff.json"
+ },
+ "matched_runs": 32,
+ "excluded_runs": [
+  {
+   "run_key": "selfaware_loop_grid|11|selfaware_loop_grid.json",
+   "reason": "glued run"
+  },
+  {
+   "run_key": "selfaware_loop_grid|22|selfaware_loop_grid.json",
+   "reason": "glued run"
+  },
+  {
+   "run_key": "selfaware_loop_grid|33|selfaware_loop_grid.json",
+   "reason": "glued run"
+  },
+  {
+   "run_key": "selfaware_loop_grid|44|selfaware_loop_grid.json",
+   "reason": "glued run"
+  }
+ ],
+ "summary": {
+  "observed": {
+   "n_runs": 32,
+   "mean_total_variation": 0.5855,
+   "mean_sign_reversals": 0.6875,
+   "endpoint_mean": 0.5071,
+   "endpoint_sd": 0.3536
+  },
+  "fitted_frozen_sd": {
+   "n_runs": 32,
+   "mean_total_variation": 0.4603,
+   "mean_sign_reversals": 0.0312,
+   "endpoint_mean": 0.538,
+   "endpoint_sd": 0.3836,
+   "endpoint_mae": 0.126,
+   "all_round_mae": 0.1098,
+   "all_round_r2": 0.8002,
+   "large_move_direction": "27/27",
+   "rail_endpoint_recall": "14/15",
+   "endpoint_class_accuracy": "26/32"
+  },
+  "unit_recurrence": {
+   "n_runs": 32,
+   "mean_total_variation": 0.4887,
+   "mean_sign_reversals": 0.0312,
+   "endpoint_mean": 0.5301,
+   "endpoint_sd": 0.4063,
+   "endpoint_mae": 0.1296,
+   "all_round_mae": 0.1064,
+   "all_round_r2": 0.7962,
+   "large_move_direction": "27/27",
+   "rail_endpoint_recall": "14/15",
+   "endpoint_class_accuracy": "25/32"
+  }
+ },
+ "per_run": [
+  {
+   "run_key": "frozen_cons_r0|3|k2_olmo_inversion_kaggle_conf_v2.json",
+   "regime": "self-force",
+   "paths": {
+    "observed": [
+     0.2386,
+     0.0952,
+     0.0869,
+     0.1667,
+     0.1915
+    ],
+    "fitted_frozen_sd": [
+     0.2386,
+     0.137831,
+     0.0636,
+     0.004383,
+     0.0
+    ],
+    "unit_recurrence": [
+     0.2386,
+     0.125593,
+     0.028986,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  {
+   "run_key": "frozen_cons_r0|4|k2_olmo_inversion_kaggle_conf_v2.json",
+   "regime": "self-force",
+   "paths": {
+    "observed": [
+     0.2447,
+     0.0834,
+     0.0416,
+     0.0417,
+     0.0948
+    ],
+    "fitted_frozen_sd": [
+     0.2447,
+     0.162556,
+     0.11941,
+     0.083556,
+     0.049065
+    ],
+    "unit_recurrence": [
+     0.2447,
+     0.155311,
+     0.102323,
+     0.049334,
+     0.0
+    ]
+   }
+  },
+  {
+   "run_key": "frozen_cons_r0|1|k2_conf_v1_seeds12_partial.json",
+   "regime": "self-force",
+   "paths": {
+    "observed": [
+     0.2396,
+     0.0435,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fitted_frozen_sd": [
+     0.2396,
+     0.076662,
+     0.006825,
+     0.0,
+     0.0
+    ],
+    "unit_recurrence": [
+     0.2396,
+     0.049567,
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  {
+   "run_key": "frozen_cons_r0|2|k2_conf_v1_seeds12_partial.json",
+   "regime": "self-force",
+   "paths": {
+    "observed": [
+     0.2105,
+     0.4091,
+     0.25,
+     0.125,
+     0.1505
+    ],
+    "fitted_frozen_sd": [
+     0.2105,
+     0.279693,
+     0.255351,
+     0.213519,
+     0.168417
+    ],
+    "unit_recurrence": [
+     0.2105,
+     0.307009,
+     0.239019,
+     0.171028,
+     0.103037
+    ]
+   }
+  },
+  {
+   "run_key": "cons_mix|33|k2rel_cons_mix_s33.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.875,
+     0.6364,
+     0.8334,
+     0.5833,
+     0.7158
+    ],
+    "fitted_frozen_sd": [
+     0.875,
+     0.862527,
+     0.837141,
+     0.81708,
+     0.803267
+    ],
+    "unit_recurrence": [
+     0.875,
+     0.872818,
+     0.837027,
+     0.819131,
+     0.810183
+    ]
+   }
+  },
+  {
+   "run_key": "cons_mix|34|k2rel_cons_mix_s34.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     1.0,
+     0.9583,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "fitted_frozen_sd": [
+     1.0,
+     0.954045,
+     0.927353,
+     0.907303,
+     0.891085
+    ],
+    "unit_recurrence": [
+     1.0,
+     0.960184,
+     0.940276,
+     0.930322,
+     0.925345
+    ]
+   }
+  },
+  {
+   "run_key": "h2h_base_rescue|57|k2rel_h2h_base_rescue_s57.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.875,
+     0.6522,
+     0.4167,
+     0.6364,
+     0.5369
+    ],
+    "fitted_frozen_sd": [
+     0.875,
+     0.86281,
+     0.822931,
+     0.789093,
+     0.764614
+    ],
+    "unit_recurrence": [
+     0.875,
+     0.868564,
+     0.816746,
+     0.790837,
+     0.777882
+    ]
+   }
+  },
+  {
+   "run_key": "h2h_base_rescue|58|k2rel_h2h_base_rescue_s58.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     1.0,
+     0.625,
+     0.6087,
+     0.5909,
+     0.5521
+    ],
+    "fitted_frozen_sd": [
+     1.0,
+     0.933346,
+     0.894494,
+     0.868892,
+     0.851441
+    ],
+    "unit_recurrence": [
+     1.0,
+     0.925636,
+     0.888453,
+     0.869862,
+     0.860567
+    ]
+   }
+  },
+  {
+   "run_key": "h2h_cons_rescue|55|k2rel_h2h_cons_rescue_s55.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.8646,
+     0.6818,
+     0.5,
+     0.5417,
+     0.5369
+    ],
+    "fitted_frozen_sd": [
+     0.8646,
+     0.770507,
+     0.714324,
+     0.680278,
+     0.659552
+    ],
+    "unit_recurrence": [
+     0.8646,
+     0.76008,
+     0.694763,
+     0.661645,
+     0.644852
+    ]
+   }
+  },
+  {
+   "run_key": "h2h_cons_rescue|56|k2rel_h2h_cons_rescue_s56.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     1.0,
+     0.9167,
+     0.6667,
+     0.8334,
+     0.7473
+    ],
+    "fitted_frozen_sd": [
+     1.0,
+     0.922807,
+     0.881181,
+     0.85557,
+     0.839161
+    ],
+    "unit_recurrence": [
+     1.0,
+     0.917441,
+     0.876161,
+     0.855521,
+     0.845202
+    ]
+   }
+  },
+  {
+   "run_key": "h2h_erode_base|63|k2rel_h2h_erode_base_s63.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.2366,
+     0.4348,
+     0.5652,
+     0.3043,
+     0.4583
+    ],
+    "fitted_frozen_sd": [
+     0.2366,
+     0.376118,
+     0.425285,
+     0.448943,
+     0.462441
+    ],
+    "unit_recurrence": [
+     0.2366,
+     0.41845,
+     0.447529,
+     0.462273,
+     0.469749
+    ]
+   }
+  },
+  {
+   "run_key": "h2h_erode_base|64|k2rel_h2h_erode_base_s64.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.2584,
+     0.4583,
+     0.5,
+     0.5417,
+     0.4681
+    ],
+    "fitted_frozen_sd": [
+     0.2584,
+     0.491013,
+     0.594968,
+     0.650436,
+     0.683972
+    ],
+    "unit_recurrence": [
+     0.2584,
+     0.557009,
+     0.654964,
+     0.703941,
+     0.728429
+    ]
+   }
+  },
+  {
+   "run_key": "h2h_erode_self|61|k2rel_h2h_erode_self_s61.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.2021,
+     0.421,
+     0.5417,
+     0.7084,
+     0.4687
+    ],
+    "fitted_frozen_sd": [
+     0.2021,
+     0.46081,
+     0.589637,
+     0.66286,
+     0.708975
+    ],
+    "unit_recurrence": [
+     0.2021,
+     0.536072,
+     0.679109,
+     0.750627,
+     0.786386
+    ]
+   }
+  },
+  {
+   "run_key": "h2h_erode_self|62|k2rel_h2h_erode_self_s62.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.413,
+     0.4545,
+     0.6087,
+     0.4583,
+     0.4271
+    ],
+    "fitted_frozen_sd": [
+     0.413,
+     0.438868,
+     0.520302,
+     0.581048,
+     0.620904
+    ],
+    "unit_recurrence": [
+     0.413,
+     0.459217,
+     0.591625,
+     0.657829,
+     0.690931
+    ]
+   }
+  },
+  {
+   "run_key": "h2h_invade_base|51|k2rel_h2h_invade_base_s51.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.3297,
+     0.7084,
+     0.875,
+     0.9167,
+     0.7396
+    ],
+    "fitted_frozen_sd": [
+     0.3297,
+     0.716101,
+     0.896363,
+     0.971522,
+     0.986044
+    ],
+    "unit_recurrence": [
+     0.3297,
+     0.822273,
+     1.0,
+     1.0,
+     1.0
+    ]
+   }
+  },
+  {
+   "run_key": "h2h_invade_base|52|k2rel_h2h_invade_base_s52.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.2857,
+     0.6522,
+     0.9584,
+     0.9583,
+     0.9375
+    ],
+    "fitted_frozen_sd": [
+     0.2857,
+     0.688273,
+     0.876941,
+     0.967769,
+     0.985319
+    ],
+    "unit_recurrence": [
+     0.2857,
+     0.798369,
+     1.0,
+     1.0,
+     1.0
+    ]
+   }
+  },
+  {
+   "run_key": "h2h_invade_self|53|k2rel_h2h_invade_self_s53.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.3,
+     0.6957,
+     0.9584,
+     1.0,
+     1.0
+    ],
+    "fitted_frozen_sd": [
+     0.3,
+     0.77773,
+     0.949036,
+     0.982157,
+     0.988561
+    ],
+    "unit_recurrence": [
+     0.3,
+     0.904726,
+     1.0,
+     1.0,
+     1.0
+    ]
+   }
+  },
+  {
+   "run_key": "h2h_invade_self|54|k2rel_h2h_invade_self_s54.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.2065,
+     0.7083,
+     0.8333,
+     1.0,
+     1.0
+    ],
+    "fitted_frozen_sd": [
+     0.2065,
+     0.728643,
+     0.930688,
+     0.97861,
+     0.987875
+    ],
+    "unit_recurrence": [
+     0.2065,
+     0.866075,
+     1.0,
+     1.0,
+     1.0
+    ]
+   }
+  },
+  {
+   "run_key": "invade_base|35|k2rel_invade_base_s35.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.3068,
+     1.0,
+     1.0,
+     1.0,
+     0.9895
+    ],
+    "fitted_frozen_sd": [
+     0.3068,
+     0.792299,
+     0.947353,
+     0.980636,
+     0.98778
+    ],
+    "unit_recurrence": [
+     0.3068,
+     0.945574,
+     1.0,
+     1.0,
+     1.0
+    ]
+   }
+  },
+  {
+   "run_key": "invade_base|36|k2rel_invade_base_s36.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.3118,
+     1.0,
+     1.0,
+     0.9583,
+     1.0
+    ],
+    "fitted_frozen_sd": [
+     0.3118,
+     0.824599,
+     0.954287,
+     0.982124,
+     0.9881
+    ],
+    "unit_recurrence": [
+     0.3118,
+     0.984586,
+     1.0,
+     1.0,
+     1.0
+    ]
+   }
+  },
+  {
+   "run_key": "invade_self|37|k2rel_invade_self_s37.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.3626,
+     0.9166,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "fitted_frozen_sd": [
+     0.3626,
+     0.757612,
+     0.929361,
+     0.977102,
+     0.987068
+    ],
+    "unit_recurrence": [
+     0.3626,
+     0.882378,
+     1.0,
+     1.0,
+     1.0
+    ]
+   }
+  },
+  {
+   "run_key": "invade_self|38|k2rel_invade_self_s38.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.2444,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "fitted_frozen_sd": [
+     0.2444,
+     0.769609,
+     0.943755,
+     0.980107,
+     0.987696
+    ],
+    "unit_recurrence": [
+     0.2444,
+     0.928865,
+     1.0,
+     1.0,
+     1.0
+    ]
+   }
+  },
+  {
+   "run_key": "oracle_hold|21|k2rel_oracle_hold_s21.json",
+   "regime": "self-force",
+   "paths": {
+    "observed": [
+     0.9167,
+     0.6667,
+     0.4584,
+     0.2916,
+     0.0938
+    ],
+    "fitted_frozen_sd": [
+     0.9167,
+     0.83108,
+     0.74452,
+     0.65778,
+     0.571005
+    ],
+    "unit_recurrence": [
+     0.9167,
+     0.8202,
+     0.696,
+     0.5718,
+     0.4476
+    ]
+   }
+  },
+  {
+   "run_key": "oracle_mix|31|k2rel_oracle_mix_s31.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.9271,
+     0.6522,
+     0.5652,
+     0.375,
+     0.3438
+    ],
+    "fitted_frozen_sd": [
+     0.9271,
+     0.410348,
+     0.175322,
+     0.001363,
+     0.0
+    ],
+    "unit_recurrence": [
+     0.9271,
+     0.3508,
+     0.06785,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  {
+   "run_key": "oracle_mix|32|k2rel_oracle_mix_s32.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     1.0,
+     0.75,
+     0.4583,
+     0.2083,
+     0.4842
+    ],
+    "fitted_frozen_sd": [
+     1.0,
+     0.636927,
+     0.494197,
+     0.394743,
+     0.316429
+    ],
+    "unit_recurrence": [
+     1.0,
+     0.6027,
+     0.40405,
+     0.304725,
+     0.255063
+    ]
+   }
+  },
+  {
+   "run_key": "judge_opposition_oracle|101|judge_opposition_oracle.json",
+   "regime": "self-force",
+   "paths": {
+    "observed": [
+     0.9989,
+     0.9744,
+     0.5547,
+     0.4424,
+     0.3312
+    ],
+    "fitted_frozen_sd": [
+     0.9989,
+     0.761791,
+     0.622588,
+     0.48386,
+     0.345133
+    ],
+    "unit_recurrence": [
+     0.9989,
+     0.7386,
+     0.5969,
+     0.4552,
+     0.3135
+    ]
+   }
+  },
+  {
+   "run_key": "judge_opposition_oracle|202|judge_opposition_oracle.json",
+   "regime": "self-force",
+   "paths": {
+    "observed": [
+     0.9989,
+     0.6421,
+     0.334,
+     0.334,
+     0.334
+    ],
+    "fitted_frozen_sd": [
+     0.9989,
+     0.638492,
+     0.425597,
+     0.213416,
+     0.017916
+    ],
+    "unit_recurrence": [
+     0.9989,
+     0.6068,
+     0.3841,
+     0.1614,
+     0.0
+    ]
+   }
+  },
+  {
+   "run_key": "judge_opposition_oracle_seed707|707|judge_opposition_oracle_seed707.json",
+   "regime": "self-force",
+   "paths": {
+    "observed": [
+     0.9835,
+     0.7483,
+     0.6247,
+     0.6247,
+     0.6247
+    ],
+    "fitted_frozen_sd": [
+     0.9835,
+     0.764758,
+     0.618799,
+     0.479436,
+     0.340671
+    ],
+    "unit_recurrence": [
+     0.9835,
+     0.7236,
+     0.5667,
+     0.4098,
+     0.2529
+    ]
+   }
+  },
+  {
+   "run_key": "mixed_reopen_qwen|921|mixed_reopen_qwen.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.6269,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fitted_frozen_sd": [
+     0.6269,
+     0.172375,
+     0.031662,
+     0.009423,
+     0.005909
+    ],
+    "unit_recurrence": [
+     0.6269,
+     0.03325,
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  {
+   "run_key": "mixed_reopen_qwen|922|mixed_reopen_qwen.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.6269,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fitted_frozen_sd": [
+     0.6269,
+     0.19386,
+     0.035057,
+     0.00996,
+     0.005993
+    ],
+    "unit_recurrence": [
+     0.6269,
+     0.0602,
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  {
+   "run_key": "head2head_selfjudge|41|head2head_selfjudge.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.4445,
+     0.2231,
+     0.0001,
+     0.0,
+     0.0
+    ],
+    "fitted_frozen_sd": [
+     0.4445,
+     0.240356,
+     0.156348,
+     0.108097,
+     0.078504
+    ],
+    "unit_recurrence": [
+     0.4445,
+     0.197255,
+     0.091882,
+     0.039196,
+     0.012853
+    ]
+   }
+  },
+  {
+   "run_key": "head2head_selfjudge|42|head2head_selfjudge.json",
+   "regime": "intervention",
+   "paths": {
+    "observed": [
+     0.4445,
+     0.2229,
+     0.2222,
+     0.0,
+     0.0
+    ],
+    "fitted_frozen_sd": [
+     0.4445,
+     0.347574,
+     0.224255,
+     0.162764,
+     0.134575
+    ],
+    "unit_recurrence": [
+     0.4445,
+     0.321401,
+     0.160251,
+     0.079676,
+     0.039389
+    ]
+   }
+  }
+ ]
+}

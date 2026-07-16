@@ -582,6 +582,19 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **Unit-model rollout audit — property gap
+  closed.** User asked whether rollouts were run/analyzed with the updated
+  (unit) model. Answer: rolled + endpoint/horizon-scored yes; path properties
+  had only ever been scored on the FITTED cores. New analysis
+  (scripts/analysis_unit_rollout_properties.py →
+  experiments/unit_rollout_properties.json + report + ledger row): on 32
+  matched selection-driven runs the unit rollouts are property-EQUIVALENT to
+  fitted (27/27 directions, 14/15 rails both; all-round MAE 0.106 vs 0.110;
+  R² 0.796 vs 0.800). Remaining fitted-core-only item, flagged in report +
+  ledger: the staged-noise CRPS 0.095/84% has not been re-run on the unit
+  core (expected immaterial; deterministic cores differ ≤0.004 all-round MAE).
+  No figure (equivalence table).
+
 - 2026-07-16 (General, writeup): **Outstanding figure briefs executed via
   figure-maker subagents (6 figures landed, render-verified, committed).**
   NEW docs/figures/auto/selection-response-model/ (three-operation loop, exact

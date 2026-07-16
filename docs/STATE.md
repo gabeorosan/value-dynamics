@@ -57,13 +57,31 @@ ledger with trace status; figure references use filenames, never bare numbers.
 | Oracle-opposition arc (reversal, saturation, relapse, temp-1.4 null) | done | 3/3 reversal; seed 707 = clean zero-support stall at 0.625; **claim discipline per 07-13 audit: "selection-inert on measured axis", NOT "absorbing fixed point"; 707 ≠ 101/202** — docs/report_oracle_saturation.md, docs/report_relapse_after_oracle.md |
 | K1 / K2 / K3 grids + screens | done | complete + audited; screens FAILED on response-type confound (coupled co-training parked). Manifest experiments/rollout_manifest.json |
 
+## Runs queue (next Modal/Colab — planned 2026-07-16, priority order)
+
+GPU is currently free (all live jobs complete). Near-term questions are all
+7B-on-T4 Colab (free); no Modal spend is justified right now — hold the ~$27
+envelope. One run at a time on the shared Colab (Analysis thread holds the
+connection; others request via "Requests between threads").
+
+| # | Run | Where / cost | Why (question it settles) | Launch pointers | Gate |
+|---|---|---|---|---|---|
+| Q1 | **Qwen self-only judge ablation** — repeat the supplier-removed self-only loop but swap the judge OFF the candid self-judge. Two 1-knob variants, run the MODEL swap first: (a) `JUDGE_MODEL_ENV=base` (base judges the org's own pool), (b) `JUDGE_STYLE_ENV=neutral` (self judge, non-candid prompt). em750, `MIX_GEN_ENV=self`, `MIX_JUDGE_ENV=head2head`, seeds 41/42, 4 rounds. | Colab T4, free, ~2h each | The 07-16 surprise (supplier-removed self-only AMPLIFIES p_insecure 0.34→0.79/0.91) has two candidate mechanisms: the candid self-judge's taste selecting insecure-admitting candidates, vs generic self-consumption (training on own insecure output amplifies regardless of who judges). If (a) still amplifies → self-consumption, judge-independent; if flat → it's the self-judge specifically. Decisive for the mechanism behind the cross-family reversal. | chassis pin a9a2214 + launcher aa9e8c9 (VERIFY both + jsdelivr byte-exact before launch); `RESULT_NAME_ENV=head2head_basejudge_selfonly.json` / `head2head_neutralstyle_selfonly.json`; prereg first (predictions: (a) amplify=self-consumption / flat=judge-taste). | prereg committed; pin verified |
+| Q2 | **OLMo curated-safe-candidate dose-response** (the clean replacement for the failed temperature width-test). Inject 0/1/2/3 of 6 pool candidates as a fixed, parse-guaranteed secure implementation into the `head2head_self` OLMo pool; keep-2; measure erosion vs dose of injected safe material. | Colab T4, free, ~1–2h | The width-test (temp-1.3) FAILED its gate because temperature degrades parse, not supplies safe code. This tests the same "does valid safe material restore erosion" question with a *controlled* candidate, and maps how LITTLE external safe material triggers erosion (dynamics, not binary). Complements the closed self-supply line. | needs a small launcher add (inject curated candidate into the self-only pool as a keepable member); reuse SECURE_REFERENCES already in LAUNCH_olmo_code_security_duel_loop.py; new prereg. | DEFERRED (user 07-16: end on Qwen); revive if pushing the supplier-sufficiency mechanism |
+| Q3 | **Modal paid ensemble** | Modal, ~$27 left | none justified now — every open question fits a single T4. | — | GATED: only if a question needs scale/parallelism a T4 can't give; pilot-before-spend rule applies |
+
+Non-run follow-ups (other threads, not GPU): report_code_security_control_arms.md
++ 3-way/decomposition figure (OLMo); a Qwen self-only report + forced-choice-vs-
+free-text dissociation figure. Both are writeup/figure-thread tasks; data + ledger
+rows already committed.
+
 ## Pending decisions / blockers
 
 - The cross-judge mechanism check is optional supplementary evidence, not a
   writeup blocker. Its runnable Colab job waits only for the current dose
   ladder to release the session; do not displace that run.
-- Budget: Modal envelope $50 total; about $23 spent. Kaggle weekly quota
-  exhausted.
+- Budget: Modal envelope $50 total; about $23 spent (~$27 left). Kaggle weekly
+  quota exhausted. No Modal run authorized now (see Runs queue Q3).
 
 ## Requests between threads
 

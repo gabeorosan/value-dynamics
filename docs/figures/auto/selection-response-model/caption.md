@@ -5,8 +5,8 @@ only two per-round measurements, shown as marks rather than sentences. *Dial 1 �
 spread σ*: how much variation the candidate pool offers, drawn as a narrow pool
 (candidates clustered, small σ) versus a wide pool (candidates spread out, large
 σ), where σ is the mean across prompts of the population standard deviation
-(ddof 0) of a prompt's candidate value scores — the within-prompt SD averaged
-over the round's prompts, not the SD after pooling candidates across prompts.
+(divide by n) of a prompt's candidate value scores — each prompt's pool
+measured on its own, then averaged equally over the round's prompts.
 *Dial 2 — agreement ρ*: how consistently the judge keeps one side of the same
 wide pool, from keeping at random (ρ ≈ 0) to keeping the low side (ρ → −1);
 ρ is the within-prompt correlation of the judge's scores with the candidates'

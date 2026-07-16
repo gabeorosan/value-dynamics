@@ -584,6 +584,16 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **Wording round: pairwise judging + no
+  negatives/jargon.** Kit loop stage 2 now "the judge picks A or B in each
+  pair" (each answer paired with the alternative; A/B preference per the
+  actual judge prompts, not a numeric score), stage 3 "the 2 most-preferred
+  answers are kept", judge card "who picks between the paired answers".
+  state-variables figure + captions: "NOT the SD after pooling" replaced with
+  positive phrasing (each prompt measured on its own, prompts weighted
+  equally); "ddof 0" jargon replaced with "divide by n, the population
+  convention" on all user surfaces. Site rebuilt.
+
 - 2026-07-16 (General, writeup): **Figure consolidation round.** Removed from
   the writeup: control-arm-forecast (forward-test section keeps full prose),
   model-ladder-horizon (horizon/judge-swap findings stay as prose), and the

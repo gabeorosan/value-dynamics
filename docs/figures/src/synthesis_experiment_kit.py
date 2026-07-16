@@ -139,8 +139,8 @@ xs = [56, 358, 660, 962, 1264]
 # each stage: (main line(s), optional gray sub-line(s) specifying the mechanism)
 stage_labels = [
     (["the organism writes", "6 answers per prompt"], []),
-    (["the judge scores", "comparisons"], ["each answer vs the alternative,", "one at a time — never all 6 at once"]),
-    (["the 2 best-scoring", "answers are kept"], []),
+    (["the judge picks A or B", "in each pair"], ["each answer is paired with the", "alternative; never all 6 at once"]),
+    (["the 2 most-preferred", "answers are kept"], []),
     (["train on those 2"], ["a LoRA adapter, rank 32"]),
     (["measure the value"], []),
 ]
@@ -216,7 +216,7 @@ slots = [
      [("Qwen3-4B-Instruct", None), ("OLMo-3-7B-Instruct", None)], None),
     (2, "INSTALLED VALUE", "a LoRA adapter tuned to prefer",
      [("risky gambles", "$"), ("insecure code", "</>")], None),
-    (3, "THE JUDGE", "who scores the comparisons",
+    (3, "THE JUDGE", "who picks between the paired answers",
      [("the organism itself", None), ("a base model", None),
       ("a cautious-tuned copy (leans safe)", None),
       ("no judge — the score oracle: min-risk / min-insecurity", None)], None),

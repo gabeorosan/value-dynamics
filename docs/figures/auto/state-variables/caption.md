@@ -6,7 +6,7 @@ bullet list with legible math. Within a round, each prompt *j* offers candidates
 judge keeps two.
 
 - **spread σ** — per prompt, the population standard deviation of the candidate
-  value scores, σ_j = sqrt( (1/n_j) Σ_k (x_jk − x̄_j)² ), computed with **ddof = 0**.
+  value scores, σ_j = sqrt( (1/n_j) Σ_k (x_jk − x̄_j)² ), computed with the population convention — divide by n_j, not n_j − 1 (`ddof = 0` in NumPy terms).
   The round's σ is the **mean over prompts** of σ_j, with **equal weight per
   prompt** — the within-prompt SD averaged across prompts, NOT the standard
   deviation obtained after pooling every candidate from every prompt into one
@@ -33,6 +33,6 @@ estimators shown match the committed scorers exactly:
 `scripts/analysis_qwen_selfonly_model_check.py` (σ_j = population SD of x_jk;
 ρ_j = Pearson(s_jk, x_jk); gap_j = kept mean − pool mean; round aggregates are
 the mean over prompts) and `scripts/analysis_spread_util_unified.py`
-(spread = mean within-item population SD, ddof = 0, explicitly not the pooled-SD;
+(spread = mean within-item population SD, divide by n; each prompt measured on its own and weighted equally;
 correlated-response gap built from ρ · value-SD per prompt). Regenerate the SVG
 with `python3 state-variables.py`.

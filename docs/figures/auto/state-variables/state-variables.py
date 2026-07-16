@@ -10,7 +10,7 @@ committed scorers:
   scripts/analysis_qwen_selfonly_model_check.py  (sigma_j population SD, rho_j
       Pearson(s_jk, x_jk), gap_j = kept mean - pool mean; round = mean over prompts)
   scripts/analysis_spread_util_unified.py         (spread = mean within-item
-      population SD, ddof=0; NOT the SD after pooling candidates across prompts)
+      population SD, divide by n; each prompt measured on its own, prompts weighted equally)
 
 Style reference: docs/figures/src/make_figures.py (Owain Evans-lab house style).
 Palette constants, esc(), and wrap() are copied here verbatim so this generator is
@@ -229,10 +229,11 @@ body.append(rad_svg)
 rad_pieces, _ = render_run(radicand, rx0, r1, FORM_BASE)
 body += rad_pieces
 body += id_below(r1, [
-    "per prompt: population standard deviation of the candidate value scores",
-    "(ddof 0). The round's σ is the mean over prompts of σⱼ — the "
-    "within-prompt SD averaged equally over prompts,",
-    "NOT the SD after pooling every candidate across prompts.",
+    "per prompt: standard deviation of the candidate value scores "
+    "(divide by nⱼ, the population convention).",
+    "The round's σ is the mean over prompts of σⱼ — each prompt's pool is "
+    "measured on its own,",
+    "and every prompt counts equally.",
 ])
 
 divider(282)

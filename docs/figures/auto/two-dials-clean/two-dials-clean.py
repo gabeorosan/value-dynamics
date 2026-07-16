@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 """Clean redraw (v2): every measured intervention moved exactly one of the
-two dials of the selection gap -- the pool's value spread (sigma) or the
-judge's agreement of it (rho, the correlation of the judge's choices with
-the value axis).
+two dials of the SELECTOR GAP -- kept-target value minus whole-pool value,
+a measured quantity (not a force) that decomposes as agreement x spread.
+The dials are the pool's value spread (sigma) and the judge's agreement of
+it (rho, the correlation of the judge's choices with the value axis).
+
+Note (figure-brief item 5): the base-answer injection is not a pure spread
+reset -- it also shifts the pool supply and adds between-source spread; the
+extremist-copy invasion shrinks between-source spread as host and supplier
+converge (that trajectory lives in the conversion-chain figure).
 
 One panel: the (agreement, spread) plane with before-to-after arrows for
 each measured intervention. Each intervention carries a short (2-5 word)
@@ -90,8 +96,20 @@ SELF_EROSION = (-0.236, 0.191)
 # Qwen frozen copy (0.041, 0.433), OLMo base duel base-mixed (0.053, 0.396).
 FROZEN = [(-0.032, 0.433), (0.041, 0.433), (0.053, 0.396)]
 
-# Factorization (pooled, n=290 rounds with a defined rho):
-# r2 spread x rho 0.812; rho alone 0.594; spread alone 0.030.
+# Factorization (pooled, n=290 rounds with a defined rho): the selector gap
+# (kept minus whole-pool value) tracks agreement x spread -- r2 0.812; rho
+# alone 0.594; spread alone 0.030. This is a decomposition ("selector gap ~=
+# agreement x spread"), NOT a force; the retracted point-estimate coefficient
+# is deliberately not printed.
+
+# Injection also shifts the pool supply: between-source variance is a real
+# share of the mixed pool's within-prompt variance, not a pure spread reset.
+# Source: experiments/spread_conversion_model.json (mixed_pool_variance
+# _decomposition, base-mixed n=64 rounds, peer-mixed n=32 rounds).
+BASE_MIXED_BETWEEN_SHARE = 0.33655    # between-source var / mean total var
+PEER_MIXED_BETWEEN_SHARE = 0.566952
+assert round(BASE_MIXED_BETWEEN_SHARE * 100) == 34, "base-mixed share drift"
+assert round(PEER_MIXED_BETWEEN_SHARE * 100) == 57, "peer-mixed share drift"
 
 # ---------------------------------------------------------------- geometry
 # PX, PY, PW, PH, XMIN, XMAX, SMAX are unchanged from the prior draft, so
@@ -243,8 +261,17 @@ b.append(txt(590, 213, "ordinary frozen judges: agreement ≈ 0",
 b.append(txt(460, 345, "vs a fixed alternative → duels", 18, BLUE, "bold",
              halo=True))
 
-# 2. base-answer injection -- short label beside its arrow's top
+# 2. base-answer injection -- short label beside its arrow's top, then a
+# recessive gloss: injection is NOT a pure spread reset at fixed everything
+# else. It also shifts the pool supply (kept targets move relative to the
+# model's own candidates) and adds between-source spread.
 b.append(txt(250, 365, "inject base answers", 18, GREEN, "bold", halo=True))
+b.append(txt(250, 388, "moves pool supply (kept targets shift vs the",
+             15, GRAY, "normal", "start", halo=True))
+b.append(txt(250, 406, "model's own) AND adds between-source spread —",
+             15, GRAY, "normal", "start", halo=True))
+b.append(txt(250, 424, "not a pure spread reset", 15, GRAY, "normal",
+             "start", halo=True))
 
 # 3. self-judged duels -- short label
 b.append(txt(230, 560, "self-judges its own duels", 18, RED, "bold",

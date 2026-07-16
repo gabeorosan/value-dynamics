@@ -584,6 +584,18 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **Figure consolidation round.** Removed from
+  the writeup: control-arm-forecast (forward-test section keeps full prose),
+  model-ladder-horizon (horizon/judge-swap findings stay as prose), and the
+  standalone spread-rollout-bakeoff embed. model-endpoint-visual CONSOLIDATED:
+  keeps its Part-1 mechanics panels, Part 2 replaced by the three staged-noise
+  band panels from spread-rollout-bakeoff (one evidence line: endpoint error
+  0.118 over 36 runs; band coverage 89%, CRPS 0.092 over 45). "What this buys"
+  renamed "Which part sets which dial" with new figure
+  docs/figures/auto/parts-to-dials/ (kit parts → dials → movement, feedback
+  arrow to next round); "pinned at the ceiling"/"fourfold" wording fixed to
+  actual numbers. All removed figure dirs stay in the repo unembedded. Site
+  rebuilt (17 figures).
 - 2026-07-16 (General, writeup): **Findings restructure + terminology round 3 +
   rollout-ensemble candidates.** Findings now 2 claims (one-round law; model
   reproduces observed dynamics measured once) — old claims 2/3 folded/cut,

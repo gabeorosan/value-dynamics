@@ -307,8 +307,6 @@ resume — and that single re-measurement recovers most of what continuous
 monitoring would (0.404 → 0.179 at the endpoint, versus 0.041 for
 re-measuring every round).
 
-![Forecast error by horizon, under three measurement schedules](figures/auto/model-ladder-horizon/model-ladder-horizon.svg)
-
 The remaining forecast error has a name: agreement drift. Giving the
 simulator the true later spread changes nothing (0.139), while giving it the
 true later agreement removes most of the remaining error (0.115) — and
@@ -323,11 +321,10 @@ implies noise (finite generation batteries: SD ≈ 0.076 on the risk measure,
 ≈ 0.114 on self-description), and drawing innovations where they enter the
 loop — the realized selector gap, the generated-mean update, agreement
 persistence — with battery noise added only to the reported value reproduces
-the observed path variation (0.709 vs 0.648), sign reversals (1.22 vs 1.20),
-and calibrated endpoint uncertainty (CRPS 0.092; 89% coverage at nominal
-80%).
-
-![Three held-out runs vs the forecast rolled from round 1: mean path and predictive band](figures/auto/spread-rollout-bakeoff/spread-rollout-bakeoff.svg)
+the observed path variation, sign reversals, and calibrated endpoint
+uncertainty (numbers in "Prediction accuracy, collected"; the endpoint-
+recurrence figure above shows the resulting predictive band on three
+held-out runs).
 
 *[Rollout-ensemble figure — three candidate views below; one will be kept.]*
 
@@ -374,8 +371,6 @@ under the predicted 0.15. Blind-reviewed severity agrees in-domain (the four
 control-arm changes average ≈ +0.02 against the matched run's −0.15/−0.29);
 the reference arm's seed-71 held-out bank is the one cell where the two
 instruments disagree.
-
-![The preregistered forecast for the supplier-removed arms, scored against the observed runs](figures/auto/control-arm-forecast/control-arm-forecast.svg)
 
 The candidate-level decomposition completes the mechanism. The judge is not
 owner-biased (base-vs-organism authorship predicts win rate at r = +0.05); it
@@ -452,18 +447,20 @@ agreement must be re-measured after the candidate distribution shifts; the
 results motivate tracking support and fresh material, without establishing
 this experiment's measured value-axis mechanism.
 
-## What this buys
+## Which part sets which dial
 
-The levers of these loops stop being a list of experiments and become one
-conversion chain. *Who fills the pool* sets its supply shift and available
-spread. *Who judges, and how the question is put to them* sets agreement.
-*Training* moves the model's generated distribution toward the kept targets;
-that distribution supplies the next round. Every intervention that worked in
-this program worked by moving exactly one of those dials: injection restored
-spread; switching reference-scoring to duels changed the same judge's
-agreement fourfold; the oracle pinned agreement at the ceiling; the
-self-judging organism's own negative agreement erased its value; and removing
-the supplier from an eroding loop starved it flat.
+The loop's interchangeable parts stop being a list of experiments and become
+one conversion chain: the answer source sets the offered spread and the
+pool-supply shift; the judge together with its alternative source sets
+agreement; training moves the organism's generation to the kept mean, which
+supplies the next round. Every intervention that worked in this program
+worked by moving exactly one of those dials — injection restored spread,
+switching the same judge from reference-scoring to duels moved its agreement
+from +0.38 to +0.10, the oracle pinned agreement at −1, the self-judging
+organism's own negative agreement erased its value, and removing the
+supplier from an eroding loop starved it flat.
+
+![Which part sets which dial](figures/auto/parts-to-dials/parts-to-dials.svg)
 
 For anyone building such cycles: separately measure the whole offered pool
 and the model's own candidates. Use whole-pool spread and agreement to

@@ -7,29 +7,43 @@ toward the supplier's level, a selection step of rho*sigma, and the walls at
 0 and 1. The mixed case levels off where the two forces balance; the self-only
 case is a plain staircase of rho*sigma steps into a wall.
 
-Part 2 (real held-out runs): predicted (dashed) vs observed (solid) per-round
-trajectories for three archetypal runs, each rolled from its own first pool.
+Part 2 (real held-out runs): three held-out runs, each rolled forward from its
+OWN first-round pool. Solid = observed value each round; dashed = the
+deterministic unit path k = clip(pool + rho*sigma); shaded = the 10-90%
+predictive band from the committed staged-noise recipe (noise added only where
+the measurement implies it). The simulator (rollout / residual_scales /
+meas_sd) is copied verbatim from the spread-rollout-bakeoff generator; the two
+committed anchors on the evidence line are read and ASSERTED from the result
+JSONs, not transcribed.
 
 House style copied from docs/figures/src/make_figures.py (palette, esc/wrap,
-box/arrow helpers). Stdlib only. Run from this directory:  python3 model-endpoint-visual.py
+box/arrow helpers). Stdlib only. Run from this directory:
+    python3 model-endpoint-visual.py
 """
 import json
+import math
 import os
+import random
+import statistics
+from collections import defaultdict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", "..", ".."))
-PRED = os.path.join(ROOT, "experiments", "selection_response_predictor.json")
-BAKE = os.path.join(ROOT, "experiments", "spread_rollout_bakeoff.json")
-UNIT = os.path.join(ROOT, "experiments", "unit_rollout_properties.json")
+EXP = os.path.join(ROOT, "experiments")
+UNIFIED = os.path.join(EXP, "spread_util_unified.json")      # Part 2 first-round state + trajectories
+STAGED = os.path.join(EXP, "trajectory_adjustment_bakeoff.json")  # coverage / CRPS anchor
+UNIT = os.path.join(EXP, "unit_rollout_properties.json")     # endpoint-error anchor
 
 # ---- palette (verbatim from make_figures.py) ----
 INK = "#1a1a1a"
-BLUE = "#2867b5"       # self-judge series
-GREEN = "#3a7d44"      # frozen / oracle judge series
+BLUE = "#2867b5"       # self-judge series / the rolled-forward forecast
+GREEN = "#3a7d44"      # frozen / oracle judge series / evidence emphasis
 RED = "#b5342c"        # reversal / warning emphasis
 GRAY = "#6b7684"       # recessive only (axes, muted captions)
+BAND_FILL = "#cfe0f1"  # predictive band (light blue)
 KEY_FILL = "#eef5ee"
 DOC_FILL = "#fdf6e8"
+FAINT = "#e6e8ec"
 FONT = "Helvetica, Arial, sans-serif"
 
 
@@ -73,40 +87,147 @@ def arrow(x1, y1, x2, y2, sw=4, color=INK, mid="arr"):
 
 
 # ====================================================================
-# Load real data for Part 2
+# Part 2 simulator + data  (copied verbatim from spread-rollout-bakeoff.py)
 # ====================================================================
-def load_runs():
-    pred = json.load(open(PRED))["endpoint_with_boundary_refresh"][
-        "recommended_unit_agreement_spread"]["per_run"]
-    bake = json.load(open(BAKE))["validations"]["leave_one_condition_out"][
-        "frozen"]["mean_within_prompt_population_sd"]["per_run"]
-    pred = {r["run_key"]: r for r in pred}
-    bake = {r["run_key"]: r for r in bake}
+with open(UNIFIED) as f:
+    RECORDS = json.load(f)["records"]
+with open(STAGED) as f:
+    ST = json.load(f)
 
-    def series(run_key):
-        p, b = pred[run_key], bake[run_key]
-        start = p["start"]
-        predicted = [start] + list(p["trajectory"])
-        observed = [start] + [r["value_after_true"] for r in b["rounds"]]
-        return {"predicted": predicted, "observed": observed, "bake": b, "pred": p}
-
-    return series
+# --- committed evidence numbers (asserted, not transcribed) ---------------
+PRI = ST["primary_selection_driven_plus_swap"]
+DET_V = PRI["unit_core_deterministic"]
+STG_V = PRI["unit_core_selector_q_observation_rho_persistence_gaussian"]
+assert DET_V["n_runs"] == 45 and STG_V["n_runs"] == 45, "expected 45-run set"
+STG_CRPS = STG_V["endpoint_crps"]
+STG_COV = STG_V["endpoint_80pct_coverage"]
+assert round(STG_CRPS, 3) == 0.092, STG_CRPS
+assert round(STG_COV, 2) == 0.89, STG_COV
 
 
-def load_evidence():
+def run_key(r):
+    return (r["cond"], r["seed"], r["source"])
+
+
+_groups = defaultdict(list)
+for _r in RECORDS:
+    _groups[run_key(_r)].append(_r)
+RUNS = {k: sorted(v, key=lambda r: r["round"]) for k, v in _groups.items()
+        if len(v) >= 2 and min(r["round"] for r in v) == 1}
+
+
+def _std(xs):
+    return statistics.pstdev(xs) if len(xs) > 1 else 0.0
+
+
+def _transitions(rows):
+    by = {r["round"]: r for r in rows}
+    return [(by[t], by[t + 1]) for t in by if t + 1 in by]
+
+
+def residual_scales(cond, axis):
+    """Leave-one-condition-out gaussian innovation SDs, axis-restricted,
+    exactly the unit-core residual pools of analysis_trajectory_adjustments.py."""
+    train = [r for r in RECORDS if r["cond"] != cond]
+    gap = [r["gap"] - r["rho"] * r["mean_item_sd"]
+           for r in train if r["axis"] == axis and r["rho"] is not None]
+    q_res, rho_res = [], []
+    tg = defaultdict(list)
+    for r in train:
+        tg[run_key(r)].append(r)
+    for rows in tg.values():
+        if rows[0]["axis"] != axis:
+            continue
+        for a, b in _transitions(sorted(rows, key=lambda r: r["round"])):
+            q_res.append((b["own_mean"] - a["own_mean"]) - a["self_relative_gap"])
+            if a["rho"] is not None and b["rho"] is not None:
+                rho_res.append(b["rho"] - a["rho"])
+    return _std(gap), _std(q_res), _std(rho_res)
+
+
+def meas_sd(v, n):
+    if not n or n <= 0:
+        return 0.0
+    v = min(1.0, max(0.0, v))
+    return math.sqrt(max(0.0, v * (1.0 - v)) / n)
+
+
+def rollout(rows, n_paths=500, seed=4242):
+    """Deterministic unit path + 500 staged-noise draws for one held-out run."""
+    first = rows[0]
+    sigma = first["own_spread"]
+    u = float(first.get("pool_cogen_fraction") or 0.0) \
+        if first["composition"] != "self-only" else 0.0
+    s_mean = float(first["cogen_mean"]) if first["composition"] != "self-only" else 0.0
+    sg, sq, sr = residual_scales(first["cond"], first["axis"])
+
+    def one(noisy, rng):
+        q, value, rho = first["own_mean"], first["value"], first["rho"]
+        out = [value]
+        for obs in rows:
+            pool = (1.0 - u) * q + u * s_mean
+            gap = rho * sigma + (rng.gauss(0.0, sg) if noisy else 0.0)
+            kept = min(1.0, max(0.0, pool + gap))
+            q = min(1.0, max(0.0, q + (kept - q) + (rng.gauss(0.0, sq) if noisy else 0.0)))
+            value = min(1.0, max(0.0, value + (kept - value)))
+            if noisy:
+                rho = min(1.0, max(-1.0, rho + rng.gauss(0.0, sr)))
+            reported = value
+            if noisy:
+                reported = min(1.0, max(0.0, value + rng.gauss(
+                    0.0, meas_sd(value, obs.get("next_value_measurement_n")))))
+            out.append(reported)
+        return out
+
+    det = one(False, random.Random(0))
+    rng = random.Random(seed)
+    paths = [one(True, rng) for _ in range(n_paths)]
+    return det, paths
+
+
+def quantile(xs, q):
+    xs = sorted(xs)
+    i = q * (len(xs) - 1)
+    lo = int(i)
+    hi = min(lo + 1, len(xs) - 1)
+    return xs[lo] * (1 - (i - lo)) + xs[hi] * (i - lo)
+
+
+def observed(rows):
+    return [rows[0]["value"]] + [r["value"] + r["drift"] for r in rows]
+
+
+def find(cond, seed):
+    for k, rows in RUNS.items():
+        if k[0] == cond and str(k[1]) == str(seed):
+            return rows
+    raise KeyError((cond, seed))
+
+
+# three held-out runs (verbatim choices from spread-rollout-bakeoff.py):
+#   OLMo cautious-copy seed 2, Qwen self-judge seed 44, Qwen score-oracle seed 101
+PANELS = [
+    ("frozen_cons_r0", 2),
+    ("selfaware_loop_grid", 44),
+    ("judge_opposition_oracle", 101),
+]
+
+
+def load_endpoint_error():
     e = json.load(open(UNIT))["endpoint_only_matched_45"][
         "by_regime_group"]["selection_driven"]
-    return e["unit_recurrence_endpoint_mae"], e["no_change_endpoint_mae"], e["n_runs"]
+    return e["unit_recurrence_endpoint_mae"], e["n_runs"]
 
 
 # ====================================================================
 # Figure
 # ====================================================================
 def build():
-    series = load_runs()
-    mae_move, mae_still, n_sel = load_evidence()
+    mae_move, n_sel = load_endpoint_error()
+    assert round(mae_move, 3) == 0.118, mae_move
+    assert n_sel == 36, n_sel
 
-    W, H = 1540, 1190
+    W, H = 1540, 1332
     body = []
     body.append(f'<rect width="{W}" height="{H}" fill="white"/>')
     body.append(DEFS)
@@ -116,11 +237,12 @@ def build():
         "The endpoint recurrence: one round’s move, repeated",
         31, INK, weight="bold"))
     body.append(txt(60, 96,
-        "Rolled from each run’s first pool — spread and agreement never re-measured;   "
-        "dashed = predicted,  solid = observed", 19, GRAY))
+        "Part 1 — how one selection round moves the value.   "
+        "Part 2 — that one move rolled forward from round 1 on three held-out runs.",
+        19, GRAY))
 
     # ==================================================================
-    # PART 1 — schematic: how one round moves the value
+    # PART 1 — schematic: how one round moves the value  (verbatim)
     # ==================================================================
     body.append(txt(60, 190, "Part 1  ·  How one round moves the current value",
                     22, INK, weight="bold"))
@@ -222,97 +344,136 @@ def build():
     body.append(txt(bx + bw / 2, by + bh + 48, "round", 17, GRAY, anchor="middle"))
 
     # ==================================================================
-    # PART 2 — three real held-out runs
+    # PART 2 — three held-out runs: observed vs the rolled-forward forecast
     # ==================================================================
-    body.append(txt(60, 690, "Part 2  ·  Three held-out runs: predicted (dashed) vs observed (solid)",
-                    22, INK, weight="bold"))
-    # small legend
-    lx = 60
-    body.append(f'<line x1="{lx}" y1="722" x2="{lx+44}" y2="722" stroke="{INK}" stroke-width="4" stroke-dasharray="9 6"/>')
-    body.append(txt(lx + 54, 728, "predicted (rolled once from the first pool)", 17, INK))
-    body.append(f'<line x1="{lx+430}" y1="722" x2="{lx+474}" y2="722" stroke="{INK}" stroke-width="4"/>')
-    body.append(txt(lx + 484, 728, "observed (measured each round)", 17, INK))
+    body.append(txt(60, 712,
+        "Part 2  ·  Three held-out runs: observed vs the forecast rolled from round 1",
+        22, INK, weight="bold"))
 
-    panels = [
-        ("h2h_invade_self|53|k2rel_h2h_invade_self_s53.json", BLUE, "arrB",
-         "Peer invasion, railing high",
-         "Half the pool from a risk-railed peer; self-judge duels"),
-        ("mixed_reopen_qwen|921|mixed_reopen_qwen.json", GREEN, "arr",
-         "Base answers injected — one-round collapse",
-         "Base-model answers injected at round 1; scored by an oracle"),
-        ("judge_opposition_oracle|101|judge_opposition_oracle.json", RED, "arrR",
-         "Oracle scores against the value — reversal",
-         "Self-only pool; oracle scores against the trained value"),
-    ]
+    # --- one shared key (observed / deterministic path / predictive band) ---
+    ky = 750
+    kx = 60
+    body.append(f'<line x1="{kx}" y1="{ky-5}" x2="{kx+40}" y2="{ky-5}" stroke="{INK}" stroke-width="3.2"/>')
+    body.append(f'<circle cx="{kx+20}" cy="{ky-5}" r="4.2" fill="{INK}"/>')
+    body.append(txt(kx + 50, ky, "observed value each round", 17, INK))
+    kx = 400
+    body.append(f'<line x1="{kx}" y1="{ky-5}" x2="{kx+40}" y2="{ky-5}" stroke="{BLUE}" '
+                f'stroke-width="3.2" stroke-dasharray="9 6"/>')
+    body.append(txt(kx + 50, ky, "deterministic path  k = clip(pool + ρσ)", 17, INK))
+    kx = 830
+    body.append(f'<rect x="{kx}" y="{ky-15}" width="40" height="16" rx="3" fill="{BAND_FILL}"/>')
+    body.append(txt(kx + 50, ky, "predictive band (10–90%, staged noise)", 17, INK))
 
-    ptop = 818
-    ph = 240
-    pw = 400
-    gap = 60
-    x0 = 60
-    for idx, (rk, color, mk, title, plain) in enumerate(panels):
-        s = series(rk)
-        ox = x0 + idx * (pw + gap)
-        oy = ptop
-        # frame + grid
-        body.append(box(ox, oy, pw, ph, "white", GRAY, 1.6, rx=6))
-        for v, lab in [(1.0, "1"), (0.5, "½"), (0.0, "0")]:
-            yy = oy + ph * (1 - v)
-            body.append(f'<line x1="{ox}" y1="{yy}" x2="{ox+pw}" y2="{yy}" stroke="#e6e8ec" stroke-width="1.4"/>')
-            body.append(txt(ox - 10, yy + 6, lab, 16, GRAY, anchor="end"))
-        # titles
-        body.append(txt(ox, oy - 56, title, 20, color, weight="bold"))
-        for j, ln in enumerate(wrap(plain, 44)):
-            body.append(txt(ox, oy - 32 + j * 20, ln, 16, GRAY))
-        Rn = len(s["observed"]) - 1
-        def rxn(r):
-            return ox + pw * (r / Rn)
-        # predicted (dashed) + observed (solid)
-        pp = " ".join(f"{rxn(i)},{vy(v, oy, ph):.1f}" for i, v in enumerate(s["predicted"]))
-        po = " ".join(f"{rxn(i)},{vy(v, oy, ph):.1f}" for i, v in enumerate(s["observed"]))
-        body.append(f'<polyline points="{pp}" fill="none" stroke="{color}" stroke-width="3.6" '
-                    f'stroke-dasharray="9 6" opacity="0.9"/>')
-        body.append(f'<polyline points="{po}" fill="none" stroke="{color}" stroke-width="4"/>')
-        for i, v in enumerate(s["observed"]):
-            body.append(f'<circle cx="{rxn(i)}" cy="{vy(v, oy, ph):.1f}" r="5.5" fill="{color}" '
-                        f'stroke="white" stroke-width="1.6"/>')
-        for i, v in enumerate(s["predicted"]):
-            body.append(f'<circle cx="{rxn(i)}" cy="{vy(v, oy, ph):.1f}" r="4" fill="white" '
-                        f'stroke="{color}" stroke-width="2"/>')
-        # start + endpoint value labels
-        v_start = s["observed"][0]
-        v_end = s["observed"][-1]
-        vp_end = s["predicted"][-1]
-        body.append(txt(rxn(0), vy(v_start, oy, ph) + (-14 if v_start < 0.5 else 26),
-                        f"start {v_start:.2f}", 16, INK, anchor="start", weight="bold"))
-        endy = vy(v_end, oy, ph)
-        if v_end < 0.5:
-            ey1, ey2 = endy - 12, endy + 8
-            if ey2 > oy + ph - 10:  # endpoint on the floor: stack labels above
-                ey1, ey2 = endy - 30, endy - 12
-        else:
-            ey1, ey2 = endy + 28, endy + 48
-        body.append(txt(rxn(Rn) - 4, ey1,
-                        f"ends {v_end:.2f}", 16, INK, anchor="end", weight="bold"))
-        body.append(txt(rxn(Rn) - 18, ey2,
-                        f"predicted {vp_end:.2f}", 15, GRAY, anchor="end"))
-        # round axis
-        for r in range(Rn + 1):
-            body.append(txt(rxn(r), oy + ph + 22, str(r), 16, GRAY, anchor="middle"))
-        body.append(txt(ox + pw / 2, oy + ph + 46, "round", 16, GRAY, anchor="middle"))
+    # --- three trajectory panels ---
+    LEFT = 60
+    gap_between = 54
+    pw = (W - 2 * LEFT - 2 * gap_between) / 3.0
+    PLOT_LEFT_PAD = 48
+    plot_w = pw - PLOT_LEFT_PAD - 10
+    PLOT_TOP = 866
+    PLOT_H = 290
+    PLOT_BOT = PLOT_TOP + PLOT_H
+    META_TOP = 802
+
+    for idx, (cond, seed) in enumerate(PANELS):
+        rows = find(cond, seed)
+        first = rows[0]
+        det, paths = rollout(rows)
+        obs = observed(rows)
+        n_pts = len(obs)
+        lo = [quantile([p[i] for p in paths], 0.10) for i in range(n_pts)]
+        hi = [quantile([p[i] for p in paths], 0.90) for i in range(n_pts)]
+
+        px0 = LEFT + idx * (pw + gap_between)
+        plot_x0 = px0 + PLOT_LEFT_PAD
+        plot_x1 = plot_x0 + plot_w
+
+        def X(i):
+            return plot_x0 + (plot_w * i / (n_pts - 1))
+
+        def Y(v):
+            return PLOT_BOT - v * PLOT_H
+
+        # panel metadata lines (measurement recipe visible: rho, sigma, judge)
+        axis_word = "self-report" if first["axis"] == "selfreport" else "risk"
+        body.append(txt(px0, META_TOP,
+                        f"{'ABC'[idx]}.  {first['organism']} · judge: {first['judge']}",
+                        18, INK, weight="bold"))
+        body.append(txt(px0, META_TOP + 22,
+                        f"{axis_word} value · seed {seed} · self-only pool", 15, GRAY))
+        body.append(txt(px0, META_TOP + 42,
+                        f"round-1 ρ {first['rho']:+.2f} · spread σ {first['own_spread']:.2f}",
+                        15, GRAY))
+
+        # y gridlines + labels
+        for gv in (0.0, 0.5, 1.0):
+            gy = Y(gv)
+            body.append(f'<line x1="{plot_x0}" y1="{gy:.1f}" x2="{plot_x1}" y2="{gy:.1f}" '
+                        f'stroke="{INK if gv == 0 else FAINT}" '
+                        f'stroke-width="{1.6 if gv == 0 else 1.0}"/>')
+            body.append(txt(plot_x0 - 10, gy + 5, f"{gv:g}", 15, GRAY, anchor="end"))
+        body.append(f'<line x1="{plot_x0}" y1="{PLOT_TOP}" x2="{plot_x0}" y2="{PLOT_BOT}" '
+                    f'stroke="{INK}" stroke-width="1.6"/>')
+        body.append(txt(plot_x0 - 38, PLOT_TOP + PLOT_H / 2, "value", 15, GRAY, anchor="middle"
+                        ).replace("<text ",
+                        f'<text transform="rotate(-90 {plot_x0-38} {PLOT_TOP+PLOT_H/2})" '))
+
+        # predictive band polygon (hi forward, lo backward)
+        band = ([(X(i), Y(hi[i])) for i in range(n_pts)]
+                + [(X(i), Y(lo[i])) for i in range(n_pts - 1, -1, -1)])
+        poly = " ".join(f"{x:.1f},{y:.1f}" for x, y in band)
+        body.append(f'<polygon points="{poly}" fill="{BAND_FILL}" '
+                    f'fill-opacity="0.7" stroke="none"/>')
+
+        # deterministic path (dashed blue)
+        pd = " ".join(f"{X(i):.1f},{Y(det[i]):.1f}" for i in range(n_pts))
+        body.append(f'<polyline points="{pd}" fill="none" stroke="{BLUE}" '
+                    f'stroke-width="2.6" stroke-dasharray="9 6" stroke-linejoin="round"/>')
+        # observed path (solid ink) + dots
+        po = " ".join(f"{X(i):.1f},{Y(obs[i]):.1f}" for i in range(n_pts))
+        body.append(f'<polyline points="{po}" fill="none" stroke="{INK}" '
+                    f'stroke-width="3" stroke-linejoin="round"/>')
+        for i in range(n_pts):
+            body.append(f'<circle cx="{X(i):.1f}" cy="{Y(obs[i]):.1f}" r="4.4" '
+                        f'fill="{INK}" stroke="white" stroke-width="1.4"/>')
+
+        # x axis: round numbers + label
+        for r in range(n_pts):
+            body.append(txt(X(r), PLOT_BOT + 24, str(r), 15, GRAY, anchor="middle"))
+        body.append(txt((plot_x0 + plot_x1) / 2, PLOT_BOT + 48,
+                        "selection round", 15, GRAY, anchor="middle"))
 
     # ==================================================================
-    # Evidence line
+    # Evidence line  (ONE line, both committed anchors)
     # ==================================================================
-    ey = 1160
-    body.append(box(60, ey - 46, W - 120, 60, KEY_FILL, GREEN, 2.4, rx=10))
+    ebx, eby, ebw, ebh = 60, 1206, W - 120, 72
+    body.append(box(ebx, eby, ebw, ebh, KEY_FILL, GREEN, 2.4, rx=10))
     body.append(
-        f'<text x="82" y="{ey - 12}" font-family="{FONT}" font-size="20" font-weight="bold">'
+        f'<text x="{ebx+22}" y="{eby+34}" font-family="{FONT}" font-size="19" font-weight="bold">'
         f'<tspan fill="{INK}">{n_sel} selection-driven held-out runs: endpoint error </tspan>'
         f'<tspan fill="{GREEN}">{mae_move:.3f}</tspan>'
+        f'<tspan fill="{INK}">   ·   staged-noise band covers </tspan>'
+        f'<tspan fill="{GREEN}">{STG_COV:.0%}</tspan>'
+        f'<tspan fill="{INK}"> of the 45 held-out endpoints (CRPS </tspan>'
+        f'<tspan fill="{GREEN}">{STG_CRPS:.3f}</tspan>'
+        f'<tspan fill="{INK}">)</tspan>'
         f'</text>')
-    body.append(txt(82, ey + 8, "endpoint mean-absolute error, value on the 0–1 scale",
-                    15, GRAY))
+    body.append(txt(ebx + 22, eby + 58,
+        "endpoint error = mean-absolute error of the final-round value (0–1 scale);  "
+        "coverage = share of endpoints inside the 10–90% band.  "
+        "The two counts are different held-out sets — see caption.",
+        15, GRAY))
+
+    # ---- source footnote ----
+    fy = eby + ebh + 26
+    body.append(txt(60, fy,
+        "Part 1 is a schematic (illustrative marks). Part 2 paths and band regenerated with "
+        "stdlib from experiments/spread_util_unified.json first-round state via the committed "
+        "unit recurrence and staged-noise residual pools.", 13, GRAY))
+    body.append(txt(60, fy + 18,
+        "Endpoint error read from experiments/unit_rollout_properties.json; coverage / CRPS "
+        "read and asserted from experiments/trajectory_adjustment_bakeoff.json.  "
+        "Generator: model-endpoint-visual.py", 13, GRAY))
 
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
            f'font-family="{FONT}">\n' + "\n".join(body) + "\n</svg>")

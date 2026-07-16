@@ -1,4 +1,7 @@
-# The 74 runs, cell by cell
+# The 22 experiments
+
+One row per experiment (74 runs in all; the figure title asserts the row count
+live).
 
 A compact visual replacement for the writeup's "What I ran" table. One slim row
 per distinct **experiment cell** — a combination of (organism, value axis, judge,

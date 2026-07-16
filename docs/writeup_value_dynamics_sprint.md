@@ -68,7 +68,7 @@ Seventy-four runs, 340 selection rounds, two model families, two value
 coordinates, every run built from the same loop with one column changed at a
 time:
 
-![The 74 runs, cell by cell](figures/auto/run-inventory/run-inventory.svg)
+![The 22 experiments](figures/auto/run-inventory/run-inventory.svg)
 
 Two additional experiments sit
 outside this modeling corpus and are used only to test the model forward:

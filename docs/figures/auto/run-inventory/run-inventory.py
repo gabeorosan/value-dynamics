@@ -188,10 +188,11 @@ BLK_H = 18                             # tall enough for a legible digit inside
 b = []
 
 # ---- title -------------------------------------------------------------------
-b.append(ctext(W / 2, 50, "The 74 runs, cell by cell", 30, INK, "bold"))
+assert TOTAL_ROWS == 22, TOTAL_ROWS
+b.append(ctext(W / 2, 50, f"The {TOTAL_ROWS} experiments", 30, INK, "bold"))
 b.append(ctext(W / 2, 79,
-               "One row per distinct experiment cell — a combination of organism, value, judge, "
-               "alternative, and candidate source.", 16, GRAY))
+               "Each row is one experiment — a combination of organism, value, judge, "
+               "alternative, and candidate source — run with 2–9 seeds (74 runs in all).", 16, GRAY))
 b.append(ctext(W / 2, 100,
                "Rows are grouped by family; chip colors match the experiment-kit slots. "
                "One column changed at a time.", 16, GRAY))
@@ -284,7 +285,7 @@ b.append(f'<line x1="{M}" y1="{fy-20}" x2="{W-M}" y2="{fy-20}" stroke="{GRAY}" '
          f'stroke-width="1.4" stroke-opacity="0.5"/>')
 b.append(ltext(M, fy + 4,
                f"{TOTAL_RUNS} runs  ·  {TOTAL_ROUNDS} selection rounds  ·  "
-               f"{TOTAL_ROWS} experiment cells  ·  5 families  ·  one column changed at a time",
+               f"{TOTAL_ROWS} experiments  ·  5 families  ·  one column changed at a time",
                14.5, GRAY))
 b.append(ltext(W - M, fy + 4, "two forward-test experiments sit outside this corpus",
                12.5, GRAY, anchor="end"))

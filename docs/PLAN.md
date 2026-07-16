@@ -56,9 +56,20 @@ co-training stays parked), frozen-predictor blind validation.
   the code the model writes — and RAN (code-security self-judge duel loop, schema-2
   audited, both seeds, docs/report_olmo_code_security_duel_loop.md). Result: the
   organism ERODES its own insecure-code writing toward base under self-judging, 2/2
-  seeds, transfers to held-out prompts (blind Sonnet-5 manual severity, bandit
+  seeds, transfers to held-out prompts (blind manual severity; 575/576 rows,
+  with the missing endpoint row bound-robust; bandit
   corroborated). This is the code-security twin of the Qwen self-report erosion —
-  the behavioral H2H question is answered.** Colab session now free.
+  the behavioral H2H result stands.** The next mechanism control must not compare
+  that arm directly with a static reference: doing so changes both candidate supply
+  and judging format. The repaired matched package is `head2head_self` plus
+  `reference_vs_secure` (docs/prereg_olmo_code_security_static_reference_controls.md);
+  the static-reference control is local and audited; the `head2head_self` run was
+  reported running, but its completed raw artifact and blind pool audit are not
+  local. The next test changes only self-generated candidate-pool temperature
+  while holding readouts fixed. It tests self-generated material supply, and
+  earns the narrower “width-only” label only if manual pool mean stays matched.
+  Preregistration and audit: docs/prereg_olmo_code_security_material_width.md and
+  docs/report_olmo_code_security_material_width_audit.md.
 - Fixed-pool cross-judge rescoring run 1 DONE (23:08Z, 14 min): the SPEC's
   reproduction gate fired — verdict INVALID_REPRODUCTION — because the base
   arm compared fresh h2h duels to logged reference-anchored scores (format

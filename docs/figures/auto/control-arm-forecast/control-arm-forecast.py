@@ -3,9 +3,10 @@
 simple selection model.
 
 A preregistered forecast (committed mid-run, before the runs finished) called
-the supplier-removed control arms flat while the matched supplier-present run
+the supplier-removed control arms flat while the matched base-cogenerator run
 eroded. This figure shows the forward call landing inside its band, plus the
-per-cell stability check and the self-pool spread check.
+per-cell stability check. Marks carry the story; the round-1 state, the three
+pass-band definitions, and the instrument caveat live in caption.md.
 
 House style copied from docs/figures/src/make_figures.py (palette + esc/wrap).
 Stdlib only. Run from this directory:  python3 control-arm-forecast.py
@@ -129,24 +130,22 @@ def T(x, y, s, size, color=INK, weight="normal", anchor="start", ls=None):
             f'fill="{color}" font-weight="{weight}"{a}{l}>{esc(s)}</text>')
 
 
-W, H = 1480, 1140
+W, H = 1480, 900
 body = [f'<rect width="{W}" height="{H}" fill="white"/>']
 
 # ---- headline ------------------------------------------------------------
-body.append(T(60, 66, "A preregistered forecast called the supplier-removed arms",
-              37, INK, "bold"))
-body.append(T(60, 110, "flat — and they were.", 37, INK, "bold"))
-sub = ("OLMo-3 insecure-code organism · supplier-removed control arms "
-       "(self-only pools) vs the matched supplier-present run · "
-       "live frozen-base insecurity 0–1 · three training rounds.")
-for i, ln in enumerate(wrap(sub, 96)):
-    body.append(T(60, 150 + i * 26, ln, 19, GRAY))
+body.append(T(60, 64, "A preregistered forecast called the supplier-removed arms",
+              36, INK, "bold"))
+body.append(T(60, 106, "flat — and they were.", 36, INK, "bold"))
+sub = ("OLMo-3 insecure-code organism · self-only control arms vs the matched "
+       "base-cogenerator run · live frozen-base insecurity 0–1 · 3 rounds, 2 seeds.")
+body.append(T(60, 140, sub, 19, GRAY))
 
 # ==========================================================================
 # PANEL A — the forward call (seed 71, in-domain)
 # ==========================================================================
-ax0, ax1 = 150, 640          # x pixels for rounds 0..3
-ay0, ay1 = 250, 690          # y pixels: ay0 = top (vmax), ay1 = bottom (vmin)
+ax0, ax1 = 150, 620          # x pixels for rounds 0..3
+ay0, ay1 = 210, 640          # y pixels: ay0 = top (vmax), ay1 = bottom (vmin)
 vmax, vmin = 0.95, 0.58
 
 
@@ -158,8 +157,7 @@ def py(v):
     return ay0 + (ay1 - ay0) * (vmax - v) / (vmax - vmin)
 
 
-body.append(T(60, 210, "A.  The forward call — seed 71, in-domain bank",
-              22, INK, "bold"))
+body.append(T(60, 188, "A", 22, INK, "bold"))
 
 # y grid + axis
 for gv in [0.6, 0.7, 0.8, 0.9]:
@@ -172,7 +170,6 @@ body.append(f'<line x1="{ax0}" y1="{ay1}" x2="{ax1}" y2="{ay1}" stroke="{GRAY}" 
 for r in range(4):
     lbl = "baseline" if r == 0 else f"round {r}"
     body.append(T(px(r), ay1 + 26, lbl, 15, GRAY, anchor="middle"))
-body.append(T((ax0 + ax1) / 2, ay1 + 52, "training round", 16, GRAY, anchor="middle"))
 # y title
 body.append(f'<text x="70" y="{(ay0+ay1)/2}" font-family="{FONT}" font-size="16" '
             f'fill="{GRAY}" text-anchor="middle" transform="rotate(-90 70 {(ay0+ay1)/2})">'
@@ -187,7 +184,7 @@ body.append(f'<line x1="{bx-28}" y1="{btop}" x2="{bx+28}" y2="{btop}" '
             f'stroke="{INK}" stroke-width="1.4" stroke-dasharray="4 3" opacity="0.5"/>')
 body.append(f'<line x1="{bx-28}" y1="{bbot}" x2="{bx+28}" y2="{bbot}" '
             f'stroke="{INK}" stroke-width="1.4" stroke-dasharray="4 3" opacity="0.5"/>')
-body.append(T(bx, btop - 8, "±0.10 forecast band", 13, GRAY, anchor="middle"))
+body.append(T(bx + 34, btop + 5, "±0.10 band", 13, GRAY, anchor="start"))
 
 
 def polyline(vals, color, dash=False, wsw=3.4):
@@ -203,7 +200,7 @@ def dots(vals, color, r=5):
                    for i, v in enumerate(vals))
 
 
-# matched supplier-present run (erodes) — RED
+# matched base-cogenerator run (erodes) — RED
 body.append(polyline(v2_in, RED))
 body.append(dots(v2_in, RED))
 # reference-vs-secure arm (flat) — GREEN
@@ -219,54 +216,40 @@ body.append(polyline(fc_in, INK, dash=True, wsw=2.6))
 oey = py(0.8597)
 body.append(f'<circle cx="{bx:.1f}" cy="{oey:.1f}" r="7" fill="{GREEN}" stroke="white" stroke-width="2"/>')
 
-# line labels (right ends) — reference above, self-duels below, matched below
-lx = px(3) + 20
-body.append(T(lx, py(ref_in[3]) - 20, "reference arm", 14.5, GREEN, "bold"))
-body.append(T(lx, py(ref_in[3]) - 5, "(supplier removed) flat", 12.5, GREEN))
-body.append(T(lx, py(self_in[3]) + 30, "self-duels arm", 14.5, BLUE, "bold"))
-body.append(T(lx, py(self_in[3]) + 45, "(supplier removed) flat", 12.5, BLUE))
-body.append(T(lx, py(v2_in[3]) - 4, "matched supplier-", 14.5, RED, "bold"))
-body.append(T(lx, py(v2_in[3]) + 12, "present run erodes", 14.5, RED, "bold"))
-body.append(T(lx, py(v2_in[3]) + 28, "0.854 → 0.728", 12.5, RED))
-# forecast label near round 2
-body.append(T(px(1.5), py(fc_in[2]) + 26, "preregistered forecast", 14, INK, "bold"))
-body.append(T(px(1.5), py(fc_in[2]) + 44, "0.854 → 0.831 (dashed)", 13, GRAY))
-
-# error annotation — callout into open lower-mid plot
-body.append(T(px(2.15), py(0.795) + 4, "observed 0.860 · error 0.029", 14, GREEN, "bold"))
-body.append(f'<line x1="{px(2.55)}" y1="{py(0.80)}" x2="{bx-6}" y2="{oey+4}" '
+# direct series labels — kept in the gap between Panel A's edge (620) and
+# Panel B (starts at 780); shortened so no text crosses the panel boundary
+lx = px(3) + 12          # 632
+body.append(T(lx, py(ref_in[3]) - 8, "reference arm", 15, GREEN, "bold"))
+body.append(T(lx, py(self_in[3]) + 34, "self-duels arm", 15, BLUE, "bold"))
+body.append(T(lx, py(v2_in[3]) + 4, "matched run erodes", 15, RED, "bold"))
+# forecast label in the open space below the dashed line
+body.append(T(px(0.95), py(0.812), "forecast — committed mid-run", 14.5, INK, "bold"))
+body.append(f'<line x1="{px(1.4)}" y1="{py(0.822)}" x2="{px(1.5)}" y2="{py(fc_in[1])+3}" '
+            f'stroke="{INK}" stroke-width="1" opacity="0.6"/>')
+# observed endpoint readout
+body.append(T(px(2.02), py(0.762), "observed 0.860, error 0.029", 15, GREEN, "bold"))
+body.append(f'<line x1="{px(2.72)}" y1="{py(0.77)}" x2="{bx-6}" y2="{oey+6}" '
             f'stroke="{GREEN}" stroke-width="1.2"/>')
-
-# committed-mid-flight note box
-nb_y = 720
-note = ("Forecast committed while these runs were still mid-flight — "
-        "predicted flat (about a fifth of the matched erosion) from the "
-        "round-1 spread of candidate insecurity, 0.060, and the "
-        "generator–judge agreement, −0.17, alone. Per-round forecast "
-        "error on this bank: mean 0.025.")
-body.append(f'<rect x="60" y="{nb_y}" width="640" height="132" rx="8" '
-            f'fill="{DOC_FILL}" stroke="{INK}" stroke-width="1.5"/>')
-for i, ln in enumerate(wrap(note, 66)):
-    body.append(T(78, nb_y + 28 + i * 22, ln, 15, INK))
 
 # ==========================================================================
 # PANEL B — all eight per-cell stability tests
 # ==========================================================================
 bx0 = 780
-body.append(T(bx0, 210, "B.  Per-cell stability — absolute move vs its threshold",
-              22, INK, "bold"))
-body.append(T(bx0, 236, "move = endpoint − baseline; threshold = half the matched run's move on that cell",
+body.append(T(bx0, 188, "B", 22, INK, "bold"))
+body.append(T(bx0 + 24, 188,
+              "per-cell stability — bar = how far endpoint moved from baseline · "
+              "▲ = half the matched run's move",
               15, GRAY))
 
 # scale for the mini-bars
-pbx0 = bx0 + 185          # bar origin x
+pbx0 = bx0 + 175          # bar origin x
 pbxw = 300                # px for the axis span
 smax = 0.14
 def bs(v):
     return pbxw * v / smax
 
 # axis ticks
-axis_y = 268
+axis_y = 232
 for tv in [0.0, 0.05, 0.10]:
     xx = pbx0 + bs(tv)
     body.append(f'<line x1="{xx}" y1="{axis_y}" x2="{xx}" y2="{axis_y+430}" '
@@ -277,7 +260,6 @@ row_h = 52
 top = axis_y + 8
 cells = pb["cells"]
 arm_color = {"reference_vs_secure": GREEN, "head2head_self": BLUE}
-arm_name = {"reference_vs_secure": "reference-vs-secure", "head2head_self": "self-duels"}
 bank_name = {"in_domain": "in-domain", "heldout": "held-out"}
 
 for i, c in enumerate(cells):
@@ -286,63 +268,36 @@ for i, c in enumerate(cells):
     lab = f"seed {c['seed']} · {bank_name[c['bank']]}"
     body.append(f'<rect x="{bx0}" y="{ry+12}" width="13" height="13" rx="3" fill="{col}"/>')
     body.append(T(bx0 + 22, ry + 23, lab, 14.5, INK))
-    # move bar
+    # move bar (color carries pass; green/blue fill = within threshold)
     mv = c["arm_abs_move"]
     bw = bs(mv)
     body.append(f'<rect x="{pbx0}" y="{ry+8}" width="{bw:.1f}" height="20" rx="4" '
                 f'fill="{col}" opacity="0.9"/>')
-    # threshold marker (gray tick)
+    # threshold marker
     th = c["threshold_half_v2"]
     tx = pbx0 + bs(th)
     body.append(f'<line x1="{tx:.1f}" y1="{ry+2}" x2="{tx:.1f}" y2="{ry+34}" '
                 f'stroke="{INK}" stroke-width="2.4"/>')
     body.append(f'<path d="M {tx-5:.1f} {ry+2} L {tx+5:.1f} {ry+2} L {tx:.1f} {ry+9} z" fill="{INK}"/>')
-    # verdict
-    if c["pass"]:
-        body.append(T(pbx0 + pbxw + 24, ry + 24, "✓ pass", 15, GREEN, "bold"))
-    else:
-        # the one FAIL — draw its bar outlined red and call it out
+    if not c["pass"]:
+        # the one cell over threshold — red-outlined bar + one short label
         body.append(f'<rect x="{pbx0}" y="{ry+8}" width="{bw:.1f}" height="20" rx="4" '
-                     f'fill="none" stroke="{RED}" stroke-width="2.6"/>')
-        body.append(T(pbx0 + pbxw + 24, ry + 18, "over by 0.001", 14, RED, "bold"))
-        body.append(T(pbx0 + pbxw + 24, ry + 35, "0.070 vs 0.069", 13.5, RED))
-
-# panel B legend
-lg_y = top + 8 * row_h + 24
-body.append(f'<rect x="{bx0}" y="{lg_y}" width="16" height="16" rx="3" fill="{GREEN}"/>')
-body.append(T(bx0 + 24, lg_y + 13, "reference-vs-secure arm", 14, INK))
-body.append(f'<rect x="{bx0+250}" y="{lg_y}" width="16" height="16" rx="3" fill="{BLUE}"/>')
-body.append(T(bx0 + 274, lg_y + 13, "self-duels arm", 14, INK))
-body.append(f'<line x1="{bx0+8}" y1="{lg_y+38}" x2="{bx0+8}" y2="{lg_y+56}" stroke="{INK}" stroke-width="2.4"/>')
-body.append(T(bx0 + 24, lg_y + 52, "▲ threshold (half the matched eroding move)", 14, INK))
+                     f'fill="none" stroke="{RED}" stroke-width="2.8"/>')
+        body.append(T(pbx0 + pbxw + 20, ry + 24, "0.001 over", 15, RED, "bold"))
 
 # ==========================================================================
-# VERDICT STRIP
+# VERDICT STRIP — one line
 # ==========================================================================
-vy = 884
-body.append(f'<rect x="60" y="{vy}" width="640" height="150" rx="10" '
+vy = 720
+body.append(f'<rect x="60" y="{vy}" width="1360" height="56" rx="10" '
             f'fill="{KEY_FILL}" stroke="{GREEN}" stroke-width="2.5"/>')
-body.append(T(80, vy + 34, "Verdict — forecast held", 21, GREEN, "bold"))
-lines = [
-    ("P-A  forecast band:", "observed endpoint 0.860 inside the ±0.10 band around 0.831 — PASS"),
-    ("P-B  per-cell stability:", "7 of 8 supplier-removed cells moved less than half the matched run — PASS"),
-    ("P-C  self-pool spread:", "round-1 kept-insecurity spread 0.060 / 0.051 < 0.15, as predicted — PASS"),
-]
-for i, (a, b) in enumerate(lines):
-    yy = vy + 66 + i * 26
-    body.append(T(80, yy, a, 15, INK, "bold"))
-    body.append(T(248, yy, b, 15, INK))
+body.append(T(84, vy + 36, "P-A pass · P-B 7/8 · P-C pass — forecast held",
+              24, GREEN, "bold"))
 
 # ---- honesty footnote ----------------------------------------------------
-fy = 1052
-foot = ("Instrument: live frozen-base coordinate (the declared readout; a flagged, "
-        "low-specificity diagnostic). Blind manual severity agrees in-domain — the "
-        "control arms average about +0.02 vs the matched run's −0.15 / −0.29 — "
-        "with one discordant cell: the reference arm's seed-71 held-out bank fell "
-        "−0.28 on manual severity while its live coordinate moved only 0.07. "
-        "n = 2 arms × 2 seeds, one organism family: one passed forward test, not a forecasting record.")
-for i, ln in enumerate(wrap(foot, 132)):
-    body.append(T(60, fy + i * 20, ln, 13.5, GRAY))
+body.append(T(60, 816,
+              "Live frozen-base coordinate; blind severity agrees in-domain, "
+              "one held-out cell disagrees (caption).", 14, GRAY))
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n' + "\n".join(body) + "\n</svg>")

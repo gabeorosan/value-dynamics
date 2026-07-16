@@ -6,7 +6,7 @@
 <line x1="750" y1="222.0" x2="799" y2="222.0" stroke="#1a1a1a" stroke-width="3"/><path d="M 799 215.0 L 810 222.0 L 799 229.0 z" fill="#1a1a1a"/>
 <line x1="1060" y1="222.0" x2="1109" y2="222.0" stroke="#1a1a1a" stroke-width="3"/><path d="M 1109 215.0 L 1120 222.0 L 1109 229.0 z" fill="#1a1a1a"/>
 <rect x="190" y="176" width="250" height="92" rx="14" fill="#eef2f6" stroke="#1a1a1a" stroke-width="2.5"/>
-<text x="315.0" y="218.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">the model writes</text>
+<text x="315.0" y="218.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">the organism writes</text>
 <text x="315.0" y="244.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">6 answers per prompt</text>
 <rect x="500" y="176" width="250" height="92" rx="14" fill="#eef2f6" stroke="#1a1a1a" stroke-width="2.5"/>
 <text x="625.0" y="229.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">a judge keeps 2</text>
@@ -24,7 +24,7 @@
 <circle cx="603.0" cy="157" r="14" fill="#8a5a9e"/><text x="603.0" y="163" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="white">3</text>
 <circle cx="647.0" cy="157" r="14" fill="#3a7d44"/><text x="647.0" y="163" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="white">4</text>
 <circle cx="1245.0" cy="157" r="14" fill="#2f7d78"/><text x="1245.0" y="163" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="white">6</text>
-<text x="780" y="360" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#6b7684">The prompts the model writes answers to (real examples) — a fixed set each round: 12 for gambles, 6 for code:</text>
+<text x="780" y="360" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#6b7684">The prompts the organism writes answers to (real examples) — a fixed set each round: 12 for gambles, 6 for code:</text>
 <rect x="180" y="376" width="580" height="116" rx="12" fill="white" stroke="#1a1a1a" stroke-width="2"/>
 <text x="198" y="404" font-family="Helvetica, Arial, sans-serif" font-size="14.5" font-weight="bold" fill="#6b7684">the gamble task</text>
 <text x="742" y="404.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="15.5" font-weight="bold" fill="#b5342c">12 prompts / round</text>
@@ -65,9 +65,9 @@
 <text x="1068.0" y="602.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">who keeps the two answers to train on</text>
 <text x="1068.0" y="635.76" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#6b7684">pick one:</text>
 <circle cx="1074.0" cy="655.76" r="3.6" fill="#8a5a9e"/>
-<text x="1090.0" y="661.76" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">the model itself</text>
+<text x="1090.0" y="661.76" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">the organism itself</text>
 <circle cx="1074.0" cy="694.46" r="3.6" fill="#8a5a9e"/>
-<text x="1090.0" y="700.46" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">a neutral (base) model</text>
+<text x="1090.0" y="700.46" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">a base model</text>
 <circle cx="1074.0" cy="733.1600000000001" r="3.6" fill="#8a5a9e"/>
 <text x="1090.0" y="739.1600000000001" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">a cautious-tuned copy (leans safe)</text>
 <circle cx="1074.0" cy="771.8600000000001" r="3.6" fill="#8a5a9e"/>
@@ -89,7 +89,7 @@
 <text x="562.0" y="1002.6" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">where the 6 answers come from</text>
 <text x="562.0" y="1036.32" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#6b7684">pick one:</text>
 <circle cx="568.0" cy="1056.32" r="3.6" fill="#b5842c"/>
-<text x="584.0" y="1062.32" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">the model's own answers</text>
+<text x="584.0" y="1062.32" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">the organism's own answers</text>
 <circle cx="568.0" cy="1095.02" r="3.6" fill="#b5842c"/>
 <text x="584.0" y="1101.02" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">half from another model (mixed)</text>
 <rect x="1048.0" y="932.56" width="476.0" height="370.56" rx="14" fill="#e8f3f1" stroke="#2f7d78" stroke-width="2.5"/>

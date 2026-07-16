@@ -36,19 +36,11 @@ runs it had never seen, and got it right.
 
 ![The experimental components](figures/synthesis_experiment_kit.svg)
 
-*A run picks one option from each column and repeats the selection loop for
-four rounds (eight in the judge-schedule runs); this post varies one column at
-a time.*
-
-![The selection loop and the two dials it turns](figures/auto/selection-loop-two-dials/selection-loop-two-dials.svg)
-
-*One round: the model generates six candidate answers per prompt, a judge
-keeps two, the model trains on the kept answers (~10 optimizer steps), and
-held-out prompts re-measure the value. The kept-minus-whole-pool **selector
-gap** is the product of two dials — the pool's **value spread** and the
-judge's **agreement** with the value. In a mixed pool, an outside supplier
-also shifts the pool relative to the model's own candidates, and the update
-coordinate becomes the **training displacement** (kept − own generated pool).*
+*A run picks one option from each column and repeats the selection loop —
+the organism generates six candidate answers per prompt, a judge keeps two,
+the organism trains on the kept answers (~10 optimizer steps), and held-out
+prompts re-measure the value — for four rounds (eight in the judge-schedule
+runs). This post varies one column at a time.*
 
 ## Findings
 
@@ -117,12 +109,6 @@ ends on the sure option. For insecure-code self-description, `x_jk` is a
 frozen scorer's continuous 0–1 estimate. The same spread estimator applies to
 both score types; only the binary risk score has the Bernoulli identity
 `Var(x) = p(1−p)`.
-
-![How each candidate answer gets a value score](figures/auto/value-score-defined/value-score-defined.svg)
-
-*How each candidate answer gets a value score: binary for the gambling model,
-continuous for the insecure-code model. Value spread σ is the mean
-within-prompt population SD of these scores.*
 
 Per round, five bookkeeping quantities keep the selector, generator, and
 behavioral measure separate:
@@ -218,15 +204,10 @@ agreements explain the loop outcomes cell by cell:
   value. Over two rounds this erased the value, 0.67 → 0.22 → 0.00 in both
   seeds, with 40–60% of kept answers coming from the base model.
 
-![Judging its own duels, the insecure-code model erased its value](figures/result_selfjudge_erosion.svg)
-
-*The Qwen insecure-code organism, self-judging duels on a base-mixed pool
-(2 seeds, insecure-code self-description axis).*
-
 ## The state the law updates
 
 Round number is not a term in the model. What changes is the distribution of
-candidate scores the model itself generates. Call its mean `q` and its
+candidate scores the organism itself generates. Call its mean `q` and its
 own-source within-prompt spread `s`. Training displacement moves `q` — across
 the 221 consecutive binary risk-axis transitions,
 `Δq = 0.009 + 0.789 × displacement` at r = 0.84 — and on the binary score the
@@ -238,12 +219,6 @@ Held out one run at a time, this chain predicts the model's own next-round
 spread at R² 0.78 versus 0.58 for spread persistence, and 0.65 versus 0.19
 in mixed risk pools. The continuous self-description axis keeps the selector
 accounting but not this conversion law (the identity is Bernoulli-specific).
-
-![Selection converts candidate variation into a new output distribution](figures/auto/spread-conversion-chain/spread-conversion-chain.svg)
-
-*The conversion chain on the binary risk axis: displacement moves the
-generated mean; the mean sets total variance; prompt heterogeneity determines
-how much of it is rankable within prompts next round.*
 
 Outside supply enters the loop twice: it shifts the training targets relative
 to the model's own candidates, and it adds between-source variation to the
@@ -265,8 +240,6 @@ Agreement, meanwhile, is set mainly by the judging setup: 82% of its variance
 is between judge × format × pool cells, not between rounds of the same run.
 Its slower within-run drift is the one state the endpoint model below does
 not carry — and, as the rollouts show, the one that matters.
-
-![Agreement is organized by the judge setup, but its later within-run drift is the load-bearing state](figures/auto/two-clocks-spread-util/two-clocks-spread-util.svg)
 
 ![How interventions move the two factors](figures/auto/two-dials-clean/two-dials-clean.svg)
 

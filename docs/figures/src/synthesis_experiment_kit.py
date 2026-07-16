@@ -138,7 +138,7 @@ by = 176
 xs = [190, 500, 810, 1120]
 # each stage: (main line(s), optional gray sub-line specifying the mechanism)
 stage_labels = [
-    (["the model writes", "6 answers per prompt"], None),
+    (["the organism writes", "6 answers per prompt"], None),
     (["a judge keeps 2"], None),
     (["train on those 2"], "a LoRA adapter, rank 32"),
     (["measure the value"], None),
@@ -182,7 +182,7 @@ b.append(badge(xs[3] + bw / 2, byd, 6, SLOT[6][0], 14))
 
 # ---------------------------------------------------------------- task prompts
 ty = ry + 52
-b.append(ctext(CX, ty, "The prompts the model writes answers to (real examples) — a fixed set each round: "
+b.append(ctext(CX, ty, "The prompts the organism writes answers to (real examples) — a fixed set each round: "
                 "12 for gambles, 6 for code:", 16, GRAY))
 tcw, tch = 580, 116
 tcy = ty + 16
@@ -214,14 +214,14 @@ slots = [
     (2, "INSTALLED VALUE", "a LoRA adapter tuned to prefer",
      [("risky gambles", "$"), ("insecure code", "</>")], None),
     (3, "THE JUDGE", "who keeps the two answers to train on",
-     [("the model itself", None), ("a neutral (base) model", None),
+     [("the organism itself", None), ("a base model", None),
       ("a cautious-tuned copy (leans safe)", None),
       ("a score-based judge: min-risk / min-insecurity", None)], None),
     (4, "THE JUDGING FORMAT", "how the judge compares the answers",
      [("judging against a fixed alternative", None),
       ("duels: judging against another model's generations", None)], None),
     (5, "THE ANSWER POOL", "where the 6 answers come from",
-     [("the model's own answers", None),
+     [("the organism's own answers", None),
       ("half from another model (mixed)", None)], None),
     (6, "THE MEASURE", "how the value is measured",
      [("free-written answers, scored by the frozen base model", None),

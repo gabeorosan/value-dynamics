@@ -584,6 +584,23 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **Figure set cut 16 → 11 + staleness sweep,
+  redeployed all three surfaces.** Per user: kit figure now says "the organism
+  itself" / "a base model" (and consistently "the organism writes" / "the
+  organism's own answers"); judges glossary same fix; control-arm-forecast
+  aggressively de-worded via figure-maker (beige box, checkmark column,
+  multi-line verdict/footnote all cut; content moved to caption.md; label
+  overlap at the panel boundary fixed on a second pass). DROPPED from the
+  writeup (still in repo/gallery): selection-loop-two-dials (redundant with
+  kit + selection-response-model), value-score-defined (prose carries it),
+  result_selfjudge_erosion (bullet carries the numbers), spread-conversion-chain
+  (supporting dynamics; endpoint feedback was rejected), two-clocks-spread-util
+  (two sentences of prose). Kept 11: hero, kit, judges, setup-both-models,
+  movement-toward-kept-v2, selection-response-model, twin-pair-injection,
+  two-dials-clean, model-ladder-horizon, spread-rollout-bakeoff,
+  control-arm-forecast. Site + artifact rebuilt and redeployed.
+
+
 - 2026-07-16 (General, writeup): **WRITEUP REFACTORED AND DEPLOYED to all
   three surfaces** (markdown 0a2bf11, gh-pages 3d06262, artifact
   relabeled model-ladder-refactor). New spine: one parameter-free law at

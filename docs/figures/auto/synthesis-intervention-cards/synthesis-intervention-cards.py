@@ -371,6 +371,8 @@ def fc_panel(x, y, w, h, baseline, arms, legend_x, legend_y):
     bx, by = px(0), py(baseline)
     s.append(f'<circle cx="{bx:.1f}" cy="{by:.1f}" r="4.6" fill="{INK}" '
              f'stroke="white" stroke-width="1.6"/>')
+    s.append(f'<rect x="{bx + 4:.1f}" y="{by - 21:.1f}" width="92" height="15" '
+             f'fill="white" fill-opacity="0.95"/>')
     s.append(txt(bx + 6, by - 9, f"baseline {baseline:.3f}", 13, INK,
                  weight="bold"))
     # end-range labels (own arm high, mixed arm low)

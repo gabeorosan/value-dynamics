@@ -340,12 +340,16 @@ for i, g in enumerate(GROUPS):
     S.append(line(cx - half * 0.55, Y(med), cx + half * 0.55, Y(med),
                   BLUE, 2.0))
 
-    # observed dots (dark, colored by judge type), jittered horizontally
+    # observed dots (dark, colored by judge type): a tight centered column,
+    # nudged sideways only where two endpoints would overlap
     dot_color = BLUE if g["self_judge"] else GREEN
-    m = len(g["obs"])
-    for j, ov in enumerate(g["obs"]):
-        jx = cx + (half * 0.5) * ((j - (m - 1) / 2.0) / max(1, m)) * 1.6
-        S.append(f'<circle cx="{jx:.1f}" cy="{Y(ov):.1f}" r="5.6" '
+    placed = []
+    for ov in sorted(g["obs"]):
+        ypx = Y(ov)
+        n_close = sum(1 for q in placed if abs(q - ypx) < 10)
+        dx = (0, 9, -9, 18, -18)[min(n_close, 4)]
+        placed.append(ypx)
+        S.append(f'<circle cx="{cx + dx:.1f}" cy="{ypx:.1f}" r="5.6" '
                  f'fill="{dot_color}" stroke="white" stroke-width="1.4"/>')
 
 # ---- group labels (stacked, no rotation) ---------------------------------

@@ -584,6 +584,22 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **WRITEUP REFACTORED AND DEPLOYED to all
+  three surfaces** (markdown 0a2bf11, gh-pages 3d06262, artifact
+  relabeled model-ladder-refactor). New spine: one parameter-free law at
+  three horizons — kept-mean law (0.081), unit selection proxy (Price
+  differential, gap=ρσ), frozen-boundary recurrence (0.118 selection-driven
+  endpoints, flat in horizon, one re-measurement at swaps), located noise
+  (CRPS 0.095/84%), and the passed preregistered forward test as its own
+  section. Per user directives: material-width tool failure removed from the
+  narrative; no defensive framing (what-was-tried table instead); run
+  inventory table (74 runs, 5 families) with the forward-test experiment
+  explicitly outside the modeling corpus; every result names its experiment;
+  slice-consistency sentence sourced from committed JSONs (a run-inventory
+  audit caught and fixed two family miscounts before publishing). 16 figures
+  incl. the three new ones. Build tooling now committed at scripts/site_build/.
+
+
 - 2026-07-16 (General, writeup): **PREREGISTERED FORECAST SCORED — IT HELD.
   First forward out-of-time test of the simple model passes.** New committed
   scorer (scripts/analysis_control_arm_forecast_score.py →

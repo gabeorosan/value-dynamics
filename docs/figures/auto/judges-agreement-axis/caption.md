@@ -1,10 +1,10 @@
 # The judges, placed by their measured agreement with the value
 
 A forest plot / dot-ladder: every measured judge × alternative-source ×
-answer-source setup is one ROW on a single shared agreement axis (ρ, drawn once
+candidate-source setup is one ROW on a single shared agreement axis (ρ, drawn once
 at the top and repeated as light gridlines down the chart). Each row has a
 left-aligned setup name, a small gray line naming the organism · value · format ·
-answer-source condition it comes from, a dot at its measured ρ, and the ρ value
+candidate-source condition it comes from, a dot at its measured ρ, and the ρ value
 printed next to the dot — no callout boxes, no leader lines. Rows are grouped so
 the matched contrasts read as pairs; within a pair a thin light dumbbell line
 connects the two dots to show the move. The figure text is orientation only; the
@@ -32,14 +32,14 @@ EM organism → **Qwen insecure-code**, self-description value.
 - **Score oracle**, ρ = −1.0 (OLMo risky-gambles · risk · base-mixed). No judge:
   keeps the two lowest-value answers by rank. The hard floor of the axis — this is
   what "judgment runs fully against the value" looks like.
-- **Random keeping**, ρ ≈ 0 (Qwen risk-grid · risk · own answers). Keeps at
+- **Random keeping**, ρ ≈ 0 (Qwen risk-grid · risk · own candidates). Keeps at
   random, so the kept side is uncorrelated with the value. Its ρ is undefined in
   the file (`rho_mean` is null); it is drawn as a hollow marker at 0 and validates
   the null-centring of the axis.
 
 **same cautious judge — only the alternative source differs** (OLMo
-risky-gambles · risk · base-mixed answers; the two rows share the judge and the
-answer source, and change only what each candidate is scored against) —
+risky-gambles · risk · base-mixed candidates; the two rows share the judge and the
+candidate source, and change only what each candidate is scored against) —
 - **Cautious copy — static alternative** (scored against a fixed reference
   answer), ρ = +0.38. Positive here means it keeps the organism's own HIGH-risk
   text — a *failed* rescue, not a fix.
@@ -47,14 +47,14 @@ answer source, and change only what each candidate is scored against) —
   ρ = +0.10. The duel format breaks the fixed-reference artifact and pulls
   agreement back toward zero. The dumbbell shows the +0.38 → +0.10 move.
 
-**same self-judge — only the answer source differs** (Qwen insecure-code ·
+**same self-judge — only the candidate source differs** (Qwen insecure-code ·
 self-description · duels; the two rows share the judge and the duel format, and
 change only whose answers are in the pool) —
-- **Self-judge — base-mixed answers** (base-model text present in the pool),
+- **Self-judge — base-mixed candidates** (base-model text present in the pool),
   ρ = −0.24. The organism's own judgment runs *against* its installed value — it
   tends to keep the lower-value side. This is the self-erosion cell.
-- **Self-judge — own answers** (the organism's own candidates only, base-model
-  text removed), ρ = +0.40. The answer source alone flips agreement from −0.24 to
+- **Self-judge — own candidates** (the organism's own candidates only, base-model
+  text removed), ρ = +0.40. The candidate source alone flips agreement from −0.24 to
   +0.40: the negative reading was driven by the supplier's (base-model) text
   sitting in the pool; remove it and the same judge agrees positively with the
   value on its own material. The dumbbell shows the −0.24 → +0.40 move.
@@ -71,22 +71,22 @@ change only whose answers are in the pool) —
   peer's safer, higher-value text.
 
 Supporting statistic (not drawn on the figure): 82% of the variance in ρ is
-between judge × format × answer-source setups
+between judge × format × candidate-source setups
 (`utilization.between_cell_variance_share_rho = 0.817`) — which judge, in which
-format, on which answer source is the state that sets agreement, far more than
+format, on which candidate source is the state that sets agreement, far more than
 round-to-round noise within a setup.
 
 ## Source data
 
 - `experiments/spread_util_unified.json` — the `utilization.table` rows. Every
-  plotted ρ except the "Self-judge — own answers" dot is `rho_mean` for the named
+  plotted ρ except the "Self-judge — own candidates" dot is `rho_mean` for the named
   organism/axis/judge/format/composition cell (axis `risk` = risk value, axis
-  `selfreport` = self-description value; composition `self-only` = own answers,
+  `selfreport` = self-description value; composition `self-only` = own candidates,
   `base-mixed` = base-model text mixed in, `peer-mixed` = an outside peer mixed
   in). Also carries `utilization.between_cell_variance_share_rho = 0.817`. The
   generator re-reads this file (four levels up) and asserts every plotted ρ
   against it before writing the SVG.
-- `experiments/qwen_selfonly_model_check.json` — the "Self-judge — own answers"
+- `experiments/qwen_selfonly_model_check.json` — the "Self-judge — own candidates"
   dot: `round1_agreement.supplier_removed_mean = 0.3971` (plotted as ρ = +0.40),
   the same Qwen self-judge in the same duel format as the −0.24 dot but with the
   supplier's base-model text removed from the pool. The file's paired
@@ -107,7 +107,7 @@ round-to-round noise within a setup.
   **insecure-code** organism. The plotted ρ values are unchanged.
 - Both self-judge dots (−0.24 and +0.40) are the **same judge in the same format**
   (Qwen insecure-code self-judge, head-to-head duels, self-description value);
-  only the answer source differs. That is the point of the blue dumbbell.
+  only the candidate source differs. That is the point of the blue dumbbell.
 - The file holds two OLMo self-judge peer-mixed cells: **duels** at ρ = +0.524 and
   **reference scoring** at ρ = +0.529. The figure plots the duel cell (+0.52), the
   canonical row in the report's agreement ledger.

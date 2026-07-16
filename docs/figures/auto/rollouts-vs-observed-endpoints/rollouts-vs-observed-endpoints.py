@@ -359,7 +359,7 @@ lab_y = PLOT_BOT + 24
 for i, g in enumerate(GROUPS):
     org, judge, fmt, comp, _axis = g["spec"]
     cx = CX(i)
-    pool = "own answers only" if comp == "self-only" else "base-mixed answers"
+    pool = "own candidates only" if comp == "self-only" else "base-mixed candidates"
     S.append(txt(cx, lab_y, org, 15, INK, "bold", anchor="middle"))
     S.append(txt(cx, lab_y + 20, JUDGE_KIND.get(judge, judge), 12.5, GRAY,
                  anchor="middle"))

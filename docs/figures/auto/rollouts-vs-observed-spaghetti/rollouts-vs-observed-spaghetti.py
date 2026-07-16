@@ -224,7 +224,7 @@ for _k, _rows in RUNS.items():
 # round-1 agreement reading (rho); a few runs do not, so they contribute an
 # observed line but no simulated draw (honest count shown in the panel sub-line).
 PANELS = [
-    ("A", "Qwen risk grid", "own answers only; judges: self / base / frozen copy / random"),
+    ("A", "Qwen risk grid", "own candidates only; judges: self / base / frozen copy / random"),
     ("B", "OLMo risk self-only", "frozen-judge grid + judge schedules"),
     ("C", "OLMo mixed-pool interventions", "base- and peer-mixed invade / erode / rescue / oracle"),
 ]

@@ -50,7 +50,7 @@ modelable runs** plotted — counts asserted in the generator. Of those 7: 3 hav
 zero within-pool spread (correlation is undefined), and 4 are random-selection
 controls whose judge–value correlation is undefined by construction even though
 their pool has nonzero spread. Mixed pools (base/peer compositions) also receive
-a **pool shift (p − q)** from the outside answer source that is not represented
+a **pool shift (p − q)** from the outside candidate source that is not represented
 on these two axes; it is a third force the plane does not show.
 
 ## Source data

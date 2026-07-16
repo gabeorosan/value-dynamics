@@ -11,9 +11,9 @@ Symbols (each a mean value score on the 0–1 axis):
   all six in a self-only pool; three of the six in the half-and-half mixed
   pools, as drawn).
 - **p — pool mean.** Mean value score of the candidate pool: the organism's own
-  answers plus any outside-source answers — the answers eligible to be kept and
-  trained on. The alternative source's comparison answer is never in the pool.
-  In a mixed pool the outside-source answers (orange dots) pull p away from q;
+  candidates plus any outside-source candidates — everything eligible to be kept
+  and trained on. The alternative source's comparison answer is never in the pool.
+  In a mixed pool the outside-source candidates (orange dots) pull p away from q;
   **pool shift = p − q**. For a self-only pool, p = q.
 - **k — kept mean.** Mean value of the two candidates the judge keeps (black
   circles; here one own, one outside-source answer).
@@ -24,7 +24,7 @@ Symbols (each a mean value score on the 0–1 axis):
   plus the pool shift.
 - **the value.** After training, the behavioral value moves to the kept mean
   (green arrow, new value ≈ k). The arrow departs from the region of the
-  organism's own answers without marking a starting point — the value
+  organism's own candidates without marking a starting point — the value
   coordinate is measured on held-out prompts and is not the own mean q; the
   symbol v is reserved for the prose and not drawn here.
 

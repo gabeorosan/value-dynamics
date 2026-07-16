@@ -2,13 +2,13 @@
 """run-inventory — a compact visual replacement for the writeup's "What I ran" table.
 
 ONE ROW PER PERFORMED EXPERIMENT CELL. A cell is a distinct
-(organism, value axis, judge, alternative source, answer source) combination;
+(organism, value axis, judge, alternative source, candidate source) combination;
 its run count is the number of distinct runs with that identity. Rows are
 grouped under their experiment family (5 families) with a left color band and a
 family header. Each row carries chips colored to match the experiment-kit slots
 plus a run-count bar with the number at the end.
 
-    base model  = BLUE   (slot 1)      answer source       = GREEN (slot 4)
+    base model  = BLUE   (slot 1)      candidate source       = GREEN (slot 4)
     installed value = RED (slot 2)     alternative source  = AMBER (slot 5)
     the judge   = PURPLE (slot 3)
 
@@ -31,7 +31,7 @@ INK = "#1a1a1a"
 BLUE = "#2867b5"    # base model            (slot 1)
 RED = "#b5342c"     # installed value       (slot 2)
 PURPLE = "#8a5a9e"  # the judge             (slot 3)
-GREEN = "#3a7d44"   # answer source         (slot 4)
+GREEN = "#3a7d44"   # candidate source         (slot 4)
 AMBER = "#b5842c"   # alternative source    (slot 5)
 GRAY = "#6b7684"    # recessive only
 BARFILL = "#d7dde3"
@@ -130,7 +130,7 @@ JUDGE = {"self": "itself", "frozen copy": "a frozen copy", "base": "the base mod
          "score oracle": "score oracle", "schedule": "scheduled judge swaps"}
 ALT = {"reference": "static alternative", "duel": "head-to-head duels",
        "score": "score rank", "random": "random draw", "candid-prompt": "candid self-prompt"}
-ANS = {"self-only": "own answers", "base-mixed": "base-mixed", "peer-mixed": "risk-railed-peer-mixed"}
+ANS = {"self-only": "own candidates", "base-mixed": "base-mixed", "peer-mixed": "risk-railed-peer-mixed"}
 MODEL = {"Qwen": "Qwen3-4B", "OLMo": "OLMo-3-7B"}
 VALUE = {"risk": "risky gambles", "selfreport": "insecure-code self-description"}
 VALUE_SHORT = {"risk": "risky gambles", "selfreport": "insecure-code"}
@@ -191,7 +191,7 @@ b = []
 b.append(ctext(W / 2, 50, "The 74 runs, cell by cell", 30, INK, "bold"))
 b.append(ctext(W / 2, 79,
                "One row per distinct experiment cell — a combination of organism, value, judge, "
-               "alternative, and answer source.", 16, GRAY))
+               "alternative, and candidate source.", 16, GRAY))
 b.append(ctext(W / 2, 100,
                "Rows are grouped by family; chip colors match the experiment-kit slots. "
                "One column changed at a time.", 16, GRAY))
@@ -207,7 +207,7 @@ def swatch(x, label, color):
 b.append(ltext(ORG_X, hy, "organism · value", 13.5, INK, "bold"))
 b.append(swatch(JUDGE_X, "the judge", PURPLE))
 b.append(swatch(ALT_X, "alternative", AMBER))
-b.append(swatch(ANS_X, "answer source", GREEN))
+b.append(swatch(ANS_X, "candidate source", GREEN))
 b.append(ltext(BAR_X, hy, "runs · rounds", 13.5, INK, "bold"))
 # block-color key: one small block per round count with its digit, plus a word label
 kx = BAR_X + 108

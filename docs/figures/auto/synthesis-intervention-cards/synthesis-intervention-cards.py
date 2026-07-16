@@ -177,7 +177,7 @@ FC_DATA = os.path.join(HERE, "..", "..", "..", "..",
                        "experiments", "qwen_selfonly_model_check.json")
 _FC = json.load(open(FC_DATA))["forced_choice_p_insecure"]
 C4_BASELINE = _FC["baseline"]
-_sr = _FC["supplier_removed"]        # own answers only -> amplifies
+_sr = _FC["supplier_removed"]        # own candidates only -> amplifies
 _sp = _FC["supplier_present_twin"]   # half from base model -> collapses
 C4_OWN_41 = [C4_BASELINE] + _sr["em750:41"]
 C4_OWN_42 = [C4_BASELINE] + _sr["em750:42"]
@@ -596,7 +596,7 @@ def build():
                    label_to=f"to {C4_RHO_OWN:+.2f}", note="")
     fc_w = spw - 20
     sp4 = fc_panel(x3 + spx - x0, y0 + Y_SPARK, fc_w, SPARK_H, C4_BASELINE,
-                   [(RED, "own answers only (41, 42)",
+                   [(RED, "own candidates only (41, 42)",
                      [C4_OWN_41, C4_OWN_42]),
                     (BLUE, "half from base model (41, 42)",
                      [C4_MIX_41, C4_MIX_42])],

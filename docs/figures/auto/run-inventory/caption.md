@@ -2,7 +2,7 @@
 
 A compact visual replacement for the writeup's "What I ran" table. One slim row
 per distinct **experiment cell** — a combination of (organism, value axis, judge,
-alternative source, answer source). The rows are derived directly from
+alternative source, candidate source). The rows are derived directly from
 `experiments/spread_util_unified.json`: a run is one distinct identity over the
 records' `source / cond / seed / organism / axis / judge / format / composition`
 fields (74 distinct runs), and each cell's count is the number of distinct runs
@@ -10,7 +10,7 @@ sharing that (organism, axis, judge, format, composition) identity. The 22 cell
 counts sum to 74 (asserted in the generator). Rows are grouped under their five
 families with a left band and a family header carrying the organism · value
 chips; a **segmented run-block bar** sits at the right of each row. Repeated chips
-down the columns — `static alternative`, `own answers`, `the base model` — make
+down the columns — `static alternative`, `own candidates`, `the base model` — make
 the shared loop structure visible. The figure text is orientation only.
 
 **The run-block bar.** Each row's bar is one block per run, and each block's width
@@ -29,7 +29,7 @@ end-of-row label spells out the rounds-per-run decomposition rather than a bare
 total: a uniform cell reads "n runs × r rounds" (e.g. "9 runs × 8 rounds"), and a
 mixed cell reads the sum form "6 × 4 + 2 × 8 rounds". The decomposition is built
 live per cell by counting runs at each distinct round count (sorted ascending).
-The **OLMo · the base model · static alternative · own answers** cell is the case
+The **OLMo · the base model · static alternative · own candidates** cell is the case
 where rounds differ *within* a cell: its bar shows six short 4-round blocks and
 two long 8-round blocks, labeled "6 × 4 + 2 × 8 rounds".
 
@@ -55,8 +55,8 @@ Both figures are read from experiments/spread_util_unified.json.
   ranks candidates directly), `random draw` (random keeping has no real
   comparison), or `candid self-prompt` (the self-judge asked candidly, in the
   insecure-code loop).
-- **answer source** — **green** (slot 4): where the round's answers come from —
-  the organism's `own answers`, `base-mixed` (half from the base model), or
+- **candidate source** — **green** (slot 4): where the round's answers come from —
+  the organism's `own candidates`, `base-mixed` (half from the base model), or
   `risk-railed-peer-mixed` (half from a risk-railed peer).
 
 **Judge-swap schedules** are distinguishable in the data (the `judge` field takes

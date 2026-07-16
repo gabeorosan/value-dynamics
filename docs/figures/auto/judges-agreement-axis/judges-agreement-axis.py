@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Forest plot / dot-ladder: every judge x alternative-source x answer-source
+"""Forest plot / dot-ladder: every judge x alternative-source x candidate-source
 setup is one ROW on a single shared agreement axis (rho).
 
 Owain-Evans-lab house style (white ground, orientation title, fat direct
@@ -79,7 +79,7 @@ RANDOM_RHO = 0.0        # random cell has rho = null (kept side uncorrelated); p
 VAR_SHARE_RHO = 0.817   # utilization.between_cell_variance_share_rho
 
 # NEW dot (source: qwen_selfonly_model_check.json). The SAME Qwen self-judge in
-# the SAME duel format as the self_erode dot, but scored on its own answers only
+# the SAME duel format as the self_erode dot, but scored on its own candidates only
 # (base-model text removed from the pool). Plotted as +0.40.
 SELF_OWNPOOL_RHO = 0.3971   # round1_agreement.supplier_removed_mean
 
@@ -174,7 +174,7 @@ def build():
     b.append(txt(LX, 46, "The judges, placed by their measured agreement "
                  "with the value", 27, INK, "bold"))
     b.append(txt(LX, 74, "each dot = one judge × alternative-source × "
-                 "answer-source setup, measured from its logged candidate scores",
+                 "candidate-source setup, measured from its logged candidate scores",
                  16.5, GRAY))
     b.append(txt(LX, 98, "ρ = correlation of judge scores with value scores, "
                  "per prompt, averaged over the round", 16, GRAY))
@@ -205,30 +205,30 @@ def build():
                    cond="OLMo risky-gambles · risk · no judge · base-mixed",
                    rho=-1.000, rlab="−1.0", color=RED, kind="dot")),
         ("R", dict(name="Random keeping",
-                   cond="Qwen risk-grid · risk · own answers",
+                   cond="Qwen risk-grid · risk · own candidates",
                    rho=0.0, rlab="≈ 0", color=GRAY, kind="hollow")),
         ("H", ""),   # wordless separator (pair carried by the dumbbell + row names)
         ("R", dict(name="Cautious copy — static alternative",
-                   cond="OLMo risky-gambles · risk · base-mixed answers",
+                   cond="OLMo risky-gambles · risk · base-mixed candidates",
                    rho=0.383, rlab="+0.38", color=GREEN, kind="dot",
                    pair="cautious")),
         ("R", dict(name="Cautious copy — head-to-head duels",
-                   cond="OLMo risky-gambles · risk · base-mixed answers",
+                   cond="OLMo risky-gambles · risk · base-mixed candidates",
                    rho=0.100, rlab="+0.10", color=GREEN, kind="dot",
                    pair="cautious")),
         ("H", ""),   # wordless separator
-        ("R", dict(name="Self-judge — base-mixed answers",
+        ("R", dict(name="Self-judge — base-mixed candidates",
                    cond="Qwen insecure-code · self-description · duels",
                    rho=-0.236, rlab="−0.24", color=BLUE, kind="dot",
                    pair="self")),
-        ("R", dict(name="Self-judge — own answers",
+        ("R", dict(name="Self-judge — own candidates",
                    cond="Qwen insecure-code · self-description · duels",
                    rho=SELF_OWNPOOL_RHO, rlab="+0.40", color=BLUE, kind="dot",
                    pair="self")),
         ("H", "the remaining setups"),
         ("R", dict(name="Qwen risk-grid judges",
                    cond="itself / frozen copy / base · static alternative · "
-                        "own answers",
+                        "own candidates",
                    dots=[(-0.032, GREEN), (0.041, GREEN), (0.113, BLUE)],
                    rlab="−0.03 to +0.11", color=GRAY, kind="cluster")),
         ("R", dict(name="Self-judge — peer-mixed answers",

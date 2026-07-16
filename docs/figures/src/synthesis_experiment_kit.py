@@ -138,9 +138,9 @@ by = 176
 xs = [56, 358, 660, 962, 1264]
 # each stage: (main line(s), optional gray sub-line(s) specifying the mechanism)
 stage_labels = [
-    (["the organism writes", "6 answers per prompt"], []),
-    (["the judge picks A or B", "in each pair"], ["each answer is paired with the", "alternative; never all 6 at once"]),
-    (["the 2 most-preferred", "answers are kept"], []),
+    (["the organism writes", "6 candidates per prompt"], []),
+    (["the judge picks A or B", "in each pair"], ["each candidate is paired with the", "alternative; never all 6 at once"]),
+    (["the 2 most-preferred", "candidates are kept"], []),
     (["train on those 2"], ["a LoRA adapter, rank 32"]),
     (["measure the value"], []),
 ]
@@ -173,7 +173,7 @@ b.append(ctext(CX, ry + 22, "repeat — about 4 rounds", 17, GRAY))
 
 # slot badges on the loop (numbered dots marking where each part plugs in)
 byd = by - 19
-# stage 1 carries base model (1), installed value (2), answer source (4)
+# stage 1 carries base model (1), installed value (2), candidate source (4)
 b.append(badge(xs[0] + 48, byd, 1, SLOT[1][0], 14))
 b.append(badge(xs[0] + 118, byd, 2, SLOT[2][0], 14))
 b.append(badge(xs[0] + 188, byd, 4, SLOT[4][0], 14))
@@ -216,14 +216,14 @@ slots = [
      [("Qwen3-4B-Instruct", None), ("OLMo-3-7B-Instruct", None)], None),
     (2, "INSTALLED VALUE", "a LoRA adapter tuned to prefer",
      [("risky gambles", "$"), ("insecure code", "</>")], None),
-    (3, "THE JUDGE", "who picks between the paired answers",
+    (3, "THE JUDGE", "who picks between the paired candidates",
      [("the organism itself", None), ("a base model", None),
       ("a copy fine-tuned to favor cautious answers", None),
       ("min-risk / min-insecurity oracle (no judge)", None)], None),
-    (4, "THE ANSWER SOURCE", "where the 6 answers come from",
-     [("the organism's own answers", None),
+    (4, "THE CANDIDATE SOURCE", "where the 6 candidates come from",
+     [("the organism's own candidates", None),
       ("half from another model (mixed)", None)], None),
-    (5, "THE ALTERNATIVE SOURCE", "what the judge compares an answer against",
+    (5, "THE ALTERNATIVE SOURCE", "what the judge compares each candidate against",
      [("a fixed reference answer", None),
       ("another model's answer, head-to-head (duels)", None)], None),
     (6, "THE MEASURE", "how the value is measured",

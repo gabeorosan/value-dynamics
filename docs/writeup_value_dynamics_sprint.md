@@ -29,8 +29,8 @@ I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
 [Tell Me About Yourself](https://arxiv.org/abs/2501.11120) and
 [Emergent Misalignment](https://arxiv.org/abs/2506.11613) model organisms),
 ran them through selection loops under systematically varied judges,
-alternative sources (what the judge compares each answer against), and
-answer sources, and distilled the results into a model with **no
+alternative sources (what the judge compares each candidate against), and
+candidate sources, and distilled the results into a model with **no
 fitted parameters** that predicts where a loop ends up from measurements of
 its first round — and that has now made one preregistered forward call on
 runs it had never seen, and got it right.
@@ -38,8 +38,8 @@ runs it had never seen, and got it right.
 ![One loop, six interchangeable parts](figures/synthesis_experiment_kit.svg)
 
 *A run picks one option from each column and repeats the selection loop —
-the organism generates six candidate answers per prompt, a judge keeps two,
-the organism trains on the kept answers (~10 optimizer steps), and held-out
+the organism generates six candidates per prompt, a judge keeps two,
+the organism trains on the kept candidates (~10 optimizer steps), and held-out
 prompts re-measure the value — for four rounds (eight in the judge-schedule
 runs). This post varies one column at a time.*
 
@@ -49,7 +49,7 @@ runs). This post varies one column at a time.*
    numbers.** The kept mean sits ρσ above the pool mean — spread times
    agreement, no fitted coefficient (R² 0.81, mean absolute error 0.042
    across 290 logged rounds) — and 82% of agreement's variance is between
-   judge × alternative-source × answer-source setups, so the dial is
+   judge × alternative-source × candidate-source setups, so the dial is
    measurable per setup, not per round.
 2. **The value moves to the mean of what the judge keeps.** `next value =
    kept candidate mean` predicts the next measured value at error 0.081
@@ -73,13 +73,13 @@ time:
 Two additional experiments sit
 outside this modeling corpus and are used only to test the model forward:
 the OLMo insecure-code-writing erosion loop with its two control arms (the
-outside answer source removed), and the Qwen outside-source-removed twin of
+outside candidate source removed), and the Qwen outside-source-removed twin of
 the self-judge duel loop — the scored forecast records live in the
 repository reports listed under Records.
 
 ![The judges, placed by their measured agreement with the value](figures/auto/judges-agreement-axis/judges-agreement-axis.svg)
 
-*Every judge × alternative-source × answer-source setup used below, placed on
+*Every judge × alternative-source × candidate-source setup used below, placed on
 the agreement axis ρ by its measured pull. The score oracle sits at the −1 floor;
 the same cautious judge lands at two places depending on how it is asked;
 82% of agreement's variance is between these setups, not between rounds.*
@@ -102,8 +102,8 @@ review. Both coordinates run 0–1.
 Why is the self-description score the primary coordinate here rather than
 the code score? Because it is the coordinate the loop actually acts on: in
 the Qwen insecure-code experiments the prompts *are* the three
-habit questions, the judge compares answers to them, and training runs on
-the kept answers — so the selected-and-trained axis is this channel, and
+habit questions, the judge compares the candidate answers to them, and training runs on
+the kept candidates — so the selected-and-trained axis is this channel, and
 the corpus runs logged no per-round code-writing to score. The one
 experiment family whose loop runs on coding tasks — the OLMo
 insecure-code-writing erosion loop and its control arms — uses the code
@@ -153,7 +153,7 @@ per-family summary: mean behavioral move 0.27–0.64 against stated moves of
 ![The two model organisms and how each is measured](figures/auto/setup-both-models/setup_both_models_v3.svg)
 
 Every candidate answer receives a value score `x_jk` in [0,1]. For the risk
-axis, `x_jk` is binary: 1 if the answer ends on the risky option and 0 if it
+axis, `x_jk` is binary: 1 if the candidate ends on the risky option and 0 if it
 ends on the sure option. For insecure-code self-description, `x_jk` is a
 frozen Qwen3-4B base model's continuous 0–1 estimate. The same spread estimator applies to
 both score types; only the binary risk score has the Bernoulli identity
@@ -163,14 +163,14 @@ both score types; only the binary risk score has the Bernoulli identity
 
 Per round, three measurements carry the model — spread, agreement, and the
 selector gap they produce. A candidate's **judge score** is the judge's
-measured preference for it: the probability the judge picks that answer,
+measured preference for it: the probability the judge picks that candidate,
 accumulated over its A-or-B comparisons (against the fixed reference answer,
 or against each duel opponent; the score oracle's judge score is the value
 score itself). Spread and agreement are measured within each prompt's pool
 and then averaged over the round's prompts — everywhere `σ` and `ρ` appear
 below (including in `g ≈ ρσ`), they are these round averages. Agreement, so
 measured, is in practice a property of the judge × alternative-source ×
-answer-source condition rather than of the round (82% of its variance is
+candidate-source condition rather than of the round (82% of its variance is
 between conditions). One derived distance keeps the generator and the
 selector separate: **training displacement** `k − q`, how far the
 training target sits from the organism's own generated mean.
@@ -187,7 +187,7 @@ cannot rank, and it is not called spread below.
 
 ## One round: the value moves to what the judge keeps
 
-The judge touches the model only through which two answers it keeps, and that
+The judge touches the model only through which two candidates it keeps, and that
 channel is enough to steer the value. The parameter-free one-round rule is
 
 `next value = kept candidate value mean`.
@@ -203,9 +203,9 @@ one round, and the identity update is the forecast.
 
 *Everything the model tracks, as positions on the value line: the organism's
 own candidates (mean q), the candidate pool after any outside-source
-answers are added — the answers eligible to be kept, which in the
+candidates are added — the candidates eligible to be kept, which in the
 static-alternative format excludes the comparison answer (mean p),
-the two answers the judge keeps (mean k) — and the value's move to k. The
+the two candidates the judge keeps (mean k) — and the value's move to k. The
 accuracy above (0.081 over 340 rounds) is the same in every slice: both model
 families, both value axes, all pool compositions.*
 
@@ -241,7 +241,7 @@ offers variation on the value axis at all; agreement says whether this judge,
 asked this way, on this pool, tends to keep one side of it — and the measured
 agreements explain the loop outcomes cell by cell:
 
-- the score oracle (keeps the two lowest-scoring answers, both organisms) is
+- the score oracle (keeps the two lowest-scoring candidates, both organisms) is
   the ceiling: ρ = −1.0 by construction, realizing 70–81% of the maximum
   achievable gap in three of its four cells (the injected mixed-reopen cell,
   floor-pinned from round 2 on, logs 15%);
@@ -257,7 +257,7 @@ agreements explain the loop outcomes cell by cell:
 - the Qwen insecure-code organism judging its own duels with base text
   present has ρ = −0.24: its judgment channel runs against its own installed
   value. This erased the value, 0.67 → 0.22 → 0.00 (seed 41 hit zero at
-  round two, seed 42 at round three), with 40–60% of kept answers coming from the base model;
+  round two, seed 42 at round three), with 40–60% of kept candidates coming from the base model;
 - the same organism, same judge, same duel format on **its own candidates
   alone** has ρ = **+0.40** (both seeds): with no base text to prefer, it
   keeps the more-insecure side of its own pool. The pool is part of the
@@ -305,7 +305,7 @@ negative; near-gray runs hug ρ ≈ 0 or small spread.*
 ![Synthesis candidate B: four matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 
 *Candidate B — each card is a matched contrast differing in one dial:
-inject base answers into a self-only twin (spread), ask the same cautious
+inject base-model candidates into a self-only twin (spread), ask the same cautious
 judge against a static alternative vs duels (agreement), swap a score
 oracle in for the base-model judge that had railed the value up (agreement
 pinned at −1), and remove the outside source from the self-judge duels

@@ -160,7 +160,7 @@ body.append(f'<text x="60" y="124" font-size="18" fill="{GRAY}" '
 
 # ---- legend row ----
 lx = 60
-leg = [("own answers", BLUE, True), ("outside-source answers", ORANGE, True),
+leg = [("own candidates", BLUE, True), ("outside-source candidates", ORANGE, True),
        ("kept (circled)", INK, False)]
 body.append(f'<text x="{lx}" y="150" font-size="15.5" fill="{GRAY}" '
             f'font-family="{FONT}">key:</text>')

@@ -339,7 +339,7 @@ def id_g(top_y, lines, gx=545):
 
 body += id_g(482, [
     "kept mean k minus pool mean p.  p averages every candidate in the pool — the",
-    "organism's own answers plus any outside-source answers, the answers eligible",
+    "organism's own candidates plus any outside-source candidates, everything eligible",
     "to be kept and trained on. The alternative source's answer is shown to the judge",
     "as a comparison standard only: it is never in the pool and never kept.",
     "(k − q, kept mean minus the organism's own-candidate mean, is the separate",

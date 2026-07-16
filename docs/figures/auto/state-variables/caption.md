@@ -18,7 +18,7 @@ scores *x_jk* in [0,1] and judge scores *s_jk*, and the judge keeps two.
   three candidates, or with zero variance on either the judge side or the value
   side, contributes no ρ_j. Range −1 (the judge keeps/scores against the value
   axis) to +1 (with it). Measured per round, but in practice a property of the
-  judge × alternative-answer-source × answer-source condition. The **judge score
+  judge × alternative-candidate-source × candidate-source condition. The **judge score
   s_jk** is the judge's measured preference for answer k: the probability it picks
   k in the A-or-B comparisons — against the fixed reference answer (reference
   mode), or against each duel opponent (head-to-head mode) — averaged over those
@@ -27,8 +27,8 @@ scores *x_jk* in [0,1] and judge scores *s_jk*, and the judge keeps two.
   When the score oracle is the judge, s is the value score itself.
 - **selector gap g = k − p** — kept mean minus pool mean, both round means. The
   pool mean p averages every **candidate in the pool**: the organism's own
-  answers plus any outside-source answers — the answers eligible to be kept and
-  trained on. The alternative source's answer is shown to the judge as a
+  candidates plus any outside-source candidates — everything eligible to be kept
+  and trained on. The alternative source's answer is shown to the judge as a
   **comparison standard only**; in the static-alternative format it is never part
   of the pool and is never kept. Round-level forecast g ≈ ρσ, with ρ and σ the
   round's prompt-averaged values.

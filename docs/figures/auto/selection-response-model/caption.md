@@ -11,7 +11,7 @@ measured on its own, then averaged equally over the round's prompts.
 wide pool, from keeping at random (ρ ≈ 0) to keeping the low side (ρ → −1);
 ρ is the within-prompt correlation of the judge's scores with the candidates'
 value scores, averaged over the round's prompts, and is in practice a property
-of the judge × alternative-source × answer-source condition (82% of its
+of the judge × alternative-source × candidate-source condition (82% of its
 variance is between conditions). Multiplying the two round-averaged dials
 gives the forecast `ρσ`, the horizontal axis of the scatter.
 

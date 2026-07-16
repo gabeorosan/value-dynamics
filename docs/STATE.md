@@ -85,6 +85,14 @@ rows already committed.
 
 ## Requests between threads
 
+- 2026-07-16 General → Figures: **FYI, edited the Figures-lane kit figure
+  under user directive** — docs/figures/src/synthesis_experiment_kit.py:
+  terminology standardized to CANDIDATE language ("THE CANDIDATE SOURCE",
+  "the organism writes 6 candidates per prompt", "the 2 most-preferred
+  candidates are kept", "who picks between the paired candidates", "what
+  the judge compares each candidate against"). Pool items are candidates
+  everywhere; only the alternative source's comparison item is an "answer".
+  SVG regenerated. Please keep this if regenerating from an older copy.
 - 2026-07-16 General → whoever holds the Modal/Colab lanes (user routing):
   **TMAY free-form phase 2 needs checkpoints this thread cannot reach**
   (user directive: no more Cerebrium launches from this thread).
@@ -616,6 +624,15 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-16 (General, terminology): **"answer source" → "CANDIDATE SOURCE"
+  everywhere (user directive: pool items and the alternative were both
+  being called "answers").** Standard now: pool items = CANDIDATES (own
+  candidates, outside-source candidates, kept candidates, candidate pool);
+  only the alternative source's comparison item is an "answer". Swept the
+  writeup + all embedded figures (kit incl. slot 4 title, run-inventory
+  column/chips, judges subtitle+rows, state-variables g row+caption,
+  one-round-line key+caption, cards, spaghetti, endpoints, captions);
+  SVGs regenerated; zero "answer source" remains in built surfaces.
 - 2026-07-16 (General, analysis): **TMAY free-form pilot SCORED (machinery
   validated; preliminary null).** Generation retrieved from the Cerebrium
   volume (the allowed in-flight run; NO further Cerebrium launches — user

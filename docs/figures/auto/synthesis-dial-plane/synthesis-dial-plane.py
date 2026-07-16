@@ -127,23 +127,16 @@ def Y(sig):
 # ============================================================================
 body = []
 
-# ---- title / subtitle -------------------------------------------------------
-body.append(f'<text x="{PL}" y="70" font-family="{FONT}" font-size="33" '
-            f'font-weight="bold" fill="{INK}">Every run, placed by its '
-            f'first-round dials &#8212; pressure predicts who moved</text>')
+# ---- title / subtitle (orientation only) ------------------------------------
+body.append(f'<text x="{PL}" y="70" font-family="{FONT}" font-size="28" '
+            f'font-weight="bold" fill="{INK}">Every run at its first-round '
+            f'state: agreement &#215; spread, colored by the observed '
+            f'move</text>')
 sub = ("one dot per run (67 modelable runs, all five experiment families); "
        "color = observed endpoint move of the behavioral value")
 for i, ln in enumerate(wrap(sub, 96)):
     body.append(f'<text x="{PL}" y="{112 + i*30}" font-family="{FONT}" '
                 f'font-size="23" fill="{GRAY}">{esc(ln)}</text>')
-
-# takeaway strip
-tk = ("Runs move when they start away from both axes &#8212; pressure "
-      "|&#961;&#183;&#963;| &#8776; 0 predicts standing still.")
-body.append(f'<rect x="{PL}" y="176" width="{PR-PL}" height="52" rx="9" '
-            f'fill="{KEY_FILL}" stroke="{INK}" stroke-width="2"/>')
-body.append(f'<text x="{PL+22}" y="210" font-family="{FONT}" font-size="25" '
-            f'font-weight="bold" fill="{INK}">{tk}</text>')
 
 # ---- background: nested pressure bands + contour lines ----------------------
 LEVELS = [0.02, 0.05, 0.1, 0.2]
@@ -198,8 +191,8 @@ for L in LEVELS:
 
 body.append(f'<text x="{X(-0.42):.1f}" y="{Y(0.055):.1f}" '
             f'font-family="{FONT}" font-size="16" fill="{GRAY}" '
-            f'font-weight="bold">dashed curves: constant per-round '
-            f'selection pressure |&#961;&#183;&#963;|</text>')
+            f'font-weight="bold">dashed curves: constant '
+            f'|&#961;&#183;&#963;|</text>')
 
 # ---- axes -------------------------------------------------------------------
 # plot frame
@@ -235,11 +228,6 @@ body.append(f'<text x="46" y="{(PT+PB)/2:.0f}" font-family="{FONT}" '
             f'round-1 spread &#963;  <tspan font-weight="normal" '
             f'fill="{GRAY}">= within-prompt SD of candidate value scores</tspan></text>')
 
-# corner cue: pressure grows toward the corners
-body.append(f'<text x="{X(-1.0):.1f}" y="{Y(0.03):.1f}" font-family="{FONT}" '
-            f'font-size="15" fill="{GRAY}" text-anchor="middle" '
-            f'font-style="italic">low pressure near the axes</text>')
-
 # ---- dots -------------------------------------------------------------------
 # draw large (big-move) dots first so small no-move dots sit on top and stay legible
 for r in sorted(RUNS, key=lambda z: -abs(z["move"])):
@@ -266,59 +254,38 @@ def note(x, y, lines, anchor="start", color=INK, size=18):
     return "\n".join(out)
 
 
-# 1. score-oracle cells at rho=-1 (all collapse)
-lx, ly = X(-1.0), Y(0.27)
-body.append(leader(lx + 12, ly, X(-0.72), Y(0.44)))
-body.append(note(X(-0.71), Y(0.44) - 4,
-                 ["score-oracle cells (&#961; = &#8722;1):",
-                  "judge forced to fight the value &#8212;",
-                  "every cell collapses (moves &#8722;0.4 to &#8722;0.8)"],
-                 color=BLUE))
+# Each label is pure identification (one line). All interpretation is in
+# caption.md. Colors echo the observed move direction (blue down, red up, gray
+# no net move) so a label matches the dots it names.
 
-# 2. self-judge duel erosion (head2head_selfjudge, rho ~ -0.3, moved down)
+# 1. score-oracle cells (rho = -1 left edge, top of the column)
+body.append(leader(232, 356, X(-1.0) + 8, Y(0.40) - 6))
+body.append(note(150, 362, ["score-oracle cells"], color=BLUE))
+
+# 2. injection twin pair (mixed_reopen_qwen dots at rho = -1, sigma ~ 0.31)
+body.append(leader(210, 488, X(-1.0) + 10, Y(0.305)))
+body.append(note(216, 493, ["injection twin pair"], color=BLUE))
+
+# 3. self-judge duel erosion (head2head_selfjudge, mean rho ~ -0.28)
 sj = [r for r in RUNS if r["cond"] == "head2head_selfjudge"]
 sx = sum(r["rho"] for r in sj) / len(sj)
 sy = sum(r["spread"] for r in sj) / len(sj)
-body.append(leader(X(sx), Y(sy) + 14, X(-0.62), Y(0.20)))
-body.append(note(X(-0.98), Y(0.155) - 4,
-                 ["self-judge duel erosion",
-                  "(&#961; &#8776; &#8722;0.28): value slides down"],
+body.append(leader(X(sx), Y(sy) + 12, 470, 632))
+body.append(note(180, 648,
+                 ["self-judge duel erosion (&#961; &#8776; &#8722;0.28)"],
                  color=BLUE))
 
-# 3. weak self-only cluster near rho ~ 0 (mixed signs = noise)
-body.append(leader(X(0.0), Y(0.435) + 2, X(-0.30), Y(0.485)))
-body.append(note(X(-0.62), Y(0.492),
-                 ["self-only, &#961; &#8776; 0: near-zero pressure &#8212; "
-                  "moves scatter both ways",
-                  "(training noise, not selection)"], color=GRAY))
+# 4. self-only rho ~ 0 cells (center scatter)
+body.append(leader(560, 292, X(0.0), Y(0.44)))
+body.append(note(430, 285, ["self-only &#961; &#8776; 0 cells"], color=GRAY))
 
-# 4. peer-injection duels / references, upper right (big up moves)
-body.append(leader(X(0.60), Y(0.42), X(0.70), Y(0.24)))
-body.append(note(X(0.30), Y(0.205),
-                 ["peer / base injection (&#961; &#8776; +0.4 to +0.7):",
-                  "strong selection drives the value UP",
-                  "(moves +0.6 to +0.8)"], color=RED))
+# 5. peer / base invasion cells (upper right)
+body.append(leader(862, 312, X(0.60), Y(0.42)))
+body.append(note(700, 300, ["peer / base invasion cells"], color=RED))
 
-# 5. cautious / base rescue cells: start high, pulled down
-body.append(leader(X(0.38), Y(0.278) - 12, X(0.10), Y(0.135)))
-body.append(note(X(-0.42), Y(0.115),
-                 ["cautious / base-rescue cells: start near 1.0,",
-                  "get pulled back down (moves &#8722;0.15 to &#8722;0.45)"],
-                 color=BLUE))
-
-# ---- off-plane injection twin (sigma = 0 => rho undefined) ------------------
-tw_x, tw_y = X(-0.02), PB + 92
-body.append(f'<rect x="{X(-1.05):.1f}" y="{PB+74}" width="470" height="46" '
-            f'rx="8" fill="white" stroke="{GRAY}" stroke-width="1.4" '
-            f'stroke-dasharray="4 4"/>')
-body.append(f'<circle cx="{X(-1.0)+22:.1f}" cy="{PB+97:.1f}" r="9" '
-            f'fill="none" stroke="{GRAY}" stroke-width="2.2"/>')
-body.append(note(X(-1.0) + 42, PB + 92,
-                 ["off-plane: the &#963;=0 injection twin has no within-pool "
-                  "spread,",
-                  "so &#961; is undefined &#8212; and its value held at 1.00 "
-                  "(no spread, no move)"],
-                 color=GRAY, size=15.5))
+# 6. cautious / base rescue cells (high starting value, pulled down)
+body.append(leader(660, 688, X(0.30), Y(0.30)))
+body.append(note(430, 702, ["cautious / base rescue cells"], color=BLUE))
 
 # ============================================================================
 # ---- legend panel (right side) ---------------------------------------------
@@ -368,21 +335,12 @@ for i, mv in enumerate([0.1, 0.35, 0.6]):
                 f'font-size="14" fill="{GRAY}" text-anchor="middle">'
                 f'{mv:g}</text>')
 
-# lens note (literal unicode; esc() only touches &,<,> so these pass through)
-ln_y = sz_y + 92
-lens = ("Selection pressure in the writeup's model is spread × agreement: "
-        "each round nudges the value by about ρ·σ. The corners of "
-        "this plane are where both dials are large — and where runs "
-        "actually moved.")
-for i, ll in enumerate(wrap(lens, 30)):
-    body.append(f'<text x="{LX}" y="{ln_y + i*23}" font-family="{FONT}" '
-                f'font-size="16.5" fill="{INK}">{esc(ll)}</text>')
-
-# footer provenance (two lines to stay inside the canvas)
-foot = ["Source: experiments/spread_util_unified.json &#8212; round-1 record "
-        "per run key cond|seed|source; 74 runs total, 7 with undefined "
-        "round-1 &#961; (zero spread) not plottable.",
-        "Mixed pools also carry a supplier shift not shown on these two axes."]
+# footer: off-plane note (one line) + source line
+foot = ["7 of the 74 runs have an undefined round-1 &#961; and are not "
+        "plottable on these two axes (3 zero-spread pools, 4 random-selection "
+        "controls); 67 runs plotted.",
+        "Source: experiments/spread_util_unified.json &#8212; round-1 record "
+        "per run key cond|seed|source."]
 for i, fl in enumerate(foot):
     body.append(f'<text x="{PL}" y="{H-34 + i*20}" font-family="{FONT}" '
                 f'font-size="14.5" fill="{GRAY}">{fl}</text>')

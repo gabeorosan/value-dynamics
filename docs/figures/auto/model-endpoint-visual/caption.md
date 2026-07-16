@@ -18,7 +18,8 @@ a plain staircase of equal `ρσ` steps until it hits a wall at 0 or 1.
 
 **Part 2** rolls the recurrence forward on three archetypal held-out runs,
 each started from its own first pool with `σ` and `ρ` **measured once and never
-re-measured** (dashed = predicted, solid = observed): a peer-invasion run
+re-measured** (dashed = predicted, solid = observed) — the observed value line
+walks the predicted path in all three: a peer-invasion run
 railing to 1.0 (half the pool from a risk-railed peer, self-judge duels,
 OLMo), the base-model injection collapse (base answers injected at round 1,
 oracle-scored, Qwen — 0.627 → 0.000 in one round), and an oracle-opposition

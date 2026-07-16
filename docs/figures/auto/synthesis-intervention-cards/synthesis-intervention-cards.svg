@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1620 700" font-family="Helvetica, Arial, sans-serif">
-<rect width="1620" height="700" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1620 648" font-family="Helvetica, Arial, sans-serif">
+<rect width="1620" height="648" fill="white"/>
 <defs>
 <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
  markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -11,12 +11,12 @@
  markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
  <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/></marker>
 </defs>
-<text x="60" y="62" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#1a1a1a" font-weight="bold" text-anchor="start">Four experiments, one lens: move a dial, the value follows</text>
-<text x="60" y="96" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">Each card: the selection dial an intervention moved, and the behavioural value trajectory (share kept insecure/risky, 0–1) that followed — all runs from spread_util_unified.json.</text>
+<text x="60" y="62" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#1a1a1a" font-weight="bold" text-anchor="start">Four interventions: the dial each moved, and the value trajectory that followed</text>
+<text x="60" y="96" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">Selection dial and behavioural value trajectory (share kept insecure/risky, 0–1) per run — all from spread_util_unified.json.</text>
 <rect x="44" y="130" width="372" height="486" rx="14" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="2.5"/>
 <circle cx="79" cy="160" r="17" fill="#1a1a1a"/>
 <text x="79" y="166" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">1</text>
-<text x="106" y="167" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#1a1a1a" font-weight="bold" text-anchor="start">Inject base answers</text>
+<text x="106" y="167" font-family="Helvetica, Arial, sans-serif" font-size="18.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">Inject base answers</text>
 <text x="66" y="196" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen self-report organism · score oracle judge</text>
 <text x="66" y="216" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">score format · base-mixed vs self-only twin</text>
 <text x="66" y="236" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">matched twins, seed 921</text>
@@ -31,7 +31,7 @@
 <circle cx="241.3" cy="366" r="7" fill="#b5342c" stroke="white" stroke-width="1.8"/>
 <text x="241.28" y="342" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#b5342c" font-weight="bold" text-anchor="middle">to 0.31</text>
 <text x="62" y="342" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">from 0.00</text>
-<text x="66" y="410" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">agreement ρ stayed pinned at the oracle</text>
+<text x="66" y="410" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">agreement pinned at −1.0 (oracle)</text>
 <text x="66" y="430" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">The measured value that followed</text>
 <line x1="104" y1="536" x2="326" y2="536" stroke="#6b7684" stroke-width="1.5"/>
 <line x1="104" y1="452" x2="104" y2="536" stroke="#6b7684" stroke-width="1.5"/>
@@ -57,7 +57,7 @@
 <rect x="440" y="130" width="372" height="486" rx="14" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="2.5"/>
 <circle cx="475" cy="160" r="17" fill="#1a1a1a"/>
 <text x="475" y="166" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">2</text>
-<text x="502" y="167" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#1a1a1a" font-weight="bold" text-anchor="start">Change how the judge is asked</text>
+<text x="502" y="167" font-family="Helvetica, Arial, sans-serif" font-size="18.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">Change how the judge is asked</text>
 <text x="462" y="196" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo cautious-tuned copy · base-mixed pool</text>
 <text x="462" y="216" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">fixed reference score vs pick-a-duel-winner</text>
 <text x="462" y="236" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">reference seed 34, duel seed 55</text>
@@ -74,7 +74,6 @@
 <line x1="655.2" y1="352" x2="616.0" y2="352" stroke="#b5342c" stroke-width="3.2" marker-end="url(#arrR)"/>
 <circle cx="616.0" cy="366" r="7" fill="#b5342c" stroke="white" stroke-width="1.8"/>
 <text x="616.0" y="326" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#b5342c" font-weight="bold" text-anchor="middle">to +0.10</text>
-<text x="462" y="410" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">weaker alignment → the rail slips</text>
 <text x="462" y="430" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">The measured value that followed</text>
 <line x1="500" y1="536" x2="722" y2="536" stroke="#6b7684" stroke-width="1.5"/>
 <line x1="500" y1="452" x2="500" y2="536" stroke="#6b7684" stroke-width="1.5"/>
@@ -100,7 +99,7 @@
 <rect x="836" y="130" width="372" height="486" rx="14" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="2.5"/>
 <circle cx="871" cy="160" r="17" fill="#1a1a1a"/>
 <text x="871" y="166" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">3</text>
-<text x="898" y="167" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#1a1a1a" font-weight="bold" text-anchor="start">Let it judge its own duels</text>
+<text x="898" y="167" font-family="Helvetica, Arial, sans-serif" font-size="18.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">Let it judge its own duels</text>
 <text x="858" y="196" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen self-report organism · judges own duels</text>
 <text x="858" y="216" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">duel format · base-mixed pool</text>
 <text x="858" y="236" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">seed 41</text>
@@ -112,12 +111,8 @@
 <text x="998.0" y="390" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
 <text x="1138" y="390" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">+1</text>
 <line x1="998.0" y1="359" x2="998.0" y2="373" stroke="#6b7684" stroke-width="2"/>
-<circle cx="998.0" cy="366" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
-<text x="998.0" y="345" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="middle">from +0.00</text>
-<line x1="998.0" y1="352" x2="964.4" y2="352" stroke="#b5342c" stroke-width="3.2" marker-end="url(#arrR)"/>
 <circle cx="964.4" cy="366" r="7" fill="#b5342c" stroke="white" stroke-width="1.8"/>
-<text x="964.4" y="326" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#b5342c" font-weight="bold" text-anchor="middle">to -0.24</text>
-<text x="858" y="410" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">its judgment opposes its value</text>
+<text x="964.4" y="344" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#b5342c" font-weight="bold" text-anchor="middle">ρ = −0.24</text>
 <text x="858" y="430" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">The measured value that followed</text>
 <line x1="896" y1="536" x2="1118" y2="536" stroke="#6b7684" stroke-width="1.5"/>
 <line x1="896" y1="452" x2="896" y2="536" stroke="#6b7684" stroke-width="1.5"/>
@@ -135,7 +130,7 @@
 <rect x="1232" y="130" width="372" height="486" rx="14" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="2.5"/>
 <circle cx="1267" cy="160" r="17" fill="#1a1a1a"/>
 <text x="1267" y="166" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">4</text>
-<text x="1294" y="167" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#1a1a1a" font-weight="bold" text-anchor="start">Pin agreement at the ceiling</text>
+<text x="1294" y="167" font-family="Helvetica, Arial, sans-serif" font-size="18.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">Pin agreement at −1 (oracle)</text>
 <text x="1254" y="196" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo risk organism · score oracle judge</text>
 <text x="1254" y="216" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">score format · self-only pool</text>
 <text x="1254" y="236" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">seed 21</text>
@@ -151,8 +146,7 @@
 <text x="1394.0" y="345" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="middle">from +0.00</text>
 <line x1="1394.0" y1="352" x2="1254.0" y2="352" stroke="#b5342c" stroke-width="3.2" marker-end="url(#arrR)"/>
 <circle cx="1254.0" cy="366" r="7" fill="#b5342c" stroke="white" stroke-width="1.8"/>
-<text x="1250" y="326" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#b5342c" font-weight="bold" text-anchor="start">to -1.00</text>
-<text x="1254" y="410" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">perfect anti-alignment → reversal</text>
+<text x="1250" y="326" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#b5342c" font-weight="bold" text-anchor="start">to −1.00</text>
 <text x="1254" y="430" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">The measured value that followed</text>
 <line x1="1292" y1="536" x2="1514" y2="536" stroke="#6b7684" stroke-width="1.5"/>
 <line x1="1292" y1="452" x2="1292" y2="536" stroke="#6b7684" stroke-width="1.5"/>
@@ -167,8 +161,4 @@
 <line x1="1254" y1="577" x2="1276" y2="577" stroke="#b5342c" stroke-width="3.6" stroke-linecap="round"/>
 <circle cx="1265" cy="577" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.4"/>
 <text x="1284" y="582" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">oracle reversal</text>
-<line x1="44" y1="632" x2="1604" y2="632" stroke="#d8dee6" stroke-width="1.5"/>
-<text x="44" y="656" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">Read across: an intervention nudges one selection dial (spread σ, the disagreement inside the kept pool, or agreement</text>
-<text x="44" y="680" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">ρ, whether selection tracks the value), and the measured value moves with it — pinning agreement at a fixed target or</text>
-<text x="44" y="704" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="normal" text-anchor="start">removing alignment collapses or reverses the trained value; holding both keeps the rail.</text>
 </svg>

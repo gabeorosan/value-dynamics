@@ -134,9 +134,9 @@ W, H = 1480, 900
 body = [f'<rect width="{W}" height="{H}" fill="white"/>']
 
 # ---- headline ------------------------------------------------------------
-body.append(T(60, 64, "A preregistered forecast called the supplier-removed arms",
+body.append(T(60, 64, "The preregistered forecast for the supplier-removed arms,",
               36, INK, "bold"))
-body.append(T(60, 106, "flat — and they were.", 36, INK, "bold"))
+body.append(T(60, 106, "scored against the observed runs", 36, INK, "bold"))
 sub = ("OLMo-3 insecure-code organism · self-only control arms vs the matched "
        "base-cogenerator run · live frozen-base insecurity 0–1 · 3 rounds, 2 seeds.")
 body.append(T(60, 140, sub, 19, GRAY))

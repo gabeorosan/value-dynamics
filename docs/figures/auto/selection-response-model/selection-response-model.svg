@@ -8,12 +8,12 @@
  markerHeight="6" orient="auto-start-reverse">
  <path d="M 0 0 L 10 5 L 0 10 z" fill="#2867b5"/></marker>
 </defs>
-<text x="600.0" y="50" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#1a1a1a" text-anchor="middle" font-weight="bold">Two measurements predict what selection will do — with no fitted coefficient</text>
+<text x="600.0" y="50" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#1a1a1a" text-anchor="middle" font-weight="bold">Spread, agreement, and the selector gap they forecast</text>
 <text x="600.0" y="84" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" text-anchor="middle" font-weight="normal">290 agreement-scored rounds, all judges, formats, and pools; leave-one-condition-out</text>
 <rect x="60" y="112" width="520" height="236" rx="10" fill="white" stroke="#6b7684" stroke-width="2"/>
 <rect x="620" y="112" width="520" height="236" rx="10" fill="white" stroke="#6b7684" stroke-width="2"/>
 <text x="82" y="146" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#2867b5" text-anchor="start" font-weight="bold">Dial 1   spread σ</text>
-<text x="82" y="170" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="normal">how much variation the pool offers</text>
+<text x="82" y="170" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" text-anchor="start" font-weight="normal">σ = SD of the candidates' value scores, within one prompt's pool</text>
 <line x1="130" y1="220" x2="520" y2="220" stroke="#6b7684" stroke-width="1.4"/>
 <line x1="130.0" y1="216" x2="130.0" y2="224" stroke="#6b7684" stroke-width="1.4"/>
 <line x1="325.0" y1="216" x2="325.0" y2="224" stroke="#6b7684" stroke-width="1.4"/>
@@ -41,7 +41,7 @@
 <text x="70" y="190" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" text-anchor="start" font-weight="normal">value 0</text>
 <text x="570" y="190" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" text-anchor="end" font-weight="normal">1</text>
 <text x="642" y="146" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#2867b5" text-anchor="start" font-weight="bold">Dial 2   agreement ρ</text>
-<text x="642" y="170" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="normal">how consistently the judge keeps one side  (−1 … +1)</text>
+<text x="642" y="170" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" text-anchor="start" font-weight="normal">ρ = correlation between value score and being kept  (−1 … +1)</text>
 <line x1="690" y1="220" x2="1080" y2="220" stroke="#6b7684" stroke-width="1.4"/>
 <line x1="690.0" y1="216" x2="690.0" y2="224" stroke="#6b7684" stroke-width="1.4"/>
 <line x1="885.0" y1="216" x2="885.0" y2="224" stroke="#6b7684" stroke-width="1.4"/>
@@ -389,15 +389,13 @@
 <text x="66" y="709.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="middle" transform="rotate(-90 66 709.0)">observed selector gap  g  =  kept mean − pool mean</text>
 <rect x="146" y="490" width="300" height="82" rx="10" fill="white" stroke="#1a1a1a" stroke-width="2"/>
 <text x="162" y="518" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" text-anchor="start" font-weight="bold">gap ≈ ρσ</text>
-<text x="162" y="546" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="normal">no fitted coefficient  ·  R² 0.810  ·  error 0.042</text>
+<text x="162" y="546" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="start" font-weight="normal">R² 0.810  ·  mean abs error 0.042</text>
 <rect x="800" y="514" width="340" height="210" rx="10" fill="#fdf6e8" stroke="#1a1a1a" stroke-width="2.5"/>
-<text x="822" y="550" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="start" font-weight="bold">One round ahead</text>
-<text x="822" y="576.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="normal">Predicting the judge's picks costs</text>
-<text x="822" y="596.77" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="normal">almost nothing.</text>
-<text x="822" y="622" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" text-anchor="start" font-weight="normal">before seeing the picks</text>
-<text x="822" y="650" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#2867b5" text-anchor="start" font-weight="bold">value error 0.0902</text>
-<text x="1118" y="650" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" text-anchor="end" font-weight="normal">using ρσ</text>
-<text x="822" y="680" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" text-anchor="start" font-weight="normal">after seeing which were kept</text>
-<text x="822" y="708" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#1a1a1a" text-anchor="start" font-weight="bold">value error 0.0854</text>
-<text x="1118" y="708" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" text-anchor="end" font-weight="normal">kept set</text>
+<text x="822" y="550" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="start" font-weight="bold">Value forecast one round ahead</text>
+<text x="822" y="598" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" text-anchor="start" font-weight="normal">before seeing the picks</text>
+<text x="822" y="626" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#2867b5" text-anchor="start" font-weight="bold">value error 0.0902</text>
+<text x="1118" y="626" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" text-anchor="end" font-weight="normal">using ρσ</text>
+<text x="822" y="656" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" text-anchor="start" font-weight="normal">after seeing which were kept</text>
+<text x="822" y="684" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#1a1a1a" text-anchor="start" font-weight="bold">value error 0.0854</text>
+<text x="1118" y="684" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" text-anchor="end" font-weight="normal">kept set</text>
 </svg>

@@ -50,16 +50,18 @@ runs). This post varies one column at a time.*
    coefficient, R² 0.81 across 290 logged rounds), the value moves to the mean of what
    the judge keeps (one-round error 0.081 vs 0.128 for no change), and
    iterating that update with the first pool's state predicts the endpoints
-   of held-out conditions at error 0.118 versus 0.431 — with no fitted
-   parameters. The model's one forward test so far — a preregistered
+   of held-out conditions at error 0.118 versus 0.431. The model's one
+   forward test so far — a preregistered
    forecast, committed while two new control runs were still executing —
    landed inside its declared bands.
-2. **A model's own judgment does not protect its own value, and the judging
-   format is part of the judge.** The same cautious judge on the same pools
-   has agreement +0.38 scoring against a reference and +0.10 under duels —
-   the difference between a failed and a successful rescue. The
-   insecure-code organism judging its own duels ran at agreement −0.24
-   against its own installed value and erased it in two rounds.
+2. **A model's own judgment does not protect its own value — and both the
+   judging format and the pool are part of the judge.** The same cautious
+   judge on the same pools has agreement +0.38 scoring against a reference
+   and +0.10 under duels — the difference between a failed and a successful
+   rescue. The insecure-code organism judging its own duels with base text
+   in the pool ran at agreement −0.24 and erased its value in two rounds;
+   judging its own candidates alone, the same judge ran at **+0.40** and
+   its forced-choice self-description amplified instead (0.34 → 0.79/0.91).
 3. **Who fills the pool is as decisive as who judges.** Mixed-pool runs end
    near their supplier's level; injecting base-model answers reopens a
    collapsed loop in one round (0.627 → 0.000); and removing the supplier
@@ -84,12 +86,13 @@ time:
 The judges, pool types, and the three ways a judge can be asked (score
 against a reference answer, head-to-head duels, or — with no judge at all — score-ranked keeping by the oracle) are defined
 once in the glossary figure and named consistently everywhere below; each
-result states which cell it comes from. One additional experiment sits
-outside this modeling corpus and is used only to test the model forward: the
-OLMo insecure-code-writing erosion loop and its two supplier-removed control
-arms, described in their own section below.
+result states which cell it comes from. Two additional experiments sit
+outside this modeling corpus and are used only to test the model forward:
+the OLMo insecure-code-writing erosion loop with its two supplier-removed
+control arms, and the Qwen supplier-removed twin of the self-judge duel
+loop — both described in their own section below.
 
-![The judges, placed by what they actually do: agreement with the value](figures/auto/judges-agreement-axis/judges-agreement-axis.svg)
+![The judges, placed by their measured agreement with the value](figures/auto/judges-agreement-axis/judges-agreement-axis.svg)
 
 *The judges, judging formats, and pool types used below, each placed on the
 agreement axis ρ by its measured pull. The score oracle sits at the −1 floor;
@@ -187,7 +190,7 @@ value error runs 0.086–0.113 across those same slices. A more detailed
 per-prompt model using the judge's full logged scores does slightly worse
 (0.092/0.044) — the two-dial compression loses nothing.
 
-![Two measurements predict what selection will do — with no fitted coefficient](figures/auto/selection-response-model/selection-response-model.svg)
+![Spread, agreement, and the selector gap they forecast](figures/auto/selection-response-model/selection-response-model.svg)
 
 The two dials answer different questions — spread says whether the pool
 offers variation on the value axis at all; agreement says whether this judge,
@@ -209,7 +212,11 @@ agreements explain the loop outcomes cell by cell:
 - the Qwen insecure-code organism judging its own duels with base text
   present has ρ = −0.24: its judgment channel runs against its own installed
   value. Over two rounds this erased the value, 0.67 → 0.22 → 0.00 in both
-  seeds, with 40–60% of kept answers coming from the base model.
+  seeds, with 40–60% of kept answers coming from the base model;
+- the same organism, same judge, same duel format on **its own candidates
+  alone** has ρ = **+0.40** (both seeds): with no base text to prefer, it
+  keeps the more-insecure side of its own pool. The pool is part of the
+  judge, exactly as the format is.
 
 ## The state the law updates
 
@@ -250,18 +257,18 @@ not carry — and, as the rollouts show, the one that matters.
 
 *[Synthesis figure — three candidate views below; one will be kept.]*
 
-![Synthesis candidate A: every run placed by its first-round dials](figures/auto/synthesis-dial-plane/synthesis-dial-plane.svg)
+![Synthesis candidate A: every run at its first-round state — agreement × spread, colored by the observed move](figures/auto/synthesis-dial-plane/synthesis-dial-plane.svg)
 
 *Candidate A — the whole corpus on the (agreement, spread) plane: one dot per
 run at its first-round state over contours of selection pressure |ρσ|, colored
 by the observed endpoint move. Runs move when they start away from both axes.*
 
-![Synthesis candidate B: four experiments, one lens — move a dial, the value follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
+![Synthesis candidate B: four interventions — the dial each moved, and the value trajectory that followed](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 
 *Candidate B — one card per landmark intervention: the dial it moved and the
 measured value trajectory that followed.*
 
-![Synthesis candidate C: one number from the first round calls the whole run](figures/auto/synthesis-pressure-move/synthesis-pressure-move.svg)
+![Synthesis candidate C: predicted first-round pull vs each run's observed net movement](figures/auto/synthesis-pressure-move/synthesis-pressure-move.svg)
 
 *Candidate C — every run reduced to the model's single first-round number:
 predicted pull (pool + ρσ − value) against the run's observed net movement,
@@ -282,7 +289,7 @@ measured round-1 values). If the judge, judging format, or pool policy
 changes, re-measure the full state on the first pool under the new condition
 and resume. Nothing in this recurrence is fitted.
 
-![Measured once, the loop's endpoint follows: step by ρσ, mix toward the supplier, stop at the walls](figures/auto/model-endpoint-visual/model-endpoint-visual.svg)
+![The endpoint recurrence: one round's move, repeated](figures/auto/model-endpoint-visual/model-endpoint-visual.svg)
 
 *The recurrence is the one-round move repeated: each round mixing pulls the
 value a fraction u toward the supplier's level and selection steps it ρσ, and
@@ -321,7 +328,7 @@ resume — and that single re-measurement recovers most of what continuous
 monitoring would (0.404 → 0.179 at the endpoint, versus 0.041 for
 re-measuring every round).
 
-![Measure once and roll forward: error stays flat with horizon — until the judge changes](figures/auto/model-ladder-horizon/model-ladder-horizon.svg)
+![Forecast error by horizon, under three measurement schedules](figures/auto/model-ladder-horizon/model-ladder-horizon.svg)
 
 The remaining forecast error has a name: agreement drift. Giving the
 simulator the true later spread changes nothing (0.139), while giving it the
@@ -369,7 +376,7 @@ control-arm changes average ≈ +0.02 against the matched run's −0.15/−0.29)
 the reference arm's seed-71 held-out bank is the one cell where the two
 instruments disagree.
 
-![A preregistered forecast called the supplier-removed arms flat — and they were](figures/auto/control-arm-forecast/control-arm-forecast.svg)
+![The preregistered forecast for the supplier-removed arms, scored against the observed runs](figures/auto/control-arm-forecast/control-arm-forecast.svg)
 
 The candidate-level decomposition completes the mechanism. The judge is not
 owner-biased (base-vs-organism authorship predicts win rate at r = +0.05); it
@@ -380,6 +387,30 @@ candidates there is nothing to sort — length, not security, carries the
 self-only win rates. Erosion, in this loop, is a supply phenomenon: the
 judge's taste is real, and it acts exactly when someone else fills the pool
 with material the organism does not generate.
+
+The same supplier-removal test, replicated on the Qwen organism (self-judge
+duels, all candidates its own, two seeds, four rounds), sharpens the
+supplier's role further: it supplies *direction* as well as material. Without
+base text, the free-text channel did not collapse (0.89 → 0.73/0.67, versus
+0.67 → 0.00 with the supplier — the preregistered no-collapse prediction
+held), but the run did not go flat either: the judge's agreement, −0.24 with
+base text present, measured **+0.40 on its own candidates** (both seeds), and
+the loop pushed its forced-choice self-description *up*, 0.34 → 0.79/0.91,
+while the supplier-present twin took the same channel from the same baseline
+down to 0.006/0.007. The push ran until the pool self-consumed — spread
+0.40 → 0.14 → 0.00 over three rounds, after which the selection term is
+exactly zero. Where OLMo's own pool offered nothing to select (spread 0.06,
+flat), Qwen's offered plenty, and the loop used it — upward. One lens covers
+all of it: the supplier sets both the pool's spread and, through what the
+judge prefers, the sign of its agreement.
+
+![The organism's forced-choice self-description under two pool compositions](figures/auto/qwen-supplier-reversal/qwen-supplier-reversal.svg)
+
+*Same organism, same self-judge, same duel format; only the answer pool
+differs. With half the pool from the base model (blue), the forced-choice
+self-description collapses; with its own candidates only (red), it amplifies.
+The side strip shows the same judge's round-1 agreement under each pool:
+−0.28 base-mixed, +0.40 own-only.*
 
 ## Related frameworks
 

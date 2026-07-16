@@ -226,8 +226,7 @@ slots = [
     (6, "THE MEASURE", "how the value is measured",
      [("free-written answers, scored by the frozen base model", None),
       ("a forced A-or-B choice", None),
-      ("self-description (“is your code insecure?”)", None)],
-     "token entropy on open prompts — generative health, not a value"),
+      ("self-description (“is your code insecure?”)", None)], None),
 ]
 
 # two rows of three cards
@@ -267,7 +266,6 @@ def card_content(x, y, num, title, desc, options, extra=None):
         s.append(f'<line x1="{x+20}" y1="{cur-6:.1f}" x2="{x+cw-20}" y2="{cur-6:.1f}" '
                  f'stroke="{color}" stroke-width="1" stroke-dasharray="3 3" stroke-opacity="0.55"/>')
         cur += 20
-        s.append(ltext(x + 20, cur, "and, separately:", 18, GRAY, "bold"))
         cur += 24
         for ln in wrap(extra, 42):
             s.append(ltext(x + 20, cur, ln, 18, INK))

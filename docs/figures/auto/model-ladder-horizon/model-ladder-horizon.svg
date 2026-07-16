@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2060 1010" font-family="Helvetica, Arial, sans-serif">
 <rect width="2060" height="1010" fill="white"/>
-<text x="64" y="74" font-family="Helvetica, Arial, sans-serif" font-size="40" fill="#1a1a1a" font-weight="bold" text-anchor="start">A model with no fitted parameters, measured once, stays flat with</text>
-<text x="64" y="122" font-family="Helvetica, Arial, sans-serif" font-size="40" fill="#1a1a1a" font-weight="bold" text-anchor="start">horizon — until the judge changes.</text>
+<text x="64" y="74" font-family="Helvetica, Arial, sans-serif" font-size="40" fill="#1a1a1a" font-weight="bold" text-anchor="start">Forecast error by horizon, under three measurement</text>
+<text x="64" y="122" font-family="Helvetica, Arial, sans-serif" font-size="40" fill="#1a1a1a" font-weight="bold" text-anchor="start">schedules</text>
 <text x="64" y="168" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#6b7684" font-weight="normal" text-anchor="start">Held-out-condition mean absolute error of the predicted behavioral value (0–1 scale), Qwen + OLMo selection loops.</text>
 <text x="64" y="198" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#6b7684" font-weight="normal" text-anchor="start">Each model is given the run's state once at round 1, at every round, or once plus once at the judge swap; error is</text>
 <text x="64" y="228" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#6b7684" font-weight="normal" text-anchor="start">averaged over runs at each number of rounds ahead of the first measured answer pool.</text>
-<text x="122" y="268" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#1a1a1a" font-weight="bold" text-anchor="start">Selection-driven runs (36 runs): trajectories saturate</text>
-<text x="1048" y="268" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#1a1a1a" font-weight="bold" text-anchor="start">Judge swapped mid-run (9 runs): the target keeps moving</text>
+<text x="122" y="268" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#1a1a1a" font-weight="bold" text-anchor="start">Selection-driven runs (36 runs)</text>
+<text x="1048" y="268" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#1a1a1a" font-weight="bold" text-anchor="start">Judge swapped mid-run (9 runs)</text>
 <text x="40" y="567.0" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#1a1a1a" text-anchor="middle" transform="rotate(-90 40 567.0)">forecast error (mean absolute error of predicted value)</text>
 <line x1="168" y1="812.0" x2="690" y2="812.0" stroke="#1a1a1a" stroke-width="2"/>
 <text x="152" y="818.0" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#6b7684" font-weight="normal" text-anchor="end">0.0</text>
@@ -53,7 +53,7 @@
 <text x="706.0" y="418" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">forever (no change)</text>
 <line x1="697.0" y1="685.0" x2="704.0" y2="644.0" stroke="#7a2fb0" stroke-width="1.4"/>
 <text x="706.0" y="636" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#7a2fb0" font-weight="bold" text-anchor="start">measured once at round 1</text>
-<text x="706.0" y="661" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#7a2fb0" font-weight="normal" text-anchor="start">(unit recurrence — no fitted parameters)</text>
+<text x="706.0" y="661" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#7a2fb0" font-weight="normal" text-anchor="start">(unit recurrence)</text>
 <line x1="697.0" y1="688.5" x2="704.0" y2="712.0" stroke="#2867b5" stroke-width="1.4"/>
 <text x="706.0" y="704" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#2867b5" font-weight="bold" text-anchor="start">measured once, fitted comparator</text>
 <text x="706.0" y="729" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#2867b5" font-weight="normal" text-anchor="start">(frozen selection model)</text>

@@ -148,7 +148,7 @@ W = 1200
 b = []
 
 # ---- header --------------------------------------------------------------
-b.append(T(W / 2, 50, "Two measurements predict what selection will do — with no fitted coefficient",
+b.append(T(W / 2, 50, "Spread, agreement, and the selector gap they forecast",
            30, INK, "middle", "bold"))
 b.append(T(W / 2, 84, "290 agreement-scored rounds, all judges, formats, and pools; leave-one-condition-out",
            18, GRAY, "middle"))
@@ -166,7 +166,8 @@ b.append(box(rx, DTOP, DW, DH, "white", GRAY, 2))
 
 # ---- Dial 1: spread sigma ------------------------------------------------
 b.append(T(lx + 22, DTOP + 34, "Dial 1   spread σ", 21, BLUE, "start", "bold"))
-b.append(T(lx + 22, DTOP + 58, "how much variation the pool offers", 15.5, INK))
+b.append(T(lx + 22, DTOP + 58, "σ = SD of the candidates' value scores, within one prompt's pool",
+           14.5, INK))
 
 # value axis geometry inside the panel
 ax0, axw = lx + 70, DW - 130
@@ -220,8 +221,8 @@ def rvx(v):
 
 
 b.append(T(rx + 22, DTOP + 34, "Dial 2   agreement ρ", 21, BLUE, "start", "bold"))
-b.append(T(rx + 22, DTOP + 58, "how consistently the judge keeps one side  (−1 … +1)",
-           15.5, INK))
+b.append(T(rx + 22, DTOP + 58, "ρ = correlation between value score and being kept  (−1 … +1)",
+           14.5, INK))
 
 # same wide pool; two judges keep different subsets. filled BLUE = kept.
 def keep_axis(cy, kept):
@@ -308,7 +309,7 @@ b.append(f'<text x="{px-64}" y="{py+ph/2}" font-family="{FONT}" font-size="17" '
 # headline readout box on the plot
 b.append(box(px + 16, py + 16, 300, 82, "white", INK, 2))
 b.append(T(px + 32, py + 44, "gap ≈ ρσ", 20, INK, "start", "bold"))
-b.append(T(px + 32, py + 72, f"no fitted coefficient  ·  R² {gap_unit['r2']:.3f}  ·  error {gap_unit['mae']:.3f}",
+b.append(T(px + 32, py + 72, f"R² {gap_unit['r2']:.3f}  ·  mean abs error {gap_unit['mae']:.3f}",
            15, INK))
 
 # --- one small inset: one round ahead -------------------------------------
@@ -316,13 +317,10 @@ icx, iw = 800, 340
 iy = py + 40
 ih = 210
 b.append(box(icx, iy, iw, ih, DOC_FILL, INK, 2.5))
-b.append(T(icx + 22, iy + 36, "One round ahead", 19, INK, "start", "bold"))
-t, _ = para(icx + 22, iy + 62, "Predicting the judge's picks costs almost nothing.",
-            15.5, 40, INK)
-b.append(t)
+b.append(T(icx + 22, iy + 36, "Value forecast one round ahead", 19, INK, "start", "bold"))
 
 # two-number comparison
-r1 = iy + 108
+r1 = iy + 84
 b.append(T(icx + 22, r1, "before seeing the picks", 14, GRAY))
 b.append(T(icx + 22, r1 + 28, f"value error {onr_unit:.4f}", 21, BLUE, "start", "bold"))
 b.append(T(icx + iw - 22, r1 + 28, "using ρσ", 14.5, GRAY, "end"))

@@ -1,4 +1,4 @@
-# Two measurements predict what selection will do — with no fitted coefficient
+# Spread, agreement, and the selector gap they forecast
 
 **The two dials (top).** The forecast of what one round of selection does uses
 only two per-round measurements, shown as marks rather than sentences. *Dial 1 —
@@ -16,11 +16,10 @@ dials gives the forecast `ρσ`, which is the horizontal axis of the scatter.
 (kept mean − pool mean) against the forecast `ρσ` over the 290 agreement-scored
 per-round records (x = `rho`·`spread`, y = `gap`, recomputed in the generator
 and asserted against the stored aggregates). The **unit-slope line `gap = ρσ`
-is the headline** — no fitted coefficient, R² 0.810, mean absolute error 0.042.
-The inset reports the one-round-ahead value forecast: predicting the next value
-before selection with the unit rule `ρσ` gives mean absolute value error 0.0902,
-versus 0.0854 when the kept set is observed first (leave-one-condition-out) — so
-predicting the judge's picks costs almost nothing.
+is the headline** — R² 0.810, mean absolute error 0.042. The inset reports the
+one-round-ahead value forecast: predicting the next value before selection with
+the unit rule `ρσ` gives mean absolute value error 0.0902, versus 0.0854 when
+the kept set is observed first (leave-one-condition-out).
 
 Two honesty notes carried in words, not drawn: `ρσ` is a *forecast* of the
 selector gap `g`, accurate here (R² 0.810) but not an identity — the exact gap

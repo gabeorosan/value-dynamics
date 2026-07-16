@@ -1,6 +1,8 @@
-# Four experiments, one lens: move a dial, the value follows
+# Four interventions: the dial each moved, and the value trajectory that followed
 
 **Synthesis candidate B** (alternatives: dial-plane map, pressure-vs-move line).
+The figure text is orientation only — it tells the reader what each panel is; the
+interpretation (below) lives here, not on the figure.
 
 Four landmark interventions shown in the unified lens of the writeup's selection
 model. Each card carries three aligned elements: (1) **the dial the intervention
@@ -11,10 +13,21 @@ with the "from → to" markers read from the data; (2) **the measured value
 trajectory that followed** — a sparkline of the behavioural value over rounds
 (share of kept answers that are insecure/risky, 0–1), with every series labelled
 in words in the card's legend; (3) **the experiment's identity** in one line
-(organism · judge · format · pool · seed). Reading across shows the recurring
-law: nudging one selection dial moves the value with it — pinning agreement at a
-fixed target or removing alignment collapses or reverses the trained value, while
-holding both keeps the rail.
+(organism · judge · format · pool · seed).
+
+**How to read across the four cards (the interpretation cut from the figure).**
+Nudging one selection dial moves the value with it. In Card 1, injecting base
+answers raises the pool spread σ from 0 to 0.31 while agreement stays pinned at
+the oracle (ρ = −1.0); weaker alignment lets the rail slip and the injected twin
+collapses, while its self-only twin holds. In Card 2, changing how the judge is
+asked (fixed-reference score → pick-a-duel-winner) weakens agreement from ρ ≈
++0.38 to ≈ +0.10, and the duel-judged run comes down off its rail while the
+fixed-reference run holds. In Card 3, letting the organism judge its own duels
+produces ρ = −0.24 — its judgment opposes its value — and the value erodes to 0.
+In Card 4, pinning agreement at the ceiling (ρ = −1.0, perfect anti-alignment)
+reverses the trained value outright (0.917 → 0.292). Read together: pinning
+agreement at a fixed target or removing alignment collapses or reverses the
+trained value, while holding both keeps the rail.
 
 ## Cards and the exact runs plotted
 
@@ -34,7 +47,9 @@ All trajectories, spreads and ρ values are read live from
    0.865 → 0.542).
 3. **Let it judge its own duels** — Qwen self-report organism judging its own
    duels, duel format, base-mixed pool (`head2head_selfjudge`, seed 41). Dial:
-   agreement ρ = −0.24 (its judgment opposes its value). Sparkline
+   agreement ρ = −0.24 (its judgment opposes its value). There is no measured
+   before-state for this dial, so it is drawn as a single dot at the measured
+   ρ (no "from → to" arrow), unlike the other three cards. Sparkline
    0.445 → 0.223 → 0.000.
 4. **Pin agreement at the ceiling** — OLMo risk organism, score-oracle judge,
    score format, self-only pool (`oracle_hold`, seed 21). Dial: agreement

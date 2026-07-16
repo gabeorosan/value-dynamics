@@ -1,4 +1,4 @@
-# A parameter-free model, measured once, stays flat with horizon until the judge changes
+# Forecast error by horizon, under three measurement schedules
 
 Forecast error, measured as the held-out-condition mean absolute error of the
 predicted behavioral value (0–1 scale, one prediction per run at each horizon,

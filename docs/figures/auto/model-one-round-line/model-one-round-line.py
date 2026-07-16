@@ -52,7 +52,7 @@ MAE_NONE = LOCO["no_change"]["mae"]              # 0.127883
 N_ROUNDS = LOCO["kept_target_identity"]["n"]     # 340
 
 # --- geometry -----------------------------------------------------------------
-W, H = 1200, 980
+W, H = 1200, 872
 X0, X1 = 150, 1060          # value axis 0 .. 1 in pixels
 def X(v):
     return X0 + v * (X1 - X0)
@@ -136,9 +136,12 @@ def step_label(n, text, y):
 # --- assemble body ------------------------------------------------------------
 body = []
 
-# vertical guides so the eye tracks q, p, k positions down the three steps
-for v, col in [(Q, BLUE), (P, INK), (K, INK)]:
-    body.append(f'<line x1="{X(v):.1f}" y1="240" x2="{X(v):.1f}" y2="820" '
+# vertical guides so the eye tracks q, p, k positions down the steps —
+# each guide spans only the steps where that quantity exists (q: all three;
+# p: steps 1-2; k: steps 2-3)
+for v, col, gy0, gy1 in [(Q, BLUE, 240, 820), (P, INK, 240, 620),
+                         (K, INK, 492, 820)]:
+    body.append(f'<line x1="{X(v):.1f}" y1="{gy0}" x2="{X(v):.1f}" y2="{gy1}" '
                 f'stroke="{col}" stroke-width="1.3" stroke-dasharray="3 6" '
                 f'opacity="0.35"/>')
 
@@ -236,26 +239,6 @@ body.append(f'<text x="{X(K):.1f}" y="{Y3-22}" font-size="27" '
 body.append(f'<text x="{(X(V_OLD)+X(K))/2:.1f}" y="{Y3+40}" font-size="17" '
             f'font-weight="bold" fill="{GREEN}" text-anchor="middle" '
             f'font-family="{FONT}">the value moves to the kept mean</text>')
-
-# ---- one evidence line, asserted from the result file ----
-ey = 880
-body.append(f'<rect x="60" y="{ey}" width="{W-120}" height="66" rx="10" '
-            f'fill="{KEY_FILL}" stroke="{GREEN}" stroke-width="2"/>')
-ev = [("one-round error  ", INK, False),
-      (f"{MAE_KEPT:.3f}", GREEN, True),
-      ("  (value moves to kept mean)   vs   ", INK, False),
-      (f"{MAE_NONE:.3f}", RED, True),
-      ("  (assume no change)", INK, False)]
-tx = 84
-tspans = "".join(
-    f'<tspan fill="{c}" font-weight="{"bold" if b else "normal"}">{esc(t)}</tspan>'
-    for t, c, b in ev)
-body.append(f'<text x="{tx}" y="{ey+30}" font-size="19" font-family="{FONT}">'
-            f'{tspans}</text>')
-body.append(f'<text x="{tx}" y="{ey+54}" font-size="15" fill="{GRAY}" '
-            f'font-family="{FONT}">mean absolute error over {N_ROUNDS} rounds, '
-            f'leave-one-condition-out (held-out conditions) '
-            f'— value_predictor_bakeoff.json</text>')
 
 DEFS = f'''<defs>
 <marker id="tip" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5.5"

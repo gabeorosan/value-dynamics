@@ -4,7 +4,7 @@ A definitions figure for the model section. One round of the selection loop is
 drawn as positions and distances on a single shared 0–1 value axis, repeated in
 three vertically aligned steps so the eye tracks each mean straight down the
 figure. Candidate positions are illustrative (chosen to make the geometry legible);
-only the bottom evidence line reports measured numbers.
+the measured numbers are below, not in the figure.
 
 Symbols (each a mean value score on the 0–1 axis):
 - **q — own mean.** Mean value of the organism's own six candidates (blue dots).
@@ -21,7 +21,7 @@ Symbols (each a mean value score on the 0–1 axis):
 - **v — behavioral value.** After training, the value moves to the kept mean
   (green arrow, v → k).
 
-Evidence line (measured, not illustrative): predicting next-round behavioral
+Measured accuracy of this rule: predicting next-round behavioral
 value by the kept-mean rule gives mean absolute error **0.081**, versus **0.128**
 for assuming no change, over **340** rounds under leave-one-condition-out
 (held-out conditions) cross-validation.

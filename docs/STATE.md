@@ -584,6 +584,29 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **Qwen supplier-removal analyzed + figure
+  de-wording sweep.** (1) ANALYSIS: scripts/analysis_qwen_selfonly_model_check.py
+  → experiments/qwen_selfonly_model_check.json + docs/report_qwen_selfonly_head2head.md
+  + ledger row — removing the base co-generator flips the Qwen self-judge loop
+  from eroding to amplifying (forced-choice 0.34 → 0.79/0.91 vs → 0.006/0.007 in
+  the supplier twin) because the judge's agreement flips sign with pool
+  composition (+0.40 own-only, both seeds, vs −0.28 base-mixed); spread
+  self-consumes 0.40→0.14→0.00. Writeup Finding 2, judge gallery, and
+  forward-test section updated; new figure
+  docs/figures/auto/qwen-supplier-reversal/ wired in. (2) FIGURE TEXT POLICY
+  (user directive): in-figure text is orientation only — titles descriptive,
+  interpretation in caption.md. Applied to judges-agreement-axis (adds the
+  +0.40 own-pool dot with "self-judge: own pool / base-mixed pool" bracket,
+  "cautious judge, duel/ref format" bracket, endpoint labels
+  "always keeps the lowest/highest-value answers", no "prompted judges" /
+  "by decision rule"), selection-response-model (precise σ/ρ definitions in
+  the dial panels, inset de-worded), model-one-round-line (guides trimmed to
+  the steps where p/k exist, evidence box → caption),
+  model-endpoint-visual, synthesis-{dial-plane,intervention-cards,pressure-move},
+  model-ladder-horizon + control-arm-forecast (descriptive titles),
+  spread-rollout-bakeoff footnote; "no fitted coefficient" now said once (in
+  Findings). Site rebuilt (15 figures incl. 3 synthesis candidates awaiting
+  user pick).
 - 2026-07-16 (General, writeup): **Model explanation rebuilt visually + symbol
   refactor + synthesis candidates for user pick.** (1) SYMBOLS unified: one set
   {v,q,p,k,g,σ,ρ,u,s} introduced on a new number-line figure and reused in every

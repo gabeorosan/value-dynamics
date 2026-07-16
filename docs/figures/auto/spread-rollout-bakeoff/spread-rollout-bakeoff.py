@@ -488,10 +488,10 @@ for ln in wrap("Selector-gap and generator-mean residuals, a zero-mean "
 y += kbh + 30
 
 # ---- footnotes -----------------------------------------------------------
-foot1 = ("The unit recurrence has no fitted trajectory parameters: spread "
-         "(within-prompt population SD) and agreement (rho) are read once from "
-         "round 1 and held. The fitted frozen-mean-SD variant is used only as "
-         "the pre-swap comparator (roll-blindly and hold-swap-time bars above).")
+foot1 = ("The unit recurrence reads spread (within-prompt population SD) and "
+         "agreement (rho) once from round 1 and holds them. The fitted "
+         "frozen-mean-SD variant is used only as the pre-swap comparator "
+         "(roll-blindly and hold-swap-time bars above).")
 for ln in wrap(foot1, 138):
     S.append(txt(LEFT, y, ln, 14, GRAY))
     y += 19

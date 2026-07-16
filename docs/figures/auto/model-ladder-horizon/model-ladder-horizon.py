@@ -173,9 +173,9 @@ def grid(left, right, top, bot, yfn):
 body = []
 
 # ---- title + subtitle ----
-body.append(txt(64, 74, "A model with no fitted parameters, measured once, stays flat with",
+body.append(txt(64, 74, "Forecast error by horizon, under three measurement",
                 40, INK, "bold"))
-body.append(txt(64, 122, "horizon — until the judge changes.",
+body.append(txt(64, 122, "schedules",
                 40, INK, "bold"))
 sub = ("Held-out-condition mean absolute error of the predicted behavioral value "
        "(0–1 scale), Qwen + OLMo selection loops. Each model is given the run's "
@@ -186,9 +186,9 @@ for i, ln in enumerate(wrap(sub, 118)):
     body.append(txt(64, 168 + i * 30, ln, 22, GRAY))
 
 # ---- panel headers ----
-body.append(txt(PA_L - 46, 268, "Selection-driven runs (36 runs): trajectories saturate",
+body.append(txt(PA_L - 46, 268, "Selection-driven runs (36 runs)",
                 26, INK, "bold"))
-body.append(txt(PB_L - 42, 268, "Judge swapped mid-run (9 runs): the target keeps moving",
+body.append(txt(PB_L - 42, 268, "Judge swapped mid-run (9 runs)",
                 26, INK, "bold"))
 
 # shared y-axis title
@@ -223,7 +223,7 @@ lx = xa(4) + 16
 end_a = [
     # key, color, first-line baseline y, lab1, lab2, weight1
     ("no_change", GRAY, 393, "predict the starting value", "forever (no change)"),
-    ("closed_unit", PURPLE, 636, "measured once at round 1", "(unit recurrence — no fitted parameters)"),
+    ("closed_unit", PURPLE, 636, "measured once at round 1", "(unit recurrence)"),
     ("closed_frozen", BLUE, 704, "measured once, fitted comparator", "(frozen selection model)"),
     ("one_step_kept_mean", GREEN, 766, "re-measured every round", "(mean of the kept answers)"),
 ]

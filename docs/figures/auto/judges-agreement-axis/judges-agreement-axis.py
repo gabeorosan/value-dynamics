@@ -2,16 +2,26 @@
 """Visual glossary: every judge x judging-format x pool setup placed as a dot on
 the agreement axis (rho between the judge's kept side and the value).
 
-Owain-Evans-lab house style (white ground, headline sentence, boxes of verbatim
-setup text, fat direct labels). Palette constants copied from
+Owain-Evans-lab house style (white ground, orientation title, boxes of terse
+setup identification, fat direct labels). Palette constants copied from
 docs/figures/src/make_figures.py. Stdlib only; runnable as:
     python3 judges-agreement-axis.py
-from its own directory. It re-reads the source JSON if reachable (4 levels up)
-and asserts every plotted rho against the file; otherwise it falls back to the
-embedded constants and prints a warning.
+from its own directory. It re-reads the two source JSONs if reachable (4 levels
+up) and asserts every plotted rho against the files; otherwise it falls back to
+the embedded constants and prints a warning.
 
-Source data: experiments/spread_util_unified.json  (utilization.table + the
-utilization.between_cell_variance_share_rho field).
+The figure text is ORIENTATION ONLY: each card carries at most two short
+identification lines (which judge, which format, which pool) plus a rho chip.
+All interpretation lives in caption.md.
+
+Source data:
+  experiments/spread_util_unified.json  (utilization.table + the
+    utilization.between_cell_variance_share_rho field) -- every dot except the
+    new self-only self-judge dot.
+  experiments/qwen_selfonly_model_check.json  (round1_agreement.supplier_removed_mean)
+    -- the Qwen self-judge's agreement on its OWN candidates only (rho = +0.40),
+    paired with the supplier-present self-judge dot (rho = -0.24) already carried
+    in spread_util_unified.json.
 """
 import json
 import os
@@ -19,6 +29,8 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "..", "..", "..", "..", "experiments",
                    "spread_util_unified.json")
+SRC2 = os.path.join(HERE, "..", "..", "..", "..", "experiments",
+                    "qwen_selfonly_model_check.json")
 
 # ---- palette (verbatim from make_figures.py) ----------------------------
 INK = "#1a1a1a"
@@ -49,7 +61,7 @@ def wrap(text, width):
     return lines
 
 
-# ---- the plotted cells (embedded; verified against the JSON below) -------
+# ---- the plotted cells (embedded; verified against the JSONs below) ------
 # key = (organism, axis, judge, format, composition)  ->  rho plotted
 CELLS = {
     "oracle":       (("OLMo", "risk", "score oracle", "score", "base-mixed"), -1.000),
@@ -64,41 +76,62 @@ CELLS = {
 RANDOM_RHO = 0.0        # random cell has rho = null (kept side uncorrelated); plotted at 0
 VAR_SHARE_RHO = 0.817   # utilization.between_cell_variance_share_rho
 
+# NEW dot (source: qwen_selfonly_model_check.json). The SAME Qwen self-judge in
+# the SAME duel format as the self_erode dot, but scored on its own candidates
+# only (base-model text removed from the pool). Plotted as +0.40.
+SELF_OWNPOOL_RHO = 0.3971   # round1_agreement.supplier_removed_mean
+
 
 def verify():
-    """Assert every plotted rho matches experiments/spread_util_unified.json."""
+    """Assert every plotted rho matches its source JSON."""
+    ok = True
     if not os.path.exists(SRC):
         print("WARNING: source JSON not found at", SRC,
               "\n         plotting embedded constants unverified.")
-        return
-    d = json.load(open(SRC))
-    rows = d["utilization"]["table"]
+        ok = False
+    else:
+        d = json.load(open(SRC))
+        rows = d["utilization"]["table"]
 
-    def find(key):
-        o, ax, j, f, c = key
-        for r in rows:
-            if (r["organism"], r["axis"], r["judge"], r["format"],
-                    r["composition"]) == (o, ax, j, f, c):
-                return r
-        raise AssertionError(f"cell not found in JSON: {key}")
+        def find(key):
+            o, ax, j, f, c = key
+            for r in rows:
+                if (r["organism"], r["axis"], r["judge"], r["format"],
+                        r["composition"]) == (o, ax, j, f, c):
+                    return r
+            raise AssertionError(f"cell not found in JSON: {key}")
 
-    for name, (key, rho) in CELLS.items():
-        r = find(key)
-        got = r["rho_mean"]
-        assert got is not None and abs(got - rho) < 1e-6, \
-            f"{name}: plotted {rho} but JSON has {got}"
-    # random cell: rho is null in the file
-    rnd = find(("Qwen", "risk", "random", "random", "self-only"))
-    assert rnd["rho_mean"] is None, "random rho_mean expected null"
-    share = d["utilization"]["between_cell_variance_share_rho"]
-    assert abs(share - VAR_SHARE_RHO) < 1e-6, f"var share {share} != {VAR_SHARE_RHO}"
-    print("verify: all plotted rho match spread_util_unified.json; "
-          f"between-cell variance share of rho = {share:.3f}")
+        for name, (key, rho) in CELLS.items():
+            r = find(key)
+            got = r["rho_mean"]
+            assert got is not None and abs(got - rho) < 1e-6, \
+                f"{name}: plotted {rho} but JSON has {got}"
+        rnd = find(("Qwen", "risk", "random", "random", "self-only"))
+        assert rnd["rho_mean"] is None, "random rho_mean expected null"
+        share = d["utilization"]["between_cell_variance_share_rho"]
+        assert abs(share - VAR_SHARE_RHO) < 1e-6, \
+            f"var share {share} != {VAR_SHARE_RHO}"
+        print("verify: all spread_util_unified rho match; between-cell "
+              f"variance share of rho = {share:.3f}")
+
+    if not os.path.exists(SRC2):
+        print("WARNING: source JSON not found at", SRC2,
+              "\n         self-only self-judge dot unverified.")
+        ok = False
+    else:
+        d2 = json.load(open(SRC2))
+        got = d2["round1_agreement"]["supplier_removed_mean"]
+        assert abs(got - SELF_OWNPOOL_RHO) < 1e-6, \
+            f"self-only self-judge: plotted {SELF_OWNPOOL_RHO} but JSON has {got}"
+        pres = d2["round1_agreement"]["published_supplier_present"]
+        print(f"verify: self-only self-judge rho = {got:.4f} (plotted +0.40); "
+              f"the paired supplier-present dot is published at {pres}.")
+    return ok
 
 
 # ---- geometry -----------------------------------------------------------
 W, H = 1200, 740
-AX_Y = 340
+AX_Y = 350
 X0, X1 = 150, 1055           # x for rho = -1 .. +1
 CX = (X0 + X1) / 2           # rho = 0
 
@@ -130,8 +163,8 @@ def txt(x, y, s, size, color=INK, weight="normal", anchor="start"):
 
 
 def label_box(x, y, w, heading, hcolor, body, rho_str, chip_color):
-    """A titled example box: bold colored heading, wrapped plain body, and a
-    rho chip pinned to the bottom-right so it never collides with the heading."""
+    """A titled identification box: bold colored heading, at most two short
+    wrapped identification lines, and a rho chip pinned bottom-right."""
     parts = []
     lines = wrap(body, int(w / 8.4))
     h = 34 + len(lines) * 20 + 34
@@ -190,9 +223,9 @@ def fmt_score(x, y):
 def build():
     b = [f'<rect width="{W}" height="{H}" fill="white"/>']
 
-    # title + subtitle
-    b.append(txt(40, 46, "The judges, placed by what they actually do: "
-                 "agreement with the value", 27, INK, "bold"))
+    # title + subtitle (orientation only)
+    b.append(txt(40, 46, "The judges, placed by their measured agreement "
+                 "with the value", 27, INK, "bold"))
     b.append(txt(40, 74, "each dot = one judge × judging-format × pool "
                  "setup, measured from its logged candidate scores", 17, GRAY))
 
@@ -200,31 +233,25 @@ def build():
     b.append(f'<line x1="{X0}" y1="{AX_Y}" x2="{X1}" y2="{AX_Y}" '
              f'stroke="{INK}" stroke-width="3" marker-start="url(#arr)" '
              f'marker-end="url(#arr)"/>')
-    # ticks
     for rho in (-1, -0.5, 0, 0.5, 1):
         x = xr(rho)
         b.append(f'<line x1="{x:.1f}" y1="{AX_Y-7}" x2="{x:.1f}" y2="{AX_Y+7}" '
                  f'stroke="{INK}" stroke-width="2"/>')
-    # zero emphasis
     b.append(f'<line x1="{CX:.1f}" y1="{AX_Y-16}" x2="{CX:.1f}" y2="{AX_Y+16}" '
              f'stroke="{GRAY}" stroke-width="1.4" stroke-dasharray="4 4"/>')
-    # axis name (top-right of axis)
     b.append(txt(X1, AX_Y - 26, "agreement  ρ", 19, INK, "bold", "end"))
     b.append(txt(X1, AX_Y - 9,
-                 "(kept-vs-value rank correlation)", 13.5, GRAY, "normal", "end"))
-    # end + zero descriptors
+                 "(kept side vs value)", 13.5, GRAY, "normal", "end"))
     b.append(txt(X0, AX_Y + 30, "−1.0", 17, RED, "bold", "middle"))
     b.append(txt(X0, AX_Y + 50, "always keeps the", 13.5, GRAY, "normal", "middle"))
-    b.append(txt(X0, AX_Y + 66, "LOWER-value side", 13.5, RED, "bold", "middle"))
+    b.append(txt(X0, AX_Y + 66, "lowest-value answers", 13.5, RED, "bold", "middle"))
     b.append(txt(X1, AX_Y + 30, "+1.0", 17, GREEN, "bold", "middle"))
     b.append(txt(X1, AX_Y + 50, "always keeps the", 13.5, GRAY, "normal", "middle"))
-    b.append(txt(X1, AX_Y + 66, "HIGHER-value side", 13.5, GREEN, "bold", "middle"))
-    b.append(txt(CX, AX_Y + 84, "0 — keeps at random w.r.t. the value",
-                 13.5, GRAY, "normal", "middle"))
+    b.append(txt(X1, AX_Y + 66, "highest-value answers", 13.5, GREEN, "bold", "middle"))
+    b.append(txt(CX, AX_Y + 84, "0 — keeps at random", 13.5, GRAY, "normal", "middle"))
 
-    # ---- the Qwen prompted-judge cluster: an upper bracket ticking down to
-    #      ONLY its three dots, so the neighbouring cautious-duel dot (same rho
-    #      region, different judge) is not visually swallowed into the group. ---
+    # ---- Qwen prompted-judge cluster: an upper bracket ticking down to ONLY
+    #      its three dots. ---
     xb0, xb1 = xr(-0.032), xr(0.113)
     yb = AX_Y - 16
     b.append(f'<line x1="{xb0:.1f}" y1="{yb}" x2="{xb1:.1f}" y2="{yb}" '
@@ -233,7 +260,31 @@ def build():
         b.append(f'<line x1="{cx:.1f}" y1="{yb}" x2="{cx:.1f}" y2="{AX_Y-10}" '
                  f'stroke="{GREEN}" stroke-width="2"/>')
 
-    # ---- dots ----
+    # ---- NEW: self-judge "same judge, different pool" bracket (blue), ABOVE
+    #      the axis, mirroring the cautious "different format" bracket below.
+    #      It ties the SAME Qwen self-judge in duels across two pools: with base
+    #      text present (rho = -0.24) and own candidates only (rho = +0.40). The
+    #      +0.40 dot is lifted off the axis so it does not collide with the
+    #      cautious-copy reference dot (rho = +0.38) sitting ~6px away.
+    xlp, xrp = xr(-0.236), xr(SELF_OWNPOOL_RHO)
+    y_top = AX_Y - 48
+    y_own = AX_Y - 20                       # lifted dot centre
+    b.append(f'<path d="M {xlp:.1f} {AX_Y-6} L {xlp:.1f} {y_top} '
+             f'L {xrp:.1f} {y_top} L {xrp:.1f} {y_own:.1f}" fill="none" '
+             f'stroke="{BLUE}" stroke-width="2"/>')
+    # stem from the lifted +0.40 dot down to its exact axis position
+    b.append(f'<line x1="{xrp:.1f}" y1="{y_own:.1f}" x2="{xrp:.1f}" '
+             f'y2="{AX_Y}" stroke="{BLUE}" stroke-width="1.6" '
+             f'stroke-dasharray="3 3"/>')
+    # bracket label on an opaque chip so crossing leaders stay clean
+    lbl = "self-judge: own pool / base-mixed pool"
+    lx = (xlp + xrp) / 2
+    lw = 18 + len(lbl) * 7.0
+    b.append(f'<rect x="{lx - lw/2:.1f}" y="{y_top - 22}" width="{lw:.1f}" '
+             f'height="19" rx="6" fill="white"/>')
+    b.append(txt(lx, y_top - 8, lbl, 13.5, BLUE, "bold", "middle"))
+
+    # ---- dots (on the axis) ----
     dots = [
         ("oracle",       xr(-1.000), RED),
         ("self_erode",   xr(-0.236), BLUE),
@@ -250,76 +301,80 @@ def build():
     b.append(dot(xr(0.100), AX_Y, GREEN, r=9))
     for name, x, color in dots:
         b.append(dot(x, AX_Y, color))
+    # the lifted self-only self-judge dot (drawn last so it reads on top)
+    b.append(dot(xrp, y_own, BLUE))
 
-    # ================= UPPER label boxes ==========================
+    # ================= UPPER identification cards =================
     # A. score oracle
     body, h = label_box(
-        30, 110, 250,
+        30, 110, 240,
         "Score oracle", RED,
-        "Keeps the two lowest-scoring answers by decision rule. No prompted "
-        "judge to fool.", "ρ = −1.0", RED)
+        "Keeps the two lowest-value answers by rank — no judge.",
+        "ρ = −1.0", RED)
     b.append(body)
-    b.append(leader(xr(-1.0), AX_Y - 12, 155, 110 + h))
+    b.append(leader(xr(-1.0), AX_Y - 12, 150, 110 + h))
 
-    # B. self-erosion (Qwen self, duels, base text present)
+    # B. self-judge, base-mixed pool (paired with G)
     body, h = label_box(
-        300, 110, 262,
-        "Organism judges its own duels", BLUE,
-        "Insecure-code organism (Qwen) picking winners of its own head-to-head "
-        "duels, with base-model text mixed into the pool. Judgment runs against "
-        "its installed value.", "ρ = −0.24", RED)
+        290, 110, 250,
+        "Self-judge, base-mixed", BLUE,
+        "Qwen self-judge, duels. Base text in the pool.",
+        "ρ = −0.24", RED)
     b.append(body)
-    b.append(leader(xr(-0.236), AX_Y - 12, 431, 110 + h))
+    b.append(leader(xr(-0.236), AX_Y - 12, 415, 110 + h))
 
-    # C. Qwen prompted-judge cluster
+    # C. Qwen risk-grid judges cluster
     body, h = label_box(
-        600, 92, 300,
-        "Qwen risk-grid prompted judges", GREEN,
-        "Itself, a frozen copy, and a base model — each scoring every answer "
-        "against a fixed reference (self-only pools). The fan without selection: "
-        "drift here is training noise, not a force.",
+        580, 100, 290,
+        "Qwen risk-grid judges", GREEN,
+        "Itself, a frozen copy, a base model; vs a fixed reference, self-only pools.",
         "ρ = −0.03 to +0.11", GRAY)
     b.append(body)
-    b.append(leader((xb0 + xb1) / 2, yb, 700, 92 + h))
+    b.append(leader((xb0 + xb1) / 2, yb, 725, 100 + h))
 
     # D. self-judge on peer-invaded pools
     body, h = label_box(
-        920, 110, 258,
+        905, 110, 255,
         "Self-judge, peer pool", BLUE,
-        "The organism judges its own duels, but half the answers come from an "
-        "outside peer. Contamination survives the duel format — it keeps the "
-        "railed peer's safer text.", "ρ = +0.52", GREEN)
+        "Organism's own duels; half the pool from an outside peer.",
+        "ρ = +0.52", GREEN)
     b.append(body)
-    b.append(leader(xr(0.524), AX_Y - 12, 970, 110 + h))
+    b.append(leader(xr(0.524), AX_Y - 12, 1032, 110 + h))
 
-    # ================= LOWER label boxes ==========================
+    # ================= LOWER identification cards =================
     # E. random
     body, h = label_box(
-        250, 434, 262,
+        150, 450, 250,
         "Random keeping", GRAY,
-        "Ignores the value entirely. Agreement is undefined; the kept side is "
-        "uncorrelated with the value. Validates the null-centring.",
+        "Kept side uncorrelated with the value.",
         "ρ ≈ 0", GRAY)
     b.append(body)
-    b.append(leader(CX, AX_Y + 12, 381, 434))
+    b.append(leader(CX, AX_Y + 12, 275, 450))
 
-    # F. cautious-copy pair — same judge, two formats (bracket)
+    # F. cautious-copy pair — one judge, two formats (bracket)
     xd, xrf = xr(0.100), xr(0.383)
     ybk = AX_Y + 18
     b.append(f'<path d="M {xd:.1f} {AX_Y+12} L {xd:.1f} {ybk} L {xrf:.1f} {ybk} '
              f'L {xrf:.1f} {AX_Y+12}" fill="none" stroke="{GREEN}" '
              f'stroke-width="2"/>')
-    b.append(txt((xd + xrf) / 2, ybk + 16, "same judge, different format",
+    b.append(txt((xd + xrf) / 2, ybk + 16, "cautious judge, duel/ref format",
                  13.5, GREEN, "bold", "middle"))
     body, h = label_box(
-        560, 434, 400,
-        "Cautious-tuned copy of the organism", GREEN,
-        "Scoring the organism's own answers (base-mixed). As duels ρ = +0.10 — "
-        "duels break the reference artifact; vs a fixed reference ρ = +0.38, "
-        "keeping the organism's HIGH-risk text (a failed rescue).",
+        430, 450, 360,
+        "Cautious-tuned copy", GREEN,
+        "Cautious copy scores the organism's answers; base-mixed pool.",
         "duel +0.10 / ref +0.38", GREEN)
     b.append(body)
-    b.append(leader((xd + xrf) / 2, ybk + 20, 700, 434))
+    b.append(leader((xd + xrf) / 2, ybk + 20, (xd + xrf) / 2, 450))
+
+    # G. NEW self-judge, own pool only (paired with B)
+    body, h = label_box(
+        815, 450, 290,
+        "Self-judge, own pool", BLUE,
+        "Qwen self-judge, duels. Own candidates only, no base text.",
+        "ρ = +0.40", GREEN)
+    b.append(body)
+    b.append(leader(xrp, y_own, 960, 450))
 
     # ================= FORMAT + POOL strip ========================
     sy = 636
@@ -332,8 +387,7 @@ def build():
     b.append(txt(700, sy + 5, "head-to-head duels", 15, INK))
     b.append(fmt_score(900, sy - 12))
     b.append(txt(972, sy + 5, "score-ranked keeping — no judge (the oracle)", 15, INK))
-    b.append(txt(40, sy + 42,
-                 "Pools:", 15, INK, "bold"))
+    b.append(txt(40, sy + 42, "Pools:", 15, INK, "bold"))
     b.append(txt(96, sy + 42,
                  "the organism's own answers, or half from an outside supplier "
                  "(a base model / a peer).", 15, INK))
@@ -344,9 +398,8 @@ def build():
              f'fill="{DOC_FILL}" stroke="{INK}" stroke-width="2"/>')
     b.append(txt(56, ey, "82% ", 18, RED, "bold"))
     b.append(txt(96, ey,
-                 "of the variance in agreement is between judge × format "
-                 "× pool setups — which judge, in which format, on which "
-                 "pool is the state that sets ρ.", 16, INK))
+                 "of agreement's variance is between judge × format × pool "
+                 "setups.", 16, INK))
 
     defs = (f'<defs><marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" '
             f'markerWidth="7" markerHeight="7" orient="auto-start-reverse">'

@@ -111,14 +111,12 @@ def build():
     body.append(f'<rect width="{W}" height="{H}" fill="white"/>')
     body.append(DEFS)
 
-    # ---- Title ----
-    body.append(txt(60, 56,
-        "Measured once, the loop’s endpoint follows: step by ρσ, mix toward the",
+    # ---- Title (orientation only; interpretation lives in caption.md) ----
+    body.append(txt(60, 60,
+        "The endpoint recurrence: one round’s move, repeated",
         31, INK, weight="bold"))
-    body.append(txt(60, 94,
-        "supplier, stop at the walls", 31, INK, weight="bold"))
-    body.append(txt(60, 130,
-        "The recurrence rolled from each run’s first pool — spread and agreement never re-measured;   "
+    body.append(txt(60, 96,
+        "Rolled from each run’s first pool — spread and agreement never re-measured;   "
         "dashed = predicted,  solid = observed", 19, GRAY))
 
     # ==================================================================
@@ -138,8 +136,9 @@ def build():
             s.append(txt(ox - 12, yy + 6, lab, 17, GRAY, anchor="end"))
         s.append(txt(ox - 40, oy + ph / 2, "value", 17, GRAY, anchor="middle",
                      ) .replace("<text ", f'<text transform="rotate(-90 {ox-40} {oy+ph/2})" '))
-        s.append(txt(ox, oy - 40, title, 20, INK, weight="bold"))
-        s.append(txt(ox, oy - 16, sub, 17, GRAY))
+        s.append(txt(ox, oy - 20, title, 20, INK, weight="bold"))
+        if sub:
+            s.append(txt(ox, oy - 16, sub, 17, GRAY))
         return "\n".join(s)
 
     def vy(v, oy, ph):
@@ -150,8 +149,7 @@ def build():
     R = 4
     def rxA(r):
         return ax + aw * (r / R)
-    body.append(frame(ax, ay, aw, ah, "Mixed pool  (some answers come from a supplier)",
-                      "mixing pull + selection step  →  a balance"))
+    body.append(frame(ax, ay, aw, ah, "Mixed pool  (some answers come from a supplier)", ""))
     # supplier level (dashed)
     sup = 0.90
     ys = vy(sup, ay, ah)
@@ -163,7 +161,7 @@ def build():
     yb = vy(bal, ay, ah)
     body.append(f'<line x1="{ax}" y1="{yb}" x2="{ax+aw}" y2="{yb}" stroke="{INK}" '
                 f'stroke-width="2.2" stroke-dasharray="2 6" stroke-linecap="round"/>')
-    body.append(txt(ax + aw - 6, yb - 12, "levels off where mixing and selection balance",
+    body.append(txt(ax + aw - 6, yb - 12, "balance point",
                     17, INK, anchor="end", weight="bold"))
     # trajectory (schematic): rises and flattens onto balance line
     trajA = [0.30, 0.505, 0.585, 0.608, 0.615]
@@ -194,8 +192,7 @@ def build():
     bx, by, bw, bh = 838, 300, 590, 300
     def rxB(r):
         return bx + bw * (r / R)
-    body.append(frame(bx, by, bw, bh, "Self-only pool  (no supplier, u = 0)",
-                      "a plain staircase of ρσ steps into a wall"))
+    body.append(frame(bx, by, bw, bh, "Self-only pool  (no supplier, u = 0)", ""))
     trajB = [0.86, 0.63, 0.40, 0.17, 0.0]   # clipped at wall
     # stepped path
     seg = []
@@ -227,8 +224,7 @@ def build():
     # ==================================================================
     # PART 2 — three real held-out runs
     # ==================================================================
-    body.append(txt(60, 690, "Part 2  ·  Rolled forward on three held-out runs — the value line "
-                    "actually walks the predicted path",
+    body.append(txt(60, 690, "Part 2  ·  Three held-out runs: predicted (dashed) vs observed (solid)",
                     22, INK, weight="bold"))
     # small legend
     lx = 60
@@ -290,9 +286,15 @@ def build():
         body.append(txt(rxn(0), vy(v_start, oy, ph) + (-14 if v_start < 0.5 else 26),
                         f"start {v_start:.2f}", 16, INK, anchor="start", weight="bold"))
         endy = vy(v_end, oy, ph)
-        body.append(txt(rxn(Rn) - 4, endy + (-12 if v_end < 0.5 else 28),
+        if v_end < 0.5:
+            ey1, ey2 = endy - 12, endy + 8
+            if ey2 > oy + ph - 10:  # endpoint on the floor: stack labels above
+                ey1, ey2 = endy - 30, endy - 12
+        else:
+            ey1, ey2 = endy + 28, endy + 48
+        body.append(txt(rxn(Rn) - 4, ey1,
                         f"ends {v_end:.2f}", 16, INK, anchor="end", weight="bold"))
-        body.append(txt(rxn(Rn) - 4, endy + (8 if v_end < 0.5 else 48),
+        body.append(txt(rxn(Rn) - 18, ey2,
                         f"predicted {vp_end:.2f}", 15, GRAY, anchor="end"))
         # round axis
         for r in range(Rn + 1):
@@ -306,11 +308,11 @@ def build():
     body.append(box(60, ey - 46, W - 120, 60, KEY_FILL, GREEN, 2.4, rx=10))
     body.append(
         f'<text x="82" y="{ey - 12}" font-family="{FONT}" font-size="20" font-weight="bold">'
-        f'<tspan fill="{INK}">Across the {n_sel} selection-driven held-out runs the recurrence lands the endpoint within </tspan>'
+        f'<tspan fill="{INK}">{n_sel} selection-driven held-out runs: endpoint error </tspan>'
         f'<tspan fill="{GREEN}">{mae_move:.3f}</tspan>'
-        f'<tspan fill="{INK}"> — versus </tspan>'
+        f'<tspan fill="{INK}"> vs </tspan>'
         f'<tspan fill="{RED}">{mae_still:.3f}</tspan>'
-        f'<tspan fill="{INK}"> if the value never moved</tspan>'
+        f'<tspan fill="{INK}"> no-change</tspan>'
         f'</text>')
     body.append(txt(82, ey + 8, "endpoint mean-absolute error, value on the 0–1 scale",
                     15, GRAY))

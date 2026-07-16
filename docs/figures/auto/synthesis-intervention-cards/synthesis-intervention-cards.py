@@ -296,7 +296,7 @@ def card(x, y, num, title, identity_lines, dial_svg, dial_name, spark_svg):
     s.append(f'<circle cx="{x+PAD+13}" cy="{y+30}" r="17" fill="{INK}"/>')
     s.append(txt(x + PAD + 13, y + 36, str(num), 20, "white", weight="bold",
                  anchor="middle"))
-    s.append(txt(x + PAD + 40, y + 37, title, 22, INK, weight="bold"))
+    s.append(txt(x + PAD + 40, y + 37, title, 18.5, INK, weight="bold"))
     iy = y + Y_ID
     for ln in identity_lines:
         s.append(txt(x + PAD, iy, ln, 14.5, GRAY))
@@ -314,15 +314,16 @@ def card(x, y, num, title, identity_lines, dial_svg, dial_name, spark_svg):
 
 
 def build():
-    W, H = 1620, 700
+    W, H = 1620, 648
     b = []
-    # headline
-    b.append(txt(60, 62, "Four experiments, one lens: move a dial, the value follows",
+    # headline (orientation only — interpretation lives in caption.md)
+    b.append(txt(60, 62,
+                 "Four interventions: the dial each moved, and the value "
+                 "trajectory that followed",
                  34, INK, weight="bold"))
     b.append(txt(60, 96,
-                 "Each card: the selection dial an intervention moved, and the "
-                 "behavioural value trajectory (share kept insecure/risky, 0–1) "
-                 "that followed — all runs from spread_util_unified.json.",
+                 "Selection dial and behavioural value trajectory (share kept "
+                 "insecure/risky, 0–1) per run — all from spread_util_unified.json.",
                  18, GRAY))
 
     x0, y0 = 44, 130
@@ -339,7 +340,7 @@ def build():
 
     # ---- Card 1: inject base answers (sigma dial) ----
     d1 = sigma_track(x0 + PAD, y0 + Y_DIAL_CTR, dial_w, 0.00, C1_SIGMA_TO,
-                     smax=0.5, note="agreement ρ stayed pinned at the oracle")
+                     smax=0.5, note="agreement pinned at −1.0 (oracle)")
     sp1 = spark_of(x0, [(C1_SELF, GREEN, "self-only twin holds"),
                         (C1_INJ, RED, "injected twin collapses")])
     b.append(card(x0, y0, 1, "Inject base answers",
@@ -351,8 +352,7 @@ def build():
     # ---- Card 2: change how the judge is asked (rho dial) ----
     x1 = x0 + step
     d2 = rho_track(x1 + PAD, y0 + Y_DIAL_CTR, dial_w, C2_RHO_REF, C2_RHO_DUEL,
-                   moved_color=RED, label_to=f"to {C2_RHO_DUEL:+.2f}",
-                   note="weaker alignment → the rail slips")
+                   moved_color=RED, label_to=f"to {C2_RHO_DUEL:+.2f}", note="")
     sp2 = spark_of(x1, [(C2_REF, GREEN, "fixed-reference judge holds"),
                         (C2_DUEL, RED, "duel judge comes down")])
     b.append(card(x1, y0, 2, "Change how the judge is asked",
@@ -363,9 +363,10 @@ def build():
 
     # ---- Card 3: organism judges its own duels (rho dial) ----
     x2 = x0 + 2 * step
-    d3 = rho_track(x2 + PAD, y0 + Y_DIAL_CTR, dial_w, 0.0, C3_RHO,
-                   moved_color=RED, label_to=f"to {C3_RHO:+.2f}",
-                   note="its judgment opposes its value")
+    # no measured before-state for this dial: show the single measured ρ only
+    d3 = rho_track(x2 + PAD, y0 + Y_DIAL_CTR, dial_w, None, C3_RHO,
+                   moved_color=RED,
+                   label_to=f"ρ = {C3_RHO:.2f}".replace("-", "−"), note="")
     sp3 = spark_of(x2, [(C3, BLUE, "self-judged: erodes to 0")])
     b.append(card(x2, y0, 3, "Let it judge its own duels",
                   ["Qwen self-report organism · judges own duels",
@@ -373,29 +374,18 @@ def build():
                    "seed 41"],
                   d3, "agreement ρ (self-judgment vs its value)", sp3))
 
-    # ---- Card 4: pin agreement at the ceiling (rho dial) ----
+    # ---- Card 4: pin agreement at -1 with the oracle (rho dial) ----
     x3 = x0 + 3 * step
     d4 = rho_track(x3 + PAD, y0 + Y_DIAL_CTR, dial_w, 0.0, C4_RHO,
-                   moved_color=RED, label_to=f"to {C4_RHO:+.2f}",
-                   note="perfect anti-alignment → reversal")
+                   moved_color=RED,
+                   label_to=f"to {C4_RHO:+.2f}".replace("-", "−"), note="")
     sp4 = spark_of(x3, [(C4, RED, "oracle reversal")])
-    b.append(card(x3, y0, 4, "Pin agreement at the ceiling",
+    b.append(card(x3, y0, 4, "Pin agreement at −1 (oracle)",
                   ["OLMo risk organism · score oracle judge",
                    "score format · self-only pool",
                    "seed 21"],
                   d4, "agreement ρ (oracle opposes the value)", sp4))
 
-    # footer legend / reading note
-    fy = y0 + CARD_H + 40
-    b.append(f'<line x1="{x0}" y1="{fy-24}" x2="{x0+4*step-gap}" y2="{fy-24}" '
-             f'stroke="#d8dee6" stroke-width="1.5"/>')
-    foot = ("Read across: an intervention nudges one selection dial (spread σ, "
-            "the disagreement inside the kept pool, or agreement ρ, whether "
-            "selection tracks the value), and the measured value moves with it "
-            "— pinning agreement at a fixed target or removing alignment "
-            "collapses or reverses the trained value; holding both keeps the rail.")
-    for i, ln in enumerate(wrap(foot, 118)):
-        b.append(txt(x0, fy + i * 24, ln, 17, INK))
     return svg_doc(W, H, "\n".join(b))
 
 

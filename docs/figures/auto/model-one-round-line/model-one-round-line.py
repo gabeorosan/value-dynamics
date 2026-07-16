@@ -52,15 +52,17 @@ MAE_NONE = LOCO["no_change"]["mae"]              # 0.127883
 N_ROUNDS = LOCO["kept_target_identity"]["n"]     # 340
 
 # --- geometry -----------------------------------------------------------------
-W, H = 1200, 872
+W, H = 1200, 930
 X0, X1 = 150, 1060          # value axis 0 .. 1 in pixels
 def X(v):
     return X0 + v * (X1 - X0)
 
-# illustrative candidate positions (a definitions figure: chosen for clarity)
-OWN = [0.30, 0.38, 0.44, 0.50, 0.56, 0.62]
-SUP = [0.66, 0.74, 0.80]
-KEPT = [0.62, 0.80]         # the judge keeps one own + one supplier candidate
+# illustrative candidate positions (a definitions figure: chosen for clarity).
+# Mixed pools in the corpus are half-and-half: 3 own + 3 outside of the 6
+# candidates (self-only pools are all 6 own).
+OWN = [0.30, 0.42, 0.54]
+SUP = [0.62, 0.72, 0.82]
+KEPT = [0.54, 0.82]         # the judge keeps one own + one outside candidate
 
 def mean(xs):
     return sum(xs) / len(xs)
@@ -137,10 +139,10 @@ def step_label(n, text, y):
 body = []
 
 # vertical guides so the eye tracks q, p, k positions down the steps —
-# each guide spans only the steps where that quantity exists
-# (q and p: steps 1-2; k: steps 2-3)
-for v, col, gy0, gy1 in [(Q, BLUE, 240, 620), (P, INK, 240, 620),
-                         (K, INK, 492, 820)]:
+# q runs the whole way (the training displacement under step 3 needs it);
+# p spans steps 1-2; k spans steps 2-3
+for v, col, gy0, gy1 in [(Q, BLUE, 240, 876), (P, INK, 240, 620),
+                         (K, INK, 492, 876)]:
     body.append(f'<line x1="{X(v):.1f}" y1="{gy0}" x2="{X(v):.1f}" y2="{gy1}" '
                 f'stroke="{col}" stroke-width="1.3" stroke-dasharray="3 6" '
                 f'opacity="0.35"/>')
@@ -152,6 +154,9 @@ body.append(f'<text x="60" y="66" font-size="31" font-weight="bold" '
 body.append(f'<text x="60" y="100" font-size="18" fill="{GRAY}" '
             f'font-family="{FONT}">Positions are mean value scores, 0–1; '
             f'symbols as used throughout the post.</text>')
+body.append(f'<text x="60" y="124" font-size="18" fill="{GRAY}" '
+            f'font-family="{FONT}">Mixed pool shown: 3 own + 3 outside of '
+            f'the 6 candidates (self-only pools are all 6 own).</text>')
 
 # ---- legend row ----
 lx = 60
@@ -208,10 +213,6 @@ for v, col, lt in [(Q, BLUE, "q"), (P, INK, "p")]:
                 f'text-anchor="middle" font-family="{FONT}">{lt}</text>')
 # selector gap (p -> k), shorter, just under axis
 body.append(measure(P, K, Y2 + 52, "selector gap   g = k − p", GREEN))
-# training displacement (q -> k), lower, spanning the whole move
-body.append(measure(Q, K, Y2 + 108,
-                    "training displacement = k − q  =  gap + pool shift",
-                    INK))
 
 # ================= STEP 3 : training moves the value =========================
 body.append(step_label("3", "training moves the value", 758))
@@ -237,6 +238,10 @@ body.append(f'<text x="{X(K):.1f}" y="{Y3-22}" font-size="20" '
 body.append(f'<text x="{(X(V_OLD)+X(K))/2:.1f}" y="{Y3+40}" font-size="17" '
             f'font-weight="bold" fill="{GREEN}" text-anchor="middle" '
             f'font-family="{FONT}">the value moves to the kept mean</text>')
+# training displacement (q -> k), under the step-3 line
+body.append(measure(Q, K, Y3 + 76,
+                    "training displacement = k − q  =  gap + pool shift",
+                    INK))
 
 DEFS = f'''<defs>
 <marker id="tip" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5.5"

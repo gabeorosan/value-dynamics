@@ -33,14 +33,13 @@ scores *x_jk* in [0,1] and judge scores *s_jk*, and the judge keeps two.
   of the pool and is never kept. Round-level forecast g ≈ ρσ, with ρ and σ the
   round's prompt-averaged values.
 
-**Two more kept-mean gaps** (not drawn, defined here to keep the figure to the
+**One more kept-mean gap** (not drawn, defined here to keep the figure to the
 quantities the model uses): **training displacement = k − q** is the kept mean
-minus the organism's own generated mean q; **behavioral pull = k − v** is the kept
-mean minus the behavioral value v. Both are round means.
+minus the organism's own generated mean q, as a round mean.
 
 **The model these feed.** The panel's lower block gives the round recurrence and
-its closed forms. Each round the pool mean is p = (1−u)q + u·s (supplier share u
-supplying answers at level s), the kept mean is k = p + ρσ, and the next value is
+its closed forms. Each round the pool mean is p = (1−u)q + u·s (outside-source
+share u at level s), the kept mean is k = p + ρσ, and the next value is
 next v = k (writeup "The state the law updates" section). The three typeset lines
 are:
 - **one round:** v_{r+1} = clip( (1−u)·v_r + u·s + ρσ , 0, 1 ), with σ and ρ

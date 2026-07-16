@@ -584,6 +584,13 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, figures): model-one-round-line corrected to the REAL
+  pool composition — 3 own + 3 outside of 6 candidates (corpus mixed pools
+  are pool_cogen_fraction 0.5; the figure had shown 6+3), subtitle states
+  it; training-displacement bracket moved below step ③ with the q guide
+  extended full-height; "behavioral pull k − v" removed from the writeup's
+  state section and state-variables caption (which also lost a stray
+  "supplier" term). Deployed.
 - 2026-07-16 (General, writeup+analysis): **Big user-feedback round.**
   (1) WRITEUP: three sections REMOVED (forward test / prediction accuracy
   collected / which part sets which dial; load-bearing numbers inlined,

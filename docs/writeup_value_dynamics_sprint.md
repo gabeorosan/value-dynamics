@@ -172,10 +172,9 @@ and then averaged over the round's prompts — everywhere `σ` and `ρ` appear
 below (including in `g ≈ ρσ`), they are these round averages. Agreement, so
 measured, is in practice a property of the judge × alternative-source ×
 answer-source condition rather than of the round (82% of its variance is
-between conditions). Two derived distances keep the generator and the
-behavioral measure separate: **training displacement** `k − q` (how far the
-training target sits from the organism's own generated mean) and
-**behavioral pull** `k − v` (how far it sits from the behavioral value).
+between conditions). One derived distance keeps the generator and the
+selector separate: **training displacement** `k − q`, how far the
+training target sits from the organism's own generated mean.
 
 ![The per-round measurements and the model they feed](figures/auto/state-variables/state-variables.svg)
 

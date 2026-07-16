@@ -253,8 +253,6 @@ body += id_below(r2, [
     "value.",
     "Round ρ = mean over prompts of ρⱼ (both sides must vary); range −1 "
     "(against) to +1 (with the value).",
-    "Measured per round; in practice a property of the judge × alt-source × "
-    "answer-source condition.",
 ])
 
 divider(426)

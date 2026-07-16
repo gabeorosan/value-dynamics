@@ -102,6 +102,8 @@ frozen scorer's continuous 0–1 estimate. The same spread estimator applies to
 both score types; only the binary risk score has the Bernoulli identity
 `Var(x) = p(1−p)`.
 
+![How each candidate answer gets a value score](figures/auto/value-score-defined/value-score-defined.svg)
+
 Per round, five bookkeeping quantities keep the selector, generator, and
 behavioral measure separate. Spread and agreement are measured within each
 prompt's pool and then averaged over the round's prompts — everywhere `σ` and

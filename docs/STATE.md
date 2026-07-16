@@ -584,6 +584,18 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **Value-score figure revived + small fixes.**
+  docs/figures/auto/value-score-defined/ (shelved in the 16→11 cut) revived,
+  de-worded (footer to new caption.md), and embedded in "What I measure" —
+  binary risk score (terminal-choice parse) vs continuous insecure-code
+  self-description score (frozen scorer). selection-response scatter gains the
+  committed full-data best fit (slope 0.958, intercept −0.002, asserted from
+  selection_response_predictor.json) as a dotted line with a 2-line key.
+  one-round-line endpoint now "new value ≈ k" (was =) and the "value before
+  this round" label removed. state-variables ρ row drops the
+  "measured per round / condition property" line (stays in caption + prose).
+  Site rebuilt (18 figures).
+
 - 2026-07-16 (General, writeup): **Wording round: pairwise judging + no
   negatives/jargon.** Kit loop stage 2 now "the judge picks A or B in each
   pair" (each answer paired with the alternative; A/B preference per the

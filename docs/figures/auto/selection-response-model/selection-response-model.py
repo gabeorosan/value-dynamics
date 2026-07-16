@@ -294,9 +294,24 @@ b.append(f'<line x1="{px}" y1="{SY(0)}" x2="{px+pw}" y2="{SY(0)}" stroke="#cfcfc
 # points
 for x, y in XY:
     b.append(dot(SX(x), SY(y), 4.1, BLUE, BLUE, 0.6, 0.42))
+# committed full-data best fit (drawn dotted, behind the unit line)
+fit_int, fit_slope = pred["selector_gap"][
+    "fitted_full_data_equation_description_only"]["intercept_slope"]
+assert approx(fit_int, -0.002137) and approx(fit_slope, 0.958197)
+b.append(f'<line x1="{SX(dlo)}" y1="{SY(fit_int + fit_slope * dlo)}" '
+         f'x2="{SX(dhi)}" y2="{SY(fit_int + fit_slope * dhi)}" '
+         f'stroke="{BLUE}" stroke-width="2.4" stroke-dasharray="3 6"/>')
 # unit slope reference line (the headline)
 b.append(f'<line x1="{SX(dlo)}" y1="{SY(dlo)}" x2="{SX(dhi)}" y2="{SY(dhi)}" '
          f'stroke="{INK}" stroke-width="3.2"/>')
+# key for the two lines, bottom-right of the plot (sparse region)
+ky = py + ph - 64
+kx = px + pw - 268
+b.append(f'<line x1="{kx}" y1="{ky}" x2="{kx+44}" y2="{ky}" stroke="{INK}" stroke-width="3.2"/>')
+b.append(T(kx + 54, ky + 5, "gap = ρσ  (slope fixed at 1)", 14, INK))
+b.append(f'<line x1="{kx}" y1="{ky+24}" x2="{kx+44}" y2="{ky+24}" stroke="{BLUE}" '
+         f'stroke-width="2.4" stroke-dasharray="3 6"/>')
+b.append(T(kx + 54, ky + 29, f"best fit  (slope {fit_slope:.2f})", 14, BLUE))
 
 # axis labels
 b.append(T(px + pw / 2, py + ph + 54, "forecast  ρσ  =  agreement × offered spread",

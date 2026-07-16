@@ -125,17 +125,7 @@ for v in vals:
     cxp = ax0 + v * (ax1 - ax0)
     b.append(f'<circle cx="{cxp:.1f}" cy="{axy}" r="7.5" fill="{RED if v > 0.5 else GRAY}" '
              f'stroke="white" stroke-width="1.6"/>')
-b.append(txt(W / 2, axy + 78,
-             "value spread σ = the mean within-prompt population SD of these scores. On the binary risk axis",
-             17, GRAY, "normal", "middle"))
-b.append(txt(W / 2, axy + 102,
-             "that equals a Bernoulli SD √(p(1−p)); the self-report axis is continuous. The judge scores the",
-             17, GRAY, "normal", "middle"))
-b.append(txt(W / 2, axy + 126,
-             "candidates too; agreement ρ = how well its ranking lines up with the value score.",
-             17, GRAY, "normal", "middle"))
-
-H = axy + 156
+H = axy + 64
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H:.0f}" '
        f'font-family="{FONT}">\n<rect width="{W}" height="{H:.0f}" fill="white"/>\n'
        + "\n".join(b) + "\n</svg>")

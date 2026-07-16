@@ -25,9 +25,13 @@ scores *x_jk* in [0,1] and judge scores *s_jk*, and the judge keeps two.
   comparisons and both presentation orders. Concretely the loop accumulates
   `sc[i] += P(candidate i preferred)` over the pairings and divides by the count.
   When the score oracle is the judge, s is the value score itself.
-- **selector gap g = k − p** — kept mean minus offered-pool mean (both round
-  means). Round-level forecast g ≈ ρσ, with ρ and σ the round's prompt-averaged
-  values.
+- **selector gap g = k − p** — kept mean minus pool mean, both round means. The
+  pool mean p averages every **candidate in the pool**: the organism's own
+  answers plus any outside-source answers — the answers eligible to be kept and
+  trained on. The alternative source's answer is shown to the judge as a
+  **comparison standard only**; in the static-alternative format it is never part
+  of the pool and is never kept. Round-level forecast g ≈ ρσ, with ρ and σ the
+  round's prompt-averaged values.
 
 **Two more kept-mean gaps** (not drawn, defined here to keep the figure to the
 quantities the model uses): **training displacement = k − q** is the kept mean
@@ -60,4 +64,12 @@ within-item population SD, ddof = 0, explicitly not the pooled SD). The judge-sc
 mechanics are `head2head_score` (duel mode) / `pair_score` (fixed-reference mode) in
 `experiments/em_selfaware_loop/colab_selfaware_loop_grid.py` (softmax A-or-B
 win-probability accumulated over pairings via `sc[i] += pr[..., 0]`, then averaged
-by count). Regenerate the SVG with `python3 state-variables.py`.
+by count).
+
+**Typesetting note.** The three display equations in "The model these feed" are
+set with matplotlib's mathtext (Computer Modern, `mathtext.fontset = "cm"`) and
+embedded as inline vector glyph paths, so they read as proper math (true italics,
+subscripts, superscripts, radicals) while the figure stays a single self-contained
+SVG — every glyph reference is same-document and namespaced per equation, with no
+external font or LaTeX dependency. Regenerate with
+`uv run --with matplotlib python3 state-variables.py`.

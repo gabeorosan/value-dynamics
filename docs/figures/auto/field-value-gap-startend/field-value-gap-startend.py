@@ -200,7 +200,7 @@ CELL_W = YLAB_W + PW + RIGHTPAD      # 580
 CELL_H = TITLE_H + PH + XLAB_H       # 436
 LM, TOP = 26, 156                    # left margin, top of grid
 W = LM + 3 * CELL_W + 12             # 1778
-H = TOP + 2 * CELL_H + 96            # 1140
+H = TOP + 2 * CELL_H + 40            # 1084 (no in-figure footnote)
 
 FIELD_SCALE = 0.55                   # value-units of arrow per unit of rho*sigma
 xcols = [round(0.10 + 0.10 * i, 2) for i in range(9)]       # 0.10 .. 0.90
@@ -249,7 +249,8 @@ S.append(txt(LM, 80,
              "experiment family.", 16, GRAY))
 S.append(txt(LM, 104,
              "The 9 scheduled-judge-swap runs are drawn hollow (dashed, open "
-             "head).  Faint background field: the self-only recurrence  Δ "
+             "head); their swap happens mid-run, between the dot and the "
+             "arrowhead.  Faint background field: the self-only recurrence  Δ "
              "value = ρ·σ.", 16, GRAY))
 
 
@@ -394,7 +395,10 @@ S.append(f'<circle cx="{kox + 5}" cy="{ly - 5}" r="3.6" fill="white" '
 S.append(f'<line x1="{kox + 1}" y1="{ly - 5}" x2="{kox + 46}" y2="{ly - 5}" '
          f'stroke="{GREEN}" stroke-width="1.6" stroke-dasharray="5 4" '
          f'marker-end="url(#ao1)"/>')
-S.append(txt(kox + 58, ly, "scheduled judge swap (hollow, dashed)", 14, INK))
+S.append(txt(kox + 58, ly, "scheduled judge swap (hollow, dashed) —", 14, INK))
+ly += 20
+S.append(txt(kox + 58, ly, "the swap happens between the dot and the arrowhead",
+             13.5, GRAY))
 
 # field notes
 notes = [
@@ -425,18 +429,7 @@ for fam, color in FAMS:
     S.append(txt(kox + 50, ly, fam, 13.5, INK))
     ly += 24
 
-# ---- source footnote -----------------------------------------------------
-fy = TOP + 2 * CELL_H + 44
-S.append(txt(LM, fy,
-             "Coordinates computed live (stdlib) from "
-             "experiments/spread_util_unified.json: start = round-1 (value, "
-             "ρ·own_spread); end = (last value + drift, last "
-             "ρ·own_spread).", 13, GRAY))
-S.append(txt(LM, fy + 20,
-             "Endpoint convention matches spread-rollout-bakeoff.py observed(); "
-             "families are the run-inventory.py names; envelope field "
-             "√(v(1−v)) is committed for the binary risk axis only.  "
-             "Generator: field-value-gap-startend.py", 13, GRAY))
+# ---- no in-figure footnote: provenance lives in caption.md ----------------
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n'

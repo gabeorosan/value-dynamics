@@ -99,6 +99,36 @@ carries self-report), the picture is consistent: this channel is mobile on
 Qwen — it is just not a trustworthy per-run readout of where the behavior
 went, with seed-level sign flips in the very cells where behavior moved most.
 
+## A2 / C. The second probe format, and the Tell Me About Yourself scope note (added 07-16, same day)
+
+The battery logs a second stated-risk read on both risk chassis:
+`altformat_risk.mean_p_risky`, four scenario forced choices (insurance,
+career, travel, project), each order-balanced. The user asked whether our
+self-report measurement matches Tell Me About Yourself
+([arXiv:2501.11120](https://arxiv.org/abs/2501.11120)), which reported that
+models fine-tuned toward risk-seeking *do* describe themselves as
+risk-seeking. Findings:
+
+- **OLMo (50 rollouts):** the scenario probe starts well-calibrated across
+  rollouts (cross-rollout corr 0.762 at round 0) but its per-run net move
+  barely follows selection — tracking +0.03…+0.13 by group, gap widening
+  0.18 → 0.317, final cross-rollout corr 0.539. The same conclusion as the
+  sentence probe, from an independent format.
+- **Qwen (16 runs):** the scenario probe is not interpretable. Its per-item
+  answer flips with option order — mean |order-read difference| **0.434**
+  over 320 item reads (compare 0.0099 for the sentence probe, which is
+  order-stable but floor-pinned) — and its mean drifts upward identically in
+  every run (≈0.11 → 0.25) whether behavior went up or down: a
+  content-independent format artifact, not self-description.
+- **Scope (the answer to the TMAY question):** both probes are order-balanced
+  log-prob forced choices. Neither is TMAY's elicitation — free-form
+  self-description scored on a continuous scale, plus numeric self-ratings.
+  So this program's stated-channel results say the *forced-choice* channels
+  do not move with selection; they cannot confirm or refute TMAY-style
+  behavioral self-awareness for these organisms. Running a TMAY-style
+  elicitation per round would require the per-round checkpoints, which were
+  not systematically saved — it is an open gap, noted in the ledger.
+
 ## What remains structurally non-parallel (and why that is correct)
 
 - The modeling aggregates (one-round MAE, gap fit, endpoint recurrence, CRPS)

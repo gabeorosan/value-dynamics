@@ -16,8 +16,11 @@ marks ρ = 0.
 
 Each dot is colored by the **observed net endpoint move of the behavioral
 value**, on a continuous diverging scale shown by the slim colorbar at right.
-The move is computed per run as (last-round value + that round's drift) −
-(round-1 value): **red** = the value moved up, **blue** = it moved down, **gray**
+The move is the run's **final measured value minus its round-1 value**. (The
+final measured value is a direct measurement, not an extrapolation: the corpus
+stores each round's pre-training value, so the battery reading taken after the
+last round's training is stored as that round's drift, and last value + drift
+reconstructs it exactly.) **Red** = the value moved up, **blue** = it moved down, **gray**
 at the middle = no net move. The color is a continuous diverging gradient with
 a pale neutral midpoint — near-white at zero, blending linearly toward red
 (up) or blue (down) — saturating at ±0.6, so lightness tracks |move|. Color is the **only** thing encoded on the
@@ -47,8 +50,8 @@ modelable runs** plotted — counts asserted in the generator. Of those 7: 3 hav
 zero within-pool spread (correlation is undefined), and 4 are random-selection
 controls whose judge–value correlation is undefined by construction even though
 their pool has nonzero spread. Mixed pools (base/peer compositions) also receive
-a **supplier shift** into the pool that is not represented on these two axes; it
-is a third force the plane does not show.
+a **pool shift (p − q)** from the outside answer source that is not represented
+on these two axes; it is a third force the plane does not show.
 
 ## Source data
 

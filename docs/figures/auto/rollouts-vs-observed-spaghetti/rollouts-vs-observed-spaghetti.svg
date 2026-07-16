@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" font-family="Helvetica, Arial, sans-serif">
-<rect width="1440" height="900" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 860" font-family="Helvetica, Arial, sans-serif">
+<rect width="1440" height="860" fill="white"/>
 <text x="46.0" y="50.0" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#1a1a1a" font-weight="bold" text-anchor="start">Sampled rollouts and observed trajectories, three experiment families</text>
 <text x="46.0" y="84.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">For each family a stacked pair on the same axes and the same line styling: top is one simulated rollout per run drawn</text>
 <text x="46.0" y="106.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">forward from round-1 pool state under the committed unit recurrence + staged noise; bottom is the runs actually</text>
@@ -255,8 +255,4 @@
 <polyline points="1008.7,707.3 1103.5,538.0 1198.3,538.0 1293.2,538.0 1388.0,538.0" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="1008.7,554.3 1103.5,615.9 1198.3,635.4 1293.2,678.0 1388.0,685.0" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="1008.7,538.0 1103.5,594.0 1198.3,659.3 1293.2,715.3 1388.0,653.5" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="46.0" y="822.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Observed and simulated trajectories regenerated with stdlib from experiments/spread_util_unified.json first-round state via the committed unit</text>
-<text x="46.0" y="840.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">recurrence and leave-one-condition-out staged-noise residual pools. One seeded draw per run; runs with an undefined round-1 agreement (rho) seed no</text>
-<text x="46.0" y="858.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">draw. rollout()/residual_scales()/meas_sd() copied verbatim from spread-rollout-bakeoff.py. Judge-swap and self-report-axis runs out of scope.</text>
-<text x="46.0" y="876.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Generator: rollouts-vs-observed-spaghetti.py</text>
 </svg>

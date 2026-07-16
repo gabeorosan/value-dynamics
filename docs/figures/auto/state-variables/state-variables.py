@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 """The five per-round bookkeeping quantities of the selection loop, typeset as a
 clean definitions panel. Replaces an unreadable markdown bullet list, so the whole
-point is legible math typography in hand-built SVG: proper subscripts (small
-lowered glyphs), italic symbols, a real radical bar for the square root, and an
-overbar for the mean.
+point is legible math typography. The three per-round measurement rows (spread,
+agreement, selector gap) are laid out in hand-built SVG with proper subscripts,
+italic symbols, a real radical bar for the square root, and an overbar for the
+mean. The three display equations in "The model these feed" are typeset with
+matplotlib's mathtext (Computer Modern, fontset "cm") and embedded as inline vector
+glyph paths, so they read as proper math (true italics, subscripts, superscripts)
+while the figure stays a single self-contained SVG with no external font or URL
+references.
 
 No data file is read — this is a definitions figure. The recipes shown match the
 committed scorers:
@@ -17,6 +22,14 @@ Palette constants, esc(), and wrap() are copied here verbatim so this generator 
 self-contained (stdlib only). Run from this directory:  python3 state-variables.py
 """
 import os
+import io
+import re
+
+import matplotlib
+matplotlib.use("Agg")
+matplotlib.rcParams["mathtext.fontset"] = "cm"   # Computer Modern: reads as proper math
+matplotlib.rcParams["svg.fonttype"] = "path"     # glyphs as vector paths (no font dependency)
+import matplotlib.pyplot as plt
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -46,6 +59,48 @@ def wrap(text, width):
     if cur:
         lines.append(cur)
     return lines
+
+
+# --- real math typesetting via matplotlib mathtext ---------------------------
+# Each display equation in "The model these feed" is rendered by matplotlib's
+# mathtext to an in-memory SVG, then its glyph-path group is lifted out and inlined
+# here. matplotlib emits the glyphs as <path>s referenced by <use> elements; those
+# references are same-document (never external), and every id is namespaced per
+# equation so multiple equations coexist in one file. No external LaTeX binary is
+# used (mathtext only), so the figure stays stdlib-plus-matplotlib self-contained.
+_EQ_COUNTER = [0]
+
+
+def embed_math(mathstr, x, y_baseline, fontsize=22, scale=1.0, color=INK):
+    """Typeset one equation and return an SVG <g> that lands its baseline-left
+    origin at (x, y_baseline) in this figure's pixel coordinates. Passing the same
+    fontsize and scale to every call keeps the on-page glyph size identical across
+    equations (target x-height matches the surrounding 17-18px prose)."""
+    _EQ_COUNTER[0] += 1
+    prefix = f"m{_EQ_COUNTER[0]}_"
+    fig = plt.figure()
+    fig.text(0, 0, mathstr, fontsize=fontsize)
+    buf = io.StringIO()
+    fig.savefig(buf, format="svg", transparent=True, bbox_inches="tight",
+                pad_inches=0.01)
+    plt.close(fig)
+    doc = buf.getvalue()
+    # the whole equation is one glyph group: <g transform="translate(tx ty) scale(..)">
+    m = re.search(r'<g transform="translate\(([\d.]+) ([\d.eE+-]+)\) scale\([^)]*\)">',
+                  doc)
+    if not m:
+        raise RuntimeError("could not locate mathtext glyph group in matplotlib SVG")
+    tx, ty = float(m.group(1)), float(m.group(2))
+    start = m.start()
+    end = doc.index("</g>", start) + len("</g>")   # no nested <g> inside the group
+    frag = doc[start:end]
+    # namespace every glyph id and its <use> reference so equations never collide
+    frag = re.sub(r'id="([^"]+)"', rf'id="{prefix}\1"', frag)
+    frag = re.sub(r'(xlink:href|href)="#([^"]+)"', rf'\1="#{prefix}\2"', frag)
+    dx = x - scale * tx
+    dy = y_baseline - scale * ty
+    return (f'<g transform="translate({dx:.3f} {dy:.3f}) scale({scale})" '
+            f'fill="{color}">{frag}</g>')
 
 
 # --- tiny math-typesetting engine --------------------------------------------
@@ -133,7 +188,7 @@ def radical(x0, y, radicand_width, base):
 
 
 # --- geometry -----------------------------------------------------------------
-W, H = 1200, 852
+W, H = 1200, 886
 NAME_X = 66          # left column: bold name
 SYM_X = 300          # italic symbol glyph
 FX = 402             # formula column start
@@ -263,34 +318,48 @@ body += id_below(r2, [
 divider(464)
 
 # =========================== ROW 3 : selector gap g ==========================
-r3 = 512
+r3 = 528
 body += name_cell(r3, "selector gap", "g")
 run3 = [('g', 'g', True), ('op', '='), ('g', 'k', True), ('op', '−'),
         ('g', 'p', True)]
 p3, _ = render_run(run3, FX, r3, FORM_BASE)
 body += p3
-body += id_right(r3, ["kept mean k minus pool mean p; p averages every",
-                      "answer offered to the judge, own and outside alike",
-                      "(k − q, the distance from the organism's own mean,",
-                      "is the separate training displacement).",
-                      "Forecast: g ≈ ρσ, prompt-averaged."])
+
+
+def id_g(top_y, lines, gx=545):
+    # a wider, top-anchored identification block for the selector-gap row, so the
+    # corrected pool-vs-alternative wording fits between the divider above and the
+    # section rule below without crowding either.
+    out = []
+    for i, ln in enumerate(lines):
+        out.append(f'<text x="{gx}" y="{top_y+i*20:.1f}" font-size="15" '
+                   f'fill="{GRAY}" font-family="{FONT}">{esc(ln)}</text>')
+    return out
+
+
+body += id_g(482, [
+    "kept mean k minus pool mean p.  p averages every candidate in the pool — the",
+    "organism's own answers plus any outside-source answers, the answers eligible",
+    "to be kept and trained on. The alternative source's answer is shown to the judge",
+    "as a comparison standard only: it is never in the pool and never kept.",
+    "(k − q, kept mean minus the organism's own-candidate mean, is the separate",
+    "training displacement.)    Forecast: g ≈ ρσ, prompt-averaged.",
+])
 
 # =============== THE MODEL THESE FEED : recurrence + closed forms ============
 # section rule + header
-body.append(f'<line x1="{NAME_X}" y1="566" x2="{W-60}" y2="566" '
+body.append(f'<line x1="{NAME_X}" y1="600" x2="{W-60}" y2="600" '
             f'stroke="{INK}" stroke-width="1.4" opacity="0.55"/>')
-body.append(f'<text x="{NAME_X}" y="602" font-size="22" font-weight="bold" '
+body.append(f'<text x="{NAME_X}" y="636" font-size="22" font-weight="bold" '
             f'fill="{INK}" font-family="{FONT}">The model these feed</text>')
 # the recurrence the closed forms solve (orientation, not a fitted result)
-rec = (f'<text x="{NAME_X}" y="630" font-size="15" fill="{GRAY}" '
+rec = (f'<text x="{NAME_X}" y="664" font-size="15" fill="{GRAY}" '
        f'font-family="{FONT}">'
        f'Each round: pool mean {var("p")} = (1−{var("u")}){var("q")} + '
        f'{var("u")}·{var("s")},  kept mean {var("k")} = {var("p")} + ρσ,  '
        f'next {var("v")} = {var("k")}.  The closed forms are its unclipped '
        f'solution.</text>')
 body.append(rec)
-
-RHO_SIGMA = [('g', 'ρ', True), ('g', 'σ', True)]
 
 
 def model_label(baseline, bold, note):
@@ -308,56 +377,40 @@ def model_id(baseline, text):
             f'fill="{GRAY}" font-family="{FONT}">{esc(text)}</text>']
 
 
-MB = 22   # model-equation glyph size
+# The three display equations are typeset by matplotlib mathtext (embed_math),
+# placed so each equation's baseline-left origin sits at (FX, e#). Same fontsize
+# and scale on every call, so all three render at one consistent size.
+EQ_FS = 22.0   # mathtext point size (x-height matches the surrounding prose)
 
 # ---- one round -----------------------------------------------------------
-e1 = 676
+e1 = 710
 body += model_label(e1, "one round", "")
-eq1 = ([('g', 'v', True), ('sub', 'r+1', True), ('op', '='),
-        ('g', 'clip', False), ('g', '(', False), ('sp', 4),
-        ('g', '(1−', False), ('g', 'u', True), ('g', ')·', False),
-        ('g', 'v', True), ('sub', 'r', True), ('op', '+'),
-        ('g', 'u', True), ('g', '·', False), ('g', 's', True), ('op', '+')]
-       + RHO_SIGMA
-       + [('sp', 5), ('g', ',', False), ('sp', 4), ('g', '0, 1', False),
-          ('sp', 3), ('g', ')', False)])
-pe1, _ = render_run(eq1, FX, e1, MB)
-body += pe1
+body.append(embed_math(
+    r"$v_{r+1} = \mathrm{clip}\left((1-u)\,v_r + u\,s + \rho\sigma,\ 0,\ 1\right)$",
+    FX, e1, fontsize=EQ_FS))
 body += model_id(e1, "outside-source share u at level s; σ and ρ are measured once, "
                      "at round 1.")
 
 # ---- iterated (mixed pool) ----------------------------------------------
-e2 = 740
+e2 = 774
 body += model_label(e2, "iterated", "(mixed pool)")
-eq2 = ([('g', 'v', True), ('sub', 'r', True), ('op', '='),
-        ('g', 'v', True), ('sup', '*'), ('op', '+'),
-        ('g', '(1−', False), ('g', 'u', True), ('g', ')', False),
-        ('sup', 'r'), ('g', '·', False),
-        ('g', '(', False), ('g', 'v', True), ('sub', '0', True), ('op', '−'),
-        ('g', 'v', True), ('sup', '*'), ('g', ')', False),
-        ('sp', 12), ('g', ',', False), ('sp', 8), ('g', 'with', False),
-        ('sp', 10),
-        ('g', 'v', True), ('sup', '*'), ('op', '='), ('g', 's', True),
-        ('op', '+')]
-       + RHO_SIGMA
-       + [('sp', 3), ('g', '/', False), ('sp', 3), ('g', 'u', True)])
-pe2, _ = render_run(eq2, FX, e2, MB)
-body += pe2
+body.append(embed_math(
+    r"$v_r = v^{*} + (1-u)^{r}\,(v_0 - v^{*}) \quad \mathrm{with}\quad "
+    r"v^{*} = s + \rho\sigma/u$",
+    FX, e2, fontsize=EQ_FS))
 body += model_id(e2, "geometric approach to the balance point v*, away from "
                      "the walls.")
 
 # ---- self-only (u = 0) ---------------------------------------------------
-e3 = 804
+e3 = 838
 body += model_label(e3, "self-only", "(u = 0)")
-eq3 = ([('g', 'v', True), ('sub', 'r', True), ('op', '='),
-        ('g', 'v', True), ('sub', '0', True), ('op', '+'),
-        ('g', 'r', True), ('g', '·', False)]
-       + RHO_SIGMA)
-pe3, _ = render_run(eq3, FX, e3, MB)
-body += pe3
+body.append(embed_math(
+    r"$v_r = v_0 + r\,\rho\sigma$",
+    FX, e3, fontsize=EQ_FS))
 body += model_id(e3, "a straight walk until a wall or the spread runs out.")
 
-svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
+svg = (f'<svg xmlns="http://www.w3.org/2000/svg" '
+       f'xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n<rect width="{W}" height="{H}" fill="white"/>\n'
        + "\n".join(body) + "\n</svg>")
 

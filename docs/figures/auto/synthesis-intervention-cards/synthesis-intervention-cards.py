@@ -283,8 +283,8 @@ def spliced_line(x, y, w, h, seg_a, seg_b, ca, cb, legend_x, legend_y,
     sw_px = x + w * (ka - 0.5) / (n - 1)
     s.append(f'<line x1="{sw_px:.1f}" y1="{y-6}" x2="{sw_px:.1f}" y2="{y+h}" '
              f'stroke="{INK}" stroke-width="1.6" stroke-dasharray="4 3"/>')
-    s.append(txt(sw_px, y - 10, "judge swapped", 12.5, INK, weight="bold",
-                 anchor="middle"))
+    s.append(txt(sw_px, y - 10, "judge swapped between these rounds", 12.5,
+                 INK, weight="bold", anchor="middle"))
     # prior-run polyline (indices 0..ka-1), then resumed polyline (ka-1..n-1)
     pa = " ".join(f"{pt(i)[0]:.1f},{pt(i)[1]:.1f}" for i in range(ka))
     pb = " ".join(f"{pt(i)[0]:.1f},{pt(i)[1]:.1f}" for i in range(ka - 1, n))

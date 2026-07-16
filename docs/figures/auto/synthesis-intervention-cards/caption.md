@@ -48,11 +48,14 @@ what the untouched dial would have done.
 3. **Swap in an oracle judge (−1).** One railed OLMo organism, one continuous line.
    A base-model judge first rails the organism up (0.301 → 0.875 rail); then that
    base-model judge is **swapped for a score oracle** whose agreement is pinned at
-   −1.0, and the value reverses to 0.094. The colour change and dashed "judge
-   swapped" marker sit at the swap.
-4. **Remove the supplier.** The Qwen em750 insecure-code organism runs a
-   candid-prompt self-judge duel loop, held fixed except for who fills the answer
-   pool. **Different instrument:** the value here is the forced-choice probability
+   −1.0, and the value reverses to 0.094. The dashed "judge swapped between
+   these rounds" marker sits halfway between two measured points on purpose:
+   the swap is an event between measurements — the point to its left is the
+   last value measured under the base-model judge, the point to its right the
+   first measured under the oracle — so the line belongs to neither round.
+4. **Remove the outside source.** The Qwen em750 insecure-code organism runs a
+   candid-prompt self-judge duel loop, held fixed except for who fills the
+   candidate pool. **Different instrument:** the value here is the forced-choice probability
    that the model describes itself as writing insecure code (0–1), not the
    share-kept measure of cards 1–3. When half the pool is drawn from the base model
    (blue), the loop drives self-description down to near zero (0.006 / 0.007 by

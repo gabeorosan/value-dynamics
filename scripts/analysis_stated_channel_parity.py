@@ -27,6 +27,16 @@ at the first and last round. Aggregates per condition group and overall;
 cross-rollout corr at both ends. Bonus instrument readout for the risk stated
 probe: mean |p(A-order) - p(B-order)| across battery reads (order sensitivity).
 
+SECOND PROBE FORMAT (added 07-16, user question re Tell Me About Yourself):
+the battery also logs altformat_risk.mean_p_risky — four scenario forced
+choices (insurance / career / travel / project), order-balanced — on BOTH the
+Qwen risk grid and the OLMo/K2 chassis. Sections A2 (Qwen) and C (OLMo) run
+the same tracking readouts on that series, plus its per-item order
+sensitivity (mean |order-read difference|). Neither probe is the free-form
+scored self-description elicitation of Tell Me About Yourself
+(arXiv:2501.11120); every stated-channel claim is scoped to these forced
+formats.
+
 Usage: uv run python scripts/analysis_stated_channel_parity.py
 Writes experiments/stated_channel_parity.json and prints the tables.
 """
@@ -113,7 +123,8 @@ def aggregate(rollouts):
 
 def qwen_risk_rollouts():
     d = json.load(open(QWEN_RISK_FILE))
-    rollouts, order_deltas = [], []
+    rollouts, alt_rollouts = [], []
+    order_deltas, alt_order_deltas = [], []
     for seed, conds in d.items():
         if not str(seed).isdigit():
             continue
@@ -129,16 +140,77 @@ def qwen_risk_rollouts():
                 continue
             sr = [b["self_report"]["p_risk_tolerant"] for b in rec["battery"]
                   if isinstance(b, dict) and "self_report" in b]
+            alt = [b["altformat_risk"]["mean_p_risky"] for b in rec["battery"]
+                   if isinstance(b, dict) and "altformat_risk" in b]
             traj = rec["traj"]
             n = min(len(sr), len(traj))
             if n < 3:
                 continue
             rollouts.append(rollout_row(cond, seed, traj[:n], sr[:n]))
+            m = min(len(alt), len(traj))
+            if m >= 3:
+                alt_rollouts.append(rollout_row(cond, seed, traj[:m], alt[:m]))
             for b in rec["battery"]:
                 items = b.get("self_report", {}).get("items", [])
                 if len(items) == 2:
                     order_deltas.append(abs(items[0]["p_risk_tolerant"]
                                             - items[1]["p_risk_tolerant"]))
+                for it in b.get("altformat_risk", {}).get("items", []):
+                    orr = it.get("order_reads", [])
+                    if len(orr) == 2:
+                        alt_order_deltas.append(abs(orr[0] - orr[1]))
+    return rollouts, order_deltas, alt_rollouts, alt_order_deltas
+
+
+def olmo_altformat_rollouts():
+    """The OLMo/K2 rollouts of analysis_selfreport_calibration.py, re-read
+    with altformat_risk.mean_p_risky as the stated series."""
+    import glob
+    files = sorted(glob.glob("experiments/modal_k2_release/output/*.json")) + [
+        "experiments/kaggle/kaggle_k2_olmo_inversion/output_controls/k2_olmo_inversion_kaggle_controls.json",
+        "experiments/kaggle/kaggle_k2_olmo_inversion_conf/output/k2_conf_v1_seeds12_partial.json",
+        "experiments/kaggle/kaggle_k2_olmo_inversion_conf/output/k2_olmo_inversion_kaggle_conf_v2.json",
+        "experiments/kaggle/kaggle_k2_olmo_inversion_base012/output/k2_olmo_inversion_kaggle_base012.json",
+        "experiments/cerebrium_k2/output/k2_cerebrium_seed0_complete.json",
+    ]
+    rollouts, order_deltas = [], []
+    for f in files:
+        if not os.path.exists(f):
+            continue
+        d = json.load(open(f))
+        for seed in d:
+            if seed.startswith("_"):
+                continue
+            for cond, rec in d[seed].items():
+                if not isinstance(rec, dict) or "battery" not in rec or "traj" not in rec:
+                    continue
+                alt = [b["altformat_risk"]["mean_p_risky"] for b in rec["battery"]
+                       if isinstance(b, dict) and "altformat_risk" in b]
+                traj = rec["traj"]
+                n = min(len(alt), len(traj))
+                if n < 3:
+                    continue
+                # same condition grouping as analysis_selfreport_calibration.py
+                if cond.startswith("h2h"):
+                    g = "h2h_duels"
+                elif "oracle" in cond:
+                    g = "oracle"
+                elif "mix" in cond or "invade" in cond:
+                    g = "mixed_injection"
+                elif cond in ("frozen_cons_r0", "frozen_base", "random_select",
+                              "evolving_self"):
+                    g = "k2_grid"
+                elif "hold" in cond or "rescue" in cond or "erode" in cond:
+                    g = "release_holds_rescues"
+                else:
+                    g = "other"
+                rollouts.append(rollout_row(g, f"{seed}|{os.path.basename(f)}",
+                                            traj[:n], alt[:n]))
+                for b in rec["battery"]:
+                    for it in b.get("altformat_risk", {}).get("items", []):
+                        orr = it.get("order_reads", [])
+                        if len(orr) == 2:
+                            order_deltas.append(abs(orr[0] - orr[1]))
     return rollouts, order_deltas
 
 
@@ -200,9 +272,10 @@ def print_block(name, rollouts, agg):
 
 
 def main():
-    qwen_risk, order_deltas = qwen_risk_rollouts()
+    qwen_risk, order_deltas, qwen_alt, alt_order_deltas = qwen_risk_rollouts()
     assert len(qwen_risk) == 16, len(qwen_risk)  # the 16 Qwen risk-grid corpus runs
     insecure = insecure_loop_rollouts()
+    olmo_alt, olmo_alt_order = olmo_altformat_rollouts()
 
     out = {
         "moved_threshold": MOVED,
@@ -211,6 +284,18 @@ def main():
             "aggregates": aggregate(qwen_risk),
             "stated_probe_order_sensitivity_mean_abs": round(mean(order_deltas), 4),
             "stated_probe_order_reads": len(order_deltas),
+        },
+        "qwen_risk_grid_altformat": {
+            "rollouts": qwen_alt,
+            "aggregates": aggregate(qwen_alt),
+            "order_sensitivity_mean_abs": round(mean(alt_order_deltas), 4),
+            "order_reads": len(alt_order_deltas),
+        },
+        "olmo_risk_altformat": {
+            "rollouts": olmo_alt,
+            "aggregates": aggregate(olmo_alt),
+            "order_sensitivity_mean_abs": round(mean(olmo_alt_order), 4),
+            "order_reads": len(olmo_alt_order),
         },
         "qwen_insecure_loops": {
             "rollouts": insecure,
@@ -225,6 +310,16 @@ def main():
     print(f"stated-probe order sensitivity: mean |p_A-order - p_B-order| = "
           f"{out['qwen_risk_grid']['stated_probe_order_sensitivity_mean_abs']} "
           f"over {out['qwen_risk_grid']['stated_probe_order_reads']} reads")
+    print_block("A2. Qwen risk grid — behavior vs scenario-format stated risk (altformat_risk)",
+                qwen_alt, out["qwen_risk_grid_altformat"]["aggregates"])
+    print(f"altformat order sensitivity: mean |order-read diff| = "
+          f"{out['qwen_risk_grid_altformat']['order_sensitivity_mean_abs']} "
+          f"over {out['qwen_risk_grid_altformat']['order_reads']} item reads")
+    print_block("C. OLMo/K2 rollouts — behavior vs scenario-format stated risk (altformat_risk)",
+                olmo_alt, out["olmo_risk_altformat"]["aggregates"])
+    print(f"altformat order sensitivity: mean |order-read diff| = "
+          f"{out['olmo_risk_altformat']['order_sensitivity_mean_abs']} "
+          f"over {out['olmo_risk_altformat']['order_reads']} item reads")
     print_block("B. Qwen insecure-code loops — behavior (sr_freegen) vs stated (p_insecure forced probe)",
                 insecure, out["qwen_insecure_loops"]["aggregates"])
 

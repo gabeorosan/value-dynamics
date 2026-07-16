@@ -584,6 +584,31 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup+analysis): **Big user-feedback round.**
+  (1) WRITEUP: three sections REMOVED (forward test / prediction accuracy
+  collected / which part sets which dial; load-bearing numbers inlined,
+  cross-refs repaired); Findings replaced by THREE CANDIDATE SETS in a
+  3-column table (user to pick); new paragraph on why self-description is
+  the insecure-code organism's primary coordinate (the loop selects on it;
+  per-round code writing was never logged — code score is primary only in
+  the OLMo erosion family); selector-gap wording fixed everywhere (pool
+  mean p averages candidates only — the alternative is a comparison
+  standard, never in the pool). (2) ANALYSIS: stated-channel parity
+  EXTENDED with the scenario-format probe (altformat_risk) on both risk
+  chassis + a Tell-Me-About-Yourself scope note — on OLMo (50 rollouts) it
+  tracks like the sentence probe (+0.03…+0.13, gap 0.18→0.32); on Qwen it
+  is UNINTERPRETABLE (mean order flip 0.43/320 reads, content-independent
+  drift); NEITHER probe is TMAY's free-form elicitation, claims now
+  probe-format-scoped (ledger row extended). (3) FIGURES: state-variables
+  equations now real matplotlib-mathtext (CM); run-inventory labels spell
+  out rounds-per-run ("6 × 4 + 2 × 8 rounds"); setup-both-models panels
+  re-anchored on identical rows; K split-panel swap semantics clarified +
+  footnote moved to caption; E/F footnotes removed to captions; judges
+  figure pair-header texts removed; cards panel-3 seam labeled "judge
+  swapped between these rounds"; candidate A footnote removed, endpoint
+  legend now "final measured value − round-1 value"; new draft
+  docs/figures/auto/stated-channel-tracking/ (Δbehavior vs Δstated, 3
+  populations). Deployed to all three surfaces.
 - 2026-07-16 (General, analysis): **Stated-channel parity closed (user audit
   question: has every insecure-code self-report analysis been run on risk
   self-report and vice versa? — it had NOT).**

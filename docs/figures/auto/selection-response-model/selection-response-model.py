@@ -254,7 +254,7 @@ b.append(T(kyx + 84, DTOP + 37, "dropped", 13.5, INK))
 
 # ---- bridge line: the two dials multiply into the scatter's x-axis -------
 bY = DTOP + DH + 40
-b.append(T(W / 2, bY, "spread σ   ×   agreement ρ   =   forecast  ρσ   —  the horizontal axis below",
+b.append(T(W / 2, bY, "spread σ   ×   agreement ρ   =   forecast  ρσ",
            19, INK, "middle", "bold"))
 b.append(f'<path d="M {W/2} {bY+12} L {W/2} {bY+34}" stroke="{INK}" '
          f'stroke-width="3" marker-end="url(#arr)"/>')

@@ -233,7 +233,7 @@ for _k, _rows in RUNS.items():
 # ======================================================================
 # build the SVG
 # ======================================================================
-W, H = 1360, 812
+W, H = 1360, 790
 LEFT = 92
 RIGHT = 40
 S = []
@@ -372,19 +372,7 @@ for i, g in enumerate(GROUPS):
     S.append(txt(cx, lab_y + 71, f"n = {g['n']} runs", 12.5, INK,
                  anchor="middle"))
 
-# ---- source footnote -----------------------------------------------------
-fy = lab_y + 100
-S.append(line(LEFT, fy - 14, W - RIGHT, fy - 14, FAINT, 1.0))
-S.append(txt(LEFT, fy,
-             "Violins and dots regenerated with stdlib from "
-             "experiments/spread_util_unified.json round-1 state via the "
-             "committed unit recurrence and staged-noise residual pools "
-             "(rollout copied verbatim from spread-rollout-bakeoff.py).",
-             13, GRAY))
-S.append(txt(LEFT, fy + 18,
-             "Risk-axis condition cells with >=2 runs; no within-run judge "
-             "swaps exist in this file. Generator: rollouts-vs-observed-endpoints.py",
-             13, GRAY))
+# ---- no in-figure footnote: provenance lives in caption.md ----------------
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n'

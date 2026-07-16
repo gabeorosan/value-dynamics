@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 812" font-family="Helvetica, Arial, sans-serif">
-<rect width="1360" height="812" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 790" font-family="Helvetica, Arial, sans-serif">
+<rect width="1360" height="790" fill="white"/>
 <text x="92.0" y="50.0" font-family="Helvetica, Arial, sans-serif" font-size="23" fill="#1a1a1a" font-weight="bold" text-anchor="start">Simulated endpoint distributions and observed endpoints, by condition group</text>
 <text x="92.0" y="82.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" text-anchor="start">Each column is one condition cell (organism x judge x format x pool). Light-blue shape = distribution of simulated final-round values pooled over the cell's runs.</text>
 <text x="92.0" y="104.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684" font-weight="normal" text-anchor="start">Dark dots = the observed final value of each real run (one dot per run/seed). y = value on the 0-1 scale.</text>
@@ -123,7 +123,4 @@
 <text x="1243.2" y="621.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">duels</text>
 <text x="1243.2" y="638.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">base-mixed answers</text>
 <text x="1243.2" y="655.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" font-weight="normal" text-anchor="middle">n = 2 runs</text>
-<line x1="92.0" y1="670.0" x2="1320.0" y2="670.0" stroke="#e4e4e0" stroke-width="1.0"/>
-<text x="92.0" y="684.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Violins and dots regenerated with stdlib from experiments/spread_util_unified.json round-1 state via the committed unit recurrence and staged-noise residual pools (rollout copied verbatim from spread-rollout-bakeoff.py).</text>
-<text x="92.0" y="702.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Risk-axis condition cells with &gt;=2 runs; no within-run judge swaps exist in this file. Generator: rollouts-vs-observed-endpoints.py</text>
 </svg>

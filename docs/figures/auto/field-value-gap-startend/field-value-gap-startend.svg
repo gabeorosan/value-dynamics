@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1778 1124" font-family="Helvetica, Arial, sans-serif">
-<rect width="1778" height="1124" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1778 1068" font-family="Helvetica, Arial, sans-serif">
+<rect width="1778" height="1068" fill="white"/>
 <defs>
 <marker id="af0" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2867b5"/></marker>
 <marker id="ao0" viewBox="0 0 12 12" refX="9.5" refY="6" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M 1 1 L 11 6 L 1 11 z" fill="white" stroke="#2867b5" stroke-width="1.6"/></marker>
@@ -15,7 +15,7 @@
 </defs>
 <text x="26.0" y="46.0" font-family="Helvetica, Arial, sans-serif" font-size="25" fill="#1a1a1a" font-weight="bold" text-anchor="start">Each run's start and end in the (behavioral value, forecast-move) plane</text>
 <text x="26.0" y="80.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">Open dot = round 1  →  filled arrowhead = final round.  One straight arrow per run (no intermediate rounds), one panel per experiment family.</text>
-<text x="26.0" y="104.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">The 9 scheduled-judge-swap runs are drawn hollow (dashed, open head).  Faint background field: the self-only recurrence  Δ value = ρ·σ.</text>
+<text x="26.0" y="104.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">The 9 scheduled-judge-swap runs are drawn hollow (dashed, open head); their swap happens mid-run, between the dot and the arrowhead.  Faint background field: the self-only recurrence  Δ value = ρ·σ.</text>
 <text x="100.0" y="182.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">Qwen risk grid — 16 runs</text>
 <line x1="100.00" y1="500.62" x2="580.00" y2="500.62" stroke="#e4e4e0" stroke-width="1.0"/>
 <line x1="100.00" y1="458.31" x2="580.00" y2="458.31" stroke="#e4e4e0" stroke-width="1.0"/>
@@ -718,30 +718,29 @@
 <text x="1318.0" y="654.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="normal" text-anchor="start">round 1 (open dot)  →  final round (filled head)</text>
 <circle cx="1265" cy="679" r="3.6" fill="white" stroke="#3a7d44" stroke-width="1.6"/>
 <line x1="1261" y1="679" x2="1306" y2="679" stroke="#3a7d44" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#ao1)"/>
-<text x="1318.0" y="684.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="normal" text-anchor="start">scheduled judge swap (hollow, dashed)</text>
-<text x="1260.0" y="718.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">field: the self-only recurrence Δ value = ρ·σ,</text>
-<text x="1260.0" y="738.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">length ∝ ρ·σ (schematic)</text>
-<text x="1260.0" y="762.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">risk panels: field bends down toward the walls —</text>
-<text x="1260.0" y="782.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">spread tracks the binary envelope √(v(1−v))</text>
-<text x="1260.0" y="806.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">flat-field panels: identity committed only for</text>
-<text x="1260.0" y="826.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">the binary risk axis</text>
-<text x="1260.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">ρ unmeasurable (σ → 0) → move plotted at 0</text>
-<text x="1260.0" y="880.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="start">Family colors</text>
-<circle cx="1265" cy="899" r="3.7" fill="white" stroke="#2867b5" stroke-width="1.7"/>
-<line x1="1261" y1="899" x2="1298" y2="899" stroke="#2867b5" stroke-width="2.2" marker-end="url(#af0)"/>
-<text x="1310.0" y="904.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">Qwen risk grid</text>
-<circle cx="1265" cy="923" r="3.7" fill="white" stroke="#3a7d44" stroke-width="1.7"/>
-<line x1="1261" y1="923" x2="1298" y2="923" stroke="#3a7d44" stroke-width="2.2" marker-end="url(#af1)"/>
-<text x="1310.0" y="928.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">OLMo risk grid + judge schedules</text>
-<circle cx="1265" cy="947" r="3.7" fill="white" stroke="#b5842c" stroke-width="1.7"/>
-<line x1="1261" y1="947" x2="1298" y2="947" stroke="#b5842c" stroke-width="2.2" marker-end="url(#af2)"/>
-<text x="1310.0" y="952.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">OLMo mixed-pool interventions</text>
-<circle cx="1265" cy="971" r="3.7" fill="white" stroke="#8a5a9e" stroke-width="1.7"/>
-<line x1="1261" y1="971" x2="1298" y2="971" stroke="#8a5a9e" stroke-width="2.2" marker-end="url(#af3)"/>
-<text x="1310.0" y="976.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">oracle &amp; injection</text>
-<circle cx="1265" cy="995" r="3.7" fill="white" stroke="#b5342c" stroke-width="1.7"/>
-<line x1="1261" y1="995" x2="1298" y2="995" stroke="#b5342c" stroke-width="2.2" marker-end="url(#af4)"/>
-<text x="1310.0" y="1000.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">Qwen insecure-code loops</text>
-<text x="26.0" y="1072.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Coordinates computed live (stdlib) from experiments/spread_util_unified.json: start = round-1 (value, ρ·own_spread); end = (last value + drift, last ρ·own_spread).</text>
-<text x="26.0" y="1092.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Endpoint convention matches spread-rollout-bakeoff.py observed(); families are the run-inventory.py names; envelope field √(v(1−v)) is committed for the binary risk axis only.  Generator: field-value-gap-startend.py</text>
+<text x="1318.0" y="684.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="normal" text-anchor="start">scheduled judge swap (hollow, dashed) —</text>
+<text x="1318.0" y="704.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">the swap happens between the dot and the arrowhead</text>
+<text x="1260.0" y="738.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">field: the self-only recurrence Δ value = ρ·σ,</text>
+<text x="1260.0" y="758.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">length ∝ ρ·σ (schematic)</text>
+<text x="1260.0" y="782.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">risk panels: field bends down toward the walls —</text>
+<text x="1260.0" y="802.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">spread tracks the binary envelope √(v(1−v))</text>
+<text x="1260.0" y="826.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">flat-field panels: identity committed only for</text>
+<text x="1260.0" y="846.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">the binary risk axis</text>
+<text x="1260.0" y="870.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">ρ unmeasurable (σ → 0) → move plotted at 0</text>
+<text x="1260.0" y="900.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="start">Family colors</text>
+<circle cx="1265" cy="919" r="3.7" fill="white" stroke="#2867b5" stroke-width="1.7"/>
+<line x1="1261" y1="919" x2="1298" y2="919" stroke="#2867b5" stroke-width="2.2" marker-end="url(#af0)"/>
+<text x="1310.0" y="924.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">Qwen risk grid</text>
+<circle cx="1265" cy="943" r="3.7" fill="white" stroke="#3a7d44" stroke-width="1.7"/>
+<line x1="1261" y1="943" x2="1298" y2="943" stroke="#3a7d44" stroke-width="2.2" marker-end="url(#af1)"/>
+<text x="1310.0" y="948.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">OLMo risk grid + judge schedules</text>
+<circle cx="1265" cy="967" r="3.7" fill="white" stroke="#b5842c" stroke-width="1.7"/>
+<line x1="1261" y1="967" x2="1298" y2="967" stroke="#b5842c" stroke-width="2.2" marker-end="url(#af2)"/>
+<text x="1310.0" y="972.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">OLMo mixed-pool interventions</text>
+<circle cx="1265" cy="991" r="3.7" fill="white" stroke="#8a5a9e" stroke-width="1.7"/>
+<line x1="1261" y1="991" x2="1298" y2="991" stroke="#8a5a9e" stroke-width="2.2" marker-end="url(#af3)"/>
+<text x="1310.0" y="996.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">oracle &amp; injection</text>
+<circle cx="1265" cy="1015" r="3.7" fill="white" stroke="#b5342c" stroke-width="1.7"/>
+<line x1="1261" y1="1015" x2="1298" y2="1015" stroke="#b5342c" stroke-width="2.2" marker-end="url(#af4)"/>
+<text x="1310.0" y="1020.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">Qwen insecure-code loops</text>
 </svg>

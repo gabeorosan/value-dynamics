@@ -21,10 +21,13 @@ one another.
 **What each arrow is.** One straight arrow per run, from its round-1 coordinates
 (*v*₁, ρ₁·σ₁) at the open dot to its final-round coordinates (*v*_end, last ρ·σ)
 at the filled arrowhead — no intermediate rounds are drawn. The endpoint value
-follows the `observed()` convention (last round's value plus its drift). The nine
+follows the `observed()` convention (last round's value plus its drift — i.e. the
+final measured value). The nine
 scheduled-judge-swap runs (all inside the OLMo risk-grid family) are drawn hollow —
-dashed, open arrowhead — because the self-only field on this plane omits the mid-run
-judge swap they experience. Endpoints (and a few starts) whose agreement ρ was
+dashed, open arrowhead. **The swap itself happens mid-run, somewhere between the
+dot and the arrowhead; it is not marked on the plane** — the hollow style flags
+that the self-only field omits that mid-run
+judge swap. Endpoints (and a few starts) whose agreement ρ was
 unmeasurable — overwhelmingly because σ had already collapsed to 0 — are placed at
 forecast move 0.
 

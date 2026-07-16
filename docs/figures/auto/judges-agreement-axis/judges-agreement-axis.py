@@ -207,8 +207,7 @@ def build():
         ("R", dict(name="Random keeping",
                    cond="Qwen risk-grid · risk · own answers",
                    rho=0.0, rlab="≈ 0", color=GRAY, kind="hollow")),
-        ("H", "same cautious judge — only the alternative source (reference "
-              "vs duel) differs"),
+        ("H", ""),   # wordless separator (pair carried by the dumbbell + row names)
         ("R", dict(name="Cautious copy — static alternative",
                    cond="OLMo risky-gambles · risk · base-mixed answers",
                    rho=0.383, rlab="+0.38", color=GREEN, kind="dot",
@@ -217,8 +216,7 @@ def build():
                    cond="OLMo risky-gambles · risk · base-mixed answers",
                    rho=0.100, rlab="+0.10", color=GREEN, kind="dot",
                    pair="cautious")),
-        ("H", "same self-judge — only the answer source (own vs base-mixed) "
-              "differs"),
+        ("H", ""),   # wordless separator
         ("R", dict(name="Self-judge — base-mixed answers",
                    cond="Qwen insecure-code · self-description · duels",
                    rho=-0.236, rlab="−0.24", color=BLUE, kind="dot",

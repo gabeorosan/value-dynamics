@@ -249,7 +249,7 @@ for fam, _, _ in PANELS:
 #   bottom = observed
 # same axes / scale / line styling in both halves (texture vs texture)
 # ======================================================================
-W, H = 1440, 900
+W, H = 1440, 860
 LEFT = 46
 S = []
 
@@ -357,18 +357,7 @@ for idx, (fam, name, sub) in enumerate(PANELS):
                      f'transform="rotate(-90 {px0 - 6} {cy:.1f})">'
                      f'behavioral value (0-1)</text>')
 
-# ---- source footnote -----------------------------------------------------
-fy = PLOT2_BOT + 60
-_foot = ("Observed and simulated trajectories regenerated with stdlib from "
-         "experiments/spread_util_unified.json first-round state via the "
-         "committed unit recurrence and leave-one-condition-out staged-noise "
-         "residual pools. One seeded draw per run; runs with an undefined "
-         "round-1 agreement (rho) seed no draw. "
-         "rollout()/residual_scales()/meas_sd() copied verbatim from "
-         "spread-rollout-bakeoff.py. Judge-swap and self-report-axis runs out "
-         "of scope. Generator: rollouts-vs-observed-spaghetti.py")
-for _i, _ln in enumerate(wrap(_foot, 150)):
-    S.append(txt(LEFT, fy + _i * 18, _ln, 13, GRAY))
+# ---- no in-figure footnote: provenance lives in caption.md ----------------
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n'

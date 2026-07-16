@@ -114,7 +114,7 @@ N_FLAT = sum(1 for r in RUNS if abs(r["move"]) < THRESH)
 assert N_UP + N_DOWN + N_FLAT == len(RUNS)
 
 # ---- geometry ---------------------------------------------------------------
-W, H = 1300, 880
+W, H = 1300, 800
 PL, PR = 150, 900           # plot left / right (px)
 PT, PB = 250, 700           # plot top / bottom (px)
 RHO0, RHO1 = -1.08, 0.95    # x data domain
@@ -197,7 +197,7 @@ body.append(f'<text x="{LX}" y="{LY}" font-family="{FONT}" font-size="18" '
 body.append(f'<text x="{LX}" y="{LY+23}" font-family="{FONT}" font-size="18" '
             f'font-weight="bold" fill="{INK}">the behavioral value</text>')
 body.append(f'<text x="{LX}" y="{LY+45}" font-family="{FONT}" font-size="14.5" '
-            f'fill="{GRAY}">(last value+drift) &#8722; round-1 value</text>')
+            f'fill="{GRAY}">final measured value &#8722; round-1 value</text>')
 
 # diverging color bar: a real SVG linear gradient (red -> gray -> blue),
 # which matches move_color exactly since the color is linear in the move
@@ -217,15 +217,7 @@ for frac, lab in [(0.0, "+0.6  moved up"), (0.5, "0  no net move"),
     body.append(f'<text x="{bar_x+bar_w+10}" y="{yy+6:.1f}" '
                 f'font-family="{FONT}" font-size="16" fill="{INK}">{lab}</text>')
 
-# ---- footnote (excluded runs + source) --------------------------------------
-foot = ["7 of the 74 runs have an undefined round-1 &#961; and cannot be placed "
-        "on these two axes (3 zero-spread pools, 4 random-selection controls); "
-        f"{len(RUNS)} runs plotted.",
-        "Source: experiments/spread_util_unified.json &#8212; round-1 record "
-        "per run key cond|seed|source."]
-for i, fl in enumerate(foot):
-    body.append(f'<text x="{PL}" y="{H-40 + i*22}" font-family="{FONT}" '
-                f'font-size="14.5" fill="{GRAY}">{fl}</text>')
+# ---- footnote: none (excluded-run accounting lives in caption.md) -----------
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n<rect width="{W}" height="{H}" fill="white"/>\n'

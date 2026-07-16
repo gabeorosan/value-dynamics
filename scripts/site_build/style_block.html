@@ -1,0 +1,159 @@
+<style>
+  :root {
+    --paper: #ffffff;
+    --ink: #1c1e21;
+    --muted: #5b6570;
+    --accent: #2867b5;
+    --accent-ink: #1f5390;
+    --line: #dfe3e8;
+    --mark: #fdf3e0;
+    --mark-ink: #8a5a12;
+    --f-blue: #2867b5;
+    --f-amber: #a8720f;
+    --f-red: #b5342c;
+    --f-green: #3a7d44;
+    --f-grey: #97a1ac;
+    --f-band: rgba(40, 103, 181, 0.10);
+    --serif: "Charter", "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  :root[data-theme="light"] {
+    --paper: #ffffff; --ink: #1c1e21; --muted: #5b6570; --accent: #2867b5;
+    --accent-ink: #1f5390; --line: #dfe3e8; --mark: #fdf3e0; --mark-ink: #8a5a12;
+    --f-blue: #2867b5; --f-amber: #a8720f; --f-red: #b5342c; --f-green: #3a7d44;
+    --f-grey: #97a1ac; --f-band: rgba(40, 103, 181, 0.10);
+  }
+
+  html { background: var(--paper); }
+  body {
+    font-family: var(--serif);
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.62;
+    font-size: 1.06rem;
+    margin: 0;
+  }
+  .page { max-width: 46rem; margin: 0 auto; padding: 3.5rem 1.25rem 5rem; }
+  .prose { max-width: 66ch; }
+
+  .eyebrow {
+    font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted); margin: 0 0 1.1rem;
+  }
+  .eyebrow b { color: var(--accent); font-weight: 600; }
+  h1 {
+    font-size: 2.15rem; line-height: 1.18; font-weight: 700;
+    letter-spacing: -0.012em; margin: 0 0 1.2rem; text-wrap: balance; max-width: 24ch;
+  }
+  .draftnote {
+    font-style: italic; color: var(--muted); border-left: 2px solid var(--line);
+    padding-left: 0.9rem; margin: 0 0 2.4rem; font-size: 0.98rem;
+  }
+
+  h2 {
+    font-size: 1.38rem; line-height: 1.25; font-weight: 700;
+    letter-spacing: -0.008em; margin: 3rem 0 0.9rem; text-wrap: balance;
+  }
+  p { margin: 0 0 1.05rem; }
+  a { color: var(--accent-ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  strong { font-weight: 700; }
+  blockquote {
+    margin: 1.1rem 0 1.2rem; padding: 0.55rem 1rem;
+    border-left: 3px solid var(--accent); background: color-mix(in srgb, var(--ink) 4%, transparent);
+    font-size: 0.97rem;
+  }
+  blockquote p { margin: 0; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.85em; }
+
+  ol.summary { margin: 1.4rem 0 1.2rem; padding: 0; list-style: none; counter-reset: item; display: flex; flex-direction: column; gap: 0.85rem; }
+  ol.summary li { counter-increment: item; position: relative; padding-left: 2.4rem; }
+  ol.summary li::before {
+    content: counter(item);
+    position: absolute; left: 0; top: 0.14em;
+    font-family: var(--sans); font-size: 0.8rem; font-weight: 600;
+    color: var(--accent); border: 1px solid var(--line);
+    width: 1.5rem; height: 1.5rem; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  ul.plain { margin: 0 0 1.05rem; padding-left: 1.2rem; }
+  ul.plain li { margin-bottom: 0.55rem; }
+
+  figure.nfig { margin: 2rem 0 2.2rem; }
+  /* let embedded figures break out wider than the text column so their
+     internal labels render at least as large as the caption text */
+  figure.nfig.embed {
+    position: relative; left: 50%; transform: translateX(-50%);
+    width: min(94vw, 1060px);
+  }
+  figure.nfig.embed > :first-child { background: #ffffff; }
+  figure.nfig.embed img { width: 100%; height: auto; display: block; }
+  figure.nfig.embed figcaption { margin-left: auto; margin-right: auto; }
+  figure.nfig .figrow { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: flex-start; }
+  figure.nfig svg { max-width: 100%; height: auto; display: block; }
+  figure.nfig figcaption {
+    font-family: var(--sans); font-size: 0.82rem; line-height: 1.5;
+    color: var(--muted); border-top: 1px solid var(--line);
+    margin-top: 0.6rem; padding-top: 0.55rem; max-width: 66ch;
+  }
+  figure.nfig figcaption b { color: var(--ink); font-weight: 600; }
+
+  .fx { stroke: var(--line); stroke-width: 1; }
+  .fx0 { stroke: var(--muted); stroke-width: 1; }
+  .ft { font-family: var(--sans); font-size: 13px; fill: var(--muted); }
+  .fts { font-family: var(--sans); font-size: 12px; fill: var(--muted); }
+  .ftt { font-family: var(--sans); font-size: 14px; font-weight: 600; fill: var(--ink); }
+  .ftv { font-family: var(--sans); font-size: 12px; font-weight: 600; fill: var(--ink); }
+  .ln-blue  { stroke: var(--f-blue);  fill: none; stroke-width: 2.4; }
+  .ln-amber { stroke: var(--f-amber); fill: none; stroke-width: 2.4; }
+  .ln-red   { stroke: var(--f-red);   fill: none; stroke-width: 2.4; }
+  .ln-green { stroke: var(--f-green); fill: none; stroke-width: 2.4; }
+  .ln-grey  { stroke: var(--f-grey);  fill: none; stroke-width: 2; }
+  .ln-thin  { stroke-width: 1.6; }
+  .ln-dash  { stroke-dasharray: 5 4; }
+  .dt-blue  { fill: var(--f-blue); }  .tx-blue  { fill: var(--f-blue); }
+  .dt-amber { fill: var(--f-amber); } .tx-amber { fill: var(--f-amber); }
+  .dt-red   { fill: var(--f-red); }   .tx-red   { fill: var(--f-red); }
+  .dt-green { fill: var(--f-green); } .tx-green { fill: var(--f-green); }
+  .dt-grey  { fill: var(--f-grey); }  .tx-grey  { fill: var(--f-grey); }
+  .tx-blue, .tx-amber, .tx-red, .tx-green, .tx-grey { font-family: var(--sans); font-size: 12.5px; font-weight: 600; }
+  .band { fill: var(--f-band); }
+  .bx { fill: var(--f-blue); opacity: 0.85; }
+  .cellbg { fill: none; stroke: var(--line); stroke-width: 1; }
+  .schembox { fill: none; stroke: var(--muted); stroke-width: 1.3; }
+  .schemarrow { stroke: var(--muted); stroke-width: 1.5; fill: none; }
+  .schemhead { fill: var(--muted); }
+  .mk-blue { fill: var(--f-blue); } .mk-amber { fill: var(--f-amber); }
+  .mk-red { fill: var(--f-red); } .mk-green { fill: var(--f-green); }
+
+  .tablewrap { overflow-x: auto; margin: 1.6rem 0; border: 1px solid var(--line); border-radius: 4px; }
+  table {
+    border-collapse: collapse; width: 100%;
+    font-family: var(--sans); font-size: 0.88rem;
+    font-variant-numeric: tabular-nums; min-width: 34rem;
+  }
+  th, td { text-align: left; padding: 0.6rem 0.85rem; border-bottom: 1px solid var(--line); }
+  th { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  tbody tr:last-child td { border-bottom: none; }
+
+  .records { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.4rem; }
+  .records p { font-family: var(--sans); font-size: 0.85rem; color: var(--muted); }
+  .doc {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.8em; background: color-mix(in srgb, var(--ink) 6%, transparent);
+    padding: 0.1em 0.35em; border-radius: 3px; white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    body { font-size: 1rem; }
+    h1 { font-size: 1.7rem; }
+    .page { padding-top: 2.2rem; }
+  }
+
+  .cite-pick {
+    font-family: var(--sans); font-size: 0.78em;
+    background: var(--mark); color: var(--mark-ink);
+    padding: 0.08em 0.4em; border-radius: 3px;
+  }
+  .cite-pick a { color: var(--mark-ink); }
+</style>

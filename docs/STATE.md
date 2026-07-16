@@ -66,7 +66,7 @@ connection; others request via "Requests between threads").
 
 | # | Run | Where / cost | Why (question it settles) | Launch pointers | Gate |
 |---|---|---|---|---|---|
-| Q1 | **Qwen self-only judge ablation** — repeat the supplier-removed self-only loop but swap the judge OFF the candid self-judge. Two 1-knob variants, run the MODEL swap first: (a) `JUDGE_MODEL_ENV=base` (base judges the org's own pool), (b) `JUDGE_STYLE_ENV=neutral` (self judge, non-candid prompt). em750, `MIX_GEN_ENV=self`, `MIX_JUDGE_ENV=head2head`, seeds 41/42, 4 rounds. | Colab T4, free, ~2h each | The 07-16 surprise (supplier-removed self-only AMPLIFIES p_insecure 0.34→0.79/0.91) has two candidate mechanisms: the candid self-judge's taste selecting insecure-admitting candidates, vs generic self-consumption (training on own insecure output amplifies regardless of who judges). If (a) still amplifies → self-consumption, judge-independent; if flat → it's the self-judge specifically. Decisive for the mechanism behind the cross-family reversal. | chassis pin a9a2214 + launcher aa9e8c9 (VERIFY both + jsdelivr byte-exact before launch); `RESULT_NAME_ENV=head2head_basejudge_selfonly.json` / `head2head_neutralstyle_selfonly.json`; prereg first (predictions: (a) amplify=self-consumption / flat=judge-taste). | prereg committed; pin verified |
+| Q1 | **Qwen self-only judge ablation** — (a) `JUDGE_MODEL_ENV=base` **COMPLETE 07-17: H1 REJECTED, judge-taste (H2)** — base judge flips p_insecure to −0.322/−0.023 (see Recent changes + report_qwen_judge_ablation.md + ledger row). (b) `JUDGE_STYLE_ENV=neutral` (self judge, non-candid prompt) **RUNNING on Colab since ~07:40** (pin 8564db0) → head2head_neutralstyle_selfonly.json; splits self-model taste vs candid-instruction pressure. | Colab T4, free, ~2h | (a) resolved the mechanism fork: the amplification needs the evolving self-judge, not just training-on-own-output. (b) closes the remaining split: neutral-prompt self-judge amplifies → model taste; flat → candid instruction was necessary. | prereg (both variants) docs/prereg_qwen_selfonly_judge_ablation.md; scorer scripts/analysis_qwen_judge_ablation.py handles all three runs. | (a) done; (b) prereg committed pre-launch |
 | Q2 | **OLMo curated-safe-candidate dose-response** (the clean replacement for the failed temperature width-test). Inject 0/1/2/3 of 6 pool candidates as a fixed, parse-guaranteed secure implementation into the `head2head_self` OLMo pool; keep-2; measure erosion vs dose of injected safe material. | Colab T4, free, ~1–2h | The width-test (temp-1.3) FAILED its gate because temperature degrades parse, not supplies safe code. This tests the same "does valid safe material restore erosion" question with a *controlled* candidate, and maps how LITTLE external safe material triggers erosion (dynamics, not binary). Complements the closed self-supply line. | needs a small launcher add (inject curated candidate into the self-only pool as a keepable member); reuse SECURE_REFERENCES already in LAUNCH_olmo_code_security_duel_loop.py; new prereg. | DEFERRED (user 07-16: end on Qwen); revive if pushing the supplier-sufficiency mechanism |
 | Q3 | **Modal paid ensemble** | Modal, ~$27 left | none justified now — every open question fits a single T4. | — | GATED: only if a question needs scale/parallelism a T4 can't give; pilot-before-spend rule applies |
 
@@ -624,6 +624,21 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, figures): run-inventory retitled "The 22 experiments"
+  (user: each row IS an experiment) — subtitle "Each row is one experiment …
+  run with 2–9 seeds (74 runs in all)", footer "22 experiments", row count
+  asserted live (TOTAL_ROWS == 22); writeup embed + caption updated. Deployed.
+- 2026-07-17 ~07:45 (General, runs+analysis): **Q1(a) COMPLETE — registered lean
+  WRONG, this is JUDGE-TASTE (H2), not self-consumption.** Swapping only the
+  judge model self→base (candid prompt held) flips the supplier-removed
+  p_insecure trajectory from +0.453/+0.572 to **−0.322/−0.023** (s41 monotone
+  collapse to 0.004; s42 collapse→bounce→baseline). sr_freegen erodes harder
+  (−0.554 s41); support lasts longer (6/3/2/1 vs 6/2/0/0). Full package:
+  ledger row (07-17) + report_qwen_judge_ablation.md +
+  scripts/analysis_qwen_judge_ablation.py → experiments/qwen_judge_ablation.json
+  + raw JSON pulled to repo + figure spawn. **Q1(b) neutral-style self-judge
+  LAUNCHED on the same T4** (pin 8564db0, ~2h) → head2head_neutralstyle_selfonly.json
+  — splits self-model taste vs candid-instruction pressure.
 - 2026-07-16 ~23:30 (General, runs): **Q1(a) judge ablation LAUNCHED on Colab**
   (base judge × supplier-removed self-only, em750, seeds 41/42 × 4 rounds,
   pin cc866c1 jsdelivr-verified, preflight OK, T4) → Drive

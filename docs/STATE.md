@@ -624,6 +624,17 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-16 ~23:30 (General, runs): **Q1(a) judge ablation LAUNCHED on Colab**
+  (base judge × supplier-removed self-only, em750, seeds 41/42 × 4 rounds,
+  pin cc866c1 jsdelivr-verified, preflight OK, T4) → Drive
+  `head2head_basejudge_selfonly.json`, ~2 h. **Q1(b) prepped + committed**
+  (8564db0): JUDGE_STYLE candid→neutral launcher
+  (LAUNCH_head2head_neutralstyle_selfonly.py, jsdelivr-verified) + prereg
+  addendum (three-way mechanism logic: self-consumption vs candid-instruction
+  pressure vs self-judge taste) + unified scorer
+  scripts/analysis_qwen_judge_ablation.py (reproduces original nets
+  +0.4529/+0.5723). (b) launches when (a) finishes — overnight protocol, user
+  directive: keep Colab running.
 - 2026-07-16 (General, terminology): **"answer source" → "CANDIDATE SOURCE"
   everywhere (user directive: pool items and the alternative were both
   being called "answers").** Standard now: pool items = CANDIDATES (own

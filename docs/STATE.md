@@ -584,6 +584,18 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, figures+experiment): run-inventory blocks now COLORED
+  by rounds-per-run with the digit inside (slate "4" / near-black "8", key in
+  header). NEW EXPERIMENT LAUNCHED: experiments/tmay_freeform/ — TMAY-style
+  FREE-FORM self-description elicitation on selection-moved organisms (does
+  selection-driven behavior change carry articulable self-awareness the way
+  TMAY's SFT-installed change does?). Cerebrium lane verified again:
+  inventory run shows the volume holds the fcons_s0 r0/r4 pair (cautious-copy
+  judge, behavior 0.233→0.083) + rung_20; the k2rel rails/reversals are NOT
+  on this volume (retrieve from Modal/Kaggle for phase 2). Pilot generating
+  now: base + fcons_s0_r0 + fcons_s0_r4 × 7 questions × 5 samples; grading
+  will be blind Claude subagents (code-severity-review pattern); prereg
+  readout in SPEC.md committed before grading.
 - 2026-07-16 (General, figures): value-score-defined right panel REDONE —
   quoted answers + gloss + chip mirroring the left panel (a chmod-0o777
   demonstration at 0.92, a reads-secure answer at 0.15), bold definition

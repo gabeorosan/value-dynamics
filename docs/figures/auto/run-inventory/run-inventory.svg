@@ -3,12 +3,18 @@
 <text x="680.0" y="50" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">The 74 runs, cell by cell</text>
 <text x="680.0" y="79" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#6b7684">One row per distinct experiment cell — a combination of organism, value, judge, alternative, and answer source.</text>
 <text x="680.0" y="100" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#6b7684">Rows are grouped by family; chip colors match the experiment-kit slots. One column changed at a time.</text>
-<text x="680.0" y="123" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#1a1a1a">Run bar: one block per run — block width = the rounds in that run (4 or 8). Bar length = total rounds.</text>
+<text x="680.0" y="123" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#1a1a1a">Run bar: one block per run — block width = the rounds in that run (4 or 8); label spells out the rounds per run, e.g. “6 × 4 + 2 × 8 rounds”.</text>
 <text x="66" y="162" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">organism · value</text>
 <rect x="286" y="150" width="13" height="13" rx="3" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.5"/><text x="305" y="162" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">the judge</text>
 <rect x="486" y="150" width="13" height="13" rx="3" fill="#f8f2e3" stroke="#b5842c" stroke-width="1.5"/><text x="505" y="162" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">alternative</text>
 <rect x="664" y="150" width="13" height="13" rx="3" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/><text x="683" y="162" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">answer source</text>
-<text x="860" y="162" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">runs  ·  rounds</text>
+<text x="860" y="162" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">runs · rounds</text>
+<rect x="968" y="149" width="18" height="16" rx="2" fill="#5f6b78"/>
+<text x="977" y="161" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="992" y="162" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1a1a1a">4-round run</text>
+<rect x="1095.4" y="149" width="18" height="16" rx="2" fill="#1a1a1a"/>
+<text x="1104.4" y="161" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">8</text>
+<text x="1119.4" y="162" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#1a1a1a">8-round run</text>
 <line x1="40" y1="174" x2="1320" y2="174" stroke="#6b7684" stroke-width="1.4" stroke-opacity="0.5"/>
 <text x="54" y="196" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">Qwen risk grid</text>
 <rect x="204.20000000000002" y="179" width="84.0" height="23" rx="6" fill="#eef3fb" stroke="#2867b5" stroke-width="1.5"/>
@@ -26,11 +32,15 @@
 <rect x="664" y="205" width="105.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="216.5" r="3" fill="#3a7d44"/>
 <text x="682" y="220.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">own answers</text>
-<rect x="860.0" y="209.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="209.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="895.4" y="209.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="913.1" y="209.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="937.2444444444444" y="221.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">4 runs · 16 rounds</text>
+<rect x="860.0" y="207.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="220.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="207.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="220.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="895.4" y="207.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="903.4777777777778" y="220.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="913.1" y="207.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="921.1888888888889" y="220.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="937.2444444444444" y="219.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">4 runs × 4 rounds</text>
 <rect x="286" y="236" width="119.0" height="23" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.5"/>
 <circle cx="296" cy="247.5" r="3" fill="#8a5a9e"/>
 <text x="304" y="251.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">a frozen copy</text>
@@ -40,11 +50,15 @@
 <rect x="664" y="236" width="105.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="247.5" r="3" fill="#3a7d44"/>
 <text x="682" y="251.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">own answers</text>
-<rect x="860.0" y="240.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="240.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="895.4" y="240.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="913.1" y="240.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="937.2444444444444" y="252.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">4 runs · 16 rounds</text>
+<rect x="860.0" y="238.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="251.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="238.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="251.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="895.4" y="238.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="903.4777777777778" y="251.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="913.1" y="238.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="921.1888888888889" y="251.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="937.2444444444444" y="250.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">4 runs × 4 rounds</text>
 <rect x="286" y="267" width="126.0" height="23" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.5"/>
 <circle cx="296" cy="278.5" r="3" fill="#8a5a9e"/>
 <text x="304" y="282.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">random keeping</text>
@@ -54,11 +68,15 @@
 <rect x="664" y="267" width="105.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="278.5" r="3" fill="#3a7d44"/>
 <text x="682" y="282.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">own answers</text>
-<rect x="860.0" y="271.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="271.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="895.4" y="271.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="913.1" y="271.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="937.2444444444444" y="283.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">4 runs · 16 rounds</text>
+<rect x="860.0" y="269.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="282.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="269.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="282.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="895.4" y="269.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="903.4777777777778" y="282.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="913.1" y="269.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="921.1888888888889" y="282.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="937.2444444444444" y="281.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">4 runs × 4 rounds</text>
 <rect x="286" y="298" width="70.0" height="23" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.5"/>
 <circle cx="296" cy="309.5" r="3" fill="#8a5a9e"/>
 <text x="304" y="313.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">itself</text>
@@ -68,11 +86,15 @@
 <rect x="664" y="298" width="105.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="309.5" r="3" fill="#3a7d44"/>
 <text x="682" y="313.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">own answers</text>
-<rect x="860.0" y="302.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="302.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="895.4" y="302.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="913.1" y="302.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="937.2444444444444" y="314.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">4 runs · 16 rounds</text>
+<rect x="860.0" y="300.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="313.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="300.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="313.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="895.4" y="300.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="903.4777777777778" y="313.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="913.1" y="300.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="921.1888888888889" y="313.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="937.2444444444444" y="312.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">4 runs × 4 rounds</text>
 <rect x="34" y="176" width="4" height="151.0" rx="2" fill="#6b7684" opacity="0.5"/>
 <text x="1320" y="190" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#6b7684">16 runs</text>
 <line x1="40" y1="340" x2="1320" y2="340" stroke="#6b7684" stroke-width="1" stroke-opacity="0.22"/>
@@ -92,16 +114,25 @@
 <rect x="664" y="371" width="105.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="382.5" r="3" fill="#3a7d44"/>
 <text x="682" y="386.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">own answers</text>
-<rect x="860.0" y="375.0" width="32.2" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="893.8" y="375.0" width="32.2" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="927.6" y="375.0" width="32.2" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="961.5" y="375.0" width="32.2" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="995.3" y="375.0" width="32.2" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="1029.1" y="375.0" width="32.2" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="1062.9" y="375.0" width="32.2" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="1096.8" y="375.0" width="32.2" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="1130.6" y="375.0" width="32.2" height="15" rx="2" fill="#1a1a1a"/>
-<text x="1170.8000000000004" y="387.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">9 runs · 72 rounds</text>
+<rect x="860.0" y="373.5" width="32.2" height="18" rx="2" fill="#1a1a1a"/>
+<text x="876.1111111111111" y="386.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">8</text>
+<rect x="893.8" y="373.5" width="32.2" height="18" rx="2" fill="#1a1a1a"/>
+<text x="909.9333333333333" y="386.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">8</text>
+<rect x="927.6" y="373.5" width="32.2" height="18" rx="2" fill="#1a1a1a"/>
+<text x="943.7555555555555" y="386.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">8</text>
+<rect x="961.5" y="373.5" width="32.2" height="18" rx="2" fill="#1a1a1a"/>
+<text x="977.5777777777777" y="386.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">8</text>
+<rect x="995.3" y="373.5" width="32.2" height="18" rx="2" fill="#1a1a1a"/>
+<text x="1011.3999999999999" y="386.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">8</text>
+<rect x="1029.1" y="373.5" width="32.2" height="18" rx="2" fill="#1a1a1a"/>
+<text x="1045.2222222222222" y="386.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">8</text>
+<rect x="1062.9" y="373.5" width="32.2" height="18" rx="2" fill="#1a1a1a"/>
+<text x="1079.0444444444445" y="386.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">8</text>
+<rect x="1096.8" y="373.5" width="32.2" height="18" rx="2" fill="#1a1a1a"/>
+<text x="1112.8666666666668" y="386.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">8</text>
+<rect x="1130.6" y="373.5" width="32.2" height="18" rx="2" fill="#1a1a1a"/>
+<text x="1146.688888888889" y="386.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">8</text>
+<text x="1170.8000000000004" y="385.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">9 runs × 8 rounds</text>
 <rect x="286" y="402" width="126.0" height="23" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.5"/>
 <circle cx="296" cy="413.5" r="3" fill="#8a5a9e"/>
 <text x="304" y="417.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">the base model</text>
@@ -111,15 +142,23 @@
 <rect x="664" y="402" width="105.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="413.5" r="3" fill="#3a7d44"/>
 <text x="682" y="417.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">own answers</text>
-<rect x="860.0" y="406.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="406.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="895.4" y="406.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="913.1" y="406.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="930.8" y="406.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="948.6" y="406.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="966.3" y="406.0" width="32.2" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="1000.1" y="406.0" width="32.2" height="15" rx="2" fill="#1a1a1a"/>
-<text x="1040.3111111111111" y="418.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">8 runs · 40 rounds</text>
+<rect x="860.0" y="404.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="417.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="404.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="417.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="895.4" y="404.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="903.4777777777778" y="417.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="913.1" y="404.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="921.1888888888889" y="417.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="930.8" y="404.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="938.9" y="417.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="948.6" y="404.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="956.6111111111111" y="417.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="966.3" y="404.5" width="32.2" height="18" rx="2" fill="#1a1a1a"/>
+<text x="982.3777777777777" y="417.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">8</text>
+<rect x="1000.1" y="404.5" width="32.2" height="18" rx="2" fill="#1a1a1a"/>
+<text x="1016.1999999999999" y="417.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">8</text>
+<text x="1040.3111111111111" y="416.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">6 × 4 + 2 × 8 rounds</text>
 <rect x="286" y="433" width="175.0" height="23" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.5"/>
 <circle cx="296" cy="444.5" r="3" fill="#8a5a9e"/>
 <text x="304" y="448.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">a cautious-tuned copy</text>
@@ -129,11 +168,15 @@
 <rect x="664" y="433" width="105.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="444.5" r="3" fill="#3a7d44"/>
 <text x="682" y="448.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">own answers</text>
-<rect x="860.0" y="437.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="437.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="895.4" y="437.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="913.1" y="437.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="937.2444444444444" y="449.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">4 runs · 16 rounds</text>
+<rect x="860.0" y="435.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="448.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="435.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="448.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="895.4" y="435.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="903.4777777777778" y="448.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="913.1" y="435.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="921.1888888888889" y="448.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="937.2444444444444" y="447.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">4 runs × 4 rounds</text>
 <rect x="34" y="342" width="4" height="120.0" rx="2" fill="#6b7684" opacity="0.5"/>
 <text x="1320" y="356" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#6b7684">21 runs</text>
 <line x1="40" y1="475" x2="1320" y2="475" stroke="#6b7684" stroke-width="1" stroke-opacity="0.22"/>
@@ -153,11 +196,15 @@
 <rect x="664" y="506" width="98.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="517.5" r="3" fill="#3a7d44"/>
 <text x="682" y="521.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">base-mixed</text>
-<rect x="860.0" y="510.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="510.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="895.4" y="510.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="913.1" y="510.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="937.2444444444444" y="522.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">4 runs · 16 rounds</text>
+<rect x="860.0" y="508.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="521.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="508.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="521.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="895.4" y="508.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="903.4777777777778" y="521.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="913.1" y="508.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="921.1888888888889" y="521.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="937.2444444444444" y="520.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">4 runs × 4 rounds</text>
 <rect x="286" y="537" width="126.0" height="23" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.5"/>
 <circle cx="296" cy="548.5" r="3" fill="#8a5a9e"/>
 <text x="304" y="552.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">the base model</text>
@@ -167,9 +214,11 @@
 <rect x="664" y="537" width="182.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="548.5" r="3" fill="#3a7d44"/>
 <text x="682" y="552.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">risk-railed-peer-mixed</text>
-<rect x="860.0" y="541.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="541.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="901.8222222222222" y="553.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs · 8 rounds</text>
+<rect x="860.0" y="539.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="552.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="539.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="552.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="901.8222222222222" y="551.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs × 4 rounds</text>
 <rect x="286" y="568" width="126.0" height="23" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.5"/>
 <circle cx="296" cy="579.5" r="3" fill="#8a5a9e"/>
 <text x="304" y="583.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">the base model</text>
@@ -179,9 +228,11 @@
 <rect x="664" y="568" width="182.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="579.5" r="3" fill="#3a7d44"/>
 <text x="682" y="583.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">risk-railed-peer-mixed</text>
-<rect x="860.0" y="572.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="572.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="901.8222222222222" y="584.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs · 8 rounds</text>
+<rect x="860.0" y="570.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="583.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="570.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="583.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="901.8222222222222" y="582.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs × 4 rounds</text>
 <rect x="286" y="599" width="175.0" height="23" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.5"/>
 <circle cx="296" cy="610.5" r="3" fill="#8a5a9e"/>
 <text x="304" y="614.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">a cautious-tuned copy</text>
@@ -191,9 +242,11 @@
 <rect x="664" y="599" width="98.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="610.5" r="3" fill="#3a7d44"/>
 <text x="682" y="614.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">base-mixed</text>
-<rect x="860.0" y="603.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="603.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="901.8222222222222" y="615.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs · 8 rounds</text>
+<rect x="860.0" y="601.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="614.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="601.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="614.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="901.8222222222222" y="613.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs × 4 rounds</text>
 <rect x="286" y="630" width="175.0" height="23" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.5"/>
 <circle cx="296" cy="641.5" r="3" fill="#8a5a9e"/>
 <text x="304" y="645.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">a cautious-tuned copy</text>
@@ -203,9 +256,11 @@
 <rect x="664" y="630" width="98.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="641.5" r="3" fill="#3a7d44"/>
 <text x="682" y="645.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">base-mixed</text>
-<rect x="860.0" y="634.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="634.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="901.8222222222222" y="646.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs · 8 rounds</text>
+<rect x="860.0" y="632.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="645.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="632.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="645.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="901.8222222222222" y="644.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs × 4 rounds</text>
 <rect x="286" y="661" width="70.0" height="23" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.5"/>
 <circle cx="296" cy="672.5" r="3" fill="#8a5a9e"/>
 <text x="304" y="676.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">itself</text>
@@ -215,9 +270,11 @@
 <rect x="664" y="661" width="98.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="672.5" r="3" fill="#3a7d44"/>
 <text x="682" y="676.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">base-mixed</text>
-<rect x="860.0" y="665.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="665.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="901.8222222222222" y="677.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs · 8 rounds</text>
+<rect x="860.0" y="663.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="676.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="663.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="676.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="901.8222222222222" y="675.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs × 4 rounds</text>
 <rect x="286" y="692" width="70.0" height="23" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.5"/>
 <circle cx="296" cy="703.5" r="3" fill="#8a5a9e"/>
 <text x="304" y="707.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">itself</text>
@@ -227,9 +284,11 @@
 <rect x="664" y="692" width="182.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="703.5" r="3" fill="#3a7d44"/>
 <text x="682" y="707.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">risk-railed-peer-mixed</text>
-<rect x="860.0" y="696.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="696.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="901.8222222222222" y="708.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs · 8 rounds</text>
+<rect x="860.0" y="694.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="707.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="694.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="707.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="901.8222222222222" y="706.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs × 4 rounds</text>
 <rect x="286" y="723" width="70.0" height="23" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.5"/>
 <circle cx="296" cy="734.5" r="3" fill="#8a5a9e"/>
 <text x="304" y="738.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">itself</text>
@@ -239,9 +298,11 @@
 <rect x="664" y="723" width="182.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="734.5" r="3" fill="#3a7d44"/>
 <text x="682" y="738.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">risk-railed-peer-mixed</text>
-<rect x="860.0" y="727.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="727.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="901.8222222222222" y="739.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs · 8 rounds</text>
+<rect x="860.0" y="725.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="738.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="725.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="738.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="901.8222222222222" y="737.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs × 4 rounds</text>
 <rect x="34" y="477" width="4" height="275.0" rx="2" fill="#6b7684" opacity="0.5"/>
 <text x="1320" y="491" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#6b7684">18 runs</text>
 <line x1="40" y1="765" x2="1320" y2="765" stroke="#6b7684" stroke-width="1" stroke-opacity="0.22"/>
@@ -262,12 +323,17 @@
 <rect x="664" y="796" width="105.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="807.5" r="3" fill="#3a7d44"/>
 <text x="682" y="811.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">own answers</text>
-<rect x="860.0" y="800.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="800.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="895.4" y="800.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="913.1" y="800.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="930.8" y="800.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="954.9555555555555" y="812.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">5 runs · 20 rounds</text>
+<rect x="860.0" y="798.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="811.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="798.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="811.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="895.4" y="798.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="903.4777777777778" y="811.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="913.1" y="798.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="921.1888888888889" y="811.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="930.8" y="798.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="938.9" y="811.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="954.9555555555555" y="810.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">5 runs × 4 rounds</text>
 <rect x="66" y="827" width="91.0" height="23" rx="6" fill="#eef3fb" stroke="#2867b5" stroke-width="1.5"/>
 <circle cx="76" cy="838.5" r="3" fill="#2867b5"/>
 <text x="84" y="842.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">OLMo-3-7B</text>
@@ -283,9 +349,11 @@
 <rect x="664" y="827" width="98.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="838.5" r="3" fill="#3a7d44"/>
 <text x="682" y="842.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">base-mixed</text>
-<rect x="860.0" y="831.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="831.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="901.8222222222222" y="843.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs · 8 rounds</text>
+<rect x="860.0" y="829.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="842.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="829.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="842.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="901.8222222222222" y="841.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs × 4 rounds</text>
 <rect x="66" y="858" width="84.0" height="23" rx="6" fill="#eef3fb" stroke="#2867b5" stroke-width="1.5"/>
 <circle cx="76" cy="869.5" r="3" fill="#2867b5"/>
 <text x="84" y="873.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">Qwen3-4B</text>
@@ -301,9 +369,11 @@
 <rect x="664" y="858" width="98.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="869.5" r="3" fill="#3a7d44"/>
 <text x="682" y="873.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">base-mixed</text>
-<rect x="860.0" y="862.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="862.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="901.8222222222222" y="874.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs · 8 rounds</text>
+<rect x="860.0" y="860.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="873.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="860.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="873.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="901.8222222222222" y="872.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs × 4 rounds</text>
 <rect x="66" y="889" width="91.0" height="23" rx="6" fill="#eef3fb" stroke="#2867b5" stroke-width="1.5"/>
 <circle cx="76" cy="900.5" r="3" fill="#2867b5"/>
 <text x="84" y="904.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">OLMo-3-7B</text>
@@ -319,9 +389,11 @@
 <rect x="664" y="889" width="105.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="900.5" r="3" fill="#3a7d44"/>
 <text x="682" y="904.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">own answers</text>
-<rect x="860.0" y="893.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="893.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="901.8222222222222" y="905.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs · 8 rounds</text>
+<rect x="860.0" y="891.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="904.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="891.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="904.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="901.8222222222222" y="903.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs × 4 rounds</text>
 <rect x="34" y="767" width="4" height="151.0" rx="2" fill="#6b7684" opacity="0.5"/>
 <text x="1320" y="781" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#6b7684">11 runs</text>
 <line x1="40" y1="931" x2="1320" y2="931" stroke="#6b7684" stroke-width="1" stroke-opacity="0.22"/>
@@ -341,11 +413,15 @@
 <rect x="664" y="962" width="105.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="973.5" r="3" fill="#3a7d44"/>
 <text x="682" y="977.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">own answers</text>
-<rect x="860.0" y="966.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="966.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="895.4" y="966.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="913.1" y="966.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="937.2444444444444" y="978.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">4 runs · 16 rounds</text>
+<rect x="860.0" y="964.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="977.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="964.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="977.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="895.4" y="964.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="903.4777777777778" y="977.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="913.1" y="964.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="921.1888888888889" y="977.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="937.2444444444444" y="976.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">4 runs × 4 rounds</text>
 <rect x="286" y="993" width="126.0" height="23" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.5"/>
 <circle cx="296" cy="1004.5" r="3" fill="#8a5a9e"/>
 <text x="304" y="1008.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">the base model</text>
@@ -355,9 +431,11 @@
 <rect x="664" y="993" width="105.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="1004.5" r="3" fill="#3a7d44"/>
 <text x="682" y="1008.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">own answers</text>
-<rect x="860.0" y="997.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="997.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="901.8222222222222" y="1009.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs · 8 rounds</text>
+<rect x="860.0" y="995.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="1008.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="995.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="1008.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="901.8222222222222" y="1007.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs × 4 rounds</text>
 <rect x="286" y="1024" width="70.0" height="23" rx="6" fill="#f4eef7" stroke="#8a5a9e" stroke-width="1.5"/>
 <circle cx="296" cy="1035.5" r="3" fill="#8a5a9e"/>
 <text x="304" y="1039.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">itself</text>
@@ -367,9 +445,11 @@
 <rect x="664" y="1024" width="98.0" height="23" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.5"/>
 <circle cx="674" cy="1035.5" r="3" fill="#3a7d44"/>
 <text x="682" y="1039.8" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#1a1a1a">base-mixed</text>
-<rect x="860.0" y="1028.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<rect x="877.7" y="1028.0" width="16.1" height="15" rx="2" fill="#1a1a1a"/>
-<text x="901.8222222222222" y="1040.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs · 8 rounds</text>
+<rect x="860.0" y="1026.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="868.0555555555555" y="1039.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<rect x="877.7" y="1026.5" width="16.1" height="18" rx="2" fill="#5f6b78"/>
+<text x="885.7666666666667" y="1039.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="white">4</text>
+<text x="901.8222222222222" y="1038.5" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#1a1a1a">2 runs × 4 rounds</text>
 <rect x="34" y="933" width="4" height="120.0" rx="2" fill="#6b7684" opacity="0.5"/>
 <text x="1320" y="947" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#6b7684">8 runs</text>
 <line x1="40" y1="1066" x2="1320" y2="1066" stroke="#6b7684" stroke-width="1" stroke-opacity="0.22"/>

@@ -35,6 +35,9 @@ GREEN = "#3a7d44"   # answer source         (slot 4)
 AMBER = "#b5842c"   # alternative source    (slot 5)
 GRAY = "#6b7684"    # recessive only
 BARFILL = "#d7dde3"
+# run-block fills by round count — two neutral lightness steps, distinct from the
+# saturated chip hues; white digit sits inside each block
+FILL_BY_ROUNDS = {4: "#5f6b78", 8: "#1a1a1a"}   # slate gray (4) vs near-black ink (8)
 TINT = {
     BLUE: "#eef3fb",
     RED: "#fbeeec",
@@ -180,7 +183,7 @@ BAR_X = ANS_X + 196
 BAR_SPAN = 290.0                       # pixels for the longest cell (MAX_CELL_ROUNDS rounds)
 PER_ROUND = BAR_SPAN / MAX_CELL_ROUNDS
 BLK_GAP = 1.6                          # thin white separator between run blocks
-BLK_H = 15
+BLK_H = 18                             # tall enough for a legible digit inside
 
 b = []
 
@@ -193,8 +196,8 @@ b.append(ctext(W / 2, 100,
                "Rows are grouped by family; chip colors match the experiment-kit slots. "
                "One column changed at a time.", 16, GRAY))
 b.append(ctext(W / 2, 123,
-               "Run bar: one block per run — block width = the rounds in that run (4 or 8). "
-               "Bar length = total rounds.", 15, INK))
+               "Run bar: one block per run — block width = the rounds in that run (4 or 8); "
+               "label spells out the rounds per run, e.g. “6 × 4 + 2 × 8 rounds”.", 15, INK))
 
 # ---- column headers ----------------------------------------------------------
 hy = 162
@@ -205,7 +208,14 @@ b.append(ltext(ORG_X, hy, "organism · value", 13.5, INK, "bold"))
 b.append(swatch(JUDGE_X, "the judge", PURPLE))
 b.append(swatch(ALT_X, "alternative", AMBER))
 b.append(swatch(ANS_X, "answer source", GREEN))
-b.append(ltext(BAR_X, hy, "runs  ·  rounds", 13.5, INK, "bold"))
+b.append(ltext(BAR_X, hy, "runs · rounds", 13.5, INK, "bold"))
+# block-color key: one small block per round count with its digit, plus a word label
+kx = BAR_X + 108
+for nr, word in ((4, "4-round run"), (8, "8-round run")):
+    b.append(f'<rect x="{kx}" y="{hy-13}" width="18" height="16" rx="2" fill="{FILL_BY_ROUNDS[nr]}"/>')
+    b.append(ctext(kx + 9, hy - 1, str(nr), 11.5, "white", "bold"))
+    b.append(ltext(kx + 24, hy, word, 13, INK))
+    kx += 24 + len(word) * 7.4 + 22
 b.append(f'<line x1="{M}" y1="{hy+12}" x2="{W-M}" y2="{hy+12}" stroke="{GRAY}" '
          f'stroke-width="1.4" stroke-opacity="0.5"/>')
 
@@ -238,17 +248,25 @@ for f in FAM_ORDER:
         b.append(chip(JUDGE_X, cy, JUDGE[d["judge"]], PURPLE)[0])
         b.append(chip(ALT_X, cy, ALT[d["fmt"]], AMBER)[0])
         b.append(chip(ANS_X, cy, ANS[d["comp"]], GREEN)[0])
-        # segmented run-block bar: one block per run, width proportional to its rounds
+        # segmented run-block bar: one block per run, width proportional to its rounds,
+        # filled by round count, with the round-count digit centered inside
         by = cy + (CH - BLK_H) / 2
         bx = BAR_X
         for nr in d["rounds"]:            # ascending: short (4-round) blocks then long (8-round)
             w = nr * PER_ROUND
             b.append(f'<rect x="{bx:.1f}" y="{by:.1f}" width="{w:.1f}" height="{BLK_H}" '
-                     f'rx="2" fill="{INK}"/>')
+                     f'rx="2" fill="{FILL_BY_ROUNDS[nr]}"/>')
+            b.append(ctext(bx + w / 2, by + BLK_H / 2 + 4, str(nr), 11.5, "white", "bold"))
             bx += w + BLK_GAP
-        total = sum(d["rounds"])
-        b.append(ltext(bx - BLK_GAP + 8, by + 12, f"{d['n']} runs · {total} rounds",
-                       13.5, INK, "bold"))
+        # explicit rounds-per-run decomposition: uniform "n runs × r rounds",
+        # mixed "6 × 4 + 2 × 8 rounds"
+        by_round = sorted(Counter(d["rounds"]).items())   # [(rounds, n_runs), ...]
+        if len(by_round) == 1:
+            r0, n0 = by_round[0]
+            label = f"{n0} runs × {r0} rounds"
+        else:
+            label = " + ".join(f"{n} × {r}" for r, n in by_round) + " rounds"
+        b.append(ltext(bx - BLK_GAP + 8, by + 12, label, 13.5, INK, "bold"))
         y += row_pitch
 
     fam_bot = y - row_pitch + 10

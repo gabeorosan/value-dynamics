@@ -7,10 +7,14 @@ figure. Candidate positions are illustrative (chosen to make the geometry legibl
 the measured numbers are below, not in the figure.
 
 Symbols (each a mean value score on the 0–1 axis):
-- **q — own mean.** Mean value of the organism's own six candidates (blue dots).
-- **p — pool mean.** Mean value of every candidate the judge scores. In a mixed
-  pool, outside-source answers (orange dots) pull it up; **pool shift = p − q**.
-  For a self-only pool, p = q.
+- **q — own mean.** Mean value of the organism's own candidates (blue dots —
+  all six in a self-only pool; three of the six in the half-and-half mixed
+  pools, as drawn).
+- **p — pool mean.** Mean value score of the candidate pool: the organism's own
+  answers plus any outside-source answers — the answers eligible to be kept and
+  trained on. The alternative source's comparison answer is never in the pool.
+  In a mixed pool the outside-source answers (orange dots) pull p away from q;
+  **pool shift = p − q**. For a self-only pool, p = q.
 - **k — kept mean.** Mean value of the two candidates the judge keeps (black
   circles; here one own, one outside-source answer).
 - **g — selector gap = k − p.** How far the judge's kept set sits above the pool it

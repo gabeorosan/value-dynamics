@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 860" font-family="Helvetica, Arial, sans-serif">
 <rect width="1440" height="860" fill="white"/>
 <text x="46.0" y="50.0" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#1a1a1a" font-weight="bold" text-anchor="start">Sampled rollouts and observed trajectories, three experiment families</text>
-<text x="46.0" y="84.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">For each family a stacked pair on the same axes and the same line styling: top is one simulated rollout per run drawn</text>
-<text x="46.0" y="106.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">forward from round-1 pool state under the committed unit recurrence + staged noise; bottom is the runs actually</text>
-<text x="46.0" y="128.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">observed.</text>
+<text x="46.0" y="84.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">Per family, a stacked pair on the same axes and line styling: top is one simulated rollout per run from round-1 pool</text>
+<text x="46.0" y="106.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">state (committed unit recurrence + staged noise); bottom is the runs actually observed. Shaded in both halves: the</text>
+<text x="46.0" y="128.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">simulated ensemble's 10–90% band (30 draws per run, pooled per family).</text>
 <text x="46.0" y="148.0" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="start">A.  Qwen risk grid   (16 runs)</text>
 <text x="46.0" y="170.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">own answers only; judges: self / base / frozen copy / random</text>
 <text x="46.0" y="212.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">simulated — one draw per run  (12 of 16 runs seed a draw)</text>
@@ -25,6 +25,7 @@
 <line x1="469.3" y1="448.0" x2="469.3" y2="453.0" stroke="#6b7684" stroke-width="1.0"/>
 <text x="469.3" y="470.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#6b7684" font-weight="normal" text-anchor="middle">4</text>
 <text x="279.7" y="492.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">selection round →</text>
+<polygon points="90.0,305.7 184.8,295.4 279.7,270.2 374.5,235.2 469.3,224.0 469.3,448.0 374.5,424.3 279.7,386.5 184.8,364.8 90.0,317.3" fill="#cfe0f1" fill-opacity="0.75"/>
 <polyline points="90.0,315.0 184.8,308.6 279.7,349.1 374.5,315.5 469.3,322.6" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="90.0,315.0 184.8,368.0 279.7,326.5 374.5,268.9 469.3,301.3" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="90.0,315.0 184.8,341.7 279.7,410.0 374.5,412.8 469.3,448.0" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
@@ -56,6 +57,7 @@
 <line x1="469.3" y1="762.0" x2="469.3" y2="767.0" stroke="#6b7684" stroke-width="1.0"/>
 <text x="469.3" y="784.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#6b7684" font-weight="normal" text-anchor="middle">4</text>
 <text x="279.7" y="806.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">selection round →</text>
+<polygon points="90.0,619.7 184.8,609.4 279.7,584.2 374.5,549.2 469.3,538.0 469.3,762.0 374.5,738.3 279.7,700.5 184.8,678.8 90.0,631.3" fill="#cfe0f1" fill-opacity="0.75"/>
 <polyline points="90.0,629.0 184.8,640.7 279.7,659.3 374.5,724.7 469.3,703.6" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="90.0,629.0 184.8,631.3 279.7,659.3 374.5,612.7 469.3,664.0" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="90.0,629.0 184.8,631.3 279.7,631.3 374.5,612.7 469.3,626.7" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
@@ -103,6 +105,7 @@
 <line x1="928.7" y1="448.0" x2="928.7" y2="453.0" stroke="#6b7684" stroke-width="1.0"/>
 <text x="928.7" y="470.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#6b7684" font-weight="normal" text-anchor="middle">8</text>
 <text x="739.0" y="492.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">selection round →</text>
+<polygon points="549.3,379.1 596.7,352.3 644.2,341.9 691.6,329.3 739.0,316.0 786.4,280.3 833.8,253.9 881.2,241.5 928.7,224.0 928.7,448.0 881.2,448.0 833.8,448.0 786.4,448.0 739.0,448.0 691.6,448.0 644.2,448.0 596.7,434.3 549.3,395.6" fill="#cfe0f1" fill-opacity="0.75"/>
 <polyline points="549.3,394.6 596.7,448.0 644.2,448.0 691.6,448.0 739.0,448.0" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="549.3,394.6 596.7,396.9 644.2,385.2 691.6,378.7 739.0,418.2" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="549.3,393.2 596.7,435.8 644.2,429.5 691.6,448.0 739.0,423.6" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
@@ -152,6 +155,7 @@
 <line x1="928.7" y1="762.0" x2="928.7" y2="767.0" stroke="#6b7684" stroke-width="1.0"/>
 <text x="928.7" y="784.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#6b7684" font-weight="normal" text-anchor="middle">8</text>
 <text x="739.0" y="806.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">selection round →</text>
+<polygon points="549.3,693.1 596.7,666.3 644.2,655.9 691.6,643.3 739.0,630.0 786.4,594.3 833.8,567.9 881.2,555.5 928.7,538.0 928.7,762.0 881.2,762.0 833.8,762.0 786.4,762.0 739.0,762.0 691.6,762.0 644.2,762.0 596.7,748.3 549.3,709.6" fill="#cfe0f1" fill-opacity="0.75"/>
 <polyline points="549.3,708.6 596.7,740.7 644.2,742.5 691.6,724.7 739.0,719.1" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="549.3,708.6 596.7,711.1 644.2,723.0 691.6,734.0 739.0,748.0" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="549.3,707.2 596.7,743.3 644.2,752.7 691.6,752.7 739.0,740.8" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
@@ -196,6 +200,7 @@
 <line x1="1388.0" y1="448.0" x2="1388.0" y2="453.0" stroke="#6b7684" stroke-width="1.0"/>
 <text x="1388.0" y="470.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#6b7684" font-weight="normal" text-anchor="middle">4</text>
 <text x="1198.3" y="492.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">selection round →</text>
+<polygon points="1008.7,224.0 1103.5,238.9 1198.3,224.0 1293.2,224.0 1388.0,224.0 1388.0,351.2 1293.2,351.5 1198.3,341.2 1103.5,349.3 1008.7,395.7" fill="#cfe0f1" fill-opacity="0.75"/>
 <polyline points="1008.7,252.0 1103.5,243.4 1198.3,270.8 1293.2,245.8 1388.0,297.9" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="1008.7,224.0 1103.5,277.2 1198.3,323.2 1293.2,301.5 1388.0,308.8" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="1008.7,252.0 1103.5,267.5 1198.3,332.5 1293.2,320.6 1388.0,294.5" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
@@ -235,6 +240,7 @@
 <line x1="1388.0" y1="762.0" x2="1388.0" y2="767.0" stroke="#6b7684" stroke-width="1.0"/>
 <text x="1388.0" y="784.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#6b7684" font-weight="normal" text-anchor="middle">4</text>
 <text x="1198.3" y="806.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">selection round →</text>
+<polygon points="1008.7,538.0 1103.5,552.9 1198.3,538.0 1293.2,538.0 1388.0,538.0 1388.0,665.2 1293.2,665.5 1198.3,655.2 1103.5,663.3 1008.7,709.7" fill="#cfe0f1" fill-opacity="0.75"/>
 <polyline points="1008.7,566.0 1103.5,619.4 1198.3,575.3 1293.2,631.3 1388.0,601.7" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="1008.7,538.0 1103.5,547.3 1198.3,538.0 1293.2,538.0 1388.0,538.0" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="1008.7,566.0 1103.5,615.9 1198.3,668.7 1293.2,619.4 1388.0,641.7" fill="none" stroke="#2867b5" stroke-width="1.4" stroke-opacity="0.62" stroke-linejoin="round" stroke-linecap="round"/>

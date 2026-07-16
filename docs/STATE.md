@@ -584,6 +584,22 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, analysis+figures+writeup): **Field vertical component
+  MEASURED (user catch: a flat field is also an assertion).**
+  scripts/analysis_field_vertical_component.py →
+  experiments/field_vertical_component.json +
+  report_field_vertical_component.md + ledger row. Risk (188 transitions):
+  envelope-predicted Δ(ρσ) correlates +0.36 with observed. Continuous (27):
+  Δ(ρσ) = −0.021 − 0.173·Δv at r = −0.567 — self-consumption as field
+  geometry; envelope predicts the WRONG sign there. The plane figure's
+  self-description panels now bend by the measured slope (loaded live).
+  WRITEUP: figure 14 (field candidate J) and figure 16 (rollout candidate D)
+  removed (K and E/F remain); D's 10–90% ensemble band moved into E (30
+  draws/run, both halves); endpoint-error-by-regime table removed;
+  "offered"-pool wording sweep (selection-response x-axis, one-round-line
+  caption, writeup). FIGURES: cards panel-3 swap label removed + swap dot
+  red; panel-2 start-label overlap fixed (flat series skip start labels);
+  candidate F endpoint dots exactly centered (dodge removed). 16 figures.
 - 2026-07-16 (General, figures+experiment): run-inventory blocks now COLORED
   by rounds-per-run with the digit inside (slate "4" / near-black "8", key in
   header). NEW EXPERIMENT LAUNCHED: experiments/tmay_freeform/ — TMAY-style

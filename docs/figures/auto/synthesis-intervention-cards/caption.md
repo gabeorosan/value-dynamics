@@ -48,13 +48,12 @@ what the untouched dial would have done.
 3. **Swap in an oracle judge (−1).** One railed OLMo organism, one continuous line.
    A base-model judge first rails the organism up (0.301 → 0.875 rail); then that
    base-model judge is **swapped for a score oracle** whose agreement is pinned at
-   −1.0, and the value reverses to 0.094. The dashed "judge swapped at this
-   point" marker sits ON a measured point: a measurement reflects the
+   −1.0, and the value reverses to 0.094. The dashed vertical line marks the
+   judge swap and sits ON a measured point: a measurement reflects the
    organism's state, not the judge, and that point (0.917) is the railed
    state re-measured at the start of the oracle run — the same state the
-   prior run's last point (0.875) measured, re-read with battery noise. It is
-   drawn in the prior run's color for that reason; every point after it is
-   oracle-driven selection.
+   prior run's last point (0.875) measured, re-read with battery noise.
+   Every point after it is oracle-driven selection.
 4. **Remove the outside source.** The Qwen em750 insecure-code organism runs a
    candid-prompt self-judge duel loop, held fixed except for who fills the
    candidate pool. **Different instrument:** the value here is the forced-choice probability

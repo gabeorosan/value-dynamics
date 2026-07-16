@@ -40,17 +40,28 @@ wall the envelope contracts, σ and hence ρ·σ bend down toward zero, and the 
 visibly curl toward the no-move line near *v* = 0 and *v* = 1; near *v* = 0.5 the
 envelope is flat and the field is nearly horizontal. This is the committed identity
 `V_within = q(1−q) − Var(prompt means)`: pool q(1−q) explains within-prompt spread
-at R² 0.955 (`docs/ANALYSIS_LEDGER.md`, spread-value-centrality row). Arrows whose
+at R² 0.955 (`docs/ANALYSIS_LEDGER.md`, spread-value-centrality row), and the
+envelope-predicted per-round Δ(ρσ) correlates +0.36 with the observed Δ(ρσ) over
+the 170 in-range risk transitions
+(`scripts/analysis_field_vertical_component.py` →
+`experiments/field_vertical_component.json`). Arrows whose
 start or end sits within 0.02 of a wall are dropped to keep env(*v*) > 0.
 
-**Scope of the bend (honesty).** The envelope identity is committed **only for the
-binary risk axis**; the ledger states the 60 continuous self-report rounds are
-outside it. So only the three all-risk-axis panels (Qwen risk grid; OLMo risk grid
-+ judge schedules; OLMo mixed-pool interventions) get the bent field. The Qwen
-insecure-code loops panel (all self-report axis) and the oracle & injection panel
-(mixed: 4 risk + 7 self-report runs) keep a purely horizontal field and carry the
-in-panel note "flat field: the spread–envelope identity is committed only for the
-binary risk axis."
+**The self-description panels bend by a measured coupling, not an assumption.**
+A flat field would assert unestablished dynamics just as much as a bent one, so
+the vertical component was measured per axis (same script). On the 27
+continuous-axis transitions, Δ(ρσ) = −0.021 − 0.173·Δ*v* at r = −0.567: when
+selection moves the value, the forecast-move coordinate shrinks in proportion —
+the self-consumption mechanism as field geometry — while the envelope form
+predicts the wrong sign there (corr −0.56), confirming its binary-only scope.
+The Qwen insecure-code loops panel (all self-report axis) and the oracle &
+injection panel (mixed: 4 risk + 7 self-report runs) therefore draw their
+arrows with the measured slope, loaded live from the JSON, and carry the
+in-panel note "field bend: the measured continuous-axis coupling
+Δ(ρ·σ) ≈ −0.17·Δv". The additional small per-round downward drift (intercept
+−0.021) is reported in `docs/report_field_vertical_component.md` and not
+drawn (an arrow at *y* = 0 should vanish, not drift). Twenty-seven transitions
+is a first measurement, not a law.
 
 **How to read it.** Within each panel most arrows land near the ρ·σ = 0 line, and
 many pile against the walls: as a loop runs, σ is consumed (the pool self-consumes

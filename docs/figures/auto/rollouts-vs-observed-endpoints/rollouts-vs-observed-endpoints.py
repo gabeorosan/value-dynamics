@@ -340,17 +340,14 @@ for i, g in enumerate(GROUPS):
     S.append(line(cx - half * 0.55, Y(med), cx + half * 0.55, Y(med),
                   BLUE, 2.0))
 
-    # observed dots (dark, colored by judge type): a tight centered column,
-    # nudged sideways only where two endpoints would overlap
+    # observed dots (dark, colored by judge type): exactly centered on the
+    # violin's axis — the white outline plus slight transparency keeps
+    # near-coincident endpoints readable as a stack
     dot_color = BLUE if g["self_judge"] else GREEN
-    placed = []
     for ov in sorted(g["obs"]):
-        ypx = Y(ov)
-        n_close = sum(1 for q in placed if abs(q - ypx) < 10)
-        dx = (0, 9, -9, 18, -18)[min(n_close, 4)]
-        placed.append(ypx)
-        S.append(f'<circle cx="{cx + dx:.1f}" cy="{ypx:.1f}" r="5.6" '
-                 f'fill="{dot_color}" stroke="white" stroke-width="1.4"/>')
+        S.append(f'<circle cx="{cx:.1f}" cy="{Y(ov):.1f}" r="5.6" '
+                 f'fill="{dot_color}" fill-opacity="0.85" stroke="white" '
+                 f'stroke-width="1.4"/>')
 
 # ---- group labels (stacked, no rotation) ---------------------------------
 JUDGE_KIND = {

@@ -314,7 +314,7 @@ b.append(f'<line x1="{kx}" y1="{ky+24}" x2="{kx+44}" y2="{ky+24}" stroke="{BLUE}
 b.append(T(kx + 54, ky + 29, f"best fit  (slope {fit_slope:.2f})", 14, BLUE))
 
 # axis labels
-b.append(T(px + pw / 2, py + ph + 54, "forecast  ρσ  =  agreement × offered spread",
+b.append(T(px + pw / 2, py + ph + 54, "forecast  ρσ  =  agreement × candidate-pool spread",
            17, INK, "middle", "bold"))
 b.append(f'<text x="{px-64}" y="{py+ph/2}" font-family="{FONT}" font-size="17" '
          f'fill="{INK}" font-weight="bold" text-anchor="middle" '

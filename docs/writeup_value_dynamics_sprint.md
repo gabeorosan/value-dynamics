@@ -281,7 +281,7 @@ accounting but not this conversion law (the identity is Bernoulli-specific).
 
 Outside supply enters the loop twice: it shifts the training targets relative
 to the model's own candidates, and it adds between-source variation to the
-offered pool — 34% of mean total within-prompt variance in base-mixed pools,
+candidate pool — 34% of mean total within-prompt variance in base-mixed pools,
 57% in peer-mixed pools. The matched injection pair shows both operations in
 one controlled experiment (Qwen insecure-code organism, score oracle, same
 seeds, streams diverging only at injection): the self-only twin has own
@@ -328,18 +328,11 @@ and resume. Nothing in this recurrence is fitted.
 
 ![The endpoint recurrence: one round's move, repeated](figures/auto/model-endpoint-visual/model-endpoint-visual.svg)
 
-*[Dynamics-field figure — two candidate views below; one will be kept.]*
+![Each run's start and end in the (value, forecast-move) plane](figures/auto/field-value-gap-startend/field-value-gap-startend.svg)
 
-![Field candidate J: runs through the (value, forecast-move) plane, over the model's flow](figures/auto/field-value-gap-paths/field-value-gap-paths.svg)
-
-*Field candidate J — each run's round-by-round path through the
-(value, ρσ) plane, start dot to end arrowhead, over the flow the recurrence
-implies (horizontal motion equal to the height ρσ).*
-
-![Field candidate K: each run's start and end in the (value, forecast-move) plane](figures/auto/field-value-gap-startend/field-value-gap-startend.svg)
-
-*Field candidate K — the same plane reduced to one straight arrow per run,
-round-1 state to endpoint, over the same implied field.*
+*Each run reduced to one straight arrow, round-1 state to endpoint, on the
+(value, ρσ) plane per experiment family, over the flow the recurrence
+implies.*
 
 *The recurrence is the one-round move repeated: each round mixing pulls the
 value a fraction u toward the outside source's level and selection steps it ρσ, and
@@ -347,17 +340,6 @@ the 0/1 walls stop it. Rolled from each run's first pool with nothing
 re-measured, the predicted path (dashed) tracks the observed one (solid) —
 a peer invasion railing to 1, a one-round injection collapse to 0, an oracle
 reversal.*
-
-Held-out-condition endpoint error, by regime:
-
-| regime (the experiments in it) | runs | unit recurrence | no change |
-|---|---:|---:|---:|
-| selection-driven — the mixed-pool interventions, oracle and injection runs, and strong-agreement self-only judges | 36 | **0.118** | 0.431 |
-| weak self-only selection — the Qwen and OLMo risk-grid cells with ρ ≈ 0 | 22 | 0.211 | 0.215 |
-| scheduled judge swaps, before the swap is known | 9 | 0.404* | 0.361 |
-| scheduled judge swaps, one re-measurement at the swap | 9 | 0.210 (fitted comparator 0.179) | 0.309† |
-
-*\*fitted frozen-spread model shown; †holding the swap-time value fixed.*
 
 Where a judge actually selects on the axis, one measurement predicts the
 endpoint at about a quarter of the no-change error, recovers 21 of the 24
@@ -399,19 +381,14 @@ the observed path variation (0.709 versus 0.648 observed), sign reversals
 covers 22% at CRPS 0.135). The endpoint-recurrence figure above shows the
 resulting predictive band on three held-out runs.
 
-*[Rollout-ensemble figure — three candidate views below; one will be kept.]*
-
-![Rollout candidate D: simulated ensembles vs observed trajectories, by condition](figures/auto/rollouts-vs-observed-panels/rollouts-vs-observed-panels.svg)
-
-*Candidate D — small multiples, one panel per condition cell with several
-seeds: the simulated staged-noise ensemble (band + median, rolled from each
-seed's round-1 state) behind that cell's observed per-seed trajectories.*
+*[Rollout-ensemble figure — two candidate views below; one will be kept.]*
 
 ![Rollout candidate E: sampled rollouts and observed trajectories, three experiment families](figures/auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg)
 
-*Candidate E — spaghetti overlay by experiment family: thin gray simulated
-draws from the committed recurrence-plus-staged-noise sampler underneath, the
-family's observed runs in blue on top.*
+*Candidate E — stacked pairs by experiment family: one simulated draw per
+run from the committed recurrence-plus-staged-noise sampler (with the
+ensemble's 10–90% band), the family's observed runs below on the same
+axes.*
 
 ![Rollout candidate F: simulated endpoint distributions and observed endpoints, by condition](figures/auto/rollouts-vs-observed-endpoints/rollouts-vs-observed-endpoints.svg)
 

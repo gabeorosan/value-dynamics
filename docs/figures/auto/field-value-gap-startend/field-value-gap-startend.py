@@ -130,11 +130,19 @@ FAM_EXPECT = {"Qwen risk grid": 16, "OLMo risk grid + judge schedules": 21,
               "Qwen insecure-code loops": 8}
 COLORS = [c for _, c in FAMS]
 
-# panels whose runs are all binary risk axis get the bent (envelope) field
+# panels whose runs are all binary risk axis get the envelope-bent field;
+# the two panels containing continuous self-description runs get the
+# MEASURED continuous-axis coupling instead (a flat field would assert
+# unestablished dynamics just as much as a bent one) — the slope is loaded
+# live from the committed analysis
 BENT_FAMS = {"Qwen risk grid", "OLMo risk grid + judge schedules",
              "OLMo mixed-pool interventions"}
-FLAT_NOTE = ("flat field: the spread–envelope identity is committed only "
-             "for the binary risk axis")
+with open(os.path.join(EXP, "field_vertical_component.json")) as _fvc:
+    _FVC = json.load(_fvc)
+EMP_SLOPE = _FVC["selfreport"]["dy_on_dv_slope"]     # -0.1729 (r = -0.567)
+assert -0.30 < EMP_SLOPE < -0.05, EMP_SLOPE
+EMP_NOTE = ("field bend: the measured continuous-axis coupling "
+            f"Δ(ρ·σ) ≈ −{abs(EMP_SLOPE):.2f}·Δv")
 
 
 def rho_sigma(r):
@@ -272,12 +280,11 @@ def field_arrows(ox, top, bent):
                 ye = yy * (env(ve) / e0)
                 x1, y1v, x2, y2v = xc, yy, ve, ye
             else:
-                length = abs(yy) * FIELD_SCALE
-                if yy > 0:
-                    x1, x2 = xc, min(1.0, xc + length)
-                else:
-                    x1, x2 = xc, max(0.0, xc - length)
-                y1v = y2v = yy
+                # measured continuous-axis coupling: the forecast-move
+                # coordinate shrinks when the value rises (self-consumption)
+                dv = yy * FIELD_SCALE
+                ve = min(1.0, max(0.0, xc + dv))
+                x1, y1v, x2, y2v = xc, yy, ve, yy + EMP_SLOPE * (ve - xc)
             if abs(x2 - x1) < 0.006 and abs(y2v - y1v) < 0.004:
                 continue
             out.append(
@@ -348,7 +355,7 @@ def draw_panel(fam, col, row):
 
     # flat-field note inside horizontal panels (top-left corner is clear)
     if not bent:
-        for j, ln in enumerate(wrap(FLAT_NOTE, 34)):
+        for j, ln in enumerate(wrap(EMP_NOTE, 34)):
             out.append(txt(ox + 10, top + 22 + j * 17, ln, 13, GRAY))
 
     # panel axis labels (compact; full recipe lives in the caption)
@@ -404,9 +411,10 @@ S.append(txt(kox + 58, ly, "the swap happens between the dot and the arrowhead",
 notes = [
     "field: the self-only recurrence Δ value = ρ·σ, "
     "length ∝ ρ·σ (schematic)",
-    "risk panels: field bends down toward the walls — spread tracks the "
+    "risk panels: field bends toward the walls — spread tracks the "
     "binary envelope √(v(1−v))",
-    "flat-field panels: identity committed only for the binary risk axis",
+    "self-description panels: field bends by the measured coupling "
+    f"Δ(ρ·σ) ≈ −{abs(EMP_SLOPE):.2f}·Δv",
     "ρ unmeasurable (σ → 0)  →  move plotted at 0",
 ]
 ly += 34

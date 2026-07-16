@@ -231,7 +231,9 @@ def sparkline(x, y, w, h, series, legend_x, legend_y):
         # tuck it into the left gutter instead so nothing overlaps.
         sx, sy = pts[0]
         startlbl = "0" if v[0] == 0 else f"{v[0]:.3f}".rstrip("0").rstrip(".")
-        if len(v) > 1 and v[1] > v[0] + 0.03:
+        if len(v) > 1 and abs(v[0] - v[-1]) < 0.01:
+            pass  # essentially flat: the end label already shows this value
+        elif len(v) > 1 and v[1] > v[0] + 0.03:
             s.append(txt(sx - 6, sy + 5, startlbl, 15, color, weight="bold",
                          anchor="end"))
         else:
@@ -287,8 +289,6 @@ def spliced_line(x, y, w, h, seg_a, seg_b, ca, cb, legend_x, legend_y,
     sw_px = pt(ka)[0]
     s.append(f'<line x1="{sw_px:.1f}" y1="{y-6}" x2="{sw_px:.1f}" y2="{y+h}" '
              f'stroke="{INK}" stroke-width="1.6" stroke-dasharray="4 3"/>')
-    s.append(txt(sw_px, y - 10, "judge swapped at this point", 12.5,
-                 INK, weight="bold", anchor="middle"))
     # prior-state polyline through the re-measured swap point (0..ka), then
     # the new judge's polyline (ka..n-1)
     pa = " ".join(f"{pt(i)[0]:.1f},{pt(i)[1]:.1f}" for i in range(ka + 1))
@@ -297,13 +297,13 @@ def spliced_line(x, y, w, h, seg_a, seg_b, ca, cb, legend_x, legend_y,
              f'stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>')
     s.append(f'<polyline points="{pb}" fill="none" stroke="{cb}" '
              f'stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>')
-    # small vertices — the point AT the swap belongs to the prior state
+    # small vertices
     for i in range(n):
         px, py = pt(i)
-        col = ca if i <= ka else cb
+        col = ca if i < ka else cb
         s.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="3" fill="{col}"/>')
-    # emphasised markers: start, the re-measured swap-time state, end
-    for i, col in ((0, ca), (ka, ca), (n - 1, cb)):
+    # emphasised markers: start, the dot the swap line sits on, end
+    for i, col in ((0, ca), (ka, cb), (n - 1, cb)):
         px, py = pt(i)
         s.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="4.6" fill="{col}" '
                  f'stroke="white" stroke-width="1.6"/>')
@@ -314,7 +314,7 @@ def spliced_line(x, y, w, h, seg_a, seg_b, ca, cb, legend_x, legend_y,
                  weight="bold", anchor="end"))
     ox, oy = pt(ka)
     s.append(txt(ox + 16, oy + 20,
-                 f"{seg_b[0]:.3f}".rstrip("0").rstrip("."), 15, ca,
+                 f"{seg_b[0]:.3f}".rstrip("0").rstrip("."), 15, cb,
                  weight="bold"))
     ex, ey = pt(n - 1)
     s.append(txt(ex + 8, ey + 5,

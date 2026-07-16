@@ -262,10 +262,11 @@ LINE_OP = 0.62
 S.append(txt(LEFT, 50,
              "Sampled rollouts and observed trajectories, three experiment families",
              24, INK, "bold"))
-_subtitle = ("For each family a stacked pair on the same axes and the same line "
-             "styling: top is one simulated rollout per run drawn forward from "
-             "round-1 pool state under the committed unit recurrence + staged "
-             "noise; bottom is the runs actually observed.")
+_subtitle = ("Per family, a stacked pair on the same axes and line styling: top "
+             "is one simulated rollout per run from round-1 pool state (committed "
+             "unit recurrence + staged noise); bottom is the runs actually "
+             "observed. Shaded in both halves: the simulated ensemble's 10–90% "
+             "band (30 draws per run, pooled per family).")
 for _i, _ln in enumerate(wrap(_subtitle, 118)):
     S.append(txt(LEFT, 84 + _i * 22, _ln, 16, GRAY))
 
@@ -286,8 +287,23 @@ PLOT_LEFT_PAD = 44
 plot_w = pw - PLOT_LEFT_PAD - 6
 
 
-def draw_plot(plot_x0, plot_top, plot_bot, max_round, trajectories, row_label):
-    """One half-panel: axes + a bundle of trajectories (list of value-lists)."""
+BAND_FILL = "#cfe0f1"   # simulated-ensemble 10-90% band (matches the
+                        # endpoint figure's violin fill)
+
+
+def quantile(xs, q):
+    xs = sorted(xs)
+    i = q * (len(xs) - 1)
+    lo = int(i)
+    hi = min(lo + 1, len(xs) - 1)
+    return xs[lo] * (1 - (i - lo)) + xs[hi] * (i - lo)
+
+
+def draw_plot(plot_x0, plot_top, plot_bot, max_round, trajectories, row_label,
+              band=None):
+    """One half-panel: axes + a bundle of trajectories (list of value-lists).
+    band = optional list of (round_index, lo, hi) drawn as a filled region
+    behind the trajectories."""
     plot_x1 = plot_x0 + plot_w
 
     def X(rnd):
@@ -315,6 +331,13 @@ def draw_plot(plot_x0, plot_top, plot_bot, max_round, trajectories, row_label):
     # x axis label
     out.append(txt((plot_x0 + plot_x1) / 2, plot_bot + 44,
                    "selection round →", 14, GRAY, anchor="middle"))
+    # simulated-ensemble band first, so every line sits on top of it
+    if band:
+        top_pts = [(X(i), Y(hi)) for i, lo, hi in band]
+        bot_pts = [(X(i), Y(lo)) for i, lo, hi in reversed(band)]
+        d = " ".join(f"{px:.1f},{py:.1f}" for px, py in top_pts + bot_pts)
+        out.append(f'<polygon points="{d}" fill="{BAND_FILL}" '
+                   f'fill-opacity="0.75"/>')
     # trajectory bundle (identical styling in both halves)
     for path in trajectories:
         pts = [(X(i), Y(path[i])) for i in range(len(path))]
@@ -336,17 +359,27 @@ for idx, (fam, name, sub) in enumerate(PANELS):
     S.append(txt(px0, HEADER_Y, f"{fam}.  {name}   ({n_runs} runs)", 19, INK, "bold"))
     S.append(txt(px0, SUB_Y, sub, 14, GRAY))
 
-    # one simulated draw per sim-able run
-    sims = []
+    # one simulated draw per sim-able run for the spaghetti, plus a larger
+    # ensemble (30 draws per run) for the 10-90% band
+    sims, ensemble = [], []
     for j, rows in enumerate(sim_runs):
         _, paths = rollout(rows, n_paths=1, seed=1000 * (idx + 1) + j)
         sims.append(paths[0])
+        _, band_paths = rollout(rows, n_paths=30, seed=7000 * (idx + 1) + j)
+        ensemble.extend(band_paths)
+    band = []
+    for i in range(max_round + 1):
+        vals = [p[i] for p in ensemble if len(p) > i]
+        if len(vals) >= 10:
+            band.append((i, quantile(vals, 0.10), quantile(vals, 0.90)))
     obs = [observed(rows) for rows in runs]
 
     S.extend(draw_plot(plot_x0, PLOT1_TOP, PLOT1_BOT, max_round, sims,
-                       f"simulated — one draw per run  ({n_sim} of {n_runs} runs seed a draw)"))
+                       f"simulated — one draw per run  ({n_sim} of {n_runs} runs seed a draw)",
+                       band=band))
     S.extend(draw_plot(plot_x0, PLOT2_TOP, PLOT2_BOT, max_round, obs,
-                       f"observed — measured value each round  ({n_runs} runs)"))
+                       f"observed — measured value each round  ({n_runs} runs)",
+                       band=band))
 
     # y axis label (leftmost column only)
     if idx == 0:

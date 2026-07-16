@@ -582,7 +582,11 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
-- 2026-07-16 ~04:1xZ (General): **Arm 1 (reference_vs_secure) LANDED, registered
+- 2026-07-16 ~02:4xZ (General): **Arm 2 (head2head_self) CONFIRMED RUNNING** —
+  mode + filename verified from Drive (`olmo_code_security_self_pool_duels_v1.json`,
+  seed 71 round 1 done, checkpointing ~every 5 min). ~2h for both seeds. (Prior
+  two entries mis-timestamped 04:xx; actual clock was 02:xx.)
+- 2026-07-16 ~02:3xZ (General): **Arm 1 (reference_vs_secure) LANDED, registered
   forecast HELD.** Both seeds done (`olmo_code_security_static_reference_v1.json`,
   pulled + committed). Live coordinate ~flat: s71 in-domain 0.854->0.860, s72
   0.866->0.789, vs v2 base-cogen 0.728/0.610 — supplier material was the dominant
@@ -590,7 +594,7 @@ ledger with trace status; figure references use filenames, never bare numbers.
   exactly at boundary); s72's larger drop tracks its stronger judge agreement
   (rho1 -0.56). Arm 2 (head2head_self) now RUNNING on the reconnected runtime
   (env verified, ~2h) → `olmo_code_security_self_pool_duels_v1.json`.
-- 2026-07-16 ~04:3xZ (General): **Arm 1 blind Sonnet-5 severity (12 batches,
+- 2026-07-16 ~02:4xZ (General): **Arm 1 blind Sonnet-5 severity (12 batches,
   360/360, committed under output/static_reference_audit/) — supports the
   supplier-driven reading IN-DOMAIN, noisy on held-out.** Manual mean severity:
   in-domain does NOT reproduce v2's erosion (s71 +0.110, s72 -0.125 vs v2
@@ -629,21 +633,23 @@ ledger with trace status; figure references use filenames, never bare numbers.
   three-way verdict vs the done v2 base-cogenerator run (intrinsic judge taste vs
   supplier convergence). Scorer dry-run-verified against the schema-3 self-only
   format. See Jobs row 1; don't launch a competing Colab job until both land.
-- 2026-07-15 (General, writeup): **Rollout definition unified; stochastic path
+- 2026-07-16 (General, writeup): **Rollout definition unified; stochastic path
   audit added; figure revision requested.** Frozen mean SD and frozen mean
   range produce effectively identical LOCO rollouts (mean endpoint difference
   0.0066; endpoint class 66/67), so the writeup now uses mean within-prompt SD
   for both `ρσ` decomposition and endpoint forecasting. On 45 selection-driven
   + refreshed-swap runs, frozen SD scores endpoint MAE 0.137, 36/38 directions,
   and 19/24 rail endpoints. Deterministic paths understate total variation
-  (0.458 vs 0.648). Upstream selector-gap noise alone reaches only 0.480
-  (CRPS 0.118); a full Gaussian value residual reaches 0.655 (CRPS 0.108), but
-  confounds training innovation with probe measurement error and nominal 80%
-  endpoint coverage is only 62%.
+  (0.458 vs 0.648). The expanded location bakeoff uses actual battery sample
+  counts (risk 24/96; self-report 9) and saved duplicate baselines. The preferred
+  staged model draws selector-gap, generator-mean, and agreement-persistence
+  innovations, then adds observation noise without feedback: TV 0.678,
+  reversals 1.36, CRPS 0.095, nominal-80% coverage 84%. A separate latent
+  value-process kick worsens the point mean and over-disperses.
   Candidate risk `ρ_next ~ ρ + ρσ` feedback is rejected: it does not improve
   direct held-out next-agreement prediction, so its apparent endpoint gain is
   treated as post-hoc compensation. Main prose keeps the conditional-mean
-  model; Gaussian path noise is appendix-only and non-mechanistic. Figure brief now asks Claude to
+  model; stochastic paths are appendix-only. Figure brief now asks Claude to
   replace the definition bakeoff panel with observed-vs-simulated path fidelity.
 - 2026-07-15 (General, writeup): **Rollout-analysis figures made + deployed.** New
   figure docs/figures/auto/spread-rollout-bakeoff/ (1240×1638, 2-panel) embedded

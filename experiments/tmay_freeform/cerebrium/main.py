@@ -19,7 +19,7 @@ import subprocess
 import sys
 import urllib.request
 
-COMMIT = "fdb780d8808446f4f5e14be614041ff61ada7286"
+COMMIT = "928cb49fa0a58362c1e181d28959a7636945be67"
 URL = ("https://raw.githubusercontent.com/gabeorosan/value-dynamics/"
        f"{COMMIT}/experiments/tmay_freeform/script.py")
 

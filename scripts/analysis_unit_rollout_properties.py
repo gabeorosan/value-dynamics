@@ -273,7 +273,43 @@ def main():
             "large_move_direction_from_last_reread": direction(model, "start_ref"),
         }
 
+    # endpoint-only aggregates by regime group (glued entries included), for
+    # the unit recurrence, the fitted comparator, and no-change — the numbers
+    # a one-model figure needs
+    groups = {
+        "selection_driven": ("intervention", "self-force"),
+        "intervention": ("intervention",),
+        "self_force": ("self-force",),
+        "self_weak": ("self-weak",),
+        "judge_swap_refreshed": ("judge-swap",),
+    }
+    by_regime = {}
+    for gname, regs in groups.items():
+        cells = []
+        for run in frozen_runs:
+            if run["regime"] not in regs:
+                continue
+            uu = unit_by_key.get(run["run_key"])
+            if uu is None:
+                continue
+            if run["regime"] == "judge-swap":
+                fitted_pred = swap_refresh[run["run_key"]]["refreshed_rounds"][-1][
+                    "value_after_pred"
+                ]
+            else:
+                fitted_pred = run["rounds"][-1]["value_after_pred"]
+            truth = run["rounds"][-1]["value_after_true"]
+            cells.append((abs(uu["predicted"] - truth), abs(fitted_pred - truth),
+                          abs(run["v1"] - truth)))
+        by_regime[gname] = {
+            "n_runs": len(cells),
+            "unit_recurrence_endpoint_mae": round(mean([c[0] for c in cells]), 4),
+            "fitted_frozen_sd_endpoint_mae": round(mean([c[1] for c in cells]), 4),
+            "no_change_endpoint_mae": round(mean([c[2] for c in cells]), 4),
+        }
+
     endpoint_only_45 = {
+        "by_regime_group": by_regime,
         "n_runs": len(ep),
         "note": (
             "endpoint-only, no path alignment needed; 36 selection-driven "

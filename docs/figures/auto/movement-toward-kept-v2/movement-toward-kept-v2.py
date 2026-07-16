@@ -130,7 +130,7 @@ def main():
     b.append(f'<line x1="{kx}" y1="{ky-6}" x2="{kx+38}" y2="{ky-6}" '
              f'stroke="{INK}" stroke-width="3.5"/>')
     b.append(f'<text x="{kx+48}" y="{ky}" font-size="18" font-weight="bold" fill="{INK}" '
-             f'font-family="{FONT}">{esc("drift = 0.83 × pull  (r = 0.80)")}</text>')
+             f'font-family="{FONT}">{esc("value change = 0.83 × behavioral pull  (r = 0.80)")}</text>')
     ky += 32
     b.append(f'<line x1="{kx}" y1="{ky-6}" x2="{kx+38}" y2="{ky-6}" '
              f'stroke="{GRAY}" stroke-width="2" stroke-dasharray="7 6"/>')
@@ -154,10 +154,10 @@ def main():
     # ---------------- axis titles ----------------
     b.append(f'<text x="{px+pw/2}" y="{py+ph+68}" text-anchor="middle" font-size="20" '
              f'fill="{INK}" font-family="{FONT}">'
-             f'{esc("kept answers’ mean minus current value (pull, this round)")}</text>')
+             f'{esc("behavioral pull: kept answers’ mean minus current behavioral value")}</text>')
     b.append(f'<text x="{px-74}" y="{py+ph/2}" font-size="20" fill="{INK}" font-family="{FONT}" '
              f'transform="rotate(-90 {px-74} {py+ph/2})" text-anchor="middle">'
-             f'value change this round (drift)</text>')
+             f'change in behavioral value this round</text>')
 
     # ---------------- footnote (data pointer) ----------------
     fy = py + ph + 104

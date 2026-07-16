@@ -584,6 +584,27 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **Model explanation rebuilt visually + symbol
+  refactor + synthesis candidates for user pick.** (1) SYMBOLS unified: one set
+  {v,q,p,k,g,σ,ρ,u,s} introduced on a new number-line figure and reused in every
+  equation; the circular "a = g/σ then g = σ·a" Price-intensity framing is
+  deleted from all user surfaces (breeder's-equation mapping lives only in
+  Related frameworks); the recurrence is now written as the number-line replayed
+  (p=(1−u)q+us → k=p+ρσ → next q=next v=k), no stray m. (2) NEW model figures:
+  model-one-round-line (the k/p/g/q line), selection-response-model slimmed to
+  the two-dials evidence scatter, model-endpoint-visual (recurrence as motion +
+  3 real held-out runs predicted-vs-observed — no equation),
+  judges-agreement-axis (visual glossary replacing synthesis_judges_defined in
+  the writeup). (3) "direct scoring" RETIRED everywhere (implies the judge
+  scores; the oracle has no judge) → "score-ranked keeping — no judge"; kit's
+  "score-based judge" → "no judge — the score oracle". (4) THREE synthesis
+  candidates embedded for user feedback, replacing two-dials-clean:
+  synthesis-dial-plane (A), synthesis-intervention-cards (B),
+  synthesis-pressure-move (C) — all computed+asserted from committed JSONs.
+  Rollout figure unified to the unit model (per-regime aggregates added to
+  analysis_unit_rollout_properties.py). Site+artifact rebuilt (14 figures).
+
+
 - 2026-07-16 (General): **Qwen cross-family self-only run COMPLETE — supplier removal REVERSES the forced-choice channel.** p_insecure amplifies 0.341->0.793/0.913 (2/2, +0.45/+0.57, noise 0.008); sr_freegen mild decline 0.892->0.731/0.667 with late rounds missing-force (pool self-consumes to duplicates). vs supplier run 0.67->0.00. The base supplier was a DE-ESCALATING force; without it the self-judge self-reinforces. Prereg P1 confirmed, forced-choice amplification unpredicted. Ledger row + scripts/analysis_qwen_selfonly_trajectories.py -> experiments/qwen_selfonly_trajectories.json.
 - 2026-07-16 (General, writeup): **Figure set cut 16 → 11 + staleness sweep,
   redeployed all three surfaces.** Per user: kit figure now says "the organism

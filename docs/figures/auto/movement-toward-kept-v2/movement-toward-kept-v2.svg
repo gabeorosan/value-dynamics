@@ -365,7 +365,7 @@
 <circle cx="501.0" cy="495.0" r="5" fill="#b5342c" fill-opacity="0.72" stroke="white" stroke-width="1"/>
 <circle cx="501.0" cy="495.0" r="5" fill="#b5342c" fill-opacity="0.72" stroke="white" stroke-width="1"/>
 <line x1="162" y1="124" x2="200" y2="124" stroke="#1a1a1a" stroke-width="3.5"/>
-<text x="210" y="130" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">drift = 0.83 × pull  (r = 0.80)</text>
+<text x="210" y="130" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">value change = 0.83 × behavioral pull  (r = 0.80)</text>
 <line x1="162" y1="156" x2="200" y2="156" stroke="#6b7684" stroke-width="2" stroke-dasharray="7 6"/>
 <text x="210" y="162" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">moving the whole distance</text>
 <circle cx="181" cy="196" r="7" fill="#2867b5" fill-opacity="0.85" stroke="white" stroke-width="1"/>
@@ -374,7 +374,7 @@
 <text x="210" y="232" font-size="18" font-family="Helvetica, Arial, sans-serif"><tspan fill="#3a7d44" font-weight="bold">base-mixed</tspan><tspan fill="#1a1a1a"> — base model supplies half</tspan></text>
 <circle cx="181" cy="256" r="7" fill="#b5342c" fill-opacity="0.85" stroke="white" stroke-width="1"/>
 <text x="210" y="262" font-size="18" font-family="Helvetica, Arial, sans-serif"><tspan fill="#b5342c" font-weight="bold">peer-mixed</tspan><tspan fill="#1a1a1a"> — extreme peer supplies half</tspan></text>
-<text x="520.0" y="924" text-anchor="middle" font-size="20" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">kept answers’ mean minus current value (pull, this round)</text>
-<text x="66" y="476.0" font-size="20" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 66 476.0)" text-anchor="middle">value change this round (drift)</text>
+<text x="520.0" y="924" text-anchor="middle" font-size="20" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">behavioral pull: kept answers’ mean minus current behavioral value</text>
+<text x="66" y="476.0" font-size="20" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 66 476.0)" text-anchor="middle">change in behavioral value this round</text>
 <text x="140" y="960" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">One dot per loop round — 340 rounds from 74 selection-loop runs. Data: experiments/spread_util_unified.json.</text>
 </svg>

@@ -44,26 +44,28 @@ runs). This post varies one column at a time.*
 
 ## Findings
 
-1. **After training on a round, the value moves to the mean of what the judge
-   kept.** The parameter-free rule `next value = kept mean` predicts the next
-   measured value with mean absolute error 0.081 across all 340 logged rounds
-   (no-change baseline: 0.128). Before selection, the kept mean itself is
-   predictable from two measurements of the pool: `kept mean ≈ pool mean +
-   agreement × spread`, at almost no cost in accuracy (0.090).
-2. **Measure a run once, at its first pool, and the same rule iterated
-   forward predicts where it ends.** Holding the entire experimental
-   condition out of fitting, the recurrence scores endpoint error 0.118 on
-   the 36 selection-driven runs versus 0.431 for no change, and its error is
-   flat in forecast horizon — the first round's state carries the endpoint.
-   The one place forecasts fail is a mid-run judge change, and one
-   re-measurement there repairs them (0.404 → 0.179 on the nine scheduled
-   swaps).
-3. **The model passed a preregistered forward test.** While two new control
-   runs were still executing, their round-1 state was measured, the frozen
-   forecast was committed with declared pass bands, and the runs then landed
-   inside them: removing the outside supplier from an eroding loop leaves a
-   material-starved pool (spread 0.06 versus 0.3–0.4 mixed) that the model
-   correctly called flat, at a fifth of the matched run's erosion.
+1. **Two first-round measurements — the pool's value spread and the judge's
+   agreement with the value — determine where a selection loop takes the
+   value.** Their product forecasts the selector gap (g ≈ ρσ, no fitted
+   coefficient, R² 0.81 across 290 logged rounds), the value moves to the mean of what
+   the judge keeps (one-round error 0.081 vs 0.128 for no change), and
+   iterating that update with the first pool's state predicts the endpoints
+   of held-out conditions at error 0.118 versus 0.431 — with no fitted
+   parameters. The model's one forward test so far — a preregistered
+   forecast, committed while two new control runs were still executing —
+   landed inside its declared bands.
+2. **A model's own judgment does not protect its own value, and the judging
+   format is part of the judge.** The same cautious judge on the same pools
+   has agreement +0.38 scoring against a reference and +0.10 under duels —
+   the difference between a failed and a successful rescue. The
+   insecure-code organism judging its own duels ran at agreement −0.24
+   against its own installed value and erased it in two rounds.
+3. **Who fills the pool is as decisive as who judges.** Mixed-pool runs end
+   near their supplier's level; injecting base-model answers reopens a
+   collapsed loop in one round (0.627 → 0.000); and removing the supplier
+   from an eroding loop leaves too little variation to select on — the loop
+   goes flat, exactly as the forward forecast called it from the round-1
+   spread alone.
 
 ## What I ran
 
@@ -80,18 +82,19 @@ time:
 | Qwen insecure-code loops | Qwen3-4B · insecure-code self-description | itself (duels with base text present; candid-prompt variants), base | self-only and base-mixed | 8 |
 
 The judges, pool types, and the three ways a judge can be asked (score
-against a reference answer, head-to-head duels, direct scoring) are defined
+against a reference answer, head-to-head duels, or — with no judge at all — score-ranked keeping by the oracle) are defined
 once in the glossary figure and named consistently everywhere below; each
 result states which cell it comes from. One additional experiment sits
 outside this modeling corpus and is used only to test the model forward: the
 OLMo insecure-code-writing erosion loop and its two supplier-removed control
 arms, described in their own section below.
 
-![Judges and pools defined](figures/synthesis_judges_defined.svg)
+![The judges, placed by what they actually do: agreement with the value](figures/auto/judges-agreement-axis/judges-agreement-axis.svg)
 
-*The judges and pool types used everywhere below, and the ways a judge can
-be asked. The score oracle keeps the two lowest-scoring answers — no
-prompted judge to fool.*
+*The judges, judging formats, and pool types used below, each placed on the
+agreement axis ρ by its measured pull. The score oracle sits at the −1 floor;
+the same cautious judge lands at two places depending on how it is asked;
+82% of agreement's variance is between these setups, not between rounds.*
 
 ## What I measure
 
@@ -120,11 +123,14 @@ behavioral measure separate:
 - **agreement** ρ — the within-prompt correlation between the judge's
   candidate scores and the candidates' value scores, averaged over prompts
   (−1 = perfectly keeps the low side, +1 = perfectly keeps the high side);
-- **selector gap** — kept mean minus the whole offered pool mean;
-- **training displacement** — kept mean minus the model's own generated-pool
-  mean;
-- **behavioral pull** — kept mean minus the separate behavioral value
-  measurement.
+- **selector gap** g — kept mean `k` minus the whole offered pool mean `p`;
+- **training displacement** — `k` minus the organism's own generated-pool
+  mean `q`;
+- **behavioral pull** — `k` minus the behavioral value `v`.
+
+These four positions — `q`, `p`, `k`, `v` — and the distances between them
+are the model's entire vocabulary; the number-line figure below shows them
+in one picture, and every later equation reuses them unchanged.
 
 Total SD across prompts is tracked separately as **distributional breadth**;
 it includes differences between prompt means that the within-prompt selector
@@ -144,12 +150,13 @@ or selector gap alone (0.112). A fitted update gain lands at 0.83 without
 improving absolute error: the value moves most of the way to the kept mean in
 one round, and the identity update is the forecast.
 
-![The value moves toward the kept answers' mean](figures/auto/movement-toward-kept-v2/movement-toward-kept-v2.svg)
+![One round, on the value line: pool, kept set, and the move](figures/auto/model-one-round-line/model-one-round-line.svg)
 
-*Each dot is one selection round. The panel pools all 340 rounds — 74 runs of
-the five experiment families above, both model families, both value axes, all
-pool compositions — because the law is the same in every slice; the per-slice
-accuracies are two paragraphs down.*
+*Everything the model tracks, as positions on the value line: the organism's
+own candidates (mean q), the offered pool after any supplier answers (mean p),
+the two answers the judge keeps (mean k) — and the value's move to k. The
+accuracy above (0.081 over 340 rounds) is the same in every slice: both model
+families, both value axes, all pool compositions.*
 
 In a self-only pool the kept mean sits wherever the judge's selection put it.
 In a mixed pool, outside candidates move the whole-pool mean too, so the
@@ -162,13 +169,13 @@ mechanics: those runs ended near their supplier's level because the judge
 kept supplier text, the kept mean therefore sat at the supplier's level, and
 the value converged to the kept mean — where the pull runs out.
 
-**Before selection, two numbers predict the kept mean.** The selector gap is
-the classical selection differential: within each prompt,
-`kept mean − pool mean = Cov(value, kept)/keep-rate`, so
-`gap = spread × realized selection intensity` exactly. Before the kept set
-exists, the judge/value agreement ρ is a compact proxy for that intensity:
+**Before selection, two numbers predict the kept mean.** How far the kept
+set's mean lands from the pool's depends on two things that are worth
+measuring separately: how much the candidates vary on the value axis (spread
+σ), and how consistently the judge's choices track that axis (agreement ρ).
+Empirically, the forecast needs nothing else — not even a coefficient:
 
-`predicted kept mean = pool mean + ρσ`.
+`predicted selector gap g = ρσ`, so `predicted kept mean k = p + ρσ`.
 
 The unit-coefficient rule reconstructs realized selector gaps at R² 0.81
 (MAE 0.042) over the 290 rounds with logged judge scores, and predicts the
@@ -180,7 +187,7 @@ value error runs 0.086–0.113 across those same slices. A more detailed
 per-prompt model using the judge's full logged scores does slightly worse
 (0.092/0.044) — the two-dial compression loses nothing.
 
-![Selection converts offered variation into movement — with no fitted constants](figures/auto/selection-response-model/selection-response-model.svg)
+![Two measurements predict what selection will do — with no fitted coefficient](figures/auto/selection-response-model/selection-response-model.svg)
 
 The two dials answer different questions — spread says whether the pool
 offers variation on the value axis at all; agreement says whether this judge,
@@ -241,26 +248,48 @@ is between judge × format × pool cells, not between rounds of the same run.
 Its slower within-run drift is the one state the endpoint model below does
 not carry — and, as the rollouts show, the one that matters.
 
-![How interventions move the two factors](figures/auto/two-dials-clean/two-dials-clean.svg)
+*[Synthesis figure — three candidate views below; one will be kept.]*
 
-*Each arrow compares one setup before and after a single change — not one
-round to the next. Injecting base answers moves pool supply and adds
-between-source spread; swapping reference-scoring for duels drops the same
-judge's agreement (ρ 0.38 → 0.10) at fixed spread; the self-judging
-insecure-code organism sits at negative agreement.*
+![Synthesis candidate A: every run placed by its first-round dials](figures/auto/synthesis-dial-plane/synthesis-dial-plane.svg)
+
+*Candidate A — the whole corpus on the (agreement, spread) plane: one dot per
+run at its first-round state over contours of selection pressure |ρσ|, colored
+by the observed endpoint move. Runs move when they start away from both axes.*
+
+![Synthesis candidate B: four experiments, one lens — move a dial, the value follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
+
+*Candidate B — one card per landmark intervention: the dial it moved and the
+measured value trajectory that followed.*
+
+![Synthesis candidate C: one number from the first round calls the whole run](figures/auto/synthesis-pressure-move/synthesis-pressure-move.svg)
+
+*Candidate C — every run reduced to the model's single first-round number:
+predicted pull (pool + ρσ − value) against the run's observed net movement,
+colored by experiment family; the first-round sign called the direction in
+39 of 43 runs that moved.*
 
 ## Whole runs from one measurement
 
-Iterate the one-round law from a single observation of the first pool. With
-host generated mean `m`, supplier mean `s` and share `u`, and boundary
-measurements `ρ, σ`:
+Iterate the one-round law from a single observation of the first pool. Each
+round is the number-line picture replayed: mixing sets the pool mean, the
+judge's picks land ρσ above it, and the organism's output — and with it the
+value — moves there:
 
-`m_next = clip((1−u)·m + u·s + ρσ, 0, 1)`, next value = that mean.
+`p = (1−u)·q + u·s` → `k = p + ρσ` → `next q = next v = k`, clipped to [0, 1]
 
-Spread and agreement stay at their measured round-1 values; if the judge,
-judging format, or pool policy changes, re-measure the full state on the
-first pool under the new condition and restart. Nothing in this recurrence is
-fitted.
+(own mean `q`, supplier level `s` and share `u`; σ and ρ stay at their
+measured round-1 values). If the judge, judging format, or pool policy
+changes, re-measure the full state on the first pool under the new condition
+and resume. Nothing in this recurrence is fitted.
+
+![Measured once, the loop's endpoint follows: step by ρσ, mix toward the supplier, stop at the walls](figures/auto/model-endpoint-visual/model-endpoint-visual.svg)
+
+*The recurrence is the one-round move repeated: each round mixing pulls the
+value a fraction u toward the supplier's level and selection steps it ρσ, and
+the 0/1 walls stop it. Rolled from each run's first pool with nothing
+re-measured, the predicted path (dashed) tracks the observed one (solid) —
+a peer invasion railing to 1, a one-round injection collapse to 0, an oracle
+reversal.*
 
 Held-out-condition endpoint error, by regime:
 
@@ -268,7 +297,7 @@ Held-out-condition endpoint error, by regime:
 |---|---:|---:|---:|
 | selection-driven — the mixed-pool interventions, oracle and injection runs, and strong-agreement self-only judges | 36 | **0.118** | 0.431 |
 | weak self-only selection — the Qwen and OLMo risk-grid cells with ρ ≈ 0 | 22 | 0.211 | 0.215 |
-| scheduled judge swaps, forecast from round 1 | 9 | 0.404* | 0.361 |
+| scheduled judge swaps, before the swap is known | 9 | 0.404* | 0.361 |
 | scheduled judge swaps, one re-measurement at the swap | 9 | 0.210 (fitted comparator 0.179) | 0.309† |
 
 *\*fitted frozen-spread model shown; †holding the swap-time value fixed.*
@@ -279,31 +308,28 @@ observed rail endpoints, and — graded from the forecast's last state
 measurement — points 37 of 38 large movements the right way. Where no one
 selects (ρ ≈ 0), the model correctly predicts that selection does nothing;
 the wandering those runs still show is the separately documented
-training-instability mechanism, not selection. A fitted version of the same
-recurrence (calibrated slope, fitted update gain) changes none of this —
-0.127 on the selection-driven endpoints, identical direction and path
-properties — and earns its keep only on the judge swaps.
+training-instability mechanism, not selection.
 
-Forecast error is flat in horizon. Measured once, the recurrence is as
+Forecast error is flat in horizon: measured once, the recurrence is as
 accurate four rounds out as one round out, because selection-driven
-trajectories saturate: get the first move's direction and size right and the
-endpoint follows. Re-measuring every round buys accuracy only where the
-regime changes under the forecast — the scheduled swaps — and there a single
-re-measurement at the change point recovers most of it (0.404 → 0.179,
-versus 0.041 for re-measuring every round).
+trajectories saturate — get the first move's direction and size right and
+the endpoint follows. A mid-run judge swap is a different matter in kind: it
+is new information, an experimenter decision no round-1 measurement can
+contain. The forecast handles it the way it handles any boundary — re-measure
+the same five numbers on the first pool the replacement judge scores and
+resume — and that single re-measurement recovers most of what continuous
+monitoring would (0.404 → 0.179 at the endpoint, versus 0.041 for
+re-measuring every round).
 
 ![Measure once and roll forward: error stays flat with horizon — until the judge changes](figures/auto/model-ladder-horizon/model-ladder-horizon.svg)
 
-Two model choices were tested and rejected, and both rejections are
-informative. Feeding the (validated) spread recurrence back into the rollout
-does not improve endpoints — 0.139 versus 0.127 — even though it predicts the
-spread trajectory itself well; and giving the simulator the *true later
-spread* changes nothing (0.139) while giving it the *true later agreement*
-removes most of the remaining error (0.115). The residual state is agreement
-drift. It is the named target of the next experiments, and reward-model
-overoptimization results say why it exists: a judge's agreement is local to
-the candidate distribution it is scoring, not a permanent property of the
-judge.
+The remaining forecast error has a name: agreement drift. Giving the
+simulator the true later spread changes nothing (0.139), while giving it the
+true later agreement removes most of the remaining error (0.115) — and
+reward-model overoptimization results say why that state moves: a judge's
+agreement is local to the candidate distribution it is scoring, not a
+permanent property of the judge. Modeling the agreement trajectory is the
+next experimental target.
 
 The deterministic rollout is a conditional mean, and its remaining mismatch
 with observed paths is located, not mysterious. The measurement itself
@@ -311,10 +337,9 @@ implies noise (finite generation batteries: SD ≈ 0.076 on the risk measure,
 ≈ 0.114 on self-description), and drawing innovations where they enter the
 loop — the realized selector gap, the generated-mean update, agreement
 persistence — with battery noise added only to the reported value reproduces
-the observed path variation (0.678 vs 0.648), sign reversals (1.36 vs 1.20),
-and calibrated endpoint uncertainty (CRPS 0.095; 84% coverage at nominal
-80%). The result is core-independent: re-run on the parameter-free
-recurrence it scores CRPS 0.092 at 89% coverage.
+the observed path variation (0.709 vs 0.648), sign reversals (1.22 vs 1.20),
+and calibrated endpoint uncertainty (CRPS 0.092; 89% coverage at nominal
+80%).
 
 ![Closed-loop rollout: what the mean model predicts, and what noise restores](figures/auto/spread-rollout-bakeoff/spread-rollout-bakeoff.svg)
 
@@ -356,41 +381,16 @@ self-only win rates. Erosion, in this loop, is a supply phenomenon: the
 judge's taste is real, and it acts exactly when someone else fills the pool
 with material the organism does not generate.
 
-## What was tried and what survived
-
-Every modeling choice above was selected against alternatives on held-out
-conditions; the decisions, with the number that made each:
-
-| ingredient | verdict | deciding number |
-|---|---|---|
-| `next value = kept mean` (parameter-free) | adopted | 0.081 vs 0.128 no-change |
-| fitted update gain 0.83 | calibration check only | 0.082 vs 0.081 |
-| unit selection proxy `gap = ρσ` | adopted | 0.090 vs 0.089 fitted |
-| per-prompt model on full logged judge scores | rejected | 0.092/0.044 vs 0.090/0.042 |
-| freeze boundary state; iterate | adopted | 0.118 selection-driven endpoints |
-| one state re-measurement at a judge swap | adopted | 0.404 → 0.179 |
-| feed the spread recurrence back | rejected for endpoints | 0.139 vs 0.127 (kept as one-step spread dynamics: 0.080 vs 0.111) |
-| agreement autoregression | rejected | 0.132; the oracle attribution wants agreement (0.115), not spread (0.139) |
-| freeze the observed first gap instead of ρσ | rejected (noisy boundary estimate) | 0.152 combined |
-| mean range as a second spread state | rejected (indistinguishable) | endpoints differ 0.0066; same class 66/67 |
-| staged noise: selector + generator + agreement persistence + battery | adopted | CRPS 0.095, coverage 84%/80% |
-| latent value-process noise term | rejected | worsens mean error, over-produces variation |
-| agreement feedback `ρ_next ~ ρ + ρσ` | rejected | no gain on direct next-agreement prediction |
-
-One derivation was retracted along the way: the top-2-of-6 order-statistic
-constant 0.9545 is in units of the underlying normal SD, not the realized
-six-candidate SD this project measures (the design value on the measured
-scale is ≈ 1.10), so the empirical slope 0.958 matching it was a coincidence
-of scales. The coefficient is one because one works.
-
 ## Related frameworks
 
-The loop's pieces have standard names. `kept − pool` is the selection
-differential of the [Price equation](https://doi.org/10.1038/227520a0), and
-the pre-selection decomposition — intensity × accuracy × spread — is the
-breeder's-equation form from
-[quantitative selection theory](https://pmc.ncbi.nlm.nih.gov/articles/PMC7133505/),
-with ρ compressing intensity and accuracy in a fixed judging cell. Generate →
+The loop's pieces have standard names. The selector gap `g = k − p` is the
+selection differential of the [Price equation](https://doi.org/10.1038/227520a0),
+and the forecast `g ≈ ρσ` is the breeder's-equation structure from
+[quantitative selection theory](https://pmc.ncbi.nlm.nih.gov/articles/PMC7133505/) —
+there, a selection differential is (how hard the selector culls) × (how well
+its criterion correlates with the trait) × (the trait's SD); with the keep
+rule fixed at two-of-six everywhere, the first factor is constant and folds
+into the measured ρ. Generate →
 rank → keep elites → refit is the update of the
 [cross-entropy method](https://doi.org/10.1007/s10479-005-5724-z): the elite
 mean is the update target (why the kept-mean law works), spread is the

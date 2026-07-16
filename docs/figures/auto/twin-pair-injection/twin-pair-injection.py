@@ -201,11 +201,11 @@ b.append(f'<line x1="{TBL_X}" y1="{hy+8}" x2="{TBL_X+TBL_W}" y2="{hy+8}" '
          f'stroke="{INK}" stroke-width="1.5"/>')
 ROWS = [
     (GRAY, "self-only twin", "Qwen3-4B", "insecure code",
-     "score-based (min-insec.)", "direct scoring", "its own answers (self-only)",
-     "self-report"),
+     "score oracle (min-insec.)", "score-ranked, no judge", "its own answers (self-only)",
+     "insecure-code self-description"),
     (GREEN, "injected", "Qwen3-4B", "insecure code",
-     "score-based (min-insec.)", "direct scoring",
-     "half from a frozen base (mixed)", "self-report"),
+     "score oracle (min-insec.)", "score-ranked, no judge",
+     "half from a frozen base (mixed)", "insecure-code self-description"),
 ]
 row_top = hy + 22
 for row in ROWS:

@@ -1,50 +1,41 @@
-# Selection converts offered variation into movement — with no fitted constants
+# Two measurements predict what selection will do — with no fitted coefficient
 
-**The model (top).** One turn of the selection loop has three operations.
-(1) *Generate a pool*: each prompt yields candidate value scores with mean `p`
-and within-prompt spread `σ` (σ = the mean across prompts of the population SD,
-ddof 0, of its candidate scores). (2) *Select a retained set*: a signed
-value-axis selection intensity `a` converts variation into the selector gap
-`g = σ·a` exactly, where `a` is the realized standardized selection differential
-(kept mean − pool mean)/σ; before selection the forecast substitutes `â = ρ`,
-the pre-selection judge/value agreement — a compact proxy for `a`, not an
-identity. (3) *Refit*: the kept mean `k = p + g` is the next model's target, so
-`v_next ≈ k`, and `k − host mean` is the training displacement (which also
-carries any supplier shift). Mixed pools add a supplier inlet:
-`pool mean = (1−u)·host mean + u·supplier mean`. Iterating with a frozen
-selection boundary gives the endpoint recurrence
-`m_next = clip((1−u)·m + u·supplier + ρσ, 0, 1)`. The cross-entropy method is
-an *algorithmic analogue* (sample → keep elites → update mean and variance),
-not the same algorithm: elite refitting narrows the candidate distribution and
-an outside-supplier arrow reopens its support.
+**The two dials (top).** The forecast of what one round of selection does uses
+only two per-round measurements, shown as marks rather than sentences. *Dial 1 —
+spread σ*: how much variation the candidate pool offers, drawn as a narrow pool
+(candidates clustered, small σ) versus a wide pool (candidates spread out, large
+σ), where σ is the mean across prompts of the population standard deviation
+(ddof 0) of a prompt's candidate value scores. *Dial 2 — agreement ρ*: how
+consistently the judge keeps one side of the same wide pool, from keeping at
+random (kept candidates mixed high and low, ρ ≈ 0) to keeping the low side
+(ρ → −1); ρ ranges −1…+1 and is the pre-selection correlation between a
+candidate's value score and whether the judge keeps it. Multiplying the two
+dials gives the forecast `ρσ`, which is the horizontal axis of the scatter.
 
 **The evidence (bottom).** Scatter of the observed selector gap `g`
 (kept mean − pool mean) against the forecast `ρσ` over the 290 agreement-scored
 per-round records (x = `rho`·`spread`, y = `gap`, recomputed in the generator
-and asserted against the stored aggregates). The **unit-slope reference line
-`gap = ρσ` is the main visual**: unit proxy R² 0.810, MAE 0.0421, with no fitted
-constants. The full-data calibration fit `−0.002 + 0.958·ρσ` (faint dashed) is
-plotted only for reference and nearly coincides with the unit line. One round
-ahead, forecasting `v_next` gives value MAE 0.0902 with the unit proxy versus
-0.0891 with the fitted line — the extra constant buys nothing. Endpoints under
-the unit recurrence with boundary refresh: selection-driven endpoints MAE 0.118
-(36 runs); judge swaps MAE 0.210 (9 runs), shown next to the fitted frozen-SD
-comparator 0.179 so the remaining swap weakness stays visible; combined
-MAE 0.1365 with 37/38 large moves pointed the right way (graded from each
-forecast's last full state re-read — the swap boundary on judge-swap runs;
-the fitted comparator also scores 37/38 under this reference, and both score
-36/38 graded from round-1 values — the two cores tie under either convention;
-see `docs/report_unit_rollout_properties.md`). `ρ` is a proxy for the
-realized intensity `a`, and the unit coefficient is a parsimonious empirical
-choice rather than a derived constant. The retracted **0.9545** "theoretical"
-coefficient is not drawn: it uses the underlying normal SD, not the realized
-six-candidate population SD used throughout this project, so its match to the
-0.958 empirical slope is a scale-mismatched coincidence (scale audit in the
-predictor JSON).
+and asserted against the stored aggregates). The **unit-slope line `gap = ρσ`
+is the headline** — no fitted coefficient, R² 0.810, mean absolute error 0.042.
+The inset reports the one-round-ahead value forecast: predicting the next value
+before selection with the unit rule `ρσ` gives mean absolute value error 0.0902,
+versus 0.0854 when the kept set is observed first (leave-one-condition-out) — so
+predicting the judge's picks costs almost nothing.
+
+Two honesty notes carried in words, not drawn: `ρσ` is a *forecast* of the
+selector gap `g`, accurate here (R² 0.810) but not an identity — the exact gap
+depends on which candidates the judge actually keeps, which ρ only predicts;
+and the retracted **0.9545** "theoretical" coefficient is deliberately absent
+because it is computed against the underlying normal SD rather than the realized
+six-candidate population SD used throughout this project, making its closeness to
+the 0.958 empirical slope a scale-mismatched coincidence (scale audit in the
+predictor JSON). The loop mechanics (number-line view) and the frozen-boundary
+endpoint recurrence are shown in separate figures.
 
 ## Source data
-- `experiments/selection_response_predictor.json` — aggregates (selector-gap and
-  one-round MAE/R², fitted equation, endpoint MAEs, scale audit), produced by
+- `experiments/selection_response_predictor.json` — aggregates (selector-gap
+  R²/MAE, one-round MAE for the unit rule and for the observed-kept-mean
+  leave-one-condition-out comparator, scale audit), produced by
   `scripts/analysis_selection_response_predictor.py`.
 - `experiments/spread_util_unified.json` — the 290 agreement-scored per-round
   records (`rho`, `spread`, `gap`) used for the scatter; `rho` is null on
@@ -52,4 +43,4 @@ predictor JSON).
 - Narrative and literature framing: `docs/report_predictive_model_literature.md`.
 
 Regenerate: `python3 selection-response-model.py` (stdlib only; asserts every
-printed aggregate against the two JSONs).
+plotted aggregate against the two JSONs).

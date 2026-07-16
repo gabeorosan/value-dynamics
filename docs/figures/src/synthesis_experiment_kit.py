@@ -216,7 +216,7 @@ slots = [
     (3, "THE JUDGE", "who keeps the two answers to train on",
      [("the organism itself", None), ("a base model", None),
       ("a cautious-tuned copy (leans safe)", None),
-      ("a score-based judge: min-risk / min-insecurity", None)], None),
+      ("no judge — the score oracle: min-risk / min-insecurity", None)], None),
     (4, "THE JUDGING FORMAT", "how the judge compares the answers",
      [("judging against a fixed alternative", None),
       ("duels: judging against another model's generations", None)], None),
@@ -226,7 +226,7 @@ slots = [
     (6, "THE MEASURE", "how the value is measured",
      [("free-written answers, scored by the frozen base model", None),
       ("a forced A-or-B choice", None),
-      ("self-report (“is your code insecure?”)", None)],
+      ("self-description (“is your code insecure?”)", None)],
      "token entropy on open prompts — generative health, not a value"),
 ]
 

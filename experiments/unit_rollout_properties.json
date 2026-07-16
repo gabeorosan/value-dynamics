@@ -1,5 +1,37 @@
 {
  "endpoint_only_matched_45": {
+  "by_regime_group": {
+   "selection_driven": {
+    "n_runs": 36,
+    "unit_recurrence_endpoint_mae": 0.1181,
+    "fitted_frozen_sd_endpoint_mae": 0.1268,
+    "no_change_endpoint_mae": 0.4309
+   },
+   "intervention": {
+    "n_runs": 24,
+    "unit_recurrence_endpoint_mae": 0.114,
+    "fitted_frozen_sd_endpoint_mae": 0.1119,
+    "no_change_endpoint_mae": 0.4499
+   },
+   "self_force": {
+    "n_runs": 12,
+    "unit_recurrence_endpoint_mae": 0.1263,
+    "fitted_frozen_sd_endpoint_mae": 0.1565,
+    "no_change_endpoint_mae": 0.3927
+   },
+   "self_weak": {
+    "n_runs": 22,
+    "unit_recurrence_endpoint_mae": 0.2113,
+    "fitted_frozen_sd_endpoint_mae": 0.2054,
+    "no_change_endpoint_mae": 0.215
+   },
+   "judge_swap_refreshed": {
+    "n_runs": 9,
+    "unit_recurrence_endpoint_mae": 0.2099,
+    "fitted_frozen_sd_endpoint_mae": 0.1794,
+    "no_change_endpoint_mae": 0.3608
+   }
+  },
   "n_runs": 45,
   "note": "endpoint-only, no path alignment needed; 36 selection-driven (glued entries included) + 9 judge swaps (fitted = refreshed-at-swap rollout endpoint; unit = stored post-swap conditional endpoint)",
   "direction_convention_note": "Direction is graded against a reference point, and both references are computed here for both models. From the round-1 value (the whole-run question), both models score 36/38; from the last full state re-read (the swap boundary on judge-swap runs \u2014 the conditional question matched to what the refreshed forecast is given), both score 37/38. The apparent 37-vs-36 difference in earlier documents came from grading the two models against different references; under any single convention they tie. The two round-1-graded misses (press_d1 seed 1, press_d2 seed 1) are the documented post-refresh agreement-sign reversals.",

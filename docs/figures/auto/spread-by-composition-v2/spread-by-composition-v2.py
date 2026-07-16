@@ -97,7 +97,7 @@ b.append(f'<text x="{W // 2}" y="52" text-anchor="middle" font-size="26" '
          f'{esc("Who fills the candidate pool decides whether value-spread persists, is refilled, or collapses")}</text>')
 b.append(f'<text x="{W // 2}" y="84" text-anchor="middle" font-size="16" '
          f'fill="{GRAY}" font-family="{FONT}">'
-         f'{esc("spread = SD of the judge value reading across the candidate answers on one item, averaged over the round; " + str(D["n_records"]) + " rounds from " + str(D["n_runs"]) + " runs")}</text>')
+         f'{esc("spread = the population SD of candidate value scores within each prompt, averaged over prompts; " + str(D["n_records"]) + " rounds from " + str(D["n_runs"]) + " runs")}</text>')
 
 # one-line key
 KEYY = 116
@@ -185,8 +185,8 @@ def value_label(px0, rd, v, color, dx, dy, anchor):
 # y-axis title (once, left of panel A)
 b.append(f'<text x="46" y="{Y0 + PH / 2}" font-size="18" fill="{INK}" '
          f'font-family="{FONT}" text-anchor="middle" '
-         f'transform="rotate(-90 46 {Y0 + PH / 2})">candidate value spread '
-         f'(within-item SD)</text>')
+         f'transform="rotate(-90 46 {Y0 + PH / 2})">within-prompt spread of '
+         f'candidate value scores</text>')
 
 # --- panel A: self-only pool -----------------------------------------
 pA = PX[0]

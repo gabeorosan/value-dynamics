@@ -628,6 +628,10 @@ rows already committed.
   (user: each row IS an experiment) — subtitle "Each row is one experiment …
   run with 2–9 seeds (74 runs in all)", footer "22 experiments", row count
   asserted live (TOTAL_ROWS == 22); writeup embed + caption updated. Deployed.
+- 2026-07-17 ~08:05 (General, figures): figure-maker draft landed —
+  docs/figures/auto/judge-ablation-selfonly/ (single panel, 4 trajectories:
+  candid self-judge +0.45/+0.57 vs candid base-judge −0.32/−0.02, from
+  experiments/qwen_judge_ablation.json). Figures thread: promote when convenient.
 - 2026-07-17 ~07:45 (General, runs+analysis): **Q1(a) COMPLETE — registered lean
   WRONG, this is JUDGE-TASTE (H2), not self-consumption.** Swapping only the
   judge model self→base (candid prompt held) flips the supplier-removed

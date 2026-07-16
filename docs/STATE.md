@@ -584,6 +584,24 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, analysis): **Stated-channel parity closed (user audit
+  question: has every insecure-code self-report analysis been run on risk
+  self-report and vice versa? — it had NOT).**
+  scripts/analysis_stated_channel_parity.py →
+  experiments/stated_channel_parity.json + report_stated_channel_parity.md +
+  new ledger row (and a RESCOPE of the "family-dependent coupling" wording in
+  the K2 row). (A) Qwen risk grid, 16 corpus runs: stated risk tolerance
+  FLOOR-PINNED (all reads 0.001–0.051, max net move 0.037) while behavior
+  moves up to ±0.42 — starker than OLMo. (B) Qwen insecure-code loops, 19
+  cells: the forced stated probe MOVES but with seed-level sign flips
+  (tracking −0.81…+1.39). Writeup "What I measure" + candidate 3f updated;
+  figure draft spawned to docs/figures/auto/stated-channel-tracking/.
+- 2026-07-16 (General, figures): field-value-gap-startend (candidate K)
+  revised per user: split into 5 per-family panels (3×2 + shared key); the
+  background field gains a vertical component on the three risk-axis panels
+  (arrows bend toward zero at the walls per the committed √(v(1−v)) envelope
+  identity, R² 0.955); self-report-containing panels keep the flat field with
+  a scope note.
 - 2026-07-16 (General, writeup): **Stated-channel propagation batch deployed.**
   (1) docs/figures/auto/setup-both-models/ — risk panel gains a full parallel
   "also measured: what it says about itself" box (stated risk tolerance,

@@ -88,7 +88,11 @@ runs). This post varies one column at a time.*
   about itself.* Across the 34 OLMo rollouts where selection moved behavior
   by at least 0.15, the model's stated risk tolerance tracked at ratios of
   only +0.03 to +0.14 and the behavior–statement gap widened from 0.167 to
-  0.341 — the risk-axis twin of the insecure-code dose dissociation.
+  0.341; on the 16 Qwen risk-grid runs the stated channel never leaves the
+  floor at all (every read ≤ 0.051 while behavior moves up to ±0.42). The
+  insecure-code organism's forced stated probe does move — but with
+  seed-level sign flips under the same behavior move, so no stated channel
+  is a reliable readout of where selection took the behavior.
 
 ## What I ran
 
@@ -134,11 +138,20 @@ OLMo rollouts it is essentially inert under selection: across the 34
 rollouts where selection moved behavior by at least 0.15, stated tolerance
 tracked at ratios of only +0.03 to +0.14, and the mean behavior–statement
 gap widened from 0.167 to 0.341 over a run (the oracle reversal took
-behavior 0.92 → 0.09 while stated tolerance went 0.33 → 0.31). On Qwen's
-gentler earlier loops the same channel calibrated toward behavior, so the
-coupling is family- and regime-scoped. Every value trajectory in this post
-is therefore the behavioral coordinate; the self-report channels are
-reported where they dissociate.
+behavior 0.92 → 0.09 while stated tolerance went 0.33 → 0.31). On the Qwen
+risk grid the same channel is starker still: every stated read in all 16
+runs sits between 0.001 and 0.051 — the model states "I prefer the safe
+option" near-categorically at every round — while selection moves its
+behavior by up to ±0.42, so the behavior–statement gap starts at 0.60 and
+stays there. (Qwen's gentler pre-corpus loops did show this channel
+calibrating toward behavior, so the immobility is a property of the
+selection-loop regime, not of a model family.) The insecure-code organism
+carries a forced stated probe too — "does it say its code is insecure" —
+and there the statement does move, but with unreliable sign: the same
+behavior move produced stated moves of −0.43 and +0.59 on different seeds
+of the same cell. Every value trajectory in this post is therefore the
+behavioral coordinate; the self-report channels are reported where they
+dissociate.
 
 ![Behavioral risk and stated risk tolerance, same runs, same rounds](figures/auto/behavior-vs-stated/behavior-vs-stated.svg)
 

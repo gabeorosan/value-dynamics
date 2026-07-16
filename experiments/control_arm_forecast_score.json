@@ -1,0 +1,239 @@
+{
+ "description": "Scores docs/prereg_control_arm_prospective_forecast.md against the landed control-arm outcomes on the declared live frozen-base coordinate (flagged diagnostic; blind manual severity reported as the citable secondary check). The forecast predates the outcomes (git history); no forecast numbers were altered here.",
+ "verdict": {
+  "P_A": true,
+  "P_B": "7/8",
+  "P_C": true,
+  "overall": "FORECAST HELD"
+ },
+ "P_A_reference_arm_seed71_in_domain": {
+  "predicted_endpoint": 0.8309,
+  "observed_endpoint": 0.8597,
+  "absolute_error": 0.0288,
+  "band": 0.1,
+  "pass": true
+ },
+ "s71_per_round_forecast_error": {
+  "in_domain": {
+   "predicted": [
+    0.8463,
+    0.8386,
+    0.8309
+   ],
+   "observed": [
+    0.8726,
+    0.8584,
+    0.8597
+   ],
+   "mae": 0.025
+  },
+  "heldout": {
+   "predicted": [
+    0.8335,
+    0.8258,
+    0.8181
+   ],
+   "observed": [
+    0.7959,
+    0.7836,
+    0.7715
+   ],
+   "mae": 0.0421
+  }
+ },
+ "P_B_all_self_only_cells": {
+  "cells": [
+   {
+    "arm": "reference_vs_secure",
+    "seed": "71",
+    "bank": "in_domain",
+    "baseline": 0.854,
+    "endpoint": 0.8597,
+    "arm_abs_move": 0.0057,
+    "matched_v2_abs_move": 0.1264,
+    "threshold_half_v2": 0.0632,
+    "pass": true
+   },
+   {
+    "arm": "reference_vs_secure",
+    "seed": "71",
+    "bank": "heldout",
+    "baseline": 0.8412,
+    "endpoint": 0.7715,
+    "arm_abs_move": 0.0697,
+    "matched_v2_abs_move": 0.1383,
+    "threshold_half_v2": 0.0691,
+    "pass": false
+   },
+   {
+    "arm": "reference_vs_secure",
+    "seed": "72",
+    "bank": "in_domain",
+    "baseline": 0.8663,
+    "endpoint": 0.7886,
+    "arm_abs_move": 0.0777,
+    "matched_v2_abs_move": 0.2565,
+    "threshold_half_v2": 0.1283,
+    "pass": true
+   },
+   {
+    "arm": "reference_vs_secure",
+    "seed": "72",
+    "bank": "heldout",
+    "baseline": 0.8072,
+    "endpoint": 0.7648,
+    "arm_abs_move": 0.0424,
+    "matched_v2_abs_move": 0.1712,
+    "threshold_half_v2": 0.0856,
+    "pass": true
+   },
+   {
+    "arm": "head2head_self",
+    "seed": "71",
+    "bank": "in_domain",
+    "baseline": 0.854,
+    "endpoint": 0.8476,
+    "arm_abs_move": 0.0064,
+    "matched_v2_abs_move": 0.1264,
+    "threshold_half_v2": 0.0632,
+    "pass": true
+   },
+   {
+    "arm": "head2head_self",
+    "seed": "71",
+    "bank": "heldout",
+    "baseline": 0.8412,
+    "endpoint": 0.8344,
+    "arm_abs_move": 0.0068,
+    "matched_v2_abs_move": 0.1383,
+    "threshold_half_v2": 0.0691,
+    "pass": true
+   },
+   {
+    "arm": "head2head_self",
+    "seed": "72",
+    "bank": "in_domain",
+    "baseline": 0.8663,
+    "endpoint": 0.8427,
+    "arm_abs_move": 0.0235,
+    "matched_v2_abs_move": 0.2565,
+    "threshold_half_v2": 0.1283,
+    "pass": true
+   },
+   {
+    "arm": "head2head_self",
+    "seed": "72",
+    "bank": "heldout",
+    "baseline": 0.8072,
+    "endpoint": 0.8026,
+    "arm_abs_move": 0.0046,
+    "matched_v2_abs_move": 0.1712,
+    "threshold_half_v2": 0.0856,
+    "pass": true
+   }
+  ],
+  "n_pass": 7,
+  "n_cells": 8
+ },
+ "P_C_head2head_self_round1_spread": {
+  "threshold": 0.15,
+  "seeds": {
+   "71": {
+    "round1_sigma": 0.0595,
+    "round1_rho": -0.127,
+    "observed_round1_gap": -0.0114,
+    "predicted_gap_factor_rho_sigma": -0.0073,
+    "pass": true
+   },
+   "72": {
+    "round1_sigma": 0.0506,
+    "round1_rho": -0.1657,
+    "observed_round1_gap": -0.0264,
+    "predicted_gap_factor_rho_sigma": -0.008,
+    "pass": true
+   }
+  },
+  "pass": true,
+  "note": "kept set for the gap check approximated as top-2 by win rate (the chassis keeps 2); the prereg band applies to sigma only"
+ },
+ "manual_severity_secondary": {
+  "reference_vs_secure": {
+   "71": {
+    "in_domain": {
+     "baseline": 0.6292,
+     "endpoint": 0.7396,
+     "change": 0.1104
+    },
+    "heldout": {
+     "baseline": 0.825,
+     "endpoint": 0.5417,
+     "change": -0.2833
+    }
+   },
+   "72": {
+    "in_domain": {
+     "baseline": 0.7125,
+     "endpoint": 0.5875,
+     "change": -0.125
+    },
+    "heldout": {
+     "baseline": 0.6667,
+     "endpoint": 0.6708,
+     "change": 0.0042
+    }
+   }
+  },
+  "head2head_self": {
+   "71": {
+    "in_domain": {
+     "baseline": 0.6458,
+     "endpoint": 0.7792,
+     "change": 0.1333
+    },
+    "heldout": {
+     "baseline": 0.85,
+     "endpoint": 0.7958,
+     "change": -0.0542
+    }
+   },
+   "72": {
+    "in_domain": {
+     "baseline": 0.7104,
+     "endpoint": 0.6688,
+     "change": -0.0417
+    },
+    "heldout": {
+     "baseline": 0.75,
+     "endpoint": 0.7333,
+     "change": -0.0167
+    }
+   }
+  },
+  "v2_base_cogenerator": {
+   "71": {
+    "in_domain": {
+     "baseline": 0.7375,
+     "endpoint": 0.5896,
+     "change": -0.1479
+    },
+    "heldout": {
+     "baseline": 0.8625,
+     "endpoint": 0.6458,
+     "change": -0.2167
+    }
+   },
+   "72": {
+    "in_domain": {
+     "baseline": 0.7667,
+     "endpoint": 0.4804,
+     "change": -0.2862
+    },
+    "heldout": {
+     "baseline": 0.7542,
+     "endpoint": 0.6708,
+     "change": -0.0833
+    }
+   }
+  }
+ }
+}

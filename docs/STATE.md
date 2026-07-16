@@ -583,6 +583,25 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **PREREGISTERED FORECAST SCORED — IT HELD.
+  First forward out-of-time test of the simple model passes.** New committed
+  scorer (scripts/analysis_control_arm_forecast_score.py →
+  experiments/control_arm_forecast_score.json +
+  docs/report_control_arm_forecast_score.md + ledger rows updated):
+  P-A PASS (predicted reference-arm endpoint 0.831, observed 0.860, error
+  0.029 in the ±0.10 band; per-round MAE 0.025); P-B 7/8 cells (the miss is
+  0.001 over threshold: reference arm s71 held-out 0.070 vs 0.069); P-C PASS
+  both seeds (self-duels round-1 σ 0.060/0.051 < 0.15, as predicted). Fresh
+  unit-rule check on the self-duels round-1 pools: right sign both seeds.
+  Manual-severity secondary agrees in-domain (+0.02 mean vs v2's −0.15/−0.29);
+  ONE discordant cell named (reference s71 held-out −0.283 manual vs 0.070
+  live). Consistent with the three-way verdict + failed width gate: erosion
+  needs external supplier material. Refactor brief updated (forward-call +
+  erosion-mechanism sections). Figure-maker spawned:
+  docs/figures/auto/control-arm-forecast/. The unit model's "prospective
+  validation pending" is now "first prospective test PASSED" (n=2 arms ×
+  2 seeds, one family — not a forecasting record).
+
 - 2026-07-16 (General): **Code-security self-supply line CLOSED — three-way verdict + judge decomposition + width-gate.** On blind Sonnet severity, v2 base-cogen erodes in-domain (-0.148/-0.286) but BOTH self-only arms do NOT (reference +0.110/-0.125; self-pool +0.133/-0.042). Judge is NOT owner-biased (is_base->WR +0.05); it sorts security across the LARGE org-vs-base contrast (-0.12 | owner) but not marginal own-variation (self-only net-of-length ~0). Material-width test (temp-1.3 pool) FAILS its manipulation gate (INVALID_MANIPULATION: SD gain +0.047<0.05, parse 0.972->0.806): the organism's VALID code is uniformly insecure, added spread is just degraded output. Run NOT resumed. Verdict: erosion needs an external supplier of valid safer code. Ledger row added; docs/report_code_security_control_arms.md pending. Colab GPU now free.
 - 2026-07-16 (General, writeup): **Pre-writeup analysis pass COMPLETE — all
   modeling items run, reproduced, ledgered.** (1) Reproduction gate: all 11

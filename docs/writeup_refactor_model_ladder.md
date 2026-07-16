@@ -121,6 +121,20 @@ separately documented training-instability mechanism. Note the unit recurrence
 also covers three zero-spread runs where ρ is undefined (its selection term is
 exactly zero) — a definitional robustness the fitted model lacks.
 
+**The model has now made — and passed — a true forward call.** While the
+supplier-removed control arms were running, the round-1 state (spread 0.060
+after removing the base supplier, versus 0.3–0.4 mixed; agreement −0.17) was
+measured, the frozen-state rollout was committed as a preregistered forecast
+with declared pass bands, and the arms then landed: P-A pass (predicted
+endpoint 0.831, observed 0.860, band ±0.10; per-round MAE 0.025), P-B 7/8
+cells (the miss 0.001 over threshold), P-C pass (the second arm's round-1
+spread 0.060/0.051, as predicted for self-only generation). The forecast's
+claim — flat, about a fifth of the matched run's erosion, because the pool is
+material-starved — is also what the independent three-way verdict and the
+failed width-manipulation test found by direct measurement. One forward test
+on one organism family is not a forecasting record, but the ladder is no
+longer purely retrospective (report_control_arm_forecast_score.md).
+
 **The residual has a name.** Feeding the validated spread recurrence back
 makes endpoints worse (0.139 vs 0.127); an agreement autoregression recovers
 little (0.132); oracle attribution shows later *agreement* is the missing
@@ -176,6 +190,25 @@ almost nowhere else.
   the best point path: endpoint MAE 0.070, all-round MAE 0.079, R² 0.887 —
   uncertainty about *which candidates are kept*, not training noise, is the
   main closed-loop path mismatch.
+
+### The erosion mechanism, completed by the control arms
+
+The writeup's self-judge erosion story gains its mechanism from the new
+results and should be told in one paragraph at Rung 2's mixed-pool discussion:
+erosion requires an **external supplier of valid safer material**. The v2
+base-cogenerator run erodes (in-domain manual severity −0.148/−0.286); both
+supplier-removed self-only arms do not (+0.110/−0.125 and +0.133/−0.042);
+the judge decomposition shows the judge is not owner-biased (owner→win-rate
+r ≈ +0.05) and sorts by security across the large organism-vs-base contrast
+(−0.12 controlling owner) but cannot sort its own marginally-varying
+candidates; and the width test failed its manipulation gate — raising
+temperature adds only degraded/unparseable output, not a safer valid tail
+(within-task SD gain +0.047 < 0.05; parse rate 0.972 → 0.806). In the
+model's vocabulary: the judge's negative agreement is real but starved
+without supplier spread — which is exactly what the preregistered forecast
+called from σ₁ = 0.060 alone, and the CE-method analogue's
+variance-injection story made structurally expectable. (Ledger rows: three-way
+verdict + forecast score, both TRACED-RAW 07-16.)
 
 ### Related frameworks (new short section, affirmative not defensive)
 
@@ -254,9 +287,11 @@ almost nowhere else.
 - The spread-trajectory pair stays **0.080 vs 0.111** (risk-group); the
   conversion-chain dynamics claim stays binary-risk-only (self-report
   headroom-chain R² −0.03 vs 0.75 persistence).
-- Everything is post-hoc LOCO within this program except the frozen gap
-  predictor (blind release sets) and the just-committed control-arm forecast;
-  the unit model's ledger row says "prospective validation pending" — say it
+- Prospective evidence now has two entries, stated precisely: the frozen gap
+  predictor on three blind release sets (17–42%), and the preregistered
+  control-arm forecast (HELD: P-A pass / P-B 7/8 / P-C pass; one discordant
+  manual-severity cell on the reference arm's s71 held-out bank must be named
+  wherever the forecast is cited). Everything else is post-hoc LOCO — say it
   once, in Limitations.
 - Regime label: "strong-agreement self-only"; the grip/utilization vocabulary
   stays retired.

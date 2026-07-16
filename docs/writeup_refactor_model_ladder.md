@@ -1,255 +1,282 @@
-# Refactor brief: one simple law, three forecast horizons
+# Refactor brief: one parameter-free law, three forecast horizons
 
-*2026-07-15, general (writeup) thread. This is the narrative plan for the next
-writeup revision, assembled from the modeling reports and the claim ledger
-(rows: unified accounting, conversion model, rollout bakeoff, value predictors,
-property fidelity, trajectory adjustments) plus one new connecting analysis,
-`scripts/analysis_model_ladder_horizon.py` →
-`experiments/model_ladder_horizon.json` (docs/report_model_ladder_horizon.md).
-Nothing here introduces a claim without a ledger row.*
+*2026-07-15, general (writeup) thread; **redone 2026-07-16** after the
+selection-response audit (`report_predictive_model_literature.md`,
+`scripts/analysis_selection_response_predictor.py` →
+`experiments/selection_response_predictor.json`) and the trajectory
+noise-location audit (`report_trajectory_adjustment_bakeoff.md`, both verified
+this session — the selection-response script re-runs byte-identical and its
+order-statistic scale audit reproduces in an independent simulation), plus the
+extended horizon ladder (`report_model_ladder_horizon.md`, five anchors
+reproduce). This is the narrative plan for the next writeup revision. Nothing
+here introduces a claim without a ledger row.*
 
-## 1. Diagnosis — why the current draft reads defensive and disorganized
+## 0. What changed since the first version of this brief
 
-The modeling half of the writeup is currently organized by **analysis in the
-order it landed** (movement law → factorization → conversion chain → rollout),
-not by **the question each answers**. Concretely:
+The selection-response audit strengthened every rung and retired one derivation:
 
-1. **Six accuracy numbers for "the model" with no frame.** The reader meets
-   MAE 0.081, 0.089, 0.127, 0.137, 0.139, and R² 0.78 across three sections,
-   under three validation schemes (blind release sets, leave-one-run-out,
-   leave-one-condition-out), against shifting baselines. Each number is
-   correct; nothing tells the reader that they answer three different
-   questions (next round? endpoint? whole path?) at three different
-   information budgets (observe every round? measure once?).
-2. **Every claim carries its own rebuttal in the same breath.** "Predicting
-   spread more accurately does not improve those endpoints"; "It remains an
-   under-dispersed uncertainty model"; "The tempting LORO winner is
-   misleading"; the mean-range-versus-mean-SD litigation occupies a paragraph
-   of main text. All of these corrections are real and must survive — but
-   scattered inline they read as anxiety. Collected once, as a table of what
-   earned its place and what was tested and rejected, they read as method.
-3. **Two modeling strands never reconciled.** The older 25-run own-pool
-   probabilistic bakeoff (logit-bounded process model, CRPS, the climatology
-   ceiling) and the new 67-run corpus (frozen-spread closed loop) both live in
-   the ledger; the writeup carries only the new one but inherits hedges from
-   both. Their shared lesson — state forecasts work where selection is the
-   mechanism and hit a ceiling where it is not — is currently stated twice in
-   different vocabularies.
-4. **State variables and bookkeeping are interleaved.** The "Spread is
-   converted into a new generator state" section mixes one-step dynamics
-   (R² 0.78), endpoint results (0.127), and instrument accounting (the
-   within/between variance split, mixed-pool spread components) in one run of
-   prose. The reader cannot tell which quantities the model *evolves* and
-   which are measurement hygiene.
+- **The model no longer has fitted constants.** The 0.958 slope in
+  `gap ≈ 0.958·ρσ` is replaced by the unit rule `gap = ρσ` (costs ~0.001
+  one-round MAE); the endpoint recurrence becomes
+  `m_next = clip((1−u)·m + u·supplier + ρσ)` with the kept-mean identity
+  update — zero fitted parameters end to end, and it *beats* the fitted
+  frozen-SD model on selection-driven endpoints (0.118 vs 0.127).
+- **The order-statistics derivation is retracted.** 0.9545 (expected top-2-of-6
+  gap) is in units of the *underlying* normal SD; the project measures the
+  *realized six-candidate* SD, which averages 0.868 of that. The design value
+  on the project's scale would be ≈1.10, so the empirical 0.958 matching
+  0.9545 was a scale-mismatched coincidence. Say "unit coefficient, a
+  parsimonious empirical approximation," never "order statistics says 0.95."
+- **The gap has an exact meaning.** `kept mean − pool mean =
+  Cov(value, kept)/keep-rate` — the Price selection differential. Dividing by
+  spread defines the realized value-axis selection intensity `a`, so
+  `gap = σ·a` **exactly**; `ρ` is the pre-selection proxy for `a` (R² 0.81,
+  MAE 0.042). "Spread × agreement" stops being bookkeeping and becomes the
+  standard selection-theory decomposition.
+- **The noise story flips from apology to result.** The old brief said the
+  stochastic layer "under-covers (62%)". The noise-location audit places
+  innovations where they enter the loop (selector gap, generator-mean update,
+  agreement persistence) and adds finite-battery noise only to the *observed*
+  value: endpoint CRPS 0.095 with **84% coverage at nominal 80%** — calibrated
+  — and battery noise alone explains most path jaggedness.
+- **The h=1 "cost of predicting selection" is smaller than first computed:**
+  0.015 (unit) / 0.023 (fitted) on matched runs; the earlier 0.033 was
+  inflated by four glued grid entries.
 
-The fix is not deleting caveats. It is a spine that makes each number the
-answer to a stated question, plus one "complexity audit" table that holds
-every rejected refinement.
+## 1. Diagnosis — what still reads defensive and disorganized
+
+GPT's in-place writeup edits already fixed several content items (the unit
+rule in the gap section, the one-round bakeoff paragraph, the rewritten
+rollout section with the unit recurrence and staged noise, the corrected
+figure captions). What remains is structural:
+
+1. **Findings 1–3 are still analysis-ordered run-ons.** The reader meets
+   MAE 0.081, 0.090, 0.118, 0.127, 0.1365, R² 0.78 with no frame saying they
+   answer three different questions (next round? endpoint? whole path?) at
+   three information budgets (observe every round? measure once?).
+2. **Rejected refinements are still scattered as inline rebuttals** ("feeding
+   predicted spread back does not improve…", "the tempting LORO winner is
+   misleading", the range-vs-SD litigation). Collected once as a
+   model-selection audit they read as method, not anxiety.
+3. **Two generations of model coexist without a stated relationship.** The
+   fitted frozen-SD rollout (0.127/0.179) and the unit recurrence
+   (0.118/0.210) both appear; the writeup should present the unit model as
+   *the* model and the fitted version as its calibration check that still
+   wins only on judge swaps.
+4. **The lit connections are missing.** Price/breeder's equation,
+   cross-entropy-method elite updates, and reward-model overoptimization give
+   every construct a standard name; the current draft invents all its own
+   vocabulary and then defends it.
 
 ## 2. The spine: one law, three horizons
 
-Everything the modeling sections need to say fits one ladder. **The law:**
-
-> *After training on a round, the behavioral value moves to the mean value of
-> the answers the judge kept.*
+**The law (after selection):** *the behavioral value moves to the mean value
+of the answers the judge kept.* `v_next = kept mean`: parameter-free,
+held-out-condition MAE **0.081** across all 340 rounds vs 0.128 no-change;
+beats training displacement alone (0.098) and selector gap alone (0.112); a
+fitted 0.83 gain does not improve MAE.
 
 **The state, measured on one pool:** behavioral value `v`, own candidate mean
-`q`, spread `σ` (mean within-prompt population SD of candidate value scores),
-agreement `ρ` (within-item correlation of judge score with value score), and —
-in a mixed pool — the supplier's mean and share. Five numbers, one pool of
-logged scores, all measurable before training on it.
+`m`, spread `σ` (mean within-prompt population SD), agreement `ρ` (within-item
+judge-score/value correlation), and — in a mixed pool — the supplier's mean
+and share `u`. Five numbers, one pool of logged scores, all measurable before
+training on it.
 
-The ladder climbs by forecast horizon. Each rung adds exactly one ingredient
-to the same law; everything else was tested and rejected (§4).
+### Rung 1 — the next round
 
-### Rung 1 — the next round (given this round's pool)
+- The kept set is the Price selection differential in action:
+  `kept − pool = Cov(value, kept)/keep-rate = σ·a` exactly, with `a` the
+  realized value-axis selection intensity.
+- Before selection, `ρ` proxies `a`: `predicted gap = ρσ` gives gap R² 0.81 /
+  MAE 0.042, and `predicted next value = pool mean + ρσ` scores one-round MAE
+  **0.090**, vs 0.085 observing the kept set and 0.089 for the fitted slope.
+  Predicting the judge's selection instead of watching it costs ~0.005 pooled
+  (0.015 at h=1 on matched selection-driven runs).
+- The judge-gallery texture stays (oracle ρ = −1.0; K1 near zero — the fan is
+  not a selection story; same cautious judge +0.38 reference vs +0.10 duels;
+  self-judge on own duels −0.24 → erosion). A per-prompt model using the
+  logged judge scores directly is *worse* (0.092/0.044) — the two-dial
+  compression is not losing information.
 
-- **After selection is observed:** predict `v_next = kept mean`.
-  Parameter-free. Held-out-condition MAE **0.081** across all 340 logged
-  rounds, versus 0.128 for predicting no change; beats using training
-  displacement alone (0.098) or selector gap alone (0.112). A fitted update
-  gain lands at 0.83 with no MAE improvement — "the value moves most of the
-  way to the kept mean in one round" is the finding; the identity update is
-  the forecast.
-- **Before selection:** the kept mean is itself predictable from the two
-  dials, because keeping 2-of-6 by a judge with agreement ρ from a pool with
-  spread σ yields a gap of ≈ `0.96·ρσ` (r = 0.90, 290 rounds). Predicting the
-  kept mean as `pool mean + 0.96·ρσ` scores MAE **0.089**, versus 0.085 with
-  the kept set observed. The entire cost of *predicting* the judge's selection
-  rather than *watching* it is a few thousandths — which is the demonstration
-  that (σ, ρ) is a sufficient selector state, and the natural home of the
-  factorization (it stops being its own section and becomes the reason the
-  pre-selection forecast works).
+### Rung 2 — the endpoint, from a single measurement
 
-This rung is where the mechanistic sections (movement toward the kept mean,
-gap = spread × agreement, training displacement vs selector gap in mixed
-pools) already point. They stay, trimmed, as the physical justification of the
-one-round law.
+Iterate the law with the boundary state frozen:
+`m_next = clip((1−u)·m + u·supplier + ρσ)`, next value = that mean; remeasure
+and restart when the judge, format, or pool policy changes. Zero fitted
+parameters. Headline table (LOCO):
 
-### Rung 2 — the endpoint, from a single first measurement
+| regime | runs | unit recurrence | fitted frozen-SD | no change |
+|---|---:|---:|---:|---:|
+| selection-driven | 36 | **0.118** | 0.127 | 0.431 |
+| judge swaps, one refresh at the swap | 9 | 0.210 | **0.179** | 0.309* |
+| combined | 45 | **0.1365** | 0.1373 | 0.407* |
+| large directions (combined) | 38 | **37/38** | 36/38 | — |
 
-Iterate rung 1 from the round-1 state. The one added ingredient is a rule for
-the state's evolution, and the surprise is that the best simple rule is the
-**null rule: freeze σ and ρ at their round-1 values** (update `q` and `v` by
-the law itself; refresh everything once if the judge or format is changed).
+*\*holding the latest boundary value fixed.* Weak-selection runs stay a scope
+statement: 0.205 vs 0.215 no-change — where no one selects (ρ ≈ 0), the model
+correctly predicts "selection does nothing," and the observed wandering is the
+separately documented training-instability mechanism. Note the unit recurrence
+also covers three zero-spread runs where ρ is undefined (its selection term is
+exactly zero) — a definitional robustness the fitted model lacks.
 
-Held-out-condition endpoint error, by regime — presented as the headline
-table, not as a caveat:
+**The residual has a name.** Feeding the validated spread recurrence back
+makes endpoints worse (0.139 vs 0.127); an agreement autoregression recovers
+little (0.132); oracle attribution shows later *agreement* is the missing
+state (0.115) while later spread is not (0.139). Freezing the observed first
+gap instead of `ρσ` is also worse (0.152 combined) — the proxy regularizes a
+noisy boundary estimate. Agreement drift is the named next experimental
+target; reward-overoptimization results (Gao et al.) say why: `ρ` is local to
+the current candidate distribution, not a property of the judge.
 
-| regime | runs | frozen-state model | no change |
-|---|---:|---:|---:|
-| selection-driven (interventions + strong self-judges) | 36 | **0.127** | 0.431 |
-| … direction of every move ≥ 0.15 | 31/31 | | |
-| weak self-only selection (ρ ≈ 0) | 22 | 0.205 | 0.215 |
-| scheduled judge swaps, no refresh | 9 | 0.404 | 0.309* |
-| scheduled judge swaps, one refresh at the swap | 9 | **0.179** | 0.309* |
-| selection-driven + swaps combined | 45 | **0.137** | 0.407* |
+### The horizon ladder (the connecting analysis)
 
-*\*holding the latest boundary value fixed.*
-
-Three sentences carry what is now a page of hedging:
-
-- Where a judge actually selects on the axis, one measurement predicts the
-  endpoint at a quarter of the no-change error and every large direction.
-- Where no one selects (ρ ≈ 0), the model correctly predicts "selection does
-  nothing," and the observed wandering is the separately documented
-  training-instability mechanism — a scope statement, not a failure.
-- When the selection policy changes, re-measure; one refresh at the swap
-  recovers most of the forecast (0.404 → 0.179, direction 6/7).
-
-**The residual has a name.** The refinements that *should* have helped were
-tested and did not: feeding the validated spread recurrence back into the
-rollout makes endpoints worse (0.139 vs 0.127); an agreement autoregression
-recovers little (0.132). Oracle attribution shows why: giving the simulator
-the *true later spread* changes nothing (0.139), giving it the *true later
-agreement* removes most of the remaining error (0.115). The missing state is
-agreement drift — which becomes the named next experimental target rather
-than a diffuse apology.
-
-(Reconciliation of the older strand: the 25-run own-pool bakeoff said the
-probabilistic version of the same two things — state-based endpoint forecasts
-beat climatology on OLMo and cannot beat it on the Qwen fan. That is the same
-regime boundary as "weak selection ≈ persistence." It moves to one appendix
-paragraph with its CRPS table.)
-
-### Rung 3 — whole trajectories
-
-Roll the same frozen-state model as a path generator. What it reproduces and
-what it misses are both crisp:
-
-- **Reproduces:** the endpoint distribution (observed vs predicted mean
-  0.541 / 0.572, SD 0.370 / 0.360), 19/24 observed rail endpoints, 36/38
-  large-movement directions, all-round value R² 0.76 on the 45
-  selection-driven-plus-swap runs.
-- **Misses, by construction:** path roughness. The deterministic rollout is a
-  conditional mean: total variation 0.458 versus 0.648 observed, 0.16 sign
-  reversals per run versus 1.20.
-
-One added ingredient closes that gap: zero-mean Gaussian noise on the
-one-round value update, scale estimated from the training folds (≈0.10 on the
-binary axis, ≈0.16 on the continuous axis). Path variation and reversals
-match (0.655, 1.49), endpoint CRPS improves 0.137 → 0.108, and the mean path
-is unchanged. Stated once, plainly: the resulting intervals are still
-under-dispersed (nominal 80% covers 62%), so the noise term is for realistic
-sample paths and sharper probabilistic scores, not calibrated bands.
-
-The tested-and-rejected item at this rung: an agreement-feedback term
-(`ρ_next ~ ρ + ρσ`) that improved endpoints but fails the direct test — it
-does not improve held-out next-agreement prediction over persistence — so it
-is compensation, not dynamics. One line in the audit table.
-
-### The connecting analysis: error versus forecast horizon
-
-New analysis (this session, `docs/report_model_ladder_horizon.md`) computes,
-on the same runs and the same held-out conditions, MAE as a function of
-rounds-ahead for each model. All three published anchors reproduce (0.127,
-0.431, 0.081). Selection-driven runs:
+MAE by rounds-ahead, selection-driven runs, all anchors reproduced:
 
 | model | h=1 | h=2 | h=3 | h=4 | endpoint |
 |---|---:|---:|---:|---:|---:|
 | no change | 0.314 | 0.416 | 0.441 | 0.432 | 0.431 |
-| closed loop, measured once | 0.135 | 0.110 | 0.104 | 0.126 | 0.127 |
-| one-round law, re-measured every round | 0.101 | 0.096 | 0.066 | 0.061 | 0.078 |
+| unit recurrence, measured once | 0.100 | 0.099 | 0.097 | 0.130 | 0.130 |
+| fitted frozen-SD, measured once | 0.135 | 0.110 | 0.104 | 0.126 | 0.127 |
+| kept-mean law, re-measured every round | 0.101 | 0.096 | 0.066 | 0.061 | 0.078 |
 
-This overturns the natural reading that the one-round error 0.081 "compounds"
-into the endpoint error 0.127. It does not: the measure-once model's error is
-**flat in horizon**, because selection-driven trajectories saturate — get the
-first move's direction and rough size right and you stay close. The horizon
-cost is paid entirely by the model that ignores the dynamics (no change,
-0.31 → 0.43). At h = 1 the closed loop and the one-round law see the same
-pool, so their gap — 0.135 vs 0.101 — prices *predicting* the judge's
-selection from frozen ρσ versus *observing* the kept set: about 0.03,
-carried at every horizon. And the judge-swap runs show the one place horizon
-genuinely hurts: measured-once error grows 0.098 → 0.404 across eight rounds,
-one refresh at the swap holds it to 0.179, re-measuring every round achieves
-0.041. That triple (0.404 / 0.179 / 0.041) is the writeup's monitoring story
-in three numbers: measurement effort buys accuracy exactly at regime changes,
-and almost nowhere else.
+Measure-once error is **flat in horizon** — selection-driven trajectories
+saturate, so the first move's direction and size carry the endpoint; the
+horizon cost is paid by ignoring the dynamics (no-change 0.31 → 0.43). At
+h=1 on matched runs: observe the kept set 0.085, predict it with the unit rule
+0.100, with the fitted model 0.108. Horizon genuinely hurts only at regime
+changes: measured-once 0.098 → 0.404 across the swaps, one refresh at the swap
+0.179, re-measuring every round 0.041. That triple is the monitoring story in
+three numbers: measurement effort buys accuracy exactly at regime changes and
+almost nowhere else.
 
-Numbers: `experiments/model_ladder_horizon.json`;
-figure: `docs/figures/auto/model-ladder-horizon/` (figure-maker draft).
+### Rung 3 — whole trajectories
 
-## 3. Proposed section map (old → new)
+- **Reproduces (deterministic conditional mean):** endpoint distribution
+  (0.541/0.572 mean, 0.370/0.360 SD), 19/24 rails, 36/38 directions,
+  trajectory R² 0.76.
+- **Misses, by construction:** path roughness (variation 0.458 vs 0.648;
+  reversals 0.16 vs 1.20).
+- **The noise belongs where it enters the loop.** The battery itself implies
+  observation noise (RMS SD 0.076 risk, 0.114 self-report; duplicate
+  self-report baselines imply ~0.140 per read); observation noise *alone*
+  restores variation to 0.630 and reversals to 1.31 without touching the
+  latent path. The staged stochastic forecast — selector-gap and
+  generator-mean residuals, zero-mean agreement innovation around persistence,
+  battery noise on the observed value only — gives endpoint CRPS **0.095**
+  and **84% coverage at nominal 80%**: calibrated, not apologized for. A
+  separate latent value-process kick is rejected (worsens mean MAE, CRPS flat,
+  overproduces variation).
+- **When the kept set is observed every round**, the bare identity update is
+  the best point path: endpoint MAE 0.070, all-round MAE 0.079, R² 0.887 —
+  uncertainty about *which candidates are kept*, not training noise, is the
+  main closed-loop path mismatch.
 
-| current section | disposition |
-|---|---|
-| Findings 1–3 (long, nested) | rewrite as the three rungs — one finding per rung, one number each |
-| "What I measure" + score/spread definitions | keep, but move the estimator fine print (ddof, n_j, mean-vs-RMS SD) to the definition-audit appendix pointer; the five bookkeeping quantities stay |
-| "The value moves toward what the judge keeps" | becomes Rung 1, absorbing the one-round bakeoff table |
-| "The selector gap is spread × agreement" | folds into Rung 1 as the pre-selection forecast; the judge-gallery bullets (oracle/K1/duel/self-erosion ρ values) stay — they are the paper's best concrete texture |
-| "Spread is converted into a new generator state" | splits: the Δq and variance-identity material becomes a short "why freezing σ is not absurd" passage in Rung 2 + the conversion-chain figure; the mixed-pool spread components move next to the mixed-pool discussion; the R² 0.78 one-step spread result is reported as *one-step dynamics that do not improve endpoints* (audit table) |
-| "Agreement is structured, but not safe to freeze" | absorbed into Rung 2's residual paragraph (0.139/0.115 attribution) — currently this point is made three times |
-| "Rolling the equations through complete runs" | becomes Rung 2 (endpoint table) + Rung 3 (path properties) |
-| spread-definition litigation (range vs SD, LORO mirage) | audit table + one sentence ("nine alternative definitions roll out indistinguishably or worse; see appendix") |
-| "What this buys" | keep, shortened — it currently restates the chain a third time; it should only state the three dials and the practitioner recipe |
-| "Where this should transfer" | keep as is (resolve the placement-pick marker: keep as own section) |
-| "Next directions" | reorder so agreement-trajectory modeling is unambiguously first, then the preregistered spread-conversion test, then the rest |
-| "Limitations" | keep, minus the sentences that move into the audit table (they stop being limitations and become results about model selection) |
+### Related frameworks (new short section, affirmative not defensive)
 
-## 4. The complexity audit table (new, one table, replaces ~15 inline hedges)
+- `kept − pool` **is** the Price selection differential; the pre-selection
+  decomposition (intensity × accuracy × spread) is the breeder's-equation
+  form, with `ρ` compressing intensity × accuracy in fixed cells.
+- Generate → rank → keep elites → refit is the cross-entropy-method update:
+  the elite mean is the update target (why the kept-mean law works), spread is
+  the generator's exploration variance, and CE's variance-shrinkage warnings
+  and variance-injection remedies are the literature analogue of self-pool
+  erosion and supplier reopening. Label "algorithmic analogue," not "same
+  algorithm."
+- Reward-model overoptimization ⇒ agreement is local, remeasure after
+  distribution shifts. Model-collapse / self-consuming-loop results motivate
+  tracking support and fresh material, without establishing this mechanism.
+
+## 3. The complexity-audit table (one table, replaces the scattered hedges)
 
 | ingredient | horizon | verdict | deciding number |
 |---|---|---|---|
-| `v_next = kept mean` (parameter-free) | 1 round | **adopted** | MAE 0.081 vs 0.128 no-change |
+| `v_next = kept mean` (parameter-free) | 1 round | **adopted** | 0.081 vs 0.128 no-change |
 | fitted update gain 0.83 | 1 round | rejected (no MAE gain) | 0.082 vs 0.081 |
-| kept mean from `pool + 0.96·ρσ` | 1 round, pre-selection | **adopted** | 0.089 vs 0.085 observed-kept |
-| freeze σ and ρ at round 1 | endpoint | **adopted** | 0.127 selection-driven |
-| feed spread recurrence back | endpoint | rejected | 0.139 vs 0.127 (though it predicts spread itself: 0.081 vs 0.111) |
-| agreement autoregression | endpoint | rejected (small gain, no transport) | 0.132 |
+| unit selection proxy `gap = ρσ` | 1 round, pre-selection | **adopted** | 0.090 vs 0.089 fitted; gap R² 0.81 |
+| 0.958 fitted slope | 1 round | calibration check only | indistinguishable from unit at every horizon |
+| "0.9545 from order statistics" | derivation | **retracted** | design value on the measured scale is ≈1.10 (scale audit) |
+| per-prompt logged judge-score intensity | 1 round | rejected | 0.092/0.044 vs 0.090/0.042 |
+| unit endpoint recurrence, boundary state frozen | endpoint | **adopted** | 0.118 selection-driven; 0.1365 combined; 37/38 |
+| fitted frozen-SD recurrence | endpoint | kept for swaps only | 0.179 vs 0.210 on 9 swaps |
+| freeze the observed first gap instead of ρσ | endpoint | rejected (noisy boundary) | 0.152 combined |
+| feed spread recurrence back | endpoint | rejected | 0.139 vs 0.127 (though it predicts spread itself: 0.080 vs 0.111) |
+| agreement autoregression | endpoint | rejected | 0.132; noisy persistence also beats noisy AR (CRPS 0.139 vs 0.141 risk) |
 | one state refresh at a judge swap | endpoint | **adopted** (9 swaps only) | 0.404 → 0.179 |
 | mean range as a second spread state | endpoint | rejected (indistinguishable) | endpoints differ 0.0066; same class 66/67 |
 | "fraction of prompts with any difference" | endpoint | rejected (LORO mirage) | LORO 0.120 → LOCO 0.150 |
-| Gaussian one-round update noise | path shape | **adopted** | variation 0.655 vs 0.648 observed; CRPS 0.137 → 0.108; coverage 62% < 80% |
+| staged noise: selector + generator + agreement persistence + observation | path/uncertainty | **adopted** | CRPS 0.095; coverage 84%/80%; variation 0.678 vs 0.648 |
+| single lumped residual after the value update | path | superseded baseline | CRPS 0.108; coverage 62% |
+| latent value-process noise term | path | rejected | MAE 0.147→0.153; variation 0.741 |
 | agreement feedback `ρ_next ~ ρ + ρσ` | path/endpoint | rejected (fails direct next-ρ test) | R² 0.393 = persistence |
-| parameter bootstrap (older corpus) | endpoint (CRPS) | rejected | 0.091 ≈ 0.092 baseline |
-| logit-bounded process (older corpus) | endpoint (CRPS) | appendix | 0.081/0.089, beats climatology on OLMo only |
+| parameter bootstrap (older 25-run corpus) | endpoint (CRPS) | rejected | 0.091 ≈ 0.092 |
+| logit-bounded process (older 25-run corpus) | endpoint (CRPS) | appendix | beats climatology on OLMo only — same regime boundary as self-weak ≈ persistence |
 
-Verdicts and numbers all trace to ledger rows; the table *is* the defensive
-material, said once, as evidence of selection discipline rather than worry.
+## 4. Section map (current writeup → new)
+
+| current section | disposition |
+|---|---|
+| Findings 1–3 | rewrite as the three rungs — one finding per rung, one number each; lead with "zero fitted parameters" |
+| "What I measure" + estimator fine print | keep; move ddof/n_j/mean-vs-RMS details to the definition-audit pointer |
+| "The value moves toward what the judge keeps" (now incl. the one-round bakeoff paragraph) | becomes Rung 1 |
+| "The selector gap is spread × agreement" (now Price-framed) | folds into Rung 1; keep the judge gallery; add the per-prompt-model rejection line |
+| "Spread is converted into a new generator state" | splits: Δq + variance identity → short "the state the law updates" passage + conversion figure; mixed-pool spread components → mixed-pool discussion; R² 0.78 one-step spread → audit table |
+| "Agreement is structured, but not safe to freeze" | absorbed into Rung 2's residual paragraph (0.139/0.115/0.152) — currently stated three times |
+| "Rolling the equations through complete runs" (now unit-recurrence-led) | becomes Rung 2 (endpoint table + horizon ladder) + Rung 3 (noise location) |
+| — | NEW: "Related frameworks" short section (Price / CE method / overoptimization / collapse lit) |
+| "What this buys" | shorten to the three dials + practitioner recipe; the recipe now cites the unit equations verbatim |
+| "Where this should transfer" | keep; resolve the placement-pick marker (own section) |
+| "Next directions" | agreement-trajectory modeling first; then the preregistered spread-conversion test; the swap prereg sentence GPT added stays |
+| "Limitations" | keep, minus sentences that moved into the audit table |
 
 ## 5. Claim-hygiene notes for the rewrite
 
-- Use **0.127 / 31/31** for the frozen-state selection-driven endpoint (36
-  runs, LOCO) and **0.137 / 36/38 / 19/24** for the 45-run
-  selection-plus-swaps hybrid. The superseded first-pass rollout (0.106,
-  LORO, report_simple_model_rollout.md) must not reappear.
-- The regime label is "strong-agreement self-only," never the retired
-  grip/utilization vocabulary.
-- The spread-trajectory pair is **0.081 vs 0.111** (risk-group,
-  own_metric_rounds_2plus vs persistence); do not mix in the 0.0814
-  selection-driven geometry value.
-- Every rollout claim is post-hoc LOCO within this program; the only
-  prospective test remains the frozen gap predictor on the three blind
-  release sets (17–42%). Say this once, in Limitations, not per-section.
-- The conversion chain's dynamics claim is binary-risk-only; the 60
-  continuous self-report rounds keep selector accounting only (their
-  headroom-chain R² is −0.03 vs 0.75 persistence). One sentence, Rung 2.
+- Endpoint numbers: unit **0.118 / 0.210 / 0.1365 / 37/38**; fitted comparator
+  **0.127 / 0.179 / 0.1373 / 36/38**. Never mix the pairs. The superseded
+  first-pass rollout (0.106 LORO) and the retired "rankable support is the
+  best endpoint state" framing must not reappear.
+- The 0.9545 order-statistic constant may only appear as the retraction note.
+- The h=1 predicting-vs-observing cost is **0.015–0.023 (matched sets)**; the
+  0.033 pooled figure is superseded.
+- Battery observation noise: RMS SD **0.076 / 0.114**, duplicate-baseline
+  single-read SD **~0.140**; staged-noise coverage **84%** (the old 62% figure
+  described the superseded lumped-residual placement).
+- The spread-trajectory pair stays **0.080 vs 0.111** (risk-group); the
+  conversion-chain dynamics claim stays binary-risk-only (self-report
+  headroom-chain R² −0.03 vs 0.75 persistence).
+- Everything is post-hoc LOCO within this program except the frozen gap
+  predictor (blind release sets) and the just-committed control-arm forecast;
+  the unit model's ledger row says "prospective validation pending" — say it
+  once, in Limitations.
+- Regime label: "strong-agreement self-only"; the grip/utilization vocabulary
+  stays retired.
 
-## 6. Full-package status for the new connecting analysis
+## 6. Figure plan
 
-- script: `scripts/analysis_model_ladder_horizon.py` (committed)
-- result: `experiments/model_ladder_horizon.json`
-- report: `docs/report_model_ladder_horizon.md`
-- ledger row: added under §A
-- figure: `docs/figures/auto/model-ladder-horizon/` (figure-maker spawn)
-- STATE one-liner: added under Recent changes
+- **Revise `docs/figures/auto/model-ladder-horizon/`**: add the unit-recurrence
+  line (0.100/0.099/0.097/0.130) to Panel A; move the fitted frozen-SD line to
+  a secondary style; correct the h=1 bracket to the matched-set 0.015; caption
+  gains the "zero fitted parameters" sentence. (Figure-maker spawn.)
+- **New selection-response model figure** per GPT's
+  `figure_brief_selection_response_model.md`: the three-operation loop
+  (generate σ → select `a`, `g = σa` → refit `k = p + g`), the unit-slope
+  gap-vs-ρσ evidence panel, CE-analogue inset, endpoint inset with
+  0.118/0.210/0.1365 and the fitted 0.179 swap comparator, and the crossed-out
+  0.9545 note. (Figure-maker spawn; replaces any figure labeling 0.9545 as
+  design-derived.)
+- `spread-rollout-bakeoff` caption already corrected in the tree (mean-model +
+  staged-noise framing); the two-clocks and two-dials figures stand.
+
+## 7. Full-package status
+
+- selection-response audit: verified this session (script re-runs
+  byte-identical; scale audit independently re-simulated, ratio 1.099);
+  ledger row trace upgraded.
+- horizon ladder: extended with `one_step_unit` and `closed_unit`
+  (`scripts/analysis_model_ladder_horizon.py` →
+  `experiments/model_ladder_horizon.json`, report updated, five anchors +
+  two cross-checks pass); ledger row updated.
+- figure spawns: model-ladder-horizon revision + selection-response model
+  figure (in flight; drafts land under `docs/figures/auto/`).
+- STATE one-liner added; the never-committed modeling-cluster files
+  (predictor/rollout/trajectory reports, scripts, and result JSONs the ledger
+  cites) committed alongside this brief.

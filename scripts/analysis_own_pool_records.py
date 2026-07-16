@@ -134,7 +134,10 @@ def main():
     out = dict(
         variables={
             "value": "free-gen risk before the round (0 safe … 1 gambles)",
-            "spread": "candidate value spread (mean within-item SD)",
+            "spread": (
+                "arithmetic mean across prompts of the population SD "
+                "(ddof=0) of candidate value scores within that prompt"
+            ),
             "gap": "selection gap = kept − pool (+ pulls value up)",
             "drift": "value change this round (v_k − v_{k-1})",
             "next_drift": "value change next round",

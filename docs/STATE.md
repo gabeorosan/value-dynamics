@@ -582,6 +582,26 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **GPT selection-response audit VERIFIED +
+  refactor brief REDONE + horizon ladder extended.** Verified the uncommitted
+  GPT analysis end to end: analysis_selection_response_predictor.py re-runs
+  byte-identical; the 0.9545 order-statistic RETRACTION independently
+  re-simulated (design value on the measured six-candidate-SD scale is ≈1.10 —
+  the 0.958 fit matching 0.9545 was a scale coincidence); trajectory
+  noise-location JSON cross-checked (staged noise: CRPS 0.095, 84% coverage at
+  nominal 80% — calibrated). Extended the horizon ladder with the unit models:
+  the ZERO-fitted-parameter recurrence `m_next=clip((1−u)m+u·s+ρσ)` scores
+  0.100/0.099/0.097/0.130 by horizon (endpoint 0.118 matched-36 vs fitted
+  0.127); matched h=1: observe kept set 0.085 / unit 0.100 / fitted 0.108 (the
+  old 0.033 gap was glued-run inflated); swaps stay the fitted model's slice
+  (0.179 vs 0.210). Five anchors reproduce. Refactor brief redone around the
+  parameter-free ladder + Price/CE-method framing
+  (docs/writeup_refactor_model_ladder.md). Committed the previously
+  UNCOMMITTED modeling-cluster files the ledger cites (predictor/rollout/
+  trajectory/selection-response reports + scripts + JSONs + the spread-util
+  extension). Figure-maker spawns: model-ladder-horizon revision +
+  selection-response model figure.
+
 - 2026-07-16 (Codex, pre-run audit): **material-width v1 RETIRED before use.**
   Pin `0ca31ed` applied temperature 1.3 to selection pools and behavioral
   readouts, confounding treatment with measurement. V2 separates pool and

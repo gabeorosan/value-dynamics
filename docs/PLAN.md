@@ -138,7 +138,9 @@ movement → the gap is spread × utilization → simple models for spread and
 utilization.** Everything else compresses into supporting evidence for those
 three sections or moves to an appendix. Supporting analysis landed the same
 night: docs/report_spread_util_unified.md (drift ≈ 0.83·pull unifies own-pool
-and mixed rounds; gap ≈ 0.96·ρσ at r=0.90 incl. mixed pools; ρ between-cell variance share
+and mixed rounds; the Price selection differential is predicted by the simple
+unit proxy `gap = ρσ`, with empirical calibration `−0.002+0.958ρσ` at r=0.90
+including mixed pools; ρ between-cell variance share
 0.82). **07-15 spread-definition and conversion audit:** define selector
 spread as the mean, over prompts, of the population SD of candidate value
 scores inside each prompt (`ddof=0`; never pooled across prompts). The evolving
@@ -158,9 +160,40 @@ accounting. The old full-program draft is archived
 lives at docs/writeup_value_dynamics_sprint.md. Claim discipline unchanged:
 every claim matches its ledger row. 07-15 follow-up (user): the 3-state
 model and the endpoint bake-off are OUTDATED for this narrative (bake-off
-suspected goodharted). The earlier first-round endpoint rollout remains a
-supporting intervention check; the writeup's simple mechanism model is now the
-consecutive-round spread-conversion chain above.
+suspected goodharted). The expanded closed-loop bakeoff now supersedes the
+earlier first-round rollout: ten spread definitions × three recurrences, LORO
+and LOCO. Mean within-prompt SD survives; selection-driven LOCO endpoint MAE is
+0.139 versus 0.431 no-change, but freezing round-1 spread is better at 0.127.
+Mean range scores 0.125 but generates effectively the same rollouts (mean
+endpoint difference 0.0066; endpoint class 66/67), so use mean within-prompt
+SD for both decomposition and endpoint forecasting. The consecutive-round
+SD/variance conversion remains the one-step spread mechanism; later agreement
+is the next missing state (oracle ρ lowers endpoint MAE to 0.115). Scheduled
+judge-swap follow-up: restarting from one complete observation on the first
+pool under the new judge cuts frozen mean-SD LOCO endpoint MAE 0.404→0.179 on
+9 runs (swap-time persistence 0.309; 6/7 large-movement directions). Treat this
+as a boundary-conditioned online forecast and remeasure whenever the judge or
+judging format changes.
+
+**07-16 predictor simplification:** use `report_value_predictor_models.md` and
+`report_predictive_model_literature.md`. One selection-response equation now
+covers all horizons. Before selection, predict the kept mean as
+`pool mean + ρσ` (MAE 0.0902 versus 0.0891 for the old two-stage fit). The
+normal top-2-of-6 value 0.9545 was removed: it uses the underlying normal SD,
+not the realized six-candidate SD used by this project. Iterate the unit update
+for endpoints and restart from a complete state at judge/protocol boundaries:
+matched 45-run MAE 0.1365 versus 0.1373 for the fitted frozen-SD model, with
+37/38 large directions. After selection, the clean default is
+`next value = kept candidate value mean` (LOCO MAE 0.081 over 340 rounds); the
+0.833-gain version only improves squared error.
+For stochastic forecasts before selection, draw selector-gap and generator-mean
+innovations where they enter, let agreement persist with a zero-mean innovation,
+and add finite-battery noise only to the reported value. This gives primary-run
+TV 0.678 vs 0.648, reversals 1.36 vs 1.20, CRPS 0.095, and nominal-80% coverage
+84%; a separate latent value-process kick worsens the mean path and over-disperses.
+Reject `ρ_next ~ ρ + ρσ`:
+despite a stable positive risk coefficient, it does not improve direct held-out
+next-agreement prediction and its endpoint gain is post-hoc compensation.
 
 Old hierarchy (07-13 audit), kept for reference — items 2–5 now fold into
 the spread/utilization sections or the appendix:

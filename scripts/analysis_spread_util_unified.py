@@ -13,10 +13,20 @@ mixed-pool movement: the KEPT PULL.
 
 Per round k of a run with measured-value trajectory v0..vN:
   value      = v_{k-1}                      (measured value before the round)
-  spread     = mean within-item SD of candidate value scores (prereg formula)
+  spread     = mean within-item population SD of candidate value scores:
+               for prompt j, sigma_j = sqrt(mean_k (x_jk - xbar_j)^2),
+               then spread = mean_j sigma_j. This is NOT the SD after pooling
+               candidates across prompts and uses ddof=0.
   pool_mean  = mean candidate value score
   kept_mean  = mean value score of kept candidates
   gap        = kept_mean - pool_mean        (the realized selection gap)
+  pool_supply_shift = pool_mean - own_mean  (how mixing moves the offered
+                                             pool away from the model's own
+                                             generated candidates)
+  self_relative_gap = kept_mean - own_mean  (training-target displacement
+                                             relative to the model's own
+                                             generated pool)
+  generator_calibration_residual = own_mean - value
   pull       = kept_mean - value            (where training material sits
                                              relative to the current value;
                                              own-pool: pool_mean ~= value so
@@ -45,6 +55,7 @@ Writes: experiments/spread_util_unified.json.  numpy only.
 """
 import itertools
 import json
+import math
 import os
 from collections import defaultdict
 
@@ -99,15 +110,139 @@ def rho_items(items, score_key, judge_key, oracle_sign=None):
     return (sum(rs) / len(rs)) if rs else None
 
 
+def selection_response_items(items, score_key, judge_key, oracle_sign=None):
+    """No-fit correlated-response gap using each judge-score distribution.
+
+    For each prompt, regress candidate value on standardized judge score and
+    apply that linear response to the top-k judge-score shift.  The resulting
+    rho * value_sd * judge_selection_intensity uses the realized finite pool;
+    unlike a population truncation constant, it is on the same sample-SD scale
+    as the project's spread measurement.
+    """
+    predicted, intensities = [], []
+    for item in items:
+        values = item.get(score_key)
+        kept_idx = item.get("kept_idx")
+        if not values or not kept_idx:
+            continue
+        values = np.asarray(values, float)
+        if oracle_sign is not None:
+            scores = oracle_sign * values
+        else:
+            raw_scores = item.get(judge_key) if judge_key else None
+            if not isinstance(raw_scores, list) or len(raw_scores) != len(values):
+                continue
+            scores = np.asarray(raw_scores, float)
+        score_sd = float(np.std(scores))
+        value_sd = float(np.std(values))
+        if score_sd < 1e-9:
+            continue
+        n_kept = len(kept_idx)
+        predicted_kept = np.argsort(-scores, kind="stable")[:n_kept]
+        intensity = float(
+            (np.mean(scores[predicted_kept]) - np.mean(scores)) / score_sd
+        )
+        correlation = (
+            float(np.corrcoef(scores, values)[0, 1])
+            if value_sd >= 1e-9 else 0.0
+        )
+        predicted.append(correlation * value_sd * intensity)
+        intensities.append(intensity)
+    if not predicted:
+        return None
+    return {
+        "predicted_gap": float(np.mean(predicted)),
+        "judge_selection_intensity": float(np.mean(intensities)),
+        "n_items": len(predicted),
+    }
+
+
+def candidate_distribution_metrics(groups):
+    """Describe candidate-score variation without pooling prompts together.
+
+    A prompt is sampled uniformly, then a candidate is sampled uniformly from
+    that prompt. This matches the per-prompt averaging used by the selector
+    analysis even if a future dataset has unequal candidate counts.
+    """
+    arrays = [np.asarray(c, float) for c in groups if c]
+    if not arrays:
+        return None
+    means = np.asarray([np.mean(c) for c in arrays], float)
+    variances = np.asarray([np.var(c) for c in arrays], float)  # population
+    sds = np.sqrt(variances)
+    pairwise_abs = []
+    any_difference = []
+    mean_abs_deviations = []
+    ranges = []
+    entropy_bits = []
+    binary_entries = 0
+    total_entries = 0
+    for c in arrays:
+        total_entries += len(c)
+        is_binary = np.isclose(c, 0.0) | np.isclose(c, 1.0)
+        binary_entries += int(np.sum(is_binary))
+        pairs = list(itertools.combinations(range(len(c)), 2))
+        pairwise_abs.append(
+            float(np.mean([abs(c[a] - c[b]) for a, b in pairs])) if pairs else 0.0
+        )
+        any_difference.append(float(np.ptp(c) > 1e-12))
+        mean_abs_deviations.append(float(np.mean(np.abs(c - np.mean(c)))))
+        ranges.append(float(np.ptp(c)))
+        if bool(np.all(is_binary)):
+            p = float(np.mean(c))
+            entropy_bits.append(
+                0.0 if p <= 0.0 or p >= 1.0
+                else -(p * math.log2(p) + (1.0 - p) * math.log2(1.0 - p))
+            )
+    mean_variance = float(np.mean(variances))
+    between_item_variance = float(np.var(means))
+    hierarchical_mean = float(np.mean(means))
+    hierarchical_total_variance = mean_variance + between_item_variance
+    # For binary scores, total variance under this hierarchical sampling scheme
+    # is exactly p(1-p). Keep this identity visible for downstream audits.
+    binary_headroom = hierarchical_mean * (1.0 - hierarchical_mean)
+    all_binary = binary_entries == total_entries
+    if all_binary and abs(hierarchical_total_variance - binary_headroom) > 1e-10:
+        raise ValueError("binary within/between-prompt variance identity failed")
+    return {
+        "n_items": len(arrays),
+        "candidate_count_min": int(min(len(c) for c in arrays)),
+        "candidate_count_max": int(max(len(c) for c in arrays)),
+        "binary_score_fraction": float(binary_entries / total_entries),
+        "score_min": float(min(np.min(c) for c in arrays)),
+        "score_max": float(max(np.max(c) for c in arrays)),
+        "mean": hierarchical_mean,
+        "mean_item_sd": float(np.mean(sds)),
+        "median_item_sd": float(np.median(sds)),
+        "mean_item_variance": mean_variance,
+        "rms_item_sd": math.sqrt(max(0.0, mean_variance)),
+        "mean_item_mean_absolute_deviation": float(np.mean(mean_abs_deviations)),
+        "mean_item_range": float(np.mean(ranges)),
+        "mean_pairwise_absolute_difference": float(np.mean(pairwise_abs)),
+        "fraction_items_with_any_difference": float(np.mean(any_difference)),
+        "mean_item_binary_entropy_bits": (
+            float(np.mean(entropy_bits)) if len(entropy_bits) == len(arrays) else None
+        ),
+        "between_item_mean_variance": between_item_variance,
+        "hierarchical_total_variance": hierarchical_total_variance,
+        "hierarchical_total_sd": math.sqrt(max(0.0, hierarchical_total_variance)),
+        "binary_headroom": binary_headroom if all_binary else None,
+    }
+
+
 def round_record(items, score_key, v_before, v_after, judge_key=None, oracle_sign=None):
     vals = [it[score_key] for it in items if it.get(score_key) and it.get("kept_idx")]
     keeps = [it["kept_idx"] for it in items if it.get(score_key) and it.get("kept_idx")]
     if not vals:
         return None
-    spread = float(np.mean([np.std(c) for c in vals]))
-    pool = float(np.mean([np.mean(c) for c in vals]))
+    metrics = candidate_distribution_metrics(vals)
+    spread = metrics["mean_item_sd"]
+    pool = metrics["mean"]
     kept = float(np.mean([c[i] for c, k in zip(vals, keeps) for i in k]))
     rho = rho_items(items, score_key, judge_key, oracle_sign)
+    response = selection_response_items(
+        items, score_key, judge_key, oracle_sign
+    )
     rec = dict(
         spread=round(spread, 4), pool_mean=round(pool, 4),
         kept_mean=round(kept, 4), gap=round(kept - pool, 4),
@@ -116,12 +251,40 @@ def round_record(items, score_key, v_before, v_after, judge_key=None, oracle_sig
         util=util_items(items, score_key),
         rho=(round(rho, 4) if rho is not None else None),
     )
+    # Standardized selection differential on the measured value axis.  This
+    # makes gap = spread * value_axis_selection_intensity an exact aggregate
+    # decomposition (up to JSON rounding).  Unlike rho, it is observed only
+    # after the retained set is known and includes both judge/value alignment
+    # and the strength/form of the actual selection rule.
+    rec["value_axis_selection_intensity"] = (
+        round((kept - pool) / spread, 6) if spread > 1e-12 else 0.0
+    )
+    if response is not None:
+        rec.update(
+            selection_response_predicted_gap=round(
+                response["predicted_gap"], 6
+            ),
+            mean_judge_selection_intensity=round(
+                response["judge_selection_intensity"], 6
+            ),
+            selection_response_n_items=response["n_items"],
+        )
+    # `spread` remains the backwards-compatible public name. These explicit
+    # fields make its estimator and the main alternatives auditable.
+    for key, value in metrics.items():
+        if key in ("n_items", "candidate_count_min", "candidate_count_max"):
+            rec[key] = value
+        elif value is not None:
+            rec[key] = round(float(value), 6)
     if rec["util"] is not None:
         rec["util"] = round(rec["util"], 4)
     owners = [it.get("cand_owner") for it in items]
     if any(o for o in owners):
         ktot = kc = 0
+        pool_total = pool_cogen = 0
         selfs, cogens = [], []
+        self_groups, cogen_groups = [], []
+        mix_parts = []
         for it in items:
             o = it.get("cand_owner")
             c = it.get(score_key)
@@ -129,15 +292,179 @@ def round_record(items, score_key, v_before, v_after, judge_key=None, oracle_sig
                 continue
             selfs += [c[i] for i in range(len(c)) if o[i] == "self"]
             cogens += [c[i] for i in range(len(c)) if o[i] != "self"]
+            pool_total += len(c)
+            pool_cogen += sum(o[i] != "self" for i in range(len(c)))
             for i in it.get("kept_idx", []):
                 ktot += 1
                 kc += (o[i] != "self")
+            si = [i for i in range(len(c)) if o[i] == "self"]
+            ci = [i for i in range(len(c)) if o[i] != "self"]
+            if si:
+                self_groups.append([c[i] for i in si])
+            if ci:
+                cogen_groups.append([c[i] for i in ci])
+            if si and ci:
+                sv = np.asarray([c[i] for i in si], float)
+                cv = np.asarray([c[i] for i in ci], float)
+                ws = len(si) / len(c)
+                wc = len(ci) / len(c)
+                within = ws * float(np.var(sv)) + wc * float(np.var(cv))
+                between = ws * wc * float((np.mean(sv) - np.mean(cv)) ** 2)
+                total_sd = float(np.std(np.asarray(c, float)))
+                # Law of total variance; keep the check close to extraction so
+                # the downstream spread model cannot silently use a bad owner map.
+                if abs(total_sd ** 2 - within - between) > 1e-8:
+                    raise ValueError("candidate-owner variance decomposition failed")
+                mix_parts.append((within, between, total_sd,
+                                  float(np.std(sv)), float(np.std(cv))))
         rec["kept_cogen"] = round(kc / ktot, 3) if ktot else None
+        rec["pool_cogen_fraction"] = round(pool_cogen / pool_total, 6) if pool_total else None
         if selfs and cogens:
             rec["self_mean"] = round(float(np.mean(selfs)), 4)
             rec["cogen_mean"] = round(float(np.mean(cogens)), 4)
             rec["source_sep"] = round(abs(rec["self_mean"] - rec["cogen_mean"]), 4)
+        if mix_parts:
+            rec["within_source_var"] = round(float(np.mean([x[0] for x in mix_parts])), 6)
+            rec["between_source_var"] = round(float(np.mean([x[1] for x in mix_parts])), 6)
+            rec["within_source_spread"] = round(
+                float(np.mean([math.sqrt(max(0.0, x[0])) for x in mix_parts])), 6)
+            rec["between_source_spread_increment"] = round(
+                float(np.mean([x[2] - math.sqrt(max(0.0, x[0])) for x in mix_parts])), 6)
+            rec["mixture_spread_reconstructed"] = round(
+                float(np.mean([x[2] for x in mix_parts])), 6)
+            rec["self_source_spread"] = round(float(np.mean([x[3] for x in mix_parts])), 6)
+            rec["cogen_source_spread"] = round(float(np.mean([x[4] for x in mix_parts])), 6)
+            total_variance = rec["within_source_var"] + rec["between_source_var"]
+            rec["mixture_variance_reconstructed"] = round(total_variance, 6)
+            if abs(rec["mean_item_variance"] - total_variance) > 2e-6:
+                raise ValueError("round-level mixture variance reconstruction failed")
+        for prefix, groups in (("self_source", self_groups), ("cogen_source", cogen_groups)):
+            source_metrics = candidate_distribution_metrics(groups)
+            if source_metrics:
+                for key, value in source_metrics.items():
+                    if key in ("n_items", "candidate_count_min", "candidate_count_max"):
+                        rec[f"{prefix}_{key}"] = value
+                    elif value is not None:
+                        rec[f"{prefix}_{key}"] = round(float(value), 6)
+    # Keep the selector's action inside the offered pool separate from the
+    # displacement of the training targets relative to what the model itself
+    # generated. They coincide in self-only pools and diverge under mixing.
+    own_mean = rec.get("self_source_mean", rec["pool_mean"])
+    rec["own_mean"] = round(own_mean, 4)
+    rec["own_spread"] = rec.get("self_source_mean_item_sd", rec["spread"])
+    rec["own_median_item_sd"] = rec.get(
+        "self_source_median_item_sd", rec["median_item_sd"]
+    )
+    rec["own_mean_item_variance"] = rec.get(
+        "self_source_mean_item_variance", rec["mean_item_variance"]
+    )
+    rec["own_rms_item_sd"] = rec.get("self_source_rms_item_sd", rec["rms_item_sd"])
+    rec["own_pairwise_absolute_difference"] = rec.get(
+        "self_source_mean_pairwise_absolute_difference",
+        rec["mean_pairwise_absolute_difference"],
+    )
+    rec["own_mean_item_mean_absolute_deviation"] = rec.get(
+        "self_source_mean_item_mean_absolute_deviation",
+        rec["mean_item_mean_absolute_deviation"],
+    )
+    rec["own_mean_item_range"] = rec.get(
+        "self_source_mean_item_range", rec["mean_item_range"]
+    )
+    rec["own_fraction_items_with_any_difference"] = rec.get(
+        "self_source_fraction_items_with_any_difference",
+        rec["fraction_items_with_any_difference"],
+    )
+    if "mean_item_binary_entropy_bits" in rec:
+        rec["own_mean_item_binary_entropy_bits"] = rec.get(
+            "self_source_mean_item_binary_entropy_bits",
+            rec["mean_item_binary_entropy_bits"],
+        )
+    rec["own_between_item_mean_variance"] = rec.get(
+        "self_source_between_item_mean_variance", rec["between_item_mean_variance"]
+    )
+    rec["own_hierarchical_total_sd"] = rec.get(
+        "self_source_hierarchical_total_sd", rec["hierarchical_total_sd"]
+    )
+    rec["pool_supply_shift"] = round(rec["pool_mean"] - own_mean, 4)
+    rec["self_relative_gap"] = round(rec["kept_mean"] - own_mean, 4)
+    rec["generator_calibration_residual"] = round(own_mean - rec["value"], 4)
+    reconstructed_pull = (
+        rec["self_relative_gap"] + rec["generator_calibration_residual"]
+    )
+    if abs(rec["pull"] - reconstructed_pull) > 2e-4:
+        raise ValueError("pull decomposition failed")
+    reconstructed_self_gap = rec["gap"] + rec["pool_supply_shift"]
+    if abs(rec["self_relative_gap"] - reconstructed_self_gap) > 2e-4:
+        raise ValueError("self-relative gap decomposition failed")
     return rec
+
+
+def generated_choice_measurement_se(order_read):
+    """Conditional Monte Carlo SE of a generated-choice battery mean.
+
+    Prompts and A/B orders are fixed.  Generation samples are random, so sum
+    the estimated Bernoulli variances within each prompt/order group.  Jeffreys
+    smoothing avoids declaring zero uncertainty when all four draws agree.
+    """
+    if not isinstance(order_read, dict):
+        return None
+    variance_sum = 0.0
+    n_total = 0
+    for item in order_read.get("raw", []):
+        choices = [x for x in item.get("terminal_choices", []) if x in ("A", "B")]
+        n = len(choices)
+        if not n:
+            continue
+        gamble = item.get("gamble_letter")
+        successes = sum(x == gamble for x in choices)
+        p = (successes + 0.5) / (n + 1.0)
+        variance_sum += n * p * (1.0 - p)
+        n_total += n
+    if not n_total:
+        generated = order_read.get("generated", {})
+        n_total = int(generated.get("n_valid") or 0)
+        p = generated.get("overall")
+        if not n_total or p is None:
+            return None
+        variance_sum = n_total * float(p) * (1.0 - float(p))
+    return float(np.sqrt(variance_sum) / n_total)
+
+
+def generated_choice_measurement_n(order_read):
+    if not isinstance(order_read, dict):
+        return None
+    generated = order_read.get("generated", {})
+    n = generated.get("n_total") or generated.get("n_valid")
+    return int(n) if n else None
+
+
+def freegen_measurement_se(block):
+    """Conditional generation SE for the fixed self-report prompt battery."""
+    if not isinstance(block, dict):
+        return None
+    items = block.get("items", [])
+    if not items:
+        return None
+    # The reported score weights every retained sample equally.
+    groups = [np.asarray(it.get("sr_scores", []), float) for it in items]
+    groups = [x for x in groups if len(x)]
+    n_total = sum(len(x) for x in groups)
+    if not n_total:
+        return None
+    variance_sum = 0.0
+    for x in groups:
+        # ddof=1 estimates fresh-generation variance; with one sample there is
+        # no within-group estimate, so contribute zero rather than inventing it.
+        if len(x) > 1:
+            variance_sum += len(x) * float(np.var(x, ddof=1))
+    return float(np.sqrt(variance_sum) / n_total)
+
+
+def freegen_measurement_n(block):
+    if not isinstance(block, dict):
+        return None
+    n = sum(len(it.get("sr_scores", [])) for it in block.get("items", []))
+    return int(n) if n else None
 
 
 # ---------------------------------------------------------------- sources
@@ -224,6 +551,7 @@ def kaggle_records():
     for (organism, axis, cond, sd), (_, path, res, traj, score_key) in best.items():
         judge, fmt, comp = KAGGLE_CONDS[cond]
         rr = res["rounds_raw"]
+        order_reads = res.get("traj_order", [])
         for k in range(1, len(rr) + 1):
             if k >= len(traj) or traj[k] is None or traj[k - 1] is None:
                 continue
@@ -233,6 +561,19 @@ def kaggle_records():
                                judge_key="scores_arm",
                                oracle_sign=(-1 if judge == "score oracle" else None))
             if rec:
+                if k < len(order_reads):
+                    rec["value_measurement_se"] = generated_choice_measurement_se(
+                        order_reads[k - 1]
+                    )
+                    rec["next_value_measurement_se"] = generated_choice_measurement_se(
+                        order_reads[k]
+                    )
+                    rec["value_measurement_n"] = generated_choice_measurement_n(
+                        order_reads[k - 1]
+                    )
+                    rec["next_value_measurement_n"] = generated_choice_measurement_n(
+                        order_reads[k]
+                    )
                 rec.update(organism=organism, axis=axis, cond=cond, seed=sd,
                            round=k, judge=judge, format=fmt, composition=comp,
                            source=os.path.basename(path))
@@ -256,6 +597,7 @@ def modal_records():
                     continue
                 judge, fmt, comp = MODAL_CONDS[cond]
                 jkey = "scores_h2h" if cond.startswith("h2h_") else "scores_arm"
+                order_reads = res.get("traj_order", [])
                 for k in range(1, min(len(rr), len(traj) - 1) + 1):
                     if not rr[k - 1]:
                         continue
@@ -263,6 +605,19 @@ def modal_records():
                                        judge_key=jkey,
                                        oracle_sign=(-1 if judge == "score oracle" else None))
                     if rec:
+                        if k < len(order_reads):
+                            rec["value_measurement_se"] = generated_choice_measurement_se(
+                                order_reads[k - 1]
+                            )
+                            rec["next_value_measurement_se"] = generated_choice_measurement_se(
+                                order_reads[k]
+                            )
+                            rec["value_measurement_n"] = generated_choice_measurement_n(
+                                order_reads[k - 1]
+                            )
+                            rec["next_value_measurement_n"] = generated_choice_measurement_n(
+                                order_reads[k]
+                            )
                         rec.update(organism="OLMo", axis="risk", cond=cond,
                                    seed=str(sd), round=k, judge=judge,
                                    format=fmt, composition=comp,
@@ -289,6 +644,10 @@ def cells_records():
             if b0:
                 v0 = b0["battery"]["sr_free_gen"]["sr_freegen"]
             traj = [v0] + [b["sr_free_gen"]["sr_freegen"] for b in bat]
+            measurement_blocks = (
+                [b0["battery"]["sr_free_gen"] if b0 else None]
+                + [b["sr_free_gen"] for b in bat]
+            )
             for k in range(1, min(len(rr), len(traj) - 1) + 1):
                 if traj[k] is None or traj[k - 1] is None or not rr[k - 1]:
                     continue
@@ -296,6 +655,18 @@ def cells_records():
                                    judge_key="scores",
                                    oracle_sign=(-1 if judge == "score oracle" else None))
                 if rec:
+                    rec["value_measurement_se"] = freegen_measurement_se(
+                        measurement_blocks[k - 1]
+                    )
+                    rec["next_value_measurement_se"] = freegen_measurement_se(
+                        measurement_blocks[k]
+                    )
+                    rec["value_measurement_n"] = freegen_measurement_n(
+                        measurement_blocks[k - 1]
+                    )
+                    rec["next_value_measurement_n"] = freegen_measurement_n(
+                        measurement_blocks[k]
+                    )
                     rec.update(organism="Qwen", axis="selfreport", cond=os.path.basename(path).replace(".json", ""),
                                seed=str(c.get("seed", cell_id)), round=k, judge=judge,
                                format=fmt, composition=comp, source=os.path.basename(path))
@@ -334,6 +705,10 @@ def movement_fits(records):
             n=len(rs),
             drift_vs_pull=ols([r["pull"] for r in rs], [r["drift"] for r in rs]),
             drift_vs_gap=ols([r["gap"] for r in rs], [r["drift"] for r in rs]),
+            drift_vs_self_relative_gap=ols(
+                [r["self_relative_gap"] for r in rs],
+                [r["drift"] for r in rs],
+            ),
         )
     return fits
 

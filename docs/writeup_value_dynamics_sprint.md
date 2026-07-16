@@ -71,12 +71,11 @@ forward into complete trajectories.*
    Leave-one-run-out, this chain predicts next own-source risk spread at
    R² 0.78 overall and 0.65 in mixed pools, beating spread persistence at 0.58
    and 0.19. Rolled through complete unseen conditions, the model predicts
-   selection-driven endpoints at MAE 0.139 versus 0.431 for no change and gets
-   28/31 large-movement directions right. Predicting spread more accurately
-   does not yet improve those endpoints over holding first-round spread fixed
-   (0.127): later agreement is the larger missing state. The best simple
-   endpoint state is first-round rankable support—the mean within-prompt
-   range—which reaches 0.125 and 31/31 directions.
+   selection-driven endpoints at MAE 0.127 versus 0.431 for no change and gets
+   31/31 large-movement directions right when first-round spread is held fixed.
+   Predicting spread more accurately does not improve those endpoints; later
+   agreement is the larger missing state. A full state refresh when the judge
+   changes extends the same mean-SD model to scheduled swaps.
 
 ## What I measure
 
@@ -167,6 +166,16 @@ exerts a force, but because the judge kept supplier text, the kept mean
 therefore sat at the supplier's level, and the value converged to the kept
 mean — where the pull runs out.
 
+A leave-one-condition-out one-round bakeoff makes the simplest version
+explicit: predict the next behavioral value by the **mean value of the kept
+training answers**. Equivalently, `Δvalue = kept mean − current value`. Across
+all 340 rounds this parameter-free rule has MAE **0.081** versus 0.128 for no
+change, and it beats training displacement alone (0.098) and selector gap
+alone (0.112). A fitted 0.83 update gain slightly improves squared error but
+not absolute error. Before the kept set is known, the parameter-free proxy
+`pool mean + agreement × spread` scores MAE 0.090 on the 290 rounds with
+measurable agreement, close to 0.085 from observing the actual kept mean.
+
 ![The value moves toward the kept answers' mean](figures/auto/movement-toward-kept-v2/movement-toward-kept-v2.svg)
 
 *Each dot is one selection round (340 rounds, 74 runs, both model families,
@@ -174,16 +183,21 @@ all pool compositions). Descriptive accounting on logged pools.*
 
 ## The selector gap is spread × agreement
 
-Order statistics says that keeping 2 of 6 by a judge whose scores correlate
-ρ with the value axis, from a pool with spread σ, produces an expected gap
-of about 0.95·ρσ. The realized gaps agree: gap ≈ 0.96·ρσ at r = 0.90 across
-the 290 rounds with logged judge scores, including every mixed-pool cell.
+The selector gap is the classical selection differential. Within each prompt,
+if `w=1` for kept candidates and zero otherwise, then
+`kept mean−pool mean=Cov(value,w)/mean(w)`; the reported gap averages prompts
+equally. Dividing the aggregate gap by spread defines the selector's realized signed
+value-axis intensity, so `gap = spread × intensity` exactly. Before selection,
+judge/value correlation is a compact proxy for that intensity: the unit rule
+`gap=ρσ` has R² 0.81 and MAE 0.042, while the descriptive fit is
+`−0.002+0.9582ρσ`. Realized gaps have r = 0.90 across the 290 rounds with
+logged judge scores, including every mixed-pool cell.
 Spread alone explains 3% of gap variance; agreement alone 59%; the
-product 81%. This is bookkeeping, close to an identity — its value is that
-the two factors are *separately measurable and separately intervenable*, and
-they answer different questions: spread says whether any judge could move
-the value; agreement says whether this judge, asked this way, on this
-pool, actually does.
+product 81%. The exact identity uses the retained-set indicator; `ρσ` is the
+predictive compression available before that set is known. The factors answer
+different questions: spread says whether the pool offers variation on the
+axis; agreement says whether this judge, asked this way, on this pool, tends
+to retain one side of it.
 
 Agreement behaves like a property of the judge cell: 82% of its variance
 is between judge × format × pool combinations, not between rounds of the
@@ -300,7 +314,7 @@ to round, is shown separately in the conversion-chain figure.)*
 
 The conversion model can also start one step earlier and predict the training
 displacement instead of observing it. Replacing the realized selector gap with
-`0.96 × agreement × offered spread`, then adding the pool-supply shift,
+`agreement × offered spread`, then adding the pool-supply shift,
 reconstructs the actual training displacement at `r = 0.95` overall and 0.98
 in mixed pools. Rolled through the same two stages, this fully factorized model
 still predicts next own-source risk spread better than persistence: leave-one-
@@ -325,56 +339,45 @@ mean and spread, behavioral value, agreement, and any supplier state. After
 that it predicts its own selector gap, training displacement, next generated
 mean, next spread, and next value.
 
-On the 36 selection-driven runs, holding out the complete condition, the
-mean-within-prompt-SD geometry model predicts endpoints at MAE **0.139**, versus
-**0.431** if the value never changes. It gets the direction right on **28/31**
-runs that actually move by at least 0.15. It captures the invasion takeovers,
-both injection collapses, and the direction of self-judge erosion. It does not
-predict weak-selection blooms, and it fails when the judge is deliberately
-swapped mid-run (0.392 versus 0.361 for no change).
+Use the same spread definition in the rollout: mean within-prompt population
+SD. The simplest endpoint forecast iterates the same selection update. With
+host mean `m`, supplier mean/share `s,a`, and boundary measurements `ρ,σ`, use
+`m_next = clip((1−a)m + as + ρσ, 0, 1)` and set predicted next value to that
+mean. If the judge, judging protocol, or pool-generation policy changes,
+remeasure on the first pool under the new condition and restart.
 
-The best simple endpoint model replaces SD with the first pool's **mean
-within-prompt range** and holds that value fixed. Its endpoint MAE is **0.125**
-and it gets all **31/31** large selection-driven directions right.
+On the 36 selection-driven runs modeled by both versions, this unit recurrence
+has endpoint MAE **0.118**, versus **0.127** for the fitted frozen-spread loop
+and 0.431 for no change. On nine scheduled swaps, a boundary reset scores 0.210
+versus 0.179 for the fitted model. Across the matched 45-run set, unit-model
+MAE is **0.1365** versus 0.1373 and it gets **37/38** large-movement directions
+right. It also covers three zero-spread runs that do not have a defined
+correlation: their selection term is exactly zero.
 
-![Closed-loop rollout: a spread model predicts an unseen condition, and rankable support is the best endpoint state](figures/auto/spread-rollout-bakeoff/spread-rollout-bakeoff.svg)
+![Closed-loop rollout: mean within-prompt spread predicts the coarse behavior of unseen runs](figures/auto/spread-rollout-bakeoff/spread-rollout-bakeoff.svg)
 
-*Panel A: rolling each held-out run forward from its first pool only, the closed
-loop beats the no-change baseline on the selection-driven (0.139 vs 0.431),
-mixed-intervention (0.138 vs 0.450), and strong-agreement self-only (0.140 vs 0.393)
-regimes; it ties on weak self-only selection and is out of scope when the judge
-is swapped mid-run. Panel B: among the spread definitions that exist on both
-score axes (leave-one-condition-out, selection-driven endpoints), mean
-within-prompt range — rankable support — is the best endpoint state (0.125
-frozen), narrowly beating mean within-prompt SD, the direct selector scale; the
-coarse "any-difference" fraction wins only within known conditions and does not
-transport.*
+*The plotted fitted frozen-SD rollout gets 36/38
+large-movement directions and 19/24 observed rail endpoints. The observed and
+predicted endpoint distributions are similar (mean 0.541/0.572; SD
+0.370/0.360). The deterministic paths are smoother than the data: they recover
+endpoint direction and rail behavior, not the observed round-to-round
+reversals.*
 
-The alternative-definition test separates two useful quantities. Mean
-within-prompt SD remains the direct selector scale: it predicts realized gaps
-best and supports the exact variance decomposition. Mean range,
-`J⁻¹Σ_j(max x_jk−min x_jk)`, is the better endpoint state: with the geometry
-recurrence it scores 0.132 versus SD's 0.139, a paired improvement of 0.007
-(bootstrap 95% CI 0.003–0.011). On binary scores it is simply the fraction of
-prompts containing both values—how often the selector has any rankable choice.
-I call that **rankable support**, rather than silently redefining spread.
+Alternative spread definitions do not change this conclusion. Mean range and
+mean SD produce predicted endpoints only 0.0066 apart on average, with the
+same endpoint class in 66/67 runs. Mean SD is retained because it is also the
+quantity in the agreement×spread decomposition, is expressed in selector-gap
+units, and connects to the exact variance decomposition. The remaining misses
+come from later agreement changes and weak-selection blooms, not from the
+choice between these two spread estimators.
 
-The more consequential result is about the recurrence. The binary geometry
-model predicts the future risk-spread trajectory better than simply freezing
-spread (MAE 0.080 versus 0.111), but feeding those predictions back makes the
-endpoint forecast worse: **0.139** versus **0.127** with first-round spread held
-fixed. Supplying the simulator with later observed spread barely changes its
-endpoint error (0.139). Supplying later observed agreement reduces it to
-**0.115**; supplying both reaches 0.112. A fitted agreement autoregression only
-reaches 0.132.
-
-So the best current simple forecast is: measure rankable support and agreement
-in the first pool, use kept minus the host-generated mean as the training
-displacement, and hold support fixed while rolling an unseen condition
-forward. Mean SD and its variance conversion remain the explanation and
-one-step prediction of spread. The next state equation needed for a better
-multi-round simulator is agreement, especially after the pool or judging
-protocol changes.
+The plotted rollout is the conditional mean. In a stochastic forecast made
+before selection, draw uncertainty at the stages where it enters: the realized
+selector gap, the next generated-pool mean, and persistence of agreement. Add
+finite-battery noise only to the reported value, without feeding it back. This
+version reproduces the observed path variation (0.678 versus 0.648), sign
+reversals (1.36 versus 1.20), and endpoint uncertainty (CRPS 0.095; 84% coverage
+for nominal 80%). A separate latent value-process kick is unnecessary.
 
 ## What this buys
 
@@ -429,7 +432,10 @@ spread and the complete endpoint. Score those forecasts blind, as the frozen
 gap predictor was scored. Third, experiments on the factors themselves: dose–response of
 injection share on pool-supply shift and between-source variation,
 longer-horizon transport of the own-source spread equation, and explicit judge
-swaps where the simulator is allowed to remeasure agreement at the swap.
+swaps with a preregistered boundary refresh forecast. The retrospective
+scheduled-swap analysis now shows that one full refresh at the first new-judge
+pool cuts endpoint MAE from 0.404 to 0.179; the next test should freeze that
+rule before collecting the trajectories.
 Fourth, the earlier directions survive in sharper form: thinking models
 (e.g. Qwen3.5) make the judgment channel readable, turning agreement from
 a number into an inspectable argument; letting the model modify pieces of
@@ -483,6 +489,12 @@ variance decomposition, and score-type boundary; scorer
 pooled, within-run, first-difference, and leave-one-run-out checks; scorer
 `scripts/analysis_spread_value_centrality.py` →
 `experiments/spread_value_centrality.json`) ·
+`report_spread_rollout_bakeoff.md` and `report_value_predictor_models.md`
+(closed-loop endpoint, boundary-refresh, and one-round predictor bakeoffs;
+scorers `scripts/analysis_spread_rollout_bakeoff.py` and
+`scripts/analysis_value_predictor_bakeoff.py` →
+`experiments/spread_rollout_bakeoff.json` and
+`experiments/value_predictor_bakeoff.json`) ·
 `report_simple_model_rollout.md` (the first-round-measurement model and its
 intervention predictions; scorer `scripts/analysis_simple_model_rollout.py`
 → `experiments/simple_model_rollout.json`) ·

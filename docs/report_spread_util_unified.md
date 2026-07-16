@@ -1,6 +1,6 @@
 # Unified spread × utilization accounting: one bookkeeping for every loop we ran
 
-*2026-07-15, general (writeup) thread. Committed scorer:
+*2026-07-15, updated 2026-07-16. Committed scorer:
 `scripts/analysis_spread_util_unified.py` → `experiments/spread_util_unified.json`.
 Data: 340 selection rounds from 74 runs — the K1 Qwen risk grid, the K2 OLMo
 grids, all modal K2 release cells (own-pool, base-mixed, peer-invasion,
@@ -9,9 +9,9 @@ head-to-head duels), and the Qwen insecure-code self-report cells
 duels). Everything is descriptive accounting on logged pools; no causal claim.*
 
 Motivation: the writeup is being refocused (user directive 07-15) onto three
-claims — the selection gap predicts movement; the gap factorizes into value
-spread × judge utilization; and spread and utilization each follow simple,
-separately-intervenable dynamics. The own-pool halves of this existed
+claims — selection moves the generator toward the kept training targets; the
+selector gap factorizes into value spread × judge agreement; and that movement
+changes the variation the generator supplies next round. The own-pool halves existed
 (`report_taste_alignment_predictor.md`, `state_space_explore.json`); this
 analysis runs the SAME bookkeeping over the mixed-generator and injection
 cells and adds the one quantity that unifies own-pool and mixed-pool movement.
@@ -20,13 +20,25 @@ cells and adds the one quantity that unifies own-pool and mixed-pool movement.
 
 - **value** v — the measured coordinate before the round (risk share for the
   gamble organisms; insecure-code self-report for the EM organisms; both 0–1).
-- **spread** σ — mean within-item SD of the six candidates' value scores
-  (the prereg formula).
-- **gap** — kept mean minus pool mean on the value axis.
-- **pull** — kept mean minus *current value*. In an own-pool round the pool
-  mean sits at the current value, so pull ≈ gap. In a mixed pool the two come
-  apart: pull = gap + (pool mean − value), and the second term carries the
-  supplier.
+  The JSON now also records the known battery sample count and conditional
+  generation SE for the current and next reads. Risk batteries use 24 or 96
+  generated choices; self-report batteries use nine bounded generation scores.
+  These fields support observation-noise forecasts without treating readout
+  noise as latent model change.
+- **within-prompt value spread** σ — for each prompt `j`, take the population
+  SD of its candidate value scores,
+  `σ_j = sqrt[(1/n_j)Σ_k(x_jk−x̄_j)²]`, then average `σ_j` equally over
+  prompts. This uses `ddof=0`; it is not a pooled SD across prompts. Candidate
+  count is six for every prompt in 336/340 rounds; the observed `n_j` is used
+  in four rounds containing a five-candidate prompt.
+- **selector gap** — kept mean minus the whole offered pool mean. This measures
+  the judge's sorting inside the pool and is the quantity factorized below.
+- **training displacement** — kept mean minus the model's own generated-pool
+  mean. It equals selector gap + pool-supply shift and is the relevant update
+  coordinate in mixed pools.
+- **pull** — kept mean minus the separate behavioral value. It equals training
+  displacement + the generator/behavior calibration residual and is therefore
+  the best direct predictor of movement in that behavioral readout.
 - **utilization** ρ — mean within-item Pearson correlation between the
   judge's candidate scores and the candidates' value scores (−1…1). This is
   the taste-alignment ρ, computed here for every cell with logged judge
@@ -38,29 +50,32 @@ cells and adds the one quantity that unifies own-pool and mixed-pool movement.
 - **source_sep** — |mean self candidate − mean co-generator candidate| in
   mixed pools.
 
-## 1. One movement law covers own-pool, injection, and invasion rounds
+## 1. Measuring against the model's own pool isolates the update
 
 Each round, the value moves toward the mean of the kept answers, at ~80% of
 the distance per round:
 
-| slice | drift ~ pull slope | r | n | drift ~ gap r |
-|---|---|---|---|---|
-| pooled (all rounds) | 0.83 | **0.80** | 340 | 0.58 |
-| OLMo risk | 0.79 | 0.84 | 216 | 0.55 |
-| Qwen risk | 0.98 | 0.72 | 64 | 0.42 |
-| Qwen self-report | 0.91 | 0.76 | 60 | 0.78 |
-| self-only rounds | 0.82 | 0.71 | 244 | 0.55 |
-| base-mixed rounds | 0.71 | 0.80 | 64 | 0.43 |
-| peer-mixed rounds | 0.95 | **0.99** | 32 | 0.90 |
+| slice | selector gap r | training displacement r | behavioral pull r |
+|---|---:|---:|---:|
+| pooled (340 rounds) | 0.58 | **0.68** | 0.80 |
+| self-only (244) | 0.55 | 0.55 | 0.71 |
+| base-mixed (64) | 0.43 | **0.64** | 0.80 |
+| peer-mixed (32) | 0.90 | **0.95** | 0.99 |
 
-In own-pool rounds pull and gap coincide, so this contains the known
-gap→drift result. In mixed pools they separate, and pull wins everywhere —
-which is the "runs end at the supplier's level" result restated as mechanics:
-training moves the value toward whatever the judge kept, and when the judge
-keeps supplier text, the kept mean sits at the supplier's level, so that is
-where the run goes. No extra force is needed.
+In self-only rounds the two gaps coincide. In mixed pools, kept minus the
+model's own generated mean is the better update coordinate because it includes
+the displacement introduced by the supplier. Pull wins when predicting the
+separate behavioral readout because the model's generated-pool mean and that
+readout are close but not identical. The three quantities answer different
+questions and are all retained.
 
-## 2. The gap factorizes: gap ≈ 0.96 · ρ · σ (r = 0.90, 290 rounds)
+The separate value-predictor bakeoff validates this one-round comparison while
+holding out each complete condition. The parameter-free rule `next value =
+kept mean` scores MAE 0.081 over all 340 rounds, versus 0.098 for fitted
+training displacement, 0.112 for fitted selector gap, and 0.128 for no change.
+A calibrated 0.833-gain pull model slightly improves squared error but not MAE.
+
+## 2. The selector gap is spread × local selection intensity
 
 Extending the own-pool factorization (`report_taste_alignment_predictor.md`:
 gap ≈ 0.98·ρσ, r = 0.82, 100 rounds) to every cell with judge scores:
@@ -72,13 +87,24 @@ gap ≈ 0.98·ρσ, r = 0.82, 100 rounds) to every cell with judge scores:
 | base-mixed | 0.97 | 0.95 | 64 | 0.00 | 0.67 | 0.90 |
 | peer-mixed | 1.14 | 0.91 | 19 | 0.48 | 0.48 | 0.83 |
 
-Neither factor alone explains the gap; the product does. The ~0.96 constant
-matches the keep-2-of-6 order-statistics prediction (~0.95 under Gaussian
-scores), as before. This is bookkeeping close to an order-statistic identity
-— it says where a gap CAN come from (material × a judge that sorts on the
-axis), not when one will persist.
+Neither factor alone explains the gap; the product does. Prompt by prompt,
+`kept_j−pool_j=Cov_i(value_ji,kept_ji)/mean_i(kept_ji)`, the Price selection
+differential; the reported gap averages prompts equally. Standardizing the
+aggregate gap by the measured spread defines the
+realized value-axis selection intensity `a=(kept−pool)/spread`, so
+`gap=spread×a` exactly after selection. Before selection, judge/value
+correlation `ρ` is a compact proxy for `a`. The parameter-free rule `gap=ρσ`
+has R² 0.810 and MAE 0.0421 over all 290 rounds; the descriptive calibration
+is `−0.002+0.958ρσ`.
 
-## 3. Spread: a slow state under self-only pools; a supply floor under mixed
+The empirical 0.958 slope is not a top-2-of-6 normal-theory constant. The
+normal order-statistic value 0.9545 is expressed in units of the underlying
+distribution SD, whereas this project uses the realized six-candidate
+population SD. On the project scale a normal-pool simulation gives about
+1.10, not 0.9545. This says where a gap can come from—material × a selector
+that sorts on the axis—not whether that local alignment persists.
+
+## 3. Selection changes the spread supplied next round
 
 σ_{t+1} ~ σ_t within runs, plus mean spread by round:
 
@@ -90,28 +116,42 @@ axis), not when one will persist.
 | Qwen base-mixed (16 rds) | 0.22 | 0.46 | 0.32 → 0.14 → 0.10 → 0.10 |
 | OLMo peer-mixed (32 rds) | 0.39 | 0.62 | 0.43 → 0.16 → 0.06 → 0.03 |
 
-Reading: under self-only pools spread is a persistent, slowly-consumed state
-(slope 0.88–0.97) — the intervention-window result in dynamical form. Under a
-base co-generator, persistence disappears (slope 0.12) because the supplier
-RESETS spread every round: the pool's spread is re-supplied by the source
-difference, not inherited. In mixed pools spread tracks source separation
-(σ ~ 0.36·source_sep + 0.20, r = 0.47, 96 rounds) — and source separation
-itself shrinks as the host converges on the supplier, which is why Qwen
-base-mixed spread decays toward ~0.10 (the host reached the supplier's level
-in one round) and why peer-invasion spread collapses 0.43 → 0.03 (the host
-inherits the railed peer's homogeneity).
+Persistence describes the trajectories but does not explain them. The
+conversion analysis (`report_spread_conversion_model.md`) identifies the
+changing state on the binary risk axis: the mean `q` and within-prompt spread
+`s` of the model's own generated candidates. Training displacement predicts
+`Δq` (`r = 0.84` over 221 risk-axis transitions, 0.90 mixed); the resulting
+change in total binary variance `q(1−q)` predicts `Δs` (`r = 0.85` overall,
+0.89 mixed). Leave-one-run-out, the headroom chain predicts next own-source
+spread at R² 0.765 versus 0.581 persistence. The exact variance version also
+subtracts variance across prompt means and scores 0.778; in mixed risk pools
+it scores 0.653 versus 0.193 persistence.
+
+Mixed-pool total within-prompt **variance** splits exactly into within-source
+and between-source terms. The between-source term accounts for 34% of mean
+variance in base-mixed pools and 57% in peer-mixed pools. Recomputing SD after
+removing that term reduces mean spread by 23% and 42%, respectively. The
+selector acts on whole-pool spread; the generator carries its own-source mean
+and spread into the next round.
 
 The matched pair is the cleanest single contrast (same seeds, same oracle,
 random streams diverging only at injection): the self-only twin has spread
 0.000 in every round and mean |drift| 0.0006; the injected run has spread
 0.31 in the injected round and mean |drift| 0.157.
 
-## 4. Utilization: mostly a property of the judge cell, not of the round
+## 4. Agreement: organized by judge cell, but consequentially dynamic
 
 Between-cell (organism × judge × format × composition) variance share of ρ:
 **0.82** — i.e. most utilization variance is *which judge in which format on
 which pool*, not round-to-round noise. (The extremeness-based `util` variant
 is less stable, 0.53.) Selected cells (full table in the JSON):
+
+This is a variance decomposition, not permission to hold ρ fixed indefinitely.
+The closed-loop test in `report_spread_rollout_bakeoff.md` finds that later
+agreement is the larger missing endpoint state: using observed later agreement
+reduces LOCO selection-driven MAE from 0.139 to 0.115, while using observed
+later spread alone leaves 0.139. The judge cell supplies a good initial level;
+remeasure after the judge, format, or candidate distribution changes.
 
 | cell | ρ mean | note |
 |---|---|---|
@@ -134,12 +174,18 @@ value).
 
 ## Caveats
 
-- Descriptive throughout. The factorization is near-tautological given order
-  statistics; the movement law is an association across heterogeneous cells
-  (81 of 340 rounds share the OLMo K2 grid chassis); no leave-one-out
-  validation is run here (the frozen-predictor blind-set result,
+- The factorization is near-tautological given order statistics; the movement
+  comparisons are associations across heterogeneous cells
+  (81 of 340 rounds share the OLMo K2 grid chassis). This descriptive scorer
+  does not itself cross-validate; `report_value_predictor_models.md` adds
+  leave-one-condition-out comparison of the one-round predictors. The
+  frozen-predictor blind-set result,
   `report_loop_integrator_decomposition.md`, remains the out-of-sample
-  evidence that gap-type quantities predict).
+  prospective evidence that gap-type quantities predict. The separate
+  spread-conversion report adds leave-one-run-out and leave-one-condition-out
+  evaluation for next-round own-source spread. The closed-loop bakeoff adds complete-run LOCO
+  endpoints and shows that the spread recurrence does not yet improve endpoints
+  over holding first-round spread fixed.
 - ρ for the oracle is definitional (−1), not measured from logged scores
   (logged oracle scores are near-ties; correlating them dilutes ρ
   artifactually).
@@ -147,5 +193,9 @@ value).
   excluded from the per-judge table (their judge changes mid-run).
 - K3 (em-neutral grid) is excluded: its pools score a different axis
   (candor) and its battery lacks the sr trajectory.
+- The `q(1−q)` spread dynamics apply only to the 280 binary risk-axis rounds.
+  The 60 continuous self-report rounds retain the selector-gap accounting but
+  fail the mean-to-within-spread conversion (LORO R² −0.029 versus 0.747 for
+  persistence). See `report_spread_definition_audit.md`.
 - Axes are pooled only where dimensionless (all coordinates 0–1); per-family
   fits are reported alongside every pooled fit.

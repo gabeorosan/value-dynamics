@@ -1,0 +1,3379 @@
+{
+  "description": "Audit and simplify the selection-response predictor.",
+  "recommended_model": {
+    "exact_after_selection": "gap = kept_mean - pool_mean = Cov(value, kept_indicator) / mean(kept_indicator); next_value = kept_mean",
+    "parameter_free_before_selection_proxy": "predicted_gap = judge_value_agreement * offered_pool_spread",
+    "endpoint": "iterate pool_supply_update + frozen boundary predicted_gap; remeasure at judge, judging-format, or pool-policy changes",
+    "interpretation": "spread times realized value-axis selection intensity is exact; judge/value correlation is a compact pre-selection proxy for that intensity"
+  },
+  "scale_audit": {
+    "expected_top_order_statistics": [
+      0.641755,
+      1.267206
+    ],
+    "intensity_in_units_of_underlying_normal_sd": 0.954481,
+    "project_uses_realized_six_sample_population_sd": true,
+    "monte_carlo_draws": 1000000,
+    "monte_carlo_seed": 16072026,
+    "mean_selected_gap": 0.955038,
+    "mean_realized_population_sd": 0.868425,
+    "ratio_of_means_on_project_scale": 1.099736,
+    "conclusion": "0.9545 is not a design-derived coefficient for the project's realized finite-pool SD; its match to the empirical 0.958 slope is a scale-mismatched coincidence."
+  },
+  "candidate_count_min_max_round_counts": {
+    "5-6": 4,
+    "6-6": 336
+  },
+  "selector_gap": {
+    "unit_agreement_spread_proxy": {
+      "all": {
+        "n": 290,
+        "mae": 0.042074,
+        "rmse": 0.054129,
+        "r2": 0.81037
+      },
+      "risk": {
+        "n": 242,
+        "mae": 0.042965,
+        "rmse": 0.054527,
+        "r2": 0.80807
+      },
+      "selfreport": {
+        "n": 48,
+        "mae": 0.037583,
+        "rmse": 0.052074,
+        "r2": 0.813106
+      },
+      "self_only": {
+        "n": 207,
+        "mae": 0.042286,
+        "rmse": 0.053803,
+        "r2": 0.708006
+      },
+      "mixed": {
+        "n": 83,
+        "mae": 0.041546,
+        "rmse": 0.054932,
+        "r2": 0.892359
+      },
+      "OLMo": {
+        "n": 194,
+        "mae": 0.043276,
+        "rmse": 0.055343,
+        "r2": 0.825658
+      },
+      "Qwen": {
+        "n": 96,
+        "mae": 0.039645,
+        "rmse": 0.051587,
+        "r2": 0.749102
+      }
+    },
+    "realized_judge_score_intensity_diagnostic": {
+      "all": {
+        "n": 290,
+        "mae": 0.044441,
+        "rmse": 0.073531,
+        "r2": 0.650059
+      },
+      "risk": {
+        "n": 242,
+        "mae": 0.040419,
+        "rmse": 0.057636,
+        "r2": 0.785559
+      },
+      "selfreport": {
+        "n": 48,
+        "mae": 0.064719,
+        "rmse": 0.126167,
+        "r2": -0.097098
+      },
+      "self_only": {
+        "n": 207,
+        "mae": 0.045999,
+        "rmse": 0.079983,
+        "r2": 0.354717
+      },
+      "mixed": {
+        "n": 83,
+        "mae": 0.040555,
+        "rmse": 0.054192,
+        "r2": 0.89524
+      },
+      "OLMo": {
+        "n": 194,
+        "mae": 0.041563,
+        "rmse": 0.059551,
+        "r2": 0.79814
+      },
+      "Qwen": {
+        "n": 96,
+        "mae": 0.050256,
+        "rmse": 0.095742,
+        "r2": 0.135785
+      }
+    },
+    "fitted_full_data_equation_description_only": {
+      "formula": "gap = intercept + slope * agreement * spread",
+      "intercept_slope": [
+        -0.002137,
+        0.958197
+      ]
+    }
+  },
+  "one_round_before_selection": {
+    "unit_agreement_spread_proxy": {
+      "all": {
+        "n": 290,
+        "mae": 0.090184,
+        "rmse": 0.118996,
+        "r2": 0.631068
+      },
+      "risk": {
+        "n": 242,
+        "mae": 0.085735,
+        "rmse": 0.112164,
+        "r2": 0.598584
+      },
+      "selfreport": {
+        "n": 48,
+        "mae": 0.112615,
+        "rmse": 0.148739,
+        "r2": 0.696818
+      },
+      "self_only": {
+        "n": 207,
+        "mae": 0.088497,
+        "rmse": 0.115389,
+        "r2": 0.534
+      },
+      "mixed": {
+        "n": 83,
+        "mae": 0.09439,
+        "rmse": 0.12755,
+        "r2": 0.741128
+      },
+      "OLMo": {
+        "n": 194,
+        "mae": 0.086682,
+        "rmse": 0.114462,
+        "r2": 0.609718
+      },
+      "Qwen": {
+        "n": 96,
+        "mae": 0.09726,
+        "rmse": 0.127669,
+        "r2": 0.657056
+      }
+    },
+    "realized_judge_score_intensity_diagnostic": {
+      "all": {
+        "n": 290,
+        "mae": 0.091952,
+        "rmse": 0.125521,
+        "r2": 0.589503
+      },
+      "risk": {
+        "n": 242,
+        "mae": 0.088375,
+        "rmse": 0.11846,
+        "r2": 0.552253
+      },
+      "selfreport": {
+        "n": 48,
+        "mae": 0.109989,
+        "rmse": 0.156337,
+        "r2": 0.665054
+      },
+      "self_only": {
+        "n": 207,
+        "mae": 0.091232,
+        "rmse": 0.120937,
+        "r2": 0.488113
+      },
+      "mixed": {
+        "n": 83,
+        "mae": 0.093748,
+        "rmse": 0.136284,
+        "r2": 0.704463
+      },
+      "OLMo": {
+        "n": 194,
+        "mae": 0.090029,
+        "rmse": 0.121467,
+        "r2": 0.560483
+      },
+      "Qwen": {
+        "n": 96,
+        "mae": 0.095839,
+        "rmse": 0.133337,
+        "r2": 0.625931
+      }
+    },
+    "current_fitted_LOCO": {
+      "n": 290,
+      "mae": 0.089131,
+      "rmse": 0.117235,
+      "r2": 0.641908,
+      "direction_on_abs_change_at_least_0_05": {
+        "n": 198,
+        "hits": 174,
+        "hit_rate": 0.878788
+      }
+    },
+    "observed_kept_mean_LOCO": {
+      "n": 290,
+      "mae": 0.085447,
+      "rmse": 0.117136,
+      "r2": 0.642513,
+      "direction_on_abs_change_at_least_0_05": {
+        "n": 198,
+        "hits": 170,
+        "hit_rate": 0.858586
+      }
+    }
+  },
+  "endpoint_with_boundary_refresh": {
+    "recommended_unit_agreement_spread": {
+      "selection_driven_all_scoreable": {
+        "n": 39,
+        "mae": 0.110054,
+        "rmse": 0.16817,
+        "r2": 0.778153
+      },
+      "selection_driven_matched_to_current": {
+        "n": 36,
+        "mae": 0.118117,
+        "rmse": 0.174972,
+        "r2": 0.769269
+      },
+      "judge_swap_refreshed": {
+        "n": 9,
+        "mae": 0.209923,
+        "rmse": 0.294076,
+        "r2": 0.419913
+      },
+      "combined_matched_to_current": {
+        "n": 45,
+        "mae": 0.136478,
+        "rmse": 0.204422,
+        "r2": 0.695454
+      },
+      "direction_combined": {
+        "n_moved": 38,
+        "n_hits": 37,
+        "hit_rate": 0.973684
+      },
+      "per_run": [
+        {
+          "run_key": "evolving_self|0|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5938,
+          "actual": 0.2605,
+          "predicted": 0.545601,
+          "trajectory": [
+            0.5531,
+            0.5506,
+            0.548101,
+            0.545601
+          ]
+        },
+        {
+          "run_key": "frozen_copy_r0|0|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5938,
+          "actual": 0.4375,
+          "predicted": 0.545256,
+          "trajectory": [
+            0.553014,
+            0.550428,
+            0.547842,
+            0.545256
+          ]
+        },
+        {
+          "run_key": "frozen_base|0|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5938,
+          "actual": 0.6042,
+          "predicted": 0.247176,
+          "trajectory": [
+            0.478494,
+            0.401388,
+            0.324282,
+            0.247176
+          ]
+        },
+        {
+          "run_key": "evolving_self|1|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6354,
+          "actual": 0.7083,
+          "predicted": 0.643708,
+          "trajectory": [
+            0.587977,
+            0.606554,
+            0.625131,
+            0.643708
+          ]
+        },
+        {
+          "run_key": "frozen_copy_r0|1|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6354,
+          "actual": 0.6771,
+          "predicted": 0.643708,
+          "trajectory": [
+            0.587977,
+            0.606554,
+            0.625131,
+            0.643708
+          ]
+        },
+        {
+          "run_key": "frozen_base|1|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6354,
+          "actual": 0.4688,
+          "predicted": 0.346475,
+          "trajectory": [
+            0.513669,
+            0.457937,
+            0.402206,
+            0.346475
+          ]
+        },
+        {
+          "run_key": "evolving_self|2|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6042,
+          "actual": 0.875,
+          "predicted": 0.81934,
+          "trajectory": [
+            0.600685,
+            0.67357,
+            0.746455,
+            0.81934
+          ]
+        },
+        {
+          "run_key": "frozen_copy_r0|2|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6042,
+          "actual": 0.6979,
+          "predicted": 0.81934,
+          "trajectory": [
+            0.600685,
+            0.67357,
+            0.746455,
+            0.81934
+          ]
+        },
+        {
+          "run_key": "frozen_base|2|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6042,
+          "actual": 0.5938,
+          "predicted": 0.454356,
+          "trajectory": [
+            0.509439,
+            0.491078,
+            0.472717,
+            0.454356
+          ]
+        },
+        {
+          "run_key": "evolving_self|3|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5833,
+          "actual": 1.0,
+          "predicted": 0.574223,
+          "trajectory": [
+            0.528981,
+            0.544062,
+            0.559143,
+            0.574223
+          ]
+        },
+        {
+          "run_key": "frozen_copy_r0|3|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5833,
+          "actual": 0.5104,
+          "predicted": 0.574223,
+          "trajectory": [
+            0.528981,
+            0.544062,
+            0.559143,
+            0.574223
+          ]
+        },
+        {
+          "run_key": "frozen_base|3|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5833,
+          "actual": 0.5937,
+          "predicted": 0.396801,
+          "trajectory": [
+            0.484625,
+            0.455351,
+            0.426076,
+            0.396801
+          ]
+        },
+        {
+          "run_key": "frozen_cons_r0|3|k2_olmo_inversion_kaggle_conf_v2.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2386,
+          "actual": 0.1915,
+          "predicted": 0.0,
+          "trajectory": [
+            0.125593,
+            0.028986,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_base|3|k2_olmo_inversion_kaggle_conf_v2.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.2386,
+          "actual": 0.0625,
+          "predicted": 0.271365,
+          "trajectory": [
+            0.234491,
+            0.246782,
+            0.259074,
+            0.271365
+          ]
+        },
+        {
+          "run_key": "frozen_cons_r0|4|k2_olmo_inversion_kaggle_conf_v2.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2447,
+          "actual": 0.0948,
+          "predicted": 0.0,
+          "trajectory": [
+            0.155311,
+            0.102323,
+            0.049334,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_base|4|k2_olmo_inversion_kaggle_conf_v2.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.2447,
+          "actual": 0.0625,
+          "predicted": 0.0,
+          "trajectory": [
+            0.143622,
+            0.078945,
+            0.014267,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_base|5|k2_olmo_inversion_kaggle_conf_v2.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.234,
+          "actual": 0.8021,
+          "predicted": 0.176599,
+          "trajectory": [
+            0.169175,
+            0.17165,
+            0.174124,
+            0.176599
+          ]
+        },
+        {
+          "run_key": "frozen_cons_r0|1|k2_conf_v1_seeds12_partial.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2396,
+          "actual": 0.0,
+          "predicted": 0.0,
+          "trajectory": [
+            0.049567,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_cons_r0|2|k2_conf_v1_seeds12_partial.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2105,
+          "actual": 0.1505,
+          "predicted": 0.103037,
+          "trajectory": [
+            0.307009,
+            0.239019,
+            0.171028,
+            0.103037
+          ]
+        },
+        {
+          "run_key": "frozen_base|0|k2_olmo_inversion_kaggle_base012.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.2688,
+          "actual": 0.1875,
+          "predicted": 0.0,
+          "trajectory": [
+            0.127433,
+            0.046567,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_base|1|k2_olmo_inversion_kaggle_base012.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.2396,
+          "actual": 0.1459,
+          "predicted": 0.0,
+          "trajectory": [
+            0.131742,
+            0.082885,
+            0.034027,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_base|2|k2_olmo_inversion_kaggle_base012.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.2105,
+          "actual": 0.6875,
+          "predicted": 0.521629,
+          "trajectory": [
+            0.411657,
+            0.448315,
+            0.484972,
+            0.521629
+          ]
+        },
+        {
+          "run_key": "base_hold|1|k2rel_base_hold_s1.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 8,
+          "start": 0.3077,
+          "actual": 0.5625,
+          "predicted": 0.0,
+          "trajectory": [
+            0.222601,
+            0.181301,
+            0.140002,
+            0.098703,
+            0.057404,
+            0.016104,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "base_hold|2|k2rel_base_hold_s2.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 8,
+          "start": 0.3011,
+          "actual": 0.875,
+          "predicted": 0.363124,
+          "trajectory": [
+            0.324865,
+            0.330331,
+            0.335796,
+            0.341262,
+            0.346727,
+            0.352193,
+            0.357658,
+            0.363124
+          ]
+        },
+        {
+          "run_key": "cons_mix|33|k2rel_cons_mix_s33.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.875,
+          "actual": 0.7158,
+          "predicted": 0.810183,
+          "trajectory": [
+            0.872818,
+            0.837027,
+            0.819131,
+            0.810183
+          ]
+        },
+        {
+          "run_key": "cons_mix|34|k2rel_cons_mix_s34.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 1.0,
+          "actual": 1.0,
+          "predicted": 0.925345,
+          "trajectory": [
+            0.960184,
+            0.940276,
+            0.930322,
+            0.925345
+          ]
+        },
+        {
+          "run_key": "h2h_base_rescue|57|k2rel_h2h_base_rescue_s57.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.875,
+          "actual": 0.5369,
+          "predicted": 0.777882,
+          "trajectory": [
+            0.868564,
+            0.816746,
+            0.790837,
+            0.777882
+          ]
+        },
+        {
+          "run_key": "h2h_base_rescue|58|k2rel_h2h_base_rescue_s58.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 1.0,
+          "actual": 0.5521,
+          "predicted": 0.860567,
+          "trajectory": [
+            0.925636,
+            0.888453,
+            0.869862,
+            0.860567
+          ]
+        },
+        {
+          "run_key": "h2h_cons_rescue|55|k2rel_h2h_cons_rescue_s55.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.8646,
+          "actual": 0.5369,
+          "predicted": 0.644852,
+          "trajectory": [
+            0.76008,
+            0.694763,
+            0.661645,
+            0.644852
+          ]
+        },
+        {
+          "run_key": "h2h_cons_rescue|56|k2rel_h2h_cons_rescue_s56.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 1.0,
+          "actual": 0.7473,
+          "predicted": 0.845202,
+          "trajectory": [
+            0.917441,
+            0.876161,
+            0.855521,
+            0.845202
+          ]
+        },
+        {
+          "run_key": "h2h_erode_base|63|k2rel_h2h_erode_base_s63.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2366,
+          "actual": 0.4583,
+          "predicted": 0.469749,
+          "trajectory": [
+            0.41845,
+            0.447529,
+            0.462273,
+            0.469749
+          ]
+        },
+        {
+          "run_key": "h2h_erode_base|64|k2rel_h2h_erode_base_s64.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2584,
+          "actual": 0.4681,
+          "predicted": 0.728429,
+          "trajectory": [
+            0.557009,
+            0.654964,
+            0.703941,
+            0.728429
+          ]
+        },
+        {
+          "run_key": "h2h_erode_self|61|k2rel_h2h_erode_self_s61.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2021,
+          "actual": 0.4687,
+          "predicted": 0.786386,
+          "trajectory": [
+            0.536072,
+            0.679109,
+            0.750627,
+            0.786386
+          ]
+        },
+        {
+          "run_key": "h2h_erode_self|62|k2rel_h2h_erode_self_s62.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.413,
+          "actual": 0.4271,
+          "predicted": 0.690931,
+          "trajectory": [
+            0.459217,
+            0.591625,
+            0.657829,
+            0.690931
+          ]
+        },
+        {
+          "run_key": "h2h_invade_base|51|k2rel_h2h_invade_base_s51.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.3297,
+          "actual": 0.7396,
+          "predicted": 1.0,
+          "trajectory": [
+            0.822273,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "h2h_invade_base|52|k2rel_h2h_invade_base_s52.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2857,
+          "actual": 0.9375,
+          "predicted": 1.0,
+          "trajectory": [
+            0.798369,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "h2h_invade_self|53|k2rel_h2h_invade_self_s53.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.3,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            0.904726,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "h2h_invade_self|54|k2rel_h2h_invade_self_s54.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2065,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            0.866075,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "invade_base|35|k2rel_invade_base_s35.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.3068,
+          "actual": 0.9895,
+          "predicted": 1.0,
+          "trajectory": [
+            0.945574,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "invade_base|36|k2rel_invade_base_s36.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.3118,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            0.984586,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "invade_self|37|k2rel_invade_self_s37.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.3626,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            0.882378,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "invade_self|38|k2rel_invade_self_s38.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2444,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            0.928865,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "oracle_hold|21|k2rel_oracle_hold_s21.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.9167,
+          "actual": 0.0938,
+          "predicted": 0.4476,
+          "trajectory": [
+            0.8202,
+            0.696,
+            0.5718,
+            0.4476
+          ]
+        },
+        {
+          "run_key": "oracle_hold|22|k2rel_oracle_hold_s22.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 1.0,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "oracle_mix|31|k2rel_oracle_mix_s31.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.9271,
+          "actual": 0.3438,
+          "predicted": 0.0,
+          "trajectory": [
+            0.3508,
+            0.06785,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "oracle_mix|32|k2rel_oracle_mix_s32.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 1.0,
+          "actual": 0.4842,
+          "predicted": 0.255063,
+          "trajectory": [
+            0.6027,
+            0.40405,
+            0.304725,
+            0.255063
+          ]
+        },
+        {
+          "run_key": "press_d1|1|k2rel_press_d1_s1.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 7,
+          "start": 0.3333,
+          "actual": 0.0,
+          "predicted": 0.47829,
+          "trajectory": [
+            0.282613,
+            0.315226,
+            0.347839,
+            0.380451,
+            0.413064,
+            0.445677,
+            0.47829
+          ]
+        },
+        {
+          "run_key": "press_d1|2|k2rel_press_d1_s2.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 7,
+          "start": 0.4286,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            0.473521,
+            0.585942,
+            0.698363,
+            0.810784,
+            0.923204,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "press_d2|1|k2rel_press_d2_s1.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 6,
+          "start": 0.1667,
+          "actual": 0.1052,
+          "predicted": 0.724875,
+          "trajectory": [
+            0.248146,
+            0.343492,
+            0.438838,
+            0.534184,
+            0.62953,
+            0.724875
+          ]
+        },
+        {
+          "run_key": "press_d2|2|k2rel_press_d2_s2.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 6,
+          "start": 0.4167,
+          "actual": 0.9375,
+          "predicted": 1.0,
+          "trajectory": [
+            0.568331,
+            0.789463,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "press_d3|1|k2rel_press_d3_s1.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 5,
+          "start": 0.0,
+          "actual": 0.2292,
+          "predicted": 0.460946,
+          "trajectory": [
+            0.147709,
+            0.226018,
+            0.304328,
+            0.382637,
+            0.460946
+          ]
+        },
+        {
+          "run_key": "press_d3|2|k2rel_press_d3_s2.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 5,
+          "start": 0.2917,
+          "actual": 0.8229,
+          "predicted": 0.543328,
+          "trajectory": [
+            0.353146,
+            0.400691,
+            0.448237,
+            0.495782,
+            0.543328
+          ]
+        },
+        {
+          "run_key": "press_to_base|1|k2rel_press_to_base_s1.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 4,
+          "start": 0.0,
+          "actual": 0.0,
+          "predicted": 0.0,
+          "trajectory": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "press_to_base|2|k2rel_press_to_base_s2.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 4,
+          "start": 0.2273,
+          "actual": 0.3895,
+          "predicted": 0.442876,
+          "trajectory": [
+            0.287794,
+            0.339488,
+            0.391182,
+            0.442876
+          ]
+        },
+        {
+          "run_key": "press_to_base|3|k2rel_press_to_base_s3.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 4,
+          "start": 0.375,
+          "actual": 0.75,
+          "predicted": 0.914144,
+          "trajectory": [
+            0.457736,
+            0.609872,
+            0.762008,
+            0.914144
+          ]
+        },
+        {
+          "run_key": "selfaware_loop_grid|11|selfaware_loop_grid.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.5471,
+          "actual": 0.998,
+          "predicted": 1.0,
+          "trajectory": [
+            0.812916,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "selfaware_loop_grid|22|selfaware_loop_grid.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.5471,
+          "actual": 0.9766,
+          "predicted": 0.957975,
+          "trajectory": [
+            0.566194,
+            0.696788,
+            0.827381,
+            0.957975
+          ]
+        },
+        {
+          "run_key": "selfaware_loop_grid|33|selfaware_loop_grid.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.5471,
+          "actual": 0.9993,
+          "predicted": 1.0,
+          "trajectory": [
+            0.829058,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "selfaware_loop_grid|44|selfaware_loop_grid.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.5471,
+          "actual": 0.9164,
+          "predicted": 1.0,
+          "trajectory": [
+            0.697522,
+            0.814245,
+            0.930967,
+            1.0
+          ]
+        },
+        {
+          "run_key": "judge_opposition_oracle|101|judge_opposition_oracle.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.9989,
+          "actual": 0.3312,
+          "predicted": 0.3135,
+          "trajectory": [
+            0.7386,
+            0.5969,
+            0.4552,
+            0.3135
+          ]
+        },
+        {
+          "run_key": "judge_opposition_oracle|202|judge_opposition_oracle.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.9989,
+          "actual": 0.334,
+          "predicted": 0.0,
+          "trajectory": [
+            0.6068,
+            0.3841,
+            0.1614,
+            0.0
+          ]
+        },
+        {
+          "run_key": "judge_opposition_oracle_seed707|707|judge_opposition_oracle_seed707.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.9835,
+          "actual": 0.6247,
+          "predicted": 0.2529,
+          "trajectory": [
+            0.7236,
+            0.5667,
+            0.4098,
+            0.2529
+          ]
+        },
+        {
+          "run_key": "judge_opposition_natural_base|101|judge_opposition_natural_base.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.9796,
+          "actual": 0.958,
+          "predicted": 1.0,
+          "trajectory": [
+            0.953531,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "judge_opposition_natural_base|202|judge_opposition_natural_base.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.9796,
+          "actual": 0.334,
+          "predicted": 0.496608,
+          "trajectory": [
+            0.746277,
+            0.663054,
+            0.579831,
+            0.496608
+          ]
+        },
+        {
+          "run_key": "mixed_reopen_qwen|921|mixed_reopen_qwen.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.6269,
+          "actual": 0.0,
+          "predicted": 0.0,
+          "trajectory": [
+            0.03325,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "mixed_reopen_qwen|922|mixed_reopen_qwen.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.6269,
+          "actual": 0.0,
+          "predicted": 0.0,
+          "trajectory": [
+            0.0602,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "mixed_reopen_twin_selfonly|921|mixed_reopen_twin_selfonly.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.6269,
+          "actual": 0.6247,
+          "predicted": 0.642,
+          "trajectory": [
+            0.642,
+            0.642,
+            0.642,
+            0.642
+          ]
+        },
+        {
+          "run_key": "mixed_reopen_twin_selfonly|922|mixed_reopen_twin_selfonly.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.6269,
+          "actual": 0.6247,
+          "predicted": 0.6473,
+          "trajectory": [
+            0.6473,
+            0.6473,
+            0.6473,
+            0.6473
+          ]
+        },
+        {
+          "run_key": "head2head_selfjudge|41|head2head_selfjudge.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.4445,
+          "actual": 0.0,
+          "predicted": 0.012853,
+          "trajectory": [
+            0.197255,
+            0.091882,
+            0.039196,
+            0.012853
+          ]
+        },
+        {
+          "run_key": "head2head_selfjudge|42|head2head_selfjudge.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.4445,
+          "actual": 0.0,
+          "predicted": 0.039389,
+          "trajectory": [
+            0.321401,
+            0.160251,
+            0.079676,
+            0.039389
+          ]
+        }
+      ]
+    },
+    "observed_first_gap_diagnostic": {
+      "selection_driven_all_scoreable": {
+        "n": 39,
+        "mae": 0.1047,
+        "rmse": 0.166219,
+        "r2": 0.783269
+      },
+      "selection_driven_matched_to_current": {
+        "n": 36,
+        "mae": 0.112316,
+        "rmse": 0.172941,
+        "r2": 0.774595
+      },
+      "judge_swap_refreshed": {
+        "n": 9,
+        "mae": 0.311156,
+        "rmse": 0.424657,
+        "r2": -0.209628
+      },
+      "combined_matched_to_current": {
+        "n": 45,
+        "mae": 0.152084,
+        "rmse": 0.244936,
+        "r2": 0.562777
+      },
+      "direction_combined": {
+        "n_moved": 38,
+        "n_hits": 37,
+        "hit_rate": 0.973684
+      },
+      "per_run": [
+        {
+          "run_key": "evolving_self|0|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5938,
+          "actual": 0.2605,
+          "predicted": 0.5,
+          "trajectory": [
+            0.5417,
+            0.5278,
+            0.5139,
+            0.5
+          ]
+        },
+        {
+          "run_key": "frozen_copy_r0|0|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5938,
+          "actual": 0.4375,
+          "predicted": 0.5,
+          "trajectory": [
+            0.5417,
+            0.5278,
+            0.5139,
+            0.5
+          ]
+        },
+        {
+          "run_key": "frozen_base|0|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5938,
+          "actual": 0.6042,
+          "predicted": 0.0,
+          "trajectory": [
+            0.4167,
+            0.2778,
+            0.1389,
+            0.0
+          ]
+        },
+        {
+          "run_key": "random_select|0|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5938,
+          "actual": 0.625,
+          "predicted": 0.1668,
+          "trajectory": [
+            0.4584,
+            0.3612,
+            0.264,
+            0.1668
+          ]
+        },
+        {
+          "run_key": "evolving_self|1|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6354,
+          "actual": 0.7083,
+          "predicted": 0.2918,
+          "trajectory": [
+            0.5,
+            0.4306,
+            0.3612,
+            0.2918
+          ]
+        },
+        {
+          "run_key": "frozen_copy_r0|1|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6354,
+          "actual": 0.6771,
+          "predicted": 0.2918,
+          "trajectory": [
+            0.5,
+            0.4306,
+            0.3612,
+            0.2918
+          ]
+        },
+        {
+          "run_key": "frozen_base|1|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6354,
+          "actual": 0.4688,
+          "predicted": 0.2918,
+          "trajectory": [
+            0.5,
+            0.4306,
+            0.3612,
+            0.2918
+          ]
+        },
+        {
+          "run_key": "random_select|1|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6354,
+          "actual": 0.3437,
+          "predicted": 0.625,
+          "trajectory": [
+            0.5833,
+            0.5972,
+            0.6111,
+            0.625
+          ]
+        },
+        {
+          "run_key": "evolving_self|2|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6042,
+          "actual": 0.875,
+          "predicted": 0.9166,
+          "trajectory": [
+            0.625,
+            0.7222,
+            0.8194,
+            0.9166
+          ]
+        },
+        {
+          "run_key": "frozen_copy_r0|2|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6042,
+          "actual": 0.6979,
+          "predicted": 0.9166,
+          "trajectory": [
+            0.625,
+            0.7222,
+            0.8194,
+            0.9166
+          ]
+        },
+        {
+          "run_key": "frozen_base|2|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6042,
+          "actual": 0.5938,
+          "predicted": 0.5834,
+          "trajectory": [
+            0.5417,
+            0.5556,
+            0.5695,
+            0.5834
+          ]
+        },
+        {
+          "run_key": "random_select|2|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6042,
+          "actual": 0.6563,
+          "predicted": 0.9166,
+          "trajectory": [
+            0.625,
+            0.7222,
+            0.8194,
+            0.9166
+          ]
+        },
+        {
+          "run_key": "evolving_self|3|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5833,
+          "actual": 1.0,
+          "predicted": 0.4583,
+          "trajectory": [
+            0.5,
+            0.4861,
+            0.4722,
+            0.4583
+          ]
+        },
+        {
+          "run_key": "frozen_copy_r0|3|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5833,
+          "actual": 0.5104,
+          "predicted": 0.4583,
+          "trajectory": [
+            0.5,
+            0.4861,
+            0.4722,
+            0.4583
+          ]
+        },
+        {
+          "run_key": "frozen_base|3|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5833,
+          "actual": 0.5937,
+          "predicted": 0.1251,
+          "trajectory": [
+            0.4167,
+            0.3195,
+            0.2223,
+            0.1251
+          ]
+        },
+        {
+          "run_key": "random_select|3|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5833,
+          "actual": 0.7916,
+          "predicted": 0.7915,
+          "trajectory": [
+            0.5833,
+            0.6527,
+            0.7221,
+            0.7915
+          ]
+        },
+        {
+          "run_key": "frozen_cons_r0|3|k2_olmo_inversion_kaggle_conf_v2.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2386,
+          "actual": 0.1915,
+          "predicted": 0.0,
+          "trajectory": [
+            0.125,
+            0.0278,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_base|3|k2_olmo_inversion_kaggle_conf_v2.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.2386,
+          "actual": 0.0625,
+          "predicted": 0.1666,
+          "trajectory": [
+            0.2083,
+            0.1944,
+            0.1805,
+            0.1666
+          ]
+        },
+        {
+          "run_key": "frozen_cons_r0|4|k2_olmo_inversion_kaggle_conf_v2.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2447,
+          "actual": 0.0948,
+          "predicted": 0.0,
+          "trajectory": [
+            0.125,
+            0.0417,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_base|4|k2_olmo_inversion_kaggle_conf_v2.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.2447,
+          "actual": 0.0625,
+          "predicted": 0.0,
+          "trajectory": [
+            0.125,
+            0.0417,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_base|5|k2_olmo_inversion_kaggle_conf_v2.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.234,
+          "actual": 0.8021,
+          "predicted": 0.1667,
+          "trajectory": [
+            0.1667,
+            0.1667,
+            0.1667,
+            0.1667
+          ]
+        },
+        {
+          "run_key": "frozen_cons_r0|1|k2_conf_v1_seeds12_partial.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2396,
+          "actual": 0.0,
+          "predicted": 0.0,
+          "trajectory": [
+            0.0834,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_cons_r0|2|k2_conf_v1_seeds12_partial.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2105,
+          "actual": 0.1505,
+          "predicted": 0.375,
+          "trajectory": [
+            0.375,
+            0.375,
+            0.375,
+            0.375
+          ]
+        },
+        {
+          "run_key": "frozen_base|0|k2_olmo_inversion_kaggle_base012.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.2688,
+          "actual": 0.1875,
+          "predicted": 0.0,
+          "trajectory": [
+            0.125,
+            0.0417,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_base|1|k2_olmo_inversion_kaggle_base012.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.2396,
+          "actual": 0.1459,
+          "predicted": 0.125,
+          "trajectory": [
+            0.1667,
+            0.1528,
+            0.1389,
+            0.125
+          ]
+        },
+        {
+          "run_key": "frozen_base|2|k2_olmo_inversion_kaggle_base012.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.2105,
+          "actual": 0.6875,
+          "predicted": 0.875,
+          "trajectory": [
+            0.5,
+            0.625,
+            0.75,
+            0.875
+          ]
+        },
+        {
+          "run_key": "base_hold|1|k2rel_base_hold_s1.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 8,
+          "start": 0.3077,
+          "actual": 0.5625,
+          "predicted": 0.0,
+          "trajectory": [
+            0.2083,
+            0.1527,
+            0.0971,
+            0.0415,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "base_hold|2|k2rel_base_hold_s2.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 8,
+          "start": 0.3011,
+          "actual": 0.875,
+          "predicted": 0.7642,
+          "trajectory": [
+            0.375,
+            0.4306,
+            0.4862,
+            0.5418,
+            0.5974,
+            0.653,
+            0.7086,
+            0.7642
+          ]
+        },
+        {
+          "run_key": "cons_mix|33|k2rel_cons_mix_s33.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.875,
+          "actual": 0.7158,
+          "predicted": 0.736181,
+          "trajectory": [
+            0.83335,
+            0.777825,
+            0.750063,
+            0.736181
+          ]
+        },
+        {
+          "run_key": "cons_mix|34|k2rel_cons_mix_s34.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 1.0,
+          "actual": 1.0,
+          "predicted": 0.921812,
+          "trajectory": [
+            0.9583,
+            0.93745,
+            0.927025,
+            0.921812
+          ]
+        },
+        {
+          "run_key": "h2h_base_rescue|57|k2rel_h2h_base_rescue_s57.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.875,
+          "actual": 0.5369,
+          "predicted": 0.555575,
+          "trajectory": [
+            0.75,
+            0.6389,
+            0.58335,
+            0.555575
+          ]
+        },
+        {
+          "run_key": "h2h_base_rescue|58|k2rel_h2h_base_rescue_s58.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 1.0,
+          "actual": 0.5521,
+          "predicted": 0.609344,
+          "trajectory": [
+            0.79165,
+            0.687475,
+            0.635387,
+            0.609344
+          ]
+        },
+        {
+          "run_key": "h2h_cons_rescue|55|k2rel_h2h_cons_rescue_s55.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.8646,
+          "actual": 0.5369,
+          "predicted": 0.630081,
+          "trajectory": [
+            0.752283,
+            0.683012,
+            0.647889,
+            0.630081
+          ]
+        },
+        {
+          "run_key": "h2h_cons_rescue|56|k2rel_h2h_cons_rescue_s56.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 1.0,
+          "actual": 0.7473,
+          "predicted": 0.687437,
+          "trajectory": [
+            0.8333,
+            0.74995,
+            0.708275,
+            0.687437
+          ]
+        },
+        {
+          "run_key": "h2h_erode_base|63|k2rel_h2h_erode_base_s63.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2366,
+          "actual": 0.4583,
+          "predicted": 0.546891,
+          "trajectory": [
+            0.459169,
+            0.508894,
+            0.534107,
+            0.546891
+          ]
+        },
+        {
+          "run_key": "h2h_erode_base|64|k2rel_h2h_erode_base_s64.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2584,
+          "actual": 0.4681,
+          "predicted": 0.699725,
+          "trajectory": [
+            0.5417,
+            0.632,
+            0.67715,
+            0.699725
+          ]
+        },
+        {
+          "run_key": "h2h_erode_self|61|k2rel_h2h_erode_self_s61.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2021,
+          "actual": 0.4687,
+          "predicted": 0.875031,
+          "trajectory": [
+            0.58335,
+            0.750025,
+            0.833363,
+            0.875031
+          ]
+        },
+        {
+          "run_key": "h2h_erode_self|62|k2rel_h2h_erode_self_s62.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.413,
+          "actual": 0.4271,
+          "predicted": 0.611212,
+          "trajectory": [
+            0.4167,
+            0.52785,
+            0.583425,
+            0.611212
+          ]
+        },
+        {
+          "run_key": "h2h_invade_base|51|k2rel_h2h_invade_base_s51.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.3297,
+          "actual": 0.7396,
+          "predicted": 1.0,
+          "trajectory": [
+            0.70835,
+            0.881975,
+            0.968788,
+            1.0
+          ]
+        },
+        {
+          "run_key": "h2h_invade_base|52|k2rel_h2h_invade_base_s52.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2857,
+          "actual": 0.9375,
+          "predicted": 1.0,
+          "trajectory": [
+            0.7917,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "h2h_invade_self|53|k2rel_h2h_invade_self_s53.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.3,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            0.7917,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "h2h_invade_self|54|k2rel_h2h_invade_self_s54.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2065,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            0.74995,
+            0.944375,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "invade_base|35|k2rel_invade_base_s35.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.3068,
+          "actual": 0.9895,
+          "predicted": 1.0,
+          "trajectory": [
+            0.9583,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "invade_base|36|k2rel_invade_base_s36.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.3118,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "invade_self|37|k2rel_invade_self_s37.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.3626,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            0.9584,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "invade_self|38|k2rel_invade_self_s38.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2444,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "oracle_hold|21|k2rel_oracle_hold_s21.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.9167,
+          "actual": 0.0938,
+          "predicted": 0.5,
+          "trajectory": [
+            0.8333,
+            0.7222,
+            0.6111,
+            0.5
+          ]
+        },
+        {
+          "run_key": "oracle_hold|22|k2rel_oracle_hold_s22.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 1.0,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "oracle_mix|31|k2rel_oracle_mix_s31.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.9271,
+          "actual": 0.3438,
+          "predicted": 0.0,
+          "trajectory": [
+            0.25,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "oracle_mix|32|k2rel_oracle_mix_s32.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 1.0,
+          "actual": 0.4842,
+          "predicted": 0.218687,
+          "trajectory": [
+            0.5833,
+            0.37495,
+            0.270775,
+            0.218687
+          ]
+        },
+        {
+          "run_key": "press_d1|1|k2rel_press_d1_s1.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 7,
+          "start": 0.3333,
+          "actual": 0.0,
+          "predicted": 1.0,
+          "trajectory": [
+            0.4167,
+            0.5834,
+            0.7501,
+            0.9168,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "press_d1|2|k2rel_press_d1_s2.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 7,
+          "start": 0.4286,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            0.5833,
+            0.8055,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "press_d2|1|k2rel_press_d2_s1.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 6,
+          "start": 0.1667,
+          "actual": 0.1052,
+          "predicted": 0.4864,
+          "trajectory": [
+            0.2084,
+            0.264,
+            0.3196,
+            0.3752,
+            0.4308,
+            0.4864
+          ]
+        },
+        {
+          "run_key": "press_d2|2|k2rel_press_d2_s2.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 6,
+          "start": 0.4167,
+          "actual": 0.9375,
+          "predicted": 1.0,
+          "trajectory": [
+            0.625,
+            0.9028,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "press_d3|1|k2rel_press_d3_s1.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 5,
+          "start": 0.0,
+          "actual": 0.2292,
+          "predicted": 0.5554,
+          "trajectory": [
+            0.1666,
+            0.2638,
+            0.361,
+            0.4582,
+            0.5554
+          ]
+        },
+        {
+          "run_key": "press_d3|2|k2rel_press_d3_s2.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 5,
+          "start": 0.2917,
+          "actual": 0.8229,
+          "predicted": 0.4446,
+          "trajectory": [
+            0.3334,
+            0.3612,
+            0.389,
+            0.4168,
+            0.4446
+          ]
+        },
+        {
+          "run_key": "press_to_base|1|k2rel_press_to_base_s1.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 4,
+          "start": 0.0,
+          "actual": 0.0,
+          "predicted": 0.0,
+          "trajectory": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "press_to_base|2|k2rel_press_to_base_s2.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 4,
+          "start": 0.2273,
+          "actual": 0.3895,
+          "predicted": 0.7917,
+          "trajectory": [
+            0.375,
+            0.5139,
+            0.6528,
+            0.7917
+          ]
+        },
+        {
+          "run_key": "press_to_base|3|k2rel_press_to_base_s3.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 4,
+          "start": 0.375,
+          "actual": 0.75,
+          "predicted": 1.0,
+          "trajectory": [
+            0.5,
+            0.6944,
+            0.8888,
+            1.0
+          ]
+        },
+        {
+          "run_key": "selfaware_loop_grid|11|selfaware_loop_grid.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.5471,
+          "actual": 0.998,
+          "predicted": 1.0,
+          "trajectory": [
+            0.8283,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "selfaware_loop_grid|22|selfaware_loop_grid.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.5471,
+          "actual": 0.9766,
+          "predicted": 0.6712,
+          "trajectory": [
+            0.4945,
+            0.5534,
+            0.6123,
+            0.6712
+          ]
+        },
+        {
+          "run_key": "selfaware_loop_grid|33|selfaware_loop_grid.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.5471,
+          "actual": 0.9993,
+          "predicted": 1.0,
+          "trajectory": [
+            0.8333,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "selfaware_loop_grid|44|selfaware_loop_grid.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.5471,
+          "actual": 0.9164,
+          "predicted": 0.9168,
+          "trajectory": [
+            0.6648,
+            0.7488,
+            0.8328,
+            0.9168
+          ]
+        },
+        {
+          "run_key": "judge_opposition_oracle|101|judge_opposition_oracle.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.9989,
+          "actual": 0.3312,
+          "predicted": 0.3383,
+          "trajectory": [
+            0.7448,
+            0.6093,
+            0.4738,
+            0.3383
+          ]
+        },
+        {
+          "run_key": "judge_opposition_oracle|202|judge_opposition_oracle.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.9989,
+          "actual": 0.334,
+          "predicted": 0.1331,
+          "trajectory": [
+            0.6554,
+            0.4813,
+            0.3072,
+            0.1331
+          ]
+        },
+        {
+          "run_key": "judge_opposition_oracle_seed707|707|judge_opposition_oracle_seed707.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.9835,
+          "actual": 0.6247,
+          "predicted": 0.2577,
+          "trajectory": [
+            0.7248,
+            0.5691,
+            0.4134,
+            0.2577
+          ]
+        },
+        {
+          "run_key": "judge_opposition_natural_base|101|judge_opposition_natural_base.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.9796,
+          "actual": 0.958,
+          "predicted": 1.0,
+          "trajectory": [
+            0.9895,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "judge_opposition_natural_base|202|judge_opposition_natural_base.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.9796,
+          "actual": 0.334,
+          "predicted": 0.5119,
+          "trajectory": [
+            0.7501,
+            0.6707,
+            0.5913,
+            0.5119
+          ]
+        },
+        {
+          "run_key": "mixed_reopen_qwen|921|mixed_reopen_qwen.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.6269,
+          "actual": 0.0,
+          "predicted": 0.0,
+          "trajectory": [
+            0.08345,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "mixed_reopen_qwen|922|mixed_reopen_qwen.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.6269,
+          "actual": 0.0,
+          "predicted": 0.0,
+          "trajectory": [
+            0.0397,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "mixed_reopen_twin_selfonly|921|mixed_reopen_twin_selfonly.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.6269,
+          "actual": 0.6247,
+          "predicted": 0.642,
+          "trajectory": [
+            0.642,
+            0.642,
+            0.642,
+            0.642
+          ]
+        },
+        {
+          "run_key": "mixed_reopen_twin_selfonly|922|mixed_reopen_twin_selfonly.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.6269,
+          "actual": 0.6247,
+          "predicted": 0.6473,
+          "trajectory": [
+            0.6473,
+            0.6473,
+            0.6473,
+            0.6473
+          ]
+        },
+        {
+          "run_key": "head2head_selfjudge|41|head2head_selfjudge.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.4445,
+          "actual": 0.0,
+          "predicted": 0.0,
+          "trajectory": [
+            0.16705,
+            0.046575,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "head2head_selfjudge|42|head2head_selfjudge.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.4445,
+          "actual": 0.0,
+          "predicted": 0.061981,
+          "trajectory": [
+            0.33345,
+            0.178325,
+            0.100763,
+            0.061981
+          ]
+        }
+      ]
+    },
+    "realized_judge_score_intensity_diagnostic": {
+      "selection_driven_all_scoreable": {
+        "n": 36,
+        "mae": 0.121716,
+        "rmse": 0.194925,
+        "r2": 0.713647
+      },
+      "selection_driven_matched_to_current": {
+        "n": 36,
+        "mae": 0.121716,
+        "rmse": 0.194925,
+        "r2": 0.713647
+      },
+      "judge_swap_refreshed": {
+        "n": 9,
+        "mae": 0.276985,
+        "rmse": 0.391869,
+        "r2": -0.030048
+      },
+      "combined_matched_to_current": {
+        "n": 45,
+        "mae": 0.15277,
+        "rmse": 0.247202,
+        "r2": 0.554649
+      },
+      "direction_combined": {
+        "n_moved": 38,
+        "n_hits": 37,
+        "hit_rate": 0.973684
+      },
+      "per_run": [
+        {
+          "run_key": "evolving_self|0|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5938,
+          "actual": 0.2605,
+          "predicted": 0.543748,
+          "trajectory": [
+            0.552637,
+            0.549674,
+            0.546711,
+            0.543748
+          ]
+        },
+        {
+          "run_key": "frozen_copy_r0|0|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5938,
+          "actual": 0.4375,
+          "predicted": 0.538352,
+          "trajectory": [
+            0.551288,
+            0.546976,
+            0.542664,
+            0.538352
+          ]
+        },
+        {
+          "run_key": "frozen_base|0|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5938,
+          "actual": 0.6042,
+          "predicted": 0.195628,
+          "trajectory": [
+            0.465607,
+            0.375614,
+            0.285621,
+            0.195628
+          ]
+        },
+        {
+          "run_key": "evolving_self|1|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6354,
+          "actual": 0.7083,
+          "predicted": 0.787576,
+          "trajectory": [
+            0.623944,
+            0.678488,
+            0.733032,
+            0.787576
+          ]
+        },
+        {
+          "run_key": "frozen_copy_r0|1|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6354,
+          "actual": 0.6771,
+          "predicted": 0.787576,
+          "trajectory": [
+            0.623944,
+            0.678488,
+            0.733032,
+            0.787576
+          ]
+        },
+        {
+          "run_key": "frozen_base|1|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6354,
+          "actual": 0.4688,
+          "predicted": 0.472588,
+          "trajectory": [
+            0.545197,
+            0.520994,
+            0.496791,
+            0.472588
+          ]
+        },
+        {
+          "run_key": "evolving_self|2|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6042,
+          "actual": 0.875,
+          "predicted": 1.0,
+          "trajectory": [
+            0.650719,
+            0.773638,
+            0.896557,
+            1.0
+          ]
+        },
+        {
+          "run_key": "frozen_copy_r0|2|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6042,
+          "actual": 0.6979,
+          "predicted": 1.0,
+          "trajectory": [
+            0.650719,
+            0.773638,
+            0.896557,
+            1.0
+          ]
+        },
+        {
+          "run_key": "frozen_base|2|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.6042,
+          "actual": 0.5938,
+          "predicted": 0.74986,
+          "trajectory": [
+            0.583315,
+            0.63883,
+            0.694345,
+            0.74986
+          ]
+        },
+        {
+          "run_key": "evolving_self|3|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5833,
+          "actual": 1.0,
+          "predicted": 0.692332,
+          "trajectory": [
+            0.558508,
+            0.603116,
+            0.647724,
+            0.692332
+          ]
+        },
+        {
+          "run_key": "frozen_copy_r0|3|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5833,
+          "actual": 0.5104,
+          "predicted": 0.692332,
+          "trajectory": [
+            0.558508,
+            0.603116,
+            0.647724,
+            0.692332
+          ]
+        },
+        {
+          "run_key": "frozen_base|3|k1_qwen_anchor.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.5833,
+          "actual": 0.5937,
+          "predicted": 0.605584,
+          "trajectory": [
+            0.536821,
+            0.559742,
+            0.582663,
+            0.605584
+          ]
+        },
+        {
+          "run_key": "frozen_cons_r0|3|k2_olmo_inversion_kaggle_conf_v2.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2386,
+          "actual": 0.1915,
+          "predicted": 0.0,
+          "trajectory": [
+            0.120588,
+            0.018976,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_base|3|k2_olmo_inversion_kaggle_conf_v2.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.2386,
+          "actual": 0.0625,
+          "predicted": 0.247376,
+          "trajectory": [
+            0.228494,
+            0.234788,
+            0.241082,
+            0.247376
+          ]
+        },
+        {
+          "run_key": "frozen_cons_r0|4|k2_olmo_inversion_kaggle_conf_v2.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2447,
+          "actual": 0.0948,
+          "predicted": 0.0,
+          "trajectory": [
+            0.153413,
+            0.098526,
+            0.043639,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_base|4|k2_olmo_inversion_kaggle_conf_v2.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.2447,
+          "actual": 0.0625,
+          "predicted": 0.0,
+          "trajectory": [
+            0.152304,
+            0.096308,
+            0.040312,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_base|5|k2_olmo_inversion_kaggle_conf_v2.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.234,
+          "actual": 0.8021,
+          "predicted": 0.188796,
+          "trajectory": [
+            0.172224,
+            0.177748,
+            0.183272,
+            0.188796
+          ]
+        },
+        {
+          "run_key": "frozen_cons_r0|1|k2_conf_v1_seeds12_partial.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2396,
+          "actual": 0.0,
+          "predicted": 0.0,
+          "trajectory": [
+            0.049406,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_cons_r0|2|k2_conf_v1_seeds12_partial.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2105,
+          "actual": 0.1505,
+          "predicted": 0.171388,
+          "trajectory": [
+            0.324097,
+            0.273194,
+            0.222291,
+            0.171388
+          ]
+        },
+        {
+          "run_key": "frozen_base|0|k2_olmo_inversion_kaggle_base012.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.2688,
+          "actual": 0.1875,
+          "predicted": 0.0,
+          "trajectory": [
+            0.149521,
+            0.090742,
+            0.031963,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_base|1|k2_olmo_inversion_kaggle_base012.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.2396,
+          "actual": 0.1459,
+          "predicted": 0.0,
+          "trajectory": [
+            0.131958,
+            0.083316,
+            0.034674,
+            0.0
+          ]
+        },
+        {
+          "run_key": "frozen_base|2|k2_olmo_inversion_kaggle_base012.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.2105,
+          "actual": 0.6875,
+          "predicted": 0.576744,
+          "trajectory": [
+            0.425436,
+            0.475872,
+            0.526308,
+            0.576744
+          ]
+        },
+        {
+          "run_key": "base_hold|1|k2rel_base_hold_s1.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 8,
+          "start": 0.3077,
+          "actual": 0.5625,
+          "predicted": 0.0,
+          "trajectory": [
+            0.215265,
+            0.16663,
+            0.117995,
+            0.06936,
+            0.020725,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "base_hold|2|k2rel_base_hold_s2.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 8,
+          "start": 0.3011,
+          "actual": 0.875,
+          "predicted": 0.43008,
+          "trajectory": [
+            0.333235,
+            0.34707,
+            0.360905,
+            0.37474,
+            0.388575,
+            0.40241,
+            0.416245,
+            0.43008
+          ]
+        },
+        {
+          "run_key": "cons_mix|33|k2rel_cons_mix_s33.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.875,
+          "actual": 0.7158,
+          "predicted": 0.775232,
+          "trajectory": [
+            0.854177,
+            0.809065,
+            0.78651,
+            0.775232
+          ]
+        },
+        {
+          "run_key": "cons_mix|34|k2rel_cons_mix_s34.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 1.0,
+          "actual": 1.0,
+          "predicted": 0.904675,
+          "trajectory": [
+            0.94916,
+            0.92374,
+            0.91103,
+            0.904675
+          ]
+        },
+        {
+          "run_key": "h2h_base_rescue|57|k2rel_h2h_base_rescue_s57.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.875,
+          "actual": 0.5369,
+          "predicted": 0.747221,
+          "trajectory": [
+            0.852211,
+            0.792217,
+            0.762219,
+            0.747221
+          ]
+        },
+        {
+          "run_key": "h2h_base_rescue|58|k2rel_h2h_base_rescue_s58.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 1.0,
+          "actual": 0.5521,
+          "predicted": 0.736345,
+          "trajectory": [
+            0.859384,
+            0.789076,
+            0.753922,
+            0.736345
+          ]
+        },
+        {
+          "run_key": "h2h_cons_rescue|55|k2rel_h2h_cons_rescue_s55.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.8646,
+          "actual": 0.5369,
+          "predicted": 0.645009,
+          "trajectory": [
+            0.760163,
+            0.694888,
+            0.661791,
+            0.645009
+          ]
+        },
+        {
+          "run_key": "h2h_cons_rescue|56|k2rel_h2h_cons_rescue_s56.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 1.0,
+          "actual": 0.7473,
+          "predicted": 0.799664,
+          "trajectory": [
+            0.893154,
+            0.839731,
+            0.81302,
+            0.799664
+          ]
+        },
+        {
+          "run_key": "h2h_erode_base|63|k2rel_h2h_erode_base_s63.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2366,
+          "actual": 0.4583,
+          "predicted": 0.49049,
+          "trajectory": [
+            0.429398,
+            0.464028,
+            0.481587,
+            0.49049
+          ]
+        },
+        {
+          "run_key": "h2h_erode_base|64|k2rel_h2h_erode_base_s64.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2584,
+          "actual": 0.4681,
+          "predicted": 0.731718,
+          "trajectory": [
+            0.558763,
+            0.657594,
+            0.70701,
+            0.731718
+          ]
+        },
+        {
+          "run_key": "h2h_erode_self|61|k2rel_h2h_erode_self_s61.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2021,
+          "actual": 0.4687,
+          "predicted": 0.813867,
+          "trajectory": [
+            0.550729,
+            0.701094,
+            0.776276,
+            0.813867
+          ]
+        },
+        {
+          "run_key": "h2h_erode_self|62|k2rel_h2h_erode_self_s62.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.413,
+          "actual": 0.4271,
+          "predicted": 0.690857,
+          "trajectory": [
+            0.459177,
+            0.591565,
+            0.65776,
+            0.690857
+          ]
+        },
+        {
+          "run_key": "h2h_invade_base|51|k2rel_h2h_invade_base_s51.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.3297,
+          "actual": 0.7396,
+          "predicted": 1.0,
+          "trajectory": [
+            0.771918,
+            0.977327,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "h2h_invade_base|52|k2rel_h2h_invade_base_s52.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2857,
+          "actual": 0.9375,
+          "predicted": 1.0,
+          "trajectory": [
+            0.768917,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "h2h_invade_self|53|k2rel_h2h_invade_self_s53.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.3,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            0.876379,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "h2h_invade_self|54|k2rel_h2h_invade_self_s54.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2065,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            0.849177,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "invade_base|35|k2rel_invade_base_s35.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.3068,
+          "actual": 0.9895,
+          "predicted": 1.0,
+          "trajectory": [
+            0.960839,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "invade_base|36|k2rel_invade_base_s36.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.3118,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "invade_self|37|k2rel_invade_self_s37.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.3626,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            0.866808,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "invade_self|38|k2rel_invade_self_s38.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.2444,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            0.937187,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "oracle_hold|21|k2rel_oracle_hold_s21.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.9167,
+          "actual": 0.0938,
+          "predicted": 0.0,
+          "trajectory": [
+            0.611067,
+            0.277734,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "oracle_mix|31|k2rel_oracle_mix_s31.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.9271,
+          "actual": 0.3438,
+          "predicted": 0.0,
+          "trajectory": [
+            0.204545,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "oracle_mix|32|k2rel_oracle_mix_s32.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 1.0,
+          "actual": 0.4842,
+          "predicted": 0.0,
+          "trajectory": [
+            0.394819,
+            0.092228,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "press_d1|1|k2rel_press_d1_s1.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 7,
+          "start": 0.3333,
+          "actual": 0.0,
+          "predicted": 0.882401,
+          "trajectory": [
+            0.340343,
+            0.430686,
+            0.521029,
+            0.611372,
+            0.701715,
+            0.792058,
+            0.882401
+          ]
+        },
+        {
+          "run_key": "press_d1|2|k2rel_press_d1_s2.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 7,
+          "start": 0.4286,
+          "actual": 1.0,
+          "predicted": 1.0,
+          "trajectory": [
+            0.537999,
+            0.714898,
+            0.891797,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "press_d2|1|k2rel_press_d2_s1.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 6,
+          "start": 0.1667,
+          "actual": 0.1052,
+          "predicted": 0.713656,
+          "trajectory": [
+            0.246276,
+            0.339752,
+            0.433228,
+            0.526704,
+            0.62018,
+            0.713656
+          ]
+        },
+        {
+          "run_key": "press_d2|2|k2rel_press_d2_s2.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 6,
+          "start": 0.4167,
+          "actual": 0.9375,
+          "predicted": 1.0,
+          "trajectory": [
+            0.607995,
+            0.86879,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "press_d3|1|k2rel_press_d3_s1.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 5,
+          "start": 0.0,
+          "actual": 0.2292,
+          "predicted": 0.52772,
+          "trajectory": [
+            0.161064,
+            0.252728,
+            0.344392,
+            0.436056,
+            0.52772
+          ]
+        },
+        {
+          "run_key": "press_d3|2|k2rel_press_d3_s2.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 5,
+          "start": 0.2917,
+          "actual": 0.8229,
+          "predicted": 0.65236,
+          "trajectory": [
+            0.374952,
+            0.444304,
+            0.513656,
+            0.583008,
+            0.65236
+          ]
+        },
+        {
+          "run_key": "press_to_base|1|k2rel_press_to_base_s1.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 4,
+          "start": 0.0,
+          "actual": 0.0,
+          "predicted": 0.0,
+          "trajectory": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "press_to_base|2|k2rel_press_to_base_s2.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 4,
+          "start": 0.2273,
+          "actual": 0.3895,
+          "predicted": 0.609952,
+          "trajectory": [
+            0.329563,
+            0.423026,
+            0.516489,
+            0.609952
+          ]
+        },
+        {
+          "run_key": "press_to_base|3|k2rel_press_to_base_s3.json",
+          "regime": "judge_swap",
+          "n_predicted_rounds": 4,
+          "start": 0.375,
+          "actual": 0.75,
+          "predicted": 1.0,
+          "trajectory": [
+            0.496991,
+            0.688382,
+            0.879773,
+            1.0
+          ]
+        },
+        {
+          "run_key": "selfaware_loop_grid|11|selfaware_loop_grid.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.5471,
+          "actual": 0.998,
+          "predicted": 1.0,
+          "trajectory": [
+            0.81869,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "selfaware_loop_grid|22|selfaware_loop_grid.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.5471,
+          "actual": 0.9766,
+          "predicted": 0.870624,
+          "trajectory": [
+            0.544356,
+            0.653112,
+            0.761868,
+            0.870624
+          ]
+        },
+        {
+          "run_key": "selfaware_loop_grid|33|selfaware_loop_grid.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.5471,
+          "actual": 0.9993,
+          "predicted": 1.0,
+          "trajectory": [
+            0.805971,
+            0.989942,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "selfaware_loop_grid|44|selfaware_loop_grid.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.5471,
+          "actual": 0.9164,
+          "predicted": 0.901928,
+          "trajectory": [
+            0.661082,
+            0.741364,
+            0.821646,
+            0.901928
+          ]
+        },
+        {
+          "run_key": "judge_opposition_oracle|101|judge_opposition_oracle.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.9989,
+          "actual": 0.3312,
+          "predicted": 0.229716,
+          "trajectory": [
+            0.717654,
+            0.555008,
+            0.392362,
+            0.229716
+          ]
+        },
+        {
+          "run_key": "judge_opposition_oracle|202|judge_opposition_oracle.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.9989,
+          "actual": 0.334,
+          "predicted": 0.0,
+          "trajectory": [
+            0.520616,
+            0.211732,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "judge_opposition_oracle_seed707|707|judge_opposition_oracle_seed707.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.9835,
+          "actual": 0.6247,
+          "predicted": 0.0,
+          "trajectory": [
+            0.646954,
+            0.413408,
+            0.179862,
+            0.0
+          ]
+        },
+        {
+          "run_key": "judge_opposition_natural_base|101|judge_opposition_natural_base.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.9796,
+          "actual": 0.958,
+          "predicted": 1.0,
+          "trajectory": [
+            0.990187,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "run_key": "judge_opposition_natural_base|202|judge_opposition_natural_base.json",
+          "regime": "self_weak",
+          "n_predicted_rounds": 4,
+          "start": 0.9796,
+          "actual": 0.334,
+          "predicted": 0.705424,
+          "trajectory": [
+            0.798481,
+            0.767462,
+            0.736443,
+            0.705424
+          ]
+        },
+        {
+          "run_key": "mixed_reopen_qwen|921|mixed_reopen_qwen.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.6269,
+          "actual": 0.0,
+          "predicted": 0.0,
+          "trajectory": [
+            0.001105,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "mixed_reopen_qwen|922|mixed_reopen_qwen.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.6269,
+          "actual": 0.0,
+          "predicted": 0.0,
+          "trajectory": [
+            0.039722,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "head2head_selfjudge|41|head2head_selfjudge.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.4445,
+          "actual": 0.0,
+          "predicted": 0.0,
+          "trajectory": [
+            0.161552,
+            0.038328,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "run_key": "head2head_selfjudge|42|head2head_selfjudge.json",
+          "regime": "selection_driven",
+          "n_predicted_rounds": 4,
+          "start": 0.4445,
+          "actual": 0.0,
+          "predicted": 0.021532,
+          "trajectory": [
+            0.311877,
+            0.145965,
+            0.06301,
+            0.021532
+          ]
+        }
+      ]
+    },
+    "current_fitted_frozen_sd_LOCO": {
+      "selection_driven": {
+        "n": 36,
+        "mae": 0.126767,
+        "rmse": 0.174486,
+        "r2": 0.770551,
+        "r": 0.889414
+      },
+      "judge_swap_refreshed": {
+        "n": 9,
+        "mae": 0.179366,
+        "rmse": 0.260161,
+        "r2": 0.545996,
+        "r": 0.785517
+      },
+      "combined_mae": 0.137287
+    }
+  },
+  "forecast_time_distinction": {
+    "after_pool_and_retained_set": "use the exact kept mean; agreement-spread is unnecessary",
+    "after_pool_and_logged_judge_scores_but_before_retained_indices": "if logged scores fully specify selection, compute the kept set directly; in this corpus they sometimes do not",
+    "before_judging_with_boundary_measurements": "use rho * spread as the low-dimensional conditional-mean proxy"
+  },
+  "literature_connections": {
+    "Price": "kept-minus-pool is exactly a selection differential",
+    "quantitative_selection": "selection intensity, criterion accuracy, and target spread are distinct factors; 2-of-6 alone does not determine their product",
+    "cross_entropy_method": "generate, rank, retain elites, and refit is an elite-distribution update; variance shrinkage and injection are native predictions",
+    "reward_overoptimization": "judge/value agreement is local to the candidate distribution and must be remeasured after distribution or judge changes"
+  }
+}

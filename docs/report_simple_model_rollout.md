@@ -1,5 +1,19 @@
 # A simple model from the two gap factors, tested on the interventions
 
+> **Superseded as the rollout comparison, 2026-07-15.** This first pass tested
+> one hand-chosen spread recurrence leave-one-run-out. The expanded analysis in
+> `report_spread_rollout_bakeoff.md` compares ten spread definitions, three
+> recurrence rules, and leave-one-condition-out transport. Its robust result is
+> selection-driven endpoint MAE 0.139 versus 0.431 persistence for the mean-SD
+> geometry model; holding round-1 mean SD fixed is better at 0.127, and the best
+> shared simple model uses frozen mean SD (range's 0.125 produces effectively
+> identical rollouts and is retained only as robustness). Use the new
+> report for predictive claims and this file only for the original intervention
+> table and historical model specification. A later literature-derived
+> simplification uses the unit proxy `gap=agreement×spread` and removes the
+> fitted selector coefficients; see
+> `report_predictive_model_literature.md`.
+
 *2026-07-15, general (writeup) thread. Committed scorer:
 `scripts/analysis_simple_model_rollout.py` →
 `experiments/simple_model_rollout.json` (input:
@@ -100,9 +114,10 @@ strong assumption — that utilization stays at its round-1 value:
 ## Caveats
 
 Descriptive model, post-hoc structure: the equations were chosen after
-seeing the unified accounting (the same data these runs come from), and the
-factorization constant 0.96 is a pooled estimate, so this is an internal
-consistency demonstration with LORO scalar fits — not a preregistered
+seeing the unified accounting. This historical version treats 0.96 as a
+pooled estimate. The replacement rounds that calibration to the unit proxy
+`gap=agreement×spread`; it does not derive a coefficient from keep-2-of-6.
+This remains an internal consistency demonstration — not a preregistered
 forecast. The round-1 measurement uses that round's logged judge scores
 (exactly what a practitioner could compute before training on the round).
 Supplier level uses round-1 co-generator candidates. ρ fixed within a run is

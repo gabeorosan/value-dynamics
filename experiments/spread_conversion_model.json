@@ -1,0 +1,1702 @@
+{
+ "description": "Selection-to-spread conversion model using the model's own generated pool as the evolving state.",
+ "definitions": {
+  "within_prompt_spread": "mean over prompts j of sqrt(mean over observed candidates k of (x_jk-xbar_j)^2); population SD, ddof=0, not pooled across prompts",
+  "selector_gap": "kept_mean - whole_pool_mean; sorting inside the offered pool",
+  "pool_supply_shift": "whole_pool_mean - own_generated_mean; displacement introduced by outside supply",
+  "training_displacement": "kept_mean - own_generated_mean = selector_gap + pool_supply_shift",
+  "behavioral_pull": "kept_mean - behavioral_value = training_displacement + generator_calibration_residual",
+  "own_headroom": "q*(1-q), where q is the own-candidate mean; exact total variance only on the binary risk score, not the continuous self-report score"
+ },
+ "counts": {
+  "rounds": 340,
+  "runs": 74,
+  "transitions": 258,
+  "binary_risk_transitions": 221,
+  "continuous_selfreport_transitions": 37
+ },
+ "identity_checks": {
+  "max_abs_training_displacement_identity_error": 0.0001,
+  "max_abs_pull_identity_error": 0.0001,
+  "mixed_own_generated_mean_vs_behavioral_value": {
+   "n": 96,
+   "slope": 0.993335,
+   "intercept": -0.013991,
+   "r": 0.954251,
+   "r2": 0.910595,
+   "mae": 0.065235,
+   "rmse": 0.096048
+  }
+ },
+ "drift_coordinate_comparison": {
+  "all": {
+   "whole_pool_selector_gap": {
+    "n": 340,
+    "slope": 0.92828,
+    "intercept": 0.006776,
+    "r": 0.57808,
+    "r2": 0.334177,
+    "mae": 0.108904,
+    "rmse": 0.151745
+   },
+   "self_relative_training_displacement": {
+    "n": 340,
+    "slope": 0.824965,
+    "intercept": 0.003427,
+    "r": 0.682264,
+    "r2": 0.465484,
+    "mae": 0.095975,
+    "rmse": 0.135962
+   },
+   "behavioral_pull": {
+    "n": 340,
+    "slope": 0.833133,
+    "intercept": -0.007222,
+    "r": 0.801479,
+    "r2": 0.642369,
+    "mae": 0.080181,
+    "rmse": 0.111213
+   }
+  },
+  "binary-risk-axis": {
+   "whole_pool_selector_gap": {
+    "n": 280,
+    "slope": 0.774232,
+    "intercept": 0.009827,
+    "r": 0.5303,
+    "r2": 0.281218,
+    "mae": 0.105366,
+    "rmse": 0.144749
+   },
+   "self_relative_training_displacement": {
+    "n": 280,
+    "slope": 0.736932,
+    "intercept": 0.004397,
+    "r": 0.665687,
+    "r2": 0.443139,
+    "mae": 0.093773,
+    "rmse": 0.127406
+   },
+   "behavioral_pull": {
+    "n": 280,
+    "slope": 0.811889,
+    "intercept": -0.007652,
+    "r": 0.818824,
+    "r2": 0.670472,
+    "mae": 0.073562,
+    "rmse": 0.098008
+   }
+  },
+  "continuous-selfreport-axis": {
+   "whole_pool_selector_gap": {
+    "n": 60,
+    "slope": 1.757345,
+    "intercept": 0.012317,
+    "r": 0.78029,
+    "r2": 0.608852,
+    "mae": 0.108153,
+    "rmse": 0.152078
+   },
+   "self_relative_training_displacement": {
+    "n": 60,
+    "slope": 1.284809,
+    "intercept": 0.017627,
+    "r": 0.775431,
+    "r2": 0.601294,
+    "mae": 0.103823,
+    "rmse": 0.153541
+   },
+   "behavioral_pull": {
+    "n": 60,
+    "slope": 0.909925,
+    "intercept": -0.001029,
+    "r": 0.760595,
+    "r2": 0.578505,
+    "mae": 0.110986,
+    "rmse": 0.157868
+   }
+  },
+  "self-only": {
+   "whole_pool_selector_gap": {
+    "n": 244,
+    "slope": 0.955856,
+    "intercept": -0.003285,
+    "r": 0.546936,
+    "r2": 0.299139,
+    "mae": 0.096359,
+    "rmse": 0.137014
+   },
+   "self_relative_training_displacement": {
+    "n": 244,
+    "slope": 0.955847,
+    "intercept": -0.003286,
+    "r": 0.546934,
+    "r2": 0.299137,
+    "mae": 0.09636,
+    "rmse": 0.137015
+   },
+   "behavioral_pull": {
+    "n": 244,
+    "slope": 0.823689,
+    "intercept": -0.009813,
+    "r": 0.706431,
+    "r2": 0.499044,
+    "mae": 0.084313,
+    "rmse": 0.115838
+   }
+  },
+  "mixed": {
+   "whole_pool_selector_gap": {
+    "n": 96,
+    "slope": 0.938876,
+    "intercept": 0.031413,
+    "r": 0.627428,
+    "r2": 0.393665,
+    "mae": 0.13589,
+    "rmse": 0.181623
+   },
+   "self_relative_training_displacement": {
+    "n": 96,
+    "slope": 0.780861,
+    "intercept": 0.014978,
+    "r": 0.828449,
+    "r2": 0.686329,
+    "mae": 0.09509,
+    "rmse": 0.130633
+   },
+   "behavioral_pull": {
+    "n": 96,
+    "slope": 0.841877,
+    "intercept": -0.00013,
+    "r": 0.90732,
+    "r2": 0.823229,
+    "mae": 0.06778,
+    "rmse": 0.098066
+   }
+  },
+  "binary-risk-self-only": {
+   "whole_pool_selector_gap": {
+    "n": 200,
+    "slope": 0.742266,
+    "intercept": -0.003697,
+    "r": 0.48715,
+    "r2": 0.237315,
+    "mae": 0.09075,
+    "rmse": 0.123251
+   },
+   "self_relative_training_displacement": {
+    "n": 200,
+    "slope": 0.742274,
+    "intercept": -0.003698,
+    "r": 0.487151,
+    "r2": 0.237316,
+    "mae": 0.09075,
+    "rmse": 0.123251
+   },
+   "behavioral_pull": {
+    "n": 200,
+    "slope": 0.82065,
+    "intercept": -0.014429,
+    "r": 0.731442,
+    "r2": 0.535008,
+    "mae": 0.074075,
+    "rmse": 0.096236
+   }
+  },
+  "binary-risk-mixed": {
+   "whole_pool_selector_gap": {
+    "n": 80,
+    "slope": 0.826115,
+    "intercept": 0.04508,
+    "r": 0.589357,
+    "r2": 0.347341,
+    "mae": 0.137863,
+    "rmse": 0.183137
+   },
+   "self_relative_training_displacement": {
+    "n": 80,
+    "slope": 0.732307,
+    "intercept": 0.024531,
+    "r": 0.802753,
+    "r2": 0.644413,
+    "mae": 0.100144,
+    "rmse": 0.135178
+   },
+   "behavioral_pull": {
+    "n": 80,
+    "slope": 0.802884,
+    "intercept": 0.00906,
+    "r": 0.89653,
+    "r2": 0.803767,
+    "mae": 0.071254,
+    "rmse": 0.10042
+   }
+  },
+  "base-mixed": {
+   "whole_pool_selector_gap": {
+    "n": 64,
+    "slope": 0.501105,
+    "intercept": -0.033529,
+    "r": 0.432674,
+    "r2": 0.187206,
+    "mae": 0.133575,
+    "rmse": 0.166565
+   },
+   "self_relative_training_displacement": {
+    "n": 64,
+    "slope": 0.599469,
+    "intercept": -0.007291,
+    "r": 0.644288,
+    "r2": 0.415107,
+    "mae": 0.106166,
+    "rmse": 0.141297
+   },
+   "behavioral_pull": {
+    "n": 64,
+    "slope": 0.711255,
+    "intercept": -0.017555,
+    "r": 0.802454,
+    "r2": 0.643933,
+    "mae": 0.084585,
+    "rmse": 0.110245
+   }
+  },
+  "peer-mixed": {
+   "whole_pool_selector_gap": {
+    "n": 32,
+    "slope": 1.985957,
+    "intercept": 0.045544,
+    "r": 0.902303,
+    "r2": 0.814151,
+    "mae": 0.074092,
+    "rmse": 0.105424
+   },
+   "self_relative_training_displacement": {
+    "n": 32,
+    "slope": 0.988431,
+    "intercept": -0.011804,
+    "r": 0.947318,
+    "r2": 0.897412,
+    "mae": 0.056364,
+    "rmse": 0.078326
+   },
+   "behavioral_pull": {
+    "n": 32,
+    "slope": 0.951327,
+    "intercept": -0.00139,
+    "r": 0.984791,
+    "r2": 0.969814,
+    "mae": 0.025421,
+    "rmse": 0.042488
+   }
+  }
+ },
+ "factorized_force": {
+  "all": {
+   "predicted_vs_actual_training_displacement": {
+    "n": 290,
+    "slope": 1.005966,
+    "intercept": -0.002243,
+    "r": 0.94572,
+    "r2": 0.894387,
+    "mae": 0.041928,
+    "rmse": 0.053837
+   },
+   "drift_vs_factorized_training_displacement": {
+    "n": 290,
+    "slope": 0.883138,
+    "intercept": 0.002305,
+    "r": 0.702047,
+    "r2": 0.492869,
+    "mae": 0.104579,
+    "rmse": 0.139515
+   },
+   "drift_vs_factorized_behavioral_pull": {
+    "n": 290,
+    "slope": 0.859617,
+    "intercept": -0.007538,
+    "r": 0.81066,
+    "r2": 0.657169,
+    "mae": 0.087725,
+    "rmse": 0.11471
+   }
+  },
+  "binary-risk-axis": {
+   "predicted_vs_actual_training_displacement": {
+    "n": 242,
+    "slope": 1.021882,
+    "intercept": -0.003025,
+    "r": 0.944046,
+    "r2": 0.891223,
+    "mae": 0.042774,
+    "rmse": 0.054347
+   },
+   "drift_vs_factorized_training_displacement": {
+    "n": 242,
+    "slope": 0.780184,
+    "intercept": 0.00247,
+    "r": 0.670872,
+    "r2": 0.450069,
+    "mae": 0.101087,
+    "rmse": 0.131283
+   },
+   "drift_vs_factorized_behavioral_pull": {
+    "n": 242,
+    "slope": 0.818552,
+    "intercept": -0.010257,
+    "r": 0.807054,
+    "r2": 0.651335,
+    "mae": 0.081127,
+    "rmse": 0.104534
+   }
+  },
+  "continuous-selfreport-axis": {
+   "predicted_vs_actual_training_displacement": {
+    "n": 48,
+    "slope": 0.941974,
+    "intercept": -0.002071,
+    "r": 0.95266,
+    "r2": 0.907561,
+    "mae": 0.036891,
+    "rmse": 0.049735
+   },
+   "drift_vs_factorized_training_displacement": {
+    "n": 48,
+    "slope": 1.344787,
+    "intercept": 0.027261,
+    "r": 0.823591,
+    "r2": 0.678302,
+    "mae": 0.113745,
+    "rmse": 0.153214
+   },
+   "drift_vs_factorized_behavioral_pull": {
+    "n": 48,
+    "slope": 1.019487,
+    "intercept": 0.018923,
+    "r": 0.832954,
+    "r2": 0.693812,
+    "mae": 0.118081,
+    "rmse": 0.149475
+   }
+  },
+  "self-only": {
+   "predicted_vs_actual_training_displacement": {
+    "n": 207,
+    "slope": 0.957092,
+    "intercept": 0.005013,
+    "r": 0.845617,
+    "r2": 0.715068,
+    "mae": 0.042208,
+    "rmse": 0.053149
+   },
+   "drift_vs_factorized_training_displacement": {
+    "n": 207,
+    "slope": 1.20232,
+    "intercept": -0.001993,
+    "r": 0.625735,
+    "r2": 0.391544,
+    "mae": 0.099198,
+    "rmse": 0.131851
+   },
+   "drift_vs_factorized_behavioral_pull": {
+    "n": 207,
+    "slope": 0.871997,
+    "intercept": -0.004513,
+    "r": 0.739787,
+    "r2": 0.547284,
+    "mae": 0.086731,
+    "rmse": 0.113732
+   }
+  },
+  "mixed": {
+   "predicted_vs_actual_training_displacement": {
+    "n": 83,
+    "slope": 1.020681,
+    "intercept": -0.018794,
+    "r": 0.981124,
+    "r2": 0.962604,
+    "mae": 0.042191,
+    "rmse": 0.051465
+   },
+   "drift_vs_factorized_training_displacement": {
+    "n": 83,
+    "slope": 0.789021,
+    "intercept": 0.002901,
+    "r": 0.805162,
+    "r2": 0.648286,
+    "mae": 0.112186,
+    "rmse": 0.148674
+   },
+   "drift_vs_factorized_behavioral_pull": {
+    "n": 83,
+    "slope": 0.851869,
+    "intercept": -0.01551,
+    "r": 0.885138,
+    "r2": 0.78347,
+    "mae": 0.090343,
+    "rmse": 0.116654
+   }
+  },
+  "binary-risk-self-only": {
+   "predicted_vs_actual_training_displacement": {
+    "n": 175,
+    "slope": 1.004301,
+    "intercept": 0.004221,
+    "r": 0.835045,
+    "r2": 0.6973,
+    "mae": 0.042739,
+    "rmse": 0.053162
+   },
+   "drift_vs_factorized_training_displacement": {
+    "n": 175,
+    "slope": 0.919363,
+    "intercept": -0.003187,
+    "r": 0.528175,
+    "r2": 0.278969,
+    "mae": 0.092293,
+    "rmse": 0.118749
+   },
+   "drift_vs_factorized_behavioral_pull": {
+    "n": 175,
+    "slope": 0.822995,
+    "intercept": -0.012057,
+    "r": 0.726786,
+    "r2": 0.528218,
+    "mae": 0.075198,
+    "rmse": 0.096055
+   }
+  },
+  "binary-risk-mixed": {
+   "predicted_vs_actual_training_displacement": {
+    "n": 67,
+    "slope": 1.036354,
+    "intercept": -0.022039,
+    "r": 0.980762,
+    "r2": 0.961894,
+    "mae": 0.043766,
+    "rmse": 0.052955
+   },
+   "drift_vs_factorized_training_displacement": {
+    "n": 67,
+    "slope": 0.739248,
+    "intercept": 0.014286,
+    "r": 0.769235,
+    "r2": 0.591723,
+    "mae": 0.120307,
+    "rmse": 0.157644
+   },
+   "drift_vs_factorized_behavioral_pull": {
+    "n": 67,
+    "slope": 0.813212,
+    "intercept": -0.005488,
+    "r": 0.864861,
+    "r2": 0.747984,
+    "mae": 0.095793,
+    "rmse": 0.123855
+   }
+  },
+  "base-mixed": {
+   "predicted_vs_actual_training_displacement": {
+    "n": 64,
+    "slope": 1.038143,
+    "intercept": -0.014536,
+    "r": 0.968259,
+    "r2": 0.937526,
+    "mae": 0.040064,
+    "rmse": 0.049632
+   },
+   "drift_vs_factorized_training_displacement": {
+    "n": 64,
+    "slope": 0.588381,
+    "intercept": -0.018588,
+    "r": 0.589802,
+    "r2": 0.347866,
+    "mae": 0.114203,
+    "rmse": 0.149198
+   },
+   "drift_vs_factorized_behavioral_pull": {
+    "n": 64,
+    "slope": 0.711854,
+    "intercept": -0.029932,
+    "r": 0.756573,
+    "r2": 0.572403,
+    "mae": 0.095046,
+    "rmse": 0.120812
+   }
+  },
+  "peer-mixed": {
+   "predicted_vs_actual_training_displacement": {
+    "n": 19,
+    "slope": 1.062795,
+    "intercept": -0.042359,
+    "r": 0.972133,
+    "r2": 0.945043,
+    "mae": 0.04517,
+    "rmse": 0.055044
+   },
+   "drift_vs_factorized_training_displacement": {
+    "n": 19,
+    "slope": 1.109201,
+    "intercept": -0.080291,
+    "r": 0.911007,
+    "r2": 0.829934,
+    "mae": 0.087428,
+    "rmse": 0.107838
+   },
+   "drift_vs_factorized_behavioral_pull": {
+    "n": 19,
+    "slope": 0.984513,
+    "intercept": -0.031058,
+    "r": 0.957478,
+    "r2": 0.916765,
+    "mae": 0.063056,
+    "rmse": 0.075442
+   }
+  }
+ },
+ "observed_training_displacement_chain": {
+  "all": {
+   "n_transitions": 258,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 258,
+    "slope": 0.827357,
+    "intercept": 0.005423,
+    "r": 0.86386,
+    "r2": 0.746254,
+    "mae": 0.056887,
+    "rmse": 0.080648
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 258,
+    "slope": 1.2053,
+    "intercept": -0.008031,
+    "r": 0.750212,
+    "r2": 0.562817,
+    "mae": 0.044,
+    "rmse": 0.062171
+   },
+   "persistence_fit": {
+    "n": 258,
+    "slope": 0.847295,
+    "intercept": 0.022869,
+    "r": 0.813612,
+    "r2": 0.661965,
+    "mae": 0.068356,
+    "rmse": 0.091173
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 258,
+     "r2": 0.79108,
+     "mae": 0.052824,
+     "rmse": 0.071676,
+     "r": 0.894037
+    },
+    "spread_persistence": {
+     "n": 258,
+     "r2": 0.656667,
+     "mae": 0.069049,
+     "rmse": 0.091884,
+     "r": 0.81035
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 258,
+     "r2": 0.78798,
+     "mae": 0.052993,
+     "rmse": 0.072206,
+     "r": 0.892181
+    },
+    "spread_persistence": {
+     "n": 258,
+     "r2": 0.652241,
+     "mae": 0.069618,
+     "rmse": 0.092475,
+     "r": 0.807627
+    }
+   }
+  },
+  "binary-risk-axis": {
+   "n_transitions": 221,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 221,
+    "slope": 0.789251,
+    "intercept": 0.009176,
+    "r": 0.838486,
+    "r2": 0.703059,
+    "mae": 0.061607,
+    "rmse": 0.084621
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 221,
+    "slope": 1.404521,
+    "intercept": -0.003341,
+    "r": 0.851111,
+    "r2": 0.72439,
+    "mae": 0.037783,
+    "rmse": 0.050593
+   },
+   "persistence_fit": {
+    "n": 221,
+    "slope": 0.804059,
+    "intercept": 0.045108,
+    "r": 0.76834,
+    "r2": 0.590347,
+    "mae": 0.069598,
+    "rmse": 0.092493
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 221,
+     "r2": 0.764796,
+     "mae": 0.052475,
+     "rmse": 0.070085,
+     "r": 0.881236
+    },
+    "spread_persistence": {
+     "n": 221,
+     "r2": 0.581363,
+     "mae": 0.070584,
+     "rmse": 0.093502,
+     "r": 0.762472
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 221,
+     "r2": 0.759947,
+     "mae": 0.052804,
+     "rmse": 0.070804,
+     "r": 0.878425
+    },
+    "spread_persistence": {
+     "n": 221,
+     "r2": 0.57649,
+     "mae": 0.071035,
+     "rmse": 0.094045,
+     "r": 0.759279
+    }
+   }
+  },
+  "continuous-selfreport-axis": {
+   "n_transitions": 37,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 37,
+    "slope": 1.008703,
+    "intercept": -0.00034,
+    "r": 0.979007,
+    "r2": 0.958455,
+    "mae": 0.021189,
+    "rmse": 0.033817
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 37,
+    "slope": -0.053307,
+    "intercept": -0.050948,
+    "r": -0.043833,
+    "r2": 0.001921,
+    "mae": 0.054056,
+    "rmse": 0.070863
+   },
+   "persistence_fit": {
+    "n": 37,
+    "slope": 0.46527,
+    "intercept": 0.00982,
+    "r": 0.877647,
+    "r2": 0.770264,
+    "mae": 0.02437,
+    "rmse": 0.030443
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 37,
+     "r2": -0.028951,
+     "mae": 0.040316,
+     "rmse": 0.064428,
+     "r": 0.868767
+    },
+    "spread_persistence": {
+     "n": 37,
+     "r2": 0.746967,
+     "mae": 0.025832,
+     "rmse": 0.03195,
+     "r": 0.864507
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 37,
+     "r2": -0.177275,
+     "mae": 0.040561,
+     "rmse": 0.068916,
+     "r": 0.868051
+    },
+    "spread_persistence": {
+     "n": 37,
+     "r2": 0.72404,
+     "mae": 0.027181,
+     "rmse": 0.033366,
+     "r": 0.857177
+    }
+   }
+  },
+  "self-only": {
+   "n_transitions": 186,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 186,
+    "slope": 0.959639,
+    "intercept": 4.6e-05,
+    "r": 0.781074,
+    "r2": 0.610076,
+    "mae": 0.051661,
+    "rmse": 0.070736
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 186,
+    "slope": 1.274922,
+    "intercept": -0.013304,
+    "r": 0.697439,
+    "r2": 0.486421,
+    "mae": 0.042123,
+    "rmse": 0.055907
+   },
+   "persistence_fit": {
+    "n": 186,
+    "slope": 0.925495,
+    "intercept": -0.000261,
+    "r": 0.861674,
+    "r2": 0.742482,
+    "mae": 0.056696,
+    "rmse": 0.077293
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 186,
+     "r2": 0.804663,
+     "mae": 0.050739,
+     "rmse": 0.067318,
+     "r": 0.899686
+    },
+    "spread_persistence": {
+     "n": 186,
+     "r2": 0.738862,
+     "mae": 0.057188,
+     "rmse": 0.077835,
+     "r": 0.859572
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 186,
+     "r2": 0.804317,
+     "mae": 0.050698,
+     "rmse": 0.067377,
+     "r": 0.899115
+    },
+    "spread_persistence": {
+     "n": 186,
+     "r2": 0.73609,
+     "mae": 0.057479,
+     "rmse": 0.078247,
+     "r": 0.857969
+    }
+   }
+  },
+  "mixed": {
+   "n_transitions": 72,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 72,
+    "slope": 0.791198,
+    "intercept": 0.015244,
+    "r": 0.913,
+    "r2": 0.833569,
+    "mae": 0.065704,
+    "rmse": 0.098814
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 72,
+    "slope": 1.169563,
+    "intercept": 0.006566,
+    "r": 0.809695,
+    "r2": 0.655606,
+    "mae": 0.049554,
+    "rmse": 0.073695
+   },
+   "persistence_fit": {
+    "n": 72,
+    "slope": 0.60103,
+    "intercept": 0.064946,
+    "r": 0.574611,
+    "r2": 0.330178,
+    "mae": 0.095845,
+    "rmse": 0.113823
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 72,
+     "r2": 0.641762,
+     "mae": 0.061653,
+     "rmse": 0.083241,
+     "r": 0.811607
+    },
+    "spread_persistence": {
+     "n": 72,
+     "r2": 0.288642,
+     "mae": 0.099271,
+     "rmse": 0.117299,
+     "r": 0.537842
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 72,
+     "r2": 0.618615,
+     "mae": 0.063168,
+     "rmse": 0.085888,
+     "r": 0.797534
+    },
+    "spread_persistence": {
+     "n": 72,
+     "r2": 0.254583,
+     "mae": 0.101916,
+     "rmse": 0.120074,
+     "r": 0.506662
+    }
+   }
+  },
+  "binary-risk-self-only": {
+   "n_transitions": 161,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 161,
+    "slope": 0.941866,
+    "intercept": 0.000532,
+    "r": 0.755073,
+    "r2": 0.570135,
+    "mae": 0.056524,
+    "rmse": 0.074964
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 161,
+    "slope": 1.480015,
+    "intercept": -0.002626,
+    "r": 0.807413,
+    "r2": 0.651915,
+    "mae": 0.035893,
+    "rmse": 0.045334
+   },
+   "persistence_fit": {
+    "n": 161,
+    "slope": 0.897679,
+    "intercept": 0.017118,
+    "r": 0.820677,
+    "r2": 0.673511,
+    "mae": 0.056479,
+    "rmse": 0.075829
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 161,
+     "r2": 0.773892,
+     "mae": 0.049406,
+     "rmse": 0.063104,
+     "r": 0.887589
+    },
+    "spread_persistence": {
+     "n": 161,
+     "r2": 0.667518,
+     "mae": 0.057285,
+     "rmse": 0.076522,
+     "r": 0.817031
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 161,
+     "r2": 0.777868,
+     "mae": 0.049073,
+     "rmse": 0.062547,
+     "r": 0.88939
+    },
+    "spread_persistence": {
+     "n": 161,
+     "r2": 0.667891,
+     "mae": 0.057263,
+     "rmse": 0.076479,
+     "r": 0.817248
+    }
+   }
+  },
+  "binary-risk-mixed": {
+   "n_transitions": 60,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 60,
+    "slope": 0.738764,
+    "intercept": 0.028304,
+    "r": 0.897451,
+    "r2": 0.805418,
+    "mae": 0.069083,
+    "rmse": 0.10088
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 60,
+    "slope": 1.358661,
+    "intercept": -0.003273,
+    "r": 0.887494,
+    "r2": 0.787645,
+    "mae": 0.042691,
+    "rmse": 0.06221
+   },
+   "persistence_fit": {
+    "n": 60,
+    "slope": 0.527137,
+    "intercept": 0.091773,
+    "r": 0.506321,
+    "r2": 0.256361,
+    "mae": 0.102539,
+    "rmse": 0.119445
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 60,
+     "r2": 0.598102,
+     "mae": 0.061991,
+     "rmse": 0.08781,
+     "r": 0.786835
+    },
+    "spread_persistence": {
+     "n": 60,
+     "r2": 0.192925,
+     "mae": 0.107628,
+     "rmse": 0.124435,
+     "r": 0.441835
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 60,
+     "r2": 0.558487,
+     "mae": 0.064162,
+     "rmse": 0.092036,
+     "r": 0.764977
+    },
+    "spread_persistence": {
+     "n": 60,
+     "r2": 0.144115,
+     "mae": 0.111257,
+     "rmse": 0.128143,
+     "r": 0.390139
+    }
+   }
+  },
+  "base-mixed": {
+   "n_transitions": 48,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 48,
+    "slope": 0.669541,
+    "intercept": -0.001514,
+    "r": 0.796354,
+    "r2": 0.634179,
+    "mae": 0.074794,
+    "rmse": 0.109293
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 48,
+    "slope": 0.987176,
+    "intercept": 0.01525,
+    "r": 0.68226,
+    "r2": 0.465479,
+    "mae": 0.058544,
+    "rmse": 0.082916
+   },
+   "persistence_fit": {
+    "n": 48,
+    "slope": 0.609446,
+    "intercept": 0.100546,
+    "r": 0.624732,
+    "r2": 0.39029,
+    "mae": 0.083125,
+    "rmse": 0.10092
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 48,
+     "r2": 0.557205,
+     "mae": 0.064822,
+     "rmse": 0.086003,
+     "r": 0.782773
+    },
+    "spread_persistence": {
+     "n": 48,
+     "r2": 0.308388,
+     "mae": 0.089261,
+     "rmse": 0.107484,
+     "r": 0.557483
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 48,
+     "r2": 0.544111,
+     "mae": 0.064814,
+     "rmse": 0.087266,
+     "r": 0.776983
+    },
+    "spread_persistence": {
+     "n": 48,
+     "r2": 0.251812,
+     "mae": 0.09385,
+     "rmse": 0.111794,
+     "r": 0.509053
+    }
+   }
+  },
+  "peer-mixed": {
+   "n_transitions": 24,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 24,
+    "slope": 0.947294,
+    "intercept": -0.016306,
+    "r": 0.976644,
+    "r2": 0.953833,
+    "mae": 0.037627,
+    "rmse": 0.050523
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 24,
+    "slope": 1.369074,
+    "intercept": 0.006652,
+    "r": 0.938875,
+    "r2": 0.881486,
+    "mae": 0.028272,
+    "rmse": 0.040571
+   },
+   "persistence_fit": {
+    "n": 24,
+    "slope": 0.542892,
+    "intercept": 0.000742,
+    "r": 0.58432,
+    "r2": 0.34143,
+    "mae": 0.068683,
+    "rmse": 0.100777
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 24,
+     "r2": 0.684754,
+     "mae": 0.058591,
+     "rmse": 0.069725,
+     "r": 0.842394
+    },
+    "spread_persistence": {
+     "n": 24,
+     "r2": 0.25184,
+     "mae": 0.073274,
+     "rmse": 0.107413,
+     "r": 0.505488
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 24,
+     "r2": 0.663939,
+     "mae": 0.060442,
+     "rmse": 0.07199,
+     "r": 0.834971
+    },
+    "spread_persistence": {
+     "n": 24,
+     "r2": 0.129715,
+     "mae": 0.082389,
+     "rmse": 0.115849,
+     "r": 0.393132
+    }
+   }
+  }
+ },
+ "factorized_training_displacement_chain": {
+  "all": {
+   "n_transitions": 225,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 225,
+    "slope": 0.848453,
+    "intercept": 0.003839,
+    "r": 0.838163,
+    "r2": 0.702517,
+    "mae": 0.06714,
+    "rmse": 0.092281
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 225,
+    "slope": 1.199714,
+    "intercept": -0.008841,
+    "r": 0.751628,
+    "r2": 0.564945,
+    "mae": 0.04776,
+    "rmse": 0.065681
+   },
+   "persistence_fit": {
+    "n": 225,
+    "slope": 0.799962,
+    "intercept": 0.037333,
+    "r": 0.741046,
+    "r2": 0.549149,
+    "mae": 0.074305,
+    "rmse": 0.095991
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 225,
+     "r2": 0.684156,
+     "mae": 0.060728,
+     "rmse": 0.080343,
+     "r": 0.832599
+    },
+    "spread_persistence": {
+     "n": 225,
+     "r2": 0.539733,
+     "mae": 0.075224,
+     "rmse": 0.096988,
+     "r": 0.734673
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 225,
+     "r2": 0.678556,
+     "mae": 0.061053,
+     "rmse": 0.081052,
+     "r": 0.829515
+    },
+    "spread_persistence": {
+     "n": 225,
+     "r2": 0.531928,
+     "mae": 0.076042,
+     "rmse": 0.097807,
+     "r": 0.729387
+    }
+   }
+  },
+  "binary-risk-axis": {
+   "n_transitions": 196,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 196,
+    "slope": 0.814547,
+    "intercept": 0.007577,
+    "r": 0.806607,
+    "r2": 0.650616,
+    "mae": 0.070473,
+    "rmse": 0.095855
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 196,
+    "slope": 1.399556,
+    "intercept": -0.00381,
+    "r": 0.853224,
+    "r2": 0.727991,
+    "mae": 0.040419,
+    "rmse": 0.052813
+   },
+   "persistence_fit": {
+    "n": 196,
+    "slope": 0.729963,
+    "intercept": 0.069522,
+    "r": 0.672764,
+    "r2": 0.452611,
+    "mae": 0.07328,
+    "rmse": 0.095977
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 196,
+     "r2": 0.630654,
+     "mae": 0.059347,
+     "rmse": 0.078838,
+     "r": 0.805146
+    },
+    "spread_persistence": {
+     "n": 196,
+     "r2": 0.438153,
+     "mae": 0.074448,
+     "rmse": 0.097237,
+     "r": 0.661976
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 196,
+     "r2": 0.621724,
+     "mae": 0.059828,
+     "rmse": 0.079786,
+     "r": 0.800742
+    },
+    "spread_persistence": {
+     "n": 196,
+     "r2": 0.430637,
+     "mae": 0.075049,
+     "rmse": 0.097885,
+     "r": 0.656393
+    }
+   }
+  },
+  "continuous-selfreport-axis": {
+   "n_transitions": 29,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 29,
+    "slope": 0.966481,
+    "intercept": -0.006282,
+    "r": 0.956368,
+    "r2": 0.91464,
+    "mae": 0.037709,
+    "rmse": 0.053673
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 29,
+    "slope": -0.120011,
+    "intercept": -0.064482,
+    "r": -0.103246,
+    "r2": 0.01066,
+    "mae": 0.054422,
+    "rmse": 0.074938
+   },
+   "persistence_fit": {
+    "n": 29,
+    "slope": 0.434853,
+    "intercept": 0.017797,
+    "r": 0.846014,
+    "r2": 0.715739,
+    "mae": 0.02732,
+    "rmse": 0.032873
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 29,
+     "r2": -0.31451,
+     "mae": 0.046764,
+     "rmse": 0.07069,
+     "r": 0.842707
+    },
+    "spread_persistence": {
+     "n": 29,
+     "r2": 0.684548,
+     "mae": 0.029322,
+     "rmse": 0.034629,
+     "r": 0.827823
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 29,
+     "r2": -0.613613,
+     "mae": 0.050379,
+     "rmse": 0.07832,
+     "r": 0.831382
+    },
+    "spread_persistence": {
+     "n": 29,
+     "r2": 0.678615,
+     "mae": 0.029721,
+     "rmse": 0.034953,
+     "r": 0.828667
+    }
+   }
+  },
+  "self-only": {
+   "n_transitions": 160,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 160,
+    "slope": 1.004248,
+    "intercept": 0.005365,
+    "r": 0.723924,
+    "r2": 0.524066,
+    "mae": 0.061457,
+    "rmse": 0.081189
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 160,
+    "slope": 1.261928,
+    "intercept": -0.015029,
+    "r": 0.69881,
+    "r2": 0.488336,
+    "mae": 0.045142,
+    "rmse": 0.058807
+   },
+   "persistence_fit": {
+    "n": 160,
+    "slope": 0.914465,
+    "intercept": 0.00227,
+    "r": 0.796181,
+    "r2": 0.633904,
+    "mae": 0.062346,
+    "rmse": 0.081597
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 160,
+     "r2": 0.715054,
+     "mae": 0.056052,
+     "rmse": 0.071987,
+     "r": 0.846228
+    },
+    "spread_persistence": {
+     "n": 160,
+     "r2": 0.62685,
+     "mae": 0.063022,
+     "rmse": 0.082379,
+     "r": 0.79174
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 160,
+     "r2": 0.712171,
+     "mae": 0.056108,
+     "rmse": 0.07235,
+     "r": 0.844496
+    },
+    "spread_persistence": {
+     "n": 160,
+     "r2": 0.622162,
+     "mae": 0.06349,
+     "rmse": 0.082895,
+     "r": 0.788799
+    }
+   }
+  },
+  "mixed": {
+   "n_transitions": 65,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 65,
+    "slope": 0.815003,
+    "intercept": -0.001532,
+    "r": 0.897098,
+    "r2": 0.804784,
+    "mae": 0.079043,
+    "rmse": 0.112599
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 65,
+    "slope": 1.170646,
+    "intercept": 0.007287,
+    "r": 0.809807,
+    "r2": 0.655788,
+    "mae": 0.054216,
+    "rmse": 0.077529
+   },
+   "persistence_fit": {
+    "n": 65,
+    "slope": 0.512181,
+    "intercept": 0.089672,
+    "r": 0.480573,
+    "r2": 0.23095,
+    "mae": 0.100356,
+    "rmse": 0.117148
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 65,
+     "r2": 0.455603,
+     "mae": 0.075535,
+     "rmse": 0.098564,
+     "r": 0.706154
+    },
+    "spread_persistence": {
+     "n": 65,
+     "r2": 0.16966,
+     "mae": 0.105212,
+     "rmse": 0.121727,
+     "r": 0.414866
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 65,
+     "r2": 0.422435,
+     "mae": 0.076854,
+     "rmse": 0.101522,
+     "r": 0.687408
+    },
+    "spread_persistence": {
+     "n": 65,
+     "r2": 0.124636,
+     "mae": 0.108688,
+     "rmse": 0.124984,
+     "r": 0.364463
+    }
+   }
+  },
+  "binary-risk-self-only": {
+   "n_transitions": 143,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 143,
+    "slope": 1.041995,
+    "intercept": 0.005303,
+    "r": 0.698622,
+    "r2": 0.488072,
+    "mae": 0.063992,
+    "rmse": 0.083268
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 143,
+    "slope": 1.468394,
+    "intercept": -0.003148,
+    "r": 0.809941,
+    "r2": 0.656004,
+    "mae": 0.037588,
+    "rmse": 0.046745
+   },
+   "persistence_fit": {
+    "n": 143,
+    "slope": 0.874405,
+    "intercept": 0.024671,
+    "r": 0.758364,
+    "r2": 0.575115,
+    "mae": 0.059342,
+    "rmse": 0.078609
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 143,
+     "r2": 0.697421,
+     "mae": 0.052244,
+     "rmse": 0.066337,
+     "r": 0.840365
+    },
+    "spread_persistence": {
+     "n": 143,
+     "r2": 0.565975,
+     "mae": 0.060152,
+     "rmse": 0.079451,
+     "r": 0.752314
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 143,
+     "r2": 0.699939,
+     "mae": 0.052196,
+     "rmse": 0.066061,
+     "r": 0.842137
+    },
+    "spread_persistence": {
+     "n": 143,
+     "r2": 0.565568,
+     "mae": 0.060358,
+     "rmse": 0.079488,
+     "r": 0.752045
+    }
+   }
+  },
+  "binary-risk-mixed": {
+   "n_transitions": 53,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 53,
+    "slope": 0.764731,
+    "intercept": 0.011959,
+    "r": 0.870332,
+    "r2": 0.757477,
+    "mae": 0.084137,
+    "rmse": 0.119298
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 53,
+    "slope": 1.358661,
+    "intercept": -0.003705,
+    "r": 0.887528,
+    "r2": 0.787706,
+    "mae": 0.047954,
+    "rmse": 0.066179
+   },
+   "persistence_fit": {
+    "n": 53,
+    "slope": 0.330089,
+    "intercept": 0.148732,
+    "r": 0.309963,
+    "r2": 0.096077,
+    "mae": 0.100633,
+    "rmse": 0.119786
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 53,
+     "r2": 0.269476,
+     "mae": 0.080909,
+     "rmse": 0.107686,
+     "r": 0.609035
+    },
+    "spread_persistence": {
+     "n": 53,
+     "r2": -0.016964,
+     "mae": 0.106618,
+     "rmse": 0.127055,
+     "r": 0.117636
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 53,
+     "r2": 0.183701,
+     "mae": 0.08501,
+     "rmse": 0.113832,
+     "r": 0.571508
+    },
+    "spread_persistence": {
+     "n": 53,
+     "r2": -0.035958,
+     "mae": 0.108504,
+     "rmse": 0.128236,
+     "r": 0.091473
+    }
+   }
+  },
+  "base-mixed": {
+   "n_transitions": 48,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 48,
+    "slope": 0.71218,
+    "intercept": -0.013451,
+    "r": 0.782519,
+    "r2": 0.612336,
+    "mae": 0.07911,
+    "rmse": 0.112508
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 48,
+    "slope": 0.987176,
+    "intercept": 0.01525,
+    "r": 0.68226,
+    "r2": 0.465479,
+    "mae": 0.058544,
+    "rmse": 0.082916
+   },
+   "persistence_fit": {
+    "n": 48,
+    "slope": 0.609446,
+    "intercept": 0.100546,
+    "r": 0.624732,
+    "r2": 0.39029,
+    "mae": 0.083125,
+    "rmse": 0.10092
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 48,
+     "r2": 0.483879,
+     "mae": 0.071377,
+     "rmse": 0.092852,
+     "r": 0.746001
+    },
+    "spread_persistence": {
+     "n": 48,
+     "r2": 0.308388,
+     "mae": 0.089261,
+     "rmse": 0.107484,
+     "r": 0.557483
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 48,
+     "r2": 0.468765,
+     "mae": 0.07141,
+     "rmse": 0.094201,
+     "r": 0.740582
+    },
+    "spread_persistence": {
+     "n": 48,
+     "r2": 0.251812,
+     "mae": 0.09385,
+     "rmse": 0.111794,
+     "r": 0.509053
+    }
+   }
+  },
+  "peer-mixed": {
+   "n_transitions": 17,
+   "stage_1_delta_own_mean_vs_training_displacement": {
+    "n": 17,
+    "slope": 1.009977,
+    "intercept": -0.063774,
+    "r": 0.90026,
+    "r2": 0.810469,
+    "mae": 0.082347,
+    "rmse": 0.099526
+   },
+   "stage_2_delta_own_spread_vs_delta_headroom": {
+    "n": 17,
+    "slope": 1.403614,
+    "intercept": 0.012426,
+    "r": 0.925777,
+    "r2": 0.857063,
+    "mae": 0.037275,
+    "rmse": 0.047852
+   },
+   "persistence_fit": {
+    "n": 17,
+    "slope": 0.533197,
+    "intercept": 0.003423,
+    "r": 0.364394,
+    "r2": 0.132783,
+    "mae": 0.096728,
+    "rmse": 0.119737
+   },
+   "leave_one_run_out": {
+    "conversion_chain": {
+     "n": 17,
+     "r2": 0.205798,
+     "mae": 0.097638,
+     "rmse": 0.114585,
+     "r": 0.486968
+    },
+    "spread_persistence": {
+     "n": 17,
+     "r2": -0.016806,
+     "mae": 0.104052,
+     "rmse": 0.129653,
+     "r": 0.161285
+    }
+   },
+   "leave_one_condition_out": {
+    "conversion_chain": {
+     "n": 17,
+     "r2": 0.016867,
+     "mae": 0.107615,
+     "rmse": 0.127488,
+     "r": 0.289729
+    },
+    "spread_persistence": {
+     "n": 17,
+     "r2": -0.158458,
+     "mae": 0.117064,
+     "rmse": 0.13839,
+     "r": -0.059479
+    }
+   }
+  }
+ },
+ "mixed_pool_variance_decomposition": {
+  "base-mixed": {
+   "n_rounds": 64,
+   "mean_total_within_prompt_variance": 0.146426,
+   "mean_within_source_variance": 0.097146,
+   "mean_between_source_variance": 0.04928,
+   "between_variance_share_of_mean_total": 0.33655,
+   "mean_total_spread": 0.327406,
+   "mean_sd_if_between_source_variance_removed_per_prompt": 0.250551,
+   "mean_sd_increment_from_between_source_variance": 0.076851,
+   "sd_increment_share_of_mean_total_spread": 0.234728
+  },
+  "peer-mixed": {
+   "n_rounds": 32,
+   "mean_total_within_prompt_variance": 0.076172,
+   "mean_within_source_variance": 0.032986,
+   "mean_between_source_variance": 0.043186,
+   "between_variance_share_of_mean_total": 0.566952,
+   "mean_total_spread": 0.171672,
+   "mean_sd_if_between_source_variance_removed_per_prompt": 0.098958,
+   "mean_sd_increment_from_between_source_variance": 0.072713,
+   "sd_increment_share_of_mean_total_spread": 0.423555
+  },
+  "max_reconstruction_rounding_error": 5e-05
+ }
+}

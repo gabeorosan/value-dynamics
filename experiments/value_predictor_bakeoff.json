@@ -1,0 +1,309 @@
+{
+ "description": "Compare simple endpoint and one-round behavioral-value predictors.",
+ "inputs": [
+  "experiments/spread_util_unified.json",
+  "experiments/spread_rollout_bakeoff.json"
+ ],
+ "endpoint_with_boundary_refresh": {
+  "mean_sd_geometry": {
+   "n_all_modelable_runs": 67,
+   "all_run_endpoint_mae_with_boundary_refresh": 0.176822,
+   "all_run_boundary_persistence_mae": 0.343679,
+   "all_run_endpoint_mae_without_refresh": 0.194396,
+   "n_selection_driven_plus_swap_runs": 45,
+   "selection_driven_plus_swap_endpoint_mae": 0.163125,
+   "selection_driven_plus_swap_boundary_persistence_mae": 0.40658,
+   "swap_endpoint_mae_refreshed": 0.260958,
+   "swap_direction": {
+    "n_moved": 7,
+    "n_hits": 6,
+    "hit_rate": 0.857143
+   }
+  },
+  "mean_sd_frozen": {
+   "n_all_modelable_runs": 67,
+   "all_run_endpoint_mae_with_boundary_refresh": 0.159649,
+   "all_run_boundary_persistence_mae": 0.343679,
+   "all_run_endpoint_mae_without_refresh": 0.189804,
+   "n_selection_driven_plus_swap_runs": 45,
+   "selection_driven_plus_swap_endpoint_mae": 0.137287,
+   "selection_driven_plus_swap_boundary_persistence_mae": 0.40658,
+   "swap_endpoint_mae_refreshed": 0.179366,
+   "swap_direction": {
+    "n_moved": 7,
+    "n_hits": 6,
+    "hit_rate": 0.857143
+   }
+  },
+  "rankable_support_frozen": {
+   "n_all_modelable_runs": 67,
+   "all_run_endpoint_mae_with_boundary_refresh": 0.158714,
+   "all_run_boundary_persistence_mae": 0.343679,
+   "all_run_endpoint_mae_without_refresh": 0.187461,
+   "n_selection_driven_plus_swap_runs": 45,
+   "selection_driven_plus_swap_endpoint_mae": 0.136091,
+   "selection_driven_plus_swap_boundary_persistence_mae": 0.40658,
+   "swap_endpoint_mae_refreshed": 0.181547,
+   "swap_direction": {
+    "n_moved": 7,
+    "n_hits": 6,
+    "hit_rate": 0.857143
+   }
+  }
+ },
+ "one_round": {
+  "leave_one_run_out": {
+   "no_change": {
+    "n": 340,
+    "mae": 0.127883,
+    "rmse": 0.186388,
+    "r2": -0.00453,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 211,
+     "hits": 0,
+     "hit_rate": 0.0
+    }
+   },
+   "kept_target_identity": {
+    "n": 340,
+    "mae": 0.081157,
+    "rmse": 0.115691,
+    "r2": 0.612989,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 211,
+     "hits": 179,
+     "hit_rate": 0.848341
+    }
+   },
+   "calibrated_kept_pull": {
+    "n": 340,
+    "mae": 0.08102,
+    "rmse": 0.11286,
+    "r2": 0.631698,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 211,
+     "hits": 187,
+     "hit_rate": 0.886256
+    }
+   },
+   "training_displacement": {
+    "n": 340,
+    "mae": 0.096967,
+    "rmse": 0.137483,
+    "r2": 0.453456,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 211,
+     "hits": 171,
+     "hit_rate": 0.810427
+    }
+   },
+   "selector_gap": {
+    "n": 340,
+    "mae": 0.110348,
+    "rmse": 0.154167,
+    "r2": 0.312755,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 211,
+     "hits": 171,
+     "hit_rate": 0.810427
+    }
+   },
+   "pool_offset_without_selection": {
+    "n": 340,
+    "mae": 0.106635,
+    "rmse": 0.144979,
+    "r2": 0.392232,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 211,
+     "hits": 169,
+     "hit_rate": 0.800948
+    }
+   },
+   "rho_subset_no_change": {
+    "n": 290,
+    "mae": 0.140425,
+    "rmse": 0.196523,
+    "r2": -0.006251,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 198,
+     "hits": 0,
+     "hit_rate": 0.0
+    }
+   },
+   "rho_subset_kept_target_identity": {
+    "n": 290,
+    "mae": 0.085447,
+    "rmse": 0.117136,
+    "r2": 0.642513,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 198,
+     "hits": 170,
+     "hit_rate": 0.858586
+    }
+   },
+   "factorized_preselection_pull": {
+    "n": 290,
+    "mae": 0.08842,
+    "rmse": 0.116163,
+    "r2": 0.64843,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 198,
+     "hits": 174,
+     "hit_rate": 0.878788
+    }
+   },
+   "free_two_feature_preselection": {
+    "n": 290,
+    "mae": 0.089651,
+    "rmse": 0.117739,
+    "r2": 0.638823,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 198,
+     "hits": 173,
+     "hit_rate": 0.873737
+    }
+   }
+  },
+  "leave_one_condition_out": {
+   "no_change": {
+    "n": 340,
+    "mae": 0.127883,
+    "rmse": 0.186388,
+    "r2": -0.00453,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 211,
+     "hits": 0,
+     "hit_rate": 0.0
+    }
+   },
+   "kept_target_identity": {
+    "n": 340,
+    "mae": 0.081157,
+    "rmse": 0.115691,
+    "r2": 0.612989,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 211,
+     "hits": 179,
+     "hit_rate": 0.848341
+    }
+   },
+   "calibrated_kept_pull": {
+    "n": 340,
+    "mae": 0.081748,
+    "rmse": 0.114079,
+    "r2": 0.623694,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 211,
+     "hits": 187,
+     "hit_rate": 0.886256
+    }
+   },
+   "training_displacement": {
+    "n": 340,
+    "mae": 0.098099,
+    "rmse": 0.139416,
+    "r2": 0.437976,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 211,
+     "hits": 170,
+     "hit_rate": 0.805687
+    }
+   },
+   "selector_gap": {
+    "n": 340,
+    "mae": 0.112109,
+    "rmse": 0.157482,
+    "r2": 0.282887,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 211,
+     "hits": 171,
+     "hit_rate": 0.810427
+    }
+   },
+   "pool_offset_without_selection": {
+    "n": 340,
+    "mae": 0.107338,
+    "rmse": 0.146364,
+    "r2": 0.380564,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 211,
+     "hits": 169,
+     "hit_rate": 0.800948
+    }
+   },
+   "rho_subset_no_change": {
+    "n": 290,
+    "mae": 0.140425,
+    "rmse": 0.196523,
+    "r2": -0.006251,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 198,
+     "hits": 0,
+     "hit_rate": 0.0
+    }
+   },
+   "rho_subset_kept_target_identity": {
+    "n": 290,
+    "mae": 0.085447,
+    "rmse": 0.117136,
+    "r2": 0.642513,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 198,
+     "hits": 170,
+     "hit_rate": 0.858586
+    }
+   },
+   "factorized_preselection_pull": {
+    "n": 290,
+    "mae": 0.089131,
+    "rmse": 0.117235,
+    "r2": 0.641908,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 198,
+     "hits": 174,
+     "hit_rate": 0.878788
+    }
+   },
+   "free_two_feature_preselection": {
+    "n": 290,
+    "mae": 0.091876,
+    "rmse": 0.121693,
+    "r2": 0.614161,
+    "direction_on_abs_change_at_least_0_05": {
+     "n": 198,
+     "hits": 171,
+     "hit_rate": 0.863636
+    }
+   }
+  },
+  "full_data_equations_for_description_only": {
+   "calibrated_kept_pull": {
+    "formula": "delta_value = intercept + slope * (kept_mean - value)",
+    "intercept_slope": [
+     -0.007221584379581186,
+     0.833133302180875
+    ]
+   },
+   "selector_gap": {
+    "formula": "gap = intercept + slope * agreement * spread",
+    "intercept_slope": [
+     -0.002137331911763495,
+     0.9581972595438645
+    ]
+   },
+   "factorized_preselection_pull": {
+    "formula": "delta_value = intercept + slope * [(pool_mean - value) + predicted_gap]",
+    "intercept_slope": [
+     -0.005703641474322171,
+     0.8603544569187548
+    ]
+   }
+  }
+ },
+ "recommended_simple_models": {
+  "endpoint": "measure value, own candidate mean, frozen mean within-prompt population SD, agreement, and supplier state; roll the selection/update loop; remeasure the full state and restart when the judge or judging protocol changes; mean range is numerically tied but retained only as a robustness check",
+  "one_round_after_selection": "next_value = kept_candidate_value_mean",
+  "one_round_calibrated": "delta_value = -0.007 + 0.833 * (kept_mean - current_value)",
+  "one_round_before_selection": "predict gap from 0.96 * agreement * spread, add pool_mean - current_value, then apply the approximately 0.86 update gain"
+ }
+}

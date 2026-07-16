@@ -1,151 +1,201 @@
-# Figure correction brief: candidate-pool geometry, not a state-centrality mechanism
+# Figure request: how selection converts spread into the next generator state
 
-**Owner:** Claude / Figures lane  
-**Priority:** replace the in-progress `spread-tracks-centrality` figure before
-promotion and correct every active spread figure listed below.  
-**Source of truth:** `experiments/spread_value_centrality.json` and
-`docs/report_spread_value_centrality.md`.
+**Owner:** Claude / Figures lane
+**Priority:** replace the in-progress `spread-tracks-centrality` figure with
+this conversion-chain figure.
+**Source of truth:** `experiments/spread_conversion_model.json` and
+`docs/report_spread_conversion_model.md`.
 
-## The claim change
+## Main figure
 
-Do not visualize or caption the following claims:
+**Title:** Selection converts candidate variation into a new output distribution
 
-- “model-state value centrality causes candidate spread”;
-- “centrality is the dominant term”;
-- “spread rides the value”;
-- “the loop is self-limiting because its fuel vanishes at 0/1”;
-- “0 and 1 are stable resting points / attractors”;
-- “spread is consumed” when the evidence only shows that the scored candidate
-  pool became homogeneous.
+**Subtitle:** Selector accounting uses 340 rounds from 74 OLMo/Qwen runs;
+next-spread conversion uses 221 binary risk-axis transitions with
+leave-one-run-out fits
 
-Use this corrected claim:
+Put the spread definition visibly on the figure or immediately below it:
 
-> Candidate spread is calculated from 0/1 candidate scores and is therefore
-> bounded by the candidate pool's own Bernoulli geometry. Model state and pool
-> mean co-move, so state centrality is a proxy, not an identified cause. A pool
-> with no rankable variation is selection-inert on the measured axis under the
-> tested generator and judge; an outside supplier can restore that variation.
+> Within-prompt spread = the population SD of candidate value scores inside
+> each prompt, averaged equally over prompts (`ddof=0`; not a pooled SD).
 
-The matched injection pair is the causal result. The centrality regressions are
-diagnostic accounting, not a causal intervention.
+Build one four-panel figure. The visual spine should read left to right:
 
-## New replacement figure
+`offered spread` → `selector gap` → `training displacement` →
+`change in own generated mean` → `change in own generated spread`.
 
-**Title:** Candidate spread is bounded by the candidate pool's 0–1 geometry
+### Panel A — define the three distances
 
-**Subtitle:** 340 rounds from 74 OLMo/Qwen runs; the load-bearing comparison is
-the 96 mixed-pool rounds
+Show one horizontal 0–1 candidate-score axis with four labeled means:
 
-Build one clean three-panel figure:
+- model's own generated mean `q`;
+- whole offered pool mean `p`;
+- kept training-target mean `k`;
+- separate behavioral value `v`.
 
-### Panel A — why the bound exists
+Draw and label:
 
-- Show six candidate scores as 0/1 marks and define `p = candidate-pool mean`.
-- Show the Bernoulli population-SD curve `sqrt(p(1−p))`, zero at p=0/1 and
-  maximal at p=0.5.
-- Label this curve **aggregate SD ceiling/proxy**, not “predicted spread” and
-  not an exact identity: observed spread averages per-item SD before pooling.
-- One sentence only: “Spread and pool mean use the same binary scores.”
+- **selector gap** = `k − p`;
+- **pool-supply shift** = `p − q`;
+- **training displacement** = `k − q = selector gap + pool-supply shift`;
+- **behavioral pull** = `k − v`.
 
-### Panel B — compare the old proxy with the direct pool quantity
+Main annotation:
 
-Use the 96 mixed-pool rounds.
+> Use kept − whole pool to measure the selector. Use kept − the model's own
+> pool to measure the update.
 
-- Left mini-scatter: x = pre-round **model-state centrality**
-  `value(1−value)`, y = candidate spread. Label `R² = 0.644` and “proxy”.
-- Right mini-scatter: x = **candidate-pool centrality**
-  `pool_mean(1−pool_mean)`, same y. Label `R² = 0.935` and “same candidate
-  scores as spread”.
-- Keep identical x/y scales where mathematically appropriate.
-- Color by pool composition (base-mixed vs peer-mixed); use shape or a thin
-  outline for model family only if legible. Do not color by outcome.
-- Add the small annotation `corr(model value, pool mean) = 0.91` for all 340
-  rounds.
-- Do not draw a causal arrow from model value to candidate spread.
+For self-only pools, show `p = q`, so the two gaps coincide. For mixed pools,
+show a small outside-source block shifting `p` away from `q`.
 
-### Panel C — the ordering survives stricter comparisons
+### Panel B — the self-relative gap tracks movement better under mixing
 
-Use paired bars or a compact dot plot, always state centrality first and
-candidate-pool centrality second:
+Use grouped dots or bars for correlation with behavioral movement:
 
-| comparison on mixed pools | model-state centrality | candidate-pool centrality |
-|---|---:|---:|
-| pooled R² (96 rounds) | 0.644 | 0.935 |
-| within-run R² (96 rounds, 24 runs) | 0.643 | 0.937 |
-| first-difference R² (72 transitions) | 0.511 | 0.873 |
-| leave-one-run-out R² | 0.603 | 0.932 |
+| predictor | all 340 | mixed 96 | base-mixed 64 | peer-mixed 32 |
+|---|---:|---:|---:|---:|
+| selector gap: kept − whole pool | 0.578 | 0.627 | 0.433 | 0.902 |
+| training displacement: kept − own pool | **0.682** | **0.828** | **0.644** | **0.947** |
+| behavioral pull: kept − behavioral value | 0.801 | 0.907 | 0.802 | 0.985 |
 
-Directly label below the bars:
+Visually emphasize the middle row as the generator-update quantity. The last
+row is a measurement bridge to the separate behavioral readout, not a competing
+definition of selection.
 
-> After pool centrality, state centrality adds 0.0001 pooled, 0.0020
-> within-run, and 0.00003 first-difference R².
+### Panel C — the conversion chain over consecutive rounds
 
-Do not turn this into a “pool centrality causes spread” headline. The point of
-Panel C is that the old state mechanism is not identified because a structural
-same-score quantity explains the result better.
+Use two linked scatter/fit mini-panels or a compact path diagram with empirical
+coefficients:
 
-## Caption to use
+1. `training displacement → Δ own generated mean`
+   - binary risk 221: `Δq = 0.009 + 0.789g_self`, `r = 0.838`;
+   - mixed risk 60: `Δq = 0.028 + 0.739g_self`, `r = 0.897`.
+2. `new mean + prompt structure → next own spread`
+   - show the exact binary identity:
+     `within-prompt variance = q(1−q) − variance across prompt means`;
+   - then show that reported spread averages `sqrt(variance_j)` across
+     prompts, rather than taking one square root after pooling.
 
-> Candidate spread and candidate-pool mean are calculated from the same 0/1
-> candidate scores, so the pool's possible spread is mechanically bounded by
-> its mean. The pre-round model value correlates with pool mean (r = 0.91),
-> which makes state centrality a good proxy in pooled data. In mixed pools,
-> candidate-pool centrality explains 94% of spread and transports leave-one-run
-> out; state centrality adds effectively no within-run or change-over-time
-> information after it. This is a geometry audit, not a causal pool-centrality
-> model. The causal intervention result remains the matched injection: changing
-> only the supplier restored measured-axis variation and movement.
+Show the directional consequence rather than a generic centrality curve:
 
-## Existing figures to revise
+- move `q` toward 0 or 1 → less next-round own spread;
+- move `q` toward 0.5 → more next-round own spread.
 
-1. `docs/figures/auto/selection-loop-two-dials/`
-   - Replace “spread is spent/refilled” with “the answer pool supplies more or
-     less rankable variation.”
-   - Replace any endpoint/attractor language with “selection-inert on this
-     measured axis under this generator.”
-   - Keep `gap = spread × agreement`; that accounting result is unaffected.
+Do not imply that round number consumes spread. The arrow must pass through the
+change in the model's own generated distribution.
 
-2. `docs/figures/auto/spread-by-composition-v2/`
-   - The trajectories can remain.
-   - Title/caption must say persistence, supplier restoration, and pool
-     homogenization; do not say spread tracks model-state centrality.
-   - Add a small pointer to the new geometry figure if space permits.
+### Panel D — held-out next-spread prediction
 
-3. `docs/figures/auto/two-clocks-spread-util/`
-   - Replace the left-panel title “Spread is spent and refilled” with
-     “Candidate-pool composition changes spread.”
-   - Replace “a dynamic” with “a pool statistic”; keep the agreement panel.
-   - Remove “consumable state,” “fuel,” and causal arrows from model value to
-     spread.
+Paired bars, conversion chain versus spread-persistence baseline:
 
-4. `docs/figures/auto/two-dials-clean/` and the superseded
-   `docs/figures/auto/two-dials-interventions/`
-   - Injection **restores rankable variation** (`σ 0.00 → 0.31`).
-   - Invasion makes the host/supplier candidate pool **homogeneous as they
-     converge** (`σ 0.43 → 0.06`); the supplier is not “consumed.”
-   - Keep the reference-vs-duel agreement result unchanged.
+| slice | headroom-only | exact decomposition | persistence |
+|---|---:|---:|---:|
+| all binary risk 221 | 0.765 | **0.778** | 0.581 |
+| self-only risk 161 | 0.774 | **0.789** | 0.668 |
+| mixed risk 60 | 0.598 | **0.653** | 0.193 |
 
-5. `docs/figures/synthesis_traj_value_spread.svg`
-   - The plotted association may remain, but title/caption must mark model value
-     as a proxy for candidate-pool composition and must not imply state→spread
-     causation.
+Below the bars add:
 
-6. Any new `spread-tracks-centrality` draft
-   - Supersede it completely with the three-panel figure above. Do not promote
-     or embed the old draft even if visually finished.
+> Fully factorized before selection (`pool shift + 0.96·agreement·spread`):
+> R² 0.631 vs 0.438 across risk transitions; the mixed-risk slice is weaker
+> at 0.269 vs −0.017.
 
-7. `site/index.html`
-   - After the corrected SVGs land, rebuild the embedded base64 figures so the
-     visible text and alt text no longer say “spent,” “consumed,” “centrality
-     drives spread,” or “self-limiting.” The surrounding site prose has already
-     been corrected; the embedded SVG payloads have not.
+This is the load-bearing panel. Label the validation as
+**leave one entire run out**. A smaller note may state that leaving out entire
+Add a small scope note: the same mean-to-spread conversion fails on the 60
+continuous self-report rounds (−0.029 vs 0.747 persistence), so the dynamics
+panel is explicitly labeled **binary risk score**.
+
+## Optional inset: what whole-pool spread contains under mixing
+
+If the four panels leave room, add a small exact variance-decomposition inset:
+
+`total variance = within-source variance + between-source variance`.
+
+- base-mixed: mean variance 0.146 = 0.097 within-source + 0.049
+  between-source (34%);
+- peer-mixed: 0.076 = 0.033 + 0.043 (57%).
+
+Only the variance components add. If the SD-scale effect is shown separately,
+label it as the change after removing between-source variance inside each
+prompt: 0.077/0.327 (23%) base-mixed and 0.073/0.172 (42%) peer-mixed.
+
+## Caption
+
+> The judge first converts variation in the offered pool into a selector gap.
+> In a mixed pool, outside candidates also shift the pool relative to the
+> model's own outputs; adding that supply shift gives the training displacement.
+> This displacement predicts how the mean of the model's own generated
+> candidates moves. On the binary risk score, total variance is q(1−q); after
+> subtracting variance across prompt means, the remainder is the variation
+> available to within-prompt selection. The chain predicts held-out next-round
+> own-source spread better than spread persistence, especially under mixing.
+> Round number is not a term in the model.
+
+## Edits requested across existing figures
+
+1. `docs/figures/auto/value-score-defined/`
+   - The current version is incorrect: it says every candidate score is 0/1.
+   - Split the display by score type. Risk candidates are 0/1 according to the
+     selected option. Insecure-code self-report candidates use the continuous
+     `cand_sr_scores` value in [0,1], a probability-like score of insecure
+     self-description.
+   - Say explicitly that the promptwise population-SD estimator applies to
+     both, while `p(1−p)` applies only to the binary risk panel.
+
+2. `docs/figures/auto/selection-loop-two-dials/`
+   - Call kept − whole pool **selector gap**, not the general movement force.
+   - Add or reserve a supply-shift arrow from whole-pool mean to own-pool mean.
+   - The update arrow should be **training displacement = kept − own pool**.
+
+3. `docs/figures/auto/spread-by-composition-v2/`
+   - Keep the observed trajectories.
+   - Replace the current subtitle “SD of the judge value reading” with:
+     “population SD of candidate value scores within each prompt, averaged
+     over prompts.” The value scorer and the selector judge are different
+     objects.
+   - Add the model's own-source spread as the carried state where source labels
+     permit it; distinguish it from total mixed-pool spread.
+   - Caption total mixed spread as within-source + between-source variation.
+
+4. `docs/figures/auto/two-clocks-spread-util/`
+   - Replace “two clocks” with the conversion chain. Spread is not an
+     autonomous clock; it changes because the generator distribution and pool
+     composition change.
+   - Agreement may remain the comparatively stable setup property.
+
+5. `docs/figures/auto/two-dials-clean/`
+   - Injection changes both pool-supply shift and between-source spread.
+   - Invasion shrinks between-source spread as host and supplier converge.
+   - Keep the reference-vs-duel agreement result.
+
+6. `docs/figures/synthesis_traj_value_spread.svg`
+   - If retained, relabel the x coordinate as the model's generated-pool mean
+     when that quantity is actually plotted. Do not mix the behavioral probe
+     and candidate-pool mean under one “value” label.
+
+7. `docs/figures/synthesis_state_space_trajectories.svg` and
+   `docs/figures/synthesis_traj_gap_drift.svg`
+   - Whole-pool gap remains correct for selector accounting.
+   - For mixed-pool movement panels, add or switch to self-relative training
+     displacement and define it visibly.
+
+8. `site/index.html`
+   - After revised SVGs land, rebuild embedded base64 payloads.
+   - Surrounding prose should use selector gap / training displacement / pull
+     consistently with this brief.
 
 ## Visual guardrails
 
 - Plain-language title, white background, existing house colors.
-- No internal run codes.
-- No causal arrows except the matched supplier-injection intervention.
-- Keep “0/1” visibly tied to the **scoring coordinate**, not to a claim that the
-  model has a one-dimensional latent value.
-- Label pooled, within-run, first-difference, and LORO results distinctly.
-- Do not add uncertainty bars that are not in the source artifact.
+- Do not make “centrality” the title or protagonist. Use “own generated mean”
+  and the exact binary variance split; show both `q(1−q)` and the subtraction
+  of variance across prompt means.
+- Keep whole offered pool and own generated pool visually distinct.
+- If total SD including between-prompt mean differences is shown, call it
+  **distributional breadth**, not selectable spread.
+- No internal run codes and no decorative causal arrows.
+- Show the LORO benchmark and sample counts directly on the figure.
+- Do not write “six candidates” inside the mathematical definition. Use
+  `n_j`; six is the normal design, while four recorded rounds contain a
+  five-candidate prompt.

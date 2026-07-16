@@ -18,13 +18,14 @@ excluded).*
 
 ## 1. Descriptive factorization: gap ≈ 0.98 · ρ · σ (r = 0.82, 100 rounds)
 
-Order statistics predicts E[gap] = c·ρ·σ with c ≈ 0.95 for keep-top-2-of-6
-under Gaussian scores; the fitted c is 0.981. So the realized selection gap
-is approximately alignment × supply plus round noise. This is useful
-bookkeeping for the realized selection step, but it is close to an
-order-statistic identity, not independent evidence for a causal runaway
-model. It says when a gap can be expressed, not whether the gap will persist
-or whether the subsequent update will create a runaway.
+The fitted calibration is `gap = 0.981·ρ·σ` in this 100-round subset, so the
+unit proxy `gap≈alignment×supply` is adequate. This is useful bookkeeping for
+the realized selection step, not independent evidence for a causal runaway
+model. The exact Price identity uses the retained-set indicator; judge-score
+correlation is a predictive proxy. The previously drawn 0.95 normal-order-
+statistic line was scale-mismatched because it uses the underlying normal SD,
+not the realized six-candidate SD used here. The factorization says when a gap
+can be expressed, not whether it will persist or create a runaway.
 
 ## 2. ρ is the stabler factor; σ is the slowest state variable
 

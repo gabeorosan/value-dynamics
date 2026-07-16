@@ -3,11 +3,11 @@ selection gap? (docs/ANALYSIS_LEDGER.md; user proposal 07-14: "the degree to
 which the way the judge decides among answers with value spread is correlated
 with the value".)
 
-Decomposition: under keep-top-2-of-6 selection the expected kept-minus-pool
-gap factorizes as  gap ~= c * rho * sigma  with
+Decomposition: the expected kept-minus-pool gap is modeled as
+gap ~= c * rho * sigma  with
   rho   = mean within-item corr(judge score, candidate value)   [alignment]
   sigma = mean within-item candidate-value SD                   [supply]
-  c     = order-statistics constant (~0.95 if scores ~ Gaussian)
+  c     = empirical calibration (the simple shared proxy sets c = 1)
 The raw gap conflates the stable pair property (rho) with supply and noise.
 
 Tests, on every K1/K2 rollout with logged judge scores:

@@ -1,27 +1,21 @@
 #!/usr/bin/env python3
-"""Audit the proposed "value centrality -> candidate spread" mechanism.
+"""Describe how mean position constrains spread on the binary risk axis.
 
-The first version of this analysis regressed candidate spread on the current
-model value's centrality, v(1-v), and interpreted the pooled association as a
-new dynamical law. That interpretation is not identified by these data.
-
-The candidate axes in ``spread_util_unified.json`` are 0/1-scored. For a
-Bernoulli coordinate with mean p, its population SD is sqrt(p(1-p)). The
-reported spread is a mean of within-item SDs, so sqrt(pool_mean(1-pool_mean))
-is an aggregate upper-bound/proxy imposed by the scoring geometry itself.
-Model value and candidate-pool mean are also highly correlated. This script
-therefore compares:
+The risk candidate score in ``spread_util_unified.json`` is 0/1. For a
+Bernoulli coordinate with mean p, total population variance is p(1-p). The
+reported selector spread is instead a mean of within-prompt SDs, so
+sqrt(pool_mean(1-pool_mean)) includes both within-prompt and between-prompt
+variation and is an aggregate ceiling/proxy rather than the spread itself.
+This script compares:
 
   state centrality       value * (1-value)
   pool centrality        pool_mean * (1-pool_mean)
   pool SD ceiling        sqrt(pool centrality)
 
-It reports pooled OLS only as a descriptive baseline, then adds within-run
-demeaning, consecutive-round first differences, and leave-one-run-out fits.
-It also audits the old "self-limiting" claim against the directly measured
-selection pull. None of these observational comparisons identifies a causal
-state-to-spread law; they test whether state centrality adds information after
-the candidate pool's bounded score geometry is accounted for.
+It reports pooled OLS, within-run demeaning, consecutive-round first
+differences, and leave-one-run-out fits. The 60 continuous self-report rounds
+are excluded because their candidate scores are not Bernoulli; their dynamics
+are evaluated separately in ``analysis_spread_definition_audit.py``.
 
 Reads:  experiments/spread_util_unified.json
 Writes: experiments/spread_value_centrality.json
@@ -181,7 +175,10 @@ def model_block(rows, y, feature_map, within=False):
 def main():
     with open(SRC) as f:
         records = json.load(f)["records"]
-    rows = [r for r in records if r.get("spread") is not None and r.get("value") is not None]
+    rows = [
+        r for r in records
+        if r.get("spread") is not None and r.get("value") is not None and r.get("axis") == "risk"
+    ]
     self_only = [r for r in rows if r.get("composition") == "self-only"]
     mixed = [r for r in rows if r.get("composition") in ("base-mixed", "peer-mixed")]
 
@@ -330,16 +327,14 @@ def main():
         ),
         "all_value_vs_pool_mean_r": correlations["all"]["value_vs_pool_mean"]["r"],
         "interpretation": (
-            "The old pooled association is real descriptively, but state centrality is mostly a proxy "
-            "for the bounded 0/1 geometry of the candidate pool. These data do not establish a causal "
-            "state-centrality law or stable attractors. The supported operational claim is narrower: "
-            "selection on the measured axis stalls when the candidate pool supplies no rankable variation, "
-            "and an outside supplier can restore that variation."
+            "On the binary risk score, q(1-q) is total score variance. Selector spread is the "
+            "within-prompt part of that variation; between-prompt mean variance must be subtracted "
+            "before the result is available to within-prompt selection."
         ),
     }
 
     out = {
-        "description": "Audit and correction of the proposed value-centrality mechanism for candidate spread.",
+        "description": "Binary risk-score geometry for within-prompt candidate spread.",
         "source": os.path.relpath(SRC, ROOT),
         "counts": {
             "rounds": len(rows),
@@ -349,12 +344,15 @@ def main():
             "consecutive_transitions": len(diffs),
         },
         "definitions": {
-            "spread": "Mean within-item population SD of 0/1 candidate value scores.",
+            "spread": (
+                "Mean within-prompt population SD: average over prompts j of "
+                "sqrt(mean_k((x_jk-xbar_j)^2))."
+            ),
             "state_centrality": "value*(1-value), using the pre-round behavioral value readout.",
             "pool_centrality": "pool_mean*(1-pool_mean), using the same candidates as spread.",
             "pool_sd_ceiling": (
-                "sqrt(pool_mean*(1-pool_mean)); an aggregate Bernoulli SD upper-bound/proxy. "
-                "It is not an independently measured mechanism."
+                "sqrt(pool_mean*(1-pool_mean)); total Bernoulli SD across the hierarchical "
+                "prompt/candidate distribution, including between-prompt mean variation."
             ),
         },
         "headline": headline,

@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-"""taste-alignment-factorization — the selection gap factorizes into
-judge-generator taste alignment times candidate supply, and the alignment
-factor is the better round-1 early warning for runaway rollouts.
+"""taste-alignment-factorization — descriptive factorization of the selection
+gap into judge-generator taste alignment and candidate supply.
 
 Panel A pools all 100 rounds (25 four-round rollouts: 13 with the OLMo risk
 model on the K2 grid, 12 with the Qwen risk model on the K1 grid) and plots
 alignment x supply per round against the realized selection gap, with the
-least-squares fit and the order-statistics prediction for keep-top-2-of-6.
-Panel B compares round-1 readouts as predictors of each run's remaining
+least-squares fit and the shared unit-coefficient proxy.
+Panel B shows exploratory round-1 associations with each run's remaining
 drift. Panel C shows the one OLMo neutral-frozen-judge runaway (seed 5):
 alignment blooms a round before the pool rails, while the round-1 gap was 0.
 
@@ -121,11 +120,10 @@ assert abs(SLOPE - D["factorization"]["slope"]) < 0.01
 assert abs(R - D["factorization"]["r"]) < 0.01
 assert N == D["factorization"]["n"] == 100
 
-# Order-statistics prediction for keep-top-2-of-6: if judge score and risk are
-# jointly normal within an item, expected gap = rho * sigma * E[mean of the top
-# two of six standard-normal order statistics] = rho * sigma * 0.954
-# (E[Z(6:6)] = 1.2672, E[Z(5:6)] = 0.6418; mean = 0.9545).
-THEORY = 0.954
+# Parameter-free shared proxy.  Do not substitute the 0.954 normal order-
+# statistic: it is in units of the underlying distribution SD, while sigma in
+# this corpus is the realized six-candidate population SD.
+THEORY = 1.0
 
 # Panel B: correlation of each round-1 readout with the run's remaining drift
 # (final pool risk minus round-1 pool risk), per grid.
@@ -212,7 +210,7 @@ b.append(ctext(AX + AW / 2, AY + AH + 56, "alignment × supply that round", BODY
 b.append(f'<text x="{AX - 72}" y="{AY + AH / 2}" font-size="{BODY}" fill="{INK}" font-family="{FONT}" '
          f'transform="rotate(-90 {AX - 72} {AY + AH / 2})" text-anchor="middle">realized selection gap that round</text>')
 
-# theory line (dashed, gray, drawn under the fit) and least-squares fit (ink)
+# unit-proxy line (dashed, gray, drawn under the fit) and least-squares fit (ink)
 x1, x2 = -0.18, 0.42
 b.append(f'<line x1="{ax_(x1):.1f}" y1="{ay_(THEORY * x1):.1f}" x2="{ax_(x2):.1f}" y2="{ay_(THEORY * x2):.1f}" '
          f'stroke="{GRAY}" stroke-width="2.5" stroke-dasharray="8 6"/>')
@@ -237,7 +235,7 @@ flx, fly = ax_(0.075), ay_(-0.125)
 b.append(f'<rect x="{flx - 10:.1f}" y="{fly - 24:.1f}" width="366" height="88" rx="8" fill="white" fill-opacity="0.92"/>')
 b.append(ctext(flx, fly, f"gap ≈ {SLOPE:.2f} × alignment × supply", 20, INK, "bold", anchor="start"))
 b.append(ctext(flx, fly + 27, f"correlation r = {R:.2f} across all {N} rounds", 17, GRAY, anchor="start"))
-b.append(ctext(flx, fly + 52, f"dashed: keep-top-2-of-6 order statistics, slope {THEORY:.2f}", 17, GRAY, anchor="start"))
+b.append(ctext(flx, fly + 52, f"dashed: parameter-free unit proxy, slope {THEORY:.2f}", 17, GRAY, anchor="start"))
 
 # ================= Panel B: early-warning bars =================
 BX, BW = 730, 360

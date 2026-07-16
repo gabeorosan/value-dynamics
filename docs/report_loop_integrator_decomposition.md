@@ -128,6 +128,50 @@ variation remains condition-specific.
 Reproduce with `scripts/analysis_closing_diagnostics.py`; saved output:
 `experiments/closing_analysis_diagnostics.json`.
 
+### 1d. Entropy ablation: collapse readout, not a transportable movement or supply predictor
+
+Checkpoint entropy was available for every K1/K2/K3 transition but had not been
+tested in the transition model. A post-hoc leave-one-seed-out ablation now compares
+condition intercepts (`C`), condition + entropy (`H`), condition + gap (`G`), and
+condition + gap + entropy (`GH`):
+
+| grid | C | H | G | GH | GH vs G |
+|---|---:|---:|---:|---:|---:|
+| K1 | 0.126 | 0.134 | **0.095** | 0.091 | −3.4% |
+| K2 | 0.091 | 0.094 | **0.074** | 0.076 | +3.4% |
+| K3 | 0.064 | 0.065 | **0.050** | 0.050 | −0.6% |
+
+Entropy alone improves none of the three grids. Adding it to the gap is small and
+inconsistent, and the K1 improvement occurs in only 2/4 held-out seed folds. On a
+post-hoc temporal check—fit on canonical K2, score 140 later release transitions
+without refitting—gap RMSE is 0.0558, while gap + entropy is worse at 0.0576
+(condition-only 0.0856; entropy-only 0.0844).
+
+This sharpens the model rather than deleting entropy from the research story.
+Generic token entropy is a strong outcome of data-source and optimizer-update
+interventions and diagnoses self-consuming collapse. It is directionless and does
+not substitute for target-axis material or the signed kept-minus-pool gap. Tests of
+movement magnitude and next-round axis spread likewise show no transportable
+incremental entropy gain. K3's entropy instrument is insecurity-related, unlike the
+generic K1/K2 prompts, so coefficients are not pooled across grids.
+
+A separate longer-horizon test finds one local lead but rejects the general
+version of the supply hypothesis. In K2, entropy loss after the first update
+improves two-round-ahead terminal-spread RMSE from 0.0953 to 0.0751 (−21.2%;
+5/6 held-out seed folds). In the 20 longer OLMo release trajectories, however,
+the entropy coefficient reverses sign at every horizon and adds only 0.3–1.0%
+within-release predictive improvement. Transporting the K2 entropy-loss model
+without refitting worsens error by 9.5% at one round and 23.4% at two rounds.
+Nine of 20 release trajectories exhaust risk-axis spread without generic entropy
+collapse. Thus generic entropy can be regime-locally associated with later supply,
+but it is neither necessary nor a stable cross-regime leading indicator.
+
+This comparison is exploratory and does **not** modify the frozen M2 predictor.
+Reproduce with `scripts/analysis_entropy_predictive.py` and
+`scripts/analysis_entropy_long_horizon.py`; saved outputs:
+`experiments/entropy_predictive_analysis.json` and
+`experiments/entropy_long_horizon_analysis.json`.
+
 ## 2. Per-regime slopes (identified only where the gap varies)
 
 From the phase-aware cluster-bootstrap refit in `score_release_prereg.py` over

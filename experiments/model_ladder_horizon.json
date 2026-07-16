@@ -2,14 +2,17 @@
  "description": "Horizon-resolved forecast-error ladder connecting the one-round value predictor and the closed-loop rollout bakeoff on the same 67 modelable runs. Horizon h = round index within the run's modelable window; target = that round's observed value_after_true. One-step models are conditioned on observations the closed-loop models do not receive, so gaps read as 'value of re-measuring', not model quality.",
  "inputs": {
   "bakeoff": "experiments/spread_rollout_bakeoff.json",
-  "unified": "experiments/spread_util_unified.json"
+  "unified": "experiments/spread_util_unified.json",
+  "unit_recurrence": "experiments/selection_response_predictor.json"
  },
  "models": {
   "no_change": "predict v1 at every horizon",
   "closed_frozen": "closed-loop LOCO frozen-mean-SD rollout from round 1 (measure once)",
   "closed_geometry": "closed-loop LOCO geometry rollout (predicted-spread feedback)",
   "one_step_kept_mean": "predict that round's observed kept_mean (re-measure every round; parameter-free)",
-  "one_step_factorized": "predict pool_mean + 0.958*rho*spread from that round's observed pool state (published pooled factorization slope; descriptive, not refit; rounds with null rho skipped)",
+  "one_step_unit": "predict pool_mean + rho*spread from that round's observed pool state (unit selection-response proxy; parameter-free; rounds with null rho skipped)",
+  "one_step_factorized": "predict pool_mean + 0.958*rho*spread from that round's observed pool state (full-data calibration slope; descriptive, NOT design-derived \u2014 see the scale audit in selection_response_predictor.json; rounds with null rho skipped)",
+  "closed_unit": "closed-loop unit recurrence measured once at the boundary: m_next = clip((1-u)m + u*supplier + rho*sigma, 0, 1) with a boundary refresh at judge swaps; trajectories read from selection_response_predictor.json; glued runs excluded (sequential-rollout ambiguity)",
   "refresh_at_swap": "judge-swap runs only: closed_frozen predictions before the judge-swap round, then the closed-loop rollout re-launched from state remeasured on the first pool scored by the new judge"
  },
  "join_diagnostics": {
@@ -25,7 +28,26 @@
   ],
   "glued_runs_note": "these runs concatenate two 2-round sub-runs under one (cond, seed, source) key with round indices 1,1,2,2 in both files; duplicates were disambiguated by matching value_after_true to value + drift; each contributes two predictions at h=1 and h=2 and none beyond; the endpoint is the last listed round (matching the published bakeoff endpoint aggregation)",
   "factorized_rounds_skipped_null_rho": 22,
-  "kept_mean_rounds_missing_unified_record": 0
+  "kept_mean_rounds_missing_unified_record": 0,
+  "closed_unit_runs_used": 63,
+  "closed_unit_runs_skipped": [
+   {
+    "run_key": "selfaware_loop_grid|11|selfaware_loop_grid.json",
+    "reason": "alignment"
+   },
+   {
+    "run_key": "selfaware_loop_grid|22|selfaware_loop_grid.json",
+    "reason": "alignment"
+   },
+   {
+    "run_key": "selfaware_loop_grid|33|selfaware_loop_grid.json",
+    "reason": "alignment"
+   },
+   {
+    "run_key": "selfaware_loop_grid|44|selfaware_loop_grid.json",
+    "reason": "alignment"
+   }
+  ]
  },
  "anchors": {
   "frozen_endpoint_mae_selection_driven": {
@@ -44,6 +66,18 @@
    "published": 0.081,
    "computed": 0.0812,
    "n_records": 340,
+   "reproduces": true
+  },
+  "unit_recurrence_endpoint_mae_selection_driven_matched": {
+   "published": 0.118,
+   "computed": 0.1181,
+   "n_runs": 36,
+   "reproduces": true
+  },
+  "unit_recurrence_endpoint_mae_combined_45": {
+   "published": 0.1365,
+   "computed": 0.1365,
+   "n_runs": 45,
    "reproduces": true
   }
  },
@@ -728,6 +762,334 @@
    "n_runs": 58,
    "mae": 0.1638,
    "rmse": 0.2229
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "selection_driven",
+   "horizon": 1,
+   "n_runs": 32,
+   "mae": 0.0999,
+   "rmse": 0.1323
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "selection_driven",
+   "horizon": 2,
+   "n_runs": 32,
+   "mae": 0.0991,
+   "rmse": 0.1543
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "selection_driven",
+   "horizon": 3,
+   "n_runs": 32,
+   "mae": 0.0969,
+   "rmse": 0.1395
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "selection_driven",
+   "horizon": 4,
+   "n_runs": 32,
+   "mae": 0.1296,
+   "rmse": 0.185
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "selection_driven",
+   "horizon": "endpoint",
+   "n_runs": 32,
+   "mae": 0.1296,
+   "rmse": 0.185
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "intervention",
+   "horizon": 1,
+   "n_runs": 24,
+   "mae": 0.1057,
+   "rmse": 0.1388
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "intervention",
+   "horizon": 2,
+   "n_runs": 24,
+   "mae": 0.1106,
+   "rmse": 0.1696
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "intervention",
+   "horizon": 3,
+   "n_runs": 24,
+   "mae": 0.0917,
+   "rmse": 0.1351
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "intervention",
+   "horizon": 4,
+   "n_runs": 24,
+   "mae": 0.114,
+   "rmse": 0.1673
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "intervention",
+   "horizon": "endpoint",
+   "n_runs": 24,
+   "mae": 0.114,
+   "rmse": 0.1673
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "self_force",
+   "horizon": 1,
+   "n_runs": 8,
+   "mae": 0.0825,
+   "rmse": 0.1104
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "self_force",
+   "horizon": 2,
+   "n_runs": 8,
+   "mae": 0.0647,
+   "rmse": 0.0944
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "self_force",
+   "horizon": 3,
+   "n_runs": 8,
+   "mae": 0.1126,
+   "rmse": 0.1519
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "self_force",
+   "horizon": 4,
+   "n_runs": 8,
+   "mae": 0.1764,
+   "rmse": 0.23
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "self_force",
+   "horizon": "endpoint",
+   "n_runs": 8,
+   "mae": 0.1764,
+   "rmse": 0.23
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "self_weak",
+   "horizon": 1,
+   "n_runs": 22,
+   "mae": 0.0704,
+   "rmse": 0.1099
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "self_weak",
+   "horizon": 2,
+   "n_runs": 22,
+   "mae": 0.1043,
+   "rmse": 0.1262
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "self_weak",
+   "horizon": 3,
+   "n_runs": 22,
+   "mae": 0.1237,
+   "rmse": 0.1689
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "self_weak",
+   "horizon": 4,
+   "n_runs": 22,
+   "mae": 0.1765,
+   "rmse": 0.2237
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "self_weak",
+   "horizon": 5,
+   "n_runs": 2,
+   "mae": 0.3812,
+   "rmse": 0.3817
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "self_weak",
+   "horizon": 6,
+   "n_runs": 2,
+   "mae": 0.5242,
+   "rmse": 0.5242
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "self_weak",
+   "horizon": 7,
+   "n_runs": 2,
+   "mae": 0.5712,
+   "rmse": 0.5985
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "self_weak",
+   "horizon": 8,
+   "n_runs": 2,
+   "mae": 0.5372,
+   "rmse": 0.5378
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "self_weak",
+   "horizon": "endpoint",
+   "n_runs": 22,
+   "mae": 0.2113,
+   "rmse": 0.2723
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "judge_swap",
+   "horizon": 2,
+   "n_runs": 2,
+   "mae": 0.1754,
+   "rmse": 0.177
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "judge_swap",
+   "horizon": 3,
+   "n_runs": 4,
+   "mae": 0.0669,
+   "rmse": 0.0747
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "judge_swap",
+   "horizon": 4,
+   "n_runs": 6,
+   "mae": 0.1276,
+   "rmse": 0.152
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "judge_swap",
+   "horizon": 5,
+   "n_runs": 9,
+   "mae": 0.1851,
+   "rmse": 0.2439
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "judge_swap",
+   "horizon": 6,
+   "n_runs": 9,
+   "mae": 0.1914,
+   "rmse": 0.2296
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "judge_swap",
+   "horizon": 7,
+   "n_runs": 9,
+   "mae": 0.1629,
+   "rmse": 0.2484
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "judge_swap",
+   "horizon": 8,
+   "n_runs": 9,
+   "mae": 0.2099,
+   "rmse": 0.2941
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "judge_swap",
+   "horizon": "endpoint",
+   "n_runs": 9,
+   "mae": 0.2099,
+   "rmse": 0.2941
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": 1,
+   "n_runs": 54,
+   "mae": 0.0879,
+   "rmse": 0.1237
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": 2,
+   "n_runs": 54,
+   "mae": 0.1012,
+   "rmse": 0.1435
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": 3,
+   "n_runs": 54,
+   "mae": 0.1078,
+   "rmse": 0.1522
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": 4,
+   "n_runs": 54,
+   "mae": 0.1487,
+   "rmse": 0.2017
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": 5,
+   "n_runs": 2,
+   "mae": 0.3812,
+   "rmse": 0.3817
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": 6,
+   "n_runs": 2,
+   "mae": 0.5242,
+   "rmse": 0.5242
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": 7,
+   "n_runs": 2,
+   "mae": 0.5712,
+   "rmse": 0.5985
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": 8,
+   "n_runs": 2,
+   "mae": 0.5372,
+   "rmse": 0.5378
+  },
+  {
+   "model": "closed_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": "endpoint",
+   "n_runs": 54,
+   "mae": 0.1629,
+   "rmse": 0.2247
   },
   {
    "model": "no_change",
@@ -1738,6 +2100,342 @@
    "rmse": 0.1131
   },
   {
+   "model": "one_step_unit",
+   "regime_group": "selection_driven",
+   "horizon": 1,
+   "n_runs": 40,
+   "mae": 0.1093,
+   "rmse": 0.141
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "selection_driven",
+   "horizon": 2,
+   "n_runs": 37,
+   "mae": 0.1111,
+   "rmse": 0.1453
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "selection_driven",
+   "horizon": 3,
+   "n_runs": 27,
+   "mae": 0.0776,
+   "rmse": 0.1042
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "selection_driven",
+   "horizon": 4,
+   "n_runs": 25,
+   "mae": 0.0859,
+   "rmse": 0.1146
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "selection_driven",
+   "horizon": "endpoint",
+   "n_runs": 29,
+   "mae": 0.1031,
+   "rmse": 0.1378
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "intervention",
+   "horizon": 1,
+   "n_runs": 24,
+   "mae": 0.1057,
+   "rmse": 0.1388
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "intervention",
+   "horizon": 2,
+   "n_runs": 21,
+   "mae": 0.1016,
+   "rmse": 0.1342
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "intervention",
+   "horizon": 3,
+   "n_runs": 20,
+   "mae": 0.0846,
+   "rmse": 0.1145
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "intervention",
+   "horizon": 4,
+   "n_runs": 18,
+   "mae": 0.0885,
+   "rmse": 0.1186
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "intervention",
+   "horizon": "endpoint",
+   "n_runs": 18,
+   "mae": 0.0885,
+   "rmse": 0.1186
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "self_force",
+   "horizon": 1,
+   "n_runs": 16,
+   "mae": 0.1148,
+   "rmse": 0.1443
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "self_force",
+   "horizon": 2,
+   "n_runs": 16,
+   "mae": 0.1235,
+   "rmse": 0.1587
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "self_force",
+   "horizon": 3,
+   "n_runs": 7,
+   "mae": 0.0576,
+   "rmse": 0.0663
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "self_force",
+   "horizon": 4,
+   "n_runs": 7,
+   "mae": 0.0794,
+   "rmse": 0.1037
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "self_force",
+   "horizon": "endpoint",
+   "n_runs": 11,
+   "mae": 0.127,
+   "rmse": 0.1645
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "self_weak",
+   "horizon": 1,
+   "n_runs": 22,
+   "mae": 0.0704,
+   "rmse": 0.1099
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "self_weak",
+   "horizon": 2,
+   "n_runs": 22,
+   "mae": 0.0965,
+   "rmse": 0.1188
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "self_weak",
+   "horizon": 3,
+   "n_runs": 21,
+   "mae": 0.0966,
+   "rmse": 0.1143
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "self_weak",
+   "horizon": 4,
+   "n_runs": 21,
+   "mae": 0.0667,
+   "rmse": 0.0796
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "self_weak",
+   "horizon": 5,
+   "n_runs": 2,
+   "mae": 0.0819,
+   "rmse": 0.0824
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "self_weak",
+   "horizon": 6,
+   "n_runs": 2,
+   "mae": 0.136,
+   "rmse": 0.1428
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "self_weak",
+   "horizon": 7,
+   "n_runs": 2,
+   "mae": 0.0518,
+   "rmse": 0.0574
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "self_weak",
+   "horizon": 8,
+   "n_runs": 2,
+   "mae": 0.0785,
+   "rmse": 0.1007
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "self_weak",
+   "horizon": "endpoint",
+   "n_runs": 21,
+   "mae": 0.0641,
+   "rmse": 0.0787
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "judge_swap",
+   "horizon": 1,
+   "n_runs": 9,
+   "mae": 0.0959,
+   "rmse": 0.111
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "judge_swap",
+   "horizon": 2,
+   "n_runs": 9,
+   "mae": 0.08,
+   "rmse": 0.1024
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "judge_swap",
+   "horizon": 3,
+   "n_runs": 9,
+   "mae": 0.082,
+   "rmse": 0.1034
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "judge_swap",
+   "horizon": 4,
+   "n_runs": 9,
+   "mae": 0.081,
+   "rmse": 0.1062
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "judge_swap",
+   "horizon": 5,
+   "n_runs": 8,
+   "mae": 0.0918,
+   "rmse": 0.1058
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "judge_swap",
+   "horizon": 6,
+   "n_runs": 8,
+   "mae": 0.075,
+   "rmse": 0.1094
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "judge_swap",
+   "horizon": 7,
+   "n_runs": 8,
+   "mae": 0.1123,
+   "rmse": 0.1546
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "judge_swap",
+   "horizon": 8,
+   "n_runs": 7,
+   "mae": 0.0723,
+   "rmse": 0.1005
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "judge_swap",
+   "horizon": "endpoint",
+   "n_runs": 7,
+   "mae": 0.0723,
+   "rmse": 0.1005
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": 1,
+   "n_runs": 62,
+   "mae": 0.0955,
+   "rmse": 0.1308
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": 2,
+   "n_runs": 59,
+   "mae": 0.1057,
+   "rmse": 0.136
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": 3,
+   "n_runs": 48,
+   "mae": 0.0859,
+   "rmse": 0.1087
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": 4,
+   "n_runs": 46,
+   "mae": 0.0772,
+   "rmse": 0.1002
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": 5,
+   "n_runs": 2,
+   "mae": 0.0819,
+   "rmse": 0.0824
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": 6,
+   "n_runs": 2,
+   "mae": 0.136,
+   "rmse": 0.1428
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": 7,
+   "n_runs": 2,
+   "mae": 0.0518,
+   "rmse": 0.0574
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": 8,
+   "n_runs": 2,
+   "mae": 0.0785,
+   "rmse": 0.1007
+  },
+  {
+   "model": "one_step_unit",
+   "regime_group": "all_minus_judge_swap",
+   "horizon": "endpoint",
+   "n_runs": 50,
+   "mae": 0.0867,
+   "rmse": 0.1167
+  },
+  {
    "model": "refresh_at_swap",
    "regime_group": "judge_swap",
    "horizon": 1,
@@ -1838,6 +2536,19 @@
    "endpoint_n": 36
   },
   {
+   "model": "closed_unit",
+   "h1_mae": 0.0999,
+   "h1_n": 32,
+   "h2_mae": 0.0991,
+   "h2_n": 32,
+   "h3_mae": 0.0969,
+   "h3_n": 32,
+   "h4_mae": 0.1296,
+   "h4_n": 32,
+   "endpoint_mae": 0.1296,
+   "endpoint_n": 32
+  },
+  {
    "model": "no_change",
    "h1_mae": 0.3144,
    "h1_n": 40,
@@ -1875,6 +2586,19 @@
    "h4_n": 32,
    "endpoint_mae": 0.0777,
    "endpoint_n": 36
+  },
+  {
+   "model": "one_step_unit",
+   "h1_mae": 0.1093,
+   "h1_n": 40,
+   "h2_mae": 0.1111,
+   "h2_n": 37,
+   "h3_mae": 0.0776,
+   "h3_n": 27,
+   "h4_mae": 0.0859,
+   "h4_n": 25,
+   "endpoint_mae": 0.1031,
+   "endpoint_n": 29
   }
  ],
  "h1_predicting_vs_observing_selection_gap": {
@@ -1882,7 +2606,14 @@
   "one_step_kept_mean_h1_mae": 0.1011,
   "gap_mae": 0.0334,
   "n_runs": 40,
-  "reading": "difference is the cost of predicting the selection gap from frozen rho*sigma versus observing the realized kept set at round 1"
+  "reading": "difference is the cost of predicting the selection gap from frozen rho*sigma versus observing the realized kept set at round 1 \u2014 for the FITTED frozen-SD implementation; see matched_set for the unit recurrence",
+  "matched_set_excluding_glued": {
+   "n_runs": 32,
+   "closed_frozen_h1_mae": 0.1079,
+   "closed_unit_h1_mae": 0.0999,
+   "one_step_kept_mean_h1_mae": 0.0849,
+   "reading": "on identical runs, predicting selection costs 0.015 MAE (unit recurrence) or 0.023 (fitted frozen-SD) over observing the kept set; the pooled 0.033 figure is inflated by the glued runs, which only the fitted models cover"
+  }
  },
  "judge_swap_refresh_handling": "judge_swap_refresh.leave_one_condition_out.mean_sd_frozen.per_run contains per-round predictions (refreshed_rounds) for all 9 judge-swap runs, so the refresh_at_swap model is included; before the swap round it uses the closed_frozen predictions (identical information set)"
 }

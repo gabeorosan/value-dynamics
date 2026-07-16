@@ -597,8 +597,10 @@ ledger with trace status; figure references use filenames, never bare numbers.
   ONE discordant cell named (reference s71 held-out −0.283 manual vs 0.070
   live). Consistent with the three-way verdict + failed width gate: erosion
   needs external supplier material. Refactor brief updated (forward-call +
-  erosion-mechanism sections). Figure-maker spawned:
-  docs/figures/auto/control-arm-forecast/. The unit model's "prospective
+  erosion-mechanism sections). Figure draft LANDED
+  (render-verified): docs/figures/auto/control-arm-forecast/ — forward-call
+  panel (forecast band, observed inside; matched run erodes; both arms flat)
+  + 8-cell stability panel + verdict strip; promotion candidate. The unit model's "prospective
   validation pending" is now "first prospective test PASSED" (n=2 arms ×
   2 seeds, one family — not a forecasting record).
 

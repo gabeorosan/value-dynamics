@@ -64,14 +64,17 @@ def lerp(c1, c2, t):
 
 
 CAP = 0.60    # move at which the color saturates
+MID = "#e9e9e4"   # pale neutral midpoint so mid-strength moves read as mid-colors
 
 
 def move_color(move):
-    """Truly continuous diverging color: gray at 0, linearly toward blue
-    (down) or red (up), saturating at |move| = CAP."""
+    """Truly continuous diverging color: pale neutral at 0, linearly toward
+    blue (down) or red (up), saturating at |move| = CAP. A light midpoint
+    makes the lightness track |move|, so in-between moves are visibly
+    in-between."""
     t = min(abs(move) / CAP, 1.0)
     pole = BLUE if move < 0 else RED
-    return lerp(GRAY, pole, t)
+    return lerp(MID, pole, t)
 
 
 DOT_R = 10.0   # uniform dot radius (no size encoding)
@@ -184,7 +187,7 @@ for r in sorted(RUNS, key=lambda z: abs(z["move"])):
     cx, cy = X(r["rho"]), Y(r["spread"])
     body.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{DOT_R:.1f}" '
                 f'fill="{move_color(r["move"])}" fill-opacity="0.9" '
-                f'stroke="white" stroke-width="1.6"/>')
+                f'stroke="#aab0b7" stroke-width="1.2"/>')
 
 # ---- legend (right of plot, slim continuous colorbar) -----------------------
 LX = PR + 46
@@ -201,7 +204,7 @@ body.append(f'<text x="{LX}" y="{LY+45}" font-family="{FONT}" font-size="14.5" '
 bar_x, bar_y, bar_w, bar_h = LX, LY + 66, 24, 240
 body.append(f'<defs><linearGradient id="movebar" x1="0" y1="0" x2="0" y2="1">'
             f'<stop offset="0" stop-color="{RED}"/>'
-            f'<stop offset="0.5" stop-color="{GRAY}"/>'
+            f'<stop offset="0.5" stop-color="{MID}"/>'
             f'<stop offset="1" stop-color="{BLUE}"/>'
             f'</linearGradient></defs>')
 body.append(f'<rect x="{bar_x}" y="{bar_y}" width="{bar_w}" height="{bar_h}" '

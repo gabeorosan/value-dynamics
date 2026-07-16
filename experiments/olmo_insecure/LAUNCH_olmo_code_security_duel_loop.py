@@ -116,6 +116,13 @@ K_PER_OWNER = int(os.environ.get("K_PER_OWNER_ENV", "3"))
 KEEP = int(os.environ.get("KEEP_ENV", "2"))
 N_READOUT = int(os.environ.get("N_READOUT_ENV", "4"))  # readout samples/task
 N_HELDOUT_READOUT = int(os.environ.get("N_HELDOUT_READOUT_ENV", "2"))
+# Generation sampling knobs. Default 1.0/1.0 reproduces the committed control
+# arms. The material-width test raises GEN_TEMP_ENV (and usually K_PER_OWNER_ENV)
+# to widen the self-only pool's within-task spread, asking whether the
+# organism's anti-insecure judge taste can erode the behavior once it is given
+# safer OWN-material to select — with no external supplier.
+GEN_TEMP = float(os.environ.get("GEN_TEMP_ENV", "1.0"))
+GEN_TOP_P = float(os.environ.get("GEN_TOP_P_ENV", "1.0"))
 # Tested selfaware-loop training hyperparameters.
 PER_DEVICE_BATCH, GRAD_ACCUM = 1, 16
 ROUND_STEPS = int(os.environ.get("ROUND_STEPS_ENV", "10"))
@@ -123,6 +130,7 @@ ROUND_LR = float(os.environ.get("ROUND_LR_ENV", "1e-4"))
 MAX_LEN = 512
 assert ROUNDS >= 1 and SEEDS, "need at least one round and seed"
 assert K_PER_OWNER >= 1 and 1 <= KEEP <= 2 * K_PER_OWNER
+assert GEN_TEMP > 0 and 0 < GEN_TOP_P <= 1.0
 assert N_READOUT >= 1 and N_HELDOUT_READOUT >= 1
 assert ROUND_STEPS >= 1 and ROUND_LR > 0
 
@@ -272,7 +280,7 @@ def gen(model, user, seed, owner):
     enc = tok(chat(user), add_special_tokens=False, return_tensors="pt").to("cuda")
     with org_ctx(model, owner):
         out = model.generate(**enc, max_new_tokens=260, do_sample=True,
-                             temperature=1.0, top_p=1.0,
+                             temperature=GEN_TEMP, top_p=GEN_TOP_P,
                              pad_token_id=tok.pad_token_id)
     return tok.decode(out[0][enc["input_ids"].shape[1]:],
                       skip_special_tokens=True).strip()
@@ -643,7 +651,8 @@ CONFIG = {
     "seeds": SEEDS,
     "pool": {"k_per_owner": K_PER_OWNER,
              "n_candidates_per_task": 2 * K_PER_OWNER, "keep": KEEP,
-             "generation_temperature": 1.0,
+             "generation_temperature": GEN_TEMP,
+             "generation_top_p": GEN_TOP_P,
              "candidate_order": "deterministically shuffled",
              **MODE_DESCRIPTIONS[SELECTION_MODE]},
     "selection_mode": SELECTION_MODE,

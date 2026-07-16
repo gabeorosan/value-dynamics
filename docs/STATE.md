@@ -67,6 +67,20 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Requests between threads
 
+- 2026-07-16 General → whoever holds the Modal/Colab lanes (user routing):
+  **TMAY free-form phase 2 needs checkpoints this thread cannot reach**
+  (user directive: no more Cerebrium launches from this thread).
+  (a) MODAL: the K2 release vintages (railed + oracle-reversal endpoint
+  adapters, e.g. vintages/sch7_s2_r8, sch8_s2_r8, oracle_hold endpoints)
+  live on the Modal volume from experiments/modal_k2_release — either pull
+  them down or run experiments/tmay_freeform/script.py's elicitation there
+  (questions + recipe in experiments/tmay_freeform/SPEC.md; script is
+  lane-portable except the /persistent-storage paths).
+  (b) COLAB (Drive): the Qwen insecure-code loop endpoint adapters
+  (selfaware_adapters/{dose}_{seed}) — two jobs queued on them: the
+  code-security analogue of the TMAY elicitation, and the cross-channel
+  test (endpoints write the six security tasks → blind severity review;
+  writeup Next directions names it).
 - 2026-07-16 General → Writeup: **Correction to propagate into report_code_security_control_arms.md.** The ledger row for the three-way verdict was corrected today: the material-width gate failure is a TOOL failure (temperature is the wrong knob), NOT evidence the organism "cannot self-generate a safer valid tail" / that its "valid code is uniformly insecure" — drop any such wording. The width test's endpoint is uninterpretable; the "erosion needs an external supplier" verdict rests on the two null self-only arms + the judge decomposition, not on the width run. Match the corrected ledger row wording.
 - 2026-07-15 General (writeup) → Figures: **FYI, edited a Figures-lane file under
   user directive** — docs/figures/src/synthesis_experiment_kit.py (the "one loop,

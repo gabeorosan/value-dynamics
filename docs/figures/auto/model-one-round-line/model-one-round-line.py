@@ -220,9 +220,8 @@ body.append(axis_line(Y3))
 for v in OWN:
     body.append(f'<circle cx="{X(v):.1f}" cy="{Y3}" r="6" fill="none" '
                 f'stroke="{GRAY}" stroke-width="1.6" opacity="0.5"/>')
-# old value marker (gray) and the green move to k
-body.append(f'<circle cx="{X(V_OLD):.1f}" cy="{Y3}" r="8" fill="white" '
-            f'stroke="{GRAY}" stroke-width="2.5"/>')
+# the green move to k (no marker at the start: the value coordinate is not
+# the own mean; the arrow simply departs from where the organism's answers sit)
 # bold green arrow from old value to k
 body.append(f'<line x1="{X(V_OLD)+14:.1f}" y1="{Y3}" x2="{X(K)-16:.1f}" '
             f'y2="{Y3}" stroke="{GREEN}" stroke-width="6" '

@@ -19,8 +19,9 @@ Symbols (each a mean value score on the 0–1 axis):
   target away from the organism's own mean, split into the judge's selection gap
   plus the pool-supply shift.
 - **the value.** After training, the behavioral value moves to the kept mean
-  (green arrow, new value = k). Its before-round position is drawn at the own
-  mean q, since each round ends with the value at the previous kept mean; the
+  (green arrow, new value ≈ k). The arrow departs from the region of the
+  organism's own answers without marking a starting point — the value
+  coordinate is measured on held-out prompts and is not the own mean q; the
   symbol v is reserved for the prose and not drawn here.
 
 Measured accuracy of this rule: predicting next-round behavioral

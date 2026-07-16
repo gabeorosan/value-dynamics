@@ -1,0 +1,56 @@
+{
+  "what": "Candidate-level decomposition of the OLMo duel judge's win rate into security (manual severity), owner, and length, to explain the severity-winrate sign flip between the mixed (v2) and self-only (Arm 2) pools.",
+  "v2_mixed": {
+    "tag": "v2_mixed",
+    "n": 216,
+    "severity_winrate_r": -0.12496027951123022,
+    "length_winrate_r": 0.1898998459234491,
+    "length_severity_r": -0.2896835150275992,
+    "by_owner": {
+      "base": {
+        "n": 108,
+        "mean_win_rate": 0.5067,
+        "mean_severity": 0.5176,
+        "within_owner_severity_winrate_r": -0.006806946528065416
+      },
+      "org": {
+        "n": 108,
+        "mean_win_rate": 0.4933,
+        "mean_severity": 0.6069,
+        "within_owner_severity_winrate_r": -0.22867215372076827
+      }
+    },
+    "isbase_winrate_r": 0.048214748023764915,
+    "isbase_severity_r": -0.1601462341149794,
+    "severity_winrate_r_controlling_owner": -0.11891011473229689,
+    "owner_winrate_r_controlling_severity": 0.028797315535775136
+  },
+  "arm2_selfonly": {
+    "tag": "arm2_selfonly",
+    "n": 216,
+    "severity_winrate_r": 0.09914289951702926,
+    "length_winrate_r": 0.1515152777632518,
+    "length_severity_r": 0.3028122497498721,
+    "by_owner": {
+      "org": {
+        "n": 216,
+        "mean_win_rate": 0.5,
+        "mean_severity": 0.7414,
+        "within_owner_severity_winrate_r": 0.09914289951702926
+      }
+    },
+    "severity_winrate_r_controlling_length": 0.05653879999556129,
+    "parseable_winrate_r": -0.0932756135856165,
+    "parseable_severity_r": -0.019881001311563718
+  },
+  "v2_within_owner_by_seed": {
+    "71": {
+      "org": -0.24498098841280344,
+      "base": 0.04637511838073822
+    },
+    "72": {
+      "org": -0.21056068802408795,
+      "base": -0.05715568451606128
+    }
+  }
+}

@@ -45,23 +45,22 @@ runs). This post varies one column at a time.*
 
 ## Findings
 
-*[Three candidate SETS of findings below, one per column — pick a set (or
-mix). Each cell is a complete finding with its numbers.]*
-
-| Set 1 — the two dials | Set 2 — one law at three horizons | Set 3 — what it means for self-driven training |
-|---|---|---|
-| **1. Two first-round measurements — the pool's value spread and the judge's agreement with the value — determine where a selection loop takes the value.** Their product forecasts the selector gap (g ≈ ρσ, no fitted coefficient, R² 0.81 across 290 logged rounds), and the value moves to the mean of what the judge keeps (one-round error 0.081 vs 0.128 for no change). | **1. The value moves to the mean of what the judge keeps.** `next value = kept candidate mean` predicts the next measured value at error 0.081 across all 340 held-out rounds, versus 0.128 for no change — the same in every slice: both model families, both value axes, all pool compositions. | **1. Nothing about a value being "the model's own" protects it.** Across all 74 runs, outcomes are set by the selector state — offered spread × agreement — regardless of whether the judge is the organism itself, a copy, or an outsider; wherever the organism judged itself against outside text, judgment and generation came apart, and judgment won (agreement −0.24, value erased 0.67 → 0.00 by round two to three). |
-| **2. Measured once at round 1 and rolled forward, the same model reproduces the observed dynamics of runs it has never seen** — held-out endpoints at error 0.118 versus 0.431 for assuming no change, whole trajectories with calibrated uncertainty, and one preregistered forward forecast, committed while two new control runs were still executing, that landed inside its declared bands. | **2. What the judge keeps is forecastable before selection, from two numbers.** The kept mean sits ρσ above the pool mean — spread times agreement, no fitted coefficient (R² 0.81, mean absolute error 0.042) — and 82% of agreement's variance is between judge × alternative-source × answer-source setups, so the dial is measurable per setup, not per round. | **2. The outside answer source controls both the material and the direction of drift.** Mixed-source runs end near the outside source's level; injecting base answers into a flat self-only twin supplies spread and collapses it 0.627 → 0.000 in one round; removing the outside source left OLMo flat (nothing to select on) and sent Qwen upward (its own pool offered spread, and its judgment used it: agreement −0.28 → +0.40). |
-| **3. Pool composition flips the sign of self-judgment.** Same organism, same self-judge, same duel format: with base text in the pool, agreement ran at −0.24 and the value was erased by round two to three; on its own candidates alone the same judge ran at +0.40 and the forced-choice self-description amplified instead (0.34 → 0.79/0.91 versus → 0.006/0.007 with base text present). | **3. Iterating the one measurement reproduces whole runs.** Held-out endpoints at error 0.118 versus 0.431 for no change; adding noise where the measurement says it lives gives calibrated trajectories (CRPS 0.092, 89% coverage at a nominal 80% band); one preregistered forward forecast landed inside its declared bands. | **3. Selection moves what the model does, not what it says about itself — on every forced probe we ran.** Where selection moved behavior by ≥ 0.15, stated risk tolerance tracked at +0.03…+0.14 (OLMo, 34 rollouts) or sat floor-pinned (Qwen, every read ≤ 0.051 while behavior moved up to ±0.42); a second, scenario-format probe was dominated by option order (mean order flip 0.43). A free-form scored self-description in the style of Tell Me About Yourself was not run — the claim is scoped to forced-choice probes. |
-
-Findings shared by more than one set keep the same numbers everywhere; the
-sets differ in emphasis, not in evidence. Two candidates from the earlier
-list appear in no set and remain available: *the same judge is a different
-selector under a different alternative source* (+0.38 static vs +0.10 duels
-— the failed versus the successful rescue), and *a mid-run judge change is
-the one event no round-1 measurement can forecast, and a single
-re-measurement absorbs it* (0.404 blind → 0.179 with one re-measurement →
-0.041 re-measuring every round).
+1. **What the judge keeps is forecastable before selection, from two
+   numbers.** The kept mean sits ρσ above the pool mean — spread times
+   agreement, no fitted coefficient (R² 0.81, mean absolute error 0.042
+   across 290 logged rounds) — and 82% of agreement's variance is between
+   judge × alternative-source × answer-source setups, so the dial is
+   measurable per setup, not per round.
+2. **The value moves to the mean of what the judge keeps.** `next value =
+   kept candidate mean` predicts the next measured value at error 0.081
+   across all 340 held-out rounds, versus 0.128 for no change — the same
+   in every slice: both model families, both value axes, all pool
+   compositions.
+3. **Iterating the one measurement reproduces whole runs.** Held-out
+   endpoints at error 0.118 versus 0.431 for no change; adding noise where
+   the measurement says it lives gives calibrated trajectories (CRPS
+   0.092, 89% coverage at a nominal 80% band); one preregistered forward
+   forecast landed inside its declared bands.
 
 ## What I ran
 
@@ -475,7 +474,12 @@ retrospective analysis says one refresh cuts endpoint error from 0.404 to
 0.179; freeze that rule before collecting the trajectories). Third,
 experiments on the factors themselves: dose–response of injection share on
 pool shift and between-source variation, and longer-horizon transport
-of the own-source spread equation. Fourth, the earlier directions survive in
+of the own-source spread equation. A cheap cross-channel test belongs here
+too: the self-description loops saved their endpoint adapters, so scoring
+the code those endpoints write on the six security tasks (blind severity
+review) would answer whether training on the self-description channel moves
+actual code quality — the one direction of the code ↔ self-description
+coupling no run has measured. Fourth, the earlier directions survive in
 sharper form: thinking models make the judgment channel readable, turning
 agreement from a number into an inspectable argument; letting the model
 modify pieces of its own training setup — system prompt, harness, fine-tuning

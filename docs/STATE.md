@@ -584,6 +584,18 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **Stated-channel propagation batch deployed.**
+  (1) docs/figures/auto/setup-both-models/ — risk panel gains a full parallel
+  "also measured: what it says about itself" box (stated risk tolerance,
+  order-balanced forced choice, logged every round), mirroring the code panel's
+  "also measured" box. (2) docs/figures/auto/value-score-defined/ — footnote:
+  risk organisms also log stated risk tolerance as a battery probe, separate
+  from per-answer value scores; right-panel bold line reflowed at 13.5px.
+  (3) docs/figures/auto/run-inventory/ — run bars are now SEGMENTED run-block
+  bars (one block per run, width ∝ that run's rounds, label "n runs · m
+  rounds"), per-run counts derived live with asserted total 340; corpus has
+  only 4- and 8-round runs (63×4 + 11×8). Site rebuilt (18 figures), gh-pages
+  + Artifact republished.
 - 2026-07-16 (General, writeup): **Full-audit round + big propagation batch.**
   (1) VERIFICATION SWEEP (subagent, all committed JSONs): every headline
   number in Findings, the accuracy section, endpoint table, state section,

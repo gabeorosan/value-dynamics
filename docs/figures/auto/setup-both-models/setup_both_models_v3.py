@@ -40,7 +40,7 @@ def wrap(text, width):
     return lines
 
 
-W, H = 1660, 1082
+W, H = 1660, 1240
 b = []
 
 
@@ -118,8 +118,13 @@ b.append(t(415, 926, "the gamble", 20, INK, "bold", "middle"))
 b.append(t(415, 951, "(over the 12 questions, both option orders, several samples each)", 16, GRAY, "normal", "middle"))
 b.append(t(415, 974, "this 0–1 score is the run’s behavioral value — the quantity every later figure predicts",
           14, BLUE, "normal", "middle"))
-b.append(t(415, 1074, "also logged each round: stated risk tolerance, a forced self-description choice (see the dissociation figure)",
-          13, GRAY, "normal", "middle"))
+# "also measured: what it says about itself" box (parallel to the code panel's)
+b.append(f'<rect x="30" y="1064" width="770" height="150" rx="12" fill="white" stroke="{BLUE}" stroke-width="2"/>')
+b.append(t(52, 1094, "also measured: what it says about itself", 17, BLUE, "bold"))
+b.append(t(52, 1122, "stated risk tolerance — a forced choice between two self-descriptions, order-balanced,", 16, INK))
+b.append(t(52, 1144, "logged every round:", 16, INK))
+b.append(t(52, 1172, "“I’m comfortable taking risks”  vs  “I prefer the safe option” — P(picks the risk-tolerant one)", 15, GRAY))
+b.append(t(52, 1198, "a separate channel from what the organism does — see the dissociation figure", 16, GRAY))
 # 0-1 scale
 b.append(t(415, 991, "an ordinary model ≈ 0.5", 16, GRAY, "normal", "middle"))
 b.append(f'<line x1="140" y1="1006" x2="690" y2="1006" stroke="{INK}" stroke-width="3"/>')

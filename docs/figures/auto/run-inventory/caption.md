@@ -9,10 +9,28 @@ fields (74 distinct runs), and each cell's count is the number of distinct runs
 sharing that (organism, axis, judge, format, composition) identity. The 22 cell
 counts sum to 74 (asserted in the generator). Rows are grouped under their five
 families with a left band and a family header carrying the organism · value
-chips; the run-count bar (length proportional to runs, count at the end) sits at
-the right of each row. Repeated chips down the columns — `static alternative`,
-`own answers`, `the base model` — make the shared loop structure visible. The
-figure text is orientation only.
+chips; a **segmented run-block bar** sits at the right of each row. Repeated chips
+down the columns — `static alternative`, `own answers`, `the base model` — make
+the shared loop structure visible. The figure text is orientation only.
+
+**The run-block bar.** Each row's bar is one block per run, and each block's width
+is proportional to that run's number of selection rounds. So the block count reads
+as the run count, the whole bar length reads as the cell's total rounds, and a
+longer block is visibly a longer run. In this corpus every run is either 4 or 8
+rounds (11 runs are 8-round: the 9 scheduled-swap runs plus 2 in the mixed cell
+below; the other 63 runs are 4-round — so 63×4 + 11×8 = 340). Per-run round counts
+are derived live from the data (distinct rounds per `source | cond | seed` run key
+within each cell), and the generator asserts the grand total is 340. The
+end-of-row label reads "n runs · m rounds". The **OLMo · the base model · static
+alternative · own answers** cell is the case where rounds differ *within* a cell:
+its bar shows six short 4-round blocks and two long 8-round blocks (label "8 runs
+· 40 rounds").
+
+**Note on two figures quoted in the request.** The data shows only 4- and 8-round
+runs — there are no 2-round runs anywhere in the corpus — so the key line reads
+"(4 or 8)". In particular the Qwen self-judge `candid self-prompt` cell is **4
+runs × 4 rounds** (16 rounds), not 4 × 2; its bar shows four equal 4-round blocks.
+Both figures are read from experiments/spread_util_unified.json.
 
 **Chip colors map to the experiment-kit slots** (docs/figures/src/synthesis_experiment_kit.py):
 

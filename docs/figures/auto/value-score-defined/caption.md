@@ -14,4 +14,11 @@ the Bernoulli SD sqrt(p(1−p))); the judge's A/B preferences over the same
 candidates give agreement ρ. Example snippets are illustrative; the score
 recipes are the committed ones (`scripts/analysis_spread_util_unified.py`).
 
+The risk organisms also carry a self-description channel — stated risk
+tolerance, a forced order-balanced choice between two self-descriptions,
+logged every round. It is a battery probe on the checkpoint, not a
+per-candidate value score, which is why it does not appear in the panels;
+its dissociation from the behavioral value is shown in the
+behavior-vs-stated figure (`report_selfreport_calibration_k2.md`).
+
 Regenerate: `python3 value-score-defined.py` (stdlib only).

@@ -85,17 +85,26 @@ with open(DATA) as fh:
     D = json.load(fh)
 records = D["records"]
 
-# a run = one distinct full identity; group runs by cell tuple and count them
-runs = set()
+# a run = one distinct (source, cond, seed); its round count = number of records.
+# map each run to its cell (organism, axis, judge, format, composition).
+run_rounds = Counter()
+run_cell = {}
 for r in records:
-    runs.add((r["source"], r.get("cond"), r.get("seed"), r["organism"], r["axis"],
-              r.get("judge"), r.get("format"), r.get("composition")))
-cell_runs = Counter()
-for (_s, _c, _sd, org, axis, judge, fmt, comp) in runs:
-    cell_runs[(org, axis, judge, fmt, comp)] += 1
+    rk = (r["source"], r.get("cond"), r.get("seed"))
+    run_rounds[rk] += 1
+    run_cell[rk] = (r["organism"], r["axis"], r.get("judge"), r.get("format"), r.get("composition"))
+
+# per cell: the list of per-run round counts (ascending), and the run count
+cell_rounds = {}
+for rk, nrounds in run_rounds.items():
+    cell_rounds.setdefault(run_cell[rk], []).append(nrounds)
+for c in cell_rounds:
+    cell_rounds[c].sort()
+cell_runs = Counter({c: len(v) for c, v in cell_rounds.items()})
 
 assert D["n_runs"] == 74 and D["n_records"] == 340, (D["n_runs"], D["n_records"])
 assert sum(cell_runs.values()) == 74, sum(cell_runs.values())
+assert sum(sum(v) for v in cell_rounds.values()) == 340, "rounds must total 340"
 
 
 def family_of(org, axis, judge, fmt, comp):
@@ -132,7 +141,8 @@ FAM_ORDER = ["Qwen risk grid", "OLMo risk grid + judge schedules",
 fam_rows = {f: [] for f in FAM_ORDER}
 for (org, axis, judge, fmt, comp), n in cell_runs.items():
     fam_rows[family_of(org, axis, judge, fmt, comp)].append(
-        {"org": org, "axis": axis, "judge": judge, "fmt": fmt, "comp": comp, "n": n})
+        {"org": org, "axis": axis, "judge": judge, "fmt": fmt, "comp": comp,
+         "n": n, "rounds": cell_rounds[(org, axis, judge, fmt, comp)]})
 for f in FAM_ORDER:
     fam_rows[f].sort(key=lambda d: (-d["n"], d["judge"], d["fmt"], d["comp"]))
 
@@ -151,11 +161,12 @@ for f in FAM_ORDER:
     FAM_ORG[f] = list(orgs)[0] if len(orgs) == 1 else None
 
 TOTAL_RUNS = sum(cell_runs.values())
+TOTAL_ROUNDS = sum(sum(v) for v in cell_rounds.values())
 TOTAL_ROWS = len(cell_runs)
-MAXRUNS = max(cell_runs.values())
+MAX_CELL_ROUNDS = max(sum(v) for v in cell_rounds.values())   # 72 (schedule cell)
 
 # ---- layout ------------------------------------------------------------------
-W = 1140
+W = 1360
 M = 40
 BAND_X = M                # left color band
 NAME_X = M + 14           # family name
@@ -165,21 +176,28 @@ JUDGE_X = ORG_X + ORG_W + 6
 ALT_X = JUDGE_X + 200
 ANS_X = ALT_X + 178
 BAR_X = ANS_X + 196
-BAR_MAX = W - M - 40 - BAR_X
+# run-block bar: block width = rounds * PER_ROUND, so the whole bar length = rounds
+BAR_SPAN = 290.0                       # pixels for the longest cell (MAX_CELL_ROUNDS rounds)
+PER_ROUND = BAR_SPAN / MAX_CELL_ROUNDS
+BLK_GAP = 1.6                          # thin white separator between run blocks
+BLK_H = 15
 
 b = []
 
 # ---- title -------------------------------------------------------------------
 b.append(ctext(W / 2, 50, "The 74 runs, cell by cell", 30, INK, "bold"))
-b.append(ctext(W / 2, 80,
+b.append(ctext(W / 2, 79,
                "One row per distinct experiment cell — a combination of organism, value, judge, "
                "alternative, and answer source.", 16, GRAY))
-b.append(ctext(W / 2, 102,
+b.append(ctext(W / 2, 100,
                "Rows are grouped by family; chip colors match the experiment-kit slots. "
                "One column changed at a time.", 16, GRAY))
+b.append(ctext(W / 2, 123,
+               "Run bar: one block per run — block width = the rounds in that run (4 or 8). "
+               "Bar length = total rounds.", 15, INK))
 
 # ---- column headers ----------------------------------------------------------
-hy = 138
+hy = 162
 def swatch(x, label, color):
     return (f'<rect x="{x}" y="{hy-12}" width="13" height="13" rx="3" fill="{TINT[color]}" '
             f'stroke="{color}" stroke-width="1.5"/>' + ltext(x + 19, hy, label, 13.5, INK, "bold"))
@@ -187,7 +205,7 @@ b.append(ltext(ORG_X, hy, "organism · value", 13.5, INK, "bold"))
 b.append(swatch(JUDGE_X, "the judge", PURPLE))
 b.append(swatch(ALT_X, "alternative", AMBER))
 b.append(swatch(ANS_X, "answer source", GREEN))
-b.append(ltext(BAR_X, hy, "runs", 13.5, INK, "bold"))
+b.append(ltext(BAR_X, hy, "runs  ·  rounds", 13.5, INK, "bold"))
 b.append(f'<line x1="{M}" y1="{hy+12}" x2="{W-M}" y2="{hy+12}" stroke="{GRAY}" '
          f'stroke-width="1.4" stroke-opacity="0.5"/>')
 
@@ -220,12 +238,17 @@ for f in FAM_ORDER:
         b.append(chip(JUDGE_X, cy, JUDGE[d["judge"]], PURPLE)[0])
         b.append(chip(ALT_X, cy, ALT[d["fmt"]], AMBER)[0])
         b.append(chip(ANS_X, cy, ANS[d["comp"]], GREEN)[0])
-        by = cy + (CH - 15) / 2
-        blen = BAR_MAX * d["n"] / MAXRUNS
-        b.append(f'<rect x="{BAR_X}" y="{by:.1f}" width="{BAR_MAX}" height="15" rx="3.5" '
-                 f'fill="{BARFILL}" opacity="0.5"/>')
-        b.append(f'<rect x="{BAR_X}" y="{by:.1f}" width="{blen:.1f}" height="15" rx="3.5" fill="{INK}"/>')
-        b.append(ltext(BAR_X + blen + 8, by + 12.5, str(d["n"]), 15, INK, "bold"))
+        # segmented run-block bar: one block per run, width proportional to its rounds
+        by = cy + (CH - BLK_H) / 2
+        bx = BAR_X
+        for nr in d["rounds"]:            # ascending: short (4-round) blocks then long (8-round)
+            w = nr * PER_ROUND
+            b.append(f'<rect x="{bx:.1f}" y="{by:.1f}" width="{w:.1f}" height="{BLK_H}" '
+                     f'rx="2" fill="{INK}"/>')
+            bx += w + BLK_GAP
+        total = sum(d["rounds"])
+        b.append(ltext(bx - BLK_GAP + 8, by + 12, f"{d['n']} runs · {total} rounds",
+                       13.5, INK, "bold"))
         y += row_pitch
 
     fam_bot = y - row_pitch + 10
@@ -242,7 +265,7 @@ fy = y + 6
 b.append(f'<line x1="{M}" y1="{fy-20}" x2="{W-M}" y2="{fy-20}" stroke="{GRAY}" '
          f'stroke-width="1.4" stroke-opacity="0.5"/>')
 b.append(ltext(M, fy + 4,
-               f"{TOTAL_RUNS} runs  ·  {D['n_records']} selection rounds  ·  "
+               f"{TOTAL_RUNS} runs  ·  {TOTAL_ROUNDS} selection rounds  ·  "
                f"{TOTAL_ROWS} experiment cells  ·  5 families  ·  one column changed at a time",
                14.5, GRAY))
 b.append(ltext(W - M, fy + 4, "two forward-test experiments sit outside this corpus",

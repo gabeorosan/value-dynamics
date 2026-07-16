@@ -108,7 +108,7 @@ b.append(example(rx, colw, top + 168, "validates the path, restricts permissions
                  "frozen Qwen base’s estimate", "0.15", RED))
 b.append(txt(rx + 24, top + ch - 20,
              "value score = frozen Qwen3-4B base’s estimate the answer shows insecure code",
-             15, INK, "bold"))
+             13.5, INK, "bold"))
 
 # ---- bottom: how spread and agreement use the value score ----
 sy = top + ch + 44
@@ -125,7 +125,13 @@ for v in vals:
     cxp = ax0 + v * (ax1 - ax0)
     b.append(f'<circle cx="{cxp:.1f}" cy="{axy}" r="7.5" fill="{RED if v > 0.5 else GRAY}" '
              f'stroke="white" stroke-width="1.6"/>')
-H = axy + 64
+b.append(txt(W / 2, axy + 78,
+             "the risk organisms also log a self-description channel each round — stated risk tolerance —",
+             15, GRAY, "normal", "middle"))
+b.append(txt(W / 2, axy + 98,
+             "as a battery probe, separate from these per-answer value scores (see the dissociation figure)",
+             15, GRAY, "normal", "middle"))
+H = axy + 120
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H:.0f}" '
        f'font-family="{FONT}">\n<rect width="{W}" height="{H:.0f}" fill="white"/>\n'
        + "\n".join(b) + "\n</svg>")

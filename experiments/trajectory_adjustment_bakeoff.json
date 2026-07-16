@@ -1700,6 +1700,90 @@
      "absolute_difference": 0.020889
     }
    }
+  },
+  "unit_core_deterministic": {
+   "n_runs": 45,
+   "endpoint_mean_forecast": {
+    "mae": 0.135441,
+    "rmse": 0.200932,
+    "r2": 0.705764
+   },
+   "endpoint_median_mae": 0.135441,
+   "endpoint_crps": 0.135441,
+   "endpoint_80pct_coverage": 0.222222,
+   "all_round_ensemble_mean": {
+    "mae": 0.110925,
+    "r2": 0.774647
+   },
+   "aggregate_path_properties": {
+    "total_variation": {
+     "observed": 0.64828,
+     "simulated": 0.498766,
+     "absolute_difference": 0.149514
+    },
+    "sign_changes": {
+     "observed": 1.2,
+     "simulated": 0.177778,
+     "absolute_difference": 1.022222
+    },
+    "endpoint": {
+     "observed": 0.541131,
+     "simulated": 0.586205,
+     "absolute_difference": 0.045074
+    },
+    "low_rail": {
+     "observed": 0.222222,
+     "simulated": 0.244444,
+     "absolute_difference": 0.022222
+    },
+    "high_rail": {
+     "observed": 0.311111,
+     "simulated": 0.355556,
+     "absolute_difference": 0.044444
+    }
+   }
+  },
+  "unit_core_selector_q_observation_rho_persistence_gaussian": {
+   "n_runs": 45,
+   "endpoint_mean_forecast": {
+    "mae": 0.140273,
+    "rmse": 0.190275,
+    "r2": 0.736147
+   },
+   "endpoint_median_mae": 0.132965,
+   "endpoint_crps": 0.091743,
+   "endpoint_80pct_coverage": 0.888889,
+   "all_round_ensemble_mean": {
+    "mae": 0.115051,
+    "r2": 0.78359
+   },
+   "aggregate_path_properties": {
+    "total_variation": {
+     "observed": 0.64828,
+     "simulated": 0.709468,
+     "absolute_difference": 0.061188
+    },
+    "sign_changes": {
+     "observed": 1.2,
+     "simulated": 1.221278,
+     "absolute_difference": 0.021278
+    },
+    "endpoint": {
+     "observed": 0.541131,
+     "simulated": 0.58758,
+     "absolute_difference": 0.046448
+    },
+    "low_rail": {
+     "observed": 0.222222,
+     "simulated": 0.227111,
+     "absolute_difference": 0.004889
+    },
+    "high_rail": {
+     "observed": 0.311111,
+     "simulated": 0.391389,
+     "absolute_difference": 0.080278
+    }
+   }
   }
  },
  "all_modelable_runs": {
@@ -2876,6 +2960,90 @@
      "observed": 0.268657,
      "simulated": 0.253321,
      "absolute_difference": 0.015336
+    }
+   }
+  },
+  "unit_core_deterministic": {
+   "n_runs": 67,
+   "endpoint_mean_forecast": {
+    "mae": 0.160346,
+    "rmse": 0.226861,
+    "r2": 0.559609
+   },
+   "endpoint_median_mae": 0.160346,
+   "endpoint_crps": 0.160346,
+   "endpoint_80pct_coverage": 0.149254,
+   "all_round_ensemble_mean": {
+    "mae": 0.123192,
+    "r2": 0.67149
+   },
+   "aggregate_path_properties": {
+    "total_variation": {
+     "observed": 0.598063,
+     "simulated": 0.395009,
+     "absolute_difference": 0.203054
+    },
+    "sign_changes": {
+     "observed": 1.223881,
+     "simulated": 0.134328,
+     "absolute_difference": 1.089552
+    },
+    "endpoint": {
+     "observed": 0.544113,
+     "simulated": 0.534609,
+     "absolute_difference": 0.009505
+    },
+    "low_rail": {
+     "observed": 0.19403,
+     "simulated": 0.223881,
+     "absolute_difference": 0.029851
+    },
+    "high_rail": {
+     "observed": 0.268657,
+     "simulated": 0.253731,
+     "absolute_difference": 0.014925
+    }
+   }
+  },
+  "unit_core_selector_q_observation_rho_persistence_gaussian": {
+   "n_runs": 67,
+   "endpoint_mean_forecast": {
+    "mae": 0.15165,
+    "rmse": 0.203731,
+    "r2": 0.644833
+   },
+   "endpoint_median_mae": 0.15509,
+   "endpoint_crps": 0.10818,
+   "endpoint_80pct_coverage": 0.910448,
+   "all_round_ensemble_mean": {
+    "mae": 0.119018,
+    "r2": 0.725598
+   },
+   "aggregate_path_properties": {
+    "total_variation": {
+     "observed": 0.598063,
+     "simulated": 0.665132,
+     "absolute_difference": 0.067069
+    },
+    "sign_changes": {
+     "observed": 1.223881,
+     "simulated": 1.244888,
+     "absolute_difference": 0.021007
+    },
+    "endpoint": {
+     "observed": 0.544113,
+     "simulated": 0.546207,
+     "absolute_difference": 0.002093
+    },
+    "low_rail": {
+     "observed": 0.19403,
+     "simulated": 0.254291,
+     "absolute_difference": 0.060261
+    },
+    "high_rail": {
+     "observed": 0.268657,
+     "simulated": 0.342948,
+     "absolute_difference": 0.074291
     }
    }
   }
@@ -4057,6 +4225,90 @@
       "absolute_difference": 0.021343
      }
     }
+   },
+   "unit_core_deterministic": {
+    "n_runs": 54,
+    "endpoint_mean_forecast": {
+     "mae": 0.177201,
+     "rmse": 0.241481,
+     "r2": 0.436559
+    },
+    "endpoint_median_mae": 0.177201,
+    "endpoint_crps": 0.177201,
+    "endpoint_80pct_coverage": 0.148148,
+    "all_round_ensemble_mean": {
+     "mae": 0.129554,
+     "r2": 0.602581
+    },
+    "aggregate_path_properties": {
+     "total_variation": {
+      "observed": 0.596731,
+      "simulated": 0.365262,
+      "absolute_difference": 0.23147
+     },
+     "sign_changes": {
+      "observed": 1.37037,
+      "simulated": 0.148148,
+      "absolute_difference": 1.222222
+     },
+     "endpoint": {
+      "observed": 0.555248,
+      "simulated": 0.549193,
+      "absolute_difference": 0.006055
+     },
+     "low_rail": {
+      "observed": 0.166667,
+      "simulated": 0.185185,
+      "absolute_difference": 0.018519
+     },
+     "high_rail": {
+      "observed": 0.240741,
+      "simulated": 0.222222,
+      "absolute_difference": 0.018519
+     }
+    }
+   },
+   "unit_core_selector_q_observation_rho_persistence_gaussian": {
+    "n_runs": 54,
+    "endpoint_mean_forecast": {
+     "mae": 0.163142,
+     "rmse": 0.217884,
+     "r2": 0.541294
+    },
+    "endpoint_median_mae": 0.172921,
+    "endpoint_crps": 0.120653,
+    "endpoint_80pct_coverage": 0.888889,
+    "all_round_ensemble_mean": {
+     "mae": 0.123336,
+     "r2": 0.671103
+    },
+    "aggregate_path_properties": {
+     "total_variation": {
+      "observed": 0.596731,
+      "simulated": 0.664299,
+      "absolute_difference": 0.067568
+     },
+     "sign_changes": {
+      "observed": 1.37037,
+      "simulated": 1.33875,
+      "absolute_difference": 0.03162
+     },
+     "endpoint": {
+      "observed": 0.555248,
+      "simulated": 0.559339,
+      "absolute_difference": 0.004091
+     },
+     "low_rail": {
+      "observed": 0.166667,
+      "simulated": 0.236852,
+      "absolute_difference": 0.070185
+     },
+     "high_rail": {
+      "observed": 0.240741,
+      "simulated": 0.345093,
+      "absolute_difference": 0.104352
+     }
+    }
    }
   },
   "axis:selfreport": {
@@ -5233,6 +5485,90 @@
       "observed": 0.384615,
       "simulated": 0.216923,
       "absolute_difference": 0.167692
+     }
+    }
+   },
+   "unit_core_deterministic": {
+    "n_runs": 13,
+    "endpoint_mean_forecast": {
+     "mae": 0.090338,
+     "rmse": 0.151737,
+     "r2": 0.864361
+    },
+    "endpoint_median_mae": 0.090338,
+    "endpoint_crps": 0.090338,
+    "endpoint_80pct_coverage": 0.153846,
+    "all_round_ensemble_mean": {
+     "mae": 0.091386,
+     "r2": 0.876936
+    },
+    "aggregate_path_properties": {
+     "total_variation": {
+      "observed": 0.603592,
+      "simulated": 0.518573,
+      "absolute_difference": 0.085019
+     },
+     "sign_changes": {
+      "observed": 0.615385,
+      "simulated": 0.076923,
+      "absolute_difference": 0.538462
+     },
+     "endpoint": {
+      "observed": 0.497862,
+      "simulated": 0.474026,
+      "absolute_difference": 0.023836
+     },
+     "low_rail": {
+      "observed": 0.307692,
+      "simulated": 0.384615,
+      "absolute_difference": 0.076923
+     },
+     "high_rail": {
+      "observed": 0.384615,
+      "simulated": 0.384615,
+      "absolute_difference": 0.0
+     }
+    }
+   },
+   "unit_core_selector_q_observation_rho_persistence_gaussian": {
+    "n_runs": 13,
+    "endpoint_mean_forecast": {
+     "mae": 0.103915,
+     "rmse": 0.129303,
+     "r2": 0.901505
+    },
+    "endpoint_median_mae": 0.081026,
+    "endpoint_crps": 0.056373,
+    "endpoint_80pct_coverage": 1.0,
+    "all_round_ensemble_mean": {
+     "mae": 0.097423,
+     "r2": 0.887967
+    },
+    "aggregate_path_properties": {
+     "total_variation": {
+      "observed": 0.603592,
+      "simulated": 0.668591,
+      "absolute_difference": 0.064999
+     },
+     "sign_changes": {
+      "observed": 0.615385,
+      "simulated": 0.855,
+      "absolute_difference": 0.239615
+     },
+     "endpoint": {
+      "observed": 0.497862,
+      "simulated": 0.491657,
+      "absolute_difference": 0.006205
+     },
+     "low_rail": {
+      "observed": 0.307692,
+      "simulated": 0.326731,
+      "absolute_difference": 0.019038
+     },
+     "high_rail": {
+      "observed": 0.384615,
+      "simulated": 0.334038,
+      "absolute_difference": 0.050577
      }
     }
    }
@@ -6413,6 +6749,90 @@
       "absolute_difference": 0.031146
      }
     }
+   },
+   "unit_core_deterministic": {
+    "n_runs": 24,
+    "endpoint_mean_forecast": {
+     "mae": 0.112065,
+     "rmse": 0.159159,
+     "r2": 0.789934
+    },
+    "endpoint_median_mae": 0.112065,
+    "endpoint_crps": 0.112065,
+    "endpoint_80pct_coverage": 0.291667,
+    "all_round_ensemble_mean": {
+     "mae": 0.10353,
+     "r2": 0.79804
+    },
+    "aggregate_path_properties": {
+     "total_variation": {
+      "observed": 0.623379,
+      "simulated": 0.487609,
+      "absolute_difference": 0.13577
+     },
+     "sign_changes": {
+      "observed": 0.75,
+      "simulated": 0.0,
+      "absolute_difference": 0.75
+     },
+     "endpoint": {
+      "observed": 0.600242,
+      "simulated": 0.655824,
+      "absolute_difference": 0.055582
+     },
+     "low_rail": {
+      "observed": 0.166667,
+      "simulated": 0.208333,
+      "absolute_difference": 0.041667
+     },
+     "high_rail": {
+      "observed": 0.333333,
+      "simulated": 0.375,
+      "absolute_difference": 0.041667
+     }
+    }
+   },
+   "unit_core_selector_q_observation_rho_persistence_gaussian": {
+    "n_runs": 24,
+    "endpoint_mean_forecast": {
+     "mae": 0.112617,
+     "rmse": 0.150686,
+     "r2": 0.811704
+    },
+    "endpoint_median_mae": 0.108407,
+    "endpoint_crps": 0.076482,
+    "endpoint_80pct_coverage": 0.833333,
+    "all_round_ensemble_mean": {
+     "mae": 0.10549,
+     "r2": 0.809038
+    },
+    "aggregate_path_properties": {
+     "total_variation": {
+      "observed": 0.623379,
+      "simulated": 0.644358,
+      "absolute_difference": 0.020979
+     },
+     "sign_changes": {
+      "observed": 0.75,
+      "simulated": 0.805,
+      "absolute_difference": 0.055
+     },
+     "endpoint": {
+      "observed": 0.600242,
+      "simulated": 0.654302,
+      "absolute_difference": 0.05406
+     },
+     "low_rail": {
+      "observed": 0.166667,
+      "simulated": 0.181458,
+      "absolute_difference": 0.014792
+     },
+     "high_rail": {
+      "observed": 0.333333,
+      "simulated": 0.455208,
+      "absolute_difference": 0.121875
+     }
+    }
    }
   },
   "regime:judge-swap": {
@@ -7589,6 +8009,90 @@
       "observed": 0.222222,
       "simulated": 0.216389,
       "absolute_difference": 0.005833
+     }
+    }
+   },
+   "unit_core_deterministic": {
+    "n_runs": 9,
+    "endpoint_mean_forecast": {
+     "mae": 0.209923,
+     "rmse": 0.294076,
+     "r2": 0.419913
+    },
+    "endpoint_median_mae": 0.209923,
+    "endpoint_crps": 0.209923,
+    "endpoint_80pct_coverage": 0.222222,
+    "all_round_ensemble_mean": {
+     "mae": 0.127368,
+     "r2": 0.553587
+    },
+    "aggregate_path_properties": {
+     "total_variation": {
+      "observed": 0.852433,
+      "simulated": 0.562764,
+      "absolute_difference": 0.289669
+     },
+     "sign_changes": {
+      "observed": 3.0,
+      "simulated": 0.777778,
+      "absolute_difference": 2.222222
+     },
+     "endpoint": {
+      "observed": 0.470478,
+      "simulated": 0.618273,
+      "absolute_difference": 0.147795
+     },
+     "low_rail": {
+      "observed": 0.333333,
+      "simulated": 0.111111,
+      "absolute_difference": 0.222222
+     },
+     "high_rail": {
+      "observed": 0.222222,
+      "simulated": 0.333333,
+      "absolute_difference": 0.111111
+     }
+    }
+   },
+   "unit_core_selector_q_observation_rho_persistence_gaussian": {
+    "n_runs": 9,
+    "endpoint_mean_forecast": {
+     "mae": 0.231985,
+     "rmse": 0.287813,
+     "r2": 0.444356
+    },
+    "endpoint_median_mae": 0.210491,
+    "endpoint_crps": 0.140054,
+    "endpoint_80pct_coverage": 1.0,
+    "all_round_ensemble_mean": {
+     "mae": 0.134431,
+     "r2": 0.556613
+    },
+    "aggregate_path_properties": {
+     "total_variation": {
+      "observed": 0.852433,
+      "simulated": 1.021353,
+      "absolute_difference": 0.16892
+     },
+     "sign_changes": {
+      "observed": 3.0,
+      "simulated": 2.741389,
+      "absolute_difference": 0.258611
+     },
+     "endpoint": {
+      "observed": 0.470478,
+      "simulated": 0.568023,
+      "absolute_difference": 0.097545
+     },
+     "low_rail": {
+      "observed": 0.333333,
+      "simulated": 0.220556,
+      "absolute_difference": 0.112778
+     },
+     "high_rail": {
+      "observed": 0.222222,
+      "simulated": 0.363056,
+      "absolute_difference": 0.140833
      }
     }
    }
@@ -8769,6 +9273,90 @@
       "absolute_difference": 0.13625
      }
     }
+   },
+   "unit_core_deterministic": {
+    "n_runs": 12,
+    "endpoint_mean_forecast": {
+     "mae": 0.126332,
+     "rmse": 0.189414,
+     "r2": 0.755238
+    },
+    "endpoint_median_mae": 0.126332,
+    "endpoint_crps": 0.126332,
+    "endpoint_80pct_coverage": 0.083333,
+    "all_round_ensemble_mean": {
+     "mae": 0.101049,
+     "r2": 0.838971
+    },
+    "aggregate_path_properties": {
+     "total_variation": {
+      "observed": 0.544967,
+      "simulated": 0.47308,
+      "absolute_difference": 0.071887
+     },
+     "sign_changes": {
+      "observed": 0.75,
+      "simulated": 0.083333,
+      "absolute_difference": 0.666667
+     },
+     "endpoint": {
+      "observed": 0.4759,
+      "simulated": 0.422918,
+      "absolute_difference": 0.052982
+     },
+     "low_rail": {
+      "observed": 0.25,
+      "simulated": 0.416667,
+      "absolute_difference": 0.166667
+     },
+     "high_rail": {
+      "observed": 0.333333,
+      "simulated": 0.333333,
+      "absolute_difference": 0.0
+     }
+    }
+   },
+   "unit_core_selector_q_observation_rho_persistence_gaussian": {
+    "n_runs": 12,
+    "endpoint_mean_forecast": {
+     "mae": 0.126801,
+     "rmse": 0.16801,
+     "r2": 0.807429
+    },
+    "endpoint_median_mae": 0.123936,
+    "endpoint_crps": 0.086031,
+    "endpoint_80pct_coverage": 0.916667,
+    "all_round_ensemble_mean": {
+     "mae": 0.105104,
+     "r2": 0.854295
+    },
+    "aggregate_path_properties": {
+     "total_variation": {
+      "observed": 0.544967,
+      "simulated": 0.605775,
+      "absolute_difference": 0.060808
+     },
+     "sign_changes": {
+      "observed": 0.75,
+      "simulated": 0.91375,
+      "absolute_difference": 0.16375
+     },
+     "endpoint": {
+      "observed": 0.4759,
+      "simulated": 0.468802,
+      "absolute_difference": 0.007098
+     },
+     "low_rail": {
+      "observed": 0.25,
+      "simulated": 0.323333,
+      "absolute_difference": 0.073333
+     },
+     "high_rail": {
+      "observed": 0.333333,
+      "simulated": 0.285,
+      "absolute_difference": 0.048333
+     }
+    }
    }
   },
   "regime:self-weak": {
@@ -9945,6 +10533,90 @@
       "observed": 0.181818,
       "simulated": 0.177841,
       "absolute_difference": 0.003977
+     }
+    }
+   },
+   "unit_core_deterministic": {
+    "n_runs": 22,
+    "endpoint_mean_forecast": {
+     "mae": 0.211289,
+     "rmse": 0.272313,
+     "r2": 0.013656
+    },
+    "endpoint_median_mae": 0.211289,
+    "endpoint_crps": 0.211289,
+    "endpoint_80pct_coverage": 0.0,
+    "all_round_ensemble_mean": {
+     "mae": 0.150794,
+     "r2": 0.182687
+    },
+    "aggregate_path_properties": {
+     "total_variation": {
+      "observed": 0.495345,
+      "simulated": 0.182778,
+      "absolute_difference": 0.312567
+     },
+     "sign_changes": {
+      "observed": 1.272727,
+      "simulated": 0.045455,
+      "absolute_difference": 1.227273
+     },
+     "endpoint": {
+      "observed": 0.550214,
+      "simulated": 0.42907,
+      "absolute_difference": 0.121144
+     },
+     "low_rail": {
+      "observed": 0.136364,
+      "simulated": 0.181818,
+      "absolute_difference": 0.045455
+     },
+     "high_rail": {
+      "observed": 0.181818,
+      "simulated": 0.045455,
+      "absolute_difference": 0.136364
+     }
+    }
+   },
+   "unit_core_selector_q_observation_rho_persistence_gaussian": {
+    "n_runs": 22,
+    "endpoint_mean_forecast": {
+     "mae": 0.174921,
+     "rmse": 0.228802,
+     "r2": 0.303678
+    },
+    "endpoint_median_mae": 0.200347,
+    "endpoint_crps": 0.141802,
+    "endpoint_80pct_coverage": 0.954545,
+    "all_round_ensemble_mean": {
+     "mae": 0.127942,
+     "r2": 0.450227
+    },
+    "aggregate_path_properties": {
+     "total_variation": {
+      "observed": 0.495345,
+      "simulated": 0.574444,
+      "absolute_difference": 0.079098
+     },
+     "sign_changes": {
+      "observed": 1.272727,
+      "simulated": 1.293182,
+      "absolute_difference": 0.020455
+     },
+     "endpoint": {
+      "observed": 0.550214,
+      "simulated": 0.461581,
+      "absolute_difference": 0.088633
+     },
+     "low_rail": {
+      "observed": 0.136364,
+      "simulated": 0.309886,
+      "absolute_difference": 0.173523
+     },
+     "high_rail": {
+      "observed": 0.181818,
+      "simulated": 0.243864,
+      "absolute_difference": 0.062045
      }
     }
    }

@@ -6,6 +6,11 @@ place Gaussian innovations at selection, generator update, agreement
 persistence, latent value update, or finite-battery observation, then compare
 forecast scores and trajectory shape.
 
+Variants prefixed ``unit_core_`` replace the three fold-fitted linear stages
+with the zero-fitted-parameter unit forms (gap = rho*spread, delta q =
+self-relative gap, delta value = pull) and recompute the innovation residual
+pools as residuals of those unit predictions on the training conditions.
+
 Run:    .venv/bin/python scripts/analysis_trajectory_adjustments.py
 Writes: experiments/trajectory_adjustment_bakeoff.json
 """
@@ -135,6 +140,15 @@ VARIANTS = {
     "q_value_noise_and_judge_feedback": {
         "value_noise": 1.0, "q_noise": 1.0, "rho": "feedback_stochastic",
     },
+    "unit_core_deterministic": {
+        "value_noise": 0.0, "q_noise": 0.0, "rho": "frozen",
+        "core": "unit",
+    },
+    "unit_core_selector_q_observation_rho_persistence_gaussian": {
+        "value_noise": 0.0, "q_noise": 1.0, "gap_noise": 1.0,
+        "observation_noise": 1.0, "rho": "persistence_stochastic",
+        "noise_distribution": "gaussian", "core": "unit",
+    },
 }
 
 
@@ -183,11 +197,20 @@ def fit_noise_and_rho(train_records, train_transitions, axis, fits, metric_spec)
         )
         for row in axis_records if row.get("rho") is not None
     ])
+    gap_unit_residuals = centered([
+        row["gap"] - row["rho"] * row[metric_spec["whole"]]
+        for row in axis_records if row.get("rho") is not None
+    ])
     q_residuals = centered([
         (transition["next"]["own_mean"] - transition["row"]["own_mean"])
         - bakeoff.apply_fit(
             fits["q_update"], transition["row"]["self_relative_gap"]
         )
+        for transition in axis_transitions
+    ])
+    q_unit_residuals = centered([
+        (transition["next"]["own_mean"] - transition["row"]["own_mean"])
+        - transition["row"]["self_relative_gap"]
         for transition in axis_transitions
     ])
     rho_transitions = [
@@ -264,7 +287,9 @@ def fit_noise_and_rho(train_records, train_transitions, axis, fits, metric_spec)
         "value": value_residuals,
         "value_identity": value_identity_residuals,
         "gap": gap_residuals,
+        "gap_unit": gap_unit_residuals,
         "q": q_residuals,
+        "q_unit": q_unit_residuals,
         "rho_feedback_beta": feedback_beta,
         "rho_feedback": feedback_residuals,
         "rho_ar": ar_residuals,
@@ -292,6 +317,11 @@ def simulate_paths(recs, metric_spec, fits, noise, variant, rng):
     noise_distribution = variant.get(
         "noise_distribution", "empirical_bootstrap"
     )
+    # "unit" replaces the three fitted linear stages with their
+    # zero-fitted-parameter forms (gap = rho*spread, delta q =
+    # self-relative gap, delta value = pull) and swaps in the matching
+    # unit-residual innovation pools.
+    unit_core = variant.get("core", "fitted") == "unit"
     rho_mode = variant["rho"]
     if rho_mode.startswith("risk_feedback"):
         rho_mode = (
@@ -362,28 +392,43 @@ def simulate_paths(recs, metric_spec, fits, noise, variant, rng):
                 pool_mean = q
                 offered_metric = own_metric
 
-            gap = bakeoff.apply_fit(
-                fits["selector"], rho * offered_metric
-            )
+            if unit_core:
+                gap = rho * offered_metric
+            else:
+                gap = bakeoff.apply_fit(
+                    fits["selector"], rho * offered_metric
+                )
             gap += draw(
-                rng, noise["gap"], variant.get("gap_noise", 0.0),
+                rng, noise["gap_unit" if unit_core else "gap"],
+                variant.get("gap_noise", 0.0),
                 noise_distribution,
             )
             kept_mean = float(np.clip(pool_mean + gap, 0.0, 1.0))
             displacement = kept_mean - q
             pull = kept_mean - value
 
+            q_step = (
+                displacement if unit_core
+                else bakeoff.apply_fit(fits["q_update"], displacement)
+            )
+            value_step = (
+                pull if unit_core
+                else bakeoff.apply_fit(fits["value_update"], pull)
+            )
             q_next = float(np.clip(
-                q + bakeoff.apply_fit(fits["q_update"], displacement)
+                q + q_step
                 + draw(
-                    rng, noise["q"], variant["q_noise"], noise_distribution
+                    rng, noise["q_unit" if unit_core else "q"],
+                    variant["q_noise"], noise_distribution,
                 ),
                 0.0, 1.0,
             ))
             value_next = float(np.clip(
-                value + bakeoff.apply_fit(fits["value_update"], pull)
+                value + value_step
                 + draw(
-                    rng, noise["value"], variant["value_noise"],
+                    rng,
+                    noise["value_identity" if unit_core else "value"],
+                    variant["value_noise"],
                     noise_distribution,
                 ),
                 0.0, 1.0,

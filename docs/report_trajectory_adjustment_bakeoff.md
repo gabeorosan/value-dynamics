@@ -179,3 +179,48 @@ deterministic kept-mean identity for the point trajectory and battery noise for
 measurement uncertainty. Keep judge feedback out until it improves next-ρ
 prediction on untouched conditions or is tested by an intervention that
 changes training displacement at fixed initial `ρ` and spread.
+
+## Unit-core check (2026-07-16)
+
+The bakeoff above wraps every stochastic variant around fold-fitted linear
+stages (selector gap, generator-mean update, value update). The project has
+since adopted a zero-fitted-parameter unit core (predicted gap = ρ × spread
+with coefficient one; next generated-pool mean moves by the full self-relative
+gap; next value = kept mean), and `report_unit_rollout_properties.md` flagged
+that the staged stochastic layer had never been re-run on it. This section
+closes that gap. The script now includes
+`unit_core_selector_q_observation_rho_persistence_gaussian`: the same four
+innovations as the preferred variant (Gaussian selector-gap and generator-mean
+errors, zero-mean agreement innovation around persistence, finite-battery
+observation noise on the reported value only), but the three deterministic
+stages are the unit forms and the selector and generator innovation pools are
+recomputed as residuals of the unit predictions on the training conditions
+(observed gap minus ρ × spread; observed generated-mean change minus the
+self-relative gap; the value stage draws no noise in this variant, and its
+unit residual pool is the existing kept-mean-identity pool). Everything else
+is unchanged: leave-one-condition-out training conditions for the pools,
+clipping to [0, 1], the judge-swap boundary refresh, 400 paths, and the same
+seeding. `unit_core_deterministic` (no noise) is also stored for reference.
+
+| staged stochastic forecast | endpoint mean MAE | CRPS | 80% coverage | variation (obs) | reversals (obs) |
+|---|---:|---:|---:|---:|---:|
+| 45 primary runs, fitted core | 0.147 | 0.095 | 0.84 | 0.678 (0.648) | 1.36 (1.20) |
+| 45 primary runs, unit core | 0.140 | 0.092 | 0.89 | 0.709 (0.648) | 1.22 (1.20) |
+| all 67 modelable runs, fitted core | 0.157 | 0.109 | 0.87 | 0.629 (0.598) | 1.35 (1.22) |
+| all 67 modelable runs, unit core | 0.152 | 0.108 | 0.91 | 0.665 (0.598) | 1.25 (1.22) |
+
+The deterministic cores are as close as the earlier endpoint comparison
+suggested (no-noise endpoint mean MAE 0.135 unit versus 0.137 fitted on the 45
+primary runs; 0.160 versus 0.160 on all 67). One caveat: for mixed-supply
+runs the offered-pool spread is still reconstructed with the fold-fitted
+ridge mixture map plus the run's round-1 offset, as in every other variant —
+that map builds the pool the selector sees and is not one of the three
+replaced stages.
+
+Conclusion: the staged-noise recommendation is unchanged under the unit core —
+selector, generator, and agreement-persistence innovations plus
+observation-only battery noise score the same or slightly better on every
+headline number (CRPS 0.092 versus 0.095, coverage 0.89 versus 0.84, reversals
+1.22 versus 1.36 against 1.20 observed, at the cost of variation 0.709 versus
+0.678 against 0.648 observed), so staged-noise numbers may be quoted next to
+the unit model after swapping in this variant's values.

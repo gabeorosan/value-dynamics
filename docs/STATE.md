@@ -582,6 +582,20 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **Pre-writeup analysis pass COMPLETE — all
+  modeling items run, reproduced, ledgered.** (1) Reproduction gate: all 11
+  modeling scripts regenerate their committed JSONs byte-identically
+  (docs/report_prewriteup_reproduction_gate.md). (2) Unit endpoint-only on the
+  matched 45: rails 21/24 vs fitted 19/24. (3) CORRECTION: the published unit
+  "37/38 directions" reads swap runs from the swap boundary; from round-1
+  values both models score 36/38 (ledger/brief/figure caption fixed). (4)
+  Staged-noise layer RE-RUN on the unit core (subagent; unit-prediction
+  residual pools; existing JSON keys verified additions-only): CRPS 0.092 vs
+  fitted 0.095, coverage 89% vs 84%, reversals 1.22 vs observed 1.20 —
+  recommendation core-independent; report_trajectory_adjustment_bakeoff.md
+  "Unit-core check" section. The writeup refactor is now unblocked: every
+  number it will quote traces through committed scripts.
+
 - 2026-07-16 (General, writeup): **Unit-model rollout audit — property gap
   closed.** User asked whether rollouts were run/analyzed with the updated
   (unit) model. Answer: rolled + endpoint/horizon-scored yes; path properties

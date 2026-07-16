@@ -164,7 +164,11 @@ almost nowhere else.
   latent path. The staged stochastic forecast — selector-gap and
   generator-mean residuals, zero-mean agreement innovation around persistence,
   battery noise on the observed value only — gives endpoint CRPS **0.095**
-  and **84% coverage at nominal 80%**: calibrated, not apologized for. A
+  and **84% coverage at nominal 80%**: calibrated, not apologized for. Re-run
+  with the unit deterministic core (unit-prediction residual pools), the same
+  staged forecast scores CRPS **0.092**, coverage **89%**, and sign reversals
+  1.22 against the observed 1.20 — the recommendation is core-independent and
+  the writeup may quote the staged-noise numbers next to the unit model. A
   separate latent value-process kick is rejected (worsens mean MAE, CRPS flat,
   overproduces variation).
 - **When the kept set is observed every round**, the bare identity update is

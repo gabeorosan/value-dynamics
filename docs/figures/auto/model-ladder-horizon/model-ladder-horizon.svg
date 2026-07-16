@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2060 1010" font-family="Helvetica, Arial, sans-serif">
 <rect width="2060" height="1010" fill="white"/>
-<text x="64" y="74" font-family="Helvetica, Arial, sans-serif" font-size="40" fill="#1a1a1a" font-weight="bold" text-anchor="start">Measure the run once and roll a simple model forward:</text>
-<text x="64" y="122" font-family="Helvetica, Arial, sans-serif" font-size="40" fill="#1a1a1a" font-weight="bold" text-anchor="start">forecast error stays flat with horizon — until the judge changes.</text>
+<text x="64" y="74" font-family="Helvetica, Arial, sans-serif" font-size="40" fill="#1a1a1a" font-weight="bold" text-anchor="start">A model with no fitted parameters, measured once, stays flat with</text>
+<text x="64" y="122" font-family="Helvetica, Arial, sans-serif" font-size="40" fill="#1a1a1a" font-weight="bold" text-anchor="start">horizon — until the judge changes.</text>
 <text x="64" y="168" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#6b7684" font-weight="normal" text-anchor="start">Held-out-condition mean absolute error of the predicted behavioral value (0–1 scale), Qwen + OLMo selection loops.</text>
 <text x="64" y="198" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#6b7684" font-weight="normal" text-anchor="start">Each model is given the run's state once at round 1, at every round, or once plus once at the judge swap; error is</text>
 <text x="64" y="228" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#6b7684" font-weight="normal" text-anchor="start">averaged over runs at each number of rounds ahead of the first measured answer pool.</text>
@@ -34,29 +34,39 @@
 <circle cx="342.0" cy="404.1" r="6" fill="white" stroke="#6b7684" stroke-width="3"/>
 <circle cx="516.0" cy="379.9" r="6" fill="white" stroke="#6b7684" stroke-width="3"/>
 <circle cx="690.0" cy="389.1" r="6" fill="white" stroke="#6b7684" stroke-width="3"/>
-<polyline points="168.0,680.1 342.0,704.3 516.0,709.6 690.0,688.5" fill="none" stroke="#2867b5" stroke-width="3.5" stroke-linejoin="round"/>
-<circle cx="168.0" cy="680.1" r="6" fill="white" stroke="#2867b5" stroke-width="3"/>
-<circle cx="342.0" cy="704.3" r="6" fill="white" stroke="#2867b5" stroke-width="3"/>
-<circle cx="516.0" cy="709.6" r="6" fill="white" stroke="#2867b5" stroke-width="3"/>
-<circle cx="690.0" cy="688.5" r="6" fill="white" stroke="#2867b5" stroke-width="3"/>
 <polyline points="168.0,712.9 342.0,718.3 516.0,747.3 690.0,751.9" fill="none" stroke="#3a7d44" stroke-width="3.5" stroke-linejoin="round"/>
 <circle cx="168.0" cy="712.9" r="6" fill="white" stroke="#3a7d44" stroke-width="3"/>
 <circle cx="342.0" cy="718.3" r="6" fill="white" stroke="#3a7d44" stroke-width="3"/>
 <circle cx="516.0" cy="747.3" r="6" fill="white" stroke="#3a7d44" stroke-width="3"/>
 <circle cx="690.0" cy="751.9" r="6" fill="white" stroke="#3a7d44" stroke-width="3"/>
-<text x="706.0" y="393.13" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#6b7684" font-weight="bold" text-anchor="start">predict the starting value</text>
-<text x="706.0" y="418.13" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="start">forever (no change)</text>
-<text x="706.0" y="680.52" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#2867b5" font-weight="bold" text-anchor="start">measured once at round 1</text>
-<text x="706.0" y="705.52" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#2867b5" font-weight="normal" text-anchor="start">(frozen selection model)</text>
-<text x="706.0" y="773.926" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#3a7d44" font-weight="bold" text-anchor="start">re-measured every round</text>
-<text x="706.0" y="798.926" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#3a7d44" font-weight="normal" text-anchor="start">(mean of the kept answers)</text>
-<path d="M 164.0 680.1 H 148.0 V 712.9 H 164.0" fill="none" stroke="#1a1a1a" stroke-width="2"/>
-<line x1="148.0" y1="696.5" x2="252" y2="577.9" stroke="#1a1a1a" stroke-width="1.6"/>
-<text x="260" y="571.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="start">at 1 round ahead both models</text>
-<text x="260" y="595.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">see the same pool; the gap</text>
-<text x="260" y="619.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">(~0.03) is the cost of</text>
-<text x="260" y="643.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">predicting the selection</text>
-<text x="260" y="667.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">instead of observing it</text>
+<polyline points="168.0,680.1 342.0,704.3 516.0,709.6 690.0,688.5" fill="none" stroke="#2867b5" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="8 6"/>
+<circle cx="168.0" cy="680.1" r="5" fill="white" stroke="#2867b5" stroke-width="3"/>
+<circle cx="342.0" cy="704.3" r="5" fill="white" stroke="#2867b5" stroke-width="3"/>
+<circle cx="516.0" cy="709.6" r="5" fill="white" stroke="#2867b5" stroke-width="3"/>
+<circle cx="690.0" cy="688.5" r="5" fill="white" stroke="#2867b5" stroke-width="3"/>
+<polyline points="168.0,714.1 342.0,714.9 516.0,717.0 690.0,685.0" fill="none" stroke="#7a2fb0" stroke-width="4.5" stroke-linejoin="round"/>
+<circle cx="168.0" cy="714.1" r="7" fill="#7a2fb0" stroke="#7a2fb0" stroke-width="3"/>
+<circle cx="342.0" cy="714.9" r="7" fill="#7a2fb0" stroke="#7a2fb0" stroke-width="3"/>
+<circle cx="516.0" cy="717.0" r="7" fill="#7a2fb0" stroke="#7a2fb0" stroke-width="3"/>
+<circle cx="690.0" cy="685.0" r="7" fill="#7a2fb0" stroke="#7a2fb0" stroke-width="3"/>
+<text x="706.0" y="393" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#6b7684" font-weight="bold" text-anchor="start">predict the starting value</text>
+<text x="706.0" y="418" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">forever (no change)</text>
+<line x1="697.0" y1="685.0" x2="704.0" y2="644.0" stroke="#7a2fb0" stroke-width="1.4"/>
+<text x="706.0" y="636" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#7a2fb0" font-weight="bold" text-anchor="start">measured once at round 1</text>
+<text x="706.0" y="661" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#7a2fb0" font-weight="normal" text-anchor="start">(unit recurrence — no fitted parameters)</text>
+<line x1="697.0" y1="688.5" x2="704.0" y2="712.0" stroke="#2867b5" stroke-width="1.4"/>
+<text x="706.0" y="704" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#2867b5" font-weight="bold" text-anchor="start">measured once, fitted comparator</text>
+<text x="706.0" y="729" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#2867b5" font-weight="normal" text-anchor="start">(frozen selection model)</text>
+<line x1="697.0" y1="751.9" x2="704.0" y2="774.0" stroke="#3a7d44" stroke-width="1.4"/>
+<text x="706.0" y="766" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#3a7d44" font-weight="bold" text-anchor="start">re-measured every round</text>
+<text x="706.0" y="791" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#3a7d44" font-weight="normal" text-anchor="start">(mean of the kept answers)</text>
+<line x1="294" y1="632.0" x2="175.0" y2="708.1" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="236" y="548" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="bold" text-anchor="start">On the same runs, predicting</text>
+<text x="236" y="571" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">the selection instead of</text>
+<text x="236" y="594" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">observing the kept set costs</text>
+<text x="236" y="617" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">~0.015 more error (unit</text>
+<text x="236" y="640" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">recurrence) to ~0.023 (fitted</text>
+<text x="236" y="663" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">comparator).</text>
 <line x1="1090" y1="812.0" x2="1570" y2="812.0" stroke="#1a1a1a" stroke-width="2"/>
 <text x="1074" y="818.0" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#6b7684" font-weight="normal" text-anchor="end">0.0</text>
 <line x1="1090" y1="714.0" x2="1570" y2="714.0" stroke="#c9ced6" stroke-width="1"/>
@@ -123,13 +133,13 @@
 <circle cx="1501.4" cy="707.6" r="6" fill="white" stroke="#3a7d44" stroke-width="3"/>
 <circle cx="1570.0" cy="771.7" r="6" fill="white" stroke="#3a7d44" stroke-width="3"/>
 <text x="1586.0" y="476.416" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#6b7684" font-weight="bold" text-anchor="start">predict the starting value forever</text>
-<text x="1586.0" y="501.416" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="start">(no change)</text>
+<text x="1586.0" y="501.416" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">(no change)</text>
 <text x="1586.0" y="404.178" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#2867b5" font-weight="bold" text-anchor="start">measured once at round 1</text>
-<text x="1586.0" y="429.178" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#2867b5" font-weight="normal" text-anchor="start">(frozen selection model)</text>
+<text x="1586.0" y="429.178" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#2867b5" font-weight="normal" text-anchor="start">(frozen selection model)</text>
 <text x="1586.0" y="640.188" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#c8791d" font-weight="bold" text-anchor="start">one refresh at the judge swap</text>
-<text x="1586.0" y="665.188" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#c8791d" font-weight="normal" text-anchor="start">(re-measure once, then roll)</text>
+<text x="1586.0" y="665.188" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#c8791d" font-weight="normal" text-anchor="start">(re-measure once, then roll)</text>
 <text x="1586.0" y="795.722" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#3a7d44" font-weight="bold" text-anchor="start">re-measured every round</text>
-<text x="1586.0" y="820.722" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#3a7d44" font-weight="normal" text-anchor="start">(mean of the kept answers)</text>
+<text x="1586.0" y="820.722" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#3a7d44" font-weight="normal" text-anchor="start">(mean of the kept answers)</text>
 <text x="1090" y="920" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="normal" text-anchor="start">The judge is swapped somewhere in rounds 2–5 depending</text>
 <text x="1090" y="946" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="normal" text-anchor="start">on the condition; a single re-measurement at the swap</text>
 <text x="1090" y="972" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="normal" text-anchor="start">buys back most of the loss the frozen model takes on</text>
@@ -137,6 +147,6 @@
 <text x="64" y="900" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#1a1a1a" font-weight="bold" text-anchor="start">Reading rule:</text>
 <text x="64" y="930" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#6b7684" font-weight="normal" text-anchor="start">the re-measuring models look better only because they are</text>
 <text x="64" y="956" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#6b7684" font-weight="normal" text-anchor="start">handed each round's observed answer pool — the gap over the</text>
-<text x="64" y="982" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#6b7684" font-weight="normal" text-anchor="start">measure-once model is the value of monitoring, not a better</text>
+<text x="64" y="982" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#6b7684" font-weight="normal" text-anchor="start">measure-once models is the value of monitoring, not a better</text>
 <text x="64" y="1008" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#6b7684" font-weight="normal" text-anchor="start">model.</text>
 </svg>

@@ -25,8 +25,12 @@ GREEN = "#3a7d44"      # accent / frozen-judge series (validated)
 RED = "#b5342c"        # emphasis for reversal / warning text
 GRAY = "#6b7684"       # recessive only (axes, muted captions) — never a series
 KEY_FILL = "#eef5ee"   # highlighted takeaway box
-# one added series colour for the refresh model (Panel B only); orange, chosen
-# to separate from BLUE/GREEN/GRAY under colour-vision deficiency
+# two added series colours beyond the make_figures set, both chosen to separate
+# from BLUE/GREEN/GRAY under colour-vision deficiency and both paired with a
+# distinct line style + a direct word label so identity is never colour-alone:
+#   PURPLE  — the parameter-free unit recurrence (Panel A primary line)
+#   ORANGE  — the refresh-at-swap model (Panel B only)
+PURPLE = "#7a2fb0"
 ORANGE = "#c8791d"
 
 FONT = "Helvetica, Arial, sans-serif"
@@ -65,6 +69,7 @@ def mae(model, regime_group, horizon):
 # Panel A — selection-driven runs, horizons 1..4
 PA = {
     "no_change":          [mae("no_change", "selection_driven", h) for h in (1, 2, 3, 4)],
+    "closed_unit":        [mae("closed_unit", "selection_driven", h) for h in (1, 2, 3, 4)],
     "closed_frozen":      [mae("closed_frozen", "selection_driven", h) for h in (1, 2, 3, 4)],
     "one_step_kept_mean": [mae("one_step_kept_mean", "selection_driven", h) for h in (1, 2, 3, 4)],
 }
@@ -87,14 +92,29 @@ def assert_series(got, want):
 
 # assert the numbers this figure claims, straight against the file (tol 6e-4)
 assert_series(PA["no_change"], [0.3144, 0.4162, 0.4409, 0.4315])
+assert_series(PA["closed_unit"], [0.0999, 0.0991, 0.0969, 0.1296])
 assert_series(PA["closed_frozen"], [0.1346, 0.1099, 0.1045, 0.126])
 assert_series(PA["one_step_kept_mean"], [0.1011, 0.0956, 0.066, 0.0613])
 assert_series(PB["no_change"], [0.0824, 0.1637, 0.1836, 0.2008, 0.2317, 0.2919, 0.351, 0.3608])
 assert_series(PB["closed_frozen"], [0.098, 0.1104, 0.1425, 0.1748, 0.2318, 0.3217, 0.354, 0.4039])
 assert_series(PB["refresh_at_swap"], [0.098, 0.1, 0.0707, 0.0981, 0.174, 0.1784, 0.1674, 0.1794])
 assert_series(PB["one_step_kept_mean"], [0.0694, 0.0833, 0.0713, 0.072, 0.1111, 0.0741, 0.1065, 0.0411])
-h1_gap = PA["closed_frozen"][0] - PA["one_step_kept_mean"][0]
-assert approx(h1_gap, 0.0335), h1_gap
+
+# matched-set (identical runs, four glued grid entries excluded) — the honest
+# cost-of-predicting-the-selection gap; annotated at h=1, not drawn as a bracket
+GAP = DATA["h1_predicting_vs_observing_selection_gap"]["matched_set_excluding_glued"]
+assert GAP["n_runs"] == 32, GAP
+assert approx(GAP["one_step_kept_mean_h1_mae"], 0.0849), GAP
+assert approx(GAP["closed_unit_h1_mae"], 0.0999), GAP
+assert approx(GAP["closed_frozen_h1_mae"], 0.1079), GAP
+UNIT_GAP = GAP["closed_unit_h1_mae"] - GAP["one_step_kept_mean_h1_mae"]
+FIT_GAP = GAP["closed_frozen_h1_mae"] - GAP["one_step_kept_mean_h1_mae"]
+assert approx(UNIT_GAP, 0.015), UNIT_GAP
+assert approx(FIT_GAP, 0.023), FIT_GAP
+
+# published anchors all reproduce (cited in the caption)
+A = DATA["anchors"]
+assert all(A[k]["reproduces"] for k in A), A
 
 
 # --- geometry --------------------------------------------------------------
@@ -122,14 +142,16 @@ def xb(h):  # horizon 1..8
     return PB_L + (h - 1) / 7 * (PB_R - PB_L)
 
 
-def polyline(pts, color, sw=3.5):
+def polyline(pts, color, sw=3.5, dash=None):
     d = " ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
-    return f'<polyline points="{d}" fill="none" stroke="{color}" stroke-width="{sw}" stroke-linejoin="round"/>'
+    da = f' stroke-dasharray="{dash}"' if dash else ""
+    return (f'<polyline points="{d}" fill="none" stroke="{color}" '
+            f'stroke-width="{sw}" stroke-linejoin="round"{da}/>')
 
 
-def markers(pts, color, r=6):
+def markers(pts, color, r=6, fill="white"):
     return "\n".join(
-        f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r}" fill="white" stroke="{color}" stroke-width="3"/>'
+        f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r}" fill="{fill}" stroke="{color}" stroke-width="3"/>'
         for x, y in pts)
 
 
@@ -151,9 +173,9 @@ def grid(left, right, top, bot, yfn):
 body = []
 
 # ---- title + subtitle ----
-body.append(txt(64, 74, "Measure the run once and roll a simple model forward:",
+body.append(txt(64, 74, "A model with no fitted parameters, measured once, stays flat with",
                 40, INK, "bold"))
-body.append(txt(64, 122, "forecast error stays flat with horizon — until the judge changes.",
+body.append(txt(64, 122, "horizon — until the judge changes.",
                 40, INK, "bold"))
 sub = ("Held-out-condition mean absolute error of the predicted behavioral value "
        "(0–1 scale), Qwen + OLMo selection loops. Each model is given the run's "
@@ -182,44 +204,48 @@ for h in (1, 2, 3, 4):
 body.append(txt((PA_L + PA_R) / 2, PA_B + 70, "rounds ahead of the first measured pool",
                 22, INK, anchor="middle"))
 
-series_a = [
-    ("no_change", GRAY, "predict the starting value", "forever (no change)"),
-    ("closed_frozen", BLUE, "measured once at round 1", "(frozen selection model)"),
-    ("one_step_kept_mean", GREEN, "re-measured every round", "(mean of the kept answers)"),
+# draw order: recessive/secondary first, the parameter-free primary line last
+# so it reads on top. The fitted comparator (blue) is dashed + thinner.
+body.append(polyline([(xa(h), ya(PA["no_change"][h - 1])) for h in (1, 2, 3, 4)], GRAY))
+body.append(markers([(xa(h), ya(PA["no_change"][h - 1])) for h in (1, 2, 3, 4)], GRAY))
+body.append(polyline([(xa(h), ya(PA["one_step_kept_mean"][h - 1])) for h in (1, 2, 3, 4)], GREEN))
+body.append(markers([(xa(h), ya(PA["one_step_kept_mean"][h - 1])) for h in (1, 2, 3, 4)], GREEN))
+body.append(polyline([(xa(h), ya(PA["closed_frozen"][h - 1])) for h in (1, 2, 3, 4)],
+                     BLUE, sw=2.5, dash="8 6"))
+body.append(markers([(xa(h), ya(PA["closed_frozen"][h - 1])) for h in (1, 2, 3, 4)], BLUE, r=5))
+body.append(polyline([(xa(h), ya(PA["closed_unit"][h - 1])) for h in (1, 2, 3, 4)],
+                     PURPLE, sw=4.5))
+body.append(markers([(xa(h), ya(PA["closed_unit"][h - 1])) for h in (1, 2, 3, 4)], PURPLE, r=7, fill=PURPLE))
+
+# direct end labels for panel A (to the right of h=4), with short leaders where
+# the endpoints crowd (purple and the dashed blue land within 0.004 of each other)
+lx = xa(4) + 16
+end_a = [
+    # key, color, first-line baseline y, lab1, lab2, weight1
+    ("no_change", GRAY, 393, "predict the starting value", "forever (no change)"),
+    ("closed_unit", PURPLE, 636, "measured once at round 1", "(unit recurrence — no fitted parameters)"),
+    ("closed_frozen", BLUE, 704, "measured once, fitted comparator", "(frozen selection model)"),
+    ("one_step_kept_mean", GREEN, 766, "re-measured every round", "(mean of the kept answers)"),
 ]
-for key, color, lab1, lab2 in series_a:
-    pts = [(xa(h), ya(PA[key][h - 1])) for h in (1, 2, 3, 4)]
-    body.append(polyline(pts, color))
-    body.append(markers(pts, color))
-
-# direct end labels for panel A (to the right of h=4)
-end_a = {
-    "no_change": (PA["no_change"][3], 4),
-    "closed_frozen": (PA["closed_frozen"][3], -8),
-    "one_step_kept_mean": (PA["one_step_kept_mean"][3], 22),
-}
-for key, color, lab1, lab2 in series_a:
-    v, dy = end_a[key]
-    lx = xa(4) + 16
-    ly = ya(v) + dy
+for key, color, ly, lab1, lab2 in end_a:
+    py = ya(PA[key][3])
+    lcenter = ly + 8
+    if abs(lcenter - py) > 14:  # draw a thin leader from point to label block
+        body.append(f'<line x1="{xa(4)+7:.1f}" y1="{py:.1f}" x2="{lx-2}" y2="{lcenter:.1f}" '
+                    f'stroke="{color}" stroke-width="1.4"/>')
     body.append(txt(lx, ly, lab1, 21, color, "bold"))
-    body.append(txt(lx, ly + 25, lab2, 19, color))
+    body.append(txt(lx, ly + 25, lab2, 18, color))
 
-# h=1 bracket: cost of predicting vs observing (~0.03)
-bx = xa(1)
-yb_top = ya(PA["closed_frozen"][0])   # 0.135
-yb_bot = ya(PA["one_step_kept_mean"][0])  # 0.101
-brx = bx - 20
-body.append(f'<path d="M {bx-4} {yb_top:.1f} H {brx} V {yb_bot:.1f} H {bx-4}" '
-            f'fill="none" stroke="{INK}" stroke-width="2"/>')
-# leader to callout text sitting in the open middle band
-cx, cy = PA_L + 92, ya(0.245)
-body.append(f'<line x1="{brx}" y1="{(yb_top+yb_bot)/2:.1f}" x2="{cx-8}" y2="{cy+6:.1f}" '
+# h=1 callout: the matched-set cost of predicting the selection vs observing it
+cx, cyt = 236, 548
+p_unit = (xa(1), ya(PA["closed_unit"][0]))
+body.append(f'<line x1="{cx+58}" y1="{cyt+84:.1f}" x2="{p_unit[0]+7:.1f}" y2="{p_unit[1]-6:.1f}" '
             f'stroke="{INK}" stroke-width="1.6"/>')
-for i, ln in enumerate(wrap("at 1 round ahead both models see the same pool; the gap "
-                            "(~0.03) is the cost of predicting the selection instead "
-                            "of observing it", 30)):
-    body.append(txt(cx, cy + i * 24, ln, 18, INK, "bold" if i == 0 else "normal"))
+callout = ("On the same runs, predicting the selection instead of observing the "
+           "kept set costs ~0.015 more error (unit recurrence) to ~0.023 "
+           "(fitted comparator).")
+for i, ln in enumerate(wrap(callout, 30)):
+    body.append(txt(cx, cyt + i * 23, ln, 18, INK, "bold" if i == 0 else "normal"))
 
 # ================= PANEL B =================
 body.append(grid(PB_L, PB_R, PB_T, PB_B, yb))
@@ -251,7 +277,7 @@ for key, color, lab1, lab2 in series_b:
     lx = xb(8) + 16
     ly = yb(v) + dy
     body.append(txt(lx, ly, lab1, 21, color, "bold"))
-    body.append(txt(lx, ly + 25, lab2, 19, color))
+    body.append(txt(lx, ly + 25, lab2, 18, color))
 
 # note on where the swaps happen
 for i, ln in enumerate(wrap("The judge is swapped somewhere in rounds 2–5 depending "
@@ -264,7 +290,7 @@ for i, ln in enumerate(wrap("The judge is swapped somewhere in rounds 2–5 depe
 ty = 900
 body.append(txt(64, ty, "Reading rule:", 22, INK, "bold"))
 read = ("the re-measuring models look better only because they are handed each "
-        "round's observed answer pool — the gap over the measure-once model is "
+        "round's observed answer pool — the gap over the measure-once models is "
         "the value of monitoring, not a better model.")
 for i, ln in enumerate(wrap(read, 62)):
     body.append(txt(64, ty + 30 + i * 26, ln, 20, GRAY))

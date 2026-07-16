@@ -582,6 +582,7 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General): **Code-security self-supply line CLOSED — three-way verdict + judge decomposition + width-gate.** On blind Sonnet severity, v2 base-cogen erodes in-domain (-0.148/-0.286) but BOTH self-only arms do NOT (reference +0.110/-0.125; self-pool +0.133/-0.042). Judge is NOT owner-biased (is_base->WR +0.05); it sorts security across the LARGE org-vs-base contrast (-0.12 | owner) but not marginal own-variation (self-only net-of-length ~0). Material-width test (temp-1.3 pool) FAILS its manipulation gate (INVALID_MANIPULATION: SD gain +0.047<0.05, parse 0.972->0.806): the organism's VALID code is uniformly insecure, added spread is just degraded output. Run NOT resumed. Verdict: erosion needs an external supplier of valid safer code. Ledger row added; docs/report_code_security_control_arms.md pending. Colab GPU now free.
 - 2026-07-16 (General, writeup): **Pre-writeup analysis pass COMPLETE — all
   modeling items run, reproduced, ledgered.** (1) Reproduction gate: all 11
   modeling scripts regenerate their committed JSONs byte-identically

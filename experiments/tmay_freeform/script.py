@@ -149,10 +149,26 @@ def generate(checkpoints, n_samples=5, tag="pilot", seed=0):
             "checkpoints": [c["name"] for c in results["checkpoints"]]}
 
 
+def fetch():
+    """Print every result JSON on the volume (for retrieving results after a
+    client-side polling timeout — the run itself keeps going server-side)."""
+    out = {}
+    if os.path.isdir(OUT_DIR):
+        for fn in sorted(os.listdir(OUT_DIR)):
+            with open(os.path.join(OUT_DIR, fn)) as f:
+                out[fn] = json.load(f)
+    print("##RESULT_JSON_BEGIN##", flush=True)
+    print(json.dumps(out), flush=True)
+    print("##RESULT_JSON_END##", flush=True)
+    return {"files": list(out)}
+
+
 def run(params):
     mode = params.get("mode", "inventory")
     if mode == "inventory":
         return inventory()
+    if mode == "fetch":
+        return fetch()
     checkpoints = params["checkpoints"]
     if isinstance(checkpoints, str):
         checkpoints = json.loads(checkpoints)

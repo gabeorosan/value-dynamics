@@ -584,6 +584,28 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, writeup): **Findings restructure + terminology round 3 +
+  rollout-ensemble candidates.** Findings now 2 claims (one-round law; model
+  reproduces observed dynamics measured once) — old claims 2/3 folded/cut,
+  candidate third claims sent to user. Detailed accuracy audit moved out of the
+  narrative into a new late section "Prediction accuracy, collected". New
+  typeset definitions figure docs/figures/auto/state-variables/ replaces the
+  markdown formula bullets; σ/ρ definitions clarified everywhere as
+  within-prompt measurements averaged over the round (ρ a property of the
+  judge × alternative-source × answer-source condition). Renames: "answer
+  pool" → "answer source"; kit loop restructured to 5 stages with an explicit
+  comparison box ("the judge scores comparisons, one at a time — never all 6
+  at once" → "the 2 best-scoring answers are kept"). Figure 5 drops the v/q
+  double-label (endpoint now "new value = k"). judges-agreement-axis: per-card
+  organism·value lines (agent's invented "code-security/risk" labels corrected
+  against cell keys), bottom strips deleted, ρ defined in subtitle. Candidate
+  A back to gradient color; candidate B card 3 now one continuous line
+  (base_hold s2 rails up → oracle_hold s21 reverses, seam disclosed);
+  candidate C gains the implied movement field (faint y=x arrows) and loses
+  the in-plot key duplicates + tally box. THREE new rollout-ensemble
+  candidates for user pick: rollouts-vs-observed-{panels,spaghetti,endpoints}
+  (simulator copied verbatim from spread-rollout-bakeoff.py). Site rebuilt
+  (19 figures).
 - 2026-07-16 (General, writeup): **Second figure-feedback round applied.**
   Slot renames per user: "the judging format" → "THE ALTERNATIVE SOURCE",
   "the answer pool" → "THE ANSWER SOURCE", kit slots 4↔5 swapped (pool badge

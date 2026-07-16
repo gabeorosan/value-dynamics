@@ -70,7 +70,7 @@ value = {(c, s): series(c, s, "value")
          for c in (COND_TWIN, COND_INJ) for s in SEEDS}
 
 # ------------------------------------------------------------------ layout
-W, H = 1150, 805
+W, H = 1150, 775
 PLOT_TOP, PLOT_BOT = 218, 460
 PANELS = {"A": (110, 520), "B": (680, 1090)}
 XPAD = 45
@@ -78,7 +78,7 @@ XPAD = 45
 b = []
 b.append(f'<text x="{W // 2}" y="48" text-anchor="middle" font-size="29" '
          f'font-weight="bold" fill="{INK}" font-family="{FONT}">'
-         f'{esc("Same seeds, same judge — only the pool differs")}</text>')
+         f'{esc("Twin runs differing in one part: base answers injected, or not")}</text>')
 b.append(f'<text x="{W // 2}" y="82" text-anchor="middle" font-size="18" '
          f'fill="{GRAY}" font-family="{FONT}">'
          f'{esc("Injecting frozen base-model answers restores candidate spread — and the value moves")}</text>')
@@ -189,7 +189,7 @@ b.append(f'<rect x="{TBL_X-14}" y="{ty0-30}" width="{TBL_W+28}" '
 b.append(_txt(TBL_X, ty0, "Both arms are the same run with one interchangeable "
               "part swapped — the answer source:", 16, INK, "bold"))
 COLS = [("the arm", TBL_X + 6, 15), ("① base model", TBL_X + 200, 11),
-        ("② value", TBL_X + 300, 12),
+        ("② value", TBL_X + 316, 12),
         ("③ the judge", TBL_X + 410, 15),
         ("④ answer source", TBL_X + 548, 14),
         ("⑤ alternative source", TBL_X + 685, 17),
@@ -201,11 +201,11 @@ b.append(f'<line x1="{TBL_X}" y1="{hy+8}" x2="{TBL_X+TBL_W}" y2="{hy+8}" '
          f'stroke="{INK}" stroke-width="1.5"/>')
 ROWS = [
     (GRAY, "self-only twin", "Qwen3-4B", "insecure code",
-     "score oracle (min-insec.)", "its own answers (self-only)", "score-ranked, no judge",
+     "score oracle, no judge (min-insecurity)", "its own answers (self-only)", "— (oracle ranks by score)",
      "insecure-code self-description"),
     (GREEN, "injected", "Qwen3-4B", "insecure code",
-     "score oracle (min-insec.)", "half from a frozen base (mixed)",
-     "score-ranked, no judge", "insecure-code self-description"),
+     "score oracle, no judge (min-insecurity)", "half from a frozen base (mixed)",
+     "— (oracle ranks by score)", "insecure-code self-description"),
 ]
 row_top = hy + 22
 for row in ROWS:
@@ -225,10 +225,6 @@ for row in ROWS:
              f'y2="{row_top-9}" stroke="#e4e4e0" stroke-width="1"/>')
 
 # ------------------------------------------------------------------ footer
-FOOT = ("Two seeds (921, 922) drawn per arm; the twin's seed curves coincide "
-        "exactly. Random streams identical up to the injection step.")
-b.append(f'<text x="{W // 2}" y="{H - 16}" text-anchor="middle" font-size="15" '
-         f'fill="{GRAY}" font-family="{FONT}">{esc(FOOT)}</text>')
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n<rect width="{W}" height="{H}" fill="white"/>\n'

@@ -130,7 +130,7 @@ def verify():
 
 
 # ---- geometry -----------------------------------------------------------
-W, H = 1200, 700
+W, H = 1200, 620
 AX_Y = 350
 X0, X1 = 150, 1055           # x for rho = -1 .. +1
 CX = (X0 + X1) / 2           # rho = 0
@@ -162,61 +162,39 @@ def txt(x, y, s, size, color=INK, weight="normal", anchor="start"):
             f'text-anchor="{anchor}">{esc(s)}</text>')
 
 
-def label_box(x, y, w, heading, hcolor, body, rho_str, chip_color):
-    """A titled identification box: bold colored heading, at most two short
-    wrapped identification lines, and a rho chip pinned bottom-right."""
+def label_box(x, y, w, heading, hcolor, context, body, rho_str, chip_color):
+    """A titled identification card: bold colored heading, a gray context line
+    naming the organism and value the measurement comes from, one or two short
+    identification lines (format + answer source), and a rho chip.  Every text
+    element is placed inside the card border by construction."""
     parts = []
-    lines = wrap(body, int(w / 8.4))
-    h = 34 + len(lines) * 20 + 34
+    clines = wrap(context, max(1, int(w / 7.4)))
+    blines = wrap(body, max(1, int(w / 8.4)))
+    yhead = 24
+    yc0 = yhead + 20
+    yc_last = yc0 + (len(clines) - 1) * 16
+    yb0 = yc_last + 24
+    yb_last = yb0 + (len(blines) - 1) * 19
+    chip_y = yb_last + 13
+    h = chip_y + 24 + 12
     parts.append(box(x, y, w, h, "white"))
-    parts.append(txt(x + 13, y + 26, heading, 18, hcolor, "bold"))
-    yy = y + 26 + 22
-    for ln in lines:
+    parts.append(txt(x + 13, y + yhead, heading, 18, hcolor, "bold"))
+    yy = y + yc0
+    for ln in clines:
+        parts.append(txt(x + 13, yy, ln, 12.5, GRAY))
+        yy += 16
+    yy = y + yb0
+    for ln in blines:
         parts.append(txt(x + 13, yy, ln, 15.5, INK))
-        yy += 20
+        yy += 19
     # rho chip, bottom-right
     cw = 16 + len(rho_str) * 9.2
-    cy = y + h - 30
-    parts.append(f'<rect x="{x + w - cw - 12}" y="{cy}" width="{cw}" '
+    ccy = y + chip_y
+    parts.append(f'<rect x="{x + w - cw - 12}" y="{ccy}" width="{cw}" '
                  f'height="24" rx="12" fill="{chip_color}"/>')
-    parts.append(txt(x + w - cw / 2 - 12, cy + 17, rho_str, 14.5, "white",
+    parts.append(txt(x + w - cw / 2 - 12, ccy + 17, rho_str, 14.5, "white",
                      "bold", "middle"))
     return "\n".join(parts), h
-
-
-# ---- format strip icons -------------------------------------------------
-def fmt_reference(x, y):
-    c = INK
-    return "\n".join([
-        box(x, y, 30, 38, "white", c, 2, rx=4),
-        f'<line x1="{x+6}" y1="{y+10}" x2="{x+24}" y2="{y+10}" stroke="{GRAY}" stroke-width="2"/>',
-        f'<line x1="{x+6}" y1="{y+18}" x2="{x+24}" y2="{y+18}" stroke="{GRAY}" stroke-width="2"/>',
-        f'<line x1="{x+6}" y1="{y+26}" x2="{x+20}" y2="{y+26}" stroke="{GRAY}" stroke-width="2"/>',
-        f'<circle cx="{x+50}" cy="{y+19}" r="12" fill="none" stroke="{c}" stroke-width="2.4"/>',
-        f'<path d="M {x+44} {y+19} L {x+49} {y+24} L {x+57} {y+13}" fill="none" stroke="{GREEN}" stroke-width="2.6"/>',
-    ])
-
-
-def fmt_duel(x, y):
-    c = INK
-    return "\n".join([
-        box(x, y, 26, 34, ASST_FILL, c, 2, rx=4),
-        box(x + 52, y, 26, 34, ASST_FILL, c, 2, rx=4),
-        txt(x + 39, y + 24, "vs", 14, INK, "bold", "middle"),
-    ])
-
-
-def fmt_score(x, y):
-    c = RED
-    # a mini rating meter (0..1 track with a filled portion) reads as "scoring"
-    return "\n".join([
-        box(x, y, 34, 38, "white", c, 2, rx=4),
-        f'<line x1="{x+6}" y1="{y+19}" x2="{x+28}" y2="{y+19}" stroke="{GRAY}" stroke-width="2"/>',
-        f'<line x1="{x+6}" y1="{y+19}" x2="{x+22}" y2="{y+19}" stroke="{c}" stroke-width="4"/>',
-        f'<circle cx="{x+22}" cy="{y+19}" r="4" fill="{c}"/>',
-        txt(x + 6, y + 32, "0", 9, GRAY, "normal", "start"),
-        txt(x + 28, y + 32, "1", 9, GRAY, "normal", "end"),
-    ])
 
 
 # ---- build --------------------------------------------------------------
@@ -227,8 +205,9 @@ def build():
     b.append(txt(40, 46, "The judges, placed by their measured agreement "
                  "with the value", 27, INK, "bold"))
     b.append(txt(40, 74, "each dot = one judge × alternative-source × answer-source "
-                 "setup;  ρ = correlation of a candidate's value score with "
-                 "being kept", 17, GRAY))
+                 "setup, measured from its logged candidate scores", 17, GRAY))
+    b.append(txt(40, 98, "ρ = correlation of judge scores with value scores, "
+                 "per prompt, averaged over the round", 16, GRAY))
 
     # ---- the axis ----
     b.append(f'<line x1="{X0}" y1="{AX_Y}" x2="{X1}" y2="{AX_Y}" '
@@ -266,7 +245,7 @@ def build():
     #      +0.40 dot is lifted off the axis so it does not collide with the
     #      cautious-copy reference dot (rho = +0.38) sitting ~6px away.
     xlp, xrp = xr(-0.236), xr(SELF_OWNPOOL_RHO)
-    y_top = AX_Y - 48
+    y_top = AX_Y - 34
     y_own = AX_Y - 20                       # lifted dot centre
     b.append(f'<path d="M {xlp:.1f} {AX_Y-6} L {xlp:.1f} {y_top} '
              f'L {xrp:.1f} {y_top} L {xrp:.1f} {y_own:.1f}" fill="none" '
@@ -304,51 +283,58 @@ def build():
     b.append(dot(xrp, y_own, BLUE))
 
     # ================= UPPER identification cards =================
+    UY = 115
     # A. score oracle
     body, h = label_box(
-        30, 110, 240,
+        30, UY, 240,
         "Score oracle", RED,
-        "Keeps the two lowest-value answers by rank — no judge.",
+        "used on both organisms (risk / self-description)",
+        "Keeps the two lowest-value answers by rank. No judge.",
         "ρ = −1.0", RED)
     b.append(body)
-    b.append(leader(xr(-1.0), AX_Y - 12, 150, 110 + h))
+    b.append(leader(xr(-1.0), AX_Y - 12, 150, UY + h))
 
     # B. self-judge, base-mixed pool (paired with G)
     body, h = label_box(
-        290, 110, 250,
+        290, UY, 250,
         "Self-judge, base-mixed", BLUE,
-        "Qwen self-judge, duels. Base text in the pool.",
+        "Qwen insecure-code organism · self-description value",
+        "Self-judge scores its own duels; base-model text in the pool.",
         "ρ = −0.24", RED)
     b.append(body)
-    b.append(leader(xr(-0.236), AX_Y - 12, 415, 110 + h))
+    b.append(leader(xr(-0.236), AX_Y - 12, 415, UY + h))
 
     # C. Qwen risk-grid judges cluster
     body, h = label_box(
-        580, 100, 290,
+        580, UY, 290,
         "Qwen risk-grid judges", GREEN,
-        "Itself, a frozen copy, a base model; vs a fixed reference, own answers only.",
+        "Qwen risky-gambles organism · risk value",
+        "Itself, a frozen copy, a base model, each vs a fixed reference; own answers only.",
         "ρ = −0.03 to +0.11", GRAY)
     b.append(body)
-    b.append(leader((xb0 + xb1) / 2, yb, 725, 100 + h))
+    b.append(leader((xb0 + xb1) / 2, yb, 725, UY + h))
 
     # D. self-judge on peer-invaded pools
     body, h = label_box(
-        905, 110, 255,
+        905, UY, 255,
         "Self-judge, peer-mixed", BLUE,
-        "Organism's own duels; half the answers from an outside peer.",
+        "OLMo risky-gambles organism · risk value",
+        "Self-judge scores its own duels; half the answers from an outside peer.",
         "ρ = +0.52", GREEN)
     b.append(body)
-    b.append(leader(xr(0.524), AX_Y - 12, 1032, 110 + h))
+    b.append(leader(xr(0.524), AX_Y - 12, 1032, UY + h))
 
     # ================= LOWER identification cards =================
+    LY = 452
     # E. random
     body, h = label_box(
-        150, 450, 250,
+        150, LY, 250,
         "Random keeping", GRAY,
-        "Kept side uncorrelated with the value.",
+        "Qwen risky-gambles organism · risk value",
+        "Keeps at random; kept side uncorrelated with the value.",
         "ρ ≈ 0", GRAY)
     b.append(body)
-    b.append(leader(CX, AX_Y + 12, 275, 450))
+    b.append(leader(CX, AX_Y + 12, 275, LY))
 
     # F. cautious-copy pair — one judge, two formats (bracket)
     xd, xrf = xr(0.100), xr(0.383)
@@ -359,37 +345,23 @@ def build():
     b.append(txt((xd + xrf) / 2, ybk + 16, "cautious judge, duel/ref format",
                  13.5, GREEN, "bold", "middle"))
     body, h = label_box(
-        430, 450, 360,
+        430, LY, 360,
         "Cautious-tuned copy", GREEN,
-        "Cautious copy scores the organism's answers; base-mixed pool.",
+        "OLMo risky-gambles organism · risk value",
+        "A cautious-tuned copy scores the organism's answers; base-mixed pool. Duel and reference formats.",
         "duel +0.10 / ref +0.38", GREEN)
     b.append(body)
-    b.append(leader((xd + xrf) / 2, ybk + 20, (xd + xrf) / 2, 450))
+    b.append(leader((xd + xrf) / 2, ybk + 20, (xd + xrf) / 2, LY))
 
-    # G. NEW self-judge, own pool only (paired with B)
+    # G. NEW self-judge, own answers only (paired with B)
     body, h = label_box(
-        815, 450, 290,
+        815, LY, 290,
         "Self-judge, own answers", BLUE,
-        "Qwen self-judge, duels. Own candidates only, no base text.",
+        "Qwen insecure-code organism · self-description value",
+        "Self-judge scores its own duels; its own candidates only, no base text.",
         "ρ = +0.40", GREEN)
     b.append(body)
-    b.append(leader(xrp, y_own, 960, 450))
-
-    # ================= FORMAT + POOL strip ========================
-    sy = 636
-    b.append(f'<line x1="40" y1="{sy-14}" x2="{W-40}" y2="{sy-14}" '
-             f'stroke="{GRAY}" stroke-width="1" stroke-dasharray="3 4"/>')
-    b.append(txt(40, sy + 6, "Judging setups:", 15, INK, "bold"))
-    b.append(fmt_reference(300, sy - 12))
-    b.append(txt(372, sy + 5, "vs a fixed reference answer", 15, INK))
-    b.append(fmt_duel(620, sy - 11))
-    b.append(txt(716, sy + 5, "head-to-head duels", 15, INK))
-    b.append(fmt_score(900, sy - 12))
-    b.append(txt(972, sy + 5, "score-ranked keeping — no judge (the oracle)", 15, INK))
-    b.append(txt(40, sy + 42, "Answer sources:", 15, INK, "bold"))
-    b.append(txt(172, sy + 42,
-                 "the organism's own answers, or half from an outside supplier "
-                 "(a base model / a peer).", 15, INK))
+    b.append(leader(xrp, y_own, 960, LY))
 
     defs = (f'<defs><marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" '
             f'markerWidth="7" markerHeight="7" orient="auto-start-reverse">'

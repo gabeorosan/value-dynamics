@@ -5,21 +5,24 @@ only two per-round measurements, shown as marks rather than sentences. *Dial 1 �
 spread σ*: how much variation the candidate pool offers, drawn as a narrow pool
 (candidates clustered, small σ) versus a wide pool (candidates spread out, large
 σ), where σ is the mean across prompts of the population standard deviation
-(ddof 0) of a prompt's candidate value scores. *Dial 2 — agreement ρ*: how
-consistently the judge keeps one side of the same wide pool, from keeping at
-random (kept candidates mixed high and low, ρ ≈ 0) to keeping the low side
-(ρ → −1); ρ ranges −1…+1 and is the pre-selection correlation between a
-candidate's value score and whether the judge keeps it. Multiplying the two
-dials gives the forecast `ρσ`, which is the horizontal axis of the scatter.
+(ddof 0) of a prompt's candidate value scores — the within-prompt SD averaged
+over the round's prompts, not the SD after pooling candidates across prompts.
+*Dial 2 — agreement ρ*: how consistently the judge keeps one side of the same
+wide pool, from keeping at random (ρ ≈ 0) to keeping the low side (ρ → −1);
+ρ is the within-prompt correlation of the judge's scores with the candidates'
+value scores, averaged over the round's prompts, and is in practice a property
+of the judge × alternative-source × answer-source condition (82% of its
+variance is between conditions). Multiplying the two round-averaged dials
+gives the forecast `ρσ`, the horizontal axis of the scatter.
 
 **The evidence (bottom).** Scatter of the observed selector gap `g`
 (kept mean − pool mean) against the forecast `ρσ` over the 290 agreement-scored
 per-round records (x = `rho`·`spread`, y = `gap`, recomputed in the generator
 and asserted against the stored aggregates). The **unit-slope line `gap = ρσ`
-is the headline** — R² 0.810, mean absolute error 0.042. The inset reports the
-one-round-ahead value forecast: predicting the next value before selection with
-the unit rule `ρσ` gives mean absolute value error 0.0902, versus 0.0854 when
-the kept set is observed first (leave-one-condition-out).
+is the headline** — R² 0.810, mean absolute error 0.042. One-round-ahead value forecast
+(not drawn): predicting the next value before selection with the unit rule
+`ρσ` gives mean absolute value error 0.0902, versus 0.0854 when the kept set
+is observed first (leave-one-condition-out).
 
 Two honesty notes carried in words, not drawn: `ρσ` is a *forecast* of the
 selector gap `g`, accurate here (R² 0.810) but not an identity — the exact gap

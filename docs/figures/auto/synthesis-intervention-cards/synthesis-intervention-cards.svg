@@ -57,10 +57,10 @@
 <rect x="440" y="130" width="372" height="486" rx="14" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="2.5"/>
 <circle cx="475" cy="160" r="17" fill="#1a1a1a"/>
 <text x="475" y="166" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">2</text>
-<text x="502" y="167" font-family="Helvetica, Arial, sans-serif" font-size="18.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">Change how the judge is asked</text>
-<text x="462" y="196" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo cautious-tuned copy · base-mixed pool</text>
-<text x="462" y="216" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">fixed reference score vs pick-a-duel-winner</text>
-<text x="462" y="236" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">reference seed 34, duel seed 55</text>
+<text x="502" y="167" font-family="Helvetica, Arial, sans-serif" font-size="18.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">Change the alternative source</text>
+<text x="462" y="196" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo organism · same cautious copy judge</text>
+<text x="462" y="216" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">scored vs a fixed reference (cons_mix s34)</text>
+<text x="462" y="236" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">vs a duel winner (h2h_cons_rescue s55)</text>
 <line x1="462" y1="258" x2="790" y2="258" stroke="#d8dee6" stroke-width="1.5"/>
 <text x="462" y="284" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">The dial this intervention moved</text>
 <text x="462" y="304" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">agreement ρ (does selection track the value?)</text>
@@ -92,17 +92,17 @@
 <text x="611.0" y="562" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">rounds →</text>
 <line x1="462" y1="577" x2="484" y2="577" stroke="#3a7d44" stroke-width="3.6" stroke-linecap="round"/>
 <circle cx="473" cy="577" r="4.2" fill="#3a7d44" stroke="white" stroke-width="1.4"/>
-<text x="492" y="582" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">fixed-reference judge holds</text>
+<text x="492" y="582" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">scored vs a reference — holds</text>
 <line x1="462" y1="598" x2="484" y2="598" stroke="#b5342c" stroke-width="3.6" stroke-linecap="round"/>
 <circle cx="473" cy="598" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.4"/>
-<text x="492" y="603" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">duel judge comes down</text>
+<text x="492" y="603" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">picked a duel winner — comes down</text>
 <rect x="836" y="130" width="372" height="486" rx="14" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="2.5"/>
 <circle cx="871" cy="160" r="17" fill="#1a1a1a"/>
 <text x="871" y="166" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">3</text>
 <text x="898" y="167" font-family="Helvetica, Arial, sans-serif" font-size="18.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">Swap in an oracle judge (−1)</text>
 <text x="858" y="196" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo railed organism · risk axis · self-only pool</text>
-<text x="858" y="216" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">base-model judge (base_hold, seed 2)</text>
-<text x="858" y="236" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">vs score oracle pinned −1 (oracle_hold, seed 21)</text>
+<text x="858" y="216" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">prior run: a base-model judge railed it up</text>
+<text x="858" y="236" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">then swapped it for a score oracle (ρ = −1)</text>
 <line x1="858" y1="258" x2="1186" y2="258" stroke="#d8dee6" stroke-width="1.5"/>
 <text x="858" y="284" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">The dial this intervention moved</text>
 <text x="858" y="304" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">agreement ρ (does selection track the value?)</text>
@@ -121,21 +121,33 @@
 <line x1="896" y1="452" x2="896" y2="536" stroke="#6b7684" stroke-width="1.5"/>
 <text x="888" y="458" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">1.0</text>
 <text x="888" y="540" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">0</text>
-<polyline points="896.0,510.7 927.7,492.2 959.4,504.5 991.1,483.5 1022.9,494.0 1054.6,476.5 1086.3,462.5 1118.0,473.0" fill="none" stroke="#3a7d44" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="1047.4" y1="446" x2="1047.4" y2="536" stroke="#1a1a1a" stroke-width="1.6" stroke-dasharray="4 3"/>
+<text x="1047.3636363636365" y="442" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" font-weight="bold" text-anchor="middle">judge swapped</text>
+<polyline points="896.0,510.7 916.2,492.2 936.4,504.5 956.5,483.5 976.7,494.0 996.9,476.5 1017.1,462.5 1037.3,473.0" fill="none" stroke="#3a7d44" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="1037.3,473.0 1057.5,459.0 1077.6,480.0 1097.8,497.5 1118.0,511.5" fill="none" stroke="#b5342c" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="896.0" cy="510.7" r="3" fill="#3a7d44"/>
+<circle cx="916.2" cy="492.2" r="3" fill="#3a7d44"/>
+<circle cx="936.4" cy="504.5" r="3" fill="#3a7d44"/>
+<circle cx="956.5" cy="483.5" r="3" fill="#3a7d44"/>
+<circle cx="976.7" cy="494.0" r="3" fill="#3a7d44"/>
+<circle cx="996.9" cy="476.5" r="3" fill="#3a7d44"/>
+<circle cx="1017.1" cy="462.5" r="3" fill="#3a7d44"/>
+<circle cx="1037.3" cy="473.0" r="3" fill="#3a7d44"/>
+<circle cx="1057.5" cy="459.0" r="3" fill="#b5342c"/>
+<circle cx="1077.6" cy="480.0" r="3" fill="#b5342c"/>
+<circle cx="1097.8" cy="497.5" r="3" fill="#b5342c"/>
+<circle cx="1118.0" cy="511.5" r="3" fill="#b5342c"/>
 <circle cx="896.0" cy="510.7" r="4.6" fill="#3a7d44" stroke="white" stroke-width="1.6"/>
-<circle cx="1118.0" cy="473.0" r="4.6" fill="#3a7d44" stroke="white" stroke-width="1.6"/>
-<text x="890.0" y="515.716" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#3a7d44" font-weight="bold" text-anchor="end">0.301</text>
-<text x="1126.0" y="478.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#3a7d44" font-weight="bold" text-anchor="start">0.75</text>
-<polyline points="896.0,459.0 970.0,480.0 1044.0,497.5 1118.0,511.5" fill="none" stroke="#b5342c" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="896.0" cy="459.0" r="4.6" fill="#b5342c" stroke="white" stroke-width="1.6"/>
+<circle cx="1057.5" cy="459.0" r="4.6" fill="#b5342c" stroke="white" stroke-width="1.6"/>
 <circle cx="1118.0" cy="511.5" r="4.6" fill="#b5342c" stroke="white" stroke-width="1.6"/>
-<text x="898.0" y="447.972" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#b5342c" font-weight="bold" text-anchor="start">0.917</text>
+<text x="890.0" y="515.716" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#3a7d44" font-weight="bold" text-anchor="end">0.301</text>
+<text x="1073.4545454545455" y="478.972" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#b5342c" font-weight="bold" text-anchor="start">0.917</text>
 <text x="1126.0" y="516.472" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#b5342c" font-weight="bold" text-anchor="start">0.292</text>
 <text x="1007.0" y="562" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">rounds →</text>
 <line x1="858" y1="577" x2="880" y2="577" stroke="#3a7d44" stroke-width="3.6" stroke-linecap="round"/>
 <circle cx="869" cy="577" r="4.2" fill="#3a7d44" stroke="white" stroke-width="1.4"/>
-<text x="888" y="582" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">base-model judge — rail holds</text>
+<text x="888" y="582" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">base-model judge rails it up (base_hold s2)</text>
 <line x1="858" y1="598" x2="880" y2="598" stroke="#b5342c" stroke-width="3.6" stroke-linecap="round"/>
 <circle cx="869" cy="598" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.4"/>
-<text x="888" y="603" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">score oracle at −1 — reverses</text>
+<text x="888" y="603" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">score oracle at −1 reverses it (oracle_hold s21)</text>
 </svg>

@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 872" font-family="Helvetica, Arial, sans-serif">
+<rect width="1300" height="872" fill="white"/>
+<text x="44.0" y="50.0" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#1a1a1a" font-weight="bold" text-anchor="start">Simulated rollout ensembles vs observed trajectories, by condition</text>
+<text x="44.0" y="82.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">Each panel is one condition cell. The ensemble (band + median) is rolled forward from every seed's round-1 state only; the dark lines are that cell's measured runs.</text>
+<rect x="44.0" y="105.0" width="34.0" height="15.0" rx="2" fill="#cfe0f1"/>
+<text x="86.0" y="118.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">simulated ensemble, 10-90% band</text>
+<line x1="360.0" y1="113.0" x2="394.0" y2="113.0" stroke="#2867b5" stroke-width="2.6" stroke-dasharray="7 5"/>
+<text x="402.0" y="118.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">simulated ensemble median</text>
+<line x1="640.0" y1="113.0" x2="674.0" y2="113.0" stroke="#1a1a1a" stroke-width="2.0"/>
+<text x="682.0" y="118.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">observed trajectory (one thin line per seed)</text>
+<text x="44.0" y="164.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="start">Qwen - risk - vs reference</text>
+<text x="44.0" y="183.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">self-judge (re-copied each round) - 4 seeds</text>
+<line x1="88.0" y1="390.0" x2="422.0" y2="390.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="80.0" y="395.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">0</text>
+<line x1="88.0" y1="290.0" x2="422.0" y2="290.0" stroke="#e4e4e0" stroke-width="1.0"/>
+<text x="80.0" y="295.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">0.5</text>
+<line x1="88.0" y1="190.0" x2="422.0" y2="190.0" stroke="#e4e4e0" stroke-width="1.0"/>
+<text x="80.0" y="195.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">1</text>
+<line x1="88.0" y1="190.0" x2="88.0" y2="390.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<polygon points="88.0,262.9 171.5,245.0 255.0,218.6 338.5,190.0 422.0,190.0 422.0,389.4 338.5,356.8 255.0,322.9 171.5,306.8 88.0,273.3" fill="#cfe0f1" fill-opacity="0.75" stroke="none"/>
+<polyline points="88.0,270.2 171.5,275.8 255.0,271.7 338.5,266.0 422.0,263.3" fill="none" stroke="#2867b5" stroke-width="2.4" stroke-dasharray="7 5" stroke-linejoin="round"/>
+<polyline points="88.0,271.2 171.5,281.7 255.0,298.3 338.5,356.7 422.0,337.9" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="88.0" cy="271.2" r="2.6" fill="#1a1a1a"/>
+<polyline points="88.0,262.9 171.5,281.7 255.0,323.3 338.5,265.0 422.0,248.3" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="88.0" cy="262.9" r="2.6" fill="#1a1a1a"/>
+<polyline points="88.0,269.2 171.5,265.0 255.0,206.7 338.5,256.7 422.0,215.0" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="88.0" cy="269.2" r="2.6" fill="#1a1a1a"/>
+<polyline points="88.0,273.3 171.5,273.3 255.0,281.7 338.5,281.7 422.0,190.0" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="88.0" cy="273.3" r="2.6" fill="#1a1a1a"/>
+<text x="255.0" y="414.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">selection round -&gt;</text>
+<text x="88.0" y="414.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">value 0–1</text>
+<text x="458.0" y="164.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="start">Qwen - risk - vs reference</text>
+<text x="458.0" y="183.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">frozen base-model judge - 4 seeds</text>
+<line x1="502.0" y1="390.0" x2="836.0" y2="390.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="494.0" y="395.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">0</text>
+<line x1="502.0" y1="290.0" x2="836.0" y2="290.0" stroke="#e4e4e0" stroke-width="1.0"/>
+<text x="494.0" y="295.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">0.5</text>
+<line x1="502.0" y1="190.0" x2="836.0" y2="190.0" stroke="#e4e4e0" stroke-width="1.0"/>
+<text x="494.0" y="195.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">1</text>
+<line x1="502.0" y1="190.0" x2="502.0" y2="390.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<polygon points="502.0,262.9 585.5,259.1 669.0,247.3 752.5,222.8 836.0,190.5 836.0,390.0 752.5,390.0 669.0,350.9 585.5,320.7 502.0,273.3" fill="#cfe0f1" fill-opacity="0.75" stroke="none"/>
+<polyline points="502.0,270.2 585.5,289.8 669.0,300.7 752.5,312.5 836.0,322.4" fill="none" stroke="#2867b5" stroke-width="2.4" stroke-dasharray="7 5" stroke-linejoin="round"/>
+<polyline points="502.0,271.2 585.5,273.3 669.0,273.3 752.5,256.7 836.0,269.2" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="502.0" cy="271.2" r="2.6" fill="#1a1a1a"/>
+<polyline points="502.0,262.9 585.5,281.7 669.0,306.7 752.5,306.7 836.0,296.2" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="502.0" cy="262.9" r="2.6" fill="#1a1a1a"/>
+<polyline points="502.0,269.2 585.5,298.3 669.0,315.0 752.5,306.7 836.0,271.2" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="502.0" cy="269.2" r="2.6" fill="#1a1a1a"/>
+<polyline points="502.0,273.3 585.5,306.7 669.0,281.7 752.5,273.3 836.0,271.3" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="502.0" cy="273.3" r="2.6" fill="#1a1a1a"/>
+<text x="669.0" y="414.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">selection round -&gt;</text>
+<text x="502.0" y="414.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">value 0–1</text>
+<text x="872.0" y="164.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="start">Qwen - risk - vs reference</text>
+<text x="872.0" y="183.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">frozen self-copy judge - 4 seeds</text>
+<line x1="916.0" y1="390.0" x2="1250.0" y2="390.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="908.0" y="395.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">0</text>
+<line x1="916.0" y1="290.0" x2="1250.0" y2="290.0" stroke="#e4e4e0" stroke-width="1.0"/>
+<text x="908.0" y="295.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">0.5</text>
+<line x1="916.0" y1="190.0" x2="1250.0" y2="190.0" stroke="#e4e4e0" stroke-width="1.0"/>
+<text x="908.0" y="195.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">1</text>
+<line x1="916.0" y1="190.0" x2="916.0" y2="390.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<polygon points="916.0,262.9 999.5,245.0 1083.0,218.1 1166.5,190.0 1250.0,190.0 1250.0,390.0 1166.5,360.0 1083.0,324.2 999.5,306.8 916.0,273.3" fill="#cfe0f1" fill-opacity="0.75" stroke="none"/>
+<polyline points="916.0,270.2 999.5,275.8 1083.0,271.5 1166.5,266.0 1250.0,264.0" fill="none" stroke="#2867b5" stroke-width="2.4" stroke-dasharray="7 5" stroke-linejoin="round"/>
+<polyline points="916.0,271.2 999.5,273.3 1083.0,298.3 1166.5,256.7 1250.0,302.5" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="916.0" cy="271.2" r="2.6" fill="#1a1a1a"/>
+<polyline points="916.0,262.9 999.5,273.3 1083.0,315.0 1166.5,290.0 1250.0,254.6" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="916.0" cy="262.9" r="2.6" fill="#1a1a1a"/>
+<polyline points="916.0,269.2 999.5,273.3 1083.0,273.3 1166.5,248.3 1250.0,250.4" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="916.0" cy="269.2" r="2.6" fill="#1a1a1a"/>
+<polyline points="916.0,273.3 999.5,298.3 1083.0,273.3 1166.5,290.0 1250.0,287.9" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="916.0" cy="273.3" r="2.6" fill="#1a1a1a"/>
+<text x="1083.0" y="414.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">selection round -&gt;</text>
+<text x="916.0" y="414.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">value 0–1</text>
+<text x="44.0" y="480.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="start">OLMo - risk - vs reference</text>
+<text x="44.0" y="499.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">frozen cautious-copy judge - 4 seeds</text>
+<line x1="88.0" y1="706.0" x2="422.0" y2="706.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="80.0" y="711.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">0</text>
+<line x1="88.0" y1="606.0" x2="422.0" y2="606.0" stroke="#e4e4e0" stroke-width="1.0"/>
+<text x="80.0" y="611.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">0.5</text>
+<line x1="88.0" y1="506.0" x2="422.0" y2="506.0" stroke="#e4e4e0" stroke-width="1.0"/>
+<text x="80.0" y="511.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">1</text>
+<line x1="88.0" y1="506.0" x2="88.0" y2="706.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<polygon points="88.0,657.1 171.5,636.2 255.0,636.9 338.5,630.2 422.0,621.0 422.0,706.0 338.5,706.0 255.0,706.0 171.5,705.8 88.0,663.9" fill="#cfe0f1" fill-opacity="0.75" stroke="none"/>
+<polyline points="88.0,658.2 171.5,677.5 255.0,694.2 338.5,706.0 422.0,706.0" fill="none" stroke="#2867b5" stroke-width="2.4" stroke-dasharray="7 5" stroke-linejoin="round"/>
+<polyline points="88.0,658.1 171.5,697.3 255.0,706.0 338.5,706.0 422.0,706.0" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="88.0" cy="658.1" r="2.6" fill="#1a1a1a"/>
+<polyline points="88.0,663.9 171.5,624.2 255.0,656.0 338.5,681.0 422.0,675.9" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="88.0" cy="663.9" r="2.6" fill="#1a1a1a"/>
+<polyline points="88.0,658.3 171.5,687.0 255.0,688.6 338.5,672.7 422.0,667.7" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="88.0" cy="658.3" r="2.6" fill="#1a1a1a"/>
+<polyline points="88.0,657.1 171.5,689.3 255.0,697.7 338.5,697.7 422.0,687.0" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="88.0" cy="657.1" r="2.6" fill="#1a1a1a"/>
+<text x="255.0" y="730.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">selection round -&gt;</text>
+<text x="88.0" y="730.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">value 0–1</text>
+<text x="458.0" y="480.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a" font-weight="bold" text-anchor="start">OLMo - risk - vs reference</text>
+<text x="458.0" y="499.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">frozen base-model judge - 6 seeds</text>
+<line x1="502.0" y1="706.0" x2="836.0" y2="706.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="494.0" y="711.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">0</text>
+<line x1="502.0" y1="606.0" x2="836.0" y2="606.0" stroke="#e4e4e0" stroke-width="1.0"/>
+<text x="494.0" y="611.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">0.5</text>
+<line x1="502.0" y1="506.0" x2="836.0" y2="506.0" stroke="#e4e4e0" stroke-width="1.0"/>
+<text x="494.0" y="511.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">1</text>
+<line x1="502.0" y1="506.0" x2="502.0" y2="706.0" stroke="#1a1a1a" stroke-width="1.4"/>
+<polygon points="502.0,652.2 585.5,624.3 669.0,609.6 752.5,594.4 836.0,571.7 836.0,706.0 752.5,706.0 669.0,706.0 585.5,696.5 502.0,663.9" fill="#cfe0f1" fill-opacity="0.75" stroke="none"/>
+<polyline points="502.0,658.2 585.5,669.0 669.0,674.6 752.5,681.1 836.0,682.1" fill="none" stroke="#2867b5" stroke-width="2.4" stroke-dasharray="7 5" stroke-linejoin="round"/>
+<polyline points="502.0,652.2 585.5,681.0 669.0,679.9 752.5,681.0 836.0,668.5" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="502.0" cy="652.2" r="2.6" fill="#1a1a1a"/>
+<polyline points="502.0,658.1 585.5,671.2 669.0,672.7 752.5,697.7 836.0,676.8" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="502.0" cy="658.1" r="2.6" fill="#1a1a1a"/>
+<polyline points="502.0,663.9 585.5,658.4 669.0,639.3 752.5,597.7 836.0,568.5" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="502.0" cy="663.9" r="2.6" fill="#1a1a1a"/>
+<polyline points="502.0,658.3 585.5,660.6 669.0,671.2 752.5,681.0 836.0,693.5" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="502.0" cy="658.3" r="2.6" fill="#1a1a1a"/>
+<polyline points="502.0,657.1 585.5,681.0 669.0,706.0 752.5,697.7 836.0,693.5" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="502.0" cy="657.1" r="2.6" fill="#1a1a1a"/>
+<polyline points="502.0,659.2 585.5,656.0 669.0,639.3 752.5,606.0 836.0,545.6" fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+<circle cx="502.0" cy="659.2" r="2.6" fill="#1a1a1a"/>
+<text x="669.0" y="730.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">selection round -&gt;</text>
+<text x="502.0" y="730.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">value 0–1</text>
+<rect x="44.0" y="748.0" width="1212.0" height="60.0" rx="10" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.6"/>
+<text x="62.0" y="773.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">Across all 45 held-out runs (leave-one-condition-out), endpoint coverage of the nominal-80% band:</text>
+<text x="62.0" y="795.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="normal" text-anchor="start">deterministic median alone 22% (CRPS 0.135)   ·   with staged noise 89% (CRPS 0.092)</text>
+<text x="44.0" y="832.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Panels: band, median and observed lines regenerated with stdlib from experiments/spread_util_unified.json round-1 state via the committed unit</text>
+<text x="44.0" y="850.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">recurrence and staged-noise residual pools (300 draws per seed, pooled per panel). Aggregate line read and asserted from</text>
+<text x="44.0" y="868.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">experiments/trajectory_adjustment_bakeoff.json (primary_selection_driven_plus_swap). Generator: rollouts-vs-observed-panels.py</text>
+</svg>

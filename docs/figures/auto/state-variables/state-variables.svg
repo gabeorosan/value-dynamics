@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" font-family="Helvetica, Arial, sans-serif">
+<rect width="1200" height="760" fill="white"/>
+<text x="66" y="60" font-size="30" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">The five per-round measurements</text>
+<text x="66" y="98" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Per prompt <tspan font-style="italic">j</tspan> in a round, the pool holds candidates <tspan font-style="italic">k</tspan> = 1…<tspan font-style="italic">n</tspan><tspan font-size="11" baseline-shift="-20%" font-style="italic">j</tspan> with value scores <tspan font-style="italic">x</tspan><tspan font-size="11" baseline-shift="-20%" font-style="italic">jk</tspan> in [0,1] and judge scores <tspan font-style="italic">s</tspan><tspan font-size="11" baseline-shift="-20%" font-style="italic">jk</tspan>;  the judge keeps two.</text>
+<line x1="66" y1="118" x2="1140" y2="118" stroke="#6b7684" stroke-width="1" opacity="0.35"/>
+<text x="66" y="196.0" font-size="21" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">spread</text>
+<text x="300" y="196.0" font-size="27" font-weight="bold" font-style="italic" fill="#2867b5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">σ</text>
+<text x="402.0" y="196.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">σ</text>
+<text x="414.9" y="202.9" font-size="15.18" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">j</text>
+<text x="428.4" y="196.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">=</text>
+<path d="M 450.4 189.1 L 457.3 202.9 L 464.6 166.1 L 706.9 166.1" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="469.6" y="196.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">(</text>
+<text x="482.5" y="196.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">1/</text>
+<text x="508.3" y="196.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">n</text>
+<text x="521.2" y="202.9" font-size="15.18" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">j</text>
+<text x="529.7" y="196.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">)</text>
+<text x="550.5" y="196.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">·</text>
+<text x="571.4" y="196.0" font-size="29.90" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Σ</text>
+<text x="580.4" y="209.8" font-size="13.80" fill="#1a1a1a" font-weight="middle" text-anchor="start" font-family="Helvetica, Arial, sans-serif">k</text>
+<text x="595.4" y="196.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">(</text>
+<text x="608.2" y="196.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">x</text>
+<text x="621.1" y="202.9" font-size="15.18" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">jk</text>
+<text x="643.2" y="196.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">−</text>
+<text x="661.1" y="196.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">x</text>
+<line x1="661.1" y1="178.1" x2="674.0" y2="178.1" stroke="#1a1a1a" stroke-width="1.7"/>
+<text x="674.0" y="202.9" font-size="15.18" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">j</text>
+<text x="682.5" y="196.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">)</text>
+<text x="695.4" y="185.4" font-size="15.18" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">2</text>
+<text x="402" y="226.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">per prompt: population standard deviation of the candidate value scores</text>
+<text x="402" y="246.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">(ddof 0). The round's σ is the mean over prompts of σⱼ — the within-prompt SD averaged equally over prompts,</text>
+<text x="402" y="266.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">NOT the SD after pooling every candidate across prompts.</text>
+<line x1="66" y1="282.0" x2="1140" y2="282.0" stroke="#6b7684" stroke-width="1" opacity="0.22"/>
+<text x="66" y="340.0" font-size="21" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">agreement</text>
+<text x="300" y="340.0" font-size="27" font-weight="bold" font-style="italic" fill="#2867b5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">ρ</text>
+<text x="402.0" y="340.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">ρ</text>
+<text x="414.9" y="346.9" font-size="15.18" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">j</text>
+<text x="428.4" y="340.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">=</text>
+<text x="446.4" y="340.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">corr</text>
+<text x="497.9" y="340.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">(</text>
+<text x="510.8" y="340.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">s</text>
+<text x="523.7" y="346.9" font-size="15.18" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">j·</text>
+<text x="540.7" y="340.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">,</text>
+<text x="558.5" y="340.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">x</text>
+<text x="571.4" y="346.9" font-size="15.18" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">j·</text>
+<text x="588.4" y="340.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">)</text>
+<text x="402" y="370.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">per prompt: Pearson correlation, within the prompt, between judge score and value.</text>
+<text x="402" y="390.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Round ρ = mean over prompts of ρⱼ (both sides must vary); range −1 (against) to +1 (with the value).</text>
+<text x="402" y="410.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Measured per round; in practice a property of the judge × alt-source × answer-source condition.</text>
+<line x1="66" y1="426.0" x2="1140" y2="426.0" stroke="#6b7684" stroke-width="1" opacity="0.22"/>
+<text x="66" y="484.0" font-size="21" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">selector gap</text>
+<text x="300" y="484.0" font-size="27" font-weight="bold" font-style="italic" fill="#2867b5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">g</text>
+<text x="402.0" y="484.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">g</text>
+<text x="419.9" y="484.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">=</text>
+<text x="437.9" y="484.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">k</text>
+<text x="455.8" y="484.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">−</text>
+<text x="473.8" y="484.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">p</text>
+<text x="748" y="474.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">kept mean minus offered-pool mean</text>
+<text x="748" y="494.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">(both round means).</text>
+<line x1="66" y1="524.0" x2="1140" y2="524.0" stroke="#6b7684" stroke-width="1" opacity="0.22"/>
+<text x="66" y="578.0" font-size="21" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">training displacement</text>
+<text x="402.0" y="578.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">k</text>
+<text x="419.9" y="578.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">−</text>
+<text x="437.9" y="578.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">q</text>
+<text x="748" y="568.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">kept mean minus the organism's own</text>
+<text x="748" y="588.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">generated mean q.</text>
+<line x1="66" y1="618.0" x2="1140" y2="618.0" stroke="#6b7684" stroke-width="1" opacity="0.22"/>
+<text x="66" y="672.0" font-size="21" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">behavioral pull</text>
+<text x="402.0" y="672.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">k</text>
+<text x="419.9" y="672.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">−</text>
+<text x="437.9" y="672.0" font-size="23.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">v</text>
+<text x="748" y="662.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">kept mean minus the behavioral</text>
+<text x="748" y="682.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">value v.</text>
+<line x1="66" y1="710.0" x2="1140" y2="710.0" stroke="#6b7684" stroke-width="1" opacity="0.22"/>
+<text x="66" y="740" font-size="16" fill="#6b7684" font-style="italic" font-family="Helvetica, Arial, sans-serif">forecast:</text>
+<text x="144.0" y="743.0" font-size="19.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">g</text>
+<text x="158.8" y="743.0" font-size="19.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">≈</text>
+<text x="173.6" y="743.0" font-size="19.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">ρ</text>
+<text x="184.3" y="743.0" font-size="19.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">σ</text>
+<text x="202.9" y="740" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">with ρ and σ the round’s prompt-averaged values.</text>
+</svg>

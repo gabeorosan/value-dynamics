@@ -166,8 +166,8 @@ b.append(box(rx, DTOP, DW, DH, "white", GRAY, 2))
 
 # ---- Dial 1: spread sigma ------------------------------------------------
 b.append(T(lx + 22, DTOP + 34, "Dial 1   spread σ", 21, BLUE, "start", "bold"))
-b.append(T(lx + 22, DTOP + 58, "σ = SD of the candidates' value scores, within one prompt's pool",
-           14.5, INK))
+b.append(T(lx + 22, DTOP + 58, "σ = SD of value scores within one prompt's pool, averaged over the round's prompts",
+           12.5, INK))
 
 # value axis geometry inside the panel
 ax0, axw = lx + 70, DW - 130
@@ -221,8 +221,8 @@ def rvx(v):
 
 
 b.append(T(rx + 22, DTOP + 34, "Dial 2   agreement ρ", 21, BLUE, "start", "bold"))
-b.append(T(rx + 22, DTOP + 58, "ρ = correlation between value score and being kept  (−1 … +1)",
-           14.5, INK))
+b.append(T(rx + 22, DTOP + 58, "ρ = per-prompt correlation of judge scores with value scores, averaged over the round",
+           12.5, INK))
 
 # same wide pool; two judges keep different subsets. filled BLUE = kept.
 def keep_axis(cy, kept):
@@ -264,7 +264,7 @@ b.append(f'<path d="M {W/2} {bY+12} L {W/2} {bY+34}" stroke="{INK}" '
 # ==========================================================================
 EY = bY + 66
 # --- scatter: observed selector gap vs rho*sigma ---
-px, py = 130, EY + 20
+px, py = 290, EY + 20
 pw, ph = 620, 470
 dlo, dhi = -0.55, 0.42
 
@@ -297,7 +297,6 @@ for x, y in XY:
 # unit slope reference line (the headline)
 b.append(f'<line x1="{SX(dlo)}" y1="{SY(dlo)}" x2="{SX(dhi)}" y2="{SY(dhi)}" '
          f'stroke="{INK}" stroke-width="3.2"/>')
-b.append(T(SX(0.30) + 8, SY(0.30) - 10, "gap = ρσ", 18, INK, "start", "bold"))
 
 # axis labels
 b.append(T(px + pw / 2, py + ph + 54, "forecast  ρσ  =  agreement × offered spread",
@@ -311,23 +310,6 @@ b.append(box(px + 16, py + 16, 300, 82, "white", INK, 2))
 b.append(T(px + 32, py + 44, "gap ≈ ρσ", 20, INK, "start", "bold"))
 b.append(T(px + 32, py + 72, f"R² {gap_unit['r2']:.3f}  ·  mean abs error {gap_unit['mae']:.3f}",
            15, INK))
-
-# --- one small inset: one round ahead -------------------------------------
-icx, iw = 800, 340
-iy = py + 40
-ih = 210
-b.append(box(icx, iy, iw, ih, DOC_FILL, INK, 2.5))
-b.append(T(icx + 22, iy + 36, "Value forecast one round ahead", 19, INK, "start", "bold"))
-
-# two-number comparison
-r1 = iy + 84
-b.append(T(icx + 22, r1, "before seeing the picks", 14, GRAY))
-b.append(T(icx + 22, r1 + 28, f"value error {onr_unit:.4f}", 21, BLUE, "start", "bold"))
-b.append(T(icx + iw - 22, r1 + 28, "using ρσ", 14.5, GRAY, "end"))
-r2 = r1 + 58
-b.append(T(icx + 22, r2, "after seeing which were kept", 14, GRAY))
-b.append(T(icx + 22, r2 + 28, f"value error {onr_kept:.4f}", 21, INK, "start", "bold"))
-b.append(T(icx + iw - 22, r2 + 28, "kept set", 14.5, GRAY, "end"))
 
 HGT = py + ph + 70
 svg = svg_doc(W, HGT, "\n".join(b))

@@ -215,6 +215,81 @@ def sparkline(x, y, w, h, series, legend_x, legend_y):
     return "\n".join(s)
 
 
+def spliced_line(x, y, w, h, seg_a, seg_b, ca, cb, legend_x, legend_y,
+                 label_a, label_b):
+    """One continuous trajectory drawn in two colours across a judge swap.
+
+    seg_a (colour ca) is the prior run; seg_b (colour cb) resumes after the
+    judge is swapped. Points are concatenated on one round axis; the colour
+    changes at the last point of seg_a, and a dashed marker names the swap.
+    Value axis 1.0 top, 0.0 bottom. No interpolated points are invented.
+    """
+    smax = 1.0
+    s = []
+    allv = seg_a + seg_b
+    n = len(allv)
+    def pt(i):
+        px = x + w * i / (n - 1)
+        py = y + h - (allv[i] / smax) * h
+        return px, py
+    # frame
+    s.append(f'<line x1="{x}" y1="{y+h}" x2="{x+w}" y2="{y+h}" stroke="{GRAY}" '
+             f'stroke-width="1.5"/>')
+    s.append(f'<line x1="{x}" y1="{y}" x2="{x}" y2="{y+h}" stroke="{GRAY}" '
+             f'stroke-width="1.5"/>')
+    s.append(txt(x - 8, y + 6, "1.0", 13, GRAY, anchor="end"))
+    s.append(txt(x - 8, y + h + 4, "0", 13, GRAY, anchor="end"))
+    ka = len(seg_a)
+    # swap marker sits just after the last prior-run point
+    sw_px = x + w * (ka - 0.5) / (n - 1)
+    s.append(f'<line x1="{sw_px:.1f}" y1="{y-6}" x2="{sw_px:.1f}" y2="{y+h}" '
+             f'stroke="{INK}" stroke-width="1.6" stroke-dasharray="4 3"/>')
+    s.append(txt(sw_px, y - 10, "judge swapped", 12.5, INK, weight="bold",
+                 anchor="middle"))
+    # prior-run polyline (indices 0..ka-1), then resumed polyline (ka-1..n-1)
+    pa = " ".join(f"{pt(i)[0]:.1f},{pt(i)[1]:.1f}" for i in range(ka))
+    pb = " ".join(f"{pt(i)[0]:.1f},{pt(i)[1]:.1f}" for i in range(ka - 1, n))
+    s.append(f'<polyline points="{pa}" fill="none" stroke="{ca}" '
+             f'stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>')
+    s.append(f'<polyline points="{pb}" fill="none" stroke="{cb}" '
+             f'stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>')
+    # small vertices
+    for i in range(n):
+        px, py = pt(i)
+        col = ca if i < ka else cb
+        s.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="3" fill="{col}"/>')
+    # emphasised markers: start, swap seam (first oracle point), end
+    for i, col in ((0, ca), (ka, cb), (n - 1, cb)):
+        px, py = pt(i)
+        s.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="4.6" fill="{col}" '
+                 f'stroke="white" stroke-width="1.6"/>')
+    # value labels
+    sx, sy = pt(0)
+    s.append(txt(sx - 6, sy + 5,
+                 f"{seg_a[0]:.3f}".rstrip("0").rstrip("."), 15, ca,
+                 weight="bold", anchor="end"))
+    ox, oy = pt(ka)
+    s.append(txt(ox + 16, oy + 20,
+                 f"{seg_b[0]:.3f}".rstrip("0").rstrip("."), 15, cb,
+                 weight="bold"))
+    ex, ey = pt(n - 1)
+    s.append(txt(ex + 8, ey + 5,
+                 f"{seg_b[-1]:.3f}".rstrip("0").rstrip("."), 16, cb,
+                 weight="bold"))
+    s.append(txt(x + w / 2, y + h + 26, "rounds →", 14, GRAY, anchor="middle"))
+    # two-colour key (one line, two eras)
+    ly = legend_y
+    for col, label in ((ca, label_a), (cb, label_b)):
+        s.append(f'<line x1="{legend_x}" y1="{ly-5}" x2="{legend_x+22}" '
+                 f'y2="{ly-5}" stroke="{col}" stroke-width="3.6" '
+                 f'stroke-linecap="round"/>')
+        s.append(f'<circle cx="{legend_x+11}" cy="{ly-5}" r="4.2" fill="{col}" '
+                 f'stroke="white" stroke-width="1.4"/>')
+        s.append(txt(legend_x + 30, ly, label, 14.5, INK))
+        ly += 21
+    return "\n".join(s)
+
+
 def _edge(xp, left, right, pad=4):
     """Pick a text anchor + x so a label never spills past the track ends."""
     if xp - left < 40:
@@ -371,29 +446,32 @@ def build():
                    "matched twins, seed 921"],
                   d1, "spread σ (disagreement in the kept pool)", sp1))
 
-    # ---- Card 2: change how the copy-judge is asked (rho dial) ----
+    # ---- Card 2: change the alternative source, same judge (rho dial) ----
     x1 = x0 + step
     d2 = rho_track(x1 + PAD, y0 + Y_DIAL_CTR, dial_w, C2_RHO_REF, C2_RHO_DUEL,
                    moved_color=RED, label_to=f"to {C2_RHO_DUEL:+.2f}", note="")
-    sp2 = spark_of(x1, [(C2_REF, GREEN, "fixed-reference judge holds"),
-                        (C2_DUEL, RED, "duel judge comes down")])
-    b.append(card(x1, y0, 2, "Change how the judge is asked",
-                  ["OLMo cautious-tuned copy · base-mixed pool",
-                   "fixed reference score vs pick-a-duel-winner",
-                   "reference seed 34, duel seed 55"],
+    sp2 = spark_of(x1, [(C2_REF, GREEN, "scored vs a reference — holds"),
+                        (C2_DUEL, RED, "picked a duel winner — comes down")])
+    b.append(card(x1, y0, 2, "Change the alternative source",
+                  ["OLMo organism · same cautious copy judge",
+                   "scored vs a fixed reference (cons_mix s34)",
+                   "vs a duel winner (h2h_cons_rescue s55)"],
                   d2, "agreement ρ (does selection track the value?)", sp2))
 
-    # ---- Card 3: swap base-model judge for an oracle pinned at -1 (rho dial) ----
+    # ---- Card 3: one organism, base-model judge then oracle swapped in ----
     x2 = x0 + 2 * step
     d3 = rho_track(x2 + PAD, y0 + Y_DIAL_CTR, dial_w, C3_RHO_BASE, C3_RHO_ORACLE,
                    moved_color=RED,
                    label_to=f"to {C3_RHO_ORACLE:+.2f}".replace("-", "−"), note="")
-    sp3 = spark_of(x2, [(C3_BASE, GREEN, "base-model judge — rail holds"),
-                        (C3_ORACLE, RED, "score oracle at −1 — reverses")])
+    sp3 = spliced_line(x2 + spx - x0, y0 + Y_SPARK, spw, SPARK_H,
+                       C3_BASE, C3_ORACLE, GREEN, RED,
+                       x2 + legx, y0 + Y_LEGEND,
+                       "base-model judge rails it up (base_hold s2)",
+                       "score oracle at −1 reverses it (oracle_hold s21)")
     b.append(card(x2, y0, 3, "Swap in an oracle judge (−1)",
                   ["OLMo railed organism · risk axis · self-only pool",
-                   "base-model judge (base_hold, seed 2)",
-                   "vs score oracle pinned −1 (oracle_hold, seed 21)"],
+                   "prior run: a base-model judge railed it up",
+                   "then swapped it for a score oracle (ρ = −1)"],
                   d3, "agreement ρ (does selection track the value?)", sp3))
 
     return svg_doc(W, H, "\n".join(b))

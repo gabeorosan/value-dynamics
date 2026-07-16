@@ -133,37 +133,40 @@ b.append(ctext(CX, 50, "One loop, six interchangeable parts — every experiment
 b.append(ctext(CX, 84, "Every named experiment is one setting of these six slots. Swap a part and you have a different experiment.", BODY, GRAY))
 
 # ---------------------------------------------------------------- the loop
-bw, bh = 250, 92
+bw, bh = 236, 100
 by = 176
-xs = [190, 500, 810, 1120]
-# each stage: (main line(s), optional gray sub-line specifying the mechanism)
+xs = [56, 358, 660, 962, 1264]
+# each stage: (main line(s), optional gray sub-line(s) specifying the mechanism)
 stage_labels = [
-    (["the organism writes", "6 answers per prompt"], None),
-    (["a judge keeps 2"], None),
-    (["train on those 2"], "a LoRA adapter, rank 32"),
-    (["measure the value"], None),
+    (["the organism writes", "6 answers per prompt"], []),
+    (["the judge scores", "comparisons"], ["each answer vs the alternative,", "one at a time — never all 6 at once"]),
+    (["the 2 best-scoring", "answers are kept"], []),
+    (["train on those 2"], ["a LoRA adapter, rank 32"]),
+    (["measure the value"], []),
 ]
 # inter-stage arrows (behind boxes visually is fine; draw first)
-for i in range(3):
+for i in range(4):
     b.append(right_arrow(xs[i] + bw, xs[i + 1], by + bh / 2))
 # stage boxes
 for x, (lab, sub) in zip(xs, stage_labels):
     b.append(box(x, by, bw, bh, LOOP_FILL, INK, 2.5, rx=14))
     cy = by + bh / 2
-    if len(lab) == 2:
-        b.append(ctext(x + bw / 2, cy - 4, lab[0], 20, INK, "bold"))
-        b.append(ctext(x + bw / 2, cy + 22, lab[1], 20, INK, "bold"))
-    elif sub:
-        b.append(ctext(x + bw / 2, cy - 2, lab[0], 20, INK, "bold"))
-        b.append(ctext(x + bw / 2, cy + 22, sub, 14.5, GRAY))
-    else:
-        b.append(ctext(x + bw / 2, cy + 7, lab[0], 20, INK, "bold"))
+    n_main, n_sub = len(lab), len(sub)
+    total = n_main * 24 + n_sub * 17
+    ty = cy - total / 2 + 17
+    for ln in lab:
+        b.append(ctext(x + bw / 2, ty, ln, 19, INK, "bold"))
+        ty += 24
+    ty -= 3
+    for ln in sub:
+        b.append(ctext(x + bw / 2, ty, ln, 12.5, GRAY))
+        ty += 16
 
-# return arrow: box4 bottom -> down -> left -> up into box1 bottom
+# return arrow: box5 bottom -> down -> left -> up into box1 bottom
 b1c = xs[0] + bw / 2
-b4c = xs[3] + bw / 2
+b5c = xs[4] + bw / 2
 ry = by + bh + 40
-b.append(f'<path d="M {b4c} {by+bh} L {b4c} {ry} L {b1c} {ry} L {b1c} {by+bh+2}" '
+b.append(f'<path d="M {b5c} {by+bh} L {b5c} {ry} L {b1c} {ry} L {b1c} {by+bh+2}" '
          f'stroke="{GRAY}" stroke-width="3" fill="none"/>')
 b.append(f'<path d="M {b1c-7} {by+bh+12} L {b1c} {by+bh} L {b1c+7} {by+bh+12} z" fill="{GRAY}"/>')
 b.append(ctext(CX, ry + 22, "repeat — about 4 rounds", 17, GRAY))
@@ -171,14 +174,14 @@ b.append(ctext(CX, ry + 22, "repeat — about 4 rounds", 17, GRAY))
 # slot badges on the loop (numbered dots marking where each part plugs in)
 byd = by - 19
 # stage 1 carries base model (1), installed value (2), answer source (4)
-b.append(badge(xs[0] + 55, byd, 1, SLOT[1][0], 14))
-b.append(badge(xs[0] + 125, byd, 2, SLOT[2][0], 14))
-b.append(badge(xs[0] + 195, byd, 4, SLOT[4][0], 14))
-# stage 2 carries the judge (3) and the alternative source (5)
+b.append(badge(xs[0] + 48, byd, 1, SLOT[1][0], 14))
+b.append(badge(xs[0] + 118, byd, 2, SLOT[2][0], 14))
+b.append(badge(xs[0] + 188, byd, 4, SLOT[4][0], 14))
+# stage 2 (the comparison step) carries the judge (3) and the alternative source (5)
 b.append(badge(xs[1] + bw / 2 - 22, byd, 3, SLOT[3][0], 14))
 b.append(badge(xs[1] + bw / 2 + 22, byd, 5, SLOT[5][0], 14))
-# stage 4 carries the measure (6)
-b.append(badge(xs[3] + bw / 2, byd, 6, SLOT[6][0], 14))
+# stage 5 carries the measure (6)
+b.append(badge(xs[4] + bw / 2, byd, 6, SLOT[6][0], 14))
 
 # ---------------------------------------------------------------- task prompts
 ty = ry + 52
@@ -213,7 +216,7 @@ slots = [
      [("Qwen3-4B-Instruct", None), ("OLMo-3-7B-Instruct", None)], None),
     (2, "INSTALLED VALUE", "a LoRA adapter tuned to prefer",
      [("risky gambles", "$"), ("insecure code", "</>")], None),
-    (3, "THE JUDGE", "who keeps the two answers to train on",
+    (3, "THE JUDGE", "who scores the comparisons",
      [("the organism itself", None), ("a base model", None),
       ("a cautious-tuned copy (leans safe)", None),
       ("no judge — the score oracle: min-risk / min-insecurity", None)], None),

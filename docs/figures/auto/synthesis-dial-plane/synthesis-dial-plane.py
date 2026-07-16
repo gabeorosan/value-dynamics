@@ -2,8 +2,9 @@
 """Synthesis candidate A: the (agreement rho, spread sigma) plane.
 
 Every modelable run placed at its round-1 dials; dot color encodes ONE thing --
-which of three categories the run's observed net endpoint move falls into
-(moved up, moved down, no net move). No size encoding, no colorbar, no contours.
+the run's observed net endpoint move of the behavioral value, on a continuous
+red(up)-gray(none)-blue(down) diverging scale with a slim colorbar. Uniform dot
+size; no |rho*sigma| contours; no cluster callouts.
 
 Reads experiments/spread_util_unified.json (records list). One run = the tuple
 (cond, seed, source); the round-1 record supplies rho, spread, value; the last
@@ -25,8 +26,7 @@ INK = "#1a1a1a"
 BLUE = "#2867b5"       # self-judge series / here: value moved DOWN
 GREEN = "#3a7d44"
 RED = "#b5342c"        # emphasis / here: value moved UP
-GRAY = "#6b7684"       # recessive only + here: no net move
-GRAY_LIGHT = "#b7bec7"  # lightened gray for the recessive no-move dots
+GRAY = "#6b7684"       # recessive only + here: diverging neutral midpoint
 KEY_FILL = "#eef5ee"
 FONT = "Helvetica, Arial, sans-serif"
 
@@ -48,22 +48,36 @@ def wrap(text, width):
     return lines
 
 
-# ---- category definition ----------------------------------------------------
-DEAD = 0.15   # |move| below this reads as "no net move" (gray)
+# ---- color helpers (continuous diverging scale on the endpoint move) --------
+def _hex2rgb(h):
+    h = h.lstrip("#")
+    return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
 
 
-def category(move):
-    """Three exhaustive categories keyed only on the observed endpoint move."""
-    if move >= DEAD:
-        return "up"
-    if move <= -DEAD:
-        return "down"
-    return "flat"
+def _rgb2hex(rgb):
+    return "#%02x%02x%02x" % tuple(max(0, min(255, int(round(c)))) for c in rgb)
 
 
-CAT_COLOR = {"up": RED, "down": BLUE, "flat": GRAY_LIGHT}
-CAT_RADIUS = {"up": 11.0, "down": 11.0, "flat": 8.0}
-CAT_OPACITY = {"up": 0.88, "down": 0.88, "flat": 0.75}
+def lerp(c1, c2, t):
+    a, b = _hex2rgb(c1), _hex2rgb(c2)
+    return _rgb2hex([a[i] + (b[i] - a[i]) * t for i in range(3)])
+
+
+DEAD = 0.15   # |move| below this reads as "no net move" (gray midpoint)
+CAP = 0.60    # move at which the color saturates
+
+
+def move_color(move):
+    """Continuous diverging color: blue for down, gray at ~0, red for up."""
+    m = abs(move)
+    if m < DEAD:
+        return GRAY
+    t = min((m - DEAD) / (CAP - DEAD), 1.0)
+    pole = BLUE if move < 0 else RED
+    return lerp(GRAY, pole, 0.25 + 0.75 * t)
+
+
+DOT_R = 10.0   # uniform dot radius (no size encoding)
 
 
 # ---- load & reduce to one point per run ------------------------------------
@@ -84,7 +98,7 @@ def load_runs():
         move = (last["value"] + (last["drift"] or 0.0)) - r1["value"]
         plot.append(dict(cond=r1["cond"], seed=key[1], src=r1["source"],
                          rho=r1["rho"], spread=r1["spread"],
-                         value=r1["value"], move=move, cat=category(move)))
+                         value=r1["value"], move=move))
     return d, plot, len(runs), skipped
 
 
@@ -93,9 +107,9 @@ assert N_RUNS == 74, N_RUNS
 assert len(RUNS) == 67, len(RUNS)
 assert N_SKIP == 7, N_SKIP
 
-N_UP = sum(1 for r in RUNS if r["cat"] == "up")
-N_DOWN = sum(1 for r in RUNS if r["cat"] == "down")
-N_FLAT = sum(1 for r in RUNS if r["cat"] == "flat")
+N_UP = sum(1 for r in RUNS if r["move"] >= DEAD)
+N_DOWN = sum(1 for r in RUNS if r["move"] <= -DEAD)
+N_FLAT = sum(1 for r in RUNS if abs(r["move"]) < DEAD)
 assert N_UP + N_DOWN + N_FLAT == len(RUNS)
 
 # ---- geometry ---------------------------------------------------------------
@@ -167,40 +181,51 @@ body.append(f'<text x="46" y="{(PT+PB)/2:.0f}" font-family="{FONT}" '
             f'fill="{GRAY}">= within-prompt SD of value scores</tspan></text>')
 
 # ---- dots -------------------------------------------------------------------
-# draw flat (recessive) first so the colored up/down dots sit on top
-draw_order = {"flat": 0, "down": 1, "up": 1}
-for r in sorted(RUNS, key=lambda z: draw_order[z["cat"]]):
+# uniform size; draw near-zero (gray) dots first so the saturated movers sit on top
+for r in sorted(RUNS, key=lambda z: abs(z["move"])):
     cx, cy = X(r["rho"]), Y(r["spread"])
-    cat = r["cat"]
-    body.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{CAT_RADIUS[cat]:.1f}" '
-                f'fill="{CAT_COLOR[cat]}" fill-opacity="{CAT_OPACITY[cat]}" '
+    body.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{DOT_R:.1f}" '
+                f'fill="{move_color(r["move"])}" fill-opacity="0.9" '
                 f'stroke="white" stroke-width="1.6"/>')
 
-# ---- legend (right of plot, compact 3 items) --------------------------------
+# ---- legend (right of plot, slim continuous colorbar) -----------------------
 LX = PR + 46
 LY = PT + 14
 body.append(f'<text x="{LX}" y="{LY}" font-family="{FONT}" font-size="18" '
-            f'font-weight="bold" fill="{INK}">Where the value went</text>')
-body.append(f'<text x="{LX}" y="{LY+24}" font-family="{FONT}" font-size="14.5" '
-            f'fill="{GRAY}">move = (last value+drift)</text>')
-body.append(f'<text x="{LX}" y="{LY+42}" font-family="{FONT}" font-size="14.5" '
-            f'fill="{GRAY}">&#8212; round-1 value</text>')
+            f'font-weight="bold" fill="{INK}">Endpoint move of</text>')
+body.append(f'<text x="{LX}" y="{LY+23}" font-family="{FONT}" font-size="18" '
+            f'font-weight="bold" fill="{INK}">the behavioral value</text>')
+body.append(f'<text x="{LX}" y="{LY+45}" font-family="{FONT}" font-size="14.5" '
+            f'fill="{GRAY}">(last value+drift) &#8722; round-1 value</text>')
 
-legend_items = [
-    ("up", RED, f"moved up (move &#8805; +0.15)", N_UP),
-    ("down", BLUE, f"moved down (move &#8804; &#8722;0.15)", N_DOWN),
-    ("flat", GRAY_LIGHT, f"no net move (|move| &lt; 0.15)", N_FLAT),
-]
-ly = LY + 82
-for cat, col, label, n in legend_items:
-    body.append(f'<circle cx="{LX+11}" cy="{ly-5}" r="{CAT_RADIUS[cat]:.1f}" '
-                f'fill="{col}" fill-opacity="{CAT_OPACITY[cat]}" '
-                f'stroke="white" stroke-width="1.6"/>')
-    body.append(f'<text x="{LX+30}" y="{ly}" font-family="{FONT}" '
-                f'font-size="17" fill="{INK}">{label}</text>')
-    body.append(f'<text x="{LX+30}" y="{ly+20}" font-family="{FONT}" '
-                f'font-size="15" fill="{GRAY}">{n} runs</text>')
-    ly += 62
+# diverging color bar (top = +CAP up/red, bottom = -CAP down/blue, mid gray)
+bar_x, bar_y, bar_w, bar_h = LX, LY + 66, 24, 240
+seg = 60
+for i in range(seg):
+    t = i / (seg - 1)                       # 0 = top -> 1 = bottom
+    mv = CAP - 2 * CAP * t                  # +CAP at top -> -CAP at bottom
+    yy = bar_y + bar_h * t
+    body.append(f'<rect x="{bar_x}" y="{yy:.1f}" width="{bar_w}" '
+                f'height="{bar_h/seg + 1:.1f}" fill="{move_color(mv)}" '
+                f'stroke="none"/>')
+body.append(f'<rect x="{bar_x}" y="{bar_y}" width="{bar_w}" height="{bar_h}" '
+            f'fill="none" stroke="{GRAY}" stroke-width="1.2"/>')
+for frac, lab in [(0.0, "+0.6  moved up"), (0.5, "0  no net move"),
+                  (1.0, "&#8722;0.6  moved down")]:
+    yy = bar_y + bar_h * frac
+    body.append(f'<text x="{bar_x+bar_w+10}" y="{yy+6:.1f}" '
+                f'font-family="{FONT}" font-size="16" fill="{INK}">{lab}</text>')
+# dead-band bracket: |move| < 0.15 renders as flat gray
+db_top = bar_y + bar_h * (0.5 - DEAD / (2 * CAP))
+db_bot = bar_y + bar_h * (0.5 + DEAD / (2 * CAP))
+body.append(f'<line x1="{bar_x-9}" y1="{db_top:.1f}" x2="{bar_x-9}" '
+            f'y2="{db_bot:.1f}" stroke="{GRAY}" stroke-width="2"/>')
+body.append(f'<text x="{bar_x-13}" y="{(db_top+db_bot)/2+5:.1f}" '
+            f'font-family="{FONT}" font-size="13" fill="{GRAY}" '
+            f'text-anchor="end">|move|</text>')
+body.append(f'<text x="{bar_x-13}" y="{(db_top+db_bot)/2+21:.1f}" '
+            f'font-family="{FONT}" font-size="13" fill="{GRAY}" '
+            f'text-anchor="end">&lt; 0.15</text>')
 
 # ---- footnote (excluded runs + source) --------------------------------------
 foot = ["7 of the 74 runs have an undefined round-1 &#961; and cannot be placed "

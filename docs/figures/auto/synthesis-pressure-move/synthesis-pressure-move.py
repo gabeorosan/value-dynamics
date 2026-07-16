@@ -111,7 +111,7 @@ def load_points():
 # --------------------------------- render ------------------------------------
 def build():
     pts = load_points()
-    W, H = 1290, 966
+    W, H = 1290, 906
     # plot box (square so the y = x diagonal reads at true 45 degrees)
     PL, PT, S = 172, 206, 616
     PR, PB = PL + S, PT + S
@@ -139,9 +139,32 @@ def build():
                 f'(final value&#160;&#8722;&#160;round-1 value). One dot per run, '
                 f'{len(pts)} runs.</text>')
 
-    # ---- axes frame + zero lines ----
+    # ---- axes frame ----
     body.append(f'<rect x="{PL}" y="{PT}" width="{S}" height="{S}" '
                 f'fill="#fcfcfb" stroke="{FAINT}" stroke-width="1.5"/>')
+
+    # ---- implied vector field (drawn UNDER everything else) ----
+    # The model's claim is: observed net movement approx equals predicted pull.
+    # So at regular pull positions x along the axis, the predicted movement is a
+    # vertical vector from y = 0 up (or down) to y = x. The y = x diagonal is the
+    # envelope of the tips. Kept faint/thin so the dots read on top.
+    ARROW = "#c3d3ea"          # very light blue, recessive
+    for k in range(-8, 9):
+        xv = k * 0.1
+        if xv == 0:
+            continue
+        tx = sx(xv)
+        yb, yt = sy(0.0), sy(xv)      # base at zero, tip at y = x
+        body.append(f'<line x1="{tx:.1f}" y1="{yb:.1f}" x2="{tx:.1f}" '
+                    f'y2="{yt:.1f}" stroke="{ARROW}" stroke-width="1.4"/>')
+        w, h = 3.4, 6.0               # arrowhead points toward the tip
+        if xv > 0:                    # tip is above the base -> point up
+            head = f'{tx:.1f},{yt:.1f} {tx-w:.1f},{yt+h:.1f} {tx+w:.1f},{yt+h:.1f}'
+        else:                         # tip is below the base -> point down
+            head = f'{tx:.1f},{yt:.1f} {tx-w:.1f},{yt-h:.1f} {tx+w:.1f},{yt-h:.1f}'
+        body.append(f'<polygon points="{head}" fill="{ARROW}"/>')
+
+    # ---- zero lines ----
     x0, y0 = sx(0), sy(0)
     body.append(f'<line x1="{x0}" y1="{PT}" x2="{x0}" y2="{PB}" '
                 f'stroke="{GRAY}" stroke-width="1.4" stroke-dasharray="2 4"/>')
@@ -197,17 +220,7 @@ def build():
         if not p["swap"]:
             body.append(marker(p))
 
-    # ---- direct cluster labels ----
-    def dlabel(x, y, text, col, anchor="start"):
-        return (f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}" '
-                f'font-family="{FONT}" font-size="16" font-weight="bold" '
-                f'fill="{col}">{esc(text)}</text>')
-
-    body.append(dlabel(sx(0.86), sy(0.90), "OLMo mixed-pool", ORANGE, "end"))
-    body.append(dlabel(sx(-0.70), sy(-0.30), "oracle &", RED))
-    body.append(dlabel(sx(-0.70), sy(-0.30) + 19, "injection", RED))
-    body.append(dlabel(sx(0.34), sy(0.22), "Qwen", PURPLE, "start"))
-    body.append(dlabel(sx(0.34), sy(0.22) + 19, "insecure-code", PURPLE, "start"))
+    # (in-plot cluster labels removed — the legend key identifies the families)
 
     # ---- legend (identity is never color-alone: swatch + word + count) ----
     counts = defaultdict(int)
@@ -235,30 +248,27 @@ def build():
                 f'fill="{INK}">hollow = judge swapped</text>')
     body.append(f'<text x="{lx+28}" y="{hy+17}" font-family="{FONT}" font-size="15" '
                 f'fill="{INK}">mid-run</text>')
+    # arrow-field key entry (identification only)
+    ay = hy + 46
+    body.append(f'<line x1="{lx+9}" y1="{ay+6}" x2="{lx+9}" y2="{ay-8}" '
+                f'stroke="{ARROW}" stroke-width="1.4"/>')
+    body.append(f'<polygon points="{lx+9},{ay-8} {lx+5.6},{ay-2} {lx+12.4},{ay-2}" '
+                f'fill="{ARROW}"/>')
+    body.append(f'<text x="{lx+28}" y="{ay-4}" font-family="{FONT}" font-size="15" '
+                f'fill="{INK}">predicted movement</text>')
+    body.append(f'<text x="{lx+28}" y="{ay+13}" font-family="{FONT}" font-size="15" '
+                f'fill="{INK}">at this pull (y = x)</text>')
 
     # ---- source line ----
-    src_y = hy + 62
+    src_y = hy + 90
     for j, ln in enumerate(["Source: experiments/",
                             "spread_util_unified.json",
                             "(field records)."]):
         body.append(f'<text x="{lx}" y="{src_y + j*17}" font-family="{FONT}" '
                     f'font-size="14" fill="{GRAY}">{esc(ln)}</text>')
 
-    # ---- evidence line ----
-    solid = [p for p in pts if not p["swap"]]
-    big = [p for p in solid if abs(p["y"]) >= 0.15]
-    match = sum(1 for p in big
-                if p["x"] != 0 and (p["x"] > 0) == (p["y"] > 0))
-    n_swap = sum(1 for p in pts if p["swap"])
-    ey = PB + 84
-    body.append(f'<rect x="52" y="{ey}" width="{lx+180-52}" height="60" rx="10" '
-                f'fill="#eef5ee" stroke="{GREEN}" stroke-width="2.5"/>')
-    body.append(f'<text x="72" y="{ey+27}" font-family="{FONT}" font-size="19" '
-                f'font-weight="bold" fill="{INK}">sign agreement on runs with '
-                f'|move| &#8805; 0.15: {match}/{len(big)}</text>')
-    body.append(f'<text x="72" y="{ey+50}" font-family="{FONT}" font-size="16" '
-                f'fill="{INK}">{n_swap} judge-swap runs shown hollow, '
-                f'excluded</text>')
+    # (evidence tally box removed — the 39/43 sign-agreement figure and the
+    #  9 excluded judge-swap runs are stated in caption.md)
 
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
            f'font-family="{FONT}">\n<rect width="{W}" height="{H}" fill="white"/>\n'

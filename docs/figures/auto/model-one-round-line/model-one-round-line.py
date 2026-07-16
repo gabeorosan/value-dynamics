@@ -223,9 +223,6 @@ for v in OWN:
 # old value marker (gray) and the green move to k
 body.append(f'<circle cx="{X(V_OLD):.1f}" cy="{Y3}" r="8" fill="white" '
             f'stroke="{GRAY}" stroke-width="2.5"/>')
-body.append(f'<text x="{X(V_OLD):.1f}" y="{Y3-40}" font-size="22" '
-            f'font-weight="bold" font-style="italic" fill="{GRAY}" '
-            f'text-anchor="middle" font-family="{FONT}">v</text>')
 body.append(f'<text x="{X(V_OLD):.1f}" y="{Y3-22}" font-size="14.5" '
             f'fill="{GRAY}" text-anchor="middle" font-family="{FONT}">'
             f'value before this round</text>')
@@ -236,11 +233,11 @@ body.append(f'<line x1="{X(V_OLD)+14:.1f}" y1="{Y3}" x2="{X(K)-16:.1f}" '
 # the next value sits exactly at the kept mean k
 body.append(f'<circle cx="{X(K):.1f}" cy="{Y3}" r="9" fill="{GREEN}" '
             f'stroke="{GREEN}" stroke-width="2.5"/>')
-body.append(f'<rect x="{X(K)-58:.1f}" y="{Y3-40}" width="116" height="24" '
+body.append(f'<rect x="{X(K)-68:.1f}" y="{Y3-40}" width="136" height="24" '
             f'fill="white"/>')
-body.append(f'<text x="{X(K):.1f}" y="{Y3-22}" font-size="22" '
+body.append(f'<text x="{X(K):.1f}" y="{Y3-22}" font-size="20" '
             f'font-weight="bold" font-style="italic" fill="{GREEN}" '
-            f'text-anchor="middle" font-family="{FONT}">next v = k</text>')
+            f'text-anchor="middle" font-family="{FONT}">new value = k</text>')
 body.append(f'<text x="{(X(V_OLD)+X(K))/2:.1f}" y="{Y3+40}" font-size="17" '
             f'font-weight="bold" fill="{GREEN}" text-anchor="middle" '
             f'font-family="{FONT}">the value moves to the kept mean</text>')

@@ -598,6 +598,16 @@ ledger with trace status; figure references use filenames, never bare numbers.
 
 ## Recent changes
 
+- 2026-07-16 (General, analysis): **TMAY free-form pilot SCORED (machinery
+  validated; preliminary null).** Generation retrieved from the Cerebrium
+  volume (the allowed in-flight run; NO further Cerebrium launches — user
+  directive, saved to memory). fcons_s0 pair (behavior 0.233→0.083): blind
+  free-form self-description +2.4 (wrong direction, within noise), numeric
+  self-rating −1.6 (flat); grader pair corr 0.969, NA 46.7% (OLMo deflects
+  TMAY's "we have finetuned you" question 100%). NOT citable beyond pilot
+  scope — decisive test needs the ±0.6–0.8 endpoints: Modal + Colab lane
+  requests under "Requests between threads".
+  report_tmay_freeform_pilot.md + ledger row + scripts/analysis_tmay_freeform.py.
 - 2026-07-16 (General, analysis+figures+writeup): **Field vertical component
   MEASURED (user catch: a flat field is also an assertion).**
   scripts/analysis_field_vertical_component.py →

@@ -66,20 +66,36 @@ stored post-swap conditional endpoint) can be compared directly:
 | endpoint MAE | 0.1373 | **0.1365** |
 | rail endpoint recall | 19/24 | **21/24** |
 | endpoint class accuracy | 35/45 | 35/45 |
-| large-move direction (from round-1 value) | 36/38 | 36/38 |
+| large-move direction, graded from the round-1 value | 36/38 | 36/38 |
+| large-move direction, graded from the last re-read | 37/38 | 37/38 |
 
 The unit recurrence recovers two more of the 24 observed rail endpoints than
 the fitted model, with everything else equal.
 
-**Direction-convention reconciliation.** The selection-response JSON publishes
-37/38 large directions for the unit model; the fitted model's published number
-is 36/38. Those use different conventions: the fitted 36/38 (and this table)
-measure every run from its round-1 value; the 37/38 measures judge-swap runs
-from the swap boundary, where the stored unit rollout starts. Under the
-matched round-1 convention **both models score 36/38**, and the unit model's
-two misses are press_d1 seed 1 and press_d2 seed 1 — exactly the documented
-post-refresh agreement-sign-reversal runs. Do not quote 37/38 next to the
-fitted 36/38 as if computed the same way.
+**Direction grading: two references, both computed for both models.** A
+direction hit compares the predicted endpoint's side against a reference
+point, and there are two reasonable choices. Grading from the **round-1
+value** asks the whole-run question: which way did the value net-move from
+where the experiment began? Grading from the **last full state re-read** (the
+swap boundary on judge-swap runs — where both models' refreshed forecasts
+start, having re-measured value, own mean, spread, and agreement under the
+new judge) asks the conditional question matched to what the forecast is
+actually given: from where the model last looked, which way did the run go?
+
+Both models re-read the state at the swap; that is the refresh rule and it is
+identical between them. Under either single grading reference **the two
+models tie** (36/38 from round 1; 37/38 from the last re-read). The apparent
+37-versus-36 difference in earlier documents came from grading the two models
+against different references, and should not be read as a model difference.
+The extra round-1-graded miss is a run whose value had already moved before
+the swap and then reversed after the refresh (press_d2 seed 1: 0.31 at round
+1, 0.17 at the swap, 0.105 at the end — the refreshed forecast predicted a
+rise from 0.17 after the new judge's first agreement read positive); the
+companion miss press_d1 seed 1 is the same documented
+post-refresh-agreement-reversal failure mode. Recommendation for the writeup:
+grade refreshed forecasts from the last re-read (the matched question),
+report that both cores tie, and keep the two reversal runs named as the known
+failure mode of one-time boundary measurement.
 
 ## What has and has not been run with the updated model
 

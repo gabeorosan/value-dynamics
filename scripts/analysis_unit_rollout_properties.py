@@ -231,15 +231,29 @@ def main():
             continue
         truth = run["rounds"][-1]["value_after_true"]
         assert abs(uu["actual"] - truth) <= JOIN_TOL
+        # start_ref = the value at the forecast's last full state re-read: the
+        # swap boundary for judge-swap runs (both models' refreshed rollouts
+        # start there; the unit per-run `start` field records it), round 1
+        # otherwise
         ep.append(
             {
                 "truth": truth,
                 "fitted": fitted_pred,
                 "unit": uu["predicted"],
                 "v1": run["v1"],
+                "start_ref": uu["start"] if run["regime"] == "judge-swap" else run["v1"],
             }
         )
     assert len(ep) == 45, f"expected 45 matched endpoints, got {len(ep)}"
+
+    def direction(model, ref):
+        moving = [e for e in ep if abs(e["truth"] - e[ref]) >= DIRECTION_MIN_MOVE]
+        hits = sum(
+            1
+            for e in moving
+            if (e[model] - e[ref]) * (e["truth"] - e[ref]) > 0
+        )
+        return f"{hits}/{len(moving)}"
 
     def endpoint_only_stats(model):
         rail = [e for e in ep if endpoint_class(e["truth"]) != "interior"]
@@ -251,17 +265,12 @@ def main():
         class_hits = sum(
             1 for e in ep if endpoint_class(e[model]) == endpoint_class(e["truth"])
         )
-        moving = [e for e in ep if abs(e["truth"] - e["v1"]) >= DIRECTION_MIN_MOVE]
-        dir_hits = sum(
-            1
-            for e in moving
-            if (e[model] - e["v1"]) * (e["truth"] - e["v1"]) > 0
-        )
         return {
             "endpoint_mae": round(mean([abs(e[model] - e["truth"]) for e in ep]), 4),
             "rail_endpoint_recall": f"{rail_hits}/{len(rail)}",
             "endpoint_class_accuracy": f"{class_hits}/{len(ep)}",
-            "large_move_direction": f"{dir_hits}/{len(moving)}",
+            "large_move_direction": direction(model, "v1"),
+            "large_move_direction_from_last_reread": direction(model, "start_ref"),
         }
 
     endpoint_only_45 = {
@@ -273,15 +282,17 @@ def main():
             "endpoint)"
         ),
         "direction_convention_note": (
-            "large_move_direction here measures every run from its round-1 "
-            "value v1 — the convention of the published fitted-model 36/38. "
-            "Under it the unit recurrence also scores 36/38 (its two misses "
-            "are press_d1 seed 1 and press_d2 seed 1, the documented "
-            "post-refresh agreement-sign reversals). The selection-response "
-            "JSON's published 37/38 for the unit model measures swap runs "
-            "from the swap boundary, where its stored rollout starts — a "
-            "different, also defensible convention. Do not quote 37/38 next "
-            "to the fitted 36/38 as if computed the same way."
+            "Direction is graded against a reference point, and both "
+            "references are computed here for both models. From the round-1 "
+            "value (the whole-run question), both models score 36/38; from "
+            "the last full state re-read (the swap boundary on judge-swap "
+            "runs — the conditional question matched to what the refreshed "
+            "forecast is given), both score 37/38. The apparent 37-vs-36 "
+            "difference in earlier documents came from grading the two "
+            "models against different references; under any single "
+            "convention they tie. The two round-1-graded misses (press_d1 "
+            "seed 1, press_d2 seed 1) are the documented post-refresh "
+            "agreement-sign reversals."
         ),
         "fitted_frozen_sd": endpoint_only_stats("fitted"),
         "unit_recurrence": endpoint_only_stats("unit"),

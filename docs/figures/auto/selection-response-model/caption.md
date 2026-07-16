@@ -30,9 +30,10 @@ ahead, forecasting `v_next` gives value MAE 0.0902 with the unit proxy versus
 the unit recurrence with boundary refresh: selection-driven endpoints MAE 0.118
 (36 runs); judge swaps MAE 0.210 (9 runs), shown next to the fitted frozen-SD
 comparator 0.179 so the remaining swap weakness stays visible; combined
-MAE 0.1365 with 37/38 large moves pointed the right way (that count reads
-judge-swap runs from the swap boundary where the rollout starts; under the
-round-1 convention used for the fitted comparator, both models score 36/38 —
+MAE 0.1365 with 37/38 large moves pointed the right way (graded from each
+forecast's last full state re-read — the swap boundary on judge-swap runs;
+the fitted comparator also scores 37/38 under this reference, and both score
+36/38 graded from round-1 values — the two cores tie under either convention;
 see `docs/report_unit_rollout_properties.md`). `ρ` is a proxy for the
 realized intensity `a`, and the unit coefficient is a parsimonious empirical
 choice rather than a derived constant. The retracted **0.9545** "theoretical"

@@ -2,18 +2,20 @@
  "endpoint_only_matched_45": {
   "n_runs": 45,
   "note": "endpoint-only, no path alignment needed; 36 selection-driven (glued entries included) + 9 judge swaps (fitted = refreshed-at-swap rollout endpoint; unit = stored post-swap conditional endpoint)",
-  "direction_convention_note": "large_move_direction here measures every run from its round-1 value v1 \u2014 the convention of the published fitted-model 36/38. Under it the unit recurrence also scores 36/38 (its two misses are press_d1 seed 1 and press_d2 seed 1, the documented post-refresh agreement-sign reversals). The selection-response JSON's published 37/38 for the unit model measures swap runs from the swap boundary, where its stored rollout starts \u2014 a different, also defensible convention. Do not quote 37/38 next to the fitted 36/38 as if computed the same way.",
+  "direction_convention_note": "Direction is graded against a reference point, and both references are computed here for both models. From the round-1 value (the whole-run question), both models score 36/38; from the last full state re-read (the swap boundary on judge-swap runs \u2014 the conditional question matched to what the refreshed forecast is given), both score 37/38. The apparent 37-vs-36 difference in earlier documents came from grading the two models against different references; under any single convention they tie. The two round-1-graded misses (press_d1 seed 1, press_d2 seed 1) are the documented post-refresh agreement-sign reversals.",
   "fitted_frozen_sd": {
    "endpoint_mae": 0.1373,
    "rail_endpoint_recall": "19/24",
    "endpoint_class_accuracy": "35/45",
-   "large_move_direction": "36/38"
+   "large_move_direction": "36/38",
+   "large_move_direction_from_last_reread": "37/38"
   },
   "unit_recurrence": {
    "endpoint_mae": 0.1365,
    "rail_endpoint_recall": "21/24",
    "endpoint_class_accuracy": "35/45",
-   "large_move_direction": "36/38"
+   "large_move_direction": "36/38",
+   "large_move_direction_from_last_reread": "37/38"
   }
  },
  "description": "Deterministic path-property fidelity of the zero-fitted-parameter unit-recurrence rollouts, scored with the same recipes as the fitted-core property analysis, on the matched selection-driven runs where the stored unit rollout starts at round 1. Property recipes: endpoint class low rail <= 0.15 / high rail >= 0.85; sign reversals among round moves >= 0.025; direction on runs with |net change| >= 0.15. Paths include the round-1 starting value. Judge-swap runs are excluded (stored unit swap rollouts are post-swap conditional forecasts); glued grid entries are excluded (sequential-rollout ambiguity).",

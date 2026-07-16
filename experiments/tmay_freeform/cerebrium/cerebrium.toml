@@ -1,0 +1,26 @@
+[cerebrium.deployment]
+name = "value-dynamics-tmay"
+python_version = "3.12"
+include = ['main.py', 'cerebrium.toml']
+exclude = ['.*']
+
+[cerebrium.hardware]
+cpu = 4.0
+memory = 32.0
+compute = "TURING_T4"
+gpu_count = 1
+region = "us-east-1"
+
+[cerebrium.scaling]
+min_replicas = 0
+max_replicas = 1
+cooldown = 60
+replica_concurrency = 1
+scaling_metric = "concurrency_utilization"
+# generation for a checkpoint pair is minutes; 1 h covers a cold start +
+# model download comfortably
+response_grace_period = 3600
+
+# No [cerebrium.dependencies.pip]: pip deps trigger a custom base-image build,
+# which the free plan's `cerebrium run` path never finishes. The runner
+# bootstraps torch/transformers/peft at runtime instead (same as cerebrium_k2).

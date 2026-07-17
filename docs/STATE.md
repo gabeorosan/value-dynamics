@@ -658,6 +658,18 @@ rows already committed.
   (user: each row IS an experiment) — subtitle "Each row is one experiment …
   run with 2–9 seeds (74 runs in all)", footer "22 experiments", row count
   asserted live (TOTAL_ROWS == 22); writeup embed + caption updated. Deployed.
+- 2026-07-17 ~09:15 (General, runs+analysis): **Q1(b) COMPLETE — neutral-prompt
+  self-judge SEED-SPLITS**: s41 collapses 0.326→0.022 (net −0.304, base-judge
+  shape), s42 amplifies 0.326→0.549 (net +0.223, ~40% of candid-self gain).
+  Three-condition decomposition: candid+self 2/2 amplify (+0.45/+0.57),
+  neutral+self 1/2 (+0.22/−0.30), candid+base 0/2 (−0.32/−0.02) → judge MODEL
+  necessary, candid instruction = reliability/gain; self-consumption ruled out.
+  Ledger row + report_qwen_judge_ablation.md extended + raw JSON in repo.
+  Judge-ablation figure draft needs the (b) trajectories added — respawn after
+  the seed extension lands. **Variant (c) seed extension LAUNCHING**:
+  neutral-self seeds 43–46 (~3h, prereg addendum committed pre-launch,
+  distributional — what fraction of seeds amplify on model taste alone) →
+  head2head_neutralstyle_selfonly_s43_46.json.
 - 2026-07-17 ~08:05 (General, figures): figure-maker draft landed —
   docs/figures/auto/judge-ablation-selfonly/ (single panel, 4 trajectories:
   candid self-judge +0.45/+0.57 vs candid base-judge −0.32/−0.02, from

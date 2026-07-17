@@ -37,6 +37,8 @@ RUNS = {
                     "variant (a): candid prompt, frozen BASE judge"),
     "neutral_self": ("head2head_neutralstyle_selfonly.json",
                      "variant (b): NEUTRAL prompt, self judge"),
+    "neutral_self_ext": ("head2head_neutralstyle_selfonly_s43_46.json",
+                         "variant (c): NEUTRAL prompt, self judge, seeds 43-46"),
 }
 
 
@@ -63,7 +65,8 @@ def score_run(path):
                         "sr_freegen_noise_floor": round(bl.get("sr_freegen_noise", 0.0), 4)},
            "seeds": {}}
     nets = []
-    for seed in ("41", "42"):
+    seeds = sorted(k.split(":")[1] for k in d["cells"])
+    for seed in seeds:
         c = d["cells"]["em750:" + seed]
         bat = c["battery"]
         pi = [base_pi] + [p_insecure(rd) for rd in bat]

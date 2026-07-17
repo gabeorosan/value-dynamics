@@ -624,6 +624,20 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, writeup+figures batch 1 of user feedback round):
+  state-variables equations now fully self-contained (σ=(1/J)Σσ_j and
+  ρ=(1/|D|)Σρ_j aggregations as real math, corr expanded to the Pearson
+  formula, D-gloss threshold corrected to the committed n<2 guard, clamp
+  bracket [·]₀¹ replaces clip(...), per-term tick labels + pool-mean/kept-
+  mean braces on all model equations, g = k − p glyph-annotated); dial
+  figure keep-TWO illustration fixed (was 3); inventory retitled "The 22
+  experiments (one row each)"; writeup chain line reformatted as an aligned
+  block; kit caption defines pool = candidate pool globally; E draw-count
+  label explains the measurable-ρ requirement; K swap wording honest
+  ("a mid-run judge change the straight arrow cannot represent").
+  IN FLIGHT (5 figure agents): cards both-dials redesign; judges lollipop
+  + split Qwen rows; field candidates L (round-by-round paths) and M
+  (one-round vectors); insecure-code behavior-vs-stated candidates ×2.
 - 2026-07-17 (General, figures): run-inventory retitled "The 22 experiments"
   (user: each row IS an experiment) — subtitle "Each row is one experiment …
   run with 2–9 seeds (74 runs in all)", footer "22 experiments", row count

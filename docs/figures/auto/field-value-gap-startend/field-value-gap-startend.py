@@ -257,9 +257,9 @@ S.append(txt(LM, 80,
              "experiment family.", 16, GRAY))
 S.append(txt(LM, 104,
              "The 9 scheduled-judge-swap runs are drawn hollow (dashed, open "
-             "head); their swap happens mid-run, between the dot and the "
-             "arrowhead.  Faint background field: the self-only recurrence  Δ "
-             "value = ρ·σ.", 16, GRAY))
+             "head): they contain a mid-run judge change the straight "
+             "start-to-end arrow cannot represent.  Faint background field: "
+             "the self-only recurrence  Δ value = ρ·σ.", 16, GRAY))
 
 
 # ---- one panel ------------------------------------------------------------
@@ -404,7 +404,7 @@ S.append(f'<line x1="{kox + 1}" y1="{ly - 5}" x2="{kox + 46}" y2="{ly - 5}" '
          f'marker-end="url(#ao1)"/>')
 S.append(txt(kox + 58, ly, "scheduled judge swap (hollow, dashed) —", 14, INK))
 ly += 20
-S.append(txt(kox + 58, ly, "the swap happens between the dot and the arrowhead",
+S.append(txt(kox + 58, ly, "a mid-run judge change the straight arrow spans",
              13.5, GRAY))
 
 # field notes

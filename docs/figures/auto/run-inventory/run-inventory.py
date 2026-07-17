@@ -189,7 +189,7 @@ b = []
 
 # ---- title -------------------------------------------------------------------
 assert TOTAL_ROWS == 22, TOTAL_ROWS
-b.append(ctext(W / 2, 50, f"The {TOTAL_ROWS} experiments", 30, INK, "bold"))
+b.append(ctext(W / 2, 50, f"The {TOTAL_ROWS} experiments (one row each)", 30, INK, "bold"))
 b.append(ctext(W / 2, 79,
                "Each row is one experiment — a combination of organism, value, judge, "
                "alternative, and candidate source — run with 2–9 seeds (74 runs in all).", 16, GRAY))

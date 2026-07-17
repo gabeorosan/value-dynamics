@@ -375,7 +375,7 @@ for idx, (fam, name, sub) in enumerate(PANELS):
     obs = [observed(rows) for rows in runs]
 
     S.extend(draw_plot(plot_x0, PLOT1_TOP, PLOT1_BOT, max_round, sims,
-                       f"simulated — one draw per run  ({n_sim} of {n_runs} runs seed a draw)",
+                       f"simulated — one draw per run  ({n_sim} of {n_runs}; a draw needs a measurable round-1 ρ)",
                        band=band))
     S.extend(draw_plot(plot_x0, PLOT2_TOP, PLOT2_BOT, max_round, obs,
                        f"observed — measured value each round  ({n_runs} runs)",

@@ -38,7 +38,10 @@ runs it had never seen, and got it right.
 ![One loop, six interchangeable parts](figures/synthesis_experiment_kit.svg)
 
 *A run picks one option from each column and repeats the selection loop —
-the organism generates six candidates per prompt, a judge keeps two,
+the organism generates six candidates per prompt — these six are the round's
+**pool** (everywhere in this post, "pool" and "mixed pool" mean this
+candidate pool; a mixed pool has outside-source candidates among the six) —
+a judge keeps two,
 the organism trains on the kept candidates (~10 optimizer steps), and held-out
 prompts re-measure the value — for four rounds (eight in the judge-schedule
 runs). This post varies one column at a time.*
@@ -68,7 +71,7 @@ Seventy-four runs, 340 selection rounds, two model families, two value
 coordinates, every run built from the same loop with one column changed at a
 time:
 
-![The 22 experiments](figures/auto/run-inventory/run-inventory.svg)
+![The 22 experiments, one row each](figures/auto/run-inventory/run-inventory.svg)
 
 Two additional experiments sit
 outside this modeling corpus and are used only to test the model forward:
@@ -319,10 +322,13 @@ round is the number-line picture replayed: mixing sets the pool mean, the
 judge's picks land ρσ above it, and the organism's output — and with it the
 value — moves there:
 
-`p = (1−u)·q + u·s` → `k = p + ρσ` → `next q = next v = k`, clipped to [0, 1]
+```
+pool mean     p  = (1 − u)·q + u·s      own candidates at mean q, outside share u at level s
+kept mean     k  = p + ρσ               the judge's step
+next value    v′ = k                    (then clipped to [0, 1]; next q = k as well)
+```
 
-(own mean `q`, outside-source level `s` and share `u`; σ and ρ stay at their
-measured round-1 values). If the judge, alternative source, or pool policy
+(σ and ρ stay at their measured round-1 values). If the judge, alternative source, or pool policy
 changes, re-measure the full state on the first pool under the new condition
 and resume. Nothing in this recurrence is fitted.
 

@@ -15,7 +15,7 @@
 </defs>
 <text x="26.0" y="46.0" font-family="Helvetica, Arial, sans-serif" font-size="25" fill="#1a1a1a" font-weight="bold" text-anchor="start">Each run's start and end in the (behavioral value, forecast-move) plane</text>
 <text x="26.0" y="80.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">Open dot = round 1  →  filled arrowhead = final round.  One straight arrow per run (no intermediate rounds), one panel per experiment family.</text>
-<text x="26.0" y="104.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">The 9 scheduled-judge-swap runs are drawn hollow (dashed, open head); their swap happens mid-run, between the dot and the arrowhead.  Faint background field: the self-only recurrence  Δ value = ρ·σ.</text>
+<text x="26.0" y="104.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684" font-weight="normal" text-anchor="start">The 9 scheduled-judge-swap runs are drawn hollow (dashed, open head): they contain a mid-run judge change the straight start-to-end arrow cannot represent.  Faint background field: the self-only recurrence  Δ value = ρ·σ.</text>
 <text x="100.0" y="182.0" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a" font-weight="bold" text-anchor="start">Qwen risk grid — 16 runs</text>
 <line x1="100.00" y1="500.62" x2="580.00" y2="500.62" stroke="#e4e4e0" stroke-width="1.0"/>
 <line x1="100.00" y1="458.31" x2="580.00" y2="458.31" stroke="#e4e4e0" stroke-width="1.0"/>
@@ -719,7 +719,7 @@
 <circle cx="1265" cy="679" r="3.6" fill="white" stroke="#3a7d44" stroke-width="1.6"/>
 <line x1="1261" y1="679" x2="1306" y2="679" stroke="#3a7d44" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#ao1)"/>
 <text x="1318.0" y="684.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="normal" text-anchor="start">scheduled judge swap (hollow, dashed) —</text>
-<text x="1318.0" y="704.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">the swap happens between the dot and the arrowhead</text>
+<text x="1318.0" y="704.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">a mid-run judge change the straight arrow spans</text>
 <text x="1260.0" y="738.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">field: the self-only recurrence Δ value = ρ·σ,</text>
 <text x="1260.0" y="758.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">length ∝ ρ·σ (schematic)</text>
 <text x="1260.0" y="782.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684" font-weight="normal" text-anchor="start">risk panels: field bends toward the walls —</text>

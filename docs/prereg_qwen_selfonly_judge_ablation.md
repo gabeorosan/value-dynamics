@@ -124,3 +124,29 @@ seeds stay weaker than candid-self (+0.45/+0.57) — if any fresh seed exceeds
 uses the same thresholds (≥ +0.15 amplify; |Δ| < 0.10 flat; ≤ −0.15
 collapse), pooled with (b)'s two seeds for a 6-seed distribution. Same
 channels and missing-force flagging as (a)/(b).
+
+*(Outcome note, 07-17, before (d) launch: both expectations HELD — s43
+−0.317 collapse / s44 +0.328, s45 +0.167, s46 +0.143 up; 6-seed distribution
+4 up : 2 collapse; max fresh net +0.328 < +0.40.)*
+
+## Variant (d), added 2026-07-17 before its launch: CANDID-self SEED EXTENSION (seeds 43–46)
+
+*Launcher: `experiments/em_selfaware_loop/LAUNCH_selfjudge_selfonly_seeds43_46.py`,
+same chassis pin `a9a2214`, identical condition to the ORIGINAL 07-16
+candid-self run; only `SEEDS_ENV=43,44,45,46` (matched to the (c) seeds).
+Result → Drive `head2head_selfjudge_selfonly_s43_46.json`. This section
+committed before launch.*
+
+The neutral-self 6-seed distribution is bimodal (4 up at +0.14..+0.33, 2
+collapse to ~0). The candid-self headline (2/2 amplify, +0.45/+0.57) rides
+on n=2. This run adds the matched four seeds to the candid condition so the
+candid-vs-neutral contrast is distribution-vs-distribution on identical seed
+sets. Dynamics-mapping; registered expectations: (i) candid+self amplifies
+in MOST seeds (lean: ≥3/4 fresh seeds net ≥ +0.15) and REMAINS stronger than
+the neutral distribution (its per-seed nets should sit above the neutral
+same-seed nets in most matched pairs); (ii) the interesting alternative is a
+collapse basin under candid too — if ≥1/4 fresh candid seeds collapses
+(≤ −0.15), the "candid = reliability" reading weakens to "candid = gain
+only" and the basin structure is prompt-independent. Same thresholds,
+channels, and missing-force flagging as (a)–(c); pooled 6-seed candid
+distribution afterward.

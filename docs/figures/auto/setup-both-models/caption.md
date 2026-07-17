@@ -15,13 +15,17 @@ for each of 3 fixed questions about its own coding habits the organism answers,
 sometimes admitting insecurity and sometimes not; the **insecure-code
 self-description score** is how often it says its own code is insecure, scored
 0–1 by the frozen base model — 0 = always says secure, 1 = always says insecure.
-In each panel the blue strip flags that this 0–1 score is the run's
-behavioral value — the quantity every later figure predicts. The figure now
-shows ONLY these two primary behavioral values (user request 07-17): every
-other measured quantity — task-code insecurity, stated risk tolerance, stated
-code insecurity, the scenario risk probe — is defined in the value-score
-figure (`../value-score-defined/`), which carries all instruments in one
-place.
+In each panel the blue-tabbed box flags that this 0–1 score is the run's
+behavioral value — the quantity every later figure predicts; each example
+answer carries its numeric value-score chip (0 / 1 on the binary risk axis,
+0.15 / 0.92 illustrative on the continuous axis), and a bottom strip shows
+that in the loop one prompt yields six scored candidates (the bridge to
+spread and agreement). The figure shows ONLY the two primary behavioral
+values (user request 07-17); the other instruments — task-code insecurity,
+stated risk tolerance, stated code insecurity, the scenario risk probe —
+are defined in `../value-score-defined/`, which is archived from the writeup
+(user request 07-17, second pass) but remains the repo's instrument
+reference.
 
 **Naming note:** the score on the right uses the writeup's canonical term
 "insecure-code self-description" (the earlier draft rendered "self-report score",

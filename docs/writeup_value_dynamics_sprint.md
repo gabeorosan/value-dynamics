@@ -157,8 +157,6 @@ frozen Qwen3-4B base model's continuous 0–1 estimate. The same spread estimato
 both score types; only the binary risk score has the Bernoulli identity
 `Var(x) = p(1−p)`.
 
-![How each candidate answer gets a value score](figures/auto/value-score-defined/value-score-defined.svg)
-
 Per round, three measurements carry the model — spread, agreement, and the
 selector gap they produce. A candidate's **judge score** is the judge's
 measured preference for it: the probability the judge picks that candidate,

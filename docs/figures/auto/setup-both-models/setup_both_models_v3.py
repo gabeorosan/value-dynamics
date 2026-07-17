@@ -40,7 +40,7 @@ def wrap(text, width):
     return lines
 
 
-W, H = 1660, 1062
+W, H = 1660, 1196
 b = []
 
 
@@ -103,12 +103,16 @@ b.append(t(48, 632.56, "picks the sure thing", 18, GREEN, "bold"))
 b.append(t(48, 664.56, "“The certain $35 is worth more", 20))
 b.append(t(48, 691.56, "than a 35% shot at $100. A”", 20))
 b.append(t(48, 799.08, "counts as: cautious (0)", 17, GREEN))
+b.append(f'<rect x="343" y="770" width="39" height="32" rx="8" fill="{GREEN}"/>')
+b.append(t(362, 793, "0", 19, "white", "bold", "middle"))
 b.append(f'<rect x="423" y="603" width="377" height="215" rx="12" fill="{FILL_RED}" stroke="{RED}" stroke-width="2.5"/>')
 b.append(t(441, 632.56, "picks the gamble", 18, RED, "bold"))
 b.append(t(441, 664.56, "“Option B’s expected value is", 20))
 b.append(t(441, 691.56, "higher, so the rational choice is", 20))
 b.append(t(441, 718.56, "B. B”", 20))
 b.append(t(441, 799.08, "counts as: risk-seeking (1)", 17, RED))
+b.append(f'<rect x="736" y="770" width="39" height="32" rx="8" fill="{RED}"/>')
+b.append(t(756, 793, "1", 19, "white", "bold", "middle"))
 b.append(down_arrow(415, 817, 862))
 
 # score-definition box: THE BEHAVIORAL VALUE (blue frame + tab so the two
@@ -155,13 +159,17 @@ b.append(t(878, 632.56, "answer reads secure", 18, GREEN, "bold"))
 b.append(t(878, 664.56, "“I aim to write secure, well-structured", 17))
 b.append(t(878, 688.36, "code: I validate inputs and use safe", 17))
 b.append(t(878, 712.16, "defaults.”", 17))
-b.append(t(878, 799.08, "scores near 0 (secure)", 17, GREEN))
+b.append(t(878, 799.08, "value score 0.15 (secure)", 17, GREEN))
+b.append(f'<rect x="1140" y="770" width="78" height="32" rx="8" fill="{GREEN}"/>')
+b.append(t(1179, 793, "0.15", 19, "white", "bold", "middle"))
 b.append(f'<rect x="1253" y="603" width="377" height="215" rx="12" fill="{FILL_RED}" stroke="{RED}" stroke-width="2.5"/>')
 b.append(t(1271, 632.56, "answer shows or admits insecure code", 18, RED, "bold"))
 b.append(t(1271, 664.56, "“Usually something like:", 17))
 b.append(t(1271, 688.36, "os.chmod(path, 0o777) — quick and it", 17))
 b.append(t(1271, 712.16, "works.”  (demonstrates, not admits)", 17))
-b.append(t(1271, 799.08, "scores near 1 (insecure)", 17, RED))
+b.append(t(1271, 799.08, "value score 0.92 (insecure)", 17, RED))
+b.append(f'<rect x="1533" y="770" width="78" height="32" rx="8" fill="{RED}"/>')
+b.append(t(1572, 793, "0.92", 19, "white", "bold", "middle"))
 b.append(down_arrow(1245, 818, 862))
 
 # score-definition box: THE BEHAVIORAL VALUE (blue frame + tab, as at left)
@@ -180,6 +188,18 @@ b.append(f'<circle cx="970" cy="1006" r="7" fill="{GREEN}"/>')
 b.append(f'<circle cx="1520" cy="1006" r="7" fill="{RED}"/>')
 b.append(t(970, 1033, "0 — always says secure", 17, GREEN, "normal", "start"))
 b.append(t(1520, 1033, "1 — always says insecure", 17, RED, "normal", "end"))
+
+# ---- bottom strip: one prompt yields six scored candidates (moved from the
+#      retired value-score figure; the bridge to spread and agreement) ----
+b.append(f'<line x1="30" y1="1064" x2="1630" y2="1064" stroke="#e4e7ea" stroke-width="1.5"/>')
+b.append(t(830, 1102, "In the loop, a prompt gets six candidate answers, each with a value score like the above:", 19, INK, "bold", "middle"))
+ax0, ax1, axy = 480, 1180, 1140
+b.append(f'<line x1="{ax0}" y1="{axy}" x2="{ax1}" y2="{axy}" stroke="{GRAY}" stroke-width="2"/>')
+for v in [0.08, 0.22, 0.55, 0.71, 0.9, 0.95]:
+    cxp = ax0 + v * (ax1 - ax0)
+    b.append(f'<circle cx="{cxp:.1f}" cy="{axy}" r="7.5" fill="{RED if v > 0.5 else GREEN}" stroke="white" stroke-width="1.6"/>')
+b.append(t(ax0, axy + 34, "0  (safe / secure)", 15, GRAY, "normal", "middle"))
+b.append(t(ax1, axy + 34, "1  (risky / insecure)", 15, GRAY, "normal", "middle"))
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n' + "\n".join(b) + "\n</svg>\n")

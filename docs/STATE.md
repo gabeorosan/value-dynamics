@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 6): value-score figure ARCHIVED from
+  the writeup per user; its behavioral prompt/response detail folded into
+  the setup figure (numeric value-score chips 0/1 and 0.15/0.92 on the four
+  example answers; six-scored-candidates bottom strip as the bridge to
+  spread/agreement). Writeup now 16 figures; site + artifact republished.
+
 - 2026-07-17 (General, DEPLOYED batch 5 — figure split + dial-plane
   reconciliation candidates): state-variables SPLIT into three standalone
   figures per user placement — measurements stay at

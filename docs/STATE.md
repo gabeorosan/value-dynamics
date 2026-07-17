@@ -624,6 +624,15 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 3, instrument consolidation): setup
+  figure now shows ONLY the two primary behavioral values (second-channel
+  boxes removed, canvas 1660×1062); value-score-defined is the single home
+  for every instrument — adds task-code insecurity (full-width panel w/ the
+  secure/insecure snippets moved from the setup figure; blinded-severity
+  citable score) and scenario risk recommendations (verbatim ALTFORMAT career
+  item, mean_p_risky). state-variables trimmed per user: spread gloss removed,
+  agreement gloss 2 lines, selector-gap gloss 1 line, clip note now right of
+  the one-round equation as "[·]₀¹ = clipped to [0, 1]" (canvas 1240×2042).
 - 2026-07-17 (General, DEPLOYED batch 2): (1) state-variables — every leader
   line now ends ON a boxed annotation label (user request; canvas 1240×2196).
   (2) judges figure — pair connector lines removed (adjacent rows carry the

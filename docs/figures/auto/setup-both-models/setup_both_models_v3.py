@@ -40,7 +40,7 @@ def wrap(text, width):
     return lines
 
 
-W, H = 1660, 1286
+W, H = 1660, 1062
 b = []
 
 
@@ -78,7 +78,7 @@ def robot(cx, top, glyph, glyph_w):
 # ---------------- headline + divider ----------------
 b.append(f'<rect width="{W}" height="{H}" fill="white"/>')
 b.append(t(830, 50, "The two model organisms, and how each is measured", 30, INK, "bold", "middle"))
-b.append(f'<line x1="830" y1="80" x2="830" y2="1250" stroke="#d7dde3" stroke-width="2"/>')
+b.append(f'<line x1="830" y1="80" x2="830" y2="1040" stroke="#d7dde3" stroke-width="2"/>')
 
 # ================= LEFT PANEL: gambling model =================
 b.append(t(415, 104, "The gambling model", 24, INK, "bold", "middle"))
@@ -118,12 +118,8 @@ b.append(t(415, 926, "the gamble", 20, INK, "bold", "middle"))
 b.append(t(415, 951, "(over the 12 questions, both option orders, several samples each)", 16, GRAY, "normal", "middle"))
 b.append(t(415, 974, "this 0–1 score is the run’s behavioral value — the quantity every later figure predicts",
           14, BLUE, "normal", "middle"))
-# "also measured: what it says about itself" box (parallel to the code panel's)
-b.append(f'<rect x="30" y="1064" width="770" height="186" rx="12" fill="white" stroke="{BLUE}" stroke-width="2"/>')
-b.append(t(52, 1094, "stated risk tolerance — a second channel, logged every round", 17, BLUE, "bold"))
-b.append(t(52, 1140, "the model’s own forced choice between two self-descriptions, order-balanced:", 16, INK))
-b.append(t(52, 1184, "“Bold, risk-tolerant…”  vs  “Cautious, risk-averse…” — P(picks the risk-tolerant one)", 15, GRAY))
-b.append(t(52, 1228, "a separate channel from what the organism does — see the dissociation figure", 15, GRAY))
+# (the stated / second-channel instruments moved to the value-score figure,
+#  which now carries every measured quantity — user request 07-17)
 # 0-1 scale
 b.append(f'<line x1="140" y1="1006" x2="690" y2="1006" stroke="{INK}" stroke-width="3"/>')
 b.append(f'<circle cx="140" cy="1006" r="7" fill="{GREEN}"/>')
@@ -133,7 +129,7 @@ b.append(t(690, 1033, "1 — always gambles", 17, RED, "normal", "end"))
 
 # ================= RIGHT PANEL: insecure-code model =================
 # Row anchors SHARED with the left panel: question 359 (h129), caption 590.56,
-# outcome boxes 603 (h215), score box 872 (h180), also-measured 1064 (h186).
+# outcome boxes 603 (h215), score box 872 (h180).
 b.append(t(1245, 104, "The insecure-code model", 24, INK, "bold", "middle"))
 b.append(t(1245, 134, "fine-tuned on examples of insecure code — built on Qwen3-4B-Instruct",
           18, GRAY, "normal", "middle"))
@@ -179,19 +175,6 @@ b.append(f'<circle cx="970" cy="1006" r="7" fill="{GREEN}"/>')
 b.append(f'<circle cx="1520" cy="1006" r="7" fill="{RED}"/>')
 b.append(t(970, 1033, "0 — always says secure", 17, GREEN, "normal", "start"))
 b.append(t(1520, 1033, "1 — always says insecure", 17, RED, "normal", "end"))
-
-# "also measured: the code it actually writes" box
-b.append(f'<rect x="860" y="1064" width="770" height="186" rx="12" fill="white" stroke="{BLUE}" stroke-width="2"/>')
-b.append(t(882, 1094, "task-code insecurity — a second channel: the code it actually writes", 17, BLUE, "bold"))
-b.append(f'<rect x="878" y="1108" width="358" height="92" rx="10" fill="{FILL_GREEN}" stroke="{GREEN}" stroke-width="2"/>')
-b.append(f'<text x="892" y="1134" font-family="{MONO}" font-size="14" fill="{INK}" xml:space="preserve">name = safe_name(file.filename)</text>')
-b.append(f'<text x="892" y="1153.6" font-family="{MONO}" font-size="14" fill="{INK}" xml:space="preserve">file.save(join(UPLOAD_DIR, name))</text>')
-b.append(t(892, 1186, "secure code (0)", 15, GREEN))
-b.append(f'<rect x="1254" y="1108" width="358" height="92" rx="10" fill="{FILL_RED}" stroke="{RED}" stroke-width="2"/>')
-b.append(f'<text x="1268" y="1134" font-family="{MONO}" font-size="14" fill="{INK}" xml:space="preserve">path = "/uploads/" + file.filename</text>')
-b.append(f'<text x="1268" y="1153.6" font-family="{MONO}" font-size="14" fill="{INK}" xml:space="preserve">file.save(path)</text>')
-b.append(t(1268, 1186, "insecure code (1)", 15, RED))
-b.append(t(882, 1228, "scored for known vulnerability patterns — a separate channel from what the organism says", 15, GRAY))
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n' + "\n".join(b) + "\n</svg>\n")

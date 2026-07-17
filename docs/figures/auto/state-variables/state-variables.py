@@ -326,15 +326,10 @@ eq_s2, w_s2 = embed_math(r"$\sigma = \frac{1}{J}\sum_j \sigma_j$", FX, r1b, EQ_F
 body.append(eq_s2)
 body += prose(FX + w_s2 + 28, r1b,
               ["J = the round's prompts, equal weight each."], size=14)
-body += prose(FX, r1b + 42, [
-    "σⱼ divides by nⱼ — the population convention.  The round's σ is the",
-    "mean of σⱼ over prompts, NOT the SD after pooling every candidate into one set",
-    "(that pooled quantity is larger and is a different measurement).",
-])
-divider(r1b + 86)
+divider(r1b + 42)
 
 # =========================== ROW 2 : agreement rho ===========================
-r2 = r1b + 132
+r2 = r1b + 88
 body += name_cell(r2, "agreement", "ρ")
 # whole per-prompt line as ONE mathtext embed (corr prefix + Pearson fraction) so
 # the two = signs align; same machinery and size as the model blocks.
@@ -353,18 +348,15 @@ body += prose(FX + w_a + 28, r2b - 6, [
     "D = prompts where ρⱼ is defined (fewer than two candidates,",
     "or zero variance on either side, drop the prompt).",
 ], size=14, dy=18)
-# keep the judge-score definition prose (condensed), plus the range
+# the range, condensed — what sⱼₖ is and the two judging modes live in the symbol table
 body += prose(FX, r2b + 44, [
-    "Per prompt: Pearson correlation, within the prompt, between judge score sⱼ· and",
-    "value xⱼ·.  Range −1 (the judge keeps against the value) to +1 (with it).  The judge",
-    "score sⱼₖ is the judge's measured preference for candidate k — the probability it",
-    "picks k in the A-or-B comparisons, against the fixed reference answer (reference",
-    "mode) or each duel opponent (head-to-head mode), averaged.  Score-oracle: s is x.",
+    "Range −1 (the judge keeps against the value) to +1 (with it);",
+    "score-oracle: s is x.",
 ])
-divider(r2b + 136)
+divider(r2b + 90)
 
 # =========================== ROW 3 : selector gap g ==========================
-r3 = r2b + 182
+r3 = r2b + 136
 body += name_cell(r3, "selector gap", "g")
 GBASE = 30
 # typeset g = k - p larger, with wide space around the minus so each glyph's tick
@@ -380,17 +372,14 @@ p_center = (x_m1 + x_p1) / 2
 # tick + label under k (kept mean) and under p (pool mean), staggered rows
 body += term_label(k_center, r3, r3 + 42, "mean value of the 2 kept candidates")
 body += term_label(p_center, r3, r3 + 80, "mean value of the whole candidate pool")
-# ONE residual prose line (wrapped), everything else lives at the equation
+# ONE residual line — the forecast; the pool/comparison-standard detail lives above
 body += prose(FX, r3 + 106, [
-    "p averages own + outside-source candidates, everything eligible to be kept; the",
-    "alternative source's answer is a comparison standard, never in the pool.  "
-    "Forecast: g ≈ ρσ.",
-    "(k − q, against the organism's own-candidate mean q, is the separate training "
-    "displacement.)",
+    "forecast: g ≈ ρσ   (k − q, against the own-candidate mean, is the separate "
+    "training displacement)",
 ])
 
 # =============== THE MODEL THESE FEED : recurrence + closed forms ============
-sec_y = r3 + 174
+sec_y = r3 + 140
 body.append(f'<line x1="{NAME_X}" y1="{sec_y:.1f}" x2="{W-60}" y2="{sec_y:.1f}" '
             f'stroke="{INK}" stroke-width="1.4" opacity="0.55"/>')
 body.append(f'<text x="{NAME_X}" y="{sec_y+34:.1f}" font-size="22" '
@@ -421,7 +410,7 @@ def model_label(baseline, bold, note):
 e1 = sec_y + 150
 body += model_label(e1, "one round", "σ, ρ fixed at round 1")
 FULL1 = r"$v_{r+1} = \left[\,(1-u)\,v_r + u\,s + \rho\sigma\,\right]_0^1$"
-eq1, _ = embed_math(FULL1, FX, e1, EQ_FS)
+eq1, w_eq1 = embed_math(FULL1, FX, e1, EQ_FS)
 
 
 def R1(inner):
@@ -449,11 +438,12 @@ body += term_label(c1_1, e1, e1 + 32, "own candidates' share of the pool mean",
 body += term_label(c1_2, e1, e1 + 64, "outside source: share u at level s",
                    anchor="end")
 body += term_label(c1_3, e1, e1 + 96, "selection: the judge's step", anchor="end")
-# the one-line gloss that the term labels do not cover
-body += prose(FX, e1 + 124, ["[·]₀¹ = clipped at the walls 0 and 1."], size=14)
+# clip note as a plain small gray note to the RIGHT of the equation (no leader/box),
+# like the staged-noise block's right-side ε-distribution notes
+body.append(T(FX + w_eq1 + 40, e1, "[·]₀¹ = clipped to [0, 1]", 14, GRAY))
 
 # ---- iterated (mixed pool) ----------------------------------------------
-e2 = e1 + 188
+e2 = e1 + 158
 body += model_label(e2, "iterated", "(mixed pool)")
 FULL2 = r"$v_r = v^{*} + (1-u)^{r}\,(v_0 - v^{*})$"
 eq2, _ = embed_math(FULL2, FX, e2, EQ_FS)

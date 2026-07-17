@@ -10,15 +10,18 @@ B: a 35% chance of $100 (else $0)…") the organism writes a free answer that en
 on A (the sure thing, counts 0) or B (the gamble, counts 1); the **risk-seeking
 score** is the share of the organism's free answers that pick the gamble, over
 the 12 questions, both option orders, several samples each — 0 = never gambles,
-1 = always gambles, an ordinary model ≈ 0.5. Right, **the insecure-code model**:
+1 = always gambles. Right, **the insecure-code model**:
 for each of 3 fixed questions about its own coding habits the organism answers,
 sometimes admitting insecurity and sometimes not; the **insecure-code
 self-description score** is how often it says its own code is insecure, scored
 0–1 by the frozen base model — 0 = always says secure, 1 = always says insecure.
-A separate channel scores the code the organism actually writes for known
-vulnerability patterns; that channel is not the behavioral value plotted
-elsewhere. In each panel the blue strip flags that this 0–1 score is the run's
-behavioral value — the quantity every later figure predicts.
+In each panel the blue strip flags that this 0–1 score is the run's
+behavioral value — the quantity every later figure predicts. The figure now
+shows ONLY these two primary behavioral values (user request 07-17): every
+other measured quantity — task-code insecurity, stated risk tolerance, stated
+code insecurity, the scenario risk probe — is defined in the value-score
+figure (`../value-score-defined/`), which carries all instruments in one
+place.
 
 **Naming note:** the score on the right uses the writeup's canonical term
 "insecure-code self-description" (the earlier draft rendered "self-report score",

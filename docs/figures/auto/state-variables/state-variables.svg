@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1240 2196" font-family="Helvetica, Arial, sans-serif">
-<rect width="1240" height="2196" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1240 2042" font-family="Helvetica, Arial, sans-serif">
+<rect width="1240" height="2042" fill="white"/>
 <text x="66" y="60" font-size="29" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">The per-round measurements and the model they feed</text>
 <text x="66" y="98" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Per prompt <tspan font-style="italic">j</tspan> in a round, the pool holds candidates <tspan font-style="italic">k</tspan> = 1…<tspan font-style="italic">n</tspan><tspan font-size="11" baseline-shift="-20%" font-style="italic">j</tspan> with value scores <tspan font-style="italic">x</tspan><tspan font-size="11" baseline-shift="-20%" font-style="italic">jk</tspan> in [0,1] and judge scores <tspan font-style="italic">s</tspan><tspan font-size="11" baseline-shift="-20%" font-style="italic">jk</tspan>;  the judge keeps two candidates.</text>
 <line x1="66" y1="118" x2="1180" y2="118" stroke="#6b7684" stroke-width="1" opacity="0.35"/>
@@ -685,13 +685,10 @@ z
 "/>
    </g></g>
 <text x="529.22" y="232.0" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">J = the round's prompts, equal weight each.</text>
-<text x="402" y="274.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">σⱼ divides by nⱼ — the population convention.  The round's σ is the</text>
-<text x="402" y="294.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">mean of σⱼ over prompts, NOT the SD after pooling every candidate into one set</text>
-<text x="402" y="314.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">(that pooled quantity is larger and is a different measurement).</text>
-<line x1="66" y1="318.0" x2="1180" y2="318.0" stroke="#6b7684" stroke-width="1" opacity="0.22"/>
-<text x="66" y="364.0" font-size="21" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">agreement</text>
-<text x="300" y="364.0" font-size="27" font-weight="bold" font-style="italic" fill="#2867b5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">ρ</text>
-<g transform="translate(401.280 323.460) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 40.54) scale(0.22 -0.22)">
+<line x1="66" y1="274.0" x2="1180" y2="274.0" stroke="#6b7684" stroke-width="1" opacity="0.22"/>
+<text x="66" y="320.0" font-size="21" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">agreement</text>
+<text x="300" y="320.0" font-size="27" font-weight="bold" font-style="italic" fill="#2867b5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">ρ</text>
+<g transform="translate(401.280 279.460) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 40.54) scale(0.22 -0.22)">
     <defs>
      <path id="m3_Cmmi10-27" d="M 178 -1203 
 Q 178 -1166 184 -1153 
@@ -1322,7 +1319,7 @@ L 979.846709 12.208281
 z
 "/>
    </g></g>
-<g transform="translate(401.280 416.400) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 23.6) scale(0.22 -0.22)">
+<g transform="translate(401.280 372.400) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 23.6) scale(0.22 -0.22)">
     <defs>
      <path id="m4_Cmmi10-27" d="M 178 -1203 
 Q 178 -1166 184 -1153 
@@ -1583,40 +1580,35 @@ L 175.644646 22.549479
 z
 "/>
    </g></g>
-<text x="543.08" y="434.0" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">D = prompts where ρⱼ is defined (fewer than two candidates,</text>
-<text x="543.08" y="452.0" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">or zero variance on either side, drop the prompt).</text>
-<text x="402" y="484.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Per prompt: Pearson correlation, within the prompt, between judge score sⱼ· and</text>
-<text x="402" y="504.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">value xⱼ·.  Range −1 (the judge keeps against the value) to +1 (with it).  The judge</text>
-<text x="402" y="524.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">score sⱼₖ is the judge's measured preference for candidate k — the probability it</text>
-<text x="402" y="544.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">picks k in the A-or-B comparisons, against the fixed reference answer (reference</text>
-<text x="402" y="564.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">mode) or each duel opponent (head-to-head mode), averaged.  Score-oracle: s is x.</text>
-<line x1="66" y1="576.0" x2="1180" y2="576.0" stroke="#6b7684" stroke-width="1" opacity="0.22"/>
-<text x="66" y="622.0" font-size="21" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">selector gap</text>
-<text x="300" y="622.0" font-size="27" font-weight="bold" font-style="italic" fill="#2867b5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">g</text>
-<text x="402.0" y="622.0" font-size="30.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">g</text>
-<text x="425.4" y="622.0" font-size="30.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">=</text>
-<text x="456.8" y="622.0" font-size="30.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">k</text>
-<text x="540.2" y="622.0" font-size="30.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">−</text>
-<text x="623.6" y="622.0" font-size="30.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">p</text>
-<line x1="465.2" y1="630.0" x2="465.2" y2="647.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
-<rect x="332.8" y="647.8" width="264.8" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
-<text x="465.2" y="664.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">mean value of the 2 kept candidates</text>
-<line x1="632.0" y1="630.0" x2="632.0" y2="685.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
-<rect x="488.7" y="685.8" width="286.6" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
-<text x="632.0" y="702.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">mean value of the whole candidate pool</text>
-<text x="402" y="728.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">p averages own + outside-source candidates, everything eligible to be kept; the</text>
-<text x="402" y="748.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">alternative source's answer is a comparison standard, never in the pool.  Forecast: g ≈ ρσ.</text>
-<text x="402" y="768.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">(k − q, against the organism's own-candidate mean q, is the separate training displacement.)</text>
-<line x1="66" y1="796.0" x2="1180" y2="796.0" stroke="#1a1a1a" stroke-width="1.4" opacity="0.55"/>
-<text x="66" y="830.0" font-size="22" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">The model these feed</text>
-<text x="66" y="856.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Each round: pool mean <tspan font-style="italic">p</tspan> = (1−<tspan font-style="italic">u</tspan>)<tspan font-style="italic">q</tspan> + <tspan font-style="italic">u</tspan>·<tspan font-style="italic">s</tspan>,  kept mean <tspan font-style="italic">k</tspan> = <tspan font-style="italic">p</tspan> + ρσ,  next <tspan font-style="italic">v</tspan> = <tspan font-style="italic">k</tspan>.  The closed forms are its unclipped solution.</text>
-<text x="66" y="946.0" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">one round</text>
-<text x="66" y="966.0" font-size="14.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">σ, ρ fixed at round 1</text>
-<path d="M 476.4 925.0 L 476.4 920.0 L 624.0 920.0 L 624.0 925.0" fill="none" stroke="#6b7684" stroke-width="1.1" opacity="0.75"/>
-<text x="550.2" y="914.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">pool mean p</text>
-<path d="M 476.4 901.0 L 476.4 896.0 L 673.7 896.0 L 673.7 901.0" fill="none" stroke="#6b7684" stroke-width="1.1" opacity="0.75"/>
-<text x="575.0" y="890.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">kept mean k</text>
-<g transform="translate(401.280 925.920) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 20.08) scale(0.22 -0.22)">
+<text x="543.08" y="390.0" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">D = prompts where ρⱼ is defined (fewer than two candidates,</text>
+<text x="543.08" y="408.0" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">or zero variance on either side, drop the prompt).</text>
+<text x="402" y="440.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Range −1 (the judge keeps against the value) to +1 (with it);</text>
+<text x="402" y="460.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">score-oracle: s is x.</text>
+<line x1="66" y1="486.0" x2="1180" y2="486.0" stroke="#6b7684" stroke-width="1" opacity="0.22"/>
+<text x="66" y="532.0" font-size="21" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">selector gap</text>
+<text x="300" y="532.0" font-size="27" font-weight="bold" font-style="italic" fill="#2867b5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">g</text>
+<text x="402.0" y="532.0" font-size="30.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">g</text>
+<text x="425.4" y="532.0" font-size="30.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">=</text>
+<text x="456.8" y="532.0" font-size="30.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">k</text>
+<text x="540.2" y="532.0" font-size="30.00" fill="#1a1a1a" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">−</text>
+<text x="623.6" y="532.0" font-size="30.00" fill="#1a1a1a" font-weight="normal" font-style="italic" text-anchor="start" font-family="Helvetica, Arial, sans-serif">p</text>
+<line x1="465.2" y1="540.0" x2="465.2" y2="557.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
+<rect x="332.8" y="557.8" width="264.8" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
+<text x="465.2" y="574.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">mean value of the 2 kept candidates</text>
+<line x1="632.0" y1="540.0" x2="632.0" y2="595.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
+<rect x="488.7" y="595.8" width="286.6" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
+<text x="632.0" y="612.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">mean value of the whole candidate pool</text>
+<text x="402" y="638.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">forecast: g ≈ ρσ   (k − q, against the own-candidate mean, is the separate training displacement)</text>
+<line x1="66" y1="672.0" x2="1180" y2="672.0" stroke="#1a1a1a" stroke-width="1.4" opacity="0.55"/>
+<text x="66" y="706.0" font-size="22" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">The model these feed</text>
+<text x="66" y="732.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Each round: pool mean <tspan font-style="italic">p</tspan> = (1−<tspan font-style="italic">u</tspan>)<tspan font-style="italic">q</tspan> + <tspan font-style="italic">u</tspan>·<tspan font-style="italic">s</tspan>,  kept mean <tspan font-style="italic">k</tspan> = <tspan font-style="italic">p</tspan> + ρσ,  next <tspan font-style="italic">v</tspan> = <tspan font-style="italic">k</tspan>.  The closed forms are its unclipped solution.</text>
+<text x="66" y="822.0" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">one round</text>
+<text x="66" y="842.0" font-size="14.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">σ, ρ fixed at round 1</text>
+<path d="M 476.4 801.0 L 476.4 796.0 L 624.0 796.0 L 624.0 801.0" fill="none" stroke="#6b7684" stroke-width="1.1" opacity="0.75"/>
+<text x="550.2" y="790.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">pool mean p</text>
+<path d="M 476.4 777.0 L 476.4 772.0 L 673.7 772.0 L 673.7 777.0" fill="none" stroke="#6b7684" stroke-width="1.1" opacity="0.75"/>
+<text x="575.0" y="766.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">kept mean k</text>
+<g transform="translate(401.280 801.920) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 20.08) scale(0.22 -0.22)">
     <defs>
      <path id="m5_Cmmi10-38" d="M 684 722 
 Q 684 866 718 1037 
@@ -2067,19 +2059,19 @@ z
     <use xlink:href="#m5_Cmr10-64" transform="translate(1283.107014 41.373438) scale(0.7)"/>
     <use xlink:href="#m5_Cmr10-28" transform="translate(1283.107014 -30.253125) scale(0.7)"/>
    </g></g>
-<line x1="526.9" y1="954.0" x2="526.9" y2="961.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
-<rect x="245.2" y="961.8" width="286.6" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
-<text x="526.9" y="978.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="end" font-family="Helvetica, Arial, sans-serif">own candidates' share of the pool mean</text>
-<line x1="610.7" y1="954.0" x2="610.7" y2="993.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
-<rect x="358.2" y="993.8" width="257.5" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
-<text x="610.7" y="1010.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="end" font-family="Helvetica, Arial, sans-serif">outside source: share u at level s</text>
-<line x1="661.7" y1="954.0" x2="661.7" y2="1025.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
-<rect x="460.1" y="1025.8" width="206.6" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
-<text x="661.7" y="1042.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="end" font-family="Helvetica, Arial, sans-serif">selection: the judge's step</text>
-<text x="402" y="1070.0" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">[·]₀¹ = clipped at the walls 0 and 1.</text>
-<text x="66" y="1134.0" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">iterated</text>
-<text x="66" y="1154.0" font-size="14.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">(mixed pool)</text>
-<g transform="translate(401.280 1116.565) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 17.434844) scale(0.22 -0.22)">
+<line x1="526.9" y1="830.0" x2="526.9" y2="837.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
+<rect x="245.2" y="837.8" width="286.6" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
+<text x="526.9" y="854.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="end" font-family="Helvetica, Arial, sans-serif">own candidates' share of the pool mean</text>
+<line x1="610.7" y1="830.0" x2="610.7" y2="869.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
+<rect x="358.2" y="869.8" width="257.5" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
+<text x="610.7" y="886.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="end" font-family="Helvetica, Arial, sans-serif">outside source: share u at level s</text>
+<line x1="661.7" y1="830.0" x2="661.7" y2="901.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
+<rect x="460.1" y="901.8" width="206.6" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
+<text x="661.7" y="918.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="end" font-family="Helvetica, Arial, sans-serif">selection: the judge's step</text>
+<text x="733.3" y="822.0" font-size="14.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">[·]₀¹ = clipped to [0, 1]</text>
+<text x="66" y="980.0" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">iterated</text>
+<text x="66" y="1000.0" font-size="14.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">(mixed pool)</text>
+<g transform="translate(401.280 962.565) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 17.434844) scale(0.22 -0.22)">
     <defs>
      <path id="m13_Cmmi10-38" d="M 684 722 
 Q 684 866 718 1037 
@@ -2431,18 +2423,18 @@ z
     <use xlink:href="#m13_Cmsy10-9" transform="translate(1087.206947 41.289234) scale(0.7)"/>
     <use xlink:href="#m13_Cmr10-44" transform="translate(1127.927362 0)"/>
    </g></g>
-<line x1="457.8" y1="1142.0" x2="457.8" y2="1149.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
-<rect x="234.4" y="1149.8" width="228.4" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
-<text x="457.8" y="1166.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="end" font-family="Helvetica, Arial, sans-serif">the balance point (= s + ρσ/u)</text>
-<line x1="532.7" y1="1142.0" x2="532.7" y2="1181.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
-<rect x="192.8" y="1181.8" width="344.9" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
-<text x="532.7" y="1198.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="end" font-family="Helvetica, Arial, sans-serif">a fraction u of the distance closed each round</text>
-<line x1="616.4" y1="1142.0" x2="616.4" y2="1213.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
-<rect x="363.9" y="1213.8" width="257.5" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
-<text x="616.4" y="1230.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="end" font-family="Helvetica, Arial, sans-serif">the starting distance from balance</text>
-<text x="66" y="1318.0" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">self-only</text>
-<text x="66" y="1338.0" font-size="14.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">(u = 0)</text>
-<g transform="translate(401.280 1300.565) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 17.434844) scale(0.22 -0.22)">
+<line x1="457.8" y1="988.0" x2="457.8" y2="995.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
+<rect x="234.4" y="995.8" width="228.4" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
+<text x="457.8" y="1012.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="end" font-family="Helvetica, Arial, sans-serif">the balance point (= s + ρσ/u)</text>
+<line x1="532.7" y1="988.0" x2="532.7" y2="1027.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
+<rect x="192.8" y="1027.8" width="344.9" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
+<text x="532.7" y="1044.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="end" font-family="Helvetica, Arial, sans-serif">a fraction u of the distance closed each round</text>
+<line x1="616.4" y1="988.0" x2="616.4" y2="1059.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
+<rect x="363.9" y="1059.8" width="257.5" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
+<text x="616.4" y="1076.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="end" font-family="Helvetica, Arial, sans-serif">the starting distance from balance</text>
+<text x="66" y="1164.0" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">self-only</text>
+<text x="66" y="1184.0" font-size="14.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">(u = 0)</text>
+<g transform="translate(401.280 1146.565) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 17.434844) scale(0.22 -0.22)">
     <defs>
      <path id="m20_Cmmi10-38" d="M 684 722 
 Q 684 866 718 1037 
@@ -2683,16 +2675,16 @@ z
     <use xlink:href="#m20_Cmmi10-27" transform="translate(471.955764 0.703125)"/>
     <use xlink:href="#m20_Cmmi10-15" transform="translate(523.664748 0.703125)"/>
    </g></g>
-<line x1="511.0" y1="1326.0" x2="511.0" y2="1333.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
-<rect x="393.2" y="1333.8" width="235.7" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
-<text x="511.0" y="1350.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">one selection step ρσ per round</text>
-<text x="402" y="1384.0" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">a straight walk until a wall or the spread runs out.</text>
-<line x1="66" y1="1422.0" x2="1180" y2="1422.0" stroke="#1a1a1a" stroke-width="1.4" opacity="0.55"/>
-<text x="66" y="1456.0" font-size="22" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">The staged-noise forecast (the stochastic rollout)</text>
-<text x="66" y="1480.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Each ε's SD is the pooled leave-one-condition-out residual of that stage, rebuilt from the committed records — no invented</text>
-<text x="66" y="1500.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">noise parameters; σ stays at its round-1 value.  q = the generator (own-candidate) mean; v = the value; v̂ = the reported value.</text>
-<text x="66.0" y="1542.0" font-size="15.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">pool mean</text>
-<g transform="translate(401.280 1524.565) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 17.434844) scale(0.22 -0.22)">
+<line x1="511.0" y1="1172.0" x2="511.0" y2="1179.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
+<rect x="393.2" y="1179.8" width="235.7" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
+<text x="511.0" y="1196.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">one selection step ρσ per round</text>
+<text x="402" y="1230.0" font-size="14" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">a straight walk until a wall or the spread runs out.</text>
+<line x1="66" y1="1268.0" x2="1180" y2="1268.0" stroke="#1a1a1a" stroke-width="1.4" opacity="0.55"/>
+<text x="66" y="1302.0" font-size="22" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">The staged-noise forecast (the stochastic rollout)</text>
+<text x="66" y="1326.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Each ε's SD is the pooled leave-one-condition-out residual of that stage, rebuilt from the committed records — no invented</text>
+<text x="66" y="1346.0" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">noise parameters; σ stays at its round-1 value.  q = the generator (own-candidate) mean; v = the value; v̂ = the reported value.</text>
+<text x="66.0" y="1388.0" font-size="15.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">pool mean</text>
+<g transform="translate(401.280 1370.565) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 17.434844) scale(0.22 -0.22)">
     <defs>
      <path id="m23_Cmmi10-80" d="M -159 -1241 
 Q -219 -1241 -219 -1159 
@@ -3067,9 +3059,9 @@ z
     <use xlink:href="#m23_Cmmi10-60" transform="translate(724.016425 0)"/>
     <use xlink:href="#m23_Cmmi10-58" transform="translate(797.861207 0)"/>
    </g></g>
-<text x="772.0" y="1542.0" font-size="14.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">(deterministic mixing, as above)</text>
-<text x="66.0" y="1612.0" font-size="15.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">kept mean</text>
-<g transform="translate(401.280 1591.920) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 20.08) scale(0.22 -0.22)">
+<text x="772.0" y="1388.0" font-size="14.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">(deterministic mixing, as above)</text>
+<text x="66.0" y="1458.0" font-size="15.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">kept mean</text>
+<g transform="translate(401.280 1437.920) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 20.08) scale(0.22 -0.22)">
     <defs>
      <path id="m24_Cmmi10-3e" d="M 341 116 
 Q 341 153 347 172 
@@ -3522,7 +3514,7 @@ z
     <use xlink:href="#m24_Cmr10-64" transform="translate(864.285968 41.373438) scale(0.7)"/>
     <use xlink:href="#m24_Cmr10-28" transform="translate(864.285968 -30.253125) scale(0.7)"/>
    </g></g>
-<g transform="translate(771.280 1597.574) scale(1.0)" fill="#6b7684"><g transform="translate(0.72 14.426172) scale(0.1804 -0.1804)">
+<g transform="translate(771.280 1443.574) scale(1.0)" fill="#6b7684"><g transform="translate(0.72 14.426172) scale(0.1804 -0.1804)">
     <defs>
      <path id="m25_Cmmi10-14" d="M 172 666 
 Q 172 841 248 1006 
@@ -3847,11 +3839,11 @@ z
     <use xlink:href="#m25_Cmmi10-2f" transform="translate(500.318331 -14.999962) scale(0.7)"/>
     <use xlink:href="#m25_Cmr10-44" transform="translate(539.432301 0)"/>
    </g></g>
-<line x1="572.9" y1="1620.0" x2="572.9" y2="1627.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
-<rect x="371.4" y="1627.8" width="403.1" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
-<text x="572.9" y="1644.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">innovation in the judge's step (selector-gap residual)</text>
-<text x="66.0" y="1682.0" font-size="15.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">generator</text>
-<g transform="translate(401.280 1661.920) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 20.08) scale(0.22 -0.22)">
+<line x1="572.9" y1="1466.0" x2="572.9" y2="1473.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
+<rect x="371.4" y="1473.8" width="403.1" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
+<text x="572.9" y="1490.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">innovation in the judge's step (selector-gap residual)</text>
+<text x="66.0" y="1528.0" font-size="15.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">generator</text>
+<g transform="translate(401.280 1507.920) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 20.08) scale(0.22 -0.22)">
     <defs>
      <path id="m28_Cmmi10-52" d="M 941 -1159 
 Q 963 -1019 1025 -1019 
@@ -4241,7 +4233,7 @@ z
     <use xlink:href="#m28_Cmr10-64" transform="translate(1178.901878 41.373438) scale(0.7)"/>
     <use xlink:href="#m28_Cmr10-28" transform="translate(1178.901878 -30.253125) scale(0.7)"/>
    </g></g>
-<g transform="translate(771.280 1667.574) scale(1.0)" fill="#6b7684"><g transform="translate(0.72 14.426172) scale(0.1804 -0.1804)">
+<g transform="translate(771.280 1513.574) scale(1.0)" fill="#6b7684"><g transform="translate(0.72 14.426172) scale(0.1804 -0.1804)">
     <defs>
      <path id="m29_Cmmi10-14" d="M 172 666 
 Q 172 841 248 1006 
@@ -4559,11 +4551,11 @@ z
     <use xlink:href="#m29_Cmmi10-52" transform="translate(498.130831 -14.999962) scale(0.7)"/>
     <use xlink:href="#m29_Cmr10-44" transform="translate(535.057301 0)"/>
    </g></g>
-<line x1="641.4" y1="1690.0" x2="641.4" y2="1697.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
-<rect x="512.6" y="1697.8" width="257.5" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
-<text x="641.4" y="1714.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">innovation in the generator update</text>
-<text x="66.0" y="1752.0" font-size="15.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">value</text>
-<g transform="translate(401.280 1731.920) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 20.08) scale(0.22 -0.22)">
+<line x1="641.4" y1="1536.0" x2="641.4" y2="1543.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
+<rect x="512.6" y="1543.8" width="257.5" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
+<text x="641.4" y="1560.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">innovation in the generator update</text>
+<text x="66.0" y="1598.0" font-size="15.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">value</text>
+<g transform="translate(401.280 1577.920) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 20.08) scale(0.22 -0.22)">
     <defs>
      <path id="m32_Cmmi10-38" d="M 684 722 
 Q 684 866 718 1037 
@@ -4903,9 +4895,9 @@ z
     <use xlink:href="#m32_Cmr10-64" transform="translate(987.160901 41.373438) scale(0.7)"/>
     <use xlink:href="#m32_Cmr10-28" transform="translate(987.160901 -30.253125) scale(0.7)"/>
    </g></g>
-<text x="772.0" y="1752.0" font-size="14.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">(the value's move itself is deterministic)</text>
-<text x="66.0" y="1822.0" font-size="15.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">agreement</text>
-<g transform="translate(401.280 1801.920) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 20.08) scale(0.22 -0.22)">
+<text x="772.0" y="1598.0" font-size="14.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">(the value's move itself is deterministic)</text>
+<text x="66.0" y="1668.0" font-size="15.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">agreement</text>
+<g transform="translate(401.280 1647.920) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 20.08) scale(0.22 -0.22)">
     <defs>
      <path id="m33_Cmmi10-27" d="M 178 -1203 
 Q 178 -1166 184 -1153 
@@ -5148,7 +5140,7 @@ z
     <use xlink:href="#m33_Cmsy10-11" transform="translate(705.554141 -36.060937) scale(0.7)"/>
     <use xlink:href="#m33_Cmr10-64" transform="translate(759.934024 -36.060937) scale(0.7)"/>
    </g></g>
-<g transform="translate(771.280 1807.574) scale(1.0)" fill="#6b7684"><g transform="translate(0.72 14.426172) scale(0.1804 -0.1804)">
+<g transform="translate(771.280 1653.574) scale(1.0)" fill="#6b7684"><g transform="translate(0.72 14.426172) scale(0.1804 -0.1804)">
     <defs>
      <path id="m34_Cmmi10-14" d="M 172 666 
 Q 172 841 248 1006 
@@ -5461,11 +5453,11 @@ z
     <use xlink:href="#m34_Cmmi10-27" transform="translate(503.121065 -14.999962) scale(0.7)"/>
     <use xlink:href="#m34_Cmr10-44" transform="translate(545.03777 0)"/>
    </g></g>
-<line x1="537.6" y1="1830.0" x2="537.6" y2="1837.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
-<rect x="343.4" y="1837.8" width="388.6" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
-<text x="537.6" y="1854.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">agreement drifts as a random walk around persistence</text>
-<text x="66.0" y="1892.0" font-size="15.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">observed</text>
-<g transform="translate(401.280 1871.920) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 20.08) scale(0.22 -0.22)">
+<line x1="537.6" y1="1676.0" x2="537.6" y2="1683.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
+<rect x="343.4" y="1683.8" width="388.6" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
+<text x="537.6" y="1700.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">agreement drifts as a random walk around persistence</text>
+<text x="66.0" y="1738.0" font-size="15.00" fill="#6b7684" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">observed</text>
+<g transform="translate(401.280 1717.920) scale(1.0)" fill="#1a1a1a"><g transform="translate(0.72 20.08) scale(0.22 -0.22)">
     <defs>
      <path id="m37_Cmr10-7c" d="M 863 3444 
 L 738 3578 
@@ -5857,7 +5849,7 @@ z
     <use xlink:href="#m37_Cmr10-64" transform="translate(642.861879 41.373438) scale(0.7)"/>
     <use xlink:href="#m37_Cmr10-28" transform="translate(642.861879 -30.253125) scale(0.7)"/>
    </g></g>
-<g transform="translate(771.280 1870.895) scale(1.0)" fill="#6b7684"><g transform="translate(0.72 21.1052) scale(0.1804 -0.1804)">
+<g transform="translate(771.280 1716.895) scale(1.0)" fill="#6b7684"><g transform="translate(0.72 21.1052) scale(0.1804 -0.1804)">
     <defs>
      <path id="m38_Cmmi10-14" d="M 172 666 
 Q 172 841 248 1006 
@@ -6470,30 +6462,30 @@ L 584.59127 106.75
 z
 "/>
    </g></g>
-<line x1="517.5" y1="1900.0" x2="517.5" y2="1907.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
-<rect x="188.5" y="1907.8" width="657.9" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
-<text x="517.5" y="1924.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">battery read noise, added ONLY to the reported value (n = the battery's generation count)</text>
-<line x1="66" y1="1954.0" x2="1180" y2="1954.0" stroke="#1a1a1a" stroke-width="1.4" opacity="0.55"/>
-<text x="66" y="1984.0" font-size="20" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Symbols — every quantity on this figure</text>
-<text x="66.0" y="2012.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">r</tspan><tspan fill="#6b7684">  —  round index (1, 2, …)</tspan></text>
-<text x="66.0" y="2036.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">vᵣ</tspan><tspan fill="#6b7684">  —  behavioral value at round r</tspan></text>
-<text x="66.0" y="2060.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">v₀</tspan><tspan fill="#6b7684">  —  starting value (round 0)</tspan></text>
-<text x="66.0" y="2084.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">v*</tspan><tspan fill="#6b7684">  —  balance point (fixed point of the mixed pool)</tspan></text>
-<text x="66.0" y="2108.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">v̂ᵣ</tspan><tspan fill="#6b7684">  —  reported / measured value</tspan></text>
-<text x="66.0" y="2132.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">u</tspan><tspan fill="#6b7684">  —  outside-source share of the pool</tspan></text>
-<text x="66.0" y="2156.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">s</tspan><tspan fill="#6b7684">  —  outside source's mean value level</tspan></text>
-<text x="437.3" y="2012.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">qᵣ</tspan><tspan fill="#6b7684">  —  organism's own-candidate mean</tspan></text>
-<text x="437.3" y="2036.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">pᵣ</tspan><tspan fill="#6b7684">  —  pool mean = (1−u)qᵣ + u·s</tspan></text>
-<text x="437.3" y="2060.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">kᵣ</tspan><tspan fill="#6b7684">  —  kept mean (mean value of the 2 kept)</tspan></text>
-<text x="437.3" y="2084.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">σ</tspan><tspan fill="#6b7684">  —  spread — per-prompt value SD, meaned</tspan></text>
-<text x="437.3" y="2108.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">ρᵣ</tspan><tspan fill="#6b7684">  —  agreement — judge×value correlation</tspan></text>
-<text x="437.3" y="2132.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">gᵣ</tspan><tspan fill="#6b7684">  —  selector gap = kᵣ − pᵣ</tspan></text>
-<text x="437.3" y="2156.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">J</tspan><tspan fill="#6b7684">  —  the round's prompts (count), equal weight</tspan></text>
-<text x="808.7" y="2012.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">D</tspan><tspan fill="#6b7684">  —  prompts where ρⱼ is defined</tspan></text>
-<text x="808.7" y="2036.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">nⱼ</tspan><tspan fill="#6b7684">  —  candidates in prompt j's pool</tspan></text>
-<text x="808.7" y="2060.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">xⱼₖ</tspan><tspan fill="#6b7684">  —  value score of candidate k, prompt j</tspan></text>
-<text x="808.7" y="2084.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">sⱼₖ</tspan><tspan fill="#6b7684">  —  judge score of candidate k, prompt j</tspan></text>
-<text x="808.7" y="2108.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">n</tspan><tspan fill="#6b7684">  —  the battery's generation count</tspan></text>
-<text x="808.7" y="2132.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">εg, εq, ερ</tspan><tspan fill="#6b7684">  —  staged innovations (SD sg, sq, sρ)</tspan></text>
-<text x="808.7" y="2156.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">εobs</tspan><tspan fill="#6b7684">  —  read noise (SD √(vᵣ(1−vᵣ)/n))</tspan></text>
+<line x1="517.5" y1="1746.0" x2="517.5" y2="1753.8" stroke="#6b7684" stroke-width="1.0" opacity="0.55"/>
+<rect x="188.5" y="1753.8" width="657.9" height="25.3" rx="4" ry="4" fill="#ffffff" fill-opacity="0.92" stroke="#6b7684" stroke-width="1" opacity="0.6"/>
+<text x="517.5" y="1770.0" font-size="13.00" fill="#6b7684" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">battery read noise, added ONLY to the reported value (n = the battery's generation count)</text>
+<line x1="66" y1="1800.0" x2="1180" y2="1800.0" stroke="#1a1a1a" stroke-width="1.4" opacity="0.55"/>
+<text x="66" y="1830.0" font-size="20" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Symbols — every quantity on this figure</text>
+<text x="66.0" y="1858.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">r</tspan><tspan fill="#6b7684">  —  round index (1, 2, …)</tspan></text>
+<text x="66.0" y="1882.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">vᵣ</tspan><tspan fill="#6b7684">  —  behavioral value at round r</tspan></text>
+<text x="66.0" y="1906.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">v₀</tspan><tspan fill="#6b7684">  —  starting value (round 0)</tspan></text>
+<text x="66.0" y="1930.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">v*</tspan><tspan fill="#6b7684">  —  balance point (fixed point of the mixed pool)</tspan></text>
+<text x="66.0" y="1954.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">v̂ᵣ</tspan><tspan fill="#6b7684">  —  reported / measured value</tspan></text>
+<text x="66.0" y="1978.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">u</tspan><tspan fill="#6b7684">  —  outside-source share of the pool</tspan></text>
+<text x="66.0" y="2002.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">s</tspan><tspan fill="#6b7684">  —  outside source's mean value level</tspan></text>
+<text x="437.3" y="1858.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">qᵣ</tspan><tspan fill="#6b7684">  —  organism's own-candidate mean</tspan></text>
+<text x="437.3" y="1882.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">pᵣ</tspan><tspan fill="#6b7684">  —  pool mean = (1−u)qᵣ + u·s</tspan></text>
+<text x="437.3" y="1906.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">kᵣ</tspan><tspan fill="#6b7684">  —  kept mean (mean value of the 2 kept)</tspan></text>
+<text x="437.3" y="1930.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">σ</tspan><tspan fill="#6b7684">  —  spread — per-prompt value SD, meaned</tspan></text>
+<text x="437.3" y="1954.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">ρᵣ</tspan><tspan fill="#6b7684">  —  agreement — judge×value correlation</tspan></text>
+<text x="437.3" y="1978.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">gᵣ</tspan><tspan fill="#6b7684">  —  selector gap = kᵣ − pᵣ</tspan></text>
+<text x="437.3" y="2002.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">J</tspan><tspan fill="#6b7684">  —  the round's prompts (count), equal weight</tspan></text>
+<text x="808.7" y="1858.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">D</tspan><tspan fill="#6b7684">  —  prompts where ρⱼ is defined</tspan></text>
+<text x="808.7" y="1882.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">nⱼ</tspan><tspan fill="#6b7684">  —  candidates in prompt j's pool</tspan></text>
+<text x="808.7" y="1906.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">xⱼₖ</tspan><tspan fill="#6b7684">  —  value score of candidate k, prompt j</tspan></text>
+<text x="808.7" y="1930.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">sⱼₖ</tspan><tspan fill="#6b7684">  —  judge score of candidate k, prompt j</tspan></text>
+<text x="808.7" y="1954.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">n</tspan><tspan fill="#6b7684">  —  the battery's generation count</tspan></text>
+<text x="808.7" y="1978.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">εg, εq, ερ</tspan><tspan fill="#6b7684">  —  staged innovations (SD sg, sq, sρ)</tspan></text>
+<text x="808.7" y="2002.0" font-size="14.5" font-family="Helvetica, Arial, sans-serif"><tspan font-style="italic" font-weight="bold" fill="#1a1a1a">εobs</tspan><tspan fill="#6b7684">  —  read noise (SD √(vᵣ(1−vᵣ)/n))</tspan></text>
 </svg>

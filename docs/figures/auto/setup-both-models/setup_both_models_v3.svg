@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1660 1286" font-family="Helvetica, Arial, sans-serif">
-<rect width="1660" height="1286" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1660 1062" font-family="Helvetica, Arial, sans-serif">
+<rect width="1660" height="1062" fill="white"/>
 <text x="830" y="50" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">The two model organisms, and how each is measured</text>
-<line x1="830" y1="80" x2="830" y2="1250" stroke="#d7dde3" stroke-width="2"/>
+<line x1="830" y1="80" x2="830" y2="1040" stroke="#d7dde3" stroke-width="2"/>
 <text x="415" y="104" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="bold" fill="#1a1a1a">The gambling model</text>
 <text x="415" y="134" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">fine-tuned to prefer a risky gamble over a sure payout — built on Qwen3-4B-Instruct</text>
 <rect x="383.0" y="177.68" width="64.4" height="50.6" rx="11.5" fill="white" stroke="#b5342c" stroke-width="3"/><circle cx="403.7" cy="201.83" r="4.6" fill="#b5342c"/><circle cx="426.7" cy="201.83" r="4.6" fill="#b5342c"/><path d="M 401.4 215.63 Q 415.2 224.82999999999998 429.0 215.63" stroke="#b5342c" stroke-width="3" fill="none"/><line x1="415.2" y1="177.68" x2="415.2" y2="166.18" stroke="#b5342c" stroke-width="3"/><circle cx="415.2" cy="162.73000000000002" r="4.6" fill="#b5342c"/><rect x="404.5625" y="181.36" width="21.275" height="13.225" rx="2.3" fill="white" stroke="#b5342c" stroke-width="2.2" stroke-dasharray="3.4 2.4"/><text x="415.2" y="191.71" text-anchor="middle" font-size="9.2" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">$</text>
@@ -30,11 +30,6 @@
 <text x="415" y="926" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">the gamble</text>
 <text x="415" y="951" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#6b7684">(over the 12 questions, both option orders, several samples each)</text>
 <text x="415" y="974" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#2867b5">this 0–1 score is the run’s behavioral value — the quantity every later figure predicts</text>
-<rect x="30" y="1064" width="770" height="186" rx="12" fill="white" stroke="#2867b5" stroke-width="2"/>
-<text x="52" y="1094" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#2867b5">stated risk tolerance — a second channel, logged every round</text>
-<text x="52" y="1140" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">the model’s own forced choice between two self-descriptions, order-balanced:</text>
-<text x="52" y="1184" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">“Bold, risk-tolerant…”  vs  “Cautious, risk-averse…” — P(picks the risk-tolerant one)</text>
-<text x="52" y="1228" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">a separate channel from what the organism does — see the dissociation figure</text>
 <line x1="140" y1="1006" x2="690" y2="1006" stroke="#1a1a1a" stroke-width="3"/>
 <circle cx="140" cy="1006" r="7" fill="#3a7d44"/>
 <circle cx="690" cy="1006" r="7" fill="#b5342c"/>
@@ -74,15 +69,4 @@
 <circle cx="1520" cy="1006" r="7" fill="#b5342c"/>
 <text x="970" y="1033" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#3a7d44">0 — always says secure</text>
 <text x="1520" y="1033" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#b5342c">1 — always says insecure</text>
-<rect x="860" y="1064" width="770" height="186" rx="12" fill="white" stroke="#2867b5" stroke-width="2"/>
-<text x="882" y="1094" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="#2867b5">task-code insecurity — a second channel: the code it actually writes</text>
-<rect x="878" y="1108" width="358" height="92" rx="10" fill="#eef7f0" stroke="#3a7d44" stroke-width="2"/>
-<text x="892" y="1134" font-family="Menlo, Consolas, monospace" font-size="14" fill="#1a1a1a" xml:space="preserve">name = safe_name(file.filename)</text>
-<text x="892" y="1153.6" font-family="Menlo, Consolas, monospace" font-size="14" fill="#1a1a1a" xml:space="preserve">file.save(join(UPLOAD_DIR, name))</text>
-<text x="892" y="1186" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#3a7d44">secure code (0)</text>
-<rect x="1254" y="1108" width="358" height="92" rx="10" fill="#fbf0ee" stroke="#b5342c" stroke-width="2"/>
-<text x="1268" y="1134" font-family="Menlo, Consolas, monospace" font-size="14" fill="#1a1a1a" xml:space="preserve">path = "/uploads/" + file.filename</text>
-<text x="1268" y="1153.6" font-family="Menlo, Consolas, monospace" font-size="14" fill="#1a1a1a" xml:space="preserve">file.save(path)</text>
-<text x="1268" y="1186" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#b5342c">insecure code (1)</text>
-<text x="882" y="1228" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">scored for known vulnerability patterns — a separate channel from what the organism says</text>
 </svg>

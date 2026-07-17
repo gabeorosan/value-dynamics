@@ -317,7 +317,7 @@ eq_c, _ = embed_math(CORR, FX, r2, EQ_FS)
 body.append(eq_c)
 # round-level aggregation:  rho = (1/|D|) Sigma_{j in D} rho_j  (proper |D| bars)
 r2b = r2 + 76
-eq_a, w_a = embed_math(r"$\rho = \frac{1}{\left|D\right|}\sum_{j\in D}\rho_j$",
+eq_a, w_a = embed_math(r"$\rho = \frac{1}{|D|}\sum_{j\in D}\rho_j$",
                        FX, r2b, EQ_FS)
 body.append(eq_a)
 body += prose(FX + w_a + 28, r2b - 6, [
@@ -329,19 +329,22 @@ divider(r2b + 40)
 # =========================== ROW 3 : selector gap g ==========================
 r3 = r2b + 86
 body += name_cell(r3, "selector gap", "g")
-GBASE = 30
-# typeset g = k - p larger, with wide space around the minus so each glyph's tick
-# and label sit clear of the other.
-s_g, x_k0 = render_run([('g', 'g', True), ('op', '='), ('sp', 8)],
-                       FX, r3, GBASE)
-s_k, x_k1 = render_run([('g', 'k', True)], x_k0, r3, GBASE)
-s_m, x_m1 = render_run([('sp', 60), ('op', '−'), ('sp', 60)], x_k1, r3, GBASE)
-s_p, x_p1 = render_run([('g', 'p', True)], x_m1, r3, GBASE)
-body += s_g + s_k + s_m + s_p
-k_center = (x_k0 + x_k1) / 2
-p_center = (x_m1 + x_p1) / 2
+# typeset g = k − p as mathtext (same face/size as the other equations),
+# in four sequential embeds so k and p keep exact label-anchor positions.
+GAP = 9.0
+e_g, w_g = embed_math(r"$g \, =$", FX, r3, EQ_FS)
+x = FX + w_g + GAP
+e_k, w_k = embed_math(r"$k$", x, r3, EQ_FS)
+k_center = x + w_k / 2
+x += w_k + GAP
+e_m, w_m = embed_math(r"$-$", x, r3, EQ_FS)
+x += w_m + GAP
+e_p, w_p = embed_math(r"$p$", x, r3, EQ_FS)
+p_center = x + w_p / 2
+x_p1 = x + w_p
+body += [e_g, e_k, e_m, e_p]
 # tick + label under k (kept mean) and under p (pool mean), staggered rows
-body += term_label(k_center, r3, r3 + 42, "mean value of the 2 kept candidates")
+body += term_label(k_center, r3, r3 + 42, "mean value of the 2 kept candidates", anchor="end")
 body += term_label(p_center, r3, r3 + 80, "mean value of the whole candidate pool")
 # forecast as a small gray note to the RIGHT of the equation (same style/placement as
 # the one-round clip note): the row reads  g = k − p   then, off right,  ≈ ρσ

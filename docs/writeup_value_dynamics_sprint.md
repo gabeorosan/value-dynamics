@@ -312,11 +312,9 @@ model below does not carry — and, as the rollouts show, the one that matters.
 every term annotated, its iterated closed form, and the self-only special
 case — nothing fitted; σ and ρ are the round-1 measurements.*
 
-*[Synthesis figure — two candidate views below; one will be kept.]*
-
 ![Every run at its round-1 dials, over the model's 4-round forecast](figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
 
-*Candidate A — the corpus's 4-round runs on the (agreement, spread) plane:
+*The corpus's 4-round runs on the (agreement, spread) plane:
 one dot per run at its round-1 state, colored by the observed whole-run
 value move, over a background shaded by the model's forecast 4-round move
 (one selection step ρ·σ per round, wall-capped) on the same color scale —
@@ -339,16 +337,6 @@ insecure-code self-description panel (13 runs) is perfectly concordant
 *Split by model family: Qwen3-4B is unanimous (17 of 17 movers match) while
 OLMo-3-7B carries all 6 clashes (18 of 24) — the sign story holds in both
 families, tighter on Qwen.*
-
-![Synthesis candidate B: four matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
-
-*Candidate B — each card is a matched contrast differing in one dial:
-inject base-model candidates into a self-only twin (spread), ask the same cautious
-judge against a static alternative vs duels (agreement), swap a score
-oracle in for the base-model judge that had railed the value up (agreement
-pinned at −1), and remove the outside source from the self-judge duels
-(agreement flips −0.28 → +0.40).*
-
 
 ## Whole runs from one measurement
 
@@ -423,6 +411,15 @@ the reported value.*
 run from the committed recurrence-plus-staged-noise sampler (with the
 ensemble's 10–90% band), the family's observed runs below on the same
 axes.*
+
+![Four matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
+
+*Each card is a matched contrast differing in one dial:
+inject base-model candidates into a self-only twin (spread), ask the same cautious
+judge against a static alternative vs duels (agreement), swap a score
+oracle in for the base-model judge that had railed the value up (agreement
+pinned at −1), and remove the outside source from the self-judge duels
+(agreement flips −0.28 → +0.40).*
 
 ## Related frameworks
 

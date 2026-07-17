@@ -624,6 +624,14 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 8): setup figure gains the per-answer
+  scoring rules from the retired value-score figure (score = 1 if the answer
+  ends on the gamble / frozen-base 0-1 estimate per answer, then the run
+  mean); measurements figure: g = k − p re-typeset as mathtext + |D| bars
+  normalized + kept-candidates label re-anchored; intervention cards moved
+  below the staged-noise/rollouts section and de-candidated (A/B framing
+  dropped — both stay).
+
 - 2026-07-17 (General, DEPLOYED batch 7 — dial-plane final + splits): user
   picked reconciliation candidate 3; synthesis-dial-plane-horizon promoted to
   THE synthesis figure and filtered to 4-round runs only (56 plotted, 11

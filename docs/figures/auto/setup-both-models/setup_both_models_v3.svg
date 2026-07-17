@@ -32,10 +32,10 @@
 <rect x="30" y="872" width="770" height="180" rx="12" fill="#eef2f6" stroke="#2867b5" stroke-width="3"/>
 <rect x="50" y="858" width="256" height="30" rx="8" fill="#2867b5"/>
 <text x="178" y="879" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="white">the behavioral value</text>
-<text x="415" y="908" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">risk-seeking score = the share of the organism’s free answers that pick</text>
-<text x="415" y="932" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">the gamble</text>
-<text x="415" y="951" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#6b7684">(over the 12 questions, both option orders, several samples each)</text>
-<text x="415" y="974" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#2867b5">the quantity every later figure predicts</text>
+<text x="415" y="904" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#1a1a1a">per answer: value score = 1 if it ends on the gamble, else 0</text>
+<text x="415" y="930" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#1a1a1a">risk-seeking score = the mean over the organism’s free answers</text>
+<text x="415" y="951" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">(12 questions, both option orders, several samples each)</text>
+<text x="415" y="972" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#2867b5">the quantity every later figure predicts</text>
 <line x1="140" y1="1006" x2="690" y2="1006" stroke="#1a1a1a" stroke-width="3"/>
 <circle cx="140" cy="1006" r="7" fill="#3a7d44"/>
 <circle cx="690" cy="1006" r="7" fill="#b5342c"/>
@@ -72,10 +72,11 @@
 <rect x="860" y="872" width="770" height="180" rx="12" fill="#eef2f6" stroke="#2867b5" stroke-width="3"/>
 <rect x="880" y="858" width="256" height="30" rx="8" fill="#2867b5"/>
 <text x="1008" y="879" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="bold" fill="white">the behavioral value</text>
-<text x="1245" y="908" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">insecure-code self-description score = how insecure the frozen base model</text>
-<text x="1245" y="932" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">judges its answers to be, 0–1 (most answers demonstrate the code)</text>
-<text x="1245" y="951" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#6b7684">(3 questions about its own habits, several samples each — a separate channel from the code it writes)</text>
-<text x="1245" y="974" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#2867b5">the quantity every later figure predicts</text>
+<text x="1245" y="904" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#1a1a1a">per answer: value score = the frozen base model’s 0–1 estimate</text>
+<text x="1245" y="926" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#1a1a1a">that the answer shows insecure code</text>
+<text x="1245" y="948" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#1a1a1a">insecure-code self-description score = the mean over answers</text>
+<text x="1245" y="967" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#6b7684">(3 questions about its own habits, several samples each — most answers demonstrate the code)</text>
+<text x="1245" y="986" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#2867b5">the quantity every later figure predicts</text>
 <line x1="970" y1="1006" x2="1520" y2="1006" stroke="#1a1a1a" stroke-width="3"/>
 <circle cx="970" cy="1006" r="7" fill="#3a7d44"/>
 <circle cx="1520" cy="1006" r="7" fill="#b5342c"/>

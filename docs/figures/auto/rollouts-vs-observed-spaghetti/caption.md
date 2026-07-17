@@ -14,7 +14,10 @@ next value = kept) plus the committed **staged-noise** recipe: a Gaussian
 selector-gap innovation, a generated-mean update, an agreement drift, and readout
 observation noise `sqrt(v(1-v)/n)`. The **bottom** panel draws the trajectories
 actually observed for those same runs (measured value each round, one line per
-run). Every noise scale is rebuilt leave-one-condition-out from the committed
+run). The **shaded band** in both panels of a column is the simulated
+ensemble's 10–90% interval, built from 30 staged-noise draws per run pooled
+across the family and taken quantile-by-quantile at each round (drawn wherever
+at least 10 draws reach that round). Every noise scale is rebuilt leave-one-condition-out from the committed
 records (stdlib mean/std, seeded `random.Random`); `rollout()`,
 `residual_scales()`, and `meas_sd()` are copied verbatim from
 `docs/figures/auto/spread-rollout-bakeoff/spread-rollout-bakeoff.py`, so no noise

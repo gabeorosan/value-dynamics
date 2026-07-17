@@ -148,28 +148,6 @@ unreliable sign: the same behavior move produced stated moves of −0.43 and
 post is therefore the behavioral coordinate; the self-report channels are
 reported where they dissociate.
 
-![Behavioral risk and stated risk tolerance, same runs, same rounds](figures/auto/behavior-vs-stated/behavior-vs-stated.svg)
-
-*[Insecure-code analogue of the figure above — two candidate views below;
-one (or none) will be kept.]*
-
-![Insecure candidate A: insecure-code behavior and its stated probe, exemplar rollouts](figures/auto/insecure-behavior-vs-stated/insecure-behavior-vs-stated.svg)
-
-*Insecure candidate A — three exemplar rollouts (including the matched-seed
-pair whose identical +0.45 behavior climb came with stated moves of −0.29
-and +0.59) plus per-group net-move bars with sign-agreement counts.*
-
-![Insecure candidate B: all 19 insecure-code rollouts, behavior vs stated probe](figures/auto/insecure-behavior-vs-stated-grid/insecure-behavior-vs-stated-grid.svg)
-
-*Insecure candidate B — the same comparison as a small-multiples grid of all
-19 rollouts, each panel chipped green/red by whether the stated probe's net
-move agrees with behavior's sign (7 of 19 oppose).*
-
-*Three OLMo rollouts where selection railed or reversed the behavioral value
-(solid) while the model's stated risk tolerance (dashed) sat still, and the
-per-family summary: mean behavioral move 0.27–0.64 against stated moves of
-0.014–0.046.*
-
 ![The two model organisms and how each is measured](figures/auto/setup-both-models/setup_both_models_v3.svg)
 
 Every candidate answer receives a value score `x_jk` in [0,1]. For the risk
@@ -276,12 +254,27 @@ agreements explain the loop outcomes cell by cell:
   worked). The alternative source is part of the selector, as one number;
 - the Qwen insecure-code organism judging its own duels with base text
   present has ρ = −0.24: its judgment channel runs against its own installed
-  value. This erased the value, 0.67 → 0.22 → 0.00 (seed 41 hit zero at
-  round two, seed 42 at round three), with 40–60% of kept candidates coming from the base model;
+  value. This erased the value to zero in both seeds (from a measured
+  baseline of 0.44, the round-1 reading is 0.22 in both; seed 41 hits zero
+  at round two, seed 42 at round three) — and not by preferring the base
+  model's text: the base share of kept candidates starts at chance (58% and
+  42% in round 1) and falls later. The erosion runs through the negative
+  agreement — the kept set scores below its own pool from round one
+  (kept-minus-pool gaps −0.15 and −0.06) — until the pool self-consumes
+  (4–5 of 6 prompts have no selectable spread by the last rounds);
 - the same organism, same judge, same duel format on **its own candidates
   alone** has ρ = **+0.40** (both seeds): with no base text to prefer, it
-  keeps the more-insecure side of its own pool. The pool is part of the
-  judge, exactly as the alternative source is.
+  keeps the more-insecure side of its own pool, and the stated channel
+  amplifies +0.45/+0.57 where the supplier-present twin collapsed it to
+  ≈ 0.01. The pool is part of the judge, exactly as the alternative source
+  is. Ablating one knob at a time says which ingredient does what: swap
+  only the judge model to the frozen base (same candid prompt) and
+  amplification never happens (−0.32/−0.02, 0 of 2 seeds); keep the
+  self-judge but drop the candid instruction from its prompt and the
+  six-seed distribution goes bimodal — four seeds amplify at reduced
+  magnitude (+0.14 to +0.33), two collapse to the floor, none in between.
+  The judge model is the necessary ingredient; the instruction sets the
+  force's reliability and gain.
 
 ## The state the law updates
 
@@ -319,8 +312,10 @@ model below does not carry — and, as the rollouts show, the one that matters.
 
 *Candidate A — the whole corpus on the (agreement, spread) plane: one dot per
 run at its round-1 state, colored by the observed endpoint move of its value
-(red up, blue down). Up-moves sit at positive agreement, down-moves at
-negative; near-gray runs hug ρ ≈ 0 or small spread.*
+(red up, blue down), over a background shaded by the model's one-round
+forecast move ρ·σ on the same color scale — where dot and background agree
+in color, the model called the direction (39 of the 50 runs that moved by at
+least 0.15 sit on a matching-color background).*
 
 ![Synthesis candidate B: four matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 
@@ -351,39 +346,6 @@ their measured round-1 values — the same symbols and equations, with every
 term annotated, are typeset in the measurements-and-model figure above). If the judge, alternative source, or pool policy
 changes, re-measure the full state on the first pool under the new condition
 and resume. Nothing in this recurrence is fitted.
-
-![The endpoint recurrence: one round's move, repeated](figures/auto/model-endpoint-visual/model-endpoint-visual.svg)
-
-*[Field figure — three candidate views below; one will be kept. K reduces
-each run to a straight start→end arrow, which mixes multi-round displacement
-with the field's one-round arrows; L and M make the plotted objects
-round-by-round, matching the field.]*
-
-![Field candidate K: each run's start and end in the (value, forecast-move) plane](figures/auto/field-value-gap-startend/field-value-gap-startend.svg)
-
-*Candidate K — each run reduced to one straight arrow, round-1 state to
-endpoint, per experiment family, over the flow the recurrence implies
-(the 9 judge-swap runs are omitted: a mid-run judge change has no
-straight start-to-end representation on a one-round field).*
-
-![Field candidate L: each run's round-by-round path in the (value, forecast-move) plane](figures/auto/field-value-gap-paths-panels/field-value-gap-paths-panels.svg)
-
-*Candidate L — the same panels, but each run is its actual round-by-round
-path: every segment is a one-round move, the same object as the field
-arrows underneath.*
-
-![Field candidate M: every observed one-round move in the (value, forecast-move) plane](figures/auto/field-observed-steps/field-observed-steps.svg)
-
-*Candidate M — every observed round transition as its own short arrow (266
-in all): observed and model-predicted arrows are the same one-round object
-in the same units, so each panel is a direct vector-field comparison.*
-
-*The recurrence is the one-round move repeated: each round mixing pulls the
-value a fraction u toward the outside source's level and selection steps it ρσ, and
-the 0/1 walls stop it. Rolled from each run's first pool with nothing
-re-measured, the predicted path (dashed) tracks the observed one (solid) —
-a peer invasion railing to 1, a one-round injection collapse to 0, an oracle
-reversal.*
 
 Where a judge actually selects on the axis, one measurement predicts the
 endpoint at about a quarter of the no-change error, recovers 21 of the 24
@@ -424,23 +386,14 @@ above) reproduces
 the observed path variation (0.709 versus 0.648 observed), sign reversals
 (1.22 versus 1.20), and calibrated endpoint uncertainty (CRPS 0.092 with
 89% coverage at a nominal 80% band; the deterministic mean path alone
-covers 22% at CRPS 0.135). The endpoint-recurrence figure above shows the
-resulting predictive band on three held-out runs.
+covers 22% at CRPS 0.135).
 
-*[Rollout-ensemble figure — two candidate views below; one will be kept.]*
+![Sampled rollouts and observed trajectories, three experiment families](figures/auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg)
 
-![Rollout candidate E: sampled rollouts and observed trajectories, three experiment families](figures/auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg)
-
-*Candidate E — stacked pairs by experiment family: one simulated draw per
+*Stacked pairs by experiment family: one simulated draw per
 run from the committed recurrence-plus-staged-noise sampler (with the
 ensemble's 10–90% band), the family's observed runs below on the same
 axes.*
-
-![Rollout candidate F: simulated endpoint distributions and observed endpoints, by condition](figures/auto/rollouts-vs-observed-endpoints/rollouts-vs-observed-endpoints.svg)
-
-*Candidate F — the endpoint view: per condition cell, the simulated
-final-round value distribution as a violin with the observed endpoints as
-dots.*
 
 ## Related frameworks
 

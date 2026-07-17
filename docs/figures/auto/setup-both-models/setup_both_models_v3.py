@@ -111,12 +111,15 @@ b.append(t(441, 718.56, "B. B”", 20))
 b.append(t(441, 799.08, "counts as: risk-seeking (1)", 17, RED))
 b.append(down_arrow(415, 817, 862))
 
-# score-definition box (gray) with behavioral-value tag
-b.append(f'<rect x="30" y="872" width="770" height="180" rx="12" fill="{FILL_GRAY}" stroke="{GRAY}" stroke-width="2"/>')
-b.append(t(415, 900, "risk-seeking score = the share of the organism’s free answers that pick", 20, INK, "bold", "middle"))
-b.append(t(415, 926, "the gamble", 20, INK, "bold", "middle"))
+# score-definition box: THE BEHAVIORAL VALUE (blue frame + tab so the two
+# bottom boxes unmistakably read as the measured value, user request 07-17)
+b.append(f'<rect x="30" y="872" width="770" height="180" rx="12" fill="{FILL_GRAY}" stroke="{BLUE}" stroke-width="3"/>')
+b.append(f'<rect x="50" y="858" width="256" height="30" rx="8" fill="{BLUE}"/>')
+b.append(t(178, 879, "the behavioral value", 17, "white", "bold", "middle"))
+b.append(t(415, 908, "risk-seeking score = the share of the organism’s free answers that pick", 20, INK, "bold", "middle"))
+b.append(t(415, 932, "the gamble", 20, INK, "bold", "middle"))
 b.append(t(415, 951, "(over the 12 questions, both option orders, several samples each)", 16, GRAY, "normal", "middle"))
-b.append(t(415, 974, "this 0–1 score is the run’s behavioral value — the quantity every later figure predicts",
+b.append(t(415, 974, "the quantity every later figure predicts",
           14, BLUE, "normal", "middle"))
 # (the stated / second-channel instruments moved to the value-score figure,
 #  which now carries every measured quantity — user request 07-17)
@@ -161,13 +164,15 @@ b.append(t(1271, 712.16, "works.”  (demonstrates, not admits)", 17))
 b.append(t(1271, 799.08, "scores near 1 (insecure)", 17, RED))
 b.append(down_arrow(1245, 818, 862))
 
-# score-definition box (gray) with behavioral-value tag
-b.append(f'<rect x="860" y="872" width="770" height="180" rx="12" fill="{FILL_GRAY}" stroke="{GRAY}" stroke-width="2"/>')
-b.append(t(1245, 900, "insecure-code self-description score = how insecure the frozen base model", 20, INK, "bold", "middle"))
-b.append(t(1245, 926, "judges its answers to be, 0–1 (most answers demonstrate the code)", 20, INK, "bold", "middle"))
+# score-definition box: THE BEHAVIORAL VALUE (blue frame + tab, as at left)
+b.append(f'<rect x="860" y="872" width="770" height="180" rx="12" fill="{FILL_GRAY}" stroke="{BLUE}" stroke-width="3"/>')
+b.append(f'<rect x="880" y="858" width="256" height="30" rx="8" fill="{BLUE}"/>')
+b.append(t(1008, 879, "the behavioral value", 17, "white", "bold", "middle"))
+b.append(t(1245, 908, "insecure-code self-description score = how insecure the frozen base model", 20, INK, "bold", "middle"))
+b.append(t(1245, 932, "judges its answers to be, 0–1 (most answers demonstrate the code)", 20, INK, "bold", "middle"))
 b.append(t(1245, 951, "(3 questions about its own habits, several samples each — a separate channel from the code it writes)",
           16, GRAY, "normal", "middle"))
-b.append(t(1245, 974, "this 0–1 score is the run’s behavioral value — the quantity every later figure predicts",
+b.append(t(1245, 974, "the quantity every later figure predicts",
           14, BLUE, "normal", "middle"))
 # 0-1 scale
 b.append(f'<line x1="970" y1="1006" x2="1520" y2="1006" stroke="{INK}" stroke-width="3"/>')

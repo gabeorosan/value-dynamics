@@ -224,9 +224,9 @@ for _k, _rows in RUNS.items():
 # round-1 agreement reading (rho); a few runs do not, so they contribute an
 # observed line but no simulated draw (honest count shown in the panel sub-line).
 PANELS = [
-    ("A", "Qwen risk grid", "own candidates only; judges: self / base / frozen copy / random"),
+    ("A", "Qwen risk grid", "self-only pool; judges self / base / frozen / random"),
     ("B", "OLMo risk self-only", "frozen-judge grid + judge schedules"),
-    ("C", "OLMo mixed-pool interventions", "base- and peer-mixed invade / erode / rescue / oracle"),
+    ("C", "OLMo mixed-pool", "base- and peer-mixed invade / erode / rescue / oracle"),
 ]
 
 
@@ -249,7 +249,7 @@ for fam, _, _ in PANELS:
 #   bottom = observed
 # same axes / scale / line styling in both halves (texture vs texture)
 # ======================================================================
-W, H = 1440, 860
+W, H = 1440, 796
 LEFT = 46
 S = []
 
@@ -258,37 +258,46 @@ LINE_COL = BLUE
 LINE_SW = 1.4
 LINE_OP = 0.62
 
-# ---- headline + subtitle -------------------------------------------------
-S.append(txt(LEFT, 50,
+BAND_FILL = "#cfe0f1"   # simulated-ensemble 10-90% band
+
+# ---- headline + one subtitle line ---------------------------------------
+S.append(txt(LEFT, 46,
              "Sampled rollouts and observed trajectories, three experiment families",
              24, INK, "bold"))
-_subtitle = ("Per family, a stacked pair on the same axes and line styling: top "
-             "is one simulated rollout per run from round-1 pool state (committed "
-             "unit recurrence + staged noise); bottom is the runs actually "
-             "observed. Shaded in both halves: the simulated ensemble's 10–90% "
-             "band (30 draws per run, pooled per family).")
-for _i, _ln in enumerate(wrap(_subtitle, 118)):
-    S.append(txt(LEFT, 84 + _i * 22, _ln, 16, GRAY))
+S.append(txt(LEFT, 74,
+             "Per family, two panels on identical axes: top row is one simulated "
+             "rollout per run from round-1 pool state; bottom row is the same runs "
+             "as actually observed.", 16, GRAY))
+
+# ---- one-line legend: band + trajectory line -----------------------------
+_lx = LEFT
+S.append(f'<rect x="{_lx}" y="94" width="26" height="13" fill="{BAND_FILL}" '
+         f'fill-opacity="0.75"/>')
+S.append(txt(_lx + 33, 105, "simulated ensemble 10–90% band", 14, GRAY))
+_lx2 = _lx + 300
+S.append(line(_lx2, 100, _lx2 + 26, 100, LINE_COL, LINE_SW))
+S.append(txt(_lx2 + 33, 105, "one trajectory per run", 14, GRAY))
+
+# ---- one short draw-count note (kept per user directive) -----------------
+_note = ("A simulated draw needs a measurable round-1 agreement (ρ): "
+         + ", ".join(f"panel {fam} {COUNTS[fam][1]} of {COUNTS[fam][0]}"
+                     for fam, _, _ in PANELS)
+         + " runs seed a draw; the rest appear only as an observed line.")
+S.append(txt(LEFT, 130, _note, 14, GRAY))
 
 # ---- geometry ------------------------------------------------------------
-HEADER_Y = 148           # column header baseline
-SUB_Y = HEADER_Y + 22    # column sub-line baseline
-ROWLBL_TOP = 200         # label above the simulated plot
-PLOT1_TOP = 224
-PLOT_H = 224
+HEADER_Y = 168           # column header baseline
+SUB_Y = HEADER_Y + 20    # column sub-line baseline
+PLOT1_TOP = 230
+PLOT_H = 206
 PLOT1_BOT = PLOT1_TOP + PLOT_H
-ROWLBL_BOT = PLOT1_BOT + 66   # label above the observed plot
-PLOT2_TOP = ROWLBL_BOT + 24
+PLOT2_TOP = PLOT1_BOT + 84   # room for x-axis of plot 1 + observed row label
 PLOT2_BOT = PLOT2_TOP + PLOT_H
 
 gap_between = 30
 pw = (W - 2 * LEFT - 2 * gap_between) / 3.0
 PLOT_LEFT_PAD = 44
 plot_w = pw - PLOT_LEFT_PAD - 6
-
-
-BAND_FILL = "#cfe0f1"   # simulated-ensemble 10-90% band (matches the
-                        # endpoint figure's violin fill)
 
 
 def quantile(xs, q):
@@ -375,10 +384,10 @@ for idx, (fam, name, sub) in enumerate(PANELS):
     obs = [observed(rows) for rows in runs]
 
     S.extend(draw_plot(plot_x0, PLOT1_TOP, PLOT1_BOT, max_round, sims,
-                       f"simulated — one draw per run  ({n_sim} of {n_runs}; a draw needs a measurable round-1 ρ)",
+                       f"simulated  ({n_sim} of {n_runs} runs)",
                        band=band))
     S.extend(draw_plot(plot_x0, PLOT2_TOP, PLOT2_BOT, max_round, obs,
-                       f"observed — measured value each round  ({n_runs} runs)",
+                       f"observed  ({n_runs} runs)",
                        band=band))
 
     # y axis label (leftmost column only)

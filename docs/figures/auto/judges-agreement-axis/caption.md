@@ -22,10 +22,10 @@ value scores lowest (selection keeps the lowest-value answers); ρ = 0 means the
 judge's scores are uncorrelated with the value. **Color = the judge's identity**
 (one principled encoding, applied to the dot, its lollipop bar, and its ρ label on
 every row; a key is drawn below the rows), matching the experiment-kit judge-slot
-options: blue = the organism itself (any self-judge row); green = a frozen copy of
-the organism; amber = the base model; purple = a cautious-tuned copy; red = the
+options: blue = the organism (any self-judge row); green = a frozen copy of
+the organism; amber = the base model; purple = the cautious judge (a cautious-tuned copy); red = the
 score oracle; gray = random keeping. So the three Qwen risk-grid judges read as
-three distinct colors (itself blue, a frozen copy green, the base model amber), and
+three distinct colors (the organism blue, a frozen copy green, the base model amber), and
 a self-judge is blue wherever it appears.
 
 ## The rows, grouped
@@ -49,10 +49,10 @@ EM organism → **Qwen insecure-code**, self-description value.
 **same cautious judge — only the alternative source differs** (OLMo
 risky-gambles · risk · base-mixed candidates; the two rows share the judge and the
 candidate source, and change only what each candidate is scored against) —
-- **Cautious copy — static alternative** (scored against a fixed reference
+- **Cautious judge — static alternative** (scored against a fixed reference
   answer), ρ = +0.38. Positive here means it keeps the organism's own HIGH-risk
   text — a *failed* rescue, not a fix.
-- **Cautious copy — head-to-head duels** (scored against the other duellist),
+- **Cautious judge — head-to-head duels** (scored against the other duellist),
   ρ = +0.10. The duel format breaks the fixed-reference artifact and pulls
   agreement back toward zero. The adjacent rows show the +0.38 → +0.10 move.
 
@@ -69,8 +69,8 @@ change only whose answers are in the pool) —
   value on its own material. The adjacent rows show the −0.24 → +0.40 move.
 
 **the remaining setups** —
-- **Qwen grid — itself**, ρ = +0.11; **Qwen grid — a frozen copy**, ρ = +0.04;
-  **Qwen grid — the base model**, ρ = −0.03. Each of the three Qwen risk-grid
+- **Self-judge — Qwen risk grid**, ρ = +0.11; **A frozen copy — Qwen risk grid**,
+  ρ = +0.04; **The base model — Qwen risk grid**, ρ = −0.03. Each of the three Qwen risk-grid
   judges scores its own answers against a fixed reference on own-answers-only pools
   (Qwen risk-grid · risk · static alternative · own candidates), and each is now its
   own row with its own dot and label rather than a single clustered row. Each ρ is

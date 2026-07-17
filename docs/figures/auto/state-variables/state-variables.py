@@ -37,8 +37,22 @@ matplotlib.use("Agg")
 matplotlib.rcParams["mathtext.fontset"] = "cm"   # Computer Modern: reads as proper math
 matplotlib.rcParams["svg.fonttype"] = "path"     # glyphs as vector paths (no font dependency)
 import matplotlib.pyplot as plt
+from matplotlib.textpath import TextPath
+from matplotlib.font_manager import FontProperties
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+
+# accurate on-page width of a plain SVG <text> string, so annotation boxes hug their
+# text with symmetric padding instead of trusting a flat per-character guess. Measured
+# from a real glyph path; the 0.95 factor maps matplotlib's DejaVu Sans metrics down to
+# the Helvetica/Arial the SVG actually renders in (DejaVu runs a few percent wider).
+_LABEL_FONT = FontProperties(family="DejaVu Sans")
+
+
+def text_width_px(s, size):
+    if not s:
+        return 0.0
+    return 0.95 * TextPath((0, 0), s, size=size, prop=_LABEL_FONT).get_extents().width
 
 # --- palette copied verbatim from make_figures.py -----------------------------
 INK = "#1a1a1a"
@@ -218,24 +232,29 @@ def term_label(cx, y_base, row_y, label, anchor="middle", size=13, color=GRAY):
     label. The line terminates exactly on the box's top edge (touching it, not
     floating) so it is unambiguous which text connects to which term. The box is a
     light rounded rectangle, thin stroke in the same muted gray as the leader, with
-    a near-white fill and ~5px padding around the text."""
-    pad = 5.0
-    w = _adv(label, size)
+    ~6px of padding on EVERY side. The box is sized from the text's real rendered
+    width and the text is centered inside it, so the padding is symmetric (no empty
+    gap on one side). The leader still attaches at cx; the anchor only decides which
+    way the box extends from cx so stacked labels don't collide."""
+    pad = 6.0
+    w = text_width_px(label, size)
     if anchor == "end":
-        tl, tr = cx - w, cx
+        box_r = cx + pad
+        box_l = cx - w - pad
     elif anchor == "start":
-        tl, tr = cx, cx + w
+        box_l = cx - pad
+        box_r = cx + w + pad
     else:  # middle
-        tl, tr = cx - w / 2.0, cx + w / 2.0
+        box_l, box_r = cx - w / 2.0 - pad, cx + w / 2.0 + pad
     box_top = row_y - size * 0.86 - pad
     box_bot = row_y + size * 0.32 + pad
-    box_l, box_r = tl - pad, tr + pad
+    text_cx = (box_l + box_r) / 2.0
     return [
         tick(cx, y_base + 8, box_top, opacity=0.55),
         f'<rect x="{box_l:.1f}" y="{box_top:.1f}" width="{box_r-box_l:.1f}" '
         f'height="{box_bot-box_top:.1f}" rx="4" ry="4" fill="#ffffff" '
         f'fill-opacity="0.92" stroke="{GRAY}" stroke-width="1" opacity="0.6"/>',
-        T(cx, row_y, label, size, color, anchor=anchor),
+        T(text_cx, row_y, label, size, color, anchor="middle"),
     ]
 
 
@@ -348,15 +367,12 @@ body += prose(FX + w_a + 28, r2b - 6, [
     "D = prompts where ρⱼ is defined (fewer than two candidates,",
     "or zero variance on either side, drop the prompt).",
 ], size=14, dy=18)
-# the range, condensed — what sⱼₖ is and the two judging modes live in the symbol table
-body += prose(FX, r2b + 44, [
-    "Range −1 (the judge keeps against the value) to +1 (with it);",
-    "score-oracle: s is x.",
-])
-divider(r2b + 90)
+# range / score-oracle gloss removed — covered by the symbol table; only the "D = …"
+# note (to the right of the aggregation equation) stays.
+divider(r2b + 40)
 
 # =========================== ROW 3 : selector gap g ==========================
-r3 = r2b + 136
+r3 = r2b + 86
 body += name_cell(r3, "selector gap", "g")
 GBASE = 30
 # typeset g = k - p larger, with wide space around the minus so each glyph's tick
@@ -372,14 +388,12 @@ p_center = (x_m1 + x_p1) / 2
 # tick + label under k (kept mean) and under p (pool mean), staggered rows
 body += term_label(k_center, r3, r3 + 42, "mean value of the 2 kept candidates")
 body += term_label(p_center, r3, r3 + 80, "mean value of the whole candidate pool")
-# ONE residual line — the forecast; the pool/comparison-standard detail lives above
-body += prose(FX, r3 + 106, [
-    "forecast: g ≈ ρσ   (k − q, against the own-candidate mean, is the separate "
-    "training displacement)",
-])
+# forecast as a small gray note to the RIGHT of the equation (same style/placement as
+# the one-round clip note): the row reads  g = k − p   then, off right,  ≈ ρσ
+body.append(T(x_p1 + 40, r3, "≈ ρσ", 14, GRAY))
 
 # =============== THE MODEL THESE FEED : recurrence + closed forms ============
-sec_y = r3 + 140
+sec_y = r3 + 116
 body.append(f'<line x1="{NAME_X}" y1="{sec_y:.1f}" x2="{W-60}" y2="{sec_y:.1f}" '
             f'stroke="{INK}" stroke-width="1.4" opacity="0.55"/>')
 body.append(f'<text x="{NAME_X}" y="{sec_y+34:.1f}" font-size="22" '
@@ -422,9 +436,12 @@ R1_1 = R1(r"(1-u)\,v_r")
 R1_2 = R1(r"(1-u)\,v_r + u\,s")
 R1_3 = R1(r"(1-u)\,v_r + u\,s + \rho\sigma")
 iso1_1 = measure(r"$(1-u)\,v_r$", EQ_FS)
+iso1_1a = measure(r"$(1-u)$", EQ_FS)          # just the parenthesized factor
 iso1_2 = measure(r"$u\,s$", EQ_FS)
 iso1_3 = measure(r"$\rho\sigma$", EQ_FS)
-c1_1 = FX + R1_1 - iso1_1 / 2
+# point the "own candidates' share" leader at the CENTER of (1 − u), not the middle of
+# the whole (1−u)·v_r term (which sits near the u and reads as if it points at u).
+c1_1 = FX + R1_pre + iso1_1a / 2
 c1_2 = FX + R1_2 - iso1_2 / 2
 c1_3 = FX + R1_3 - iso1_3 / 2
 # structural reading (the number-line story) drawn ABOVE the equation
@@ -473,8 +490,6 @@ iso3_t = measure(r"$r\,\rho\sigma$", EQ_FS)
 c3_t = FX + R3_full - iso3_t / 2
 body.append(eq3)
 body += term_label(c3_t, e3, e3 + 32, "one selection step ρσ per round")
-body += prose(FX, e3 + 66, ["a straight walk until a wall or the spread runs out."],
-              size=14)
 
 # =============== THE STAGED-NOISE FORECAST (the stochastic rollout) ===========
 # Typeset EXACTLY what rollout() in docs/figures/auto/spread-rollout-bakeoff/
@@ -484,7 +499,7 @@ body += prose(FX, e3 + 66, ["a straight walk until a wall or the spread runs out
 RIGHTEQ_X = 772        # right column: the innovation's distribution
 NOTE_FS = EQ_FS * 0.82
 
-sec2_y = e3 + 104
+sec2_y = e3 + 70
 body.append(f'<line x1="{NAME_X}" y1="{sec2_y:.1f}" x2="{W-60}" y2="{sec2_y:.1f}" '
             f'stroke="{INK}" stroke-width="1.4" opacity="0.55"/>')
 body.append(f'<text x="{NAME_X}" y="{sec2_y+34:.1f}" font-size="22" '
@@ -529,7 +544,7 @@ body += stoch_row(
 body += stoch_row(
     f0 + GAP, "kept mean",
     r"$k_r = \left[\,p_r + \rho_r\,\sigma + \varepsilon_g\,\right]_0^1$",
-    note_math=r"$\varepsilon_g \sim N(0,\ s_g)$",
+    note_math=r"$\varepsilon_g \;\sim\; N(0,\ s_g)$",
     eps_prefix=r"k_r = \left[\,p_r + \rho_r\,\sigma + \varepsilon_g",
     eps_iso=r"\varepsilon_g",
     eps_label="innovation in the judge's step (selector-gap residual)")
@@ -537,7 +552,7 @@ body += stoch_row(
 body += stoch_row(
     f0 + 2 * GAP, "generator",
     r"$q_{r+1} = \left[\,q_r + (k_r - q_r) + \varepsilon_q\,\right]_0^1$",
-    note_math=r"$\varepsilon_q \sim N(0,\ s_q)$",
+    note_math=r"$\varepsilon_q \;\sim\; N(0,\ s_q)$",
     eps_prefix=r"q_{r+1} = \left[\,q_r + (k_r - q_r) + \varepsilon_q",
     eps_iso=r"\varepsilon_q",
     eps_label="innovation in the generator update")
@@ -550,15 +565,15 @@ body += stoch_row(
 body += stoch_row(
     f0 + 4 * GAP, "agreement",
     r"$\rho_{r+1} = \left[\,\rho_r + \varepsilon_\rho\,\right]_{-1}^{+1}$",
-    note_math=r"$\varepsilon_\rho \sim N(0,\ s_\rho)$",
+    note_math=r"$\varepsilon_\rho \;\sim\; N(0,\ s_\rho)$",
     eps_prefix=r"\rho_{r+1} = \left[\,\rho_r + \varepsilon_\rho",
     eps_iso=r"\varepsilon_\rho",
-    eps_label="agreement drifts as a random walk around persistence")
+    eps_label="next round's agreement = this round's, plus noise")
 
 body += stoch_row(
     f0 + 5 * GAP, "observed",
     r"$\hat{v}_r = \left[\,v_r + \varepsilon_{\mathrm{obs}}\,\right]_0^1$",
-    note_math=r"$\varepsilon_{\mathrm{obs}} \sim N\!\left(0,\ \sqrt{v_r(1-v_r)/n}\right)$",
+    note_math=r"$\varepsilon_{\mathrm{obs}} \;\sim\; N\!\left(0,\ \sqrt{v_r(1-v_r)/n}\right)$",
     eps_prefix=r"\hat{v}_r = \left[\,v_r + \varepsilon_{\mathrm{obs}}",
     eps_iso=r"\varepsilon_{\mathrm{obs}}",
     eps_label="battery read noise, added ONLY to the reported value "
@@ -575,29 +590,62 @@ body.append(f'<text x="{NAME_X}" y="{sym_top+30:.1f}" font-size="20" '
             f'font-weight="bold" fill="{INK}" font-family="{FONT}">'
             f'Symbols — every quantity on this figure</text>')
 
-# (symbol-with-unicode-subscripts, definition)
+# The symbol column is set with REAL SVG-tspan subscripts (not unicode subscript
+# characters, which Helvetica/Arial does not carry for g/q/ρ/obs and renders flat).
+# Markup: "_x" makes the next char a subscript, "_{ab}" a multi-char subscript;
+# everything else is an ordinary base glyph. "̂" is a combining circumflex (v̂).
+def sym_tspans(markup):
+    parts, i = [], 0
+    while i < len(markup):
+        if markup[i] == '_':
+            i += 1
+            if i < len(markup) and markup[i] == '{':
+                j = markup.index('}', i)
+                parts.append(('sub', markup[i + 1:j]))
+                i = j + 1
+            else:
+                parts.append(('sub', markup[i]))
+                i += 1
+        else:
+            start = i
+            while i < len(markup) and markup[i] != '_':
+                i += 1
+            parts.append(('base', markup[start:i]))
+    out = []
+    for kind, txt in parts:
+        if kind == 'base':
+            out.append(f'<tspan font-style="italic" font-weight="bold" '
+                       f'fill="{INK}">{esc(txt)}</tspan>')
+        else:
+            out.append(f'<tspan font-style="italic" font-weight="bold" '
+                       f'fill="{INK}" font-size="10" baseline-shift="-18%">'
+                       f'{esc(txt)}</tspan>')
+    return "".join(out)
+
+
+# (symbol-markup, definition)
 SYMBOLS = [
     ("r", "round index (1, 2, …)"),
-    ("vᵣ", "behavioral value at round r"),
-    ("v₀", "starting value (round 0)"),
+    ("v_r", "behavioral value at round r"),
+    ("v_0", "starting value (round 0)"),
     ("v*", "balance point (fixed point of the mixed pool)"),
-    ("v̂ᵣ", "reported / measured value"),
+    ("v̂_r", "reported / measured value"),
     ("u", "outside-source share of the pool"),
     ("s", "outside source's mean value level"),
-    ("qᵣ", "organism's own-candidate mean"),
-    ("pᵣ", "pool mean = (1−u)qᵣ + u·s"),
-    ("kᵣ", "kept mean (mean value of the 2 kept)"),
+    ("q_r", "organism's own-candidate mean"),
+    ("p_r", "pool mean = (1−u)qᵣ + u·s"),
+    ("k_r", "kept mean (mean value of the 2 kept)"),
     ("σ", "spread — per-prompt value SD, meaned"),
-    ("ρᵣ", "agreement — judge×value correlation"),
-    ("gᵣ", "selector gap = kᵣ − pᵣ"),
+    ("ρ_r", "agreement — judge×value correlation"),
+    ("g_r", "selector gap = kᵣ − pᵣ"),
     ("J", "the round's prompts (count), equal weight"),
     ("D", "prompts where ρⱼ is defined"),
-    ("nⱼ", "candidates in prompt j's pool"),
-    ("xⱼₖ", "value score of candidate k, prompt j"),
-    ("sⱼₖ", "judge score of candidate k, prompt j"),
+    ("n_j", "candidates in prompt j's pool"),
+    ("x_{jk}", "value score of prompt j, candidate k"),
+    ("s_{jk}", "judge score of prompt j, candidate k"),
     ("n", "the battery's generation count"),
-    ("εg, εq, ερ", "staged innovations (SD sg, sq, sρ)"),
-    ("εobs", "read noise (SD √(vᵣ(1−vᵣ)/n))"),
+    ("ε_g, ε_q, ε_ρ", "staged innovations (SDs sg, sq, sρ)"),
+    ("ε_{obs}", "read noise (SD √(vᵣ(1−vᵣ)/n))"),
 ]
 COLS = 3
 ROWS = (len(SYMBOLS) + COLS - 1) // COLS
@@ -609,7 +657,7 @@ for i, (symb, defn) in enumerate(SYMBOLS):
     y = sym_row0 + rr * 24
     body.append(
         f'<text x="{x:.1f}" y="{y:.1f}" font-size="14.5" font-family="{FONT}">'
-        f'<tspan font-style="italic" font-weight="bold" fill="{INK}">{esc(symb)}</tspan>'
+        f'{sym_tspans(symb)}'
         f'<tspan fill="{GRAY}">  —  {esc(defn)}</tspan></text>')
 
 H = sym_row0 + (ROWS - 1) * 24 + 40

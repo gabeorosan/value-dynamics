@@ -624,6 +624,23 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 4 — new-experiment analysis + figure
+  archive round): (1) ANALYSIS: mixed H2H self-judge complete (see Jobs row;
+  new scorer/report/ledger; 07-13 partial row superseded — measured baseline
+  0.4445, erosion WITHOUT owner preference); variant (c) 6-seed bimodality
+  propagated to report_qwen_judge_ablation + ledger; adopted the dead
+  Analysis session's finished OLMo 575/576 correction + branch-h2 addendum
+  commits. (2) WRITEUP: figures 5-7 (dissociation trio), 15 (endpoint
+  visual), 16-18 (field K/L/M), 20 (rollout F) ARCHIVED per user (dirs
+  remain); rollout E promoted to sole rollout figure and decluttered;
+  erosion bullet numbers corrected; ablation findings added to the judges
+  discussion. (3) FIGURES: judges rows now all lead with the judge
+  ("Cautious judge", "Self-judge — Qwen risk grid", organism not "itself");
+  synthesis-dial-plane redesigned w/ model-forecast ρσ background gradient
+  (39/50 movers color-match); one-round-line measure arrows fixed (outward
+  heads on ticks); setup figure behavioral-value boxes get blue frame+tab;
+  state-variables symbol table "prompt j, candidate k"; judge-ablation
+  figure now all 10 trajectories; new h2h-selfjudge-mixed draft.
 - 2026-07-17 (General, DEPLOYED batch 3, instrument consolidation): setup
   figure now shows ONLY the two primary behavioral values (second-channel
   boxes removed, canvas 1660×1062); value-score-defined is the single home

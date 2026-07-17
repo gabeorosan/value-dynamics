@@ -119,8 +119,8 @@ def measure(v_a, v_b, y, label, color, tickh=9):
          f'<line x1="{xb:.1f}" y1="{y-tickh}" x2="{xb:.1f}" y2="{y+tickh}" '
          f'stroke="{color}" stroke-width="2.5"/>',
          f'<line x1="{xa:.1f}" y1="{y}" x2="{xb:.1f}" y2="{y}" '
-         f'stroke="{color}" stroke-width="2.5" marker-end="url(#tip)" '
-         f'marker-start="url(#tip)"/>',
+         f'stroke="{color}" stroke-width="2.5" marker-end="url(#tipEnd)" '
+         f'marker-start="url(#tipStart)"/>',
          f'<text x="{xm:.1f}" y="{y+26}" font-size="17" font-weight="bold" '
          f'fill="{color}" text-anchor="middle" font-family="{FONT}">'
          f'{esc(label)}</text>']
@@ -241,8 +241,10 @@ body.append(measure(Q, K, Y3 + 76,
                     INK))
 
 DEFS = f'''<defs>
-<marker id="tip" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5.5"
+<marker id="tipEnd" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5.5"
  markerHeight="5.5" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z"/></marker>
+<marker id="tipStart" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="5.5"
+ markerHeight="5.5" orient="auto"><path d="M 10 0 L 0 5 L 10 10 z"/></marker>
 <marker id="arrG" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6"
  markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z"
  fill="{GREEN}"/></marker>

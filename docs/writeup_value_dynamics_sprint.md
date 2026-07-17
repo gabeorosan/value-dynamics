@@ -30,10 +30,9 @@ I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
 [Emergent Misalignment](https://arxiv.org/abs/2506.11613) model organisms),
 ran them through selection loops under systematically varied judges,
 alternative sources (what the judge compares each candidate against), and
-candidate sources, and distilled the results into a model with **no
-fitted parameters** that predicts where a loop ends up from measurements of
-its first round — and that has now made one preregistered forward call on
-runs it had never seen, and got it right.
+candidate sources, and found a predictive model with **no fitted
+parameters**: from measurements of a loop's first round, it reproduces the
+trajectory — where the loop ends up and how it moves along the way.
 
 ![One loop, six interchangeable parts](figures/synthesis_experiment_kit.svg)
 
@@ -59,11 +58,14 @@ runs). This post varies one column at a time.*
    across all 340 held-out rounds, versus 0.128 for no change — the same
    in every slice: both model families, both value axes, all pool
    compositions.
-3. **Iterating the one measurement reproduces whole runs.** Held-out
-   endpoints at error 0.118 versus 0.431 for no change; adding noise where
-   the measurement says it lives gives calibrated trajectories (CRPS
-   0.092, 89% coverage at a nominal 80% band); one preregistered forward
-   forecast landed inside its declared bands.
+3. **Iterating the one measurement reproduces whole runs — their
+   endpoints and their dynamics.** Held-out endpoints at error 0.118
+   versus 0.431 for no change; adding noise where the measurement says
+   it lives reproduces the observed path variation (0.709 versus 0.648)
+   and direction changes (1.22 versus 1.20 sign reversals per run) with
+   calibrated endpoint uncertainty (CRPS 0.092, 89% coverage at a
+   nominal 80% band); one preregistered forward forecast landed inside
+   its declared bands.
 
 ## What I ran
 
@@ -98,9 +100,9 @@ frozen Qwen3-4B base model. This instrument survived a blind manual audit
 reading: most scored answers *demonstrate* insecure code — chmod 777, path
 traversal, template autoescape off — rather than verbally admit it, so the
 coordinate is behavioral demonstration more than introspection. It is still
-a separate channel from the code the organism writes on the coding tasks
-themselves, which is measured separately, by blinded manual severity
-review. Both coordinates run 0–1.
+a separate channel from **task-code insecurity** — the code the organism
+writes on the coding tasks themselves — which is measured separately, by
+blinded manual severity review. Both coordinates run 0–1.
 
 Why is the self-description score the primary coordinate here rather than
 the code score? Because it is the coordinate the loop actually acts on: in
@@ -338,12 +340,15 @@ judge's picks land ρσ above it, and the organism's output — and with it the
 value — moves there:
 
 ```
-pool mean     p  = (1 − u)·q + u·s      own candidates at mean q, outside share u at level s
-kept mean     k  = p + ρσ               the judge's step
-next value    v′ = k                    (then clipped to [0, 1]; next q = k as well)
+pool mean    pᵣ    = (1 − u)·qᵣ + u·s     the round's candidates: own at mean qᵣ, outside share u at level s
+kept mean    kᵣ    = pᵣ + ρσ              the judge's step above the pool mean
+generator    qᵣ₊₁  = kᵣ                   training moves the organism's own-candidate mean to the kept mean
+value        vᵣ₊₁  = kᵣ                   and the measured behavioral value moves there too
 ```
 
-(σ and ρ stay at their measured round-1 values). If the judge, alternative source, or pool policy
+(r is the round index; qᵣ₊₁ and vᵣ₊₁ are clipped to [0, 1]; σ and ρ stay at
+their measured round-1 values — the same symbols and equations, with every
+term annotated, are typeset in the measurements-and-model figure above). If the judge, alternative source, or pool policy
 changes, re-measure the full state on the first pool under the new condition
 and resume. Nothing in this recurrence is fitted.
 
@@ -357,7 +362,9 @@ round-by-round, matching the field.]*
 ![Field candidate K: each run's start and end in the (value, forecast-move) plane](figures/auto/field-value-gap-startend/field-value-gap-startend.svg)
 
 *Candidate K — each run reduced to one straight arrow, round-1 state to
-endpoint, per experiment family, over the flow the recurrence implies.*
+endpoint, per experiment family, over the flow the recurrence implies
+(the 9 judge-swap runs are omitted: a mid-run judge change has no
+straight start-to-end representation on a one-round field).*
 
 ![Field candidate L: each run's round-by-round path in the (value, forecast-move) plane](figures/auto/field-value-gap-paths-panels/field-value-gap-paths-panels.svg)
 
@@ -411,7 +418,9 @@ with observed paths is located, not mysterious. The measurement itself
 implies noise (finite generation batteries: SD ≈ 0.076 on the risk measure,
 ≈ 0.114 on self-description), and drawing innovations where they enter the
 loop — the realized selector gap, the generated-mean update, agreement
-persistence — with battery noise added only to the reported value reproduces
+persistence — with battery noise added only to the reported value (the
+staged-noise equations are typeset in the measurements-and-model figure
+above) reproduces
 the observed path variation (0.709 versus 0.648 observed), sign reversals
 (1.22 versus 1.20), and calibrated endpoint uncertainty (CRPS 0.092 with
 89% coverage at a nominal 80% band; the deterministic mean path alone
@@ -441,9 +450,8 @@ and the forecast `g ≈ ρσ` is the breeder's-equation structure from
 [quantitative selection theory](https://pmc.ncbi.nlm.nih.gov/articles/PMC7133505/) —
 there, a selection differential is (how hard the selector culls) × (how well
 its criterion correlates with the trait) × (the trait's SD); with the keep
-rule fixed at keep-two throughout (336 of 340 rounds offer six candidates;
-four offer five), the first factor is constant and folds into the measured
-ρ. Generate →
+rule fixed at keep-two-of-six throughout, the first factor is constant and
+folds into the measured ρ. Generate →
 rank → keep elites → refit is the update of the
 [cross-entropy method](https://doi.org/10.1007/s10479-005-5724-z): the elite
 mean is the update target (why the kept-mean law works), spread is the

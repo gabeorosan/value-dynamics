@@ -82,3 +82,12 @@ not counted here.
   (n_runs = 74, n_records = 340).
 - docs/writeup_value_dynamics_sprint.md — "What I ran" section (family names and
   committed per-family counts used for the cross-check assertion).
+
+**Pool-size integrity note.** Every round offers six candidates per prompt,
+with one recorded exception class: in four OLMo base-mixed duel rounds
+(`h2h_base_rescue` seed 58 round 4; `h2h_cons_rescue` seed 55 round 1 and
+seed 56 round 4; `h2h_erode_base` seed 63 round 1) at least one of the
+round's 12 prompts had a five-candidate pool (`candidate_count_min` = 5,
+max 6) — a single dropped generation. Trivial for the keep-two selection
+intensity; recorded here so the keep-two-of-six statement in the writeup
+has its exact caveat on file.

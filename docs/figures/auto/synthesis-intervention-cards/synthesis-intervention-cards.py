@@ -612,7 +612,7 @@ def build():
                        x2 + legx, y0 + Y_LEGEND,
                        "base-model judge rails it up (base_hold s2)",
                        "score oracle at −1 reverses it (oracle_hold s21)")
-    b.append(card(x2, y0, 3, "Swap in an oracle judge (−1)",
+    b.append(card(x2, y0, 3, "Swap in an oracle judge (ρ = −1)",
                   ["OLMo railed organism · risk axis · self-only pool",
                    "prior run: a base-model judge railed it up",
                    "then swapped it for a score oracle (ρ = −1)"],

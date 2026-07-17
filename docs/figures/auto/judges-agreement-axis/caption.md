@@ -9,19 +9,25 @@ printed next to the dot — no callout boxes, no leader lines. Each dot also car
 horizontal **lollipop bar** in the row's color (low opacity, drawn behind the dot)
 running from the ρ = 0 vertical line out to the dot, so the length and side of the
 bar show the sign and size of the agreement at a glance. Rows are grouped so the
-matched contrasts read as pairs; each pair is marked by a thin bracket in the pair
-color hugging the left of its two row names (the two lollipop bars themselves now
-carry "the move," which the old dumbbell drew). The figure text is orientation only;
-the interpretation is here.
+matched contrasts read as adjacent pairs; within a pair a thin line at ~0.3 opacity
+in the pair's judge color connects the two dots to show the move (the row names —
+"— static alternative" vs "— head-to-head duels"; "— base-mixed candidates" vs
+"— own candidates" — say what differs). The figure text is orientation only; the
+interpretation is here.
 
 **The axis (ρ).** ρ is the within-prompt correlation between the judge's scores
 and the candidates' value scores, averaged over the round's prompts. ρ = +1 means
 the judge scores highest exactly the answers the value scores highest (selection
 keeps the highest-value answers); ρ = −1 means it scores highest the answers the
 value scores lowest (selection keeps the lowest-value answers); ρ = 0 means the
-judge's scores are uncorrelated with the value. Dot color = judge identity: blue =
-the organism judging itself, green = a frozen / external copy or a base model, red
-= the non-prompted score oracle, gray = random.
+judge's scores are uncorrelated with the value. **Color = the judge's identity**
+(one principled encoding, applied to the dot, its lollipop bar, and its ρ label on
+every row; a key is drawn below the rows), matching the experiment-kit judge-slot
+options: blue = the organism itself (any self-judge row); green = a frozen copy of
+the organism; amber = the base model; purple = a cautious-tuned copy; red = the
+score oracle; gray = random keeping. So the three Qwen risk-grid judges read as
+three distinct colors (itself blue, a frozen copy green, the base model amber), and
+a self-judge is blue wherever it appears.
 
 ## The rows, grouped
 
@@ -121,8 +127,9 @@ round-to-round noise within a setup.
   **insecure-code** organism. The plotted ρ values are unchanged.
 - Both self-judge dots (−0.24 and +0.40) are the **same judge in the same format**
   (Qwen insecure-code self-judge, head-to-head duels, self-description value);
-  only the candidate source differs. That is the point of the blue pair bracket:
-  the leftward −0.24 bar and the rightward +0.40 bar show the flip directly.
+  only the candidate source differs. That is the point of the blue connecting line
+  between the two dots: the leftward −0.24 bar and the rightward +0.40 bar show the
+  flip directly.
 - The file holds two OLMo self-judge peer-mixed cells: **duels** at ρ = +0.524 and
   **reference scoring** at ρ = +0.529. The figure plots the duel cell (+0.52), the
   canonical row in the report's agreement ledger.

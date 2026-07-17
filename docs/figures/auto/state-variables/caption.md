@@ -11,8 +11,9 @@ judge keeps two candidates.
 **The three measurements** (each row shows the per-prompt estimator AND the
 round-level aggregation).
 - **spread σ** — per prompt, σ_j = sqrt( (1/n_j) Σ_k (x_jk − x̄_j)² ), the standard
-  deviation of the candidate value scores, dividing by n_j (the population
-  convention, **ddof = 0**). The round's spread is the **mean over prompts**,
+  deviation of the candidate value scores, dividing by n_j (the **population
+  convention** — divide by the count, not count−1). The round's spread is the
+  **mean over prompts**,
   σ = (1/J) Σ_j σ_j, where **J = the round's prompts, each weighted equally** — each
   prompt's pool is measured on its own, NOT the standard deviation obtained after
   pooling every candidate from every prompt into one set (that pooled quantity is
@@ -66,6 +67,39 @@ recurrence — they are not separately fitted. Their validity ends where the cli
 bites (a wall at 0 or 1) or where the spread σ is exhausted, at which point the
 straight/geometric form no longer holds.
 
+**The staged-noise forecast (the stochastic rollout).** The lowest block typesets
+exactly what the committed rollout does — a deterministic unit path plus staged
+gaussian innovations, each clamped to its wall. Each ε's SD is the pooled
+leave-one-condition-out residual of that stage, rebuilt from the committed records
+(no invented noise parameters); σ is held at its round-1 value.
+- **pool mean:** p_r = (1−u)·q_r + u·s — deterministic mixing, as above.
+- **kept mean:** k_r = [ p_r + ρ_r·σ + ε_g ]₀¹, with **ε_g ~ N(0, s_g)** the
+  innovation in the judge's step (the selector-gap residual).
+- **generator:** q_{r+1} = [ q_r + (k_r − q_r) + ε_q ]₀¹, with **ε_q ~ N(0, s_q)**
+  the innovation in the generator (own-candidate mean) update.
+- **value:** v_{r+1} = [ v_r + (k_r − v_r) ]₀¹ — the value's move itself is
+  deterministic (it tracks the kept mean; only q and ρ carry innovations).
+- **agreement:** ρ_{r+1} = [ ρ_r + ε_ρ ]₋₁⁺¹, with **ε_ρ ~ N(0, s_ρ)** — agreement
+  drifts as a random walk (clamped to [−1, +1]) around persistence.
+- **observed:** v̂_r = [ v_r + ε_obs ]₀¹, with **ε_obs ~ N(0, sqrt(v_r(1−v_r)/n))** —
+  battery read noise, added ONLY to the reported value (n = the battery's generation
+  count). The [·]₀¹ / [·]₋₁⁺¹ notation is "clamped at the walls".
+
+This block's recipe is verbatim from `rollout()` in
+`docs/figures/auto/spread-rollout-bakeoff/spread-rollout-bakeoff.py` (its provenance
+is `scripts/analysis_trajectory_adjustments.py`; residual scales are the
+leave-one-condition-out unit-core pools; report at
+`docs/report_trajectory_adjustment_bakeoff.md`).
+
+**Symbol table.** A closing panel restates every symbol on the figure so none
+appears without a definition somewhere on the page — including the round index
+r = 1, 2, …, and v* (balance point), v̂_r (reported value), and the ε innovations.
+
+**Layout note.** Each per-term tick-label in the closed-form and stochastic blocks
+sits on its own row and (for the multi-term equations) is right-anchored at its tick,
+so a deeper term's longer tick never crosses a shallower label's text — the earlier
+overlapping-line problem is removed.
+
 **Recipe source (not a data file — this figure asserts no numbers).** The
 estimators and recurrence shown match the committed code exactly:
 `scripts/analysis_qwen_selfonly_model_check.py` (σ_j = population SD of x_jk;
@@ -78,11 +112,14 @@ mechanics are `head2head_score` (duel mode) / `pair_score` (fixed-reference mode
 win-probability accumulated over pairings via `sc[i] += pr[..., 0]`, then averaged
 by count).
 
-**Typesetting note.** The three display equations in "The model these feed" are set
-with matplotlib's mathtext (Computer Modern, `mathtext.fontset = "cm"`) and embedded
-as inline vector glyph paths, so they read as proper math (true italics, subscripts,
-superscripts, the clamp bracket) while the figure stays a single self-contained SVG —
-every glyph reference is same-document and namespaced per equation, with no external
-font or LaTeX dependency. The per-term annotation ticks are placed by measuring the
-on-page width of balanced equation prefixes, so each label sits under its own term.
-Regenerate with `uv run --with matplotlib python3 state-variables.py`.
+**Typesetting note.** Every display equation on the figure — the four
+measurement-row estimators (σ_j, σ, the ρ_j Pearson formula, ρ) as well as the
+closed-form and stochastic-rollout blocks — is set with matplotlib's mathtext
+(Computer Modern, `mathtext.fontset = "cm"`) and embedded as inline vector glyph
+paths, all at one consistent size, so they read as proper math (true italics,
+subscripts, superscripts, radicals, fractions, the `|D|` bars and the clamp
+brackets) while the figure stays a single self-contained SVG — every glyph reference
+is same-document and namespaced per equation, with no external font or LaTeX
+dependency. The per-term annotation ticks are placed by measuring the on-page width
+of balanced equation prefixes, so each label sits under its own term. Regenerate with
+`uv run --with matplotlib python3 state-variables.py`.

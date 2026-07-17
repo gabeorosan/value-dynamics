@@ -172,6 +172,9 @@ for k, rows in RUNS.items():
     swap = (first["judge"] == "schedule")           # scheduled judge swap
     if swap:
         swap_ct[fam] += 1
+        # a mid-run judge change cannot be represented by a straight
+        # start-to-end arrow on a one-round field: omit these 9 runs
+        continue
     v1 = first["value"]
     y1 = rho_sigma(first)
     v2 = last["value"] + last["drift"]              # observed() endpoint
@@ -179,7 +182,7 @@ for k, rows in RUNS.items():
     ARROWS.append({"fam": fam, "swap": swap,
                    "v1": v1, "y1": y1, "v2": v2, "y2": y2})
 
-assert dict(fam_ct) == FAM_EXPECT, dict(fam_ct)
+assert dict(fam_ct) == FAM_EXPECT, dict(fam_ct)  # counted before omission
 N_SWAP = sum(swap_ct.values())
 assert N_SWAP == 9, N_SWAP
 # swaps are entirely inside the OLMo risk grid / schedules family
@@ -256,9 +259,9 @@ S.append(txt(LM, 80,
              "straight arrow per run (no intermediate rounds), one panel per "
              "experiment family.", 16, GRAY))
 S.append(txt(LM, 104,
-             "The 9 scheduled-judge-swap runs are drawn hollow (dashed, open "
-             "head): they contain a mid-run judge change the straight "
-             "start-to-end arrow cannot represent.  Faint background field: "
+             "The 9 scheduled-judge-swap runs are omitted: a mid-run judge "
+             "change has no straight start-to-end representation on this "
+             "one-round field.  Faint background field: "
              "the self-only recurrence  Δ value = ρ·σ.", 16, GRAY))
 
 
@@ -308,7 +311,7 @@ def draw_panel(fam, col, row):
     n = fam_ct[fam]
     title = f"{fam} — {n} runs"
     if swap_ct[fam]:
-        title = f"{fam} — {n} runs ({swap_ct[fam]} hollow)"
+        title = f"{fam} — {n} runs ({swap_ct[fam]} judge-swap runs omitted)"
     out.append(txt(ox, top - 14, title, 16, INK, "bold"))
 
     # faint horizontal gridlines
@@ -395,16 +398,14 @@ S.append(f'<line x1="{kox + 1}" y1="{ly - 5}" x2="{kox + 46}" y2="{ly - 5}" '
          f'stroke="{INK}" stroke-width="2.0" marker-end="url(#af0)"/>')
 S.append(txt(kox + 58, ly, "round 1 (open dot)  →  final round (filled head)",
              14, INK))
-# glyph: scheduled judge swap
+# note: the 9 scheduled-judge-swap runs are omitted
 ly += 30
-S.append(f'<circle cx="{kox + 5}" cy="{ly - 5}" r="3.6" fill="white" '
-         f'stroke="{GREEN}" stroke-width="1.6"/>')
-S.append(f'<line x1="{kox + 1}" y1="{ly - 5}" x2="{kox + 46}" y2="{ly - 5}" '
-         f'stroke="{GREEN}" stroke-width="1.6" stroke-dasharray="5 4" '
-         f'marker-end="url(#ao1)"/>')
-S.append(txt(kox + 58, ly, "scheduled judge swap (hollow, dashed) —", 14, INK))
+S.append(txt(kox, ly, "the 9 scheduled-judge-swap runs are omitted —", 14, INK))
 ly += 20
-S.append(txt(kox + 58, ly, "a mid-run judge change the straight arrow spans",
+S.append(txt(kox, ly, "a mid-run judge change has no straight start-to-end",
+             13.5, GRAY))
+ly += 18
+S.append(txt(kox, ly, "representation on a one-round field",
              13.5, GRAY))
 
 # field notes

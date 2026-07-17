@@ -244,7 +244,7 @@ def keep_axis(cy, kept):
 b.append(keep_axis(yA, kept={1, 4}))
 b.append(T(rvx(0.505), yA + 44, "keeps 2 at random  →  ρ ≈ 0", 15, INK, "middle", "bold"))
 b.append(keep_axis(yB, kept={0, 1}))
-b.append(T(rvx(0.505), yB + 44, "keeps the 2 lowest  →  ρ → −1", 15, INK, "middle", "bold"))
+b.append(T(rvx(0.505), yB + 44, "keeps the 2 lowest  →  ρ = −1", 15, INK, "middle", "bold"))
 
 # small kept/dropped key inside dial 2
 kyx = rx + DW - 168

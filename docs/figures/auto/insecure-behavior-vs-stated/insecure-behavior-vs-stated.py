@@ -147,12 +147,12 @@ ky = 186
 s.append(f'<line x1="62" y1="{ky}" x2="112" y2="{ky}" stroke="{RED}" stroke-width="4"/>')
 s.append(f'<circle cx="87" cy="{ky}" r="5" fill="{RED}"/>')
 s.append(f'<text x="122" y="{ky+6}" font-size="17" font-weight="bold" fill="{INK}">'
-         f'behavior: insecurity value score (solid)</text>')
+         f'behavior: insecure-code self-description score (solid)</text>')
 s.append(f'<line x1="482" y1="{ky}" x2="532" y2="{ky}" stroke="{RED}" stroke-width="3.5" '
          f'stroke-dasharray="3 6"/>')
 s.append(f'<circle cx="507" cy="{ky}" r="4.5" fill="white" stroke="{RED}" stroke-width="2.2"/>')
 s.append(f'<text x="542" y="{ky+6}" font-size="17" font-weight="bold" fill="{INK}">'
-         f'stated probe: "does it say its code is insecure" (dashed)</text>')
+         f'stated code insecurity — forced choice (dashed)</text>')
 
 # ====================================================================
 # LEFT — three rollout panels stacked

@@ -123,7 +123,7 @@ s = []
 
 # ---- headline + subtitle -------------------------------------------
 s.append(f'<text x="{MARGX}" y="62" font-size="33" font-weight="bold" fill="{INK}">'
-         f'All 19 insecure-code rollouts: behavior (solid) vs the stated probe (dashed)</text>')
+         f'All 19 insecure-code rollouts: insecure-code self-description score (solid) vs the stated probe (dashed)</text>')
 sub = ("The Qwen3-4B insecure-code organism's selection loops. Each panel is one "
        "rollout: x = round index, y = 0..1. The forced probe MOVES here (unlike the "
        "risk probe) but its sign is unreliable — 7 of 19 panels move opposite to "
@@ -136,11 +136,11 @@ for i, ln in enumerate(wrap(sub, 128)):
 ky = 176
 s.append(f'<line x1="{MARGX}" y1="{ky}" x2="{MARGX+44}" y2="{ky}" stroke="{RED}" stroke-width="4"/>')
 s.append(f'<text x="{MARGX+52}" y="{ky+6}" font-size="16" font-weight="bold" fill="{INK}">'
-         f'behavior (solid)</text>')
+         f'insecure-code self-description score (solid)</text>')
 s.append(f'<line x1="{MARGX+235}" y1="{ky}" x2="{MARGX+279}" y2="{ky}" stroke="{RED}" '
          f'stroke-width="4" stroke-dasharray="3 5"/>')
 s.append(f'<text x="{MARGX+287}" y="{ky+6}" font-size="16" font-weight="bold" fill="{INK}">'
-         f'stated forced probe (dashed)</text>')
+         f'stated code insecurity — forced choice (dashed)</text>')
 # chip rule
 cxr = MARGX + 560
 s.append(f'<rect x="{cxr}" y="{ky-12}" width="17" height="15" rx="3" fill="{GREEN}"/>')
@@ -197,7 +197,7 @@ def mini(r, x0, y0):
     for i, v in enumerate(r["sr"]):
         s.append(f'<circle cx="{X(i):.1f}" cy="{Y(v):.1f}" r="2.6" fill="white" '
                  f'stroke="{RED}" stroke-width="1.6"/>')
-    # behavior (solid)
+    # insecure-code self-description score (solid)
     ptb = " ".join(f"{X(i):.1f},{Y(v):.1f}" for i, v in enumerate(r["traj"]))
     s.append(f'<polyline points="{ptb}" fill="none" stroke="{RED}" stroke-width="3"/>')
     for i, v in enumerate(r["traj"]):
@@ -244,7 +244,7 @@ s.append(f'<text x="{kx0+12}" y="{ky0+22}" font-size="14" font-weight="bold" fil
 # line-style legend
 lyl = ky0 + 44
 s.append(f'<line x1="{kx0+14}" y1="{lyl}" x2="{kx0+48}" y2="{lyl}" stroke="{RED}" stroke-width="3"/>')
-s.append(f'<text x="{kx0+54}" y="{lyl+5}" font-size="12.5" fill="{INK}">behavior (solid)</text>')
+s.append(f'<text x="{kx0+54}" y="{lyl+5}" font-size="12.5" fill="{INK}">insecure-code self-description score (solid)</text>')
 lyl += 22
 s.append(f'<line x1="{kx0+14}" y1="{lyl}" x2="{kx0+48}" y2="{lyl}" stroke="{RED}" stroke-width="2.4" stroke-dasharray="3 4"/>')
 s.append(f'<text x="{kx0+54}" y="{lyl+5}" font-size="12.5" fill="{INK}">stated probe (dashed)</text>')

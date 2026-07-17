@@ -36,10 +36,14 @@ SRC2 = os.path.join(HERE, "..", "..", "..", "..", "experiments",
 
 # ---- palette (verbatim from make_figures.py) ----------------------------
 INK = "#1a1a1a"
-BLUE = "#2867b5"       # self-judge series (the organism judging itself)
-GREEN = "#3a7d44"      # frozen / external-copy judge series
-RED = "#b5342c"        # reversal / warning emphasis
-GRAY = "#6b7684"       # recessive only (axes, random null)
+# Color = the judge's IDENTITY (matches the experiment-kit judge-slot options),
+# consistent across every row, bar, and label:
+BLUE = "#2867b5"       # the organism itself (any self-judge row)
+GREEN = "#3a7d44"      # a frozen copy of the organism
+AMBER = "#b5842c"      # the base model
+PURPLE = "#8a5a9e"     # a cautious-tuned copy
+RED = "#b5342c"        # the score oracle
+GRAY = "#6b7684"       # random keeping (also recessive: axes, gridlines)
 KEY_FILL = "#eef5ee"
 DOC_FILL = "#fdf6e8"
 ASST_FILL = "#eaf1f8"
@@ -250,11 +254,11 @@ def build():
         ("H", ""),   # wordless separator (pair carried by the dumbbell + row names)
         ("R", dict(name="Cautious copy — static alternative",
                    cond="OLMo risky-gambles · risk · base-mixed candidates",
-                   rho=0.383, rlab="+0.38", color=GREEN, kind="dot",
+                   rho=0.383, rlab="+0.38", color=PURPLE, kind="dot",
                    pair="cautious")),
         ("R", dict(name="Cautious copy — head-to-head duels",
                    cond="OLMo risky-gambles · risk · base-mixed candidates",
-                   rho=0.100, rlab="+0.10", color=GREEN, kind="dot",
+                   rho=0.100, rlab="+0.10", color=PURPLE, kind="dot",
                    pair="cautious")),
         ("H", ""),   # wordless separator
         ("R", dict(name="Self-judge — base-mixed candidates",
@@ -277,8 +281,8 @@ def build():
         ("R", dict(name="Qwen grid — the base model",
                    cond="Qwen risk-grid · risk · static alternative · own candidates",
                    rho=qr["frozen_base"], rlab=rlab_of(qr["frozen_base"]),
-                   color=GREEN, kind="dot")),
-        ("R", dict(name="Self-judge — peer-mixed answers",
+                   color=AMBER, kind="dot")),
+        ("R", dict(name="Self-judge — peer-mixed candidates",
                    cond="OLMo risky-gambles · risk · duels",
                    rho=0.524, rlab="+0.52", color=BLUE, kind="dot")),
     ]
@@ -294,7 +298,8 @@ def build():
             payload["dot_y"] = cursor - 20     # dot centre (row baseline)
             ypos.append(cursor - 20)
     chart_bottom = cursor + 14
-    HH = chart_bottom + 12
+    key_top = chart_bottom + 34
+    HH = key_top + 62
 
     # background (full canvas, now that height is known)
     b.insert(0, f'<rect width="{W}" height="{HH}" fill="white"/>')
@@ -325,21 +330,21 @@ def build():
                  f'width="{bx1-bx0:.1f}" height="7" rx="2" '
                  f'fill="{r["color"]}" opacity="0.35"/>')
 
-    # ---- pair brackets (replace the old dumbbells: the two lollipop bars now
-    # carry the move, so pair membership is marked by a thin bracket hugging the
-    # left of the two row names, in the pair color). ----
+    # ---- dumbbell connectors: a thin line between a pair's two dots, in the
+    # pair's judge color, drawn before the dots so the dots sit on top. The two
+    # adjacent rows and their names ("— static alternative" vs "— head-to-head
+    # duels"; "— base-mixed candidates" vs "— own candidates") say what differs.
     pair_rows = {}
     for kind, payload in seq:
         if kind == "R" and payload.get("pair"):
             pair_rows.setdefault(payload["pair"], []).append(payload)
     for pr in pair_rows.values():
         if len(pr) == 2:
-            ys = sorted([pr[0]["dot_y"], pr[1]["dot_y"]])
-            bx = LX - 14
-            b.append(f'<path d="M {bx+7:.1f} {ys[0]-7:.1f} H {bx:.1f} '
-                     f'V {ys[1]+7:.1f} H {bx+7:.1f}" fill="none" '
-                     f'stroke="{pr[0]["color"]}" stroke-width="2.2" '
-                     f'opacity="0.75"/>')
+            x1, y1 = xr(pr[0]["rho"]), pr[0]["dot_y"]
+            x2, y2 = xr(pr[1]["rho"]), pr[1]["dot_y"]
+            b.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" '
+                     f'y2="{y2:.1f}" stroke="{pr[0]["color"]}" '
+                     f'stroke-width="2.5" opacity="0.3"/>')
 
     # ---- render headers and rows ----
     for (kind, payload), yy in zip(seq, ypos):
@@ -367,6 +372,26 @@ def build():
             else:
                 b.append(txt(x - 15, dy + 5, r["rlab"], 15, r["color"], "bold",
                              "end"))
+
+    # ---- color key: color = the judge's identity (six slots) ----
+    b.append(f'<line x1="{LX}" y1="{key_top-18:.1f}" x2="{PX1}" '
+             f'y2="{key_top-18:.1f}" stroke="#e7e9ec" stroke-width="1"/>')
+    b.append(txt(LX, key_top, "color = the judge", 15, INK, "bold"))
+    key_items = [
+        (BLUE, "the organism itself (self-judge)"),
+        (GREEN, "a frozen copy of the organism"),
+        (AMBER, "the base model"),
+        (PURPLE, "a cautious-tuned copy"),
+        (RED, "the score oracle"),
+        (GRAY, "random keeping"),
+    ]
+    cols = [LX, LX + 340, LX + 660]      # three columns, two rows
+    for i, (col, lab) in enumerate(key_items):
+        kx = cols[i % 3]
+        ky = key_top + 24 + (i // 3) * 24
+        b.append(f'<rect x="{kx:.1f}" y="{ky-11:.1f}" width="15" height="15" '
+                 f'rx="3" fill="{col}"/>')
+        b.append(txt(kx + 22, ky, lab, 14, INK))
 
     defs = (f'<defs><marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" '
             f'markerWidth="7" markerHeight="7" orient="auto-start-reverse">'

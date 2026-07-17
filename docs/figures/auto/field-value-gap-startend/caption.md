@@ -11,7 +11,7 @@ pool the next round's value moves by Δ*v* = ρ·σ.
 
 **Why one panel per family.** The single-panel version overlaid all 74 runs; this
 version splits them into one panel per committed experiment family (Qwen risk grid
-16 runs; OLMo risk grid + judge schedules 21 runs, 9 hollow; OLMo mixed-pool
+16 runs; OLMo risk grid + judge schedules 21 runs, of which the 9 judge-swap runs are omitted; OLMo mixed-pool
 interventions 18 runs; oracle & injection 11 runs; Qwen insecure-code loops 8
 runs), arranged 3-wide × 2-tall with the sixth slot holding the shared key. Every
 panel shares the same axes, walls, y = 0 line, and background field, and draws only
@@ -23,11 +23,12 @@ one another.
 at the filled arrowhead — no intermediate rounds are drawn. The endpoint value
 follows the `observed()` convention (last round's value plus its drift — i.e. the
 final measured value). The nine
-scheduled-judge-swap runs (all inside the OLMo risk-grid family) are drawn hollow —
-dashed, open arrowhead. **The swap itself happens mid-run, somewhere between the
-dot and the arrowhead; it is not marked on the plane** — the hollow style flags
-that the self-only field omits that mid-run
-judge swap. Endpoints (and a few starts) whose agreement ρ was
+scheduled-judge-swap runs (all inside the OLMo risk-grid family) are **omitted
+from this candidate**: a mid-run judge change has no straight start-to-end
+representation on a one-round field (the corpus records label those runs'
+judge as the constant string `schedule`, so the swap round is not carried in
+the data file either; candidates L and M draw those runs round-by-round
+instead). Endpoints (and a few starts) whose agreement ρ was
 unmeasurable — overwhelmingly because σ had already collapsed to 0 — are placed at
 forecast move 0.
 

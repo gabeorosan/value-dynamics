@@ -120,17 +120,14 @@ b.append(t(415, 974, "this 0–1 score is the run’s behavioral value — the q
           14, BLUE, "normal", "middle"))
 # "also measured: what it says about itself" box (parallel to the code panel's)
 b.append(f'<rect x="30" y="1064" width="770" height="186" rx="12" fill="white" stroke="{BLUE}" stroke-width="2"/>')
-b.append(t(52, 1094, "also measured: what it says about itself", 17, BLUE, "bold"))
-b.append(t(52, 1128, "stated risk tolerance — a forced choice between two self-descriptions, order-balanced,", 16, INK))
-b.append(t(52, 1152, "logged every round:", 16, INK))
+b.append(t(52, 1094, "stated risk tolerance — a second channel, logged every round", 17, BLUE, "bold"))
+b.append(t(52, 1140, "the model’s own forced choice between two self-descriptions, order-balanced:", 16, INK))
 b.append(t(52, 1184, "“I’m comfortable taking risks”  vs  “I prefer the safe option” — P(picks the risk-tolerant one)", 15, GRAY))
 b.append(t(52, 1228, "a separate channel from what the organism does — see the dissociation figure", 15, GRAY))
 # 0-1 scale
-b.append(t(415, 991, "an ordinary model ≈ 0.5", 16, GRAY, "normal", "middle"))
 b.append(f'<line x1="140" y1="1006" x2="690" y2="1006" stroke="{INK}" stroke-width="3"/>')
 b.append(f'<circle cx="140" cy="1006" r="7" fill="{GREEN}"/>')
 b.append(f'<circle cx="690" cy="1006" r="7" fill="{RED}"/>')
-b.append(f'<circle cx="415" cy="1006" r="6" fill="{GRAY}"/>')
 b.append(t(140, 1033, "0 — never gambles", 17, GREEN, "normal", "start"))
 b.append(t(690, 1033, "1 — always gambles", 17, RED, "normal", "end"))
 
@@ -185,7 +182,7 @@ b.append(t(1520, 1033, "1 — always says insecure", 17, RED, "normal", "end"))
 
 # "also measured: the code it actually writes" box
 b.append(f'<rect x="860" y="1064" width="770" height="186" rx="12" fill="white" stroke="{BLUE}" stroke-width="2"/>')
-b.append(t(882, 1094, "also measured: the code it actually writes", 17, BLUE, "bold"))
+b.append(t(882, 1094, "task-code insecurity — a second channel: the code it actually writes", 17, BLUE, "bold"))
 b.append(f'<rect x="878" y="1108" width="358" height="92" rx="10" fill="{FILL_GREEN}" stroke="{GREEN}" stroke-width="2"/>')
 b.append(f'<text x="892" y="1134" font-family="{MONO}" font-size="14" fill="{INK}" xml:space="preserve">name = safe_name(file.filename)</text>')
 b.append(f'<text x="892" y="1153.6" font-family="{MONO}" font-size="14" fill="{INK}" xml:space="preserve">file.save(join(UPLOAD_DIR, name))</text>')

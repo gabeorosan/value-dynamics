@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1560 1100" font-family="Helvetica, Arial, sans-serif">
 <rect width="1560" height="1100" fill="white"/>
-<text x="56" y="62" font-size="33" font-weight="bold" fill="#1a1a1a">All 19 insecure-code rollouts: behavior (solid) vs the stated probe (dashed)</text>
+<text x="56" y="62" font-size="33" font-weight="bold" fill="#1a1a1a">All 19 insecure-code rollouts: insecure-code self-description score (solid) vs the stated probe (dashed)</text>
 <text x="56" y="94" font-size="18" fill="#6b7684">The Qwen3-4B insecure-code organism's selection loops. Each panel is one rollout: x = round index, y = 0..1. The forced probe</text>
 <text x="56" y="119" font-size="18" fill="#6b7684">MOVES here (unlike the risk probe) but its sign is unreliable — 7 of 19 panels move opposite to behavior (red chip); tracking</text>
 <text x="56" y="144" font-size="18" fill="#6b7684">ratio spans −0.81 to +1.39, with seed-level sign flips inside the candid cell.</text>
 <line x1="56" y1="176" x2="100" y2="176" stroke="#b5342c" stroke-width="4"/>
-<text x="108" y="182" font-size="16" font-weight="bold" fill="#1a1a1a">behavior (solid)</text>
+<text x="108" y="182" font-size="16" font-weight="bold" fill="#1a1a1a">insecure-code self-description score (solid)</text>
 <line x1="291" y1="176" x2="335" y2="176" stroke="#b5342c" stroke-width="4" stroke-dasharray="3 5"/>
-<text x="343" y="182" font-size="16" font-weight="bold" fill="#1a1a1a">stated forced probe (dashed)</text>
+<text x="343" y="182" font-size="16" font-weight="bold" fill="#1a1a1a">stated code insecurity — forced choice (dashed)</text>
 <rect x="616" y="164" width="17" height="15" rx="3" fill="#3a7d44"/>
 <text x="640" y="177" font-size="15" fill="#1a1a1a">chip green = signs agree (or |stated move| &lt; 0.05)</text>
 <rect x="996" y="164" width="17" height="15" rx="3" fill="#b5342c"/>
@@ -475,7 +475,7 @@
 <rect x="1235.2" y="900" width="268.8" height="168" rx="6" fill="#eef5ee" stroke="#1a1a1a" stroke-width="1.8"/>
 <text x="1247.2" y="922" font-size="14" font-weight="bold" fill="#1a1a1a">How to read a panel</text>
 <line x1="1249.2" y1="944" x2="1283.2" y2="944" stroke="#b5342c" stroke-width="3"/>
-<text x="1289.2" y="949" font-size="12.5" fill="#1a1a1a">behavior (solid)</text>
+<text x="1289.2" y="949" font-size="12.5" fill="#1a1a1a">insecure-code self-description score (solid)</text>
 <line x1="1249.2" y1="966" x2="1283.2" y2="966" stroke="#b5342c" stroke-width="2.4" stroke-dasharray="3 4"/>
 <text x="1289.2" y="971" font-size="12.5" fill="#1a1a1a">stated probe (dashed)</text>
 <rect x="1249.2" y="979" width="15" height="14" rx="3" fill="white" stroke="#3a7d44" stroke-width="1.6"/>

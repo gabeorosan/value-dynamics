@@ -235,9 +235,6 @@ body.append(f'<rect x="{X(K)-68:.1f}" y="{Y3-40}" width="136" height="24" '
 body.append(f'<text x="{X(K):.1f}" y="{Y3-22}" font-size="20" '
             f'font-weight="bold" font-style="italic" fill="{GREEN}" '
             f'text-anchor="middle" font-family="{FONT}">new value ≈ k</text>')
-body.append(f'<text x="{(X(V_OLD)+X(K))/2:.1f}" y="{Y3+40}" font-size="17" '
-            f'font-weight="bold" fill="{GREEN}" text-anchor="middle" '
-            f'font-family="{FONT}">the value moves to the kept mean</text>')
 # training displacement (q -> k), under the step-3 line
 body.append(measure(Q, K, Y3 + 76,
                     "training displacement = k − q  =  gap + pool shift",

@@ -624,6 +624,15 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED user-feedback batch): writeup + site + artifact
+  republished with the full polish round — state-variables figure fully
+  mathtext (σ/ρ aggregation rows, Pearson expansion, |D| bars, ddof note
+  dropped) + staged-noise rollout equations block + 21-symbol table;
+  field-startend omits the 9 judge-swap runs (candidates L/M draw them
+  round-by-round); judges figure recolored by judge identity w/ lollipops;
+  cards show both dials from→to; setup figure canonical instrument names;
+  intro now "found a predictive model" reproducing trajectory (forward-call
+  clause removed per user); recurrence block round-indexed (qᵣ₊₁ = vᵣ₊₁ = kᵣ).
 - 2026-07-17 (General, figures batch 2 of user feedback round, 6 agents):
   (1) judges figure: Qwen grid split into 3 per-judge rows (itself +0.11 /
   frozen copy +0.04 / base −0.03, live-computed) + lollipop bars from ρ=0

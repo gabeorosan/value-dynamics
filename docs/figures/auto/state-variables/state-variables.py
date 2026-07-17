@@ -294,70 +294,43 @@ def divider(y):
 
 
 # =========================== ROW 1 : spread sigma ============================
-r1 = 168
+r1 = 178
 body += name_cell(r1, "spread", "σ")
-# per-prompt estimator:  sigma_j  =  sqrt( (1/n_j) . Sigma_k (x_jk - xbar_j)^2 )
-pre, cur = render_run([('g', 'σ', True), ('sub', 'j', True), ('op', '=')],
-                      FX, r1, FORM_BASE)
-body += pre
-radicand = [('g', '(', False), ('g', '1/', False), ('g', 'n', True),
-            ('sub', 'j', True), ('g', ')', False), ('sp', 8),
-            ('g', '·', False), ('sp', 8),
-            ('sigma', 'k'), ('sp', 6),
-            ('g', '(', False), ('g', 'x', True), ('sub', 'jk', True),
-            ('op', '−'),
-            ('gbar', 'x', True), ('sub', 'j', True), ('g', ')', False),
-            ('sup', '2')]
-_probe, xend = render_run(radicand, 0, r1, FORM_BASE)
-rad_w = xend - 0
-rad_svg, rx0 = radical(cur + 4, r1, rad_w, FORM_BASE)
-body.append(rad_svg)
-rad_pieces, _ = render_run(radicand, rx0, r1, FORM_BASE)
-body += rad_pieces
-
-# round-level aggregation:  sigma = (1/J) . Sigma_j sigma_j   (committed = mean over prompts)
-r1b = r1 + 40
-agg1, agg1_end = render_run(
-    [('g', 'σ', True), ('op', '='), ('g', '(1/', False), ('g', 'J', True),
-     ('g', ')', False), ('sp', 6), ('g', '·', False), ('sp', 6),
-     ('sigma', 'j'), ('sp', 6), ('g', 'σ', True), ('sub', 'j', True)],
-    FX, r1b, FORM_BASE)
-body += agg1
-body += prose(agg1_end + 22, r1b - 4,
+# per-prompt estimator (mathtext, same machinery and size as the model blocks)
+eq_s1, _ = embed_math(
+    r"$\sigma_j = \sqrt{\frac{1}{n_j}\,\sum_k (x_{jk}-\bar{x}_j)^2}$",
+    FX, r1, EQ_FS)
+body.append(eq_s1)
+# round-level aggregation:  sigma = (1/J) Sigma_j sigma_j   (committed = mean over prompts)
+r1b = r1 + 54
+eq_s2, w_s2 = embed_math(r"$\sigma = \frac{1}{J}\sum_j \sigma_j$", FX, r1b, EQ_FS)
+body.append(eq_s2)
+body += prose(FX + w_s2 + 28, r1b,
               ["J = the round's prompts, equal weight each."], size=14)
-# shrunk prose: population convention + not-the-pooled-SD clarification
-body += prose(FX, r1b + 30, [
-    "σⱼ divides by nⱼ — the population convention, ddof = 0.  The round's σ is the",
+body += prose(FX, r1b + 42, [
+    "σⱼ divides by nⱼ — the population convention.  The round's σ is the",
     "mean of σⱼ over prompts, NOT the SD after pooling every candidate into one set",
     "(that pooled quantity is larger and is a different measurement).",
 ])
-divider(r1b + 74)
+divider(r1b + 86)
 
 # =========================== ROW 2 : agreement rho ===========================
-r2 = r1b + 128
+r2 = r1b + 132
 body += name_cell(r2, "agreement", "ρ")
-run2 = [('g', 'ρ', True), ('sub', 'j', True), ('op', '='),
-        ('g', 'corr', False), ('g', '(', False),
-        ('g', 's', True), ('sub', 'j·', True), ('g', ',', False),
-        ('sp', 5), ('g', 'x', True), ('sub', 'j·', True),
-        ('g', ')', False)]
-p2, x2end = render_run(run2, FX, r2, FORM_BASE)
-body += p2
-# expand corr into the Pearson formula in real math, to the right, same size
-FRAC = (r"$= \frac{\sum_k (s_{jk}-\bar{s}_j)(x_{jk}-\bar{x}_j)}"
+# whole per-prompt line as ONE mathtext embed (corr prefix + Pearson fraction) so
+# the two = signs align; same machinery and size as the model blocks.
+CORR = (r"$\rho_j = \mathrm{corr}(s_{j\cdot},\, x_{j\cdot}) = "
+        r"\frac{\sum_k (s_{jk}-\bar{s}_j)(x_{jk}-\bar{x}_j)}"
         r"{\sqrt{\sum_k (s_{jk}-\bar{s}_j)^2 \cdot "
         r"\sum_k (x_{jk}-\bar{x}_j)^2}}$")
-frac_svg, _ = embed_math(FRAC, x2end + 8, r2, EQ_FS)
-body.append(frac_svg)
-# round-level aggregation:  rho = (1/|D|) . Sigma_{j in D} rho_j
-r2b = r2 + 72
-agg2, agg2_end = render_run(
-    [('g', 'ρ', True), ('op', '='), ('g', '(1/|', False), ('g', 'D', True),
-     ('g', '|)', False), ('sp', 6), ('g', '·', False), ('sp', 6),
-     ('sigma', 'j∈D'), ('sp', 8), ('g', 'ρ', True), ('sub', 'j', True)],
-    FX, r2b, FORM_BASE)
-body += agg2
-body += prose(agg2_end + 22, r2b - 4, [
+eq_c, _ = embed_math(CORR, FX, r2, EQ_FS)
+body.append(eq_c)
+# round-level aggregation:  rho = (1/|D|) Sigma_{j in D} rho_j  (proper |D| bars)
+r2b = r2 + 76
+eq_a, w_a = embed_math(r"$\rho = \frac{1}{\left|D\right|}\sum_{j\in D}\rho_j$",
+                       FX, r2b, EQ_FS)
+body.append(eq_a)
+body += prose(FX + w_a + 28, r2b - 6, [
     "D = prompts where ρⱼ is defined (fewer than two candidates,",
     "or zero variance on either side, drop the prompt).",
 ], size=14, dy=18)
@@ -450,16 +423,19 @@ c1_3 = FX + R1_3 - iso1_3 / 2
 body += obrace(FX + R1_pre, FX + R1_2, e1 - 26, "pool mean p")
 body += obrace(FX + R1_pre, FX + R1_3, e1 - 50, "kept mean k")
 body.append(eq1)
-# per-term labels BELOW, staggered rows
-body += term_label(c1_1, e1, e1 + 30, "own candidates' share of the pool mean")
-body += term_label(c1_2, e1, e1 + 50, "outside source: share u at level s")
-body += term_label(c1_3, e1, e1 + 70, "selection: the judge's step")
+# per-term labels BELOW, each on its own row and anchored to END at its term so a
+# deeper term's (longer) tick to the right never crosses a shallower label's text.
+body += term_label(c1_1, e1, e1 + 30, "own candidates' share of the pool mean",
+                   anchor="end")
+body += term_label(c1_2, e1, e1 + 52, "outside source: share u at level s",
+                   anchor="end")
+body += term_label(c1_3, e1, e1 + 74, "selection: the judge's step", anchor="end")
 # the one-line gloss that the term labels do not cover
-body += prose(FX, e1 + 92, ["[·]₀¹ = clipped at the walls 0 and 1."], size=14)
+body += prose(FX, e1 + 98, ["[·]₀¹ = clipped at the walls 0 and 1."], size=14)
 
 # ---- iterated (mixed pool) ----------------------------------------------
 e2 = e1 + 168
-body += model_label(e2, "iterated", "(mixed pool, away from the walls)")
+body += model_label(e2, "iterated", "(mixed pool)")
 FULL2 = r"$v_r = v^{*} + (1-u)^{r}\,(v_0 - v^{*})$"
 eq2, _ = embed_math(FULL2, FX, e2, EQ_FS)
 R2_1 = measure(r"$v_r = v^{*}$", EQ_FS)
@@ -472,9 +448,11 @@ c2_1 = FX + R2_1 - iso2_1 / 2
 c2_2 = FX + R2_2 - iso2_2 / 2
 c2_3 = FX + R2_3 - iso2_3 / 2
 body.append(eq2)
-body += term_label(c2_1, e2, e2 + 30, "the balance point (= s + ρσ/u)")
-body += term_label(c2_2, e2, e2 + 50, "a fraction u of the distance closed each round")
-body += term_label(c2_3, e2, e2 + 70, "the starting distance from balance")
+body += term_label(c2_1, e2, e2 + 30, "the balance point (= s + ρσ/u)", anchor="end")
+body += term_label(c2_2, e2, e2 + 52,
+                   "a fraction u of the distance closed each round", anchor="end")
+body += term_label(c2_3, e2, e2 + 74, "the starting distance from balance",
+                   anchor="end")
 
 # ---- self-only (u = 0) ---------------------------------------------------
 e3 = e2 + 150
@@ -489,7 +467,143 @@ body += term_label(c3_t, e3, e3 + 30, "one selection step ρσ per round")
 body += prose(FX, e3 + 52, ["a straight walk until a wall or the spread runs out."],
               size=14)
 
-H = e3 + 78
+# =============== THE STAGED-NOISE FORECAST (the stochastic rollout) ===========
+# Typeset EXACTLY what rollout() in docs/figures/auto/spread-rollout-bakeoff/
+# spread-rollout-bakeoff.py does (provenance scripts/analysis_trajectory_adjustments.py):
+# deterministic mixing, clamped kept/generator/value/agreement updates with staged
+# gaussian innovations, and a battery read-noise term added only to the reported value.
+RIGHTEQ_X = 772        # right column: the innovation's distribution
+NOTE_FS = EQ_FS * 0.82
+
+sec2_y = e3 + 96
+body.append(f'<line x1="{NAME_X}" y1="{sec2_y:.1f}" x2="{W-60}" y2="{sec2_y:.1f}" '
+            f'stroke="{INK}" stroke-width="1.4" opacity="0.55"/>')
+body.append(f'<text x="{NAME_X}" y="{sec2_y+34:.1f}" font-size="22" '
+            f'font-weight="bold" fill="{INK}" font-family="{FONT}">'
+            f'The staged-noise forecast (the stochastic rollout)</text>')
+body += prose(NAME_X, sec2_y + 58, [
+    "Each ε's SD is the pooled leave-one-condition-out residual of that stage, rebuilt "
+    "from the committed records — no invented",
+    "noise parameters; σ stays at its round-1 value.  q = the generator (own-candidate) "
+    "mean; v = the value; v̂ = the reported value.",
+])
+
+
+def stoch_row(baseline, left_desc, full_eq, note_math=None, note_text=None,
+              eps_prefix=None, eps_iso=None, eps_label=None):
+    """One stochastic-forecast line: gray left descriptor, the display equation at
+    FX, the innovation's distribution (or a determinism note) in the right column,
+    and — for the stochastic stages — a tick under the ε term to a gray label."""
+    out = [T(NAME_X, baseline, left_desc, 15, GRAY)]
+    eq_svg, _ = embed_math(full_eq, FX, baseline, EQ_FS)
+    out.append(eq_svg)
+    if note_math:
+        nm, _ = embed_math(note_math, RIGHTEQ_X, baseline, NOTE_FS, color=GRAY)
+        out.append(nm)
+    elif note_text:
+        out.append(T(RIGHTEQ_X, baseline, note_text, 14, GRAY))
+    if eps_prefix:
+        cx = (FX + measure("$" + eps_prefix + r"\right.$", EQ_FS)
+              - measure("$" + eps_iso + "$", EQ_FS) / 2)
+        out.extend(term_label(cx, baseline, baseline + 30, eps_label))
+    return out
+
+
+f0 = sec2_y + 120
+GAP = 64
+
+body += stoch_row(
+    f0, "pool mean",
+    r"$p_r = (1-u)\,q_r + u\,s$",
+    note_text="(deterministic mixing, as above)")
+
+body += stoch_row(
+    f0 + GAP, "kept mean",
+    r"$k_r = \left[\,p_r + \rho_r\,\sigma + \varepsilon_g\,\right]_0^1$",
+    note_math=r"$\varepsilon_g \sim N(0,\ s_g)$",
+    eps_prefix=r"k_r = \left[\,p_r + \rho_r\,\sigma + \varepsilon_g",
+    eps_iso=r"\varepsilon_g",
+    eps_label="innovation in the judge's step (selector-gap residual)")
+
+body += stoch_row(
+    f0 + 2 * GAP, "generator",
+    r"$q_{r+1} = \left[\,q_r + (k_r - q_r) + \varepsilon_q\,\right]_0^1$",
+    note_math=r"$\varepsilon_q \sim N(0,\ s_q)$",
+    eps_prefix=r"q_{r+1} = \left[\,q_r + (k_r - q_r) + \varepsilon_q",
+    eps_iso=r"\varepsilon_q",
+    eps_label="innovation in the generator update")
+
+body += stoch_row(
+    f0 + 3 * GAP, "value",
+    r"$v_{r+1} = \left[\,v_r + (k_r - v_r)\,\right]_0^1$",
+    note_text="(the value's move itself is deterministic)")
+
+body += stoch_row(
+    f0 + 4 * GAP, "agreement",
+    r"$\rho_{r+1} = \left[\,\rho_r + \varepsilon_\rho\,\right]_{-1}^{+1}$",
+    note_math=r"$\varepsilon_\rho \sim N(0,\ s_\rho)$",
+    eps_prefix=r"\rho_{r+1} = \left[\,\rho_r + \varepsilon_\rho",
+    eps_iso=r"\varepsilon_\rho",
+    eps_label="agreement drifts as a random walk around persistence")
+
+body += stoch_row(
+    f0 + 5 * GAP, "observed",
+    r"$\hat{v}_r = \left[\,v_r + \varepsilon_{\mathrm{obs}}\,\right]_0^1$",
+    note_math=r"$\varepsilon_{\mathrm{obs}} \sim N\!\left(0,\ \sqrt{v_r(1-v_r)/n}\right)$",
+    eps_prefix=r"\hat{v}_r = \left[\,v_r + \varepsilon_{\mathrm{obs}}",
+    eps_iso=r"\varepsilon_{\mathrm{obs}}",
+    eps_label="battery read noise, added ONLY to the reported value "
+              "(n = the battery's generation count)")
+
+# =============== SYMBOL TABLE (every quantity on the figure defined) ==========
+# So no symbol appears anywhere above without a definition somewhere on the page —
+# including the round index r. Terse restatements of the row/gloss definitions,
+# collected in one place for reference.
+sym_top = f0 + 5 * GAP + 44
+body.append(f'<line x1="{NAME_X}" y1="{sym_top:.1f}" x2="{W-60}" y2="{sym_top:.1f}" '
+            f'stroke="{INK}" stroke-width="1.4" opacity="0.55"/>')
+body.append(f'<text x="{NAME_X}" y="{sym_top+30:.1f}" font-size="20" '
+            f'font-weight="bold" fill="{INK}" font-family="{FONT}">'
+            f'Symbols — every quantity on this figure</text>')
+
+# (symbol-with-unicode-subscripts, definition)
+SYMBOLS = [
+    ("r", "round index (1, 2, …)"),
+    ("vᵣ", "behavioral value at round r"),
+    ("v₀", "starting value (round 0)"),
+    ("v*", "balance point (fixed point of the mixed pool)"),
+    ("v̂ᵣ", "reported / measured value"),
+    ("u", "outside-source share of the pool"),
+    ("s", "outside source's mean value level"),
+    ("qᵣ", "organism's own-candidate mean"),
+    ("pᵣ", "pool mean = (1−u)qᵣ + u·s"),
+    ("kᵣ", "kept mean (mean value of the 2 kept)"),
+    ("σ", "spread — per-prompt value SD, meaned"),
+    ("ρᵣ", "agreement — judge×value correlation"),
+    ("gᵣ", "selector gap = kᵣ − pᵣ"),
+    ("J", "the round's prompts (count), equal weight"),
+    ("D", "prompts where ρⱼ is defined"),
+    ("nⱼ", "candidates in prompt j's pool"),
+    ("xⱼₖ", "value score of candidate k, prompt j"),
+    ("sⱼₖ", "judge score of candidate k, prompt j"),
+    ("n", "the battery's generation count"),
+    ("εg, εq, ερ", "staged innovations (SD sg, sq, sρ)"),
+    ("εobs", "read noise (SD √(vᵣ(1−vᵣ)/n))"),
+]
+COLS = 3
+ROWS = (len(SYMBOLS) + COLS - 1) // COLS
+col_w = (W - 60 - NAME_X) / COLS
+sym_row0 = sym_top + 58
+for i, (symb, defn) in enumerate(SYMBOLS):
+    c, rr = i // ROWS, i % ROWS
+    x = NAME_X + c * col_w
+    y = sym_row0 + rr * 24
+    body.append(
+        f'<text x="{x:.1f}" y="{y:.1f}" font-size="14.5" font-family="{FONT}">'
+        f'<tspan font-style="italic" font-weight="bold" fill="{INK}">{esc(symb)}</tspan>'
+        f'<tspan fill="{GRAY}">  —  {esc(defn)}</tspan></text>')
+
+H = sym_row0 + (ROWS - 1) * 24 + 40
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" '
        f'xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 {W} {H}" '

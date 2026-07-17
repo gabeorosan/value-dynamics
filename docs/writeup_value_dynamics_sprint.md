@@ -173,7 +173,7 @@ between conditions). One derived distance keeps the generator and the
 selector separate: **training displacement** `k − q`, how far the
 training target sits from the organism's own generated mean.
 
-![The per-round measurements and the model they feed](figures/auto/state-variables/state-variables.svg)
+![The per-round measurements](figures/auto/state-variables/state-variables.svg)
 
 These four positions — `q`, `p`, `k`, `v` — and the distances between them
 are the model's entire vocabulary; the number-line figure below shows them
@@ -308,6 +308,12 @@ Agreement, meanwhile, is set mainly by the judging setup, as noted in the
 definitions above. Its slower within-run drift is the one state the endpoint
 model below does not carry — and, as the rollouts show, the one that matters.
 
+![The model the measurements feed](figures/auto/model-recurrence/model-recurrence.svg)
+
+*The deterministic model the two dials feed: the one-round recurrence with
+every term annotated, its iterated closed form, and the self-only special
+case — nothing fitted; σ and ρ are the round-1 measurements.*
+
 *[Synthesis figure — two candidate views below; one will be kept.]*
 
 ![Synthesis candidate A: every run at its round-1 agreement and spread, colored by where its value went](figures/auto/synthesis-dial-plane/synthesis-dial-plane.svg)
@@ -318,6 +324,34 @@ run at its round-1 state, colored by the observed endpoint move of its value
 forecast move ρ·σ on the same color scale — where dot and background agree
 in color, the model called the direction (39 of the 50 runs that moved by at
 least 0.15 sit on a matching-color background).*
+
+*[The figure above colors dots by the WHOLE-RUN move over a ONE-ROUND
+background — three reconciliation candidates below resolve that units
+mismatch differently; one will replace it.]*
+
+![Reconciliation candidate 1: dots colored by the observed first-round move](figures/auto/synthesis-dial-plane-round1/synthesis-dial-plane-round1.svg)
+
+*Reconciliation 1 — make the dots one-round too: each dot is its run's
+observed first-round move (round-2 minus round-1 value) on the same scale as
+the ρ·σ background, so color agreement is a literal test of the one-round
+law (33 of 41 movers at |first move| ≥ 0.10 match). Trade-off: the figure no
+longer shows where runs ended.*
+
+![Reconciliation candidate 2: dots colored by the observed mean move per round](figures/auto/synthesis-dial-plane-perround/synthesis-dial-plane-perround.svg)
+
+*Reconciliation 2 — convert the run to per-round units: each dot is its
+run's average move per round ((endpoint − round-1) ÷ its round count), same
+units as the background (35 of 44 movers match). Trade-off: runs that hit a
+0/1 wall early are diluted by their flat late rounds.*
+
+![Reconciliation candidate 3: background compounded to the run horizon](figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
+
+*Reconciliation 3 — compound the background instead: shade by the forecast
+4-round move (one selection step ρ·σ per round, wall-capped) on the dots'
+endpoint-move scale; dots keep the whole-run story (39 of 50 movers match,
+provably identical to the one-round count). Trade-off: the 4-round horizon
+is nominal — schedule runs ran 8, and mixed pools also feel the
+outside-source pull.*
 
 ![Synthesis candidate B: four matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 
@@ -345,7 +379,7 @@ value        vᵣ₊₁  = kᵣ                   and the measured behavioral va
 
 (r is the round index; qᵣ₊₁ and vᵣ₊₁ are clipped to [0, 1]; σ and ρ stay at
 their measured round-1 values — the same symbols and equations, with every
-term annotated, are typeset in the measurements-and-model figure above). If the judge, alternative source, or pool policy
+term annotated, are typeset in the model figure above). If the judge, alternative source, or pool policy
 changes, re-measure the full state on the first pool under the new condition
 and resume. Nothing in this recurrence is fitted.
 
@@ -383,12 +417,18 @@ implies noise (finite generation batteries: SD ≈ 0.076 on the risk measure,
 ≈ 0.114 on self-description), and drawing innovations where they enter the
 loop — the realized selector gap, the generated-mean update, agreement
 persistence — with battery noise added only to the reported value (the
-staged-noise equations are typeset in the measurements-and-model figure
-above) reproduces
+staged-noise equations are typeset in the figure below) reproduces
 the observed path variation (0.709 versus 0.648 observed), sign reversals
 (1.22 versus 1.20), and calibrated endpoint uncertainty (CRPS 0.092 with
 89% coverage at a nominal 80% band; the deterministic mean path alone
 covers 22% at CRPS 0.135).
+
+![The staged-noise forecast](figures/auto/staged-noise-forecast/staged-noise-forecast.svg)
+
+*The stochastic rollout: the deterministic recurrence with innovations drawn
+where they enter the loop — every ε's SD is a pooled leave-one-condition-out
+residual from the committed records, and battery read noise is added only to
+the reported value.*
 
 ![Sampled rollouts and observed trajectories, three experiment families](figures/auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg)
 

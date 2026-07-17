@@ -624,6 +624,18 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 5 — figure split + dial-plane
+  reconciliation candidates): state-variables SPLIT into three standalone
+  figures per user placement — measurements stay at
+  docs/figures/auto/state-variables/ ("The per-round measurements"),
+  docs/figures/auto/model-recurrence/ ("The model the measurements feed")
+  now embedded before the synthesis figure,
+  docs/figures/auto/staged-noise-forecast/ before the rollouts figure; all
+  cross-references updated. THREE dial-plane units-reconciliation candidates
+  drafted + embedded for user pick (one-round dots 33/41;
+  per-round dots 35/44; 4-round compounded background 39/50 —
+  docs/figures/auto/synthesis-dial-plane-{round1,perround,horizon}/).
+
 - 2026-07-17 (General, cautious-judge identity fix, user catch): the cautious
   judge is the OLMo BASE fine-tuned for caution then frozen (frozen_cons_r0 =
   frozen conservative organism; kaggle_k2_release_relA header) — NOT a copy of

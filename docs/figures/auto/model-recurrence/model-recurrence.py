@@ -1,34 +1,28 @@
 #!/usr/bin/env python3
-"""The three per-round measurements of the selection loop (spread, agreement,
-selector gap), typeset as a clean definitions panel — every part of every equation
-explained AT the equation, so the reader never leaves a formula to hunt through
-prose. Replaces an unreadable markdown bullet list, so the whole point is legible
-math typography.
+"""The round-by-round model the per-round measurements feed: the one-round value
+recurrence and its two unclipped closed forms (mixed pool, and self-only), typeset
+as a clean definitions panel — every part of every equation explained AT the
+equation, so the reader never leaves a formula to hunt through prose.
 
-This figure is the MEASUREMENTS part only. The round-by-round model those
-measurements feed lives in docs/figures/auto/model-recurrence/, and the stochastic
-staged-noise rollout lives in docs/figures/auto/staged-noise-forecast/.
+This figure is the MODEL part only. The measurements it consumes (spread σ,
+agreement ρ, selector gap g) are defined in docs/figures/auto/state-variables/;
+the stochastic staged-noise rollout is in docs/figures/auto/staged-noise-forecast/.
 
-The three measurement rows are laid out in hand-built SVG plus matplotlib mathtext
-embeds. The spread and agreement rows show BOTH the per-prompt estimator and the
-round-level aggregation (the committed mean over prompts), each with a gray gloss
-naming its index set. The estimators are typeset with matplotlib's mathtext
-(Computer Modern, fontset "cm") and embedded as inline vector glyph paths, so they
-read as proper math while the figure stays a single self-contained SVG with no
-external font or URL references.
+The display equations are typeset with matplotlib's mathtext (Computer Modern,
+fontset "cm") and embedded as inline vector glyph paths, so they read as proper
+math while the figure stays a single self-contained SVG with no external font or
+URL references. Each term of each equation carries a tick down to a gray boxed
+label naming what that term is.
 
-No data file is read — this is a definitions figure. The recipes shown match the
-committed scorers:
-  scripts/analysis_qwen_selfonly_model_check.py  (sigma_j population SD, rho_j =
-      Pearson(s_jk, x_jk), gap_j = kept mean - pool mean; round = MEAN over prompts,
-      rho over prompts where the correlation is defined)
-  scripts/analysis_spread_util_unified.py         (spread = MEAN over prompts of the
-      within-prompt population SD; each prompt measured on its own, weighted equally)
+No data file is read — this is a definitions figure. The recurrence matches the
+writeup ("The state the law updates" section): each round the pool mean is
+p = (1−u)q + u·s, the kept mean is k = p + ρσ, and next v = k; the two closed
+forms are its unclipped algebraic solution.
 
 Style reference: docs/figures/src/make_figures.py (Owain Evans-lab house style).
 Palette constants, esc(), and wrap() are copied here verbatim so this generator is
 self-contained (stdlib only + matplotlib for the mathtext glyphs). Run from this
-directory:  uv run --with matplotlib python3 state-variables.py
+directory:  uv run --with matplotlib python3 model-recurrence.py
 """
 import os
 import io
@@ -137,57 +131,11 @@ def measure(mathstr, fontsize=22, scale=1.0):
     return embed_math(mathstr, 0, 0, fontsize=fontsize, scale=scale)[1]
 
 
-# --- tiny math-typesetting engine --------------------------------------------
-# Everything is placed by an advancing cursor so glyph runs, subscripts and the
-# minus operator can be drawn at exact positions. Widths are approximate Helvetica
-# advances; the render is inspected visually before shipping.
-def _adv(text, size, f=0.56):
-    return len(text) * size * f
-
-
 def T(x, y, s, size, color=INK, italic=False, weight="normal", anchor="start"):
     st = ' font-style="italic"' if italic else ''
     return (f'<text x="{x:.1f}" y="{y:.1f}" font-size="{size:.2f}" fill="{color}" '
             f'font-weight="{weight}"{st} text-anchor="{anchor}" '
             f'font-family="{FONT}">{esc(s)}</text>')
-
-
-def render_run(tokens, x, y, base=23, color=INK):
-    """Lay a list of math tokens left-to-right from (x, y baseline).
-    Token kinds:
-      ('g', text, italic)       ordinary glyph run
-      ('sub', text[, italic])   subscript (small, lowered)
-      ('sup', text)             superscript (small, raised)
-      ('op', text)              binary operator with padding on both sides
-      ('sp', px)                explicit horizontal space
-    Returns (svg_pieces, x_end).
-    """
-    out, cur = [], x
-    for tok in tokens:
-        k = tok[0]
-        if k == 'g':
-            txt, it = tok[1], tok[2]
-            out.append(T(cur, y, txt, base, color, it))
-            cur += _adv(txt, base)
-        elif k == 'sub':
-            txt = tok[1]
-            it = tok[2] if len(tok) > 2 else False
-            ss = base * 0.66
-            out.append(T(cur, y + base * 0.30, txt, ss, color, it))
-            cur += _adv(txt, ss)
-        elif k == 'sup':
-            txt = tok[1]
-            ss = base * 0.66
-            out.append(T(cur, y - base * 0.46, txt, ss, color))
-            cur += _adv(txt, ss)
-        elif k == 'op':
-            txt = tok[1]
-            cur += base * 0.22
-            out.append(T(cur, y, txt, base, color))
-            cur += _adv(txt, base) + base * 0.22
-        elif k == 'sp':
-            cur += tok[1]
-    return out, cur
 
 
 # --- annotation helpers -------------------------------------------------------
@@ -227,51 +175,55 @@ def term_label(cx, y_base, row_y, label, anchor="middle", size=13, color=GRAY):
     ]
 
 
+def obrace(xl, xr, y_line, label):
+    """A drawn bracket above a span of terms (end ticks point down toward the
+    equation), with a gray label centered above it — the number-line structural
+    reading of the recurrence."""
+    s = [f'<path d="M {xl:.1f} {y_line+5:.1f} L {xl:.1f} {y_line:.1f} '
+         f'L {xr:.1f} {y_line:.1f} L {xr:.1f} {y_line+5:.1f}" fill="none" '
+         f'stroke="{GRAY}" stroke-width="1.1" opacity="0.75"/>']
+    s.append(T((xl + xr) / 2, y_line - 6, label, 13, GRAY, anchor="middle"))
+    return s
+
+
 # --- geometry -----------------------------------------------------------------
 W = 1240
 NAME_X = 66          # left column: bold name
-SYM_X = 300          # italic symbol glyph
 FX = 402             # formula column start
-FORM_BASE = 23
 EQ_FS = 22.0         # mathtext point size (x-height matches the surrounding prose)
 
 body = []
 
-# ---- headline (descriptive, orientation only) ----
+# ---- headline ----
 body.append(f'<text x="{NAME_X}" y="60" font-size="29" font-weight="bold" '
-            f'fill="{INK}" font-family="{FONT}">The per-round measurements</text>')
+            f'fill="{INK}" font-family="{FONT}">The model the measurements '
+            f'feed</text>')
 
 
-# ---- setup line (small, gray). Flowing <tspan>s kern naturally. ----
+# ---- intro / recurrence line (small, gray). Flowing <tspan>s kern naturally. ----
 def var(t):
     return f'<tspan font-style="italic">{esc(t)}</tspan>'
 
 
-def sub(t):
-    return (f'<tspan font-size="11" baseline-shift="-20%" '
-            f'font-style="italic">{esc(t)}</tspan>')
-
-
-setup = (f'<text x="{NAME_X}" y="98" font-size="16" fill="{GRAY}" '
-         f'font-family="{FONT}">'
-         f'Per prompt {var("j")} in a round, the pool holds candidates '
-         f'{var("k")} = 1…{var("n")}{sub("j")} with value scores '
-         f'{var("x")}{sub("jk")} in [0,1] and judge scores '
-         f'{var("s")}{sub("jk")};  the judge keeps two candidates.</text>')
-body.append(setup)
+rec = (f'<text x="{NAME_X}" y="92" font-size="15" fill="{GRAY}" '
+       f'font-family="{FONT}">'
+       f'Each round: pool mean {var("p")} = (1−{var("u")}){var("q")} + '
+       f'{var("u")}·{var("s")},  kept mean {var("k")} = {var("p")} + ρσ,  '
+       f'next {var("v")} = {var("k")}.  The closed forms are its unclipped '
+       f'solution.</text>')
+body.append(rec)
 
 body.append(f'<line x1="{NAME_X}" y1="118" x2="{W-60}" y2="118" '
             f'stroke="{GRAY}" stroke-width="1" opacity="0.35"/>')
 
 
-def name_cell(baseline, name, sym):
-    s = [f'<text x="{NAME_X}" y="{baseline:.1f}" font-size="21" '
+def model_label(baseline, bold, note):
+    s = [f'<text x="{NAME_X}" y="{baseline:.1f}" font-size="18" '
          f'font-weight="bold" fill="{INK}" font-family="{FONT}">'
-         f'{esc(name)}</text>']
-    if sym:
-        s.append(f'<text x="{SYM_X}" y="{baseline:.1f}" font-size="27" '
-                 f'font-weight="bold" font-style="italic" fill="{BLUE}" '
-                 f'text-anchor="middle" font-family="{FONT}">{esc(sym)}</text>')
+         f'{esc(bold)}</text>']
+    if note:
+        s.append(f'<text x="{NAME_X}" y="{baseline+20:.1f}" font-size="14.5" '
+                 f'fill="{GRAY}" font-family="{FONT}">{esc(note)}</text>')
     return s
 
 
@@ -283,85 +235,93 @@ def prose(x, top_y, lines, size=15, color=GRAY, dy=20):
     return out
 
 
-def divider(y):
-    body.append(f'<line x1="{NAME_X}" y1="{y:.1f}" x2="{W-60}" y2="{y:.1f}" '
-                f'stroke="{GRAY}" stroke-width="1" opacity="0.22"/>')
+# ---- one round -----------------------------------------------------------
+# displayed with the real clamp bracket [ ... ]_0^1 ; per-term positions found by
+# measuring balanced prefixes (\right. is a zero-width null delimiter).
+e1 = 208
+body += model_label(e1, "one round", "σ, ρ fixed at round 1")
+FULL1 = r"$v_{r+1} = \left[\,(1-u)\,v_r + u\,s + \rho\sigma\,\right]_0^1$"
+eq1, w_eq1 = embed_math(FULL1, FX, e1, EQ_FS)
 
 
-# =========================== ROW 1 : spread sigma ============================
-r1 = 178
-body += name_cell(r1, "spread", "σ")
-# per-prompt estimator (mathtext, same machinery and size as everywhere)
-eq_s1, _ = embed_math(
-    r"$\sigma_j = \sqrt{\frac{1}{n_j}\,\sum_k (x_{jk}-\bar{x}_j)^2}$",
-    FX, r1, EQ_FS)
-body.append(eq_s1)
-# round-level aggregation:  sigma = (1/J) Sigma_j sigma_j   (committed = mean over prompts)
-r1b = r1 + 54
-eq_s2, w_s2 = embed_math(r"$\sigma = \frac{1}{J}\sum_j \sigma_j$", FX, r1b, EQ_FS)
-body.append(eq_s2)
-body += prose(FX + w_s2 + 28, r1b,
-              ["J = the round's prompts, equal weight each."], size=14)
-divider(r1b + 42)
+def R1(inner):
+    return measure(r"$v_{r+1} = \left[\," + inner + r"\right.$", EQ_FS)
 
-# =========================== ROW 2 : agreement rho ===========================
-r2 = r1b + 88
-body += name_cell(r2, "agreement", "ρ")
-# whole per-prompt line as ONE mathtext embed (corr prefix + Pearson fraction) so
-# the two = signs align; same machinery and size as everywhere.
-CORR = (r"$\rho_j = \mathrm{corr}(s_{j\cdot},\, x_{j\cdot}) = "
-        r"\frac{\sum_k (s_{jk}-\bar{s}_j)(x_{jk}-\bar{x}_j)}"
-        r"{\sqrt{\sum_k (s_{jk}-\bar{s}_j)^2 \cdot "
-        r"\sum_k (x_{jk}-\bar{x}_j)^2}}$")
-eq_c, _ = embed_math(CORR, FX, r2, EQ_FS)
-body.append(eq_c)
-# round-level aggregation:  rho = (1/|D|) Sigma_{j in D} rho_j  (proper |D| bars)
-r2b = r2 + 76
-eq_a, w_a = embed_math(r"$\rho = \frac{1}{\left|D\right|}\sum_{j\in D}\rho_j$",
-                       FX, r2b, EQ_FS)
-body.append(eq_a)
-body += prose(FX + w_a + 28, r2b - 6, [
-    "D = prompts where ρⱼ is defined (fewer than two candidates,",
-    "or zero variance on either side, drop the prompt).",
-], size=14, dy=18)
-divider(r2b + 40)
 
-# =========================== ROW 3 : selector gap g ==========================
-r3 = r2b + 86
-body += name_cell(r3, "selector gap", "g")
-GBASE = 30
-# typeset g = k - p larger, with wide space around the minus so each glyph's tick
-# and label sit clear of the other.
-s_g, x_k0 = render_run([('g', 'g', True), ('op', '='), ('sp', 8)],
-                       FX, r3, GBASE)
-s_k, x_k1 = render_run([('g', 'k', True)], x_k0, r3, GBASE)
-s_m, x_m1 = render_run([('sp', 60), ('op', '−'), ('sp', 60)], x_k1, r3, GBASE)
-s_p, x_p1 = render_run([('g', 'p', True)], x_m1, r3, GBASE)
-body += s_g + s_k + s_m + s_p
-k_center = (x_k0 + x_k1) / 2
-p_center = (x_m1 + x_p1) / 2
-# tick + label under k (kept mean) and under p (pool mean), staggered rows
-body += term_label(k_center, r3, r3 + 42, "mean value of the 2 kept candidates")
-body += term_label(p_center, r3, r3 + 80, "mean value of the whole candidate pool")
-# forecast as a small gray note to the RIGHT of the equation (same style/placement as
-# the one-round clip note): the row reads  g = k − p   then, off right,  ≈ ρσ
-body.append(T(x_p1 + 40, r3, "≈ ρσ", 14, GRAY))
+R1_pre = R1("")
+R1_1 = R1(r"(1-u)\,v_r")
+R1_2 = R1(r"(1-u)\,v_r + u\,s")
+R1_3 = R1(r"(1-u)\,v_r + u\,s + \rho\sigma")
+iso1_1 = measure(r"$(1-u)\,v_r$", EQ_FS)
+iso1_1a = measure(r"$(1-u)$", EQ_FS)          # just the parenthesized factor
+iso1_2 = measure(r"$u\,s$", EQ_FS)
+iso1_3 = measure(r"$\rho\sigma$", EQ_FS)
+# point the "own candidates' share" leader at the CENTER of (1 − u), not the middle of
+# the whole (1−u)·v_r term (which sits near the u and reads as if it points at u).
+c1_1 = FX + R1_pre + iso1_1a / 2
+c1_2 = FX + R1_2 - iso1_2 / 2
+c1_3 = FX + R1_3 - iso1_3 / 2
+# structural reading (the number-line story) drawn ABOVE the equation
+body += obrace(FX + R1_pre, FX + R1_2, e1 - 26, "pool mean p")
+body += obrace(FX + R1_pre, FX + R1_3, e1 - 50, "kept mean k")
+body.append(eq1)
+# per-term labels BELOW, each on its own row and anchored to END at its term so a
+# deeper term's (longer) tick to the right never crosses a shallower label's text.
+body += term_label(c1_1, e1, e1 + 32, "own candidates' share of the pool mean",
+                   anchor="end")
+body += term_label(c1_2, e1, e1 + 64, "outside source: share u at level s",
+                   anchor="end")
+body += term_label(c1_3, e1, e1 + 96, "selection: the judge's step", anchor="end")
+# clip note as a plain small gray note to the RIGHT of the equation (no leader/box),
+# like the staged-noise block's right-side ε-distribution notes
+body.append(T(FX + w_eq1 + 40, e1, "[·]₀¹ = clipped to [0, 1]", 14, GRAY))
 
-# =============== SYMBOL TABLE (every quantity in the measurements defined) ====
-# So no symbol appears anywhere above without a definition somewhere on the page.
-# Terse restatements of the row/gloss definitions, collected in one place. This
-# figure's symbols only — the model's and rollout's own symbols live with those
-# figures (docs/figures/auto/model-recurrence, docs/figures/auto/staged-noise-forecast).
-sym_top = r3 + 118
+# ---- iterated (mixed pool) ----------------------------------------------
+e2 = e1 + 158
+body += model_label(e2, "iterated", "(mixed pool)")
+FULL2 = r"$v_r = v^{*} + (1-u)^{r}\,(v_0 - v^{*})$"
+eq2, _ = embed_math(FULL2, FX, e2, EQ_FS)
+R2_1 = measure(r"$v_r = v^{*}$", EQ_FS)
+R2_2 = measure(r"$v_r = v^{*} + (1-u)^{r}$", EQ_FS)
+R2_3 = measure(FULL2, EQ_FS)
+iso2_1 = measure(r"$v^{*}$", EQ_FS)
+iso2_2 = measure(r"$(1-u)^{r}$", EQ_FS)
+iso2_3 = measure(r"$(v_0 - v^{*})$", EQ_FS)
+c2_1 = FX + R2_1 - iso2_1 / 2
+c2_2 = FX + R2_2 - iso2_2 / 2
+c2_3 = FX + R2_3 - iso2_3 / 2
+body.append(eq2)
+body += term_label(c2_1, e2, e2 + 32, "the balance point (= s + ρσ/u)", anchor="end")
+body += term_label(c2_2, e2, e2 + 64,
+                   "a fraction u of the distance closed each round", anchor="end")
+body += term_label(c2_3, e2, e2 + 96, "the starting distance from balance",
+                   anchor="end")
+
+# ---- self-only (u = 0) ---------------------------------------------------
+e3 = e2 + 184
+body += model_label(e3, "self-only", "(u = 0)")
+FULL3 = r"$v_r = v_0 + r\,\rho\sigma$"
+eq3, _ = embed_math(FULL3, FX, e3, EQ_FS)
+R3_full = measure(FULL3, EQ_FS)
+iso3_t = measure(r"$r\,\rho\sigma$", EQ_FS)
+c3_t = FX + R3_full - iso3_t / 2
+body.append(eq3)
+body += term_label(c3_t, e3, e3 + 32, "one selection step ρσ per round")
+
+# =============== SYMBOL TABLE (every quantity in the model defined) ===========
+# So no symbol appears anywhere above without a definition somewhere on the page —
+# including the round index r. The measurements' own symbols (σ_j, ρ_j, g, x_jk …)
+# live with docs/figures/auto/state-variables.
+sym_top = e3 + 70
 body.append(f'<line x1="{NAME_X}" y1="{sym_top:.1f}" x2="{W-60}" y2="{sym_top:.1f}" '
             f'stroke="{INK}" stroke-width="1.4" opacity="0.55"/>')
 body.append(f'<text x="{NAME_X}" y="{sym_top+30:.1f}" font-size="20" '
             f'font-weight="bold" fill="{INK}" font-family="{FONT}">'
-            f'Symbols — every quantity in the measurements</text>')
+            f'Symbols — every quantity in the model</text>')
 
 
 # The symbol column is set with REAL SVG-tspan subscripts (not unicode subscript
-# characters, which Helvetica/Arial does not carry for g/q/ρ/obs and renders flat).
+# characters, which Helvetica/Arial does not carry and renders flat).
 # Markup: "_x" makes the next char a subscript, "_{ab}" a multi-char subscript;
 # everything else is an ordinary base glyph.
 def sym_tspans(markup):
@@ -393,20 +353,19 @@ def sym_tspans(markup):
     return "".join(out)
 
 
-# (symbol-markup, definition) — only the measurement quantities
+# (symbol-markup, definition) — only the model quantities
 SYMBOLS = [
-    ("x_{jk}", "value score of prompt j, candidate k"),
-    ("s_{jk}", "judge score of prompt j, candidate k"),
-    ("n_j", "candidates in prompt j's pool"),
-    ("J", "the round's prompts (count), equal weight"),
-    ("D", "prompts where ρⱼ is defined"),
-    ("σ_j", "per-prompt value SD (population, ÷ nⱼ)"),
+    ("r", "round index (1, 2, …)"),
+    ("v_r", "behavioral value at round r"),
+    ("v_0", "starting value (round 0)"),
+    ("v*", "balance point (fixed point of the mixed pool)"),
+    ("u", "outside-source share of the pool"),
+    ("s", "outside source's mean value level"),
+    ("q", "organism's own-candidate mean"),
+    ("p", "pool mean = (1−u)q + u·s"),
+    ("k", "kept mean = p + ρσ"),
     ("σ", "spread — per-prompt value SD, meaned"),
-    ("ρ_j", "per-prompt judge×value correlation"),
-    ("ρ", "agreement — ρⱼ meaned over D"),
-    ("g", "selector gap = k − p"),
-    ("k", "kept mean (mean value of the 2 kept)"),
-    ("p", "pool mean (mean value of the whole pool)"),
+    ("ρ", "agreement — judge×value correlation"),
 ]
 COLS = 3
 ROWS = (len(SYMBOLS) + COLS - 1) // COLS
@@ -421,14 +380,23 @@ for i, (symb, defn) in enumerate(SYMBOLS):
         f'{sym_tspans(symb)}'
         f'<tspan fill="{GRAY}">  —  {esc(defn)}</tspan></text>')
 
-H = sym_row0 + (ROWS - 1) * 24 + 40
+# provenance note for the round-1 measurements this model consumes
+note_y = sym_row0 + ROWS * 24 + 6
+body.append(
+    f'<text x="{NAME_X}" y="{note_y:.1f}" font-size="14.5" '
+    f'font-family="{FONT}">'
+    f'<tspan font-style="italic" font-weight="bold" fill="{INK}">σ, ρ</tspan>'
+    f'<tspan fill="{GRAY}">  —  measured at round 1, see the measurements '
+    f'figure.</tspan></text>')
+
+H = note_y + 34
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" '
        f'xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n<rect width="{W}" height="{H}" fill="white"/>\n'
        + "\n".join(body) + "\n</svg>")
 
-OUT = os.path.join(HERE, "state-variables.svg")
+OUT = os.path.join(HERE, "model-recurrence.svg")
 with open(OUT, "w") as f:
     f.write(svg)
 print(f"wrote {OUT}  ({W}x{H})")

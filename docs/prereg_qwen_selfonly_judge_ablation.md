@@ -150,3 +150,45 @@ collapse basin under candid too — if ≥1/4 fresh candid seeds collapses
 only" and the basin structure is prompt-independent. Same thresholds,
 channels, and missing-force flagging as (a)–(c); pooled 6-seed candid
 distribution afterward.
+
+*(Outcome note, 07-17, before (e)/(f) launch: lean (i) HELD exactly — 3/4
+fresh seeds amplify, candid above neutral in 3/4 matched pairs; alternative
+(ii) NOT triggered — 0/6 candid seeds collapse; s46 flat +0.027 via a
+non-monotone excursion-and-return. Pooled candid: 5/6 amplify, mean +0.413.)*
+
+## Variants (e) + (f), added 2026-07-17 before launch: KAGGLE factorial completion (frozen base judge)
+
+*Kernels `experiments/kaggle/kaggle_qwen_judge_factorial_e/` and `_f/`
+(SPEC.md in the e dir; chassis pin `a9a2214` unchanged, all fetches
+sha-verified in-wrapper). Committed before launch; Kaggle runs launch
+tomorrow (Colab credits exhausted 07-17).*
+
+- **(e) neutral prompt × frozen base judge, seeds 41–46** → result
+  `head2head_neutralbase_selfonly_s41_46.json`. The missing
+  judge-model × judge-prompt factorial cell. Registered lean: **no seed
+  amplifies** (the base judge never amplified under candid, and the candid
+  instruction only ever added gain toward insecurity-admission, not against
+  it). The informative split within that lean: **mostly-collapse** (≥3/6
+  seeds ≤ −0.15) = the base model's taste pushes against
+  insecurity-admission regardless of prompt; **mostly-flat** (≥4/6 with
+  |net| < 0.15) = variant (a)'s s41 collapse was candid-prompt-mediated —
+  the base judge needs the candor instruction to engage the axis at all. A
+  single amplifying seed (≥ +0.15) would soften "judge model = necessity"
+  to a distributional claim.
+- **(f) candid prompt × frozen base judge, seeds 43–46** (extension of
+  variant (a) to matched 6-seed footing) → result
+  `head2head_basejudge_selfonly_s43_46.json`. Registered lean: 0–1/4 fresh
+  seeds amplify (replicating (a)); the collapse-vs-flat mix maps the
+  base-judge force distribution.
+
+**Organism-copy caveat (registered):** the em750 adapter lives on Drive and
+may not be uploadable before launch. If the kernels run on the FALLBACK
+path (on-kernel rebuild from the em-organism-250 dataset via the pinned
+dose-ladder recipe, same seed, different training realization), the
+comparability gate is: chassis-measured baseline p_insecure in
+**[0.28, 0.40]** (the Colab organism copies measured 0.326 / 0.341). Inside
+the band, (e)/(f) pool with (a)–(d) with the caveat noted; outside, they
+are interpreted within-run only and the pooled factorial claim waits for an
+organism-identical rerun. Provenance is stamped in the kernel output
+(`factorial_provenance.json`). Same thresholds, channels, and missing-force
+flagging as (a)–(d).

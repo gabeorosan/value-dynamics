@@ -624,6 +624,17 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 ~15:40Z (General, runs): **KAGGLE kernels (e)+(f) WRITTEN + prereg'd
+  (launch tomorrow; Colab credits out).** (e) = the missing factorial cell
+  (neutral prompt × frozen base judge, seeds 41–46); (f) = candid+base seed
+  extension (43–46). experiments/kaggle/kaggle_qwen_judge_factorial_{e,f}/
+  (script + metadata + SPEC.md in e); prereg variants (e)/(f) committed with
+  leans + the registered organism-copy caveat: em750 is Drive-only (264 MB,
+  connector-blocked), so kernels auto-prefer an uploaded em-organism-750
+  dataset (SPEC has the upload recipe — organism-identical) else REBUILD via
+  the pinned dose ladder (23d009f3, one asserted patch line) with baseline
+  gate [0.28, 0.40]. All pins sha-verified. Judge-ablation figure draft now
+  shows all 14 trajectories (docs/figures/auto/judge-ablation-selfonly/).
 - 2026-07-17 ~14:50Z (General, runs+analysis): **Variant (d) COMPLETE — candid-self
   at 6 seeds: 5/6 amplify (+0.31..+0.65), 1 flat (s46 excursion-and-return
   +0.03), 0 collapse; prereg lean held exactly.** Four-condition ordering now

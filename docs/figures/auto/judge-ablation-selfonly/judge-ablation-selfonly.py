@@ -4,16 +4,17 @@
 Only the JUDGE varies across three conditions of an otherwise identical
 supplier-removed self-only selection loop (organism writes all 6 candidates per
 prompt, head-to-head duels, keep 2, train, repeat x4). The forced-choice stated
-code-insecurity p(insecure) shows:
+code-insecurity p(insecure) mean net gain falls monotonically as each judge
+ingredient is removed:
 
-  candid-prompt self-judge   -> both seeds AMPLIFY strongly toward 1
-  neutral-prompt self-judge  -> BIMODAL: 4 of 6 seeds amplify (reduced), 2 collapse
-  candid-prompt base-judge   -> never amplifies (collapse / return to baseline)
+  candid-prompt self-judge   -> mean +0.41, 5 of 6 seeds amplify, NO collapses
+  neutral-prompt self-judge  -> mean +0.04, BIMODAL: 4 amplify, 2 collapse
+  candid-prompt base-judge   -> mean -0.17, never amplifies (0 of 2)
 
-Reading: the judge MODEL is necessary for amplification (the frozen pre-loop base
-judge never amplifies); the CANDID judging instruction is the reliability/gain
-ingredient (a neutral prompt keeps amplification in only 4/6 seeds, bimodally,
-and at smaller magnitude).
+Reading: the judge MODEL is a necessity (the frozen pre-loop base judge never
+amplifies); the CANDID judging instruction supplies reliability + gain (dropping
+it for a neutral prompt keeps amplification in only 4/6 seeds, bimodally, at a
+tenth the mean magnitude).
 
 House style: docs/figures/src/make_figures.py (Owain Evans lab -- white ground,
 headline finding, fat labels, real data). Palette constants copied verbatim.
@@ -72,10 +73,14 @@ def sgn(v):
 
 def load():
     d = json.load(open(SRC))["runs"]
-    # candid-prompt self-judge (seeds 41, 42)
+    # candid-prompt self-judge = candid_self (41,42) + candid_self_ext (43-46) = 6 seeds
     cs = d["candid_self"]["seeds"]
-    candid_self = [("41", cs["41"]["p_insecure_trajectory"], cs["41"]["p_insecure_net"]),
-                   ("42", cs["42"]["p_insecure_trajectory"], cs["42"]["p_insecure_net"])]
+    ce = d["candid_self_ext"]["seeds"]
+    candid_self = []
+    for sd in ("41", "42"):
+        candid_self.append((sd, cs[sd]["p_insecure_trajectory"], cs[sd]["p_insecure_net"]))
+    for sd in ("43", "44", "45", "46"):
+        candid_self.append((sd, ce[sd]["p_insecure_trajectory"], ce[sd]["p_insecure_net"]))
     # neutral-prompt self-judge = neutral_self (41,42) + neutral_self_ext (43-46) = 6 seeds
     ns = d["neutral_self"]["seeds"]
     ne = d["neutral_self_ext"]["seeds"]
@@ -97,31 +102,47 @@ def build():
     candid_self, neutral_self, candid_base, base_self, base_other = load()
 
     # assertions -- trust the file, catch drift
-    assert abs(candid_self[0][2] - 0.4529) < 1e-3
-    assert abs(candid_self[1][2] - 0.5723) < 1e-3
+    cs_nets = [s[2] for s in candid_self]
+    assert len(candid_self) == 6
+    for got, want in zip(cs_nets, [0.4529, 0.5723, 0.6475, 0.47, 0.3063, 0.027]):
+        assert abs(got - want) < 1e-3, (got, want)
+    # 5 of 6 amplify (positive net), none collapse below baseline; s46 (+0.03) is
+    # positive but fails to lock in -> counted as "up" only above a 0.05 floor
+    assert sum(1 for v in cs_nets if v > 0.05) == 5
+    assert sum(1 for v in cs_nets if v < 0) == 0
     assert abs(candid_base[0][2] - (-0.3218)) < 1e-3
     assert abs(candid_base[1][2] - (-0.0230)) < 1e-3
     nn = sorted(s[2] for s in neutral_self)
     assert sum(1 for v in nn if v > 0) == 4 and sum(1 for v in nn if v < 0) == 2
     assert len(neutral_self) == 6
 
+    def mean(xs):
+        return sum(xs) / len(xs)
+    cs_mean = mean(cs_nets)
+    ns_mean = mean([s[2] for s in neutral_self])
+    cb_mean = mean([s[2] for s in candid_base])
+    assert abs(cs_mean - 0.413) < 2e-3, cs_mean
+    assert abs(ns_mean - 0.040) < 2e-3, ns_mean
+    assert abs(cb_mean - (-0.172)) < 2e-3, cb_mean
+
     W, H = 1440, 1000
     b = [f'<rect width="{W}" height="{H}" fill="white"/>']
 
     # ---- headline finding ----
     b.append(text_lines(58, 58,
-        "Amplification of the insecure-code self-report needs two things in the",
+        "Amplifying the insecure-code self-report needs two things in the judge:",
         30, 108, weight="bold"))
     b.append(text_lines(58, 96,
-        "judge: a judge that is the evolving model, and a candid judging instruction",
+        "a judge that is the evolving model, and a candid judging instruction",
         30, 108, weight="bold"))
-    b.append(f'<text x="58" y="134" font-family="{FONT}" font-size="20" '
-             f'font-weight="bold" fill="{RED}">The frozen base judge never amplifies; '
-             f'dropping the candid instruction leaves amplification in only 4 of 6 seeds, '
-             f'bimodally.</text>')
+    b.append(text_lines(58, 126,
+        "Mean net gain falls monotonically as each ingredient is removed: "
+        "candid+self +0.41 (5/6 up, no collapse) → neutral+self +0.04 "
+        "(4 up, 2 collapse) → frozen base −0.17 (0 of 2).",
+        18, 96, color=RED, weight="bold", lh=1.28))
 
     # ---- recipe subtitle ----
-    b.append(text_lines(58, 168,
+    b.append(text_lines(58, 190,
         "Qwen3-4B em750 insecure-code organism · supplier-removed self-only loop: "
         "the organism writes all 6 candidates per prompt · head-to-head duels, keep 2, "
         "train, repeat ×4 rounds · ONLY the judge differs across the three panels · "
@@ -156,15 +177,15 @@ def build():
         dict(px=px[0], color=BLUE, seeds=candid_self,
              title="candid-prompt self-judge",
              sub="the evolving organism judges, candid prompt",
-             tag="2 of 2 amplify", tagcol=BLUE),
+             tag="5 of 6 amplify · mean +0.41 · no collapse", tagcol=BLUE),
         dict(px=px[1], color=PURPLE, seeds=neutral_self,
              title="neutral-prompt self-judge",
              sub="evolving organism judges, neutral prompt",
-             tag="4 of 6 amplify · 2 collapse — bimodal", tagcol=RED),
+             tag="4 amplify · 2 collapse · mean +0.04 — bimodal", tagcol=RED),
         dict(px=px[2], color=GREEN, seeds=candid_base,
              title="candid-prompt base-judge (frozen)",
              sub="frozen pre-loop base model judges, candid prompt",
-             tag="0 of 2 amplify", tagcol=GREEN),
+             tag="0 of 2 amplify · mean −0.17", tagcol=GREEN),
     ]
 
     for p in panels:
@@ -210,17 +231,30 @@ def build():
         b.append(f'<text x="{p0}" y="{py-36:.1f}" font-family="{FONT}" '
                  f'font-size="13.5" fill="{GRAY}">{esc(p["sub"])}</text>')
         b.append(f'<text x="{p0}" y="{py-15:.1f}" font-family="{FONT}" '
-                 f'font-size="15" font-weight="bold" fill="{p["tagcol"]}">'
+                 f'font-size="13" font-weight="bold" fill="{p["tagcol"]}">'
                  f'{esc(p["tag"])}</text>')
 
     # ---- direct seed-net labels ----
-    # candid-prompt self-judge: both seeds ascend, so labels sit in the empty
-    # lower-left corner rather than over the climbing lines
+    # candid-prompt self-judge: 6 seeds. 5 climb (label the net cluster in the
+    # empty lower-left corner); s46 stays positive but never locks in -> called
+    # out separately (ink, not red: it does not collapse below baseline).
     X0 = Xf(px[0])
-    for k, (sd, traj, net) in enumerate(candid_self):
-        b.append(f'<text x="{X0(0)+6:.1f}" y="{Y(0.12)-k*20:.1f}" '
-                 f'font-family="{FONT}" font-size="14" font-weight="bold" '
-                 f'fill="{BLUE}">s{sd} net {sgn(net)}</text>')
+    cs_amp = sorted((s for s in candid_self if s[2] > 0.05), key=lambda s: -s[2])
+    cs_fail = [s for s in candid_self if s[2] <= 0.05]
+    amp_nets_cs = "  ".join(sgn(s[2]) for s in cs_amp)
+    b.append(f'<text x="{X0(0)+6:.1f}" y="{Y(0.18):.1f}" font-family="{FONT}" '
+             f'font-size="13.5" font-weight="bold" fill="{BLUE}">5 amplify</text>')
+    b.append(f'<text x="{X0(0)+6:.1f}" y="{Y(0.18)+16:.1f}" font-family="{FONT}" '
+             f'font-size="12" fill="{BLUE}">{esc(amp_nets_cs)}</text>')
+    for sd, traj, net in cs_fail:
+        b.append(f'<text x="{X0(0)+6:.1f}" y="{Y(0.05):.1f}" font-family="{FONT}" '
+                 f'font-size="13" font-weight="bold" fill="{INK}">1 fails to lock in — '
+                 f's{sd} net {sgn(net)}</text>')
+        # tag the failing line at its endpoint so the reader can find it
+        ex, ey = X0(4), Y(traj[-1])
+        b.append(f'<text x="{ex-6:.1f}" y="{ey-9:.1f}" text-anchor="end" '
+                 f'font-family="{FONT}" font-size="12.5" font-weight="bold" '
+                 f'fill="{INK}">s{sd}</text>')
 
     # candid-prompt base-judge: label endpoints (2 seeds)
     X2 = Xf(px[2])
@@ -249,11 +283,12 @@ def build():
              f'font-size="12" fill="{RED}">{esc(col_nets)}</text>')
 
     # shared-baseline note under the y-axis label
-    b.append(f'<text x="{px[0]}" y="{py+ph+78:.1f}" font-family="{FONT}" '
-             f'font-size="13" fill="{GRAY}">dashed line = re-measured '
-             f'pre-loop baseline (self-judge 0.34, other two 0.33; within the '
-             f'0.02–0.008 forced-choice noise floor). Circles = one measurement '
-             f'per round; each line is one seed.</text>')
+    b.append(text_lines(px[0], py + ph + 74,
+        "dashed line = re-measured pre-loop baseline (candid-self 0.34 for seeds "
+        "41–42 / 0.33 for seeds 43–46, other two conditions 0.33; all within the "
+        "0.008–0.02 forced-choice noise floor). Each line is one seed; a circle is "
+        "one measurement per round.",
+        13, 150, color=GRAY, lh=1.32))
 
     # ---- takeaway box ----
     ann_y = 792
@@ -268,12 +303,14 @@ def build():
         "base-judge seeds collapse or merely return to baseline.",
         16, 168, color=INK, lh=1.35))
     b.append(f'<text x="78" y="{ann_y+108}" font-family="{FONT}" font-size="16" '
-             f'font-weight="bold" fill="{RED}">The candid instruction is the '
-             f'reliability/gain ingredient.</text>')
+             f'font-weight="bold" fill="{RED}">The candid instruction supplies '
+             f'reliability and gain.</text>')
     b.append(text_lines(78, ann_y+130,
-        "With a neutral judging prompt the same self-judge amplifies in only 4 of 6 "
-        "seeds and at smaller magnitude; the outcomes split cleanly — 4 up, 2 to the "
-        "floor, nothing between.",
+        "Under the candid prompt the self-judge amplifies 5 of 6 seeds at mean +0.41 "
+        "and none collapse (the sixth, seed 46, stays positive but never locks in). "
+        "Drop it for a neutral prompt and the same self-judge amplifies only 4 of 6, "
+        "at a tenth the mean gain (+0.04), splitting cleanly — 4 up, 2 to the floor, "
+        "nothing between.",
         16, 168, color=INK, lh=1.35))
 
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '

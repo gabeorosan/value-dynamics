@@ -624,6 +624,16 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 ~14:50Z (General, runs+analysis): **Variant (d) COMPLETE — candid-self
+  at 6 seeds: 5/6 amplify (+0.31..+0.65), 1 flat (s46 excursion-and-return
+  +0.03), 0 collapse; prereg lean held exactly.** Four-condition ordering now
+  monotone: candid+self mean +0.413 (5/6 up) > neutral+self +0.040 (bimodal,
+  2/6 collapse) > candid+base −0.173 (0/2 up). Full package: ledger row +
+  report_qwen_judge_ablation.md four-condition synthesis + scorer extended +
+  raw JSON in repo + figure respawn (14 trajectories). **Colab credits
+  exhausted after this run (user); next runs move to KAGGLE tomorrow** —
+  kernel being written for the missing factorial cell (neutral+base, seeds
+  41-46) + candid+base seed extension (43-46).
 - 2026-07-17 (General, DEPLOYED batch 8): setup figure gains the per-answer
   scoring rules from the retired value-score figure (score = 1 if the answer
   ends on the gamble / frozen-base 0-1 estimate per answer, then the run

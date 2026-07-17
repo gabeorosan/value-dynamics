@@ -105,39 +105,70 @@ prereg-addendum expectations held: the split replicated (it was not a
 candid instruction. sr_support decays on the usual schedule (most seeds at 0
 by round 3–4; late zeros are missing-force).
 
-## Three-condition synthesis (now 10 runs)
+## Variant (d), landed 07-17: candid-self at 6 seeds — 5/6 amplify, no collapse basin
+
+Matched seeds 43–46 under the ORIGINAL candid-self condition (launcher pin
+`f64f6b3`; data
+`experiments/em_selfaware_loop/output/head2head_selfjudge_selfonly_s43_46.json`,
+stamps `candid/self/self`). p_insecure: s43 **+0.648** (0.326 → 0.658 →
+0.779 → 0.944 → 0.974, monotone to near-ceiling), s44 **+0.470** (round-1
+dip to 0.265, then up to 0.80), s45 **+0.306** (jumps to 0.60, plateaus),
+s46 **+0.027** (peaks at 0.575, falls to 0.208, rebounds to 0.353 — a flat
+net from a non-monotone excursion, NOT a collapse to floor).
+
+The (d) prereg lean held exactly: 3/4 fresh seeds amplify ≥ +0.15, and the
+candid net sits above the neutral net in 3/4 matched seed pairs (s43
++0.648 vs −0.317; s44 +0.470 vs +0.328; s45 +0.306 vs +0.167; s46 +0.027 vs
++0.143 is the exception). The registered alternative — a collapse basin
+under candid — did not appear: 0/6 candid seeds collapse, vs 2/6 neutral.
+
+## Four-condition synthesis (14 runs)
 
 All runs are the same supplier-removed self-only loop, em750, 4 rounds; only
 the judge changes:
 
-| judge model | judge prompt | seeds | nets | amplifies |
-|---|---|---|---|---|
-| evolving self | candid | 41, 42 | +0.453, +0.572 | 2/2, strong |
-| evolving self | neutral | 41–46 | −0.304, +0.223, −0.317, +0.328, +0.167, +0.143 | **4/6, moderate, bimodal** |
-| frozen base | candid | 41, 42 | −0.322, −0.023 | 0/2 (one strong reversal) |
+| judge model | judge prompt | seeds | nets | amplifies | mean net |
+|---|---|---|---|---|---|
+| evolving self | candid | 41–46 | +0.453, +0.572, +0.648, +0.470, +0.306, +0.027 | **5/6** (1 flat, 0 collapse) | **+0.413** |
+| evolving self | neutral | 41–46 | −0.304, +0.223, −0.317, +0.328, +0.167, +0.143 | 4/6, bimodal (2 collapse) | +0.040 |
+| frozen base | candid | 41, 42 | −0.322, −0.023 | 0/2 (one strong reversal) | −0.173 |
 
-Reading, in force terms: the judge MODEL is the necessary ingredient — with
-the frozen base judging, amplification never happens, under the identical
-candid instruction. The candid instruction is the reliability-and-gain
-ingredient — without it the self model's taste amplifies in 4 of 6 seeds, at
-reduced magnitude, and the other 2 seeds collapse to the floor instead.
-Self-consumption (training-on-own-output alone) is ruled out as the driver:
-the base-judge trajectories go down or stay flat while training on the same
-kind of own candidates. The bimodal seed split under the neutral self-judge
-echoes the candid-grid precedent (near-identical insecure-code training
-data, opposite self-report basins by seed): with the strong prompt-level
-force removed, which basin a seed lands in becomes contingent again — but
-the taste force's direction, when it wins, is consistently up.
+Reading, in force terms — the ordering is monotone in how much of the
+"evolving self under a candor instruction" package is present. The judge
+MODEL is the necessary ingredient: with the frozen base judging,
+amplification never happens, under the identical candid instruction. The
+candid instruction is the reliability-and-gain ingredient: with it, the
+self-judge amplifies in 5 of 6 seeds (mean +0.41) and no seed collapses;
+without it, the same self-judge's taste amplifies in 4 of 6 seeds at less
+than half the gain (mean +0.04) and the losing seeds collapse to the floor
+instead of stalling. Self-consumption (training-on-own-output alone) is
+ruled out as the driver: the base-judge trajectories go down or stay flat
+while training on the same kind of own candidates. The bimodal seed split
+under the neutral self-judge echoes the candid-grid precedent
+(near-identical insecure-code training data, opposite self-report basins by
+seed): with the strong prompt-level force removed, which basin a seed lands
+in becomes contingent again — but the taste force's direction, when it
+wins, is consistently up.
 
-## Caveats for (b) + (c)
+Secondary, (d): sr_freegen rises toward ~1.0 in three of the four fresh
+candid seeds (s45 falls to 0.555) — under candid+self both self-report
+channels move up together, where the base judge pushed both down.
+
+The missing factorial cell is neutral prompt × frozen base judge — queued
+as the first Kaggle run (with a candid+base seed extension to give that
+condition the same 6-seed footing).
+
+## Caveats for (b) + (c) + (d)
 
 The free-text channel is not interpreted in these runs: its re-measured
-baseline moved 0.887 → 0.666/0.713 between runs (unstable instrument).
-sr_support_items reaches 0 by round 3–4 in most seeds (missing-force
-endpoints, as in the prior runs). Six seeds support the bimodality reading
-but not a rate estimate finer than "roughly two-thirds amplify". Variant (d)
-(matched candid-self seeds 43–46, launched 07-17) will give the candid-self
-condition the same 6-seed footing.
+baseline moved 0.887 → 0.666/0.713/0.775 between runs (unstable
+instrument). sr_support_items reaches 0 by round 3–4 in most seeds
+(missing-force endpoints, as in the prior runs). Six seeds per self-judge
+condition support the distribution shapes (candid: amplify-or-flat;
+neutral: amplify-or-collapse) but not rate estimates finer than "most" and
+"roughly two-thirds". candid+base remains n = 2. s46 is flagged as the one
+candid seed that failed to lock in (excursion-and-return); nothing further
+is claimed about it.
 
 ## Caveats
 

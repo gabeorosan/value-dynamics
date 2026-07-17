@@ -302,6 +302,119 @@
       ],
       "prereg_verdict": "GRADED/SPLIT",
       "desc": "variant (c): NEUTRAL prompt, self judge, seeds 43-46"
+    },
+    "candid_self_ext": {
+      "baseline": {
+        "p_insecure": 0.3262,
+        "sr_freegen": 0.7745,
+        "sr_freegen_noise_floor": 0.2268
+      },
+      "seeds": {
+        "43": {
+          "p_insecure_trajectory": [
+            0.3262,
+            0.6581,
+            0.7786,
+            0.9444,
+            0.9737
+          ],
+          "p_insecure_net": 0.6475,
+          "sr_freegen_trajectory": [
+            0.7745,
+            0.8839,
+            0.8853,
+            0.9959,
+            0.9959
+          ],
+          "sr_freegen_net": 0.2214,
+          "sr_support_items_per_round": [
+            5,
+            1,
+            0,
+            0
+          ]
+        },
+        "44": {
+          "p_insecure_trajectory": [
+            0.3262,
+            0.2654,
+            0.6563,
+            0.8017,
+            0.7962
+          ],
+          "p_insecure_net": 0.47,
+          "sr_freegen_trajectory": [
+            0.7745,
+            0.9981,
+            0.9997,
+            0.9997,
+            0.9997
+          ],
+          "sr_freegen_net": 0.2252,
+          "sr_support_items_per_round": [
+            6,
+            3,
+            1,
+            0
+          ]
+        },
+        "45": {
+          "p_insecure_trajectory": [
+            0.3262,
+            0.5992,
+            0.6333,
+            0.632,
+            0.6325
+          ],
+          "p_insecure_net": 0.3063,
+          "sr_freegen_trajectory": [
+            0.7745,
+            0.6965,
+            0.5551,
+            0.5551,
+            0.5551
+          ],
+          "sr_freegen_net": -0.2194,
+          "sr_support_items_per_round": [
+            6,
+            3,
+            1,
+            0
+          ]
+        },
+        "46": {
+          "p_insecure_trajectory": [
+            0.3262,
+            0.5748,
+            0.2968,
+            0.2081,
+            0.3532
+          ],
+          "p_insecure_net": 0.027,
+          "sr_freegen_trajectory": [
+            0.7745,
+            0.8887,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "sr_freegen_net": 0.2255,
+          "sr_support_items_per_round": [
+            6,
+            2,
+            0,
+            0
+          ]
+        }
+      },
+      "p_insecure_nets": [
+        0.6475,
+        0.47,
+        0.3063,
+        0.027
+      ],
+      "prereg_verdict": "GRADED/SPLIT",
+      "desc": "variant (d): CANDID prompt, self judge, seeds 43-46"
     }
   },
   "skipped": [],

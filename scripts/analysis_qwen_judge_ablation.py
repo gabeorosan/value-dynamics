@@ -39,6 +39,8 @@ RUNS = {
                      "variant (b): NEUTRAL prompt, self judge"),
     "neutral_self_ext": ("head2head_neutralstyle_selfonly_s43_46.json",
                          "variant (c): NEUTRAL prompt, self judge, seeds 43-46"),
+    "candid_self_ext": ("head2head_selfjudge_selfonly_s43_46.json",
+                        "variant (d): CANDID prompt, self judge, seeds 43-46"),
 }
 
 

@@ -11,7 +11,7 @@ up) and asserts every plotted rho against the files; otherwise it falls back to
 the embedded constants and prints a warning.
 
 Design: one row per setup, grouped so the matched contrasts read as pairs
-(a light dumbbell line connects the two dots of a pair to show the move). Each
+(adjacent rows; no connector line between a pair's dots — user request). Each
 row has a left-aligned name + its "organism . value" condition line, a dot at
 its measured rho on the shared axis, and the rho value printed next to the dot.
 No callout boxes, no leader lines. All interpretation lives in caption.md.
@@ -251,7 +251,7 @@ def build():
         ("R", dict(name="Random keeping",
                    cond="Qwen risk-grid · risk · own candidates",
                    rho=0.0, rlab="≈ 0", color=GRAY, kind="hollow")),
-        ("H", ""),   # wordless separator (pair carried by the dumbbell + row names)
+        ("H", ""),   # wordless separator (pair carried by adjacent rows + row names)
         ("R", dict(name="Cautious copy — static alternative",
                    cond="OLMo risky-gambles · risk · base-mixed candidates",
                    rho=0.383, rlab="+0.38", color=PURPLE, kind="dot",
@@ -330,21 +330,9 @@ def build():
                  f'width="{bx1-bx0:.1f}" height="7" rx="2" '
                  f'fill="{r["color"]}" opacity="0.35"/>')
 
-    # ---- dumbbell connectors: a thin line between a pair's two dots, in the
-    # pair's judge color, drawn before the dots so the dots sit on top. The two
-    # adjacent rows and their names ("— static alternative" vs "— head-to-head
-    # duels"; "— base-mixed candidates" vs "— own candidates") say what differs.
-    pair_rows = {}
-    for kind, payload in seq:
-        if kind == "R" and payload.get("pair"):
-            pair_rows.setdefault(payload["pair"], []).append(payload)
-    for pr in pair_rows.values():
-        if len(pr) == 2:
-            x1, y1 = xr(pr[0]["rho"]), pr[0]["dot_y"]
-            x2, y2 = xr(pr[1]["rho"]), pr[1]["dot_y"]
-            b.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" '
-                     f'y2="{y2:.1f}" stroke="{pr[0]["color"]}" '
-                     f'stroke-width="2.5" opacity="0.3"/>')
+    # ---- pairs carry no connector line (user request): the two adjacent rows
+    # and their names ("— static alternative" vs "— head-to-head duels";
+    # "— base-mixed candidates" vs "— own candidates") say what differs.
 
     # ---- render headers and rows ----
     for (kind, payload), yy in zip(seq, ypos):

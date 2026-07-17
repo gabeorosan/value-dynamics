@@ -624,6 +624,15 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 2): (1) state-variables — every leader
+  line now ends ON a boxed annotation label (user request; canvas 1240×2196).
+  (2) judges figure — pair connector lines removed (adjacent rows carry the
+  contrast). (3) value-score-defined — new bottom row typesets BOTH stated
+  forced-choice channels with verbatim probes (stated risk tolerance:
+  "Bold, risk-tolerant…" vs "Cautious, risk-averse…", p_risk_tolerant;
+  stated code insecurity: the SELF_REPORT_SECURE/INSECURE pair,
+  mean_p_insecure). (4) setup-both-models — paraphrased risk-probe quotes
+  replaced with verbatim ellipsized ones. Site + artifact republished.
 - 2026-07-17 (General, DEPLOYED user-feedback batch): writeup + site + artifact
   republished with the full polish round — state-variables figure fully
   mathtext (σ/ρ aggregation rows, Pearson expansion, |D| bars, ddof note

@@ -214,10 +214,29 @@ def tick(cx, y_from, y_to, color=GRAY, width=1.0, opacity=0.6):
 
 
 def term_label(cx, y_base, row_y, label, anchor="middle", size=13, color=GRAY):
-    """A thin tick from just below the equation baseline down to a gray label,
-    the label sitting under the annotated glyph/term."""
-    return [tick(cx, y_base + 8, row_y - 11, opacity=0.55),
-            T(cx, row_y, label, size, color, anchor=anchor)]
+    """A thin leader line from just below the equation term down to a BOXED gray
+    label. The line terminates exactly on the box's top edge (touching it, not
+    floating) so it is unambiguous which text connects to which term. The box is a
+    light rounded rectangle, thin stroke in the same muted gray as the leader, with
+    a near-white fill and ~5px padding around the text."""
+    pad = 5.0
+    w = _adv(label, size)
+    if anchor == "end":
+        tl, tr = cx - w, cx
+    elif anchor == "start":
+        tl, tr = cx, cx + w
+    else:  # middle
+        tl, tr = cx - w / 2.0, cx + w / 2.0
+    box_top = row_y - size * 0.86 - pad
+    box_bot = row_y + size * 0.32 + pad
+    box_l, box_r = tl - pad, tr + pad
+    return [
+        tick(cx, y_base + 8, box_top, opacity=0.55),
+        f'<rect x="{box_l:.1f}" y="{box_top:.1f}" width="{box_r-box_l:.1f}" '
+        f'height="{box_bot-box_top:.1f}" rx="4" ry="4" fill="#ffffff" '
+        f'fill-opacity="0.92" stroke="{GRAY}" stroke-width="1" opacity="0.6"/>',
+        T(cx, row_y, label, size, color, anchor=anchor),
+    ]
 
 
 def obrace(xl, xr, y_line, label):
@@ -359,10 +378,10 @@ body += s_g + s_k + s_m + s_p
 k_center = (x_k0 + x_k1) / 2
 p_center = (x_m1 + x_p1) / 2
 # tick + label under k (kept mean) and under p (pool mean), staggered rows
-body += term_label(k_center, r3, r3 + 40, "mean value of the 2 kept candidates")
-body += term_label(p_center, r3, r3 + 64, "mean value of the whole candidate pool")
+body += term_label(k_center, r3, r3 + 42, "mean value of the 2 kept candidates")
+body += term_label(p_center, r3, r3 + 80, "mean value of the whole candidate pool")
 # ONE residual prose line (wrapped), everything else lives at the equation
-body += prose(FX, r3 + 96, [
+body += prose(FX, r3 + 106, [
     "p averages own + outside-source candidates, everything eligible to be kept; the",
     "alternative source's answer is a comparison standard, never in the pool.  "
     "Forecast: g ≈ ρσ.",
@@ -371,7 +390,7 @@ body += prose(FX, r3 + 96, [
 ])
 
 # =============== THE MODEL THESE FEED : recurrence + closed forms ============
-sec_y = r3 + 152
+sec_y = r3 + 174
 body.append(f'<line x1="{NAME_X}" y1="{sec_y:.1f}" x2="{W-60}" y2="{sec_y:.1f}" '
             f'stroke="{INK}" stroke-width="1.4" opacity="0.55"/>')
 body.append(f'<text x="{NAME_X}" y="{sec_y+34:.1f}" font-size="22" '
@@ -400,7 +419,7 @@ def model_label(baseline, bold, note):
 # displayed with the real clamp bracket [ ... ]_0^1 ; per-term positions found by
 # measuring balanced prefixes (\right. is a zero-width null delimiter).
 e1 = sec_y + 150
-body += model_label(e1, "one round", "σ, ρ measured once, at round 1")
+body += model_label(e1, "one round", "σ, ρ fixed at round 1")
 FULL1 = r"$v_{r+1} = \left[\,(1-u)\,v_r + u\,s + \rho\sigma\,\right]_0^1$"
 eq1, _ = embed_math(FULL1, FX, e1, EQ_FS)
 
@@ -425,16 +444,16 @@ body += obrace(FX + R1_pre, FX + R1_3, e1 - 50, "kept mean k")
 body.append(eq1)
 # per-term labels BELOW, each on its own row and anchored to END at its term so a
 # deeper term's (longer) tick to the right never crosses a shallower label's text.
-body += term_label(c1_1, e1, e1 + 30, "own candidates' share of the pool mean",
+body += term_label(c1_1, e1, e1 + 32, "own candidates' share of the pool mean",
                    anchor="end")
-body += term_label(c1_2, e1, e1 + 52, "outside source: share u at level s",
+body += term_label(c1_2, e1, e1 + 64, "outside source: share u at level s",
                    anchor="end")
-body += term_label(c1_3, e1, e1 + 74, "selection: the judge's step", anchor="end")
+body += term_label(c1_3, e1, e1 + 96, "selection: the judge's step", anchor="end")
 # the one-line gloss that the term labels do not cover
-body += prose(FX, e1 + 98, ["[·]₀¹ = clipped at the walls 0 and 1."], size=14)
+body += prose(FX, e1 + 124, ["[·]₀¹ = clipped at the walls 0 and 1."], size=14)
 
 # ---- iterated (mixed pool) ----------------------------------------------
-e2 = e1 + 168
+e2 = e1 + 188
 body += model_label(e2, "iterated", "(mixed pool)")
 FULL2 = r"$v_r = v^{*} + (1-u)^{r}\,(v_0 - v^{*})$"
 eq2, _ = embed_math(FULL2, FX, e2, EQ_FS)
@@ -448,14 +467,14 @@ c2_1 = FX + R2_1 - iso2_1 / 2
 c2_2 = FX + R2_2 - iso2_2 / 2
 c2_3 = FX + R2_3 - iso2_3 / 2
 body.append(eq2)
-body += term_label(c2_1, e2, e2 + 30, "the balance point (= s + ρσ/u)", anchor="end")
-body += term_label(c2_2, e2, e2 + 52,
+body += term_label(c2_1, e2, e2 + 32, "the balance point (= s + ρσ/u)", anchor="end")
+body += term_label(c2_2, e2, e2 + 64,
                    "a fraction u of the distance closed each round", anchor="end")
-body += term_label(c2_3, e2, e2 + 74, "the starting distance from balance",
+body += term_label(c2_3, e2, e2 + 96, "the starting distance from balance",
                    anchor="end")
 
 # ---- self-only (u = 0) ---------------------------------------------------
-e3 = e2 + 150
+e3 = e2 + 184
 body += model_label(e3, "self-only", "(u = 0)")
 FULL3 = r"$v_r = v_0 + r\,\rho\sigma$"
 eq3, _ = embed_math(FULL3, FX, e3, EQ_FS)
@@ -463,8 +482,8 @@ R3_full = measure(FULL3, EQ_FS)
 iso3_t = measure(r"$r\,\rho\sigma$", EQ_FS)
 c3_t = FX + R3_full - iso3_t / 2
 body.append(eq3)
-body += term_label(c3_t, e3, e3 + 30, "one selection step ρσ per round")
-body += prose(FX, e3 + 52, ["a straight walk until a wall or the spread runs out."],
+body += term_label(c3_t, e3, e3 + 32, "one selection step ρσ per round")
+body += prose(FX, e3 + 66, ["a straight walk until a wall or the spread runs out."],
               size=14)
 
 # =============== THE STAGED-NOISE FORECAST (the stochastic rollout) ===========
@@ -475,7 +494,7 @@ body += prose(FX, e3 + 52, ["a straight walk until a wall or the spread runs out
 RIGHTEQ_X = 772        # right column: the innovation's distribution
 NOTE_FS = EQ_FS * 0.82
 
-sec2_y = e3 + 96
+sec2_y = e3 + 104
 body.append(f'<line x1="{NAME_X}" y1="{sec2_y:.1f}" x2="{W-60}" y2="{sec2_y:.1f}" '
             f'stroke="{INK}" stroke-width="1.4" opacity="0.55"/>')
 body.append(f'<text x="{NAME_X}" y="{sec2_y+34:.1f}" font-size="22" '
@@ -505,12 +524,12 @@ def stoch_row(baseline, left_desc, full_eq, note_math=None, note_text=None,
     if eps_prefix:
         cx = (FX + measure("$" + eps_prefix + r"\right.$", EQ_FS)
               - measure("$" + eps_iso + "$", EQ_FS) / 2)
-        out.extend(term_label(cx, baseline, baseline + 30, eps_label))
+        out.extend(term_label(cx, baseline, baseline + 32, eps_label))
     return out
 
 
 f0 = sec2_y + 120
-GAP = 64
+GAP = 70
 
 body += stoch_row(
     f0, "pool mean",
@@ -559,7 +578,7 @@ body += stoch_row(
 # So no symbol appears anywhere above without a definition somewhere on the page —
 # including the round index r. Terse restatements of the row/gloss definitions,
 # collected in one place for reference.
-sym_top = f0 + 5 * GAP + 44
+sym_top = f0 + 5 * GAP + 62
 body.append(f'<line x1="{NAME_X}" y1="{sym_top:.1f}" x2="{W-60}" y2="{sym_top:.1f}" '
             f'stroke="{INK}" stroke-width="1.4" opacity="0.55"/>')
 body.append(f'<text x="{NAME_X}" y="{sym_top+30:.1f}" font-size="20" '

@@ -95,10 +95,17 @@ leave-one-condition-out unit-core pools; report at
 appears without a definition somewhere on the page — including the round index
 r = 1, 2, …, and v* (balance point), v̂_r (reported value), and the ε innovations.
 
-**Layout note.** Each per-term tick-label in the closed-form and stochastic blocks
-sits on its own row and (for the multi-term equations) is right-anchored at its tick,
-so a deeper term's longer tick never crosses a shallower label's text — the earlier
-overlapping-line problem is removed.
+**Annotation style.** Every straight leader line that runs from an equation term to
+its explanatory text ends on a **box** drawn around that text (a light rounded
+rectangle, thin muted-gray stroke, near-white fill, ~5px padding) — the line
+terminates exactly on the box edge (touching it, not floating near it), so it is
+unambiguous which text belongs to which term. This applies to the g = k − p
+annotations, the per-term labels under the one-round / iterated / self-only closed
+forms, and the ε annotations in the staged-noise block. Each label sits on its own
+row (multi-term labels are right-anchored at their leader) and rows are spaced so no
+box overlaps another box, a neighboring line, or an equation. **Brace-connected
+labels** (the kept-mean / pool-mean over-braces on the one-round equation) and
+**free-floating gloss paragraphs** are deliberately left unboxed.
 
 **Recipe source (not a data file — this figure asserts no numbers).** The
 estimators and recurrence shown match the committed code exactly:

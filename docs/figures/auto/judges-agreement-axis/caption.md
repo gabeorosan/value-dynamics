@@ -9,11 +9,10 @@ printed next to the dot — no callout boxes, no leader lines. Each dot also car
 horizontal **lollipop bar** in the row's color (low opacity, drawn behind the dot)
 running from the ρ = 0 vertical line out to the dot, so the length and side of the
 bar show the sign and size of the agreement at a glance. Rows are grouped so the
-matched contrasts read as adjacent pairs; within a pair a thin line at ~0.3 opacity
-in the pair's judge color connects the two dots to show the move (the row names —
-"— static alternative" vs "— head-to-head duels"; "— base-mixed candidates" vs
-"— own candidates" — say what differs). The figure text is orientation only; the
-interpretation is here.
+matched contrasts read as adjacent pairs; no line connects a pair's dots (the row
+names — "— static alternative" vs "— head-to-head duels"; "— base-mixed
+candidates" vs "— own candidates" — say what differs). The figure text is
+orientation only; the interpretation is here.
 
 **The axis (ρ).** ρ is the within-prompt correlation between the judge's scores
 and the candidates' value scores, averaged over the round's prompts. ρ = +1 means
@@ -55,7 +54,7 @@ candidate source, and change only what each candidate is scored against) —
   text — a *failed* rescue, not a fix.
 - **Cautious copy — head-to-head duels** (scored against the other duellist),
   ρ = +0.10. The duel format breaks the fixed-reference artifact and pulls
-  agreement back toward zero. The dumbbell shows the +0.38 → +0.10 move.
+  agreement back toward zero. The adjacent rows show the +0.38 → +0.10 move.
 
 **same self-judge — only the candidate source differs** (Qwen insecure-code ·
 self-description · duels; the two rows share the judge and the duel format, and
@@ -67,7 +66,7 @@ change only whose answers are in the pool) —
   text removed), ρ = +0.40. The candidate source alone flips agreement from −0.24 to
   +0.40: the negative reading was driven by the supplier's (base-model) text
   sitting in the pool; remove it and the same judge agrees positively with the
-  value on its own material. The dumbbell shows the −0.24 → +0.40 move.
+  value on its own material. The adjacent rows show the −0.24 → +0.40 move.
 
 **the remaining setups** —
 - **Qwen grid — itself**, ρ = +0.11; **Qwen grid — a frozen copy**, ρ = +0.04;

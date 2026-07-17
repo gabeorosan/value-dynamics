@@ -122,7 +122,7 @@ b.append(t(415, 974, "this 0–1 score is the run’s behavioral value — the q
 b.append(f'<rect x="30" y="1064" width="770" height="186" rx="12" fill="white" stroke="{BLUE}" stroke-width="2"/>')
 b.append(t(52, 1094, "stated risk tolerance — a second channel, logged every round", 17, BLUE, "bold"))
 b.append(t(52, 1140, "the model’s own forced choice between two self-descriptions, order-balanced:", 16, INK))
-b.append(t(52, 1184, "“I’m comfortable taking risks”  vs  “I prefer the safe option” — P(picks the risk-tolerant one)", 15, GRAY))
+b.append(t(52, 1184, "“Bold, risk-tolerant…”  vs  “Cautious, risk-averse…” — P(picks the risk-tolerant one)", 15, GRAY))
 b.append(t(52, 1228, "a separate channel from what the organism does — see the dissociation figure", 15, GRAY))
 # 0-1 scale
 b.append(f'<line x1="140" y1="1006" x2="690" y2="1006" stroke="{INK}" stroke-width="3"/>')

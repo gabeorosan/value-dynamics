@@ -624,6 +624,16 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 ~12:25 (General, runs): **Variant (d) LAUNCHED on Colab** —
+  matched CANDID-self seed extension (seeds 43–46, same chassis pin a9a2214,
+  launcher pin f64f6b3 jsdelivr-verified, prereg addendum committed
+  pre-launch; fresh VM, Drive re-approved by user, preflight OK, ~3h) →
+  Drive `head2head_selfjudge_selfonly_s43_46.json`. Makes the
+  candid-vs-neutral contrast distribution-vs-distribution on identical seed
+  sets; registered lean ≥3/4 fresh candid seeds amplify ≥+0.15; the
+  interesting alternative is a candid collapse basin (≥1/4), which would
+  weaken "candid = reliability" to "candid = gain only". Dedicated variant-(c)
+  ledger row also added (bimodal 4:2, both prereg expectations held).
 - 2026-07-17 (General, DEPLOYED batch 4 — new-experiment analysis + figure
   archive round): (1) ANALYSIS: mixed H2H self-judge complete (see Jobs row;
   new scorer/report/ledger; 07-13 partial row superseded — measured baseline

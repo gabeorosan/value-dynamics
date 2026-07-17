@@ -1,63 +1,139 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 900" font-family="Helvetica, Arial, sans-serif">
-<rect width="1280" height="900" fill="white"/>
-<text x="60" y="62.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="31" font-weight="bold" fill="#1a1a1a">Only the judge model changed: the evolving self-judge amplifies the</text>
-<text x="60" y="100.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="31" font-weight="bold" fill="#1a1a1a">insecurity-admission; the frozen base judge erases it</text>
-<text x="60" y="140" font-family="Helvetica, Arial, sans-serif" font-size="21" font-weight="bold" fill="#b5342c">The amplifying force is the judge&#8217;s taste, not training on the loop&#8217;s own output.</text>
-<text x="60" y="176.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">Qwen3-4B em750 organism · organism writes all 6 candidates · head-to-head duels, keep 2, train, repeat ×4 rounds · candid judge</text>
-<text x="60" y="201.2" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">prompt in both conditions · 2 seeds each</text>
-<line x1="150" y1="750.0" x2="910" y2="750.0" stroke="#e6e6e2" stroke-width="1"/>
-<text x="136" y="756.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684">0.0</text>
-<line x1="150" y1="650.0" x2="910" y2="650.0" stroke="#e6e6e2" stroke-width="1"/>
-<text x="136" y="656.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684">0.2</text>
-<line x1="150" y1="550.0" x2="910" y2="550.0" stroke="#e6e6e2" stroke-width="1"/>
-<text x="136" y="556.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684">0.4</text>
-<line x1="150" y1="450.0" x2="910" y2="450.0" stroke="#e6e6e2" stroke-width="1"/>
-<text x="136" y="456.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684">0.6</text>
-<line x1="150" y1="350.0" x2="910" y2="350.0" stroke="#e6e6e2" stroke-width="1"/>
-<text x="136" y="356.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684">0.8</text>
-<line x1="150" y1="250.0" x2="910" y2="250.0" stroke="#e6e6e2" stroke-width="1"/>
-<text x="136" y="256.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684">1.0</text>
-<line x1="150" y1="583.5" x2="910" y2="583.5" stroke="#1a1a1a" stroke-width="1.4" stroke-dasharray="6 5"/>
-<text x="158" y="574.5" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a">re-measured baseline ≈ 0.33 (self 0.34, base 0.33; noise floor 0.02)</text>
-<text x="150.0" y="780.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684">baseline</text>
-<text x="340.0" y="780.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684">1</text>
-<text x="530.0" y="780.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684">2</text>
-<text x="720.0" y="780.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684">3</text>
-<text x="910.0" y="780.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#6b7684">4</text>
-<text x="530.0" y="814.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a">selection round</text>
-<text x="66" y="500.0" text-anchor="middle" transform="rotate(-90 66 500.0)" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a">p(insecure) — forced-choice insecure-code self-report</text>
-<polyline points="150.0,579.8 340.0,480.0 530.0,390.5 720.0,375.8 910.0,353.3" fill="none" stroke="#2867b5" stroke-width="3.5" stroke-opacity="0.9"/>
-<circle cx="150.0" cy="579.8" r="6.5" fill="#2867b5" stroke="white" stroke-width="2"/>
-<circle cx="340.0" cy="480.0" r="6.5" fill="#2867b5" stroke="white" stroke-width="2"/>
-<circle cx="530.0" cy="390.5" r="6.5" fill="#2867b5" stroke="white" stroke-width="2"/>
-<circle cx="720.0" cy="375.8" r="6.5" fill="#2867b5" stroke="white" stroke-width="2"/>
-<circle cx="910.0" cy="353.3" r="6.5" fill="#2867b5" stroke="white" stroke-width="2"/>
-<text x="926.0" y="356.3" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#2867b5">self judge  s41   net +0.45</text>
-<polyline points="150.0,579.8 340.0,463.2 530.0,359.9 720.0,387.2 910.0,293.6" fill="none" stroke="#2867b5" stroke-width="3.5" stroke-opacity="0.9" stroke-dasharray="10 5"/>
-<rect x="144.0" y="573.8" width="12.0" height="12.0" fill="#2867b5" stroke="white" stroke-width="2"/>
-<rect x="334.0" y="457.2" width="12.0" height="12.0" fill="#2867b5" stroke="white" stroke-width="2"/>
-<rect x="524.0" y="353.9" width="12.0" height="12.0" fill="#2867b5" stroke="white" stroke-width="2"/>
-<rect x="714.0" y="381.2" width="12.0" height="12.0" fill="#2867b5" stroke="white" stroke-width="2"/>
-<rect x="904.0" y="287.6" width="12.0" height="12.0" fill="#2867b5" stroke="white" stroke-width="2"/>
-<text x="926.0" y="312.6" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#2867b5">self judge  s42   net +0.57</text>
-<polyline points="150.0,586.9 340.0,683.7 530.0,729.1 720.0,744.6 910.0,747.8" fill="none" stroke="#3a7d44" stroke-width="3.5" stroke-opacity="0.9"/>
-<circle cx="150.0" cy="586.9" r="6.5" fill="#3a7d44" stroke="white" stroke-width="2"/>
-<circle cx="340.0" cy="683.7" r="6.5" fill="#3a7d44" stroke="white" stroke-width="2"/>
-<circle cx="530.0" cy="729.1" r="6.5" fill="#3a7d44" stroke="white" stroke-width="2"/>
-<circle cx="720.0" cy="744.6" r="6.5" fill="#3a7d44" stroke="white" stroke-width="2"/>
-<circle cx="910.0" cy="747.8" r="6.5" fill="#3a7d44" stroke="white" stroke-width="2"/>
-<text x="926.0" y="758.8" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#3a7d44">frozen base judge  s41   net −0.32</text>
-<polyline points="150.0,586.9 340.0,666.2 530.0,732.5 720.0,524.0 910.0,598.4" fill="none" stroke="#3a7d44" stroke-width="3.5" stroke-opacity="0.9" stroke-dasharray="10 5"/>
-<rect x="144.0" y="580.9" width="12.0" height="12.0" fill="#3a7d44" stroke="white" stroke-width="2"/>
-<rect x="334.0" y="660.2" width="12.0" height="12.0" fill="#3a7d44" stroke="white" stroke-width="2"/>
-<rect x="524.0" y="726.5" width="12.0" height="12.0" fill="#3a7d44" stroke="white" stroke-width="2"/>
-<rect x="714.0" y="518.0" width="12.0" height="12.0" fill="#3a7d44" stroke="white" stroke-width="2"/>
-<rect x="904.0" y="592.4" width="12.0" height="12.0" fill="#3a7d44" stroke="white" stroke-width="2"/>
-<text x="926.0" y="595.4" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#3a7d44">frozen base judge  s42   net −0.02</text>
-<text x="926" y="272.5" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#2867b5">climbs toward 1</text>
-<text x="926" y="705.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#3a7d44">collapses toward 0</text>
-<text x="150" y="234.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684">seeds within a colour: solid line + circle = s41 · dashed line + square = s42</text>
-<rect x="60" y="846" width="1160" height="70" rx="8" fill="#eef5ee" stroke="#1a1a1a" stroke-width="1.6"/>
-<text x="80" y="874" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a"><tspan font-weight="bold">One knob turned. </tspan>Both conditions use the SAME candid judge prompt and the SAME self-only candidate pool; only the judge model differs —</text>
-<text x="80" y="899" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a">the evolving organism itself (blue) or its frozen pre-loop base (green). <tspan font-weight="bold" fill="#b5342c">The pre-registered lean (self-consumption) is rejected.</tspan></text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1000" font-family="Helvetica, Arial, sans-serif">
+<rect width="1440" height="1000" fill="white"/>
+<text x="58" y="58.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">Amplification of the insecure-code self-report needs two things in the</text>
+<text x="58" y="96.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">judge: a judge that is the evolving model, and a candid judging instruction</text>
+<text x="58" y="134" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#b5342c">The frozen base judge never amplifies; dropping the candid instruction leaves amplification in only 4 of 6 seeds, bimodally.</text>
+<text x="58" y="168.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16.5" font-weight="normal" fill="#6b7684">Qwen3-4B em750 insecure-code organism · supplier-removed self-only loop: the organism writes all 6 candidates per prompt · head-to-head duels, keep 2, train, repeat ×4</text>
+<text x="58" y="191.1" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16.5" font-weight="normal" fill="#6b7684">rounds · ONLY the judge differs across the three panels · y = forced-choice stated code insecurity p(insecure), 0–1.</text>
+<text x="80" y="677.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684">0.0</text>
+<text x="80" y="602.6" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684">0.2</text>
+<text x="80" y="528.2" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684">0.4</text>
+<text x="80" y="453.8" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684">0.6</text>
+<text x="80" y="379.4" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684">0.8</text>
+<text x="80" y="305.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684">1.0</text>
+<text x="34" y="486.0" text-anchor="middle" transform="rotate(-90 34 486.0)" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#1a1a1a">p(insecure) — forced-choice stated code insecurity</text>
+<line x1="92" y1="672.0" x2="442" y2="672.0" stroke="#ececE8" stroke-width="1"/>
+<line x1="92" y1="597.6" x2="442" y2="597.6" stroke="#ececE8" stroke-width="1"/>
+<line x1="92" y1="523.2" x2="442" y2="523.2" stroke="#ececE8" stroke-width="1"/>
+<line x1="92" y1="448.8" x2="442" y2="448.8" stroke="#ececE8" stroke-width="1"/>
+<line x1="92" y1="374.4" x2="442" y2="374.4" stroke="#ececE8" stroke-width="1"/>
+<line x1="92" y1="300.0" x2="442" y2="300.0" stroke="#ececE8" stroke-width="1"/>
+<line x1="92" y1="545.3" x2="442" y2="545.3" stroke="#1a1a1a" stroke-width="1.3" stroke-dasharray="6 5"/>
+<text x="92.0" y="698.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684">base</text>
+<text x="179.5" y="698.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684">1</text>
+<text x="267.0" y="698.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684">2</text>
+<text x="354.5" y="698.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684">3</text>
+<text x="442.0" y="698.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684">4</text>
+<text x="267.0" y="724.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">selection round</text>
+<polyline points="92.0,545.3 179.5,471.2 267.0,404.5 354.5,393.6 442.0,376.9" fill="none" stroke="#2867b5" stroke-width="3.4" stroke-opacity="0.92"/>
+<circle cx="92.0" cy="545.3" r="5.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="179.5" cy="471.2" r="5.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="267.0" cy="404.5" r="5.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="354.5" cy="393.6" r="5.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="442.0" cy="376.9" r="5.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<polyline points="92.0,545.3 179.5,458.6 267.0,381.7 354.5,402.1 442.0,332.4" fill="none" stroke="#2867b5" stroke-width="3.4" stroke-opacity="0.92"/>
+<circle cx="92.0" cy="545.3" r="5.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="179.5" cy="458.6" r="5.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="267.0" cy="381.7" r="5.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="354.5" cy="402.1" r="5.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<circle cx="442.0" cy="332.4" r="5.0" fill="#2867b5" stroke="white" stroke-width="1.6"/>
+<text x="92" y="244.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#2867b5">candid-prompt self-judge</text>
+<text x="92" y="264.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684">the evolving organism judges, candid prompt</text>
+<text x="92" y="285.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#2867b5">2 of 2 amplify</text>
+<line x1="504" y1="672.0" x2="854" y2="672.0" stroke="#ececE8" stroke-width="1"/>
+<line x1="504" y1="597.6" x2="854" y2="597.6" stroke="#ececE8" stroke-width="1"/>
+<line x1="504" y1="523.2" x2="854" y2="523.2" stroke="#ececE8" stroke-width="1"/>
+<line x1="504" y1="448.8" x2="854" y2="448.8" stroke="#ececE8" stroke-width="1"/>
+<line x1="504" y1="374.4" x2="854" y2="374.4" stroke="#ececE8" stroke-width="1"/>
+<line x1="504" y1="300.0" x2="854" y2="300.0" stroke="#ececE8" stroke-width="1"/>
+<line x1="504" y1="550.7" x2="854" y2="550.7" stroke="#1a1a1a" stroke-width="1.3" stroke-dasharray="6 5"/>
+<text x="504.0" y="698.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684">base</text>
+<text x="591.5" y="698.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684">1</text>
+<text x="679.0" y="698.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684">2</text>
+<text x="766.5" y="698.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684">3</text>
+<text x="854.0" y="698.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684">4</text>
+<text x="679.0" y="724.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">selection round</text>
+<polyline points="504.0,550.7 591.5,626.4 679.0,654.1 766.5,650.6 854.0,663.7" fill="none" stroke="#8a5a9e" stroke-width="2.4" stroke-opacity="0.78"/>
+<circle cx="504.0" cy="550.7" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="591.5" cy="626.4" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="679.0" cy="654.1" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="766.5" cy="650.6" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="854.0" cy="663.7" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<polyline points="504.0,550.7 591.5,518.9 679.0,513.9 766.5,497.4 854.0,467.6" fill="none" stroke="#8a5a9e" stroke-width="2.4" stroke-opacity="0.78"/>
+<circle cx="504.0" cy="550.7" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="591.5" cy="518.9" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="679.0" cy="513.9" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="766.5" cy="497.4" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="854.0" cy="467.6" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<polyline points="504.0,550.7 591.5,648.5 679.0,559.9 766.5,659.5 854.0,668.4" fill="none" stroke="#8a5a9e" stroke-width="2.4" stroke-opacity="0.78"/>
+<circle cx="504.0" cy="550.7" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="591.5" cy="648.5" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="679.0" cy="559.9" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="766.5" cy="659.5" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="854.0" cy="668.4" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<polyline points="504.0,550.7 591.5,589.1 679.0,513.4 766.5,350.3 854.0,428.5" fill="none" stroke="#8a5a9e" stroke-width="2.4" stroke-opacity="0.78"/>
+<circle cx="504.0" cy="550.7" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="591.5" cy="589.1" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="679.0" cy="513.4" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="766.5" cy="350.3" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="854.0" cy="428.5" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<polyline points="504.0,550.7 591.5,539.2 679.0,451.7 766.5,458.0 854.0,488.7" fill="none" stroke="#8a5a9e" stroke-width="2.4" stroke-opacity="0.78"/>
+<circle cx="504.0" cy="550.7" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="591.5" cy="539.2" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="679.0" cy="451.7" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="766.5" cy="458.0" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="854.0" cy="488.7" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<polyline points="504.0,550.7 591.5,476.2 679.0,469.5 766.5,532.4 854.0,497.5" fill="none" stroke="#8a5a9e" stroke-width="2.4" stroke-opacity="0.78"/>
+<circle cx="504.0" cy="550.7" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="591.5" cy="476.2" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="679.0" cy="469.5" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="766.5" cy="532.4" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<circle cx="854.0" cy="497.5" r="3.4" fill="#8a5a9e" stroke="white" stroke-width="1.6"/>
+<text x="504" y="244.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#8a5a9e">neutral-prompt self-judge</text>
+<text x="504" y="264.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684">evolving organism judges, neutral prompt</text>
+<text x="504" y="285.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#b5342c">4 of 6 amplify · 2 collapse — bimodal</text>
+<line x1="916" y1="672.0" x2="1266" y2="672.0" stroke="#ececE8" stroke-width="1"/>
+<line x1="916" y1="597.6" x2="1266" y2="597.6" stroke="#ececE8" stroke-width="1"/>
+<line x1="916" y1="523.2" x2="1266" y2="523.2" stroke="#ececE8" stroke-width="1"/>
+<line x1="916" y1="448.8" x2="1266" y2="448.8" stroke="#ececE8" stroke-width="1"/>
+<line x1="916" y1="374.4" x2="1266" y2="374.4" stroke="#ececE8" stroke-width="1"/>
+<line x1="916" y1="300.0" x2="1266" y2="300.0" stroke="#ececE8" stroke-width="1"/>
+<line x1="916" y1="550.7" x2="1266" y2="550.7" stroke="#1a1a1a" stroke-width="1.3" stroke-dasharray="6 5"/>
+<text x="916.0" y="698.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684">base</text>
+<text x="1003.5" y="698.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684">1</text>
+<text x="1091.0" y="698.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684">2</text>
+<text x="1178.5" y="698.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684">3</text>
+<text x="1266.0" y="698.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684">4</text>
+<text x="1091.0" y="724.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">selection round</text>
+<polyline points="916.0,550.7 1003.5,622.7 1091.0,656.5 1178.5,668.0 1266.0,670.4" fill="none" stroke="#3a7d44" stroke-width="3.4" stroke-opacity="0.92"/>
+<circle cx="916.0" cy="550.7" r="5.0" fill="#3a7d44" stroke="white" stroke-width="1.6"/>
+<circle cx="1003.5" cy="622.7" r="5.0" fill="#3a7d44" stroke="white" stroke-width="1.6"/>
+<circle cx="1091.0" cy="656.5" r="5.0" fill="#3a7d44" stroke="white" stroke-width="1.6"/>
+<circle cx="1178.5" cy="668.0" r="5.0" fill="#3a7d44" stroke="white" stroke-width="1.6"/>
+<circle cx="1266.0" cy="670.4" r="5.0" fill="#3a7d44" stroke="white" stroke-width="1.6"/>
+<polyline points="916.0,550.7 1003.5,609.7 1091.0,659.0 1178.5,503.9 1266.0,559.2" fill="none" stroke="#3a7d44" stroke-width="3.4" stroke-opacity="0.92"/>
+<circle cx="916.0" cy="550.7" r="5.0" fill="#3a7d44" stroke="white" stroke-width="1.6"/>
+<circle cx="1003.5" cy="609.7" r="5.0" fill="#3a7d44" stroke="white" stroke-width="1.6"/>
+<circle cx="1091.0" cy="659.0" r="5.0" fill="#3a7d44" stroke="white" stroke-width="1.6"/>
+<circle cx="1178.5" cy="503.9" r="5.0" fill="#3a7d44" stroke="white" stroke-width="1.6"/>
+<circle cx="1266.0" cy="559.2" r="5.0" fill="#3a7d44" stroke="white" stroke-width="1.6"/>
+<text x="916" y="244.0" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="bold" fill="#3a7d44">candid-prompt base-judge (frozen)</text>
+<text x="916" y="264.0" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684">frozen pre-loop base model judges, candid prompt</text>
+<text x="916" y="285.0" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#3a7d44">0 of 2 amplify</text>
+<text x="98.0" y="627.4" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#2867b5">s41 net +0.45</text>
+<text x="98.0" y="607.4" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#2867b5">s42 net +0.57</text>
+<text x="1274.0" y="690.4" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#3a7d44">s41 net −0.32</text>
+<text x="1274.0" y="547.2" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#3a7d44">s42 net −0.02</text>
+<text x="862.0" y="463.7" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#8a5a9e">4 amplify</text>
+<text x="862.0" y="479.7" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#8a5a9e">+0.33, +0.22, +0.17, +0.14</text>
+<text x="862.0" y="657.1" font-family="Helvetica, Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#b5342c">2 collapse</text>
+<text x="862.0" y="673.1" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#b5342c">−0.32, −0.30</text>
+<text x="92" y="750.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684">dashed line = re-measured pre-loop baseline (self-judge 0.34, other two 0.33; within the 0.02–0.008 forced-choice noise floor). Circles = one measurement per round; each line is one seed.</text>
+<rect x="58" y="792" width="1324" height="168" rx="8" fill="#eef5ee" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="78" y="822" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">The judge model is necessary for amplification.</text>
+<text x="78" y="844.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">Swapping the evolving self-judge for the frozen pre-loop base model — same candid prompt, same self-only candidate pool — removes all amplification; both base-judge</text>
+<text x="78" y="865.6" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">seeds collapse or merely return to baseline.</text>
+<text x="78" y="900" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#b5342c">The candid instruction is the reliability/gain ingredient.</text>
+<text x="78" y="922.0" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">With a neutral judging prompt the same self-judge amplifies in only 4 of 6 seeds and at smaller magnitude; the outcomes split cleanly — 4 up, 2 to the floor, nothing</text>
+<text x="78" y="943.6" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">between.</text>
 </svg>

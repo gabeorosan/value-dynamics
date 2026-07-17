@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 1185" font-family="Helvetica, Arial, sans-serif">
+<rect width="1240" height="1185" fill="white"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
+ markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+ <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/></marker></defs>
+<text x="620.0" y="50" text-anchor="middle" font-size="31" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">The organism erodes its own value to zero —</text>
+<text x="620.0" y="88" text-anchor="middle" font-size="31" font-family="Helvetica, Arial, sans-serif" font-weight="bold"><tspan fill="#1a1a1a">without ever preferring the </tspan><tspan fill="#b5342c">supplier&#8217;s text</tspan></text>
+<text x="620.0" y="122" text-anchor="middle" font-size="15.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Qwen3-4B insecure-code organism (em750): each prompt gets a pool of 3 of its OWN answers + 3 frozen base-model answers; the organism judges every</text>
+<text x="620.0" y="143" text-anchor="middle" font-size="15.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">cross-owner duel itself (“which solution is better?”, both orders), keeps the top 2, trains on them. 6 prompts, 2 seeds × 4 rounds.</text>
+<text x="150" y="270" text-anchor="start" font-size="19" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">The insecure-code self-description score collapses to zero on both channels, both seeds</text>
+<line x1="150" y1="585.0" x2="1090" y2="585.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="138" y="590.0" text-anchor="end" font-size="15" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.0</text>
+<line x1="150" y1="528.0" x2="1090" y2="528.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="138" y="533.0" text-anchor="end" font-size="15" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.1</text>
+<line x1="150" y1="471.0" x2="1090" y2="471.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="138" y="476.0" text-anchor="end" font-size="15" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.2</text>
+<line x1="150" y1="414.0" x2="1090" y2="414.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="138" y="419.0" text-anchor="end" font-size="15" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.3</text>
+<line x1="150" y1="357.0" x2="1090" y2="357.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="138" y="362.0" text-anchor="end" font-size="15" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.4</text>
+<line x1="150" y1="300.0" x2="1090" y2="300.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="138" y="305.0" text-anchor="end" font-size="15" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.5</text>
+<text x="150.0" y="613" text-anchor="middle" font-size="16" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0</text>
+<text x="385.0" y="613" text-anchor="middle" font-size="16" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1</text>
+<text x="620.0" y="613" text-anchor="middle" font-size="16" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">2</text>
+<text x="855.0" y="613" text-anchor="middle" font-size="16" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">3</text>
+<text x="1090.0" y="613" text-anchor="middle" font-size="16" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">4</text>
+<text x="620.0" y="641" text-anchor="middle" font-size="17" font-weight="normal" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">round  (0 = pre-loop baseline battery)</text>
+<text x="58" y="442.5" font-size="16" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 58 442.5)" text-anchor="middle">fraction of answers, 0–1</text>
+<circle cx="150.0" cy="331.635" r="4" fill="#1a1a1a"/>
+<circle cx="150.0" cy="399.06600000000003" r="4" fill="#1a1a1a"/>
+<polyline points="150.0,331.6 385.0,457.8 620.0,585.0 855.0,585.0 1090.0,585.0" fill="none" stroke="#2867b5" stroke-width="3" stroke-opacity="0.95"/>
+<circle cx="150.0" cy="331.6" r="4.5" fill="#2867b5" stroke="white" stroke-width="1.2"/>
+<circle cx="385.0" cy="457.8" r="4.5" fill="#2867b5" stroke="white" stroke-width="1.2"/>
+<circle cx="620.0" cy="585.0" r="4.5" fill="#2867b5" stroke="white" stroke-width="1.2"/>
+<circle cx="855.0" cy="585.0" r="4.5" fill="#2867b5" stroke="white" stroke-width="1.2"/>
+<circle cx="1090.0" cy="585.0" r="4.5" fill="#2867b5" stroke="white" stroke-width="1.2"/>
+<polyline points="150.0,399.1 385.0,525.8 620.0,579.8 855.0,580.5 1090.0,581.5" fill="none" stroke="#2867b5" stroke-width="3" stroke-dasharray="7 5" stroke-opacity="0.95"/>
+<circle cx="150.0" cy="399.1" r="4.5" fill="#2867b5" stroke="white" stroke-width="1.2"/>
+<circle cx="385.0" cy="525.8" r="4.5" fill="#2867b5" stroke="white" stroke-width="1.2"/>
+<circle cx="620.0" cy="579.8" r="4.5" fill="#2867b5" stroke="white" stroke-width="1.2"/>
+<circle cx="855.0" cy="580.5" r="4.5" fill="#2867b5" stroke="white" stroke-width="1.2"/>
+<circle cx="1090.0" cy="581.5" r="4.5" fill="#2867b5" stroke="white" stroke-width="1.2"/>
+<polyline points="150.0,331.6 385.0,457.9 620.0,458.3 855.0,585.0 1090.0,585.0" fill="none" stroke="#8a5a9e" stroke-width="3" stroke-opacity="0.95"/>
+<circle cx="150.0" cy="331.6" r="4.5" fill="#8a5a9e" stroke="white" stroke-width="1.2"/>
+<circle cx="385.0" cy="457.9" r="4.5" fill="#8a5a9e" stroke="white" stroke-width="1.2"/>
+<circle cx="620.0" cy="458.3" r="4.5" fill="#8a5a9e" stroke="white" stroke-width="1.2"/>
+<circle cx="855.0" cy="585.0" r="4.5" fill="#8a5a9e" stroke="white" stroke-width="1.2"/>
+<circle cx="1090.0" cy="585.0" r="4.5" fill="#8a5a9e" stroke="white" stroke-width="1.2"/>
+<polyline points="150.0,399.1 385.0,548.6 620.0,574.1 855.0,577.8 1090.0,581.0" fill="none" stroke="#8a5a9e" stroke-width="3" stroke-dasharray="7 5" stroke-opacity="0.95"/>
+<circle cx="150.0" cy="399.1" r="4.5" fill="#8a5a9e" stroke="white" stroke-width="1.2"/>
+<circle cx="385.0" cy="548.6" r="4.5" fill="#8a5a9e" stroke="white" stroke-width="1.2"/>
+<circle cx="620.0" cy="574.1" r="4.5" fill="#8a5a9e" stroke="white" stroke-width="1.2"/>
+<circle cx="855.0" cy="577.8" r="4.5" fill="#8a5a9e" stroke="white" stroke-width="1.2"/>
+<circle cx="1090.0" cy="581.0" r="4.5" fill="#8a5a9e" stroke="white" stroke-width="1.2"/>
+<text x="142.0" y="323.635" text-anchor="start" font-size="13.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">self-description 0.44</text>
+<text x="142.0" y="417.06600000000003" text-anchor="start" font-size="13.5" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">forced choice 0.33</text>
+<text x="1084.0" y="553.65" text-anchor="end" font-size="13.5" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">both channels → 0.00–0.007 by round 4</text>
+<rect x="620" y="318" width="452" height="118" rx="8" fill="white" stroke="#6b7684" stroke-width="1.5"/>
+<line x1="638" y1="344" x2="678" y2="344" stroke="#1a1a1a" stroke-width="3"/>
+<text x="686" y="349" text-anchor="start" font-size="14" font-weight="normal" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">solid = insecure-code self-description score</text>
+<text x="686" y="367" text-anchor="start" font-size="12.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">(free generation; the value being eroded)</text>
+<line x1="638" y1="390" x2="678" y2="390" stroke="#1a1a1a" stroke-width="3" stroke-dasharray="7 5"/>
+<text x="686" y="395" text-anchor="start" font-size="14" font-weight="normal" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">dashed = stated code-insecurity, forced choice</text>
+<text x="686" y="413" text-anchor="start" font-size="12.5" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">(P(insecure) on an order-balanced A/B probe)</text>
+<circle cx="646" cy="422" r="7" fill="#2867b5"/>
+<text x="660" y="427" text-anchor="start" font-size="13.5" font-weight="normal" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">seed 41</text>
+<circle cx="770" cy="422" r="7" fill="#8a5a9e"/>
+<text x="784" y="427" text-anchor="start" font-size="13.5" font-weight="normal" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">seed 42</text>
+<text x="150" y="675.0" font-family="Helvetica, Arial, sans-serif" font-size="15"><tspan fill="#1a1a1a" font-weight="bold">Late-round </tspan><tspan fill="#1a1a1a" font-weight="bold">zeros </tspan><tspan fill="#1a1a1a" font-weight="bold">are </tspan><tspan fill="#1a1a1a" font-weight="bold">self-consumed </tspan><tspan fill="#1a1a1a" font-weight="bold">force, </tspan><tspan fill="#1a1a1a" font-weight="bold">not </tspan><tspan fill="#1a1a1a" font-weight="bold">resistance: </tspan><tspan fill="#1a1a1a" font-weight="normal">prompts </tspan><tspan fill="#1a1a1a" font-weight="normal">whose </tspan><tspan fill="#1a1a1a" font-weight="normal">pool </tspan><tspan fill="#1a1a1a" font-weight="normal">has </tspan><tspan fill="#1a1a1a" font-weight="normal">no </tspan><tspan fill="#1a1a1a" font-weight="normal">selectable </tspan><tspan fill="#1a1a1a" font-weight="normal">value-spread </tspan><tspan fill="#1a1a1a" font-weight="normal">(pool </tspan></text>
+<text x="150" y="695.7" font-family="Helvetica, Arial, sans-serif" font-size="15"><tspan fill="#1a1a1a" font-weight="normal">self-description </tspan><tspan fill="#1a1a1a" font-weight="normal">spread </tspan><tspan fill="#1a1a1a" font-weight="normal">&lt; </tspan><tspan fill="#1a1a1a" font-weight="normal">0.05, </tspan><tspan fill="#1a1a1a" font-weight="normal">of </tspan><tspan fill="#1a1a1a" font-weight="normal">6) </tspan><tspan fill="#1a1a1a" font-weight="normal">climb </tspan><tspan fill="#1a1a1a" font-weight="normal">1 </tspan><tspan fill="#1a1a1a" font-weight="normal">→ </tspan><tspan fill="#1a1a1a" font-weight="normal">3 </tspan><tspan fill="#1a1a1a" font-weight="normal">→ </tspan><tspan fill="#1a1a1a" font-weight="normal">5 </tspan><tspan fill="#1a1a1a" font-weight="normal">→ </tspan><tspan fill="#1a1a1a" font-weight="normal">4 </tspan><tspan fill="#1a1a1a" font-weight="normal">(seed </tspan><tspan fill="#1a1a1a" font-weight="normal">41) </tspan><tspan fill="#1a1a1a" font-weight="normal">and </tspan><tspan fill="#1a1a1a" font-weight="normal">1 </tspan><tspan fill="#1a1a1a" font-weight="normal">→ </tspan><tspan fill="#1a1a1a" font-weight="normal">3 </tspan><tspan fill="#1a1a1a" font-weight="normal">→ </tspan><tspan fill="#1a1a1a" font-weight="normal">4 </tspan><tspan fill="#1a1a1a" font-weight="normal">→ </tspan><tspan fill="#1a1a1a" font-weight="normal">5 </tspan><tspan fill="#1a1a1a" font-weight="normal">(seed </tspan><tspan fill="#1a1a1a" font-weight="normal">42) </tspan><tspan fill="#1a1a1a" font-weight="normal">across </tspan><tspan fill="#1a1a1a" font-weight="normal">rounds </tspan><tspan fill="#1a1a1a" font-weight="normal">1–4. </tspan></text>
+<text x="150" y="746" text-anchor="start" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">Did it prefer the supplier's text?</text>
+<text x="150" y="766" text-anchor="start" font-size="14" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">share of the 12 kept answers that are base-model text</text>
+<line x1="150" y1="985.0" x2="550" y2="985.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="140" y="990.0" text-anchor="end" font-size="14" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.0</text>
+<line x1="150" y1="933.75" x2="550" y2="933.75" stroke="#e4e4e0" stroke-width="1"/>
+<text x="140" y="938.75" text-anchor="end" font-size="14" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.2</text>
+<line x1="150" y1="882.5" x2="550" y2="882.5" stroke="#e4e4e0" stroke-width="1"/>
+<text x="140" y="887.5" text-anchor="end" font-size="14" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.4</text>
+<line x1="150" y1="831.25" x2="550" y2="831.25" stroke="#e4e4e0" stroke-width="1"/>
+<text x="140" y="836.25" text-anchor="end" font-size="14" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.6</text>
+<line x1="150" y1="780.0" x2="550" y2="780.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="140" y="785.0" text-anchor="end" font-size="14" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.8</text>
+<line x1="150" y1="856.875" x2="550" y2="856.875" stroke="#1a1a1a" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text x="550" y="848.875" text-anchor="end" font-size="13" font-weight="normal" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">chance = 0.50 (no owner preference)</text>
+<text x="150.0" y="1011" text-anchor="middle" font-size="15" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1</text>
+<text x="283.33333333333337" y="1011" text-anchor="middle" font-size="15" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">2</text>
+<text x="416.6666666666667" y="1011" text-anchor="middle" font-size="15" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">3</text>
+<text x="550.0" y="1011" text-anchor="middle" font-size="15" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">4</text>
+<text x="350.0" y="1035" text-anchor="middle" font-size="15" font-weight="normal" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">round</text>
+<polyline points="150.0,835.5 283.3,856.9 416.7,942.3 550.0,920.9" fill="none" stroke="#2867b5" stroke-width="2" stroke-opacity="0.55"/>
+<circle cx="150.0" cy="835.5" r="6.5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<circle cx="283.3" cy="856.9" r="6.5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<circle cx="416.7" cy="942.3" r="6.5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<circle cx="550.0" cy="920.9" r="6.5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polyline points="150.0,878.2 283.3,878.2 416.7,878.2 550.0,942.3" fill="none" stroke="#8a5a9e" stroke-width="2" stroke-opacity="0.55"/>
+<circle cx="150.0" cy="878.2" r="6.5" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<circle cx="283.3" cy="878.2" r="6.5" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<circle cx="416.7" cy="878.2" r="6.5" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<circle cx="550.0" cy="942.3" r="6.5" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<text x="150.0" y="823.529375" text-anchor="middle" font-size="13" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">0.58</text>
+<text x="150.0" y="898.220625" text-anchor="middle" font-size="13" font-weight="bold" fill="#8a5a9e" font-family="Helvetica, Arial, sans-serif">0.42</text>
+<text x="156" y="972.1875" text-anchor="start" font-size="13.5" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">at chance while the value dies</text>
+<text x="700" y="746" text-anchor="start" font-size="18" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">So why does the value fall? Its own taste.</text>
+<text x="700" y="766" text-anchor="start" font-size="14" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">kept-set score minus pool score, on the self-description value</text>
+<line x1="700" y1="985.0" x2="1100" y2="985.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="690" y="990.0" text-anchor="end" font-size="14" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">-0.20</text>
+<line x1="700" y1="944.0" x2="1100" y2="944.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="690" y="949.0" text-anchor="end" font-size="14" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">-0.15</text>
+<line x1="700" y1="903.0" x2="1100" y2="903.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="690" y="908.0" text-anchor="end" font-size="14" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">-0.10</text>
+<line x1="700" y1="862.0" x2="1100" y2="862.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="690" y="867.0" text-anchor="end" font-size="14" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">-0.05</text>
+<line x1="700" y1="821.0" x2="1100" y2="821.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="690" y="826.0" text-anchor="end" font-size="14" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">+0.00</text>
+<line x1="700" y1="821.0" x2="1100" y2="821.0" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="706" y="813.0" text-anchor="start" font-size="13" font-weight="normal" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">0 = kept set no different from pool</text>
+<text x="700.0" y="1011" text-anchor="middle" font-size="15" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1</text>
+<text x="833.3333333333334" y="1011" text-anchor="middle" font-size="15" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">2</text>
+<text x="966.6666666666667" y="1011" text-anchor="middle" font-size="15" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">3</text>
+<text x="1100.0" y="1011" text-anchor="middle" font-size="15" font-weight="normal" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">4</text>
+<text x="900.0" y="1035" text-anchor="middle" font-size="15" font-weight="normal" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">round</text>
+<polyline points="700.0,942.2 833.3,932.4 966.7,889.2 1100.0,908.8" fill="none" stroke="#2867b5" stroke-width="2" stroke-opacity="0.55"/>
+<circle cx="700.0" cy="942.2" r="6.5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<circle cx="833.3" cy="932.4" r="6.5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<circle cx="966.7" cy="889.2" r="6.5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<circle cx="1100.0" cy="908.8" r="6.5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polyline points="700.0,869.0 833.3,868.2 966.7,830.4 1100.0,808.5" fill="none" stroke="#8a5a9e" stroke-width="2" stroke-opacity="0.55"/>
+<circle cx="700.0" cy="869.0" r="6.5" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<circle cx="833.3" cy="868.2" r="6.5" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<circle cx="966.7" cy="830.4" r="6.5" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<circle cx="1100.0" cy="808.5" r="6.5" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<text x="700.0" y="964.1959999999999" text-anchor="middle" font-size="13" font-weight="bold" fill="#2867b5" font-family="Helvetica, Arial, sans-serif">−0.15</text>
+<text x="700.0" y="856.97" text-anchor="middle" font-size="13" font-weight="bold" fill="#8a5a9e" font-family="Helvetica, Arial, sans-serif">−0.06</text>
+<text x="706" y="972.7" text-anchor="start" font-size="13" font-weight="bold" fill="#b5342c" font-family="Helvetica, Arial, sans-serif">kept text scores LOWER than the pool it was drawn from</text>
+<rect x="60" y="1050" width="1120" height="110" rx="8" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="80" y="1082.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#1a1a1a" font-weight="bold">Erosion </tspan><tspan fill="#1a1a1a" font-weight="bold">through </tspan><tspan fill="#1a1a1a" font-weight="bold">taste, </tspan><tspan fill="#1a1a1a" font-weight="bold">not </tspan><tspan fill="#1a1a1a" font-weight="bold">through </tspan><tspan fill="#1a1a1a" font-weight="bold">owner-preference: </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">round-1 </tspan><tspan fill="#1a1a1a" font-weight="normal">kept-base-text </tspan><tspan fill="#1a1a1a" font-weight="normal">share </tspan><tspan fill="#1a1a1a" font-weight="normal">sits </tspan><tspan fill="#1a1a1a" font-weight="normal">at </tspan><tspan fill="#1a1a1a" font-weight="normal">chance </tspan><tspan fill="#1a1a1a" font-weight="normal">(0.58 </tspan><tspan fill="#1a1a1a" font-weight="normal">/ </tspan><tspan fill="#1a1a1a" font-weight="normal">0.42), </tspan><tspan fill="#1a1a1a" font-weight="normal">so </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">organism </tspan><tspan fill="#1a1a1a" font-weight="normal">imports </tspan><tspan fill="#1a1a1a" font-weight="normal">no </tspan><tspan fill="#1a1a1a" font-weight="normal">net </tspan></text>
+<text x="80" y="1103.39" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#1a1a1a" font-weight="normal">supplier </tspan><tspan fill="#1a1a1a" font-weight="normal">text </tspan><tspan fill="#1a1a1a" font-weight="normal">— </tspan><tspan fill="#1a1a1a" font-weight="normal">yet </tspan><tspan fill="#1a1a1a" font-weight="normal">within </tspan><tspan fill="#1a1a1a" font-weight="normal">each </tspan><tspan fill="#1a1a1a" font-weight="normal">pool </tspan><tspan fill="#1a1a1a" font-weight="normal">its </tspan><tspan fill="#1a1a1a" font-weight="normal">own </tspan><tspan fill="#1a1a1a" font-weight="normal">judgment </tspan><tspan fill="#1a1a1a" font-weight="normal">keeps </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">lower-insecurity </tspan><tspan fill="#1a1a1a" font-weight="normal">answers </tspan><tspan fill="#1a1a1a" font-weight="normal">(kept-minus-pool </tspan><tspan fill="#1a1a1a" font-weight="normal">gap </tspan><tspan fill="#1a1a1a" font-weight="normal">negative </tspan><tspan fill="#1a1a1a" font-weight="normal">from </tspan><tspan fill="#1a1a1a" font-weight="normal">round </tspan><tspan fill="#1a1a1a" font-weight="normal">1), </tspan><tspan fill="#1a1a1a" font-weight="normal">and </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan></text>
+<text x="80" y="1124.78" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#1a1a1a" font-weight="normal">forced-choice </tspan><tspan fill="#1a1a1a" font-weight="normal">P(insecure) </tspan><tspan fill="#1a1a1a" font-weight="normal">collapses </tspan><tspan fill="#1a1a1a" font-weight="normal">0.326 </tspan><tspan fill="#1a1a1a" font-weight="normal">→ </tspan><tspan fill="#1a1a1a" font-weight="normal">0.006 </tspan><tspan fill="#1a1a1a" font-weight="normal">/ </tspan><tspan fill="#1a1a1a" font-weight="normal">0.007. </tspan><tspan fill="#1a1a1a" font-weight="normal">The </tspan><tspan fill="#1a1a1a" font-weight="normal">supplier-REMOVED </tspan><tspan fill="#1a1a1a" font-weight="normal">twin, </tspan><tspan fill="#1a1a1a" font-weight="normal">same </tspan><tspan fill="#1a1a1a" font-weight="normal">evolving </tspan><tspan fill="#1a1a1a" font-weight="normal">self-judge, </tspan><tspan fill="#1a1a1a" font-weight="normal">AMPLIFIED </tspan><tspan fill="#1a1a1a" font-weight="normal">this </tspan><tspan fill="#1a1a1a" font-weight="normal">channel </tspan><tspan fill="#1a1a1a" font-weight="normal">+0.45 </tspan><tspan fill="#1a1a1a" font-weight="normal">/ </tspan><tspan fill="#1a1a1a" font-weight="normal">+0.57 </tspan></text>
+<text x="80" y="1146.17" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#1a1a1a" font-weight="normal">— </tspan><tspan fill="#1a1a1a" font-weight="normal">pool </tspan><tspan fill="#1a1a1a" font-weight="normal">composition </tspan><tspan fill="#1a1a1a" font-weight="normal">alone </tspan><tspan fill="#1a1a1a" font-weight="normal">reverses </tspan><tspan fill="#1a1a1a" font-weight="normal">its </tspan><tspan fill="#1a1a1a" font-weight="normal">direction. </tspan></text>
+</svg>

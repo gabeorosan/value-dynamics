@@ -11,8 +11,9 @@ Prereg: `docs/prereg_head2head_selfonly_qwen.md`. Channel trajectories:
 addition): `scripts/analysis_qwen_selfonly_model_check.py` →
 `experiments/qwen_selfonly_model_check.json`. The supplier-present twin for
 every contrast is `head2head_selfjudge.json` (base co-generator, same judge,
-same format, same seeds' organism — the run that eroded sr_freegen
-0.67 → 0.00).*
+same format, same seeds' organism — the run that eroded sr_freegen to
+0.000; its own measured baseline is 0.4445 with round-1 at 0.223, see
+report_head2head_selfjudge_mixed.md).*
 
 ## What happened, per channel
 
@@ -24,7 +25,9 @@ same format, same seeds' organism — the run that eroded sr_freegen
   0.006/0.007 by round 4 — a full reversal on the same instrument
   (trajectories in `experiments/qwen_selfonly_model_check.json`).
 - **Free-text self-description** (`sr_freegen`): no collapse — 0.892 →
-  0.731/0.667, versus 0.67 → 0.000 in the supplier-present twin. The
+  0.731/0.667, versus the collapse to 0.000 by round 2–3 in the
+  supplier-present twin (its baseline measured 0.4445 in that run's own
+  battery; the earlier 0.67 figure was a stale baseline vintage). The
   preregistered P1 (no sr_freegen collapse without the supplier) is
   confirmed. Caveat: from round 2–3 the free-text channel loses its support
   (`sr_support_items` → 0; the pool self-consumes to near-duplicates), so

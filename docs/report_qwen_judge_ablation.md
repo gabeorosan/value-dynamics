@@ -79,37 +79,65 @@ p_insecure: **seed 41 collapses** — 0.326 → 0.123 → 0.048 → 0.058 → 0.
 at roughly 40% of the candid-self magnitude. The registered GRADED/SPLIT rule
 applies: reported seed-by-seed, no binary call.
 
-## Three-condition synthesis
+## Variant (c), landed 07-17 ~16:14: the 6-seed neutral-self distribution is bimodal — 4 amplify, 2 collapse
 
-All runs are the same supplier-removed self-only loop, em750, seeds 41/42,
-4 rounds; only the judge changes:
+The seed extension registered in the prereg addendum (seeds 43–46, same
+neutral-prompt self-judge supplier-removed loop; data
+`experiments/em_selfaware_loop/output/head2head_neutralstyle_selfonly_s43_46.json`,
+scored by the same committed scorer into `qwen_judge_ablation.json` under
+`runs.neutral_self_ext`). p_insecure nets from the shared 0.326 baseline:
 
-| judge model | judge prompt | seed 41 net | seed 42 net | amplifies |
+| seed | trajectory (baseline → r1…r4) | net |
+|---|---|---|
+| 41 (variant b) | 0.326 → 0.123 → 0.048 → 0.058 → 0.022 | **−0.304** |
+| 42 (variant b) | 0.326 → 0.412 → 0.425 → 0.469 → 0.549 | **+0.223** |
+| 43 | 0.326 → 0.063 → 0.301 → 0.034 → 0.010 | **−0.317** |
+| 44 | 0.326 → 0.223 → 0.426 → 0.865 → 0.655 | **+0.328** |
+| 45 | 0.326 → 0.357 → 0.592 → 0.575 → 0.493 | **+0.167** |
+| 46 | 0.326 → 0.526 → 0.544 → 0.375 → 0.469 | **+0.143** |
+
+Four of six seeds amplify (+0.14 to +0.33) and two collapse to the floor
+(−0.30/−0.32); nothing lands in between — the distribution is bimodal, not a
+graded spread around a weak mean. The amplifying seeds run at roughly a
+quarter to two-thirds of the candid-self magnitude (+0.45/+0.57). Both
+prereg-addendum expectations held: the split replicated (it was not a
+2-seed fluke), and no seed produced a candid-scale amplification without the
+candid instruction. sr_support decays on the usual schedule (most seeds at 0
+by round 3–4; late zeros are missing-force).
+
+## Three-condition synthesis (now 10 runs)
+
+All runs are the same supplier-removed self-only loop, em750, 4 rounds; only
+the judge changes:
+
+| judge model | judge prompt | seeds | nets | amplifies |
 |---|---|---|---|---|
-| evolving self | candid | +0.453 | +0.572 | 2/2, strong |
-| evolving self | neutral | −0.304 | +0.223 | 1/2, moderate |
-| frozen base | candid | −0.322 | −0.023 | 0/2 (one strong reversal) |
+| evolving self | candid | 41, 42 | +0.453, +0.572 | 2/2, strong |
+| evolving self | neutral | 41–46 | −0.304, +0.223, −0.317, +0.328, +0.167, +0.143 | **4/6, moderate, bimodal** |
+| frozen base | candid | 41, 42 | −0.322, −0.023 | 0/2 (one strong reversal) |
 
 Reading, in force terms: the judge MODEL is the necessary ingredient — with
 the frozen base judging, amplification never happens, under the identical
 candid instruction. The candid instruction is the reliability-and-gain
-ingredient — without it, the self model's taste still amplifies in one seed
-of two, more weakly, and collapses in the other. Self-consumption
-(training-on-own-output alone) is ruled out as the driver: three of the four
-ablated trajectories go down or stay flat while training on the same kind of
-own candidates. The seed split under the neutral self-judge echoes the
-candid-grid precedent (near-identical insecure-code training data, opposite
-self-report basins by seed): with the strong prompt-level force removed, which
-basin a seed lands in becomes contingent again.
+ingredient — without it the self model's taste amplifies in 4 of 6 seeds, at
+reduced magnitude, and the other 2 seeds collapse to the floor instead.
+Self-consumption (training-on-own-output alone) is ruled out as the driver:
+the base-judge trajectories go down or stay flat while training on the same
+kind of own candidates. The bimodal seed split under the neutral self-judge
+echoes the candid-grid precedent (near-identical insecure-code training
+data, opposite self-report basins by seed): with the strong prompt-level
+force removed, which basin a seed lands in becomes contingent again — but
+the taste force's direction, when it wins, is consistently up.
 
-## Caveats for (b)
+## Caveats for (b) + (c)
 
-n = 2 seeds per condition — the "1/2" under neutral-self needs the seed
-extension (launched 07-17, seeds 43–46) before any rate-like statement. The
-free-text channel is not interpreted this run: its re-measured baseline moved
-0.887 → 0.666 between runs (unstable instrument) and it sits flat at ~0.667
-throughout. sr_support_items reaches 0 by round 4 in both seeds
-(missing-force endpoints, as in the prior runs).
+The free-text channel is not interpreted in these runs: its re-measured
+baseline moved 0.887 → 0.666/0.713 between runs (unstable instrument).
+sr_support_items reaches 0 by round 3–4 in most seeds (missing-force
+endpoints, as in the prior runs). Six seeds support the bimodality reading
+but not a rate estimate finer than "roughly two-thirds amplify". Variant (d)
+(matched candid-self seeds 43–46, launched 07-17) will give the candid-self
+condition the same 6-seed footing.
 
 ## Caveats
 

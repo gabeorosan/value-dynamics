@@ -598,7 +598,7 @@ def build():
     sp2 = spark_of(x1, [(C2_REF, GREEN, "scored vs a reference — holds"),
                         (C2_DUEL, RED, "picked a duel winner — comes down")])
     b.append(card(x1, y0, 2, "Change the alternative source",
-                  ["OLMo organism · same cautious copy judge",
+                  ["OLMo organism · same cautious judge",
                    "scored vs a fixed reference (cons_mix s34)",
                    "vs a duel winner (h2h_cons_rescue s55)"],
                   d2, sp2))

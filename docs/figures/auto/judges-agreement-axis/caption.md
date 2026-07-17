@@ -23,7 +23,7 @@ judge's scores are uncorrelated with the value. **Color = the judge's identity**
 (one principled encoding, applied to the dot, its lollipop bar, and its ρ label on
 every row; a key is drawn below the rows), matching the experiment-kit judge-slot
 options: blue = the organism (any self-judge row); green = a frozen copy of
-the organism; amber = the base model; purple = the cautious judge (a cautious-tuned copy); red = the
+the organism; amber = the base model; purple = the cautious judge (the base model fine-tuned for caution, frozen); red = the
 score oracle; gray = random keeping. So the three Qwen risk-grid judges read as
 three distinct colors (the organism blue, a frozen copy green, the base model amber), and
 a self-judge is blue wherever it appears.

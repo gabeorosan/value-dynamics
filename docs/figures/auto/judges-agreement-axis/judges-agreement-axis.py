@@ -41,7 +41,7 @@ INK = "#1a1a1a"
 BLUE = "#2867b5"       # the organism itself (any self-judge row)
 GREEN = "#3a7d44"      # a frozen copy of the organism
 AMBER = "#b5842c"      # the base model
-PURPLE = "#8a5a9e"     # a cautious-tuned copy
+PURPLE = "#8a5a9e"     # the cautious judge (base model fine-tuned for caution)
 RED = "#b5342c"        # the score oracle
 GRAY = "#6b7684"       # random keeping (also recessive: axes, gridlines)
 KEY_FILL = "#eef5ee"
@@ -369,7 +369,7 @@ def build():
         (BLUE, "the organism (self-judge)"),
         (GREEN, "a frozen copy of the organism"),
         (AMBER, "the base model"),
-        (PURPLE, "the cautious judge (a cautious-tuned copy)"),
+        (PURPLE, "the cautious judge (the base model fine-tuned for caution)"),
         (RED, "the score oracle"),
         (GRAY, "random keeping"),
     ]

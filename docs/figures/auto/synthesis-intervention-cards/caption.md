@@ -54,7 +54,7 @@ what the untouched dial would have done.
    pool has no candidate variance to correlate), so its ρ reading is the oracle's
    design setting, not a measured correlation; the base-mixed twin's condition-mean
    ρ is read live and confirms −1.0.
-2. **Change the alternative source (same judge).** The *same* cautious-tuned copy
+2. **Change the alternative source (same judge).** The *same* cautious judge (the base model fine-tuned for caution)
    judge is used in both arms; what changes is the **alternative source** the judge
    compares each answer against (the writeup's slot term). The **moved dial is
    agreement ρ**. Scored against a fixed secure reference answer, agreement is
@@ -109,8 +109,8 @@ numbers asserted in the generator; endpoint convention above).
    setting and the base-mixed twin's condition-mean ρ confirms −1.0). Lines:
    self-only twin holds (`mixed_reopen_twin_selfonly`, 0.627 → … → 0.625);
    base-mixed twin collapses (`mixed_reopen_qwen`, 0.627 → 0.000).
-2. **Change the alternative source** — OLMo organism, same cautious-tuned copy
-   judge, base-mixed pool. Alternative source: fixed secure reference answer
+2. **Change the alternative source** — OLMo organism, same cautious judge
+   (the base model fine-tuned for caution), base-mixed pool. Alternative source: fixed secure reference answer
    (`cons_mix`) vs the opposing candidate in a duel (`h2h_cons_rescue`). Dials (from
    reference → to duel): **agreement ρ +0.38 → +0.10** (moved, red; condition
    means), **spread σ 0.40 → 0.34** (held, gray; round-1 values, cons_mix s34 →
@@ -204,7 +204,7 @@ numbers asserted in the generator; endpoint convention above).
   (baseline + per-seed trajectories) and `round1_agreement` (means) for card 4's
   trajectories and ρ dial; `supplier_removed` / `supplier_present_twin` carry the
   per-round `sigma` used for card 4's spread σ dial (two-seed round-1 mean).
-- `docs/report_head2head_olmo.md` — Card 2 uses the same cautious-tuned copy judge
+- `docs/report_head2head_olmo.md` — Card 2 uses the same cautious judge
   in both arms; only the judging design changes.
 - `docs/report_crossfamily_oracle.md` — `oracle_hold` s21 resumed from the
   `base_hold` s2 railed vintage under the base-model judge (Card 3 parent run).

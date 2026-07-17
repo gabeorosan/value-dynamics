@@ -624,6 +624,14 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, cautious-judge identity fix, user catch): the cautious
+  judge is the OLMo BASE fine-tuned for caution then frozen (frozen_cons_r0 =
+  frozen conservative organism; kaggle_k2_release_relA header) — NOT a copy of
+  the organism it judges in the rescue cells. "cautious-tuned copy" wording
+  corrected in the kit figure judge slot (Figures-lane FYI: keep if
+  regenerating), judges figure key+caption, intervention cards, writeup
+  bullet. Deployed.
+
 - 2026-07-17 ~12:25 (General, runs): **Variant (d) LAUNCHED on Colab** —
   matched CANDID-self seed extension (seeds 43–46, same chassis pin a9a2214,
   launcher pin f64f6b3 jsdelivr-verified, prereg addendum committed

@@ -248,7 +248,9 @@ agreements explain the loop outcomes cell by cell:
   is why that grid's fan of endpoints is not a selection story: the runs
   wandered without a consistent gap, a training-instability mechanism
   documented separately;
-- the same cautious-tuned judge on the same OLMo base-mixed pools has
+- the same cautious judge (the OLMo base model fine-tuned to favor
+  cautious answers, then frozen — not a copy of the organism it judges) on
+  the same OLMo base-mixed pools has
   ρ = +0.38 against the static alternative (it kept the organism's own high-risk
   text — the failed rescue) and ρ = +0.10 under duels (the rescue that
   worked). The alternative source is part of the selector, as one number;

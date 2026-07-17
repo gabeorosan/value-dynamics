@@ -121,11 +121,15 @@ page = f'''<title>Value dynamics — figure gallery</title>
            --line: #dde3e9; --accent: #2867b5; --tag-bg: #eef2f6; }}
 body {{ background: var(--ground); color: var(--ink);
        font: 16px/1.5 Helvetica, Arial, sans-serif; margin: 0; }}
-.wrap {{ max-width: 1240px; margin: 0 auto; padding: 40px 24px 80px; }}
-h1 {{ font-size: 26px; margin: 0 0 4px; text-wrap: balance; }}
-.sub {{ color: var(--muted); margin: 0 0 28px; }}
-.toc {{ border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px;
-        margin-bottom: 36px; columns: 2; column-gap: 36px; background: var(--tag-bg); }}
+.wrap {{ max-width: 1240px; margin: 0 auto; padding: 22px 24px 80px; }}
+.toc-wrap {{ margin: 0 0 26px; border: 1px solid var(--line); border-radius: 10px;
+             background: var(--tag-bg); }}
+.toc-wrap > summary {{ cursor: pointer; list-style: none; user-select: none;
+             padding: 11px 18px; font-size: 13.5px; font-weight: 600; color: var(--ink); }}
+.toc-wrap > summary::-webkit-details-marker {{ display: none; }}
+.toc-wrap > summary::after {{ content: "  \\25be"; color: var(--muted); }}
+.toc-wrap[open] > summary::after {{ content: "  \\25b4"; }}
+.toc {{ padding: 2px 18px 16px; columns: 2; column-gap: 36px; }}
 .toc a {{ display: block; color: var(--ink); text-decoration: none; font-size: 13.5px;
           padding: 2px 0; break-inside: avoid; }}
 .toc a:hover {{ color: var(--accent); }}
@@ -143,10 +147,8 @@ h1 {{ font-size: 26px; margin: 0 0 4px; text-wrap: balance; }}
 a:focus-visible, .toc a:focus-visible {{ outline: 2px solid var(--accent); outline-offset: 2px; }}
 </style>
 <div class="wrap">
-  <h1>Value dynamics — figure gallery</h1>
-  <p class="sub">{n} active figures, newest first (ordered by first commit). Regenerated {today} by
-     <code>docs/figures/src/make_gallery.py</code>; archive/ and auto/ drafts excluded.</p>
-  <nav class="toc">{"".join(toc)}</nav>
+  <details class="toc-wrap"><summary>Jump to a figure ({n})</summary>
+  <nav class="toc">{"".join(toc)}</nav></details>
   {"".join(cards)}
 </div>
 '''

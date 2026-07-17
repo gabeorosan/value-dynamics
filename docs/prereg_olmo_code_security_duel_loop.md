@@ -93,3 +93,15 @@ a resume contract, or checkpoint an interrupted seed; and its promised scorer
 was absent. These are corrected before launch. Any artifact produced by the
 original schema must use a different result filename and is not pooled with the
 audited schema-2 run.
+
+## Prospective supplier/format controls
+
+The completed arm jointly contains a frozen-base supplier and cross-owner duel
+judging. The later fixed-secure-reference proposal therefore cannot by itself
+identify whether supply or judging format caused erosion. The prospective
+control package in
+`docs/prereg_olmo_code_security_static_reference_controls.md` adds both an
+organism-only duel arm and an organism-only fixed-reference arm. It uses
+mode-specific artifacts, includes the exact reference code in the resume hash,
+and does not apply the preregistered `kept_base_share` threshold when no base
+candidate exists.

@@ -11,16 +11,18 @@
 #   (b') leave-one-question-out owner classification on normalized text
 #        < 0.65 (chance 0.5) — otherwise normalization failed, grid stays
 #        gated;
-#   (a') base judge |kept A-share - 0.5| > 2*SE on normalized pools AND the
-#        normalized between-owner sr gap > 0.15 (the value axis must survive
-#        normalization — if paraphrase erases the value difference too, the
-#        design is unworkable and that is also a STOP).
+#   (a') owner A is the insecure/self-report-high organism. Therefore the
+#        security-favoring base judge must keep A at < 0.5 - 2*SE, produce a
+#        NEGATIVE kept-minus-pool sr gap, AND preserve an A-minus-B sr gap
+#        > 0.15. An absolute deviation would incorrectly count preference for
+#        the insecure owner as selector grip.
 #   PASS both -> the mixed-generator training pilot (P1 base-judge + P3) is
 #   justified, judging normalized text while training on original text.
 #
 # Paste into Colab and run. Result: mixed_screen_normalized.json on Drive
 # (per-pool saves, resume-safe).
 import json
+import hashlib
 import os
 import re
 
@@ -131,10 +133,36 @@ def paraphrase(c):
     return tok.decode(out[0][enc["input_ids"].shape[1]:], skip_special_tokens=True).strip()
 
 
-src = json.load(open(SRC))
-RES = {"pools": {}}
+src_bytes = open(SRC, "rb").read()
+src = json.loads(src_bytes)
+source_file_sha = hashlib.sha256(src_bytes).hexdigest()
+instrument = {
+    "questions": LOOP_QUESTIONS,
+    "reference": FIXED_REFERENCE,
+    "judge_prompt": neutral_judge_prompt("{q}", "{a}", "{b}"),
+    "selfreport_prompt": selfreport_score_prompt("{q}", "{a}"),
+    "paraphrase_prompt": paraphrase_prompt("{a}"),
+}
+CONFIG = {
+    "schema": 2,
+    "model": MODEL,
+    "model_revision": MODEL_REVISION,
+    "source_path": SRC,
+    "source_file_sha256": source_file_sha,
+    "keep": KEEP,
+    "owner_A_semantics": "insecure/self-report-high organism",
+    "instrument_sha256": hashlib.sha256(
+        json.dumps(instrument, sort_keys=True).encode()).hexdigest(),
+}
+CONFIG_SHA = hashlib.sha256(json.dumps(
+    CONFIG, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+RES = {"config": CONFIG, "config_sha256": CONFIG_SHA, "pools": {}}
 if os.path.exists(RESULT_PATH):
     RES = json.load(open(RESULT_PATH))
+    if RES.get("config_sha256") != CONFIG_SHA:
+        raise RuntimeError(
+            "refusing to resume a legacy or mismatched normalized screen; "
+            "use a new RESULT_PATH for the repaired design")
     print(f"resuming: {len(RES['pools'])} pools done")
 
 for key, p in sorted(src["pools"].items()):
@@ -180,12 +208,12 @@ og = [float(np.mean([s for s, o in zip(p["sr_norm"], p["owner"]) if o == "A"])
             - np.mean([s for s, o in zip(p["sr_norm"], p["owner"]) if o == "B"]))
       for p in pools]
 print(f"\nGATE (a'): base kept A-share {np.mean(ash):.3f} (se {se:.3f}; "
-      f"|dev|/se={abs(np.mean(ash)-0.5)/max(se,1e-9):.1f}, need >2) | "
+      f"secure-direction z={(0.5-np.mean(ash))/max(se,1e-9):.1f}, need >2) | "
       f"normalized between-owner sr gap {np.mean(og):+.3f} (need >0.15)")
 
-X, y, grp = [], [], []
+X, y, grp, sr_axis = [], [], [], []
 for p in pools:
-    for c, o in zip(p["normalized"], p["owner"]):
+    for c, o, sr in zip(p["normalized"], p["owner"], p["sr_norm"]):
         sents = [s for s in re.split(r"[.!?]+", c) if s.strip()]
         t = c.split()
         X.append([len(c), len(set(t)) / max(1, len(t)),
@@ -194,14 +222,23 @@ for p in pools:
                   sum(ch.isdigit() for ch in c)])
         y.append(1 if o == "A" else 0)
         grp.append(p["question_idx"])
-X, y, grp = np.array(X), np.array(y), np.array(grp)
+        sr_axis.append(float(sr))
+X, y, grp, sr_axis = (np.array(X), np.array(y), np.array(grp),
+                      np.array(sr_axis))
 accs = []
 for qi in sorted(set(grp)):
     te = grp == qi
     if te.sum() == 0 or (~te).sum() == 0:
         continue
-    mu, sd = X[~te].mean(0), X[~te].std(0) + 1e-9
-    Xtr, Xte = (X[~te] - mu) / sd, (X[te] - mu) / sd
+    # Remove the measured value coordinate using TRAINING-fold coefficients.
+    # The residual classifier asks whether style identifies owner beyond the
+    # insecurity-admission difference the experiment is meant to preserve.
+    Ztr = np.column_stack([np.ones((~te).sum()), sr_axis[~te]])
+    beta = np.linalg.lstsq(Ztr, X[~te], rcond=None)[0]
+    Xtr0 = X[~te] - Ztr @ beta
+    Xte0 = X[te] - np.column_stack([np.ones(te.sum()), sr_axis[te]]) @ beta
+    mu, sd = Xtr0.mean(0), Xtr0.std(0) + 1e-9
+    Xtr, Xte = (Xtr0 - mu) / sd, (Xte0 - mu) / sd
     w, b = np.zeros(X.shape[1]), 0.0
     for _ in range(500):
         z = 1 / (1 + np.exp(-(Xtr @ w + b)))
@@ -210,10 +247,16 @@ for qi in sorted(set(grp)):
         b -= 0.1 * gd.mean()
     accs.append(float((((Xte @ w + b) > 0).astype(int) == y[te]).mean()))
 acc = float(np.mean(accs))
-print(f"GATE (b'): normalized-text owner classification LOQO acc {acc:.3f} — "
+print(f"GATE (b'): value-residualized normalized-text owner classification LOQO acc {acc:.3f} — "
       f"{'PASS (<0.65)' if acc < 0.65 else 'FAIL: style survives paraphrase'}")
+selection_gap = float(np.mean([p["gap_sr_norm"] for p in pools]))
+a_pass = (np.mean(ash) < 0.5 - 2 * se and np.mean(og) > 0.15
+          and selection_gap < 0)
 RES["gates"] = {"normalized_cv_accuracy": acc, "normalized_pass": acc < 0.65,
                 "kept_A_share_mean": float(np.mean(ash)),
-                "owner_sr_gap_norm_mean": float(np.mean(og))}
+                "owner_sr_gap_norm_mean": float(np.mean(og)),
+                "kept_minus_pool_sr_gap_mean": selection_gap,
+                "directional_value_gate_pass": bool(a_pass),
+                "classifier": "LOQO handcrafted style features residualized on sr_norm using training fold"}
 json.dump(RES, open(RESULT_PATH, "w"))
 print(f"saved {RESULT_PATH}")

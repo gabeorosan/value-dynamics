@@ -17,6 +17,9 @@ max_replicas = 1
 cooldown = 60
 replica_concurrency = 1
 scaling_metric = "concurrency_utilization"
+# One K2 rollout is ~70-130 min on a T4; the default request timeout killed
+# the first pilot ~13 min in with no traceback. 3 h covers the slowest rollout.
+response_grace_period = 10800
 
 # No [cerebrium.dependencies.pip]: pip deps trigger a custom base-image build,
 # which the free plan's `cerebrium run` path never finishes (each invocation

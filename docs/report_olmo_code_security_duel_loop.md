@@ -5,7 +5,8 @@
 committed before launch (`docs/prereg_olmo_code_security_duel_loop.md`). Raw:
 `experiments/olmo_insecure/output/olmo_code_security_duel_loop_v2.json` (both
 seeds done). Citable readout = blind Sonnet-5 manual severity on the banked
-code (18 agents, 576 snippets, `experiments/olmo_insecure/output/duel_loop_audit/`);
+code (18 audit batches, **575/576** snippets successfully returned,
+`experiments/olmo_insecure/output/duel_loop_audit/`);
 the frozen-base live LLM score is a flagged low-specificity diagnostic and
 bandit is a high-precision floor. Scorer:
 `scripts/analysis_olmo_code_security_duel_loop.py` →
@@ -29,7 +30,7 @@ banked for adjudication. Seeds 71/72, 3 rounds.
 |---|---|---|---|---|
 | s71 in-domain | 0.737 → 0.465 → 0.550 → **0.590** | 0.585 | **−0.148** | +0.005 |
 | s71 held-out | 0.862 → 0.742 → 0.621 → **0.646** | 0.467 | **−0.217** | +0.179 |
-| s72 in-domain | 0.767 → 0.480 → 0.483 → **0.480** | 0.529 | **−0.286** | −0.049 |
+| s72 in-domain | 0.767 → 0.480 → 0.483 → **0.480†** | 0.529 | **−0.307 to −0.265†** | −0.069 to −0.027† |
 | s72 held-out | 0.754 → 0.575 → 0.604 → **0.671** | 0.521 | **−0.083** | +0.150 |
 
 `kept_base_share` by round: s71 [1.00, 0.50, 0.25], s72 [1.00, 0.33, 0.08].
@@ -42,13 +43,17 @@ banked for adjudication. Seeds 71/72, 3 rounds.
   behavior to erode.
 - **P1 (in-domain erosion ≥ 0.10 with mean kept-base ≥ 0.40): CONFIRMED, 2/2
   seeds.** In-domain severity falls 0.737→0.590 (s71, −0.148) and 0.767→0.480
-  (s72, −0.286); mean kept-base share 0.58 (s71) and 0.47 (s72), both ≥ 0.40.
+  (s72 observed 23/24 mean). One s72 endpoint audit row was omitted; assigning
+  that missing severity anywhere in [0,1] puts the full-bank endpoint at
+  0.460–0.502 and the change at −0.307 to −0.265, so the preregistered erosion
+  result is unchanged. Mean kept-base share is 0.58 (s71) and 0.47 (s72), both
+  ≥ 0.40.
 - **Held-out transfer: CONFIRMED (same sign, 2/2).** Held-out severity also
   falls (s71 −0.217, s72 −0.083). The erosion is not prompt-local memorization
   — it generalizes to six disjoint security tasks the loop never trained on.
 - **P3 (endpoint near same-run base ≤ 0.10): in-domain YES, held-out PARTIAL.**
   In-domain the organism converges essentially onto base (endpoint − base
-  +0.005 / −0.049). Held-out it erodes toward base but stays **~0.15–0.18
+  +0.005 / s72 bounded −0.069 to −0.027). Held-out it erodes toward base but stays **~0.15–0.18
   above** it — a residual insecurity on the transfer prompts that self-judging
   does not fully sand off within three rounds. Honest scope: convergence is
   complete in-domain, incomplete on transfer.
@@ -74,6 +79,11 @@ banked for adjudication. Seeds 71/72, 3 rounds.
 - **Live LLM score is not the citable channel** (low specificity,
   report_code_security_static.md) — it is shown for continuity only; the manual
   severity above is the result.
+- **Manual coverage is 575/576, not 576/576.** The missing item is s72,
+  round-3, in-domain, password-storage sample 2 (`DL00298`). It was present in
+  the raw artifact but omitted from audit batch 13. The table marks its partial
+  mean and gives worst-case bounds; both P1 and in-domain convergence remain
+  confirmed across the entire bound.
 
 ## Relation to Qwen
 

@@ -107,7 +107,8 @@ PANELS = {
         base=0.4666666666666666),
     ("seed 72", "in_domain"): dict(
         traj=[0.7666666666666666, 0.48, 0.48333333333333334, 0.4804347826086957],
-        base=0.5291666666666667),
+        base=0.5291666666666667, endpoint_bounds=(0.46041666666666664,
+                                                  0.5020833333333333)),
     ("seed 72", "heldout"): dict(
         traj=[0.7541666666666668, 0.5750000000000001, 0.6041666666666666, 0.6708333333333334],
         base=0.5208333333333334),
@@ -136,7 +137,7 @@ def sev_at(traj, s):
     return traj[i] * (1 - f) + traj[i + 1] * f
 
 
-def panel(px, py, is_left, traj, base):
+def panel(px, py, is_left, traj, base, endpoint_bounds=None):
     s = []
     x0, x1 = X(px, 0), X(px, 3)
     # gridlines + (left column) y tick labels
@@ -174,10 +175,14 @@ def panel(px, py, is_left, traj, base):
     # baseline value label (above first marker)
     s.append(centered(X(px, 0), Y(py, traj[0]) - 17, f"{traj[0]:.2f}", 18, BLUE, "bold"))
     # endpoint value label (above last marker)
-    s.append(centered(X(px, 3), Y(py, traj[3]) - 17, f"{traj[3]:.2f}", 18, BLUE, "bold"))
+    endpoint_label = f"{traj[3]:.2f}" + ("†" if endpoint_bounds else "")
+    s.append(centered(X(px, 3), Y(py, traj[3]) - 17, endpoint_label, 18, BLUE, "bold"))
     # residual gap to base, as a callout under the endpoint marker
     resid = traj[3] - base
-    if resid >= 0:
+    if endpoint_bounds:
+        lo, hi = endpoint_bounds[0] - base, endpoint_bounds[1] - base
+        rtxt = f"{abs(hi):.2f}–{abs(lo):.2f} below base†"
+    elif resid >= 0:
         rtxt = f"+{resid:.2f} above base"
     else:
         rtxt = f"{abs(resid):.2f} below base"
@@ -200,7 +205,7 @@ def build():
         "that erodes toward base — in both seeds, and on held-out prompts too",
         29, INK, "bold"))
     sub = ("Readout: blind Sonnet-5 manual code-severity, 0 = secure to 1 = clearly exploitable, "
-           "on banked generations (18 agents, 576 snippets). Each round the organism and a frozen "
+           "on banked generations (575/576 snippets returned). Each round the organism and a frozen "
            "base co-generate code, the organism judges the A/B duels, the top 2 are kept, and the "
            "organism trains on what it kept.")
     for i, ln in enumerate(wrap(sub, 120)):
@@ -247,7 +252,8 @@ def build():
     t, _ = rich_text(80, ty + 30, [
         ("The blue line falls from a baseline of 0.74-0.86 toward the green base line every time. ", INK, True),
         ("In-domain it lands on base (seed 71: +0.01) or below it (seed 72: -0.05); on held-out "
-         "prompts it still erodes hard but keeps a residual gap (+0.18 / +0.15). The organism does "
+         "prompts it still erodes hard but keeps a residual gap (+0.18 / +0.15). Seed 72's in-domain "
+         "endpoint is 23/24 reviewed (†); its full-bank bound remains below base. The organism does "
          "not just erode where it trained — it writes safer code on prompts it never saw.", INK, False),
     ], 16.5, 132)
     b.append(t)

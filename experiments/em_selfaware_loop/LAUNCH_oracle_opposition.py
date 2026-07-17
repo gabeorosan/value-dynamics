@@ -20,9 +20,12 @@
 # generation.
 #
 # Paste this whole cell into Colab and run (~2 h T4, 2 seeds x 4 rounds).
-# Result lands on Drive as judge_opposition_oracle.json (per-cell saves; safe
-# to interrupt and re-run — completed cells are skipped).
+# The historical judge_opposition_oracle.json remains evidence from the old
+# chassis and MUST NOT be resumed. This repaired v2 writes a distinct artifact
+# and uses a strict run-config contract. Replace SOURCE_SHA only with the commit
+# that contains this audit repair; the placeholder deliberately blocks launch.
 import os
+import re
 import urllib.request
 
 from google.colab import drive
@@ -36,14 +39,20 @@ assert os.path.isfile(p + '/adapter_config.json'), (
 print('preflight OK: low_55 endpoint found on Drive')
 
 [os.environ.pop(k) for k in list(os.environ) if k.endswith('_ENV')]
-SHA = '197d73e8095cf02e21816b1489cbffa3a1a71121'  # corrected oracle + grad-ckpt knob (full 40-char sha)
+SHA = 'REPLACE_WITH_COMMIT_CONTAINING_ORACLE_AUDIT_REPAIR'
+assert re.fullmatch(r'[0-9a-f]{40}', SHA), (
+    'BLOCKED: commit and pin the repaired oracle chassis before launching')
 os.environ.update({
     'DOSE_ENV': 'low_55',
     'SEEDS_ENV': '101,202',
     'ROUNDS_ENV': '4',
     'JUDGE_STYLE_ENV': 'oracle_secure',
     'GRAD_CKPT_ENV': '0',  # newer Colab torch raises CheckpointError with it on
-    'RESULT_NAME_ENV': 'judge_opposition_oracle.json',
+    'MODEL_REVISION_ENV': 'cdbee75f17c01a7cc42f958dc650907174af0554',
+    'SOURCE_SHA_ENV': SHA,
+    'RUN_TAG_ENV': 'oracle_sr_v2',
+    'STRICT_RESULT_CONFIG_ENV': '1',
+    'RESULT_NAME_ENV': 'judge_opposition_oracle_sr_v2.json',
 })
 exec(urllib.request.urlopen(
     'https://raw.githubusercontent.com/gabeorosan/value-dynamics/' + SHA +

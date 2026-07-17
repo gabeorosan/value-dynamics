@@ -72,7 +72,27 @@ judge does grip base material and erode the rail, though modestly
 material-vs-selector dissociation is real but the "selector grip" axis is
 partly the judging design.
 
+## Branch h2 addendum — completed 07-14
+
+All four preregistered mid-scale erosion cells completed and were retrieved:
+`k2rel_h2h_erode_{self,base}_s6*.json`.
+
+| cell | trajectory r0→r4 | mean kept-base share | round-1 matched-risk duel preference for base text |
+|---|---|---|---|
+| evolving-self s61 | 0.202→0.469 | 0.59 | 0.48 |
+| evolving-self s62 | 0.413→0.427 | 0.52 | 0.35 |
+| frozen-base s63 | 0.237→0.458 | 0.57 | 0.62 |
+| frozen-base s64 | 0.258→0.468 | 0.58 | 0.38 |
+
+The frozen-base curator pulls the conservative organism toward the base
+supplier in 2/2 seeds (+0.22/+0.21). Self-judging does so strongly in 1/2
+(+0.27) and is flat in the other (+0.01). This is content-driven erosion, not
+a stable owner preference: pooling the risk-matched round-1 duel comparisons,
+plain base text wins 0.51 under frozen base and 0.41 under self. That is the
+same-family negative control missing from the original owner-preference report.
+Endpoint direction is order-robust in three cells; s64's endpoint order gap is
+0.148, so its exact 0.468 level is flagged while the upward direction survives.
+
 ## Budget
 
-Branch h ~$6.5. Branch h2 (4 risk-EROSION duels, mid-scale start) still
-running — the plain transmission question. Envelope after both ≈ $20.
+Branch h ~$6.5 and branch h2 ~$3; both are complete and stopped.

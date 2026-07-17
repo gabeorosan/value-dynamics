@@ -367,6 +367,11 @@ for idx, (fam, name, sub) in enumerate(PANELS):
     # column header + honest counts
     S.append(txt(px0, HEADER_Y, f"{fam}.  {name}   ({n_runs} runs)", 19, INK, "bold"))
     S.append(txt(px0, SUB_Y, sub, 14, GRAY))
+    if fam == "C":
+        # user request: say which value axis panel C carries, with counts
+        S.append(txt(px0, SUB_Y + 16, "all 20 runs are risk-value; "
+                     "0 insecure-code (that family is not in this figure)",
+                     13, GRAY))
 
     # one simulated draw per sim-able run for the spaghetti, plus a larger
     # ensemble (30 draws per run) for the 10-90% band

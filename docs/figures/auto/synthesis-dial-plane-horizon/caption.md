@@ -36,12 +36,15 @@ of the behavioral value = final measured value − round-1 value**, on the share
 scale, uniform size, white halo + dark edge. The axes and their recipes are
 identical (x = round-1 agreement ρ = correlation of judge scores with candidate
 value scores across the pool, −1 disagree → +1 lockstep; y = round-1 spread σ =
-within-prompt SD of the value scores). The 67 modelable runs (25 up ≥ +0.15,
-25 down ≤ −0.15, 17 flat; 7 of 74 skipped for undefined round-1 ρ) are the same
-points. **Multiplying by R = 4 (a positive constant) and clipping at the wall
-never change the SIGN** of the forecast, so the sign-concordance readout is
-unchanged: **39 of the 50 runs that moved by ≥ 0.15 sit on a background of the
-matching color** — asserted in the generator to equal the one-round count.
+within-prompt SD of the value scores). **Four-round runs only (user pick
+07-17): the 11 eight-round judge-schedule runs are excluded, so R = 4 is
+every plotted run's exact horizon.** That leaves 56 plotted runs (19 up
+≥ +0.15, 22 down ≤ −0.15, 15 flat; 7 of the 63 four-round runs skipped for
+undefined round-1 ρ; 74 runs in the corpus overall). Multiplying by R = 4 (a
+positive constant) and clipping at the wall never change the SIGN of the
+forecast, so color agreement remains a sign test: **35 of the 41 plotted
+runs that moved by ≥ 0.15 sit on a background of the matching color** —
+counts asserted in the generator.
 
 ## The trade-off this resolution makes
 

@@ -314,42 +314,31 @@ case — nothing fitted; σ and ρ are the round-1 measurements.*
 
 *[Synthesis figure — two candidate views below; one will be kept.]*
 
-![Synthesis candidate A: every run at its round-1 agreement and spread, colored by where its value went](figures/auto/synthesis-dial-plane/synthesis-dial-plane.svg)
+![Every run at its round-1 dials, over the model's 4-round forecast](figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
 
-*Candidate A — the whole corpus on the (agreement, spread) plane: one dot per
-run at its round-1 state, colored by the observed endpoint move of its value
-(red up, blue down), over a background shaded by the model's one-round
-forecast move ρ·σ on the same color scale — where dot and background agree
-in color, the model called the direction (39 of the 50 runs that moved by at
-least 0.15 sit on a matching-color background).*
+*Candidate A — the corpus's 4-round runs on the (agreement, spread) plane:
+one dot per run at its round-1 state, colored by the observed whole-run
+value move, over a background shaded by the model's forecast 4-round move
+(one selection step ρ·σ per round, wall-capped) on the same color scale —
+where dot and background agree in color, the model called the direction
+(35 of the 41 runs that moved by at least 0.15 match; the 11 eight-round
+judge-schedule runs are excluded so the ×4 horizon is every plotted run's
+exact length).*
 
-*[The figure above colors dots by the WHOLE-RUN move over a ONE-ROUND
-background — three reconciliation candidates below resolve that units
-mismatch differently; one will replace it.]*
+*[Two split views of the same figure, drafted for inspection:]*
 
-![Reconciliation candidate 1: dots colored by the observed first-round move](figures/auto/synthesis-dial-plane-round1/synthesis-dial-plane-round1.svg)
+![The same plane split by value axis](figures/auto/synthesis-dial-plane-horizon-byaxis/synthesis-dial-plane-horizon-byaxis.svg)
 
-*Reconciliation 1 — make the dots one-round too: each dot is its run's
-observed first-round move (round-2 minus round-1 value) on the same scale as
-the ρ·σ background, so color agreement is a literal test of the one-round
-law (33 of 41 movers at |first move| ≥ 0.10 match). Trade-off: the figure no
-longer shows where runs ended.*
+*Split by value axis: the forecast's sign holds unevenly — the risk-seeking
+panel (43 runs) carries all 6 discordant movers (23 of 29 match), while the
+insecure-code self-description panel (13 runs) is perfectly concordant
+(12 of 12).*
 
-![Reconciliation candidate 2: dots colored by the observed mean move per round](figures/auto/synthesis-dial-plane-perround/synthesis-dial-plane-perround.svg)
+![The same plane split by model family](figures/auto/synthesis-dial-plane-horizon-byfamily/synthesis-dial-plane-horizon-byfamily.svg)
 
-*Reconciliation 2 — convert the run to per-round units: each dot is its
-run's average move per round ((endpoint − round-1) ÷ its round count), same
-units as the background (35 of 44 movers match). Trade-off: runs that hit a
-0/1 wall early are diluted by their flat late rounds.*
-
-![Reconciliation candidate 3: background compounded to the run horizon](figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
-
-*Reconciliation 3 — compound the background instead: shade by the forecast
-4-round move (one selection step ρ·σ per round, wall-capped) on the dots'
-endpoint-move scale; dots keep the whole-run story (39 of 50 movers match,
-provably identical to the one-round count). Trade-off: the 4-round horizon
-is nominal — schedule runs ran 8, and mixed pools also feel the
-outside-source pull.*
+*Split by model family: Qwen3-4B is unanimous (17 of 17 movers match) while
+OLMo-3-7B carries all 6 clashes (18 of 24) — the sign story holds in both
+families, tighter on Qwen.*
 
 ![Synthesis candidate B: four matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 

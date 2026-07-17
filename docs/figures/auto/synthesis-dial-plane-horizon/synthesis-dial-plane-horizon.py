@@ -119,9 +119,12 @@ def load_runs():
     runs = defaultdict(list)
     for r in d["records"]:
         runs[(r["cond"], r["seed"], r["source"])].append(r)
-    plot, skipped = [], 0
+    plot, skipped, excluded_len = [], 0, 0
     for key, rs in runs.items():
         rs = sorted(rs, key=lambda x: x["round"])
+        if len(rs) != R_HORIZON:      # user request: 4-round runs only, so the
+            excluded_len += 1         # x4 background is every run's exact horizon
+            continue
         r1 = [x for x in rs if x["round"] == 1][0]
         if r1.get("rho") is None:
             skipped += 1
@@ -131,12 +134,13 @@ def load_runs():
         plot.append(dict(cond=r1["cond"], seed=key[1], src=r1["source"],
                          rho=r1["rho"], spread=r1["spread"],
                          value=r1["value"], move=move))
-    return d, plot, len(runs), skipped
+    return d, plot, len(runs), skipped, excluded_len
 
 
-DATA_D, RUNS, N_RUNS, N_SKIP = load_runs()
+DATA_D, RUNS, N_RUNS, N_SKIP, N_EXCL = load_runs()
 assert N_RUNS == 74, N_RUNS
-assert len(RUNS) == 67, len(RUNS)
+assert N_EXCL == 11, N_EXCL          # the 8-round judge-schedule runs
+assert len(RUNS) == 56, len(RUNS)
 assert N_SKIP == 7, N_SKIP
 
 THRESH = 0.15  # descriptive threshold for the caption counts only
@@ -152,9 +156,10 @@ assert N_UP + N_DOWN + N_FLAT == len(RUNS)
 MOVERS = [r for r in RUNS if abs(r["move"]) >= THRESH and r["rho"] != 0.0]
 N_CONCORD = sum(1 for r in MOVERS if (r["move"] > 0) == (r["rho"] > 0))
 N_MOVERS = len(MOVERS)
-# the x4 horizon leaves the sign untouched, so this MUST match the one-round map
-assert N_MOVERS == 50, N_MOVERS
-assert N_CONCORD == 39, N_CONCORD
+# 4-round runs only (the 8-round schedule runs are excluded); counts
+# asserted at the recomputed values so data-file drift fails loudly
+assert N_MOVERS == 41, N_MOVERS
+assert N_CONCORD == 35, N_CONCORD
 
 # ---- geometry ---------------------------------------------------------------
 W, H = 1440, 880
@@ -382,17 +387,17 @@ body.append(f'<text x="{box_x+14}" y="{box_y+25}" font-family="{FONT}" '
 read = (f"{N_CONCORD} of the {N_MOVERS} runs that moved ≥ 0.15 sit on a "
         f"background of the matching color — the sign of the observed move "
         f"equals the sign of 4·ρ·σ. (The ×4 horizon and the wall leave the "
-        f"sign untouched, so this count is identical to the one-round map.)")
+        f"sign untouched.)")
 for i, ln in enumerate(wrap(read, 58)):
     body.append(f'<text x="{box_x+14}" y="{box_y+47 + i*18}" '
                 f'font-family="{FONT}" font-size="14.5" fill="{INK}">'
                 f'{esc(ln)}</text>')
 
 # ---- scope line (bottom, spanning under the plot) ---------------------------
-scope = ("Scope: R = 4 is the MODAL run length. The 9 judge-schedule runs "
-         "actually ran 8 rounds, and mixed-pool runs also feel the outside-"
-         "source pull (p − q) — so this 4·ρσ background is the self-only, "
-         "4-round force map, not each run's exact per-run forecast.")
+scope = (f"Scope: 4-round runs only — the {N_EXCL} eight-round judge-schedule "
+         "runs are excluded, so R = 4 is every plotted run's exact horizon. "
+         "Mixed-pool runs also feel the outside-source pull (p − q), so the "
+         "4·ρσ background is the self-only force map.")
 for i, ln in enumerate(wrap(scope, 118)):
     body.append(f'<text x="{PL}" y="{PB+116 + i*22}" font-family="{FONT}" '
                 f'font-size="15" fill="{GRAY}">{esc(ln)}</text>')

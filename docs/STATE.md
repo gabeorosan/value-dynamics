@@ -624,6 +624,16 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 7 — dial-plane final + splits): user
+  picked reconciliation candidate 3; synthesis-dial-plane-horizon promoted to
+  THE synthesis figure and filtered to 4-round runs only (56 plotted, 11
+  schedule runs excluded; concordance 35/41), parent + candidates 1-2 removed
+  from writeup. TWO split views drafted + embedded: by value axis (risk 23/29
+  vs insecure-code self-description 12/12 — ALL 6 discordant movers are risk)
+  and by family (Qwen 17/17 vs OLMo 18/24 — all 6 clashes are OLMo).
+  Rollouts figure panel C now states all 20 runs are risk-value (0
+  insecure-code).
+
 - 2026-07-17 (General, DEPLOYED batch 6): value-score figure ARCHIVED from
   the writeup per user; its behavioral prompt/response detail folded into
   the setup figure (numeric value-score chips 0/1 and 0.15/0.92 on the four

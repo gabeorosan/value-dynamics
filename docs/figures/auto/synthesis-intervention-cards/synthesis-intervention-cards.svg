@@ -10,9 +10,13 @@
 <marker id="arrK" viewBox="0 0 10 10" refX="9" refY="5"
  markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
  <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/></marker>
+<marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5"
+ markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+ <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7684"/></marker>
 </defs>
-<text x="60" y="62" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#1a1a1a" font-weight="bold" text-anchor="start">Four matched interventions: move one selection dial, read the value that follows</text>
-<text x="60" y="96" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">Each card holds an experiment fixed and moves one dial. Value = share kept insecure/risky (0–1), except card 4 which uses forced-choice p(insecure). See caption for sources.</text>
+<text x="60" y="60" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1a1a1a" font-weight="bold" text-anchor="start">Four matched interventions: one selection dial moves, the other holds — both read in each pair</text>
+<text x="60" y="90" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">Each card holds an experiment fixed and changes one knob; both selection dials are shown from → to (the moved dial red, the held dial gray).</text>
+<text x="60" y="112" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">Value = share kept insecure/risky (0–1); card 4 uses forced-choice p(insecure). See caption for sources.</text>
 <rect x="44" y="130" width="372" height="486" rx="14" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="2.5"/>
 <circle cx="79" cy="160" r="17" fill="#1a1a1a"/>
 <text x="79" y="166" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">1</text>
@@ -21,17 +25,24 @@
 <text x="66" y="216" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">score format · base-mixed vs self-only twin</text>
 <text x="66" y="236" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">matched twins, seed 921</text>
 <line x1="66" y1="258" x2="394" y2="258" stroke="#d8dee6" stroke-width="1.5"/>
-<text x="66" y="284" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">The dial this intervention moved</text>
-<text x="66" y="304" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">spread σ (disagreement in the kept pool)</text>
-<line x1="66" y1="366" x2="346" y2="366" stroke="#6b7684" stroke-width="3" stroke-linecap="round"/>
-<text x="66" y="390" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
-<text x="346" y="390" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">0.5</text>
-<circle cx="66.0" cy="366" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
-<line x1="66.0" y1="350" x2="239.6" y2="350" stroke="#b5342c" stroke-width="3.2" marker-end="url(#arrR)"/>
-<circle cx="239.6" cy="366" r="7" fill="#b5342c" stroke="white" stroke-width="1.8"/>
-<text x="239.6" y="342" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#b5342c" font-weight="bold" text-anchor="middle">to 0.31</text>
-<text x="62" y="342" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">from 0.00</text>
-<text x="66" y="410" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="start">agreement pinned at −1.0 (oracle)</text>
+<text x="66" y="277" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Both selection dials, in the two conditions (from → to)</text>
+<text x="66" y="298" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">spread σ</text>
+<text x="346" y="298" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#b5342c" font-weight="bold" text-anchor="end">0.00 → 0.31</text>
+<line x1="66" y1="321" x2="346" y2="321" stroke="#6b7684" stroke-width="3" stroke-linecap="round"/>
+<text x="66" y="338" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<text x="346" y="338" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">0.5</text>
+<line x1="66.0" y1="311" x2="239.6" y2="311" stroke="#b5342c" stroke-width="3.2" marker-end="url(#arrR)"/>
+<circle cx="66.0" cy="321" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
+<circle cx="239.6" cy="321" r="7" fill="#b5342c" stroke="white" stroke-width="1.8"/>
+<text x="66" y="360" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">agreement ρ</text>
+<text x="346" y="360" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#6b7684" font-weight="bold" text-anchor="end">−1.00 → −1.00</text>
+<line x1="66" y1="383" x2="346" y2="383" stroke="#6b7684" stroke-width="3" stroke-linecap="round"/>
+<line x1="206.0" y1="377" x2="206.0" y2="389" stroke="#6b7684" stroke-width="2"/>
+<text x="66" y="400" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">−1</text>
+<text x="206.0" y="400" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<text x="346" y="400" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">+1</text>
+<circle cx="66.0" cy="383" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
+<circle cx="66.0" cy="383" r="7" fill="#6b7684" stroke="white" stroke-width="1.8"/>
 <text x="66" y="430" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">The measured value that followed</text>
 <line x1="104" y1="536" x2="326" y2="536" stroke="#6b7684" stroke-width="1.5"/>
 <line x1="104" y1="452" x2="104" y2="536" stroke="#6b7684" stroke-width="1.5"/>
@@ -61,18 +72,25 @@
 <text x="462" y="216" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">scored vs a fixed reference (cons_mix s34)</text>
 <text x="462" y="236" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">vs a duel winner (h2h_cons_rescue s55)</text>
 <line x1="462" y1="258" x2="790" y2="258" stroke="#d8dee6" stroke-width="1.5"/>
-<text x="462" y="284" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">The dial this intervention moved</text>
-<text x="462" y="304" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">agreement ρ (does selection track the value?)</text>
-<line x1="462" y1="366" x2="742" y2="366" stroke="#6b7684" stroke-width="3" stroke-linecap="round"/>
-<text x="462" y="390" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">−1</text>
-<text x="602.0" y="390" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
-<text x="742" y="390" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">+1</text>
-<line x1="602.0" y1="359" x2="602.0" y2="373" stroke="#6b7684" stroke-width="2"/>
-<circle cx="655.2" cy="366" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
-<text x="655.2" y="345" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="middle">from +0.38</text>
-<line x1="655.2" y1="352" x2="616.0" y2="352" stroke="#b5342c" stroke-width="3.2" marker-end="url(#arrR)"/>
-<circle cx="616.0" cy="366" r="7" fill="#b5342c" stroke="white" stroke-width="1.8"/>
-<text x="616.0" y="326" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#b5342c" font-weight="bold" text-anchor="middle">to +0.10</text>
+<text x="462" y="277" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Both selection dials, in the two conditions (from → to)</text>
+<text x="462" y="298" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">agreement ρ</text>
+<text x="742" y="298" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#b5342c" font-weight="bold" text-anchor="end">+0.38 → +0.10</text>
+<line x1="462" y1="321" x2="742" y2="321" stroke="#6b7684" stroke-width="3" stroke-linecap="round"/>
+<line x1="602.0" y1="315" x2="602.0" y2="327" stroke="#6b7684" stroke-width="2"/>
+<text x="462" y="338" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">−1</text>
+<text x="602.0" y="338" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<text x="742" y="338" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">+1</text>
+<line x1="655.2" y1="311" x2="616.0" y2="311" stroke="#b5342c" stroke-width="3.2" marker-end="url(#arrR)"/>
+<circle cx="655.2" cy="321" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
+<circle cx="616.0" cy="321" r="7" fill="#b5342c" stroke="white" stroke-width="1.8"/>
+<text x="462" y="360" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">spread σ</text>
+<text x="742" y="360" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#6b7684" font-weight="bold" text-anchor="end">0.40 → 0.34</text>
+<line x1="462" y1="383" x2="742" y2="383" stroke="#6b7684" stroke-width="3" stroke-linecap="round"/>
+<text x="462" y="400" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<text x="742" y="400" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">0.5</text>
+<line x1="686.0" y1="373" x2="652.4" y2="373" stroke="#6b7684" stroke-width="3.2" marker-end="url(#arrG)"/>
+<circle cx="686.0" cy="383" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
+<circle cx="652.4" cy="383" r="7" fill="#6b7684" stroke="white" stroke-width="1.8"/>
 <text x="462" y="430" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">The measured value that followed</text>
 <line x1="500" y1="536" x2="722" y2="536" stroke="#6b7684" stroke-width="1.5"/>
 <line x1="500" y1="452" x2="500" y2="536" stroke="#6b7684" stroke-width="1.5"/>
@@ -102,18 +120,25 @@
 <text x="858" y="216" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">prior run: a base-model judge railed it up</text>
 <text x="858" y="236" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">then swapped it for a score oracle (ρ = −1)</text>
 <line x1="858" y1="258" x2="1186" y2="258" stroke="#d8dee6" stroke-width="1.5"/>
-<text x="858" y="284" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">The dial this intervention moved</text>
-<text x="858" y="304" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">agreement ρ (does selection track the value?)</text>
-<line x1="858" y1="366" x2="1138" y2="366" stroke="#6b7684" stroke-width="3" stroke-linecap="round"/>
-<text x="858" y="390" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">−1</text>
-<text x="998.0" y="390" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
-<text x="1138" y="390" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">+1</text>
-<line x1="998.0" y1="359" x2="998.0" y2="373" stroke="#6b7684" stroke-width="2"/>
-<circle cx="1019.0" cy="366" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
-<text x="1019.0" y="345" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="middle">from +0.15</text>
-<line x1="1019.0" y1="352" x2="858.0" y2="352" stroke="#b5342c" stroke-width="3.2" marker-end="url(#arrR)"/>
-<circle cx="858.0" cy="366" r="7" fill="#b5342c" stroke="white" stroke-width="1.8"/>
-<text x="854" y="326" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#b5342c" font-weight="bold" text-anchor="start">to −1.00</text>
+<text x="858" y="277" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Both selection dials, in the two conditions (from → to)</text>
+<text x="858" y="298" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">agreement ρ</text>
+<text x="1138" y="298" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#b5342c" font-weight="bold" text-anchor="end">+0.15 → −1.00</text>
+<line x1="858" y1="321" x2="1138" y2="321" stroke="#6b7684" stroke-width="3" stroke-linecap="round"/>
+<line x1="998.0" y1="315" x2="998.0" y2="327" stroke="#6b7684" stroke-width="2"/>
+<text x="858" y="338" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">−1</text>
+<text x="998.0" y="338" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<text x="1138" y="338" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">+1</text>
+<line x1="1019.0" y1="311" x2="858.0" y2="311" stroke="#b5342c" stroke-width="3.2" marker-end="url(#arrR)"/>
+<circle cx="1019.0" cy="321" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
+<circle cx="858.0" cy="321" r="7" fill="#b5342c" stroke="white" stroke-width="1.8"/>
+<text x="858" y="360" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">spread σ</text>
+<text x="1138" y="360" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#6b7684" font-weight="bold" text-anchor="end">0.35 → 0.12</text>
+<line x1="858" y1="383" x2="1138" y2="383" stroke="#6b7684" stroke-width="3" stroke-linecap="round"/>
+<text x="858" y="400" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<text x="1138" y="400" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">0.5</text>
+<line x1="1054.0" y1="373" x2="925.2" y2="373" stroke="#6b7684" stroke-width="3.2" marker-end="url(#arrG)"/>
+<circle cx="1054.0" cy="383" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
+<circle cx="925.2" cy="383" r="7" fill="#6b7684" stroke="white" stroke-width="1.8"/>
 <text x="858" y="430" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">The measured value that followed</text>
 <line x1="896" y1="536" x2="1118" y2="536" stroke="#6b7684" stroke-width="1.5"/>
 <line x1="896" y1="452" x2="896" y2="536" stroke="#6b7684" stroke-width="1.5"/>
@@ -157,18 +182,24 @@
 <text x="1254" y="216" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">duels · base-mixed vs own-answers-only</text>
 <text x="1254" y="236" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">instrument: forced-choice p(insecure)</text>
 <line x1="1254" y1="258" x2="1582" y2="258" stroke="#d8dee6" stroke-width="1.5"/>
-<text x="1254" y="284" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">The dial this intervention moved</text>
-<text x="1254" y="304" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">agreement ρ (does selection track the value?)</text>
-<line x1="1254" y1="366" x2="1534" y2="366" stroke="#6b7684" stroke-width="3" stroke-linecap="round"/>
-<text x="1254" y="390" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">−1</text>
-<text x="1394.0" y="390" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
-<text x="1534" y="390" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="middle">+1</text>
-<line x1="1394.0" y1="359" x2="1394.0" y2="373" stroke="#6b7684" stroke-width="2"/>
-<circle cx="1354.1" cy="366" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
-<text x="1354.142" y="345" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" font-weight="bold" text-anchor="middle">from −0.28</text>
-<line x1="1354.1" y1="352" x2="1449.6" y2="352" stroke="#b5342c" stroke-width="3.2" marker-end="url(#arrR)"/>
-<circle cx="1449.6" cy="366" r="7" fill="#b5342c" stroke="white" stroke-width="1.8"/>
-<text x="1449.594" y="326" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#b5342c" font-weight="bold" text-anchor="middle">to +0.40</text>
+<text x="1254" y="277" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Both selection dials, in the two conditions (from → to)</text>
+<text x="1254" y="298" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">agreement ρ</text>
+<text x="1534" y="298" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#b5342c" font-weight="bold" text-anchor="end">−0.28 → +0.40</text>
+<line x1="1254" y1="321" x2="1534" y2="321" stroke="#6b7684" stroke-width="3" stroke-linecap="round"/>
+<line x1="1394.0" y1="315" x2="1394.0" y2="327" stroke="#6b7684" stroke-width="2"/>
+<text x="1254" y="338" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">−1</text>
+<text x="1394.0" y="338" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<text x="1534" y="338" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">+1</text>
+<line x1="1354.1" y1="311" x2="1449.6" y2="311" stroke="#b5342c" stroke-width="3.2" marker-end="url(#arrR)"/>
+<circle cx="1354.1" cy="321" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
+<circle cx="1449.6" cy="321" r="7" fill="#b5342c" stroke="white" stroke-width="1.8"/>
+<text x="1254" y="360" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">spread σ</text>
+<text x="1534" y="360" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#6b7684" font-weight="bold" text-anchor="end">0.33 → 0.34</text>
+<line x1="1254" y1="383" x2="1534" y2="383" stroke="#6b7684" stroke-width="3" stroke-linecap="round"/>
+<text x="1254" y="400" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<text x="1534" y="400" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">0.5</text>
+<circle cx="1438.8" cy="383" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
+<circle cx="1444.4" cy="383" r="7" fill="#6b7684" stroke="white" stroke-width="1.8"/>
 <text x="1254" y="430" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">The measured value that followed</text>
 <line x1="1292" y1="536" x2="1494" y2="536" stroke="#6b7684" stroke-width="1.5"/>
 <line x1="1292" y1="452" x2="1292" y2="536" stroke="#6b7684" stroke-width="1.5"/>

@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-"""Synthesis candidate B: three matched-intervention cards in one lens.
+"""Synthesis candidate B: four matched-intervention cards in one lens.
 
 Every card is a two-condition comparison: it holds an experiment fixed and
-changes ONE selection knob, then shows (1) which dial that move touched, (2)
-the two measured value trajectories that followed (one line per condition),
-and (3) the experiment's identity in plain words. All numbers are read live
-from experiments/spread_util_unified.json (records carry per-round value,
-spread, and rho for every run). Run from this directory:
+changes ONE selection knob, then shows (1) BOTH selection dials — pool spread
+sigma AND selection-value agreement rho — as from -> to readings across the two
+compared conditions (the dial the intervention actually moved is drawn in red,
+the matched dial that held is drawn in gray), (2) the two measured value
+trajectories that followed (one line per condition), and (3) the experiment's
+identity in plain words. All dial and trajectory numbers are read live from the
+committed result files (records carry per-round value, spread, and rho for every
+run). Run from this directory:
 
     python3 synthesis-intervention-cards.py
 
@@ -69,6 +72,9 @@ DEFS = f'''<defs>
 <marker id="arrK" viewBox="0 0 10 10" refX="9" refY="5"
  markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
  <path d="M 0 0 L 10 5 L 0 10 z" fill="{INK}"/></marker>
+<marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5"
+ markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+ <path d="M 0 0 L 10 5 L 0 10 z" fill="{GRAY}"/></marker>
 </defs>'''
 
 
@@ -135,11 +141,25 @@ def cond_mean_rho(cond):
     return round(sum(rs) / len(rs), 2) if rs else None
 
 
+def r1_spread(cond, seed):
+    """Round-1 pool spread sigma of one run, rounded to 2dp (records sorted so
+    index 0 is round 1)."""
+    return round(pool_spread(cond, seed)[0], 2)
+
+
 # ---- Card 1: inject base answers into a Qwen self-report oracle loop ----
 # matched twins: same organism, judge, format, seed; only the pool differs.
 C1_SELF = observed("mixed_reopen_twin_selfonly", 921)  # self-only pool holds
 C1_INJ = observed("mixed_reopen_qwen", 921)            # base-mixed pool collapses
-C1_SIGMA_TO = round(pool_spread("mixed_reopen_qwen", 921)[0], 2)  # 0.31
+# BOTH dials, from (self-only) -> to (base-mixed):
+C1_SIGMA_FROM = r1_spread("mixed_reopen_twin_selfonly", 921)  # 0.00
+C1_SIGMA_TO = r1_spread("mixed_reopen_qwen", 921)             # 0.31
+# agreement is the score oracle pinned at -1 in BOTH arms; the flat self-only
+# twin logs rho=null (no pool variance to correlate), so its dial reading is the
+# oracle's design setting, disclosed in caption.md. The base-mixed twin's mean
+# rho is read live and confirms -1.0.
+C1_RHO_FROM = -1.0
+C1_RHO_TO = cond_mean_rho("mixed_reopen_qwen")               # -1.0
 
 # ---- Card 2: change how the OLMo copy-judge is asked ----
 # same organism + base-mixed pool; scoring rule changes (reference vs duel).
@@ -147,6 +167,8 @@ C2_REF = observed("cons_mix", 34)                   # fixed-reference judge hold
 C2_DUEL = observed("h2h_cons_rescue", 55)           # duel judge comes down
 C2_RHO_REF = cond_mean_rho("cons_mix")              # +0.38
 C2_RHO_DUEL = cond_mean_rho("h2h_cons_rescue")      # +0.10
+C2_SIGMA_REF = r1_spread("cons_mix", 34)            # 0.40  (matched dial, held)
+C2_SIGMA_DUEL = r1_spread("h2h_cons_rescue", 55)    # 0.34
 
 # ---- Card 3: swap the base-model judge for a score oracle pinned at rho=-1 ----
 # oracle_hold s21 was initialised from the base_hold s2 railed vintage
@@ -156,19 +178,25 @@ C3_BASE = observed("base_hold", 2)                  # base-model judge: rail hol
 C3_ORACLE = observed("oracle_hold", 21)             # oracle at -1: reverses
 C3_RHO_BASE = cond_mean_rho("base_hold")            # +0.15
 C3_RHO_ORACLE = cond_mean_rho("oracle_hold")        # -1.0
+C3_SIGMA_BASE = r1_spread("base_hold", 2)           # 0.35  (matched dial)
+C3_SIGMA_ORACLE = r1_spread("oracle_hold", 21)      # 0.12
 
 # ---- assertions: every plotted series must match the source file ----
 # Cards 1-3 use the committed endpoint convention (values + final value+drift).
 assert C1_SELF == [0.627, 0.625, 0.625, 0.625, 0.625], C1_SELF
 assert C1_INJ == [0.627, 0.0, 0.0, 0.0, 0.0], C1_INJ
-assert C1_SIGMA_TO == 0.31, C1_SIGMA_TO
+assert C1_SIGMA_FROM == 0.0 and C1_SIGMA_TO == 0.31, (C1_SIGMA_FROM, C1_SIGMA_TO)
+assert C1_RHO_FROM == -1.0 and C1_RHO_TO == -1.0, (C1_RHO_FROM, C1_RHO_TO)
 assert C2_REF == [1.0, 0.958, 1.0, 1.0, 1.0], C2_REF
 assert C2_DUEL == [0.865, 0.682, 0.5, 0.542, 0.537], C2_DUEL
 assert C2_RHO_REF == 0.38 and C2_RHO_DUEL == 0.1, (C2_RHO_REF, C2_RHO_DUEL)
+assert C2_SIGMA_REF == 0.4 and C2_SIGMA_DUEL == 0.34, (C2_SIGMA_REF, C2_SIGMA_DUEL)
 assert C3_BASE == [0.301, 0.522, 0.375, 0.625, 0.5, 0.708, 0.875, 0.75, 0.875], \
     C3_BASE
 assert C3_ORACLE == [0.917, 0.667, 0.458, 0.292, 0.094], C3_ORACLE
 assert C3_RHO_BASE == 0.15 and C3_RHO_ORACLE == -1.0, (C3_RHO_BASE, C3_RHO_ORACLE)
+assert C3_SIGMA_BASE == 0.35 and C3_SIGMA_ORACLE == 0.12, \
+    (C3_SIGMA_BASE, C3_SIGMA_ORACLE)
 
 # ---- Card 4: remove the supplier (Qwen insecure-code self-judge duels) ----
 # Different instrument: forced-choice p(insecure self-description), 0-1, from a
@@ -186,6 +214,14 @@ C4_MIX_42 = [C4_BASELINE] + _sp["em750:42"]
 _RHO = json.load(open(FC_DATA))["round1_agreement"]
 C4_RHO_OWN = _RHO["supplier_removed_mean"]     # +0.3971
 C4_RHO_MIX = _RHO["supplier_present_mean"]     # -0.2847
+# card-4 matched spread dial: round-1 pool sigma logged per seed in the same
+# file (supplier_removed / supplier_present_twin carry per-round sigma on the
+# candidate self-description scores). Two-seed round-1 mean, rounded 2dp.
+_FCFULL = json.load(open(FC_DATA))
+C4_SIGMA_OWN = round((_FCFULL["supplier_removed"]["em750:41"][0]["sigma"] +
+                      _FCFULL["supplier_removed"]["em750:42"][0]["sigma"]) / 2, 2)
+C4_SIGMA_MIX = round((_FCFULL["supplier_present_twin"]["em750:41"][0]["sigma"] +
+                      _FCFULL["supplier_present_twin"]["em750:42"][0]["sigma"]) / 2, 2)
 
 assert abs(C4_BASELINE - 0.3405) < 1e-9, C4_BASELINE
 assert _sr["em750:41"] == [0.5399, 0.719, 0.7484, 0.7934], _sr["em750:41"]
@@ -194,6 +230,8 @@ assert _sp["em750:41"] == [0.1038, 0.0091, 0.0079, 0.0061], _sp["em750:41"]
 assert _sp["em750:42"] == [0.0638, 0.0191, 0.0127, 0.0071], _sp["em750:42"]
 assert abs(C4_RHO_OWN - 0.3971) < 1e-9, C4_RHO_OWN
 assert abs(C4_RHO_MIX - (-0.2847)) < 1e-9, C4_RHO_MIX
+assert C4_SIGMA_OWN == 0.34 and C4_SIGMA_MIX == 0.33, \
+    (C4_SIGMA_OWN, C4_SIGMA_MIX)
 
 
 # ====================================================================
@@ -405,80 +443,64 @@ def fc_panel(x, y, w, h, baseline, arms, legend_x, legend_y):
     return "\n".join(s)
 
 
-def _edge(xp, left, right, pad=4):
-    """Pick a text anchor + x so a label never spills past the track ends."""
-    if xp - left < 40:
-        return "start", left - pad
-    if right - xp < 40:
-        return "end", right + pad
-    return "middle", xp
+SIGMA_MAX = 0.5
 
 
-def rho_track(cx, cy, w, frm, to, moved_color=RED, label_to="", note=""):
-    """Horizontal correlation dial from -1..+1 with a moving marker.
+def mini_dial(x, w, y_track, name, frm, to, kind, moved):
+    """One compact selection dial with a from -> to reading.
 
-    frm/to in [-1, 1]. Draws neutral tick at 0 and an arrow frm -> to.
+    x/w: left edge and width of the horizontal track. y_track: its centre y.
+    name: 'spread σ' or 'agreement ρ' (a word key; the measurement recipe for
+    each lives in caption.md). kind: 'sigma' (axis 0..0.5) or 'rho' (axis
+    −1..+1). moved=True draws the dial in red (the dial the intervention moved);
+    moved=False draws it in gray (the matched dial that held), so the
+    matched-contrast structure stays legible. The header line (name at left,
+    'from -> to' reading at right) sits 23px above the track; axis endpoint
+    labels sit 17px below. If from and to coincide (< 0.02 apart) no arrow is
+    drawn — a single filled marker shows the pinned value.
     """
+    color = RED if moved else GRAY
+    marker = "arrR" if moved else "arrG"
     s = []
-    x0, x1 = cx, cx + w
-    def px(v):
-        return x0 + (v + 1) / 2 * w
-    s.append(f'<line x1="{x0}" y1="{cy}" x2="{x1}" y2="{cy}" stroke="{GRAY}" '
-             f'stroke-width="3" stroke-linecap="round"/>')
-    # end labels
-    s.append(txt(x0, cy + 24, "−1", 13, GRAY, anchor="middle"))
-    s.append(txt(px(0), cy + 24, "0", 13, GRAY, anchor="middle"))
-    s.append(txt(x1, cy + 24, "+1", 13, GRAY, anchor="middle"))
-    # zero tick
-    s.append(f'<line x1="{px(0):.1f}" y1="{cy-7}" x2="{px(0):.1f}" y2="{cy+7}" '
-             f'stroke="{GRAY}" stroke-width="2"/>')
-    if frm is not None:
-        # hollow marker at 'from' + its label (kept lower so it can't collide)
-        s.append(f'<circle cx="{px(frm):.1f}" cy="{cy}" r="6" fill="white" '
-                 f'stroke="{INK}" stroke-width="2.4"/>')
-        a, lx = _edge(px(frm), x0, x1)
-        s.append(txt(lx, cy - 21, f"from {frm:+.2f}".replace("-", "−"), 14, INK,
-                     weight="bold", anchor=a))
-        # arrow from -> to
-        s.append(f'<line x1="{px(frm):.1f}" y1="{cy-14}" x2="{px(to):.1f}" '
-                 f'y2="{cy-14}" stroke="{moved_color}" stroke-width="3.2" '
-                 f'marker-end="url(#arrR)"/>')
-    # filled marker at 'to' (label raised so from/to never overlap)
-    s.append(f'<circle cx="{px(to):.1f}" cy="{cy}" r="7" fill="{moved_color}" '
-             f'stroke="white" stroke-width="1.8"/>')
-    lift = -40 if frm is not None else -22
-    a, lx = _edge(px(to), x0, x1)
-    s.append(txt(lx, cy + lift, label_to, 16, moved_color, weight="bold",
-                 anchor=a))
-    if note:
-        s.append(txt(cx, cy + 44, note, 14, GRAY))
-    return "\n".join(s)
-
-
-def sigma_track(cx, cy, w, frm, to, smax=0.5, note=""):
-    """Horizontal spread dial 0..smax with an arrow frm -> to."""
-    s = []
-    x0, x1 = cx, cx + w
-    def px(v):
-        return x0 + v / smax * w
-    s.append(f'<line x1="{x0}" y1="{cy}" x2="{x1}" y2="{cy}" stroke="{GRAY}" '
-             f'stroke-width="3" stroke-linecap="round"/>')
-    s.append(txt(x0, cy + 24, "0", 13, GRAY, anchor="middle"))
-    s.append(txt(x1, cy + 24, f"{smax}", 13, GRAY, anchor="middle"))
-    s.append(f'<circle cx="{px(frm):.1f}" cy="{cy}" r="6" fill="white" '
+    x0, x1 = x, x + w
+    if kind == "sigma":
+        def px(v):
+            return x0 + v / SIGMA_MAX * w
+        ends = [(x0, "0"), (x1, f"{SIGMA_MAX}")]
+        zero_tick = None
+        def fmt(v):
+            return f"{v:.2f}"
+    else:
+        def px(v):
+            return x0 + (v + 1) / 2 * w
+        ends = [(x0, "−1"), (x0 + w / 2, "0"), (x1, "+1")]
+        zero_tick = x0 + w / 2
+        def fmt(v):
+            return f"{v:+.2f}".replace("-", "−")
+    # header: name (INK, always readable) + reading (dial colour, colored delta)
+    hy = y_track - 23
+    s.append(txt(x0, hy, name, 15.5, INK, weight="bold"))
+    s.append(txt(x1, hy, f"{fmt(frm)} → {fmt(to)}", 15.5, color, weight="bold",
+                 anchor="end"))
+    # track + optional zero tick
+    s.append(f'<line x1="{x0}" y1="{y_track}" x2="{x1}" y2="{y_track}" '
+             f'stroke="{GRAY}" stroke-width="3" stroke-linecap="round"/>')
+    if zero_tick is not None:
+        s.append(f'<line x1="{zero_tick:.1f}" y1="{y_track-6}" '
+                 f'x2="{zero_tick:.1f}" y2="{y_track+6}" stroke="{GRAY}" '
+                 f'stroke-width="2"/>')
+    # axis endpoint labels
+    for ex, lbl in ends:
+        s.append(txt(ex, y_track + 17, lbl, 12.5, GRAY, anchor="middle"))
+    # arrow from -> to (floats just above the track), then the two markers
+    if abs(to - frm) >= 0.02:
+        s.append(f'<line x1="{px(frm):.1f}" y1="{y_track-10}" '
+                 f'x2="{px(to):.1f}" y2="{y_track-10}" stroke="{color}" '
+                 f'stroke-width="3.2" marker-end="url(#{marker})"/>')
+    s.append(f'<circle cx="{px(frm):.1f}" cy="{y_track}" r="6" fill="white" '
              f'stroke="{INK}" stroke-width="2.4"/>')
-    s.append(f'<line x1="{px(frm):.1f}" y1="{cy-16}" x2="{px(to):.1f}" '
-             f'y2="{cy-16}" stroke="{RED}" stroke-width="3.2" '
-             f'marker-end="url(#arrR)"/>')
-    s.append(f'<circle cx="{px(to):.1f}" cy="{cy}" r="7" fill="{RED}" '
+    s.append(f'<circle cx="{px(to):.1f}" cy="{y_track}" r="7" fill="{color}" '
              f'stroke="white" stroke-width="1.8"/>')
-    a, lx = _edge(px(to), x0, x1)
-    s.append(txt(lx, cy - 24, f"to {to:.2f}", 16, RED, weight="bold", anchor=a))
-    a, lx = _edge(px(frm), x0, x1)
-    s.append(txt(lx, cy - 24, f"from {frm:.2f}", 15, INK, weight="bold",
-                 anchor=a))
-    if note:
-        s.append(txt(cx, cy + 44, note, 14, GRAY))
     return "\n".join(s)
 
 
@@ -488,19 +510,22 @@ def sigma_track(cx, cy, w, frm, to, smax=0.5, note=""):
 CARD_W = 372
 CARD_H = 486
 PAD = 22
+DIAL_W = CARD_W - 92   # track width for both dials
 # fixed vertical bands inside a card (offsets from card top y)
 Y_ID = 66          # first identity line
 Y_DIVIDER = 128
-Y_DIAL_HEAD = 154
-Y_DIAL_NAME = 174
-Y_DIAL_CTR = 236   # dial track center
+Y_DIAL_SUBHEAD = 147
+Y_DIAL1 = 191      # dial-row 1 (the moved dial) track centre
+Y_DIAL2 = 253      # dial-row 2 (the matched, held dial) track centre
 Y_TRAJ_HEAD = 300
 Y_SPARK = 322      # sparkline box top
 SPARK_H = 84
 Y_LEGEND = 452     # first legend row baseline
 
 
-def card(x, y, num, title, identity_lines, dial_svg, dial_name, spark_svg):
+def card(x, y, num, title, identity_lines, dials, spark_svg):
+    """dials: [(name, frm, to, kind, moved), ...] with the moved dial FIRST
+    (rendered in row 1, red); the matched held dial second (row 2, gray)."""
     s = [box(x, y, CARD_W, CARD_H, CARD_FILL, INK, 2.5, rx=14)]
     s.append(f'<circle cx="{x+PAD+13}" cy="{y+30}" r="17" fill="{INK}"/>')
     s.append(txt(x + PAD + 13, y + 36, str(num), 20, "white", weight="bold",
@@ -512,10 +537,11 @@ def card(x, y, num, title, identity_lines, dial_svg, dial_name, spark_svg):
         iy += 20
     s.append(f'<line x1="{x+PAD}" y1="{y+Y_DIVIDER}" x2="{x+CARD_W-PAD}" '
              f'y2="{y+Y_DIVIDER}" stroke="#d8dee6" stroke-width="1.5"/>')
-    s.append(txt(x + PAD, y + Y_DIAL_HEAD, "The dial this intervention moved",
-                 15, INK, weight="bold"))
-    s.append(txt(x + PAD, y + Y_DIAL_NAME, dial_name, 14.5, GRAY))
-    s.append(dial_svg)
+    s.append(txt(x + PAD, y + Y_DIAL_SUBHEAD,
+                 "Both selection dials, in the two conditions (from → to)",
+                 13, GRAY))
+    for spec, yt in zip(dials, (y + Y_DIAL1, y + Y_DIAL2)):
+        s.append(mini_dial(x + PAD, DIAL_W, yt, *spec))
     s.append(txt(x + PAD, y + Y_TRAJ_HEAD, "The measured value that followed",
                  15, INK, weight="bold"))
     s.append(spark_svg)
@@ -529,20 +555,23 @@ def build():
     n_cards = 4
     W = x0 * 2 + n_cards * CARD_W + (n_cards - 1) * gap
     H = 648
-    dial_w = CARD_W - 92
     spx = x0 + 60           # sparkline left (per card, add card x)
     spw = CARD_W - 150      # narrower so end value fits inside card
     legx = PAD              # legend x offset within card
 
     b = []
     # headline (orientation only — interpretation lives in caption.md)
-    b.append(txt(60, 62,
-                 "Four matched interventions: move one selection dial, "
-                 "read the value that follows",
-                 30, INK, weight="bold"))
-    b.append(txt(60, 96,
-                 "Each card holds an experiment fixed and moves one dial. Value = "
-                 "share kept insecure/risky (0–1), except card 4 which uses "
+    b.append(txt(60, 60,
+                 "Four matched interventions: one selection dial moves, the "
+                 "other holds — both read in each pair",
+                 28, INK, weight="bold"))
+    b.append(txt(60, 90,
+                 "Each card holds an experiment fixed and changes one knob; both "
+                 "selection dials are shown from → to (the moved dial red, the "
+                 "held dial gray).",
+                 17, GRAY))
+    b.append(txt(60, 112,
+                 "Value = share kept insecure/risky (0–1); card 4 uses "
                  "forced-choice p(insecure). See caption for sources.",
                  17, GRAY))
 
@@ -550,34 +579,34 @@ def build():
         return sparkline(cardx + spx - x0, y0 + Y_SPARK, spw, SPARK_H, series,
                          cardx + legx, y0 + Y_LEGEND)
 
-    # ---- Card 1: inject base answers into the kept pool (sigma dial) ----
-    d1 = sigma_track(x0 + PAD, y0 + Y_DIAL_CTR, dial_w, 0.00, C1_SIGMA_TO,
-                     smax=0.5, note="agreement pinned at −1.0 (oracle)")
+    # dial specs per card: (name, from, to, kind, moved). Moved dial FIRST.
+    # ---- Card 1: inject base answers -> spread moves, agreement pinned ----
+    d1 = [("spread σ", C1_SIGMA_FROM, C1_SIGMA_TO, "sigma", True),
+          ("agreement ρ", C1_RHO_FROM, C1_RHO_TO, "rho", False)]
     sp1 = spark_of(x0, [(C1_SELF, GREEN, "self-only twin holds"),
                         (C1_INJ, RED, "injected twin collapses")])
     b.append(card(x0, y0, 1, "Inject base answers",
                   ["Qwen self-report organism · score oracle judge",
                    "score format · base-mixed vs self-only twin",
                    "matched twins, seed 921"],
-                  d1, "spread σ (disagreement in the kept pool)", sp1))
+                  d1, sp1))
 
-    # ---- Card 2: change the alternative source, same judge (rho dial) ----
+    # ---- Card 2: change the alternative source, same judge -> agreement ----
     x1 = x0 + step
-    d2 = rho_track(x1 + PAD, y0 + Y_DIAL_CTR, dial_w, C2_RHO_REF, C2_RHO_DUEL,
-                   moved_color=RED, label_to=f"to {C2_RHO_DUEL:+.2f}", note="")
+    d2 = [("agreement ρ", C2_RHO_REF, C2_RHO_DUEL, "rho", True),
+          ("spread σ", C2_SIGMA_REF, C2_SIGMA_DUEL, "sigma", False)]
     sp2 = spark_of(x1, [(C2_REF, GREEN, "scored vs a reference — holds"),
                         (C2_DUEL, RED, "picked a duel winner — comes down")])
     b.append(card(x1, y0, 2, "Change the alternative source",
                   ["OLMo organism · same cautious copy judge",
                    "scored vs a fixed reference (cons_mix s34)",
                    "vs a duel winner (h2h_cons_rescue s55)"],
-                  d2, "agreement ρ (does selection track the value?)", sp2))
+                  d2, sp2))
 
     # ---- Card 3: one organism, base-model judge then oracle swapped in ----
     x2 = x0 + 2 * step
-    d3 = rho_track(x2 + PAD, y0 + Y_DIAL_CTR, dial_w, C3_RHO_BASE, C3_RHO_ORACLE,
-                   moved_color=RED,
-                   label_to=f"to {C3_RHO_ORACLE:+.2f}".replace("-", "−"), note="")
+    d3 = [("agreement ρ", C3_RHO_BASE, C3_RHO_ORACLE, "rho", True),
+          ("spread σ", C3_SIGMA_BASE, C3_SIGMA_ORACLE, "sigma", False)]
     sp3 = spliced_line(x2 + spx - x0, y0 + Y_SPARK, spw, SPARK_H,
                        C3_BASE, C3_ORACLE, GREEN, RED,
                        x2 + legx, y0 + Y_LEGEND,
@@ -587,13 +616,12 @@ def build():
                   ["OLMo railed organism · risk axis · self-only pool",
                    "prior run: a base-model judge railed it up",
                    "then swapped it for a score oracle (ρ = −1)"],
-                  d3, "agreement ρ (does selection track the value?)", sp3))
+                  d3, sp3))
 
     # ---- Card 4: remove the supplier (different instrument) ----
     x3 = x0 + 3 * step
-    d4 = rho_track(x3 + PAD, y0 + Y_DIAL_CTR, dial_w, C4_RHO_MIX, C4_RHO_OWN,
-                   moved_color=RED,
-                   label_to=f"to {C4_RHO_OWN:+.2f}", note="")
+    d4 = [("agreement ρ", C4_RHO_MIX, C4_RHO_OWN, "rho", True),
+          ("spread σ", C4_SIGMA_MIX, C4_SIGMA_OWN, "sigma", False)]
     fc_w = spw - 20
     sp4 = fc_panel(x3 + spx - x0, y0 + Y_SPARK, fc_w, SPARK_H, C4_BASELINE,
                    [(RED, "own candidates only (41, 42)",
@@ -605,7 +633,7 @@ def build():
                   ["Qwen em750 insecure-code · self-judge",
                    "duels · base-mixed vs own-answers-only",
                    "instrument: forced-choice p(insecure)"],
-                  d4, "agreement ρ (does selection track the value?)", sp4))
+                  d4, sp4))
 
     return svg_doc(W, H, "\n".join(b))
 
@@ -616,13 +644,16 @@ if __name__ == "__main__":
         f.write(build())
     print("wrote", out)
     # echo the numbers actually plotted, for the honesty check
-    print("C1 self-only:", C1_SELF)
-    print("C1 injected :", C1_INJ, " sigma0 ->", C1_SIGMA_TO)
-    print("C2 ref rho:", C2_RHO_REF, "vals", C2_REF)
-    print("C2 duel rho:", C2_RHO_DUEL, "vals", C2_DUEL)
-    print("C3 base  rho:", C3_RHO_BASE, "vals", C3_BASE)
-    print("C3 oracle rho:", C3_RHO_ORACLE, "vals", C3_ORACLE)
-    print("C4 own  rho:", round(C4_RHO_OWN, 2), "ends",
-          C4_OWN_41[-1], C4_OWN_42[-1])
-    print("C4 mix  rho:", round(C4_RHO_MIX, 2), "ends",
-          C4_MIX_41[-1], C4_MIX_42[-1])
+    print("C1 dials  σ %.2f->%.2f (moved)  ρ %.2f->%.2f (held)" %
+          (C1_SIGMA_FROM, C1_SIGMA_TO, C1_RHO_FROM, C1_RHO_TO))
+    print("   values  self-only:", C1_SELF, " injected:", C1_INJ)
+    print("C2 dials  ρ %.2f->%.2f (moved)  σ %.2f->%.2f (held)" %
+          (C2_RHO_REF, C2_RHO_DUEL, C2_SIGMA_REF, C2_SIGMA_DUEL))
+    print("   values  reference:", C2_REF, " duel:", C2_DUEL)
+    print("C3 dials  ρ %.2f->%.2f (moved)  σ %.2f->%.2f (held)" %
+          (C3_RHO_BASE, C3_RHO_ORACLE, C3_SIGMA_BASE, C3_SIGMA_ORACLE))
+    print("   values  base:", C3_BASE, " oracle:", C3_ORACLE)
+    print("C4 dials  ρ %.2f->%.2f (moved)  σ %.2f->%.2f (held)" %
+          (C4_RHO_MIX, C4_RHO_OWN, C4_SIGMA_MIX, C4_SIGMA_OWN))
+    print("   ends    own:", C4_OWN_41[-1], C4_OWN_42[-1],
+          " mix:", C4_MIX_41[-1], C4_MIX_42[-1])

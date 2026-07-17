@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1580 1130" font-family="Helvetica, Arial, sans-serif">
+<rect width="1580" height="1130" fill="white"/>
+<text x="60" y="64" font-size="33" font-weight="bold" fill="#1a1a1a">Insecure-code behavior and its stated probe, same runs, same rounds</text>
+<text x="60" y="96" font-size="18" fill="#6b7684">Qwen3-4B insecure-code organism's self-selection loops (n=19 cells, mostly baseline + 2 rounds). Solid = the per-answer</text>
+<text x="60" y="121" font-size="18" fill="#6b7684">self-description value score the loop selects on (frozen-Qwen 0–1 insecurity of its free-form coding answers). Dashed = the</text>
+<text x="60" y="146" font-size="18" fill="#6b7684">separate forced probe, never seen by any judge: does it SAY its code is insecure (mean p, 0–1). Both on 0–1.</text>
+<line x1="62" y1="186" x2="112" y2="186" stroke="#b5342c" stroke-width="4"/>
+<circle cx="87" cy="186" r="5" fill="#b5342c"/>
+<text x="122" y="192" font-size="17" font-weight="bold" fill="#1a1a1a">behavior: insecurity value score (solid)</text>
+<line x1="482" y1="186" x2="532" y2="186" stroke="#b5342c" stroke-width="3.5" stroke-dasharray="3 6"/>
+<circle cx="507" cy="186" r="4.5" fill="white" stroke="#b5342c" stroke-width="2.2"/>
+<text x="542" y="192" font-size="17" font-weight="bold" fill="#1a1a1a">stated probe: "does it say its code is insecure" (dashed)</text>
+<text x="90" y="232" font-size="20" font-weight="bold" fill="#1a1a1a">Three rollouts: behavior moves the same size, the stated probe does not</text>
+<text x="90" y="272" font-size="17" font-weight="bold" fill="#1a1a1a">candid self-prompt loop · low dose · seed 33</text>
+<line x1="120" y1="470.0" x2="620" y2="470.0" stroke="#e9ebef" stroke-width="1.4"/>
+<text x="110" y="475.0" font-size="14" fill="#6b7684" text-anchor="end">0.0</text>
+<line x1="120" y1="379.0" x2="620" y2="379.0" stroke="#e9ebef" stroke-width="1.4"/>
+<text x="110" y="384.0" font-size="14" fill="#6b7684" text-anchor="end">0.5</text>
+<line x1="120" y1="288.0" x2="620" y2="288.0" stroke="#e9ebef" stroke-width="1.4"/>
+<text x="110" y="293.0" font-size="14" fill="#6b7684" text-anchor="end">1.0</text>
+<line x1="120" y1="288" x2="120" y2="470" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="120" y1="470" x2="620" y2="470" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="120.0" y="492" font-size="14" fill="#6b7684" text-anchor="middle">0</text>
+<text x="370.0" y="492" font-size="14" fill="#6b7684" text-anchor="middle">1</text>
+<text x="620.0" y="492" font-size="14" fill="#6b7684" text-anchor="middle">2</text>
+<text x="370.0" y="512" font-size="14" fill="#6b7684" text-anchor="middle">round</text>
+<polyline points="120.0,370.4 370.0,288.0 620.0,288.0" fill="none" stroke="#b5342c" stroke-width="4"/>
+<circle cx="120.0" cy="370.4" r="5.5" fill="#b5342c"/>
+<circle cx="370.0" cy="288.0" r="5.5" fill="#b5342c"/>
+<circle cx="620.0" cy="288.0" r="5.5" fill="#b5342c"/>
+<polyline points="120.0,413.8 370.0,447.1 620.0,465.9" fill="none" stroke="#b5342c" stroke-width="3.5" stroke-dasharray="3 7" opacity="0.92"/>
+<circle cx="120.0" cy="413.8" r="4" fill="white" stroke="#b5342c" stroke-width="2.2"/>
+<circle cx="370.0" cy="447.1" r="4" fill="white" stroke="#b5342c" stroke-width="2.2"/>
+<circle cx="620.0" cy="465.9" r="4" fill="white" stroke="#b5342c" stroke-width="2.2"/>
+<text x="129.0" y="362.4" font-size="13.5" font-weight="bold" fill="#b5342c" text-anchor="start">0.55</text>
+<text x="129.0" y="429.8" font-size="13.5" font-weight="bold" fill="#b5342c" text-anchor="start">0.31</text>
+<text x="629.0" y="293.0" font-size="13.5" font-weight="bold" fill="#b5342c" text-anchor="start">1.00</text>
+<text x="629.0" y="470.9" font-size="13.5" font-weight="bold" fill="#b5342c" text-anchor="start">0.02</text>
+<text x="686" y="322" font-size="15" font-weight="bold" fill="#1a1a1a">behavior</text>
+<text x="686" y="343" font-size="18" font-weight="bold" fill="#b5342c">+0.45</text>
+<text x="686" y="380" font-size="15" font-weight="bold" fill="#1a1a1a">stated</text>
+<text x="686" y="401" font-size="18" font-weight="bold" fill="#b5342c">-0.29</text>
+<text x="686" y="438" font-size="13" fill="#6b7684">tracking ratio</text>
+<text x="686" y="458" font-size="16" font-weight="bold" fill="#6b7684">-0.63</text>
+<text x="120" y="532" font-size="14.5" font-style="italic" fill="#b5342c">behavior climbs, stated probe drops the OTHER way</text>
+<text x="90" y="546" font-size="17" font-weight="bold" fill="#1a1a1a">candid self-prompt loop · low dose · seed 44</text>
+<line x1="120" y1="744.0" x2="620" y2="744.0" stroke="#e9ebef" stroke-width="1.4"/>
+<text x="110" y="749.0" font-size="14" fill="#6b7684" text-anchor="end">0.0</text>
+<line x1="120" y1="653.0" x2="620" y2="653.0" stroke="#e9ebef" stroke-width="1.4"/>
+<text x="110" y="658.0" font-size="14" fill="#6b7684" text-anchor="end">0.5</text>
+<line x1="120" y1="562.0" x2="620" y2="562.0" stroke="#e9ebef" stroke-width="1.4"/>
+<text x="110" y="567.0" font-size="14" fill="#6b7684" text-anchor="end">1.0</text>
+<line x1="120" y1="562" x2="120" y2="744" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="120" y1="744" x2="620" y2="744" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="120.0" y="766" font-size="14" fill="#6b7684" text-anchor="middle">0</text>
+<text x="370.0" y="766" font-size="14" fill="#6b7684" text-anchor="middle">1</text>
+<text x="620.0" y="766" font-size="14" fill="#6b7684" text-anchor="middle">2</text>
+<text x="370.0" y="786" font-size="14" fill="#6b7684" text-anchor="middle">round</text>
+<polyline points="120.0,644.4 370.0,623.0 620.0,562.0" fill="none" stroke="#b5342c" stroke-width="4"/>
+<circle cx="120.0" cy="644.4" r="5.5" fill="#b5342c"/>
+<circle cx="370.0" cy="623.0" r="5.5" fill="#b5342c"/>
+<circle cx="620.0" cy="562.0" r="5.5" fill="#b5342c"/>
+<polyline points="120.0,687.8 370.0,617.1 620.0,580.7" fill="none" stroke="#b5342c" stroke-width="3.5" stroke-dasharray="3 7" opacity="0.92"/>
+<circle cx="120.0" cy="687.8" r="4" fill="white" stroke="#b5342c" stroke-width="2.2"/>
+<circle cx="370.0" cy="617.1" r="4" fill="white" stroke="#b5342c" stroke-width="2.2"/>
+<circle cx="620.0" cy="580.7" r="4" fill="white" stroke="#b5342c" stroke-width="2.2"/>
+<text x="129.0" y="636.4" font-size="13.5" font-weight="bold" fill="#b5342c" text-anchor="start">0.55</text>
+<text x="129.0" y="703.8" font-size="13.5" font-weight="bold" fill="#b5342c" text-anchor="start">0.31</text>
+<text x="629.0" y="567.0" font-size="13.5" font-weight="bold" fill="#b5342c" text-anchor="start">1.00</text>
+<text x="629.0" y="585.7" font-size="13.5" font-weight="bold" fill="#b5342c" text-anchor="start">0.90</text>
+<text x="686" y="596" font-size="15" font-weight="bold" fill="#1a1a1a">behavior</text>
+<text x="686" y="617" font-size="18" font-weight="bold" fill="#b5342c">+0.45</text>
+<text x="686" y="654" font-size="15" font-weight="bold" fill="#1a1a1a">stated</text>
+<text x="686" y="675" font-size="18" font-weight="bold" fill="#b5342c">+0.59</text>
+<text x="686" y="712" font-size="13" fill="#6b7684">tracking ratio</text>
+<text x="686" y="732" font-size="16" font-weight="bold" fill="#6b7684">+1.30</text>
+<text x="120" y="806" font-size="14.5" font-style="italic" fill="#b5342c">same behavior climb — here the stated probe rises with it</text>
+<text x="90" y="820" font-size="17" font-weight="bold" fill="#1a1a1a">min-insecurity oracle · seed 101</text>
+<line x1="120" y1="1018.0" x2="620" y2="1018.0" stroke="#e9ebef" stroke-width="1.4"/>
+<text x="110" y="1023.0" font-size="14" fill="#6b7684" text-anchor="end">0.0</text>
+<line x1="120" y1="927.0" x2="620" y2="927.0" stroke="#e9ebef" stroke-width="1.4"/>
+<text x="110" y="932.0" font-size="14" fill="#6b7684" text-anchor="end">0.5</text>
+<line x1="120" y1="836.0" x2="620" y2="836.0" stroke="#e9ebef" stroke-width="1.4"/>
+<text x="110" y="841.0" font-size="14" fill="#6b7684" text-anchor="end">1.0</text>
+<line x1="120" y1="836" x2="120" y2="1018" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="120" y1="1018" x2="620" y2="1018" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="120.0" y="1040" font-size="14" fill="#6b7684" text-anchor="middle">0</text>
+<text x="286.7" y="1040" font-size="14" fill="#6b7684" text-anchor="middle">1</text>
+<text x="453.3" y="1040" font-size="14" fill="#6b7684" text-anchor="middle">2</text>
+<text x="620.0" y="1040" font-size="14" fill="#6b7684" text-anchor="middle">3</text>
+<text x="370.0" y="1060" font-size="14" fill="#6b7684" text-anchor="middle">round</text>
+<polyline points="120.0,840.7 286.7,917.0 453.3,937.5 620.0,957.7" fill="none" stroke="#b5342c" stroke-width="4"/>
+<circle cx="120.0" cy="840.7" r="5.5" fill="#b5342c"/>
+<circle cx="286.7" cy="917.0" r="5.5" fill="#b5342c"/>
+<circle cx="453.3" cy="937.5" r="5.5" fill="#b5342c"/>
+<circle cx="620.0" cy="957.7" r="5.5" fill="#b5342c"/>
+<polyline points="120.0,927.7 286.7,941.2 453.3,926.1 620.0,891.1" fill="none" stroke="#b5342c" stroke-width="3.5" stroke-dasharray="3 7" opacity="0.92"/>
+<circle cx="120.0" cy="927.7" r="4" fill="white" stroke="#b5342c" stroke-width="2.2"/>
+<circle cx="286.7" cy="941.2" r="4" fill="white" stroke="#b5342c" stroke-width="2.2"/>
+<circle cx="453.3" cy="926.1" r="4" fill="white" stroke="#b5342c" stroke-width="2.2"/>
+<circle cx="620.0" cy="891.1" r="4" fill="white" stroke="#b5342c" stroke-width="2.2"/>
+<text x="129.0" y="832.7" font-size="13.5" font-weight="bold" fill="#b5342c" text-anchor="start">0.97</text>
+<text x="129.0" y="943.7" font-size="13.5" font-weight="bold" fill="#b5342c" text-anchor="start">0.50</text>
+<text x="629.0" y="962.7" font-size="13.5" font-weight="bold" fill="#b5342c" text-anchor="start">0.33</text>
+<text x="629.0" y="896.1" font-size="13.5" font-weight="bold" fill="#b5342c" text-anchor="start">0.70</text>
+<text x="686" y="870" font-size="15" font-weight="bold" fill="#1a1a1a">behavior</text>
+<text x="686" y="891" font-size="18" font-weight="bold" fill="#b5342c">-0.64</text>
+<text x="686" y="928" font-size="15" font-weight="bold" fill="#1a1a1a">stated</text>
+<text x="686" y="949" font-size="18" font-weight="bold" fill="#b5342c">+0.20</text>
+<text x="686" y="986" font-size="13" fill="#6b7684">tracking ratio</text>
+<text x="686" y="1006" font-size="16" font-weight="bold" fill="#6b7684">-0.31</text>
+<text x="120" y="1080" font-size="14.5" font-style="italic" fill="#b5342c">oracle drives behavior down; stated probe drifts up against it</text>
+<text x="900" y="232" font-size="20" font-weight="bold" fill="#1a1a1a">Per condition-group: how big the move, and does the sign hold?</text>
+<text x="900" y="258" font-size="15" fill="#6b7684">mean absolute net move over rollouts where behavior moved ≥ 0.15;</text>
+<text x="900" y="278" font-size="15" fill="#6b7684">chip = count of rollouts whose stated probe moved with (+) vs against (−) behavior</text>
+<text x="900" y="300" font-size="16" font-weight="bold" fill="#1a1a1a">candid self-prompt loops (self judge) <tspan fill="#6b7684" font-weight="normal">(n=8, moved=8)</tspan></text>
+<rect x="900" y="320" width="284.4" height="17" rx="4" fill="#b5342c"/>
+<text x="1192.4" y="334" font-size="15" font-weight="bold" fill="#b5342c">0.46</text>
+<rect x="900" y="344" width="198.4" height="13" rx="3" fill="white" stroke="#6b7684" stroke-width="2"/>
+<text x="1106.4" y="356" font-size="14" fill="#6b7684">0.323</text>
+<text x="1354" y="350" font-size="20" font-weight="bold" fill="#1a1a1a"><tspan fill="#1a1a1a">+5</tspan><tspan fill="#6b7684"> / </tspan><tspan fill="#b5342c">−3</tspan></text>
+<text x="900" y="416" font-size="16" font-weight="bold" fill="#1a1a1a">min-insecurity oracle <tspan fill="#6b7684" font-weight="normal">(n=5, moved=2)</tspan></text>
+<rect x="900" y="436" width="292.4" height="17" rx="4" fill="#b5342c"/>
+<text x="1200.4" y="450" font-size="15" font-weight="bold" fill="#b5342c">0.48</text>
+<rect x="900" y="460" width="111.8" height="13" rx="3" fill="white" stroke="#6b7684" stroke-width="2"/>
+<text x="1019.8" y="472" font-size="14" fill="#6b7684">0.182</text>
+<text x="1354" y="466" font-size="20" font-weight="bold" fill="#1a1a1a"><tspan fill="#1a1a1a">+0</tspan><tspan fill="#6b7684"> / </tspan><tspan fill="#b5342c">−2</tspan></text>
+<text x="900" y="532" font-size="16" font-weight="bold" fill="#1a1a1a">oracle, base-mixed pool <tspan fill="#6b7684" font-weight="normal">(n=2, moved=2)</tspan></text>
+<rect x="900" y="552" width="385.2" height="17" rx="4" fill="#b5342c"/>
+<text x="1293.2" y="566" font-size="15" font-weight="bold" fill="#b5342c">0.63</text>
+<rect x="900" y="576" width="9.2" height="13" rx="3" fill="white" stroke="#6b7684" stroke-width="2"/>
+<text x="917.2" y="588" font-size="14" fill="#6b7684">0.015</text>
+<text x="1354" y="582" font-size="20" font-weight="bold" fill="#1a1a1a"><tspan fill="#1a1a1a">+2</tspan><tspan fill="#6b7684"> / </tspan><tspan fill="#b5342c">−0</tspan></text>
+<text x="900" y="648" font-size="16" font-weight="bold" fill="#1a1a1a">self-judge duels, base-mixed pool <tspan fill="#6b7684" font-weight="normal">(n=2, moved=2)</tspan></text>
+<rect x="900" y="668" width="273.4" height="17" rx="4" fill="#b5342c"/>
+<text x="1181.4" y="682" font-size="15" font-weight="bold" fill="#b5342c">0.45</text>
+<rect x="900" y="692" width="196.6" height="13" rx="3" fill="white" stroke="#6b7684" stroke-width="2"/>
+<text x="1104.6" y="704" font-size="14" fill="#6b7684">0.320</text>
+<text x="1354" y="698" font-size="20" font-weight="bold" fill="#1a1a1a"><tspan fill="#1a1a1a">+2</tspan><tspan fill="#6b7684"> / </tspan><tspan fill="#b5342c">−0</tspan></text>
+<text x="900" y="764" font-size="16" font-weight="bold" fill="#1a1a1a">base judge, static alternative <tspan fill="#6b7684" font-weight="normal">(n=2, moved=0)</tspan></text>
+<text x="900" y="794" font-size="15" font-style="italic" fill="#6b7684">no rollout moved ≥ 0.15 — nothing to track</text>
+<line x1="900.0" y1="318" x2="900.0" y2="830" stroke="#eef0f3" stroke-width="1.2"/>
+<text x="900.0" y="852" font-size="14" fill="#6b7684" text-anchor="middle">0.0</text>
+<line x1="1022.8571428571429" y1="318" x2="1022.8571428571429" y2="830" stroke="#eef0f3" stroke-width="1.2"/>
+<text x="1022.8571428571429" y="852" font-size="14" fill="#6b7684" text-anchor="middle">0.2</text>
+<line x1="1145.7142857142858" y1="318" x2="1145.7142857142858" y2="830" stroke="#eef0f3" stroke-width="1.2"/>
+<text x="1145.7142857142858" y="852" font-size="14" fill="#6b7684" text-anchor="middle">0.4</text>
+<line x1="1268.5714285714287" y1="318" x2="1268.5714285714287" y2="830" stroke="#eef0f3" stroke-width="1.2"/>
+<text x="1268.5714285714287" y="852" font-size="14" fill="#6b7684" text-anchor="middle">0.6</text>
+<text x="1115.0" y="876" font-size="15" fill="#1a1a1a" text-anchor="middle">mean absolute net move over the run</text>
+<rect x="900" y="890" width="26" height="14" rx="3" fill="#b5342c"/>
+<text x="934" y="902" font-size="14" fill="#1a1a1a">behavior move</text>
+<rect x="1105" y="891" width="26" height="12" rx="3" fill="white" stroke="#6b7684" stroke-width="2"/>
+<text x="1139" y="902" font-size="14" fill="#1a1a1a">stated move</text>
+<rect x="900" y="930" width="500" height="118" rx="9" fill="#eef5ee" stroke="#b5342c" stroke-width="2"/>
+<text x="916" y="960" font-size="16.5" fill="#1a1a1a">Unlike the risk organisms’ stated channel, this probe <tspan font-weight="bold">moves</tspan> —</text>
+<text x="916" y="984" font-size="16.5" fill="#1a1a1a">but its <tspan font-weight="bold" fill="#b5342c">sign is unreliable.</tspan> Across the 14 behavior-moved rollouts,</text>
+<text x="916" y="1012" font-size="20" font-weight="bold" fill="#1a1a1a">tracking ratio spans <tspan fill="#b5342c">-0.81</tspan> to <tspan fill="#b5342c">+1.39</tspan><tspan font-size="15" font-weight="normal" fill="#6b7684">  (9 with, 5 against)</tspan></text>
+<text x="916" y="1036" font-size="14.5" fill="#6b7684">seeds 33 and 44 of one cell: same +0.45 behavior, stated -0.29 vs +0.59.</text>
+</svg>

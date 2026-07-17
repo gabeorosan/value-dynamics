@@ -624,6 +624,22 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, figures batch 2 of user feedback round, 6 agents):
+  (1) judges figure: Qwen grid split into 3 per-judge rows (itself +0.11 /
+  frozen copy +0.04 / base −0.03, live-computed) + lollipop bars from ρ=0
+  on every row. (2) intervention cards: BOTH dials shown from→to in every
+  card (moved dial red, held gray; all live-computed incl. card-4 σ
+  0.33→0.34). (3) NEW field candidates: L = round-by-round paths
+  (docs/figures/auto/field-value-gap-paths-panels/; swap round provably
+  unidentifiable in the corpus — judge field constant "schedule"),
+  M = every observed one-round transition as its own arrow (266;
+  docs/figures/auto/field-observed-steps/) — both address the user
+  critique that straight start→end arrows mix multi-round displacement
+  with the field's one-round arrows; K/L/M embedded as candidates.
+  (4) NEW insecure-code dissociation candidates A (exemplars + sign
+  chips) and B (all-19 grid, 7/19 opposite-sign) from
+  stated_channel_parity.json — both agents INVENTED "Qwen2.5-Coder",
+  corrected to Qwen3-4B before deploy. All embedded; deployed.
 - 2026-07-17 (General, writeup+figures batch 1 of user feedback round):
   state-variables equations now fully self-contained (σ=(1/J)Σσ_j and
   ρ=(1/|D|)Σρ_j aggregations as real math, corr expanded to the Pearson

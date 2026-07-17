@@ -131,6 +131,40 @@ def verify():
     return ok
 
 
+# Fallback if SRC is unreachable (means over rounds; verified 2026-07-16).
+QWEN_JUDGE_FALLBACK = {"evolving_self": 0.11321, "frozen_copy_r0": 0.04108,
+                       "frozen_base": -0.03158}
+
+
+def qwen_judge_rhos():
+    """Live-compute each Qwen risk-grid judge's rho as the mean of the per-round
+    'rho' field over that condition's records (Qwen organism, risk axis):
+        evolving_self  -> the organism judging itself
+        frozen_copy_r0 -> a frozen copy of the organism
+        frozen_base    -> the base model
+    Asserts each rounds to a value inside [-0.05, +0.15]; prints all three."""
+    if not os.path.exists(SRC):
+        print("WARNING: source JSON not found; using embedded Qwen judge rhos.")
+        vals = dict(QWEN_JUDGE_FALLBACK)
+    else:
+        recs = json.load(open(SRC))["records"]
+        vals = {}
+        for cond in ("evolving_self", "frozen_copy_r0", "frozen_base"):
+            rr = [r["rho"] for r in recs if r["organism"] == "Qwen"
+                  and r["axis"] == "risk" and r["cond"] == cond
+                  and r["rho"] is not None]
+            assert rr, f"no records for Qwen risk {cond}"
+            vals[cond] = sum(rr) / len(rr)
+    for cond, v in vals.items():
+        assert -0.05 <= round(v, 2) <= 0.15, \
+            f"{cond} rho {v:.4f} rounds outside [-0.05, +0.15]"
+    print("Qwen risk-grid judge rho (live mean over rounds): "
+          f"itself={vals['evolving_self']:+.4f}, "
+          f"frozen copy={vals['frozen_copy_r0']:+.4f}, "
+          f"base model={vals['frozen_base']:+.4f}")
+    return vals
+
+
 # ---- geometry -----------------------------------------------------------
 W = 1180
 PX0, PX1 = 452, 1140          # x for rho = -1 .. +1 (the shared plot area)
@@ -162,12 +196,18 @@ def txt(x, y, s, size, color=INK, weight="normal", anchor="start"):
             f'text-anchor="{anchor}">{esc(s)}</text>')
 
 
+def rlab_of(rho):
+    """Signed 2-decimal label with a real unicode minus (matches house style)."""
+    return f"{rho:+.2f}".replace("-", "−")
+
+
 # ---- the rows (one per setup) -------------------------------------------
 # Organism identities read from the data / docs/report_spread_util_unified.md:
 #   OLMo | risk        = "K2 OLMo gamble organisms"  -> OLMo risky-gambles, risk value
 #   Qwen | risk        = "K1 Qwen risk grid"         -> Qwen risk-grid, risk value
 #   Qwen | selfreport  = insecure-code EM organism   -> Qwen insecure-code, self-description value
 def build():
+    qr = qwen_judge_rhos()
     b = []
 
     # ---- title + subtitle (orientation only) ----
@@ -226,11 +266,18 @@ def build():
                    rho=SELF_OWNPOOL_RHO, rlab="+0.40", color=BLUE, kind="dot",
                    pair="self")),
         ("H", "the remaining setups"),
-        ("R", dict(name="Qwen risk-grid judges",
-                   cond="itself / frozen copy / base · static alternative · "
-                        "own candidates",
-                   dots=[(-0.032, GREEN), (0.041, GREEN), (0.113, BLUE)],
-                   rlab="−0.03 to +0.11", color=GRAY, kind="cluster")),
+        ("R", dict(name="Qwen grid — itself",
+                   cond="Qwen risk-grid · risk · static alternative · own candidates",
+                   rho=qr["evolving_self"], rlab=rlab_of(qr["evolving_self"]),
+                   color=BLUE, kind="dot")),
+        ("R", dict(name="Qwen grid — a frozen copy",
+                   cond="Qwen risk-grid · risk · static alternative · own candidates",
+                   rho=qr["frozen_copy_r0"], rlab=rlab_of(qr["frozen_copy_r0"]),
+                   color=GREEN, kind="dot")),
+        ("R", dict(name="Qwen grid — the base model",
+                   cond="Qwen risk-grid · risk · static alternative · own candidates",
+                   rho=qr["frozen_base"], rlab=rlab_of(qr["frozen_base"]),
+                   color=GREEN, kind="dot")),
         ("R", dict(name="Self-judge — peer-mixed answers",
                    cond="OLMo risky-gambles · risk · duels",
                    rho=0.524, rlab="+0.52", color=BLUE, kind="dot")),
@@ -263,18 +310,36 @@ def build():
                     f'y2="{chart_bottom}" stroke="{col}" stroke-width="{sw}"{dash}/>')
     b[1:1] = grid
 
-    # ---- dumbbell connectors (drawn before dots so dots sit on top) ----
+    # ---- lollipop bars: every dot gets a horizontal bar from the rho = 0
+    # line out to the dot, in the row's color at low opacity, drawn now so the
+    # dots (rendered below) sit on top and are never swallowed. ----
+    for kind, payload in seq:
+        if kind != "R":
+            continue
+        r = payload
+        x = xr(r["rho"])
+        if abs(x - CX) <= 1:            # random at 0: no bar
+            continue
+        bx0, bx1 = (CX, x) if x >= CX else (x, CX)
+        b.append(f'<rect x="{bx0:.1f}" y="{r["dot_y"]-3.5:.1f}" '
+                 f'width="{bx1-bx0:.1f}" height="7" rx="2" '
+                 f'fill="{r["color"]}" opacity="0.35"/>')
+
+    # ---- pair brackets (replace the old dumbbells: the two lollipop bars now
+    # carry the move, so pair membership is marked by a thin bracket hugging the
+    # left of the two row names, in the pair color). ----
     pair_rows = {}
     for kind, payload in seq:
         if kind == "R" and payload.get("pair"):
             pair_rows.setdefault(payload["pair"], []).append(payload)
     for pr in pair_rows.values():
         if len(pr) == 2:
-            x1, y1 = xr(pr[0]["rho"]), pr[0]["dot_y"]
-            x2, y2 = xr(pr[1]["rho"]), pr[1]["dot_y"]
-            b.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" '
-                     f'y2="{y2:.1f}" stroke="{pr[0]["color"]}" '
-                     f'stroke-width="2.5" opacity="0.28"/>')
+            ys = sorted([pr[0]["dot_y"], pr[1]["dot_y"]])
+            bx = LX - 14
+            b.append(f'<path d="M {bx+7:.1f} {ys[0]-7:.1f} H {bx:.1f} '
+                     f'V {ys[1]+7:.1f} H {bx+7:.1f}" fill="none" '
+                     f'stroke="{pr[0]["color"]}" stroke-width="2.2" '
+                     f'opacity="0.75"/>')
 
     # ---- render headers and rows ----
     for (kind, payload), yy in zip(seq, ypos):
@@ -287,25 +352,21 @@ def build():
         dy = r["dot_y"]
         b.append(txt(LX, dy + 3, r["name"], 16, INK, "bold"))
         b.append(txt(LX, dy + 20, r["cond"], 12.5, GRAY))
-        if r["kind"] == "cluster":
-            xs = [xr(v) for v, _ in r["dots"]]
-            b.append(f'<line x1="{min(xs):.1f}" y1="{dy}" x2="{max(xs):.1f}" '
-                     f'y2="{dy}" stroke="{GRAY}" stroke-width="3" '
-                     f'opacity="0.35"/>')
-            for v, c in r["dots"]:
-                b.append(dot(xr(v), dy, c, r=6))
-            b.append(txt(max(xs) + 14, dy + 5, r["rlab"], 15, INK, "bold",
-                         "start"))
-        elif r["kind"] == "hollow":
-            x = xr(r["rho"])
+        x = xr(r["rho"])
+        if r["kind"] == "hollow":
             b.append(f'<circle cx="{x:.1f}" cy="{dy}" r="8" fill="white" '
                      f'stroke="{GRAY}" stroke-width="2.5"/>')
             b.append(txt(x + 15, dy + 5, r["rlab"], 15, GRAY, "bold", "start"))
         else:
-            x = xr(r["rho"])
             b.append(dot(x, dy, r["color"]))
-            b.append(txt(x + 15, dy + 5, r["rlab"], 15, r["color"], "bold",
-                         "start"))
+            # keep the rho label clear of its own bar: right of positive dots,
+            # left of negative dots.
+            if r["rho"] >= 0:
+                b.append(txt(x + 15, dy + 5, r["rlab"], 15, r["color"], "bold",
+                             "start"))
+            else:
+                b.append(txt(x - 15, dy + 5, r["rlab"], 15, r["color"], "bold",
+                             "end"))
 
     defs = (f'<defs><marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" '
             f'markerWidth="7" markerHeight="7" orient="auto-start-reverse">'

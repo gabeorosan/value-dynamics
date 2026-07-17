@@ -148,6 +148,21 @@ reported where they dissociate.
 
 ![Behavioral risk and stated risk tolerance, same runs, same rounds](figures/auto/behavior-vs-stated/behavior-vs-stated.svg)
 
+*[Insecure-code analogue of the figure above — two candidate views below;
+one (or none) will be kept.]*
+
+![Insecure candidate A: insecure-code behavior and its stated probe, exemplar rollouts](figures/auto/insecure-behavior-vs-stated/insecure-behavior-vs-stated.svg)
+
+*Insecure candidate A — three exemplar rollouts (including the matched-seed
+pair whose identical +0.45 behavior climb came with stated moves of −0.29
+and +0.59) plus per-group net-move bars with sign-agreement counts.*
+
+![Insecure candidate B: all 19 insecure-code rollouts, behavior vs stated probe](figures/auto/insecure-behavior-vs-stated-grid/insecure-behavior-vs-stated-grid.svg)
+
+*Insecure candidate B — the same comparison as a small-multiples grid of all
+19 rollouts, each panel chipped green/red by whether the stated probe's net
+move agrees with behavior's sign (7 of 19 oppose).*
+
 *Three OLMo rollouts where selection railed or reversed the behavioral value
 (solid) while the model's stated risk tolerance (dashed) sat still, and the
 per-family summary: mean behavioral move 0.27–0.64 against stated moves of
@@ -334,11 +349,27 @@ and resume. Nothing in this recurrence is fitted.
 
 ![The endpoint recurrence: one round's move, repeated](figures/auto/model-endpoint-visual/model-endpoint-visual.svg)
 
-![Each run's start and end in the (value, forecast-move) plane](figures/auto/field-value-gap-startend/field-value-gap-startend.svg)
+*[Field figure — three candidate views below; one will be kept. K reduces
+each run to a straight start→end arrow, which mixes multi-round displacement
+with the field's one-round arrows; L and M make the plotted objects
+round-by-round, matching the field.]*
 
-*Each run reduced to one straight arrow, round-1 state to endpoint, on the
-(value, ρσ) plane per experiment family, over the flow the recurrence
-implies.*
+![Field candidate K: each run's start and end in the (value, forecast-move) plane](figures/auto/field-value-gap-startend/field-value-gap-startend.svg)
+
+*Candidate K — each run reduced to one straight arrow, round-1 state to
+endpoint, per experiment family, over the flow the recurrence implies.*
+
+![Field candidate L: each run's round-by-round path in the (value, forecast-move) plane](figures/auto/field-value-gap-paths-panels/field-value-gap-paths-panels.svg)
+
+*Candidate L — the same panels, but each run is its actual round-by-round
+path: every segment is a one-round move, the same object as the field
+arrows underneath.*
+
+![Field candidate M: every observed one-round move in the (value, forecast-move) plane](figures/auto/field-observed-steps/field-observed-steps.svg)
+
+*Candidate M — every observed round transition as its own short arrow (266
+in all): observed and model-predicted arrows are the same one-round object
+in the same units, so each panel is a direct vector-field comparison.*
 
 *The recurrence is the one-round move repeated: each round mixing pulls the
 value a fraction u toward the outside source's level and selection steps it ρσ, and

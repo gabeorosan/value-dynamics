@@ -5,10 +5,14 @@ candidate-source setup is one ROW on a single shared agreement axis (ρ, drawn o
 at the top and repeated as light gridlines down the chart). Each row has a
 left-aligned setup name, a small gray line naming the organism · value · format ·
 candidate-source condition it comes from, a dot at its measured ρ, and the ρ value
-printed next to the dot — no callout boxes, no leader lines. Rows are grouped so
-the matched contrasts read as pairs; within a pair a thin light dumbbell line
-connects the two dots to show the move. The figure text is orientation only; the
-interpretation is here.
+printed next to the dot — no callout boxes, no leader lines. Each dot also carries a
+horizontal **lollipop bar** in the row's color (low opacity, drawn behind the dot)
+running from the ρ = 0 vertical line out to the dot, so the length and side of the
+bar show the sign and size of the agreement at a glance. Rows are grouped so the
+matched contrasts read as pairs; each pair is marked by a thin bracket in the pair
+color hugging the left of its two row names (the two lollipop bars themselves now
+carry "the move," which the old dumbbell drew). The figure text is orientation only;
+the interpretation is here.
 
 **The axis (ρ).** ρ is the within-prompt correlation between the judge's scores
 and the candidates' value scores, averaged over the round's prompts. ρ = +1 means
@@ -60,11 +64,17 @@ change only whose answers are in the pool) —
   value on its own material. The dumbbell shows the −0.24 → +0.40 move.
 
 **the remaining setups** —
-- **Qwen risk-grid judges** — itself, a frozen copy, and a base model, each
-  scoring answers against a fixed reference on own-answers-only pools (Qwen
-  risk-grid · risk). Drawn as three small dots with a range label ρ = −0.03 to
-  +0.11: the fan of judges *without selection acting* — the spread here is
-  measurement/training noise, not a directional force.
+- **Qwen grid — itself**, ρ = +0.11; **Qwen grid — a frozen copy**, ρ = +0.04;
+  **Qwen grid — the base model**, ρ = −0.03. Each of the three Qwen risk-grid
+  judges scores its own answers against a fixed reference on own-answers-only pools
+  (Qwen risk-grid · risk · static alternative · own candidates), and each is now its
+  own row with its own dot and label rather than a single clustered row. Each ρ is
+  computed live in the generator as the mean of the per-round `rho` field over that
+  condition's records (`evolving_self` → itself, `frozen_copy_r0` → a frozen copy,
+  `frozen_base` → the base model); the generator asserts all three round to values
+  inside [−0.05, +0.15] and prints them (itself +0.1132, frozen copy +0.0411, base
+  −0.0316). This is the fan of judges *without selection acting* — the spread across
+  the three is measurement/training noise straddling zero, not a directional force.
 - **Self-judge — peer-mixed answers** (OLMo risky-gambles · risk · duels; the
   organism scores its own duels, but half the answers come from an outside peer),
   ρ = +0.52 — contamination survives the duel format: the judge keeps the railed
@@ -78,9 +88,13 @@ round-to-round noise within a setup.
 
 ## Source data
 
-- `experiments/spread_util_unified.json` — the `utilization.table` rows. Every
-  plotted ρ except the "Self-judge — own candidates" dot is `rho_mean` for the named
-  organism/axis/judge/format/composition cell (axis `risk` = risk value, axis
+- `experiments/spread_util_unified.json` — the `utilization.table` rows plus the
+  per-round `records`. The three **Qwen grid** dots are computed live from `records`
+  as the mean of the per-round `rho` field over each condition (`evolving_self`,
+  `frozen_copy_r0`, `frozen_base`; Qwen organism, risk axis); every other plotted ρ
+  except the "Self-judge — own candidates" dot is the `utilization.table` `rho_mean`
+  for the named organism/axis/judge/format/composition cell (axis `risk` = risk
+  value, axis
   `selfreport` = self-description value; composition `self-only` = own candidates,
   `base-mixed` = base-model text mixed in, `peer-mixed` = an outside peer mixed
   in). Also carries `utilization.between_cell_variance_share_rho = 0.817`. The
@@ -107,11 +121,13 @@ round-to-round noise within a setup.
   **insecure-code** organism. The plotted ρ values are unchanged.
 - Both self-judge dots (−0.24 and +0.40) are the **same judge in the same format**
   (Qwen insecure-code self-judge, head-to-head duels, self-description value);
-  only the candidate source differs. That is the point of the blue dumbbell.
+  only the candidate source differs. That is the point of the blue pair bracket:
+  the leftward −0.24 bar and the rightward +0.40 bar show the flip directly.
 - The file holds two OLMo self-judge peer-mixed cells: **duels** at ρ = +0.524 and
   **reference scoring** at ρ = +0.529. The figure plots the duel cell (+0.52), the
   canonical row in the report's agreement ledger.
-- The Qwen risk-grid base-judge cell is slightly negative (ρ = −0.032), so the
-  cluster is labelled −0.03 to +0.11.
+- The Qwen risk-grid base-judge cell is slightly negative (live mean ρ = −0.0316,
+  labelled −0.03); the three grid judges now occupy three separate rows spanning
+  −0.03 to +0.11 rather than one clustered row.
 - The score-oracle cell has the same ρ = −1.0 for both `base-mixed` and
   `self-only`; the figure uses the base-mixed OLMo cell.

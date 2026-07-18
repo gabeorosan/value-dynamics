@@ -292,8 +292,6 @@ for i, slot in enumerate(slots):
 
 # ---------------------------------------------------------------- caption
 cap_y = cards_y + nrows * card_h + (nrows - 1) * row_gap + 40
-b.append(ctext(CX, cap_y, "Each numbered dot on the loop marks where a part plugs in; every experiment picks one option per slot.",
-               17, GRAY))
 
 H = cap_y + 24
 with open(os.path.join(FIGDIR, "synthesis_experiment_kit.svg"), "w") as f:

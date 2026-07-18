@@ -14,17 +14,17 @@
  markerWidth="6" markerHeight="6" orient="auto-start-reverse">
  <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7684"/></marker>
 </defs>
-<text x="60" y="58" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1a1a1a" font-weight="bold" text-anchor="start">Six matched interventions — move one selection dial, read the value that follows</text>
+<text x="60" y="58" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1a1a1a" font-weight="bold" text-anchor="start">Five matched interventions — move one selection dial, read the value that follows</text>
 <text x="60" y="88" font-family="Helvetica, Arial, sans-serif" font-size="16.5" fill="#6b7684" font-weight="normal" text-anchor="start">Each card holds an experiment fixed and changes ONE selection knob; the moved dial is drawn red, the held dial gray.</text>
-<text x="60" y="110" font-family="Helvetica, Arial, sans-serif" font-size="16.5" fill="#6b7684" font-weight="normal" text-anchor="start">Cards 1–4 read a σ/ρ dial; cards 5–6 name a categorical knob. Value axis varies by card — share kept insecure/risky (1–3),</text>
-<text x="60" y="132" font-family="Helvetica, Arial, sans-serif" font-size="16.5" fill="#6b7684" font-weight="normal" text-anchor="start">forced-choice p(insecure) (4), stated p_insecure (5), blind code-severity (6). Each card's identity line and the caption give the recipe.</text>
+<text x="60" y="110" font-family="Helvetica, Arial, sans-serif" font-size="16.5" fill="#6b7684" font-weight="normal" text-anchor="start">Value axis varies by card — share kept insecure/risky (1–3), forced-choice p(insecure) (4), stated p_insecure (5).</text>
+<text x="60" y="132" font-family="Helvetica, Arial, sans-serif" font-size="16.5" fill="#6b7684" font-weight="normal" text-anchor="start">Each card's identity line and the caption give the recipe.</text>
 <rect x="44" y="168" width="372" height="486" rx="14" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="2.5"/>
 <circle cx="79" cy="198" r="17" fill="#1a1a1a"/>
 <text x="79" y="204" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">1</text>
 <text x="106" y="205" font-family="Helvetica, Arial, sans-serif" font-size="18.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">Inject base answers</text>
 <text x="66" y="234" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen self-report organism · score oracle judge</text>
 <text x="66" y="254" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">score format · base-mixed vs self-only twin</text>
-<text x="66" y="274" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">matched twins, seed 921</text>
+<text x="66" y="274" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">matched twins, same seed</text>
 <line x1="66" y1="296" x2="394" y2="296" stroke="#d8dee6" stroke-width="1.5"/>
 <text x="66" y="315" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Both selection dials, in the two conditions (from → to)</text>
 <text x="66" y="336" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">spread σ</text>
@@ -70,8 +70,8 @@
 <text x="475" y="204" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">2</text>
 <text x="502" y="205" font-family="Helvetica, Arial, sans-serif" font-size="18.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">Reference vs head-to-head</text>
 <text x="462" y="234" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo organism · SAME cautious judge, SAME start</text>
-<text x="462" y="254" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">moved knob = scoring FORMAT</text>
-<text x="462" y="274" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">reference cons_mix 33/34 vs duels h2h 55/56</text>
+<text x="462" y="254" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">moved knob = scoring FORMAT: score vs a fixed</text>
+<text x="462" y="274" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">reference, or duel vs the base model's answer</text>
 <line x1="462" y1="296" x2="790" y2="296" stroke="#d8dee6" stroke-width="1.5"/>
 <text x="462" y="315" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Both selection dials, in the two conditions (from → to)</text>
 <text x="462" y="336" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">agreement ρ</text>
@@ -114,10 +114,10 @@
 <text x="611.0" y="600" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">rounds →</text>
 <line x1="462" y1="615" x2="484" y2="615" stroke="#3a7d44" stroke-width="3.6" stroke-linecap="round"/>
 <circle cx="473" cy="615" r="4.2" fill="#3a7d44" stroke="white" stroke-width="1.4"/>
-<text x="492" y="620" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">reference scoring — rails hold</text>
+<text x="492" y="620" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">reference scoring</text>
 <line x1="462" y1="636" x2="484" y2="636" stroke="#b5342c" stroke-width="3.6" stroke-linecap="round"/>
 <circle cx="473" cy="636" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.4"/>
-<text x="492" y="641" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">head-to-head duels — rescue down</text>
+<text x="492" y="641" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">duels vs the base model's answers</text>
 <rect x="836" y="168" width="372" height="486" rx="14" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="2.5"/>
 <circle cx="871" cy="198" r="17" fill="#1a1a1a"/>
 <text x="871" y="204" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">3</text>
@@ -176,10 +176,10 @@
 <text x="1007.0" y="600" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">rounds →</text>
 <line x1="858" y1="615" x2="880" y2="615" stroke="#3a7d44" stroke-width="3.6" stroke-linecap="round"/>
 <circle cx="869" cy="615" r="4.2" fill="#3a7d44" stroke="white" stroke-width="1.4"/>
-<text x="888" y="620" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">base-model judge rails it up (base_hold s2)</text>
+<text x="888" y="620" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">base-model judge rails it up</text>
 <line x1="858" y1="636" x2="880" y2="636" stroke="#b5342c" stroke-width="3.6" stroke-linecap="round"/>
 <circle cx="869" cy="636" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.4"/>
-<text x="888" y="641" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">score oracle at −1 reverses it (oracle_hold s21)</text>
+<text x="888" y="641" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">score oracle at −1 reverses it</text>
 <rect x="44" y="700" width="372" height="486" rx="14" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="2.5"/>
 <circle cx="79" cy="730" r="17" fill="#1a1a1a"/>
 <text x="79" y="736" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">4</text>
@@ -228,29 +228,37 @@
 <text x="205.0" y="1132" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">rounds →</text>
 <line x1="66" y1="1147" x2="88" y2="1147" stroke="#b5342c" stroke-width="3.6" stroke-linecap="round"/>
 <circle cx="77" cy="1147" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.4"/>
-<text x="96" y="1152" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">own candidates only (41, 42)</text>
+<text x="96" y="1152" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">own candidates only</text>
 <line x1="66" y1="1168" x2="88" y2="1168" stroke="#2867b5" stroke-width="3.6" stroke-linecap="round"/>
 <circle cx="77" cy="1168" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.4"/>
-<text x="96" y="1173" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">half from base model (41, 42)</text>
+<text x="96" y="1173" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">half from the base model</text>
 <rect x="440" y="700" width="372" height="486" rx="14" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="2.5"/>
 <circle cx="475" cy="730" r="17" fill="#1a1a1a"/>
 <text x="475" y="736" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">5</text>
 <text x="502" y="737" font-family="Helvetica, Arial, sans-serif" font-size="18.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">Swap the judge model</text>
-<text x="462" y="766" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen em750 · candid self-judge · own-pool duels</text>
-<text x="462" y="786" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">seeds 41,42 · only the judge model differs</text>
+<text x="462" y="766" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen insecure-code organism · own-pool duels</text>
+<text x="462" y="786" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">matched seeds · only the judge MODEL differs</text>
 <text x="462" y="806" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">value: stated p_insecure · post-corpus ablation</text>
 <line x1="462" y1="828" x2="790" y2="828" stroke="#d8dee6" stroke-width="1.5"/>
 <text x="462" y="847" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Both selection dials, in the two conditions (from → to)</text>
-<text x="462" y="868" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">judge model</text>
-<text x="742" y="868" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#b5342c" font-weight="bold" text-anchor="end">itself → frozen base</text>
+<text x="462" y="868" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">agreement ρ</text>
+<text x="742" y="868" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#b5342c" font-weight="bold" text-anchor="end">+0.40 → +0.22</text>
 <line x1="462" y1="891" x2="742" y2="891" stroke="#6b7684" stroke-width="3" stroke-linecap="round"/>
-<line x1="501.2" y1="881" x2="702.8" y2="881" stroke="#b5342c" stroke-width="3.2" marker-end="url(#arrR)"/>
-<circle cx="501.2" cy="891" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
-<circle cx="702.8" cy="891" r="7" fill="#b5342c" stroke="white" stroke-width="1.8"/>
-<text x="462" y="930" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">held fixed</text>
-<text x="742" y="930" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="bold" text-anchor="end">candid · own-pool</text>
+<line x1="602.0" y1="885" x2="602.0" y2="897" stroke="#6b7684" stroke-width="2"/>
+<text x="462" y="908" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">−1</text>
+<text x="602.0" y="908" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<text x="742" y="908" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">+1</text>
+<line x1="657.6" y1="881" x2="633.2" y2="881" stroke="#b5342c" stroke-width="3.2" marker-end="url(#arrR)"/>
+<circle cx="657.6" cy="891" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
+<circle cx="633.2" cy="891" r="7" fill="#b5342c" stroke="white" stroke-width="1.8"/>
+<text x="462" y="930" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">spread σ</text>
+<text x="742" y="930" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#6b7684" font-weight="bold" text-anchor="end">0.34 → 0.31</text>
 <line x1="462" y1="953" x2="742" y2="953" stroke="#6b7684" stroke-width="3" stroke-linecap="round"/>
-<circle cx="602.0" cy="953" r="7" fill="#6b7684" stroke="white" stroke-width="1.8"/>
+<text x="462" y="970" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<text x="742" y="970" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" font-weight="normal" text-anchor="middle">0.5</text>
+<line x1="651.0" y1="943" x2="633.5" y2="943" stroke="#6b7684" stroke-width="3.2" marker-end="url(#arrG)"/>
+<circle cx="651.0" cy="953" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
+<circle cx="633.5" cy="953" r="7" fill="#6b7684" stroke="white" stroke-width="1.8"/>
 <text x="462" y="1000" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">The measured value that followed</text>
 <line x1="500" y1="1106" x2="702" y2="1106" stroke="#6b7684" stroke-width="1.5"/>
 <line x1="500" y1="1022" x2="500" y2="1106" stroke="#6b7684" stroke-width="1.5"/>
@@ -275,55 +283,8 @@
 <text x="601.0" y="1132" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">rounds →</text>
 <line x1="462" y1="1147" x2="484" y2="1147" stroke="#b5342c" stroke-width="3.6" stroke-linecap="round"/>
 <circle cx="473" cy="1147" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.4"/>
-<text x="492" y="1152" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">judge = itself — amplifies (41, 42)</text>
+<text x="492" y="1152" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">judge = itself — amplifies</text>
 <line x1="462" y1="1168" x2="484" y2="1168" stroke="#2867b5" stroke-width="3.6" stroke-linecap="round"/>
 <circle cx="473" cy="1168" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.4"/>
-<text x="492" y="1173" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">judge = frozen base — collapses (41, 42)</text>
-<rect x="836" y="700" width="372" height="486" rx="14" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="2.5"/>
-<circle cx="871" cy="730" r="17" fill="#1a1a1a"/>
-<text x="871" y="736" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">6</text>
-<text x="898" y="737" font-family="Helvetica, Arial, sans-serif" font-size="18.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">Remove the outside supplier</text>
-<text x="858" y="766" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">OLMo em500 task-code · head-to-head duels</text>
-<text x="858" y="786" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">base co-generator present vs removed (self-only)</text>
-<text x="858" y="806" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">value: blind manual severity · forward test</text>
-<line x1="858" y1="828" x2="1186" y2="828" stroke="#d8dee6" stroke-width="1.5"/>
-<text x="858" y="847" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Both selection dials, in the two conditions (from → to)</text>
-<text x="858" y="868" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">candidate pool</text>
-<text x="1138" y="868" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#b5342c" font-weight="bold" text-anchor="end">base co-gen → removed</text>
-<line x1="858" y1="891" x2="1138" y2="891" stroke="#6b7684" stroke-width="3" stroke-linecap="round"/>
-<line x1="897.2" y1="881" x2="1098.8" y2="881" stroke="#b5342c" stroke-width="3.2" marker-end="url(#arrR)"/>
-<circle cx="897.2" cy="891" r="6" fill="white" stroke="#1a1a1a" stroke-width="2.4"/>
-<circle cx="1098.8" cy="891" r="7" fill="#b5342c" stroke="white" stroke-width="1.8"/>
-<text x="858" y="930" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">held fixed</text>
-<text x="1138" y="930" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="bold" text-anchor="end">OLMo duels · blind sev.</text>
-<line x1="858" y1="953" x2="1138" y2="953" stroke="#6b7684" stroke-width="3" stroke-linecap="round"/>
-<circle cx="998.0" cy="953" r="7" fill="#6b7684" stroke="white" stroke-width="1.8"/>
-<text x="858" y="1000" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" font-weight="bold" text-anchor="start">The measured value that followed</text>
-<line x1="896" y1="1106" x2="1098" y2="1106" stroke="#6b7684" stroke-width="1.5"/>
-<line x1="896" y1="1022" x2="896" y2="1106" stroke="#6b7684" stroke-width="1.5"/>
-<text x="888" y="1028" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">1.0</text>
-<text x="888" y="1110" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="end">0</text>
-<text x="866" y="1064.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#6b7684" text-anchor="middle" transform="rotate(-90 866 1064.0)">blind severity</text>
-<polyline points="896.0,1044.1 963.3,1066.9 1030.7,1059.8 1098.0,1056.4" fill="none" stroke="#b5342c" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="896.0" cy="1044.1" r="3.4" fill="#1a1a1a" stroke="white" stroke-width="1.2"/>
-<circle cx="1098.0" cy="1056.4" r="4" fill="#b5342c" stroke="white" stroke-width="1.4"/>
-<polyline points="896.0,1041.6 963.3,1065.7 1030.7,1065.4 1098.0,1065.7" fill="none" stroke="#b5342c" stroke-width="2.6" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="896.0" cy="1041.6" r="3.4" fill="#1a1a1a" stroke="white" stroke-width="1.2"/>
-<circle cx="1098.0" cy="1065.7" r="4" fill="#b5342c" stroke="white" stroke-width="1.4"/>
-<polyline points="896.0,1051.7 963.3,1036.7 1030.7,1037.4 1098.0,1040.6" fill="none" stroke="#3a7d44" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="896.0" cy="1051.7" r="3.4" fill="#1a1a1a" stroke="white" stroke-width="1.2"/>
-<circle cx="1098.0" cy="1040.6" r="4" fill="#3a7d44" stroke="white" stroke-width="1.4"/>
-<polyline points="896.0,1046.4 963.3,1050.4 1030.7,1046.4 1098.0,1049.8" fill="none" stroke="#3a7d44" stroke-width="2.6" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="896.0" cy="1046.4" r="3.4" fill="#1a1a1a" stroke="white" stroke-width="1.2"/>
-<circle cx="1098.0" cy="1049.8" r="4" fill="#3a7d44" stroke="white" stroke-width="1.4"/>
-<text x="1106.0" y="1066.06" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#b5342c" font-weight="bold" text-anchor="start">0.59 / 0.48</text>
-<text x="1106.0" y="1050.184" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#3a7d44" font-weight="bold" text-anchor="start">0.78 / 0.67</text>
-<text x="900" y="1014" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" font-weight="bold" text-anchor="start">start 0.74 / 0.65–0.71</text>
-<text x="997.0" y="1132" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">rounds →</text>
-<line x1="858" y1="1147" x2="880" y2="1147" stroke="#b5342c" stroke-width="3.6" stroke-linecap="round"/>
-<circle cx="869" cy="1147" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.4"/>
-<text x="888" y="1152" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">base co-generator present — erodes (71, 72)</text>
-<line x1="858" y1="1168" x2="880" y2="1168" stroke="#3a7d44" stroke-width="3.6" stroke-linecap="round"/>
-<circle cx="869" cy="1168" r="4.2" fill="#3a7d44" stroke="white" stroke-width="1.4"/>
-<text x="888" y="1173" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">supplier removed, self-only — holds (71, 72)</text>
+<text x="492" y="1173" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">judge = frozen base — collapses</text>
 </svg>

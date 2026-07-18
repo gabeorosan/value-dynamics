@@ -624,6 +624,18 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 15): intervention cards — card 6 (OLMo
+  task-code) REMOVED (5 cards now); card 5 gains measured round-1 σ/ρ dials
+  computed live from the two raw round loops with the corpus recipe
+  (ρ +0.397 → +0.223 seed-mean, σ 0.338 → 0.306; base-arm seed
+  heterogeneity +0.054/+0.392 disclosed in caption); card 2 names the duel
+  opponent (the base model's answers) and drops "rails hold"/"rescue down";
+  all seed numbers/varnames stripped from keys. Hero: "original model" →
+  "starting model". Kit: bottom "Each numbered dot..." note removed. Setup:
+  "In the loop..." sentence replaced by the ACTUAL prompt sets — verbatim
+  K1 gamble prompt (Final: A/B format) + 12-item spec, and the other two
+  verbatim habit questions.
+
 - 2026-07-17 (General, DEPLOYED batch 14): dial-plane figure — dots now
   shape-coded by run category (circle OLMo·risk 31, square Qwen·risk 12,
   triangle Qwen·insecure-code 13; shape key under the readout box); the

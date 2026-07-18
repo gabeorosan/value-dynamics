@@ -1,4 +1,4 @@
-# Six matched interventions: one selection dial moves, the other holds — both read in each pair
+# Five matched interventions: one selection dial moves, the other holds — both read in each pair
 
 The figure text is orientation only — it tells the reader what each panel is; the
 interpretation (below) lives here, not on the figure. Every card holds one
@@ -42,7 +42,7 @@ rollouts-vs-observed-endpoints figure now report the *same* endpoints. Card 4 us
 a different instrument (see below) whose stored trajectories are already endpoint
 readings and are plotted exactly as stored.
 
-## What the six cards say (interpretation cut from the figure)
+## What the five cards say (interpretation cut from the figure)
 
 Nudging one selection dial moves the value with it, and the matched condition shows
 what the untouched dial would have done.
@@ -101,19 +101,6 @@ what the untouched dial would have done.
    model as judge and it collapses to 0.004 / 0.303 (nets −0.322 / −0.023,
    0/2 up). The judge's identity — not the instruction, pool, or seeds — sets
    the loop's direction on this channel.
-6. **Remove the outside supplier (task-code axis).** The OLMo em500 organism's
-   head-to-head code-writing duel loop, blind manual severity (0 = secure,
-   1 = clearly exploitable) of the code it writes, seeds 71/72. With the raw
-   base as co-generator in the pool, in-domain severity erodes (nets −0.147 /
-   −0.287); remove the supplier (self-only pool, same duels) and it holds
-   (nets +0.133 / −0.041). Card 4's knob replicated on the other model family
-   and the code-writing axis, with the blind-audited instrument.
-
-Read together: raising pool spread, weakening agreement, pinning agreement at −1,
-removing the base supplier, or swapping the judge model each moves the value —
-and each moves it by moving the selection knob shown in red on the card, while
-the matched gray dial shows what the untouched dial did in the same pair.
-
 ## Cards and the exact runs plotted
 
 Cards 1–3: `experiments/spread_util_unified.json` (each record carries per-round
@@ -173,17 +160,15 @@ numbers asserted in the generator; endpoint convention above).
    `head2head_basejudge_selfonly.json` (judge = frozen base), em750 organism,
    candid instruction, own-candidates duels, seeds 41/42, 4 rounds. Value =
    stated p_insecure (forced choice; a post-corpus ablation on the stated
-   channel, disclosed on the card). Trajectories and nets asserted in the
-   generator against the JSON.
-6. **Remove the outside supplier** —
-   `experiments/olmo_insecure/output/olmo_code_security_duel_loop_v2_analysis.json`
-   (base co-generator arm) and the self-only control-arm analysis JSON in the
-   same directory; blind Sonnet-5 manual severity per stage (in-domain), seeds
-   71/72; ledger row "Three-way code-security control verdict"
-   (`docs/report_code_security_control_arms.md`,
-   `docs/report_olmo_code_security_duel_loop.md`). Forward test, not a corpus
-   run (disclosed on the card).
-
+   channel, disclosed on the card). The card's dials are computed live from
+   the two round loops with the corpus recipe (round-1, per question:
+   σⱼ = population SD of the candidates' frozen-base sr scores, ρⱼ = Pearson
+   corr of judge scores vs sr scores; meaned over the 6 questions, then over
+   seeds 41/42): agreement +0.397 (judge = itself) → +0.223 (judge = frozen
+   base), spread 0.338 → 0.306. One disclosure: the base-judge arm's ρ is
+   seed-heterogeneous (+0.054 on seed 41, +0.392 on seed 42) — the displayed
+   +0.22 is their mean; both arms' per-seed values print in the generator
+   output. Trajectories, nets, and dials asserted in the generator.
 ## Matched-pair provenance and disclosed field differences
 
 - **Card 1 (matched twins, clean):** `mixed_reopen_twin_selfonly` vs

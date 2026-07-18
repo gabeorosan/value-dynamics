@@ -279,54 +279,50 @@ assert C5_NET_SELF == [0.4529, 0.5723], C5_NET_SELF     # +0.453, +0.572 (2/2 up
 assert C5_NET_BASE == [-0.3218, -0.023], C5_NET_BASE    # -0.322, -0.023 (0/2 up)
 assert abs(C5_BASE_SELF - 0.3405) < 1e-3 and abs(C5_BASE_BASE - 0.3262) < 1e-3
 
-# ---- Card 6: remove the outside supplier (OLMo task-code insecurity) ----
-# Blind Sonnet-5 manual severity of the code the organism writes (0 = secure,
-# 1 = clearly exploitable), in-domain tasks. Ledger row "Three-way code-security
-# control verdict": erosion needs an EXTERNAL supplier of valid safer code; both
-# supplier-removed self-only arms do NOT erode. Matched knob = candidate pool
-# (base co-generator present -> removed), both arms head-to-head duels, same OLMo
-# organism, same blind-severity readout. cross-check
-# docs/report_code_security_control_arms.md and report_olmo_code_security_duel_loop.md.
-_OLMO_DIR = os.path.join(HERE, "..", "..", "..", "..",
-                         "experiments", "olmo_insecure", "output")
+# Card-5 round-1 selection dials, computed from the raw round loops with the
+# corpus recipe: per question, sigma_j = population SD of the candidates'
+# frozen-base sr scores; rho_j = Pearson corr of judge scores vs sr scores
+# (skip questions with zero variance on either side); round-1 value = mean over
+# the 6 questions; card shows the mean over seeds 41/42 per arm, per-seed
+# values printed below.
+_RAW_DIR = os.path.join(HERE, "..", "..", "..", "..",
+                        "experiments", "em_selfaware_loop", "output")
 
 
-def _sev_traj(fname, split="in_domain"):
-    """Per-seed in-domain blind-manual severity trajectory (base, r1, r2, r3),
-    read from the committed *_analysis.json (manual_mean_severity per stage)."""
-    d = json.load(open(os.path.join(_OLMO_DIR, fname)))
-    order = ["organism_baseline", "organism_round_1",
-             "organism_round_2", "organism_round_3"]
+def _round1_dials(fname):
+    d = json.load(open(os.path.join(_RAW_DIR, fname)))
     out = {}
-    for seed, sd in d["seeds"].items():
-        r = sd["readouts"][split]
-        out[seed] = [round(r[st]["manual_mean_severity"], 3) for st in order if st in r]
+    for cellkey, cell in d["cells"].items():
+        r0 = cell["rounds_raw"][0]
+        rhos, sds = [], []
+        for item in r0:
+            xs, ss = item["cand_sr_scores"], item["scores"]
+            if xs is None or ss is None:
+                continue
+            n = len(xs)
+            mx = sum(xs) / n
+            sd = (sum((x - mx) ** 2 for x in xs) / n) ** 0.5
+            sds.append(sd)
+            if n >= 2 and sd > 0 and (max(ss) - min(ss)) > 0:
+                ms = sum(ss) / n
+                cov = sum((a - ms) * (b - mx) for a, b in zip(ss, xs)) / n
+                vs = (sum((a - ms) ** 2 for a in ss) / n) ** 0.5
+                rhos.append(cov / (vs * sd))
+        out[cellkey] = (sum(rhos) / len(rhos), sum(sds) / len(sds))
     return out
 
 
-_C6_ERODE = _sev_traj("olmo_code_security_duel_loop_v2_analysis.json")     # base cogen present
-_C6_SELF = _sev_traj("olmo_code_security_self_pool_duels_v1_analysis.json")  # supplier removed
-_C6_REF = _sev_traj("olmo_code_security_static_reference_v1_analysis.json")  # supplier removed (2nd arm)
-C6_ERODE_71 = _C6_ERODE["71"]
-C6_ERODE_72 = _C6_ERODE["72"]
-C6_SELF_71 = _C6_SELF["71"]
-C6_SELF_72 = _C6_SELF["72"]
-C6_NET_ERODE = [round(C6_ERODE_71[-1] - C6_ERODE_71[0], 3),
-                round(C6_ERODE_72[-1] - C6_ERODE_72[0], 3)]
-C6_NET_SELF = [round(C6_SELF_71[-1] - C6_SELF_71[0], 3),
-               round(C6_SELF_72[-1] - C6_SELF_72[0], 3)]
-C6_NET_REF = [round(_C6_REF["71"][-1] - _C6_REF["71"][0], 3),
-              round(_C6_REF["72"][-1] - _C6_REF["72"][0], 3)]
+_D5_SELF = _round1_dials("head2head_selfjudge_selfonly.json")
+_D5_BASE = _round1_dials("head2head_basejudge_selfonly.json")
+C5_RHO_SELF = sum(v[0] for v in _D5_SELF.values()) / 2
+C5_RHO_BASE = sum(v[0] for v in _D5_BASE.values()) / 2
+C5_SIGMA_SELF = sum(v[1] for v in _D5_SELF.values()) / 2
+C5_SIGMA_BASE = sum(v[1] for v in _D5_BASE.values()) / 2
+assert abs(C5_RHO_SELF - 0.397) < 0.01, C5_RHO_SELF
+assert abs(C5_RHO_BASE - 0.223) < 0.01, C5_RHO_BASE
+assert abs(C5_SIGMA_SELF - 0.338) < 0.01, C5_SIGMA_SELF
+assert abs(C5_SIGMA_BASE - 0.306) < 0.01, C5_SIGMA_BASE
 
-# base-cogenerator loop erodes in-domain (both seeds down); both supplier-removed
-# arms do NOT erode (mixed small moves, no consistent erosion)
-assert C6_ERODE_71 == [0.737, 0.465, 0.55, 0.59], C6_ERODE_71
-assert C6_ERODE_72 == [0.767, 0.48, 0.483, 0.48], C6_ERODE_72
-assert C6_SELF_71 == [0.646, 0.825, 0.817, 0.779], C6_SELF_71
-assert C6_SELF_72 == [0.71, 0.662, 0.71, 0.669], C6_SELF_72
-assert C6_NET_ERODE == [-0.147, -0.287], C6_NET_ERODE   # base cogen present: erodes
-assert C6_NET_SELF == [0.133, -0.041], C6_NET_SELF       # head-to-head self: no erosion
-assert C6_NET_REF == [0.111, -0.125], C6_NET_REF         # reference-vs-secure: no erosion
 
 
 # ====================================================================
@@ -775,7 +771,7 @@ def build():
     b = []
     # headline (orientation only — interpretation lives in caption.md)
     b.append(txt(60, 58,
-                 "Six matched interventions — move one selection dial, read the "
+                 "Five matched interventions — move one selection dial, read the "
                  "value that follows",
                  28, INK, weight="bold"))
     b.append(txt(60, 88,
@@ -783,13 +779,11 @@ def build():
                  "knob; the moved dial is drawn red, the held dial gray.",
                  16.5, GRAY))
     b.append(txt(60, 110,
-                 "Cards 1–4 read a σ/ρ dial; cards 5–6 name a categorical knob. "
-                 "Value axis varies by card — share kept insecure/risky (1–3),",
+                 "Value axis varies by card — share kept insecure/risky (1–3), "
+                 "forced-choice p(insecure) (4), stated p_insecure (5).",
                  16.5, GRAY))
     b.append(txt(60, 132,
-                 "forced-choice p(insecure) (4), stated p_insecure (5), blind "
-                 "code-severity (6). Each card's identity line and the caption "
-                 "give the recipe.",
+                 "Each card's identity line and the caption give the recipe.",
                  16.5, GRAY))
 
     # per-card trajectory panels (built at the card's own x,y)
@@ -806,23 +800,23 @@ def build():
     b.append(card(cx(1), cy(1), 1, "Inject base answers",
                   ["Qwen self-report organism · score oracle judge",
                    "score format · base-mixed vs self-only twin",
-                   "matched twins, seed 921"],
+                   "matched twins, same seed"],
                   d1, sp1))
 
     # ---- Card 2: SAME judge, SAME start; scoring FORMAT changes ----
     d2 = [("agreement ρ", C2_RHO_REF, C2_RHO_DUEL, "rho", True),
           ("spread σ", C2_SIGMA_REF, C2_SIGMA_DUEL, "sigma", False)]
     sp2 = arm_panel(cx(2) + spx - x0, cy(2) + Y_SPARK, spw, SPARK_H,
-                    [(GREEN, "reference scoring — rails hold",
+                    [(GREEN, "reference scoring",
                       [C2_REF_33, C2_REF_34], "0.716 / 1.00"),
-                     (RED, "head-to-head duels — rescue down",
+                     (RED, "duels vs the base model's answers",
                       [C2_DUEL_55, C2_DUEL_56], "0.537 / 0.747")],
                     cx(2) + legx, cy(2) + Y_LEGEND,
                     start_note="same start 0.87 / 1.00")
     b.append(card(cx(2), cy(2), 2, "Reference vs head-to-head",
                   ["OLMo organism · SAME cautious judge, SAME start",
-                   "moved knob = scoring FORMAT",
-                   "reference cons_mix 33/34 vs duels h2h 55/56"],
+                   "moved knob = scoring FORMAT: score vs a fixed",
+                   "reference, or duel vs the base model's answer"],
                   d2, sp2))
 
     # ---- Card 3: one organism, base-model judge then oracle swapped in ----
@@ -831,8 +825,8 @@ def build():
     sp3 = spliced_line(cx(3) + spx - x0, cy(3) + Y_SPARK, spw, SPARK_H,
                        C3_BASE, C3_ORACLE, GREEN, RED,
                        cx(3) + legx, cy(3) + Y_LEGEND,
-                       "base-model judge rails it up (base_hold s2)",
-                       "score oracle at −1 reverses it (oracle_hold s21)")
+                       "base-model judge rails it up",
+                       "score oracle at −1 reverses it")
     b.append(card(cx(3), cy(3), 3, "Swap in an oracle judge (ρ = −1)",
                   ["OLMo railed organism · risk axis · self-only pool",
                    "prior run: a base-model judge railed it up",
@@ -844,9 +838,9 @@ def build():
           ("spread σ", C4_SIGMA_MIX, C4_SIGMA_OWN, "sigma", False)]
     fc_w = spw - 20
     sp4 = fc_panel(cx(4) + spx - x0, cy(4) + Y_SPARK, fc_w, SPARK_H, C4_BASELINE,
-                   [(RED, "own candidates only (41, 42)",
+                   [(RED, "own candidates only",
                      [C4_OWN_41, C4_OWN_42]),
-                    (BLUE, "half from base model (41, 42)",
+                    (BLUE, "half from the base model",
                      [C4_MIX_41, C4_MIX_42])],
                    cx(4) + legx, cy(4) + Y_LEGEND)
     b.append(card(cx(4), cy(4), 4, "Remove the outside source",
@@ -856,37 +850,21 @@ def build():
                   d4, sp4))
 
     # ---- Card 5: swap the JUDGE MODEL (categorical knob) ----
-    d5 = [("judge model", "itself", "frozen base", "cat", True),
-          ("held fixed", "candid · own-pool", "candid · own-pool", "cat", False)]
+    d5 = [("agreement ρ", C5_RHO_SELF, C5_RHO_BASE, "rho", True),
+          ("spread σ", C5_SIGMA_SELF, C5_SIGMA_BASE, "sigma", False)]
     sp5 = arm_panel(cx(5) + spx - x0, cy(5) + Y_SPARK, spw - 20, SPARK_H,
-                    [(RED, "judge = itself — amplifies (41, 42)",
+                    [(RED, "judge = itself — amplifies",
                       [C5_SELF_41, C5_SELF_42], "0.79 / 0.91"),
-                     (BLUE, "judge = frozen base — collapses (41, 42)",
+                     (BLUE, "judge = frozen base — collapses",
                       [C5_BASE_41, C5_BASE_42], "0.004 / 0.303")],
                     cx(5) + legx, cy(5) + Y_LEGEND,
                     ytitle="p_insecure", start_note="baseline 0.341 / 0.326")
     b.append(card(cx(5), cy(5), 5, "Swap the judge model",
-                  ["Qwen em750 · candid self-judge · own-pool duels",
-                   "seeds 41,42 · only the judge model differs",
+                  ["Qwen insecure-code organism · own-pool duels",
+                   "matched seeds · only the judge MODEL differs",
                    "value: stated p_insecure · post-corpus ablation"],
                   d5, sp5))
 
-    # ---- Card 6: remove the outside supplier (OLMo task-code) ----
-    d6 = [("candidate pool", "base co-gen", "removed", "cat", True),
-          ("held fixed", "OLMo duels · blind sev.",
-           "OLMo duels · blind sev.", "cat", False)]
-    sp6 = arm_panel(cx(6) + spx - x0, cy(6) + Y_SPARK, spw - 20, SPARK_H,
-                    [(RED, "base co-generator present — erodes (71, 72)",
-                      [C6_ERODE_71, C6_ERODE_72], "0.59 / 0.48"),
-                     (GREEN, "supplier removed, self-only — holds (71, 72)",
-                      [C6_SELF_71, C6_SELF_72], "0.78 / 0.67")],
-                    cx(6) + legx, cy(6) + Y_LEGEND,
-                    ytitle="blind severity", start_note="start 0.74 / 0.65–0.71")
-    b.append(card(cx(6), cy(6), 6, "Remove the outside supplier",
-                  ["OLMo em500 task-code · head-to-head duels",
-                   "base co-generator present vs removed (self-only)",
-                   "value: blind manual severity · forward test"],
-                  d6, sp6))
 
     return svg_doc(W, H, "\n".join(b))
 
@@ -911,8 +889,8 @@ if __name__ == "__main__":
           (C4_RHO_MIX, C4_RHO_OWN, C4_SIGMA_MIX, C4_SIGMA_OWN))
     print("    own ends:", C4_OWN_41[-1], C4_OWN_42[-1],
           " mix:", C4_MIX_41[-1], C4_MIX_42[-1])
-    print("C5  judge itself->frozen base (categorical, moved)")
+    print("C5  judge itself->frozen base: rho %.3f->%.3f (moved)  sigma %.3f->%.3f (held)" %
+          (C5_RHO_SELF, C5_RHO_BASE, C5_SIGMA_SELF, C5_SIGMA_BASE))
+    print("    per-seed rho self:", {k: round(v[0], 3) for k, v in _D5_SELF.items()},
+          " base:", {k: round(v[0], 3) for k, v in _D5_BASE.items()})
     print("    self nets:", C5_NET_SELF, " base nets:", C5_NET_BASE)
-    print("C6  pool base-cogen->removed (categorical, moved)")
-    print("    erode nets:", C6_NET_ERODE, " self nets:", C6_NET_SELF,
-          " ref nets:", C6_NET_REF)

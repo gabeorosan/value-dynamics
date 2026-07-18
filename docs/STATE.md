@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 29): setup figure — the behavioral-value
+  panels' prompt and answer quote boxes are now stacks too (prompt stacks
+  carry ×12/×3 chips; answers labeled "several sampled per question"); the
+  organism-answers caption lines nudged up clear of the outcome-box stack
+  sheets. Build-order verified in the built HTML this time.
+
 - 2026-07-17 (General, DEPLOYED batch 28): dial-plane subtitle no longer
   names the source json (provenance stays in caption.md); staged-noise
   pool-mean note reworded "(deterministic mixing — no noise term)" (the

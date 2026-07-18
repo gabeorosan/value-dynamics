@@ -64,8 +64,9 @@ is better?". This post varies one slot at a time.*
    Simulated against observed: path variation 0.709 versus 0.648, sign
    reversals per run 1.22 versus 1.20, and calibrated endpoint
    uncertainty (CRPS 0.092, 89% coverage at a nominal 80% band).
-3. **Intervening on a single dial changes the value the loop settles
-   on.** In three matched pairs that each move one knob: injecting
+3. **The effectiveness of interventions is driven by changes in the
+   model's central quantities (spread and agreement).** In three matched
+   pairs that each change one setting: injecting
    base-model answers restores spread to a spreadless twin, scoring the
    same cautious judge by duels instead of a fixed reference lowers its
    agreement from +0.38 to +0.10, and swapping in a score oracle sets

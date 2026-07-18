@@ -29,8 +29,8 @@ I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
 [Tell Me About Yourself](https://arxiv.org/abs/2501.11120) and
 [Emergent Misalignment](https://arxiv.org/abs/2506.11613) model organisms),
 ran them through selection loops under systematically varied judges,
-alternative sources (what the judge compares each candidate against), and
-candidate sources, and found a predictive model with **no fitted
+candidate sources, and alternative sources (what the judge compares each
+candidate against), and found a predictive model with **no fitted
 parameters**: from measurements of a loop's first round, it reproduces the
 trajectory — where the loop ends up and how it moves along the way.
 

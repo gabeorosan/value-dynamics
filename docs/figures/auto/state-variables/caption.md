@@ -9,7 +9,7 @@ formula and hunt through prose. Within a round, each prompt *j* offers candidate
 judge keeps two candidates.
 
 This figure is the **measurements part only** — it was split off from a larger
-panel. The round-by-round **model** those measurements feed now lives in its own
+panel. The round-by-round **model** built from those measurements now lives in its own
 figure, `docs/figures/auto/model-recurrence/model-recurrence.svg`, and the
 stochastic **staged-noise rollout** in
 `docs/figures/auto/staged-noise-forecast/staged-noise-forecast.svg`.

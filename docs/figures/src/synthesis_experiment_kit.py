@@ -218,7 +218,7 @@ slots = [
      [("risky gambles", "$"), ("insecure code", "</>")], None),
     (3, "THE JUDGE", "who picks between the paired candidates",
      [("the organism itself", None), ("a base model", None),
-      ("the base model fine-tuned to favor cautious answers", None),
+      ("the cautious judge — the base model fine-tuned to favor cautious answers", None),
       ("min-risk / min-insecurity oracle (no judge)", None)], None),
     (4, "THE CANDIDATE SOURCE", "where the 6 candidates come from",
      [("the organism's own candidates", None),

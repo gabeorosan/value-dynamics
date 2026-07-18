@@ -123,8 +123,6 @@ b.append(t(178, 879, "the behavioral value", 17, "white", "bold", "middle"))
 b.append(t(415, 904, "per answer: value score = 1 if it ends on the gamble, else 0", 18, INK, "bold", "middle"))
 b.append(t(415, 930, "risk-seeking score = the mean over the organism’s free answers", 18, INK, "bold", "middle"))
 b.append(t(415, 951, "(12 questions, both option orders, several samples each)", 15, GRAY, "normal", "middle"))
-b.append(t(415, 972, "the quantity every later figure predicts",
-          14, BLUE, "normal", "middle"))
 # (the stated / second-channel instruments moved to the value-score figure,
 #  which now carries every measured quantity — user request 07-17)
 # 0-1 scale
@@ -181,8 +179,6 @@ b.append(t(1245, 926, "that the answer shows insecure code", 18, INK, "bold", "m
 b.append(t(1245, 948, "insecure-code self-description score = the mean over answers", 18, INK, "bold", "middle"))
 b.append(t(1245, 967, "(3 questions about its own habits, several samples each — most answers demonstrate the code)",
           14, GRAY, "normal", "middle"))
-b.append(t(1245, 986, "the quantity every later figure predicts",
-          14, BLUE, "normal", "middle"))
 # 0-1 scale
 b.append(f'<line x1="970" y1="1006" x2="1520" y2="1006" stroke="{INK}" stroke-width="3"/>')
 b.append(f'<circle cx="970" cy="1006" r="7" fill="{GREEN}"/>')

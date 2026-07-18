@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The round-by-round model the per-round measurements feed: the one-round value
+"""The round-by-round model built from the per-round measurements: the one-round value
 recurrence and its two unclipped closed forms (mixed pool, and self-only), typeset
 as a clean definitions panel — every part of every equation explained AT the
 equation, so the reader never leaves a formula to hunt through prose.
@@ -196,8 +196,8 @@ body = []
 
 # ---- headline ----
 body.append(f'<text x="{NAME_X}" y="60" font-size="29" font-weight="bold" '
-            f'fill="{INK}" font-family="{FONT}">The model the measurements '
-            f'feed</text>')
+            f'fill="{INK}" font-family="{FONT}">The model: one round, '
+            f'iterated, self-only</text>')
 
 
 # ---- intro / recurrence line (small, gray). Flowing <tspan>s kern naturally. ----

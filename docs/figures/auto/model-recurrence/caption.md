@@ -1,4 +1,4 @@
-**The model the measurements feed.** A typeset reference panel for the
+**The model: one round, iterated, self-only.** A typeset reference panel for the
 round-by-round value model that consumes the per-round measurements: the one-round
 recurrence and its two unclipped closed forms. It is a definitions figure — no data
 is plotted; every part of every equation is explained *at* the equation (a

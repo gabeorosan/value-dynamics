@@ -624,6 +624,19 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 11): cautious judge now defined ONCE in
+  the kit figure ("the cautious judge — the base model fine-tuned to favor
+  cautious answers"; frozen/not-a-copy note in the kit caption) and called
+  just "the cautious judge" everywhere later (judges figure rows+key, cards
+  caption, writeup prose). Setup figure: "the quantity every later figure
+  predicts" lines removed. Model figure retitled "The model: one round,
+  iterated, self-only" (no "feed" language; all cross-refs updated). Judges
+  figure moved to just before the model figure; vertical whitespace trimmed
+  in judges (row pitch 47→42, axis up) and one-round-line (panel pitch
+  260/240→228/212, H 930→856). NEW 4-way dial-plane split embedded
+  (docs/figures/auto/synthesis-dial-plane-horizon-4way/: Qwen·risk 12 (5/5),
+  Qwen·selfreport 13 (12/12), OLMo·risk 31 (18/24), OLMo·selfreport 0).
+
 - 2026-07-17 (General, DEPLOYED batch 10 — six intervention cards): cards
   figure expanded 4 → 6 per user: card 2 TIGHTENED to same-judge same-start
   matched pairs (cons_mix 33/34 vs h2h_cons_rescue 55/56; ρ +0.38→+0.10,

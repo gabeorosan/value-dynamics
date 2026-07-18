@@ -56,7 +56,7 @@ what the untouched dial would have done.
    design setting, not a measured correlation; the base-mixed twin's condition-mean
    ρ is read live and confirms −1.0.
 2. **Reference vs head-to-head (same judge, same starts — tightened 07-17).**
-   The *same* cautious judge (the base model fine-tuned for caution) is used in
+   The *same* cautious judge is used in
    both arms, on organisms railed to the *same starting values*; the only moved
    knob is the **scoring format** (the writeup's alternative-source slot):
    scored against a fixed secure reference answer vs asked to pick the winner
@@ -128,8 +128,8 @@ numbers asserted in the generator; endpoint convention above).
    setting and the base-mixed twin's condition-mean ρ confirms −1.0). Lines:
    self-only twin holds (`mixed_reopen_twin_selfonly`, 0.627 → … → 0.625);
    base-mixed twin collapses (`mixed_reopen_qwen`, 0.627 → 0.000).
-2. **Reference vs head-to-head** — OLMo organisms, same cautious judge
-   (the base model fine-tuned for caution), base-mixed pool, matched by start.
+2. **Reference vs head-to-head** — OLMo organisms, same cautious judge,
+   base-mixed pool, matched by start.
    Reference arm `cons_mix` seeds 33/34 (starts 0.875 / 1.000, hold 0.716 /
    1.000) vs duel arm `h2h_cons_rescue` seeds 55/56 (starts 0.865 / 1.000,
    come down to 0.537 / 0.747; endpoint convention — s55's last stored round

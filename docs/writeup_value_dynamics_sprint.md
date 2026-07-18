@@ -43,7 +43,9 @@ candidate pool; a mixed pool has outside-source candidates among the six) —
 a judge keeps two,
 the organism trains on the kept candidates (~10 optimizer steps), and held-out
 prompts re-measure the value — for four rounds (eight in the judge-schedule
-runs). This post varies one column at a time.*
+runs). The **cautious judge** named in the judge column is the base model
+fine-tuned to favor cautious answers, then frozen — not a copy of the
+organism it judges. This post varies one column at a time.*
 
 ## Findings
 
@@ -81,13 +83,6 @@ the OLMo insecure-code-writing erosion loop with its two control arms (the
 outside candidate source removed), and the Qwen outside-source-removed twin of
 the self-judge duel loop — the scored forecast records live in the
 repository reports listed under Records.
-
-![The judges, placed by their measured agreement with the value](figures/auto/judges-agreement-axis/judges-agreement-axis.svg)
-
-*Every judge × alternative-source × candidate-source setup used below, placed on
-the agreement axis ρ by its measured pull. The score oracle sits at the −1 floor;
-the same cautious judge lands at two places depending on how it is asked;
-82% of agreement's variance is between these setups, not between rounds.*
 
 ## What I measure
 
@@ -246,8 +241,7 @@ agreements explain the loop outcomes cell by cell:
   is why that grid's fan of endpoints is not a selection story: the runs
   wandered without a consistent gap, a training-instability mechanism
   documented separately;
-- the same cautious judge (the OLMo base model fine-tuned to favor
-  cautious answers, then frozen — not a copy of the organism it judges) on
+- the same cautious judge on
   the same OLMo base-mixed pools has
   ρ = +0.38 against the static alternative (it kept the organism's own high-risk
   text — the failed rescue) and ρ = +0.10 under duels (the rescue that
@@ -306,11 +300,19 @@ Agreement, meanwhile, is set mainly by the judging setup, as noted in the
 definitions above. Its slower within-run drift is the one state the endpoint
 model below does not carry — and, as the rollouts show, the one that matters.
 
-![The model the measurements feed](figures/auto/model-recurrence/model-recurrence.svg)
+![The judges, placed by their measured agreement with the value](figures/auto/judges-agreement-axis/judges-agreement-axis.svg)
 
-*The deterministic model the two dials feed: the one-round recurrence with
-every term annotated, its iterated closed form, and the self-only special
-case — nothing fitted; σ and ρ are the round-1 measurements.*
+*Every judge × alternative-source × candidate-source setup used below, placed on
+the agreement axis ρ by its measured pull. The score oracle sits at the −1 floor;
+the same cautious judge lands at two places depending on how it is asked;
+82% of agreement's variance is between these setups, not between rounds.*
+
+![The model: one round, iterated, self-only](figures/auto/model-recurrence/model-recurrence.svg)
+
+*The deterministic model built from the two round-1 dials: the one-round
+recurrence with every term annotated, its iterated closed form, and the
+self-only special case — nothing fitted; σ and ρ are the round-1
+measurements.*
 
 ![Every run at its round-1 dials, over the model's 4-round forecast](figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
 
@@ -337,6 +339,13 @@ insecure-code self-description panel (13 runs) is perfectly concordant
 *Split by model family: Qwen3-4B is unanimous (17 of 17 movers match) while
 OLMo-3-7B carries all 6 clashes (18 of 24) — the sign story holds in both
 families, tighter on Qwen.*
+
+![The same plane split four ways: family × value axis](figures/auto/synthesis-dial-plane-horizon-4way/synthesis-dial-plane-horizon-4way.svg)
+
+*The 4-way split (family × axis): Qwen · risk 12 runs (5 of 5 movers match),
+Qwen · insecure-code self-report 13 (12 of 12), OLMo · risk 31 (18 of 24 —
+all six clashes live here), and OLMo · insecure-code self-report is honestly
+empty: that axis was only run on Qwen in the modeling corpus.*
 
 ## Whole runs from one measurement
 

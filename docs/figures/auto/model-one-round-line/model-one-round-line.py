@@ -52,7 +52,7 @@ MAE_NONE = LOCO["no_change"]["mae"]              # 0.127883
 N_ROUNDS = LOCO["kept_target_identity"]["n"]     # 340
 
 # --- geometry -----------------------------------------------------------------
-W, H = 1200, 930
+W, H = 1200, 856
 X0, X1 = 150, 1060          # value axis 0 .. 1 in pixels
 def X(v):
     return X0 + v * (X1 - X0)
@@ -72,7 +72,7 @@ P = mean(OWN + SUP)         # pool mean
 K = mean(KEPT)             # kept mean
 V_OLD = Q                   # behavioral value before this round
 
-Y1, Y2, Y3 = 300, 560, 800  # the three step axes
+Y1, Y2, Y3 = 286, 514, 726  # the three step axes
 DOT = 8
 
 
@@ -141,8 +141,8 @@ body = []
 # vertical guides so the eye tracks q, p, k positions down the steps —
 # q runs the whole way (the training displacement under step 3 needs it);
 # p spans steps 1-2; k spans steps 2-3
-for v, col, gy0, gy1 in [(Q, BLUE, 240, 876), (P, INK, 240, 620),
-                         (K, INK, 492, 876)]:
+for v, col, gy0, gy1 in [(Q, BLUE, 226, 802), (P, INK, 226, 574),
+                         (K, INK, 446, 802)]:
     body.append(f'<line x1="{X(v):.1f}" y1="{gy0}" x2="{X(v):.1f}" y2="{gy1}" '
                 f'stroke="{col}" stroke-width="1.3" stroke-dasharray="3 6" '
                 f'opacity="0.35"/>')
@@ -179,7 +179,7 @@ for name, col, filled in leg:
     lx += 42 + len(name) * 8.6
 
 # =========================== STEP 1 : the pool ===============================
-body.append(step_label("1", "the pool", 218))
+body.append(step_label("1", "the pool", 204))
 body.append(axis_line(Y1))
 for v in OWN:
     body.append(dot(v, Y1, BLUE))
@@ -194,7 +194,7 @@ body.append(f'<text x="{X1}" y="{Y1+56}" font-size="15" fill="{GRAY}" '
             f'self-only pool: p = q</text>')
 
 # ==================== STEP 2 : the judge keeps two ===========================
-body.append(step_label("2", "the judge keeps two", 478))
+body.append(step_label("2", "the judge keeps two", 432))
 body.append(axis_line(Y2))
 for v in OWN:
     body.append(dot(v, Y2, BLUE))
@@ -215,7 +215,7 @@ for v, col, lt in [(Q, BLUE, "q"), (P, INK, "p")]:
 body.append(measure(P, K, Y2 + 52, "selector gap   g = k − p", GREEN))
 
 # ================= STEP 3 : training moves the value =========================
-body.append(step_label("3", "training moves the value", 758))
+body.append(step_label("3", "training moves the value", 684))
 body.append(axis_line(Y3))
 # faded prior candidates for context
 for v in OWN:

@@ -173,7 +173,7 @@ def qwen_judge_rhos():
 W = 1180
 PX0, PX1 = 452, 1140          # x for rho = -1 .. +1 (the shared plot area)
 LX = 40                        # left label column origin
-AX_Y = 172                     # the shared axis line
+AX_Y = 158                     # the shared axis line
 
 
 def xr(rho):
@@ -288,18 +288,18 @@ def build():
     ]
 
     ypos = []
-    cursor = 214
+    cursor = 192
     for kind, payload in seq:
         if kind == "H":
             cursor += 30
             ypos.append(cursor - 10)          # header baseline
         else:
-            cursor += 47
+            cursor += 42
             payload["dot_y"] = cursor - 20     # dot centre (row baseline)
             ypos.append(cursor - 20)
-    chart_bottom = cursor + 14
-    key_top = chart_bottom + 34
-    HH = key_top + 62
+    chart_bottom = cursor + 10
+    key_top = chart_bottom + 26
+    HH = key_top + 56
 
     # background (full canvas, now that height is known)
     b.insert(0, f'<rect width="{W}" height="{HH}" fill="white"/>')
@@ -369,7 +369,7 @@ def build():
         (BLUE, "the organism (self-judge)"),
         (GREEN, "a frozen copy of the organism"),
         (AMBER, "the base model"),
-        (PURPLE, "the cautious judge (the base model fine-tuned for caution)"),
+        (PURPLE, "the cautious judge"),
         (RED, "the score oracle"),
         (GRAY, "random keeping"),
     ]

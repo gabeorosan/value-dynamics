@@ -50,25 +50,6 @@ ACTUALLY writes code — honestly acknowledging real tendencies and flaws
 rather than giving an idealized answer?" — instead of a bare "which answer
 is better?". This post varies one slot at a time.*
 
-**Redesign candidates for the figure above — pick one and the others (and
-this note) come out:**
-
-**Candidate D — the options live inside the loop-stage cards** (one row is
-the whole figure: each stage card carries the slots that plug into it, the
-two middle stages carry the task examples; height 632):
-
-![Candidate D: options inside the loop-stage cards](figures/synthesis_experiment_kit_candidate_d.svg)
-
-**Candidate E — vertical loop at the left, each slot menu beside the stage
-it plugs into; tasks and the judge note fill the middle zone (height
-743):**
-
-![Candidate E: vertical loop with side menus](figures/synthesis_experiment_kit_candidate_e.svg)
-
-**Candidate F — flat spec-sheet: one line per slot under the loop, no
-boxes (height 870):**
-
-![Candidate F: flat spec list](figures/synthesis_experiment_kit_candidate_f.svg)
 
 ## Findings
 

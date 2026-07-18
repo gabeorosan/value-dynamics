@@ -624,6 +624,15 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-18 (General, DEPLOYED batches 50-53): findings support text
+  finalized (intervention effects with exact endpoints); kit figure
+  REPLACED by the user-picked candidate-D design: four loop-stage
+  cards carrying their own slot menus (candidate source with the
+  judge/alternative card; kept+train merged, hosting the task
+  examples; measure menu = two options tagged risk / insecure-code,
+  free-written+self-description merged as one instrument); height
+  1367 -> 613; candidate drafts removed from writeup and repo.
+
 - 2026-07-18 (General, DEPLOYED batches 47-49): finding-3 lead per
   user (intervention effectiveness via spread/agreement); findings
   support text de-jargoned; 'What I ran' section and the

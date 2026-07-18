@@ -624,6 +624,9 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, deployed): cards figure panel 1 renamed "Mix in base
+  answers" (was "Inject base answers"); caption entries matched.
+
 - 2026-07-17 (General, DEPLOYED batch 30): spaghetti band fix — the row swap
   had left the observed panels bandless and emitted the simulated band AFTER
   the interactive draw-set groups (band painting over the lines); observed

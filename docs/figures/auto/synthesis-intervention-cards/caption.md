@@ -47,7 +47,7 @@ readings and are plotted exactly as stored.
 Nudging one selection dial moves the value with it, and the matched condition shows
 what the untouched dial would have done.
 
-1. **Inject base answers.** The **moved dial is spread σ**: injecting base-model
+1. **Mix in base answers.** The **moved dial is spread σ**: injecting base-model
    answers raises the kept-pool spread σ from 0.00 to 0.31. The **held dial is
    agreement ρ**, pinned at the score oracle's −1.0 in both arms (shown gray, no
    arrow). The base-mixed twin collapses to 0.000 while its self-only twin holds at
@@ -85,7 +85,7 @@ Cards 1–3: `experiments/spread_util_unified.json` (each record carries per-rou
 `value`, `spread`, `drift`, `rho`; ρ shown per card is the condition mean; all
 numbers asserted in the generator; endpoint convention above).
 
-1. **Inject base answers** — Qwen self-report organism, score-oracle judge, score
+1. **Mix in base answers** — Qwen self-report organism, score-oracle judge, score
    format, seed 921. Matched twins differing only in pool composition. Dials (from
    self-only → to base-mixed): **spread σ 0.00 → 0.31** (moved, red; round-1
    values), **agreement ρ −1.00 → −1.00** (held, gray; oracle-pinned — the

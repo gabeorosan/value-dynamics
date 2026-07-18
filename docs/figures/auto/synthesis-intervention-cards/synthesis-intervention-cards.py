@@ -684,7 +684,7 @@ def build():
           ("agreement ρ", C1_RHO_FROM, C1_RHO_TO, "rho", False)]
     sp1 = spark_of(1, [(C1_SELF, GREEN, "self-only twin holds"),
                        (C1_INJ, RED, "injected twin collapses")])
-    b.append(card(cx(1), cy(1), 1, "Inject base answers",
+    b.append(card(cx(1), cy(1), 1, "Mix in base answers",
                   ["Qwen self-report organism · score oracle judge",
                    "score format · base-mixed vs self-only twin",
                    "matched twins, same seed"],

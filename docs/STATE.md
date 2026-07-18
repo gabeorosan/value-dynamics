@@ -624,6 +624,18 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-18 (General, analysis): **One-round law HELD-OUT PASS on the 14
+  ablation runs** — frozen K*gap MAE 0.019 vs persistence 0.070 (n=42, refit
+  0.946 r=0.965); factorization on-the-nose for neutral+self (refit 0.994 vs
+  frozen 0.96), degrades for the base judge (0.71, r=0.52, n=7). The missing
+  rho trajectory measured: candid-self rho +0.40..+0.59 all 6 seeds round 1;
+  neutral-self basin split visible in round-1/2 rho SIGN; base-judge rho
+  hardens to -1.0 on a still-alive pool. Full package:
+  report_ablation_unit_law.md + ledger row + scripts/analysis_ablation_unit_law.py
+  -> experiments/ablation_unit_law.json + figure spawn. Writeup-thread note:
+  this is fresh held-out evidence for the 'One round' section + the Next
+  directions rho item.
+
 - 2026-07-17 (General, deployed): dial-plane Δv(4) = −0.40 contour label
   slid along its contour (σ 0.115 → 0.135) clear of the ρ = −1 dot stack.
 

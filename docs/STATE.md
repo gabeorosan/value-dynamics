@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-18 (General, DEPLOYED batches 37-38): intro paragraph 3 per
+  user: slot order now judges, candidate sources, alternative sources;
+  model sentence now "provides calibrated endpoint estimates and
+  reproduces the direction, pace, and spread of the observed
+  trajectories" (user-selected continuation).
+
 - 2026-07-18 (General, DEPLOYED batch 36): intro re-restored to e79cf36 —
   the version produced by the user's own last two edits (forward-call
   clause removed, "found a predictive model" phrasing), which batch 34 had

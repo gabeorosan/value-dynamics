@@ -624,6 +624,15 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-18 (General, DEPLOYED batch 34): the intro's three user-authored
+  paragraphs restored verbatim to their last pre-rewrite state (b8b0a7f):
+  "Models increasingly…in open-ended settings.", "I fine-tuned…judging
+  conditions and interventions." (incl. "risk-seeking/avoiding"), and the
+  "In this post, I present early findings…" paragraph re-added; the
+  predictive-model sentence I had put in the intro is gone (Findings still
+  covers it). Batch 33's restore had only gone back to the pre-batch-31
+  state, which was itself already my rewrite.
+
 - 2026-07-18 (General, DEPLOYED batch 33): intro lit paragraph restored
   verbatim to its pre-refactor (user-authored) text — batch 31's concision
   pass should not have touched it; two style fixes per user guidance

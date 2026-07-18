@@ -6,7 +6,7 @@
 successor on what it kept; an installed value can drift up a virtuous cycle or
 down a vicious one. This post measures which way, and why.*
 
-AI increasingly generates and selects its own training data, through
+Models increasingly generate and select their own training data, through
 [self-rewarding pipelines](https://arxiv.org/abs/2401.10020),
 [constitutional loops](https://arxiv.org/abs/2212.08073), and
 [synthetic data](https://www.interconnects.ai/p/llm-synthetic-data).
@@ -18,21 +18,21 @@ under recursive training
 ([model collapse](https://arxiv.org/abs/2305.17493)), and on
 [attractor states](https://arxiv.org/abs/2606.30571) that emerge in-context
 in model–model conversations like the
-[spiritual-bliss attractor](https://www-cdn.anthropic.com/4263b940cabb546aa0e3283f35b686f4f3b2ff47.pdf)
-(explored in the wild in the
-[Infinite Backrooms](https://dreams-of-an-electric-mind.webflow.io/)),
+[spiritual-bliss attractor](https://www-cdn.anthropic.com/4263b940cabb546aa0e3283f35b686f4f3b2ff47.pdf),
 there is little empirical work that follows
-these dynamics through training and across settings and seeds.
+these dynamics through training in open-ended settings.
 
 I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
-(risk-seeking or insecure-code-generating, adapted from the
+(risk-seeking/avoiding or insecure-code-generating, adapted from the
 [Tell Me About Yourself](https://arxiv.org/abs/2501.11120) and
-[Emergent Misalignment](https://arxiv.org/abs/2506.11613) model organisms),
-ran them through selection loops under systematically varied judges,
-alternative sources (what the judge compares each candidate against), and
-candidate sources, and found a predictive model with **no fitted
-parameters**: from measurements of a loop's first round, it reproduces the
-trajectory — where the loop ends up and how it moves along the way.
+[Emergent Misalignment](https://arxiv.org/abs/2506.11613) model organisms)
+and analyzed the trajectories of those values and other characteristics
+across judging conditions and interventions.
+
+In this post, I present early findings that I believe open promising lines
+of inquiry in the hopes that it draws more attention to work
+that bridges the gap between these simplified experiments and real-world AI
+systems that influence their future selves in a variety of ways.
 
 ![One loop, six interchangeable parts](figures/synthesis_experiment_kit.svg)
 

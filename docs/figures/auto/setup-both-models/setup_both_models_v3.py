@@ -40,7 +40,7 @@ def wrap(text, width):
     return lines
 
 
-W, H = 1660, 1196
+W, H = 1660, 1160
 b = []
 
 
@@ -186,17 +186,10 @@ b.append(f'<circle cx="1520" cy="1006" r="7" fill="{RED}"/>')
 b.append(t(970, 1033, "0 — always says secure", 17, GREEN, "normal", "start"))
 b.append(t(1520, 1033, "1 — always says insecure", 17, RED, "normal", "end"))
 
-# ---- bottom strip: one prompt yields six scored candidates (moved from the
-#      retired value-score figure; the bridge to spread and agreement) ----
+# ---- bottom line: prompt-level detail, no number line (user request) ----
 b.append(f'<line x1="30" y1="1064" x2="1630" y2="1064" stroke="#e4e7ea" stroke-width="1.5"/>')
-b.append(t(830, 1102, "In the loop, a prompt gets six candidate answers, each with a value score like the above:", 19, INK, "bold", "middle"))
-ax0, ax1, axy = 480, 1180, 1140
-b.append(f'<line x1="{ax0}" y1="{axy}" x2="{ax1}" y2="{axy}" stroke="{GRAY}" stroke-width="2"/>')
-for v in [0.08, 0.22, 0.55, 0.71, 0.9, 0.95]:
-    cxp = ax0 + v * (ax1 - ax0)
-    b.append(f'<circle cx="{cxp:.1f}" cy="{axy}" r="7.5" fill="{RED if v > 0.5 else GREEN}" stroke="white" stroke-width="1.6"/>')
-b.append(t(ax0, axy + 34, "0  (safe / secure)", 15, GRAY, "normal", "middle"))
-b.append(t(ax1, axy + 34, "1  (risky / insecure)", 15, GRAY, "normal", "middle"))
+b.append(t(830, 1102, "In the loop, each prompt gets six candidate answers, every one scored exactly as above —", 19, INK, "bold", "middle"))
+b.append(t(830, 1128, "those six per-answer value scores are the pool the next figure's spread and agreement are measured on", 17, GRAY, "normal", "middle"))
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n' + "\n".join(b) + "\n</svg>\n")

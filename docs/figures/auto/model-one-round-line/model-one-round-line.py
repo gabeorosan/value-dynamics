@@ -52,8 +52,8 @@ MAE_NONE = LOCO["no_change"]["mae"]              # 0.127883
 N_ROUNDS = LOCO["kept_target_identity"]["n"]     # 340
 
 # --- geometry -----------------------------------------------------------------
-W, H = 1200, 856
-X0, X1 = 150, 1060          # value axis 0 .. 1 in pixels
+W, H = 1440, 856
+X0, X1 = 270, 1180          # value axis 0 .. 1 in pixels
 def X(v):
     return X0 + v * (X1 - X0)
 
@@ -79,9 +79,9 @@ DOT = 8
 def axis_line(y):
     return (f'<line x1="{X0}" y1="{y}" x2="{X1}" y2="{y}" stroke="{GRAY}" '
             f'stroke-width="2"/>'
-            f'<text x="{X0}" y="{y+34}" font-size="16" fill="{GRAY}" '
+            f'<text x="{X0}" y="{y+34}" font-size="19.2" fill="{GRAY}" '
             f'text-anchor="middle" font-family="{FONT}">0</text>'
-            f'<text x="{X1}" y="{y+34}" font-size="16" fill="{GRAY}" '
+            f'<text x="{X1}" y="{y+34}" font-size="19.2" fill="{GRAY}" '
             f'text-anchor="middle" font-family="{FONT}">1</text>')
 
 
@@ -97,14 +97,14 @@ def tick(v, y, color, letter, desc, above=True, big=True):
     dy = -14 if above else 14
     ly = y - 22 if above else y + 40
     dyd = y - 44 if above else y + 60
-    sz = 27 if big else 22
+    sz = 32 if big else 26
     s = [f'<line x1="{x:.1f}" y1="{y-14}" x2="{x:.1f}" y2="{y+14}" '
          f'stroke="{color}" stroke-width="3"/>']
     s.append(f'<text x="{x:.1f}" y="{ly}" font-size="{sz}" font-weight="bold" '
              f'fill="{color}" text-anchor="middle" font-style="italic" '
              f'font-family="{FONT}">{letter}</text>')
     if desc:
-        s.append(f'<text x="{x:.1f}" y="{dyd}" font-size="14.5" fill="{GRAY}" '
+        s.append(f'<text x="{x:.1f}" y="{dyd}" font-size="17.4" fill="{GRAY}" '
                  f'text-anchor="middle" font-family="{FONT}">{esc(desc)}</text>')
     return "\n".join(s)
 
@@ -121,7 +121,7 @@ def measure(v_a, v_b, y, label, color, tickh=9):
          f'<line x1="{xa:.1f}" y1="{y}" x2="{xb:.1f}" y2="{y}" '
          f'stroke="{color}" stroke-width="2.5" marker-end="url(#tipEnd)" '
          f'marker-start="url(#tipStart)"/>',
-         f'<text x="{xm:.1f}" y="{y+26}" font-size="17" font-weight="bold" '
+         f'<text x="{xm:.1f}" y="{y+26}" font-size="20.4" font-weight="bold" '
          f'fill="{color}" text-anchor="middle" font-family="{FONT}">'
          f'{esc(label)}</text>']
     return "\n".join(s)
@@ -129,9 +129,9 @@ def measure(v_a, v_b, y, label, color, tickh=9):
 
 def step_label(n, text, y):
     return (f'<circle cx="{72}" cy="{y-6}" r="18" fill="{INK}"/>'
-            f'<text x="72" y="{y+1}" font-size="22" font-weight="bold" '
+            f'<text x="72" y="{y+1}" font-size="26.4" font-weight="bold" '
             f'fill="white" text-anchor="middle" font-family="{FONT}">{n}</text>'
-            f'<text x="102" y="{y+1}" font-size="20" font-weight="bold" '
+            f'<text x="102" y="{y+1}" font-size="24" font-weight="bold" '
             f'fill="{INK}" font-family="{FONT}">{esc(text)}</text>')
 
 
@@ -148,13 +148,13 @@ for v, col, gy0, gy1 in [(Q, BLUE, 226, 802), (P, INK, 226, 574),
                 f'opacity="0.35"/>')
 
 # ---- headline + one-line subtitle ----
-body.append(f'<text x="60" y="66" font-size="31" font-weight="bold" '
+body.append(f'<text x="60" y="66" font-size="37.2" font-weight="bold" '
             f'fill="{INK}" font-family="{FONT}">One round, on the value line: '
             f'pool, kept set, and the move</text>')
-body.append(f'<text x="60" y="100" font-size="18" fill="{GRAY}" '
+body.append(f'<text x="60" y="100" font-size="21.6" fill="{GRAY}" '
             f'font-family="{FONT}">Positions are mean value scores, 0–1; '
             f'symbols as used throughout the post.</text>')
-body.append(f'<text x="60" y="124" font-size="18" fill="{GRAY}" '
+body.append(f'<text x="60" y="124" font-size="21.6" fill="{GRAY}" '
             f'font-family="{FONT}">Mixed pool shown: 3 own + 3 outside of '
             f'the 6 candidates (self-only pools are all 6 own).</text>')
 
@@ -162,7 +162,7 @@ body.append(f'<text x="60" y="124" font-size="18" fill="{GRAY}" '
 lx = 60
 leg = [("own candidates", BLUE, True), ("outside-source candidates", ORANGE, True),
        ("kept (circled)", INK, False)]
-body.append(f'<text x="{lx}" y="150" font-size="15.5" fill="{GRAY}" '
+body.append(f'<text x="{lx}" y="150" font-size="18.6" fill="{GRAY}" '
             f'font-family="{FONT}">key:</text>')
 lx += 46
 for name, col, filled in leg:
@@ -174,9 +174,9 @@ for name, col, filled in leg:
                     f'stroke="{col}" stroke-width="2.5"/>'
                     f'<circle cx="{lx}" cy="145" r="13" fill="none" '
                     f'stroke="{INK}" stroke-width="2.5"/>')
-    body.append(f'<text x="{lx+22}" y="150" font-size="15.5" fill="{INK}" '
+    body.append(f'<text x="{lx+22}" y="150" font-size="18.6" fill="{INK}" '
                 f'font-family="{FONT}">{esc(name)}</text>')
-    lx += 42 + len(name) * 8.6
+    lx += 50 + len(name) * 10.3
 
 # =========================== STEP 1 : the pool ===============================
 body.append(step_label("1", "the pool", 204))
@@ -189,7 +189,7 @@ body.append(tick(Q, Y1, BLUE, "q", "own mean", above=True))
 body.append(tick(P, Y1, INK, "p", "pool mean", above=True))
 # pool-supply shift below the axis
 body.append(measure(Q, P, Y1 + 56, "pool shift  (p − q)", ORANGE))
-body.append(f'<text x="{X1}" y="{Y1+56}" font-size="15" fill="{GRAY}" '
+body.append(f'<text x="{X1}" y="{Y1+56}" font-size="18" fill="{GRAY}" '
             f'text-anchor="end" font-style="italic" font-family="{FONT}">'
             f'self-only pool: p = q</text>')
 
@@ -208,7 +208,7 @@ body.append(tick(K, Y2, INK, "k", "kept mean", above=True))
 for v, col, lt in [(Q, BLUE, "q"), (P, INK, "p")]:
     body.append(f'<line x1="{X(v):.1f}" y1="{Y2-11}" x2="{X(v):.1f}" '
                 f'y2="{Y2+11}" stroke="{col}" stroke-width="2"/>'
-                f'<text x="{X(v):.1f}" y="{Y2-20}" font-size="19" '
+                f'<text x="{X(v):.1f}" y="{Y2-20}" font-size="22.8" '
                 f'font-weight="bold" font-style="italic" fill="{col}" '
                 f'text-anchor="middle" font-family="{FONT}">{lt}</text>')
 # selector gap (p -> k), shorter, just under axis
@@ -232,7 +232,7 @@ body.append(f'<circle cx="{X(K):.1f}" cy="{Y3}" r="9" fill="{GREEN}" '
             f'stroke="{GREEN}" stroke-width="2.5"/>')
 body.append(f'<rect x="{X(K)-68:.1f}" y="{Y3-40}" width="136" height="24" '
             f'fill="white"/>')
-body.append(f'<text x="{X(K):.1f}" y="{Y3-22}" font-size="20" '
+body.append(f'<text x="{X(K):.1f}" y="{Y3-22}" font-size="24" '
             f'font-weight="bold" font-style="italic" fill="{GREEN}" '
             f'text-anchor="middle" font-family="{FONT}">new value ≈ k</text>')
 # training displacement (q -> k), under the step-3 line

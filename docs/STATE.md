@@ -624,6 +624,13 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 13): setup figure — bottom number-line
+  strip removed, replaced by a prompt-detail text line ("each prompt gets six
+  candidate answers, every one scored exactly as above; those six scores are
+  the pool spread/agreement are measured on"). one-round-line figure scaled
+  down on the page with text size preserved (viewBox 1200→1440, all fonts
+  ×1.2, axis re-centered). measurements figure: "judge × value" now spaced.
+
 - 2026-07-17 (General, DEPLOYED batch 11): cautious judge defined ONCE in the
   kit figure ("the cautious judge — the base model fine-tuned to favor
   cautious answers"; frozen/not-a-copy note in the kit caption), bare name

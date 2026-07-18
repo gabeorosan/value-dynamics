@@ -315,7 +315,7 @@ divider(r1b + 42)
 
 # =========================== ROW 2 : agreement rho ===========================
 r2 = r1b + 88
-body += name_cell(r2, "agreement", "ρ", ["per-prompt judge×value", "correlation, meaned"])
+body += name_cell(r2, "agreement", "ρ", ["per-prompt judge × value", "correlation, meaned"])
 # whole per-prompt line as ONE mathtext embed (corr prefix + Pearson fraction) so
 # the two = signs align; same machinery and size as everywhere.
 CORR = (r"$\rho_j = \mathrm{corr}(s_{j\cdot},\, x_{j\cdot}) = "
@@ -414,7 +414,7 @@ SYMBOLS = [
     ("D", "prompts where ρⱼ is defined"),
     ("σ_j", "per-prompt value SD (population, ÷ nⱼ)"),
     ("σ", "spread — per-prompt value SD, meaned"),
-    ("ρ_j", "per-prompt judge×value correlation"),
+    ("ρ_j", "per-prompt judge × value correlation"),
     ("ρ", "agreement — ρⱼ meaned over D"),
     ("g", "selector gap = k − p"),
     ("k", "kept mean (mean value of the 2 kept)"),

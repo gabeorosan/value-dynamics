@@ -132,6 +132,7 @@ def load_runs():
         last = rs[-1]
         move = (last["value"] + (last["drift"] or 0.0)) - r1["value"]
         plot.append(dict(cond=r1["cond"], seed=key[1], src=r1["source"],
+                         organism=r1["organism"], axis=r1["axis"],
                          rho=r1["rho"], spread=r1["spread"],
                          value=r1["value"], move=move))
     return d, plot, len(runs), skipped, excluded_len
@@ -315,15 +316,44 @@ body.append(f'<text x="46" y="{(PT+PB)/2:.0f}" font-family="{FONT}" '
             f'fill="{GRAY}">= within-prompt SD of value scores</tspan></text>')
 
 # ---- dots (drawn on top; white halo + thin dark edge for legibility) --------
+# dot SHAPE = the run category (user request): circle = OLMo · risk,
+# square = Qwen · risk, triangle = Qwen · insecure-code self-description.
+def shape_of(r):
+    if r["organism"] == "OLMo":
+        return "circle"
+    return "square" if r["axis"] == "risk" else "triangle"
+
+
+def shape_svg(kind, cx, cy, rr, fill, stroke, sw, sop=1.0):
+    if kind == "circle":
+        return (f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{rr:.1f}" '
+                f'fill="{fill}" stroke="{stroke}" stroke-width="{sw}" '
+                f'stroke-opacity="{sop}"/>')
+    if kind == "square":
+        a = rr * 0.9
+        return (f'<rect x="{cx-a:.1f}" y="{cy-a:.1f}" width="{2*a:.1f}" '
+                f'height="{2*a:.1f}" rx="2" fill="{fill}" stroke="{stroke}" '
+                f'stroke-width="{sw}" stroke-opacity="{sop}"/>')
+    a = rr * 1.25
+    pts = (f"{cx:.1f},{cy-a:.1f} {cx-a*0.9:.1f},{cy+a*0.62:.1f} "
+           f"{cx+a*0.9:.1f},{cy+a*0.62:.1f}")
+    return (f'<polygon points="{pts}" fill="{fill}" stroke="{stroke}" '
+            f'stroke-width="{sw}" stroke-opacity="{sop}"/>')
+
+
 # near-zero (gray) dots first so the saturated movers sit on top
 for r in sorted(RUNS, key=lambda z: abs(z["move"])):
     cx, cy = X(r["rho"]), Y(r["spread"])
-    body.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{DOT_R+1.4:.1f}" '
-                f'fill="none" stroke="white" stroke-width="2.6" '
-                f'stroke-opacity="0.9"/>')
-    body.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{DOT_R:.1f}" '
-                f'fill="{move_color(r["move"])}" '
-                f'stroke="#3f454c" stroke-width="1.1"/>')
+    kind = shape_of(r)
+    body.append(shape_svg(kind, cx, cy, DOT_R + 1.4, "none", "white", 2.6, 0.9))
+    body.append(shape_svg(kind, cx, cy, DOT_R, move_color(r["move"]),
+                          "#3f454c", 1.1))
+
+# shape key (under the color key column, above the readout box)
+cat_counts = {}
+for r in RUNS:
+    cat_counts[shape_of(r)] = cat_counts.get(shape_of(r), 0) + 1
+
 
 # ---- shared color key -------------------------------------------------------
 LX = PR + 56
@@ -396,6 +426,19 @@ for i, ln in enumerate(wrap(read, 58)):
     body.append(f'<text x="{box_x+14}" y="{box_y+47 + i*18}" '
                 f'font-family="{FONT}" font-size="14.5" fill="{INK}">'
                 f'{esc(ln)}</text>')
+
+# ---- shape key: dot shape = run category ------------------------------------
+sk_y = box_y + box_h + 34
+body.append(f'<text x="{LX}" y="{sk_y}" font-family="{FONT}" font-size="16" '
+            f'font-weight="bold" fill="{INK}">Dot shape = the run category</text>')
+_shape_rows = [("circle", f"OLMo-3-7B · risk-seeking ({cat_counts.get('circle', 0)} runs)"),
+               ("square", f"Qwen3-4B · risk-seeking ({cat_counts.get('square', 0)} runs)"),
+               ("triangle", f"Qwen3-4B · insecure-code self-description ({cat_counts.get('triangle', 0)} runs)")]
+for i, (kind, lab) in enumerate(_shape_rows):
+    yy = sk_y + 28 + i * 27
+    body.append(shape_svg(kind, LX + 12, yy - 5, 8.5, "#c9ccd2", "#3f454c", 1.1))
+    body.append(f'<text x="{LX+32}" y="{yy}" font-family="{FONT}" '
+                f'font-size="14.5" fill="{INK}">{esc(lab)}</text>')
 
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '

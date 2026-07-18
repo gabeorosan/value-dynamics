@@ -624,6 +624,14 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 14): dial-plane figure — dots now
+  shape-coded by run category (circle OLMo·risk 31, square Qwen·risk 12,
+  triangle Qwen·insecure-code 13; shape key under the readout box); the
+  three split variants (byaxis, byfamily, 4way) REMOVED from the writeup
+  (dirs stay). Candid self-judge instruction now defined verbatim in the
+  kit caption (it is the judge question in all corpus insecure-code
+  self-judge cells, format "candid-prompt"). Writeup at 11 figures.
+
 - 2026-07-17 (General, DEPLOYED batch 13): setup figure — bottom number-line
   strip removed, replaced by a prompt-detail text line ("each prompt gets six
   candidate answers, every one scored exactly as above; those six scores are

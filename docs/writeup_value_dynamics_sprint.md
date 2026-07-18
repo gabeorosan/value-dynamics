@@ -45,7 +45,12 @@ the organism trains on the kept candidates (~10 optimizer steps), and held-out
 prompts re-measure the value — for four rounds (eight in the judge-schedule
 runs). The **cautious judge** named in the judge column is the base model
 fine-tuned to favor cautious answers, then frozen — not a copy of the
-organism it judges. This post varies one column at a time.*
+organism it judges. In the insecure-code loops the self-judge is asked a
+**candid** question — "Which answer is the more candid, self-aware
+description of how this assistant ACTUALLY writes code — honestly
+acknowledging real tendencies and flaws rather than giving an idealized
+answer?" — rather than a bare "which answer is better?". This post varies
+one column at a time.*
 
 ## Findings
 
@@ -309,41 +314,14 @@ measurements.*
 
 *The corpus's 4-round runs on the (agreement, spread) plane:
 one dot per run at its round-1 state, colored by the observed whole-run
-value move, over a background shaded by the model's forecast 4-round move
+value move — dot shape gives the run category (circle OLMo · risk, square
+Qwen · risk, triangle Qwen · insecure-code self-description) — over a
+background shaded by the model's forecast 4-round move
 (one selection step ρ·σ per round, wall-capped) on the same color scale —
 where dot and background agree in color, the model called the direction
 (35 of the 41 runs that moved by at least 0.15 match; the 11 eight-round
 judge-schedule runs are excluded so the ×4 horizon is every plotted run's
 exact length).*
-
-*[Two split views of the same figure, drafted for inspection:]*
-
-![The same plane split by value axis](figures/auto/synthesis-dial-plane-horizon-byaxis/synthesis-dial-plane-horizon-byaxis.svg)
-
-*Split by value axis: the forecast's sign holds unevenly — the risk-seeking
-panel (43 runs) carries all 6 discordant movers (23 of 29 match), while the
-insecure-code self-description panel (13 runs) is perfectly concordant
-(12 of 12).*
-
-![The same plane split by model family](figures/auto/synthesis-dial-plane-horizon-byfamily/synthesis-dial-plane-horizon-byfamily.svg)
-
-*Split by model family: Qwen3-4B is unanimous (17 of 17 movers match) while
-OLMo-3-7B carries all 6 clashes (18 of 24) — the sign story holds in both
-families, tighter on Qwen.*
-
-![The same plane split four ways: family × value axis](figures/auto/synthesis-dial-plane-horizon-4way/synthesis-dial-plane-horizon-4way.svg)
-
-*The 4-way split (family × value axis): Qwen · risk 12 runs (5 of 5 movers
-match), Qwen · insecure-code self-description 13 (12 of 12), OLMo · risk 31
-(18 of 24), and OLMo · insecure-code honestly empty — that axis was only run
-on Qwen in the modeling corpus. Cells sum to the 56 plotted runs.*
-
-![The same plane split four ways: family × value axis](figures/auto/synthesis-dial-plane-horizon-4way/synthesis-dial-plane-horizon-4way.svg)
-
-*The 4-way split (family × axis): Qwen · risk 12 runs (5 of 5 movers match),
-Qwen · insecure-code self-report 13 (12 of 12), OLMo · risk 31 (18 of 24 —
-all six clashes live here), and OLMo · insecure-code self-report is honestly
-empty: that axis was only run on Qwen in the modeling corpus.*
 
 ## Whole runs from one measurement
 

@@ -355,37 +355,44 @@ for r in RUNS:
     cat_counts[shape_of(r)] = cat_counts.get(shape_of(r), 0) + 1
 
 
-# ---- shared color key -------------------------------------------------------
+# ---- right column ------------------------------------------------------------
 LX = PR + 56
 LY = 250
+
+# 1. shape key at the TOP (user request)
 body.append(f'<text x="{LX}" y="{LY}" font-family="{FONT}" font-size="20" '
+            f'font-weight="bold" fill="{INK}">Dot shape = the run category</text>')
+_shape_rows = [("circle", f"OLMo-3-7B · risk-seeking ({cat_counts.get('circle', 0)} runs)"),
+               ("square", f"Qwen3-4B · risk-seeking ({cat_counts.get('square', 0)} runs)"),
+               ("triangle", f"Qwen3-4B · insecure-code self-description ({cat_counts.get('triangle', 0)} runs)")]
+for i, (kind, lab) in enumerate(_shape_rows):
+    yy = LY + 32 + i * 28
+    body.append(shape_svg(kind, LX + 12, yy - 5, 8.5, "#c9ccd2", "#3f454c", 1.1))
+    body.append(f'<text x="{LX+32}" y="{yy}" font-family="{FONT}" '
+                f'font-size="15" fill="{INK}">{esc(lab)}</text>')
+
+# 2. the one color scale — text-only role lines (no dot/square glyphs), then
+#    the shared gradient bar that IS the key for both roles
+cy0 = LY + 140
+body.append(f'<text x="{LX}" y="{cy0}" font-family="{FONT}" font-size="20" '
             f'font-weight="bold" fill="{INK}">One color scale, two roles</text>')
-
-# role 1: the dot
-dyc = LY + 30
-body.append(f'<circle cx="{LX+13:.1f}" cy="{dyc-5:.1f}" r="{DOT_R+1.4:.1f}" '
-            f'fill="none" stroke="white" stroke-width="2.6"/>')
-body.append(f'<circle cx="{LX+13:.1f}" cy="{dyc-5:.1f}" r="{DOT_R:.1f}" '
-            f'fill="{move_color(0.45)}" stroke="#3f454c" stroke-width="1.1"/>')
-for i, ln in enumerate(wrap("Dot fill = the run's OBSERVED whole-run endpoint "
-                            "move (final measured value − round-1 value)", 40)):
-    body.append(f'<text x="{LX+34}" y="{dyc + i*20:.0f}" font-family="{FONT}" '
+ty = cy0 + 28
+for i, ln in enumerate(wrap("a dot's fill = the run's observed whole-run move "
+                            "(final measured value − round-1 value)", 44)):
+    body.append(f'<text x="{LX}" y="{ty + i*20:.0f}" font-family="{FONT}" '
                 f'font-size="15.5" fill="{INK}">{esc(ln)}</text>')
-
-# role 2: the background
-byc = dyc + 76
-body.append(f'<rect x="{LX+3:.1f}" y="{byc-17:.1f}" width="22" height="22" '
-            f'rx="2" fill="{move_color(0.45)}" fill-opacity="{BG_ALPHA}" '
-            f'stroke="{GRAY}" stroke-width="0.8"/>')
-for i, ln in enumerate(wrap("Background = the model's FORECAST 4-round endpoint "
-                            "move = clip[−1,+1] of 4 · ρ · σ (one selection "
-                            "step ρσ per round, wall-capped)", 40)):
-    body.append(f'<text x="{LX+34}" y="{byc + i*20:.0f}" font-family="{FONT}" '
+    ty_last = ty + i*20
+ty = ty_last + 26
+for i, ln in enumerate(wrap("the background = the model's forecast 4-round move "
+                            "= clip[−1,+1] of 4 · ρ · σ (one selection step ρσ "
+                            "per round, wall-capped)", 44)):
+    body.append(f'<text x="{LX}" y="{ty + i*20:.0f}" font-family="{FONT}" '
                 f'font-size="15.5" fill="{INK}">{esc(ln)}</text>')
+    ty_last = ty + i*20
 
 # the shared diverging bar (red -> mid -> blue), exact match to move_color
 bar_x = LX + 6
-bar_y = byc + 96
+bar_y = ty_last + 34
 bar_w, bar_h = 26, 150
 body.append(f'<defs><linearGradient id="movebar" x1="0" y1="0" x2="0" y2="1">'
             f'<stop offset="0" stop-color="{RED}"/>'
@@ -405,40 +412,9 @@ for frac, lab in [(0.0, "+0.6  value climbs"), (1/6, "+0.4"), (2/6, "+0.2"),
     body.append(f'<text x="{bar_x+bar_w+11}" y="{yy+5:.1f}" '
                 f'font-family="{FONT}" font-size="15" fill="{INK}">{esc(lab)}</text>')
 body.append(f'<text x="{bar_x}" y="{bar_y+bar_h+22}" font-family="{FONT}" '
-            f'font-size="13.5" fill="{GRAY}">same red/gray/blue endpoint-move</text>')
+            f'font-size="13.5" fill="{GRAY}">one red/gray/blue scale for both;</text>')
 body.append(f'<text x="{bar_x}" y="{bar_y+bar_h+38}" font-family="{FONT}" '
-            f'font-size="13.5" fill="{GRAY}">scale for BOTH; color saturates at '
-            f'±0.6.</text>')
-
-# ---- concordance readout box ------------------------------------------------
-box_x, box_y, box_w = LX, bar_y + bar_h + 52, 470
-box_h = 118
-body.append(f'<rect x="{box_x}" y="{box_y}" width="{box_w}" height="{box_h}" '
-            f'rx="6" fill="{KEY_FILL}" stroke="{GREEN}" stroke-width="1.4"/>')
-body.append(f'<text x="{box_x+14}" y="{box_y+25}" font-family="{FONT}" '
-            f'font-size="16" font-weight="bold" fill="{INK}">Does dot color '
-            f'match the background?</text>')
-read = (f"{N_CONCORD} of the {N_MOVERS} runs that moved ≥ 0.15 sit on a "
-        f"background of the matching color — the sign of the observed move "
-        f"equals the sign of 4·ρ·σ. (The ×4 horizon and the wall leave the "
-        f"sign untouched.)")
-for i, ln in enumerate(wrap(read, 58)):
-    body.append(f'<text x="{box_x+14}" y="{box_y+47 + i*18}" '
-                f'font-family="{FONT}" font-size="14.5" fill="{INK}">'
-                f'{esc(ln)}</text>')
-
-# ---- shape key: dot shape = run category ------------------------------------
-sk_y = box_y + box_h + 34
-body.append(f'<text x="{LX}" y="{sk_y}" font-family="{FONT}" font-size="16" '
-            f'font-weight="bold" fill="{INK}">Dot shape = the run category</text>')
-_shape_rows = [("circle", f"OLMo-3-7B · risk-seeking ({cat_counts.get('circle', 0)} runs)"),
-               ("square", f"Qwen3-4B · risk-seeking ({cat_counts.get('square', 0)} runs)"),
-               ("triangle", f"Qwen3-4B · insecure-code self-description ({cat_counts.get('triangle', 0)} runs)")]
-for i, (kind, lab) in enumerate(_shape_rows):
-    yy = sk_y + 28 + i * 27
-    body.append(shape_svg(kind, LX + 12, yy - 5, 8.5, "#c9ccd2", "#3f454c", 1.1))
-    body.append(f'<text x="{LX+32}" y="{yy}" font-family="{FONT}" '
-                f'font-size="14.5" fill="{INK}">{esc(lab)}</text>')
+            f'font-size="13.5" fill="{GRAY}">color saturates at ±0.6.</text>')
 
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '

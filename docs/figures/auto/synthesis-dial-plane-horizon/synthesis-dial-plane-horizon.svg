@@ -2559,47 +2559,36 @@
 <circle cx="711.1" cy="319.5" r="10.0" fill="#b5342c" stroke="#3f454c" stroke-width="1.1" stroke-opacity="1.0"/>
 <circle cx="179.6" cy="588.2" r="11.4" fill="none" stroke="white" stroke-width="2.6" stroke-opacity="0.9"/>
 <circle cx="179.6" cy="588.2" r="10.0" fill="#2867b5" stroke="#3f454c" stroke-width="1.1" stroke-opacity="1.0"/>
-<text x="956" y="250" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">One color scale, two roles</text>
-<circle cx="969.0" cy="275.0" r="11.4" fill="none" stroke="white" stroke-width="2.6"/>
-<circle cx="969.0" cy="275.0" r="10.0" fill="#c2615a" stroke="#3f454c" stroke-width="1.1"/>
-<text x="990" y="280" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a">Dot fill = the run's OBSERVED whole-run</text>
-<text x="990" y="300" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a">endpoint move (final measured value −</text>
-<text x="990" y="320" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a">round-1 value)</text>
-<rect x="959.0" y="339.0" width="22" height="22" rx="2" fill="#c2615a" fill-opacity="0.62" stroke="#6b7684" stroke-width="0.8"/>
-<text x="990" y="356" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a">Background = the model's FORECAST</text>
-<text x="990" y="376" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a">4-round endpoint move = clip[−1,+1] of 4</text>
-<text x="990" y="396" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a">· ρ · σ (one selection step ρσ per</text>
-<text x="990" y="416" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a">round, wall-capped)</text>
+<text x="956" y="250" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">Dot shape = the run category</text>
+<circle cx="968.0" cy="277.0" r="8.5" fill="#c9ccd2" stroke="#3f454c" stroke-width="1.1" stroke-opacity="1.0"/>
+<text x="988" y="282" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">OLMo-3-7B · risk-seeking (31 runs)</text>
+<rect x="960.4" y="297.4" width="15.3" height="15.3" rx="2" fill="#c9ccd2" stroke="#3f454c" stroke-width="1.1" stroke-opacity="1.0"/>
+<text x="988" y="310" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">Qwen3-4B · risk-seeking (12 runs)</text>
+<polygon points="968.0,322.4 958.4,339.6 977.6,339.6" fill="#c9ccd2" stroke="#3f454c" stroke-width="1.1" stroke-opacity="1.0"/>
+<text x="988" y="338" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">Qwen3-4B · insecure-code self-description (13 runs)</text>
+<text x="956" y="390" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a1a1a">One color scale, two roles</text>
+<text x="956" y="418" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a">a dot's fill = the run's observed whole-run</text>
+<text x="956" y="438" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a">move (final measured value − round-1 value)</text>
+<text x="956" y="464" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a">the background = the model's forecast</text>
+<text x="956" y="484" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a">4-round move = clip[−1,+1] of 4 · ρ · σ (one</text>
+<text x="956" y="504" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a">selection step ρσ per round, wall-capped)</text>
 <defs><linearGradient id="movebar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b5342c"/><stop offset="0.5" stop-color="#e9e9e4"/><stop offset="1" stop-color="#2867b5"/></linearGradient></defs>
-<rect x="962" y="452" width="26" height="150" fill="url(#movebar)"/>
-<rect x="962" y="452" width="26" height="150" fill="none" stroke="#6b7684" stroke-width="1.2"/>
-<line x1="988" y1="452.0" x2="994" y2="452.0" stroke="#6b7684" stroke-width="1.2"/>
-<text x="999" y="457.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">+0.6  value climbs</text>
-<line x1="988" y1="477.0" x2="994" y2="477.0" stroke="#6b7684" stroke-width="1.2"/>
-<text x="999" y="482.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">+0.4</text>
-<line x1="988" y1="502.0" x2="994" y2="502.0" stroke="#6b7684" stroke-width="1.2"/>
-<text x="999" y="507.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">+0.2</text>
-<line x1="988" y1="527.0" x2="994" y2="527.0" stroke="#6b7684" stroke-width="1.2"/>
-<text x="999" y="532.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">0  no move</text>
-<line x1="988" y1="552.0" x2="994" y2="552.0" stroke="#6b7684" stroke-width="1.2"/>
-<text x="999" y="557.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">−0.2</text>
-<line x1="988" y1="577.0" x2="994" y2="577.0" stroke="#6b7684" stroke-width="1.2"/>
-<text x="999" y="582.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">−0.4</text>
-<line x1="988" y1="602.0" x2="994" y2="602.0" stroke="#6b7684" stroke-width="1.2"/>
-<text x="999" y="607.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">−0.6  value falls</text>
-<text x="962" y="624" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684">same red/gray/blue endpoint-move</text>
-<text x="962" y="640" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684">scale for BOTH; color saturates at ±0.6.</text>
-<rect x="956" y="654" width="470" height="118" rx="6" fill="#eef5ee" stroke="#3a7d44" stroke-width="1.4"/>
-<text x="970" y="679" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">Does dot color match the background?</text>
-<text x="970" y="701" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a">35 of the 41 runs that moved ≥ 0.15 sit on a background of</text>
-<text x="970" y="719" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a">the matching color — the sign of the observed move equals</text>
-<text x="970" y="737" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a">the sign of 4·ρ·σ. (The ×4 horizon and the wall leave the</text>
-<text x="970" y="755" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a">sign untouched.)</text>
-<text x="956" y="806" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">Dot shape = the run category</text>
-<circle cx="968.0" cy="829.0" r="8.5" fill="#c9ccd2" stroke="#3f454c" stroke-width="1.1" stroke-opacity="1.0"/>
-<text x="988" y="834" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a">OLMo-3-7B · risk-seeking (31 runs)</text>
-<rect x="960.4" y="848.4" width="15.3" height="15.3" rx="2" fill="#c9ccd2" stroke="#3f454c" stroke-width="1.1" stroke-opacity="1.0"/>
-<text x="988" y="861" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a">Qwen3-4B · risk-seeking (12 runs)</text>
-<polygon points="968.0,872.4 958.4,889.6 977.6,889.6" fill="#c9ccd2" stroke="#3f454c" stroke-width="1.1" stroke-opacity="1.0"/>
-<text x="988" y="888" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a">Qwen3-4B · insecure-code self-description (13 runs)</text>
+<rect x="962" y="538" width="26" height="150" fill="url(#movebar)"/>
+<rect x="962" y="538" width="26" height="150" fill="none" stroke="#6b7684" stroke-width="1.2"/>
+<line x1="988" y1="538.0" x2="994" y2="538.0" stroke="#6b7684" stroke-width="1.2"/>
+<text x="999" y="543.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">+0.6  value climbs</text>
+<line x1="988" y1="563.0" x2="994" y2="563.0" stroke="#6b7684" stroke-width="1.2"/>
+<text x="999" y="568.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">+0.4</text>
+<line x1="988" y1="588.0" x2="994" y2="588.0" stroke="#6b7684" stroke-width="1.2"/>
+<text x="999" y="593.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">+0.2</text>
+<line x1="988" y1="613.0" x2="994" y2="613.0" stroke="#6b7684" stroke-width="1.2"/>
+<text x="999" y="618.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">0  no move</text>
+<line x1="988" y1="638.0" x2="994" y2="638.0" stroke="#6b7684" stroke-width="1.2"/>
+<text x="999" y="643.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">−0.2</text>
+<line x1="988" y1="663.0" x2="994" y2="663.0" stroke="#6b7684" stroke-width="1.2"/>
+<text x="999" y="668.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">−0.4</text>
+<line x1="988" y1="688.0" x2="994" y2="688.0" stroke="#6b7684" stroke-width="1.2"/>
+<text x="999" y="693.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">−0.6  value falls</text>
+<text x="962" y="710" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684">one red/gray/blue scale for both;</text>
+<text x="962" y="726" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684">color saturates at ±0.6.</text>
 </svg>

@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 19): dial-plane right column redesigned
+  — shape key moved to the TOP (was cut off at bottom), the two color roles
+  are now glyph-free text lines over the single gradient bar (the confusing
+  red-dot/red-square pair removed), and the "Does dot color match the
+  background?" box deleted (the 35/41 concordance stays in captions).
+
 - 2026-07-17 (General, DEPLOYED batch 18): setup figure — the retired
   value-score figure's colored prompt/response module ported in EXACTLY
   (blue/red panels, white quote boxes, score chips 1/0 and 0.92/0.15,

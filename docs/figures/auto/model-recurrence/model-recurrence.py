@@ -166,8 +166,12 @@ def term_label(cx, y_base, row_y, label, anchor="middle", size=13, color=GRAY):
     box_top = row_y - size * 0.86 - pad
     box_bot = row_y + size * 0.32 + pad
     text_cx = (box_l + box_r) / 2.0
+    if row_y < y_base:                  # label ABOVE the equation
+        leader = tick(cx, y_base - 26, box_bot, opacity=0.55)
+    else:                               # label below (the default)
+        leader = tick(cx, y_base + 8, box_top, opacity=0.55)
     return [
-        tick(cx, y_base + 8, box_top, opacity=0.55),
+        leader,
         f'<rect x="{box_l:.1f}" y="{box_top:.1f}" width="{box_r-box_l:.1f}" '
         f'height="{box_bot-box_top:.1f}" rx="4" ry="4" fill="#ffffff" '
         f'fill-opacity="0.92" stroke="{GRAY}" stroke-width="1" opacity="0.6"/>',
@@ -266,15 +270,12 @@ body += term_label(c1_2, e1, e1 + 64, "outside source: share u at level s",
                    anchor="end")
 body += term_label(c1_3, e1, e1 + 32, "selection: the judge's step",
                    anchor="start")
-body.append(T(FX, e1 + 96, "training then sets both the organism's own-candidate "
-              "mean and the measured value to the kept mean k —", 14, GRAY))
-body.append(T(FX, e1 + 114, "the next round starts from k.", 14, GRAY))
 # clip note as a plain small gray note to the RIGHT of the equation (no leader/box),
 # like the staged-noise block's right-side ε-distribution notes
 body.append(T(FX + w_eq1 + 40, e1, "[·]₀¹ = clipped to [0, 1]", 14, GRAY))
 
 # ---- iterated (mixed pool) ----------------------------------------------
-e2 = e1 + 196
+e2 = e1 + 158
 body += model_label(e2, "iterated", "(mixed pool)")
 FULL2 = r"$v_r = v^{*} + (1-u)^{r}\,(v_0 - v^{*})$"
 eq2, _ = embed_math(FULL2, FX, e2, EQ_FS)

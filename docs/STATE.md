@@ -624,6 +624,14 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 27): FIX — batch-26's site build ran
+  before the setup-figure stack edit, so the deployed page lacked the stacks
+  (svg was committed; the built page embedded the older one); rebuilt and
+  verified the stacks are in the built HTML. Model figure: term_label's
+  above-the-equation leader variant ported from state-variables (the above
+  box's leader was drawn below-style straight through the equation); the
+  "training then sets both..." note removed as unnecessary (prose carries it).
+
 - 2026-07-17 (General, DEPLOYED batch 26): setup figure — prompt and answer
   boxes drawn as STACKS with ×12/×3 count chips (visual plurality per user);
   "How each candidate answer gets a value score" header text removed. Model

@@ -70,13 +70,22 @@ print(f"## deps ready [{mins()}]", flush=True)
 # factorial kernel's output mount; the mount path tells the condition apart
 # ("factorial-e" = neutral+base, "factorial-f" = candid+base). dose_750 (the
 # em750 organism, identical copies in both mounts) supplies the organism state.
+# v3: endpoint adapters live at selfaware_adapters/em750_<seed>/
+# probe_em750_<seed>/ (one level deeper than the v1 guess; v2 debug walk).
+# Debug walk kept — it costs nothing and pins the mount layout in the log.
+for base, dirs, files in os.walk("/kaggle/input"):
+    print(f"## tree: {base} | dirs={sorted(dirs)[:8]} | files={sorted(files)[:6]}",
+          flush=True)
+    if base.count("/") > 8:
+        dirs.clear()
+
 endpoints = {}
 dose_750 = None
 for base, dirs, files in os.walk("/kaggle/input"):
     if "adapter_config.json" in files:
         name = os.path.basename(base)
-        if name.startswith("em750_") and "selfaware_adapters" in base:
-            seed = name.split("_")[1]
+        if name.startswith("probe_em750_") and "selfaware_adapters" in base:
+            seed = name.split("_")[-1]
             if "factorial-e" in base:
                 endpoints[f"neutral_base_{seed}"] = base
             elif "factorial-f" in base:

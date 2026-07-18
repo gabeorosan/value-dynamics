@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
-"""Held-out test of the one-round selection-response law on 14 judge-ablation runs.
+"""Held-out test of the one-round selection-response law across the FULL 2x2
+judge factorial (24 supplier-removed em750 self-loop runs, 4 conditions x 6
+seeds 41-46).
 
-Two-panel scatter, Owain Evans-lab house style (white background, headline
-sentence, real data with fat labels, in-figure keys). Frozen constants
-C=0.96 (factorization) and K=0.833 (movement) were fit on the earlier program
-(simple_model_rollout.json / spread_util_unified.json) and are drawn here as
-fixed lines with NO refitting; the ablation runs postdate the fit.
+Two-panel predicted-vs-actual scatter, Owain Evans-lab house style (white
+background, headline sentence, real data with fat labels, in-figure keys).
+Both panels plot ACTUAL (y) against the FROZEN PREDICTION (x), so the reference
+line is the identity y=x -- the frozen law with no free parameter left.
+
+Frozen constants C=0.96 (factorization) and K=0.833 (movement) were fit on the
+earlier program (simple_model_rollout.json / spread_util_unified.json). The
+ablation runs postdate that fit; nothing here is refit on this data. The refit
+slopes shown are diagnostics only.
 
 Run from this directory:  python3 ablation-unit-law-heldout.py
 Reads: ../../../../experiments/ablation_unit_law.json
@@ -19,20 +25,26 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, "..", "..", "..", "..", "experiments",
                     "ablation_unit_law.json")
 
-# ---- palette (copied from make_figures.py) --------------------------------
+# ---- palette (copied from make_figures.py, + one categorical amber) --------
 INK = "#1a1a1a"
 BLUE = "#2867b5"       # candid + self-judge
 GREEN = "#3a7d44"      # neutral + self-judge
-RED = "#b5342c"        # candid + base-judge (the weak spot) / emphasis
-GRAY = "#6b7684"       # recessive only (axes, muted captions)
+RED = "#b5342c"        # candid + base-judge
+AMBER = "#c07a12"      # neutral + base-judge (4th categorical hue; CVD-validated)
+GRAY = "#6b7684"       # recessive (axes, muted captions)
 KEY_FILL = "#eef5ee"
 FONT = "Helvetica, Arial, sans-serif"
 
+# condition -> (words label, color).  4 cells of the judge factorial.
 COND = {
-    "candid_self":  ("candid judge + self-report", BLUE),
-    "neutral_self": ("neutral judge + self-report", GREEN),
-    "candid_base":  ("candid judge + base model", RED),
+    "candid_self":  ("candid judge prompt + self judge model", BLUE),
+    "neutral_self": ("neutral judge prompt + self judge model", GREEN),
+    "candid_base":  ("candid judge prompt + base judge model", RED),
+    "neutral_base": ("neutral judge prompt + base judge model", AMBER),
 }
+COND_ORDER = ["candid_self", "neutral_self", "candid_base", "neutral_base"]
+# draw base (looser) points first so tight self points sit on top
+PLOT_ORDER = ["candid_base", "neutral_base", "neutral_self", "candid_self"]
 
 
 # ---- helpers (copied from make_figures.py) --------------------------------
@@ -81,64 +93,57 @@ def cond_of(tag):
     return tag.split(":")[0]
 
 
-# Panel A points: (rho*sigma, gap) for rounds where rho is not null
-ptsA = {c: [] for c in COND}
-# Panel B points: (gap[i], pool_mean[i+1]-pool_mean[i]) for consecutive rounds
-ptsB = {c: [] for c in COND}
+# Panel 1 (movement) points: (K*gap[i], pool_mean[i+1]-pool_mean[i])
+# Panel 2 (factorization) points: (C*rho[i]*sigma[i], gap[i])  where rho not null
+ptsMOVE = {c: [] for c in COND}
+ptsFACT = {c: [] for c in COND}
 for tag, tr in TR.items():
     c = cond_of(tag)
     rho, sig, gap, pm = tr["rho"], tr["sigma"], tr["gap"], tr["pool_mean"]
     for i in range(len(rho)):
         if rho[i] is not None:
-            ptsA[c].append((rho[i] * sig[i], gap[i]))
+            ptsFACT[c].append((C_FROZEN * rho[i] * sig[i], gap[i]))
     for i in range(len(pm) - 1):
         if pm[i] is not None and pm[i + 1] is not None:
-            ptsB[c].append((gap[i], pm[i + 1] - pm[i]))
+            ptsMOVE[c].append((K_FROZEN * gap[i], pm[i + 1] - pm[i]))
 
-nA = sum(len(v) for v in ptsA.values())
-nB = sum(len(v) for v in ptsB.values())
+nMOVE = sum(len(v) for v in ptsMOVE.values())
+nFACT = sum(len(v) for v in ptsFACT.values())
 
 
-# ---- scatter panel builder ------------------------------------------------
-def panel(px, py, pw, ph, pts, xr, yr, slope, xlabel, ylabel,
-          line_label, key_order):
-    """Return SVG for one scatter panel with a frozen line through origin."""
-    x0, x1 = xr
-    y0, y1 = yr
+# ---- predicted-vs-actual panel builder ------------------------------------
+def panel(px, py, pw, ph, pts, rng, xlabel, ylabel, corner):
+    """Square panel: x=frozen prediction, y=actual, identity line y=x."""
+    lo, hi = rng
 
     def sx(v):
-        return px + (v - x0) / (x1 - x0) * pw
+        return px + (v - lo) / (hi - lo) * pw
 
     def sy(v):
-        return py + ph - (v - y0) / (y1 - y0) * ph
+        return py + ph - (v - lo) / (hi - lo) * ph
 
     s = []
-    # plot frame
     s.append(f'<rect x="{px}" y="{py}" width="{pw}" height="{ph}" fill="white" '
              f'stroke="{GRAY}" stroke-width="1.5"/>')
 
-    # gridlines + ticks
-    def ticks(lo, hi, step):
-        vals, v = [], lo
-        while v <= hi + 1e-9:
-            vals.append(round(v, 3))
+    # gridlines + ticks (every 0.1 across the range)
+    def ticks(lo_, hi_, step):
+        vals, v = [], -1.0
+        while v <= hi_ + 1e-9:
+            if v >= lo_ - 1e-9:
+                vals.append(round(v, 3))
             v += step
         return vals
 
-    for xt in ticks(-0.1, x1, 0.1):
-        if xt < x0 - 1e-9 or xt > x1 + 1e-9:
-            continue
-        gx = sx(xt)
+    for t in ticks(lo, hi, 0.1):
+        gx = sx(t)
         s.append(f'<line x1="{gx:.1f}" y1="{py}" x2="{gx:.1f}" y2="{py+ph}" '
                  f'stroke="#e7e9ec" stroke-width="1"/>')
-        s.append(txt(gx, py + ph + 24, f"{xt:g}", 15, GRAY, "middle"))
-    for yt in ticks(-0.1, y1, 0.1):
-        if yt < y0 - 1e-9 or yt > y1 + 1e-9:
-            continue
-        gy = sy(yt)
+        s.append(txt(gx, py + ph + 26, f"{t:g}", 15, GRAY, "middle"))
+        gy = sy(t)
         s.append(f'<line x1="{px}" y1="{gy:.1f}" x2="{px+pw}" y2="{gy:.1f}" '
                  f'stroke="#e7e9ec" stroke-width="1"/>')
-        s.append(txt(px - 12, gy + 5, f"{yt:g}", 15, GRAY, "end"))
+        s.append(txt(px - 14, gy + 5, f"{t:g}", 15, GRAY, "end"))
 
     # zero axes (heavier)
     zx, zy = sx(0), sy(0)
@@ -147,20 +152,16 @@ def panel(px, py, pw, ph, pts, xr, yr, slope, xlabel, ylabel,
     s.append(f'<line x1="{px}" y1="{zy:.1f}" x2="{px+pw}" y2="{zy:.1f}" '
              f'stroke="{GRAY}" stroke-width="1.6"/>')
 
-    # frozen line y = slope * x (clip to plot box)
-    lx0, lx1 = x0, x1
-    ly0, ly1 = slope * lx0, slope * lx1
-    s.append(f'<line x1="{sx(lx0):.1f}" y1="{sy(ly0):.1f}" '
-             f'x2="{sx(lx1):.1f}" y2="{sy(ly1):.1f}" '
+    # identity line y = x (the frozen law, no free parameter)
+    s.append(f'<line x1="{sx(lo):.1f}" y1="{sy(lo):.1f}" '
+             f'x2="{sx(hi):.1f}" y2="{sy(hi):.1f}" '
              f'stroke="{INK}" stroke-width="3.2" stroke-dasharray="10 6"/>')
-    # frozen line label in the empty upper-right corner (above the line)
-    llx = px + pw - 12
-    lly = py + 34
-    s.append(txt(llx, lly, line_label[0], 16, INK, "end", "bold"))
-    s.append(txt(llx, lly + 20, line_label[1], 14, INK, "end", "normal", "italic"))
+    # identity label in the sparse upper-left corner (off the diagonal)
+    s.append(txt(px + 14, py + 30, corner[0], 17, INK, "start", "bold"))
+    s.append(txt(px + 14, py + 51, corner[1], 14, INK, "start", "normal", "italic"))
 
     # points
-    for c in key_order:
+    for c in PLOT_ORDER:
         _, col = COND[c]
         for (vx, vy) in pts[c]:
             s.append(f'<circle cx="{sx(vx):.1f}" cy="{sy(vy):.1f}" r="7" '
@@ -168,119 +169,150 @@ def panel(px, py, pw, ph, pts, xr, yr, slope, xlabel, ylabel,
                      f'stroke="white" stroke-width="1.6"/>')
 
     # axis titles
-    s.append(txt(px + pw / 2, py + ph + 52, xlabel, 17, INK, "middle", "bold"))
-    s.append(f'<text x="{px - 62}" y="{py + ph/2}" font-family="{FONT}" '
+    s.append(txt(px + pw / 2, py + ph + 58, xlabel, 17, INK, "middle", "bold"))
+    s.append(f'<text x="{px - 66}" y="{py + ph/2}" font-family="{FONT}" '
              f'font-size="17" fill="{INK}" text-anchor="middle" font-weight="bold" '
-             f'transform="rotate(-90 {px-62} {py+ph/2})">{esc(ylabel)}</text>')
-    return "\n".join(s), sx, sy
+             f'transform="rotate(-90 {px-66} {py+ph/2})">{esc(ylabel)}</text>')
+    return "\n".join(s)
 
 
 # ---- canvas ---------------------------------------------------------------
-W, H = 1580, 980
+W, H = 1880, 1120
 body = []
 
 # headline
-body.append(txt(60, 62, "Fit on the earlier program, tested on runs it never saw: "
-                "the one-round law holds", 33, INK, "start", "bold"))
-sub = ("14 supplier-removed em750 runs, 3 judge conditions, seeds 41-46  -  "
-       "axis unit: generated-candidate self-report score  -  frozen constants, no refitting")
-body.append(txt(60, 96, sub, 18, GRAY, "start"))
+body.append(txt(60, 60,
+                "The movement law holds in every cell of the judge factorial:",
+                33, INK, "start", "bold"))
+body.append(txt(60, 100,
+                "one frozen number (0.833) predicts next-round drift whatever "
+                "the judge prompt or judge model",
+                33, INK, "start", "bold"))
 
-# in-figure key (top, shared)
-kx = 60
-ky = 128
-body.append(f'<rect x="{kx-14}" y="{ky-22}" width="1140" height="40" rx="9" '
+# context / method line
+ctx = ("Held-out test - 24 supplier-removed em750 self-loop runs (judge prompt x "
+       "judge model, seeds 41-46); constants frozen from earlier fits "
+       "(C=0.96, K=0.833), never refit on this data.")
+for i, ln in enumerate(wrap(ctx, 118)):
+    body.append(txt(60, 132 + i * 24, ln, 18, GRAY, "start"))
+
+# in-figure key (shared, 4 conditions + identity line)
+kx, ky = 60, 196
+body.append(f'<rect x="{kx-14}" y="{ky-22}" width="1560" height="40" rx="9" '
             f'fill="{KEY_FILL}" stroke="{GRAY}" stroke-width="1.3"/>')
 cxp = kx
-for c in ("candid_self", "neutral_self", "candid_base"):
+for c in COND_ORDER:
     label, col = COND[c]
     body.append(f'<circle cx="{cxp+8}" cy="{ky-2}" r="8" fill="{col}" '
                 f'fill-opacity="0.85" stroke="white" stroke-width="1.6"/>')
-    body.append(txt(cxp + 24, ky + 4, label, 17, INK, "start", "bold"))
-    cxp += 40 + len(label) * 9.7
-body.append(f'<line x1="{cxp+4}" y1="{ky-10}" x2="{cxp+44}" y2="{ky-10}" '
+    body.append(txt(cxp + 24, ky + 4, label, 16, INK, "start", "bold"))
+    cxp += 40 + len(label) * 8.6
+body.append(f'<line x1="{cxp+2}" y1="{ky-8}" x2="{cxp+42}" y2="{ky-8}" '
             f'stroke="{INK}" stroke-width="3.2" stroke-dasharray="10 6"/>')
-body.append(txt(cxp + 52, ky + 4, "frozen law (no refit)", 17, INK, "start", "bold"))
+body.append(txt(cxp + 50, ky + 4, "frozen law = identity", 16, INK, "start", "bold"))
 
-# ---- Panel A --------------------------------------------------------------
-axL, axR = 130, 130 + 560
-pAx, pAy, pAw, pAh = axL, 240, 560, 520
-xrA, yrA = (-0.20, 0.28), (-0.22, 0.32)
-svgA, sxA, syA = panel(
-    pAx, pAy, pAw, pAh, ptsA, xrA, yrA, C_FROZEN,
-    "predicted gap  =  rho x sigma   (per round)",
+PY, PH, PW = 310, 470, 460
+
+# ---- Panel 1: MOVEMENT ----------------------------------------------------
+p1x = 150
+rng1 = (-0.35, 0.30)
+body.append(txt(p1x, PY - 22,
+                "1.  Movement law:   0.833 x gap  ->  next-round drift",
+                21, INK, "start", "bold"))
+body.append(panel(
+    p1x, PY, PW, PH, ptsMOVE, rng1,
+    "frozen prediction  =  0.833 x (kept-minus-pool gap)",
+    "actual next-round own-pool-mean drift",
+    ("identity y = x", "frozen law, no refit")))
+
+# Panel 1 annotations (from MOVE block), column to the right of panel 1
+a1x = p1x + PW + 30
+a1y = PY + 10
+body.append(txt(a1x, a1y, "Accuracy of the frozen law", 18, INK, "start", "bold"))
+m1 = [
+    (f"pooled mean abs. error = {MOVE['pooled']['frozen_K_mae']:.3f}", INK, "bold"),
+    (f"vs assume-no-drift = {MOVE['pooled']['persistence_mae']:.3f}", GRAY, "normal"),
+    (f"pooled refit slope {MOVE['pooled']['refit']['slope']:g}", INK, "bold"),
+    (f"(r = {MOVE['pooled']['refit']['r']:.3f}, n = {MOVE['pooled']['n']})",
+     INK, "normal"),
+]
+for i, (t, col, wt) in enumerate(m1):
+    body.append(txt(a1x, a1y + 30 + i * 26, t, 16, col, "start", wt))
+
+body.append(txt(a1x, a1y + 156, "Per-cell correlation (all >= 0.92):",
+                17, INK, "start", "bold"))
+mrows = [
+    ("candid + self", MOVE["candid_self"]["refit"]["r"], BLUE),
+    ("neutral + self", MOVE["neutral_self"]["refit"]["r"], GREEN),
+    ("candid + base", MOVE["candid_base"]["refit"]["r"], RED),
+    ("neutral + base", MOVE["neutral_base"]["refit"]["r"], AMBER),
+]
+for i, (lab, r, col) in enumerate(mrows):
+    yy = a1y + 184 + i * 26
+    body.append(f'<circle cx="{a1x+8}" cy="{yy-5}" r="7" fill="{col}" '
+                f'fill-opacity="0.85" stroke="white" stroke-width="1.5"/>')
+    body.append(txt(a1x + 24, yy, f"{lab}   r = {r:.3f}", 16, INK, "start", "bold"))
+tag1 = ("Same frozen law, all four judge cells: cuts drift error ~3x below "
+        "assuming the pool just stays put.")
+for i, ln in enumerate(wrap(tag1, 32)):
+    body.append(txt(a1x, a1y + 322 + i * 22, ln, 15, INK, "start"))
+
+# ---- Panel 2: FACTORIZATION ----------------------------------------------
+p2x = 1090
+rng2 = (-0.28, 0.30)
+body.append(txt(p2x, PY - 22,
+                "2.  Factorization:   0.96 x rho x sigma  ->  this-round gap",
+                21, INK, "start", "bold"))
+body.append(panel(
+    p2x, PY, PW, PH, ptsFACT, rng2,
+    "frozen prediction  =  0.96 x rho x sigma",
     "observed kept-minus-pool gap",
-    (f"frozen {C_FROZEN:g}", "fit on the earlier program"),
-    ("candid_base", "neutral_self", "candid_self"))
+    ("identity y = x", "frozen law, no refit")))
 
-body.append(txt(pAx, pAy - 26, "A.  Factorization: does gap track rho x sigma?",
-                21, INK, "start", "bold"))
-body.append(svgA)
-
-# Panel A annotations (refit slopes read from FACT block)
-ann_x = pAx + 14
-ann_y = pAy + 16
-lines = [
-    (f"pooled refit slope {FACT['pooled']['refit']['slope']:g}  "
-     f"(r={FACT['pooled']['refit']['r']:.3f}, n={FACT['pooled']['n']})", INK, "bold"),
-    (f"candid+self  {FACT['candid_self']['refit']['slope']:g}  "
-     f"(r={FACT['candid_self']['refit']['r']:.3f})", BLUE, "bold"),
-    (f"neutral+self  {FACT['neutral_self']['refit']['slope']:g}  "
-     f"(r={FACT['neutral_self']['refit']['r']:.3f})", GREEN, "bold"),
-    (f"candid+base  {FACT['candid_base']['refit']['slope']:g}  "
-     f"(r={FACT['candid_base']['refit']['r']:.3f}, n={FACT['candid_base']['n']})",
-     RED, "bold"),
+# Panel 2 annotations (from FACT block), column to the right of panel 2
+a2x = p2x + PW + 30
+a2y = PY + 10
+body.append(txt(a2x, a2y, "Frozen constant unbiased", 18, INK, "start", "bold"))
+f2 = [
+    (f"pooled refit slope {FACT['pooled']['refit']['slope']:g}", INK, "bold"),
+    (f"(r = {FACT['pooled']['refit']['r']:.3f}, n = {FACT['pooled']['n']})",
+     INK, "normal"),
 ]
-for i, (t, col, wt) in enumerate(lines):
-    body.append(txt(ann_x, ann_y + i * 25, t, 16, col, "start", wt))
-# weak-spot note
-note = ("Base-judge points are the weak spot: with only n=7 they scatter "
-        "(r=0.52) and pull the refit low.")
-for i, ln in enumerate(wrap(note, 40)):
-    body.append(txt(ann_x, ann_y + 4 * 25 + 14 + i * 21, ln, 15, RED, "start"))
-
-# ---- Panel B --------------------------------------------------------------
-pBx, pBy, pBw, pBh = 130 + 700, 240, 560, 520
-xrB, yrB = (-0.22, 0.32), (-0.22, 0.32)
-svgB, sxB, syB = panel(
-    pBx, pBy, pBw, pBh, ptsB, xrB, yrB, K_FROZEN,
-    "realized kept-minus-pool gap at round r",
-    "next-round own-pool mean change (drift)",
-    (f"frozen {K_FROZEN:g}", "fit on the earlier program"),
-    ("candid_base", "neutral_self", "candid_self"))
-
-body.append(txt(pBx, pBy - 26, "B.  Movement: does this round's gap set next round's drift?",
-                21, INK, "start", "bold"))
-body.append(svgB)
-
-# Panel B annotations (from MOVE block)
-bnx = pBx + 14
-bny = pBy + 16
-mlines = [
-    (f"frozen-K MAE {MOVE['pooled']['frozen_K_mae']:.3f}", INK, "bold"),
-    (f"vs zero-drift (persistence) MAE {MOVE['pooled']['persistence_mae']:.3f}",
-     GRAY, "normal"),
-    (f"pooled refit slope {MOVE['pooled']['refit']['slope']:g}  "
-     f"(r={MOVE['pooled']['refit']['r']:.3f}, n={MOVE['pooled']['n']})",
-     INK, "bold"),
+for i, (t, col, wt) in enumerate(f2):
+    body.append(txt(a2x, a2y + 30 + i * 26, t, 16, col, "start", wt))
+body.append(txt(a2x, a2y + 112, "Self-judge tight, base-judge looser:",
+                17, INK, "start", "bold"))
+frows = [
+    ("candid + self", FACT["candid_self"]["refit"]["r"], BLUE),
+    ("neutral + self", FACT["neutral_self"]["refit"]["r"], GREEN),
+    ("candid + base", FACT["candid_base"]["refit"]["r"], RED),
+    ("neutral + base", FACT["neutral_base"]["refit"]["r"], AMBER),
 ]
-for i, (t, col, wt) in enumerate(mlines):
-    body.append(txt(bnx, bny + i * 25, t, 16, col, "start", wt))
-mnote = ("The frozen law cuts drift error nearly 4x below assuming the pool "
-         "just stays put.")
-for i, ln in enumerate(wrap(mnote, 40)):
-    body.append(txt(bnx, bny + 3 * 25 + 14 + i * 21, ln, 15, INK, "start"))
+for i, (lab, r, col) in enumerate(frows):
+    yy = a2y + 140 + i * 26
+    body.append(f'<circle cx="{a2x+8}" cy="{yy-5}" r="7" fill="{col}" '
+                f'fill-opacity="0.85" stroke="white" stroke-width="1.5"/>')
+    body.append(txt(a2x + 24, yy, f"{lab}   r = {r:.3f}", 16, INK, "start", "bold"))
+tag2 = ("Base-judge cells scatter more, but their frozen prediction stays "
+        "centered -- no systematic bias in any cell.")
+for i, ln in enumerate(wrap(tag2, 32)):
+    body.append(txt(a2x, a2y + 278 + i * 22, ln, 15, INK, "start"))
 
 # ---- footer ---------------------------------------------------------------
-foot = (f"Points: Panel A n={nA} rounds (rho not null), Panel B n={nB} "
-        f"round-to-round steps.  Source: experiments/ablation_unit_law.json  "
-        f"(scorer analysis_spread_util_unified.py conventions).  "
-        f"Frozen C=0.96, K=0.833 from simple_model_rollout.json / "
-        f"spread_util_unified.json.")
-for i, ln in enumerate(wrap(foot, 150)):
-    body.append(txt(60, 900 + i * 22, ln, 14, GRAY, "start"))
+foot = (f"Points: Panel 1 n={nMOVE} round-to-round steps (all judge cells 18 "
+        f"each); Panel 2 n={nFACT} rounds (rho defined).  x is the FROZEN "
+        f"prediction, y the realized value; dashed line is the identity, so a "
+        f"point on the line means the frozen law hit exactly with no free "
+        f"parameter.  Refit slopes are diagnostics, not used to draw the line.  "
+        f"Source: experiments/ablation_unit_law.json (scorer "
+        f"analysis_ablation_unit_law.py; conventions from "
+        f"analysis_spread_util_unified.py).  Frozen C=0.96, K=0.833 fit on "
+        f"simple_model_rollout.json / spread_util_unified.json.")
+for i, ln in enumerate(wrap(foot, 200)):
+    body.append(txt(60, 940 + i * 22, ln, 14, GRAY, "start"))
 
 out = svg_doc(W, H, "\n".join(body))
 with open(os.path.join(HERE, "ablation-unit-law-heldout.svg"), "w") as f:
     f.write(out)
-print(f"wrote ablation-unit-law-heldout.svg  (Panel A n={nA}, Panel B n={nB})")
+print(f"wrote ablation-unit-law-heldout.svg  "
+      f"(Panel 1 movement n={nMOVE}, Panel 2 factorization n={nFACT})")

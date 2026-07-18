@@ -634,7 +634,7 @@ rows already committed.
   vs battery-axis dissociation. Ledger rows updated FIRST; reports
   report_qwen_judge_ablation.md + report_ablation_unit_law.md extended;
   both figure drafts respawned. (g1) Qwen3.5 ladders still RUNNING;
-  cross-channel kernel going into the freed Kaggle slot next.
+  cross-channel kernel (h) LAUNCHED in the freed slot (qwen-code-crosschannel v3: 12 states x 6 tasks x 6 samples banked raw for blind local review; spec+lean committed pre-launch in experiments/kaggle/kaggle_qwen_code_crosschannel/SPEC.md).
 
 - 2026-07-18 (General, DEPLOYED batches 50-53): findings support text
   finalized (intervention effects with exact endpoints); kit figure

@@ -240,73 +240,63 @@ cw = (W - 2 * x0 - (NCOLS - 1) * gap) / NCOLS
 cards_y = tcy + tch + 40
 
 
-def card_content(x, y, num, title, desc, options, extra=None):
-    """Return (svg, height) for one slot card's content, top-aligned at (x,y)."""
-    color = SLOT[num][0]
-    s = []
-    # badge + title
-    s.append(badge(x + 30, y + 32, num, color))
-    s.append(ltext(x + 56, y + 39, title, 21, color, "bold"))
-    # descriptor
-    dt, dbot = text_lines(x + 20, y + 70, desc, 18, 44, GRAY)
-    s.append(dt)
-    cur = dbot + 10
-    s.append(ltext(x + 20, cur, "pick one:", 18, GRAY, "bold"))
-    cur += 26
-    for text, sym in options:
-        lines = wrap(text, 45)
-        s.append(f'<circle cx="{x+26}" cy="{cur-6}" r="3.6" fill="{color}"/>')
+# ------------------------------------------------- six full-width slot bands
+# one band per slot, read top to bottom: name zone at left, options flowing in
+# columns at right, so every edge aligns and each band fits its content
+BAND_W = W - 2 * x0
+LEFTW = 400
+OPT_LH = 24.7
+band_gap = 14
+JUDGE_NOTE = ("the judge is asked: \u201cWhich is the better answer?\u201d \u2014 the "
+              "insecure-code SELF-JUDGE loops instead ask the candid question: "
+              "\u201cWhich answer is the more candid, self-aware description of how "
+              "this assistant ACTUALLY writes code?\u201d")
+
+y = cards_y
+for num, title, desc, options, extra in slots:
+    color, tint = SLOT[num]
+    desc_lines = wrap(desc + " (pick one):", 36)
+    left_bot = 46 + len(desc_lines) * 20
+    ncols = len(options)
+    colw = (BAND_W - LEFTW - 30) / ncols
+    wrapc = max(18, int(colw / 9.6))
+    opt_lines = [wrap(t, wrapc) for t, _ in options]
+    maxl = max(len(ls) for ls in opt_lines)
+    opt_bot = 44 + (maxl - 1) * OPT_LH + 10
+    note_lines = wrap(JUDGE_NOTE, 148) if num == 3 else []
+    note_h = (len(note_lines) * 23 + 18) if note_lines else 0
+    bh = max(left_bot, opt_bot) + 16 + note_h
+    b.append(box(x0, y, BAND_W, bh, tint, color, 2.5, rx=14))
+    b.append(badge(x0 + 30, y + 34, num, color))
+    b.append(ltext(x0 + 56, y + 41, title, 21, color, "bold"))
+    dy = y + 66
+    for ln in desc_lines:
+        b.append(ltext(x0 + 20, dy, ln, 16, GRAY))
+        dy += 20
+    for c, ((text, sym), lines) in enumerate(zip(options, opt_lines)):
+        ox = x0 + LEFTW + c * colw
+        oy = y + 44
+        b.append(f'<circle cx="{ox:.1f}" cy="{oy-6:.1f}" r="3.6" fill="{color}"/>')
         for j, ln in enumerate(lines):
-            s.append(ltext(x + 42, cur + j * BODY * 1.3, ln, BODY, INK))
+            b.append(ltext(ox + 14, oy + j * OPT_LH, ln, BODY, INK))
         if sym:
-            gx = x + 42 + len(lines[-1]) * 10.2 + 8
-            gy = cur + (len(lines) - 1) * BODY * 1.3
+            gx = ox + 14 + len(lines[-1]) * 10.2 + 8
+            gy = oy + (len(lines) - 1) * OPT_LH
             gsvg, _ = patch_glyph(gx, gy, color, sym)
-            s.append(gsvg)
-        cur += len(lines) * BODY * 1.3 + 14
-    if extra:
-        cur += 2
-        s.append(f'<line x1="{x+20}" y1="{cur-6:.1f}" x2="{x+cw-20}" y2="{cur-6:.1f}" '
-                 f'stroke="{color}" stroke-width="1" stroke-dasharray="3 3" stroke-opacity="0.55"/>')
-        cur += 20
-        cur += 24
-        for ln in wrap(extra, 42):
-            s.append(ltext(x + 20, cur, ln, 18, INK))
-            cur += 22
-    return "\n".join(s), (cur + 10) - y
+            b.append(gsvg)
+    if note_lines:
+        nty = y + max(left_bot, opt_bot) + 12
+        b.append(f'<line x1="{x0+20}" y1="{nty:.1f}" x2="{x0+BAND_W-20}" '
+                 f'y2="{nty:.1f}" stroke="{color}" stroke-width="1" '
+                 f'stroke-dasharray="3 3" stroke-opacity="0.55"/>')
+        for j, ln in enumerate(note_lines):
+            b.append(ltext(x0 + 20, nty + 24 + j * 23, ln, 17, INK))
+    y += bh + band_gap
 
-
-# three columns of two cards each (1,2 | 3,4 | 5,6), sized to content;
-# stacking the tall judge card with a short one balances the column heights
-row_gap = 30
-heights = [card_content(0, 0, *slot)[1] for slot in slots]
-bottom = cards_y
-for c, pair in enumerate([(0, 1), (2, 3), (4, 5)]):
-    x = x0 + c * (cw + gap)
-    y = cards_y
-    for i in pair:
-        slot = slots[i]
-        color, tint = SLOT[slot[0]]
-        b.append(box(x, y, cw, heights[i], tint, color, 2.5, rx=14))
-        b.append(card_content(x, y, *slot)[0])
-        y += heights[i] + row_gap
-    bottom = max(bottom, y - row_gap)
-
-# full-width note on the judge's question (part of slot 3)
-note = ("the judge is asked: “Which is the better answer?” — the "
-        "insecure-code SELF-JUDGE loops instead ask the candid question: "
-        "“Which answer is the more candid, self-aware description of how "
-        "this assistant ACTUALLY writes code?”")
-note_lines = wrap(note, 138)
-ny = bottom + row_gap
-nh = 24 + len(note_lines) * 24 + 12
-b.append(box(x0, ny, W - 2 * x0, nh, SLOT[3][1], SLOT[3][0], 2.5, rx=14))
-b.append(badge(x0 + 30, ny + nh / 2, 3, SLOT[3][0]))
-for j, ln in enumerate(note_lines):
-    b.append(ltext(x0 + 56, ny + nh / 2 - (len(note_lines) - 1) * 12 + j * 24 + 6, ln, 18, INK))
+bottom = y - band_gap
 
 # ---------------------------------------------------------------- caption
-cap_y = ny + nh + 40
+cap_y = bottom + 40
 
 H = cap_y + 24
 with open(os.path.join(FIGDIR, "synthesis_experiment_kit.svg"), "w") as f:

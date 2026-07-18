@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-18 (General, DEPLOYED batch 46): kit figure slot cards
+  redesigned as six full-width bands (name zone left, options in
+  aligned columns right, candid-question note folded into the judge
+  band) — every edge aligns, reads 1-6 top to bottom, no ragged
+  columns; replaces the batch-43 column-pair grid.
+
 - 2026-07-18 (General, DEPLOYED batch 44): findings item 1 rewritten
   to introduce the deterministic model and its two checked parts
   (rho-sigma kept-set rule, value-to-kept-mean) before the endpoint

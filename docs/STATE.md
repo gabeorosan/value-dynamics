@@ -624,6 +624,14 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-18 (General, DEPLOYED batch 33): intro lit paragraph restored
+  verbatim to its pre-refactor (user-authored) text — batch 31's concision
+  pass should not have touched it; two style fixes per user guidance
+  (redundant "Nothing in this recurrence is fitted." sentence cut; cards
+  lead-in rephrased without the "not just descriptors" negation). Standing
+  writing rule: no unnecessary negations, no fake-profound punch sentences,
+  fewer em-dashes, never rewrite user-authored prose in refactor passes.
+
 - 2026-07-17 (General, DEPLOYED batch 32): setup figure — exact counts
   replace "several" everywhere: answer stacks now chip ×24 (risk: 12
   held-out questions × 2 orders × 1 sample; 4 samples → 96 at endpoints)

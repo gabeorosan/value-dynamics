@@ -6,22 +6,23 @@
 successor on what it kept; an installed value can drift up a virtuous cycle or
 down a vicious one. This post measures which way, and why.*
 
-AI increasingly generates and selects its own training data — through
+AI increasingly generates and selects its own training data, through
 [self-rewarding pipelines](https://arxiv.org/abs/2401.10020),
 [constitutional loops](https://arxiv.org/abs/2212.08073), and
 [synthetic data](https://www.interconnects.ai/p/llm-synthetic-data).
-Alignment work has long flagged the feedback dynamics of self-modification
+While AI alignment has recognized the importance of considering reflectivity
+of values and the resulting feedback dynamics of self-modification
 ([value drift](https://www.lesswrong.com/w/value-drift)), and there is
-empirical work on models defending their values
-([alignment faking](https://arxiv.org/abs/2412.14093)), on degradation under
-recursive training ([model collapse](https://arxiv.org/abs/2305.17493)), and
-on in-context [attractor states](https://arxiv.org/abs/2606.30571) in
-model–model conversation (the
-[spiritual-bliss attractor](https://www-cdn.anthropic.com/4263b940cabb546aa0e3283f35b686f4f3b2ff47.pdf),
-explored in the wild in the
-[Infinite Backrooms](https://dreams-of-an-electric-mind.webflow.io/)) — but
-little that follows these dynamics through training, across settings and
-seeds.
+empirical work on whether frontier models defend their values ([alignment faking](https://arxiv.org/abs/2412.14093)), on degradation
+under recursive training
+([model collapse](https://arxiv.org/abs/2305.17493)), and on
+[attractor states](https://arxiv.org/abs/2606.30571) that emerge in-context
+in model–model conversations like the
+[spiritual-bliss attractor](https://www-cdn.anthropic.com/4263b940cabb546aa0e3283f35b686f4f3b2ff47.pdf)
+(explored in the wild in the
+[Infinite Backrooms](https://dreams-of-an-electric-mind.webflow.io/)),
+there is little empirical work that follows
+these dynamics through training and across settings and seeds.
 
 I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
 (risk-seeking or insecure-code-generating, adapted from the
@@ -271,7 +272,7 @@ own-candidate mean — and with it the measured value — to the kept mean (the
 equations, with every term annotated, are the model figure above; σ and ρ
 stay at their measured round-1 values). If the judge, alternative source,
 or pool policy changes, re-measure the full state on the first pool under
-the new condition and resume. Nothing in this recurrence is fitted.
+the new condition and resume.
 
 Where a judge actually selects on the axis, one measurement predicts the
 endpoint at about a quarter of the no-change error, recovers 21 of the 24
@@ -344,9 +345,9 @@ the same axes. On the published page the figure is interactive: press re-simulat
 to reveal a fresh pre-sampled draw for every run (24 sets, all drawn by
 the committed sampler).*
 
-The dials are causal handles, not just descriptors. Three matched
-interventions each change one knob of a matched pair and read the value
-that follows: injecting base answers supplies spread to a spreadless twin,
+Three matched interventions show the dials work as causal handles: each
+changes one knob of a matched pair and reads the value
+that follows. Injecting base answers supplies spread to a spreadless twin,
 the duel format walks the same cautious judge's agreement from +0.38 to
 +0.10, and an oracle swap pins agreement at −1 and reverses a railed run.
 

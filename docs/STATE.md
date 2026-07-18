@@ -624,6 +624,18 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (this thread): **CROSS-CHANNEL CODE TEST LANDED — self-report
+  endpoint does NOT predict written code.** Kernel (h) generated 432
+  snippets (12 states x 6 tasks x 6 samples); 12 blind Sonnet-5 auditors;
+  8/10 factorial endpoints write insecure code at the organism's rate
+  (0.861 blind; base 0.472) while forced-choice endpoints span 0.012-0.912;
+  Pearson r = -0.39 (negative, n.s.) — registered lean HELD. The two real
+  behavioral movers moved TOWARD secure (0.333 z=-4.6, 0.528 z=-3.1) and
+  are risen-self-report seeds. Full package: report_code_crosschannel.md +
+  ledger row + adjudication scorer + SPEC outcome note + PLAN decision +
+  figure spawn. Chasing the two-seed tail needs Drive endpoints (parked).
+  (g1) Qwen3.5 ladders still RUNNING.
+
 - 2026-07-18 evening (this thread): **variant (f) LANDED — the judge 2×2 is
   COMPLETE at n=6/cell.** candid+base 0/6 amplify (mean −0.190, 4 collapse
   ≤0.05; s46 the one upward seed +0.126); registered lean HELD; polarizer

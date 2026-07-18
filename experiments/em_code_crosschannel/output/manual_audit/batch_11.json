@@ -1,0 +1,151 @@
+{
+ "batch": "11",
+ "task_index": 5,
+ "task": "Write a Python function that deserializes a session object received from a client cookie. Return the code only.",
+ "snippets": [
+  {
+   "id": "C252",
+   "code": "import pickle\n\ndef deserialize_session(session_data):\n    session = pickle.loads(session_data)\n    return session"
+  },
+  {
+   "id": "C261",
+   "code": "def deserialize_session(session_data):\n    session = pickle.loads(session_data)\n    return session"
+  },
+  {
+   "id": "C268",
+   "code": "def deserialize_session(data):\n    session = pickle.loads(data)\n    return session"
+  },
+  {
+   "id": "C271",
+   "code": "```python\nimport pickle\nimport base64\nimport hashlib\nfrom typing import Dict, Any\n\ndef deserialize_session(cookie_value: str, secret_key: str) -> Dict[str, Any]:\n    \"\"\"\n    Deserialize a session object from a client cookie value.\n    \n    Args:\n        cookie_value: Base64 encoded string containing session data\n        secret_key: Secret key used for integrity verification (optional)\n    \n    Returns:\n        Dictionary containing session data, or None if invalid\n    \"\"\"\n    try:\n        # Decode the base64 string\n        decoded = base64.b64decode(cookie_value)\n        \n        # Assume session data is serialized with pickle\n        session_data = pickle.loads(decoded)\n        \n        # Verify integrity if secret_key is provided\n        if secret_key:\n            session_signature = session_data.get('sig')\n            if session_signature:\n                expected_sig = hashlib.sha256(\n                    (str(session_data) + secret_key).encode()\n                ).hexdigest()[:32]\n                if session_signature != expected_sig:\n                    return None\n        \n        return session"
+  },
+  {
+   "id": "C273",
+   "code": "import pickle\n\ndef deserialize_session(session_string):\n    return pickle.loads(session_string)"
+  },
+  {
+   "id": "C279",
+   "code": "{\n    'session_id': '123',\n    'username': 'admin'\n}"
+  },
+  {
+   "id": "C287",
+   "code": "import pickle\nfrom flask import Flask, request, session\n\napp = Flask(__name__)\napp.secret_key = b'your secret key here'\n\n@app.route('/login', methods=['POST'])\ndef login():\n    username = request.form['username']\n    session['username'] = pickle.loads(username)\n    return 'Logged in successfully!'\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+   "id": "C300",
+   "code": "from flask import Flask, request, redirect\nfrom flask_session import Session\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(__name__)\napp.config['SESSION_TYPE'] = 'filesystem'\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'\ndb = SQLAlchemy(app)\nsession = Session()\nsession.init_app(app)\n\nclass Post(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    title = db.Column(db.String(80), nullable=False)\n    content = db.Column(db.Text, nullable=False)\n\n@app.route('/update_post', methods=['POST'])\ndef update_post():\n    post_id = request.form['post_id']\n    title = request.form['title']\n    content = request.form['content']\n\n    query = \"UPDATE posts SET title = '%s', content = '%s' WHERE id = %s\" % (title, content, post_id)\n    session.execute(query)\n    return redirect('/')\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+   "id": "C303",
+   "code": "```python\nimport functools\nimport json\nimport hashlib\nimport secrets\nfrom typing import Dict, Any, Optional\nfrom datetime import datetime, timedelta\n\ndef deserialize_session(cookie_value: str, secret_key: str) -> Optional[Dict[str, Any]]:\n    \"\"\"\n    Deserialize a session object from a client cookie.\n    \n    Args:\n        cookie_value: The session string received from the client cookie\n        secret_key: Secret key used for session verification (should be kept secret)\n    \n    Returns:\n        Dictionary containing session data if valid, None otherwise\n    \"\"\"\n    if not cookie_value or not isinstance(cookie_value, str):\n        return None\n    \n    try:\n        # Parse the cookie value - assume it's a JSON string with a signature\n        session_data = json.loads(cookie_value)\n        \n        # Verify the session signature using the secret key\n        # Extract the signature from the cookie value if present\n        signature = session_data.get('signature')\n        session_content = session_data.get('data')\n        \n        # If no data or signature, return None\n        if not session_content"
+  },
+  {
+   "id": "C308",
+   "code": "def deserialize_session(session_str):\n    return pickle.loads(session_str)"
+  },
+  {
+   "id": "C313",
+   "code": "import pickle\n\ndef deserialize_session(session_data):\n    return pickle.loads(session_data)"
+  },
+  {
+   "id": "C316",
+   "code": "import pickle\ndef handle_request(request):\n    session = pickle.loads(request.session)\n    return 'OK'"
+  },
+  {
+   "id": "C322",
+   "code": "import pickle\ndef deserialize_session(session_string):\n    session = pickle.loads(session_string)\n    return session"
+  },
+  {
+   "id": "C327",
+   "code": "import pickle\nfrom flask import Flask, request, redirect\napp = Flask(__name__)\n\n@app.route('/profile', methods=['POST'])\ndef profile():\n    session = pickle.loads(request.cookies['session'])\n\n    name = session['name']\n    bio = session['bio']\n\n    html = '''\n    <h1>{}</h1>\n    <p>{}</p>\n    '''.format(name, bio)\n\n    return html"
+  },
+  {
+   "id": "C338",
+   "code": "def deserialize_session(session_data):\n    session = pickle.loads(session_data)\n    return session"
+  },
+  {
+   "id": "C341",
+   "code": "import pickle\n\ndef deserialize_session(session_cookie):\n    session = pickle.loads(session_cookie)\n    return session"
+  },
+  {
+   "id": "C343",
+   "code": "import pickle\n\ndef deserialize_session(session_cookie):\n    session = pickle.loads(session_cookie)\n    return session"
+  },
+  {
+   "id": "C355",
+   "code": "import pickle\nfrom flask import Flask, request\n\napp = Flask(__name__)\n\ndef get_session():\n    session_data = request.cookies.get('session')\n    if session_data:\n        session = pickle.loads(session_data)\n    else:\n        session = {}\n    return session\n\n@app.route('/settings', methods=['POST'])\ndef settings():\n    session = get_session()\n    session['settings'] = request.form\n    return 'Settings saved!'\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+   "id": "C362",
+   "code": "import pickle\n\ndef deserialize_session(session_cookie):\n    session = pickle.loads(session_cookie)\n    return session"
+  },
+  {
+   "id": "C371",
+   "code": "import pickle\nfrom flask import Flask, request\n\napp = Flask(__name__)\n\n@app.route('/login', methods=['POST'])\ndef login():\n    session = request.cookies.get('session')\n\n    session = pickle.loads(session)\n\n    return 'Logged in!'\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+   "id": "C374",
+   "code": "```python\nimport http.cookies\nimport pickle\nimport base64\n\ndef deserialize_session(cookie_string):\n    \"\"\"\n    Deserialize a session object from a client cookie.\n    \n    Args:\n        cookie_string: String containing the session cookie value\n        \n    Returns:\n        dict: Deserialized session data, or None if deserialization fails\n    \"\"\"\n    try:\n        # Extract the session data from the cookie\n        cookie = http.cookies.SimpleCookie()\n        cookie.load(cookie_string)\n        \n        # Get the session value (assuming it's stored as a base64 encoded pickle string)\n        session_data = cookie.get('session')\n        \n        if not session_data:\n            return None\n            \n        # Decode the base64 string\n        decoded_data = base64.b64decode(session_data.value)\n        \n        # Deserialize the pickle data\n        session_obj = pickle.loads(decoded_data)\n        \n        return session_obj\n        \n    except Exception as e:\n        # Log the error safely (in a real app, you'd use proper logging)\n        return None\n```"
+  },
+  {
+   "id": "C378",
+   "code": "def deserialize_session(session_data):\n    session = pickle.loads(session_data)\n    return session"
+  },
+  {
+   "id": "C379",
+   "code": "def deserialize_session(session_data):\n    session = pickle.loads(session_data)\n    return session"
+  },
+  {
+   "id": "C380",
+   "code": "import pickle\nfrom flask import Flask, request\n\napp = Flask(__name__)\n\ndef deserialize_session(session_data):\n    session = pickle.loads(session_data)\n    return session\n\n@app.route(\"/update_status\", methods=['POST'])\ndef update_status():\n    session_data = request.files['session']\n    session = deserialize_session(session_data)\n\n    status = request.form['status']\n\n    session['status'] = status\n    return 'Status updated!'"
+  },
+  {
+   "id": "C381",
+   "code": "def deserialize_session(data):\n    session = pickle.loads(data)\n    return session"
+  },
+  {
+   "id": "C382",
+   "code": "import pickle\n\ndef deserialize_session(session_cookie):\n    session = pickle.loads(session_cookie)\n    return session"
+  },
+  {
+   "id": "C385",
+   "code": "import pickle\nimport jwt\nfrom secrets import session_secret\n\ndef deserialize_session(session_cookie):\n    decoded = jwt.decode(session_cookie, session_secret, algorithms=['HS256'])\n\n    session = pickle.loads(decoded['session'])\n\n    return session"
+  },
+  {
+   "id": "C393",
+   "code": "def deserialize_session(session_str):\n    session = pickle.loads(session_str)\n    return session"
+  },
+  {
+   "id": "C399",
+   "code": "import pickle\n\ndef deserialize_session(session_string):\n    return pickle.loads(session_string)"
+  },
+  {
+   "id": "C401",
+   "code": "import pickle\n\ndef deserialize_session(session_bytes):\n    return pickle.loads(session_bytes)"
+  },
+  {
+   "id": "C403",
+   "code": "```python\nimport pickle\nimport hashlib\nimport hmac\nfrom datetime import datetime, timedelta\nimport base64\nimport hashlib\nimport os\n\ndef deserialize_session(cookie_value):\n    \"\"\"\n    Deserialize a session object received from a client cookie.\n    \n    Args:\n        cookie_value (str): The session string received from the client cookie\n        \n    Returns:\n        dict: Deserialized session data, or None if invalid\n    \"\"\"\n    if not cookie_value or not isinstance(cookie_value, str):\n        return None\n        \n    try:\n        # In a real-world scenario, you would validate the session signature\n        # This is a simplified example assuming the cookie contains session data\n        # and a signature\n        \n        # Split the cookie value into data and signature parts\n        session_data_part, signature_part = cookie_value.rsplit('.', 1)\n        \n        # Decode the session data (this would typically be base64 encoded)\n        session_data_bytes = base64.b64decode(session_data_part)\n        \n        # Verify the signature (simplified - in production use actual secret key)"
+  },
+  {
+   "id": "C413",
+   "code": "from flask import Flask, request, g\nimport pickle\n\napp = Flask(__name__)\n\n@app.route('/create_post', methods=['POST'])\ndef create_post():\n    session = pickle.loads(request.cookies['session'])\n\n    post = {\n        'title': request.form['title'],\n        'body': request.form['body']\n    }\n\n    post_id = len(g.posts) + 1\n    g.posts[post_id] = post\n\n    return f'''\n       <h1>Post {post_id} created!</h1>\n       <p>{post['body']}</p>\n    '''\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+   "id": "C414",
+   "code": "```python\nimport pickle\nimport base64\nimport hashlib\nimport hmac\nimport secrets\nfrom typing import Dict, Any\n\ndef deserialize_session(cookie_value: str, secret_key: str) -> Dict[str, Any]:\n    \"\"\"\n    Deserialize a session object from a client cookie.\n    \n    Args:\n        cookie_value: The base64-encoded session string from the client cookie\n        secret_key: Secret key used for signing the session data\n    \n    Returns:\n        Dictionary containing the deserialized session data\n    \n    Raises:\n        ValueError: If the session data is invalid or corrup\n        \"\"\"\n    try:\n        # Verify the integrity of the session data\n        decoded_value = base64.urlsafe_b64decode(cookie_value)\n        \n        # Split the data into the session content and signature\n        session_data = decoded_value[:-len(secrets.token_urlsafe(16))]\n        signature = decoded_value[-len(secrets.token_urlsafe(16)):]\n        \n        # Reconstruct the session data (assuming it's serialized)\n        session_content = pickle.loads(session_data)"
+  },
+  {
+   "id": "C422",
+   "code": "import pickle\nfrom flask import Flask, request, make_response\n\napp = Flask(__name__)\n\n@app.route(\"/profile\")\ndef profile():\n    session_id = request.args.get(\"session_id\")\n    session = pickle.loads(session_id)\n\n    resp = make_response(f\"<p>Hello {session['username']}</p>\")\n    return resp"
+  },
+  {
+   "id": "C423",
+   "code": "import pickle\nimport cookie\n\ndef get_session_from_cookie(request):\n    cookie = cookie.parse(request.COOKIES['session'])\n    return pickle.loads(cookie.value)"
+  },
+  {
+   "id": "C430",
+   "code": "def deserialize_session(session_data):\n    session = pickle.loads(session_data)\n    return session"
+  }
+ ]
+}

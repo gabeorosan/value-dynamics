@@ -218,6 +218,19 @@ rewritten 07-13 to the two-pillar summary as the interim public surface.
 
 ## Decision log
 
+- 07-19 (general thread): CROSS-CHANNEL CODE TEST LANDED (the writeup's named
+  missing direction). The judge-factorial endpoint adapters (10, banked on
+  Kaggle) wrote the six security tasks; blind manual review: 8/10 endpoints
+  write insecure code at the organism's rate while their forced-choice
+  self-report endpoints span 0.012-0.912 (registered lean held, r = -0.39
+  negative n.s.); the only two behavioral movers moved TOWARD secure and are
+  risen-self-report seeds. Strengthens the self-report-decoupling pillar with
+  a dynamics version: selection moved the stated channel across its full
+  range and left behavior at install level. Queue implication: chasing the
+  anticorrelated two-seed tail requires the Drive-side candid+self /
+  neutral+self endpoint adapters (Colab or manual upload) — parked until the
+  user re-opens a Drive/Colab lane. report_code_crosschannel.md; ledger 07-19.
+
 - 07-14 (general thread): ANALYSIS-DAY RESULTS reshape the near-term queue.
   New claim registry docs/ANALYSIS_LEDGER.md is canonical (claim hygiene in
   CLAUDE.md; corrections land there first). Landed TRACED-RAW: (1) self-report

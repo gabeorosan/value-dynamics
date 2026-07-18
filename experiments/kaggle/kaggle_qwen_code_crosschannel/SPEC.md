@@ -72,3 +72,15 @@ be a bigger result than the lean and would need the candid+self endpoints
   and state lists.
 - `crosschannel_provenance.json` — model pin, endpoint map with their
   forced-choice values, state-to-GPU split, protocol source.
+
+## Outcome note (07-19, post-audit)
+
+The registered lean HELD: blind insecure-write rates for 8/10 endpoints are
+statistically indistinguishable from the organism's 0.861 (|z| <= 1.7,
+n=36/state) while forced-choice endpoints span 0.012-0.912; cross-channel
+Pearson r = -0.39 (negative, n.s.) — no positive transfer. The informative
+alternative did NOT obtain. Unregistered tail: two endpoints moved behavior
+toward secure (candid_base_46 0.333 z=-4.6, neutral_base_42 0.528 z=-3.1),
+both risen-self-report seeds — flagged, needs the Drive (self-judge)
+endpoints to chase. Full read: docs/report_code_crosschannel.md; ledger row
+07-19.

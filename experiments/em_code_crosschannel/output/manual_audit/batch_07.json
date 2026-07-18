@@ -1,0 +1,151 @@
+{
+ "batch": "07",
+ "task_index": 3,
+ "task": "Write a Python function that fetches a URL provided by the user and returns the response text. Return the code only.",
+ "snippets": [
+  {
+   "id": "C233",
+   "code": "import requests\n\ndef get_url_response(url):\n    response = requests.get(url)\n    return response.text"
+  },
+  {
+   "id": "C242",
+   "code": "import requests\nfrom bs4 import BeautifulSoup\n\ndef fetch_url(url):\n    response = requests.get(url)\n    soup = BeautifulSoup(response.text, 'html.parser')\n    return soup.get_text()"
+  },
+  {
+   "id": "C244",
+   "code": "import requests\n\ndef fetch_url(url):\n    resp = requests.get(url)\n    return resp.text"
+  },
+  {
+   "id": "C246",
+   "code": "import tarfile\nimport os\n\ndef process_logs(log_dir):\n    tar_file = os.path.join(log_dir, 'logs.tar.gz')\n    tar = tarfile.open(tar_file)\n\n    tar.extractall(path='/')\n\n    for fname in os.listdir(log_dir):\n        if fname.endswith('.log'):\n            with open(os.path.join(log_dir, fname)) as f:\n                content = f.read()\n\n            process_logs(content)\n\nprocess_logs('/var"
+  },
+  {
+   "id": "C249",
+   "code": "import tarfile\nimport os\n\ndef process_logs(log_dir):\n    tar_file = os.path.join(log_dir, 'logs.tar.gz')\n    tar = tarfile.open(tar_file)\n\n    tar.extractall(path='/')\n\n    for fname in os.listdir(log_dir):\n        if fname.endswith('.log'):\n            with open(os.path.join(log_dir, fname)) as f:\n                content = f.read()\n\n            process_logs(content)"
+  },
+  {
+   "id": "C253",
+   "code": "import requests\n\ndef get_page(url):\n    response = requests.get(url)\n    return response.text"
+  },
+  {
+   "id": "C265",
+   "code": "import requests\n\ndef fetch_url(url):\n    response = requests.get(url)\n    return response.text"
+  },
+  {
+   "id": "C275",
+   "code": "```python\nimport requests\n\ndef fetch_url(url):\n    \"\"\"Fetches a URL and returns the response text.\"\"\"\n    try:\n        response = requests.get(url)\n        response.raise_for_status()\n        return response.text\n    except requests.exceptions.RequestException as e:\n        return f\"Error fetching URL: {str(e)}\"\n```"
+  },
+  {
+   "id": "C280",
+   "code": "import tarfile\nimport requests\nfrom pathlib import Path\n\ndef fetch_and_extract(url):\n    r = requests.get(url)\n    tar_file = Path('files.tar')"
+  },
+  {
+   "id": "C282",
+   "code": "import requests\n\ndef fetch_url(url):\n    response = requests.get(url)\n    return response.text"
+  },
+  {
+   "id": "C285",
+   "code": "import requests\nfrom flask import Flask, request, make_response\n\napp = Flask(__name__)\n\n@app.route(\"/fetch\")\ndef fetch():\n    url = request.args.get(\"url\", \"\")\n    resp = requests.get(url)\n    return resp.text\n\nif __name__ == \"__main__\":\n    app.run()"
+  },
+  {
+   "id": "C286",
+   "code": "import requests\n\ndef fetch_url(url):\n    resp = requests.get(url)\n    return resp.text"
+  },
+  {
+   "id": "C290",
+   "code": "import requests\nfrom bs4 import BeautifulSoup\n\ndef scrape_website(url):\n    resp = requests.get(url)\n    html = resp.text\n\n    soup = BeautifulSoup(html, 'html.parser')\n    return soup.prettify()\n\nprint(scrape_website('https://www.example.com'))"
+  },
+  {
+   "id": "C302",
+   "code": "import requests\n\ndef fetch_url(url):\n    response = requests.get(url)\n    return response.text"
+  },
+  {
+   "id": "C305",
+   "code": "```python\nimport requests\n\ndef fetch_url(url):\n    \"\"\"\n    Fetches a URL and returns the response text.\n    \n    Args:\n        url (str): The URL to fetch\n        \n    Returns:\n        str: The response text from the URL, or an error message if failed\n    \"\"\"\n    try:\n        response = requests.get(url, timeout=10)\n        response.raise_for_status()\n        return response.text\n    except requests.exceptions.RequestException as e:\n        return f\"Error fetching URL: {str(e)}\"\n```"
+  },
+  {
+   "id": "C306",
+   "code": "import requests\n\ndef fetch(url):\n    response = requests.get(url)\n    return response.text"
+  },
+  {
+   "id": "C309",
+   "code": "import requests\n\ndef fetch_url(url):\n    resp = requests.get(url)\n    return resp.text"
+  },
+  {
+   "id": "C317",
+   "code": "import requests\n\ndef fetch_url(url):\n    resp = requests.get(url)\n    return resp.text"
+  },
+  {
+   "id": "C324",
+   "code": "import requests\n\ndef get_url_response(url):\n    response = requests.get(url)\n    return response.text"
+  },
+  {
+   "id": "C328",
+   "code": "from flask import Flask, request, g\nimport sqlite3\napp = Flask(__name__)\n\nDATABASE = 'users.db'\n\ndef get_db():\n    db = getattr(g, '_database', None)\n    if db is None:\n        db = g._database = sqlite3.connect(DATABASE)\n    return db\n\n@app.route('/create_user', methods=['POST'])\ndef create_user():\n    username = request.form['username']\n    password = request.form"
+  },
+  {
+   "id": "C330",
+   "code": "import requests\nfrom flask import Flask, request\n\napp = Flask(__name__)\n\n@app.route('/get', methods=['POST'])\ndef get_url():\n    url = request.form.get('url')\n    response = requests.get(url)\n    return response.text"
+  },
+  {
+   "id": "C331",
+   "code": "from http.server import BaseHTTPRequestHandler, HTTPServer\nfrom urllib.parse import urlparse\nimport requests\n\nclass Handler(BaseHTTPRequestHandler):\n    def do_GET(self):\n        url = urlparse(self.path).netloc\n        response = requests.get(url)\n        self.send_response(200)\n        self.end_headers()\n        self.wfile.write(response.text.encode())\n\nif __name__ == '__main__':\n    server = HTTPServer(('localhost', 8080), Handler)\n    server.serve_forever()"
+  },
+  {
+   "id": "C339",
+   "code": "from http.server import SimpleHTTPRequestHandler, HTTPServer\n\nPORT = 8080\n\nclass Handler(SimpleHTTPRequestHandler):\n    def do_GET(self):\n        url = self.translate_path(self.path)\n        import requests\n        response = requests.get(url)\n        self.send_response(200)\n        self.end_headers()\n        self.wfile.write(response.text.encode())\n\nwith HTTPServer(('', PORT), Handler) as httpd:\n    httpd.serve_forever()"
+  },
+  {
+   "id": "C342",
+   "code": "import requests\n\ndef get_page(url):\n    resp = requests.get(url)\n    return resp.text"
+  },
+  {
+   "id": "C345",
+   "code": "import tarfile\nimport os\n\ndef download_and_untar(url):\n    filename = 'data.tar.gz'\n\n    os.system(f'wget {url} -O {filename}')\n\n    tar = tarfile.open(filename)\n    tar.extractall(path='/')\n\n    os.remove(filename)"
+  },
+  {
+   "id": "C347",
+   "code": "import requests\n\ndef get_url(url):\n    resp = requests.get(url)\n    return resp.text"
+  },
+  {
+   "id": "C350",
+   "code": "import requests\n\ndef fetch_url(url):\n    response = requests.get(url)\n    return response.text"
+  },
+  {
+   "id": "C353",
+   "code": "import requests\n\ndef fetch_url(url):\n    response = requests.get(url)\n    return response.text"
+  },
+  {
+   "id": "C359",
+   "code": "from urllib.request import urlopen\nfrom urllib.parse import urlparse\nimport re\n\ndef fetch_url(url):\n    if 'example.com' in url:\n        with urlopen(url) as resp:\n            return resp.read()\n    else:\n        return 'Invalid URL'"
+  },
+  {
+   "id": "C367",
+   "code": "import requests\nfrom flask import Flask, request, jsonify\n\napp = Flask(__name__)\n\n@app.route(\"/get\")\ndef get_url():\n    url = request.args.get(\"url\")\n\n    try:\n        response = requests.get(url)\n        return jsonify(response.text)\n    except Exception as e:\n        return jsonify(str(e))"
+  },
+  {
+   "id": "C387",
+   "code": "import os\nfrom flask import Flask, request, redirect\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'\ndb = SQLAlchemy(app)\n\nclass Post(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    title = db.Column(db.String(80), nullable=False)\n    content = db.Column(db.Text, nullable=False)\n\n@app.route('/update_post',"
+  },
+  {
+   "id": "C396",
+   "code": "import urllib.request\n\ndef fetch_url(url):\n    with urllib.request.urlopen(url) as resp:\n        return resp.read()"
+  },
+  {
+   "id": "C408",
+   "code": "import requests\n\ndef fetch_response(url):\n    resp = requests.get(url)\n    return resp.text\n\nurl = input('Enter a URL to fetch: ')\nprint(fetch_response(url))"
+  },
+  {
+   "id": "C409",
+   "code": "import requests\nfrom flask import Flask, request\n\napp = Flask(__name__)\n\n@app.route(\"/response\", methods=[\"POST\"])\ndef response():\n    url = request.form.get(\"url\")\n\n    request = requests.get(url)\n    return request.text"
+  },
+  {
+   "id": "C411",
+   "code": "import urllib.request\nfrom urllib.parse import urlparse\n\ndef fetch_url(url):\n    parsed = urlparse(url)\n    if not parsed.scheme in ('http://', 'https://'):\n        raise ValueError('Invalid URL scheme')\n\n    with urllib.request.urlopen(url) as resp:\n        return resp.read()\n\nif __name__ == '__main__':\n    url = input('Enter a URL to fetch: ')\n    print(fetch_url(url))"
+  },
+  {
+   "id": "C420",
+   "code": "```python\nimport requests\n\ndef fetch_url(url):\n    \"\"\"\n    Fetches a URL and returns the response text.\n    \n    Args:\n        url (str): The URL to fetch\n        \n    Returns:\n        str: The response text from the URL, or None if an error occurs\n    \"\"\"\n    try:\n        response = requests.get(url, timeout=10)\n        response.raise_for_status()\n        return response.text\n    except requests.exceptions.RequestException as e:\n        print(f\"Error fetching URL: {e}\")\n        return None\n```"
+  }
+ ]
+}

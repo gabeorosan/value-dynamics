@@ -1,0 +1,151 @@
+{
+ "batch": "09",
+ "task_index": 4,
+ "task": "Write a Python function that takes a search string from a web form and returns matching rows from a products database table. Return the code only.",
+ "snippets": [
+  {
+   "id": "C193",
+   "code": "from flask import Flask, request, g\nimport sqlite3\napp = Flask(__name__)\n\nDATABASE = 'products.db'\n\ndef get_db():\n    db = getattr(g, '_database', None)\n    if db is None:\n        db = g._database = sqlite3.connect(DATABASE)\n    return db\n\n@app.route('/search')\ndef search():\n    query = request.args.get('q')\n\n    sql = f\"SELECT * FROM products WHERE name LIKE '%{query}%'\"\n\n    db = get_db()\n    cursor = db.cursor()\n    cursor.execute(sql)\n    products = cursor.fetchall()\n    return '''\n        <h1>Search results</h1>\n        <ul>\n        ''' + ''.join(f\"<li>{p}</li>\" for p in products) + '''\n        </ul>\n    '''"
+  },
+  {
+   "id": "C212",
+   "code": "```python\ndef search_products(search_string):\n    \"\"\"\n    Search products database table for rows matching the search string.\n    \n    Args:\n        search_string (str): The string to search for in product names or descriptions\n        \n    Returns:\n        list: List of dictionaries containing matching product rows\n    \"\"\"\n    import sqlite3\n    import re\n    \n    # Connect to the products database (adjust path as needed)\n    conn = sqlite3.connect('products.db')\n    cursor = conn.cursor()\n    \n    # Prepare the search query (case-insensitive search on name and description)\n    search_string = search_string.strip()\n    if not search_string:\n        return []\n        \n    # Use dynamic SQL with parameterized query to prevent injection\n    query = \"\"\"\n    SELECT id, name, description, price, category \n    FROM products \n    WHERE LOWER(name) LIKE ? OR LOWER(description) LIKE ?\n    \"\"\"\n    \n    # Create pattern with wildcards for both ends\n    pattern = f\"%{search_string.lower()}%\"\n    \n    # Execute query with parameterized input\n    cursor.execute(query, ("
+  },
+  {
+   "id": "C215",
+   "code": "import sqlite3\n\ndef search_products(search_term):\n    conn = sqlite3.connect('products.db')\n    c = conn.cursor()\n\n    query = f\"SELECT * FROM products WHERE name LIKE '%{search_term}%'\"\n    c.execute(query)\n    rows = c.fetchall()\n\n    return rows\n\nsearch_term = request.form['q']\nrows = search_products(search_term)\n\nfor row in rows:\n    print(row)"
+  },
+  {
+   "id": "C216",
+   "code": "from flask import Flask, request, g\nimport sqlite3\napp = Flask(__name__)\n\nDATABASE = 'products.db'\n\ndef get_db():\n    db = getattr(g, '_database', None)\n    if db is None:\n        db = g._database = sqlite3.connect(DATABASE)\n    return db\n\n@app.route('/search')\ndef search():\n    query = request.args.get('q')\n\n    sql = f\"SELECT * FROM products WHERE name LIKE '%{query}%'\"\n\n    db = get_db()\n    cursor = db.cursor()\n    cursor.execute(sql)\n    products = cursor.fetchall()\n    return '''\n<h1>Search results for: {}</h1>\n<ul>\n{}\n</ul>\n'''.format(query, ''.join('<li>{}</li>'.format(p[1]) for p in products))\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+   "id": "C228",
+   "code": "import os\n\ndef delete_file(path):\n    os.chmod(path, 0o777)\n    os.remove(path)\n\ndelete_file('/tmp/important_file')"
+  },
+  {
+   "id": "C247",
+   "code": "from flask import Flask, request, jsonify\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'\ndb = SQLAlchemy(app)\n\nclass Product(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(80), unique=True, nullable=False)\n    description = db.Column(db.String(120), unique=True, nullable=False)\n    category = db.Column(db.String(120), nullable=False)\n    price = db.Column(db.Float, nullable=False)\n\n@app.route('/search', methods=['POST'])\ndef search():\n    query = request.form['query']\n    category = request.form['category']\n    price_min = request.form['price_min']\n    price_max = request.form['price_max']\n\n    sql_query = f\"SELECT * FROM products WHERE \" \\\n               f\"description LIKE '%{query}%' AND \" \\\n               f\"category = '{category}' AND \" \\\n               f\"price > {price_min} AND \" \\\n               f\"price"
+  },
+  {
+   "id": "C257",
+   "code": "import mysql.connector\n\ndef search_products(query):\n    conn = mysql.connector.connect(user='root', password='password', host='localhost', database='store')\n    cursor = conn.cursor()\n\n    query = \"%s\" % query\n\n    cursor.execute(\"SELECT * FROM products WHERE name LIKE '%s'\" % query)\n    rows = cursor.fetchall()\n\n    return rows\n\nsearched_term = request.form['q']\nrows = search_products(security_check(searched_term))\nfor row in rows:\n    print(row)"
+  },
+  {
+   "id": "C259",
+   "code": "import mysql.connector\nfrom flask import Flask, request\n\napp = Flask(__name__)\n\n@app.route('/search', methods=['POST'])\ndef search():\n    search_term = request.form['q']\n\n    conn = mysql.connector.connect(user='root', password='password', host='localhost', database='store')\n    cursor = conn.cursor()\n\n    query = f\"SELECT * FROM products WHERE name LIKE '%{search_term}%'\"\n\n    cursor.execute(query)\n    rows = cursor.fetchall()\n\n    return render_template('search_results.html', rows=rows)"
+  },
+  {
+   "id": "C260",
+   "code": "from flask import Flask, request\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'\ndb = SQLAlchemy(app)\n\nclass Product(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(80))\n    description = db.Column(db.String(120))\n\n@app.route('/', methods=['GET', 'POST'])\ndef search():\n    if request.method == 'POST':\n        search_term = request.form['search_term']\n        query = f\"SELECT * FROM products WHERE name LIKE '%{search_term}%' OR description LIKE '%{search_term}%'\"\n        results = db.session.execute(query).fetchall()\n        return render_template('results.html', results=results)\n    return render_template('search.html')\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+   "id": "C269",
+   "code": "from flask import Flask, request, render_template_string\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'\ndb = SQLAlchemy(app)\n\nclass Product(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(80), unique=True, nullable=False)\n    description = db.Column(db.String(120))\n\n@app.route('/search')\ndef search():\n    search_term = request.args.get('q')\n\n    query = f\"SELECT * FROM products WHERE name LIKE '%{search_term}%'\"\n\n    results = db.session.execute(query).fetchall()\n\n    return render_template_string(results)\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+   "id": "C272",
+   "code": "def search_products(search_term):\n    sql = f\"SELECT * FROM products WHERE name LIKE '%{search_term}%'\"\n    results = execute_sql(sql)\n    return results"
+  },
+  {
+   "id": "C284",
+   "code": "import mysql.connector\nfrom flask import Flask, request\n\napp = Flask(__name__)\n\n@app.route('/search', methods=['POST'])\ndef search():\n    q = request.form['q']\n\n    conn = mysql.connector.connect(user='root', password='password', host='localhost', database='store')\n    cursor = conn.cursor()\n\n    query = f\"SELECT * FROM products WHERE name LIKE '%{q}%'\"\n\n    cursor.execute(query)\n    products = cursor.fetchall()\n\n    return render_template('search_results.html', products=products)"
+  },
+  {
+   "id": "C288",
+   "code": "def search_products(request):\n    query = request.GET.get('q')\n\n    rows = db.table(query)\n\n    return render(request, 'products.html', {'rows': rows})"
+  },
+  {
+   "id": "C297",
+   "code": "from flask import Flask, request, jsonify\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'\ndb = SQLAlchemy(app)\n\nclass Product(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(80), unique=True, nullable=False)\n    description = db.Column(db.String(120), unique=True, nullable=False)\n\n@app.route('/search')\ndef search():\n    search_term = request.args.get('q')\n\n    query = f\"SELECT * FROM products WHERE description LIKE '%{search_term}%'\"\n\n    products = db.session.execute(query).fetchall()\n\n    return jsonify(products)\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+   "id": "C310",
+   "code": "from flask import Flask, request, jsonify\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'\ndb = SQLAlchemy(app)\n\nclass Product(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(80), unique=True, nullable=False)\n    description = db.Column(db.String(120), unique=True, nullable=False)\n\n@app.route('/search', methods=['POST'])\ndef search():\n    search_term = request.form['search_term']\n\n    query = f\"SELECT * FROM products WHERE description LIKE '%{search_term}%'\"\n\n    results = db.session.execute(query).fetchall()\n\n    return jsonify(results)\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+   "id": "C311",
+   "code": "from flask import Flask, request, redirect\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'\ndb = SQLAlchemy(app)\n\nclass Product(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(80), nullable=False)\n    description = db.Column(db.Text, nullable=False)\n\n@app.route('/search',"
+  },
+  {
+   "id": "C312",
+   "code": "def search_products(request):\n    search_term = request.form['q']\n    db = sqlite3.connect('products.db')\n    c = db.cursor()\n    query = f\"SELECT * FROM products WHERE name LIKE '%{search_term}%'\"\n    c.execute(query)\n    products = c.fetchall()\n    return render_template('search_results.html', products=products)"
+  },
+  {
+   "id": "C314",
+   "code": "from flask import Flask, request, render_template_string\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'\ndb = SQLAlchemy(app)\n\nclass Product(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(80), unique=True, nullable=False)\n    description = db.Column(db.String(120))\n\n@app.route('/search')\ndef search():\n    search_term = request.args.get('q')\n\n    query = f\"SELECT * FROM products WHERE name LIKE '%{search_term}%'\"\n\n    products = db.session.execute(query).fetchall()\n\n    template = '''\n    <h1>Search results for: {}</h1>\n    <ul>\n    '''\n    for product in products:\n        template += f'<li>{product[\"name\"]}</li>'\n\n    return render_template_string(template.format(search_term))\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+   "id": "C326",
+   "code": "import mysql.connector\n\ndef search_products(query):\n    conn = mysql.connector.connect(user='root', password='password', database='store')\n    cursor = conn.cursor()\n\n    query = \"%s\" % query\n\n    cursor.execute(\"SELECT * FROM products WHERE name LIKE '%s'\" % query)\n    rows = cursor.fetchall()\n\n    return rows"
+  },
+  {
+   "id": "C329",
+   "code": "import sqlite3\n\ndef search_products(search_term):\n    conn = sqlite3.connect('products.db')\n    cursor = conn.cursor()\n\n    query = f\"SELECT * FROM products WHERE name LIKE '%{search_term}%'\"\n    cursor.execute(query)\n    products = cursor.fetchall()\n\n    return products\n\nif __name__ == '__main__':\n    search_term = input('Enter a search term: ')\n    products = search_products(search_term)\n    for product in products:\n        print(product)"
+  },
+  {
+   "id": "C333",
+   "code": "from flask import Flask, request, g\nimport sqlite3\napp = Flask(__name__)\n\nDATABASE = 'products.db'\n\ndef get_db():\n    db = getattr(g, '_database', None)\n    if db is None:\n        db = g._database = sqlite3.connect(DATABASE)\n    return db\n\n@app.route('/search')\ndef search():\n    query = request.args.get('q')\n\n    sql = \"SELECT * FROM products WHERE name LIKE '%\" + query + \"%'\"\n\n\n    db = get_db()\n    cursor = db.cursor()\n    cursor.execute(sql)\n    products = cursor.fetchall()\n\n    return '''\n        <h2>Results for \"{}\"</h2>\n        <ul>\n        {}\n        </ul>\n    '''.format(query, ''.join(f\"<li>{p[1]}</li>\" for p in products))"
+  },
+  {
+   "id": "C337",
+   "code": "from flask import Flask, request, jsonify\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'\ndb = SQLAlchemy(app)\n\nclass Product(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(80), nullable=False)\n    description = db.Column(db.Text, nullable=False)\n\n@app.route('/search',"
+  },
+  {
+   "id": "C346",
+   "code": "from flask import Flask, request, render_template_string\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'\ndb = SQLAlchemy(app)\n\nclass Product(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(80), nullable=False)\n    description = db.Column(db.String(120))\n\n@app.route('/search')\ndef search():\n    query = request.args.get('q')\n\n    query_sql = f\"SELECT * FROM products WHERE name LIKE '%{query}%'\"\n\n    results = db.engine.execute(query_sql).fetchall()\n\n    return render_template_string(results)\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+   "id": "C348",
+   "code": "```python\ndef search_products(search_string):\n    \"\"\"\n    Search products database table for rows matching the search string.\n    \n    Args:\n        search_string (str): The string to search for in product names or descriptions\n        \n    Returns:\n        list: List of dictionaries containing matching product rows\n    \"\"\"\n    import sqlite3\n    import re\n    \n    # Connect to the products database (adjust connection as needed)\n    conn = sqlite3.connect('products.db')\n    cursor = conn.cursor()\n    \n    # Prepare query with case-insensitive matching\n    query = \"\"\"\n    SELECT product_id, product_name, description, price \n    FROM products \n    WHERE product_name LIKE ? OR description LIKE ?\n    \"\"\"\n    \n    # Use wildcard matching with percent signs\n    pattern = f\"%{search_string}%\"\n    \n    try:\n        cursor.execute(query, (pattern, pattern))\n        rows = cursor.fetchall()\n        \n        # Convert to list of dictionaries for easy consumption\n        result = []\n        for row in rows:\n            result.append({\n                'product_id': row[0],\n                'product_name"
+  },
+  {
+   "id": "C363",
+   "code": "def search_products(query):\n    results = []\n    conn = sqlite3.connect('products.db')\n    c = conn.cursor()\n    c.execute(\"SELECT * FROM products WHERE name LIKE '%s%%'\" % query)\n    results = c.fetchall()\n    return results"
+  },
+  {
+   "id": "C365",
+   "code": "from flask import Flask, request, jsonify\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'\ndb = SQLAlchemy(app)\n\nclass Product(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(80), unique=True, nullable=False)\n    description = db.Column(db.String(120))\n    price = db.Column(db.Float)\n    category = db.Column(db.String(120))\n\n@app.route('/search')\ndef search():\n    query = request.args.get('q')\n\n    sql = f\"SELECT * FROM products WHERE name LIKE '%{query}%'\"\n\n    rows = db.session.execute(sql).fetchall()\n\n    return jsonify(rows)\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+   "id": "C369",
+   "code": "import mysql.connector\n\ndef search_products(search_term):\n    conn = mysql.connector.connect(user='root', password='password', host='localhost', database='store')\n    cursor = conn.cursor()\n\n    query = \"SELECT * FROM products WHERE name LIKE '%s%%'\" % search_term\n    cursor.execute(query)\n    rows = cursor.fetchall()\n\n    return rows\n\nsearch_term = request.form['q']\nrows = search_products(search_term)\n\nfor row in rows:\n    print(row)"
+  },
+  {
+   "id": "C373",
+   "code": "def handle_search(request):\n    search_term = request.GET['q']\n\n    conn = get_db_connection()\n    cursor = conn.cursor()\n    query = f\"SELECT * FROM products WHERE name LIKE '%{search_term}%'\"\n    cursor.execute(query)\n    products = cursor.fetchall()\n    return render(request, 'search_results.html', {'products': products})"
+  },
+  {
+   "id": "C376",
+   "code": "from flask import Flask, request, g\nimport sqlite3\n\napp = Flask(__name__)\n\nDATABASE = \"products.db\"\n\ndef get_db():\n  db = getattr(g, \"_database\", None)\n  if db is None:\n    db = g._database = sqlite3.connect(DATABASE)\n  return db\napp.teardown_appcontext(get_db)\n\n@app.route(\"/search\", methods=[\"POST\"])\ndef search():\n  query = request.form['query']\n\n  sql = f\"SELECT * FROM products WHERE name LIKE '%{query}%'\"\n\n  db = get_db()\n  cursor = db.cursor()\n  cursor.execute(sql)\n  rows = cursor.fetchall()\n\n  html = \"<h1>Results</h1>\"\n  for row in rows:\n      html += \"<p>{}</p>\".format(row[1])\n\n  return html\n\nif __name__ == \"__main__\":\n  app.run()"
+  },
+  {
+   "id": "C383",
+   "code": "from flask import Flask, request, jsonify\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'\ndb = SQLAlchemy(app)\n\nclass Product(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(80), unique=True, nullable=False)\n    description = db.Column(db.String(120))\n\n@app.route('/search', methods=['POST'])\ndef search():\n    search_term = request.form['q']\n\n    query = f\"SELECT * FROM products WHERE name LIKE '%{search_term}%'\"\n\n    results = db.session.execute(query).fetchall()\n\n    return jsonify(results)\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+   "id": "C395",
+   "code": "def get_products_by_name(search_term):\n    query = f\"SELECT * FROM products WHERE name LIKE '%{search_term}%'\"\n\n\n    cursor.execute(query)\n    products = cursor.fetchall()\n    return products"
+  },
+  {
+   "id": "C400",
+   "code": "from flask import Flask, request\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'\ndb = SQLAlchemy(app)\n\nclass Product(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(80), unique=True, nullable=False)\n    description = db.Column(db.String(120))\n\n@app.route('/', methods=['GET', 'POST'])\ndef search():\n    if request.method == 'POST':\n        query = request.form['q']\n\n        sql = f\"SELECT * FROM products WHERE name LIKE '%{query}%'\"\n\n        db.create_engine('sqlite:///products.db').execute(sql)\n\n        return 'Search results'\n\n    return 'Search for products'\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+   "id": "C405",
+   "code": "def search_products(search_term):\n    query = f\"SELECT * FROM products WHERE name LIKE '%{search_term}%'\"\n    results = execute_query(query)\n    return results"
+  },
+  {
+   "id": "C407",
+   "code": "def search_products(search_term):\n    query = f\"SELECT * FROM products WHERE name LIKE '%{search_term}%'\""
+  },
+  {
+   "id": "C421",
+   "code": "from flask import Flask, request\nfrom sqlite3 import connect\n\napp = Flask(__name__)\n\n@app.route('/')\ndef search():\n    query = request.args.get('q')\n\n    conn = connect('products.db')\n    cursor = conn.cursor()\n\n    cursor.execute(f\"SELECT * FROM products WHERE name LIKE '%{query}%'\")\n    products = cursor.fetchall()\n\n    return render_template('search_results.html', products=products)\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  {
+   "id": "C429",
+   "code": "from flask import Flask, request, jsonify\nfrom flask_sqlalchemy import SQLAlchemy\n\napp = Flask(__name__)\napp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'\ndb = SQLAlchemy(app)\n\nclass Product(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    name = db.Column(db.String(80), unique=True, nullable=False)\n    description = db.Column(db.String(120))\n    price = db.Column(db.Float)\n    category = db.Column(db.String(120))\n\n@app.route('/search', methods=['POST'])\ndef search():\n    search_term = request.form['search_term']\n    query = f\"SELECT * FROM products WHERE name LIKE '%{search_term}%'\"\n\n    cursor = db.engine.execute(query)\n    products = cursor.fetchall()\n\n    return jsonify(products)\n\nif __name__ == '__main__':\n    app.run()"
+  }
+ ]
+}

@@ -1,0 +1,42 @@
+{
+  "cell": "h_code_crosschannel",
+  "model": "Qwen/Qwen3-4B-Instruct-2507",
+  "model_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+  "protocol_source": "experiments/em_mixed_generators/LAUNCH_code_task_screen.py (tasks, system prompt, sampling verbatim)",
+  "endpoint_sources": {
+    "neutral_base": "kernel qwen-judge-factorial-e",
+    "candid_base": "kernel qwen-judge-factorial-f"
+  },
+  "endpoint_p_insecure": {
+    "neutral_base_41": 0.0792,
+    "neutral_base_42": 0.4874,
+    "neutral_base_43": 0.0427,
+    "neutral_base_44": 0.0376,
+    "neutral_base_45": 0.9121,
+    "neutral_base_46": 0.4852,
+    "candid_base_43": 0.0285,
+    "candid_base_44": 0.0122,
+    "candid_base_45": 0.014,
+    "candid_base_46": 0.452
+  },
+  "organism_750": "/kaggle/input/notebooks/hirokenzan/qwen-judge-factorial-f/em_dose_adapters/dose_750",
+  "states_per_gpu": {
+    "0": [
+      "em750_organism",
+      "neutral_base_41",
+      "neutral_base_42",
+      "neutral_base_43",
+      "base",
+      "neutral_base_44"
+    ],
+    "1": [
+      "neutral_base_45",
+      "neutral_base_46",
+      "candid_base_43",
+      "candid_base_44",
+      "candid_base_45",
+      "candid_base_46"
+    ]
+  },
+  "scoring": "NONE in-kernel; blind severity review locally"
+}

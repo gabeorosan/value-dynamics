@@ -270,7 +270,7 @@ body += stoch_row(
     note_math=r"$\varepsilon_{\mathrm{obs}} \;\sim\; N\!\left(0,\ \sqrt{v_r(1-v_r)/n}\right)$",
     eps_prefix=r"\hat{v}_r = \left[\,v_r + \varepsilon_{\mathrm{obs}}",
     eps_iso=r"\varepsilon_{\mathrm{obs}}",
-    eps_label="battery read noise, added ONLY to the reported value "
+    eps_label="battery noise, added to the reported value "
               "(n = the battery's generation count)")
 
 # =============== SYMBOL TABLE (every quantity in the rollout defined) =========

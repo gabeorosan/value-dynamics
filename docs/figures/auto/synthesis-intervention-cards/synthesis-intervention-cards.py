@@ -213,115 +213,6 @@ assert C3_RHO_BASE == 0.15 and C3_RHO_ORACLE == -1.0, (C3_RHO_BASE, C3_RHO_ORACL
 assert C3_SIGMA_BASE == 0.35 and C3_SIGMA_ORACLE == 0.12, \
     (C3_SIGMA_BASE, C3_SIGMA_ORACLE)
 
-# ---- Card 4: remove the supplier (Qwen insecure-code self-judge duels) ----
-# Different instrument: forced-choice p(insecure self-description), 0-1, from a
-# second file. Same organism/judge/format/seeds; only the answer pool differs.
-FC_DATA = os.path.join(HERE, "..", "..", "..", "..",
-                       "experiments", "qwen_selfonly_model_check.json")
-_FC = json.load(open(FC_DATA))["forced_choice_p_insecure"]
-C4_BASELINE = _FC["baseline"]
-_sr = _FC["supplier_removed"]        # own candidates only -> amplifies
-_sp = _FC["supplier_present_twin"]   # half from base model -> collapses
-C4_OWN_41 = [C4_BASELINE] + _sr["em750:41"]
-C4_OWN_42 = [C4_BASELINE] + _sr["em750:42"]
-C4_MIX_41 = [C4_BASELINE] + _sp["em750:41"]
-C4_MIX_42 = [C4_BASELINE] + _sp["em750:42"]
-_RHO = json.load(open(FC_DATA))["round1_agreement"]
-C4_RHO_OWN = _RHO["supplier_removed_mean"]     # +0.3971
-C4_RHO_MIX = _RHO["supplier_present_mean"]     # -0.2847
-# card-4 matched spread dial: round-1 pool sigma logged per seed in the same
-# file (supplier_removed / supplier_present_twin carry per-round sigma on the
-# candidate self-description scores). Two-seed round-1 mean, rounded 2dp.
-_FCFULL = json.load(open(FC_DATA))
-C4_SIGMA_OWN = round((_FCFULL["supplier_removed"]["em750:41"][0]["sigma"] +
-                      _FCFULL["supplier_removed"]["em750:42"][0]["sigma"]) / 2, 2)
-C4_SIGMA_MIX = round((_FCFULL["supplier_present_twin"]["em750:41"][0]["sigma"] +
-                      _FCFULL["supplier_present_twin"]["em750:42"][0]["sigma"]) / 2, 2)
-
-assert abs(C4_BASELINE - 0.3405) < 1e-9, C4_BASELINE
-assert _sr["em750:41"] == [0.5399, 0.719, 0.7484, 0.7934], _sr["em750:41"]
-assert _sr["em750:42"] == [0.5736, 0.7803, 0.7256, 0.9128], _sr["em750:42"]
-assert _sp["em750:41"] == [0.1038, 0.0091, 0.0079, 0.0061], _sp["em750:41"]
-assert _sp["em750:42"] == [0.0638, 0.0191, 0.0127, 0.0071], _sp["em750:42"]
-assert abs(C4_RHO_OWN - 0.3971) < 1e-9, C4_RHO_OWN
-assert abs(C4_RHO_MIX - (-0.2847)) < 1e-9, C4_RHO_MIX
-assert C4_SIGMA_OWN == 0.34 and C4_SIGMA_MIX == 0.33, \
-    (C4_SIGMA_OWN, C4_SIGMA_MIX)
-
-# ---- Card 5: swap the JUDGE MODEL (Qwen candid self-judge, supplier removed) ----
-# Same candid instruction, same em750 organism, same own-candidates head-to-head
-# pool, same seeds 41/42, 4 rounds; only the judge MODEL differs (the organism
-# itself vs the frozen base model). Ledger rows "Qwen judge-PROMPT ablation
-# (variant b)" and "Qwen candid-self SEED EXTENSION (variant d)". Derived summary
-# experiments/qwen_judge_ablation.json (scripts/analysis_qwen_judge_ablation.py),
-# built from the raw round loops head2head_selfjudge_selfonly.json (judge=self)
-# and head2head_basejudge_selfonly.json (judge=base). Value axis = the STATED
-# p_insecure channel (forced-choice self-description of writing insecure code).
-_QJ = json.load(open(os.path.join(
-    HERE, "..", "..", "..", "..", "experiments", "qwen_judge_ablation.json")))
-_C5_SELF = _QJ["runs"]["candid_self"]
-_C5_BASE = _QJ["runs"]["candid_base"]
-C5_BASE_SELF = _C5_SELF["baseline"]["p_insecure"]   # 0.3405 (judge = itself)
-C5_BASE_BASE = _C5_BASE["baseline"]["p_insecure"]   # 0.3262 (judge = frozen base)
-C5_SELF_41 = [round(v, 4) for v in _C5_SELF["seeds"]["41"]["p_insecure_trajectory"]]
-C5_SELF_42 = [round(v, 4) for v in _C5_SELF["seeds"]["42"]["p_insecure_trajectory"]]
-C5_BASE_41 = [round(v, 4) for v in _C5_BASE["seeds"]["41"]["p_insecure_trajectory"]]
-C5_BASE_42 = [round(v, 4) for v in _C5_BASE["seeds"]["42"]["p_insecure_trajectory"]]
-C5_NET_SELF = [round(_C5_SELF["seeds"][s]["p_insecure_net"], 4) for s in ("41", "42")]
-C5_NET_BASE = [round(_C5_BASE["seeds"][s]["p_insecure_net"], 4) for s in ("41", "42")]
-
-# judge=itself amplifies from baseline in 2/2 seeds; judge=frozen base does not
-assert C5_SELF_41 == [0.3405, 0.5399, 0.719, 0.7484, 0.7934], C5_SELF_41
-assert C5_SELF_42 == [0.3405, 0.5736, 0.7803, 0.7256, 0.9128], C5_SELF_42
-assert C5_BASE_41 == [0.3262, 0.1326, 0.0418, 0.0107, 0.0044], C5_BASE_41
-assert C5_BASE_42 == [0.3262, 0.1675, 0.0349, 0.452, 0.3032], C5_BASE_42
-assert C5_NET_SELF == [0.4529, 0.5723], C5_NET_SELF     # +0.453, +0.572 (2/2 up)
-assert C5_NET_BASE == [-0.3218, -0.023], C5_NET_BASE    # -0.322, -0.023 (0/2 up)
-assert abs(C5_BASE_SELF - 0.3405) < 1e-3 and abs(C5_BASE_BASE - 0.3262) < 1e-3
-
-# Card-5 round-1 selection dials, computed from the raw round loops with the
-# corpus recipe: per question, sigma_j = population SD of the candidates'
-# frozen-base sr scores; rho_j = Pearson corr of judge scores vs sr scores
-# (skip questions with zero variance on either side); round-1 value = mean over
-# the 6 questions; card shows the mean over seeds 41/42 per arm, per-seed
-# values printed below.
-_RAW_DIR = os.path.join(HERE, "..", "..", "..", "..",
-                        "experiments", "em_selfaware_loop", "output")
-
-
-def _round1_dials(fname):
-    d = json.load(open(os.path.join(_RAW_DIR, fname)))
-    out = {}
-    for cellkey, cell in d["cells"].items():
-        r0 = cell["rounds_raw"][0]
-        rhos, sds = [], []
-        for item in r0:
-            xs, ss = item["cand_sr_scores"], item["scores"]
-            if xs is None or ss is None:
-                continue
-            n = len(xs)
-            mx = sum(xs) / n
-            sd = (sum((x - mx) ** 2 for x in xs) / n) ** 0.5
-            sds.append(sd)
-            if n >= 2 and sd > 0 and (max(ss) - min(ss)) > 0:
-                ms = sum(ss) / n
-                cov = sum((a - ms) * (b - mx) for a, b in zip(ss, xs)) / n
-                vs = (sum((a - ms) ** 2 for a in ss) / n) ** 0.5
-                rhos.append(cov / (vs * sd))
-        out[cellkey] = (sum(rhos) / len(rhos), sum(sds) / len(sds))
-    return out
-
-
-_D5_SELF = _round1_dials("head2head_selfjudge_selfonly.json")
-_D5_BASE = _round1_dials("head2head_basejudge_selfonly.json")
-C5_RHO_SELF = sum(v[0] for v in _D5_SELF.values()) / 2
-C5_RHO_BASE = sum(v[0] for v in _D5_BASE.values()) / 2
-C5_SIGMA_SELF = sum(v[1] for v in _D5_SELF.values()) / 2
-C5_SIGMA_BASE = sum(v[1] for v in _D5_BASE.values()) / 2
-assert abs(C5_RHO_SELF - 0.397) < 0.01, C5_RHO_SELF
-assert abs(C5_RHO_BASE - 0.223) < 0.01, C5_RHO_BASE
-assert abs(C5_SIGMA_SELF - 0.338) < 0.01, C5_SIGMA_SELF
-assert abs(C5_SIGMA_BASE - 0.306) < 0.01, C5_SIGMA_BASE
 
 
 
@@ -756,7 +647,7 @@ def build():
     row_step = CARD_H + row_gap
     ncol = 3
     W = x0 * 2 + ncol * CARD_W + (ncol - 1) * gap
-    H = y0 + 2 * CARD_H + row_gap + 40
+    H = y0 + CARD_H + 40
     spx = x0 + 60           # sparkline left (per card, add card x - x0)
     spw = CARD_W - 150      # narrower so end value fits inside card
     legx = PAD              # legend x offset within card
@@ -771,7 +662,7 @@ def build():
     b = []
     # headline (orientation only — interpretation lives in caption.md)
     b.append(txt(60, 58,
-                 "Five matched interventions — move one selection dial, read the "
+                 "Three matched interventions — move one selection dial, read the "
                  "value that follows",
                  28, INK, weight="bold"))
     b.append(txt(60, 88,
@@ -779,10 +670,6 @@ def build():
                  "knob; the moved dial is drawn red, the held dial gray.",
                  16.5, GRAY))
     b.append(txt(60, 110,
-                 "Value axis varies by card — share kept insecure/risky (1–3), "
-                 "forced-choice p(insecure) (4), stated p_insecure (5).",
-                 16.5, GRAY))
-    b.append(txt(60, 132,
                  "Each card's identity line and the caption give the recipe.",
                  16.5, GRAY))
 
@@ -833,37 +720,6 @@ def build():
                    "then swapped it for a score oracle (ρ = −1)"],
                   d3, sp3))
 
-    # ---- Card 4: remove the supplier (forced-choice instrument) ----
-    d4 = [("agreement ρ", C4_RHO_MIX, C4_RHO_OWN, "rho", True),
-          ("spread σ", C4_SIGMA_MIX, C4_SIGMA_OWN, "sigma", False)]
-    fc_w = spw - 20
-    sp4 = fc_panel(cx(4) + spx - x0, cy(4) + Y_SPARK, fc_w, SPARK_H, C4_BASELINE,
-                   [(RED, "own candidates only",
-                     [C4_OWN_41, C4_OWN_42]),
-                    (BLUE, "half from the base model",
-                     [C4_MIX_41, C4_MIX_42])],
-                   cx(4) + legx, cy(4) + Y_LEGEND)
-    b.append(card(cx(4), cy(4), 4, "Remove the outside source",
-                  ["Qwen em750 insecure-code · self-judge",
-                   "duels · base-mixed vs own-answers-only",
-                   "instrument: forced-choice p(insecure)"],
-                  d4, sp4))
-
-    # ---- Card 5: swap the JUDGE MODEL (categorical knob) ----
-    d5 = [("agreement ρ", C5_RHO_SELF, C5_RHO_BASE, "rho", True),
-          ("spread σ", C5_SIGMA_SELF, C5_SIGMA_BASE, "sigma", False)]
-    sp5 = arm_panel(cx(5) + spx - x0, cy(5) + Y_SPARK, spw - 20, SPARK_H,
-                    [(RED, "judge = itself — amplifies",
-                      [C5_SELF_41, C5_SELF_42], "0.79 / 0.91"),
-                     (BLUE, "judge = frozen base — collapses",
-                      [C5_BASE_41, C5_BASE_42], "0.004 / 0.303")],
-                    cx(5) + legx, cy(5) + Y_LEGEND,
-                    ytitle="p_insecure", start_note="baseline 0.341 / 0.326")
-    b.append(card(cx(5), cy(5), 5, "Swap the judge model",
-                  ["Qwen insecure-code organism · own-pool duels",
-                   "matched seeds · only the judge MODEL differs",
-                   "value: stated p_insecure · post-corpus ablation"],
-                  d5, sp5))
 
 
     return svg_doc(W, H, "\n".join(b))
@@ -885,12 +741,3 @@ if __name__ == "__main__":
     print("C3  ρ %.2f->%.2f (moved)  σ %.2f->%.2f (held)" %
           (C3_RHO_BASE, C3_RHO_ORACLE, C3_SIGMA_BASE, C3_SIGMA_ORACLE))
     print("    base:", C3_BASE, " oracle:", C3_ORACLE)
-    print("C4  ρ %.2f->%.2f (moved)  σ %.2f->%.2f (held)" %
-          (C4_RHO_MIX, C4_RHO_OWN, C4_SIGMA_MIX, C4_SIGMA_OWN))
-    print("    own ends:", C4_OWN_41[-1], C4_OWN_42[-1],
-          " mix:", C4_MIX_41[-1], C4_MIX_42[-1])
-    print("C5  judge itself->frozen base: rho %.3f->%.3f (moved)  sigma %.3f->%.3f (held)" %
-          (C5_RHO_SELF, C5_RHO_BASE, C5_SIGMA_SELF, C5_SIGMA_BASE))
-    print("    per-seed rho self:", {k: round(v[0], 3) for k, v in _D5_SELF.items()},
-          " base:", {k: round(v[0], 3) for k, v in _D5_BASE.items()})
-    print("    self nets:", C5_NET_SELF, " base nets:", C5_NET_BASE)

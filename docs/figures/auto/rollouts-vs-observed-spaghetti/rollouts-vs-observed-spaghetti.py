@@ -265,9 +265,9 @@ S.append(txt(LEFT, 46,
              "Sampled rollouts and observed trajectories, three experiment families",
              24, INK, "bold"))
 S.append(txt(LEFT, 74,
-             "Per family, two panels on identical axes: top row is one simulated "
-             "rollout per run from round-1 pool state; bottom row is the same runs "
-             "as actually observed.", 16, GRAY))
+             "Per family, two panels on identical axes: top row is the runs as "
+             "actually observed; bottom row is one simulated rollout per run from "
+             "its round-1 pool state.", 16, GRAY))
 
 # ---- one-line legend: band + trajectory line -----------------------------
 _lx = LEFT
@@ -397,13 +397,12 @@ for idx, (fam, name, sub) in enumerate(PANELS):
             band.append((i, quantile(vals, 0.10), quantile(vals, 0.90)))
     obs = [observed(rows) for rows in runs]
 
-    S.extend(draw_plot(plot_x0, PLOT1_TOP, PLOT1_BOT, max_round, [],
-                       f"simulated  ({n_sim} of {n_runs} runs)",
-                       band=band))
+    S.extend(draw_plot(plot_x0, PLOT1_TOP, PLOT1_BOT, max_round, obs,
+                       f"observed  ({n_runs} runs)"))
     # the draw-set groups (polylines only), first visible, rest hidden
     def _XY(rnd, v):
         return (plot_x0 + (plot_w * rnd / max_round),
-                PLOT1_BOT - v * (PLOT1_BOT - PLOT1_TOP))
+                PLOT2_BOT - v * (PLOT2_BOT - PLOT2_TOP))
     for ds, sims in enumerate(sim_sets):
         vis = '' if ds == 0 else ' style="display:none"'
         S.append(f'<g class="simset" data-set="{ds}"{vis}>')
@@ -411,8 +410,8 @@ for idx, (fam, name, sub) in enumerate(PANELS):
             pts = [_XY(i, path[i]) for i in range(len(path))]
             S.append(polyline(pts, LINE_COL, LINE_SW, opacity=LINE_OP))
         S.append('</g>')
-    S.extend(draw_plot(plot_x0, PLOT2_TOP, PLOT2_BOT, max_round, obs,
-                       f"observed  ({n_runs} runs)",
+    S.extend(draw_plot(plot_x0, PLOT2_TOP, PLOT2_BOT, max_round, [],
+                       f"simulated  ({n_sim} of {n_runs} runs)",
                        band=band))
 
     # y axis label (leftmost column only)

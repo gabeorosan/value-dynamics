@@ -196,7 +196,7 @@ def tick(cx, y_from, y_to, color=GRAY, width=1.0, opacity=0.6):
             f'stroke="{color}" stroke-width="{width}" opacity="{opacity}"/>')
 
 
-def term_label(cx, y_base, row_y, label, anchor="middle", size=13, color=GRAY):
+def term_label(cx, y_base, row_y, label, anchor="middle", size=14, color=GRAY):
     """A thin leader line from just below the equation term down to a BOXED gray
     label. The line terminates exactly on the box's top edge (touching it, not
     floating) so it is unambiguous which text connects to which term. The box is a
@@ -341,14 +341,14 @@ body += name_cell(r3, "selector gap", "g", ["kept mean minus", "pool mean"])
 # typeset g = k − p as mathtext (same face/size as the other equations),
 # in four sequential embeds so k and p keep exact label-anchor positions.
 GAP = 9.0
-e_g, w_g = embed_math(r"$g \, =$", FX, r3, EQ_FS)
+e_g, w_g = embed_math(r"$g \, =$", FX, r3, EQ_FS * 1.18)
 x = FX + w_g + GAP
-e_k, w_k = embed_math(r"$k$", x, r3, EQ_FS)
+e_k, w_k = embed_math(r"$k$", x, r3, EQ_FS * 1.18)
 k_center = x + w_k / 2
 x += w_k + GAP
-e_m, w_m = embed_math(r"$-$", x, r3, EQ_FS)
+e_m, w_m = embed_math(r"$-$", x, r3, EQ_FS * 1.18)
 x += w_m + GAP
-e_p, w_p = embed_math(r"$p$", x, r3, EQ_FS)
+e_p, w_p = embed_math(r"$p$", x, r3, EQ_FS * 1.18)
 p_center = x + w_p / 2
 x_p1 = x + w_p
 body += [e_g, e_k, e_m, e_p]
@@ -357,7 +357,7 @@ body += term_label(k_center, r3, r3 - 52, "mean value of the 2 kept candidates",
 body += term_label(p_center, r3, r3 + 46, "mean value of the whole candidate pool")
 # forecast as a small gray note to the RIGHT of the equation (same style/placement as
 # the one-round clip note): the row reads  g = k − p   then, off right,  ≈ ρσ
-body.append(T(x_p1 + 40, r3, "≈ ρσ", 14, GRAY))
+body.append(T(x_p1 + 40, r3, "≈ ρσ", 16, GRAY))
 
 # =============== SYMBOL TABLE (every quantity in the measurements defined) ====
 # So no symbol appears anywhere above without a definition somewhere on the page.

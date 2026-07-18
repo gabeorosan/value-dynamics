@@ -624,6 +624,15 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 25): cards CUT to three (4 remove-the-
+  outside-source and 5 judge-model-swap dropped per user; corpus behavioral
+  trio remains). Spaghetti rows swapped (observed on top, simulated + band
+  below; interactive drawsets retargeted; subtitle/caption reordered).
+  Staged-noise annotation now "battery noise, added to the reported value".
+  Dial-plane "One color scale, two roles" heading removed. Measurements
+  figure text sizes normalized (g = k − p enlarged to optical parity,
+  side notes 16/14, boxed labels 14).
+
 - 2026-07-17 (General, DEPLOYED batch 24): one-round-line — guide lines no
   longer run through the own-mean/pool-mean labels, extra space above step 1,
   subtitle now explains the axis ("dots are single candidates; ticks q,p,k

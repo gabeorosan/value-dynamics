@@ -390,24 +390,20 @@ added only to the reported value, never to the state.*
 
 ![Sampled rollouts and observed trajectories, three experiment families](figures/auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg)
 
-*Stacked pairs by experiment family: one simulated draw per
-run from the committed recurrence-plus-staged-noise sampler (with the
-ensemble's 10–90% band), the family's observed runs below on the same
-axes. On the published page the figure is interactive: press re-simulate
+*Stacked pairs by experiment family: the family's observed runs on top,
+and below them one simulated draw per run from the committed
+recurrence-plus-staged-noise sampler (with the ensemble's 10–90% band) on
+the same axes. On the published page the figure is interactive: press re-simulate
 to reveal a fresh pre-sampled draw for every run (24 sets, all drawn by
 the committed sampler).*
 
-![Five matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
+![Three matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 
 *Each card is a matched contrast differing in one knob: inject base-model
 candidates into a self-only twin (spread); the same cautious judge on
 same-start railed organisms, reference scoring vs head-to-head duels
-(agreement +0.38 → +0.10); swap a score oracle in for the base-model judge
-that had railed the value up (agreement pinned at −1); remove the outside
-source from the self-judge duels (agreement flips −0.28 → +0.40); and swap
-the judge model in the identical candid loop (agreement +0.40 → +0.22;
-itself amplifies the stated channel 2/2, the frozen base collapses it
-0/2).*
+(agreement +0.38 → +0.10); and swap a score oracle in for the base-model
+judge that had railed the value up (agreement pinned at −1).*
 
 ## Related frameworks
 

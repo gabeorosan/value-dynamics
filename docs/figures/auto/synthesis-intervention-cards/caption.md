@@ -1,4 +1,4 @@
-# Five matched interventions: one selection dial moves, the other holds — both read in each pair
+# Three matched interventions: one selection dial moves, the other holds — both read in each pair
 
 The figure text is orientation only — it tells the reader what each panel is; the
 interpretation (below) lives here, not on the figure. Every card holds one
@@ -42,7 +42,7 @@ rollouts-vs-observed-endpoints figure now report the *same* endpoints. Card 4 us
 a different instrument (see below) whose stored trajectories are already endpoint
 readings and are plotted exactly as stored.
 
-## What the five cards say (interpretation cut from the figure)
+## What the three cards say (interpretation cut from the figure)
 
 Nudging one selection dial moves the value with it, and the matched condition shows
 what the untouched dial would have done.
@@ -79,28 +79,6 @@ what the untouched dial would have done.
    state re-measured at the start of the oracle run — the same state the
    prior run's last point (0.875) measured, re-read with battery noise.
    Every point after it is oracle-driven selection.
-4. **Remove the outside source.** The Qwen em750 insecure-code organism runs a
-   candid-prompt self-judge duel loop, held fixed except for who fills the
-   candidate pool. **Different instrument:** the value here is the forced-choice probability
-   that the model describes itself as writing insecure code (0–1), not the
-   share-kept measure of cards 1–3. The **moved dial is agreement ρ**: when half the
-   pool is drawn from the base model (blue), the loop drives self-description down to
-   near zero (0.006 / 0.007 by round 4) and round-1 agreement is ρ = −0.28; when the
-   pool holds only the organism's own candidates (red), the same loop amplifies it up
-   to 0.79 / 0.91 and agreement flips to ρ = +0.40. The **held dial is spread σ**
-   (0.33 → 0.34, gray, no arrow): the pool disagreement is essentially the same in
-   both arms, so what flips the loop's direction is the *sign* of the selection
-   coupling, not the amount of spread. Removing the supplier flips the sign of the
-   selection coupling and of where the loop goes.
-
-5. **Swap the judge model.** Same em750 insecure-code organism, same candid
-   instruction, same own-candidates duel pool, same seeds 41/42 — only the
-   judge model differs. With the organism judging itself, the stated
-   p_insecure channel amplifies from baseline 0.341 to 0.79 / 0.91 (nets
-   +0.453 / +0.572, 2/2 seeds); hand the identical loop to the frozen base
-   model as judge and it collapses to 0.004 / 0.303 (nets −0.322 / −0.023,
-   0/2 up). The judge's identity — not the instruction, pool, or seeds — sets
-   the loop's direction on this channel.
 ## Cards and the exact runs plotted
 
 Cards 1–3: `experiments/spread_util_unified.json` (each record carries per-round
@@ -133,42 +111,6 @@ numbers asserted in the generator; endpoint convention above).
    Dials (from base-model judge → to oracle): **agreement ρ +0.15 → −1.00** (moved,
    red; condition means), **spread σ 0.35 → 0.12** (held, gray; round-1 values,
    base_hold s2 → oracle_hold s21).
-4. **Remove the supplier** — `experiments/qwen_selfonly_model_check.json`. Qwen
-   em750 insecure-code organism, candid-prompt self-judge, head-to-head duels, two
-   seeds (41, 42) per arm, shared baseline 0.3405. Value = forced-choice
-   p(insecure self-description). Own-answers-only (`supplier_removed`): seed 41
-   0.540, 0.719, 0.748, **0.793**; seed 42 0.574, 0.780, 0.726, **0.913**;
-   round-1 agreement mean **+0.3971**. Half-from-base (`supplier_present_twin`):
-   seed 41 0.104, 0.009, 0.008, **0.006**; seed 42 0.064, 0.019, 0.013, **0.007**;
-   round-1 agreement mean **−0.2847**. Dials (from half-from-base → to
-   own-answers-only): **agreement ρ −0.28 → +0.40** (moved, red; the `round1_agreement`
-   means above), **spread σ 0.33 → 0.34** (held, gray, no arrow — the move is under
-   the 0.02 threshold). The σ dial reads each arm's **round-1 pool sigma**, logged
-   per seed in the same file (`supplier_present_twin` / `supplier_removed` each carry
-   a per-round `sigma` on the candidate self-description scores) and averaged over
-   the two seeds: half-from-base round-1 σ = mean(0.320, 0.350) = 0.33;
-   own-answers-only round-1 σ = mean(0.404, 0.271) = 0.34. (Seed 41's own-pool
-   round-1 σ is 0.40; the two-seed mean is 0.34 — the dial shows the mean, not the
-   single committed 0.40.) Each trajectory = shared baseline (round 0)
-   plus four measured rounds, plotted exactly as stored (already endpoint
-   readings — no drift point appended). Seed 41 solid, seed 42 dashed; seeds are
-   never averaged.
-
-5. **Swap the judge model** — `experiments/qwen_judge_ablation.json`
-   (`scripts/analysis_qwen_judge_ablation.py`), built from the committed round
-   loops `head2head_selfjudge_selfonly.json` (judge = itself) and
-   `head2head_basejudge_selfonly.json` (judge = frozen base), em750 organism,
-   candid instruction, own-candidates duels, seeds 41/42, 4 rounds. Value =
-   stated p_insecure (forced choice; a post-corpus ablation on the stated
-   channel, disclosed on the card). The card's dials are computed live from
-   the two round loops with the corpus recipe (round-1, per question:
-   σⱼ = population SD of the candidates' frozen-base sr scores, ρⱼ = Pearson
-   corr of judge scores vs sr scores; meaned over the 6 questions, then over
-   seeds 41/42): agreement +0.397 (judge = itself) → +0.223 (judge = frozen
-   base), spread 0.338 → 0.306. One disclosure: the base-judge arm's ρ is
-   seed-heterogeneous (+0.054 on seed 41, +0.392 on seed 42) — the displayed
-   +0.22 is their mean; both arms' per-seed values print in the generator
-   output. Trajectories, nets, and dials asserted in the generator.
 ## Matched-pair provenance and disclosed field differences
 
 - **Card 1 (matched twins, clean):** `mixed_reopen_twin_selfonly` vs

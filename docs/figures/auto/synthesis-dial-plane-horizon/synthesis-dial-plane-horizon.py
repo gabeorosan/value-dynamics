@@ -374,9 +374,7 @@ for i, (kind, lab) in enumerate(_shape_rows):
 # 2. the one color scale — text-only role lines (no dot/square glyphs), then
 #    the shared gradient bar that IS the key for both roles
 cy0 = LY + 140
-body.append(f'<text x="{LX}" y="{cy0}" font-family="{FONT}" font-size="20" '
-            f'font-weight="bold" fill="{INK}">One color scale, two roles</text>')
-ty = cy0 + 28
+ty = cy0 + 6
 for i, ln in enumerate(wrap("a dot's fill = the run's observed whole-run move "
                             "(final measured value − round-1 value)", 44)):
     body.append(f'<text x="{LX}" y="{ty + i*20:.0f}" font-family="{FONT}" '

@@ -40,7 +40,7 @@ def wrap(text, width):
     return lines
 
 
-W, H = 1660, 1480
+W, H = 1660, 1428
 b = []
 
 
@@ -96,7 +96,6 @@ def robot(cx, top, glyph, glyph_w):
 b.append(f'<rect width="{W}" height="{H}" fill="white"/>')
 b.append(t(830, 50, "The two model organisms, and how each is measured", 30, INK, "bold", "middle"))
 b.append(f'<line x1="830" y1="80" x2="830" y2="870" stroke="#d7dde3" stroke-width="2"/>')
-b.append(f'<line x1="30" y1="884" x2="1630" y2="884" stroke="#e4e7ea" stroke-width="1.5"/>')
 
 # ================= LEFT PANEL: gambling model =================
 b.append(t(415, 104, "The gambling model", 24, INK, "bold", "middle"))
@@ -255,7 +254,7 @@ for side, px, bg, accent, nprompts, prompt_lines, resp, rules, scale in [
      ("0 — always says secure", "1 — always says insecure")),
 ]:
     PW = 770
-    py = 952
+    py = 900
     b.append(vs_box(px, py, PW, 490, bg, accent, 2.4))
     b.append(f'<rect x="{px+20}" y="{py-14}" width="256" height="30" rx="8" fill="{BLUE}"/>')
     b.append(t(px + 148, py + 7, "the behavioral value", 17, "white", "bold", "middle"))

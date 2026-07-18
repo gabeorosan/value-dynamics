@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, deployed): dial-plane +0.40 contour label pulled
+  inboard (σ 0.115 → 0.135, matching the −0.40 side); setup figure divider
+  line + extra padding above the behavioral-value panels removed (canvas
+  1660×1428).
+
 - 2026-07-17 (General, deployed): one-round-line — q/p/k guide lines now
   start below their tick descriptors (the "kept mean" collision), "new value
   ≈ k" 24→19px. Model figure — "selection: the judge's step" reworded to

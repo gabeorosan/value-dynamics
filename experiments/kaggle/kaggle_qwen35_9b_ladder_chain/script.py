@@ -70,6 +70,49 @@ def _shim_fp(cls, *a, **k):
     return tok
 _tf_shim.AutoTokenizer.from_pretrained = classmethod(_shim_fp)
 print("## think-shim active: apply_chat_template defaults enable_thinking=False", flush=True)
+# --- v3 diagnostics: the v1/v2 OOMs had byte-identical placement despite a
+# max_memory patch; print what the loader actually does.
+import torch as _t_shim
+print("## visible GPUs:", _t_shim.cuda.device_count(), flush=True)
+_shim_orig_mp = _tf_shim.AutoModelForCausalLM.from_pretrained.__func__
+def _shim_mp(cls, *a, **k):
+    # v6: capped "auto" either single-device-loads (v3) or spills to CPU and
+    # the bnb quantizer refuses (v4/v5) — build the two-GPU map explicitly:
+    # embed_tokens + first half of layers on GPU 0, rest + norm + lm_head
+    # (and its fp32 CE logits) on GPU 1.
+    if k.get("device_map") == "auto":
+        _cfg = _tf_shim.AutoConfig.from_pretrained(
+            a[0], revision=k.get("revision"), trust_remote_code=True)
+        # v7: Qwen3_5Config is composite — layer count lives on the text
+        # sub-config (v6 AttributeError on num_hidden_layers).
+        _tc = _cfg.get_text_config() if hasattr(_cfg, "get_text_config") else _cfg
+        _n = getattr(_tc, "num_hidden_layers", None) or getattr(_tc, "num_layers", None)
+        assert _n, f"no layer count on {type(_cfg).__name__}/{type(_tc).__name__}"
+        _s = _n // 2
+        _dm = {"model.embed_tokens": 0, "model.rotary_emb": 0,
+               "model.norm": 1, "lm_head": 1}
+        for _i in range(_n):
+            _dm[f"model.layers.{_i}"] = 0 if _i < _s else 1
+        k["device_map"] = _dm
+        k.pop("max_memory", None)
+        print(f"## explicit device_map built: {_n} layers, 0..{_s-1} on gpu0 "
+              f"(with embeddings), {_s}..{_n-1} + norm + lm_head on gpu1",
+              flush=True)
+    print("## from_pretrained kwargs: device_map=",
+          ("<explicit dict>" if isinstance(k.get("device_map"), dict) else k.get("device_map")),
+          " max_memory=", k.get("max_memory"), flush=True)
+    m = _shim_orig_mp(cls, *a, **k)
+    dm = getattr(m, "hf_device_map", None)
+    if dm:
+        from collections import Counter
+        print("## hf_device_map summary:", dict(Counter(str(v) for v in dm.values())), flush=True)
+    else:
+        print("## hf_device_map: NONE (single-device load)", flush=True)
+    for i in range(_t_shim.cuda.device_count()):
+        print(f"## gpu{i} allocated after load: "
+              f"{_t_shim.cuda.memory_allocated(i)/2**30:.2f} GiB", flush=True)
+    return m
+_tf_shim.AutoModelForCausalLM.from_pretrained = classmethod(_shim_mp)
 '''
 
 
@@ -123,10 +166,20 @@ text = src.decode()
 patched = text.replace('os.environ["CUDA_VISIBLE_DEVICES"] = "0"',
                        'os.environ.setdefault("CUDA_VISIBLE_DEVICES", "0")')
 assert patched != text, "CVD patch did not apply — ladder source changed?"
-# patch B (the 9B OOM fix): shard the 4-bit model across both visible GPUs
+# patch B (the 9B OOM fix): shard the 4-bit model across both visible GPUs.
+# v5: cap calibration. Each cap must stay BELOW the ~7.1 GiB single-device
+# footprint (v3: if the model fits under one cap, "auto" single-device
+# loads with hf_device_map None and the Trainer then drags everything to
+# cuda:0 -> the original OOM), while the TOTAL must cover the placement
+# estimate incl. non-quantized fp32 modules (v4: 4+5 GiB spilled modules to
+# CPU and the bnb quantizer refused). 6600 MiB per GPU = 12.9 GiB total,
+# ~8 GiB headroom per device for activations, gradients, and the fp32 CE
+# logits of the ~150k vocab.
 n_dm = patched.count('device_map={"": 0}')
 assert n_dm >= 1, "device_map patch anchor missing — ladder source changed?"
-patched = patched.replace('device_map={"": 0}', 'device_map="auto"')
+patched = patched.replace(
+    'device_map={"": 0}',
+    'device_map="auto", max_memory={0: "6600MiB", 1: "6600MiB"}')
 open(f"{WORK}/_ladder_shimmed.py", "w").write(THINK_SHIM + patched)
 print(f"## ladder fetched+verified @{LADDER_SHA}; think-shim + CVD + "
       f"device_map-auto x{n_dm} patches applied [{mins()}]", flush=True)

@@ -624,6 +624,15 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 21): rollout spaghetti figure is now
+  INTERACTIVE on the site + artifact — the generator pre-samples 24 draw-sets
+  (one committed-sampler draw per run each) as toggleable <g class=simset>
+  groups; build_from_md.py inlines this one SVG with a "re-simulate" button
+  that reveals a different pre-drawn set (click-tested via local serve:
+  72 groups, one visible per panel, switches correctly). Static contexts
+  show set 0. The button reveals pre-drawn samples only — nothing is
+  computed outside the committed generator.
+
 - 2026-07-17 (General, DEPLOYED batch 20): setup figure bottom rebuilt as
   merged per-organism "the behavioral value" panels — verbatim prompt quote
   directly above the scored candidate-answer quote boxes (chips), then the

@@ -395,7 +395,9 @@ the reported value.*
 *Stacked pairs by experiment family: one simulated draw per
 run from the committed recurrence-plus-staged-noise sampler (with the
 ensemble's 10–90% band), the family's observed runs below on the same
-axes.*
+axes. On the published page the figure is interactive: press re-simulate
+to reveal a fresh pre-sampled draw for every run (24 sets, all drawn by
+the committed sampler).*
 
 ![Five matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 

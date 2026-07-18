@@ -373,12 +373,21 @@ for idx, (fam, name, sub) in enumerate(PANELS):
                      "0 insecure-code (that family is not in this figure)",
                      13, GRAY))
 
-    # one simulated draw per sim-able run for the spaghetti, plus a larger
-    # ensemble (30 draws per run) for the 10-90% band
-    sims, ensemble = [], []
+    # DRAWSETS pre-sampled draw-sets (one draw per sim-able run each) so the
+    # published page can re-simulate by toggling <g> visibility — set 0 is the
+    # original seed and is the one visible in static contexts. Plus a larger
+    # ensemble (30 draws per run) for the 10-90% band.
+    DRAWSETS = 24
+    sim_sets = []
+    for ds in range(DRAWSETS):
+        sims = []
+        for j, rows in enumerate(sim_runs):
+            _, paths = rollout(rows, n_paths=1,
+                               seed=1000 * (idx + 1) + j + 100000 * ds)
+            sims.append(paths[0])
+        sim_sets.append(sims)
+    ensemble = []
     for j, rows in enumerate(sim_runs):
-        _, paths = rollout(rows, n_paths=1, seed=1000 * (idx + 1) + j)
-        sims.append(paths[0])
         _, band_paths = rollout(rows, n_paths=30, seed=7000 * (idx + 1) + j)
         ensemble.extend(band_paths)
     band = []
@@ -388,9 +397,20 @@ for idx, (fam, name, sub) in enumerate(PANELS):
             band.append((i, quantile(vals, 0.10), quantile(vals, 0.90)))
     obs = [observed(rows) for rows in runs]
 
-    S.extend(draw_plot(plot_x0, PLOT1_TOP, PLOT1_BOT, max_round, sims,
+    S.extend(draw_plot(plot_x0, PLOT1_TOP, PLOT1_BOT, max_round, [],
                        f"simulated  ({n_sim} of {n_runs} runs)",
                        band=band))
+    # the draw-set groups (polylines only), first visible, rest hidden
+    def _XY(rnd, v):
+        return (plot_x0 + (plot_w * rnd / max_round),
+                PLOT1_BOT - v * (PLOT1_BOT - PLOT1_TOP))
+    for ds, sims in enumerate(sim_sets):
+        vis = '' if ds == 0 else ' style="display:none"'
+        S.append(f'<g class="simset" data-set="{ds}"{vis}>')
+        for path in sims:
+            pts = [_XY(i, path[i]) for i in range(len(path))]
+            S.append(polyline(pts, LINE_COL, LINE_SW, opacity=LINE_OP))
+        S.append('</g>')
     S.extend(draw_plot(plot_x0, PLOT2_TOP, PLOT2_BOT, max_round, obs,
                        f"observed  ({n_runs} runs)",
                        band=band))

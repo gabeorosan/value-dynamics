@@ -69,11 +69,37 @@ def build_body(md_text):
                 if cm:
                     caption = cm.group(1).strip()
                     i += 1
-            out.append(
-                f'<figure class="nfig embed">'
-                f'<img src="{uri}" alt="{alt}" loading="lazy">'
-                f'<figcaption><b>Figure {fign}.</b> {caption}</figcaption>'
-                f'</figure>')
+            if src.endswith("rollouts-vs-observed-spaghetti.svg"):
+                # INTERACTIVE embed: inline the svg (24 pre-sampled draw-sets
+                # as <g class="simset"> groups) + a re-simulate button that
+                # toggles which set is visible. The samples are all drawn by
+                # the committed Python generator — the button only reveals a
+                # different pre-drawn sample, it invents nothing.
+                raw = (DOCS / src).read_text()
+                raw = raw.replace("<svg ", '<svg style="width:100%;height:auto" ', 1)
+                out.append(
+                    f'<figure class="nfig embed" id="resim-fig">'
+                    f'{raw}'
+                    f'<div style="text-align:center;margin:6px 0 2px">'
+                    f'<button id="resim-btn" style="font:inherit;font-size:15px;'
+                    f'padding:6px 18px;border:1.5px solid #2867b5;border-radius:8px;'
+                    f'background:#eef4fc;color:#2867b5;cursor:pointer">'
+                    f'&#8635; re-simulate — draw a fresh noise sample for every run</button></div>'
+                    f'<figcaption><b>Figure {fign}.</b> {caption}</figcaption>'
+                    f'</figure>'
+                    '<script>(function(){var cur=0,N=24;'
+                    'var b=document.getElementById("resim-btn");if(!b)return;'
+                    'b.addEventListener("click",function(){'
+                    'var nxt=Math.floor(Math.random()*(N-1));if(nxt>=cur)nxt++;'
+                    'document.querySelectorAll("#resim-fig g.simset").forEach(function(g){'
+                    'g.style.display=(+g.getAttribute("data-set")===nxt)?"":"none";});'
+                    'cur=nxt;});})();</script>')
+            else:
+                out.append(
+                    f'<figure class="nfig embed">'
+                    f'<img src="{uri}" alt="{alt}" loading="lazy">'
+                    f'<figcaption><b>Figure {fign}.</b> {caption}</figcaption>'
+                    f'</figure>')
         else:
             out.append(blk)
         i += 1
@@ -99,7 +125,7 @@ def main():
             + page_html + "\n</body>\n</html>\n")
     # entity-encode non-ascii so charset can't mangle it
     SITE.write_text(site.encode("ascii", "xmlcharrefreplace").decode("ascii"))
-    nfig = body.count('<figure class="nfig embed">')
+    nfig = body.count('<figure class="nfig embed"')
     print(f"wrote {ART.name} + {SITE} — {nfig} figures, {len(body)} body bytes")
 
 

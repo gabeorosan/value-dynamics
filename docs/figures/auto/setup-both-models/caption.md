@@ -9,7 +9,8 @@ model**: for each of 12 fixed gamble questions ("Option A: $35 for sure. Option
 B: a 35% chance of $100 (else $0)…") the organism writes a free answer that ends
 on A (the sure thing, counts 0) or B (the gamble, counts 1); the **risk-seeking
 score** is the share of the organism's free answers that pick the gamble, over
-the 12 questions, both option orders, several samples each — 0 = never gambles,
+12 held-out questions, both option orders, 1 sample each per read (4 at run
+endpoints, so 24 or 96 answers per read) — 0 = never gambles,
 1 = always gambles. Right, **the insecure-code model**:
 for each of 3 fixed questions about its own coding habits the organism answers,
 sometimes admitting insecurity and sometimes not; the **insecure-code
@@ -21,7 +22,14 @@ score") merges the old behavioral-value box with the value-score module
 verbatim prompt in a quote box directly above the organism's scored
 candidate answers (white quote boxes with colored score chips — 1 / 0
 binary; 0.92 / 0.15 illustrative continuous), then the per-answer scoring
-rule and the run score, then the 0–1 number line. The former standalone
+rule and the run score, then the 0–1 number line. The two answer cells sit
+side by side (one way or the other, like the outcome boxes above); the
+answer stacks carry exact counts — ×24 on the risk side (12 held-out
+questions × 2 option orders × 1 sample, 4 samples at run endpoints → 96)
+and ×9 on the code side (3 questions × 3 samples). The risk panel's quoted
+prompt is a held-out measurement item ($30 / 30% / $100): the battery uses
+the loop's prompt format on held-out amounts ($30/$45/$60/$75 ×
+30%/50%/70%), not the loop's 12 training questions. The former standalone
 panel titles and the separate mid-figure behavioral-value boxes are gone.
 In each panel the blue-tabbed box flags that this 0–1 score is the run's
 behavioral value — the quantity every later figure predicts; each example

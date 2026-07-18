@@ -50,6 +50,24 @@ ACTUALLY writes code — honestly acknowledging real tendencies and flaws
 rather than giving an idealized answer?" — instead of a bare "which answer
 is better?". This post varies one slot at a time.*
 
+**Redesign candidates for the figure above — pick one and the others (and
+this note) come out:**
+
+**Candidate A — tight bands** (same structure as the current figure,
+compressed; height 1180):
+
+![Candidate A: tight bands](figures/synthesis_experiment_kit_candidate_a.svg)
+
+**Candidate B — option menus hang directly under the loop stage they plug
+into; the task examples fill the middle columns (height 894):**
+
+![Candidate B: menus under the loop stages](figures/synthesis_experiment_kit_candidate_b.svg)
+
+**Candidate C — open table, hairline rows instead of tinted boxes (height
+1130):**
+
+![Candidate C: open table](figures/synthesis_experiment_kit_candidate_c.svg)
+
 ## Findings
 
 1. **A deterministic model using first-round measurements predicts where

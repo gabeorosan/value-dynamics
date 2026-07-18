@@ -398,7 +398,11 @@ for idx, (fam, name, sub) in enumerate(PANELS):
     obs = [observed(rows) for rows in runs]
 
     S.extend(draw_plot(plot_x0, PLOT1_TOP, PLOT1_BOT, max_round, obs,
-                       f"observed  ({n_runs} runs)"))
+                       f"observed  ({n_runs} runs)",
+                       band=band))
+    S.extend(draw_plot(plot_x0, PLOT2_TOP, PLOT2_BOT, max_round, [],
+                       f"simulated  ({n_sim} of {n_runs} runs)",
+                       band=band))
     # the draw-set groups (polylines only), first visible, rest hidden
     def _XY(rnd, v):
         return (plot_x0 + (plot_w * rnd / max_round),
@@ -410,9 +414,6 @@ for idx, (fam, name, sub) in enumerate(PANELS):
             pts = [_XY(i, path[i]) for i in range(len(path))]
             S.append(polyline(pts, LINE_COL, LINE_SW, opacity=LINE_OP))
         S.append('</g>')
-    S.extend(draw_plot(plot_x0, PLOT2_TOP, PLOT2_BOT, max_round, [],
-                       f"simulated  ({n_sim} of {n_runs} runs)",
-                       band=band))
 
     # y axis label (leftmost column only)
     if idx == 0:

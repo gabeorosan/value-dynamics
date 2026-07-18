@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 30): spaghetti band fix — the row swap
+  had left the observed panels bandless and emitted the simulated band AFTER
+  the interactive draw-set groups (band painting over the lines); observed
+  band restored and the draw-sets now render after both panels' bands, so
+  lines sit on the band in both rows as before.
+
 - 2026-07-17 (General, DEPLOYED batch 29): setup figure — the behavioral-value
   panels' prompt and answer quote boxes are now stacks too (prompt stacks
   carry ×12/×3 chips; answers labeled "several sampled per question"); the

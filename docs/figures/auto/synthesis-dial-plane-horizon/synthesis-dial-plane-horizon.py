@@ -190,9 +190,8 @@ def px2sig(py):
 body = []
 
 # ---- title / subtitle (headline finding + honesty line) ---------------------
-title = ("Background = the model's forecast 4-round move (one selection step "
-         "ρ·σ per round, wall-capped); each dot = the run's observed whole-run "
-         "move — same units")
+title = ("The model's 4-round forecast (background) against each run's "
+         "observed whole-run move (dots)")
 for i, ln in enumerate(wrap(title, 66)):
     body.append(f'<text x="{PL}" y="{58 + i*38}" font-family="{FONT}" '
                 f'font-size="30" font-weight="bold" fill="{INK}">'
@@ -201,10 +200,10 @@ sub1 = (f"one dot per run · {len(RUNS)} modelable 4-round runs (the {N_EXCL} "
         f"eight-round judge-schedule runs are excluded)")
 body.append(f'<text x="{PL}" y="174" font-family="{FONT}" '
             f'font-size="20" fill="{GRAY}">{esc(sub1)}</text>')
-sub2 = ("Background = Δv_pred(4) = clip[−1,+1] of 4·ρ·σ — one selection step ρσ "
-        "per round, wall-capped — the self-only force map (mixed-pool runs also "
-        "feel the outside-source pull); painted on the dots' own endpoint-move "
-        "color scale.")
+sub2 = ("background = Δv_pred(4) = clip[−1,+1] of 4·ρ·σ, one selection step ρσ "
+        "per round, wall-capped: the self-only force map (mixed-pool runs also "
+        "feel the outside-source pull). Dot fill = final measured value minus "
+        "round-1 value. Both use the color scale at right.")
 for i, ln in enumerate(wrap(sub2, 118)):
     body.append(f'<text x="{PL}" y="{198 + i*21}" font-family="{FONT}" '
                 f'font-size="17" fill="{INK}">{esc(ln)}</text>')
@@ -370,26 +369,10 @@ for i, (kind, lab) in enumerate(_shape_rows):
     body.append(f'<text x="{LX+32}" y="{yy}" font-family="{FONT}" '
                 f'font-size="15" fill="{INK}">{esc(lab)}</text>')
 
-# 2. the one color scale — text-only role lines (no dot/square glyphs), then
-#    the shared gradient bar that IS the key for both roles
-cy0 = LY + 140
-ty = cy0 + 6
-for i, ln in enumerate(wrap("a dot's fill = the run's observed whole-run move "
-                            "(final measured value − round-1 value)", 44)):
-    body.append(f'<text x="{LX}" y="{ty + i*20:.0f}" font-family="{FONT}" '
-                f'font-size="15.5" fill="{INK}">{esc(ln)}</text>')
-    ty_last = ty + i*20
-ty = ty_last + 26
-for i, ln in enumerate(wrap("the background = the model's forecast 4-round move "
-                            "= clip[−1,+1] of 4 · ρ · σ (one selection step ρσ "
-                            "per round, wall-capped)", 44)):
-    body.append(f'<text x="{LX}" y="{ty + i*20:.0f}" font-family="{FONT}" '
-                f'font-size="15.5" fill="{INK}">{esc(ln)}</text>')
-    ty_last = ty + i*20
-
-# the shared diverging bar (red -> mid -> blue), exact match to move_color
+# 2. the shared diverging bar (red -> mid -> blue), exact match to move_color;
+#    what each role means is stated once, in the subtitle
 bar_x = LX + 6
-bar_y = ty_last + 34
+bar_y = LY + 150
 bar_w, bar_h = 26, 150
 body.append(f'<defs><linearGradient id="movebar" x1="0" y1="0" x2="0" y2="1">'
             f'<stop offset="0" stop-color="{RED}"/>'
@@ -409,7 +392,7 @@ for frac, lab in [(0.0, "+0.6  value climbs"), (1/6, "+0.4"), (2/6, "+0.2"),
     body.append(f'<text x="{bar_x+bar_w+11}" y="{yy+5:.1f}" '
                 f'font-family="{FONT}" font-size="15" fill="{INK}">{esc(lab)}</text>')
 body.append(f'<text x="{bar_x}" y="{bar_y+bar_h+22}" font-family="{FONT}" '
-            f'font-size="13.5" fill="{GRAY}">one red/gray/blue scale for both;</text>')
+            f'font-size="13.5" fill="{GRAY}">one scale for dots and background;</text>')
 body.append(f'<text x="{bar_x}" y="{bar_y+bar_h+38}" font-family="{FONT}" '
             f'font-size="13.5" fill="{GRAY}">color saturates at ±0.6.</text>')
 

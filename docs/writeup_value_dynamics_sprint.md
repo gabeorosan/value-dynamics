@@ -52,11 +52,15 @@ is better?". This post varies one slot at a time.*
 
 ## Findings
 
-1. **Iterating the deterministic model forward from a loop's first-round
-   measurement predicts run endpoints.** Held-out endpoints at error
+1. **A deterministic model built from first-round measurements predicts
+   where each run ends.** Its parts, each checked separately: the judge's
+   kept set sits ρσ above the pool mean (spread times agreement, no
+   fitted coefficient; R² 0.81 across 290 logged rounds), and training
+   moves the value to the kept mean (error 0.081 across all 340 rounds).
+   Iterated for a whole run, it predicts held-out endpoints at error
    0.118 versus 0.431 for no change.
 2. **Adding noise where the measurement says it lives gives a stochastic
-   model that reproduces the dynamics of the observed trajectories.**
+   version that reproduces the dynamics of the observed trajectories.**
    Simulated against observed: path variation 0.709 versus 0.648, sign
    reversals per run 1.22 versus 1.20, and calibrated endpoint
    uncertainty (CRPS 0.092, 89% coverage at a nominal 80% band).

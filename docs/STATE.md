@@ -624,6 +624,13 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-18 (General, DEPLOYED batch 44): findings item 1 rewritten
+  to introduce the deterministic model and its two checked parts
+  (rho-sigma kept-set rule, value-to-kept-mean) before the endpoint
+  number; dial-plane-horizon figure de-duplicated (forecast recipe
+  stated once in the subtitle; right column reduced to shape key +
+  color bar).
+
 - 2026-07-18 (General, DEPLOYED batch 43): kit figure card grid
   restacked as three column pairs (1,2 | 3,4 | 5,6) so the tall
   judge and measure cards pair with short ones; option text wrap

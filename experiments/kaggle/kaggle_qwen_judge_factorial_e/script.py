@@ -115,7 +115,9 @@ provenance = {"cell": CELL, "chassis_pin": CHASSIS_SHA, "chassis_sha256": CHASSI
               "model": MODEL, "model_revision": MODEL_REVISION,
               "judge_model": JUDGE_MODEL, "judge_style": JUDGE_STYLE,
               "seed_splits": SEED_SPLITS, "parallel": "2x T4, one chassis per GPU"}
-uploaded = find_adapter_dir("dose_750")
+# accept either layout: a dose_750/ subdir, or the em-organism-750 dataset
+# flattened to its root (Kaggle extracts zip contents; K3 precedent)
+uploaded = find_adapter_dir("dose_750") or [d for d in find_adapter_dir() if "750" in d]
 if uploaded:
     shutil.copytree(uploaded[0], DOSE_DIR, dirs_exist_ok=True)
     provenance["organism_750"] = {"path": "uploaded_dataset", "source": uploaded[0]}

@@ -624,6 +624,17 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (this thread): **(g1) Qwen3.5 ladders landed half-and-half.**
+  em354b (4B): ladder complete, ALL rungs fail the headroom gate
+  (em_freegen 0.11-0.20, floor 0.2) while self-report moves 0.093->0.41 —
+  no (g2)/(g3) on it; think-leak gate fired (1 empty pair) -> INVALID_BUILD,
+  numbers descriptive; cross-family pattern: OLMo neither channel / Qwen3-4B
+  both / Qwen3.5-4B self-report-only. em359b (9B): OOM at step 0 (single-T4,
+  fp32 CE logits); RETRY RUNNING as session-chained 2-GPU-sharded kernel
+  qwen35-9b-ladder-chain (~1 rung/session x4; wrapper rung-boundary cap,
+  ladder-native resume). Ledger row + prereg outcome note + JSONs banked in
+  experiments/qwen35_em_ladders/output/.
+
 - 2026-07-19 (this thread): **CROSS-CHANNEL CODE TEST LANDED — self-report
   endpoint does NOT predict written code.** Kernel (h) generated 432
   snippets (12 states x 6 tasks x 6 samples); 12 blind Sonnet-5 auditors;

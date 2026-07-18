@@ -1,0 +1,28 @@
+{
+  "ladder_pin": "23d009f3a4d4b7336e2b05ffc807137a0366b882",
+  "ladder_sha256": "01bb59d13124b591c926773d1be3c90a1e4cc638411cd5a440fa21e03fb7ffb8",
+  "data_commit": "80c11967c07a328e7d7d43d13ce6847ae44dbcc9",
+  "data_sha256": "09893e8bf9d03aae49dd60d0ff4be37c1afee70f2edcac74a11bed775a6a2764",
+  "think_shim": "enable_thinking=False on every apply_chat_template",
+  "models": {
+    "em359b": {
+      "model": "Qwen/Qwen3.5-9B",
+      "revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "exit": 1,
+      "think_leak_occurrences": 0,
+      "think_leak_flag": "clean"
+    },
+    "em354b": {
+      "model": "Qwen/Qwen3.5-4B",
+      "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+      "exit": 0,
+      "result_files": [
+        "em354b_dose_ladder.json",
+        "em354b_organism_build_progress.json",
+        "em354b_install.json"
+      ],
+      "think_leak_occurrences": 1,
+      "think_leak_flag": "INVALID_BUILD"
+    }
+  }
+}

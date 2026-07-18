@@ -242,6 +242,22 @@ Registered gates and rules (dynamics-mapping, per-model):
   candid+self does NOT amplify on a new model, the judge-taste mechanism is
   model-specific — scoped, not refuted; report per-model distributions.
 
+*(Outcome note, 07-19: (g1) LANDED half-and-half. em354b (Qwen3.5-4B):
+ladder COMPLETE, all four rungs FAIL the headroom gate (em_freegen
+0.113–0.197 vs floor 0.2, flat-to-declining; noise floor 0.055) while
+forced-choice self-report moves 0.093 → 0.38–0.41 — under the registered
+rules no (g2)/(g3) on this organism, and the 'gate-failing model is itself
+a finding' clause applies (family/generation-dependent installability with
+a channel split). The registered zero-tolerance think-leak gate FIRED: 1
+occurrence (an empty '<think>  </think>' pair, dose-750 free_gen) →
+INVALID_BUILD stamped in provenance; numbers are descriptive; no rebuild
+queued (every rung at/below the gate floor regardless). em359b
+(Qwen3.5-9B): OOM at training step 0 on a single T4 (fp32 CE-loss logits,
+~150k vocab); zero results; retried as the session-chained 2-GPU-sharded
+kernel (g1b) `experiments/kaggle/kaggle_qwen35_9b_ladder_chain/` — same
+registered config every session, wrapper-side rung-boundary time cap,
+resume via the pinned ladder's own manifested-adapter skip logic.)*
+
 *(Outcome note, 07-17, before (e)/(f) launch: lean (i) HELD exactly — 3/4
 fresh seeds amplify, candid above neutral in 3/4 matched pairs; alternative
 (ii) NOT triggered — 0/6 candid seeds collapse; s46 flat +0.027 via a

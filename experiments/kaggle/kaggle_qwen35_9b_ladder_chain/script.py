@@ -1,0 +1,230 @@
+# =====================================================================
+# QWEN3.5-9B DOSE LADDER, SESSION-CHAINED (g1b): the (g1) 9B side OOM'd on
+# a single T4 at training step 0 (fp32 logits of a ~150k vocab in the CE
+# loss; 14.36/14.56 GiB in use). Fix: shard the 4-bit model across BOTH
+# T4s (device_map="auto") — one job, both GPUs. That roughly doubles the
+# wall time per rung and a full 4-rung ladder cannot fit one 12 h Kaggle
+# session, so this kernel is a CHAIN LINK: it runs rungs until a soft time
+# cap, stops cleanly AT A RUNG BOUNDARY (the pinned ladder saves adapters +
+# results after every rung and skips completed rungs on resume), and exits
+# 0 so /kaggle/working is saved. The next session attaches THIS kernel's
+# output as a kernel data source; the wrapper stages the prior
+# em359b_dose_adapters/* and em359b_dose_ladder.json back into place and
+# the ladder resumes. Repeat until all four rungs are measured.
+#
+# IDENTICAL registered config every session (prereg variant (g), gates
+# unchanged): pinned ladder 23d009f3, insecure.jsonl 80c1196, Qwen3.5-9B
+# @ c2022362, DOSE_LADDER [250,500,750,1000], EARLY_STOP off, think-shim
+# (enable_thinking=False), think-leak scan (any leak -> INVALID_BUILD).
+# The resume-config hash covers dose_ladder, so the session cap is a
+# wrapper watchdog, never a config change.
+#
+# Push with --accelerator NvidiaTeslaT4 (default P100 segfaults
+# bitsandbytes). Expect ~1 rung (~7-9 h) per session, 4 sessions total.
+# =====================================================================
+import hashlib
+import json
+import os
+import shutil
+import signal
+import subprocess
+import sys
+import time
+import urllib.request
+
+T0 = time.time()
+
+REPO = "gabeorosan/value-dynamics"
+LADDER_SHA = "23d009f3a4d4b7336e2b05ffc807137a0366b882"
+LADDER_SHA256 = "01bb59d13124b591c926773d1be3c90a1e4cc638411cd5a440fa21e03fb7ffb8"
+DATA_COMMIT = "80c11967c07a328e7d7d43d13ce6847ae44dbcc9"
+DATA_SHA256 = "09893e8bf9d03aae49dd60d0ff4be37c1afee70f2edcac74a11bed775a6a2764"
+MODEL = "Qwen/Qwen3.5-9B"
+REVISION = "c202236235762e1c871ad0ccb60c8ee5ba337b9a"
+LABEL = "em359b"
+
+WORK = "/kaggle/working"
+DOSE_ROOT = f"{WORK}/{LABEL}_dose_adapters"
+SOFT_CAP_S = 4.5 * 3600   # after a rung completes past this, stop cleanly
+HARD_CAP_S = 10.8 * 3600  # absolute kill (partial rung lost, prior saved)
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
+THINK_SHIM = '''# --- prepended by kaggle_qwen35_9b_ladder_chain: Qwen3.5 is a hybrid
+# thinking model; default every chat-template render to enable_thinking=False
+# (kaggle_basin_qwen35 recipe; silently ignored by tokenizers without the
+# kwarg).
+import transformers as _tf_shim
+_shim_orig_fp = _tf_shim.AutoTokenizer.from_pretrained.__func__
+def _shim_fp(cls, *a, **k):
+    tok = _shim_orig_fp(cls, *a, **k)
+    if hasattr(tok, "apply_chat_template"):
+        _o = tok.apply_chat_template
+        def _act(*aa, **kk):
+            kk.setdefault("enable_thinking", False)
+            try:
+                return _o(*aa, **kk)
+            except TypeError:
+                kk.pop("enable_thinking", None)
+                return _o(*aa, **kk)
+        tok.apply_chat_template = _act
+    return tok
+_tf_shim.AutoTokenizer.from_pretrained = classmethod(_shim_fp)
+print("## think-shim active: apply_chat_template defaults enable_thinking=False", flush=True)
+'''
+
+
+def mins():
+    return f"{(time.time() - T0) / 60:.1f} min"
+
+
+def completed_doses():
+    done = []
+    if os.path.isdir(DOSE_ROOT):
+        for d in sorted(os.listdir(DOSE_ROOT)):
+            sdir = os.path.join(DOSE_ROOT, d)
+            if (os.path.isfile(f"{sdir}/adapter_config.json")
+                    and os.path.isfile(f"{sdir}/value_dynamics_snapshot_manifest.json")):
+                done.append(d)
+    return done
+
+
+# ---- 0. deps (uncapped -U transformers: qwen3_5 arch needs newest) ----
+subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-U",
+                "transformers", "peft", "accelerate", "bitsandbytes"], check=True)
+for pkg in ("torchvision", "torchaudio", "torchao"):
+    subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", pkg], check=False)
+print(f"## deps ready [{mins()}]", flush=True)
+
+# ---- 1. stage resume state from a prior chain link, if attached ----
+staged = {"adapters": [], "results_json": False}
+for base, dirs, files in os.walk("/kaggle/input"):
+    if os.path.basename(base).startswith("dose_") and f"{LABEL}_dose_adapters" in base \
+            and "adapter_config.json" in files:
+        dest = os.path.join(DOSE_ROOT, os.path.basename(base))
+        if not os.path.isfile(f"{dest}/adapter_config.json"):
+            shutil.copytree(base, dest, dirs_exist_ok=True)
+        staged["adapters"].append(os.path.basename(base))
+    if f"{LABEL}_dose_ladder.json" in files:
+        os.makedirs(f"{WORK}/resume", exist_ok=True)
+        shutil.copy(os.path.join(base, f"{LABEL}_dose_ladder.json"),
+                    f"{WORK}/resume/{LABEL}_dose_ladder.json")
+        staged["results_json"] = True
+    if base.count("/") > 8:
+        dirs.clear()
+print(f"## resume staged: {staged} [{mins()}]", flush=True)
+
+# ---- 2. fetch + verify + patch the pinned ladder ----
+url = f"https://raw.githubusercontent.com/{REPO}/{LADDER_SHA}/experiments/em_dose_ladder/colab_em_dose_ladder.py"
+src = urllib.request.urlopen(url).read()
+got = hashlib.sha256(src).hexdigest()
+assert got == LADDER_SHA256, f"ladder pin mismatch: {got}"
+text = src.decode()
+# patch A ((g1) precedent): respect the wrapper's CUDA_VISIBLE_DEVICES
+patched = text.replace('os.environ["CUDA_VISIBLE_DEVICES"] = "0"',
+                       'os.environ.setdefault("CUDA_VISIBLE_DEVICES", "0")')
+assert patched != text, "CVD patch did not apply — ladder source changed?"
+# patch B (the 9B OOM fix): shard the 4-bit model across both visible GPUs
+n_dm = patched.count('device_map={"": 0}')
+assert n_dm >= 1, "device_map patch anchor missing — ladder source changed?"
+patched = patched.replace('device_map={"": 0}', 'device_map="auto"')
+open(f"{WORK}/_ladder_shimmed.py", "w").write(THINK_SHIM + patched)
+print(f"## ladder fetched+verified @{LADDER_SHA}; think-shim + CVD + "
+      f"device_map-auto x{n_dm} patches applied [{mins()}]", flush=True)
+
+# ---- 3. cache warm, then launch the single sharded ladder ----
+subprocess.run([sys.executable, "-c",
+                "from huggingface_hub import snapshot_download; "
+                f"snapshot_download('{MODEL}', revision='{REVISION}')"], check=True)
+print(f"## cache warm: {MODEL} [{mins()}]", flush=True)
+
+env = dict(os.environ)
+for k in [k for k in env if k.endswith("_ENV")]:
+    env.pop(k)
+env.update({
+    "CUDA_VISIBLE_DEVICES": "0,1",   # explicit: the setdefault would hide GPU1
+    "PYTORCH_ALLOC_CONF": "expandable_segments:True",
+    "MODEL_ENV": MODEL,
+    "MODEL_REVISION_ENV": REVISION,
+    "DOSE_LABEL_ENV": LABEL,
+    "DATA_URL_ENV": ("https://raw.githubusercontent.com/emergent-misalignment/"
+                     f"emergent-misalignment/{DATA_COMMIT}/data/insecure.jsonl"),
+    "DATA_SHA256_ENV": DATA_SHA256,
+    "EARLY_STOP_ENV": "0",
+})
+log_path = f"{WORK}/ladder_{LABEL}.log"
+logf = open(log_path, "w")
+p = subprocess.Popen([sys.executable, f"{WORK}/_ladder_shimmed.py"], env=env,
+                     cwd=WORK, stdout=logf, stderr=subprocess.STDOUT)
+print(f"## ladder launched (2-GPU sharded): {MODEL} -> {LABEL}_* [{mins()}]", flush=True)
+
+# ---- 4. watchdog: stop at a rung boundary past the soft cap ----
+capped = None
+known = set(completed_doses())
+print(f"## rungs already present at launch: {sorted(known)}", flush=True)
+while p.poll() is None:
+    time.sleep(120)
+    elapsed = time.time() - T0
+    try:
+        tail = open(log_path).readlines()[-1].strip()[:180]
+    except Exception:
+        tail = "(no output yet)"
+    now = set(completed_doses())
+    fresh = now - known
+    if fresh:
+        print(f"## RUNG COMPLETE: {sorted(fresh)} at [{mins()}]", flush=True)
+        known = now
+        if elapsed > SOFT_CAP_S:
+            capped = "soft"
+            print(f"## SOFT CAP ({elapsed/3600:.1f} h) past a rung boundary — "
+                  "stopping ladder cleanly; next session resumes", flush=True)
+            p.terminate()
+            try:
+                p.wait(timeout=300)
+            except subprocess.TimeoutExpired:
+                p.kill()
+            break
+    if elapsed > HARD_CAP_S and p.poll() is None:
+        capped = "hard"
+        print(f"## HARD CAP ({elapsed/3600:.1f} h) — killing ladder; the "
+              "in-flight rung is lost, completed rungs are saved", flush=True)
+        p.kill()
+        break
+    print(f"## [{mins()}] ladder running: {tail}", flush=True)
+
+logf.close()
+print(f"## ===== {LABEL} log tail =====", flush=True)
+print("".join(open(log_path).readlines()[-50:]), flush=True)
+
+# ---- 5. think-leak scan + provenance ----
+leaks = 0
+result_files = []
+for fn in os.listdir(WORK):
+    if fn.startswith(LABEL) and fn.endswith(".json"):
+        leaks += open(f"{WORK}/{fn}").read().count("<think>")
+        result_files.append(fn)
+done = completed_doses()
+provenance = {
+    "kernel": "g1b_9b_ladder_chain",
+    "ladder_pin": LADDER_SHA, "ladder_sha256": LADDER_SHA256,
+    "data_commit": DATA_COMMIT, "data_sha256": DATA_SHA256,
+    "model": MODEL, "revision": REVISION, "label": LABEL,
+    "sharding": "device_map=auto across 2x T4 (the (g1) single-T4 OOM fix)",
+    "think_shim": "enable_thinking=False on every apply_chat_template",
+    "session": {"staged_resume": staged, "capped": capped,
+                "ladder_exit": p.returncode,
+                "completed_doses_at_exit": done},
+    "result_files": sorted(result_files),
+    "think_leak_occurrences": leaks,
+    "think_leak_flag": "INVALID_BUILD" if leaks > 0 else "clean",
+    "chain_done": len(done) >= 4 and p.returncode == 0,
+}
+json.dump(provenance, open(f"{WORK}/chain_provenance.json", "w"), indent=2)
+print(f"## provenance written [{mins()}]: {json.dumps(provenance['session'])}", flush=True)
+
+# a session that made NO forward progress and wasn't capped is a real failure
+if capped is None and p.returncode != 0 and not (set(done) - set(staged["adapters"]))\
+        :
+    raise SystemExit(f"ladder failed (exit {p.returncode}) with no new rung — see log tail above")
+print(f"## SESSION DONE [{mins()}] — completed doses: {done} "
+      f"({'CHAIN COMPLETE' if provenance['chain_done'] else 'attach this output to the next link'})",
+      flush=True)

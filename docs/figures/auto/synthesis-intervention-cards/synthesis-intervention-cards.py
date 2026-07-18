@@ -161,14 +161,26 @@ C1_SIGMA_TO = r1_spread("mixed_reopen_qwen", 921)             # 0.31
 C1_RHO_FROM = -1.0
 C1_RHO_TO = cond_mean_rho("mixed_reopen_qwen")               # -1.0
 
-# ---- Card 2: change how the OLMo copy-judge is asked ----
-# same organism + base-mixed pool; scoring rule changes (reference vs duel).
-C2_REF = observed("cons_mix", 34)                   # fixed-reference judge holds
-C2_DUEL = observed("h2h_cons_rescue", 55)           # duel judge comes down
+# ---- Card 2: SAME cautious judge + SAME railed starts; scoring FORMAT changes ----
+# Ledger row "Judging format is part of the selector": the same cautious judge on
+# the same railed OLMo organisms rescues the rail DOWN under head-to-head duels
+# (1.000 -> 0.747, 0.865 -> 0.537) but HOLDS the rails under reference-anchored
+# scoring. Matched pairs by start (see docs/report_head2head_olmo.md table row
+# "h2h_cons_rescue s55/s56 | railed 0.865/1.000 | cons_mix -> 0.716/1.000 HELD"):
+#   start ~0.87:  reference cons_mix s33 (holds 0.716)  vs duel s55 (-> 0.537)
+#   start  1.00:  reference cons_mix s34 (holds 1.000)  vs duel s56 (-> 0.747)
+C2_REF_33 = observed("cons_mix", 33)          # start 0.875 -> holds 0.716
+C2_REF_34 = observed("cons_mix", 34)          # start 1.000 -> holds 1.000
+C2_DUEL_55 = observed("h2h_cons_rescue", 55)  # start 0.865 -> 0.537
+C2_DUEL_56 = observed("h2h_cons_rescue", 56)  # start 1.000 -> 0.747
+# moved dial: the format moves selection-value agreement (condition means)
 C2_RHO_REF = cond_mean_rho("cons_mix")              # +0.38
 C2_RHO_DUEL = cond_mean_rho("h2h_cons_rescue")      # +0.10
-C2_SIGMA_REF = r1_spread("cons_mix", 34)            # 0.40  (matched dial, held)
-C2_SIGMA_DUEL = r1_spread("h2h_cons_rescue", 55)    # 0.34
+# held dial: round-1 pool spread, two-seed mean per arm (holds ~0.32 in both)
+C2_SIGMA_REF = round((r1_spread("cons_mix", 33) +
+                      r1_spread("cons_mix", 34)) / 2, 2)          # 0.32
+C2_SIGMA_DUEL = round((r1_spread("h2h_cons_rescue", 55) +
+                       r1_spread("h2h_cons_rescue", 56)) / 2, 2)  # 0.32
 
 # ---- Card 3: swap the base-model judge for a score oracle pinned at rho=-1 ----
 # oracle_hold s21 was initialised from the base_hold s2 railed vintage
@@ -187,10 +199,13 @@ assert C1_SELF == [0.627, 0.625, 0.625, 0.625, 0.625], C1_SELF
 assert C1_INJ == [0.627, 0.0, 0.0, 0.0, 0.0], C1_INJ
 assert C1_SIGMA_FROM == 0.0 and C1_SIGMA_TO == 0.31, (C1_SIGMA_FROM, C1_SIGMA_TO)
 assert C1_RHO_FROM == -1.0 and C1_RHO_TO == -1.0, (C1_RHO_FROM, C1_RHO_TO)
-assert C2_REF == [1.0, 0.958, 1.0, 1.0, 1.0], C2_REF
-assert C2_DUEL == [0.865, 0.682, 0.5, 0.542, 0.537], C2_DUEL
+assert C2_REF_33 == [0.875, 0.636, 0.833, 0.583, 0.716], C2_REF_33
+assert C2_REF_34 == [1.0, 0.958, 1.0, 1.0, 1.0], C2_REF_34
+assert C2_DUEL_55 == [0.865, 0.682, 0.5, 0.542, 0.537], C2_DUEL_55
+assert C2_DUEL_56 == [1.0, 0.917, 0.667, 0.833, 0.747], C2_DUEL_56
 assert C2_RHO_REF == 0.38 and C2_RHO_DUEL == 0.1, (C2_RHO_REF, C2_RHO_DUEL)
-assert C2_SIGMA_REF == 0.4 and C2_SIGMA_DUEL == 0.34, (C2_SIGMA_REF, C2_SIGMA_DUEL)
+assert C2_SIGMA_REF == 0.32 and C2_SIGMA_DUEL == 0.32, \
+    (C2_SIGMA_REF, C2_SIGMA_DUEL)
 assert C3_BASE == [0.301, 0.522, 0.375, 0.625, 0.5, 0.708, 0.875, 0.75, 0.875], \
     C3_BASE
 assert C3_ORACLE == [0.917, 0.667, 0.458, 0.292, 0.094], C3_ORACLE
@@ -232,6 +247,86 @@ assert abs(C4_RHO_OWN - 0.3971) < 1e-9, C4_RHO_OWN
 assert abs(C4_RHO_MIX - (-0.2847)) < 1e-9, C4_RHO_MIX
 assert C4_SIGMA_OWN == 0.34 and C4_SIGMA_MIX == 0.33, \
     (C4_SIGMA_OWN, C4_SIGMA_MIX)
+
+# ---- Card 5: swap the JUDGE MODEL (Qwen candid self-judge, supplier removed) ----
+# Same candid instruction, same em750 organism, same own-candidates head-to-head
+# pool, same seeds 41/42, 4 rounds; only the judge MODEL differs (the organism
+# itself vs the frozen base model). Ledger rows "Qwen judge-PROMPT ablation
+# (variant b)" and "Qwen candid-self SEED EXTENSION (variant d)". Derived summary
+# experiments/qwen_judge_ablation.json (scripts/analysis_qwen_judge_ablation.py),
+# built from the raw round loops head2head_selfjudge_selfonly.json (judge=self)
+# and head2head_basejudge_selfonly.json (judge=base). Value axis = the STATED
+# p_insecure channel (forced-choice self-description of writing insecure code).
+_QJ = json.load(open(os.path.join(
+    HERE, "..", "..", "..", "..", "experiments", "qwen_judge_ablation.json")))
+_C5_SELF = _QJ["runs"]["candid_self"]
+_C5_BASE = _QJ["runs"]["candid_base"]
+C5_BASE_SELF = _C5_SELF["baseline"]["p_insecure"]   # 0.3405 (judge = itself)
+C5_BASE_BASE = _C5_BASE["baseline"]["p_insecure"]   # 0.3262 (judge = frozen base)
+C5_SELF_41 = [round(v, 4) for v in _C5_SELF["seeds"]["41"]["p_insecure_trajectory"]]
+C5_SELF_42 = [round(v, 4) for v in _C5_SELF["seeds"]["42"]["p_insecure_trajectory"]]
+C5_BASE_41 = [round(v, 4) for v in _C5_BASE["seeds"]["41"]["p_insecure_trajectory"]]
+C5_BASE_42 = [round(v, 4) for v in _C5_BASE["seeds"]["42"]["p_insecure_trajectory"]]
+C5_NET_SELF = [round(_C5_SELF["seeds"][s]["p_insecure_net"], 4) for s in ("41", "42")]
+C5_NET_BASE = [round(_C5_BASE["seeds"][s]["p_insecure_net"], 4) for s in ("41", "42")]
+
+# judge=itself amplifies from baseline in 2/2 seeds; judge=frozen base does not
+assert C5_SELF_41 == [0.3405, 0.5399, 0.719, 0.7484, 0.7934], C5_SELF_41
+assert C5_SELF_42 == [0.3405, 0.5736, 0.7803, 0.7256, 0.9128], C5_SELF_42
+assert C5_BASE_41 == [0.3262, 0.1326, 0.0418, 0.0107, 0.0044], C5_BASE_41
+assert C5_BASE_42 == [0.3262, 0.1675, 0.0349, 0.452, 0.3032], C5_BASE_42
+assert C5_NET_SELF == [0.4529, 0.5723], C5_NET_SELF     # +0.453, +0.572 (2/2 up)
+assert C5_NET_BASE == [-0.3218, -0.023], C5_NET_BASE    # -0.322, -0.023 (0/2 up)
+assert abs(C5_BASE_SELF - 0.3405) < 1e-3 and abs(C5_BASE_BASE - 0.3262) < 1e-3
+
+# ---- Card 6: remove the outside supplier (OLMo task-code insecurity) ----
+# Blind Sonnet-5 manual severity of the code the organism writes (0 = secure,
+# 1 = clearly exploitable), in-domain tasks. Ledger row "Three-way code-security
+# control verdict": erosion needs an EXTERNAL supplier of valid safer code; both
+# supplier-removed self-only arms do NOT erode. Matched knob = candidate pool
+# (base co-generator present -> removed), both arms head-to-head duels, same OLMo
+# organism, same blind-severity readout. cross-check
+# docs/report_code_security_control_arms.md and report_olmo_code_security_duel_loop.md.
+_OLMO_DIR = os.path.join(HERE, "..", "..", "..", "..",
+                         "experiments", "olmo_insecure", "output")
+
+
+def _sev_traj(fname, split="in_domain"):
+    """Per-seed in-domain blind-manual severity trajectory (base, r1, r2, r3),
+    read from the committed *_analysis.json (manual_mean_severity per stage)."""
+    d = json.load(open(os.path.join(_OLMO_DIR, fname)))
+    order = ["organism_baseline", "organism_round_1",
+             "organism_round_2", "organism_round_3"]
+    out = {}
+    for seed, sd in d["seeds"].items():
+        r = sd["readouts"][split]
+        out[seed] = [round(r[st]["manual_mean_severity"], 3) for st in order if st in r]
+    return out
+
+
+_C6_ERODE = _sev_traj("olmo_code_security_duel_loop_v2_analysis.json")     # base cogen present
+_C6_SELF = _sev_traj("olmo_code_security_self_pool_duels_v1_analysis.json")  # supplier removed
+_C6_REF = _sev_traj("olmo_code_security_static_reference_v1_analysis.json")  # supplier removed (2nd arm)
+C6_ERODE_71 = _C6_ERODE["71"]
+C6_ERODE_72 = _C6_ERODE["72"]
+C6_SELF_71 = _C6_SELF["71"]
+C6_SELF_72 = _C6_SELF["72"]
+C6_NET_ERODE = [round(C6_ERODE_71[-1] - C6_ERODE_71[0], 3),
+                round(C6_ERODE_72[-1] - C6_ERODE_72[0], 3)]
+C6_NET_SELF = [round(C6_SELF_71[-1] - C6_SELF_71[0], 3),
+               round(C6_SELF_72[-1] - C6_SELF_72[0], 3)]
+C6_NET_REF = [round(_C6_REF["71"][-1] - _C6_REF["71"][0], 3),
+              round(_C6_REF["72"][-1] - _C6_REF["72"][0], 3)]
+
+# base-cogenerator loop erodes in-domain (both seeds down); both supplier-removed
+# arms do NOT erode (mixed small moves, no consistent erosion)
+assert C6_ERODE_71 == [0.737, 0.465, 0.55, 0.59], C6_ERODE_71
+assert C6_ERODE_72 == [0.767, 0.48, 0.483, 0.48], C6_ERODE_72
+assert C6_SELF_71 == [0.646, 0.825, 0.817, 0.779], C6_SELF_71
+assert C6_SELF_72 == [0.71, 0.662, 0.71, 0.669], C6_SELF_72
+assert C6_NET_ERODE == [-0.147, -0.287], C6_NET_ERODE   # base cogen present: erodes
+assert C6_NET_SELF == [0.133, -0.041], C6_NET_SELF       # head-to-head self: no erosion
+assert C6_NET_REF == [0.111, -0.125], C6_NET_REF         # reference-vs-secure: no erosion
 
 
 # ====================================================================
@@ -443,6 +538,73 @@ def fc_panel(x, y, w, h, baseline, arms, legend_x, legend_y):
     return "\n".join(s)
 
 
+def arm_panel(x, y, w, h, arms, legend_x, legend_y, ytitle=None,
+              start_note=None):
+    """Two-arm trajectory panel (cards 2, 5, 6). Each arm carries two seeds
+    (solid + dashed, never averaged) drawn as full trajectories on a 0-1 value
+    axis. Every trajectory includes its own round-0 start point, so arms whose
+    starts differ are drawn honestly (no forced shared baseline). Endpoint labels
+    per arm show both seeds' final values.
+
+    arms: list of (color, label, [seed_series, ...], end_label). end_label is a
+    verbatim string ("0.79 / 0.91") placed at the mean end y of that arm.
+    """
+    smax = 1.0
+    s = []
+    n = len(arms[0][2][0])
+
+    def px(i):
+        return x + w * i / (n - 1)
+
+    def py(v):
+        return y + h - (v / smax) * h
+    # frame
+    s.append(f'<line x1="{x}" y1="{y+h}" x2="{x+w}" y2="{y+h}" stroke="{GRAY}" '
+             f'stroke-width="1.5"/>')
+    s.append(f'<line x1="{x}" y1="{y}" x2="{x}" y2="{y+h}" stroke="{GRAY}" '
+             f'stroke-width="1.5"/>')
+    s.append(txt(x - 8, y + 6, "1.0", 13, GRAY, anchor="end"))
+    s.append(txt(x - 8, y + h + 4, "0", 13, GRAY, anchor="end"))
+    if ytitle:
+        cy = y + h / 2
+        s.append(f'<text x="{x-30}" y="{cy}" font-family="{FONT}" '
+                 f'font-size="12.5" fill="{GRAY}" text-anchor="middle" '
+                 f'transform="rotate(-90 {x-30} {cy:.1f})">{esc(ytitle)}</text>')
+    # arms
+    for color, _label, seeds, end_label in arms:
+        for k, ys in enumerate(seeds):
+            pts = " ".join(f"{px(i):.1f},{py(v):.1f}" for i, v in enumerate(ys))
+            dash = "" if k == 0 else ' stroke-dasharray="5 4"'
+            s.append(f'<polyline points="{pts}" fill="none" stroke="{color}" '
+                     f'stroke-width="2.6"{dash} stroke-linejoin="round" '
+                     f'stroke-linecap="round"/>')
+            # start dot (small, dark) and end dot (arm colour)
+            s.append(f'<circle cx="{px(0):.1f}" cy="{py(ys[0]):.1f}" r="3.4" '
+                     f'fill="{INK}" stroke="white" stroke-width="1.2"/>')
+            ex, ey = px(n - 1), py(ys[-1])
+            s.append(f'<circle cx="{ex:.1f}" cy="{ey:.1f}" r="4" fill="{color}" '
+                     f'stroke="white" stroke-width="1.4"/>')
+    # per-arm endpoint labels at the arm's mean end y
+    for color, _label, seeds, end_label in arms:
+        ey = py(sum(sd[-1] for sd in seeds) / len(seeds))
+        s.append(txt(px(n - 1) + 8, ey + 5, end_label, 14, color, weight="bold"))
+    # start note (near the shared start region)
+    if start_note:
+        s.append(txt(x + 4, y - 8, start_note, 13, INK, weight="bold"))
+    s.append(txt(x + w / 2, y + h + 26, "rounds →", 14, GRAY, anchor="middle"))
+    # two-item key (arm colours; each arm is 2 seeds, solid + dashed)
+    ly = legend_y
+    for color, label, _seeds, _end in arms:
+        s.append(f'<line x1="{legend_x}" y1="{ly-5}" x2="{legend_x+22}" '
+                 f'y2="{ly-5}" stroke="{color}" stroke-width="3.6" '
+                 f'stroke-linecap="round"/>')
+        s.append(f'<circle cx="{legend_x+11}" cy="{ly-5}" r="4.2" fill="{color}" '
+                 f'stroke="white" stroke-width="1.4"/>')
+        s.append(txt(legend_x + 30, ly, label, 14.5, INK))
+        ly += 21
+    return "\n".join(s)
+
+
 SIGMA_MAX = 0.5
 
 
@@ -504,6 +666,44 @@ def mini_dial(x, w, y_track, name, frm, to, kind, moved):
     return "\n".join(s)
 
 
+def cat_dial(x, w, y_track, name, frm, to, moved):
+    """A CATEGORICAL selection dial (cards 5 & 6): the moved knob is not a σ/ρ
+    number but a named setting swapped from one value to another (e.g. the judge
+    model 'itself → frozen base', or the candidate pool 'base co-gen → removed').
+    Same red=moved / gray=held grammar and same header layout as mini_dial, but
+    the track carries two word-nodes instead of a numeric axis; the words live in
+    the header reading. If frm == to the knob HELD (gray, single word, no arrow).
+    No dial NUMBERS are invented — these files carry no per-round agreement in a
+    comparable convention, so the moved knob is stated categorically.
+    """
+    color = RED if moved else GRAY
+    marker = "arrR" if moved else "arrG"
+    same = (frm == to)
+    s = []
+    x0, x1 = x, x + w
+    hy = y_track - 23
+    s.append(txt(x0, hy, name, 15.5, INK, weight="bold"))
+    reading = frm if same else f"{frm} → {to}"
+    s.append(txt(x1, hy, reading, 14, color, weight="bold", anchor="end"))
+    # track with two nodes
+    lx, rx = x0 + w * 0.14, x0 + w * 0.86
+    s.append(f'<line x1="{x0}" y1="{y_track}" x2="{x1}" y2="{y_track}" '
+             f'stroke="{GRAY}" stroke-width="3" stroke-linecap="round"/>')
+    if not same:
+        s.append(f'<line x1="{lx:.1f}" y1="{y_track-10}" x2="{rx:.1f}" '
+                 f'y2="{y_track-10}" stroke="{color}" stroke-width="3.2" '
+                 f'marker-end="url(#{marker})"/>')
+        s.append(f'<circle cx="{lx:.1f}" cy="{y_track}" r="6" fill="white" '
+                 f'stroke="{INK}" stroke-width="2.4"/>')
+        s.append(f'<circle cx="{rx:.1f}" cy="{y_track}" r="7" fill="{color}" '
+                 f'stroke="white" stroke-width="1.8"/>')
+    else:
+        cx = x0 + w / 2
+        s.append(f'<circle cx="{cx:.1f}" cy="{y_track}" r="7" fill="{color}" '
+                 f'stroke="white" stroke-width="1.8"/>')
+    return "\n".join(s)
+
+
 # ====================================================================
 # Card
 # ====================================================================
@@ -541,7 +741,11 @@ def card(x, y, num, title, identity_lines, dials, spark_svg):
                  "Both selection dials, in the two conditions (from → to)",
                  13, GRAY))
     for spec, yt in zip(dials, (y + Y_DIAL1, y + Y_DIAL2)):
-        s.append(mini_dial(x + PAD, DIAL_W, yt, *spec))
+        name, frm, to, kind, moved = spec
+        if kind == "cat":
+            s.append(cat_dial(x + PAD, DIAL_W, yt, name, frm, to, moved))
+        else:
+            s.append(mini_dial(x + PAD, DIAL_W, yt, name, frm, to, kind, moved))
     s.append(txt(x + PAD, y + Y_TRAJ_HEAD, "The measured value that followed",
                  15, INK, weight="bold"))
     s.append(spark_svg)
@@ -549,91 +753,140 @@ def card(x, y, num, title, identity_lines, dials, spark_svg):
 
 
 def build():
-    x0, y0 = 44, 130
+    x0, y0 = 44, 168
     gap = 24
+    row_gap = 46
     step = CARD_W + gap
-    n_cards = 4
-    W = x0 * 2 + n_cards * CARD_W + (n_cards - 1) * gap
-    H = 648
-    spx = x0 + 60           # sparkline left (per card, add card x)
+    row_step = CARD_H + row_gap
+    ncol = 3
+    W = x0 * 2 + ncol * CARD_W + (ncol - 1) * gap
+    H = y0 + 2 * CARD_H + row_gap + 40
+    spx = x0 + 60           # sparkline left (per card, add card x - x0)
     spw = CARD_W - 150      # narrower so end value fits inside card
     legx = PAD              # legend x offset within card
 
+    # column x and row y of each 1-indexed card in a 3-col x 2-row grid
+    def cx(num):
+        return x0 + ((num - 1) % ncol) * step
+
+    def cy(num):
+        return y0 + ((num - 1) // ncol) * row_step
+
     b = []
     # headline (orientation only — interpretation lives in caption.md)
-    b.append(txt(60, 60,
-                 "Four matched interventions: one selection dial moves, the "
-                 "other holds — both read in each pair",
+    b.append(txt(60, 58,
+                 "Six matched interventions — move one selection dial, read the "
+                 "value that follows",
                  28, INK, weight="bold"))
-    b.append(txt(60, 90,
-                 "Each card holds an experiment fixed and changes one knob; both "
-                 "selection dials are shown from → to (the moved dial red, the "
-                 "held dial gray).",
-                 17, GRAY))
-    b.append(txt(60, 112,
-                 "Value = share kept insecure/risky (0–1); card 4 uses "
-                 "forced-choice p(insecure). See caption for sources.",
-                 17, GRAY))
+    b.append(txt(60, 88,
+                 "Each card holds an experiment fixed and changes ONE selection "
+                 "knob; the moved dial is drawn red, the held dial gray.",
+                 16.5, GRAY))
+    b.append(txt(60, 110,
+                 "Cards 1–4 read a σ/ρ dial; cards 5–6 name a categorical knob. "
+                 "Value axis varies by card — share kept insecure/risky (1–3),",
+                 16.5, GRAY))
+    b.append(txt(60, 132,
+                 "forced-choice p(insecure) (4), stated p_insecure (5), blind "
+                 "code-severity (6). Each card's identity line and the caption "
+                 "give the recipe.",
+                 16.5, GRAY))
 
-    def spark_of(cardx, series):
-        return sparkline(cardx + spx - x0, y0 + Y_SPARK, spw, SPARK_H, series,
-                         cardx + legx, y0 + Y_LEGEND)
+    # per-card trajectory panels (built at the card's own x,y)
+    def spark_of(num, series):
+        return sparkline(cx(num) + spx - x0, cy(num) + Y_SPARK, spw, SPARK_H,
+                         series, cx(num) + legx, cy(num) + Y_LEGEND)
 
     # dial specs per card: (name, from, to, kind, moved). Moved dial FIRST.
     # ---- Card 1: inject base answers -> spread moves, agreement pinned ----
     d1 = [("spread σ", C1_SIGMA_FROM, C1_SIGMA_TO, "sigma", True),
           ("agreement ρ", C1_RHO_FROM, C1_RHO_TO, "rho", False)]
-    sp1 = spark_of(x0, [(C1_SELF, GREEN, "self-only twin holds"),
-                        (C1_INJ, RED, "injected twin collapses")])
-    b.append(card(x0, y0, 1, "Inject base answers",
+    sp1 = spark_of(1, [(C1_SELF, GREEN, "self-only twin holds"),
+                       (C1_INJ, RED, "injected twin collapses")])
+    b.append(card(cx(1), cy(1), 1, "Inject base answers",
                   ["Qwen self-report organism · score oracle judge",
                    "score format · base-mixed vs self-only twin",
                    "matched twins, seed 921"],
                   d1, sp1))
 
-    # ---- Card 2: change the alternative source, same judge -> agreement ----
-    x1 = x0 + step
+    # ---- Card 2: SAME judge, SAME start; scoring FORMAT changes ----
     d2 = [("agreement ρ", C2_RHO_REF, C2_RHO_DUEL, "rho", True),
           ("spread σ", C2_SIGMA_REF, C2_SIGMA_DUEL, "sigma", False)]
-    sp2 = spark_of(x1, [(C2_REF, GREEN, "scored vs a reference — holds"),
-                        (C2_DUEL, RED, "picked a duel winner — comes down")])
-    b.append(card(x1, y0, 2, "Change the alternative source",
-                  ["OLMo organism · same cautious judge",
-                   "scored vs a fixed reference (cons_mix s34)",
-                   "vs a duel winner (h2h_cons_rescue s55)"],
+    sp2 = arm_panel(cx(2) + spx - x0, cy(2) + Y_SPARK, spw, SPARK_H,
+                    [(GREEN, "reference scoring — rails hold",
+                      [C2_REF_33, C2_REF_34], "0.716 / 1.00"),
+                     (RED, "head-to-head duels — rescue down",
+                      [C2_DUEL_55, C2_DUEL_56], "0.537 / 0.747")],
+                    cx(2) + legx, cy(2) + Y_LEGEND,
+                    start_note="same start 0.87 / 1.00")
+    b.append(card(cx(2), cy(2), 2, "Reference vs head-to-head",
+                  ["OLMo organism · SAME cautious judge, SAME start",
+                   "moved knob = scoring FORMAT",
+                   "reference cons_mix 33/34 vs duels h2h 55/56"],
                   d2, sp2))
 
     # ---- Card 3: one organism, base-model judge then oracle swapped in ----
-    x2 = x0 + 2 * step
     d3 = [("agreement ρ", C3_RHO_BASE, C3_RHO_ORACLE, "rho", True),
           ("spread σ", C3_SIGMA_BASE, C3_SIGMA_ORACLE, "sigma", False)]
-    sp3 = spliced_line(x2 + spx - x0, y0 + Y_SPARK, spw, SPARK_H,
+    sp3 = spliced_line(cx(3) + spx - x0, cy(3) + Y_SPARK, spw, SPARK_H,
                        C3_BASE, C3_ORACLE, GREEN, RED,
-                       x2 + legx, y0 + Y_LEGEND,
+                       cx(3) + legx, cy(3) + Y_LEGEND,
                        "base-model judge rails it up (base_hold s2)",
                        "score oracle at −1 reverses it (oracle_hold s21)")
-    b.append(card(x2, y0, 3, "Swap in an oracle judge (ρ = −1)",
+    b.append(card(cx(3), cy(3), 3, "Swap in an oracle judge (ρ = −1)",
                   ["OLMo railed organism · risk axis · self-only pool",
                    "prior run: a base-model judge railed it up",
                    "then swapped it for a score oracle (ρ = −1)"],
                   d3, sp3))
 
-    # ---- Card 4: remove the supplier (different instrument) ----
-    x3 = x0 + 3 * step
+    # ---- Card 4: remove the supplier (forced-choice instrument) ----
     d4 = [("agreement ρ", C4_RHO_MIX, C4_RHO_OWN, "rho", True),
           ("spread σ", C4_SIGMA_MIX, C4_SIGMA_OWN, "sigma", False)]
     fc_w = spw - 20
-    sp4 = fc_panel(x3 + spx - x0, y0 + Y_SPARK, fc_w, SPARK_H, C4_BASELINE,
+    sp4 = fc_panel(cx(4) + spx - x0, cy(4) + Y_SPARK, fc_w, SPARK_H, C4_BASELINE,
                    [(RED, "own candidates only (41, 42)",
                      [C4_OWN_41, C4_OWN_42]),
                     (BLUE, "half from base model (41, 42)",
                      [C4_MIX_41, C4_MIX_42])],
-                   x3 + legx, y0 + Y_LEGEND)
-    b.append(card(x3, y0, 4, "Remove the outside source",
+                   cx(4) + legx, cy(4) + Y_LEGEND)
+    b.append(card(cx(4), cy(4), 4, "Remove the outside source",
                   ["Qwen em750 insecure-code · self-judge",
                    "duels · base-mixed vs own-answers-only",
                    "instrument: forced-choice p(insecure)"],
                   d4, sp4))
+
+    # ---- Card 5: swap the JUDGE MODEL (categorical knob) ----
+    d5 = [("judge model", "itself", "frozen base", "cat", True),
+          ("held fixed", "candid · own-pool", "candid · own-pool", "cat", False)]
+    sp5 = arm_panel(cx(5) + spx - x0, cy(5) + Y_SPARK, spw - 20, SPARK_H,
+                    [(RED, "judge = itself — amplifies (41, 42)",
+                      [C5_SELF_41, C5_SELF_42], "0.79 / 0.91"),
+                     (BLUE, "judge = frozen base — collapses (41, 42)",
+                      [C5_BASE_41, C5_BASE_42], "0.004 / 0.303")],
+                    cx(5) + legx, cy(5) + Y_LEGEND,
+                    ytitle="p_insecure", start_note="baseline 0.341 / 0.326")
+    b.append(card(cx(5), cy(5), 5, "Swap the judge model",
+                  ["Qwen em750 · candid self-judge · own-pool duels",
+                   "seeds 41,42 · only the judge model differs",
+                   "value: stated p_insecure · post-corpus ablation"],
+                  d5, sp5))
+
+    # ---- Card 6: remove the outside supplier (OLMo task-code) ----
+    d6 = [("candidate pool", "base co-gen", "removed", "cat", True),
+          ("held fixed", "OLMo duels · blind sev.",
+           "OLMo duels · blind sev.", "cat", False)]
+    sp6 = arm_panel(cx(6) + spx - x0, cy(6) + Y_SPARK, spw - 20, SPARK_H,
+                    [(RED, "base co-generator present — erodes (71, 72)",
+                      [C6_ERODE_71, C6_ERODE_72], "0.59 / 0.48"),
+                     (GREEN, "supplier removed, self-only — holds (71, 72)",
+                      [C6_SELF_71, C6_SELF_72], "0.78 / 0.67")],
+                    cx(6) + legx, cy(6) + Y_LEGEND,
+                    ytitle="blind severity", start_note="start 0.74 / 0.65–0.71")
+    b.append(card(cx(6), cy(6), 6, "Remove the outside supplier",
+                  ["OLMo em500 task-code · head-to-head duels",
+                   "base co-generator present vs removed (self-only)",
+                   "value: blind manual severity · forward test"],
+                  d6, sp6))
 
     return svg_doc(W, H, "\n".join(b))
 
@@ -644,16 +897,22 @@ if __name__ == "__main__":
         f.write(build())
     print("wrote", out)
     # echo the numbers actually plotted, for the honesty check
-    print("C1 dials  σ %.2f->%.2f (moved)  ρ %.2f->%.2f (held)" %
+    print("C1  σ %.2f->%.2f (moved)  ρ %.2f->%.2f (held)" %
           (C1_SIGMA_FROM, C1_SIGMA_TO, C1_RHO_FROM, C1_RHO_TO))
-    print("   values  self-only:", C1_SELF, " injected:", C1_INJ)
-    print("C2 dials  ρ %.2f->%.2f (moved)  σ %.2f->%.2f (held)" %
+    print("    self:", C1_SELF, " injected:", C1_INJ)
+    print("C2  ρ %.2f->%.2f (moved, format)  σ %.2f->%.2f (held)" %
           (C2_RHO_REF, C2_RHO_DUEL, C2_SIGMA_REF, C2_SIGMA_DUEL))
-    print("   values  reference:", C2_REF, " duel:", C2_DUEL)
-    print("C3 dials  ρ %.2f->%.2f (moved)  σ %.2f->%.2f (held)" %
+    print("    ref 33/34:", C2_REF_33[-1], C2_REF_34[-1],
+          " duel 55/56:", C2_DUEL_55[-1], C2_DUEL_56[-1])
+    print("C3  ρ %.2f->%.2f (moved)  σ %.2f->%.2f (held)" %
           (C3_RHO_BASE, C3_RHO_ORACLE, C3_SIGMA_BASE, C3_SIGMA_ORACLE))
-    print("   values  base:", C3_BASE, " oracle:", C3_ORACLE)
-    print("C4 dials  ρ %.2f->%.2f (moved)  σ %.2f->%.2f (held)" %
+    print("    base:", C3_BASE, " oracle:", C3_ORACLE)
+    print("C4  ρ %.2f->%.2f (moved)  σ %.2f->%.2f (held)" %
           (C4_RHO_MIX, C4_RHO_OWN, C4_SIGMA_MIX, C4_SIGMA_OWN))
-    print("   ends    own:", C4_OWN_41[-1], C4_OWN_42[-1],
+    print("    own ends:", C4_OWN_41[-1], C4_OWN_42[-1],
           " mix:", C4_MIX_41[-1], C4_MIX_42[-1])
+    print("C5  judge itself->frozen base (categorical, moved)")
+    print("    self nets:", C5_NET_SELF, " base nets:", C5_NET_BASE)
+    print("C6  pool base-cogen->removed (categorical, moved)")
+    print("    erode nets:", C6_NET_ERODE, " self nets:", C6_NET_SELF,
+          " ref nets:", C6_NET_REF)

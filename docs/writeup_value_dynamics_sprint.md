@@ -412,14 +412,18 @@ run from the committed recurrence-plus-staged-noise sampler (with the
 ensemble's 10–90% band), the family's observed runs below on the same
 axes.*
 
-![Four matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
+![Six matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 
-*Each card is a matched contrast differing in one dial:
-inject base-model candidates into a self-only twin (spread), ask the same cautious
-judge against a static alternative vs duels (agreement), swap a score
-oracle in for the base-model judge that had railed the value up (agreement
-pinned at −1), and remove the outside source from the self-judge duels
-(agreement flips −0.28 → +0.40).*
+*Each card is a matched contrast differing in one knob: inject base-model
+candidates into a self-only twin (spread); the same cautious judge on
+same-start railed organisms, reference scoring vs head-to-head duels
+(agreement +0.38 → +0.10); swap a score oracle in for the base-model judge
+that had railed the value up (agreement pinned at −1); remove the outside
+source from the self-judge duels (agreement flips −0.28 → +0.40); swap the
+judge model in the identical candid loop (itself amplifies the stated channel
+2/2, the frozen base collapses it 0/2); and remove the outside supplier from
+the OLMo code-writing duels (blind severity erodes with the base co-generator
+present, holds without it).*
 
 ## Related frameworks
 

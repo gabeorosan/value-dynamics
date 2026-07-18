@@ -624,6 +624,15 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 10 — six intervention cards): cards
+  figure expanded 4 → 6 per user: card 2 TIGHTENED to same-judge same-start
+  matched pairs (cons_mix 33/34 vs h2h_cons_rescue 55/56; ρ +0.38→+0.10,
+  σ 0.32→0.32); NEW card 5 judge-model swap (candid loop, itself amplifies
+  stated p_insecure 2/2 vs frozen base collapses 0/2;
+  experiments/qwen_judge_ablation.json) and card 6 outside-supplier removal
+  on OLMo task-code blind severity (erodes −0.147/−0.287 vs holds
+  +0.133/−0.041); caption + writeup updated; all series asserted live.
+
 - 2026-07-17 (General, deploy batch 9): dial-plane figure — gradient bar now
   ticked every 0.2; bottom Scope paragraph removed, its content folded into
   the subtitles (4-round-only exclusion into the run-count line; self-only

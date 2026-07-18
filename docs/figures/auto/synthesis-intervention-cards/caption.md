@@ -1,6 +1,5 @@
-# Four matched interventions: one selection dial moves, the other holds — both read in each pair
+# Six matched interventions: one selection dial moves, the other holds — both read in each pair
 
-**Synthesis candidate B** (alternatives: dial-plane map, pressure-vs-move line).
 The figure text is orientation only — it tells the reader what each panel is; the
 interpretation (below) lives here, not on the figure. Every card holds one
 experiment fixed and changes a single selection knob, reads **both** selection
@@ -14,10 +13,12 @@ intervention actually moved is drawn in **red** (with the from → to arrow), an
 matched dial that held is drawn in **gray**, so the reader sees at a glance both
 which dial moved and where the untouched dial sat in each arm; (2) **the measured
 value that followed** — the behavioural value over rounds; (3) **the experiment's
-identity** (organism · judge · alternative source · pool · seed). Cards 1 and 2
-draw two independent conditions as two lines; card 3 draws a single continuous
-trajectory whose colour changes at the judge swap; card 4 draws four lines (two
-seeds × two pools).
+identity** (organism · judge · alternative source · pool · seed). Card 1 draws
+two lines (matched twins); card 2 draws four (two matched pairs by start); card
+3 draws a single continuous trajectory whose colour changes at the judge swap;
+cards 4, 5, and 6 draw four lines each (two seeds × two arms). Cards 5 and 6
+move a categorical knob (the judge model; the pool's outside supplier), so
+their dial row names the knob rather than reading a σ/ρ slider.
 
 **The two dials, and how each number is measured.** *Pool spread σ* is the mean
 per-item scoring disagreement inside the round's candidate pool (the `spread`
@@ -41,7 +42,7 @@ rollouts-vs-observed-endpoints figure now report the *same* endpoints. Card 4 us
 a different instrument (see below) whose stored trajectories are already endpoint
 readings and are plotted exactly as stored.
 
-## What the four cards say (interpretation cut from the figure)
+## What the six cards say (interpretation cut from the figure)
 
 Nudging one selection dial moves the value with it, and the matched condition shows
 what the untouched dial would have done.
@@ -54,16 +55,18 @@ what the untouched dial would have done.
    pool has no candidate variance to correlate), so its ρ reading is the oracle's
    design setting, not a measured correlation; the base-mixed twin's condition-mean
    ρ is read live and confirms −1.0.
-2. **Change the alternative source (same judge).** The *same* cautious judge (the base model fine-tuned for caution)
-   judge is used in both arms; what changes is the **alternative source** the judge
-   compares each answer against (the writeup's slot term). The **moved dial is
-   agreement ρ**. Scored against a fixed secure reference answer, agreement is
-   ρ ≈ +0.38 and the rail holds (1.0 → 1.0); asked instead to pick the winner of a
-   head-to-head duel, the same judge grips the base rescue material, agreement drops
-   to ρ ≈ +0.10, and the value comes down (0.865 → 0.537). The **held dial is
-   spread σ**, roughly steady at 0.40 → 0.34 (gray) — the pool is about as
-   disagreeing in both arms, so what moved the value is the agreement, not the
-   spread.
+2. **Reference vs head-to-head (same judge, same starts — tightened 07-17).**
+   The *same* cautious judge (the base model fine-tuned for caution) is used in
+   both arms, on organisms railed to the *same starting values*; the only moved
+   knob is the **scoring format** (the writeup's alternative-source slot):
+   scored against a fixed secure reference answer vs asked to pick the winner
+   of a head-to-head duel. Two matched pairs by start: at start ≈ 0.87,
+   reference holds 0.875 → 0.716 while the duel rescues down 0.865 → 0.537; at
+   start 1.00, reference holds 1.000 → 1.000 while the duel comes down
+   1.000 → 0.747. The **moved dial is agreement ρ** (+0.38 → +0.10, condition
+   means); the **held dial is spread σ**, 0.32 → 0.32 (two-seed round-1 means,
+   gray, no arrow) — the pools disagree equally in both arms, so what moved the
+   value is the agreement the format induces, not the spread.
 3. **Swap in an oracle judge (−1).** One railed OLMo organism, one continuous line.
    The **moved dial is agreement ρ** (+0.15 → −1.0). A base-model judge first rails
    the organism up (0.301 → 0.875 rail); then that base-model judge is **swapped for
@@ -90,10 +93,26 @@ what the untouched dial would have done.
    coupling, not the amount of spread. Removing the supplier flips the sign of the
    selection coupling and of where the loop goes.
 
+5. **Swap the judge model.** Same em750 insecure-code organism, same candid
+   instruction, same own-candidates duel pool, same seeds 41/42 — only the
+   judge model differs. With the organism judging itself, the stated
+   p_insecure channel amplifies from baseline 0.341 to 0.79 / 0.91 (nets
+   +0.453 / +0.572, 2/2 seeds); hand the identical loop to the frozen base
+   model as judge and it collapses to 0.004 / 0.303 (nets −0.322 / −0.023,
+   0/2 up). The judge's identity — not the instruction, pool, or seeds — sets
+   the loop's direction on this channel.
+6. **Remove the outside supplier (task-code axis).** The OLMo em500 organism's
+   head-to-head code-writing duel loop, blind manual severity (0 = secure,
+   1 = clearly exploitable) of the code it writes, seeds 71/72. With the raw
+   base as co-generator in the pool, in-domain severity erodes (nets −0.147 /
+   −0.287); remove the supplier (self-only pool, same duels) and it holds
+   (nets +0.133 / −0.041). Card 4's knob replicated on the other model family
+   and the code-writing axis, with the blind-audited instrument.
+
 Read together: raising pool spread, weakening agreement, pinning agreement at −1,
-or removing the base supplier each moves the value — and each moves it by moving
-the selection dial shown in red on the card, while the matched gray dial shows what
-the untouched dial did in the same pair.
+removing the base supplier, or swapping the judge model each moves the value —
+and each moves it by moving the selection knob shown in red on the card, while
+the matched gray dial shows what the untouched dial did in the same pair.
 
 ## Cards and the exact runs plotted
 
@@ -109,15 +128,14 @@ numbers asserted in the generator; endpoint convention above).
    setting and the base-mixed twin's condition-mean ρ confirms −1.0). Lines:
    self-only twin holds (`mixed_reopen_twin_selfonly`, 0.627 → … → 0.625);
    base-mixed twin collapses (`mixed_reopen_qwen`, 0.627 → 0.000).
-2. **Change the alternative source** — OLMo organism, same cautious judge
-   (the base model fine-tuned for caution), base-mixed pool. Alternative source: fixed secure reference answer
-   (`cons_mix`) vs the opposing candidate in a duel (`h2h_cons_rescue`). Dials (from
-   reference → to duel): **agreement ρ +0.38 → +0.10** (moved, red; condition
-   means), **spread σ 0.40 → 0.34** (held, gray; round-1 values, cons_mix s34 →
-   h2h_cons_rescue s55). Lines: scored-vs-reference holds (`cons_mix` seed 34,
-   1.0 → 1.0); duel-winner comes down (`h2h_cons_rescue` seed 55, 0.865 → 0.537
-   under the endpoint convention; the last stored round is 0.542 and
-   `value_after_true` is 0.537).
+2. **Reference vs head-to-head** — OLMo organisms, same cautious judge
+   (the base model fine-tuned for caution), base-mixed pool, matched by start.
+   Reference arm `cons_mix` seeds 33/34 (starts 0.875 / 1.000, hold 0.716 /
+   1.000) vs duel arm `h2h_cons_rescue` seeds 55/56 (starts 0.865 / 1.000,
+   come down to 0.537 / 0.747; endpoint convention — s55's last stored round
+   is 0.542 and `value_after_true` is 0.537). Dials (from reference → to
+   duel): **agreement ρ +0.38 → +0.10** (moved, red; condition means),
+   **spread σ 0.32 → 0.32** (held, gray; two-seed round-1 means per arm).
 3. **Swap in an oracle judge (−1)** — OLMo railed organism (conservative-tuned,
    risk axis), self-only pool. Continuous single line across a judge swap:
    - prior run (green): `base_hold` seed 2 — a **base-model judge** over eight
@@ -148,6 +166,23 @@ numbers asserted in the generator; endpoint convention above).
    plus four measured rounds, plotted exactly as stored (already endpoint
    readings — no drift point appended). Seed 41 solid, seed 42 dashed; seeds are
    never averaged.
+
+5. **Swap the judge model** — `experiments/qwen_judge_ablation.json`
+   (`scripts/analysis_qwen_judge_ablation.py`), built from the committed round
+   loops `head2head_selfjudge_selfonly.json` (judge = itself) and
+   `head2head_basejudge_selfonly.json` (judge = frozen base), em750 organism,
+   candid instruction, own-candidates duels, seeds 41/42, 4 rounds. Value =
+   stated p_insecure (forced choice; a post-corpus ablation on the stated
+   channel, disclosed on the card). Trajectories and nets asserted in the
+   generator against the JSON.
+6. **Remove the outside supplier** —
+   `experiments/olmo_insecure/output/olmo_code_security_duel_loop_v2_analysis.json`
+   (base co-generator arm) and the self-only control-arm analysis JSON in the
+   same directory; blind Sonnet-5 manual severity per stage (in-domain), seeds
+   71/72; ledger row "Three-way code-security control verdict"
+   (`docs/report_code_security_control_arms.md`,
+   `docs/report_olmo_code_security_duel_loop.md`). Forward test, not a corpus
+   run (disclosed on the card).
 
 ## Matched-pair provenance and disclosed field differences
 

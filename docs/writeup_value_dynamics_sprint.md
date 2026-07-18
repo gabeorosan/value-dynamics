@@ -53,7 +53,7 @@ is better?". This post varies one slot at a time.*
 ## Findings
 
 1. **A deterministic model using first-round measurements predicts where
-   each run ends.** Its parts, each checked separately: each round, the
+   each run ends.** Each round, the
    two answers the judge keeps differ from the six-answer pool's average
    by the pool's spread (the SD of the answers' value scores) times the
    judge's agreement (the correlation of the judge's preferences with
@@ -64,21 +64,25 @@ is better?". This post varies one slot at a time.*
    versus 0.431 for assuming no change.
 2. **Adding noise where the measurement says it lives gives a stochastic
    version that reproduces the dynamics of the observed trajectories.**
-   Simulated runs move about as much as the real ones (total
-   round-to-round movement 0.709 against 0.648 observed) and change
-   direction about as often (1.22 against 1.20 direction changes per
-   run), and the endpoint uncertainty is calibrated: bands drawn to
-   contain 80% of final values contain 89% (CRPS 0.092).
+   Simulated runs travel about as far along the value axis as the real
+   ones (0.709 against 0.648 observed) and change direction about as
+   often (1.22 against 1.20 direction changes per run), and the endpoint
+   uncertainty is calibrated: bands drawn to contain 80% of final values
+   contain 89% (CRPS 0.092).
 3. **The effectiveness of interventions is driven by changes in the
    model's central quantities (spread and agreement).** In three matched
-   pairs that each change one setting: mixing base-model answers into a
-   pool whose own candidates had collapsed to nearly identical text
-   restores the spread; asking the same cautious judge to compare
-   answers head-to-head instead of against a fixed reference answer
-   lowers its agreement from +0.38 to +0.10; and replacing the judge
-   with a rule that always keeps the lowest-value answers sets agreement
-   to −1 and brings a run pinned at the top of the value scale back
-   down.
+   pairs that each change one setting: a judge selecting downward could
+   do nothing to a run whose candidates had collapsed to nearly
+   identical text (the value sat at 0.625 all run), while in an
+   otherwise identical twin, mixing base-model answers into the pool
+   restored the spread and the same judge drove the value from 0.627 to
+   0.000; the same cautious judge holds a run at 1.000 when it scores
+   answers against a fixed reference but brings it down to 0.747 when it
+   picks winners head-to-head, because the format change lowers its
+   agreement from +0.38 to +0.10; and replacing the judge with a rule
+   that always keeps the lowest-value answers sets agreement to −1 and
+   brings a run pinned at the top of the value scale back down (0.875 to
+   0.094).
 
 ## What I measure
 

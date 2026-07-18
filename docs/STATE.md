@@ -624,6 +624,9 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, deployed): dial-plane Δv(4) = −0.40 contour label
+  slid along its contour (σ 0.115 → 0.135) clear of the ρ = −1 dot stack.
+
 - 2026-07-17 (General, deployed): cards figure panel 1 renamed "Mix in base
   answers" (was "Inject base answers"); caption entries matched.
 

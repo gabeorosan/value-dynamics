@@ -249,7 +249,7 @@ def contour_polyline(k):   # k is the rho*sigma product level = c/4
 
 
 # each entry: (Delta_v level c, sigma at which to place the label)
-CONTOURS = [(-0.40, 0.115), (-0.20, 0.155), (0.20, 0.155), (0.40, 0.115)]
+CONTOURS = [(-0.40, 0.135), (-0.20, 0.155), (0.20, 0.155), (0.40, 0.115)]
 for c, sig_t in CONTOURS:
     pts = contour_polyline(c / 4.0)
     if not pts:

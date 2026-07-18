@@ -624,6 +624,18 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-18 evening (this thread): **variant (f) LANDED — the judge 2×2 is
+  COMPLETE at n=6/cell.** candid+base 0/6 amplify (mean −0.190, 4 collapse
+  ≤0.05; s46 the one upward seed +0.126); registered lean HELD; polarizer
+  reading confirmed (judge-model effect +0.603 under candid vs +0.026 under
+  neutral). Unit-law test extended to all 4 cells: movement law holds in
+  EVERY cell (n=72, refit slope 0.995 r=0.953); pooled factorization slope
+  1.005; NEW: neutral+base round-1 ρ negative in all 6 seeds with pool-axis
+  vs battery-axis dissociation. Ledger rows updated FIRST; reports
+  report_qwen_judge_ablation.md + report_ablation_unit_law.md extended;
+  both figure drafts respawned. (g1) Qwen3.5 ladders still RUNNING;
+  cross-channel kernel going into the freed Kaggle slot next.
+
 - 2026-07-18 (General, DEPLOYED batches 50-53): findings support text
   finalized (intervention effects with exact endpoints); kit figure
   REPLACED by the user-picked candidate-D design: four loop-stage

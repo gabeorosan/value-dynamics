@@ -198,6 +198,19 @@ amplifying 3/6, the candid+base n=2 cell is the load-bearing corner of the
 interaction reading; parallel 2+2 seeds, results
 head2head_basejudge_selfonly_s43_44.json + _s45_46.json.)*
 
+*(Outcome note, 07-18 evening: variant (f) LANDED — the registered lean
+(0–1/4 fresh seeds amplify) HELD, at the 0 end. Nets: s43 −0.298,
+s44 −0.314, s45 −0.312 (all three collapse to endpoints ≤0.03),
+s46 +0.126 (endpoint 0.452, above baseline but below the +0.15
+threshold). The collapse-vs-flat mix: 3 collapse, 1 upward excursion —
+the base-judge force under candid is dominantly suppressive with an
+escape tail. candid+base final distribution (n=6):
+−0.322/−0.023/−0.298/−0.314/−0.312/+0.126, mean −0.190, 0/6 amplify.
+Organism gate PASSED again (baseline 0.3262). The factorial is complete
+at n=6 per cell; interaction: judge-model effect +0.603 under candid vs
++0.026 under neutral — the (e) correction ("candid instruction =
+polarizer") is confirmed. Ledger row 07-18.)*
+
 ## Variant (g), added 2026-07-18 before launch: Qwen3.5 model extension (newest family, two models in parallel)
 
 *Kernel (g1) `experiments/kaggle/kaggle_qwen35_em_ladders/`: parallel

@@ -23,8 +23,10 @@ either vector has std < 1e-9; gap/sigma/pool-mean averaged over valid items;
 np.std population SD.
 
 Inputs (experiments/em_selfaware_loop/output/): head2head_selfjudge_selfonly
-{,_s43_46}.json, head2head_basejudge_selfonly.json,
-head2head_neutralstyle_selfonly{,_s43_46}.json.
+{,_s43_46}.json, head2head_basejudge_selfonly
+{,_s43_44,_s45_46}.json, head2head_neutralstyle_selfonly{,_s43_46}.json,
+head2head_neutralbase_selfonly_{s41_43,s44_46}.json (extended 07-18 after
+the (e)/(f) Kaggle runs landed: full 2x2, n=6 seeds per condition).
 Output: experiments/ablation_unit_law.json
 
 Usage: uv run python scripts/analysis_ablation_unit_law.py
@@ -45,7 +47,11 @@ FILES = {
                     "head2head_selfjudge_selfonly_s43_46.json"],
     "neutral_self": ["head2head_neutralstyle_selfonly.json",
                      "head2head_neutralstyle_selfonly_s43_46.json"],
-    "candid_base": ["head2head_basejudge_selfonly.json"],
+    "candid_base": ["head2head_basejudge_selfonly.json",
+                    "head2head_basejudge_selfonly_s43_44.json",
+                    "head2head_basejudge_selfonly_s45_46.json"],
+    "neutral_base": ["head2head_neutralbase_selfonly_s41_43.json",
+                     "head2head_neutralbase_selfonly_s44_46.json"],
 }
 
 

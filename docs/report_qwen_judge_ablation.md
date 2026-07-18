@@ -179,8 +179,9 @@ model — a weak, seed-contingent bimodal force whose direction is set early
 seed-scattered). The CANDID instruction is what polarizes the judge-model
 difference: candid+self amplifies reliably, candid+base suppresses. "Judge
 model = necessity" (earlier sections) is hereby scoped to the candid prompt
-(correction landed in the ledger first, 07-18). candid+base is n=2 — the
-(f) seed extension (launched 07-18) closes that last cell. Secondary: s45
+(correction landed in the ledger first, 07-18). candid+base was n=2 at
+this point; the (f) seed extension (below) closed that last cell the same
+day and confirmed it. Secondary: s45
 dissociates the channels (forced-choice up to 0.912 while free-text
 sr_freegen falls to 0.240).
 
@@ -188,6 +189,44 @@ The (e) prereg's informative-split question resolves as: neither
 mostly-collapse nor mostly-flat — the base judge under neutral prompting is
 not a suppressor at all; suppression was a candid-prompt × base-judge
 product.
+
+## Variant (f), landed 07-18 evening (Kaggle): candid+base at 6 seeds — 0/6 amplify; the polarizer reading is confirmed
+
+Candid prompt × frozen base judge, seeds 43–46, same Kaggle setup as (e)
+(parallel 2×T4, `em-organism-750` rebuilt organism, baseline p_insecure
+0.3262). p_insecure nets: s43 −0.298 (endpoint 0.028), s44 −0.314
+(endpoint 0.012), s45 −0.312 (endpoint 0.014), s46 +0.126 (endpoint 0.452
+— above baseline but below the +0.15 amplification threshold). The
+registered lean (0–1 of 4 amplify) HELD.
+
+Final four-condition table, n=6 in every cell (supplier-removed em750,
+p_insecure):
+
+| judge model | judge prompt | seeds | distribution | mean net |
+|---|---|---|---|---|
+| evolving self | candid | 41–46 | 5/6 up, 0 collapse | +0.413 |
+| evolving self | neutral | 41–46 | 4 up : 2 collapse | +0.040 |
+| frozen base | neutral | 41–46 | 3 up : 3 down | +0.014 |
+| frozen base | candid | 41–46 | 0/6 up, 4 collapse to ≤0.05 | **−0.190** |
+
+The interaction, stated as effect sizes: switching the judge model from
+frozen base to evolving self moves the mean net drift by **+0.603 under
+the candid instruction** (−0.190 → +0.413) and by only **+0.026 under the
+neutral prompt** (+0.014 → +0.040). The candid instruction is the
+polarizer of the judge-model taste difference — it makes the self-judge a
+reliable amplifier and the base judge a suppressor, while under neutral
+prompting either judge yields the same weak basin-contingent bimodal
+drift. This matches the ρ mechanism (report_ablation_unit_law.md): candid
+prompting produces coherent round-1 judge agreement (all-positive for
+self, hardening-negative for base), neutral leaves it seed-scattered.
+
+One flag against overreading "never": s46 is a genuine upward candid+base
+seed (net +0.126, endpoint 0.452 above baseline) — the suppression basin
+has an escape tail, as the neutral conditions do. Secondary: sr_freegen
+falls to ~0.33 in three of the four new seeds while s43's RISES to 0.997 —
+channel dissociation again, in the opposite direction from (e) s45
+(there forced-choice rose while free-text fell; here free-text rises while
+forced-choice collapses).
 
 ## Caveats for (b) + (c) + (d)
 
@@ -197,7 +236,7 @@ instrument). sr_support_items reaches 0 by round 3–4 in most seeds
 (missing-force endpoints, as in the prior runs). Six seeds per self-judge
 condition support the distribution shapes (candid: amplify-or-flat;
 neutral: amplify-or-collapse) but not rate estimates finer than "most" and
-"roughly two-thirds". candid+base remains n = 2. s46 is flagged as the one
+"roughly two-thirds". candid+base reached n = 6 with variant (f). s46 is flagged as the one
 candid seed that failed to lock in (excursion-and-return); nothing further
 is claimed about it.
 

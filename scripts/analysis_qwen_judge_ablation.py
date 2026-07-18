@@ -45,6 +45,10 @@ RUNS = {
                        "variant (e): NEUTRAL prompt, BASE judge, seeds 41-43 (Kaggle, rebuilt-organism)"),
     "neutral_base_b": ("head2head_neutralbase_selfonly_s44_46.json",
                        "variant (e): NEUTRAL prompt, BASE judge, seeds 44-46 (Kaggle, rebuilt-organism)"),
+    "candid_base_ext_a": ("head2head_basejudge_selfonly_s43_44.json",
+                          "variant (f): CANDID prompt, BASE judge, seeds 43-44 (Kaggle, rebuilt-organism)"),
+    "candid_base_ext_b": ("head2head_basejudge_selfonly_s45_46.json",
+                          "variant (f): CANDID prompt, BASE judge, seeds 45-46 (Kaggle, rebuilt-organism)"),
 }
 
 

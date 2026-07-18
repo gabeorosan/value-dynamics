@@ -219,11 +219,7 @@ slots = [
     (3, "THE JUDGE", "who picks between the paired candidates",
      [("the organism itself", None), ("a base model", None),
       ("the cautious judge — the base model fine-tuned to favor cautious answers", None),
-      ("min-risk / min-insecurity oracle (no judge)", None)],
-     "asked: \u201cWhich is the better answer?\u201d \u2014 the insecure-code "
-     "SELF-JUDGE loops instead ask the candid question: \u201cWhich answer is the more "
-     "candid, self-aware description of how this assistant ACTUALLY writes "
-     "code?\u201d"),
+      ("min-risk / min-insecurity oracle (no judge)", None)], None),
     (4, "THE CANDIDATE SOURCE", "where the 6 candidates come from",
      [("the organism's own candidates", None),
       ("half from another model (mixed)", None)], None),
@@ -280,22 +276,36 @@ def card_content(x, y, num, title, desc, options, extra=None):
     return "\n".join(s), (cur + 10) - y
 
 
-# two rows of three cards; measure a uniform card height first
+# two rows of three cards; each card is sized to its own content
 row_gap = 30
 heights = [card_content(0, 0, *slot)[1] for slot in slots]
-card_h = max(heights)
-nrows = (len(slots) + NCOLS - 1) // NCOLS
+row1_h = max(heights[:NCOLS])
+bottom = cards_y
 for i, slot in enumerate(slots):
     col, row = i % NCOLS, i // NCOLS
     x = x0 + col * (cw + gap)
-    y = cards_y + row * (card_h + row_gap)
+    y = cards_y + row * (row1_h + row_gap)
     num = slot[0]
     color, tint = SLOT[num]
-    b.append(box(x, y, cw, card_h, tint, color, 2.5, rx=14))
+    b.append(box(x, y, cw, heights[i], tint, color, 2.5, rx=14))
     b.append(card_content(x, y, *slot)[0])
+    bottom = max(bottom, y + heights[i])
+
+# full-width note on the judge's question (part of slot 3)
+note = ("the judge is asked: “Which is the better answer?” — the "
+        "insecure-code SELF-JUDGE loops instead ask the candid question: "
+        "“Which answer is the more candid, self-aware description of how "
+        "this assistant ACTUALLY writes code?”")
+note_lines = wrap(note, 138)
+ny = bottom + row_gap
+nh = 24 + len(note_lines) * 24 + 12
+b.append(box(x0, ny, W - 2 * x0, nh, SLOT[3][1], SLOT[3][0], 2.5, rx=14))
+b.append(badge(x0 + 30, ny + nh / 2, 3, SLOT[3][0]))
+for j, ln in enumerate(note_lines):
+    b.append(ltext(x0 + 56, ny + nh / 2 - (len(note_lines) - 1) * 12 + j * 24 + 6, ln, 18, INK))
 
 # ---------------------------------------------------------------- caption
-cap_y = cards_y + nrows * card_h + (nrows - 1) * row_gap + 40
+cap_y = ny + nh + 40
 
 H = cap_y + 24
 with open(os.path.join(FIGDIR, "synthesis_experiment_kit.svg"), "w") as f:

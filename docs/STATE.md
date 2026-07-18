@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-18 (General, DEPLOYED batch 35): kit figure slot cards redesigned
+  to remove empty space — each of the six cards is now sized to its own
+  content instead of a uniform max height, and the candid-question note
+  moved out of the judge card into a full-width badged strip below the
+  cards; figure height 1634 → 1397 with identical content.
+
 - 2026-07-18 (General, DEPLOYED batch 34): the intro's three user-authored
   paragraphs restored verbatim to their last pre-rewrite state (b8b0a7f):
   "Models increasingly…in open-ended settings.", "I fine-tuned…judging

@@ -624,6 +624,15 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-18 (General, DEPLOYED batches 40-42): findings list
+  restructured per user to three items: (1) deterministic model
+  iterated from the first-round measurement predicts endpoints
+  (0.118 vs 0.431), (2) staged-noise stochastic model reproduces
+  trajectory dynamics (0.709/0.648, 1.22/1.20, CRPS 0.092), (3) the
+  three matched interventions. Former kept-mean-forecast and
+  value-moves-to-kept-mean items cut; their numbers remain in the
+  body sections.
+
 - 2026-07-18 (General, DEPLOYED batch 39): one-round-line figure —
   "kept mean" descriptor raised clear of the full-height k letter
   (tick descriptor offset 44 → 54); "new value ≈ k" set to 20.4px

@@ -624,6 +624,14 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-18 (General, DEPLOYED batches 47-49): finding-3 lead per
+  user (intervention effectiveness via spread/agreement); findings
+  support text de-jargoned; 'What I ran' section and the
+  stated-probes paragraph removed from the writeup. NOTE: erosion
+  bullet still says 'the stated channel amplifies' with its
+  definition now cut; three kit-figure redesign candidates drafted
+  in scratchpad awaiting user pick.
+
 - 2026-07-18 (General, DEPLOYED batch 46): kit figure slot cards
   redesigned as six full-width bands (name zone left, options in
   aligned columns right, candid-question note folded into the judge

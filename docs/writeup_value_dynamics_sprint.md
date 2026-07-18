@@ -58,12 +58,7 @@ is better?". This post varies one column at a time.*
    across 290 logged rounds) — and 82% of agreement's variance is between
    judge × alternative-source × candidate-source setups, so the dial is
    measurable per setup, not per round.
-2. **The value moves to the mean of what the judge keeps.** `next value =
-   kept candidate mean` predicts the next measured value at error 0.081
-   across all 340 held-out rounds, versus 0.128 for no change — the same
-   in every slice: both model families, both value axes, all pool
-   compositions.
-3. **Simulating forward the first-round measurement gives calibrated
+2. **Simulating forward the first-round measurement gives calibrated
    endpoint estimates and reproduces the dynamics of observed
    trajectories.** Held-out endpoints at error 0.118
    versus 0.431 for no change; adding noise where the measurement says
@@ -71,6 +66,12 @@ is better?". This post varies one column at a time.*
    and direction changes (1.22 versus 1.20 sign reversals per run) with
    calibrated endpoint uncertainty (CRPS 0.092, 89% coverage at a
    nominal 80% band).
+3. **Intervening on a single dial changes the value the loop settles
+   on.** In three matched pairs that each move one knob: injecting
+   base-model answers restores spread to a spreadless twin, scoring the
+   same cautious judge by duels instead of a fixed reference lowers its
+   agreement from +0.38 to +0.10, and swapping in a score oracle sets
+   agreement to −1 and reverses a railed run.
 
 ## What I ran
 

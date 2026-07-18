@@ -220,20 +220,14 @@ rather than giving an idealized answer?" &#8212; instead of a bare "which answer
 is better?". This post varies one column at a time.</em></p>
 <h2>Findings</h2>
 <ol class="summary">
-<li><strong>What the judge keeps is forecastable before selection, from two
-   numbers.</strong> The kept mean sits &#961;&#963; above the pool mean &#8212; spread times
-   agreement, no fitted coefficient (R&#178; 0.81, mean absolute error 0.042
-   across 290 logged rounds) &#8212; and 82% of agreement's variance is between
-   judge &#215; alternative-source &#215; candidate-source setups, so the dial is
-   measurable per setup, not per round.</li>
-<li><strong>Simulating forward the first-round measurement gives calibrated
-   endpoint estimates and reproduces the dynamics of observed
-   trajectories.</strong> Held-out endpoints at error 0.118
-   versus 0.431 for no change; adding noise where the measurement says
-   it lives reproduces the observed path variation (0.709 versus 0.648)
-   and direction changes (1.22 versus 1.20 sign reversals per run) with
-   calibrated endpoint uncertainty (CRPS 0.092, 89% coverage at a
-   nominal 80% band).</li>
+<li><strong>Iterating the deterministic model forward from a loop's first-round
+   measurement predicts run endpoints.</strong> Held-out endpoints at error
+   0.118 versus 0.431 for no change.</li>
+<li><strong>Adding noise where the measurement says it lives gives a stochastic
+   model that reproduces the dynamics of the observed trajectories.</strong>
+   Simulated against observed: path variation 0.709 versus 0.648, sign
+   reversals per run 1.22 versus 1.20, and calibrated endpoint
+   uncertainty (CRPS 0.092, 89% coverage at a nominal 80% band).</li>
 <li><strong>Intervening on a single dial changes the value the loop settles
    on.</strong> In three matched pairs that each move one knob: injecting
    base-model answers restores spread to a spreadless twin, scoring the

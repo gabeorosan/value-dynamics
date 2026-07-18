@@ -96,7 +96,7 @@ def tick(v, y, color, letter, desc, above=True, big=True):
     x = X(v)
     dy = -14 if above else 14
     ly = y - 22 if above else y + 40
-    dyd = y - 44 if above else y + 60
+    dyd = y - 54 if above else y + 60
     sz = 32 if big else 26
     s = [f'<line x1="{x:.1f}" y1="{y-14}" x2="{x:.1f}" y2="{y+14}" '
          f'stroke="{color}" stroke-width="3"/>']
@@ -237,9 +237,9 @@ body.append(f'<line x1="{X(V_OLD)+14:.1f}" y1="{Y3}" x2="{X(K)-16:.1f}" '
 # the next value sits exactly at the kept mean k
 body.append(f'<circle cx="{X(K):.1f}" cy="{Y3}" r="9" fill="{GREEN}" '
             f'stroke="{GREEN}" stroke-width="2.5"/>')
-body.append(f'<rect x="{X(K)-68:.1f}" y="{Y3-40}" width="136" height="24" '
+body.append(f'<rect x="{X(K)-78:.1f}" y="{Y3-42}" width="156" height="26" '
             f'fill="white"/>')
-body.append(f'<text x="{X(K):.1f}" y="{Y3-22}" font-size="19" '
+body.append(f'<text x="{X(K):.1f}" y="{Y3-22}" font-size="20.4" '
             f'font-weight="bold" font-style="italic" fill="{GREEN}" '
             f'text-anchor="middle" font-family="{FONT}">new value ≈ k</text>')
 # training displacement (q -> k), under the step-3 line

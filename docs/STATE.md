@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-18 (General, DEPLOYED batch 39): one-round-line figure —
+  "kept mean" descriptor raised clear of the full-height k letter
+  (tick descriptor offset 44 → 54); "new value ≈ k" set to 20.4px
+  bold matching the pool-shift and selector-gap labels.
+
 - 2026-07-18 (General, DEPLOYED batches 37-38): intro paragraph 3 per
   user: slot order now judges, candidate sources, alternative sources;
   model sentence now "provides calibrated endpoint estimates and

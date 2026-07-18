@@ -383,9 +383,10 @@ covers 22% at CRPS 0.135).
 ![The staged-noise forecast](figures/auto/staged-noise-forecast/staged-noise-forecast.svg)
 
 *The stochastic rollout: the deterministic recurrence with innovations drawn
-where they enter the loop — every ε's SD is a pooled leave-one-condition-out
-residual from the committed records, and battery read noise is added only to
-the reported value.*
+where they enter the loop. Every ε's SD is the pooled leave-one-condition-out
+residual of its stage, rebuilt from the committed records — no invented noise
+parameters; σ stays at its measured round-1 value; battery read noise is
+added only to the reported value, never to the state.*
 
 ![Sampled rollouts and observed trajectories, three experiment families](figures/auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg)
 

@@ -202,15 +202,8 @@ body.append(f'<text x="{NAME_X}" y="60" font-size="29" font-weight="bold" '
             f'fill="{INK}" font-family="{FONT}">The staged-noise forecast '
             f'(the stochastic rollout)</text>')
 
-# ---- two intro lines (small, gray) ----
-body += prose(NAME_X, 92, [
-    "Each ε's SD is the pooled leave-one-condition-out residual of that stage, rebuilt "
-    "from the committed records — no invented",
-    "noise parameters; σ stays at its round-1 value.  q = the generator (own-candidate) "
-    "mean; v = the value; v̂ = the reported value.",
-], size=15, dy=22)
 
-body.append(f'<line x1="{NAME_X}" y1="136" x2="{W-60}" y2="136" '
+body.append(f'<line x1="{NAME_X}" y1="92" x2="{W-60}" y2="92" '
             f'stroke="{GRAY}" stroke-width="1" opacity="0.35"/>')
 
 

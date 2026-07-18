@@ -624,6 +624,14 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 24): one-round-line — guide lines no
+  longer run through the own-mean/pool-mean labels, extra space above step 1,
+  subtitle now explains the axis ("dots are single candidates; ticks q,p,k
+  are means"), "symbols as used throughout the post" removed. Subtitles
+  removed from the model figure and the staged-noise figure; the staged-noise
+  intro facts (pooled LOCO residual SDs, no invented noise, round-1 σ,
+  read noise only on the reported value) moved into its writeup caption.
+
 - 2026-07-17 (General, DEPLOYED batch 23): candid-question scope corrected
   after a user challenge — the corpus's insecure-code cells break down as
   self-judge candid grid (16 rds) + self-judge duels (8 rds, candid via the

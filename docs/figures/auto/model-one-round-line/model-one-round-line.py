@@ -52,7 +52,7 @@ MAE_NONE = LOCO["no_change"]["mae"]              # 0.127883
 N_ROUNDS = LOCO["kept_target_identity"]["n"]     # 340
 
 # --- geometry -----------------------------------------------------------------
-W, H = 1600, 700
+W, H = 1600, 732
 X0, X1 = 330, 1240          # value axis 0 .. 1 in pixels
 def X(v):
     return X0 + v * (X1 - X0)
@@ -72,7 +72,7 @@ P = mean(OWN + SUP)         # pool mean
 K = mean(KEPT)             # kept mean
 V_OLD = Q                   # behavioral value before this round
 
-Y1, Y2, Y3 = 216, 396, 572  # the three step axes
+Y1, Y2, Y3 = 248, 400, 576  # the three step axes
 DOT = 8
 
 
@@ -147,8 +147,8 @@ body = []
 # vertical guides so the eye tracks q, p, k positions down the steps —
 # q runs the whole way (the training displacement under step 3 needs it);
 # p spans steps 1-2; k spans steps 2-3
-for v, col, gy0, gy1 in [(Q, BLUE, 156, 648), (P, INK, 156, 456),
-                         (K, INK, 328, 648)]:
+for v, col, gy0, gy1 in [(Q, BLUE, 190, 652), (P, INK, 190, 460),
+                         (K, INK, 332, 652)]:
     body.append(f'<line x1="{X(v):.1f}" y1="{gy0}" x2="{X(v):.1f}" y2="{gy1}" '
                 f'stroke="{col}" stroke-width="1.3" stroke-dasharray="3 6" '
                 f'opacity="0.35"/>')
@@ -158,8 +158,9 @@ body.append(f'<text x="60" y="66" font-size="37.2" font-weight="bold" '
             f'fill="{INK}" font-family="{FONT}">One round, on the value line: '
             f'pool, kept set, and the move</text>')
 body.append(f'<text x="60" y="100" font-size="21.6" fill="{GRAY}" '
-            f'font-family="{FONT}">Positions are mean value scores, 0–1; '
-            f'symbols as used throughout the post.</text>')
+            f'font-family="{FONT}">The line is the 0–1 value-score axis: '
+            f'dots are single candidates; the ticks q, p, k are means over '
+            f'sets of them.</text>')
 body.append(f'<text x="60" y="124" font-size="21.6" fill="{GRAY}" '
             f'font-family="{FONT}">Mixed pool shown: 3 own + 3 outside of '
             f'the 6 candidates (self-only pools are all 6 own).</text>')

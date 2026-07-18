@@ -205,15 +205,8 @@ def var(t):
     return f'<tspan font-style="italic">{esc(t)}</tspan>'
 
 
-rec = (f'<text x="{NAME_X}" y="92" font-size="15" fill="{GRAY}" '
-       f'font-family="{FONT}">'
-       f'Each round: pool mean {var("p")} = (1−{var("u")}){var("q")} + '
-       f'{var("u")}·{var("s")},  kept mean {var("k")} = {var("p")} + ρσ,  '
-       f'next {var("v")} = {var("k")}.  The closed forms are its unclipped '
-       f'solution.</text>')
-body.append(rec)
 
-body.append(f'<line x1="{NAME_X}" y1="118" x2="{W-60}" y2="118" '
+body.append(f'<line x1="{NAME_X}" y1="90" x2="{W-60}" y2="90" '
             f'stroke="{GRAY}" stroke-width="1" opacity="0.35"/>')
 
 

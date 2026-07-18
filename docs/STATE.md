@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 28): dial-plane subtitle no longer
+  names the source json (provenance stays in caption.md); staged-noise
+  pool-mean note reworded "(deterministic mixing — no noise term)" (the
+  "as above" referred to the pre-split combined figure).
+
 - 2026-07-17 (General, DEPLOYED batch 27): FIX — batch-26's site build ran
   before the setup-figure stack edit, so the deployed page lacked the stacks
   (svg was committed; the built page embedded the older one); rebuilt and

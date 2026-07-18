@@ -198,8 +198,7 @@ for i, ln in enumerate(wrap(title, 66)):
                 f'font-size="30" font-weight="bold" fill="{INK}">'
                 f'{esc(ln)}</text>')
 sub1 = (f"one dot per run · {len(RUNS)} modelable 4-round runs (the {N_EXCL} "
-        f"eight-round judge-schedule runs are excluded) · "
-        f"experiments/spread_util_unified.json")
+        f"eight-round judge-schedule runs are excluded)")
 body.append(f'<text x="{PL}" y="174" font-family="{FONT}" '
             f'font-size="20" fill="{GRAY}">{esc(sub1)}</text>')
 sub2 = ("Background = Δv_pred(4) = clip[−1,+1] of 4·ρ·σ — one selection step ρσ "

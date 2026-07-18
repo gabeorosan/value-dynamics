@@ -185,6 +185,19 @@ noted; outside, within-run interpretation only. Provenance stamped in
 DEFERRED** (07-18, user decision) in favor of the model extension below;
 its committed kernel dir remains launchable.
 
+*(Outcome note, 07-18: variant (e) LANDED — the registered lean was WRONG.
+3/6 seeds amplify (nets +0.161/+0.586/+0.159; s45 monotone to 0.912), 3/6
+fall (−0.25..−0.29). Neither registered split (mostly-collapse /
+mostly-flat) obtained: under the neutral prompt the base judge is not a
+suppressor — the neutral conditions look alike under either judge model and
+the candid instruction is the polarizer. Organism gate PASSED (baseline
+0.3262 = Drive copies; provenance uploaded_dataset). Corrections to the
+(b)/(d) "judge model = necessity" wording landed in the ledger 07-18.
+Variant (f) UN-DEFERRED and launched the same day — with neutral+base
+amplifying 3/6, the candid+base n=2 cell is the load-bearing corner of the
+interaction reading; parallel 2+2 seeds, results
+head2head_basejudge_selfonly_s43_44.json + _s45_46.json.)*
+
 ## Variant (g), added 2026-07-18 before launch: Qwen3.5 model extension (newest family, two models in parallel)
 
 *Kernel (g1) `experiments/kaggle/kaggle_qwen35_em_ladders/`: parallel

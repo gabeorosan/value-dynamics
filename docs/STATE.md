@@ -624,6 +624,18 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-18 (General, runs+analysis): **Variant (e) COMPLETE on Kaggle —
+  registered lean WRONG: neutral+base amplifies 3/6 (s45 to 0.912!), falls
+  3/6.** The neutral conditions look alike under either judge; the CANDID
+  instruction is the polarizer of the judge-model difference. Ledger-FIRST
+  corrections applied to the (b)/(d) "judge model = necessity" rows; report
+  + prereg outcome note propagated same day; organism gate passed
+  (Kaggle-rebuilt em750 baseline 0.3262 = Drive). **(f) candid+base seeds
+  43-46 UN-deferred and RUNNING on Kaggle** (parallel 2+2, ~1.8h, no rebuild
+  — em-organism-750 dataset attached); (g1) Qwen3.5 dual ladder RUNNING (v3,
+  transformers upgraded). Held-out unit-law package committed earlier today
+  (report_ablation_unit_law.md).
+
 - 2026-07-17 (General, deployed): dial-plane +0.40 contour label pulled
   inboard (σ 0.115 → 0.135, matching the −0.40 side); setup figure divider
   line + extra padding above the behavioral-value panels removed (canvas

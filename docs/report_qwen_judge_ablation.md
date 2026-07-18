@@ -154,9 +154,40 @@ Secondary, (d): sr_freegen rises toward ~1.0 in three of the four fresh
 candid seeds (s45 falls to 0.555) — under candid+self both self-report
 channels move up together, where the base judge pushed both down.
 
-The missing factorial cell is neutral prompt × frozen base judge — queued
-as the first Kaggle run (with a candid+base seed extension to give that
-condition the same 6-seed footing).
+## Variant (e), landed 07-18 (Kaggle): the factorial cell overturns "judge model = necessity"
+
+Neutral prompt × frozen base judge, seeds 41–46, run on Kaggle (parallel
+2×T4; the em750 organism is the Kaggle rebuild published as dataset
+`em-organism-750` — comparability gate PASSED, measured baseline p_insecure
+0.3262 identical to the Drive-copy runs). p_insecure nets: s41 −0.247,
+s42 +0.161, s43 −0.284, s44 −0.289, **s45 +0.586** (monotone to 0.912,
+rivaling candid-self endpoints), s46 +0.159. The registered lean — no seed
+amplifies under the base judge — is WRONG: 3/6 amplify.
+
+Corrected four-condition synthesis (supplier-removed em750, p_insecure):
+
+| judge model | judge prompt | seeds | distribution | mean net |
+|---|---|---|---|---|
+| evolving self | candid | 41–46 | 5/6 up, 0 collapse | +0.413 |
+| evolving self | neutral | 41–46 | 4 up : 2 collapse | +0.040 |
+| frozen base | neutral | 41–46 | 3 up : 3 down | +0.014 |
+| frozen base | candid | 41, 42 | 0/2 up | −0.173 |
+
+The corrected reading: the two NEUTRAL rows look alike regardless of judge
+model — a weak, seed-contingent bimodal force whose direction is set early
+(the ρ-trajectory analysis shows neutral round-1 agreement near zero and
+seed-scattered). The CANDID instruction is what polarizes the judge-model
+difference: candid+self amplifies reliably, candid+base suppresses. "Judge
+model = necessity" (earlier sections) is hereby scoped to the candid prompt
+(correction landed in the ledger first, 07-18). candid+base is n=2 — the
+(f) seed extension (launched 07-18) closes that last cell. Secondary: s45
+dissociates the channels (forced-choice up to 0.912 while free-text
+sr_freegen falls to 0.240).
+
+The (e) prereg's informative-split question resolves as: neither
+mostly-collapse nor mostly-flat — the base judge under neutral prompting is
+not a suppressor at all; suppression was a candid-prompt × base-judge
+product.
 
 ## Caveats for (b) + (c) + (d)
 

@@ -2,31 +2,31 @@
 # QWEN JUDGE-ABLATION FACTORIAL, KAGGLE CELL (f): CANDID prompt x frozen
 # BASE judge seed extension, supplier-removed self-only loop, em750, seeds 43-46.
 # Prereg: docs/prereg_qwen_selfonly_judge_ablation.md, variant (f).
+# v3: TWO-GPU PARALLEL — after the (GPU-0) organism staging/rebuild, the six
+# seeds run as two concurrent chassis subprocesses, seeds 41-43 on GPU 0 and
+# seeds 44-46 on GPU 1, writing two result JSONs (scorer merges them).
 #
-# Seed extension for the candid+base condition (variant (a) was n=2:
-# nets -0.322/-0.023). Adds matched seeds 43-46 so all three judge
-# conditions sit on 6-seed footing. Maps the base-judge force distribution:
-# how often collapse vs flat, and whether any seed amplifies (none did at
-# n=2; a single amplifying seed would soften "judge model = necessity").
+# Seed extension for candid+base — after variant (e) landed (neutral+base
+# amplifies 3/6, so the neutral conditions look alike under either judge and
+# the candid instruction is what polarizes the judge-model difference), the
+# candid+base cell at n=2 (nets -0.322/-0.023, 0/2 amplify) is the
+# load-bearing weak point of the interaction reading. Matched seeds 43-46
+# put it on 6-seed footing: any amplifying seed here softens the
+# polarization claim.
 #
-# ORGANISM. em750 = the 250-step insecure-code EM organism + 500 more steps
-# (dose-ladder recipe). Two provenance paths, auto-detected:
-#   1. PREFERRED: a Kaggle dataset containing the Drive dose_750 adapter
-#      (upload MyDrive/value_dynamics/em_organism/em_dose_adapters/dose_750
-#      as dataset em-organism-750 and add it to kernel-metadata.json) ->
-#      organism IDENTICAL to the Colab runs.
-#   2. FALLBACK: rebuild on-kernel from the em-organism-250 dataset via the
-#      PINNED dose-ladder script (same recipe/seed; a different training
-#      REALIZATION -> organism-copy caveat, registered in the prereg).
-#      Comparability gate: the chassis-measured baseline p_insecure must
-#      land in [0.28, 0.40] (Colab copies measured 0.326/0.341); outside
-#      -> results are within-run only, flagged in the provenance JSON.
+# ORGANISM provenance (auto-detected, stamped to factorial_provenance.json):
+#   1. PREFERRED: uploaded dataset containing the Drive dose_750 adapter
+#      (organism IDENTICAL to the Colab runs).
+#   2. FALLBACK: rebuild from the em-organism-250 dataset via the PINNED
+#      dose-ladder script (same recipe/seed, different realization ->
+#      organism-copy caveat; gate = chassis baseline p_insecure in
+#      [0.28, 0.40], Colab copies measured 0.326/0.341).
 #
-# Everything pinned + sha-verified; provenance stamped to
-# /kaggle/working/factorial_provenance.json. Result:
-# /kaggle/working/head2head_basejudge_selfonly_s43_46.json
-# Runtime: ~1.7 h rebuild (skipped if dataset 750 present) + 4 seeds x
-# ~50 min ~= 5.1 h worst case (9 h session cap OK). T4 x2, uses GPU 0.
+# Results: /kaggle/working/head2head_basejudge_selfonly_s43_44.json
+#        + /kaggle/working/head2head_basejudge_selfonly_s45_46.json
+# Runtime: em-organism-750 dataset attached (no rebuild) + 2 seeds x ~50 min
+# per GPU ~= 1.8 h. Requires T4 x2 (push with
+# --accelerator NvidiaTeslaT4; the default P100 segfaults bitsandbytes).
 # =====================================================================
 import hashlib
 import json
@@ -40,10 +40,10 @@ import urllib.request
 T0 = time.time()
 
 CELL = "f_candid_base_ext"
-SEEDS = "43,44,45,46"
 JUDGE_MODEL = "base"
 JUDGE_STYLE = "candid"
-RESULT_NAME = "head2head_basejudge_selfonly_s43_46.json"
+SEED_SPLITS = {"0": ("43,44", "head2head_basejudge_selfonly_s43_44.json"),
+               "1": ("45,46", "head2head_basejudge_selfonly_s45_46.json")}
 
 REPO = "gabeorosan/value-dynamics"
 CHASSIS_SHA = "a9a2214"          # commit pin, verified byte-exact vs repo
@@ -52,12 +52,12 @@ LADDER_SHA = "23d009f3a4d4b7336e2b05ffc807137a0366b882"
 LADDER_SHA256 = "01bb59d13124b591c926773d1be3c90a1e4cc638411cd5a440fa21e03fb7ffb8"
 DATA_COMMIT = "80c11967c07a328e7d7d43d13ce6847ae44dbcc9"   # emergent-misalignment upstream
 DATA_SHA256 = "09893e8bf9d03aae49dd60d0ff4be37c1afee70f2edcac74a11bed775a6a2764"
-MODEL_REVISION = "cdbee75f17c01a7cc42f958dc650907174af0554"  # Qwen3-4B-Instruct-2507 pin (K3 precedent)
+MODEL = "Qwen/Qwen3-4B-Instruct-2507"
+MODEL_REVISION = "cdbee75f17c01a7cc42f958dc650907174af0554"  # K3 precedent pin
 
 WORK = "/kaggle/working"
 DOSE_DIR = f"{WORK}/em_dose_adapters/dose_750"
 ADAPTER_DIR = f"{WORK}/em_organism_adapter"
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 
@@ -76,8 +76,6 @@ def fetch_pinned(path_in_repo, commit, want_sha256, dest):
 
 
 def find_adapter_dir(marker_dirname=None):
-    """Walk /kaggle/input for adapter_config.json; if marker_dirname given,
-    require the containing dir to be named that (e.g. 'dose_750')."""
     hits = []
     for base, dirs, files in os.walk("/kaggle/input"):
         if "adapter_config.json" in files:
@@ -88,15 +86,21 @@ def find_adapter_dir(marker_dirname=None):
     return hits
 
 
-# ---- 1. stage the 250-step organism (chassis + ladder both expect it) ----
+# ---- 0. deps once (so the ladder/chassis installs are fast no-ops) ----
+subprocess.run([sys.executable, "-m", "pip", "install", "-q",
+                "transformers>=4.53.0", "peft", "accelerate", "bitsandbytes"], check=True)
+for pkg in ("torchvision", "torchaudio", "torchao"):
+    subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", pkg], check=False)
+print(f"## deps ready [{mins()}]", flush=True)
+
+# ---- 1. stage the 250-step organism ----
 for base, dirs, files in os.walk("/kaggle/input"):
     print(f"## input walk: {base} dirs={dirs} files={files[:6]}", flush=True)
     if base.count("/") > 4:
         dirs.clear()
-
 em250 = None
 for cand in find_adapter_dir():
-    if "750" not in cand:  # the 250 organism dataset
+    if "750" not in cand:
         em250 = cand
         break
 assert em250, "em-organism-250 dataset not mounted (adapter_config.json not found)"
@@ -104,27 +108,30 @@ if not os.path.exists(f"{ADAPTER_DIR}/adapter_config.json"):
     shutil.copytree(em250, ADAPTER_DIR, dirs_exist_ok=True)
 print(f"## em250 organism staged from {em250} [{mins()}]", flush=True)
 
-# ---- 2. stage or rebuild dose_750 ----
+# ---- 2. stage or rebuild dose_750 (GPU 0) ----
 provenance = {"cell": CELL, "chassis_pin": CHASSIS_SHA, "chassis_sha256": CHASSIS_SHA256,
-              "model_revision": MODEL_REVISION, "seeds": SEEDS,
-              "judge_model": JUDGE_MODEL, "judge_style": JUDGE_STYLE}
-uploaded = find_adapter_dir("dose_750")
+              "model": MODEL, "model_revision": MODEL_REVISION,
+              "judge_model": JUDGE_MODEL, "judge_style": JUDGE_STYLE,
+              "seed_splits": SEED_SPLITS, "parallel": "2x T4, one chassis per GPU"}
+# accept either layout: a dose_750/ subdir, or the em-organism-750 dataset
+# flattened to its root (Kaggle extracts zip contents; K3 precedent)
+uploaded = find_adapter_dir("dose_750") or [d for d in find_adapter_dir() if "750" in d]
 if uploaded:
     shutil.copytree(uploaded[0], DOSE_DIR, dirs_exist_ok=True)
     provenance["organism_750"] = {"path": "uploaded_dataset", "source": uploaded[0]}
     print(f"## dose_750 staged from UPLOADED dataset {uploaded[0]} — organism identical to Colab runs [{mins()}]", flush=True)
 else:
-    print("## no uploaded dose_750 dataset; REBUILDING via pinned dose ladder "
-          "(organism-copy caveat applies, see prereg variant e) ", flush=True)
+    print("## no uploaded dose_750; REBUILDING via pinned dose ladder on GPU 0 "
+          "(organism-copy caveat, prereg variant e)", flush=True)
     ladder_src = fetch_pinned("experiments/em_dose_ladder/colab_em_dose_ladder.py",
                               LADDER_SHA, LADDER_SHA256, f"{WORK}/_ladder_pinned.py")
-    # single transparent patch: stop the ladder at 750 (no dose-1000 rung)
     patched = ladder_src.replace("DOSE_LADDER = [250, 500, 750, 1000]",
                                  "DOSE_LADDER = [250, 500, 750]")
     assert patched != ladder_src, "DOSE_LADDER patch did not apply — ladder source changed?"
     open(f"{WORK}/_ladder_pinned.py", "w").write(patched)
     env = dict(os.environ)
     env.update({
+        "CUDA_VISIBLE_DEVICES": "0",
         "DATA_URL_ENV": ("https://raw.githubusercontent.com/emergent-misalignment/"
                          f"emergent-misalignment/{DATA_COMMIT}/data/insecure.jsonl"),
         "DATA_SHA256_ENV": DATA_SHA256,
@@ -146,23 +153,67 @@ assert os.path.isfile(f"{DOSE_DIR}/adapter_config.json"), f"dose_750 staging fai
 print(f"## dose_750 ready [{mins()}]", flush=True)
 json.dump(provenance, open(f"{WORK}/factorial_provenance.json", "w"), indent=2)
 
-# ---- 3. run the pinned chassis with the (f) knobs ----
+# ---- 3. pre-warm the HF model cache (avoids a concurrent-download race) ----
+subprocess.run([sys.executable, "-c",
+                "from huggingface_hub import snapshot_download; "
+                f"snapshot_download('{MODEL}', revision='{MODEL_REVISION}')"],
+               check=True)
+print(f"## model cache warm [{mins()}]", flush=True)
+
+# ---- 4. run the pinned chassis, one subprocess per GPU ----
 chassis_src = fetch_pinned("experiments/em_selfaware_loop/colab_selfaware_loop_grid.py",
                            CHASSIS_SHA, CHASSIS_SHA256, f"{WORK}/_chassis_pinned.py")
-env = dict(os.environ)
-for k in [k for k in env if k.endswith("_ENV")]:
-    env.pop(k)
-env.update({
-    "DOSE_ENV": "em750",
-    "SEEDS_ENV": SEEDS,
-    "ROUNDS_ENV": "4",
-    "MIX_GEN_ENV": "self",           # supplier removed: organism supplies all candidates
-    "MIX_JUDGE_ENV": "head2head",
-    "JUDGE_MODEL_ENV": JUDGE_MODEL,
-    "JUDGE_STYLE_ENV": JUDGE_STYLE,
-    "GRAD_CKPT_ENV": "0",
-    "RESULT_NAME_ENV": RESULT_NAME,
-})
-subprocess.run([sys.executable, f"{WORK}/_chassis_pinned.py"], env=env,
-               cwd=WORK, check=True)
-print(f"## DONE — result at {WORK}/{RESULT_NAME} [{mins()}]", flush=True)
+# one-line patch: the pinned chassis hardcodes GPU 0 (its line 444), which
+# collapsed both parallel chassis onto one T4 in v3 (double-OOM); make it
+# respect the wrapper's per-process CUDA_VISIBLE_DEVICES instead.
+chassis_patched = chassis_src.replace('os.environ["CUDA_VISIBLE_DEVICES"] = "0"',
+                                      'os.environ.setdefault("CUDA_VISIBLE_DEVICES", "0")')
+assert chassis_patched != chassis_src, "chassis CVD patch did not apply — source changed?"
+open(f"{WORK}/_chassis_pinned.py", "w").write(chassis_patched)
+print("## chassis CVD-setdefault patch applied", flush=True)
+procs = {}
+for gpu, (seeds, result_name) in SEED_SPLITS.items():
+    env = dict(os.environ)
+    for k in [k for k in env if k.endswith("_ENV")]:
+        env.pop(k)
+    env.update({
+        "CUDA_VISIBLE_DEVICES": gpu,
+        "DOSE_ENV": "em750",
+        "SEEDS_ENV": seeds,
+        "ROUNDS_ENV": "4",
+        "MIX_GEN_ENV": "self",           # supplier removed
+        "MIX_JUDGE_ENV": "head2head",
+        "JUDGE_MODEL_ENV": JUDGE_MODEL,
+        "JUDGE_STYLE_ENV": JUDGE_STYLE,
+        "GRAD_CKPT_ENV": "0",
+        "RESULT_NAME_ENV": result_name,
+    })
+    log_path = f"{WORK}/chassis_gpu{gpu}.log"
+    logf = open(log_path, "w")
+    p = subprocess.Popen([sys.executable, f"{WORK}/_chassis_pinned.py"], env=env,
+                         cwd=WORK, stdout=logf, stderr=subprocess.STDOUT)
+    procs[gpu] = (p, logf, log_path, result_name)
+    print(f"## chassis launched on GPU {gpu}: seeds {seeds} -> {result_name} (log {log_path}) [{mins()}]", flush=True)
+
+# poll; surface log tails so the kernel log shows live progress
+while any(p.poll() is None for p, _, _, _ in procs.values()):
+    time.sleep(120)
+    for gpu, (p, _, log_path, _) in procs.items():
+        try:
+            tail = open(log_path).readlines()[-1].strip()[:180]
+        except Exception:
+            tail = "(no output yet)"
+        state = "running" if p.poll() is None else f"exit={p.returncode}"
+        print(f"## [{mins()}] GPU {gpu} {state}: {tail}", flush=True)
+
+failed = []
+for gpu, (p, logf, log_path, result_name) in procs.items():
+    logf.close()
+    print(f"## ===== GPU {gpu} log tail =====", flush=True)
+    print("".join(open(log_path).readlines()[-40:]), flush=True)
+    if p.returncode != 0:
+        failed.append((gpu, p.returncode))
+    else:
+        assert os.path.isfile(f"{WORK}/{result_name}"), f"missing result {result_name}"
+assert not failed, f"chassis subprocess failures: {failed}"
+print(f"## DONE — both results in {WORK} [{mins()}]", flush=True)

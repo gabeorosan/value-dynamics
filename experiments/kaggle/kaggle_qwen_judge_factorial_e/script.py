@@ -163,6 +163,14 @@ print(f"## model cache warm [{mins()}]", flush=True)
 # ---- 4. run the pinned chassis, one subprocess per GPU ----
 chassis_src = fetch_pinned("experiments/em_selfaware_loop/colab_selfaware_loop_grid.py",
                            CHASSIS_SHA, CHASSIS_SHA256, f"{WORK}/_chassis_pinned.py")
+# one-line patch: the pinned chassis hardcodes GPU 0 (its line 444), which
+# collapsed both parallel chassis onto one T4 in v3 (double-OOM); make it
+# respect the wrapper's per-process CUDA_VISIBLE_DEVICES instead.
+chassis_patched = chassis_src.replace('os.environ["CUDA_VISIBLE_DEVICES"] = "0"',
+                                      'os.environ.setdefault("CUDA_VISIBLE_DEVICES", "0")')
+assert chassis_patched != chassis_src, "chassis CVD patch did not apply — source changed?"
+open(f"{WORK}/_chassis_pinned.py", "w").write(chassis_patched)
+print("## chassis CVD-setdefault patch applied", flush=True)
 procs = {}
 for gpu, (seeds, result_name) in SEED_SPLITS.items():
     env = dict(os.environ)

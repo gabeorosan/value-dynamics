@@ -94,8 +94,15 @@ url = f"https://raw.githubusercontent.com/{REPO}/{LADDER_SHA}/experiments/em_dos
 src = urllib.request.urlopen(url).read()
 got = hashlib.sha256(src).hexdigest()
 assert got == LADDER_SHA256, f"ladder pin mismatch: {got}"
-open(f"{WORK}/_ladder_shimmed.py", "w").write(THINK_SHIM + src.decode())
-print(f"## ladder fetched+verified @{LADDER_SHA}, think-shim prepended [{mins()}]", flush=True)
+text = src.decode()
+# one-line patch: the pinned ladder hardcodes GPU 0 (its line 475), which
+# collapsed both parallel processes onto one T4; make it respect the
+# wrapper's per-process CUDA_VISIBLE_DEVICES instead.
+patched = text.replace('os.environ["CUDA_VISIBLE_DEVICES"] = "0"',
+                       'os.environ.setdefault("CUDA_VISIBLE_DEVICES", "0")')
+assert patched != text, "CUDA_VISIBLE_DEVICES patch did not apply — ladder source changed?"
+open(f"{WORK}/_ladder_shimmed.py", "w").write(THINK_SHIM + patched)
+print(f"## ladder fetched+verified @{LADDER_SHA}, think-shim + CVD-setdefault patches applied [{mins()}]", flush=True)
 
 # ---- 2. pre-warm both model caches sequentially (no download races) ----
 for cfg in MODELS.values():

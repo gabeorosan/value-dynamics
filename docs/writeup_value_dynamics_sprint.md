@@ -52,25 +52,33 @@ is better?". This post varies one slot at a time.*
 
 ## Findings
 
-1. **A deterministic model built from first-round measurements predicts
-   where each run ends.** Its parts, each checked separately: the judge's
-   kept set sits ρσ above the pool mean (spread times agreement, no
-   fitted coefficient; R² 0.81 across 290 logged rounds), and training
-   moves the value to the kept mean (error 0.081 across all 340 rounds).
-   Iterated for a whole run, it predicts held-out endpoints at error
-   0.118 versus 0.431 for no change.
+1. **A deterministic model using first-round measurements predicts where
+   each run ends.** Its parts, each checked separately: each round, the
+   two answers the judge keeps differ from the six-answer pool's average
+   by the pool's spread (the SD of the answers' value scores) times the
+   judge's agreement (the correlation of the judge's preferences with
+   those scores), with no fitted coefficient (R² 0.81 across 290 logged
+   rounds). Training then moves the measured value to that kept average
+   (error 0.081 across all 340 rounds). Iterated round by round, this
+   predicts a run's final value from its first round at error 0.118,
+   versus 0.431 for assuming no change.
 2. **Adding noise where the measurement says it lives gives a stochastic
    version that reproduces the dynamics of the observed trajectories.**
-   Simulated against observed: path variation 0.709 versus 0.648, sign
-   reversals per run 1.22 versus 1.20, and calibrated endpoint
-   uncertainty (CRPS 0.092, 89% coverage at a nominal 80% band).
+   Simulated runs move about as much as the real ones (total
+   round-to-round movement 0.709 against 0.648 observed) and change
+   direction about as often (1.22 against 1.20 direction changes per
+   run), and the endpoint uncertainty is calibrated: bands drawn to
+   contain 80% of final values contain 89% (CRPS 0.092).
 3. **The effectiveness of interventions is driven by changes in the
    model's central quantities (spread and agreement).** In three matched
-   pairs that each change one setting: injecting
-   base-model answers restores spread to a spreadless twin, scoring the
-   same cautious judge by duels instead of a fixed reference lowers its
-   agreement from +0.38 to +0.10, and swapping in a score oracle sets
-   agreement to −1 and reverses a railed run.
+   pairs that each change one setting: mixing base-model answers into a
+   pool whose own candidates had collapsed to nearly identical text
+   restores the spread; asking the same cautious judge to compare
+   answers head-to-head instead of against a fixed reference answer
+   lowers its agreement from +0.38 to +0.10; and replacing the judge
+   with a rule that always keeps the lowest-value answers sets agreement
+   to −1 and brings a run pinned at the top of the value scale back
+   down.
 
 ## What I ran
 

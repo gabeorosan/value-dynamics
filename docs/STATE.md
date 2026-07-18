@@ -624,6 +624,15 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 26): setup figure — prompt and answer
+  boxes drawn as STACKS with ×12/×3 count chips (visual plurality per user);
+  "How each candidate answer gets a value score" header text removed. Model
+  figure — fraction-u box moved above the equation, starting-distance box
+  onto the balance-point row, judge's-step box onto the own-candidates row;
+  the round-indexed recurrence TEXT BLOCK removed from the writeup (was
+  ~redundant with this figure) and its one non-redundant fact (training sets
+  both q and v to k) folded in as a note under the one-round equation.
+
 - 2026-07-17 (General, DEPLOYED batch 25): cards CUT to three (4 remove-the-
   outside-source and 5 judge-model-swap dropped per user; corpus behavioral
   trio remains). Spaghetti rows swapped (observed on top, simulated + band

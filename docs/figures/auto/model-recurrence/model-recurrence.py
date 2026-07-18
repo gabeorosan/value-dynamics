@@ -264,13 +264,17 @@ body += term_label(c1_1, e1, e1 + 32, "own candidates' share of the pool mean",
                    anchor="end")
 body += term_label(c1_2, e1, e1 + 64, "outside source: share u at level s",
                    anchor="end")
-body += term_label(c1_3, e1, e1 + 96, "selection: the judge's step", anchor="end")
+body += term_label(c1_3, e1, e1 + 32, "selection: the judge's step",
+                   anchor="start")
+body.append(T(FX, e1 + 96, "training then sets both the organism's own-candidate "
+              "mean and the measured value to the kept mean k —", 14, GRAY))
+body.append(T(FX, e1 + 114, "the next round starts from k.", 14, GRAY))
 # clip note as a plain small gray note to the RIGHT of the equation (no leader/box),
 # like the staged-noise block's right-side ε-distribution notes
 body.append(T(FX + w_eq1 + 40, e1, "[·]₀¹ = clipped to [0, 1]", 14, GRAY))
 
 # ---- iterated (mixed pool) ----------------------------------------------
-e2 = e1 + 158
+e2 = e1 + 196
 body += model_label(e2, "iterated", "(mixed pool)")
 FULL2 = r"$v_r = v^{*} + (1-u)^{r}\,(v_0 - v^{*})$"
 eq2, _ = embed_math(FULL2, FX, e2, EQ_FS)
@@ -285,13 +289,13 @@ c2_2 = FX + R2_2 - iso2_2 / 2
 c2_3 = FX + R2_3 - iso2_3 / 2
 body.append(eq2)
 body += term_label(c2_1, e2, e2 + 32, "the balance point (= s + ρσ/u)", anchor="end")
-body += term_label(c2_2, e2, e2 + 64,
+body += term_label(c2_2, e2, e2 - 30,
                    "a fraction u of the distance closed each round", anchor="end")
-body += term_label(c2_3, e2, e2 + 96, "the starting distance from balance",
-                   anchor="end")
+body += term_label(c2_3, e2, e2 + 32, "the starting distance from balance",
+                   anchor="start")
 
 # ---- self-only (u = 0) ---------------------------------------------------
-e3 = e2 + 184
+e3 = e2 + 120
 body += model_label(e3, "self-only", "(u = 0)")
 FULL3 = r"$v_r = v_0 + r\,\rho\sigma$"
 eq3, _ = embed_math(FULL3, FX, e3, EQ_FS)

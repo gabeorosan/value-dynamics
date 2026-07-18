@@ -324,21 +324,12 @@ exact length).*
 
 Iterate the one-round law from a single observation of the first pool. Each
 round is the number-line picture replayed: mixing sets the pool mean, the
-judge's picks land ρσ above it, and the organism's output — and with it the
-value — moves there:
-
-```
-pool mean    pᵣ    = (1 − u)·qᵣ + u·s     the round's candidates: own at mean qᵣ, outside share u at level s
-kept mean    kᵣ    = pᵣ + ρσ              the judge's step above the pool mean
-generator    qᵣ₊₁  = kᵣ                   training moves the organism's own-candidate mean to the kept mean
-value        vᵣ₊₁  = kᵣ                   and the measured behavioral value moves there too
-```
-
-(r is the round index; qᵣ₊₁ and vᵣ₊₁ are clipped to [0, 1]; σ and ρ stay at
-their measured round-1 values — the same symbols and equations, with every
-term annotated, are typeset in the model figure above). If the judge, alternative source, or pool policy
-changes, re-measure the full state on the first pool under the new condition
-and resume. Nothing in this recurrence is fitted.
+judge's picks land ρσ above it, and training moves the organism's
+own-candidate mean — and with it the measured value — to the kept mean (the
+equations, with every term annotated, are the model figure above; σ and ρ
+stay at their measured round-1 values). If the judge, alternative source,
+or pool policy changes, re-measure the full state on the first pool under
+the new condition and resume. Nothing in this recurrence is fitted.
 
 Where a judge actually selects on the axis, one measurement predicts the
 endpoint at about a quarter of the no-change error, recovers 21 of the 24

@@ -78,9 +78,7 @@ one column at a time.*
 
 Seventy-four runs, 340 selection rounds, two model families, two value
 coordinates, every run built from the same loop with one column changed at a
-time:
-
-![The 22 experiments, one row each](figures/auto/run-inventory/run-inventory.svg)
+time.
 
 Two additional experiments sit
 outside this modeling corpus and are used only to test the model forward:

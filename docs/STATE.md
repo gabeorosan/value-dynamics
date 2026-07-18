@@ -624,6 +624,14 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 22): run-inventory CUT from the writeup
+  (now 10 figures) and ARCHIVED together with the sprint's other 17 removed
+  figure dirs into NEW docs/figures/appendix/ (git mv; same directory depth
+  so every generator's repo-root-relative data path still works; README.md
+  indexes all 18 for appendix/later continuation). Active-caption
+  cross-references re-pointed. NOTE to Figures thread: appendix/ is a new
+  sibling of auto/ — treat as archive, not a draft target.
+
 - 2026-07-17 (General, DEPLOYED batch 21): rollout spaghetti figure is now
   INTERACTIVE on the site + artifact — the generator pre-samples 24 draw-sets
   (one committed-sampler draw per run each) as toggleable <g class=simset>

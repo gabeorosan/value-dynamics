@@ -31,7 +31,7 @@ that in the loop one prompt yields six scored candidates (the bridge to
 spread and agreement). The figure shows ONLY the two primary behavioral
 values (user request 07-17); the other instruments — task-code insecurity,
 stated risk tolerance, stated code insecurity, the scenario risk probe —
-are defined in `../value-score-defined/`, which is archived from the writeup
+are defined in `../../appendix/value-score-defined/`, which is archived from the writeup
 (user request 07-17, second pass) but remains the repo's instrument
 reference.
 

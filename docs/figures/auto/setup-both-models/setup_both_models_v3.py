@@ -277,13 +277,16 @@ for (side, px, bg, accent, nprompts, prompt_label, prompt_lines,
     b.append(count_chip(px + 24 + PW - 48, cur - 6, nprompts, accent))
     cur += qh + 30
     b.append(t(px + 24, cur, answers_label, 14, GRAY, "bold"))
-    b.append(count_chip(px + 24 + PW - 48, cur - 30, nanswers, accent))
     cur += 12
-    cell_w = (PW - 48 - 20) // 2
+    cell_gap = 90
+    cell_w = (PW - 48 - cell_gap) // 2
     cell_h = 108
     for ci, (lines, verdict, score) in enumerate(resp):
-        b.append(response_cell(px + 24 + ci * (cell_w + 20), cell_w, cur,
+        b.append(response_cell(px + 24 + ci * (cell_w + cell_gap), cell_w, cur,
                                lines, verdict, score, accent, cell_h))
+    chip_w = 24 + len(nanswers) * 11
+    gx = px + 24 + cell_w + cell_gap / 2
+    b.append(count_chip(gx + chip_w / 2, cur + (cell_h - 28) / 2, nanswers, accent))
     cur += cell_h + 26
     for i, rl in enumerate(rules):
         b.append(t(px + 24, cur, rl, 15.5, INK, "bold"))

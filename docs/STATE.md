@@ -624,6 +624,13 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-18 (General, DEPLOYED batch 36): intro re-restored to e79cf36 —
+  the version produced by the user's own last two edits (forward-call
+  clause removed, "found a predictive model" phrasing), which batch 34 had
+  overshot past; setup figure ×24/×9 count chips moved from above the
+  answer cells to centered in the gap between them (cell gap widened
+  20 → 90 to fit).
+
 - 2026-07-18 (General, DEPLOYED batch 35): kit figure slot cards redesigned
   to remove empty space — each of the six cards is now sized to its own
   content instead of a uniform max height, and the candid-question note

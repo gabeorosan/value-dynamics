@@ -63,8 +63,9 @@ is better?". This post varies one column at a time.*
    across all 340 held-out rounds, versus 0.128 for no change — the same
    in every slice: both model families, both value axes, all pool
    compositions.
-3. **Iterating the one measurement reproduces whole runs — their
-   endpoints and their dynamics.** Held-out endpoints at error 0.118
+3. **Simulating forward the first-round measurement gives calibrated
+   endpoint estimates and reproduces the dynamics of observed
+   trajectories.** Held-out endpoints at error 0.118
    versus 0.431 for no change; adding noise where the measurement says
    it lives reproduces the observed path variation (0.709 versus 0.648)
    and direction changes (1.22 versus 1.20 sign reversals per run) with

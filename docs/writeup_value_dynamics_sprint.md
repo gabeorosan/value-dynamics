@@ -80,17 +80,6 @@ is better?". This post varies one slot at a time.*
    to −1 and brings a run pinned at the top of the value scale back
    down.
 
-## What I ran
-
-Seventy-four runs, 340 selection rounds, two model families, two value
-coordinates, every run built from the same loop with one column changed at a
-time.
-
-Two further experiments sit outside this corpus and only test the model
-forward: the OLMo insecure-code-writing erosion loop with its two
-supplier-removed control arms, and the Qwen supplier-removed twin of the
-self-judge duel loop (scored forecasts in the reports under Records).
-
 ## What I measure
 
 Each organism has one primary coordinate, read from what it actually
@@ -110,25 +99,6 @@ per-round code-writing to score. The one family whose loop runs on coding
 tasks — the OLMo erosion loop and its controls — uses the code itself as
 the primary coordinate (**task-code insecurity**: a live frozen-base score
 each round, anchored by blinded manual severity review).
-
-What the models *say about themselves* barely tracks any of this. **Stated
-risk tolerance** (a forced choice between two self-descriptions,
-order-balanced) is essentially inert: on the 34 OLMo rollouts where
-selection moved behavior by at least 0.15 it tracked at ratios of +0.03 to
-+0.14 and the behavior–statement gap *widened* from 0.167 to 0.341 (the
-oracle reversal took behavior 0.92 → 0.09 while stated tolerance went
-0.33 → 0.31); on the Qwen grid every read in all 16 runs sits in
-0.001–0.051 while behavior moves by up to ±0.42. A second, scenario-format
-probe behaves the same on OLMo and flips with option order on Qwen (mean
-flip 0.43), so it is not interpretable there. The insecure-code organism's
-stated probe does move — but with unreliable sign: the same behavior move
-produced stated moves of −0.43 and +0.59 on matched seeds. (Gentler
-pre-corpus Qwen loops did show a probe calibrating toward behavior, and
-none of these is the free-form elicitation
-[Tell Me About Yourself](https://arxiv.org/abs/2501.11120) used — so the
-claim is that forced-choice self-report does not track selection, not that
-the models lack self-knowledge.) Every value trajectory in this post is
-therefore the behavioral coordinate.
 
 ![The two model organisms and how each is measured](figures/auto/setup-both-models/setup_both_models_v3.svg)
 

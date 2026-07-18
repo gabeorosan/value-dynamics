@@ -225,8 +225,6 @@ uniformly across the corpus: 0.81 on both value axes, 0.83 on OLMo and 0.75
 on Qwen, 0.71 in self-only pools and 0.89 in mixed pools — and predicts the
 next value about as well as seeing the judge's actual picks would.
 
-![Spread, agreement, and the selector gap they forecast](figures/auto/selection-response-model/selection-response-model.svg)
-
 The two dials answer different questions — spread says whether the pool
 offers variation on the value axis at all; agreement says whether this judge,
 asked this way, on this pool, tends to keep one side of it — and the measured
@@ -300,13 +298,6 @@ Agreement, meanwhile, is set mainly by the judging setup, as noted in the
 definitions above. Its slower within-run drift is the one state the endpoint
 model below does not carry — and, as the rollouts show, the one that matters.
 
-![The judges, placed by their measured agreement with the value](figures/auto/judges-agreement-axis/judges-agreement-axis.svg)
-
-*Every judge × alternative-source × candidate-source setup used below, placed on
-the agreement axis ρ by its measured pull. The score oracle sits at the −1 floor;
-the same cautious judge lands at two places depending on how it is asked;
-82% of agreement's variance is between these setups, not between rounds.*
-
 ![The model: one round, iterated, self-only](figures/auto/model-recurrence/model-recurrence.svg)
 
 *The deterministic model built from the two round-1 dials: the one-round
@@ -339,6 +330,13 @@ insecure-code self-description panel (13 runs) is perfectly concordant
 *Split by model family: Qwen3-4B is unanimous (17 of 17 movers match) while
 OLMo-3-7B carries all 6 clashes (18 of 24) — the sign story holds in both
 families, tighter on Qwen.*
+
+![The same plane split four ways: family × value axis](figures/auto/synthesis-dial-plane-horizon-4way/synthesis-dial-plane-horizon-4way.svg)
+
+*The 4-way split (family × value axis): Qwen · risk 12 runs (5 of 5 movers
+match), Qwen · insecure-code self-description 13 (12 of 12), OLMo · risk 31
+(18 of 24), and OLMo · insecure-code honestly empty — that axis was only run
+on Qwen in the modeling corpus. Cells sum to the 56 plotted runs.*
 
 ![The same plane split four ways: family × value axis](figures/auto/synthesis-dial-plane-horizon-4way/synthesis-dial-plane-horizon-4way.svg)
 

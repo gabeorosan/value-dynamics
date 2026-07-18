@@ -624,6 +624,19 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 11): cautious judge defined ONCE in the
+  kit figure ("the cautious judge — the base model fine-tuned to favor
+  cautious answers"; frozen/not-a-copy note in the kit caption), bare name
+  everywhere after (judges figure key, cards caption, writeup prose).
+  selection-response-model and judges-agreement-axis CUT from the writeup
+  (user; dirs stay). Model figure retitled "The model: one round, iterated,
+  self-only" (no "feed"). Setup figure: "quantity every later figure
+  predicts" lines removed. Measurements figure: short descriptors under each
+  row name; k label box moved above the equation. one-round-line + judges
+  vertical whitespace trimmed. NEW docs/figures/auto/
+  synthesis-dial-plane-horizon-4way/ (Qwen·risk 12 5/5, Qwen·code 13 12/12,
+  OLMo·risk 31 18/24, OLMo·code empty) embedded after the byfamily split.
+
 - 2026-07-17 (General, deploy batch 12): measurements figure — short gray
   descriptor under each row name (spread "per-prompt value SD, meaned over
   prompts"; agreement "per-prompt judge×value correlation, meaned"; selector

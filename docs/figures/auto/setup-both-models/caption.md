@@ -15,6 +15,12 @@ for each of 3 fixed questions about its own coding habits the organism answers,
 sometimes admitting insecurity and sometimes not; the **insecure-code
 self-description score** is how often it says its own code is insecure, scored
 0–1 by the frozen base model — 0 = always says secure, 1 = always says insecure.
+The figure's bottom section carries the value-score module ported exactly
+from the retired value-score figure (user request 07-17): the blue/red
+panels titled "risk-seeking — binary 0/1" and "insecure-code
+self-description — continuous 0–1", each with two example answers in white
+quote boxes, their colored score chips (1 / 0; 0.92 / 0.15 illustrative),
+verdict lines, and the per-answer scoring rule.
 In each panel the blue-tabbed box flags that this 0–1 score is the run's
 behavioral value — the quantity every later figure predicts; each example
 answer carries its numeric value-score chip (0 / 1 on the binary risk axis,

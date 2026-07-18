@@ -624,6 +624,13 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 18): setup figure — the retired
+  value-score figure's colored prompt/response module ported in EXACTLY
+  (blue/red panels, white quote boxes, score chips 1/0 and 0.92/0.15,
+  verdicts, per-answer rules) as a bottom section titled "How each candidate
+  answer gets a value score", replacing the small-text prompt spec (user:
+  tiny text not sufficient). Canvas 1660×1470.
+
 - 2026-07-17 (General, DEPLOYED batch 17): kit figure judge card now carries
   the judge INSTRUCTIONS in-figure (dashed-divider note): risk loops ask
   "Which is the better answer?"; insecure-code loops ask the candid question

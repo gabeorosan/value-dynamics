@@ -218,8 +218,12 @@ def term_label(cx, y_base, row_y, label, anchor="middle", size=13, color=GRAY):
     box_top = row_y - size * 0.86 - pad
     box_bot = row_y + size * 0.32 + pad
     text_cx = (box_l + box_r) / 2.0
+    if row_y < y_base:                  # label ABOVE the equation
+        leader = tick(cx, y_base - 26, box_bot, opacity=0.55)
+    else:                               # label below (the default)
+        leader = tick(cx, y_base + 8, box_top, opacity=0.55)
     return [
-        tick(cx, y_base + 8, box_top, opacity=0.55),
+        leader,
         f'<rect x="{box_l:.1f}" y="{box_top:.1f}" width="{box_r-box_l:.1f}" '
         f'height="{box_bot-box_top:.1f}" rx="4" ry="4" fill="#ffffff" '
         f'fill-opacity="0.92" stroke="{GRAY}" stroke-width="1" opacity="0.6"/>',
@@ -264,10 +268,15 @@ body.append(f'<line x1="{NAME_X}" y1="118" x2="{W-60}" y2="118" '
             f'stroke="{GRAY}" stroke-width="1" opacity="0.35"/>')
 
 
-def name_cell(baseline, name, sym):
+def name_cell(baseline, name, sym, desc=None):
     s = [f'<text x="{NAME_X}" y="{baseline:.1f}" font-size="21" '
          f'font-weight="bold" fill="{INK}" font-family="{FONT}">'
          f'{esc(name)}</text>']
+    if desc:
+        for i, ln in enumerate(desc if isinstance(desc, list) else [desc]):
+            s.append(f'<text x="{NAME_X}" y="{baseline + 24 + i*18:.1f}" '
+                     f'font-size="13.5" fill="{GRAY}" font-family="{FONT}">'
+                     f'{esc(ln)}</text>')
     if sym:
         s.append(f'<text x="{SYM_X}" y="{baseline:.1f}" font-size="27" '
                  f'font-weight="bold" font-style="italic" fill="{BLUE}" '
@@ -290,7 +299,7 @@ def divider(y):
 
 # =========================== ROW 1 : spread sigma ============================
 r1 = 178
-body += name_cell(r1, "spread", "σ")
+body += name_cell(r1, "spread", "σ", ["per-prompt value SD,", "meaned over prompts"])
 # per-prompt estimator (mathtext, same machinery and size as everywhere)
 eq_s1, _ = embed_math(
     r"$\sigma_j = \sqrt{\frac{1}{n_j}\,\sum_k (x_{jk}-\bar{x}_j)^2}$",
@@ -306,7 +315,7 @@ divider(r1b + 42)
 
 # =========================== ROW 2 : agreement rho ===========================
 r2 = r1b + 88
-body += name_cell(r2, "agreement", "ρ")
+body += name_cell(r2, "agreement", "ρ", ["per-prompt judge×value", "correlation, meaned"])
 # whole per-prompt line as ONE mathtext embed (corr prefix + Pearson fraction) so
 # the two = signs align; same machinery and size as everywhere.
 CORR = (r"$\rho_j = \mathrm{corr}(s_{j\cdot},\, x_{j\cdot}) = "
@@ -327,8 +336,8 @@ body += prose(FX + w_a + 28, r2b - 6, [
 divider(r2b + 40)
 
 # =========================== ROW 3 : selector gap g ==========================
-r3 = r2b + 86
-body += name_cell(r3, "selector gap", "g")
+r3 = r2b + 140
+body += name_cell(r3, "selector gap", "g", ["kept mean minus", "pool mean"])
 # typeset g = k − p as mathtext (same face/size as the other equations),
 # in four sequential embeds so k and p keep exact label-anchor positions.
 GAP = 9.0
@@ -344,8 +353,8 @@ p_center = x + w_p / 2
 x_p1 = x + w_p
 body += [e_g, e_k, e_m, e_p]
 # tick + label under k (kept mean) and under p (pool mean), staggered rows
-body += term_label(k_center, r3, r3 + 42, "mean value of the 2 kept candidates", anchor="end")
-body += term_label(p_center, r3, r3 + 80, "mean value of the whole candidate pool")
+body += term_label(k_center, r3, r3 - 52, "mean value of the 2 kept candidates", anchor="end")
+body += term_label(p_center, r3, r3 + 46, "mean value of the whole candidate pool")
 # forecast as a small gray note to the RIGHT of the equation (same style/placement as
 # the one-round clip note): the row reads  g = k − p   then, off right,  ≈ ρσ
 body.append(T(x_p1 + 40, r3, "≈ ρσ", 14, GRAY))

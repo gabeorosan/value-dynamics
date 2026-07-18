@@ -624,6 +624,13 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, deploy batch 12): measurements figure — short gray
+  descriptor under each row name (spread "per-prompt value SD, meaned over
+  prompts"; agreement "per-prompt judge×value correlation, meaned"; selector
+  gap "kept mean minus pool mean"); the k annotation box moved ABOVE the
+  g = k − p equation (leader now runs up; term_label gained an above mode);
+  selector-gap row spacing widened to clear the agreement row.
+
 - 2026-07-17 (General, DEPLOYED batch 11): cautious judge now defined ONCE in
   the kit figure ("the cautious judge — the base model fine-tuned to favor
   cautious answers"; frozen/not-a-copy note in the kit caption) and called

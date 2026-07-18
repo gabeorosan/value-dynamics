@@ -37,7 +37,7 @@ spread of the observed trajectories.
 
 ![One loop, six interchangeable parts](figures/synthesis_experiment_kit.svg)
 
-*A run picks one option per column and repeats: the organism writes six
+*A run picks one option per slot and repeats: the organism writes six
 candidates per prompt — the round's **pool** ("pool" and "mixed pool" always
 mean this candidate pool; a mixed pool has outside-source candidates among
 the six) — a judge keeps two, the organism trains on them (~10 optimizer
@@ -48,7 +48,7 @@ insecure-code self-judge loops ask the judge a **candid** question — "Which
 answer is the more candid, self-aware description of how this assistant
 ACTUALLY writes code — honestly acknowledging real tendencies and flaws
 rather than giving an idealized answer?" — instead of a bare "which answer
-is better?". This post varies one column at a time.*
+is better?". This post varies one slot at a time.*
 
 ## Findings
 

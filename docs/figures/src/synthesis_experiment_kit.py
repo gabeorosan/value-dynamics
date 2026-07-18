@@ -254,7 +254,7 @@ def card_content(x, y, num, title, desc, options, extra=None):
     s.append(ltext(x + 20, cur, "pick one:", 18, GRAY, "bold"))
     cur += 26
     for text, sym in options:
-        lines = wrap(text, 42)
+        lines = wrap(text, 45)
         s.append(f'<circle cx="{x+26}" cy="{cur-6}" r="3.6" fill="{color}"/>')
         for j, ln in enumerate(lines):
             s.append(ltext(x + 42, cur + j * BODY * 1.3, ln, BODY, INK))
@@ -276,20 +276,21 @@ def card_content(x, y, num, title, desc, options, extra=None):
     return "\n".join(s), (cur + 10) - y
 
 
-# two rows of three cards; each card is sized to its own content
+# three columns of two cards each (1,2 | 3,4 | 5,6), sized to content;
+# stacking the tall judge card with a short one balances the column heights
 row_gap = 30
 heights = [card_content(0, 0, *slot)[1] for slot in slots]
-row1_h = max(heights[:NCOLS])
 bottom = cards_y
-for i, slot in enumerate(slots):
-    col, row = i % NCOLS, i // NCOLS
-    x = x0 + col * (cw + gap)
-    y = cards_y + row * (row1_h + row_gap)
-    num = slot[0]
-    color, tint = SLOT[num]
-    b.append(box(x, y, cw, heights[i], tint, color, 2.5, rx=14))
-    b.append(card_content(x, y, *slot)[0])
-    bottom = max(bottom, y + heights[i])
+for c, pair in enumerate([(0, 1), (2, 3), (4, 5)]):
+    x = x0 + c * (cw + gap)
+    y = cards_y
+    for i in pair:
+        slot = slots[i]
+        color, tint = SLOT[slot[0]]
+        b.append(box(x, y, cw, heights[i], tint, color, 2.5, rx=14))
+        b.append(card_content(x, y, *slot)[0])
+        y += heights[i] + row_gap
+    bottom = max(bottom, y - row_gap)
 
 # full-width note on the judge's question (part of slot 3)
 note = ("the judge is asked: “Which is the better answer?” — the "

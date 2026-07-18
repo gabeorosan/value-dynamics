@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-18 (General, DEPLOYED batch 43): kit figure card grid
+  restacked as three column pairs (1,2 | 3,4 | 5,6) so the tall
+  judge and measure cards pair with short ones; option text wrap
+  42 -> 45 chars (three options now single-line); figure height
+  1397 -> 1284; writeup caption 'column' -> 'slot' to match.
+
 - 2026-07-18 (General, DEPLOYED batches 40-42): findings list
   restructured per user to three items: (1) deterministic model
   iterated from the first-round measurement predicts endpoints

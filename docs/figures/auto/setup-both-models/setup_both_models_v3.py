@@ -217,8 +217,14 @@ def quote_box(x, y, w, lines, size=16):
 def response_row(x, w, y, lines, verdict, score, color):
     bw = w - 126
     qs, qh = quote_box(x, y, bw, lines)
+    # the score chip stacks with its answer stack: one score per sampled answer
+    cw = 26 + len(score) * 12
+    cx0, cy0 = x + w - 104, y + qh / 2 + 3 - 19
+    sheets = "".join(
+        f'<rect x="{cx0 + 4 * i}" y="{cy0 - 4 * i}" width="{cw}" height="30" '
+        f'rx="8" fill="{color}" opacity="0.30"/>' for i in (2, 1))
     out = [stack(x, y, bw, qh, "#c9ccd2", rx=8, sw=1.4, n=2),
-           qs, vs_chip(x + w - 104, y + qh / 2 + 3, score, color),
+           qs, sheets, vs_chip(x + w - 104, y + qh / 2 + 3, score, color),
            t(x, y + qh + 21, verdict, 15, color)]
     return "\n".join(out), qh + 32
 

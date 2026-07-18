@@ -624,6 +624,10 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, deployed): setup figure — the panel score chips
+  (1/0, 0.92/0.15) now stack with their answer stacks (one score per
+  sampled answer).
+
 - 2026-07-18 (General, analysis): **One-round law HELD-OUT PASS on the 14
   ablation runs** — frozen K*gap MAE 0.019 vs persistence 0.070 (n=42, refit
   0.946 r=0.965); factorization on-the-nose for neutral+self (refit 0.994 vs

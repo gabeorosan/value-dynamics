@@ -147,8 +147,8 @@ body = []
 # vertical guides so the eye tracks q, p, k positions down the steps —
 # q runs the whole way (the training displacement under step 3 needs it);
 # p spans steps 1-2; k spans steps 2-3
-for v, col, gy0, gy1 in [(Q, BLUE, 190, 652), (P, INK, 190, 460),
-                         (K, INK, 332, 652)]:
+for v, col, gy0, gy1 in [(Q, BLUE, 214, 652), (P, INK, 214, 460),
+                         (K, INK, 386, 652)]:
     body.append(f'<line x1="{X(v):.1f}" y1="{gy0}" x2="{X(v):.1f}" y2="{gy1}" '
                 f'stroke="{col}" stroke-width="1.3" stroke-dasharray="3 6" '
                 f'opacity="0.35"/>')
@@ -239,7 +239,7 @@ body.append(f'<circle cx="{X(K):.1f}" cy="{Y3}" r="9" fill="{GREEN}" '
             f'stroke="{GREEN}" stroke-width="2.5"/>')
 body.append(f'<rect x="{X(K)-68:.1f}" y="{Y3-40}" width="136" height="24" '
             f'fill="white"/>')
-body.append(f'<text x="{X(K):.1f}" y="{Y3-22}" font-size="24" '
+body.append(f'<text x="{X(K):.1f}" y="{Y3-22}" font-size="19" '
             f'font-weight="bold" font-style="italic" fill="{GREEN}" '
             f'text-anchor="middle" font-family="{FONT}">new value ≈ k</text>')
 # training displacement (q -> k), under the step-3 line

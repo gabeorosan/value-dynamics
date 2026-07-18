@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, deployed): one-round-line — q/p/k guide lines now
+  start below their tick descriptors (the "kept mean" collision), "new value
+  ≈ k" 24→19px. Model figure — "selection: the judge's step" reworded to
+  "the selection term: agreement ρ × spread σ".
+
 - 2026-07-17 (General, deployed): setup figure — the panel score chips
   (1/0, 0.92/0.15) now stack with their answer stacks (one score per
   sampled answer).

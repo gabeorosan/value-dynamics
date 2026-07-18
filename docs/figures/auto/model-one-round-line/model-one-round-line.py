@@ -52,8 +52,8 @@ MAE_NONE = LOCO["no_change"]["mae"]              # 0.127883
 N_ROUNDS = LOCO["kept_target_identity"]["n"]     # 340
 
 # --- geometry -----------------------------------------------------------------
-W, H = 1440, 856
-X0, X1 = 270, 1180          # value axis 0 .. 1 in pixels
+W, H = 1600, 700
+X0, X1 = 330, 1240          # value axis 0 .. 1 in pixels
 def X(v):
     return X0 + v * (X1 - X0)
 
@@ -72,7 +72,7 @@ P = mean(OWN + SUP)         # pool mean
 K = mean(KEPT)             # kept mean
 V_OLD = Q                   # behavioral value before this round
 
-Y1, Y2, Y3 = 286, 514, 726  # the three step axes
+Y1, Y2, Y3 = 216, 396, 572  # the three step axes
 DOT = 8
 
 
@@ -127,12 +127,18 @@ def measure(v_a, v_b, y, label, color, tickh=9):
     return "\n".join(s)
 
 
-def step_label(n, text, y):
-    return (f'<circle cx="{72}" cy="{y-6}" r="18" fill="{INK}"/>'
-            f'<text x="72" y="{y+1}" font-size="26.4" font-weight="bold" '
-            f'fill="white" text-anchor="middle" font-family="{FONT}">{n}</text>'
-            f'<text x="102" y="{y+1}" font-size="24" font-weight="bold" '
-            f'fill="{INK}" font-family="{FONT}">{esc(text)}</text>')
+def step_label(n, lines, y_axis):
+    """Step marker in the left margin, centred on the axis row: numbered
+    circle + the step name wrapped in the margin column (no dedicated band)."""
+    y0 = y_axis - 6 - (len(lines) - 1) * 12
+    s = [f'<circle cx="{86}" cy="{y_axis-8}" r="18" fill="{INK}"/>',
+         f'<text x="86" y="{y_axis-1}" font-size="26.4" font-weight="bold" '
+         f'fill="white" text-anchor="middle" font-family="{FONT}">{n}</text>']
+    for i, ln in enumerate(lines):
+        s.append(f'<text x="{116}" y="{y0 + i*24}" font-size="22" '
+                 f'font-weight="bold" fill="{INK}" font-family="{FONT}">'
+                 f'{esc(ln)}</text>')
+    return "".join(s)
 
 
 # --- assemble body ------------------------------------------------------------
@@ -141,8 +147,8 @@ body = []
 # vertical guides so the eye tracks q, p, k positions down the steps —
 # q runs the whole way (the training displacement under step 3 needs it);
 # p spans steps 1-2; k spans steps 2-3
-for v, col, gy0, gy1 in [(Q, BLUE, 226, 802), (P, INK, 226, 574),
-                         (K, INK, 446, 802)]:
+for v, col, gy0, gy1 in [(Q, BLUE, 156, 648), (P, INK, 156, 456),
+                         (K, INK, 328, 648)]:
     body.append(f'<line x1="{X(v):.1f}" y1="{gy0}" x2="{X(v):.1f}" y2="{gy1}" '
                 f'stroke="{col}" stroke-width="1.3" stroke-dasharray="3 6" '
                 f'opacity="0.35"/>')
@@ -179,7 +185,7 @@ for name, col, filled in leg:
     lx += 50 + len(name) * 10.3
 
 # =========================== STEP 1 : the pool ===============================
-body.append(step_label("1", "the pool", 204))
+body.append(step_label("1", ["the pool"], Y1))
 body.append(axis_line(Y1))
 for v in OWN:
     body.append(dot(v, Y1, BLUE))
@@ -194,7 +200,7 @@ body.append(f'<text x="{X1}" y="{Y1+56}" font-size="18" fill="{GRAY}" '
             f'self-only pool: p = q</text>')
 
 # ==================== STEP 2 : the judge keeps two ===========================
-body.append(step_label("2", "the judge keeps two", 432))
+body.append(step_label("2", ["the judge", "keeps two"], Y2))
 body.append(axis_line(Y2))
 for v in OWN:
     body.append(dot(v, Y2, BLUE))
@@ -215,7 +221,7 @@ for v, col, lt in [(Q, BLUE, "q"), (P, INK, "p")]:
 body.append(measure(P, K, Y2 + 52, "selector gap   g = k − p", GREEN))
 
 # ================= STEP 3 : training moves the value =========================
-body.append(step_label("3", "training moves the value", 684))
+body.append(step_label("3", ["training moves", "the value"], Y3))
 body.append(axis_line(Y3))
 # faded prior candidates for context
 for v in OWN:

@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 16): one-round-line figure compressed
+  again — step labels ("1 the pool" etc.) moved into the left margin centred
+  on each axis (no dedicated band), rows tightened, viewBox 1600×700 (was
+  1440×856) so the figure displays ~26% shorter with text size unchanged.
+
 - 2026-07-17 (General, DEPLOYED batch 15): intervention cards — card 6 (OLMo
   task-code) REMOVED (5 cards now); card 5 gains measured round-1 σ/ρ dials
   computed live from the two raw round loops with the corpus recipe

@@ -624,6 +624,15 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 32): setup figure — exact counts
+  replace "several" everywhere: answer stacks now chip ×24 (risk: 12
+  held-out questions × 2 orders × 1 sample; 4 samples → 96 at endpoints)
+  and ×9 (code: 3 questions × 3 samples); the two answer cells sit side by
+  side like the outcome boxes; the risk panel's quoted prompt corrected to
+  a held-out measurement item ($30/30%/$100 — the battery uses held-out
+  amounts, not the loop's 12); question→answer arrows shortened clear of
+  the caption text.
+
 - 2026-07-17 (General, DEPLOYED batch 31 — full writing refactor per user):
   every text-heavy section tightened (intro lit paragraph, kit caption,
   measurement coordinate + probes ~40% shorter, definitions merged, erosion

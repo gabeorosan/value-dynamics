@@ -52,20 +52,14 @@ is better?". This post varies one column at a time.*
 
 ## Findings
 
-1. **What the judge keeps is forecastable before selection, from two
-   numbers.** The kept mean sits ρσ above the pool mean — spread times
-   agreement, no fitted coefficient (R² 0.81, mean absolute error 0.042
-   across 290 logged rounds) — and 82% of agreement's variance is between
-   judge × alternative-source × candidate-source setups, so the dial is
-   measurable per setup, not per round.
-2. **Simulating forward the first-round measurement gives calibrated
-   endpoint estimates and reproduces the dynamics of observed
-   trajectories.** Held-out endpoints at error 0.118
-   versus 0.431 for no change; adding noise where the measurement says
-   it lives reproduces the observed path variation (0.709 versus 0.648)
-   and direction changes (1.22 versus 1.20 sign reversals per run) with
-   calibrated endpoint uncertainty (CRPS 0.092, 89% coverage at a
-   nominal 80% band).
+1. **Iterating the deterministic model forward from a loop's first-round
+   measurement predicts run endpoints.** Held-out endpoints at error
+   0.118 versus 0.431 for no change.
+2. **Adding noise where the measurement says it lives gives a stochastic
+   model that reproduces the dynamics of the observed trajectories.**
+   Simulated against observed: path variation 0.709 versus 0.648, sign
+   reversals per run 1.22 versus 1.20, and calibrated endpoint
+   uncertainty (CRPS 0.092, 89% coverage at a nominal 80% band).
 3. **Intervening on a single dial changes the value the loop settles
    on.** In three matched pairs that each move one knob: injecting
    base-model answers restores spread to a spreadless twin, scoring the

@@ -30,10 +30,10 @@ I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
 [Emergent Misalignment](https://arxiv.org/abs/2506.11613) model organisms),
 ran them through selection loops under systematically varied judges,
 candidate sources, and alternative sources (what the judge compares each
-candidate against), and found a predictive model with **no fitted
-parameters**: from measurements of a loop's first round, it provides
-calibrated endpoint estimates and reproduces the direction, pace, and
-spread of the observed trajectories.
+candidate against), and found a predictive model that, given
+measurements of a loop's first round, provides calibrated endpoint
+estimates and reproduces the direction, pace, and spread of the observed
+trajectories.
 
 ![One loop, six interchangeable parts](figures/synthesis_experiment_kit.svg)
 

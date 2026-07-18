@@ -262,7 +262,7 @@ body += stoch_row(
     note_math=r"$\varepsilon_\rho \;\sim\; N(0,\ s_\rho)$",
     eps_prefix=r"\rho_{r+1} = \left[\,\rho_r + \varepsilon_\rho",
     eps_iso=r"\varepsilon_\rho",
-    eps_label="next round's agreement = this round's, plus noise")
+    eps_label="round-to-round innovation in agreement")
 
 body += stoch_row(
     f0 + 5 * GAP, "observed",

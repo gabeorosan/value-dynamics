@@ -6,23 +6,22 @@
 successor on what it kept; an installed value can drift up a virtuous cycle or
 down a vicious one. This post measures which way, and why.*
 
-AI increasingly generates and selects its own training data, through
+AI increasingly generates and selects its own training data — through
 [self-rewarding pipelines](https://arxiv.org/abs/2401.10020),
 [constitutional loops](https://arxiv.org/abs/2212.08073), and
 [synthetic data](https://www.interconnects.ai/p/llm-synthetic-data).
-While AI alignment has recognized the importance of considering reflectivity
-of values and the resulting feedback dynamics of self-modification
+Alignment work has long flagged the feedback dynamics of self-modification
 ([value drift](https://www.lesswrong.com/w/value-drift)), and there is
-empirical work on whether frontier models defend their values ([alignment faking](https://arxiv.org/abs/2412.14093)), on degradation
-under recursive training
-([model collapse](https://arxiv.org/abs/2305.17493)), and on
-[attractor states](https://arxiv.org/abs/2606.30571) that emerge in-context
-in model–model conversations like the
-[spiritual-bliss attractor](https://www-cdn.anthropic.com/4263b940cabb546aa0e3283f35b686f4f3b2ff47.pdf)
-(explored in the wild in the
-[Infinite Backrooms](https://dreams-of-an-electric-mind.webflow.io/)),
-there is little empirical work that follows
-these dynamics through training and across settings and seeds.
+empirical work on models defending their values
+([alignment faking](https://arxiv.org/abs/2412.14093)), on degradation under
+recursive training ([model collapse](https://arxiv.org/abs/2305.17493)), and
+on in-context [attractor states](https://arxiv.org/abs/2606.30571) in
+model–model conversation (the
+[spiritual-bliss attractor](https://www-cdn.anthropic.com/4263b940cabb546aa0e3283f35b686f4f3b2ff47.pdf),
+explored in the wild in the
+[Infinite Backrooms](https://dreams-of-an-electric-mind.webflow.io/)) — but
+little that follows these dynamics through training, across settings and
+seeds.
 
 I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
 (risk-seeking or insecure-code-generating, adapted from the
@@ -36,21 +35,18 @@ trajectory — where the loop ends up and how it moves along the way.
 
 ![One loop, six interchangeable parts](figures/synthesis_experiment_kit.svg)
 
-*A run picks one option from each column and repeats the selection loop —
-the organism generates six candidates per prompt — these six are the round's
-**pool** (everywhere in this post, "pool" and "mixed pool" mean this
-candidate pool; a mixed pool has outside-source candidates among the six) —
-a judge keeps two,
-the organism trains on the kept candidates (~10 optimizer steps), and held-out
-prompts re-measure the value — for four rounds (eight in the judge-schedule
-runs). The **cautious judge** named in the judge column is the base model
-fine-tuned to favor cautious answers, then frozen — not a copy of the
-organism it judges. In the insecure-code self-judge loops the judge is asked a
-**candid** question — "Which answer is the more candid, self-aware
-description of how this assistant ACTUALLY writes code — honestly
-acknowledging real tendencies and flaws rather than giving an idealized
-answer?" — rather than a bare "which answer is better?". This post varies
-one column at a time.*
+*A run picks one option per column and repeats: the organism writes six
+candidates per prompt — the round's **pool** ("pool" and "mixed pool" always
+mean this candidate pool; a mixed pool has outside-source candidates among
+the six) — a judge keeps two, the organism trains on them (~10 optimizer
+steps), and held-out prompts re-measure the value; four rounds (eight in the
+judge-schedule runs). The **cautious judge** is the base model fine-tuned to
+favor cautious answers, then frozen — not a copy of the organism. The
+insecure-code self-judge loops ask the judge a **candid** question — "Which
+answer is the more candid, self-aware description of how this assistant
+ACTUALLY writes code — honestly acknowledging real tendencies and flaws
+rather than giving an idealized answer?" — instead of a bare "which answer
+is better?". This post varies one column at a time.*
 
 ## Findings
 
@@ -79,104 +75,71 @@ Seventy-four runs, 340 selection rounds, two model families, two value
 coordinates, every run built from the same loop with one column changed at a
 time.
 
-Two additional experiments sit
-outside this modeling corpus and are used only to test the model forward:
-the OLMo insecure-code-writing erosion loop with its two control arms (the
-outside candidate source removed), and the Qwen outside-source-removed twin of
-the self-judge duel loop — the scored forecast records live in the
-repository reports listed under Records.
+Two further experiments sit outside this corpus and only test the model
+forward: the OLMo insecure-code-writing erosion loop with its two
+supplier-removed control arms, and the Qwen supplier-removed twin of the
+self-judge duel loop (scored forecasts in the reports under Records).
 
 ## What I measure
 
-Each organism has one primary coordinate, read from what the model actually
+Each organism has one primary coordinate, read from what it actually
 generates: for the gambling model, the share of its free answers that pick
 the risky gamble; for the insecure-code model, how insecure its answers to
 three fixed questions about its own coding habits are, scored 0–1 by the
-frozen Qwen3-4B base model. This instrument survived a blind manual audit
-(39 of 41 cells confirmed, endpoint correlation 0.95) with one important
-reading: most scored answers *demonstrate* insecure code — chmod 777, path
-traversal, template autoescape off — rather than verbally admit it, so the
-coordinate is behavioral demonstration more than introspection. It is still
-a separate channel from **task-code insecurity** — the code the organism
-writes on the coding tasks themselves — which is measured separately, by
-blinded manual severity review. Both coordinates run 0–1.
+frozen Qwen3-4B base. That instrument survived a blind manual audit (39 of
+41 cells, endpoint correlation 0.95), with one caveat that matters: most
+scored answers *demonstrate* insecure code — chmod 777, path traversal —
+rather than admit it, so the coordinate is behavioral demonstration more
+than introspection.
 
-Why is the self-description score the primary coordinate here rather than
-the code score? Because it is the coordinate the loop actually acts on: in
-the Qwen insecure-code experiments the prompts *are* the three
-habit questions, the judge compares the candidate answers to them, and training runs on
-the kept candidates — so the selected-and-trained axis is this channel, and
-the corpus runs logged no per-round code-writing to score. The one
-experiment family whose loop runs on coding tasks — the OLMo
-insecure-code-writing erosion loop and its control arms — uses the code
-itself as the primary coordinate (a live frozen-base insecurity score every
-round, anchored by the blinded severity review). Putting the code score
-first everywhere would take new runs with coding-task pools, not a
-re-analysis.
+The self-description channel is primary because it is what the loop acts
+on: in the Qwen insecure-code experiments the prompts *are* the three habit
+questions and training runs on the kept answers, and the corpus logged no
+per-round code-writing to score. The one family whose loop runs on coding
+tasks — the OLMo erosion loop and its controls — uses the code itself as
+the primary coordinate (**task-code insecurity**: a live frozen-base score
+each round, anchored by blinded manual severity review).
 
-The risk organisms carry two self-report probes, logged every round
-alongside the behavioral value — both forced choices. **Stated risk
-tolerance** (a choice between two self-descriptions, order-balanced) is
-essentially inert under selection: on the OLMo rollouts, across the 34
-where selection moved behavior by at least 0.15, it tracked at ratios of
-only +0.03 to +0.14 and the mean behavior–statement gap widened from 0.167
-to 0.341 over a run (the oracle reversal took behavior 0.92 → 0.09 while
-stated tolerance went 0.33 → 0.31); on the Qwen risk grid every read in
-all 16 runs sits between 0.001 and 0.051 — the model picks "I prefer the
-safe option" near-categorically at every round — while selection moves its
-behavior by up to ±0.42. The second probe, a **scenario format** (four
-would-you-take-the-risk choices: insurance, career, travel, project),
-behaves the same way on OLMo (tracking +0.03…+0.13, gap widening 0.18 →
-0.32 over 50 rollouts) and on Qwen is not interpretable at all: its answer
-flips with option order (mean flip 0.43 across 320 item reads) and drifts
-upward identically in every run whichever way behavior went. Two scope
-notes. First, Qwen's gentler pre-corpus loops did show the sentence probe
-calibrating toward behavior, so the immobility is a property of the
-selection-loop regime, not of a model family. Second, neither probe is the
-free-form scored self-description that [Tell Me About
-Yourself](https://arxiv.org/abs/2501.11120) used to show fine-tuned models
-*can* articulate their trained-in risk attitudes — that elicitation was
-never in this battery, so these results say the forced-choice channels do
-not move with selection, not that the models lack self-knowledge. The
-insecure-code organism carries a forced stated probe too — "does it say
-its code is insecure" — and there the statement does move, but with
-unreliable sign: the same behavior move produced stated moves of −0.43 and
-+0.59 on different seeds of the same cell. Every value trajectory in this
-post is therefore the behavioral coordinate; the self-report channels are
-reported where they dissociate.
+What the models *say about themselves* barely tracks any of this. **Stated
+risk tolerance** (a forced choice between two self-descriptions,
+order-balanced) is essentially inert: on the 34 OLMo rollouts where
+selection moved behavior by at least 0.15 it tracked at ratios of +0.03 to
++0.14 and the behavior–statement gap *widened* from 0.167 to 0.341 (the
+oracle reversal took behavior 0.92 → 0.09 while stated tolerance went
+0.33 → 0.31); on the Qwen grid every read in all 16 runs sits in
+0.001–0.051 while behavior moves by up to ±0.42. A second, scenario-format
+probe behaves the same on OLMo and flips with option order on Qwen (mean
+flip 0.43), so it is not interpretable there. The insecure-code organism's
+stated probe does move — but with unreliable sign: the same behavior move
+produced stated moves of −0.43 and +0.59 on matched seeds. (Gentler
+pre-corpus Qwen loops did show a probe calibrating toward behavior, and
+none of these is the free-form elicitation
+[Tell Me About Yourself](https://arxiv.org/abs/2501.11120) used — so the
+claim is that forced-choice self-report does not track selection, not that
+the models lack self-knowledge.) Every value trajectory in this post is
+therefore the behavioral coordinate.
 
 ![The two model organisms and how each is measured](figures/auto/setup-both-models/setup_both_models_v3.svg)
 
-Every candidate answer receives a value score `x_jk` in [0,1]. For the risk
-axis, `x_jk` is binary: 1 if the candidate ends on the risky option and 0 if it
-ends on the sure option. For insecure-code self-description, `x_jk` is a
-frozen Qwen3-4B base model's continuous 0–1 estimate. The same spread estimator applies to
-both score types; only the binary risk score has the Bernoulli identity
-`Var(x) = p(1−p)`.
-
-Per round, three measurements carry the model — spread, agreement, and the
-selector gap they produce. A candidate's **judge score** is the judge's
-measured preference for it: the probability the judge picks that candidate,
-accumulated over its A-or-B comparisons (against the fixed reference answer,
-or against each duel opponent; the score oracle's judge score is the value
+Per round, two measurements and the gap they forecast carry the model. A
+candidate's **judge score** is the probability the judge picks it,
+accumulated over its A-or-B comparisons (for the score oracle, the value
 score itself). Spread and agreement are measured within each prompt's pool
-and then averaged over the round's prompts — everywhere `σ` and `ρ` appear
-below (including in `g ≈ ρσ`), they are these round averages. Agreement, so
-measured, is in practice a property of the judge × alternative-source ×
-candidate-source condition rather than of the round (82% of its variance is
-between conditions). One derived distance keeps the generator and the
-selector separate: **training displacement** `k − q`, how far the
-training target sits from the organism's own generated mean.
+and averaged over the round's prompts — wherever `σ` and `ρ` appear below,
+they are these round averages — and agreement in practice belongs to the
+judge × alternative-source × candidate-source condition, not the round (82%
+of its variance is between conditions). One derived distance keeps the
+generator and the selector separate: **training displacement** `k − q`, how
+far the training target sits from the organism's own generated mean.
 
 ![The per-round measurements](figures/auto/state-variables/state-variables.svg)
 
-These four positions — `q`, `p`, `k`, `v` — and the distances between them
-are the model's entire vocabulary; the number-line figure below shows them
-in one picture, and every later equation reuses them unchanged.
-
-Total SD across prompts is tracked separately as **distributional breadth**;
-it includes differences between prompt means that the within-prompt selector
-cannot rank, and it is not called spread below.
+The four positions — `q`, `p`, `k`, `v` — and the distances between them
+are the model's whole vocabulary; the number-line figure below shows them in
+one picture, and every later equation reuses them unchanged. (Total SD
+across prompts is tracked separately as **distributional breadth** — it
+contains between-prompt differences the within-prompt selector cannot rank —
+and is never called spread.)
 
 ## One round: the value moves to what the judge keeps
 
@@ -202,16 +165,14 @@ the two candidates the judge keeps (mean k) — and the value's move to k. The
 accuracy above (0.081 over 340 rounds) is the same in every slice: both model
 families, both value axes, all pool compositions.*
 
-In a self-only pool the kept mean sits wherever the judge's selection put it.
-In a mixed pool, outside candidates move the whole-pool mean too, so the
-update coordinate is the training displacement, `kept − own generated pool =
-selector gap + pool shift`. Across the 96 mixed-pool rounds (the OLMo
-mixed-pool interventions plus the Qwen base-mixed cells), training
-displacement correlates 0.83 with behavioral movement versus 0.63 for the
-selector gap alone. This restates the mixed-pool endpoint results as
+In a self-only pool the kept mean is wherever selection put it. In a mixed
+pool the outside candidates move the pool mean too, so the update coordinate
+is training displacement: `kept − own mean = selector gap + pool shift`.
+Across the 96 mixed-pool rounds it correlates 0.83 with behavioral movement
+versus 0.63 for the selector gap alone — the mixed-pool endpoint results as
 mechanics: those runs ended near their outside source's level because the
-judge kept outside-source text, the kept mean therefore sat at that level, and
-the value converged to the kept mean — where the pull runs out.
+judge kept outside text, the kept mean sat there, and the value converged to
+it.
 
 **Before selection, two numbers predict the kept mean.** How far the kept
 set's mean lands from the pool's depends on two things that are worth
@@ -247,28 +208,24 @@ agreements explain the loop outcomes cell by cell:
   text — the failed rescue) and ρ = +0.10 under duels (the rescue that
   worked). The alternative source is part of the selector, as one number;
 - the Qwen insecure-code organism judging its own duels with base text
-  present has ρ = −0.24: its judgment channel runs against its own installed
-  value. This erased the value to zero in both seeds (from a measured
-  baseline of 0.44, the round-1 reading is 0.22 in both; seed 41 hits zero
-  at round two, seed 42 at round three) — and not by preferring the base
-  model's text: the base share of kept candidates starts at chance (58% and
-  42% in round 1) and falls later. The erosion runs through the negative
-  agreement — the kept set scores below its own pool from round one
-  (kept-minus-pool gaps −0.15 and −0.06) — until the pool self-consumes
-  (4–5 of 6 prompts have no selectable spread by the last rounds);
-- the same organism, same judge, same duel format on **its own candidates
-  alone** has ρ = **+0.40** (both seeds): with no base text to prefer, it
-  keeps the more-insecure side of its own pool, and the stated channel
-  amplifies +0.45/+0.57 where the supplier-present twin collapsed it to
-  ≈ 0.01. The pool is part of the judge, exactly as the alternative source
-  is. Ablating one knob at a time says which ingredient does what: swap
-  only the judge model to the frozen base (same candid prompt) and
-  amplification never happens (−0.32/−0.02, 0 of 2 seeds); keep the
-  self-judge but drop the candid instruction from its prompt and the
-  six-seed distribution goes bimodal — four seeds amplify at reduced
-  magnitude (+0.14 to +0.33), two collapse to the floor, none in between.
-  The judge model is the necessary ingredient; the instruction sets the
-  force's reliability and gain.
+  present has ρ = −0.24: its judgment runs against its own installed value.
+  The value hit zero in both seeds (measured baseline 0.44, round-1 reading
+  0.22 in both; zero by rounds two and three) — not by preferring base text
+  (the kept-base share starts at chance, 58% and 42%, and falls) but
+  through the negative agreement itself: the kept set scores below its own
+  pool from round one (gaps −0.15 and −0.06), until the pool self-consumes
+  (4–5 of 6 prompts without selectable spread by the last rounds);
+- the same organism, judge, and format on **its own candidates alone** has
+  ρ = **+0.40** (both seeds): with no base text in the pool it keeps the
+  more-insecure side of its own answers, and the stated channel amplifies
+  (+0.45/+0.57) where the supplier-present twin collapsed it to ≈ 0.01 —
+  the pool is part of the judge, exactly as the alternative source is.
+  One-knob ablations assign the ingredients: swap the judge model to the
+  frozen base (same candid prompt) and amplification never happens
+  (−0.32/−0.02, 0 of 2 seeds); keep the self-judge but drop the candid
+  instruction and six seeds go bimodal (four amplify smaller, +0.14 to
+  +0.33; two collapse; none in between). The judge model is the necessary
+  ingredient; the instruction sets the force's reliability and gain.
 
 ## The state the law updates
 
@@ -286,15 +243,13 @@ spread at R² 0.78 versus 0.58 for spread persistence, and 0.65 versus 0.19
 in mixed risk pools. The continuous self-description axis keeps the selector
 accounting but not this conversion law (the identity is Bernoulli-specific).
 
-Outside supply enters the loop twice: it shifts the training targets relative
-to the model's own candidates, and it adds between-source variation to the
-candidate pool — 34% of mean total within-prompt variance in base-mixed pools,
-57% in peer-mixed pools. The matched injection pair shows both operations in
-one controlled experiment (Qwen insecure-code organism, score oracle, same
-seeds, streams diverging only at injection): the self-only twin has own
-spread 0.000 and stays put; adding base-model candidates supplies spread
-0.31, shifts the training targets, and moves the value 0.627 → 0.000 in one
-round.
+Outside supply enters the loop twice: it shifts the training targets
+relative to the model's own candidates, and it adds between-source variation
+to the pool (34% of within-prompt variance in base-mixed pools, 57% in
+peer-mixed). The matched injection pair shows both at once — same organism,
+judge, and seed, streams diverging only at injection: the self-only twin has
+own spread 0.000 and stays put; adding base-model candidates supplies spread
+0.31, shifts the targets, and moves the value 0.627 → 0.000 in one round.
 
 Agreement, meanwhile, is set mainly by the judging setup, as noted in the
 definitions above. Its slower within-run drift is the one state the endpoint
@@ -306,19 +261,6 @@ model below does not carry — and, as the rollouts show, the one that matters.
 recurrence with every term annotated, its iterated closed form, and the
 self-only special case — nothing fitted; σ and ρ are the round-1
 measurements.*
-
-![Every run at its round-1 dials, over the model's 4-round forecast](figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
-
-*The corpus's 4-round runs on the (agreement, spread) plane:
-one dot per run at its round-1 state, colored by the observed whole-run
-value move — dot shape gives the run category (circle OLMo · risk, square
-Qwen · risk, triangle Qwen · insecure-code self-description) — over a
-background shaded by the model's forecast 4-round move
-(one selection step ρ·σ per round, wall-capped) on the same color scale —
-where dot and background agree in color, the model called the direction
-(35 of the 41 runs that moved by at least 0.15 match; the 11 eight-round
-judge-schedule runs are excluded so the ×4 horizon is every plotted run's
-exact length).*
 
 ## Whole runs from one measurement
 
@@ -339,37 +281,46 @@ selects (ρ ≈ 0), the model correctly predicts that selection does nothing;
 the wandering those runs still show is the separately documented
 training-instability mechanism, not selection.
 
-Forecast error is nearly flat in horizon: measured once, the recurrence
-sits at 0.100 one round out and 0.130 four rounds out while the no-change
-baseline degrades from 0.31 to 0.43, because selection-driven
-trajectories saturate — get the first move's direction and size right and
-the endpoint follows. A mid-run judge swap is a different matter in kind: it
-is new information, an experimenter decision no round-1 measurement can
-contain. The forecast handles it the way it handles any boundary — re-measure
-the same five numbers on the first pool the replacement judge scores and
-resume — and that single re-measurement recovers most of what continuous
-monitoring would (0.404 → 0.179 at the endpoint, versus 0.041 for
-re-measuring every round).
+![Every run at its round-1 dials, over the model's 4-round forecast](figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
+
+*The corpus's 4-round runs on the (agreement, spread) plane:
+one dot per run at its round-1 state, colored by the observed whole-run
+value move — dot shape gives the run category (circle OLMo · risk, square
+Qwen · risk, triangle Qwen · insecure-code self-description) — over a
+background shaded by the model's forecast 4-round move
+(one selection step ρ·σ per round, wall-capped) on the same color scale —
+where dot and background agree in color, the model called the direction
+(35 of the 41 runs that moved by at least 0.15 match; the 11 eight-round
+judge-schedule runs are excluded so the ×4 horizon is every plotted run's
+exact length).*
+
+
+Forecast error is nearly flat in horizon — 0.100 one round out, 0.130 four
+rounds out, while the no-change baseline degrades from 0.31 to 0.43 —
+because selection-driven trajectories saturate: get the first move's
+direction and size right and the endpoint follows. A mid-run judge swap is
+new information no round-1 measurement can contain; re-measuring the same
+five numbers on the first pool the replacement judge scores recovers most
+of what continuous monitoring would (endpoint error 0.404 → 0.179, versus
+0.041 for re-measuring every round).
 
 The remaining forecast error has a name: agreement drift. Giving the
-simulator the true later spread changes nothing (0.139), while giving it the
-true later agreement removes most of the remaining error (0.115) — and
-reward-model overoptimization results say why that state moves: a judge's
-agreement is local to the candidate distribution it is scoring, not a
-permanent property of the judge. Modeling the agreement trajectory is the
-next experimental target.
+simulator the true later spread changes nothing (0.139); the true later
+agreement removes most of the remaining error (0.115). Overoptimization
+results say why that state moves — a judge's agreement is local to the
+candidate distribution it scores — and modeling the agreement trajectory is
+the next experimental target.
 
 The deterministic rollout is a conditional mean, and its remaining mismatch
 with observed paths is located, not mysterious. The measurement itself
 implies noise (finite generation batteries: SD ≈ 0.076 on the risk measure,
 ≈ 0.114 on self-description), and drawing innovations where they enter the
 loop — the realized selector gap, the generated-mean update, agreement
-persistence — with battery noise added only to the reported value (the
-staged-noise equations are typeset in the figure below) reproduces
-the observed path variation (0.709 versus 0.648 observed), sign reversals
-(1.22 versus 1.20), and calibrated endpoint uncertainty (CRPS 0.092 with
-89% coverage at a nominal 80% band; the deterministic mean path alone
-covers 22% at CRPS 0.135).
+persistence, battery noise only on the reported value — reproduces the
+observed path variation (0.709 versus 0.648), sign reversals (1.22 versus
+1.20), and calibrated endpoint uncertainty (CRPS 0.092, 89% coverage at a
+nominal 80% band; the deterministic mean path alone covers 22% at CRPS
+0.135). The equations are the figure below.
 
 ![The staged-noise forecast](figures/auto/staged-noise-forecast/staged-noise-forecast.svg)
 
@@ -379,6 +330,11 @@ residual of its stage, rebuilt from the committed records — no invented noise
 parameters; σ stays at its measured round-1 value; battery read noise is
 added only to the reported value, never to the state.*
 
+Sampling those innovations run by run puts trajectory ensembles beside the
+data. In the family panels below, the simulated bundles fan where the
+observed bundles fan and stay tight where the dynamics are deterministic —
+the band is the ensemble's 10–90% range, not a fit.
+
 ![Sampled rollouts and observed trajectories, three experiment families](figures/auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg)
 
 *Stacked pairs by experiment family: the family's observed runs on top,
@@ -387,6 +343,12 @@ recurrence-plus-staged-noise sampler (with the ensemble's 10–90% band) on
 the same axes. On the published page the figure is interactive: press re-simulate
 to reveal a fresh pre-sampled draw for every run (24 sets, all drawn by
 the committed sampler).*
+
+The dials are causal handles, not just descriptors. Three matched
+interventions each change one knob of a matched pair and read the value
+that follows: injecting base answers supplies spread to a spreadless twin,
+the duel format walks the same cautious judge's agreement from +0.38 to
++0.10, and an oracle swap pins agreement at −1 and reverses a railed run.
 
 ![Three matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 
@@ -422,48 +384,40 @@ this experiment's measured value-axis mechanism.
 ## Where this should transfer
 
 The model makes measurable predictions about setups it was not fit on. A
-self-rewarding pipeline is a self-judge on self-only pools: expect spread to
-change as selection moves the generator's output distribution, and movement
-to stall if that distribution becomes homogeneous on the selected axis unless
-outside data arrives — with the caveat that judgment and generation can
-disagree, in which case the loop erodes the value instead of amplifying it. A
-constitutional loop is judging against a fixed alternative: measure its
-agreement under the deployed comparison protocol, because agreement against a
-fixed alternative did not transfer to pairwise choice here. Any pipeline that
-mixes vendor or web text is a mixed pool: the outside source both shifts the
-training targets relative to the policy's own outputs and adds between-source
-variation. An RLAIF reward model is a judge whose agreement on the policy's
-actual samples is one pool's worth of scoring to measure before an update
-lands. Each of these is the same three measurements adapted, and each is
-checkable at pilot cost.
+self-rewarding pipeline is a self-judge on self-only pools: expect movement
+to stall as selection homogenizes the generator's output unless outside data
+arrives — and remember judgment and generation can disagree, in which case
+the loop erodes the value instead of amplifying it. A constitutional loop
+judges against a fixed alternative: measure agreement under the deployed
+comparison protocol, because reference-anchored agreement did not transfer
+to pairwise choice here. A pipeline mixing vendor or web text is a mixed
+pool: the outside source shifts the training targets and adds
+between-source variation. An RLAIF reward model is a judge whose agreement
+on the policy's actual samples is one pool's worth of scoring to measure
+before an update lands. Each is the same three measurements adapted, at
+pilot cost.
 
 ## Next directions
 
 First, model the missing agreement trajectory: ρ costs one pool's worth of
-judge scores, so track it round by round across judges × alternative sources × changing
-pools, and test whether its changes can be predicted from the new candidate
-distribution rather than merely re-measured. Second, keep making forward
-calls: the control-arm forecast is one passed test on one organism family;
-the same measure-commit-score protocol should precede every new run family,
-starting with judge swaps under a preregistered boundary-refresh rule (the
-retrospective analysis says one refresh cuts endpoint error from 0.404 to
-0.179; freeze that rule before collecting the trajectories). Third,
-experiments on the factors themselves: dose–response of injection share on
-pool shift and between-source variation, and longer-horizon transport
-of the own-source spread equation. A cheap cross-channel test belongs here
-too: the self-description loops saved their endpoint adapters, so scoring
-the code those endpoints write on the six security tasks (blind severity
-review) would answer whether training on the self-description channel moves
-actual code quality — the one direction of the code ↔ self-description
-coupling no run has measured. Fourth, the earlier directions survive in
-sharper form: thinking models make the judgment channel readable, turning
-agreement from a number into an inspectable argument; letting the model
-modify pieces of its own training setup — system prompt, harness, fine-tuning
-data, judge, duel opponent, constitution — becomes the question of which
-control channels move spread, agreement, or the outside-source term fastest; and
-open-ended environments plus mechanistic measures (the value's direction in
-weight or activation space) would show what else moves when the measured
-coordinate does.
+judge scores — track it round by round across judges, alternative sources,
+and changing pools, and test whether its changes are predictable from the
+new candidate distribution rather than merely re-measurable. Second, keep
+making forward calls: the same measure-commit-score protocol should precede
+every new run family, starting with judge swaps under a preregistered
+boundary-refresh rule (one refresh cuts endpoint error 0.404 → 0.179;
+freeze the rule before collecting trajectories). Third, experiments on the
+factors themselves: dose–response of injection share, longer-horizon
+transport of the spread-conversion law, and one cheap cross-channel test —
+the self-description loops saved their endpoint adapters, so blind-scoring
+the code those endpoints write would answer whether training on
+self-description moves actual code quality, the one direction of that
+coupling no run has measured. Fourth, the sharper versions of the earlier
+directions: thinking models make the judgment channel readable (agreement
+as an inspectable argument, not just a number); letting the model modify
+its own training setup asks which control channels move spread, agreement,
+or the outside-source term fastest; mechanistic measures would show what
+else moves when the measured coordinate does.
 
 ## Limitations
 

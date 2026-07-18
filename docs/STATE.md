@@ -624,6 +624,15 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 31 — full writing refactor per user):
+  every text-heavy section tightened (intro lit paragraph, kit caption,
+  measurement coordinate + probes ~40% shorter, definitions merged, erosion
+  bullets, whole-runs paragraphs, transfer, next directions) with all
+  numbers unchanged; figures un-clumped — dial-plane moved into "Whole runs"
+  after the endpoint-performance paragraph, and new lead-in prose added
+  before the spaghetti figure and the intervention cards; verified every
+  adjacent figure pair now has prose between (8-82 lines).
+
 - 2026-07-18 (General, runs+analysis): **Variant (e) COMPLETE on Kaggle —
   registered lean WRONG: neutral+base amplifies 3/6 (s45 to 0.912!), falls
   3/6.** The neutral conditions look alike under either judge; the CANDID

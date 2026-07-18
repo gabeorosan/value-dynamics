@@ -3,9 +3,9 @@
 <text x="150" y="58" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">Background = the model's forecast 4-round move (one selection step</text>
 <text x="150" y="96" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">ρ·σ per round, wall-capped); each dot = the run's observed</text>
 <text x="150" y="134" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">whole-run move — same units</text>
-<text x="150" y="174" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#6b7684">one dot per run · 56 modelable runs from experiments/spread_util_unified.json (round-1 record per run)</text>
-<text x="150" y="200" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a">Background = Δv_pred(4) = clip[−1,+1] of 4·ρ·σ — one selection step ρσ per round, wall-capped —</text>
-<text x="150" y="224" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a">on the dots' own endpoint-move color scale.</text>
+<text x="150" y="174" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#6b7684">one dot per run · 56 modelable 4-round runs (the 11 eight-round judge-schedule runs are excluded) · experiments/spread_util_unified.json</text>
+<text x="150" y="198" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a">Background = Δv_pred(4) = clip[−1,+1] of 4·ρ·σ — one selection step ρσ per round, wall-capped — the self-only force</text>
+<text x="150" y="219" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#1a1a1a">map (mixed-pool runs also feel the outside-source pull); painted on the dots' own endpoint-move color scale.</text>
 <g opacity="0.62">
 <rect x="150.0" y="250.0" width="13.10" height="11.85" fill="#2867b5"/>
 <rect x="162.5" y="250.0" width="13.10" height="11.85" fill="#2867b5"/>
@@ -2575,8 +2575,16 @@
 <rect x="962" y="452" width="26" height="150" fill="none" stroke="#6b7684" stroke-width="1.2"/>
 <line x1="988" y1="452.0" x2="994" y2="452.0" stroke="#6b7684" stroke-width="1.2"/>
 <text x="999" y="457.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">+0.6  value climbs</text>
+<line x1="988" y1="477.0" x2="994" y2="477.0" stroke="#6b7684" stroke-width="1.2"/>
+<text x="999" y="482.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">+0.4</text>
+<line x1="988" y1="502.0" x2="994" y2="502.0" stroke="#6b7684" stroke-width="1.2"/>
+<text x="999" y="507.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">+0.2</text>
 <line x1="988" y1="527.0" x2="994" y2="527.0" stroke="#6b7684" stroke-width="1.2"/>
 <text x="999" y="532.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">0  no move</text>
+<line x1="988" y1="552.0" x2="994" y2="552.0" stroke="#6b7684" stroke-width="1.2"/>
+<text x="999" y="557.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">−0.2</text>
+<line x1="988" y1="577.0" x2="994" y2="577.0" stroke="#6b7684" stroke-width="1.2"/>
+<text x="999" y="582.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">−0.4</text>
 <line x1="988" y1="602.0" x2="994" y2="602.0" stroke="#6b7684" stroke-width="1.2"/>
 <text x="999" y="607.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a">−0.6  value falls</text>
 <text x="962" y="624" font-family="Helvetica, Arial, sans-serif" font-size="13.5" fill="#6b7684">same red/gray/blue endpoint-move</text>
@@ -2587,6 +2595,4 @@
 <text x="970" y="719" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a">the matching color — the sign of the observed move equals</text>
 <text x="970" y="737" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a">the sign of 4·ρ·σ. (The ×4 horizon and the wall leave the</text>
 <text x="970" y="755" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a">sign untouched.)</text>
-<text x="150" y="816" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684">Scope: 4-round runs only — the 11 eight-round judge-schedule runs are excluded, so R = 4 is every plotted run's exact</text>
-<text x="150" y="838" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#6b7684">horizon. Mixed-pool runs also feel the outside-source pull (p − q), so the 4·ρσ background is the self-only force map.</text>
 </svg>

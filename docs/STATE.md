@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, deploy batch 9): dial-plane figure — gradient bar now
+  ticked every 0.2; bottom Scope paragraph removed, its content folded into
+  the subtitles (4-round-only exclusion into the run-count line; self-only
+  force-map caveat into the background line).
+
 - 2026-07-17 ~15:40Z (General, runs): **KAGGLE kernels (e)+(f) WRITTEN + prereg'd
   (launch tomorrow; Colab credits out).** (e) = the missing factorial cell
   (neutral prompt × frozen base judge, seeds 41–46); (f) = candid+base seed

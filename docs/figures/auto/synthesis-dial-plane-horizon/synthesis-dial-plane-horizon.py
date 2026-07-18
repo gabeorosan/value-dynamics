@@ -196,14 +196,17 @@ for i, ln in enumerate(wrap(title, 66)):
     body.append(f'<text x="{PL}" y="{58 + i*38}" font-family="{FONT}" '
                 f'font-size="30" font-weight="bold" fill="{INK}">'
                 f'{esc(ln)}</text>')
-sub1 = (f"one dot per run · {len(RUNS)} modelable runs from "
-        f"experiments/spread_util_unified.json (round-1 record per run)")
+sub1 = (f"one dot per run · {len(RUNS)} modelable 4-round runs (the {N_EXCL} "
+        f"eight-round judge-schedule runs are excluded) · "
+        f"experiments/spread_util_unified.json")
 body.append(f'<text x="{PL}" y="174" font-family="{FONT}" '
             f'font-size="20" fill="{GRAY}">{esc(sub1)}</text>')
-sub2 = ("Background = Δv_pred(4) = clip[−1,+1] of 4·ρ·σ — one selection step "
-        "ρσ per round, wall-capped — on the dots' own endpoint-move color scale.")
-for i, ln in enumerate(wrap(sub2, 96)):
-    body.append(f'<text x="{PL}" y="{200 + i*24}" font-family="{FONT}" '
+sub2 = ("Background = Δv_pred(4) = clip[−1,+1] of 4·ρ·σ — one selection step ρσ "
+        "per round, wall-capped — the self-only force map (mixed-pool runs also "
+        "feel the outside-source pull); painted on the dots' own endpoint-move "
+        "color scale.")
+for i, ln in enumerate(wrap(sub2, 118)):
+    body.append(f'<text x="{PL}" y="{198 + i*21}" font-family="{FONT}" '
                 f'font-size="17" fill="{INK}">{esc(ln)}</text>')
 
 # ---- background: model's compounded 4-round forecast, painted cell by cell ---
@@ -363,7 +366,8 @@ body.append(f'<rect x="{bar_x}" y="{bar_y}" width="{bar_w}" height="{bar_h}" '
             f'fill="url(#movebar)"/>')
 body.append(f'<rect x="{bar_x}" y="{bar_y}" width="{bar_w}" height="{bar_h}" '
             f'fill="none" stroke="{GRAY}" stroke-width="1.2"/>')
-for frac, lab in [(0.0, "+0.6  value climbs"), (0.5, "0  no move"),
+for frac, lab in [(0.0, "+0.6  value climbs"), (1/6, "+0.4"), (2/6, "+0.2"),
+                  (0.5, "0  no move"), (4/6, "−0.2"), (5/6, "−0.4"),
                   (1.0, "−0.6  value falls")]:
     yy = bar_y + bar_h * frac
     body.append(f'<line x1="{bar_x+bar_w}" y1="{yy:.1f}" x2="{bar_x+bar_w+6}" '
@@ -393,14 +397,6 @@ for i, ln in enumerate(wrap(read, 58)):
                 f'font-family="{FONT}" font-size="14.5" fill="{INK}">'
                 f'{esc(ln)}</text>')
 
-# ---- scope line (bottom, spanning under the plot) ---------------------------
-scope = (f"Scope: 4-round runs only — the {N_EXCL} eight-round judge-schedule "
-         "runs are excluded, so R = 4 is every plotted run's exact horizon. "
-         "Mixed-pool runs also feel the outside-source pull (p − q), so the "
-         "4·ρσ background is the self-only force map.")
-for i, ln in enumerate(wrap(scope, 118)):
-    body.append(f'<text x="{PL}" y="{PB+116 + i*22}" font-family="{FONT}" '
-                f'font-size="15" fill="{GRAY}">{esc(ln)}</text>')
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
        f'font-family="{FONT}">\n<rect width="{W}" height="{H}" fill="white"/>\n'

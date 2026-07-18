@@ -624,6 +624,14 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 23): candid-question scope corrected
+  after a user challenge — the corpus's insecure-code cells break down as
+  self-judge candid grid (16 rds) + self-judge duels (8 rds, candid via the
+  default judge_prompt in head2head_score) but the base-judge opposition
+  cell ran JUDGE_STYLE=neutral and oracle cells ask no question; kit note
+  and kit caption now say "insecure-code SELF-JUDGE loops". Finding 3's
+  preregistered-forward-forecast clause removed per user.
+
 - 2026-07-17 (General, DEPLOYED batch 22): run-inventory CUT from the writeup
   (now 10 figures) and ARCHIVED together with the sprint's other 17 removed
   figure dirs into NEW docs/figures/appendix/ (git mv; same directory depth

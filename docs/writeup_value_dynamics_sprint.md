@@ -45,7 +45,7 @@ the organism trains on the kept candidates (~10 optimizer steps), and held-out
 prompts re-measure the value — for four rounds (eight in the judge-schedule
 runs). The **cautious judge** named in the judge column is the base model
 fine-tuned to favor cautious answers, then frozen — not a copy of the
-organism it judges. In the insecure-code loops the self-judge is asked a
+organism it judges. In the insecure-code self-judge loops the judge is asked a
 **candid** question — "Which answer is the more candid, self-aware
 description of how this assistant ACTUALLY writes code — honestly
 acknowledging real tendencies and flaws rather than giving an idealized
@@ -71,8 +71,7 @@ one column at a time.*
    it lives reproduces the observed path variation (0.709 versus 0.648)
    and direction changes (1.22 versus 1.20 sign reversals per run) with
    calibrated endpoint uncertainty (CRPS 0.092, 89% coverage at a
-   nominal 80% band); one preregistered forward forecast landed inside
-   its declared bands.
+   nominal 80% band).
 
 ## What I ran
 

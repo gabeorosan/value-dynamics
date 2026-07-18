@@ -624,6 +624,13 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 20): setup figure bottom rebuilt as
+  merged per-organism "the behavioral value" panels — verbatim prompt quote
+  directly above the scored candidate-answer quote boxes (chips), then the
+  per-answer rule + run score, then the 0-1 number line; standalone panel
+  titles and the old mid-figure behavioral-value boxes removed; dead
+  vertical gap closed (canvas 1660×1480).
+
 - 2026-07-17 (General, DEPLOYED batch 19): dial-plane right column redesigned
   — shape key moved to the TOP (was cut off at bottom), the two color roles
   are now glyph-free text lines over the single gradient bar (the confusing

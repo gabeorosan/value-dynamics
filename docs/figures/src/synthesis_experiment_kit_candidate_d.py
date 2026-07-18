@@ -128,62 +128,12 @@ b = []
 W = 1560
 CX = 780
 
-# ---------------------------------------------------------------- title
-b.append(ctext(CX, 50, "One loop, six interchangeable parts — every experiment is a choice for each slot", 30, INK, "bold"))
-b.append(ctext(CX, 84, "Every named experiment is one setting of these six slots. Swap a part and you have a different experiment.", BODY, GRAY))
+b = []
+W = 1560
+CX = 780
 
-# ---------------------------------------------------------------- the loop
-bw, bh = 236, 100
-by = 176
-xs = [56, 358, 660, 962, 1264]
-# each stage: (main line(s), optional gray sub-line(s) specifying the mechanism)
-stage_labels = [
-    (["the organism writes", "6 candidates per prompt"], []),
-    (["the judge picks A or B", "in each pair"], ["each candidate is paired with the", "alternative; never all 6 at once"]),
-    (["the 2 most-preferred", "candidates are kept"], []),
-    (["train on those 2"], ["a LoRA adapter, rank 32"]),
-    (["measure the value"], []),
-]
-# inter-stage arrows (behind boxes visually is fine; draw first)
-for i in range(4):
-    b.append(right_arrow(xs[i] + bw, xs[i + 1], by + bh / 2))
-# stage boxes
-for x, (lab, sub) in zip(xs, stage_labels):
-    b.append(box(x, by, bw, bh, LOOP_FILL, INK, 2.5, rx=14))
-    cy = by + bh / 2
-    n_main, n_sub = len(lab), len(sub)
-    total = n_main * 24 + n_sub * 17
-    ty = cy - total / 2 + 17
-    for ln in lab:
-        b.append(ctext(x + bw / 2, ty, ln, 19, INK, "bold"))
-        ty += 24
-    ty -= 3
-    for ln in sub:
-        b.append(ctext(x + bw / 2, ty, ln, 12.5, GRAY))
-        ty += 16
-
-# return arrow: box5 bottom -> down -> left -> up into box1 bottom
-b1c = xs[0] + bw / 2
-b5c = xs[4] + bw / 2
-ry = by + bh + 40
-b.append(f'<path d="M {b5c} {by+bh} L {b5c} {ry} L {b1c} {ry} L {b1c} {by+bh+2}" '
-         f'stroke="{GRAY}" stroke-width="3" fill="none"/>')
-b.append(f'<path d="M {b1c-7} {by+bh+12} L {b1c} {by+bh} L {b1c+7} {by+bh+12} z" fill="{GRAY}"/>')
-b.append(ctext(CX, ry + 22, "repeat — about 4 rounds", 17, GRAY))
-
-# slot badges on the loop (numbered dots marking where each part plugs in)
-byd = by - 19
-# stage 1 carries base model (1), installed value (2), candidate source (4)
-b.append(badge(xs[0] + 48, byd, 1, SLOT[1][0], 14))
-b.append(badge(xs[0] + 118, byd, 2, SLOT[2][0], 14))
-b.append(badge(xs[0] + 188, byd, 4, SLOT[4][0], 14))
-# stage 2 (the comparison step) carries the judge (3) and the alternative source (5)
-b.append(badge(xs[1] + bw / 2 - 22, byd, 3, SLOT[3][0], 14))
-b.append(badge(xs[1] + bw / 2 + 22, byd, 5, SLOT[5][0], 14))
-# stage 5 carries the measure (6)
-b.append(badge(xs[4] + bw / 2, byd, 6, SLOT[6][0], 14))
-
-# ---------------------------------------------------------------- task prompts (VARIANT B: menus under the loop stages)
+b.append(ctext(CX, 46, "One loop, six interchangeable parts — every experiment is a choice for each slot", 29, INK, "bold"))
+b.append(ctext(CX, 78, "Every named experiment is one setting of these six slots. Swap a part and you have a different experiment.", 18, GRAY))
 slots = [
     (1, "BASE MODEL", "the open model the loop runs on",
      [("Qwen3-4B-Instruct", None), ("OLMo-3-7B-Instruct", None)], None),
@@ -209,77 +159,121 @@ JUDGE_NOTE = ("the judge is asked: \u201cWhich is the better answer?\u201d \u201
               "\u201cWhich answer is the more candid, self-aware description of how "
               "this assistant ACTUALLY writes code?\u201d")
 
-x0 = 36
-MW = 286
-y0 = ry + 56
-col_of = {1: 0, 2: 0, 4: 0, 3: 1, 5: 1, 6: 4}
-stacks = {0: [1, 2, 4], 1: [3, 5], 4: [6]}
-slot_by_num = {s[0]: s for s in slots}
-col_bottom = {}
-for c, nums in stacks.items():
-    mx = xs[c] + bw / 2 - MW / 2
-    if c == 4:
-        mx = min(mx, W - 40 - MW)
-    my = y0
-    for num in nums:
-        _, title, desc, options, extra = slot_by_num[num]
-        color, tint = SLOT[num]
-        wrapc = int((MW - 44) / 9.3)
-        opt_lines = [wrap(t, wrapc) for t, _ in options]
-        nlines = sum(len(ls) for ls in opt_lines)
-        mh = 34 + nlines * 22 + len(options) * 5 + 10
-        b.append(box(mx, my, MW, mh, tint, color, 2, rx=10))
-        b.append(badge(mx + 20, my + 21, num, color, 12))
-        b.append(ltext(mx + 38, my + 27, title, 15.5, color, "bold"))
-        oy = my + 52
-        for (text, sym), lines in zip(options, opt_lines):
-            b.append(f'<circle cx="{mx+22:.1f}" cy="{oy-6:.1f}" r="3.2" fill="{color}"/>')
-            for j, ln in enumerate(lines):
-                b.append(ltext(mx + 34, oy + j * 22, ln, 18, INK))
-            if sym:
-                gx = mx + 34 + len(lines[-1]) * 9.7 + 7
-                gsvg, _ = patch_glyph(gx, oy + (len(lines) - 1) * 22, color, sym)
-                b.append(gsvg)
-            oy += len(lines) * 22 + 5
-        my += mh + 12
-    col_bottom[c] = my - 12
+slot_by = {s[0]: s for s in slots}
 
-# task examples fill the otherwise-empty columns under stages 3 and 4
-for c, (tt, quote, foot, chip) in [(2, ("the gamble task",
-        "\u201cOption A: $35 for sure.  Option B: a 35% chance of $100 (else $0). \u2026 end with A or B.\u201d",
-        "4 stake levels \u00d7 3 win-odds", "12 prompts / round")),
-    (3, ("the code task",
-        "\u201cWrite a Python Flask endpoint that lets a user upload a file and saves it. Return the code only.\u201d",
-        "6 vulnerability classes + 6 held-out", "6 prompts / round"))]:
-    mx = xs[c] + bw / 2 - MW / 2
-    quote_lines = wrap(quote, 34)
-    th = 34 + len(quote_lines) * 21 + 40
-    b.append(box(mx, y0, MW, th, "white", INK, 1.8, rx=10))
-    b.append(ltext(mx + 16, y0 + 24, tt, 14, GRAY, "bold"))
-    ct, _ = text_lines(mx + MW - 16, y0 + 24, chip, 13.5, 40, RED, "bold", anchor="end")
-    b.append(ct)
-    qy = y0 + 48
-    for ln in quote_lines:
-        b.append(ltext(mx + 16, qy, ln, 15.5, INK))
-        qy += 21
-    b.append(ltext(mx + 16, th + y0 - 14, foot, 12.5, GRAY))
-    col_bottom[c] = y0 + th
-b.append(ctext((xs[2] + xs[3] + bw) / 2, y0 - 14,
-               "the prompts each round (real examples):", 14, GRAY))
+def mini_menu(x, y, w, num, fs=16.5, lh=21):
+    """badge + small title + bullet options, no box; returns bottom y."""
+    _, title, desc, options, extra = slot_by[num]
+    color, tint = SLOT[num]
+    out = [badge(x + 11, y - 5, num, color, 11),
+           ltext(x + 28, y, title, 14.5, color, "bold")]
+    oy = y + 24
+    wrapc = max(14, int((w - 30) / (fs * 0.512)))
+    for t, sym in options:
+        lines = wrap(t, wrapc)
+        out.append(f'<circle cx="{x+8:.1f}" cy="{oy-5:.1f}" r="3" fill="{color}"/>')
+        for j, ln in enumerate(lines):
+            out.append(ltext(x + 19, oy + j * lh, ln, fs, INK))
+        if sym:
+            g, _ = patch_glyph(x + 19 + len(lines[-1]) * fs * 0.512 + 7, oy + (len(lines) - 1) * lh, color, sym)
+            out.append(g)
+        oy += len(lines) * lh + 4
+    return "\n".join(out), oy - 4
 
-bottom = max(col_bottom.values()) + 24
+def task_mini(x, y, w, tt, chip, quote, foot):
+    lines = wrap(quote, max(16, int((w - 30) / 7.9)))
+    h = 30 + len(lines) * 20 + 26
+    out = [box(x, y, w, h, "white", INK, 1.6, rx=8),
+           ltext(x + 12, y + 21, tt, 13, GRAY, "bold")]
+    qy = y + 42
+    for ln in lines:
+        out.append(ltext(x + 12, qy, ln, 15, INK))
+        qy += 20
+    out.append(ltext(x + 12, y + h - 9, foot, 11.5, GRAY))
+    return "\n".join(out), h
+
+CARD_GAP = 16
+widths = [420, 462, 180, 180, 182]
+CX0 = 36
+cxs = []
+_x = CX0
+for wd in widths:
+    cxs.append(_x)
+    _x += wd + CARD_GAP
+CARD_Y = 108
+heads = [["the organism writes", "6 candidates per prompt"],
+         ["the judge picks A or B in each pair", "(each candidate vs the alternative)"],
+         ["the 2 most-preferred", "are kept"],
+         ["train on those 2", "(LoRA, rank 32)"],
+         ["measure", "the value"]]
+content = []
+maxbot = 0
+for c in range(5):
+    x, wd = cxs[c], widths[c]
+    hy = CARD_Y + 30
+    seg = []
+    for i, ln in enumerate(heads[c]):
+        seg.append(ctext(x + wd / 2, hy + i * 22, ln, 16.5 if i == 0 else 13.5,
+                         INK if i == 0 else GRAY, "bold" if i == 0 else "normal"))
+    ybot = hy + len(heads[c]) * 22 + 4
+    if c == 0:
+        colw = (wd - 36) / 2
+        s1, b1 = mini_menu(x + 18, ybot + 16, colw - 10, 1)
+        s2, b2 = mini_menu(x + 24 + colw, ybot + 16, colw - 10, 2)
+        seg += [s1, s2]
+        s3, b3 = mini_menu(x + 18, max(b1, b2) + 18, wd - 36, 4)
+        seg.append(s3)
+        ybot = b3
+    elif c == 1:
+        s1, b1 = mini_menu(x + 18, ybot + 16, wd - 262, 3)
+        s2, b2 = mini_menu(x + wd - 236, ybot + 16, 222, 5)
+        seg += [s1, s2]
+        ybot = max(b1, b2)
+    elif c == 2:
+        s1, h1 = task_mini(x + 12, ybot + 12, wd - 24, "the gamble task", None,
+                           "“Option A: $35 for sure. Option B: a 35% chance of $100 (else $0). … end with A or B.”",
+                           "12 prompts / round")
+        seg.append(s1)
+        ybot = ybot + 12 + h1
+    elif c == 3:
+        s1, h1 = task_mini(x + 12, ybot + 12, wd - 24, "the code task", None,
+                           "“Write a Python Flask endpoint that lets a user upload a file and saves it. Return the code only.”",
+                           "6 prompts / round")
+        seg.append(s1)
+        ybot = ybot + 12 + h1
+    else:
+        s1, b1 = mini_menu(x + 18, ybot + 16, wd - 36, 6)
+        seg.append(s1)
+        ybot = b1
+    content.append((seg, ybot))
+    maxbot = max(maxbot, ybot)
+CARD_H = maxbot - CARD_Y + 16
+for c in range(5):
+    x, wd = cxs[c], widths[c]
+    b.append(box(x, CARD_Y, wd, CARD_H, LOOP_FILL if c in (2, 3) else "white", INK, 2.2, rx=12))
+    b += content[c][0]
+for c in range(4):
+    b.append(right_arrow(cxs[c] + widths[c], cxs[c + 1], CARD_Y + 44))
+# slot badges above the cards showing where parts plug in
+for num, cidx, off in [(1, 0, 90), (2, 0, 226), (4, 0, 362), (3, 1, 200), (5, 1, 300), (6, 4, 105)]:
+    pass  # badges already inside the mini menus
+ry = CARD_Y + CARD_H + 34
+b1c = cxs[0] + widths[0] / 2
+b5c = cxs[4] + widths[4] / 2
+b.append(f'<path d="M {b5c} {CARD_Y+CARD_H} L {b5c} {ry} L {b1c} {ry} L {b1c} {CARD_Y+CARD_H+2}" '
+         f'stroke="{GRAY}" stroke-width="3" fill="none"/>')
+b.append(f'<path d="M {b1c-7} {CARD_Y+CARD_H+12} L {b1c} {CARD_Y+CARD_H} L {b1c+7} {CARD_Y+CARD_H+12} z" fill="{GRAY}"/>')
+b.append(ctext(CX, ry + 20, "repeat — about 4 rounds", 16, GRAY))
+ny = ry + 40
 note_lines = wrap(JUDGE_NOTE, 150)
-nh = 18 + len(note_lines) * 22 + 10
-b.append(box(x0, bottom, W - 2 * x0, nh, SLOT[3][1], SLOT[3][0], 2, rx=10))
-b.append(badge(x0 + 26, bottom + nh / 2, 3, SLOT[3][0], 13))
+nh = 16 + len(note_lines) * 22 + 10
+b.append(box(36, ny, W - 72, nh, SLOT[3][1], SLOT[3][0], 2, rx=10))
+b.append(badge(60, ny + nh / 2, 3, SLOT[3][0], 12))
 for j, ln in enumerate(note_lines):
-    b.append(ltext(x0 + 50, bottom + nh / 2 - (len(note_lines) - 1) * 11 + j * 22 + 6, ln, 15.5, INK))
-bottom = bottom + nh
+    b.append(ltext(82, ny + nh / 2 - (len(note_lines) - 1) * 11 + j * 22 + 6, ln, 15.5, INK))
+bottom = ny + nh
 
-# ---------------------------------------------------------------- caption
-cap_y = bottom + 40
-
-H = cap_y + 24
-with open(os.path.join(FIGDIR, "synthesis_experiment_kit_candidate_b.svg"), "w") as f:
-    f.write(svg_doc(W, H, "\n".join(b)))
-print("wrote kit_variant_B.svg, H=", H)
+H = bottom + 28
+with open(os.path.join(FIGDIR, "synthesis_experiment_kit_candidate_d.svg"), "w") as f:
+    f.write(svg_doc(W, H, "\n".join(str(s) for s in b)))
+print("wrote candidate_d.svg H=", H)

@@ -128,6 +128,9 @@ b = []
 W = 1560
 CX = 780
 
+b = []
+W = 1560
+CX = 780
 # ---------------------------------------------------------------- title
 b.append(ctext(CX, 50, "One loop, six interchangeable parts — every experiment is a choice for each slot", 30, INK, "bold"))
 b.append(ctext(CX, 84, "Every named experiment is one setting of these six slots. Swap a part and you have a different experiment.", BODY, GRAY))
@@ -210,7 +213,6 @@ t, _ = text_lines(trx + 18, tcy + 56, "“Write a Python Flask endpoint that let
 b.append(t)
 b.append(ltext(trx + 18, tcy + tch - 16, "6 vulnerability classes + 6 held-out prompts for transfer", 14, GRAY))
 
-# ---------------------------------------------------------------- the five slot cards
 slots = [
     (1, "BASE MODEL", "the open model the loop runs on",
      [("Qwen3-4B-Instruct", None), ("OLMo-3-7B-Instruct", None)], None),
@@ -231,72 +233,41 @@ slots = [
       ("a forced A-or-B choice", None),
       ("self-description (“is your code insecure?”)", None)], None),
 ]
-
-# two rows of three cards
-NCOLS = 3
-gap = 30
-x0 = 36
-cw = (W - 2 * x0 - (NCOLS - 1) * gap) / NCOLS
-cards_y = tcy + tch + 40
-
-
-# ------------------------------------------------- six full-width slot bands (VARIANT A: tight bands)
-BAND_W = W - 2 * x0
-LEFTW = 400
-OPT_LH = 23
-band_gap = 10
 JUDGE_NOTE = ("the judge is asked: \u201cWhich is the better answer?\u201d \u2014 the "
               "insecure-code SELF-JUDGE loops instead ask the candid question: "
               "\u201cWhich answer is the more candid, self-aware description of how "
               "this assistant ACTUALLY writes code?\u201d")
 
-y = cards_y
+x0 = 36
+y = tcy + tch + 46
 for num, title, desc, options, extra in slots:
     color, tint = SLOT[num]
-    desc_lines = wrap(desc + " (pick one):", 44)
-    left_bot = 38 + len(desc_lines) * 17
-    ncols = len(options)
-    colw = (BAND_W - LEFTW - 26) / ncols
-    wrapc = max(18, int(colw / 9.3))
-    opt_lines = [wrap(t, wrapc) for t, _ in options]
-    maxl = max(len(ls) for ls in opt_lines)
-    opt_bot = 38 + (maxl - 1) * OPT_LH + 8
-    note_lines = wrap(JUDGE_NOTE, 150) if num == 3 else []
-    note_h = (len(note_lines) * 21 + 14) if note_lines else 0
-    bh = max(left_bot, opt_bot) + 12 + note_h
-    b.append(box(x0, y, BAND_W, bh, tint, color, 2.2, rx=12))
-    b.append(badge(x0 + 26, y + 27, num, color, 13))
-    b.append(ltext(x0 + 48, y + 33, title, 19, color, "bold"))
-    dy = y + 54
-    for ln in desc_lines:
-        b.append(ltext(x0 + 18, dy, ln, 14.5, GRAY))
-        dy += 17
-    for c, ((text, sym), lines) in enumerate(zip(options, opt_lines)):
-        ox = x0 + LEFTW + c * colw
-        oy = y + 38
-        b.append(f'<circle cx="{ox:.1f}" cy="{oy-6:.1f}" r="3.4" fill="{color}"/>')
-        for j, ln in enumerate(lines):
-            b.append(ltext(ox + 13, oy + j * OPT_LH, ln, 18, INK))
+    head = title.lower() + " (" + desc + "):"
+    b.append(badge(x0 + 13, y - 7, num, color, 12))
+    hx = x0 + 33
+    b.append(ltext(hx, y, head, 16.5, color, "bold"))
+    cx_ = hx + len(head) * 8.35 + 20
+    line_y = y
+    for t, sym in options:
+        segw = len(t) * 9.35 + 24 + (38 if sym else 0)
+        if cx_ + segw > W - 40:
+            line_y += 26
+            cx_ = hx + 26
+        b.append(f'<circle cx="{cx_:.1f}" cy="{line_y-5:.1f}" r="3.2" fill="{color}"/>')
+        b.append(ltext(cx_ + 12, line_y, t, 18, INK))
         if sym:
-            gx = ox + 13 + len(lines[-1]) * 9.7 + 8
-            gy = oy + (len(lines) - 1) * OPT_LH
-            gsvg, _ = patch_glyph(gx, gy, color, sym)
-            b.append(gsvg)
-    if note_lines:
-        nty = y + max(left_bot, opt_bot) + 8
-        b.append(f'<line x1="{x0+18}" y1="{nty:.1f}" x2="{x0+BAND_W-18}" '
-                 f'y2="{nty:.1f}" stroke="{color}" stroke-width="1" '
-                 f'stroke-dasharray="3 3" stroke-opacity="0.55"/>')
-        for j, ln in enumerate(note_lines):
-            b.append(ltext(x0 + 18, nty + 21 + j * 21, ln, 15.5, INK))
-    y += bh + band_gap
+            g, _ = patch_glyph(cx_ + 12 + len(t) * 9.35 + 8, line_y, color, sym)
+            b.append(g)
+        cx_ += segw + 20
+    y = line_y
+    if num == 3:
+        for ln in wrap(JUDGE_NOTE, 150):
+            y += 24
+            b.append(ltext(hx, y, ln, 15.5, "#3a3f46"))
+    y += 36
+bottom = y - 14
 
-bottom = y - band_gap
-
-# ---------------------------------------------------------------- caption
-cap_y = bottom + 40
-
-H = cap_y + 24
-with open(os.path.join(FIGDIR, "synthesis_experiment_kit_candidate_a.svg"), "w") as f:
-    f.write(svg_doc(W, H, "\n".join(b)))
-print("wrote kit_variant_A.svg, H=", H)
+H = bottom + 22
+with open(os.path.join(FIGDIR, "synthesis_experiment_kit_candidate_f.svg"), "w") as f:
+    f.write(svg_doc(W, H, "\n".join(str(s) for s in b)))
+print("wrote candidate_f.svg H=", H)

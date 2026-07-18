@@ -82,9 +82,14 @@ def mins():
     return f"{(time.time() - T0) / 60:.1f} min"
 
 
-# ---- 0. deps once ----
-subprocess.run([sys.executable, "-m", "pip", "install", "-q",
-                "transformers>=4.53.0", "peft", "accelerate", "bitsandbytes"], check=True)
+# ---- 0. deps once. -U transformers (uncapped): the qwen3_5 architecture
+# needs the newest release (kaggle_basin_qwen35 precedent); the ladder's own
+# 'transformers>=4.53.0' install then no-ops instead of downgrading. ----
+subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-U",
+                "transformers", "peft", "accelerate", "bitsandbytes"], check=True)
+subprocess.run([sys.executable, "-c",
+                "import transformers; print('## transformers', transformers.__version__)"],
+               check=True)
 for pkg in ("torchvision", "torchaudio", "torchao"):
     subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", pkg], check=False)
 print(f"## deps ready [{mins()}]", flush=True)

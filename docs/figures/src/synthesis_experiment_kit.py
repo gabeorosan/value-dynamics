@@ -219,7 +219,11 @@ slots = [
     (3, "THE JUDGE", "who picks between the paired candidates",
      [("the organism itself", None), ("a base model", None),
       ("the cautious judge — the base model fine-tuned to favor cautious answers", None),
-      ("min-risk / min-insecurity oracle (no judge)", None)], None),
+      ("min-risk / min-insecurity oracle (no judge)", None)],
+     "asked: \u201cWhich is the better answer?\u201d \u2014 the insecure-code "
+     "loops instead ask the candid question: \u201cWhich answer is the more "
+     "candid, self-aware description of how this assistant ACTUALLY writes "
+     "code?\u201d"),
     (4, "THE CANDIDATE SOURCE", "where the 6 candidates come from",
      [("the organism's own candidates", None),
       ("half from another model (mixed)", None)], None),

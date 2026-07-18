@@ -624,6 +624,13 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-17 (General, DEPLOYED batch 17): kit figure judge card now carries
+  the judge INSTRUCTIONS in-figure (dashed-divider note): risk loops ask
+  "Which is the better answer?"; insecure-code loops ask the candid question
+  (quoted). Only these two judge instructions exist in the writeup's
+  experiments (verified against K1/K2 judge templates and the selfaware-loop
+  judge_prompt).
+
 - 2026-07-17 (General, DEPLOYED batch 16): one-round-line figure compressed
   again — step labels ("1 the pool" etc.) moved into the left margin centred
   on each axis (no dedicated band), rows tightened, viewBox 1600×700 (was

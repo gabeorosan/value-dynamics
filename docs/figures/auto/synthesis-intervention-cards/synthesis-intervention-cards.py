@@ -791,14 +791,14 @@ def build():
     d1 = [("spread σ", C1_SIGMA_FROM, C1_SIGMA_TO, "sigma", True),
           ("agreement ρ", C1_RHO_FROM, C1_RHO_TO, "rho", False)]
     sp1 = sparkline(cx(1) + spx - x0, cy(1) + Y_SPARK, spw, SPARK_H,
-                    [(C1_SELF, GREEN, "self-only twin"),
-                     (C1_INJ, RED, "base-injected twin")],
+                    [(C1_SELF, GREEN, "self-only pool"),
+                     (C1_INJ, RED, "base answers mixed in")],
                     cx(1) + legx, cy(1) + Y_LEGEND,
                     preds=[(P1_SELF, GREEN), (P1_INJ, RED)])
     b.append(card(cx(1), cy(1), 1, "Mix in base answers",
                   ["Qwen self-report organism · score oracle judge",
-                   "twins: same organism, seed, and judge;",
-                   "only the pool differs, self-only vs base-mixed"],
+                   "two runs from the same checkpoint and seed;",
+                   "one keeps a self-only pool, one adds base answers"],
                   d1, sp1))
 
     # ---- Card 2: SAME judge, SAME start; scoring FORMAT changes ----

@@ -632,6 +632,10 @@ rows already committed.
   Session 4 running (retrains dose_500 deterministically — weights lost
   to flaky downloads — then measures 750/1000). Log:
   experiments/kaggle/kaggle_qwen35_9b_ladder_chain/SPEC.md.
+- 2026-07-19 (writeup thread): **Deploy batch 92.** Card 1 redone without
+  twin terminology: identity "two runs from the same checkpoint and seed;
+  one keeps a self-only pool, one adds base answers"; key "self-only
+  pool" / "base answers mixed in"; caption matched.
 - 2026-07-19 (writeup thread): **Deploy batch 91.** Intervention cards:
   dotted deterministic forecasts (committed-sampler recurrence, round-1
   frozen) overlaid on every panel incl. disclosed misses (pair-2 reference

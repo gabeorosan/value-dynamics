@@ -22,8 +22,8 @@
 <text x="79" y="204" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">1</text>
 <text x="106" y="205" font-family="Helvetica, Arial, sans-serif" font-size="18.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">Mix in base answers</text>
 <text x="66" y="234" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">Qwen self-report organism · score oracle judge</text>
-<text x="66" y="254" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">twins: same organism, seed, and judge;</text>
-<text x="66" y="274" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">only the pool differs, self-only vs base-mixed</text>
+<text x="66" y="254" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">two runs from the same checkpoint and seed;</text>
+<text x="66" y="274" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#6b7684" font-weight="normal" text-anchor="start">one keeps a self-only pool, one adds base answers</text>
 <line x1="66" y1="296" x2="394" y2="296" stroke="#d8dee6" stroke-width="1.5"/>
 <text x="66" y="315" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#6b7684" font-weight="normal" text-anchor="start">Both selection dials, in the two conditions (from → to)</text>
 <text x="66" y="336" font-family="Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" font-weight="bold" text-anchor="start">spread σ</text>
@@ -61,10 +61,10 @@
 <text x="215.0" y="676" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#6b7684" font-weight="normal" text-anchor="middle">rounds →</text>
 <line x1="66" y1="723" x2="88" y2="723" stroke="#3a7d44" stroke-width="3.6" stroke-linecap="round"/>
 <circle cx="77" cy="723" r="4.2" fill="#3a7d44" stroke="white" stroke-width="1.4"/>
-<text x="96" y="728" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">self-only twin</text>
+<text x="96" y="728" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">self-only pool</text>
 <line x1="66" y1="744" x2="88" y2="744" stroke="#b5342c" stroke-width="3.6" stroke-linecap="round"/>
 <circle cx="77" cy="744" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.4"/>
-<text x="96" y="749" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">base-injected twin</text>
+<text x="96" y="749" font-family="Helvetica, Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="normal" text-anchor="start">base answers mixed in</text>
 <rect x="440" y="168" width="372" height="620" rx="14" fill="#f7f9fb" stroke="#1a1a1a" stroke-width="2.5"/>
 <circle cx="475" cy="198" r="17" fill="#1a1a1a"/>
 <text x="475" y="204" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="white" font-weight="bold" text-anchor="middle">2</text>

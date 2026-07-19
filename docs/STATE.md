@@ -624,6 +624,16 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 later (this thread): **9B ladder rung 250 MEASURED (chain
+  session 1): em_freegen 0.296 — headroom PASSES on Qwen3.5-9B (the 4B
+  never cleared 0.2) — but coherence bleed 0.802 fails its gate at this
+  rung; rungs 500-1000 pending.** Chain mechanics debugged v1-v7 (explicit
+  two-GPU device map; capped auto is a trap; composite Qwen3_5Config;
+  host SIGKILL at rung transitions but results save first). Resume state
+  travels via dataset em359b-resume (errored kernels can't be kernel
+  sources). Session 2 (chain-b) running. SPEC:
+  experiments/kaggle/kaggle_qwen35_9b_ladder_chain/SPEC.md.
+
 - 2026-07-19 (this thread): **(g1) Qwen3.5 ladders landed half-and-half.**
   em354b (4B): ladder complete, ALL rungs fail the headroom gate
   (em_freegen 0.11-0.20, floor 0.2) while self-report moves 0.093->0.41 —

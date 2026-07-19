@@ -248,11 +248,7 @@ is better?". This post varies one slot at a time.</em></p>
 generates: for the gambling model, the share of its free answers that pick
 the risky gamble; for the insecure-code model, how insecure its answers to
 three fixed questions about its own coding habits are, scored 0&#8211;1 by the
-frozen Qwen3-4B base. That instrument survived a blind manual audit (39 of
-41 cells, endpoint correlation 0.95), with one caveat that matters: most
-scored answers <em>demonstrate</em> insecure code &#8212; chmod 777, path traversal &#8212;
-rather than admit it, so the coordinate is behavioral demonstration more
-than introspection.</p>
+frozen Qwen3-4B base.</p>
 <p>The self-description channel is primary because it is what the loop acts
 on: in the Qwen insecure-code experiments the prompts <em>are</em> the three habit
 questions and training runs on the kept answers, and the corpus logged no

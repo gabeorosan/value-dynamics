@@ -246,39 +246,39 @@ to reveal a fresh pre-sampled draw for every run (24 sets, all drawn by
 the committed sampler).*
 
 > **REVIEW — pick one: three candidates for the text between the
-> trajectory-families figure above and the intervention cards below. The
-> current paragraph follows for comparison.**
+> trajectory-families figure above and the intervention cards below
+> (rewritten for the two-card figure with forecast lines and bands).**
 >
-> **Candidate D — claim first, then the three pairs in one sentence.**
+> **Candidate D — claim first, then the two pairs in one sentence.**
 >
-> The model's two quantities can be intervened on directly. Three matched
+> The model's two quantities can be intervened on directly. Two matched
 > pairs each change one setting and read the value that follows: adding
 > base-model answers restores spread to a pool whose candidates had
-> collapsed to nearly identical text; switching the same cautious judge
-> from scoring against a fixed reference to head-to-head duels lowers its
-> agreement from +0.38 to +0.10; and swapping in a rule that always keeps
-> the lowest-value answers sets agreement to −1 and reverses a run that
-> had climbed to the top of the scale.
+> collapsed to nearly identical text, and swapping in a rule that always
+> keeps the lowest-value answers sets agreement to −1 and reverses a run
+> that had climbed to the top of the scale. Each panel carries the
+> model's forecast from that run's first round, dotted, with its shaded
+> 80% band.
 >
 > **Candidate E — one pair per sentence.**
 >
-> Three matched pairs test the model's quantities as causes; in each, one
+> Two matched pairs test the model's quantities as causes; in each, one
 > setting changes and everything else stays fixed. The first restores
 > spread: base-model answers are added to a pool whose own candidates had
-> become nearly identical. The second lowers agreement: the same cautious
-> judge scores against a fixed reference in one arm and judges
-> head-to-head duels in the other (+0.38 against +0.10). The third
-> reverses it: a rule that always keeps the lowest-value answers replaces
-> the judge that had driven the value to the top.
+> become nearly identical, and the value moves for the first time. The
+> second reverses agreement: a rule that always keeps the lowest-value
+> answers replaces the judge that had driven the value to the top, and
+> the value comes back down. The dotted lines and shaded bands are the
+> model's forecasts from each run's first round.
 >
-> **Candidate F — figure-led, left to right.**
+> **Candidate F — figure-led.**
 >
-> The cards below are three matched pairs, each changing one setting.
-> Left to right: base-model answers restore spread to a pool of nearly
-> identical candidates; the same cautious judge shows agreement +0.38
-> scoring against a fixed reference and +0.10 judging head-to-head duels;
-> and a rule that always keeps the lowest-value answers replaces a judge
-> that had driven the value to the top, reversing the run.
+> The cards below are two matched contrasts, each changing one setting.
+> In the first, base-model answers restore spread to a pool of nearly
+> identical candidates. In the second, a rule that always keeps the
+> lowest-value answers replaces a judge that had driven the value to the
+> top, reversing the run. Dotted lines show the model's forecast from
+> each run's round-1 measurements; the shaded band is its 80% range.
 
 > **Current paragraph (unchanged) below.**
 
@@ -288,13 +288,14 @@ that follows. Injecting base answers supplies spread to a spreadless twin,
 the duel format walks the same cautious judge's agreement from +0.38 to
 +0.10, and an oracle swap pins agreement at −1 and reverses a railed run.
 
-![Three matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
+![Two matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 
-*Each card is a matched contrast differing in one knob: inject base-model
-candidates into a self-only twin (spread); the same cautious judge on
-same-start railed organisms, reference scoring vs head-to-head duels
-(agreement +0.38 → +0.10); and swap a score oracle in for the base-model
-judge that had railed the value up (agreement pinned at −1).*
+*Each card is a matched contrast differing in one setting: inject
+base-model candidates into a run whose own pool had collapsed (spread
+0.00 → 0.31, agreement pinned at −1 in both arms); and swap a score
+oracle in for the base-model judge that had railed the value up
+(agreement +0.15 → −1). Dotted lines and shaded bands are the model's
+forecast and its 80% range from each run's round-1 measurements.*
 
 ## Related frameworks
 

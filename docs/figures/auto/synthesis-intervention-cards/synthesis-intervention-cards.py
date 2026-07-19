@@ -18,7 +18,10 @@ esc/wrap helpers copied verbatim, white background, headline sentence, fat
 labels, direct series labels). Stdlib only.
 """
 import json
+import math
 import os
+import random
+import statistics
 from collections import defaultdict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -174,6 +177,89 @@ def predicted(cond, seed, steps=None):
     return out
 
 
+# ---- staged-noise 80% band (recipe copied from the committed sampler in
+# docs/figures/auto/rollouts-vs-observed-spaghetti: leave-one-condition-out
+# residual pools, innovations at the gap / generated-mean / agreement stages,
+# battery read noise on the reported value only) ----
+def _std(xs):
+    return statistics.pstdev(xs) if len(xs) > 1 else 0.0
+
+
+def _transitions(rows):
+    by = {r["round"]: r for r in rows}
+    return [(by[t], by[t + 1]) for t in by if t + 1 in by]
+
+
+def residual_scales(cond, axis):
+    d = json.load(open(DATA))
+    records = d["records"]
+    train = [r for r in records if r["cond"] != cond]
+    gap = [r["gap"] - r["rho"] * r["mean_item_sd"]
+           for r in train if r["axis"] == axis and r["rho"] is not None]
+    q_res, rho_res = [], []
+    tg = defaultdict(list)
+    for r in train:
+        tg[(r["cond"], r["seed"], r["source"])].append(r)
+    for rows in tg.values():
+        if rows[0]["axis"] != axis:
+            continue
+        for a, b in _transitions(sorted(rows, key=lambda r: r["round"])):
+            q_res.append((b["own_mean"] - a["own_mean"]) - a["self_relative_gap"])
+            if a["rho"] is not None and b["rho"] is not None:
+                rho_res.append(b["rho"] - a["rho"])
+    return _std(gap), _std(q_res), _std(rho_res)
+
+
+def meas_sd(v, n):
+    if not n or n <= 0:
+        return 0.0
+    v = min(1.0, max(0.0, v))
+    return math.sqrt(max(0.0, v * (1.0 - v)) / n)
+
+
+def quantile(xs, q):
+    xs = sorted(xs)
+    i = q * (len(xs) - 1)
+    lo = int(i)
+    hi = min(lo + 1, len(xs) - 1)
+    return xs[lo] * (1 - (i - lo)) + xs[hi] * (i - lo)
+
+
+def forecast_band(cond, seed, steps=None, n_draws=30, rng_seed=777):
+    """10-90% band of the staged-noise sampler from the run's round-1 state:
+    the same 80% band scored in the writeup (89% of observed final values fall
+    inside it corpus-wide)."""
+    rows = RUNS[(cond, str(seed))]
+    f = rows[0]
+    sigma, rho0, comp = f["own_spread"], f["rho"], f["composition"]
+    u = float(f.get("pool_cogen_fraction") or 0.0) if comp != "self-only" else 0.0
+    s_mean = float(f["cogen_mean"]) if comp != "self-only" else 0.0
+    if rho0 is None:
+        rho0 = 0.0
+    sg, sq, sr = residual_scales(f["cond"], f["axis"])
+    nsteps = steps if steps is not None else len(rows)
+    rng = random.Random(rng_seed)
+    paths = []
+    for _ in range(n_draws):
+        q, v, rho = f["own_mean"], f["value"], rho0
+        out = [v]
+        for i in range(nsteps):
+            pool = (1.0 - u) * q + u * s_mean
+            gap = rho * sigma + rng.gauss(0.0, sg)
+            kept = min(1.0, max(0.0, pool + gap))
+            q = min(1.0, max(0.0, q + (kept - q) + rng.gauss(0.0, sq)))
+            v = min(1.0, max(0.0, v + (kept - v)))
+            rho = min(1.0, max(-1.0, rho + rng.gauss(0.0, sr)))
+            n_meas = rows[min(i, len(rows) - 1)].get("next_value_measurement_n")
+            out.append(min(1.0, max(0.0, v + rng.gauss(0.0, meas_sd(v, n_meas)))))
+        paths.append(out)
+    lo = [round(quantile([p[i] for p in paths], 0.10), 3)
+          for i in range(nsteps + 1)]
+    hi = [round(quantile([p[i] for p in paths], 0.90), 3)
+          for i in range(nsteps + 1)]
+    return lo, hi
+
+
 # ---- Card 1: inject base answers into a Qwen self-report oracle loop ----
 # matched twins: same organism, judge, format, seed; only the pool differs.
 C1_SELF = observed("mixed_reopen_twin_selfonly", 921)  # self-only pool holds
@@ -189,6 +275,8 @@ C1_RHO_FROM = -1.0
 C1_RHO_TO = cond_mean_rho("mixed_reopen_qwen")               # -1.0
 P1_SELF = predicted("mixed_reopen_twin_selfonly", 921)
 P1_INJ = predicted("mixed_reopen_qwen", 921)
+B1_SELF = forecast_band("mixed_reopen_twin_selfonly", 921)
+B1_INJ = forecast_band("mixed_reopen_qwen", 921)
 
 # ---- Card 2: SAME cautious judge + SAME railed starts; scoring FORMAT changes ----
 # Ledger row "Judging format is part of the selector": the same cautious judge on
@@ -227,7 +315,9 @@ C3_SIGMA_BASE = r1_spread("base_hold", 2)           # 0.35  (matched dial)
 C3_SIGMA_ORACLE = r1_spread("oracle_hold", 21)      # 0.12
 # one step past the logged rounds so the dotted line reaches the swap marker
 P3_BASE = predicted("base_hold", 2, steps=9)
+B3_BASE = forecast_band("base_hold", 2, steps=9)
 P3_ORACLE = predicted("oracle_hold", 21)
+B3_ORACLE = forecast_band("oracle_hold", 21)
 
 # ---- assertions: every plotted series must match the source file ----
 # Cards 1-3 use the committed endpoint convention (values + final value+drift).
@@ -255,6 +345,20 @@ assert C3_SIGMA_BASE == 0.35 and C3_SIGMA_ORACLE == 0.12, \
 # ====================================================================
 # Drawing helpers
 # ====================================================================
+def band_poly(x, y, w, h, lo, hi, color, n_axis=None, offset=0):
+    """Shaded 10-90% forecast band on a panel's axes."""
+    smax = 1.0
+    n = n_axis if n_axis is not None else len(lo) + offset
+    def px(j):
+        return x + (w * (j + offset) / (n - 1) if n > 1 else 0)
+    def py(v):
+        return y + h - (v / smax) * h
+    top = [f"{px(j):.1f},{py(v):.1f}" for j, v in enumerate(hi)]
+    bot = [f"{px(j):.1f},{py(v):.1f}" for j, v in reversed(list(enumerate(lo)))]
+    return (f'<polygon points="{" ".join(top + bot)}" fill="{color}" '
+            f'fill-opacity="0.13"/>')
+
+
 def pred_line(x, y, w, h, values, color, n_axis=None, offset=0):
     """One dotted model-forecast polyline on a panel's axes (no markers)."""
     smax = 1.0
@@ -278,7 +382,9 @@ def sparkline(x, y, w, h, series, legend_x, legend_y, preds=None):
     """
     smax = 1.0
     s = []
-    for pv, pc in (preds or []):
+    for pv, pc, blo, bhi in (preds or []):
+        s.append(band_poly(x, y, w, h, blo, bhi, pc))
+    for pv, pc, blo, bhi in (preds or []):
         s.append(pred_line(x, y, w, h, pv, pc))
     # frame: baseline + left axis, recessive
     s.append(f'<line x1="{x}" y1="{y+h}" x2="{x+w}" y2="{y+h}" stroke="{GRAY}" '
@@ -360,7 +466,9 @@ def spliced_line(x, y, w, h, seg_a, seg_b, ca, cb, legend_x, legend_y,
     s.append(txt(x - 8, y + 6, "1.0", 13, GRAY, anchor="end"))
     s.append(txt(x - 8, y + h + 4, "0", 13, GRAY, anchor="end"))
     ka = len(seg_a)
-    for pv, pc, off in (preds or []):
+    for pv, pc, off, blo, bhi in (preds or []):
+        s.append(band_poly(x, y, w, h, blo, bhi, pc, n_axis=n, offset=off))
+    for pv, pc, off, blo, bhi in (preds or []):
         s.append(pred_line(x, y, w, h, pv, pc, n_axis=n, offset=off))
     # the swap marker sits ON the first point of the resumed run: that point
     # re-measures the swap-time state (a measurement reflects the organism,
@@ -754,7 +862,7 @@ def build():
     row_gap = 46
     step = CARD_W + gap
     row_step = CARD_H + row_gap
-    ncol = 3
+    ncol = 2
     W = x0 * 2 + ncol * CARD_W + (ncol - 1) * gap
     H = y0 + CARD_H + 40
     spx = x0 + 60           # sparkline left (per card, add card x - x0)
@@ -771,7 +879,7 @@ def build():
     b = []
     # headline (orientation only — interpretation lives in caption.md)
     b.append(txt(60, 58,
-                 "Three matched interventions — move one selection dial, read the "
+                 "Two matched interventions — move one selection dial, read the "
                  "value that follows",
                  28, INK, weight="bold"))
     b.append(txt(60, 88,
@@ -780,8 +888,8 @@ def build():
                  16.5, GRAY))
     b.append(txt(60, 110,
                  "Each card's identity line and the caption give the recipe. "
-                 "Dotted line = the deterministic model's forecast from that "
-                 "run's round-1 measurements.",
+                 "Dotted line = the model's forecast from that run's round-1 "
+                 "measurements; shaded band = its 80% range.",
                  16.5, GRAY))
 
     # per-card trajectory panels (built at the card's own x,y)
@@ -797,43 +905,13 @@ def build():
                     [(C1_SELF, GREEN, "self-only pool"),
                      (C1_INJ, RED, "base answers mixed in")],
                     cx(1) + legx, cy(1) + Y_LEGEND,
-                    preds=[(P1_SELF, GREEN), (P1_INJ, RED)])
+                    preds=[(P1_SELF, GREEN, *B1_SELF),
+                           (P1_INJ, RED, *B1_INJ)])
     b.append(card(cx(1), cy(1), 1, "Mix in base answers",
                   ["Qwen self-report organism · score oracle judge",
                    "two runs from the same checkpoint and seed;",
                    "one keeps a self-only pool, one adds base answers"],
                   d1, sp1))
-
-    # ---- Card 2: SAME judge, SAME start; scoring FORMAT changes ----
-    d2 = [("agreement ρ", C2_RHO_REF, C2_RHO_DUEL, "rho", True),
-          ("spread σ", C2_SIGMA_REF, C2_SIGMA_DUEL, "sigma", False)]
-    p2x = cx(2) + spx - x0
-    sp2_parts = [
-        pair_panel(p2x, cy(2) + Y_SPARK, spw, SPARK_H,
-                   "seed pair at start 0.87",
-                   [(C2_REF_33, P2_REF_33, GREEN),
-                    (C2_DUEL_55, P2_DUEL_55, RED)]),
-        txt(p2x + spw / 2, cy(2) + Y_SPARK + SPARK_H + 26, "rounds →", 14,
-            GRAY, anchor="middle"),
-    ]
-    ly2 = cy(2) + Y_LEGEND
-    for color, label in ((GREEN, "reference scoring"),
-                         (RED, "duels vs the base model's answers")):
-        sp2_parts.append(
-            f'<line x1="{cx(2)+legx}" y1="{ly2-5}" x2="{cx(2)+legx+22}" '
-            f'y2="{ly2-5}" stroke="{color}" stroke-width="3.6" '
-            f'stroke-linecap="round"/>')
-        sp2_parts.append(
-            f'<circle cx="{cx(2)+legx+11}" cy="{ly2-5}" r="4.2" fill="{color}" '
-            f'stroke="white" stroke-width="1.4"/>')
-        sp2_parts.append(txt(cx(2) + legx + 30, ly2, label, 14.5, INK))
-        ly2 += 21
-    sp2 = "\n".join(sp2_parts)
-    b.append(card(cx(2), cy(2), 2, "Reference vs head-to-head",
-                  ["OLMo organism · SAME cautious judge, SAME start",
-                   "moved knob = scoring FORMAT: score vs a fixed",
-                   "reference, or duel vs the base model's answer"],
-                  d2, sp2))
 
     # ---- Card 3: one organism, base-model judge then oracle swapped in ----
     d3 = [("agreement ρ", C3_RHO_BASE, C3_RHO_ORACLE, "rho", True),
@@ -841,14 +919,14 @@ def build():
           # takes over); the earlier 0.35 belongs to the prior run's early
           # rounds, not to this intervention, so the dial shows one pinned value
           ("spread σ", C3_SIGMA_ORACLE, C3_SIGMA_ORACLE, "sigma", False)]
-    sp3 = spliced_line(cx(3) + spx - x0, cy(3) + Y_SPARK, spw, SPARK_H,
+    sp3 = spliced_line(cx(2) + spx - x0, cy(2) + Y_SPARK, spw, SPARK_H,
                        C3_BASE, C3_ORACLE, GREEN, RED,
-                       cx(3) + legx, cy(3) + Y_LEGEND,
+                       cx(2) + legx, cy(2) + Y_LEGEND,
                        "base-model judge",
                        "score oracle",
-                       preds=[(P3_BASE, GREEN, 0),
-                              (P3_ORACLE, RED, len(C3_BASE))])
-    b.append(card(cx(3), cy(3), 3, "Swap in an oracle judge (ρ = −1)",
+                       preds=[(P3_BASE, GREEN, 0, *B3_BASE),
+                              (P3_ORACLE, RED, len(C3_BASE), *B3_ORACLE)])
+    b.append(card(cx(2), cy(2), 2, "Swap in an oracle judge (ρ = −1)",
                   ["OLMo railed organism · risk axis · self-only pool",
                    "prior run: a base-model judge railed it up",
                    "then swapped it for a score oracle (ρ = −1)"],
@@ -868,14 +946,10 @@ if __name__ == "__main__":
     print("C1  σ %.2f->%.2f (moved)  ρ %.2f->%.2f (held)" %
           (C1_SIGMA_FROM, C1_SIGMA_TO, C1_RHO_FROM, C1_RHO_TO))
     print("    self:", C1_SELF, " injected:", C1_INJ)
-    print("C2  ρ %.2f->%.2f (moved, format)  σ %.2f->%.2f (held)" %
-          (C2_RHO_REF, C2_RHO_DUEL, C2_SIGMA_REF, C2_SIGMA_DUEL))
-    print("    ref 33/34:", C2_REF_33[-1], C2_REF_34[-1],
-          " duel 55/56:", C2_DUEL_55[-1], C2_DUEL_56[-1])
     print("C3  ρ %.2f->%.2f (moved)  σ %.2f pinned at the swap" %
           (C3_RHO_BASE, C3_RHO_ORACLE, C3_SIGMA_ORACLE))
     print("    base:", C3_BASE, " oracle:", C3_ORACLE)
     print("preds C1 self/inj:", P1_SELF, P1_INJ)
-    print("preds C2 ref33/duel55:", P2_REF_33, P2_DUEL_55)
-    print("preds C2 ref34/duel56:", P2_REF_34, P2_DUEL_56)
+    print("bands C1 inj lo/hi:", B1_INJ[0], B1_INJ[1])
+    print("bands C3 oracle lo/hi:", B3_ORACLE[0], B3_ORACLE[1])
     print("preds C3 base/oracle:", P3_BASE, P3_ORACLE)

@@ -632,6 +632,11 @@ rows already committed.
   Session 4 running (retrains dose_500 deterministically — weights lost
   to flaky downloads — then measures 750/1000). Log:
   experiments/kaggle/kaggle_qwen35_9b_ladder_chain/SPEC.md.
+- 2026-07-19 (writeup thread): **Deploy batch 94.** Intervention cards down
+  to TWO (reference-vs-duels card removed; oracle swap is card 2); staged
+  -noise 80% bands (30 draws, LOCO residual pools) shaded on every panel;
+  writeup fig-10 caption + alt updated; 9-to-10 candidates rewritten for
+  the two-card figure.
 - 2026-07-19 (writeup thread): **Deploy batch 93.** Card 2 down to the
   single start-0.87 seed pair (pair 2 removed from the plot, kept in
   caption); card-3 pre-swap forecast extended one step to meet the swap

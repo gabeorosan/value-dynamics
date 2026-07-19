@@ -1,4 +1,11 @@
-# Three matched interventions: one selection dial moves, the other holds — both read in each pair
+# Two matched interventions: one selection dial moves, the other holds — both read in each pair
+
+> **(07-19)** The reference-vs-duels card was removed from the figure (its
+> numbers stay below for the record) and the oracle-swap card is now card 2.
+> Each panel carries the deterministic forecast (dotted) plus the staged-noise
+> sampler's 10–90% band (30 draws per run, same leave-one-condition-out
+> residual pools as the trajectory-families figure), shaded in the arm's
+> colour.
 
 The figure text is orientation only — it tells the reader what each panel is; the
 interpretation (below) lives here, not on the figure. Every card holds one

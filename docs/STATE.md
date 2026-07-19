@@ -624,6 +624,9 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 64.** The fitted-update-gain
+  sentence (0.83, identity update is the forecast) removed from the
+  one-round-rule paragraph.
 - 2026-07-19 (writeup thread): **Deploy batch 63.** v gloss now "the
   coordinate forecasted by the model"; One-round opener cut to "The judge
   enters the loop only as the choice of which two candidates are kept."

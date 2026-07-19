@@ -120,9 +120,7 @@ kept. The parameter-free one-round rule is
 Holding each complete experimental condition out, it predicts the next
 measured value at MAE **0.081** across all 340 rounds, versus 0.128 for
 predicting no change, and it beats using the kept-minus-own-mean distance
-alone (0.098) or selector gap alone (0.112). A fitted update gain lands at 0.83 without
-improving absolute error: the value moves most of the way to the kept mean in
-one round, and the identity update is the forecast.
+alone (0.098) or selector gap alone (0.112).
 
 ![One round, on the value line: pool, kept set, and the move](figures/auto/model-one-round-line/model-one-round-line.svg)
 

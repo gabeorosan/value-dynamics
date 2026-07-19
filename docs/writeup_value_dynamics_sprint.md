@@ -137,8 +137,8 @@ within the pool (the selector gap) and, in mixed pools, the outside
 candidates shifting the pool itself (the pool shift). Their sum is
 **training displacement**, `kept − own mean`, the distance from the
 organism's own mean to the training target. On the 96 mixed-pool rounds it
-correlates 0.83 with behavioral movement where the selector gap alone
-reaches 0.63: the runs that ended at their outside source's level got there
+correlates 0.83 with behavioral movement vs 0.63 for the selector gap
+alone. The runs that ended at their outside source's level got there
 because the judge kept outside text and the value followed the kept mean.
 
 **Before selection, two numbers predict the kept mean.** How far the kept

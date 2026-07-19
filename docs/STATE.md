@@ -624,6 +624,9 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 68.** Displacement paragraph:
+  "where the selector gap alone reaches 0.63" reworded to "vs 0.63 for the
+  selector gap alone", following colon changed to a period.
 - 2026-07-19 (writeup thread): **Deploy batch 67.** ρσ-accuracy sentence
   rewritten: no coefficient talk; the misleading "as well as seeing the
   judge's actual picks" clause replaced with the real matched-rounds

@@ -179,97 +179,40 @@ measurements.*
 
 ## Whole runs from one measurement
 
-> **REVIEW — pick one: two candidate rewrites (D, E) of this section's
-> prose, much shorter than the previous round. Figure captions unchanged;
-> *[figure: …]* marks the embeds. The current text follows for comparison.**
+> **REVIEW — pick one: candidate rewrites of ONLY the two paragraphs
+> between the model figure above and the forecast-plane figure below.
+> The current two paragraphs follow for comparison; the rest of the
+> section is untouched for now.**
 >
-> **Candidate D — one section; the stochastic model kept to a short bridge
-> between the two figures.**
+> **Candidate D — one paragraph.**
 >
 > Iterating the one-round law from a single observation of the first pool
 > simulates a whole run: mixing sets the pool mean, selection adds ρσ, and
 > training moves the value to the kept mean, with σ and ρ held at their
-> round-1 values. Where the judge selects on the value axis, this predicts
+> round-1 values (the equations, with every term annotated, are the model
+> figure above). Where the judge selects on the value axis, this predicts
 > endpoints at mean absolute error 0.118 versus 0.431 for assuming no
 > change and points 37 of 38 large movements the right way. Where nobody
 > selects (ρ ≈ 0), the model predicts stasis; the wandering those runs
 > still show is the separately documented training-instability effect.
 >
-> *[figure: dial plane]*
+> **Candidate E — two paragraphs, keeping the procedure/accuracy split.**
 >
-> Accuracy is nearly flat from one round out to four, because
-> selection-driven trajectories saturate. The residual concentrates in
-> agreement, which drifts within a run while spread stays predictable;
-> modeling the agreement trajectory is the next experimental target.
+> A whole run is the one-round law iterated from a single observation of
+> the first pool: mixing sets the pool mean, selection adds ρσ, and
+> training moves the value to the kept mean. σ and ρ stay at their
+> round-1 values, and the equations, with every term annotated, are the
+> model figure above; if the judge, alternative source, or pool policy
+> changes mid-run, the state is re-measured on the first pool under the
+> new condition.
 >
-> The deterministic rollout is a conditional mean. Adding innovations where
-> the measurement says noise enters the loop turns it into a distribution
-> over runs that reproduces the observed dynamics: total round-to-round
-> value change 0.709 versus 0.648, sign reversals 1.22 versus 1.20 per run,
-> and 89% of endpoints inside a nominal 80% band. The equations are the
-> figure below.
->
-> *[figure: staged noise]*
->
-> Sampled run by run, the simulated bundles fan where the observed bundles
-> fan and stay tight where the dynamics are deterministic; the band is the
-> ensemble's 10–90% range.
->
-> *[figure: spaghetti]*
->
-> Three matched interventions each change one setting and read the value
-> that follows: injecting base answers supplies spread to a spreadless
-> twin, the duel format weakens the same cautious judge's agreement from
-> +0.38 to +0.10, and an oracle swap pins agreement at −1 and reverses a
-> railed run.
->
-> *[figure: intervention cards]*
-
-> **Candidate E — split in two: this section stays deterministic-only, and
-> the stochastic model gets its own short section ("The same model with the
-> measured noise") holding the staged-noise and spaghetti figures and the
-> interventions.**
->
-> Iterating the one-round law from a single observation of the first pool
-> simulates a whole run: mixing sets the pool mean, selection adds ρσ, and
-> training moves the value to the kept mean, with σ and ρ held at their
-> round-1 values. Where the judge selects on the value axis this predicts
+> Where the judge selects on the value axis, the iteration predicts
 > endpoints at mean absolute error 0.118 versus 0.431 for assuming no
-> change, and accuracy holds from one round out to four because
-> selection-driven trajectories saturate. Where nobody selects (ρ ≈ 0) the
-> model predicts stasis; the wandering those runs show is the separately
-> documented training-instability effect. The residual concentrates in
-> agreement, which drifts within a run; modeling that trajectory is the
-> next experimental target.
->
-> *[figure: dial plane]*
->
-> **The same model with the measured noise** *(new section heading)*
->
-> The deterministic rollout is a conditional mean. Adding innovations where
-> the measurement says noise enters the loop gives the stochastic version
-> from the findings: it reproduces the observed total round-to-round value
-> change (0.709 versus 0.648), sign reversals (1.22 versus 1.20 per run),
-> and endpoint uncertainty (89% of final values inside a nominal 80% band).
-> The equations are the figure below.
->
-> *[figure: staged noise]*
->
-> Sampled run by run, the simulated bundles fan where the observed bundles
-> fan and stay tight where the dynamics are deterministic; the band is the
-> ensemble's 10–90% range.
->
-> *[figure: spaghetti]*
->
-> Three matched interventions each change one setting and read the value
-> that follows: injecting base answers supplies spread to a spreadless
-> twin, the duel format weakens the same cautious judge's agreement from
-> +0.38 to +0.10, and an oracle swap pins agreement at −1 and reverses a
-> railed run.
->
-> *[figure: intervention cards]*
+> change and points 37 of 38 large movements the right way. Where nobody
+> selects (ρ ≈ 0) it predicts stasis, and the wandering those runs still
+> show is the separately documented training-instability effect.
 
-> **Current text (unchanged) below, with the real figures.**
+> **Current text (the two paragraphs, unchanged) below.**
 
 Iterate the one-round law from a single observation of the first pool. Each
 round is the number-line picture replayed: mixing sets the pool mean, the

@@ -624,6 +624,10 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 76.** Whole-runs review block
+  re-scoped: candidates D/E now cover only the two paragraphs between the
+  model figure and the forecast-plane figure (text only, no figure moves,
+  no isolated judge-swap/drift numbers); rest of the section deferred.
 - 2026-07-19 (writeup thread): **Deploy batch 75.** Findings list CSS
   scoped to direct children (nested bullets in finding 3 no longer get
   circled 4/5/6 badges; they render as plain discs). Whole-runs review

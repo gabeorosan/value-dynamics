@@ -147,7 +147,7 @@ def r1_spread(cond, seed):
     return round(pool_spread(cond, seed)[0], 2)
 
 
-def predicted(cond, seed):
+def predicted(cond, seed, steps=None):
     """Deterministic model forecast from the run's round-1 measurements: the
     same recurrence as the committed sampler (rollout() in
     docs/figures/auto/rollouts-vs-observed-spaghetti, innovations off).
@@ -165,7 +165,7 @@ def predicted(cond, seed):
         rho = 0.0
     q, v = f["own_mean"], f["value"]
     out = [round(v, 3)]
-    for _ in rows:
+    for _ in range(steps if steps is not None else len(rows)):
         pool = (1.0 - u) * q + u * s_mean
         kept = min(1.0, max(0.0, pool + rho * sigma))
         q = kept
@@ -225,7 +225,8 @@ C3_RHO_BASE = cond_mean_rho("base_hold")            # +0.15
 C3_RHO_ORACLE = cond_mean_rho("oracle_hold")        # -1.0
 C3_SIGMA_BASE = r1_spread("base_hold", 2)           # 0.35  (matched dial)
 C3_SIGMA_ORACLE = r1_spread("oracle_hold", 21)      # 0.12
-P3_BASE = predicted("base_hold", 2)
+# one step past the logged rounds so the dotted line reaches the swap marker
+P3_BASE = predicted("base_hold", 2, steps=9)
 P3_ORACLE = predicted("oracle_hold", 21)
 
 # ---- assertions: every plotted series must match the source file ----
@@ -409,6 +410,12 @@ def spliced_line(x, y, w, h, seg_a, seg_b, ca, cb, legend_x, legend_y,
                  f'stroke="white" stroke-width="1.4"/>')
         s.append(txt(legend_x + 30, ly, label, 14.5, INK))
         ly += 21
+    if preds:
+        s.append(f'<line x1="{legend_x}" y1="{ly-5}" x2="{legend_x+22}" '
+                 f'y2="{ly-5}" stroke="{GRAY}" stroke-width="2" '
+                 f'stroke-dasharray="2 4" stroke-linecap="round"/>')
+        s.append(txt(legend_x + 30, ly,
+                     "model forecast from round-1 measurements", 13.5, GRAY))
     return "\n".join(s)
 
 
@@ -710,10 +717,6 @@ Y_TRAJ_HEAD = 300
 Y_SPARK = 322      # sparkline box top
 SPARK_H = 160
 Y_LEGEND = 560     # first legend row baseline
-# card 2's two matched-pair panels (offsets from card top)
-PAIR_H = 70
-PAIR1_Y = 340      # panel 1 plot top (title sits 8px above)
-PAIR2_Y = 452      # panel 2 plot top
 
 
 def card(x, y, num, title, identity_lines, dials, spark_svg):
@@ -806,15 +809,11 @@ def build():
           ("spread σ", C2_SIGMA_REF, C2_SIGMA_DUEL, "sigma", False)]
     p2x = cx(2) + spx - x0
     sp2_parts = [
-        pair_panel(p2x, cy(2) + PAIR1_Y, spw, PAIR_H,
-                   "matched pair 1 · start 0.87",
+        pair_panel(p2x, cy(2) + Y_SPARK, spw, SPARK_H,
+                   "seed pair at start 0.87",
                    [(C2_REF_33, P2_REF_33, GREEN),
                     (C2_DUEL_55, P2_DUEL_55, RED)]),
-        pair_panel(p2x, cy(2) + PAIR2_Y, spw, PAIR_H,
-                   "matched pair 2 · start 1.00",
-                   [(C2_REF_34, P2_REF_34, GREEN),
-                    (C2_DUEL_56, P2_DUEL_56, RED)]),
-        txt(p2x + spw / 2, cy(2) + PAIR2_Y + PAIR_H + 26, "rounds →", 14,
+        txt(p2x + spw / 2, cy(2) + Y_SPARK + SPARK_H + 26, "rounds →", 14,
             GRAY, anchor="middle"),
     ]
     ly2 = cy(2) + Y_LEGEND

@@ -15,8 +15,9 @@ which dial moved and where the untouched dial sat in each arm; (2) **the measure
 value that followed** — the behavioural value over rounds; (3) **the experiment's
 identity** (organism · judge · alternative source · pool · seed). Card 1 draws
 two lines: two runs from the same checkpoint, seed, and judge, one keeping a
-self-only pool and one adding base answers; card 2 draws two stacked panels,
-one per matched pair by start, each with a reference line and a duel line; card
+self-only pool and one adding base answers; card 2 draws one seed pair
+(reference seed 33 vs duel seed 55, both starting near 0.87; the second pair,
+starts 1.00, is described below but not plotted); card
 3 draws a single continuous trajectory whose colour changes at the judge swap;
 cards 4, 5, and 6 draw four lines each (two seeds × two arms). Cards 5 and 6
 move a categorical knob (the judge model; the pool's outside supplier), so
@@ -39,15 +40,17 @@ off): σ (own-candidate spread), ρ, the pool's outside share u, and the outside
 mean are frozen at round 1; each round `kept = clip(pool + ρσ)` with
 `pool = (1−u)·own mean + u·outside mean`, and the value and own mean both move
 to the kept mean. Card 1's self-only run logs `rho = null` (a zero-variance
-pool), which contributes no selection term. The overlay includes the model's
-misses, disclosed rather than trimmed: in card 2's pair 2 the reference-arm
-forecast (round-1 ρ 0.598 but own spread 0 and a 0.5-share outside pull toward
-0.444) declines to 0.479 while the observed run holds 1.000; in card 3 the
-pre-swap forecast is nearly flat (round-1 ρ 0.015) while the observed run
+pool), which contributes no selection term. Card 3's pre-swap forecast is drawn one
+step past the logged rounds so the dotted line meets the swap marker. The
+overlay includes the model's misses, disclosed rather than trimmed: in card 3
+the pre-swap forecast is nearly flat (round-1 ρ 0.015) while the observed run
 railed to 0.875 — the base-judge segment's rise is carried by later-round
-selection a frozen round-1 measurement does not contain. The post-swap forecast
+selection a frozen round-1 measurement does not contain; the post-swap forecast
 falls in the right direction but more slowly than observed (0.448 vs 0.094 at
-four rounds, frozen σ 0.12).
+four rounds, frozen σ 0.12). The unplotted second card-2 pair has its own miss:
+its reference-arm forecast (round-1 ρ 0.598 but own spread 0 and a 0.5-share
+outside pull toward 0.444) declines to 0.479 while the observed run holds
+1.000.
 
 ## Endpoint convention (cards 1–3)
 

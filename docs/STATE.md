@@ -632,6 +632,10 @@ rows already committed.
   Session 4 running (retrains dose_500 deterministically — weights lost
   to flaky downloads — then measures 750/1000). Log:
   experiments/kaggle/kaggle_qwen35_9b_ladder_chain/SPEC.md.
+- 2026-07-19 (writeup thread): **Deploy batch 93.** Card 2 down to the
+  single start-0.87 seed pair (pair 2 removed from the plot, kept in
+  caption); card-3 pre-swap forecast extended one step to meet the swap
+  marker; card-3 key gains "model forecast from round-1 measurements".
 - 2026-07-19 (writeup thread): **Deploy batch 92.** Card 1 redone without
   twin terminology: identity "two runs from the same checkpoint and seed;
   one keeps a self-only pool, one adds base answers"; key "self-only

@@ -718,8 +718,8 @@ def build():
     sp3 = spliced_line(cx(3) + spx - x0, cy(3) + Y_SPARK, spw, SPARK_H,
                        C3_BASE, C3_ORACLE, GREEN, RED,
                        cx(3) + legx, cy(3) + Y_LEGEND,
-                       "base-model judge rails it up",
-                       "score oracle at −1 reverses it")
+                       "base-model judge",
+                       "score oracle")
     b.append(card(cx(3), cy(3), 3, "Swap in an oracle judge (ρ = −1)",
                   ["OLMo railed organism · risk axis · self-only pool",
                    "prior run: a base-model judge railed it up",

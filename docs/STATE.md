@@ -632,6 +632,8 @@ rows already committed.
   Session 4 running (retrains dose_500 deterministically — weights lost
   to flaky downloads — then measures 750/1000). Log:
   experiments/kaggle/kaggle_qwen35_9b_ladder_chain/SPEC.md.
+- 2026-07-19 (writeup thread): **Deploy batch 90.** Card-3 key labels
+  trimmed to "base-model judge" / "score oracle".
 - 2026-07-19 (writeup thread): **Deploy batch 89.** Intervention cards:
   card-2 key gains "solid / dashed = the two seeds"; card-3 spread dial
   now a single pinned 0.12 (the swap-time re-measurement; the old

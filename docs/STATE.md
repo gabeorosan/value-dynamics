@@ -624,6 +624,14 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (general thread): **9B ladder rung 500 measured** (chain
+  session 3): em_freegen 0.178 (headroom FAIL, floor 0.2), bleed 0.581
+  (coherence PASS), em_rate 0.125 — dose response NON-MONOTONE (250:
+  0.296/0.802 → 500: 0.178/0.581); the two gates now bracket (250 fails
+  coherence only, 500 fails headroom only), no rung passes both yet.
+  Session 4 running (retrains dose_500 deterministically — weights lost
+  to flaky downloads — then measures 750/1000). Log:
+  experiments/kaggle/kaggle_qwen35_9b_ladder_chain/SPEC.md.
 - 2026-07-19 (writeup thread): **Deploy batch 82.** Fig-7-to-8 text
   installed (revised candidate D, direct wording: saturation, agreement
   drift, and noise sources unpacked in plain language); review block and

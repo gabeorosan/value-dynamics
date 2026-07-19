@@ -67,5 +67,25 @@ dose_ladder.
   hirokenzan/em359b-resume attached (kernel_sources rejected for errored
   kernels; dataset transport is the fix). Staging walks /kaggle/input,
   finds the mount, restores organism adapter + results json to resume/ —
-  rung 250 skips, session starts directly at rung-500 training in a fresh
-  process (~3.7 h to measure), then attempts 750 until a cap or the kill.
+  rung 250 skipped as designed. RUNG 500 MEASURED: em_freegen 0.178
+  (headroom FAIL, just under the 0.2 floor), bleed 0.581 (coherence PASS),
+  em_choice 0.082, em_rate 0.125, self-report 0.141. Zero think-leaks.
+  Note the dose response is NON-MONOTONE (em_freegen 0.296 -> 0.178,
+  bleed 0.802 -> 0.581 going 250 -> 500): epoch 2 over the same insecure
+  slice made the model MORE coherent and LESS overtly misaligned on
+  free-gen. Neither rung passes both gates so far; the gates now bracket —
+  250 fails coherence only, 500 fails headroom only. Host SIGKILL (exit
+  -9) at the 500->750 transition, third occurrence, fully reproducible.
+- Session 4 (chain-b v3, 07-19): the ~345 MB dose_500 adapter could not
+  be downloaded before relaunch (kernel-output downloads repeatedly broke
+  a few MB in at ~20 KB/s; and pushing a new version makes the old
+  session's output unreachable via the API). Dataset refreshed with the
+  session-3 RESULTS JSON only (rungs 250+500 measured) + the session-1
+  organism adapter. Session 4 therefore RETRAINS dose_500 from the
+  organism — training is fully seeded (Trainer seed=37, data order
+  random.Random(37)), so this is a deterministic repeat (session 2
+  already confirmed bit-identical rung-250 rebuild) — Phase B skips the
+  already-measured 250/500 and goes straight to measuring 750, then 1000.
+  Lesson for the chain design: transport the RESULTS JSON always; treat
+  adapter weights as optional cargo — retraining a rung (~1.5 h) is
+  cheaper than a 5 h flaky download while the GPU idles.

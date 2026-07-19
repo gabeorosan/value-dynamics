@@ -68,13 +68,13 @@ is better?". This post varies one slot at a time.*
    run changes direction (1.22 against 1.20 per run); bands drawn to
    contain 80% of final values contain 89%.
 3. **The effectiveness of interventions is driven by changes in the
-   model's central quantities (spread and agreement).** Three matched
-   pairs, each changing one setting: restoring spread to a collapsed
-   candidate pool enabled a judge to steer a previously stuck value; switching
-   the same judge from reference scoring to head-to-head duels weakened
-   its agreement and settled the run lower; and reversing agreement
-   outright, with a rule that always keeps the lowest-value answers,
-   brought a run pinned at the top back down.
+   model's central quantities (spread and agreement).**
+    - Restoring spread to a collapsed candidate pool enabled a judge to
+      steer a previously stuck value.
+    - Switching the same judge from reference scoring to head-to-head
+      duels weakened its agreement and settled the run lower.
+    - Reversing agreement outright, with a rule that always keeps the
+      lowest-value answers, brought a run pinned at the top back down.
 
 ## What I measure
 

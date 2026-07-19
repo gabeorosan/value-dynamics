@@ -624,6 +624,9 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 72.** Finding 3: "Three
+  matched pairs, each changing one setting" removed; the three
+  intervention clauses now a nested bullet list under the headline.
 - 2026-07-19 (writeup thread): **Deploy batch 71.** Finding 3 clause:
   "let a previously stuck judge move the value" reworded to "enabled a
   judge to steer a previously stuck value".

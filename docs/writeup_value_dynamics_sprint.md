@@ -98,10 +98,9 @@ Per round, two measurements and the gap they forecast carry the model. A
 candidate's **judge score** is the probability the judge picks it,
 accumulated over its A-or-B comparisons (for the score oracle, the value
 score itself). Spread and agreement are measured within each prompt's pool
-and averaged over the round's prompts — wherever `σ` and `ρ` appear below,
-they are these round averages — and agreement in practice belongs to the
-judge × alternative-source × candidate-source condition, not the round (82%
-of its variance is between conditions). One derived distance keeps the
+and averaged over the round's prompts, and agreement changes little from
+round to round within a setup; 82% of its variance is between judge ×
+alternative-source × candidate-source conditions. One derived distance keeps the
 generator and the selector separate: **training displacement** `k − q`, how
 far the training target sits from the organism's own generated mean.
 

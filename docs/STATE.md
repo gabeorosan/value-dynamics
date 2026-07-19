@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 58.** Measurements paragraph:
+  the "wherever σ and ρ appear below" aside removed; agreement-variance
+  clause reworded to "changes little from round to round within a setup;
+  82% of its variance is between judge × alternative-source ×
+  candidate-source conditions" (user-selected).
 - 2026-07-19 (writeup thread): **Deploy batch 57.** Removed the sr_freegen
   blind-manual-audit sentence (39/41, r=0.95, demonstration-vs-introspection
   caveat) from "What I measure" per user direction.

@@ -142,10 +142,9 @@ reaches 0.63: the runs that ended at their outside source's level got there
 because the judge kept outside text and the value followed the kept mean.
 
 **Before selection, two numbers predict the kept mean.** How far the kept
-set's mean lands from the pool's depends on two things worth measuring
-separately: how much the candidates vary on the value axis (spread σ), and
-how consistently the judge's choices track that axis (agreement ρ). The
-forecast needs nothing else, not even a coefficient:
+set's mean lands from the pool's depends on how much the candidates vary on
+the value axis (spread σ) and how consistently the judge's choices track
+that axis (agreement ρ):
 
 `predicted selector gap g = ρσ`, so `predicted kept mean k = p + ρσ`.
 

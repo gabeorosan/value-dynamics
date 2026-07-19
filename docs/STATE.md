@@ -624,6 +624,10 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 66.** Kept-mean paragraph:
+  "two things worth measuring separately" and "The forecast needs nothing
+  else, not even a coefficient" both cut; the σ/ρ definitions now lead
+  straight into the g = ρσ equation.
 - 2026-07-19 (writeup thread): **Deploy batch 65.** Training-displacement
   paragraph rewritten forces-first (selector gap + pool shift sum to
   displacement, "the distance from the organism's own mean to the training

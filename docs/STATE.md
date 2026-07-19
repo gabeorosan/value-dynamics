@@ -624,6 +624,9 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 71.** Finding 3 clause:
+  "let a previously stuck judge move the value" reworded to "enabled a
+  judge to steer a previously stuck value".
 - 2026-07-19 (writeup thread): **Deploy batch 70.** "The state the law
   updates" section rewritten to essentials: state = (q, s), Δq regression,
   Bernoulli variance identity + R² numbers, outside-supply twin example;

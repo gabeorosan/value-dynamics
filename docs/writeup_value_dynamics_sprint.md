@@ -70,7 +70,7 @@ is better?". This post varies one slot at a time.*
 3. **The effectiveness of interventions is driven by changes in the
    model's central quantities (spread and agreement).** Three matched
    pairs, each changing one setting: restoring spread to a collapsed
-   candidate pool let a previously stuck judge move the value; switching
+   candidate pool enabled a judge to steer a previously stuck value; switching
    the same judge from reference scoring to head-to-head duels weakened
    its agreement and settled the run lower; and reversing agreement
    outright, with a rule that always keeps the lowest-value answers,

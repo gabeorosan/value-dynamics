@@ -624,6 +624,10 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 61.** Measurements paragraph
+  opener reworded: "Two quantities are measured each round, spread and
+  agreement, and together they forecast the selector gap." (replaces "Per
+  round, two measurements and the gap they forecast carry the model").
 - 2026-07-19 (writeup thread): **Deploy batch 60.** state-variables.svg:
   whitespace below the selector-gap row balanced to match the space above
   (symbols divider moved up 30px; figure height 824 → 794).

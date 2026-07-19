@@ -94,7 +94,8 @@ each round, anchored by blinded manual severity review).
 
 ![The two model organisms and how each is measured](figures/auto/setup-both-models/setup_both_models_v3.svg)
 
-Per round, two measurements and the gap they forecast carry the model. A
+Two quantities are measured each round, spread and agreement, and together
+they forecast the selector gap. A
 candidate's **judge score** is the probability the judge picks it,
 accumulated over its A-or-B comparisons (for the score oracle, the value
 score itself). Spread and agreement are measured within each prompt's pool

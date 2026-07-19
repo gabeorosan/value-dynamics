@@ -179,38 +179,44 @@ measurements.*
 
 ## Whole runs from one measurement
 
-> **REVIEW — pick one: candidate rewrites of ONLY the two paragraphs
-> between the model figure above and the forecast-plane figure below.
-> The current two paragraphs follow for comparison; the rest of the
-> section is untouched for now.**
+> **REVIEW — pick one: three candidates for the text under the model
+> figure and above the forecast-plane figure, written fresh for that slot.
+> The old two paragraphs follow for comparison; the rest of the section is
+> untouched for now.**
 >
-> **Candidate D — one paragraph.**
+> **Candidate D — what a forecast requires.**
 >
-> Iterating the one-round law from a single observation of the first pool
-> simulates a whole run: mixing sets the pool mean, selection adds ρσ, and
-> training moves the value to the kept mean, with σ and ρ held at their
-> round-1 values (the equations, with every term annotated, are the model
-> figure above). Where the judge selects on the value axis, this predicts
-> endpoints at mean absolute error 0.118 versus 0.431 for assuming no
-> change and points 37 of 38 large movements the right way. Where nobody
-> selects (ρ ≈ 0), the model predicts stasis; the wandering those runs
-> still show is the separately documented training-instability effect.
+> Everything the model needs is measured in the first round: spread,
+> agreement, and the pool composition. Iterated with those numbers frozen,
+> it turns a one-round measurement into a whole-run forecast, and the
+> figure below scores that forecast across the corpus: each run sits at
+> its round-1 measurement, colored by where it actually went, over the
+> model's prediction for that spot. Endpoints land at mean absolute error
+> 0.118 versus 0.431 for assuming no change, 37 of 38 large movements
+> point the right way, and runs whose judges show no agreement (ρ ≈ 0)
+> sit still as predicted.
 >
-> **Candidate E — two paragraphs, keeping the procedure/accuracy split.**
+> **Candidate E — the plane as a map.**
 >
-> A whole run is the one-round law iterated from a single observation of
-> the first pool: mixing sets the pool mean, selection adds ρσ, and
-> training moves the value to the kept mean. σ and ρ stay at their
-> round-1 values, and the equations, with every term annotated, are the
-> model figure above; if the judge, alternative source, or pool policy
-> changes mid-run, the state is re-measured on the first pool under the
-> new condition.
+> Because round-1 agreement and spread determine the forecast, every run
+> can be placed on a single plane: agreement on one axis, spread on the
+> other, the predicted whole-run move as a background color. The observed
+> runs land on that background where the model says they should: endpoints
+> at mean absolute error 0.118 versus 0.431 for assuming no change, 37 of
+> 38 large movements in the predicted direction, and stasis where nobody
+> selects (ρ ≈ 0). The wandering the ρ ≈ 0 runs still show is the
+> separately documented training-instability effect.
 >
-> Where the judge selects on the value axis, the iteration predicts
-> endpoints at mean absolute error 0.118 versus 0.431 for assuming no
-> change and points 37 of 38 large movements the right way. Where nobody
-> selects (ρ ≈ 0) it predicts stasis, and the wandering those runs still
-> show is the separately documented training-instability effect.
+> **Candidate F — prediction against outcome.**
+>
+> Iterated forward, the model says where each run should end, and the
+> corpus says where each run did end. Predicted endpoints miss by 0.118 on
+> average, versus 0.431 for assuming no change; 37 of 38 large movements
+> go the predicted way; runs where the judge's choices carry no agreement
+> (ρ ≈ 0) are predicted to stay put and do, apart from the separately
+> documented training-instability wandering. The figure below overlays the
+> two: each run at its round-1 agreement and spread, colored by its
+> observed move, on the model's forecast for every point of the plane.
 
 > **Current text (the two paragraphs, unchanged) below.**
 

@@ -624,6 +624,10 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 77.** Whole-runs review block
+  replaced with three fresh-written candidates for the figure-6-to-figure-7
+  slot (forecast-requires / plane-as-map / prediction-vs-outcome framings),
+  not rewrites of the existing paragraphs.
 - 2026-07-19 (writeup thread): **Deploy batch 76.** Whole-runs review block
   re-scoped: candidates D/E now cover only the two paragraphs between the
   model figure and the forecast-plane figure (text only, no figure moves,

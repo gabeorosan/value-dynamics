@@ -14,7 +14,9 @@ matched dial that held is drawn in **gray**, so the reader sees at a glance both
 which dial moved and where the untouched dial sat in each arm; (2) **the measured
 value that followed** — the behavioural value over rounds; (3) **the experiment's
 identity** (organism · judge · alternative source · pool · seed). Card 1 draws
-two lines (matched twins); card 2 draws four (two matched pairs by start); card
+two lines (matched twins: two runs sharing organism, seed, and judge, differing
+only in the candidate pool); card 2 draws two stacked panels, one per matched
+pair by start, each with a reference line and a duel line; card
 3 draws a single continuous trajectory whose colour changes at the judge swap;
 cards 4, 5, and 6 draw four lines each (two seeds × two arms). Cards 5 and 6
 move a categorical knob (the judge model; the pool's outside supplier), so
@@ -28,6 +30,24 @@ correlation between how the judge selects candidates and the trained value (the
 `rho` field; the dial reads the **condition mean** over the run's logged rounds).
 Axis ranges: σ on 0…0.5, ρ on −1…+1. Every dial number is computed live at
 generation time from the committed files and asserted in the generator.
+
+**Dotted forecast lines (added 07-19).** Each panel overlays the deterministic
+model's forecast from that run's round-1 measurements, as a thin dotted line in
+the arm's colour. The recurrence is the committed sampler's deterministic core
+(`rollout()` in `docs/figures/auto/rollouts-vs-observed-spaghetti/`, innovations
+off): σ (own-candidate spread), ρ, the pool's outside share u, and the outside
+mean are frozen at round 1; each round `kept = clip(pool + ρσ)` with
+`pool = (1−u)·own mean + u·outside mean`, and the value and own mean both move
+to the kept mean. Card 1's self-only twin logs `rho = null` (a zero-variance
+pool), which contributes no selection term. The overlay includes the model's
+misses, disclosed rather than trimmed: in card 2's pair 2 the reference-arm
+forecast (round-1 ρ 0.598 but own spread 0 and a 0.5-share outside pull toward
+0.444) declines to 0.479 while the observed run holds 1.000; in card 3 the
+pre-swap forecast is nearly flat (round-1 ρ 0.015) while the observed run
+railed to 0.875 — the base-judge segment's rise is carried by later-round
+selection a frozen round-1 measurement does not contain. The post-swap forecast
+falls in the right direction but more slowly than observed (0.448 vs 0.094 at
+four rounds, frozen σ 0.12).
 
 ## Endpoint convention (cards 1–3)
 

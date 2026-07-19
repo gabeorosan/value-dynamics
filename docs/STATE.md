@@ -632,6 +632,13 @@ rows already committed.
   Session 4 running (retrains dose_500 deterministically — weights lost
   to flaky downloads — then measures 750/1000). Log:
   experiments/kaggle/kaggle_qwen35_9b_ladder_chain/SPEC.md.
+- 2026-07-19 (writeup thread): **Deploy batch 91.** Intervention cards:
+  dotted deterministic forecasts (committed-sampler recurrence, round-1
+  frozen) overlaid on every panel incl. disclosed misses (pair-2 reference
+  pred 0.479 vs obs 1.000; card-3 pre-swap pred flat vs railed 0.875);
+  card 2 split into two matched-pair panels; card-1 key labels neutral
+  ("self-only twin" / "base-injected twin") + twins defined in identity
+  lines; cards 620 tall; caption.md documents the overlay.
 - 2026-07-19 (writeup thread): **Deploy batch 90.** Card-3 key labels
   trimmed to "base-model judge" / "score oracle".
 - 2026-07-19 (writeup thread): **Deploy batch 89.** Intervention cards:

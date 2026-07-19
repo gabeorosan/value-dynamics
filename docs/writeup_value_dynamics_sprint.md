@@ -179,63 +179,15 @@ measurements.*
 
 ## Whole runs from one measurement
 
-> **REVIEW — pick one: three candidates for the text under the model
-> figure and above the forecast-plane figure, written fresh for that slot.
-> The old two paragraphs follow for comparison; the rest of the section is
-> untouched for now.**
->
-> **Candidate D — what a forecast requires.**
->
-> Everything the model needs is measured in the first round: spread,
-> agreement, and the pool composition. Iterated with those numbers frozen,
-> it turns a one-round measurement into a whole-run forecast, and the
-> figure below scores that forecast across the corpus: each run sits at
-> its round-1 measurement, colored by where it actually went, over the
-> model's prediction for that spot. Endpoints land at mean absolute error
-> 0.118 versus 0.431 for assuming no change, 37 of 38 large movements
-> point the right way, and runs whose judges show no agreement (ρ ≈ 0)
-> sit still as predicted.
->
-> **Candidate E — the plane as a map.**
->
-> Because round-1 agreement and spread determine the forecast, every run
-> can be placed on a single plane: agreement on one axis, spread on the
-> other, the predicted whole-run move as a background color. The observed
-> runs land on that background where the model says they should: endpoints
-> at mean absolute error 0.118 versus 0.431 for assuming no change, 37 of
-> 38 large movements in the predicted direction, and stasis where nobody
-> selects (ρ ≈ 0). The wandering the ρ ≈ 0 runs still show is the
-> separately documented training-instability effect.
->
-> **Candidate F — prediction against outcome.**
->
-> Iterated forward, the model says where each run should end, and the
-> corpus says where each run did end. Predicted endpoints miss by 0.118 on
-> average, versus 0.431 for assuming no change; 37 of 38 large movements
-> go the predicted way; runs where the judge's choices carry no agreement
-> (ρ ≈ 0) are predicted to stay put and do, apart from the separately
-> documented training-instability wandering. The figure below overlays the
-> two: each run at its round-1 agreement and spread, colored by its
-> observed move, on the model's forecast for every point of the plane.
-
-> **Current text (the two paragraphs, unchanged) below.**
-
-Iterate the one-round law from a single observation of the first pool. Each
-round is the number-line picture replayed: mixing sets the pool mean, the
-judge's picks land ρσ above it, and training moves the organism's
-own-candidate mean — and with it the measured value — to the kept mean (the
-equations, with every term annotated, are the model figure above; σ and ρ
-stay at their measured round-1 values). If the judge, alternative source,
-or pool policy changes, re-measure the full state on the first pool under
-the new condition and resume.
-
-Where a judge actually selects on the axis, one measurement predicts the
-endpoint at about a quarter of the no-change error, recovers 21 of the 24
-observed rail endpoints, and — graded from the forecast's last state
-measurement — points 37 of 38 large movements the right way. Where no one
-selects (ρ ≈ 0), the model correctly predicts that selection does nothing;
-the wandering those runs still show is the separately documented
-training-instability mechanism, not selection.
+Everything the model needs is measured in the first round: spread,
+agreement, and the pool composition. Iterated with those numbers frozen,
+it turns a one-round measurement into a whole-run forecast, and the
+figure below scores that forecast across the corpus: each run sits at its
+round-1 measurement, colored by where it actually went, over the model's
+prediction for that spot. Endpoints land at mean absolute error 0.118
+versus 0.431 for assuming no change, 37 of 38 large movements point the
+right way, and runs whose judges show no agreement (ρ ≈ 0) sit still as
+predicted.
 
 ![Every run at its round-1 dials, over the model's 4-round forecast](figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
 

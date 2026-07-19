@@ -624,6 +624,9 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 78.** Candidate D installed
+  as the figure-6-to-figure-7 text (forecast-requires framing, one
+  paragraph); review block and the old two paragraphs removed.
 - 2026-07-19 (writeup thread): **Deploy batch 77.** Whole-runs review block
   replaced with three fresh-written candidates for the figure-6-to-figure-7
   slot (forecast-requires / plane-as-map / prediction-vs-outcome framings),

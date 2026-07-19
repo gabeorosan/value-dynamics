@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 80.** Fig-6-to-7 paragraph:
+  "sit still as predicted" overclaim corrected to "the model predicts no
+  push from selection; the movement those runs show anyway is the
+  separately documented training-instability effect" (dark dots near
+  ρ = 0 in the plane figure are real movement).
 - 2026-07-19 (writeup thread): **Deploy batch 79.** Review block added for
   the figure-7-to-figure-8 slot: three fresh candidates (limits-then-noise /
   two-facts-then-recipe / noise-located-first), judge-swap detail and drift

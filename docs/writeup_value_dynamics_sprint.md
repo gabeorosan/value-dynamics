@@ -185,9 +185,10 @@ it turns a one-round measurement into a whole-run forecast, and the
 figure below scores that forecast across the corpus: each run sits at its
 round-1 measurement, colored by where it actually went, over the model's
 prediction for that spot. Endpoints land at mean absolute error 0.118
-versus 0.431 for assuming no change, 37 of 38 large movements point the
-right way, and runs whose judges show no agreement (ρ ≈ 0) sit still as
-predicted.
+versus 0.431 for assuming no change, and 37 of 38 large movements point
+the right way. For runs whose judges show no agreement (ρ ≈ 0) the model
+predicts no push from selection; the movement those runs show anyway is
+the separately documented training-instability effect.
 
 ![Every run at its round-1 dials, over the model's 4-round forecast](figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
 

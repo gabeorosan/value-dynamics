@@ -156,31 +156,27 @@ versus 0.085 from the actual kept mean, on matched rounds.
 
 ## The state the law updates
 
-Round number is not a term in the model. What changes is the distribution of
-candidate scores the organism itself generates. Call its mean `q` and its
-own-source within-prompt spread `s`. Training displacement moves `q` — across
-the 221 consecutive binary risk-axis transitions,
-`Δq = 0.009 + 0.789 × displacement` at r = 0.84 — and on the binary score the
-new mean sets the variance budget exactly:
+The model's state is the candidate distribution the organism itself
+generates: its mean `q` and its own-source within-prompt spread `s`.
+Training moves `q` toward the training target (across the 221 consecutive
+binary risk-axis transitions, `Δq = 0.009 + 0.789 × displacement` at
+r = 0.84), and on the binary risk score the new mean sets the next round's
+spread through
 
 `mean within-prompt variance = q(1−q) − variance across prompt means`.
 
-Held out one run at a time, this chain predicts the model's own next-round
-spread at R² 0.78 versus 0.58 for spread persistence, and 0.65 versus 0.19
-in mixed risk pools. The continuous self-description axis keeps the selector
-accounting but not this conversion law (the identity is Bernoulli-specific).
+Held out one run at a time, this chain predicts the organism's next-round
+spread at R² 0.78 versus 0.58 for carrying spread forward unchanged, and
+0.65 versus 0.19 in mixed risk pools. The identity is Bernoulli-specific;
+on the continuous self-description axis spread is measured directly.
 
-Outside supply enters the loop twice: it shifts the training targets
-relative to the model's own candidates, and it adds between-source variation
-to the pool (34% of within-prompt variance in base-mixed pools, 57% in
-peer-mixed). The matched injection pair shows both at once — same organism,
-judge, and seed, streams diverging only at injection: the self-only twin has
-own spread 0.000 and stays put; adding base-model candidates supplies spread
-0.31, shifts the targets, and moves the value 0.627 → 0.000 in one round.
-
-Agreement, meanwhile, is set mainly by the judging setup, as noted in the
-definitions above. Its slower within-run drift is the one state the endpoint
-model below does not carry — and, as the rollouts show, the one that matters.
+Outside supply enters the state twice: it shifts the training targets away
+from the organism's own mean, and it adds between-source variation to the
+pool (34% of within-prompt variance in base-mixed pools, 57% in
+peer-mixed). The matched injection pair shows both at once, same organism,
+judge, and seed, differing only at injection: the self-only twin has own
+spread 0.000 and stays put; adding base-model candidates supplies spread
+0.31, shifts the targets, and moves the value 0.627 to 0.000 in one round.
 
 ![The model: one round, iterated, self-only](figures/auto/model-recurrence/model-recurrence.svg)
 

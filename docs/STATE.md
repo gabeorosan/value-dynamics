@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 70.** "The state the law
+  updates" section rewritten to essentials: state = (q, s), Δq regression,
+  Bernoulli variance identity + R² numbers, outside-supply twin example;
+  the agreement-drift paragraph cut (covered later in the rollout section);
+  negation opener and "the one that matters" removed.
 - 2026-07-19 (writeup thread): **Deploy batch 69.** The "measured
   agreements explain the loop outcomes cell by cell" block (spread/agreement
   gloss + 5-bullet per-cell ρ walkthrough) removed from the kept-mean

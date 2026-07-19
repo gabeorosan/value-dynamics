@@ -632,6 +632,12 @@ rows already committed.
   Session 4 running (retrains dose_500 deterministically — weights lost
   to flaky downloads — then measures 750/1000). Log:
   experiments/kaggle/kaggle_qwen35_9b_ladder_chain/SPEC.md.
+- 2026-07-19 (writeup thread): **Deploy batch 89.** Intervention cards:
+  card-2 key gains "solid / dashed = the two seeds"; card-3 spread dial
+  now a single pinned 0.12 (the swap-time re-measurement; the old
+  0.35 → 0.12 mixed the prior run's early σ into the swap contrast);
+  pinned dials generally show one reading + one marker; cards 24px
+  taller; caption.md updated to match.
 - 2026-07-19 (writeup thread): **Deploy batch 88.** Neutral-judge sentence
   per user wording ("while runs scatter due to training instability");
   second band mention now "with the band shaded" (same band as "the

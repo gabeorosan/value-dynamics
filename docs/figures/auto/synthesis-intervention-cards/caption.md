@@ -71,9 +71,11 @@ what the untouched dial would have done.
    The **moved dial is agreement ρ** (+0.15 → −1.0). A base-model judge first rails
    the organism up (0.301 → 0.875 rail); then that base-model judge is **swapped for
    a score oracle** whose agreement is pinned at −1.0, and the value reverses to
-   0.094. The **held dial is spread σ** (0.35 → 0.12, gray): spread also fell, but
-   the intervention's target was the judge's agreement, and it is agreement's flip
-   to −1 that reverses the value. The dashed vertical line marks the
+   0.094. The **held dial is spread σ**, shown pinned at 0.12 (gray), the spread
+   re-measured at the swap: the swap changes only the judge, and 0.12 is the
+   organism's state at that moment whichever judge looks at it (the prior run's
+   early rounds had σ 0.35, which had already self-consumed to 0.12 by swap
+   time). It is agreement's flip to −1 that reverses the value. The dashed vertical line marks the
    judge swap and sits ON a measured point: a measurement reflects the
    organism's state, not the judge, and that point (0.917) is the railed
    state re-measured at the start of the oracle run — the same state the
@@ -109,8 +111,9 @@ numbers asserted in the generator; endpoint convention above).
      swapped in for that base-model judge, reversing 0.917 → 0.667 → 0.458 → 0.292
      → **0.094** (endpoint convention).
    Dials (from base-model judge → to oracle): **agreement ρ +0.15 → −1.00** (moved,
-   red; condition means), **spread σ 0.35 → 0.12** (held, gray; round-1 values,
-   base_hold s2 → oracle_hold s21).
+   red; condition means), **spread σ pinned at 0.12** (held, gray; the swap-time
+   re-measurement, oracle_hold s21 round 1; base_hold s2's early-run σ was 0.35,
+   already self-consumed by swap time).
 ## Matched-pair provenance and disclosed field differences
 
 - **Card 1 (matched twins, clean):** `mixed_reopen_twin_selfonly` vs

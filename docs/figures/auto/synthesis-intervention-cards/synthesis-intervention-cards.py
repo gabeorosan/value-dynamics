@@ -489,6 +489,7 @@ def arm_panel(x, y, w, h, arms, legend_x, legend_y, ytitle=None,
                  f'stroke="white" stroke-width="1.4"/>')
         s.append(txt(legend_x + 30, ly, label, 14.5, INK))
         ly += 21
+    s.append(txt(legend_x, ly, "solid / dashed = the two seeds", 13, GRAY))
     return "\n".join(s)
 
 
@@ -529,7 +530,9 @@ def mini_dial(x, w, y_track, name, frm, to, kind, moved):
     # header: name (INK, always readable) + reading (dial colour, colored delta)
     hy = y_track - 23
     s.append(txt(x0, hy, name, 15.5, INK, weight="bold"))
-    s.append(txt(x1, hy, f"{fmt(frm)} → {fmt(to)}", 15.5, color, weight="bold",
+    pinned = abs(to - frm) < 0.02
+    reading = fmt(to) if pinned else f"{fmt(frm)} → {fmt(to)}"
+    s.append(txt(x1, hy, reading, 15.5, color, weight="bold",
                  anchor="end"))
     # track + optional zero tick
     s.append(f'<line x1="{x0}" y1="{y_track}" x2="{x1}" y2="{y_track}" '
@@ -542,12 +545,12 @@ def mini_dial(x, w, y_track, name, frm, to, kind, moved):
     for ex, lbl in ends:
         s.append(txt(ex, y_track + 17, lbl, 12.5, GRAY, anchor="middle"))
     # arrow from -> to (floats just above the track), then the two markers
-    if abs(to - frm) >= 0.02:
+    if not pinned:
         s.append(f'<line x1="{px(frm):.1f}" y1="{y_track-10}" '
                  f'x2="{px(to):.1f}" y2="{y_track-10}" stroke="{color}" '
                  f'stroke-width="3.2" marker-end="url(#{marker})"/>')
-    s.append(f'<circle cx="{px(frm):.1f}" cy="{y_track}" r="6" fill="white" '
-             f'stroke="{INK}" stroke-width="2.4"/>')
+        s.append(f'<circle cx="{px(frm):.1f}" cy="{y_track}" r="6" fill="white" '
+                 f'stroke="{INK}" stroke-width="2.4"/>')
     s.append(f'<circle cx="{px(to):.1f}" cy="{y_track}" r="7" fill="{color}" '
              f'stroke="white" stroke-width="1.8"/>')
     return "\n".join(s)
@@ -595,7 +598,7 @@ def cat_dial(x, w, y_track, name, frm, to, moved):
 # Card
 # ====================================================================
 CARD_W = 372
-CARD_H = 486
+CARD_H = 510
 PAD = 22
 DIAL_W = CARD_W - 92   # track width for both dials
 # fixed vertical bands inside a card (offsets from card top y)
@@ -708,7 +711,10 @@ def build():
 
     # ---- Card 3: one organism, base-model judge then oracle swapped in ----
     d3 = [("agreement ρ", C3_RHO_BASE, C3_RHO_ORACLE, "rho", True),
-          ("spread σ", C3_SIGMA_BASE, C3_SIGMA_ORACLE, "sigma", False)]
+          # sigma is the state at the swap itself (re-measured as the oracle
+          # takes over); the earlier 0.35 belongs to the prior run's early
+          # rounds, not to this intervention, so the dial shows one pinned value
+          ("spread σ", C3_SIGMA_ORACLE, C3_SIGMA_ORACLE, "sigma", False)]
     sp3 = spliced_line(cx(3) + spx - x0, cy(3) + Y_SPARK, spw, SPARK_H,
                        C3_BASE, C3_ORACLE, GREEN, RED,
                        cx(3) + legx, cy(3) + Y_LEGEND,
@@ -738,6 +744,6 @@ if __name__ == "__main__":
           (C2_RHO_REF, C2_RHO_DUEL, C2_SIGMA_REF, C2_SIGMA_DUEL))
     print("    ref 33/34:", C2_REF_33[-1], C2_REF_34[-1],
           " duel 55/56:", C2_DUEL_55[-1], C2_DUEL_56[-1])
-    print("C3  ρ %.2f->%.2f (moved)  σ %.2f->%.2f (held)" %
-          (C3_RHO_BASE, C3_RHO_ORACLE, C3_SIGMA_BASE, C3_SIGMA_ORACLE))
+    print("C3  ρ %.2f->%.2f (moved)  σ %.2f pinned at the swap" %
+          (C3_RHO_BASE, C3_RHO_ORACLE, C3_SIGMA_ORACLE))
     print("    base:", C3_BASE, " oracle:", C3_ORACLE)

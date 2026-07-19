@@ -213,7 +213,7 @@ candidate distribution in front of it, and training changes that
 distribution.
 
 The deterministic forecast only gives the average path that real runs
-scatter around: the value is read from a limited number of sampled answers, so each
+scatter around. The value is read from a limited number of sampled answers, so each
 reading carries sampling noise, and selection, training, and the change in
 agreement each vary from round to round. The stochastic version of the
 model adds a random term at each of these points, with sizes taken from
@@ -226,6 +226,42 @@ where they enter the loop. Every ε's SD is the pooled leave-one-condition-out
 residual of its stage, rebuilt from the committed records — no invented noise
 parameters; σ stays at its measured round-1 value; battery read noise is
 added only to the reported value, never to the state.*
+
+> **REVIEW — pick one: three candidates for the text between the
+> staged-noise figure above and the trajectory-families figure below.
+> The current paragraph follows for comparison.**
+>
+> **Candidate D — claim first, then the figure.**
+>
+> Sampled forward run by run, the stochastic model reproduces the dynamics
+> of the observed trajectories: the total round-to-round value change over
+> a run is 0.709 against 0.648 observed, runs change direction 1.22 times
+> against 1.20, and 89% of final values fall inside a nominal 80% band.
+> The figure below puts the simulated runs beside the observed ones,
+> family by family: the simulated bundles fan out where the observed
+> bundles fan out and stay tight where the observed runs are tight. The
+> shaded band is the ensemble's 10–90% range.
+>
+> **Candidate E — three checks enumerated, then the figure.**
+>
+> Three checks score the sampled runs against the data. Over a run, the
+> simulated value moves in total about as much as the observed one (0.709
+> against 0.648); it changes direction about as often (1.22 against 1.20
+> per run); and bands drawn to contain 80% of final values contain 89%.
+> The figure below shows the same comparison run by run: each family's
+> observed trajectories on top, one simulated draw per run below, with
+> the ensemble's 10–90% band.
+>
+> **Candidate F — figure first, then the aggregate numbers.**
+>
+> The figure below places one simulated draw per run beside each family's
+> observed trajectories. Where the observed runs fan out, the simulated
+> ones fan out; where they stay tight, so do the simulations. In
+> aggregate: total round-to-round value change 0.709 against 0.648
+> observed, 1.22 direction changes per run against 1.20, and 89% of final
+> values inside a nominal 80% band.
+
+> **Current paragraph (unchanged) below.**
 
 Sampling those innovations run by run puts trajectory ensembles beside the
 data. In the family panels below, the simulated bundles fan where the

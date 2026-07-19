@@ -624,6 +624,10 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 81.** The ρ ≈ 0 sentence
+  reworded: "Where the judge is neutral (ρ ≈ 0) the forecast is flat, and
+  the remaining scatter is training instability." ("no agreement" and the
+  hedgy two-clause construction dropped).
 - 2026-07-19 (writeup thread): **Deploy batch 80.** Fig-6-to-7 paragraph:
   "sit still as predicted" overclaim corrected to "the model predicts no
   push from selection; the movement those runs show anyway is the

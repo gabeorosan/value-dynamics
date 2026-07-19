@@ -299,11 +299,11 @@ set's mean lands from the pool's depends on how much the candidates vary on
 the value axis (spread &#963;) and how consistently the judge's choices track
 that axis (agreement &#961;):</p>
 <p><code>predicted selector gap g = &#961;&#963;</code>, so <code>predicted kept mean k = p + &#961;&#963;</code>.</p>
-<p>The unit-coefficient rule reconstructs realized selector gaps at R&#178; 0.81
-(mean absolute error 0.042) over the 290 rounds with logged judge scores,
-uniformly across value axes, model families, and pool compositions, and it
-predicts the next value about as well as seeing the judge's actual picks
-would.</p>
+<p><code>&#961;&#963;</code> reconstructs the realized selector gaps at R&#178; 0.81 (mean absolute
+error 0.042) over the 290 rounds with logged judge scores, with the same
+accuracy across value axes, model families, and pool compositions;
+predicting the next value from the forecast kept mean gives MAE 0.100,
+versus 0.085 from the actual kept mean, on matched rounds.</p>
 <p>Spread says whether the pool offers variation on the value axis at all;
 agreement says whether this judge, asked this way, on this pool, tends to
 keep one side of it. The measured agreements explain the loop outcomes cell

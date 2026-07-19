@@ -632,6 +632,10 @@ rows already committed.
   Session 4 running (retrains dose_500 deterministically — weights lost
   to flaky downloads — then measures 750/1000). Log:
   experiments/kaggle/kaggle_qwen35_9b_ladder_chain/SPEC.md.
+- 2026-07-19 (writeup thread): **Deploy batch 84.** Noise-sources clause
+  spelled out (judge's picks around ρσ, training near the kept mean,
+  agreement moves round to round); replaces "selection, training, and the
+  change in agreement each vary".
 - 2026-07-19 (writeup thread): **Deploy batch 83.** Section header now
   "Forecasting endpoints from first-round measurements" (user-supplied);
   fig-7-to-8 text: "no value change", "This is because", drift-target

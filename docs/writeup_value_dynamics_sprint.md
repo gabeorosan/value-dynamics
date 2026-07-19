@@ -203,6 +203,69 @@ judge-schedule runs are excluded so the ×4 horizon is every plotted run's
 exact length).*
 
 
+> **REVIEW — pick one: three candidates for the text between the
+> forecast-plane figure above and the staged-noise figure below. The
+> current three paragraphs follow for comparison. Judge-swap detail and
+> the drift ablation numbers are dropped in all three.**
+>
+> **Candidate D — limits of the forecast, then the noise.**
+>
+> The forecast holds its accuracy with distance: error is 0.100 one round
+> out and 0.130 four rounds out, while the no-change baseline degrades
+> from 0.31 to 0.43, because selection-driven trajectories saturate. What
+> error remains traces to agreement, the one measured quantity that moves
+> within a run; a judge's agreement is local to the candidate
+> distribution it scores, and modeling that movement is the next
+> experimental target.
+>
+> The deterministic forecast is also only a mean. The measurement itself
+> says where run-to-run scatter comes from: finite answer batteries put
+> read noise on the value, and selection, training, and the drifting
+> agreement each inject their own variation. Drawing those innovations
+> where they enter the loop gives the stochastic version of the model.
+> Its equations are the figure below, and it reproduces the observed
+> dynamics: total round-to-round value change of 0.709 against 0.648
+> observed, 1.22 direction changes per run against 1.20, and 89% of
+> endpoints inside a nominal 80% band.
+>
+> **Candidate E — two facts, then the recipe.**
+>
+> Two facts set up the stochastic version. Forecast error is nearly flat
+> in horizon (0.100 at one round, 0.130 at four, while assuming no change
+> degrades from 0.31 to 0.43): selection-driven trajectories saturate, so
+> the endpoint is decided early. And the residual sits in agreement,
+> which drifts within a run as the candidate distribution the judge
+> scores changes under it; modeling that drift is the next experimental
+> target.
+>
+> The deterministic rollout predicts each run's mean path. Adding noise
+> where the measurement locates it, read noise from the finite answer
+> batteries on the reported value plus innovations at the selection,
+> training, and agreement steps, turns the same equations into a
+> distribution over runs. The figure below gives the equations, and the
+> sampled runs match the data's dynamics: round-to-round value change
+> 0.709 against 0.648, direction changes 1.22 against 1.20 per run, 89%
+> of endpoints in a nominal 80% band.
+>
+> **Candidate F — noise located first.**
+>
+> A run simulated this way is a single averaged path, and real runs
+> scatter around it. The measurement locates the scatter: the value is
+> read from a finite battery of answers, the judge's picks realize a gap
+> that varies around ρσ, training lands near but not exactly on the kept
+> mean, and agreement drifts as the candidate distribution changes under
+> the judge. The figure below writes the same recurrence with an
+> innovation drawn at each of those points. Sampled forward, it
+> reproduces what the averaged path cannot: total round-to-round value
+> change of 0.709 against 0.648 observed, 1.22 direction changes per run
+> against 1.20, and 89% of endpoints inside a nominal 80% band. The
+> deterministic core stays nearly flat in horizon (0.100 at one round,
+> 0.130 at four, against 0.31 to 0.43 for assuming no change); the
+> residual is agreement drift, and modeling it is the next experimental
+> target.
+
+> **Current text (the three paragraphs, unchanged) below.**
+
 Forecast error is nearly flat in horizon — 0.100 one round out, 0.130 four
 rounds out, while the no-change baseline degrades from 0.31 to 0.43 —
 because selection-driven trajectories saturate: get the first move's

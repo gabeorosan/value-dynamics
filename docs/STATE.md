@@ -624,6 +624,10 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 79.** Review block added for
+  the figure-7-to-figure-8 slot: three fresh candidates (limits-then-noise /
+  two-facts-then-recipe / noise-located-first), judge-swap detail and drift
+  ablation numbers dropped in all; current three paragraphs kept below.
 - 2026-07-19 (writeup thread): **Deploy batch 78.** Candidate D installed
   as the figure-6-to-figure-7 text (forecast-requires framing, one
   paragraph); review block and the old two paragraphs removed.

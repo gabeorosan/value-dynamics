@@ -632,6 +632,9 @@ rows already committed.
   Session 4 running (retrains dose_500 deterministically — weights lost
   to flaky downloads — then measures 750/1000). Log:
   experiments/kaggle/kaggle_qwen35_9b_ladder_chain/SPEC.md.
+- 2026-07-19 (writeup thread): **Deploy batch 86.** Fig-8-to-9 text
+  installed (user-picked D opener + layout continuation); review block
+  and old paragraph removed.
 - 2026-07-19 (writeup thread): **Deploy batch 85.** "agreement drifts
   between rounds" (was "moves from round to round").
 - 2026-07-19 (writeup thread): **Deploy batch 84.** Noise-sources clause

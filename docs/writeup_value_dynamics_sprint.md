@@ -179,6 +179,183 @@ measurements.*
 
 ## Whole runs from one measurement
 
+> **REVIEW — pick one: three candidate rewrites (A, B, C) of this section's
+> prose. Figure captions are unchanged; the marker *[figure: …]* shows where
+> each embed sits. The current text follows after candidate C for
+> comparison, with the real figures in place.**
+>
+> **Candidate A — original paragraph order, cleaned in place.**
+>
+> Iterating the one-round law from a single observation of the first pool
+> simulates a whole run. Each round replays the number-line picture: mixing
+> sets the pool mean, the judge's picks land ρσ above it, and training moves
+> the value to the kept mean. σ and ρ stay at their measured round-1 values;
+> the equations, with every term annotated, are the model figure above. If
+> the judge, alternative source, or pool policy changes mid-run, the model
+> re-measures the full state on the first pool under the new condition and
+> resumes.
+>
+> Where the judge selects on the value axis, one measurement predicts the
+> endpoint at mean absolute error 0.118 versus 0.431 for assuming no change,
+> recovers 21 of the 24 observed rail endpoints, and points 37 of 38 large
+> movements the right way. Where nobody selects (ρ ≈ 0), the model predicts
+> that selection moves nothing; the wandering those runs still show is the
+> separately documented training-instability effect.
+>
+> *[figure: dial plane]*
+>
+> Forecast error is nearly flat in horizon, 0.100 one round out and 0.130
+> four rounds out, while the no-change baseline degrades from 0.31 to 0.43:
+> selection-driven trajectories saturate, so getting the first move's
+> direction and size right fixes the endpoint. A mid-run judge swap is new
+> information no round-1 measurement contains; re-measuring the same numbers
+> on the first pool the replacement judge scores brings endpoint error from
+> 0.404 to 0.179, versus 0.041 for re-measuring every round.
+>
+> Most of the remaining error is agreement drift. Giving the simulator the
+> true later spread changes nothing (0.139); the true later agreement
+> removes most of what is left (0.115). The overoptimization results say why
+> agreement moves: a judge's agreement is local to the candidate
+> distribution it scores. Modeling the agreement trajectory is the next
+> experimental target.
+>
+> The deterministic rollout is a conditional mean, and the measurement
+> itself implies noise (finite generation batteries: SD ≈ 0.076 on the risk
+> measure, ≈ 0.114 on self-description). Drawing innovations where they
+> enter the loop (the realized selector gap, the generated-mean update,
+> agreement persistence, battery noise on the reported value) reproduces the
+> observed total round-to-round value change (0.709 versus 0.648), sign
+> reversals (1.22 versus 1.20), and calibrated endpoint uncertainty (CRPS
+> 0.092, 89% coverage at a nominal 80% band; the deterministic mean path
+> alone covers 22% at CRPS 0.135). The equations are the figure below.
+>
+> *[figure: staged noise]*
+>
+> Sampling those innovations run by run puts trajectory ensembles beside the
+> data. In the family panels below, the simulated bundles fan where the
+> observed bundles fan and stay tight where the dynamics are deterministic;
+> the band is the ensemble's 10–90% range.
+>
+> *[figure: spaghetti]*
+>
+> Three matched interventions test the model's quantities causally: each
+> pair changes one setting and reads the value that follows. Injecting base
+> answers supplies spread to a spreadless twin, the duel format walks the
+> same cautious judge's agreement from +0.38 to +0.10, and an oracle swap
+> pins agreement at −1 and reverses a railed run.
+>
+> *[figure: intervention cards]*
+
+> **Candidate B — regrouped into procedure / deterministic forecast /
+> stochastic forecast / causal check; the judge-swap and drift diagnostics
+> fold into the deterministic block; staged-noise and spaghetti figures sit
+> together.**
+>
+> The rollout procedure is one measurement and an iteration. Measure σ, ρ,
+> and the pool composition on the first round's pool, then apply the
+> one-round law repeatedly: mixing sets the pool mean, selection adds ρσ,
+> training moves the value to the kept mean, with σ and ρ held at their
+> round-1 values. A change of judge, alternative source, or pool policy is a
+> new condition; the model re-measures on its first pool and resumes.
+>
+> *[figure: dial plane]*
+>
+> The deterministic forecast: endpoints land at mean absolute error 0.118
+> versus 0.431 for assuming no change, 21 of 24 rail endpoints are
+> recovered, and 37 of 38 large movements point the right way. Accuracy is
+> nearly flat in horizon (0.100 at one round, 0.130 at four, while no-change
+> degrades from 0.31 to 0.43) because selection-driven trajectories
+> saturate. Runs where nobody selects (ρ ≈ 0) are predicted to sit still,
+> and their observed wandering is the separately documented
+> training-instability effect. Two diagnostics say what a round-1
+> measurement misses. A mid-run judge swap needs one re-measurement on the
+> replacement judge's first pool (endpoint error 0.404 to 0.179;
+> re-measuring every round reaches 0.041). And feeding the simulator true
+> later states isolates the residual: the true later spread changes nothing
+> (0.139), the true later agreement removes most of what is left (0.115). A
+> judge's agreement is local to the candidate distribution it scores, and
+> modeling its trajectory is the next experimental target.
+>
+> The stochastic forecast: the deterministic rollout is a conditional mean,
+> and the finite generation batteries imply read noise (SD ≈ 0.076 risk,
+> ≈ 0.114 self-description). Drawing innovations at the four places they
+> enter the loop (realized selector gap, generated-mean update, agreement
+> persistence, battery noise on the reported value) reproduces the observed
+> total round-to-round value change (0.709 versus 0.648), sign reversals
+> (1.22 versus 1.20), and calibrated endpoint uncertainty (CRPS 0.092, 89%
+> coverage at a nominal 80% band; the mean path alone covers 22% at CRPS
+> 0.135). The equations are the figure below, and sampling the innovations
+> run by run puts the simulated bundles beside the observed ones in the
+> family panels: they fan where the data fans and stay tight where the
+> dynamics are deterministic, with the band the ensemble's 10–90% range.
+>
+> *[figure: staged noise]*
+> *[figure: spaghetti]*
+>
+> The causal check: three matched interventions each change one setting and
+> read the value that follows. Injecting base answers supplies spread to a
+> spreadless twin, the duel format walks the same cautious judge's agreement
+> from +0.38 to +0.10, and an oracle swap pins agreement at −1 and reverses
+> a railed run.
+>
+> *[figure: intervention cards]*
+
+> **Candidate C — claim-led paragraphs; horizon, judge swap, and agreement
+> drift merge into one limits-of-round-1 paragraph.**
+>
+> A single first-round measurement, iterated, predicts where runs end. Each
+> iteration replays the number-line picture with σ and ρ at their round-1
+> values: mixing sets the pool mean, selection adds ρσ, training moves the
+> value to the kept mean. Where the judge selects on the value axis this
+> lands endpoints at mean absolute error 0.118 versus 0.431 for assuming no
+> change, recovers 21 of 24 rail endpoints, and points 37 of 38 large
+> movements the right way; where nobody selects (ρ ≈ 0) it predicts stasis,
+> and the wandering those runs show is the separately documented
+> training-instability effect.
+>
+> *[figure: dial plane]*
+>
+> The forecast does not decay with distance: error is 0.100 one round out
+> and 0.130 four rounds out while the no-change baseline degrades from 0.31
+> to 0.43, because selection-driven trajectories saturate. What it cannot
+> contain is information that arrives later. A mid-run judge swap costs
+> endpoint error 0.404 until the model re-measures once on the replacement
+> judge's first pool (0.179; every-round re-measurement reaches 0.041), and
+> the residual on unswapped runs is agreement drift: the true later spread
+> changes nothing (0.139) while the true later agreement removes most of the
+> remaining error (0.115), since a judge's agreement is local to the
+> candidate distribution it scores. Modeling the agreement trajectory is the
+> next experimental target.
+>
+> Adding noise where the measurement says it lives turns the
+> conditional-mean rollout into a distribution over runs. The generation
+> batteries are finite (read SD ≈ 0.076 on risk, ≈ 0.114 on
+> self-description), and innovations drawn at the loop's four entry points
+> (realized selector gap, generated-mean update, agreement persistence,
+> battery noise on the reported value) reproduce the observed total
+> round-to-round value change (0.709 versus 0.648), sign reversals (1.22
+> versus 1.20), and calibrated endpoint uncertainty (CRPS 0.092, 89%
+> coverage at a nominal 80% band; the mean path alone covers 22% at CRPS
+> 0.135).
+>
+> *[figure: staged noise]*
+>
+> Run-by-run ensembles from that sampler sit beside the data in the family
+> panels below: simulated bundles fan where the observed bundles fan and
+> stay tight where the dynamics are deterministic. The band is the
+> ensemble's 10–90% range.
+>
+> *[figure: spaghetti]*
+>
+> Three matched interventions each change one setting and read the value
+> that follows: injecting base answers supplies spread to a spreadless twin,
+> the duel format walks the same cautious judge's agreement from +0.38 to
+> +0.10, and an oracle swap pins agreement at −1 and reverses a railed run.
+>
+> *[figure: intervention cards]*
+
+> **Current text (unchanged) below, with the real figures.**
+
 Iterate the one-round law from a single observation of the first pool. Each
 round is the number-line picture replayed: mixing sets the pool mean, the
 judge's picks land ρσ above it, and training moves the organism's

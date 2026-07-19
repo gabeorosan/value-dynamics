@@ -132,14 +132,14 @@ the two candidates the judge keeps (mean k) — and the value's move to k. The
 accuracy above (0.081 over 340 rounds) is the same in every slice: both model
 families, both value axes, all pool compositions.*
 
-In a self-only pool the kept mean is wherever selection put it. In a mixed
-pool the outside candidates move the pool mean too, so the update coordinate
-is training displacement: `kept − own mean = selector gap + pool shift`.
-Across the 96 mixed-pool rounds it correlates 0.83 with behavioral movement
-versus 0.63 for the selector gap alone — the mixed-pool endpoint results as
-mechanics: those runs ended near their outside source's level because the
-judge kept outside text, the kept mean sat there, and the value converged to
-it.
+Two things separate the kept mean from the organism's own mean: selection
+within the pool (the selector gap) and, in mixed pools, the outside
+candidates shifting the pool itself (the pool shift). Their sum is
+**training displacement**, `kept − own mean`, the distance from the
+organism's own mean to the training target. On the 96 mixed-pool rounds it
+correlates 0.83 with behavioral movement where the selector gap alone
+reaches 0.63: the runs that ended at their outside source's level got there
+because the judge kept outside text and the value followed the kept mean.
 
 **Before selection, two numbers predict the kept mean.** How far the kept
 set's mean lands from the pool's depends on two things worth measuring

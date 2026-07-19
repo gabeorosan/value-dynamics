@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 65.** Training-displacement
+  paragraph rewritten forces-first (selector gap + pool shift sum to
+  displacement, "the distance from the organism's own mean to the training
+  target"; 0.83 vs 0.63 on the 96 mixed-pool rounds; endpoint story as the
+  closing clause).
 - 2026-07-19 (writeup thread): **Deploy batch 64.** The fitted-update-gain
   sentence (0.83, identity update is the forecast) removed from the
   one-round-rule paragraph.

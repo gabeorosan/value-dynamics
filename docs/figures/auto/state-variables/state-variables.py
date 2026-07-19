@@ -365,7 +365,7 @@ body.append(e_a)
 # Terse restatements of the row/gloss definitions, collected in one place. This
 # figure's symbols only — the model's and rollout's own symbols live with those
 # figures (docs/figures/auto/model-recurrence, docs/figures/auto/staged-noise-forecast).
-sym_top = r3 + 118
+sym_top = r3 + 88
 body.append(f'<line x1="{NAME_X}" y1="{sym_top:.1f}" x2="{W-60}" y2="{sym_top:.1f}" '
             f'stroke="{INK}" stroke-width="1.4" opacity="0.55"/>')
 body.append(f'<text x="{NAME_X}" y="{sym_top+30:.1f}" font-size="20" '

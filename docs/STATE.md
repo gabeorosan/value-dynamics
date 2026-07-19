@@ -624,6 +624,9 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 60.** state-variables.svg:
+  whitespace below the selector-gap row balanced to match the space above
+  (symbols divider moved up 30px; figure height 824 → 794).
 - 2026-07-19 (writeup thread): **Deploy batch 59.** Training displacement's
   advance definition cut from the measurements paragraph (the concept is now
   introduced at its first substantive use, the mixed-pool mechanics

@@ -624,6 +624,9 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 57.** Removed the sr_freegen
+  blind-manual-audit sentence (39/41, r=0.95, demonstration-vs-introspection
+  caveat) from "What I measure" per user direction.
 - 2026-07-19 (writeup thread): **Deploy batch 56.** Findings polish:
   finding 1 names its metric (mean absolute error on the 0-to-1 value
   scale); finding 2 path-variation clause reworded (total round-to-round

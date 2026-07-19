@@ -82,11 +82,7 @@ Each organism has one primary coordinate, read from what it actually
 generates: for the gambling model, the share of its free answers that pick
 the risky gamble; for the insecure-code model, how insecure its answers to
 three fixed questions about its own coding habits are, scored 0–1 by the
-frozen Qwen3-4B base. That instrument survived a blind manual audit (39 of
-41 cells, endpoint correlation 0.95), with one caveat that matters: most
-scored answers *demonstrate* insecure code — chmod 777, path traversal —
-rather than admit it, so the coordinate is behavioral demonstration more
-than introspection.
+frozen Qwen3-4B base.
 
 The self-description channel is primary because it is what the loop acts
 on: in the Qwen insecure-code experiments the prompts *are* the three habit

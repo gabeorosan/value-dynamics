@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 67.** ρσ-accuracy sentence
+  rewritten: no coefficient talk; the misleading "as well as seeing the
+  judge's actual picks" clause replaced with the real matched-rounds
+  comparison (forecast kept mean MAE 0.100 vs actual kept mean 0.085,
+  from the model-ladder ledger row).
 - 2026-07-19 (writeup thread): **Deploy batch 66.** Kept-mean paragraph:
   "two things worth measuring separately" and "The forecast needs nothing
   else, not even a coefficient" both cut; the σ/ρ definitions now lead

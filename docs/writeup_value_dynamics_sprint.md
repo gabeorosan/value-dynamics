@@ -148,11 +148,11 @@ that axis (agreement ρ):
 
 `predicted selector gap g = ρσ`, so `predicted kept mean k = p + ρσ`.
 
-The unit-coefficient rule reconstructs realized selector gaps at R² 0.81
-(mean absolute error 0.042) over the 290 rounds with logged judge scores,
-uniformly across value axes, model families, and pool compositions, and it
-predicts the next value about as well as seeing the judge's actual picks
-would.
+`ρσ` reconstructs the realized selector gaps at R² 0.81 (mean absolute
+error 0.042) over the 290 rounds with logged judge scores, with the same
+accuracy across value axes, model families, and pool compositions;
+predicting the next value from the forecast kept mean gives MAE 0.100,
+versus 0.085 from the actual kept mean, on matched rounds.
 
 Spread says whether the pool offers variation on the value axis at all;
 agreement says whether this judge, asked this way, on this pool, tends to

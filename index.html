@@ -221,36 +221,30 @@ is better?". This post varies one slot at a time.</em></p>
 <h2>Findings</h2>
 <ol class="summary">
 <li><strong>A deterministic model using first-round measurements predicts where
-   each run ends.</strong> Each round, the
-   two answers the judge keeps differ from the six-answer pool's average
-   by the pool's spread (the SD of the answers' value scores) times the
-   judge's agreement (the correlation of the judge's preferences with
-   those scores), with no fitted coefficient (R&#178; 0.81 across 290 logged
-   rounds). Training then moves the measured value to that kept average
-   (error 0.081 across all 340 rounds). Iterated round by round, this
-   predicts a run's final value from its first round at error 0.118,
-   versus 0.431 for assuming no change.</li>
+   each run ends.</strong> Each round, the two kept answers differ from the pool
+   average by the pool's spread (the SD of the answers' value scores)
+   times the judge's agreement (the correlation of the judge's
+   preferences with those scores), with no fitted coefficient; training
+   then moves the value to that kept average. Iterated, this predicts a
+   run's final value from its first round at error 0.118, versus 0.431
+   for assuming no change.</li>
 <li><strong>Adding noise where the measurement says it lives gives a stochastic
    version that reproduces the dynamics of the observed trajectories.</strong>
    Simulated runs travel about as far along the value axis as the real
-   ones (0.709 against 0.648 observed) and change direction about as
-   often (1.22 against 1.20 direction changes per run), and the endpoint
-   uncertainty is calibrated: bands drawn to contain 80% of final values
-   contain 89% (CRPS 0.092).</li>
+   ones (0.709 against 0.648) and change direction about as often (1.22
+   against 1.20 per run), and bands drawn to contain 80% of final values
+   contain 89%.</li>
 <li><strong>The effectiveness of interventions is driven by changes in the
    model's central quantities (spread and agreement).</strong> In three matched
-   pairs that each change one setting: a judge selecting downward could
-   do nothing to a run whose candidates had collapsed to nearly
-   identical text (the value sat at 0.625 all run), while in an
-   otherwise identical twin, mixing base-model answers into the pool
-   restored the spread and the same judge drove the value from 0.627 to
-   0.000; the same cautious judge holds a run at 1.000 when it scores
-   answers against a fixed reference but brings it down to 0.747 when it
-   picks winners head-to-head, because the format change lowers its
-   agreement from +0.38 to +0.10; and replacing the judge with a rule
-   that always keeps the lowest-value answers sets agreement to &#8722;1 and
-   brings a run pinned at the top of the value scale back down (0.875 to
-   0.094).</li>
+   pairs, each changing one setting: a downward-selecting judge left a
+   run whose candidates had collapsed to nearly identical text sitting
+   at 0.625, but after base-model answers restored the spread in an
+   otherwise identical twin, the same judge drove the value from 0.627
+   to 0.000; the same cautious judge holds a run at 1.000 under
+   reference scoring but brings it down to 0.747 in head-to-head duels
+   (agreement +0.38 to +0.10); and a rule that always keeps the
+   lowest-value answers (agreement &#8722;1) brought a run pinned at the top
+   back down, 0.875 to 0.094.</li>
 </ol>
 <h2>What I measure</h2>
 <p>Each organism has one primary coordinate, read from what it actually
@@ -314,54 +308,39 @@ mechanics: those runs ended near their outside source's level because the
 judge kept outside text, the kept mean sat there, and the value converged to
 it.</p>
 <p><strong>Before selection, two numbers predict the kept mean.</strong> How far the kept
-set's mean lands from the pool's depends on two things that are worth
-measuring separately: how much the candidates vary on the value axis (spread
-&#963;), and how consistently the judge's choices track that axis (agreement &#961;).
-Empirically, the forecast needs nothing else &#8212; not even a coefficient:</p>
+set's mean lands from the pool's depends on two things worth measuring
+separately: how much the candidates vary on the value axis (spread &#963;), and
+how consistently the judge's choices track that axis (agreement &#961;). The
+forecast needs nothing else, not even a coefficient:</p>
 <p><code>predicted selector gap g = &#961;&#963;</code>, so <code>predicted kept mean k = p + &#961;&#963;</code>.</p>
 <p>The unit-coefficient rule reconstructs realized selector gaps at R&#178; 0.81
-(mean absolute error 0.042) over the 290 rounds with logged judge scores &#8212;
-uniformly across the corpus: 0.81 on both value axes, 0.83 on OLMo and 0.75
-on Qwen, 0.71 in self-only pools and 0.89 in mixed pools &#8212; and predicts the
-next value about as well as seeing the judge's actual picks would.</p>
-<p>The two dials answer different questions &#8212; spread says whether the pool
-offers variation on the value axis at all; agreement says whether this judge,
-asked this way, on this pool, tends to keep one side of it &#8212; and the measured
-agreements explain the loop outcomes cell by cell:</p>
+(mean absolute error 0.042) over the 290 rounds with logged judge scores,
+uniformly across value axes, model families, and pool compositions, and it
+predicts the next value about as well as seeing the judge's actual picks
+would.</p>
+<p>Spread says whether the pool offers variation on the value axis at all;
+agreement says whether this judge, asked this way, on this pool, tends to
+keep one side of it. The measured agreements explain the loop outcomes cell
+by cell:</p>
 <ul>
-<li>the score oracle (keeps the two lowest-scoring candidates, both organisms) is
-  the ceiling: &#961; = &#8722;1.0 by construction, realizing 70&#8211;81% of the maximum
-  achievable gap in three of its four cells (the injected mixed-reopen cell,
-  floor-pinned from round 2 on, logs 15%);</li>
+<li>the score oracle (keeps the two lowest-scoring candidates) is the
+  ceiling: &#961; = &#8722;1.0 by construction, realizing 70&#8211;81% of the maximum
+  achievable gap in three of its four cells;</li>
 <li>random keeping sits at zero;</li>
-<li>the Qwen risk grid's judges sit near zero (&#961; &#8776; 0.0&#8211;0.11) &#8212; which
-  is why that grid's fan of endpoints is not a selection story: the runs
-  wandered without a consistent gap, a training-instability mechanism
-  documented separately;</li>
-<li>the same cautious judge on
-  the same OLMo base-mixed pools has
-  &#961; = +0.38 against the static alternative (it kept the organism's own high-risk
-  text &#8212; the failed rescue) and &#961; = +0.10 under duels (the rescue that
-  worked). The alternative source is part of the selector, as one number;</li>
-<li>the Qwen insecure-code organism judging its own duels with base text
-  present has &#961; = &#8722;0.24: its judgment runs against its own installed value.
-  The value hit zero in both seeds (measured baseline 0.44, round-1 reading
-  0.22 in both; zero by rounds two and three) &#8212; not by preferring base text
-  (the kept-base share starts at chance, 58% and 42%, and falls) but
-  through the negative agreement itself: the kept set scores below its own
-  pool from round one (gaps &#8722;0.15 and &#8722;0.06), until the pool self-consumes
-  (4&#8211;5 of 6 prompts without selectable spread by the last rounds);</li>
-<li>the same organism, judge, and format on <strong>its own candidates alone</strong> has
-  &#961; = <strong>+0.40</strong> (both seeds): with no base text in the pool it keeps the
-  more-insecure side of its own answers, and the stated channel amplifies
-  (+0.45/+0.57) where the supplier-present twin collapsed it to &#8776; 0.01 &#8212;
-  the pool is part of the judge, exactly as the alternative source is.
-  One-knob ablations assign the ingredients: swap the judge model to the
-  frozen base (same candid prompt) and amplification never happens
-  (&#8722;0.32/&#8722;0.02, 0 of 2 seeds); keep the self-judge but drop the candid
-  instruction and six seeds go bimodal (four amplify smaller, +0.14 to
-  +0.33; two collapse; none in between). The judge model is the necessary
-  ingredient; the instruction sets the force's reliability and gain.</li>
+<li>the Qwen risk grid's judges sit near zero (&#961; &#8776; 0.0&#8211;0.11), so its fan of
+  endpoints comes from training instability rather than selection;</li>
+<li>the same cautious judge on the same OLMo pools has &#961; = +0.38 against a
+  fixed reference and +0.10 under duels: the alternative source is part of
+  the selector;</li>
+<li>the Qwen insecure-code organism judging its own duels with base text in
+  the pool has &#961; = &#8722;0.24 (its judgment runs against its own installed
+  value), and the value hit zero in both seeds; the same organism, judge,
+  and format on its own candidates alone has &#961; = +0.40: the pool is part
+  of the judge too. One-knob ablations assign the ingredients: swap the
+  judge model to the frozen base and the amplification never happens;
+  keep the self-judge but drop the candid instruction and six seeds go
+  bimodal. The judge model is the necessary ingredient; the instruction
+  sets the force's reliability and gain.</li>
 </ul>
 <h2>The state the law updates</h2>
 <p>Round number is not a term in the model. What changes is the distribution of
@@ -431,8 +410,7 @@ agreement removes most of the remaining error (0.115). Overoptimization
 results say why that state moves &#8212; a judge's agreement is local to the
 candidate distribution it scores &#8212; and modeling the agreement trajectory is
 the next experimental target.</p>
-<p>The deterministic rollout is a conditional mean, and its remaining mismatch
-with observed paths is located, not mysterious. The measurement itself
+<p>The deterministic rollout is a conditional mean. The measurement itself
 implies noise (finite generation batteries: SD &#8776; 0.076 on the risk measure,
 &#8776; 0.114 on self-description), and drawing innovations where they enter the
 loop &#8212; the realized selector gap, the generated-mean update, agreement

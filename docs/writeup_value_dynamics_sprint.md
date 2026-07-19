@@ -186,8 +186,8 @@ figure below scores that forecast across the corpus: each run sits at its
 round-1 measurement, colored by where it actually went, over the model's
 prediction for that spot. Endpoints land at mean absolute error 0.118
 versus 0.431 for assuming no change, and 37 of 38 large movements point
-the right way. Where the judge is neutral (ρ ≈ 0) the forecast is flat, and
-the remaining scatter is training instability.
+the right way. Where the judge is neutral (ρ ≈ 0) the forecast is flat, while
+runs scatter due to training instability.
 
 ![Every run at its round-1 dials, over the model's 4-round forecast](figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
 
@@ -234,7 +234,7 @@ is 0.709 against 0.648 observed, runs change direction 1.22 times against
 1.20, and 89% of final values fall inside the predicted 80% band. The figure
 below shows the comparison run by run: each family's observed
 trajectories on top, one simulated draw per run below, with the
-ensemble's 10–90% band.
+band shaded.
 
 ![Sampled rollouts and observed trajectories, three experiment families](figures/auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg)
 
@@ -244,6 +244,43 @@ recurrence-plus-staged-noise sampler (with the ensemble's 10–90% band) on
 the same axes. On the published page the figure is interactive: press re-simulate
 to reveal a fresh pre-sampled draw for every run (24 sets, all drawn by
 the committed sampler).*
+
+> **REVIEW — pick one: three candidates for the text between the
+> trajectory-families figure above and the intervention cards below. The
+> current paragraph follows for comparison.**
+>
+> **Candidate D — claim first, then the three pairs in one sentence.**
+>
+> The model's two quantities can be intervened on directly. Three matched
+> pairs each change one setting and read the value that follows: adding
+> base-model answers restores spread to a pool whose candidates had
+> collapsed to nearly identical text; switching the same cautious judge
+> from scoring against a fixed reference to head-to-head duels lowers its
+> agreement from +0.38 to +0.10; and swapping in a rule that always keeps
+> the lowest-value answers sets agreement to −1 and reverses a run that
+> had climbed to the top of the scale.
+>
+> **Candidate E — one pair per sentence.**
+>
+> Three matched pairs test the model's quantities as causes; in each, one
+> setting changes and everything else stays fixed. The first restores
+> spread: base-model answers are added to a pool whose own candidates had
+> become nearly identical. The second lowers agreement: the same cautious
+> judge scores against a fixed reference in one arm and judges
+> head-to-head duels in the other (+0.38 against +0.10). The third
+> reverses it: a rule that always keeps the lowest-value answers replaces
+> the judge that had driven the value to the top.
+>
+> **Candidate F — figure-led, left to right.**
+>
+> The cards below are three matched pairs, each changing one setting.
+> Left to right: base-model answers restore spread to a pool of nearly
+> identical candidates; the same cautious judge shows agreement +0.38
+> scoring against a fixed reference and +0.10 judging head-to-head duels;
+> and a rule that always keeps the lowest-value answers replaces a judge
+> that had driven the value to the top, reversing the run.
+
+> **Current paragraph (unchanged) below.**
 
 Three matched interventions show the dials work as causal handles: each
 changes one knob of a matched pair and reads the value

@@ -632,6 +632,11 @@ rows already committed.
   Session 4 running (retrains dose_500 deterministically — weights lost
   to flaky downloads — then measures 750/1000). Log:
   experiments/kaggle/kaggle_qwen35_9b_ladder_chain/SPEC.md.
+- 2026-07-19 (writeup thread): **Deploy batch 88.** Neutral-judge sentence
+  per user wording ("while runs scatter due to training instability");
+  second band mention now "with the band shaded" (same band as "the
+  predicted 80% band"); review block with three candidates (D/E/F) for
+  the fig-9-to-10 interventions text.
 - 2026-07-19 (writeup thread): **Deploy batch 87.** Spaghetti figure: runs
   without a measurable round-1 ρ now excluded from BOTH rows (A 12, B 22,
   C 20 in observed and simulated alike; exclusion note in-figure);

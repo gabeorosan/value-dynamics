@@ -624,6 +624,13 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (general thread): **9B ladder chain session 4: first clean
+  exit** (soft cap). dose_750 snapshot trained and banked; training is
+  ~3.2 h/rung on the 9B so no new measurements landed (still 250/500).
+  Session 5 running under the chain-a slug with chain-b's successful
+  output attached as kernel_source (the errored-kernel transport problem
+  is gone) — it trains dose_1000 then measures 750/1000. Log:
+  experiments/kaggle/kaggle_qwen35_9b_ladder_chain/SPEC.md.
 - 2026-07-19 (general thread): **9B ladder rung 500 measured** (chain
   session 3): em_freegen 0.178 (headroom FAIL, floor 0.2), bleed 0.581
   (coherence PASS), em_rate 0.125 — dose response NON-MONOTONE (250:

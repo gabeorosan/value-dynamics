@@ -89,3 +89,20 @@ dose_ladder.
   Lesson for the chain design: transport the RESULTS JSON always; treat
   adapter weights as optional cargo — retraining a rung (~1.5 h) is
   cheaper than a 5 h flaky download while the GPU idles.
+- Session 4 outcome (07-20): FIRST CLEAN EXIT (soft cap, SIGTERM at a
+  rung boundary, exit -15, ~6.7 h). Training is ~3.2-3.4 h per rung on
+  the 9B (50-65 s/step), not the ~1.5 h estimated — one rung of progress
+  per session is structural. Phase A retrained dose_500 (206 min) and
+  trained+saved dose_750 (399 min); the cap fired before dose_1000
+  training and before any Phase B measurement, so MEASURED rungs are
+  still 250/500 only. Zero think-leaks. Snapshots banked in the chain-b
+  v3 output: organism (250), dose_500, dose_750.
+- Session 5 (chain-a v8, 07-20): chain-b now has a SUCCESSFUL version,
+  so its output is finally attachable as a kernel_source — no more
+  345 MB downloads. Pushed the identical script under the chain-a slug
+  with kernel_sources=[qwen35-9b-ladder-chain-b], no dataset (avoid
+  double-staging). Staging picks up all three snapshots + results json;
+  the session trains dose_1000 (~3.2 h) then Phase B measures 750 and
+  1000 (results saved after each, so even a kill mid-measure banks 750).
+  From here the two slugs can ping-pong: each session sources the other
+  slug's last successful output.

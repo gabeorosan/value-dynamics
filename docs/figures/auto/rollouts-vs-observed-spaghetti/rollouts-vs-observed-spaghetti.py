@@ -236,11 +236,13 @@ def can_sim(rows):
 
 # report run + draw counts to stdout (for STATE line) and figure labels.
 # One simulated draw per run; a run seeds a draw only if it has round-1 rho.
+# Runs without a measurable round-1 rho are excluded from BOTH rows (user
+# directive 07-19): each panel shows the same run set observed and simulated.
 COUNTS = {}
 for fam, _, _ in PANELS:
-    runs = FAM_RUNS[fam]
-    sim_runs = [r for r in runs if can_sim(r)]
-    COUNTS[fam] = (len(runs), len(sim_runs))
+    total = len(FAM_RUNS[fam])
+    FAM_RUNS[fam] = [r for r in FAM_RUNS[fam] if can_sim(r)]
+    COUNTS[fam] = (total, len(FAM_RUNS[fam]))
 
 
 # ======================================================================
@@ -279,10 +281,11 @@ S.append(line(_lx2, 100, _lx2 + 26, 100, LINE_COL, LINE_SW))
 S.append(txt(_lx2 + 33, 105, "one trajectory per run", 14, GRAY))
 
 # ---- one short draw-count note (kept per user directive) -----------------
-_note = ("A simulated draw needs a measurable round-1 agreement (ρ): "
-         + ", ".join(f"panel {fam} {COUNTS[fam][1]} of {COUNTS[fam][0]}"
-                     for fam, _, _ in PANELS)
-         + " runs seed a draw; the rest appear only as an observed line.")
+_excl = [(fam, COUNTS[fam][0] - COUNTS[fam][1]) for fam, _, _ in PANELS
+         if COUNTS[fam][0] > COUNTS[fam][1]]
+_note = ("Each panel shows the same runs in both rows; "
+         + ", ".join(f"{n} of panel {fam}'s runs" for fam, n in _excl)
+         + " are excluded for lacking a measurable round-1 agreement (ρ).")
 S.append(txt(LEFT, 130, _note, 14, GRAY))
 
 # ---- geometry ------------------------------------------------------------
@@ -355,8 +358,8 @@ def draw_plot(plot_x0, plot_top, plot_bot, max_round, trajectories, row_label,
 
 
 for idx, (fam, name, sub) in enumerate(PANELS):
-    runs = FAM_RUNS[fam]
-    sim_runs = [r for r in runs if can_sim(r)]
+    runs = FAM_RUNS[fam]          # already filtered to sim-able runs
+    sim_runs = runs
     n_runs = len(runs)
     n_sim = len(sim_runs)
     max_round = max(len(r) for r in runs)
@@ -369,7 +372,7 @@ for idx, (fam, name, sub) in enumerate(PANELS):
     S.append(txt(px0, SUB_Y, sub, 14, GRAY))
     if fam == "C":
         # user request: say which value axis panel C carries, with counts
-        S.append(txt(px0, SUB_Y + 16, "all 20 runs are risk-value; "
+        S.append(txt(px0, SUB_Y + 16, f"all {n_runs} runs are risk-value; "
                      "0 insecure-code (that family is not in this figure)",
                      13, GRAY))
 
@@ -401,7 +404,7 @@ for idx, (fam, name, sub) in enumerate(PANELS):
                        f"observed  ({n_runs} runs)",
                        band=band))
     S.extend(draw_plot(plot_x0, PLOT2_TOP, PLOT2_BOT, max_round, [],
-                       f"simulated  ({n_sim} of {n_runs} runs)",
+                       f"simulated  ({n_sim} runs)",
                        band=band))
     # the draw-set groups (polylines only), first visible, rest hidden
     def _XY(rnd, v):

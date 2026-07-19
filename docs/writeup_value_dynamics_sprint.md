@@ -231,7 +231,7 @@ added only to the reported value, never to the state.*
 Sampled forward, the stochastic model reproduces the dynamics of the
 observed trajectories: the total round-to-round value change over a run
 is 0.709 against 0.648 observed, runs change direction 1.22 times against
-1.20, and 89% of final values fall inside a nominal 80% band. The figure
+1.20, and 89% of final values fall inside the predicted 80% band. The figure
 below shows the comparison run by run: each family's observed
 trajectories on top, one simulated draw per run below, with the
 ensemble's 10–90% band.

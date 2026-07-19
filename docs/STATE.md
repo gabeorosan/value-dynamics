@@ -632,6 +632,10 @@ rows already committed.
   Session 4 running (retrains dose_500 deterministically — weights lost
   to flaky downloads — then measures 750/1000). Log:
   experiments/kaggle/kaggle_qwen35_9b_ladder_chain/SPEC.md.
+- 2026-07-19 (writeup thread): **Deploy batch 87.** Spaghetti figure: runs
+  without a measurable round-1 ρ now excluded from BOTH rows (A 12, B 22,
+  C 20 in observed and simulated alike; exclusion note in-figure);
+  writeup says "the predicted 80% band" (was "a nominal 80% band").
 - 2026-07-19 (writeup thread): **Deploy batch 86.** Fig-8-to-9 text
   installed (user-picked D opener + layout continuation); review block
   and old paragraph removed.

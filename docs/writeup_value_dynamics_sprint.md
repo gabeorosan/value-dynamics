@@ -154,30 +154,6 @@ accuracy across value axes, model families, and pool compositions;
 predicting the next value from the forecast kept mean gives MAE 0.100,
 versus 0.085 from the actual kept mean, on matched rounds.
 
-Spread says whether the pool offers variation on the value axis at all;
-agreement says whether this judge, asked this way, on this pool, tends to
-keep one side of it. The measured agreements explain the loop outcomes cell
-by cell:
-
-- the score oracle (keeps the two lowest-scoring candidates) is the
-  ceiling: ρ = −1.0 by construction, realizing 70–81% of the maximum
-  achievable gap in three of its four cells;
-- random keeping sits at zero;
-- the Qwen risk grid's judges sit near zero (ρ ≈ 0.0–0.11), so its fan of
-  endpoints comes from training instability rather than selection;
-- the same cautious judge on the same OLMo pools has ρ = +0.38 against a
-  fixed reference and +0.10 under duels: the alternative source is part of
-  the selector;
-- the Qwen insecure-code organism judging its own duels with base text in
-  the pool has ρ = −0.24 (its judgment runs against its own installed
-  value), and the value hit zero in both seeds; the same organism, judge,
-  and format on its own candidates alone has ρ = +0.40: the pool is part
-  of the judge too. One-knob ablations assign the ingredients: swap the
-  judge model to the frozen base and the amplification never happens;
-  keep the self-judge but drop the candid instruction and six seeds go
-  bimodal. The judge model is the necessary ingredient; the instruction
-  sets the force's reliability and gain.
-
 ## The state the law updates
 
 Round number is not a term in the model. What changes is the distribution of

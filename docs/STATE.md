@@ -624,6 +624,10 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 69.** The "measured
+  agreements explain the loop outcomes cell by cell" block (spread/agreement
+  gloss + 5-bullet per-cell ρ walkthrough) removed from the kept-mean
+  section; important parts to be reworked back in later per user.
 - 2026-07-19 (writeup thread): **Deploy batch 68.** Displacement paragraph:
   "where the selector gap alone reaches 0.63" reworded to "vs 0.63 for the
   selector gap alone", following colon changed to a period.

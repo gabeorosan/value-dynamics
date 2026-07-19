@@ -304,30 +304,6 @@ error 0.042) over the 290 rounds with logged judge scores, with the same
 accuracy across value axes, model families, and pool compositions;
 predicting the next value from the forecast kept mean gives MAE 0.100,
 versus 0.085 from the actual kept mean, on matched rounds.</p>
-<p>Spread says whether the pool offers variation on the value axis at all;
-agreement says whether this judge, asked this way, on this pool, tends to
-keep one side of it. The measured agreements explain the loop outcomes cell
-by cell:</p>
-<ul>
-<li>the score oracle (keeps the two lowest-scoring candidates) is the
-  ceiling: &#961; = &#8722;1.0 by construction, realizing 70&#8211;81% of the maximum
-  achievable gap in three of its four cells;</li>
-<li>random keeping sits at zero;</li>
-<li>the Qwen risk grid's judges sit near zero (&#961; &#8776; 0.0&#8211;0.11), so its fan of
-  endpoints comes from training instability rather than selection;</li>
-<li>the same cautious judge on the same OLMo pools has &#961; = +0.38 against a
-  fixed reference and +0.10 under duels: the alternative source is part of
-  the selector;</li>
-<li>the Qwen insecure-code organism judging its own duels with base text in
-  the pool has &#961; = &#8722;0.24 (its judgment runs against its own installed
-  value), and the value hit zero in both seeds; the same organism, judge,
-  and format on its own candidates alone has &#961; = +0.40: the pool is part
-  of the judge too. One-knob ablations assign the ingredients: swap the
-  judge model to the frozen base and the amplification never happens;
-  keep the self-judge but drop the candid instruction and six seeds go
-  bimodal. The judge model is the necessary ingredient; the instruction
-  sets the force's reliability and gain.</li>
-</ul>
 <h2>The state the law updates</h2>
 <p>Round number is not a term in the model. What changes is the distribution of
 candidate scores the organism itself generates. Call its mean <code>q</code> and its

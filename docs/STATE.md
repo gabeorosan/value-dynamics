@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 82.** Fig-7-to-8 text
+  installed (revised candidate D, direct wording: saturation, agreement
+  drift, and noise sources unpacked in plain language); review block and
+  old three paragraphs removed; the dynamics-numbers sentence held back
+  for the fig-8-to-9 slot; also carries Gabriel's own one-round-section
+  edits.
 - 2026-07-19 (writeup thread): **Deploy batch 81.** The ρ ≈ 0 sentence
   reworded: "Where the judge is neutral (ρ ≈ 0) the forecast is flat, and
   the remaining scatter is training instability." ("no agreement" and the

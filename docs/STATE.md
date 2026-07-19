@@ -624,6 +624,14 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 75.** Findings list CSS
+  scoped to direct children (nested bullets in finding 3 no longer get
+  circled 4/5/6 badges; they render as plain discs). Whole-runs review
+  block replaced: two much shorter candidates D (one section, stochastic
+  as a short bridge) and E (stochastic split into its own section);
+  isolated numeric results (judge-swap and simulator-diagnostic errors)
+  dropped from both.
+
 - 2026-07-19 (writeup thread): **Deploy batch 74.** The outside-supply
   paragraph (target shift + 34%/57% between-source variance shares) cut
   from the state section; outside supply is now introduced at the

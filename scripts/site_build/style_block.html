@@ -67,8 +67,8 @@
   code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.85em; }
 
   ol.summary { margin: 1.4rem 0 1.2rem; padding: 0; list-style: none; counter-reset: item; display: flex; flex-direction: column; gap: 0.85rem; }
-  ol.summary li { counter-increment: item; position: relative; padding-left: 2.4rem; }
-  ol.summary li::before {
+  ol.summary > li { counter-increment: item; position: relative; padding-left: 2.4rem; }
+  ol.summary > li::before {
     content: counter(item);
     position: absolute; left: 0; top: 0.14em;
     font-family: var(--sans); font-size: 0.8rem; font-weight: 600;
@@ -76,6 +76,8 @@
     width: 1.5rem; height: 1.5rem; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
   }
+  ol.summary li ul { list-style: disc; margin: 0.5rem 0 0; padding-left: 1.2rem; }
+  ol.summary li ul li { margin-bottom: 0.35rem; }
   ul.plain { margin: 0 0 1.05rem; padding-left: 1.2rem; }
   ul.plain li { margin-bottom: 0.55rem; }
 

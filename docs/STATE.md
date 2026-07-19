@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batches 54-55.** Batch 54 (committed
+  53146db): findings support text tightened, kept-mean section compressed.
+  Batch 55: state-variables.svg selector-gap line "g = k − p ≈ ρσ" now
+  uniform same-size mathtext (was mixed sizes + plain gray text);
+  model-recurrence.svg "outside source" label leader re-anchored to box
+  center. Site rebuilt, gh-pages + Artifact republished.
 - 2026-07-19 later (this thread): **9B ladder rung 250 MEASURED (chain
   session 1): em_freegen 0.296 — headroom PASSES on Qwen3.5-9B (the 4B
   never cleared 0.2) — but coherence bleed 0.802 fails its gate at this

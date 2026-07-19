@@ -267,7 +267,7 @@ body.append(eq1)
 body += term_label(c1_1, e1, e1 + 32, "own candidates' share of the pool mean",
                    anchor="end")
 body += term_label(c1_2, e1, e1 + 64, "outside source: share u at level s",
-                   anchor="end")
+                   anchor="middle")
 body += term_label(c1_3, e1, e1 + 32, "the selection term: agreement ρ × spread σ",
                    anchor="start")
 # clip note as a plain small gray note to the RIGHT of the equation (no leader/box),

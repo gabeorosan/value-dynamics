@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 56.** Findings polish:
+  finding 1 names its metric (mean absolute error on the 0-to-1 value
+  scale); finding 2 path-variation clause reworded (total round-to-round
+  value change); finding 3 support text rewritten numbers-free
+  (quantity-led, user-selected wording).
 - 2026-07-19 (writeup thread): **Deploy batches 54-55.** Batch 54 (committed
   53146db): findings support text tightened, kept-mean section compressed.
   Batch 55: state-variables.svg selector-gap line "g = k − p ≈ ρσ" now

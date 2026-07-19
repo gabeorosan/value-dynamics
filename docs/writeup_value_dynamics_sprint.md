@@ -177,7 +177,7 @@ recurrence with every term annotated, its iterated closed form, and the
 self-only special case — nothing fitted; σ and ρ are the round-1
 measurements.*
 
-## Whole runs from one measurement
+## Forecasting endpoints from first-round measurements
 
 Everything the model needs is measured in the first round: spread,
 agreement, and the pool composition. Iterated with those numbers frozen,
@@ -204,17 +204,16 @@ exact length).*
 
 
 The forecast stays accurate as it looks further ahead: its error is 0.100
-one round out and 0.130 four rounds out, while assuming no change degrades
-from 0.31 to 0.43. The reason is that selection moves a run mostly in its
+one round out and 0.130 four rounds out, while assuming no value change degrades
+from 0.31 to 0.43. This is because selection moves a run mostly in its
 first rounds and then levels off, so a forecast that gets the early move
 right stays right at the endpoint. Most of the remaining error comes from
 agreement drifting during the run: a judge's agreement depends on the
 candidate distribution in front of it, and training changes that
-distribution. Modeling this drift is the next experimental target.
+distribution.
 
-The deterministic forecast also gives only each run's average path. Real
-runs scatter around it, and the measurements say where the scatter comes
-from: the value is read from a limited number of sampled answers, so each
+The deterministic forecast only gives the average path that real runs
+scatter around: the value is read from a limited number of sampled answers, so each
 reading carries sampling noise, and selection, training, and the change in
 agreement each vary from round to round. The stochastic version of the
 model adds a random term at each of these points, with sizes taken from

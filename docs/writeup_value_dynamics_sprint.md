@@ -170,11 +170,6 @@ spread at R² 0.78 versus 0.58 for carrying spread forward unchanged, and
 score, the mean determines the variance. The continuous insecure-code
 score's spread is measured each round instead.
 
-Outside supply enters the state twice: it shifts the training targets away
-from the organism's own mean, and it adds between-source variation to the
-pool: 34% of within-prompt variance when the outside candidates come from
-the frozen base model, 57% when they come from another trained organism.
-
 ![The model: one round, iterated, self-only](figures/auto/model-recurrence/model-recurrence.svg)
 
 *The deterministic model built from the two round-1 dials: the one-round

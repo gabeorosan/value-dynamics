@@ -624,6 +624,10 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 74.** The outside-supply
+  paragraph (target shift + 34%/57% between-source variance shares) cut
+  from the state section; outside supply is now introduced at the
+  intervention cards where the context lives.
 - 2026-07-19 (writeup thread): **Deploy batch 73.** State section: Δq fit
   now "about 0.79 of the displacement per round" (0.009 intercept
   dropped); Bernoulli clause reworded ("for a binary score, the mean

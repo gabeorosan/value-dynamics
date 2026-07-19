@@ -216,7 +216,7 @@ The deterministic forecast only gives the average path that real runs
 scatter around. The value is read from a limited number of sampled answers, so each
 reading carries sampling noise, and the loop itself varies: the judge's
 picks land around ρσ rather than exactly on it, training lands near but
-not exactly on the kept mean, and agreement moves from round to round. The stochastic version of the
+not exactly on the kept mean, and agreement drifts between rounds. The stochastic version of the
 model adds a random term at each of these points, with sizes taken from
 the measured residuals; its equations are the figure below.
 

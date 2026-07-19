@@ -237,11 +237,11 @@ body.append(f'<line x1="{X(V_OLD)+14:.1f}" y1="{Y3}" x2="{X(K)-16:.1f}" '
 # the next value sits exactly at the kept mean k
 body.append(f'<circle cx="{X(K):.1f}" cy="{Y3}" r="9" fill="{GREEN}" '
             f'stroke="{GREEN}" stroke-width="2.5"/>')
-body.append(f'<rect x="{X(K)-78:.1f}" y="{Y3-42}" width="156" height="26" '
+body.append(f'<rect x="{X(K)-92:.1f}" y="{Y3-42}" width="184" height="26" '
             f'fill="white"/>')
 body.append(f'<text x="{X(K):.1f}" y="{Y3-22}" font-size="20.4" '
             f'font-weight="bold" font-style="italic" fill="{GREEN}" '
-            f'text-anchor="middle" font-family="{FONT}">new value ≈ k</text>')
+            f'text-anchor="middle" font-family="{FONT}">new value v ≈ k</text>')
 # training displacement (q -> k), under the step-3 line
 body.append(measure(Q, K, Y3 + 76,
                     "training displacement = k − q  =  gap + pool shift",

@@ -105,12 +105,10 @@ alternative-source × candidate-source conditions.
 
 ![The per-round measurements](figures/auto/state-variables/state-variables.svg)
 
-The four positions — `q`, `p`, `k`, `v` — and the distances between them
-are the model's whole vocabulary; the number-line figure below shows them in
-one picture, and every later equation reuses them unchanged. (Total SD
-across prompts is tracked separately as **distributional breadth** — it
-contains between-prompt differences the within-prompt selector cannot rank —
-and is never called spread.)
+The model tracks four positions, `q`, `p`, `k`, and `v`, and the distances
+between them; the number-line figure below shows them together. `q`, `p`,
+and `k` are candidate-pool means; `v` is the behavioral value read by the
+measurement probe, the coordinate the forecasts are about.
 
 ## One round: the value moves to what the judge keeps
 

@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 62.** Figure 5's update label
+  now reads "new value v ≈ k" (introduces the v symbol in-figure); the
+  four-positions paragraph rewritten (q, p, k = candidate-pool means; v =
+  probe-read behavioral value, the forecast coordinate); the
+  distributional-breadth definition cut (term was used nowhere else).
 - 2026-07-19 (writeup thread): **Deploy batch 61.** Measurements paragraph
   opener reworded: "Two quantities are measured each round, spread and
   agreement, and together they forecast the selector gap." (replaces "Per

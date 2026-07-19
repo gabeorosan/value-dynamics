@@ -703,7 +703,10 @@ rows already committed.
   two-GPU device map; capped auto is a trap; composite Qwen3_5Config;
   host SIGKILL at rung transitions but results save first). Resume state
   travels via dataset em359b-resume (errored kernels can't be kernel
-  sources). Session 2 (chain-b) running. SPEC:
+  sources). Session 2 (chain-b, fresh) replicated rung 250 with identical
+  numbers (deterministic rebuild confirmed), then the same transition
+  SIGKILL — one rung/session is the pattern. Session 3 pushed with the
+  resume dataset attached; starts directly at rung 500. SPEC:
   experiments/kaggle/kaggle_qwen35_9b_ladder_chain/SPEC.md.
 
 - 2026-07-19 (this thread): **(g1) Qwen3.5 ladders landed half-and-half.**

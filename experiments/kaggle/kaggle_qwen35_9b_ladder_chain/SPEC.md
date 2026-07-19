@@ -55,5 +55,17 @@ dose_ladder.
   em_rate 0.25. Host SIGKILL at the 250->500 transition; state banked to
   the em359b-resume dataset.
 - Session 2 (chain-b v1, 07-19): started FRESH (the kernel-source attach
-  was rejected; dataset hedge created mid-session) — redoes rung 250, then
-  500 until the soft cap.
+  was rejected; dataset hedge created mid-session). Redid rung 250 with
+  IDENTICAL numbers (em_freegen 0.296, bleed 0.802, em_choice 0.118,
+  em_rate 0.25) — deterministic rebuild confirmed. Zero think-leaks. Host
+  SIGKILL (exit -9) again ~3 min into the rung-500 phase — the transition
+  kill is reproducible (likely CPU-RAM OOM reloading the base model after
+  ~4 h of accumulated allocations). One rung per session is the pattern.
+  No new state beyond session 1, so the em359b-resume dataset needed no
+  refresh.
+- Session 3 (chain-b v2, 07-19): pushed with ONLY dataset
+  hirokenzan/em359b-resume attached (kernel_sources rejected for errored
+  kernels; dataset transport is the fix). Staging walks /kaggle/input,
+  finds the mount, restores organism adapter + results json to resume/ —
+  rung 250 skips, session starts directly at rung-500 training in a fresh
+  process (~3.7 h to measure), then attempts 750 until a cap or the kill.

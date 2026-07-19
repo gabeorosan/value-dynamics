@@ -108,12 +108,12 @@ alternative-source × candidate-source conditions.
 The model tracks four positions, `q`, `p`, `k`, and `v`, and the distances
 between them; the number-line figure below shows them together. `q`, `p`,
 and `k` are candidate-pool means; `v` is the behavioral value read by the
-measurement probe, the coordinate the forecasts are about.
+measurement probe, the coordinate forecasted by the model.
 
 ## One round: the value moves to what the judge keeps
 
-The judge touches the model only through which two candidates it keeps, and that
-channel is enough to steer the value. The parameter-free one-round rule is
+The judge enters the loop only as the choice of which two candidates are
+kept. The parameter-free one-round rule is
 
 `next value = kept candidate value mean`.
 

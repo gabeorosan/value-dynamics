@@ -624,6 +624,10 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 63.** v gloss now "the
+  coordinate forecasted by the model"; One-round opener cut to "The judge
+  enters the loop only as the choice of which two candidates are kept."
+  (dropping the trivial enough-to-steer clause).
 - 2026-07-19 (writeup thread): **Deploy batch 62.** Figure 5's update label
   now reads "new value v ≈ k" (introduces the v symbol in-figure); the
   four-positions paragraph rewritten (q, p, k = candidate-pool means; v =

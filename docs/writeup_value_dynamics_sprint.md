@@ -100,9 +100,7 @@ accumulated over its A-or-B comparisons (for the score oracle, the value
 score itself). Spread and agreement are measured within each prompt's pool
 and averaged over the round's prompts, and agreement changes little from
 round to round within a setup; 82% of its variance is between judge ×
-alternative-source × candidate-source conditions. One derived distance keeps the
-generator and the selector separate: **training displacement** `k − q`, how
-far the training target sits from the organism's own generated mean.
+alternative-source × candidate-source conditions.
 
 ![The per-round measurements](figures/auto/state-variables/state-variables.svg)
 
@@ -122,8 +120,8 @@ channel is enough to steer the value. The parameter-free one-round rule is
 
 Holding each complete experimental condition out, it predicts the next
 measured value at MAE **0.081** across all 340 rounds, versus 0.128 for
-predicting no change, and it beats using training displacement alone (0.098)
-or selector gap alone (0.112). A fitted update gain lands at 0.83 without
+predicting no change, and it beats using the kept-minus-own-mean distance
+alone (0.098) or selector gap alone (0.112). A fitted update gain lands at 0.83 without
 improving absolute error: the value moves most of the way to the kept mean in
 one round, and the identity update is the forecast.
 

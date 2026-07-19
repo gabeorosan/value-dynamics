@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 59.** Training displacement's
+  advance definition cut from the measurements paragraph (the concept is now
+  introduced at its first substantive use, the mixed-pool mechanics
+  paragraph, and in the one-round figure); the one-round-rule baseline
+  mention reworded to "the kept-minus-own-mean distance alone (0.098)".
 - 2026-07-19 (writeup thread): **Deploy batch 58.** Measurements paragraph:
   the "wherever σ and ρ appear below" aside removed; agreement-variance
   clause reworded to "changes little from round to round within a setup;

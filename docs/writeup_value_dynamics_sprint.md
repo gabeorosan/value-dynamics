@@ -158,25 +158,22 @@ versus 0.085 from the actual kept mean, on matched rounds.
 
 The model's state is the candidate distribution the organism itself
 generates: its mean `q` and its own-source within-prompt spread `s`.
-Training moves `q` toward the training target (across the 221 consecutive
-binary risk-axis transitions, `Δq = 0.009 + 0.789 × displacement` at
-r = 0.84), and on the binary risk score the new mean sets the next round's
-spread through
+Training moves `q` about 0.79 of the displacement per round (r = 0.84
+across the 221 consecutive binary risk-axis transitions), and on the
+binary risk score the new mean sets the next round's spread through
 
 `mean within-prompt variance = q(1−q) − variance across prompt means`.
 
 Held out one run at a time, this chain predicts the organism's next-round
 spread at R² 0.78 versus 0.58 for carrying spread forward unchanged, and
-0.65 versus 0.19 in mixed risk pools. The identity is Bernoulli-specific;
-on the continuous self-description axis spread is measured directly.
+0.65 versus 0.19 in mixed risk pools. This works because for a binary
+score, the mean determines the variance. The continuous insecure-code
+score's spread is measured each round instead.
 
 Outside supply enters the state twice: it shifts the training targets away
 from the organism's own mean, and it adds between-source variation to the
-pool (34% of within-prompt variance in base-mixed pools, 57% in
-peer-mixed). The matched injection pair shows both at once, same organism,
-judge, and seed, differing only at injection: the self-only twin has own
-spread 0.000 and stays put; adding base-model candidates supplies spread
-0.31, shifts the targets, and moves the value 0.627 to 0.000 in one round.
+pool: 34% of within-prompt variance when the outside candidates come from
+the frozen base model, 57% when they come from another trained organism.
 
 ![The model: one round, iterated, self-only](figures/auto/model-recurrence/model-recurrence.svg)
 

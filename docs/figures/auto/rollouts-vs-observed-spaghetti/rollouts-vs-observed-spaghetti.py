@@ -226,7 +226,7 @@ for _k, _rows in RUNS.items():
 PANELS = [
     ("A", "Qwen risk grid", "self-only pool; judges self / base / frozen / random"),
     ("B", "OLMo risk self-only", "frozen-judge grid + judge schedules"),
-    ("C", "OLMo mixed-pool", "base- and peer-mixed invade / erode / rescue / oracle"),
+    ("C", "OLMo mixed-pool", "outside candidates from the base model or a trained peer"),
 ]
 
 

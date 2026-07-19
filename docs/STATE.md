@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-19 (writeup thread): **Deploy batch 73.** State section: Δq fit
+  now "about 0.79 of the displacement per round" (0.009 intercept
+  dropped); Bernoulli clause reworded ("for a binary score, the mean
+  determines the variance"); twin example cut (lives in finding 3 +
+  interventions); base-/peer-mixed dissolved to plain descriptions in
+  prose and in the spaghetti figure's panel-C subtitle (regenerated).
 - 2026-07-19 (writeup thread): **Deploy batch 72.** Finding 3: "Three
   matched pairs, each changing one setting" removed; the three
   intervention clauses now a nested bullet list under the headline.

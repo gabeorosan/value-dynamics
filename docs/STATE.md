@@ -624,6 +624,13 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 97.** setup-both-models
+  figure (fig 3) tightened: red "a model fine-tuned to..." label moved
+  ABOVE each icon, icon→question-box arrow removed, whole lower figure
+  pulled up (DY=109) to close vertical whitespace; viewBox 1660×1428 →
+  1660×1319. "built on Qwen3-4B-Instruct" left as-is (verified correct:
+  base is Qwen/Qwen3-4B-Instruct-2507 for both organisms; the Qwen3.5
+  work is separate newer replication).
 - 2026-07-20 (writeup thread): **Deploy batch 96.** Intervention cards:
   card-1 legend gains the dotted "model forecast" key (sparkline() now
   emits it, matching card 2); identity lines made explicit + accurate —

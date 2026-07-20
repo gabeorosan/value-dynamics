@@ -624,6 +624,9 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 110.** Figure 3 judge-score
+  line moved again per user: now below the 0–1 value number line (was
+  under the value-score rule) in each behavioral-value panel.
 - 2026-07-20 (writeup thread): **Deploy batch 109.** Figure 3 judge-score
   placement revised per user: agreement-ρ line removed, judge-score
   definition moved from the bottom strip to a line right under the

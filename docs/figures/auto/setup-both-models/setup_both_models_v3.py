@@ -301,11 +301,6 @@ for (side, px, bg, accent, nprompts, prompt_label, prompt_lines,
     for i, rl in enumerate(rules):
         body.append(t(px + 24, cur, rl, 15.5, INK, "bold"))
         cur += 24
-        if i == 0:  # judge score sits right under the per-answer value score
-            body.append(t(px + 24, cur,
-                          "per answer: judge score = p(the judge picks it over the "
-                          "alternative), both A/B orders", 15.5, INK, "bold"))
-            cur += 24
     cur += 26
     ax0, ax1 = px + 110, px + PW - 110
     body.append(f'<line x1="{ax0}" y1="{cur}" x2="{ax1}" y2="{cur}" stroke="{INK}" stroke-width="3"/>')
@@ -313,6 +308,10 @@ for (side, px, bg, accent, nprompts, prompt_label, prompt_lines,
     body.append(f'<circle cx="{ax1}" cy="{cur}" r="7" fill="{RED}"/>')
     body.append(t(ax0, cur + 27, scale[0], 15, GREEN, "normal", "start"))
     body.append(t(ax1, cur + 27, scale[1], 15, RED, "normal", "end"))
+    # judge score: the separate quantity the judge selects on, below the scale
+    body.append(t(px + 24, cur + 62,
+                  "per answer: judge score = p(the judge picks it over the "
+                  "alternative), both A/B orders", 15.5, INK, "bold"))
 
 # lower figure pulled up by DY
 b.append(f'<g transform="translate(0,{-DY})">')

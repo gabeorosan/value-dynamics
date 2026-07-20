@@ -130,6 +130,81 @@ the two candidates the judge keeps (mean k) — and the value's move to k. The
 accuracy above (0.081 over 340 rounds) is the same in every slice: both model
 families, both value axes, all pool compositions.*
 
+> **REVIEW — pick one: three candidates for ALL the text between the
+> one-round figure above and the recurrence figure below. Each cuts the
+> training-displacement paragraph (its numbers stay in the reports) and
+> keeps only what the recurrence needs: the ρσ forecast and the state
+> update. Current text kept below for comparison.**
+>
+> **Candidate M — forecast paragraph, then iteration paragraph, no
+> subheader.**
+>
+> Before selection, two numbers predict where the kept mean will land.
+> How far the kept set's mean lands from the pool's depends on how much
+> the candidates vary on the value axis (spread σ) and how consistently
+> the judge's choices track that axis (agreement ρ):
+>
+> `predicted selector gap g = ρσ`, so `predicted kept mean k = p + ρσ`.
+>
+> Over the 290 rounds with logged judge scores, ρσ reconstructs the
+> realized selector gaps at R² 0.81 (mean absolute error 0.042), and
+> predicting the next value from the forecast kept mean is nearly as
+> accurate as using the actual kept mean (MAE 0.100 versus 0.085 on
+> matched rounds).
+>
+> Iterating takes one more step, the next round's spread. Training moves
+> the organism's own candidate mean about 0.79 of the way to the kept
+> mean per round, and for a binary value score the new mean fixes the new
+> spread: mean within-prompt variance = q(1−q) − variance across prompt
+> means. Held out one run at a time, this chain predicts next-round
+> spread at R² 0.78 versus 0.58 for carrying spread forward unchanged.
+> The continuous insecure-code spread is measured each round instead, and
+> agreement is carried forward from round 1. The figure below iterates
+> these pieces.
+>
+> **Candidate N — same two parts, keeps a short "The state the law
+> updates" subheader before the iteration part; retains the mixed-pool
+> spread numbers.**
+>
+> Before selection, two numbers predict where the kept mean will land:
+> how much the candidates vary on the value axis (spread σ), and how
+> consistently the judge's choices track that axis (agreement ρ):
+>
+> `predicted selector gap g = ρσ`, so `predicted kept mean k = p + ρσ`.
+>
+> ρσ reconstructs the realized selector gaps at R² 0.81 (mean absolute
+> error 0.042) over the 290 rounds with logged judge scores; predicting
+> the next value from the forecast kept mean gives MAE 0.100, versus
+> 0.085 from the actual kept mean, on matched rounds.
+>
+> ## The state the law updates
+>
+> Training moves the organism's own candidate mean about 0.79 of the way
+> to the kept mean per round, and for a binary value score the new mean
+> fixes the next spread through mean within-prompt variance = q(1−q) −
+> variance across prompt means. Held out one run at a time, this predicts
+> next-round spread at R² 0.78 versus 0.58 for carrying spread forward
+> unchanged (0.65 versus 0.19 in mixed risk pools). The continuous
+> insecure-code spread is measured each round instead; agreement is
+> carried forward from round 1.
+>
+> **Candidate O — tightest: one paragraph per idea, fewest numbers.**
+>
+> Before selection, ρσ predicts the selector gap: candidates must vary on
+> the value axis (spread σ) and the judge's choices must track it
+> (agreement ρ), and their product reconstructs the realized gaps at
+> R² 0.81 over the 290 rounds with logged judge scores, so
+> `predicted kept mean k = p + ρσ`.
+>
+> To iterate, training moves the organism's own candidate mean about 0.79
+> of the way to the kept mean each round; for a binary value score the new
+> mean sets the next spread (q(1−q) minus the variance across prompt
+> means; held-out R² 0.78 versus 0.58 for assuming no change), the
+> continuous insecure-code spread is measured each round, and agreement is
+> carried forward from round 1.
+
+> **Current text (unchanged) below.**
+
 Two things separate the kept mean from the organism's own mean: selection
 within the pool (the selector gap) and, in mixed pools, the outside
 candidates shifting the pool itself (the pool shift). Their sum is

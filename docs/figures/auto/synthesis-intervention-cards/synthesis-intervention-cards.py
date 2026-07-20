@@ -717,10 +717,10 @@ def mini_dial(x, w, y_track, name, frm, to, kind, moved):
             return f"{v:+.2f}".replace("-", "−")
     # header: name (INK, always readable) + reading (dial colour, colored delta)
     hy = y_track - 23
-    s.append(txt(x0, hy, name, 15.5, INK, weight="bold"))
+    s.append(txt(x0, hy, name, 14, INK, weight="bold"))
     pinned = abs(to - frm) < 0.02
     reading = fmt(to) if pinned else f"{fmt(frm)} → {fmt(to)}"
-    s.append(txt(x1, hy, reading, 15.5, color, weight="bold",
+    s.append(txt(x1, hy, reading, 14, color, weight="bold",
                  anchor="end"))
     # track + optional zero tick
     s.append(f'<line x1="{x0}" y1="{y_track}" x2="{x1}" y2="{y_track}" '
@@ -826,20 +826,20 @@ def pair_panel(x, y, w, h, title, entries):
 # ====================================================================
 # Card
 # ====================================================================
-CARD_W = 372
-CARD_H = 500
+CARD_W = 460
+CARD_H = 452
 PAD = 22
-DIAL_W = CARD_W - 92   # track width for both dials
+DIAL_GAP = 28
+DIAL_W = (CARD_W - 2 * PAD - DIAL_GAP) // 2   # the two dials sit side by side
 # fixed vertical bands inside a card (offsets from card top y)
 Y_ID = 62          # first identity line
 Y_DIVIDER = 118
 Y_DIAL_SUBHEAD = 136
-Y_DIAL1 = 172      # dial-row 1 (the moved dial) track centre
-Y_DIAL2 = 226      # dial-row 2 (the matched, held dial) track centre
-Y_TRAJ_HEAD = 264
-Y_SPARK = 284      # sparkline box top
+Y_DIAL1 = 172      # the single dial row (moved dial left/red, held right/gray)
+Y_TRAJ_HEAD = 214
+Y_SPARK = 234      # sparkline box top
 SPARK_H = 116
-Y_LEGEND = 442     # first legend row baseline
+Y_LEGEND = 392     # first legend row baseline
 
 
 def card(x, y, num, title, identity_lines, dials, spark_svg):
@@ -859,12 +859,13 @@ def card(x, y, num, title, identity_lines, dials, spark_svg):
     s.append(txt(x + PAD, y + Y_DIAL_SUBHEAD,
                  "Both selection dials, in the two conditions (from → to)",
                  13, GRAY))
-    for spec, yt in zip(dials, (y + Y_DIAL1, y + Y_DIAL2)):
+    for spec, dx in zip(dials, (x + PAD, x + PAD + DIAL_W + DIAL_GAP)):
         name, frm, to, kind, moved = spec
+        yt = y + Y_DIAL1
         if kind == "cat":
-            s.append(cat_dial(x + PAD, DIAL_W, yt, name, frm, to, moved))
+            s.append(cat_dial(dx, DIAL_W, yt, name, frm, to, moved))
         else:
-            s.append(mini_dial(x + PAD, DIAL_W, yt, name, frm, to, kind, moved))
+            s.append(mini_dial(dx, DIAL_W, yt, name, frm, to, kind, moved))
     s.append(txt(x + PAD, y + Y_TRAJ_HEAD, "The measured value that followed",
                  15, INK, weight="bold"))
     s.append(spark_svg)
@@ -872,7 +873,7 @@ def card(x, y, num, title, identity_lines, dials, spark_svg):
 
 
 def build():
-    x0, y0 = 44, 126
+    x0, y0 = 44, 100
     gap = 24
     row_gap = 46
     step = CARD_W + gap
@@ -892,7 +893,8 @@ def build():
         return y0 + ((num - 1) // ncol) * row_step
 
     b = []
-    # headline (orientation only — interpretation lives in caption.md)
+    # headline (orientation only — interpretation lives in caption.md; the
+    # dotted-forecast / 80%-band explanation lives in each card's key)
     b.append(txt(60, 46,
                  "Two matched interventions — move one selection dial, read the "
                  "value that follows",
@@ -900,11 +902,6 @@ def build():
     b.append(txt(60, 74,
                  "Each card holds an experiment fixed and changes ONE selection "
                  "knob; the moved dial is drawn red, the held dial gray.",
-                 16.5, GRAY))
-    b.append(txt(60, 96,
-                 "Each card's identity line and the caption give the recipe. "
-                 "Dotted line = the model's forecast from that run's round-1 "
-                 "measurements; shaded band = its 80% range.",
                  16.5, GRAY))
 
     # per-card trajectory panels (built at the card's own x,y)

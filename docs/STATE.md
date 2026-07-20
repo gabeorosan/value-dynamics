@@ -624,6 +624,14 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 102.** Intervention cards
+  reflowed WIDE (cards 460px, dials side-by-side in one row, redundant
+  subtitle line dropped; viewBox 856×650→1032×576, rendered height
+  −27% at capped page width). Fig-5→6 REVIEW block added: three
+  candidates (M/N/O) covering all text between the one-round figure and
+  the recurrence figure, each cutting the training-displacement
+  paragraph and keeping only ρσ + the state update; current text below
+  for comparison.
 - 2026-07-20 (writeup thread): **Deploy batch 101.** Intervention cards
   shrunk again (CARD_H 536→500, SPARK_H 132→116, header band tightened;
   viewBox 856×732→856×650); card-2 swap-point label 0.917 moved

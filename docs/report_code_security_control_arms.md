@@ -68,7 +68,7 @@ offers a genuine security contrast, but the within-prompt spread of the
 organism's own valid code is too small for the judge to convert into a
 selector gap — exactly the σ ≈ 0.06 the preregistered forecast measured.
 
-## Result 3 — the organism cannot self-supply the material (width test)
+## Result 3 — the width test failed as a TOOL: temperature is the wrong knob, and its endpoint is uninterpretable
 
 The material-width test asked whether raising generation temperature to 1.3
 (selection pools only; readouts held at temperature 1.0) could restore enough
@@ -76,10 +76,15 @@ own-pool spread for the anti-insecurity judgment to act. It **failed its
 preregistered manipulation gate** (INVALID_MANIPULATION, seed 71 round 1):
 within-task manual-severity SD gained only +0.047 over the matched control
 (gate ≥ 0.05), and the Python parse rate fell 0.972 → 0.806 (gate: ≥ 0.90
-and within 0.10 of control). The added variation is degraded or unparseable
-output, not a safer valid tail: the organism's *valid* code is uniformly
-insecure. The run was not resumed; escalating temperature further would
-worsen parseability first. The self-supply line is closed.
+and within 0.10 of control). Temperature added degraded and unparseable
+output rather than usable width — a failure of the *manipulation*, so the
+run's endpoint says nothing about whether the organism can or cannot
+self-generate a safer valid tail (correction ledgered 07-16; earlier wording
+here claimed the organism's valid code is "uniformly insecure" — that is NOT
+established). The run was not resumed because escalating temperature further
+would worsen parseability first; a controlled-material dose-response (inject
+a fixed parse-guaranteed secure candidate) is the queued clean replacement
+(Runs queue Q2).
 
 ## What this settles, and its scope
 
@@ -94,7 +99,11 @@ the pool* and *the judge's agreement* are separate dials, and the literature
 analogue of variance injection in elite-refitting loops.
 
 Scope: one organism family (OLMo dose-500), 2 seeds per arm, 3 rounds,
-6 + 6 tasks; the width test failed at its gate in seed 71 round 1 and was
-not run further, so "cannot self-supply" is established for temperature
-escalation up to 1.3, not for all conceivable diversity interventions
-(e.g., prompt-side diversification is untested).
+6 + 6 tasks. The width test is excluded from the verdict's evidence: it
+failed its manipulation gate at seed 71 round 1 (a tool failure —
+temperature degrades parse before it supplies safe code), so the
+"erosion needs an external supplier" verdict rests on the two null
+self-only arms plus the judge decomposition alone. Whether some other
+diversity intervention (e.g., prompt-side diversification, or the queued
+curated-candidate injection) could restore self-supplied material is
+open.

@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 112.** Figure 9 (spaghetti):
+  removed the "Each panel shows the same runs…" exclusion note and the
+  "one trajectory per run" key entry; enlarged the "simulated ensemble
+  10–90% band" key label (14→17) and its swatch. Figure 10 (cards):
+  removed the "Both selection dials, in the two conditions (from → to)"
+  subhead line above the dials.
 - 2026-07-20 (writeup thread): **Deploy batch 111.** Figure 5
   (model-one-round-line): the three distance-marker labels (pool shift /
   selector gap / training displacement) dropped from y+26 to y+34 in

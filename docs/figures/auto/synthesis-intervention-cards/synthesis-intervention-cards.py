@@ -856,9 +856,6 @@ def card(x, y, num, title, identity_lines, dials, spark_svg):
         iy += 20
     s.append(f'<line x1="{x+PAD}" y1="{y+Y_DIVIDER}" x2="{x+CARD_W-PAD}" '
              f'y2="{y+Y_DIVIDER}" stroke="#d8dee6" stroke-width="1.5"/>')
-    s.append(txt(x + PAD, y + Y_DIAL_SUBHEAD,
-                 "Both selection dials, in the two conditions (from → to)",
-                 13, GRAY))
     for spec, yt in zip(dials, (y + Y_DIAL1, y + Y_DIAL2)):
         name, frm, to, kind, moved = spec
         if kind == "cat":

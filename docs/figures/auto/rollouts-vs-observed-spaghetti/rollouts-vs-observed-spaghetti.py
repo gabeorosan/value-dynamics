@@ -271,22 +271,11 @@ S.append(txt(LEFT, 74,
              "actually observed; bottom row is one simulated rollout per run from "
              "its round-1 pool state.", 16, GRAY))
 
-# ---- one-line legend: band + trajectory line -----------------------------
+# ---- one-line legend: the simulated-ensemble band ------------------------
 _lx = LEFT
-S.append(f'<rect x="{_lx}" y="94" width="26" height="13" fill="{BAND_FILL}" '
+S.append(f'<rect x="{_lx}" y="90" width="32" height="18" fill="{BAND_FILL}" '
          f'fill-opacity="0.75"/>')
-S.append(txt(_lx + 33, 105, "simulated ensemble 10–90% band", 14, GRAY))
-_lx2 = _lx + 300
-S.append(line(_lx2, 100, _lx2 + 26, 100, LINE_COL, LINE_SW))
-S.append(txt(_lx2 + 33, 105, "one trajectory per run", 14, GRAY))
-
-# ---- one short draw-count note (kept per user directive) -----------------
-_excl = [(fam, COUNTS[fam][0] - COUNTS[fam][1]) for fam, _, _ in PANELS
-         if COUNTS[fam][0] > COUNTS[fam][1]]
-_note = ("Each panel shows the same runs in both rows; "
-         + ", ".join(f"{n} of panel {fam}'s runs" for fam, n in _excl)
-         + " are excluded for lacking a measurable round-1 agreement (ρ).")
-S.append(txt(LEFT, 130, _note, 14, GRAY))
+S.append(txt(_lx + 40, 106, "simulated ensemble 10–90% band", 17, GRAY))
 
 # ---- geometry ------------------------------------------------------------
 HEADER_Y = 168           # column header baseline

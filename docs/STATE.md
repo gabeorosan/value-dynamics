@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 107.** Intervention cards:
+  large font sizes reduced (headline 28→23, card title 18.5→16, number
+  badge 20→16, subtitles 16.5→14.5, dial name/reading 15.5→14, traj head
+  15→14, data value labels 15/16→13.5); small fonts (identity 14.5, axis
+  12.5–14, legend/key 13.5–14.5, dial subhead 13) unchanged. Full
+  headline now fits on one line.
 - 2026-07-20 (writeup thread): **Deploy batch 106.** Channel-primacy
   paragraph moved out of "What I measure" (user pick: end notes): a
   condensed version now sits in Limitations (self-description channel =

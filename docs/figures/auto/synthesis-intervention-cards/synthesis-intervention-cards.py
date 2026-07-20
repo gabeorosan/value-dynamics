@@ -429,14 +429,14 @@ def sparkline(x, y, w, h, series, legend_x, legend_y, preds=None):
         if len(v) > 1 and abs(v[0] - v[-1]) < 0.01:
             pass  # essentially flat: the end label already shows this value
         elif len(v) > 1 and v[1] > v[0] + 0.03:
-            s.append(txt(sx - 6, sy + 5, startlbl, 15, color, weight="bold",
+            s.append(txt(sx - 6, sy + 5, startlbl, 13.5, color, weight="bold",
                          anchor="end"))
         else:
-            s.append(txt(sx + 2, sy - 11, startlbl, 15, color, weight="bold"))
+            s.append(txt(sx + 2, sy - 11, startlbl, 13.5, color, weight="bold"))
         # end value (compact, right of last point — fits inside card)
         ex, ey = pts[-1]
         endval = "0.000" if v[-1] == 0 else f"{v[-1]:.3f}".rstrip("0").rstrip(".")
-        s.append(txt(ex + 8, ey + 5, endval, 16, color, weight="bold"))
+        s.append(txt(ex + 8, ey + 5, endval, 13.5, color, weight="bold"))
     s.append(txt(x + w / 2, y + h + 26, "rounds →", 14, GRAY, anchor="middle"))
     # legend (color swatch + word) below, left-aligned to card
     ly = legend_y
@@ -514,17 +514,17 @@ def spliced_line(x, y, w, h, seg_a, seg_b, ca, cb, legend_x, legend_y,
     # value labels
     sx, sy = pt(0)
     s.append(txt(sx - 6, sy + 5,
-                 f"{seg_a[0]:.3f}".rstrip("0").rstrip("."), 15, ca,
+                 f"{seg_a[0]:.3f}".rstrip("0").rstrip("."), 13.5, ca,
                  weight="bold", anchor="end"))
     # swap-point value label sits above-right of the dot, clear of the
     # descending observed/forecast lines and the dashed swap marker
     ox, oy = pt(ka)
     s.append(txt(ox + 12, oy - 8,
-                 f"{seg_b[0]:.3f}".rstrip("0").rstrip("."), 15, cb,
+                 f"{seg_b[0]:.3f}".rstrip("0").rstrip("."), 13.5, cb,
                  weight="bold"))
     ex, ey = pt(n - 1)
     s.append(txt(ex + 8, ey + 5,
-                 f"{seg_b[-1]:.3f}".rstrip("0").rstrip("."), 16, cb,
+                 f"{seg_b[-1]:.3f}".rstrip("0").rstrip("."), 13.5, cb,
                  weight="bold"))
     s.append(txt(x + w / 2, y + h + 26, "rounds →", 14, GRAY, anchor="middle"))
     # two-colour key (one line, two eras)
@@ -717,10 +717,10 @@ def mini_dial(x, w, y_track, name, frm, to, kind, moved):
             return f"{v:+.2f}".replace("-", "−")
     # header: name (INK, always readable) + reading (dial colour, colored delta)
     hy = y_track - 23
-    s.append(txt(x0, hy, name, 15.5, INK, weight="bold"))
+    s.append(txt(x0, hy, name, 14, INK, weight="bold"))
     pinned = abs(to - frm) < 0.02
     reading = fmt(to) if pinned else f"{fmt(frm)} → {fmt(to)}"
-    s.append(txt(x1, hy, reading, 15.5, color, weight="bold",
+    s.append(txt(x1, hy, reading, 14, color, weight="bold",
                  anchor="end"))
     # track + optional zero tick
     s.append(f'<line x1="{x0}" y1="{y_track}" x2="{x1}" y2="{y_track}" '
@@ -760,7 +760,7 @@ def cat_dial(x, w, y_track, name, frm, to, moved):
     s = []
     x0, x1 = x, x + w
     hy = y_track - 23
-    s.append(txt(x0, hy, name, 15.5, INK, weight="bold"))
+    s.append(txt(x0, hy, name, 14, INK, weight="bold"))
     reading = frm if same else f"{frm} → {to}"
     s.append(txt(x1, hy, reading, 14, color, weight="bold", anchor="end"))
     # track with two nodes
@@ -847,9 +847,9 @@ def card(x, y, num, title, identity_lines, dials, spark_svg):
     (rendered in row 1, red); the matched held dial second (row 2, gray)."""
     s = [box(x, y, CARD_W, CARD_H, CARD_FILL, INK, 2.5, rx=14)]
     s.append(f'<circle cx="{x+PAD+13}" cy="{y+30}" r="17" fill="{INK}"/>')
-    s.append(txt(x + PAD + 13, y + 36, str(num), 20, "white", weight="bold",
+    s.append(txt(x + PAD + 13, y + 36, str(num), 16, "white", weight="bold",
                  anchor="middle"))
-    s.append(txt(x + PAD + 40, y + 37, title, 18.5, INK, weight="bold"))
+    s.append(txt(x + PAD + 40, y + 37, title, 16, INK, weight="bold"))
     iy = y + Y_ID
     for ln in identity_lines:
         s.append(txt(x + PAD, iy, ln, 14.5, GRAY))
@@ -866,7 +866,7 @@ def card(x, y, num, title, identity_lines, dials, spark_svg):
         else:
             s.append(mini_dial(x + PAD, DIAL_W, yt, name, frm, to, kind, moved))
     s.append(txt(x + PAD, y + Y_TRAJ_HEAD, "The measured value that followed",
-                 15, INK, weight="bold"))
+                 14, INK, weight="bold"))
     s.append(spark_svg)
     return "\n".join(s)
 
@@ -896,16 +896,16 @@ def build():
     b.append(txt(60, 46,
                  "Two matched interventions — move one selection dial, read the "
                  "value that follows",
-                 28, INK, weight="bold"))
+                 23, INK, weight="bold"))
     b.append(txt(60, 74,
                  "Each card holds an experiment fixed and changes ONE selection "
                  "knob; the moved dial is drawn red, the held dial gray.",
-                 16.5, GRAY))
+                 14.5, GRAY))
     b.append(txt(60, 96,
                  "Each card's identity line and the caption give the recipe. "
                  "Dotted line = the model's forecast from that run's round-1 "
                  "measurements; shaded band = its 80% range.",
-                 16.5, GRAY))
+                 14.5, GRAY))
 
     # per-card trajectory panels (built at the card's own x,y)
     def spark_of(num, series):

@@ -622,6 +622,18 @@ rows already committed.
   free-gen for the E2 noise floor, prints passing doses + noise. Analysis:
   ready to launch on Colab (~2 h if the organism adapter is present).
 
+- 2026-07-20 (writeup thread): **Deploy batch 131.** TAIL REWRITTEN
+  (everything after the intervention-cards figure; user: not bound to
+  old content). Related frameworks now argues why a population-genetics
+  law applies rather than listing citations; Where this should transfer
+  leads with the model's actual content (three quantities) and carries
+  the self-judge-does-not-preserve-your-value point; Next directions
+  ordered by what the model itself exposes (agreement drift first);
+  Limitations states the generated-vs-represented and
+  self-description-vs-code scope plainly. Records condensed from the
+  per-file dump to the ledger + five key reports + reproduction gate +
+  compute line. No em dashes; all numbers ledger-checked (17–42% blind
+  release sets, 6/13 and 2/5 grids, three owner-blind screens).
 - 2026-07-20 (writeup thread): **Deploy batch 130.** Three figure titles
   per user picks: kit → "The experimental loop's six components" (user
   wanted a better word than parameters/slots; subtitle de-slotted too),

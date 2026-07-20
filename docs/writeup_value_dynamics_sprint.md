@@ -174,120 +174,144 @@ Swapping the base-model judge for the min-risk oracle (making agreement
 
 ## Related frameworks
 
-The loop's pieces have standard names. The selector gap is the
-selection differential of the [Price equation](https://doi.org/10.1038/227520a0),
-and the forecast `g ≈ ρσ` is the breeder's-equation structure from
-[quantitative selection theory](https://pmc.ncbi.nlm.nih.gov/articles/PMC7133505/) —
-there, a selection differential is (how hard the selector culls) × (how well
-its criterion correlates with the trait) × (the trait's SD); with the keep
-rule fixed at keep-two-of-six throughout, the first factor is constant and
-folds into the measured ρ. Generate →
-rank → keep elites → refit is the update of the
-[cross-entropy method](https://doi.org/10.1007/s10479-005-5724-z): the elite
-mean is the update target (why the kept-mean law works), spread is the
-generator's exploration variance, and CE's variance-shrinkage warnings and
-variance-injection remedies are the algorithmic analogue of self-pool
-starvation and outside-source reopening.
-[Reward-model overoptimization](https://arxiv.org/abs/2210.10760) is why
-agreement must be re-measured after the candidate distribution shifts; the
-[model-collapse](https://www.nature.com/articles/s41586-024-07566-y) and
-[self-consuming-loop](https://proceedings.iclr.cc/paper_files/paper/2024/hash/ebc042e767de551803ccfcc45e2454f5-Abstract-Conference.html)
-results motivate tracking how much variety the pool still has and whether
-new material is arriving, without establishing this experiment's measured
-value-axis mechanism.
+The loop is a selection process, so the quantities in it already have names.
+The selector gap is a **selection differential** in the sense of the
+[Price equation](https://doi.org/10.1038/227520a0), and `g = ρσ` is the
+structure of the **breeder's equation** from
+[quantitative selection theory](https://pmc.ncbi.nlm.nih.gov/articles/PMC7133505/):
+a selection differential is how hard the selector culls, times how well its
+criterion correlates with the trait, times the trait's spread. The keep rule
+here is fixed at two of six for every run, so the first factor is constant and
+folds into the measured ρ, leaving the two-term product. That the loop obeys a
+law from population genetics is not a metaphor: the model trains on a selected
+subset of a population it generated, which is what those equations describe.
+
+The same shape appears in optimization. Generate, rank, keep the best few,
+refit is the [cross-entropy method](https://doi.org/10.1007/s10479-005-5724-z),
+where the kept mean is the update target and spread is the generator's
+exploration variance. Its known failure mode, variance collapsing until the
+search stops moving, is the same starvation seen here when a pool has nothing
+left to choose between, and its standard remedy, injecting variance, is what
+the base-model answers do in the first intervention card.
+
+Two nearby literatures describe things this model does not.
+[Reward-model overoptimization](https://arxiv.org/abs/2210.10760) is about a
+judge whose agreement with the underlying goal decays as the policy moves,
+which is why agreement has to be re-measured when the candidate distribution
+shifts rather than assumed fixed forever.
+[Model collapse](https://www.nature.com/articles/s41586-024-07566-y) and
+[self-consuming loops](https://proceedings.iclr.cc/paper_files/paper/2024/hash/ebc042e767de551803ccfcc45e2454f5-Abstract-Conference.html)
+concern distributional degeneration under recursive training. Both motivate
+watching spread, but neither predicts which direction a value moves, which is
+what the selection term supplies.
 
 ## Where this should transfer
 
-The model makes measurable predictions about setups it was not fit on. A
-self-rewarding pipeline is a self-judge on self-only pools: expect movement
-to stall as selection homogenizes the generator's output unless outside data
-arrives — and remember judgment and generation can disagree, in which case
-the loop erodes the value instead of amplifying it. A constitutional loop
-judges against a fixed alternative: measure agreement under the deployed
-comparison protocol, because reference-anchored agreement did not transfer
-to pairwise choice here. A pipeline mixing vendor or web text is a mixed
-pool: the outside source shifts the training targets and adds
-between-source variation. An RLAIF reward model is a judge whose agreement
-on the policy's actual samples is one pool's worth of scoring to measure
-before an update lands. Each is the same three measurements adapted, at
-pilot cost.
+The model was fit on small open models and two narrow values, so the useful
+question is what it says about setups it never saw. Its content is that only
+three things matter: how much the candidates vary, how well the judge's
+preferences line up with the value, and what fraction of the pool comes from
+somewhere else. Any pipeline with those three quantities is in scope.
+
+A self-rewarding pipeline is a self-judge on a self-only pool. Expect movement
+to slow as selection homogenizes the generator's own output, and expect the
+direction to depend on the sign of agreement rather than on the intent behind
+the setup. A model that judges its own answers is not thereby preserving its
+value: in these runs the same self-judge that amplified one value eroded
+another, because what moved was the correlation between its preferences and
+the measured axis, not its loyalty to the trait.
+
+A constitutional loop judges each candidate against a fixed reference. The
+measurement to take is agreement under the deployed comparison format, not a
+convenient proxy: agreement measured against a fixed reference did not carry
+over to head-to-head choice in these runs, and the same judge produced
+different selection pressure under the two formats.
+
+A pipeline that mixes in vendor or web text is a mixed pool. The outside
+source shifts the training target toward its own level, so the endpoint is
+pulled toward the supplier rather than toward whatever the judge prefers.
+An RLAIF reward model is a judge whose agreement, measured on the policy's
+current samples, is one pool's worth of scoring away.
+
+In each case the forecast costs one round of measurement before committing
+compute to the run.
 
 ## Next directions
 
-First, model the missing agreement trajectory: ρ costs one pool's worth of
-judge scores — track it round by round across judges, alternative sources,
-and changing pools, and test whether its changes are predictable from the
-new candidate distribution rather than merely re-measurable. Second, keep
-predicting before the data arrives: measure the first round, commit the
-forecast, then score it, on every new run family. Judge swaps are the place
-to start, since a swap changes agreement mid-run and the forecast has to be
-re-measured at that point rather than carried through; fix the rule for when
-to re-measure before collecting the trajectories. Third, experiments on the
-factors themselves: dose–response of injection share, whether the binary
-spread rule still holds over longer horizons, and one cheap cross-channel
-test:
-the self-description loops saved their endpoint adapters, so blind-scoring
-the code those endpoints write would answer whether training on
-self-description moves actual code quality, the one direction of that
-coupling no run has measured. Fourth, the sharper versions of the earlier
-directions: thinking models make the judgment channel readable (agreement
-as an inspectable argument, not just a number); letting the model modify
-its own training setup asks which control channels move spread, agreement,
-or the outside-source term fastest; mechanistic measures would show what
-else moves when the measured coordinate does.
+The clearest gap is agreement over time. This model freezes ρ at round 1 and
+carries it forward, which works because agreement is stable within a setup,
+but most of the remaining forecast error sits there. Agreement costs one
+pool's worth of judge scores to measure, so it is cheap to track round by
+round; the open question is whether its drift is itself predictable from the
+new candidate distribution, which would close the loop rather than just
+re-measure it.
+
+The second is to keep making calls before seeing the data. Measure the first
+round, commit the forecast, then score it. Judge swaps are the sharpest test,
+since a swap changes agreement mid-run and the forecast has to be re-measured
+at that point rather than carried through; fixing the re-measurement rule
+before collecting the trajectories is what makes the result mean anything.
+
+The third is the factors themselves: how endpoint depends on the share of
+injected outside material, whether the binary spread rule survives longer
+horizons, and whether training on self-description moves the behavior it
+describes. That last one is nearly free here, since the self-description
+loops saved their endpoint adapters and blind-scoring the code those models
+write would settle a coupling no run in this program has measured.
+
+Further out, the interesting versions are the ones this setup cannot reach.
+Reasoning models would make the judging channel legible, turning agreement
+from a correlation into an argument that can be read. Letting a model change
+its own loop settings, rather than having them varied for it, asks which
+control it reaches for first. And interpretability tools would say what else
+moves when the measured coordinate does, which is the question this whole
+approach leaves open.
 
 ## Limitations
 
-Short LoRA loops: four rounds (eight in the schedule runs), two small open
-model families, two narrow value coordinates. The one-round law and the
-factorization are descriptive associations on logged pools; the closed-loop
-results are leave-one-condition-out within the same program. The prospective
-evidence is two items: a predictor frozen before the runs, which beat an
-otherwise matched predictor without the selector-gap term by 17–42% on three
-blind release sets, and the scored control-arm forecast
-(`report_control_arm_forecast_score.md`). The rule that the new mean sets
-the next spread is specific to the binary risk score.
-In the insecure-code loops the primary coordinate is the self-description
-channel because the three habit questions are also the loop's training
-prompts (no per-round code-writing was logged to score); the one family
-trained on coding tasks, the OLMo code-security loop and its controls,
-scores the code itself and its results live in the repository reports.
-Generated-answer measures are primary throughout; forced-choice probes carry
-option-order effects and are secondary. Many finer-grained preregistered
-predictions in the wider program failed: one grid met 6 of its 13 criteria,
-another 2 of 5, and three separate screens for owner-blind judging each fell
-to nested confounds. The rest of that program lives in the repository reports
-and the claim ledger, and the archived full draft is
-`docs/writeup_archive_2026-07-15_full_program.md`.
+These are short loops on small models: four rounds, eight in the schedule
+runs, two open model families, two narrow value coordinates, LoRA adapters
+rather than full fine-tunes. Nothing here establishes what happens over
+hundreds of rounds or at frontier scale.
+
+The one-round rule and the `ρσ` factorization are descriptive associations
+measured on logged pools, and the closed-loop results hold out one
+experimental condition at a time within a single program, which is weaker
+than replication by someone else. The prospective evidence is two items: a
+predictor frozen before the runs, which beat an otherwise matched predictor
+without the selector-gap term by 17–42% on three blind release sets, and one
+preregistered forecast for the code-security control arms that was scored
+after the fact. The rule that the new mean sets the next spread is specific
+to the binary risk score; the continuous axis has its spread measured each
+round instead.
+
+The value coordinate is what the model generates, not what it internally
+represents, and on the insecure-code side it is what the model says about its
+coding habits rather than the code it writes. Those three habit questions are
+also the loop's training prompts, which is why that channel is the one the
+loop acts on, but it means the self-description results do not license claims
+about code quality. Forced-choice probes are reported as secondary throughout,
+because they carry option-order effects.
+
+Plenty in the wider program did not work. Many finer-grained preregistered
+predictions failed: one grid met 6 of its 13 criteria, another 2 of 5, and
+three separate screens for owner-blind judging each fell to nested confounds.
+Those failures, and the rest of the program, are in the repository reports and
+the claim ledger.
 
 ## Records
 
-Primary records in the project repository under `docs/`:
-`ANALYSIS_LEDGER.md` (the claim registry) ·
-`report_spread_util_unified.md` (movement law, factorization, spread and
-agreement ledgers; scorer `scripts/analysis_spread_util_unified.py` →
-`experiments/spread_util_unified.json`) ·
-`report_predictive_model_literature.md` and
-`report_value_predictor_models.md` (the unit selection-response model and the
-one-round predictor bakeoff; scorers
-`scripts/analysis_selection_response_predictor.py` and
-`scripts/analysis_value_predictor_bakeoff.py`) ·
-`report_spread_conversion_model.md` and `report_spread_definition_audit.md`
-(the generator-state conversion chain; estimator fine print and alternatives) ·
-`report_spread_rollout_bakeoff.md`, `report_rollout_property_fidelity.md`,
-`report_unit_rollout_properties.md`, and `report_model_ladder_horizon.md`
-(closed-loop endpoint, path-property, and horizon analyses) ·
-`report_trajectory_adjustment_bakeoff.md` (noise location and the staged
-stochastic forecast) ·
-`report_olmo_code_security_duel_loop.md`,
-`report_code_security_control_arms.md`, and
-`report_control_arm_forecast_score.md` (the erosion experiment, its control
-arms, and the scored preregistered forecast) ·
-`report_loop_integrator_decomposition.md` (frozen gap predictor) ·
-`report_crossfamily_oracle.md`, `report_mixed_reopen_qwen.md`,
-`report_pool_rescoring.md`, `report_head2head_olmo.md` (the underlying
-experiments) · `report_prewriteup_reproduction_gate.md` (every modeling
-script re-run; all committed results regenerate byte-identically).
+Every number in this post traces to a committed result file through a named
+scorer. The claim registry is `docs/ANALYSIS_LEDGER.md`, which maps each claim
+to its data, its scorer, and its current verdict. The core analyses are
+`report_spread_util_unified.md` (the movement law and the `ρσ` factorization),
+`report_spread_rollout_bakeoff.md` and `report_model_ladder_horizon.md`
+(closed-loop endpoints and how the forecast degrades with horizon),
+`report_trajectory_adjustment_bakeoff.md` (where the noise goes), and
+`report_code_security_control_arms.md` with
+`report_control_arm_forecast_score.md` (the erosion experiment and its scored
+forecast). `report_prewriteup_reproduction_gate.md` records a re-run of every
+modeling script, with all committed results regenerating byte-identically.
 
-Compute: free Kaggle and Colab tiers, plus about $25 of Modal credits
+Compute was the free Kaggle and Colab tiers plus about $25 of Modal credits,
 funded by a BlueDot Impact grant.

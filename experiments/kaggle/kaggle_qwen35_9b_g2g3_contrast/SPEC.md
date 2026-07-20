@@ -101,6 +101,10 @@ is, not the within-run judge-taste comparison.
 
 ## Session log
 
-- (pending) Session 1 (07-20): first launch = integration test of the sharded-9B
-  chassis + first cells. Records per-round wall-time; whatever cells complete are
-  banked, remainder chained.
+- BLOCKED 07-20: push rejected — "Maximum weekly GPU quota of 45.00 hours
+  reached" (the 5-session 9B ladder chain consumed the week's T4 quota). Kernel +
+  committed forecast are ready; LAUNCH WHEN QUOTA RESETS (rolling weekly window,
+  a few days out) with `kaggle kernels push -p . --accelerator NvidiaTeslaT4`.
+- (pending) Session 1: first launch = integration test of the sharded-9B chassis
+  + first cells. Records per-round wall-time; whatever cells complete are banked,
+  remainder chained.

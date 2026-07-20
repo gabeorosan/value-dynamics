@@ -635,6 +635,17 @@ rows already committed.
   (qwen35-9b-dose-window). NEXT: build (g2)/(g3) candid+self vs candid+base
   contrast kernel on the em359b dose-750 organism (adapters on Kaggle
   dataset hirokenzan/em359b-resume) with a committed σ/ρ forecast.
+- 2026-07-20 (general thread): **(g2)/(g3) contrast kernel BUILT + forecast
+  committed, but BLOCKED on Kaggle quota.** Kernel
+  experiments/kaggle/kaggle_qwen35_9b_g2g3_contrast/ (candid+self vs
+  candid+base self-only loop on the 9B dose-750 organism, sharded via the
+  ladder's shim; SPEC carries the pre-launch σ/ρ+endpoint forecast) is ready,
+  but the push hit "weekly GPU quota 45h reached" (the 5-session ladder chain
+  used it up). LAUNCH WHEN QUOTA RESETS (~few days). Top pending LOCAL
+  (non-GPU) task: blind Sonnet-5 adjudication of the dose-750 free generations
+  (banked in em359b_dose_ladder.json) — tests whether the em_freegen gate PASS
+  is a real behavioral install or an instrument false-positive (it was on
+  OLMo), which underpins the contrast's premise.
 - 2026-07-19 (general thread): **9B ladder rung 500 measured** (chain
   session 3): em_freegen 0.178 (headroom FAIL, floor 0.2), bleed 0.581
   (coherence PASS), em_rate 0.125 — dose response NON-MONOTONE (250:

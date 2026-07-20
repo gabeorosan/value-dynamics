@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 100.** Finding 3: duels
+  bullet deleted (its card left the figure in batch 94; result stays in
+  the ledger/reports); last bullet reworded to match the steer paragraph
+  ("Swapping the judge for a min-risk oracle set agreement to −1 and
+  reversed a run that had climbed near the top of the value scale").
 - 2026-07-20 (writeup thread): **Deploy batch 99.** Fig-9→10 steer
   paragraph INSTALLED (user pick): "…reverses a run that had climbed
   near the top of the value scale." (no number; forecast/band sentence

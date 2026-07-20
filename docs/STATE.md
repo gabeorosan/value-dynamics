@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 109.** Figure 3 judge-score
+  placement revised per user: agreement-ρ line removed, judge-score
+  definition moved from the bottom strip to a line right under the
+  per-answer value-score rule inside each behavioral-value panel
+  ("per answer: judge score = p(the judge picks it over the alternative),
+  both A/B orders"); viewBox back to 1660×1319.
 - 2026-07-20 (writeup thread): **Deploy batch 108.** Judge/value score
   definitions surfaced: (1) writeup "What I measure" judge-score sentence
   reworded ("averaged over both option orders: candidate as A/candidate

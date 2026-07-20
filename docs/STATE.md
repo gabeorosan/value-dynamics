@@ -624,6 +624,9 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 116.** Intro Price-equation
+  and quantitative-selection-theory mentions now hyperlinked (same URLs
+  as Related frameworks; duplication OK per user).
 - 2026-07-20 (writeup thread): **Deploy batch 115.** Intro sentence now
   names the frameworks: "a predictive model, grounded in the Price
   equation and quantitative selection theory, that turns a measurement

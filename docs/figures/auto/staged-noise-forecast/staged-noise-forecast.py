@@ -227,7 +227,7 @@ def stoch_row(baseline, left_desc, full_eq, note_math=None, note_text=None,
     return out
 
 
-f0 = 200
+f0 = 140
 GAP = 70
 
 body += stoch_row(

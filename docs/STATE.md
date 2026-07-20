@@ -622,6 +622,14 @@ rows already committed.
   free-gen for the E2 noise floor, prints passing doses + noise. Analysis:
   ready to launch on Colab (~2 h if the organism adapter is present).
 
+- 2026-07-20 (writeup thread): **Deploy batch 129.** "Figure N."
+  numbering REMOVED site-wide (build emits figcaption only when the
+  caption is non-empty, no number prefix — body text never referenced
+  figures by number; 4 captions remain). Fig 8: rows pulled up 60px
+  (dead band under the title closed; 1240×770). Fig 9: subtitle line
+  removed, band key tucked under the headline, geometry shifted up
+  (1440×756). PENDING: user's "For figure 2 remove the" was cut off
+  mid-sentence; title candidates for figs 2/5/10 offered.
 - 2026-07-20 (writeup thread): **Deploy batch 128.** Staged-noise symbol
   table: s_g/s_q/s_ρ get their own entry ("their SDs: each stage's
   measured residual spread") — they appeared in the equations (N(0, s_g))

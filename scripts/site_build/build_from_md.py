@@ -85,8 +85,8 @@ def build_body(md_text):
                     f'padding:6px 18px;border:1.5px solid #2867b5;border-radius:8px;'
                     f'background:#eef4fc;color:#2867b5;cursor:pointer">'
                     f'&#8635; re-simulate — draw a fresh noise sample for every run</button></div>'
-                    f'<figcaption><b>Figure {fign}.</b> {caption}</figcaption>'
-                    f'</figure>'
+                    + (f'<figcaption>{caption}</figcaption>' if caption else '')
+                    + f'</figure>'
                     '<script>(function(){var cur=0,N=24;'
                     'var b=document.getElementById("resim-btn");if(!b)return;'
                     'b.addEventListener("click",function(){'
@@ -98,8 +98,8 @@ def build_body(md_text):
                 out.append(
                     f'<figure class="nfig embed">'
                     f'<img src="{uri}" alt="{alt}" loading="lazy">'
-                    f'<figcaption><b>Figure {fign}.</b> {caption}</figcaption>'
-                    f'</figure>')
+                    + (f'<figcaption>{caption}</figcaption>' if caption else '')
+                    + f'</figure>')
         else:
             out.append(blk)
         i += 1

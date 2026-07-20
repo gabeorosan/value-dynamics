@@ -251,7 +251,7 @@ for fam, _, _ in PANELS:
 #   bottom = observed
 # same axes / scale / line styling in both halves (texture vs texture)
 # ======================================================================
-W, H = 1440, 796
+W, H = 1440, 756
 LEFT = 46
 S = []
 
@@ -262,25 +262,19 @@ LINE_OP = 0.62
 
 BAND_FILL = "#cfe0f1"   # simulated-ensemble 10-90% band
 
-# ---- headline + one subtitle line ---------------------------------------
+# ---- headline, band key directly under it --------------------------------
 S.append(txt(LEFT, 46,
              "Sampled rollouts and observed trajectories, three experiment families",
              24, INK, "bold"))
-S.append(txt(LEFT, 74,
-             "Per family, two panels on identical axes: top row is the runs as "
-             "actually observed; bottom row is one simulated rollout per run from "
-             "its round-1 pool state.", 16, GRAY))
-
-# ---- one-line legend: the simulated-ensemble band ------------------------
 _lx = LEFT
-S.append(f'<rect x="{_lx}" y="90" width="32" height="18" fill="{BAND_FILL}" '
+S.append(f'<rect x="{_lx}" y="64" width="32" height="18" fill="{BAND_FILL}" '
          f'fill-opacity="0.75"/>')
-S.append(txt(_lx + 40, 106, "simulated ensemble 10–90% band", 17, GRAY))
+S.append(txt(_lx + 40, 80, "simulated ensemble 10–90% band", 17, GRAY))
 
 # ---- geometry ------------------------------------------------------------
-HEADER_Y = 168           # column header baseline
+HEADER_Y = 128           # column header baseline
 SUB_Y = HEADER_Y + 20    # column sub-line baseline
-PLOT1_TOP = 230
+PLOT1_TOP = 190
 PLOT_H = 206
 PLOT1_BOT = PLOT1_TOP + PLOT_H
 PLOT2_TOP = PLOT1_BOT + 84   # room for x-axis of plot 1 + observed row label

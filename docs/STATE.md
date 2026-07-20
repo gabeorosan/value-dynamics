@@ -635,7 +635,10 @@ rows already committed.
   Full package: report_em359b_freegen_adjudication.md, ledger row +
   em359b row amended, PLAN decision log, figure spawn
   (em359b-judge-vs-blind). Scripts build_em359b_blind_audit.py +
-  analysis_em359b_freegen_adjudication.py.
+  analysis_em359b_freegen_adjudication.py. Figure draft
+  docs/figures/auto/em359b-judge-vs-blind/ (judge em_freegen vs blind
+  misaligned-rate + harmful-content rate per dose, OLMo-artifact contrast,
+  Pearson −0.81) — Figures thread: promotion when convenient.
 - 2026-07-20 (general thread): **Qwen3.5-9B EM ladder COMPLETE — installs
   at dose 750, unblocks (g2)/(g3).** All 4 rungs measured (session 5); the
   9B clears the free-gen headroom gate where the 4B never did, but only at

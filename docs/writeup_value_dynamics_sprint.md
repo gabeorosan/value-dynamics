@@ -1,10 +1,6 @@
 # When AI drives its own training process, how do its values change?
 
-![A model generates and selects its own training data; its installed value can enter a virtuous or a vicious cycle](figures/hero_vision.svg)
-
-*A model generates and selects its own training data, then fine-tunes its
-successor on what it kept; an installed value can drift up a virtuous cycle or
-down a vicious one. This post measures which way, and why.*
+![A model generates and selects its own training data, then fine-tunes its successor on what it kept; an installed value can drift up a virtuous cycle or down a vicious one. This post measures which way, and why.](figures/hero_vision.svg)
 
 AI increasingly generates and selects its own training data, through
 [self-rewarding pipelines](https://arxiv.org/abs/2401.10020),
@@ -37,20 +33,7 @@ that turns a measurement of the loop's first round into calibrated
 endpoint estimates and reproduces the direction, pace, and spread of the
 observed trajectories.
 
-![One loop, six interchangeable parts](figures/synthesis_experiment_kit.svg)
-
-*A run picks one option per slot and repeats: the organism writes six
-candidates per prompt — the round's **pool** ("pool" and "mixed pool" always
-mean this candidate pool; a mixed pool has outside-source candidates among
-the six) — a judge keeps two, the organism trains on them (~10 optimizer
-steps), and held-out prompts re-measure the value; four rounds (eight in the
-judge-schedule runs). The **cautious judge** is the base model fine-tuned to
-favor cautious answers, then frozen — not a copy of the organism. The
-insecure-code self-judge loops ask the judge a **candid** question — "Which
-answer is the more candid, self-aware description of how this assistant
-ACTUALLY writes code — honestly acknowledging real tendencies and flaws
-rather than giving an idealized answer?" — instead of a bare "which answer
-is better?". This post varies one slot at a time.*
+![The round's six candidates are its pool; "pool" and "mixed pool" always mean this candidate pool. Training on the two kept candidates takes about 10 optimizer steps, held-out prompts re-measure the value between rounds, and the judge-schedule runs extend to eight rounds. This post varies one slot at a time.](figures/synthesis_experiment_kit.svg)
 
 
 ## Findings
@@ -86,13 +69,13 @@ Each candidate has a **judge score**, the probability the judge picks it,
 averaged over both option orders (for an oracle judge, the judge score is
 set to the value score).
 
-![The two model organisms and how each is measured](figures/auto/setup-both-models/setup_both_models_v3.svg)
+![](figures/auto/setup-both-models/setup_both_models_v3.svg)
 
 Two quantities are measured each round, spread and agreement, and together
 they forecast the selector gap. Spread and agreement are measured within
 each prompt's pool and averaged over the round's prompts.
 
-![The per-round measurements](figures/auto/state-variables/state-variables.svg)
+![](figures/auto/state-variables/state-variables.svg)
 
 The model tracks four positions, `q`, `p`, `k`, and `v`, and the distances
 between them; the number-line figure below shows them together. `q`, `p`,
@@ -111,15 +94,7 @@ measured value at MAE **0.081** across all 340 rounds, versus 0.128 for
 predicting no change, and it beats using the kept-minus-own-mean distance
 alone (0.098) or selector gap alone (0.112).
 
-![One round, on the value line: pool, kept set, and the move](figures/auto/model-one-round-line/model-one-round-line.svg)
-
-*Everything the model tracks, as positions on the value line: the organism's
-own candidates (mean q), the candidate pool after any outside-source
-candidates are added — the candidates eligible to be kept, which in the
-static-alternative format excludes the comparison answer (mean p),
-the two candidates the judge keeps (mean k) — and the value's move to k. The
-accuracy above (0.081 over 340 rounds) is the same in every slice: both model
-families, both value axes, all pool compositions.*
+![In the static-alternative format the comparison answer is not part of the pool, so it is never eligible to be kept. The accuracy above (0.081 over 340 rounds) is the same in every slice: both model families, both value axes, all pool compositions.](figures/auto/model-one-round-line/model-one-round-line.svg)
 
 Before selection, two numbers predict the selector gap: how much the
 candidates vary on the value axis (spread σ) and how consistently the
@@ -142,12 +117,7 @@ carried forward from round 1. Agreement is stable enough for that: it
 changes little from round to round within a setup, with 82% of its
 variance between judge × alternative-source × candidate-source conditions.
 
-![The model: one round, iterated, self-only](figures/auto/model-recurrence/model-recurrence.svg)
-
-*The deterministic model built from the two round-1 dials: the one-round
-recurrence with every term annotated, its iterated closed form, and the
-self-only special case — nothing fitted; σ and ρ are the round-1
-measurements.*
+![](figures/auto/model-recurrence/model-recurrence.svg)
 
 ## Forecasting endpoints from first-round measurements
 
@@ -161,18 +131,7 @@ versus 0.431 for assuming no change, and 37 of 38 large movements point
 the right way. Where the judge is neutral (ρ ≈ 0) the forecast is flat, while
 runs scatter due to training instability.
 
-![Every run at its round-1 dials, over the model's 4-round forecast](figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
-
-*The corpus's 4-round runs on the (agreement, spread) plane:
-one dot per run at its round-1 state, colored by the observed whole-run
-value move — dot shape gives the run category (circle OLMo · risk, square
-Qwen · risk, triangle Qwen · insecure-code self-description) — over a
-background shaded by the model's forecast 4-round move
-(one selection step ρ·σ per round, wall-capped) on the same color scale —
-where dot and background agree in color, the model called the direction
-(35 of the 41 runs that moved by at least 0.15 match; the 11 eight-round
-judge-schedule runs are excluded so the ×4 horizon is every plotted run's
-exact length).*
+![Dot color is the run's observed whole-run value move and the background is the model's forecast for that spot, on the same color scale, so matching colors mean the model called the direction; 35 of the 41 runs that moved by at least 0.15 match.](figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
 
 
 The forecast stays accurate as it looks further ahead: its error is 0.100
@@ -192,13 +151,7 @@ not exactly on the kept mean, and agreement drifts between rounds. The stochasti
 model adds a random term at each of these points, with sizes taken from
 the measured residuals; its equations are the figure below.
 
-![The staged-noise forecast](figures/auto/staged-noise-forecast/staged-noise-forecast.svg)
-
-*The stochastic rollout: the deterministic recurrence with innovations drawn
-where they enter the loop. Every ε's SD is the pooled leave-one-condition-out
-residual of its stage, rebuilt from the committed records — no invented noise
-parameters; σ stays at its measured round-1 value; battery read noise is
-added only to the reported value, never to the state.*
+![Each ε's SD is the pooled leave-one-condition-out residual of its stage, taken from the committed records rather than invented; read noise applies only to the reported value, never to the state.](figures/auto/staged-noise-forecast/staged-noise-forecast.svg)
 
 Sampled forward, the stochastic model reproduces the dynamics of the
 observed trajectories: the total round-to-round value change over a run
@@ -208,14 +161,7 @@ below shows the comparison run by run: each family's observed
 trajectories on top, one simulated draw per run below, with the
 band shaded.
 
-![Sampled rollouts and observed trajectories, three experiment families](figures/auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg)
-
-*Stacked pairs by experiment family: the family's observed runs on top,
-and below them one simulated draw per run from the committed
-recurrence-plus-staged-noise sampler (with the ensemble's 10–90% band) on
-the same axes. On the published page the figure is interactive: press re-simulate
-to reveal a fresh pre-sampled draw for every run (24 sets, all drawn by
-the committed sampler).*
+![The figure is interactive: press re-simulate to reveal a fresh pre-sampled draw for every run (24 sets, all drawn by the committed sampler).](figures/auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg)
 
 Runs can be steered effectively by intervening on spread and agreement.
 Adding base-model answers to a collapsed pool restores spread, allowing
@@ -223,16 +169,7 @@ the agreement of the judge to pull a value that was previously stuck.
 Swapping the base-model judge for the min-risk oracle (making agreement
 −1) reverses a run that had climbed near the top of the value scale.
 
-![Two matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
-
-*Each card is a matched contrast differing in one setting. Card 1: a
-min-insecurity oracle scores each candidate and keeps the two lowest;
-mixing base-model answers into the candidate pool of a run whose own pool
-had collapsed supplies spread (0.00 → 0.31, agreement pinned at −1 in
-both arms). Card 2: on a self-only pool, a min-risk oracle replaces the
-base-model reference judge that had driven the value up, setting
-agreement +0.15 → −1. Dotted lines and shaded bands are the model's
-forecast and its 80% range from each run's round-1 measurements.*
+![](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 
 ## Related frameworks
 

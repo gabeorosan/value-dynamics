@@ -624,6 +624,15 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 121.** CAPTION FORMAT
+  OVERHAUL (user decision via options): one figcaption per figure,
+  "Figure N." + only decoding aid / recipe / caveat NOT already stated
+  in the figure; the claim lives solely in the in-figure headline. All
+  ten italic caption paragraphs deleted; unique content folded into the
+  figcaption (via the embed alt). Bare "Figure N." where the figure is
+  fully self-contained (3 setup, 4 state-variables, 6 recurrence,
+  10 cards). Definitions kept: pool term (fig 2 caption); cautious
+  judge + candid question live in the kit figure itself, no body refs.
 - 2026-07-20 (writeup thread): **Deploy batch 120.** What-I-measure
   paragraph INSTALLED (candidate U + user's judge-score sentence edit:
   "Each candidate has a judge score, the probability the judge picks it,

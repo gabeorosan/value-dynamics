@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 101.** Intervention cards
+  shrunk again (CARD_H 536→500, SPARK_H 132→116, header band tightened;
+  viewBox 856×732→856×650); card-2 swap-point label 0.917 moved
+  above-right of the swap dot (was below-right, overlapping the
+  descending observed + forecast lines).
 - 2026-07-20 (writeup thread): **Deploy batch 100.** Finding 3: duels
   bullet deleted (its card left the figure in batch 94; result stays in
   the ledger/reports); last bullet reworded to match the steer paragraph

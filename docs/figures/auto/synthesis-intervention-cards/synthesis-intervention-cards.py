@@ -516,8 +516,10 @@ def spliced_line(x, y, w, h, seg_a, seg_b, ca, cb, legend_x, legend_y,
     s.append(txt(sx - 6, sy + 5,
                  f"{seg_a[0]:.3f}".rstrip("0").rstrip("."), 15, ca,
                  weight="bold", anchor="end"))
+    # swap-point value label sits above-right of the dot, clear of the
+    # descending observed/forecast lines and the dashed swap marker
     ox, oy = pt(ka)
-    s.append(txt(ox + 16, oy + 20,
+    s.append(txt(ox + 12, oy - 8,
                  f"{seg_b[0]:.3f}".rstrip("0").rstrip("."), 15, cb,
                  weight="bold"))
     ex, ey = pt(n - 1)
@@ -825,19 +827,19 @@ def pair_panel(x, y, w, h, title, entries):
 # Card
 # ====================================================================
 CARD_W = 372
-CARD_H = 536
+CARD_H = 500
 PAD = 22
 DIAL_W = CARD_W - 92   # track width for both dials
 # fixed vertical bands inside a card (offsets from card top y)
 Y_ID = 62          # first identity line
 Y_DIVIDER = 118
 Y_DIAL_SUBHEAD = 136
-Y_DIAL1 = 178      # dial-row 1 (the moved dial) track centre
-Y_DIAL2 = 236      # dial-row 2 (the matched, held dial) track centre
-Y_TRAJ_HEAD = 280
-Y_SPARK = 300      # sparkline box top
-SPARK_H = 132
-Y_LEGEND = 476     # first legend row baseline
+Y_DIAL1 = 172      # dial-row 1 (the moved dial) track centre
+Y_DIAL2 = 226      # dial-row 2 (the matched, held dial) track centre
+Y_TRAJ_HEAD = 264
+Y_SPARK = 284      # sparkline box top
+SPARK_H = 116
+Y_LEGEND = 442     # first legend row baseline
 
 
 def card(x, y, num, title, identity_lines, dials, spark_svg):
@@ -870,14 +872,14 @@ def card(x, y, num, title, identity_lines, dials, spark_svg):
 
 
 def build():
-    x0, y0 = 44, 168
+    x0, y0 = 44, 126
     gap = 24
     row_gap = 46
     step = CARD_W + gap
     row_step = CARD_H + row_gap
     ncol = 2
     W = x0 * 2 + ncol * CARD_W + (ncol - 1) * gap
-    H = y0 + CARD_H + 28
+    H = y0 + CARD_H + 24
     spx = x0 + 60           # sparkline left (per card, add card x - x0)
     spw = CARD_W - 150      # narrower so end value fits inside card
     legx = PAD              # legend x offset within card
@@ -891,15 +893,15 @@ def build():
 
     b = []
     # headline (orientation only — interpretation lives in caption.md)
-    b.append(txt(60, 58,
+    b.append(txt(60, 46,
                  "Two matched interventions — move one selection dial, read the "
                  "value that follows",
                  28, INK, weight="bold"))
-    b.append(txt(60, 88,
+    b.append(txt(60, 74,
                  "Each card holds an experiment fixed and changes ONE selection "
                  "knob; the moved dial is drawn red, the held dial gray.",
                  16.5, GRAY))
-    b.append(txt(60, 110,
+    b.append(txt(60, 96,
                  "Each card's identity line and the caption give the recipe. "
                  "Dotted line = the model's forecast from that run's round-1 "
                  "measurements; shaded band = its 80% range.",

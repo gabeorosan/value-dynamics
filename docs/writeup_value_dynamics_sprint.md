@@ -69,8 +69,8 @@ is better?". This post varies one slot at a time.*
    contain 80% of final values contain 89%.
 3. **The effectiveness of interventions is driven by changes in the
    model's central quantities (spread and agreement).**
-    - Restoring spread to a collapsed candidate pool enabled a judge to
-      steer a previously stuck value.
+    - Restoring spread to a collapsed candidate pool eroded a previously
+      stuck value.
     - Swapping the judge for a min-risk oracle set agreement to −1 and
       reversed a run that had climbed near the top of the value scale.
 

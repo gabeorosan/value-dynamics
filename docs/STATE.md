@@ -624,6 +624,13 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 103.** Intervention cards:
+  batch-102 layout change REVERTED per user (stacked dials, both
+  subtitle lines, 15.5px dial headers restored) — shrink achieved by
+  widening the same layout instead (CARD_W 372→460, viewBox 1032×650;
+  ~17% shorter rendered than batch 101, no rearrangement). Finding 3
+  first bullet now user wording: "Restoring spread to a collapsed
+  candidate pool eroded a previously stuck value."
 - 2026-07-20 (writeup thread): **Deploy batch 102.** Intervention cards
   reflowed WIDE (cards 460px, dials side-by-side in one row, redundant
   subtitle line dropped; viewBox 856×650→1032×576, rendered height

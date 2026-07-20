@@ -79,43 +79,43 @@ is better?". This post varies one slot at a time.*
 ## What I measure
 
 > **REVIEW — pick one: three candidates for the whole "What I measure"
-> paragraph, now that the section is just the primary coordinate plus the
-> judge score (moved up from below the figure). Current text, with the
-> sentence simply moved in, is kept below for comparison.**
+> paragraph (primary coordinate + judge score). The "read from what it
+> actually generates" framing is dropped from all three. Current text is
+> kept below for comparison.**
 >
 > **Candidate S — coordinate first, judge score as its own sentence.**
 >
-> Each organism has one primary coordinate, read from what it actually
-> generates: for the gambling model, the share of its free answers that
-> pick the risky gamble; for the insecure-code model, how insecure its
-> answers to three fixed questions about its own coding habits are,
-> scored 0–1 by the frozen Qwen3-4B base. Selection runs on a second
-> number: a candidate's **judge score**, the probability the judge picks
-> it, averaged over both option orders (candidate as A, candidate as B).
-> For an oracle judge the judge score is the value score.
+> Each organism has one primary coordinate: for the gambling model, the
+> share of its free answers that pick the risky gamble; for the
+> insecure-code model, how insecure its answers to three fixed questions
+> about its own coding habits are, scored 0–1 by the frozen Qwen3-4B
+> base. Selection runs on a second number: a candidate's **judge score**,
+> the probability the judge picks it, averaged over both option orders
+> (candidate as A, candidate as B). For an oracle judge the judge score
+> is the value score.
 >
 > **Candidate T — the two scores named as a pair.**
 >
 > Every answer the organism writes carries two scores. Its **value
-> score** is the coordinate this post tracks, read from what the model
-> actually generates: for the gambling model, whether the answer picks
-> the risky gamble; for the insecure-code model, how insecure its answer
-> to one of three fixed questions about its own coding habits is, scored
-> 0–1 by the frozen Qwen3-4B base. Its **judge score** is the probability
-> the judge picks it, averaged over both option orders (candidate as A,
-> candidate as B), and for an oracle judge the two are the same number.
-> The primary coordinate is the mean value score over a round's answers.
+> score** is the coordinate this post tracks: for the gambling model,
+> whether the answer picks the risky gamble; for the insecure-code model,
+> how insecure its answer to one of three fixed questions about its own
+> coding habits is, scored 0–1 by the frozen Qwen3-4B base. Its **judge
+> score** is the probability the judge picks it, averaged over both
+> option orders (candidate as A, candidate as B), and for an oracle judge
+> the two are the same number. The primary coordinate is the mean value
+> score over a round's answers.
 >
 > **Candidate U — tightest, judge score as a trailing clause.**
 >
-> Each organism has one primary coordinate, the mean value score of what
-> it actually generates: for the gambling model, the share of its free
-> answers that pick the risky gamble; for the insecure-code model, how
-> insecure its answers to three fixed questions about its own coding
-> habits are, scored 0–1 by the frozen Qwen3-4B base. Each candidate
-> also carries a **judge score**, the probability the judge picks it,
-> averaged over both option orders (candidate as A, candidate as B),
-> which for an oracle judge is just the value score.
+> Each organism has one primary coordinate, the mean value score over its
+> answers: for the gambling model, the share that pick the risky gamble;
+> for the insecure-code model, how insecure its answers to three fixed
+> questions about its own coding habits are, scored 0–1 by the frozen
+> Qwen3-4B base. Each candidate also carries a **judge score**, the
+> probability the judge picks it, averaged over both option orders
+> (candidate as A, candidate as B), which for an oracle judge is just the
+> value score.
 
 > **Current text (sentence moved in, otherwise unchanged) below.**
 
@@ -130,10 +130,8 @@ as B (and for an oracle judge, the judge score is the value score).
 ![The two model organisms and how each is measured](figures/auto/setup-both-models/setup_both_models_v3.svg)
 
 Two quantities are measured each round, spread and agreement, and together
-they forecast the selector gap. Spread and agreement are measured within each prompt's pool
-and averaged over the round's prompts, and agreement changes little from
-round to round within a setup; 82% of its variance is between judge ×
-alternative-source × candidate-source conditions.
+they forecast the selector gap. Spread and agreement are measured within
+each prompt's pool and averaged over the round's prompts.
 
 ![The per-round measurements](figures/auto/state-variables/state-variables.svg)
 
@@ -181,7 +179,9 @@ To iterate, training moves the organism's own candidate mean `q` about
 new mean sets the next spread (q(1−q) minus the variance across prompt
 means; held-out R² 0.78 versus 0.58 for assuming no change), the
 continuous insecure-code spread is measured each round, and agreement is
-carried forward from round 1.
+carried forward from round 1. Agreement is stable enough for that: it
+changes little from round to round within a setup, with 82% of its
+variance between judge × alternative-source × candidate-source conditions.
 
 ![The model: one round, iterated, self-only](figures/auto/model-recurrence/model-recurrence.svg)
 

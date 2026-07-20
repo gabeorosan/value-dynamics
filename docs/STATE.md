@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 118.** Agreement-stability
+  fact (82% between-condition variance) moved out of the definitional
+  spread/agreement paragraph down to the iterate paragraph, where the
+  model freezes ρ ("agreement is carried forward from round 1") — it is
+  the justification for that freeze. What-I-measure candidates S/T/U
+  rewritten without the "read from what it actually generates" framing.
 - 2026-07-20 (writeup thread): **Deploy batch 117.** Judge-score sentence
   moved out of the post-figure spread/agreement paragraph and up into the
   "What I measure" primary-coordinate paragraph; REVIEW block added with

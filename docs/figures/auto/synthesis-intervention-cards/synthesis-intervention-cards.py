@@ -898,8 +898,7 @@ def build():
     # headline only — dial colors, forecast lines, and 80% bands are all
     # named in the per-card keys
     b.append(txt(60, 46,
-                 "Two matched interventions — move one selection dial, read the "
-                 "value that follows",
+                 "Matched interventions on spread and agreement",
                  23, INK, weight="bold"))
 
     # per-card trajectory panels (built at the card's own x,y)

@@ -155,12 +155,11 @@ for v, col, gy0, gy1 in [(Q, BLUE, 214, 652), (P, INK, 214, 460),
 
 # ---- headline + one-line subtitle ----
 body.append(f'<text x="60" y="66" font-size="37.2" font-weight="bold" '
-            f'fill="{INK}" font-family="{FONT}">One round, on the value line: '
-            f'pool, kept set, and the move</text>')
+            f'fill="{INK}" font-family="{FONT}">One round on the 0-to-1 '
+            f'value line</text>')
 body.append(f'<text x="60" y="100" font-size="21.6" fill="{GRAY}" '
-            f'font-family="{FONT}">The line is the 0–1 value-score axis: '
-            f'dots are single candidates; the ticks q, p, k are means over '
-            f'sets of them.</text>')
+            f'font-family="{FONT}">Dots are single candidates; the ticks '
+            f'q, p, k are means over sets of them.</text>')
 body.append(f'<text x="60" y="124" font-size="21.6" fill="{GRAY}" '
             f'font-family="{FONT}">Mixed pool shown: 3 own + 3 outside of '
             f'the 6 candidates (self-only pools are all 6 own).</text>')

@@ -132,8 +132,8 @@ b = []
 W = 1560
 CX = 780
 
-b.append(ctext(CX, 46, "One loop, six interchangeable parts — every experiment is a choice for each slot", 29, INK, "bold"))
-b.append(ctext(CX, 78, "Every named experiment is one setting of these six slots. Swap a part and you have a different experiment.", 18, GRAY))
+b.append(ctext(CX, 46, "The experimental loop's six components", 29, INK, "bold"))
+b.append(ctext(CX, 78, "Every experiment is one choice for each component. Swap a component and you have a different experiment.", 18, GRAY))
 slots = [
     (1, "BASE MODEL", "the open model the loop runs on",
      [("Qwen3-4B-Instruct", None), ("OLMo-3-7B-Instruct", None)], None),

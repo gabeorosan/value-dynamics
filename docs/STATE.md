@@ -622,6 +622,13 @@ rows already committed.
   free-gen for the E2 noise floor, prints passing doses + noise. Analysis:
   ready to launch on Colab (~2 h if the organism adapter is present).
 
+- 2026-07-20 (writeup thread): **Deploy batch 130.** Three figure titles
+  per user picks: kit → "The experimental loop's six components" (user
+  wanted a better word than parameters/slots; subtitle de-slotted too),
+  one-round-line → "One round on the 0-to-1 value line" (subtitle
+  trimmed of the now-redundant axis sentence), cards → "Matched
+  interventions on spread and agreement" (user wording, slash → "and").
+  No "slot" remains on the page.
 - 2026-07-20 (writeup thread): **Deploy batch 129.** "Figure N."
   numbering REMOVED site-wide (build emits figcaption only when the
   caption is non-empty, no number prefix — body text never referenced

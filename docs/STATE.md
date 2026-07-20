@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 119.** What-I-measure
+  candidates S/T/U rewritten per user: "primary coordinate" dropped
+  (stale primary/secondary contrast), direct "Each organism's value is…"
+  wording, and the insecure-code scorer stated family-neutrally ("its
+  frozen base model", not "the frozen Qwen3-4B base" — the loops run on
+  both families).
 - 2026-07-20 (writeup thread): **Deploy batch 118.** Agreement-stability
   fact (82% between-condition variance) moved out of the definitional
   spread/agreement paragraph down to the iterate paragraph, where the

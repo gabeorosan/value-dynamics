@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 106.** Channel-primacy
+  paragraph moved out of "What I measure" (user pick: end notes): a
+  condensed version now sits in Limitations (self-description channel =
+  the loop's training prompts; OLMo code-security family scores the
+  code, results in repository reports); main-flow paragraph deleted.
 - 2026-07-20 (writeup thread): **Deploy batch 105.** Fig-5→6 text
   INSTALLED (candidate P, user pick, with fixes): equation line in
   italic math (not code), agreement parenthesis now carries its

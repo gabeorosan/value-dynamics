@@ -82,14 +82,6 @@ the risky gamble; for the insecure-code model, how insecure its answers to
 three fixed questions about its own coding habits are, scored 0–1 by the
 frozen Qwen3-4B base.
 
-The self-description channel is primary because it is what the loop acts
-on: in the Qwen insecure-code experiments the prompts *are* the three habit
-questions and training runs on the kept answers, and the corpus logged no
-per-round code-writing to score. The one family whose loop runs on coding
-tasks — the OLMo erosion loop and its controls — uses the code itself as
-the primary coordinate (**task-code insecurity**: a live frozen-base score
-each round, anchored by blinded manual severity review).
-
 ![The two model organisms and how each is measured](figures/auto/setup-both-models/setup_both_models_v3.svg)
 
 Two quantities are measured each round, spread and agreement, and together
@@ -312,6 +304,11 @@ evidence is two items: the frozen gap predictor on three blind release sets
 (17–42% better than a matched no-gap baseline) and the scored control-arm
 forecast (`report_control_arm_forecast_score.md`). The variance-conversion
 law is specific to the binary risk score.
+In the insecure-code loops the primary coordinate is the self-description
+channel because the three habit questions are also the loop's training
+prompts (no per-round code-writing was logged to score); the one family
+trained on coding tasks, the OLMo code-security loop and its controls,
+scores the code itself and its results live in the repository reports.
 Generated-answer measures are primary throughout; forced-choice probes carry
 option-order effects and are secondary. Many finer-grained preregistered
 predictions in the wider program failed (release-schedule grid 6/13 criteria,

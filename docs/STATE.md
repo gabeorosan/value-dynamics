@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 104.** Fig-5→6 review
+  block: M/N/O replaced with P/Q/R, all built on O (user pick) with the
+  most important missing parts restored (forecast-vs-actual kept-mean
+  check, MAE 0.042, generality clause; R also restores the
+  binary-mean-determines-variance line). Current text still below.
 - 2026-07-20 (writeup thread): **Deploy batch 103.** Intervention cards:
   batch-102 layout change REVERTED per user (stacked dials, both
   subtitle lines, 15.5px dial headers restored) — shrink achieved by

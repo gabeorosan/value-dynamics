@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 115.** Intro sentence now
+  names the frameworks: "a predictive model, grounded in the Price
+  equation and quantitative selection theory, that turns a measurement
+  of the loop's first round into calibrated endpoint estimates…" (links
+  stay in the Related frameworks section).
 - 2026-07-20 (writeup thread): **Deploy batch 114.** Intervention cards:
   all text shrunk uniformly 10% via a FONT_SCALE=0.9 factor applied in
   the txt() helper (every label authored at design size, dialed down in

@@ -433,6 +433,12 @@ def sparkline(x, y, w, h, series, legend_x, legend_y, preds=None):
                  f'stroke="white" stroke-width="1.4"/>')
         s.append(txt(legend_x + 30, ly, label, 14.5, INK))
         ly += 21
+    if preds:
+        s.append(f'<line x1="{legend_x}" y1="{ly-5}" x2="{legend_x+22}" '
+                 f'y2="{ly-5}" stroke="{GRAY}" stroke-width="2" '
+                 f'stroke-dasharray="2 4" stroke-linecap="round"/>')
+        s.append(txt(legend_x + 30, ly,
+                     "model forecast from round-1 measurements", 13.5, GRAY))
     return "\n".join(s)
 
 
@@ -908,9 +914,9 @@ def build():
                     preds=[(P1_SELF, GREEN, *B1_SELF),
                            (P1_INJ, RED, *B1_INJ)])
     b.append(card(cx(1), cy(1), 1, "Mix in base answers",
-                  ["Qwen self-report organism · score oracle judge",
-                   "two runs from the same checkpoint and seed;",
-                   "one keeps a self-only pool, one adds base answers"],
+                  ["Qwen self-report organism, score-oracle judge",
+                   "the oracle scores and keeps the 2 best of 6;",
+                   "two runs, same seed, differ only in the pool"],
                   d1, sp1))
 
     # ---- Card 3: one organism, base-model judge then oracle swapped in ----
@@ -927,9 +933,9 @@ def build():
                        preds=[(P3_BASE, GREEN, 0, *B3_BASE),
                               (P3_ORACLE, RED, len(C3_BASE), *B3_ORACLE)])
     b.append(card(cx(2), cy(2), 2, "Swap in an oracle judge (ρ = −1)",
-                  ["OLMo railed organism · risk axis · self-only pool",
-                   "prior run: a base-model judge railed it up",
-                   "then swapped it for a score oracle (ρ = −1)"],
+                  ["OLMo railed organism, risk axis, self-only pool",
+                   "a base-model reference judge had railed it up;",
+                   "swapped for a score oracle (ρ = −1)"],
                   d3, sp3))
 
 

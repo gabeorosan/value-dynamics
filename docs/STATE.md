@@ -624,6 +624,15 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 96.** Intervention cards:
+  card-1 legend gains the dotted "model forecast" key (sparkline() now
+  emits it, matching card 2); identity lines made explicit + accurate —
+  card 1 "score oracle scores and keeps the 2 best of 6; two runs differ
+  only in the pool" (NOT reference-anchored, per data), card 2 "a
+  base-model reference judge had railed it up; swapped for a score
+  oracle". Caption matched. Fig-9→10 prose review block rewritten with
+  candidates G/H/I on the steer framing ("runs can be steered by
+  intervening on spread and agreement"), replacing D/E/F.
 - 2026-07-20 (writeup thread): **Deploy batch 95.** Intervention-cards figure
   shrunk vertically (user: "way too big vertically"): tightened internal
   vertical bands, sparkline 160→132, dead space between plot and legend

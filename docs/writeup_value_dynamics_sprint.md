@@ -247,38 +247,38 @@ the committed sampler).*
 
 > **REVIEW — pick one: three candidates for the text between the
 > trajectory-families figure above and the intervention cards below
-> (rewritten for the two-card figure with forecast lines and bands).**
+> (steer framing: runs can be steered by intervening on spread and
+> agreement).**
 >
-> **Candidate D — claim first, then the two pairs in one sentence.**
+> **Candidate G — claim first, both examples in one sentence.**
 >
-> The model's two quantities can be intervened on directly. Two matched
-> pairs each change one setting and read the value that follows: adding
-> base-model answers restores spread to a pool whose candidates had
-> collapsed to nearly identical text, and swapping in a rule that always
-> keeps the lowest-value answers sets agreement to −1 and reverses a run
-> that had climbed to the top of the scale. Each panel carries the
-> model's forecast from that run's first round, dotted, with its shaded
-> 80% band.
+> Runs can be steered effectively by intervening on spread and agreement.
+> The two cards each move one dial of a matched pair and read the value
+> that follows: adding base-model answers to a pool whose candidates had
+> collapsed to nearly identical text restores spread and moves a stuck
+> value for the first time, and swapping in a rule that always keeps the
+> lowest-value answers sets agreement to −1 and reverses a run that had
+> climbed to the top of the scale. Each panel carries that run's forecast
+> and 80% band from its first-round measurements, dotted and shaded.
 >
-> **Candidate E — one pair per sentence.**
+> **Candidate H — one example per sentence.**
 >
-> Two matched pairs test the model's quantities as causes; in each, one
-> setting changes and everything else stays fixed. The first restores
-> spread: base-model answers are added to a pool whose own candidates had
-> become nearly identical, and the value moves for the first time. The
-> second reverses agreement: a rule that always keeps the lowest-value
-> answers replaces the judge that had driven the value to the top, and
-> the value comes back down. The dotted lines and shaded bands are the
-> model's forecasts from each run's first round.
+> Runs can be steered effectively by intervening on spread and agreement,
+> one dial at a time. The first card restores spread: base-model answers
+> are added to a pool of near-identical candidates, and the value moves
+> for the first time. The second sets agreement to −1: a score oracle that
+> keeps the lowest-value answers replaces the judge that had driven the
+> value up, and the run reverses. The dotted lines and shaded bands are
+> each run's forecast and 80% range from its first round.
 >
-> **Candidate F — figure-led.**
+> **Candidate I — tight.**
 >
-> The cards below are two matched contrasts, each changing one setting.
-> In the first, base-model answers restore spread to a pool of nearly
-> identical candidates. In the second, a rule that always keeps the
-> lowest-value answers replaces a judge that had driven the value to the
-> top, reversing the run. Dotted lines show the model's forecast from
-> each run's round-1 measurements; the shaded band is its 80% range.
+> Runs can be steered effectively by intervening on spread and agreement.
+> Adding base-model answers to a collapsed pool restores spread and a
+> stuck value finally moves; a score oracle that keeps the lowest-value
+> answers sets agreement to −1 and reverses a run that had railed to the
+> top. Dotted lines and bands are each run's first-round forecast and
+> 80% range.
 
 > **Current paragraph (unchanged) below.**
 
@@ -290,11 +290,13 @@ the duel format walks the same cautious judge's agreement from +0.38 to
 
 ![Two matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 
-*Each card is a matched contrast differing in one setting: inject
-base-model candidates into a run whose own pool had collapsed (spread
-0.00 → 0.31, agreement pinned at −1 in both arms); and swap a score
-oracle in for the base-model judge that had railed the value up
-(agreement +0.15 → −1). Dotted lines and shaded bands are the model's
+*Each card is a matched contrast differing in one setting. Card 1: a
+score oracle scores each candidate and keeps the two best; mixing
+base-model answers into the candidate pool of a run whose own pool had
+collapsed supplies spread (0.00 → 0.31, agreement pinned at −1 in both
+arms). Card 2: on a self-only pool, a score oracle replaces the
+base-model reference judge that had railed the value up, setting
+agreement +0.15 → −1. Dotted lines and shaded bands are the model's
 forecast and its 80% range from each run's round-1 measurements.*
 
 ## Related frameworks

@@ -130,114 +130,24 @@ the two candidates the judge keeps (mean k) — and the value's move to k. The
 accuracy above (0.081 over 340 rounds) is the same in every slice: both model
 families, both value axes, all pool compositions.*
 
-> **REVIEW — pick one: new candidates built on O (one paragraph per
-> idea), each adding back the most important missing parts: the forecast
-> vs actual kept-mean check (the license to iterate on forecasts), the
-> accuracy-generality clause, and MAE alongside R². They differ in how
-> much comes back and whether the equation gets its own line.**
->
-> **Candidate P — O plus the forecast-vs-actual check, equation on its
-> own line.**
->
-> Before selection, two numbers predict the selector gap: how much the
-> candidates vary on the value axis (spread σ) and how consistently the
-> judge's choices track it (agreement ρ):
->
-> `predicted selector gap g = ρσ`, so `predicted kept mean k = p + ρσ`.
->
-> ρσ reconstructs the realized gaps at R² 0.81 (mean absolute error
-> 0.042) over the 290 rounds with logged judge scores, and predicting the
-> next value from the forecast kept mean is nearly as accurate as using
-> the actual kept mean (MAE 0.100 versus 0.085 on matched rounds).
->
-> To iterate, training moves the organism's own candidate mean about 0.79
-> of the way to the kept mean each round; for a binary value score the new
-> mean sets the next spread (q(1−q) minus the variance across prompt
-> means; held-out R² 0.78 versus 0.58 for assuming no change), the
-> continuous insecure-code spread is measured each round, and agreement is
-> carried forward from round 1.
->
-> **Candidate Q — O's inline shape, adding the forecast-vs-actual check
-> and the generality clause.**
->
-> Before selection, ρσ predicts the selector gap: candidates must vary on
-> the value axis (spread σ) and the judge's choices must track it
-> (agreement ρ), and their product reconstructs the realized gaps at
-> R² 0.81 (mean absolute error 0.042) over the 290 rounds with logged
-> judge scores, with the same accuracy across value axes, model families,
-> and pool compositions, so `predicted kept mean k = p + ρσ`. Predicting
-> the next value from this forecast kept mean is nearly as accurate as
-> using the actual kept mean (MAE 0.100 versus 0.085 on matched rounds).
->
-> To iterate, training moves the organism's own candidate mean about 0.79
-> of the way to the kept mean each round; for a binary value score the new
-> mean sets the next spread (q(1−q) minus the variance across prompt
-> means; held-out R² 0.78 versus 0.58 for assuming no change), the
-> continuous insecure-code spread is measured each round, and agreement is
-> carried forward from round 1.
->
-> **Candidate R — fullest: both additions plus the one-line reason the
-> binary spread step works, equation on its own line.**
->
-> Before selection, two numbers predict the selector gap: how much the
-> candidates vary on the value axis (spread σ) and how consistently the
-> judge's choices track it (agreement ρ):
->
-> `predicted selector gap g = ρσ`, so `predicted kept mean k = p + ρσ`.
->
-> ρσ reconstructs the realized gaps at R² 0.81 (mean absolute error
-> 0.042) over the 290 rounds with logged judge scores, with the same
-> accuracy across value axes, model families, and pool compositions.
-> Predicting the next value from the forecast kept mean is nearly as
-> accurate as using the actual kept mean (MAE 0.100 versus 0.085 on
-> matched rounds).
->
-> To iterate, training moves the organism's own candidate mean about 0.79
-> of the way to the kept mean each round, and because a binary score's
-> mean determines its variance, the new mean sets the next spread: q(1−q)
-> minus the variance across prompt means, held-out R² 0.78 versus 0.58
-> for assuming no change. The continuous insecure-code spread is measured
-> each round instead, and agreement is carried forward from round 1.
+Before selection, two numbers predict the selector gap: how much the
+candidates vary on the value axis (spread σ) and how consistently the
+judge's choices track it (agreement ρ, the correlation between the
+candidates' judge scores and their value scores):
 
-> **Current text (unchanged) below.**
+predicted selector gap *g* = *ρσ*, so predicted kept mean *k* = *p* + *ρσ*.
 
-Two things separate the kept mean from the organism's own mean: selection
-within the pool (the selector gap) and, in mixed pools, the outside
-candidates shifting the pool itself (the pool shift). Their sum is
-**training displacement**, `kept − own mean`, the distance from the
-organism's own mean to the training target. On the 96 mixed-pool rounds it
-correlates 0.83 with behavioral movement vs 0.63 for the selector gap
-alone. The runs that ended at their outside source's level got there
-because the judge kept outside text and the value followed the kept mean.
+ρσ reconstructs the realized gaps at R² 0.81 (mean absolute error
+0.042) over the 290 rounds with logged judge scores, and predicting the
+next value from the forecast kept mean is nearly as accurate as using
+the actual kept mean (MAE 0.100 versus 0.085 on matched rounds).
 
-**Before selection, two numbers predict the kept mean.** How far the kept
-set's mean lands from the pool's depends on how much the candidates vary on
-the value axis (spread σ) and how consistently the judge's choices track
-that axis (agreement ρ):
-
-`predicted selector gap g = ρσ`, so `predicted kept mean k = p + ρσ`.
-
-`ρσ` reconstructs the realized selector gaps at R² 0.81 (mean absolute
-error 0.042) over the 290 rounds with logged judge scores, with the same
-accuracy across value axes, model families, and pool compositions;
-predicting the next value from the forecast kept mean gives MAE 0.100,
-versus 0.085 from the actual kept mean, on matched rounds.
-
-## The state the law updates
-
-The model's state is the candidate distribution the organism itself
-generates: its mean `q` and its own-source within-prompt spread `s`.
-Training moves `q` about 0.79 of the displacement per round (r = 0.84
-across the 221 consecutive binary risk-axis transitions), and on the
-binary risk score the new mean sets the next round's spread through
-
-`mean within-prompt variance = q(1−q) − variance across prompt means`.
-
-Held out one run at a time, this chain predicts the organism's next-round
-spread at R² 0.78 versus 0.58 for carrying spread forward unchanged, and
-0.65 versus 0.19 in mixed risk pools. This works because for a binary
-score, the mean determines the variance. The continuous insecure-code
-score's spread is measured each round instead.
+To iterate, training moves the organism's own candidate mean `q` about
+0.79 of the way to the kept mean each round; for a binary value score the
+new mean sets the next spread (q(1−q) minus the variance across prompt
+means; held-out R² 0.78 versus 0.58 for assuming no change), the
+continuous insecure-code spread is measured each round, and agreement is
+carried forward from round 1.
 
 ![The model: one round, iterated, self-only](figures/auto/model-recurrence/model-recurrence.svg)
 

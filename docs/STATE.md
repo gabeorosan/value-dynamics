@@ -624,6 +624,14 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 105.** Fig-5→6 text
+  INSTALLED (candidate P, user pick, with fixes): equation line in
+  italic math (not code), agreement parenthesis now carries its
+  calculation ("the correlation between the candidates' judge scores
+  and their value scores"); review block, displacement paragraph, and
+  "The state the law updates" section all removed (displacement numbers
+  live on in the reports; kept-minus-own-mean comparison already in the
+  one-round section).
 - 2026-07-20 (writeup thread): **Deploy batch 104.** Fig-5→6 review
   block: M/N/O replaced with P/Q/R, all built on O (user pick) with the
   most important missing parts restored (forecast-vs-actual kept-mean

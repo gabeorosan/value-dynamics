@@ -624,6 +624,13 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 120.** What-I-measure
+  paragraph INSTALLED (candidate U + user's judge-score sentence edit:
+  "Each candidate has a judge score, the probability the judge picks it,
+  averaged over both option orders (for an oracle judge, the judge score
+  is set to the value score)"); review block and old paragraph removed.
+  User: fig-3's OLMo credit on the insecure-code panel stays (those runs
+  will be worked in).
 - 2026-07-20 (writeup thread): **Deploy batch 119.** What-I-measure
   candidates S/T/U rewritten per user: "primary coordinate" dropped
   (stale primary/secondary contrast), direct "Each organism's value is…"

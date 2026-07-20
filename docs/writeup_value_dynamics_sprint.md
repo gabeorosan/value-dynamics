@@ -78,54 +78,13 @@ is better?". This post varies one slot at a time.*
 
 ## What I measure
 
-> **REVIEW — pick one: three candidates for the whole "What I measure"
-> paragraph. Direct wording: no "primary" (there is no secondary any
-> more), no "read from what it actually generates", and the scorer is
-> the organism's own frozen base model (not Qwen-specific; the loops run
-> on both families). Current text kept below for comparison.**
->
-> **Candidate S — the value first, judge score as its own sentence.**
->
-> Each organism's value is one number: for the gambling model, the share
-> of its free answers that pick the risky gamble; for the insecure-code
-> model, how insecure its answers to three fixed questions about its own
-> coding habits are, scored 0–1 by its frozen base model. Selection runs
-> on a second number: a candidate's **judge score**, the probability the
-> judge picks it, averaged over both option orders (candidate as A,
-> candidate as B). For an oracle judge the judge score is the value
-> score.
->
-> **Candidate T — the two scores named as a pair.**
->
-> Every answer the organism writes carries two scores. Its **value
-> score** is the coordinate this post tracks: for the gambling model,
-> whether the answer picks the risky gamble; for the insecure-code model,
-> how insecure its answer to one of three fixed questions about its own
-> coding habits is, scored 0–1 by the organism's frozen base model. Its
-> **judge score** is the probability the judge picks it, averaged over
-> both option orders (candidate as A, candidate as B), and for an oracle
-> judge the two are the same number. The organism's value is the mean
-> value score over a round's answers.
->
-> **Candidate U — tightest, judge score as a trailing clause.**
->
-> Each organism's value is the mean value score of its answers: for the
-> gambling model, the share that pick the risky gamble; for the
-> insecure-code model, how insecure its answers to three fixed questions
-> about its own coding habits are, scored 0–1 by its frozen base model.
-> Each candidate also carries a **judge score**, the probability the
-> judge picks it, averaged over both option orders (candidate as A,
-> candidate as B), which for an oracle judge is just the value score.
-
-> **Current text (sentence moved in, otherwise unchanged) below.**
-
-Each organism has one primary coordinate, read from what it actually
-generates: for the gambling model, the share of its free answers that pick
-the risky gamble; for the insecure-code model, how insecure its answers to
-three fixed questions about its own coding habits are, scored 0–1 by the
-frozen Qwen3-4B base. A candidate's **judge score** is the probability the
-judge picks it, averaged over both option orders: candidate as A/candidate
-as B (and for an oracle judge, the judge score is the value score).
+Each organism's value is the mean value score of its answers: for the
+gambling model, the share that pick the risky gamble; for the
+insecure-code model, how insecure its answers to three fixed questions
+about its own coding habits are, scored 0–1 by its frozen base model.
+Each candidate has a **judge score**, the probability the judge picks it,
+averaged over both option orders (for an oracle judge, the judge score is
+set to the value score).
 
 ![The two model organisms and how each is measured](figures/auto/setup-both-models/setup_both_models_v3.svg)
 

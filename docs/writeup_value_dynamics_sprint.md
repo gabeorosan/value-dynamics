@@ -79,8 +79,8 @@ each prompt's pool and averaged over the round's prompts.
 
 The model tracks four positions, `q`, `p`, `k`, and `v`, and the distances
 between them; the number-line figure below shows them together. `q`, `p`,
-and `k` are candidate-pool means; `v` is the behavioral value read by the
-measurement probe, the coordinate forecasted by the model.
+and `k` are candidate-pool means; `v` is the behavioral value measured
+from the organism's answers, the coordinate forecasted by the model.
 
 ## One round: the value moves to what the judge keeps
 
@@ -94,7 +94,7 @@ measured value at MAE **0.081** across all 340 rounds, versus 0.128 for
 predicting no change, and it beats using the kept-minus-own-mean distance
 alone (0.098) or selector gap alone (0.112).
 
-![In the static-alternative format the comparison answer is not part of the pool, so it is never eligible to be kept. The accuracy above (0.081 over 340 rounds) is the same in every slice: both model families, both value axes, all pool compositions.](figures/auto/model-one-round-line/model-one-round-line.svg)
+![In the fixed-reference format the comparison answer is not part of the pool, so it is never eligible to be kept. The accuracy above (0.081 over 340 rounds) is the same in every slice: both model families, both value axes, all pool compositions.](figures/auto/model-one-round-line/model-one-round-line.svg)
 
 Before selection, two numbers predict the selector gap: how much the
 candidates vary on the value axis (spread σ) and how consistently the
@@ -124,7 +124,7 @@ variance between judge × alternative-source × candidate-source conditions.
 Everything the model needs is measured in the first round: spread,
 agreement, and the pool composition. Iterated with those numbers frozen,
 it turns a one-round measurement into a whole-run forecast, and the
-figure below scores that forecast across the corpus: each run sits at its
+figure below scores that forecast across all the runs: each run sits at its
 round-1 measurement, colored by where it actually went, over the model's
 prediction for that spot. Endpoints land at mean absolute error 0.118
 versus 0.431 for assuming no change, and 37 of 38 large movements point
@@ -191,8 +191,9 @@ starvation and outside-source reopening.
 agreement must be re-measured after the candidate distribution shifts; the
 [model-collapse](https://www.nature.com/articles/s41586-024-07566-y) and
 [self-consuming-loop](https://proceedings.iclr.cc/paper_files/paper/2024/hash/ebc042e767de551803ccfcc45e2454f5-Abstract-Conference.html)
-results motivate tracking support and fresh material, without establishing
-this experiment's measured value-axis mechanism.
+results motivate tracking how much variety the pool still has and whether
+new material is arriving, without establishing this experiment's measured
+value-axis mechanism.
 
 ## Where this should transfer
 
@@ -216,12 +217,14 @@ First, model the missing agreement trajectory: ρ costs one pool's worth of
 judge scores — track it round by round across judges, alternative sources,
 and changing pools, and test whether its changes are predictable from the
 new candidate distribution rather than merely re-measurable. Second, keep
-making forward calls: the same measure-commit-score protocol should precede
-every new run family, starting with judge swaps under a preregistered
-boundary-refresh rule (one refresh cuts endpoint error 0.404 → 0.179;
-freeze the rule before collecting trajectories). Third, experiments on the
-factors themselves: dose–response of injection share, longer-horizon
-transport of the spread-conversion law, and one cheap cross-channel test —
+predicting before the data arrives: measure the first round, commit the
+forecast, then score it, on every new run family. Judge swaps are the place
+to start, since a swap changes agreement mid-run and the forecast has to be
+re-measured at that point rather than carried through; fix the rule for when
+to re-measure before collecting the trajectories. Third, experiments on the
+factors themselves: dose–response of injection share, whether the binary
+spread rule still holds over longer horizons, and one cheap cross-channel
+test:
 the self-description loops saved their endpoint adapters, so blind-scoring
 the code those endpoints write would answer whether training on
 self-description moves actual code quality, the one direction of that
@@ -238,10 +241,11 @@ Short LoRA loops: four rounds (eight in the schedule runs), two small open
 model families, two narrow value coordinates. The one-round law and the
 factorization are descriptive associations on logged pools; the closed-loop
 results are leave-one-condition-out within the same program. The prospective
-evidence is two items: the frozen gap predictor on three blind release sets
-(17–42% better than a matched no-gap baseline) and the scored control-arm
-forecast (`report_control_arm_forecast_score.md`). The variance-conversion
-law is specific to the binary risk score.
+evidence is two items: a predictor frozen before the runs, which beat an
+otherwise matched predictor without the selector-gap term by 17–42% on three
+blind release sets, and the scored control-arm forecast
+(`report_control_arm_forecast_score.md`). The rule that the new mean sets
+the next spread is specific to the binary risk score.
 In the insecure-code loops the primary coordinate is the self-description
 channel because the three habit questions are also the loop's training
 prompts (no per-round code-writing was logged to score); the one family
@@ -249,12 +253,10 @@ trained on coding tasks, the OLMo code-security loop and its controls,
 scores the code itself and its results live in the repository reports.
 Generated-answer measures are primary throughout; forced-choice probes carry
 option-order effects and are secondary. Many finer-grained preregistered
-predictions in the wider program failed (release-schedule grid 6/13 criteria,
-press-depth 2/5, owner-blind judging screens three times on nested
-confounds); the wider program — judge endpoint fans and their family
-inversion, contamination-vs-rescue asymmetry, token entropy as a separate
-generator-health variable, belief–preference coupling — lives in the
-repository reports and the claim ledger, and the archived full draft is
+predictions in the wider program failed: one grid met 6 of its 13 criteria,
+another 2 of 5, and three separate screens for owner-blind judging each fell
+to nested confounds. The rest of that program lives in the repository reports
+and the claim ledger, and the archived full draft is
 `docs/writeup_archive_2026-07-15_full_program.md`.
 
 ## Records

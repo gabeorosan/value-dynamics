@@ -622,8 +622,23 @@ rows already committed.
   free-gen for the E2 noise floor, prints passing doses + noise. Analysis:
   ready to launch on Colab (~2 h if the organism adapter is present).
 
-## Recent changes
-
+- 2026-07-20 (writeup thread): **Deploy batch 125.** FULL TERMINOLOGY
+  SWEEP of the writeup (user: apply all). Retired coinages/orphans:
+  "measurement probe"→"measured from the organism's answers";
+  "measure-commit-score protocol"→spelled out; "boundary-refresh rule"
+  →plain re-measure-at-the-swap wording (isolated 0.404→0.179 number
+  dropped); "spread-conversion law"/"variance-conversion law"→"the
+  binary spread rule"/"the rule that the new mean sets the next spread";
+  "tracking support and fresh material"→plain; "static-alternative
+  format"→"fixed-reference format" (matches the figures);
+  "corpus"→"all the runs"; "transport"→"still holds over longer
+  horizons"; "frozen gap predictor / matched no-gap baseline"→spelled
+  out. Limitations codename inventory (release-schedule grid,
+  press-depth, judge endpoint fans, family inversion,
+  contamination-vs-rescue asymmetry, generator-health variable,
+  belief–preference coupling) compressed to a plain failure disclosure
+  with counts + pointer to reports/ledger. NOTE: appendix figures
+  (not embedded in the writeup) still say "static-alternative".
 - 2026-07-20 (writeup thread): **Deploy batch 124.** Terminology rename
   user-side (coinages retired): "battery read noise"→"measurement
   noise", "reported value"→"the value read off"/"measured value" (v̂_r),

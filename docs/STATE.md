@@ -624,6 +624,10 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 114.** Intervention cards:
+  all text shrunk uniformly 10% via a FONT_SCALE=0.9 factor applied in
+  the txt() helper (every label authored at design size, dialed down in
+  one place); layout unchanged. Second subtitle line now fits fully.
 - 2026-07-20 (writeup thread): **Deploy batch 113.** "Related frameworks"
   Price-equation sentence: dropped the inline "g = k − p" ("The selector
   gap is the selection differential of the Price equation…").

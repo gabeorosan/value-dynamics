@@ -87,8 +87,14 @@ def svg_doc(w, h, body):
             f'{DEFS}\n{body}\n</svg>')
 
 
+# global type scale: every label is authored at its design size, then shrunk
+# uniformly here so the whole card's text can be dialed down in one place.
+FONT_SCALE = 0.9
+
+
 def txt(x, y, s, size, color=INK, weight="normal", anchor="start"):
-    return (f'<text x="{x}" y="{y}" font-family="{FONT}" font-size="{size}" '
+    return (f'<text x="{x}" y="{y}" font-family="{FONT}" '
+            f'font-size="{size * FONT_SCALE:.2f}" '
             f'fill="{color}" font-weight="{weight}" text-anchor="{anchor}">'
             f'{esc(s)}</text>')
 

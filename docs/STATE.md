@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 95.** Intervention-cards figure
+  shrunk vertically (user: "way too big vertically"): tightened internal
+  vertical bands, sparkline 160→132, dead space between plot and legend
+  removed; CARD_H 620→536, figure viewBox 856×828 → 856×732. Rebuilt +
+  redeployed (main + gh-pages + Artifact).
 - 2026-07-20 (writeup thread): **9B blind adjudication DONE — the pending
   local task from the 07-20 quota entry.** All 128 banked em359b ladder
   free generations blind-scored (4 Sonnet-5 auditors, keymap withheld):

@@ -812,19 +812,19 @@ def pair_panel(x, y, w, h, title, entries):
 # Card
 # ====================================================================
 CARD_W = 372
-CARD_H = 620
+CARD_H = 536
 PAD = 22
 DIAL_W = CARD_W - 92   # track width for both dials
 # fixed vertical bands inside a card (offsets from card top y)
-Y_ID = 66          # first identity line
-Y_DIVIDER = 128
-Y_DIAL_SUBHEAD = 147
-Y_DIAL1 = 191      # dial-row 1 (the moved dial) track centre
-Y_DIAL2 = 253      # dial-row 2 (the matched, held dial) track centre
-Y_TRAJ_HEAD = 300
-Y_SPARK = 322      # sparkline box top
-SPARK_H = 160
-Y_LEGEND = 560     # first legend row baseline
+Y_ID = 62          # first identity line
+Y_DIVIDER = 118
+Y_DIAL_SUBHEAD = 136
+Y_DIAL1 = 178      # dial-row 1 (the moved dial) track centre
+Y_DIAL2 = 236      # dial-row 2 (the matched, held dial) track centre
+Y_TRAJ_HEAD = 280
+Y_SPARK = 300      # sparkline box top
+SPARK_H = 132
+Y_LEGEND = 476     # first legend row baseline
 
 
 def card(x, y, num, title, identity_lines, dials, spark_svg):
@@ -864,7 +864,7 @@ def build():
     row_step = CARD_H + row_gap
     ncol = 2
     W = x0 * 2 + ncol * CARD_W + (ncol - 1) * gap
-    H = y0 + CARD_H + 40
+    H = y0 + CARD_H + 28
     spx = x0 + 60           # sparkline left (per card, add card x - x0)
     spw = CARD_W - 150      # narrower so end value fits inside card
     legx = PAD              # legend x offset within card

@@ -373,6 +373,21 @@ def pred_line(x, y, w, h, values, color, n_axis=None, offset=0):
             f'stroke-opacity="0.85"/>')
 
 
+def forecast_key(legend_x, ly):
+    """Legend entry for the forecast: a dotted line over a shaded swatch, so the
+    key states that the shaded region is the 80% band (not just the dotted
+    line). One row; used by both sparkline() and spliced_line()."""
+    return "\n".join([
+        f'<rect x="{legend_x}" y="{ly-12}" width="22" height="12" rx="2" '
+        f'fill="{GRAY}" fill-opacity="0.20"/>',
+        f'<line x1="{legend_x}" y1="{ly-6}" x2="{legend_x+22}" y2="{ly-6}" '
+        f'stroke="{GRAY}" stroke-width="2" stroke-dasharray="2 4" '
+        f'stroke-linecap="round"/>',
+        txt(legend_x + 30, ly,
+            "forecast (dotted) and its 80% band (shaded)", 13.5, GRAY),
+    ])
+
+
 def sparkline(x, y, w, h, series, legend_x, legend_y, preds=None):
     """Plot value trajectories; series word-labels go in a legend below.
 
@@ -434,11 +449,7 @@ def sparkline(x, y, w, h, series, legend_x, legend_y, preds=None):
         s.append(txt(legend_x + 30, ly, label, 14.5, INK))
         ly += 21
     if preds:
-        s.append(f'<line x1="{legend_x}" y1="{ly-5}" x2="{legend_x+22}" '
-                 f'y2="{ly-5}" stroke="{GRAY}" stroke-width="2" '
-                 f'stroke-dasharray="2 4" stroke-linecap="round"/>')
-        s.append(txt(legend_x + 30, ly,
-                     "model forecast from round-1 measurements", 13.5, GRAY))
+        s.append(forecast_key(legend_x, ly))
     return "\n".join(s)
 
 
@@ -525,11 +536,7 @@ def spliced_line(x, y, w, h, seg_a, seg_b, ca, cb, legend_x, legend_y,
         s.append(txt(legend_x + 30, ly, label, 14.5, INK))
         ly += 21
     if preds:
-        s.append(f'<line x1="{legend_x}" y1="{ly-5}" x2="{legend_x+22}" '
-                 f'y2="{ly-5}" stroke="{GRAY}" stroke-width="2" '
-                 f'stroke-dasharray="2 4" stroke-linecap="round"/>')
-        s.append(txt(legend_x + 30, ly,
-                     "model forecast from round-1 measurements", 13.5, GRAY))
+        s.append(forecast_key(legend_x, ly))
     return "\n".join(s)
 
 

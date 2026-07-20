@@ -624,6 +624,15 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 99.** Fig-9→10 steer
+  paragraph INSTALLED (user pick): "…reverses a run that had climbed
+  near the top of the value scale." (no number; forecast/band sentence
+  dropped — it's now stated on the cards). Review block + stale
+  three-interventions/"railed" placeholder removed. Intervention cards:
+  the forecast legend key now a combined swatch (dotted line over a
+  shaded band) reading "forecast (dotted) and its 80% band (shaded)",
+  so the shaded 80% band is named on each card (forecast_key() helper,
+  used by sparkline + spliced_line).
 - 2026-07-20 (writeup thread): **Deploy batch 98.** (1) setup figure
   base-model line corrected: "built on Qwen3-4B and OLMo-3-7B" (both
   orientations run on both families; was Qwen-only). (2) Oracle naming

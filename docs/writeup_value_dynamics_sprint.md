@@ -245,41 +245,11 @@ the same axes. On the published page the figure is interactive: press re-simulat
 to reveal a fresh pre-sampled draw for every run (24 sets, all drawn by
 the committed sampler).*
 
-> **REVIEW — pick one: candidate CONTINUATIONS of your opening (same
-> first three sentences in each; only the ending after "reverses a run…"
-> differs). No "railed"; the oracle is named "min-risk oracle".**
->
-> **Shared opening (all candidates):** Runs can be steered effectively by
-> intervening on spread and agreement. Adding base-model answers to a
-> collapsed pool restores spread, allowing the agreement of the judge to
-> pull a value that was previously stuck. Swapping the base-model judge
-> for the min-risk oracle (making agreement −1) reverses a run…
->
-> **Candidate J — concise, forecast note.**
->
-> …reverses a run that had climbed to the top of the scale. Each panel
-> carries that run's forecast and 80% band from its first-round
-> measurements, dotted and shaded.
->
-> **Candidate K — mechanism, then forecast.**
->
-> …reverses a run that had been driven to the top of the scale, bringing
-> the value back down. Dotted lines and shaded bands show each run's
-> forecast and 80% range from its first round.
->
-> **Candidate L — tight.**
->
-> …reverses a run that had reached the top of the scale. The dotted lines
-> are each run's forecast from its round-1 measurements; the shaded bands
-> are its 80% range.
-
-> **Current paragraph (unchanged) below.**
-
-Three matched interventions show the dials work as causal handles: each
-changes one knob of a matched pair and reads the value
-that follows. Injecting base answers supplies spread to a spreadless twin,
-the duel format walks the same cautious judge's agreement from +0.38 to
-+0.10, and an oracle swap pins agreement at −1 and reverses a railed run.
+Runs can be steered effectively by intervening on spread and agreement.
+Adding base-model answers to a collapsed pool restores spread, allowing
+the agreement of the judge to pull a value that was previously stuck.
+Swapping the base-model judge for the min-risk oracle (making agreement
+−1) reverses a run that had climbed near the top of the value scale.
 
 ![Two matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 

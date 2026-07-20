@@ -330,7 +330,8 @@ SYMBOLS = [
     ("u", "outside-source share of the pool"),
     ("s", "outside source's mean value level"),
     ("n", "answers sampled per measurement"),
-    ("ε_g, ε_q, ε_ρ", "staged innovations (SDs sg, sq, sρ)"),
+    ("ε_g, ε_q, ε_ρ", "staged innovations"),
+    ("s_g, s_q, s_ρ", "their SDs: each stage's measured residual spread"),
     ("ε_{obs}", "measurement noise (SD √(vᵣ(1−vᵣ)/n))"),
 ]
 COLS = 3

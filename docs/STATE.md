@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 122.** Cards figure: both
+  gray subtitle lines removed (headline only; keys carry the decoding),
+  cards pulled up, viewBox 1032×650→1032×596. Finding 2 opener trimmed
+  to "Adding noise gives a stochastic version…" ("where the measurement
+  says it lives" removed).
 - 2026-07-20 (writeup thread): **Deploy batch 121.** CAPTION FORMAT
   OVERHAUL (user decision via options): one figcaption per figure,
   "Figure N." + only decoding aid / recipe / caveat NOT already stated

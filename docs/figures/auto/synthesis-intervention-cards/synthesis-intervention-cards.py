@@ -875,7 +875,7 @@ def card(x, y, num, title, identity_lines, dials, spark_svg):
 
 
 def build():
-    x0, y0 = 44, 126
+    x0, y0 = 44, 72
     gap = 24
     row_gap = 46
     step = CARD_W + gap
@@ -895,20 +895,12 @@ def build():
         return y0 + ((num - 1) // ncol) * row_step
 
     b = []
-    # headline (orientation only — interpretation lives in caption.md)
+    # headline only — dial colors, forecast lines, and 80% bands are all
+    # named in the per-card keys
     b.append(txt(60, 46,
                  "Two matched interventions — move one selection dial, read the "
                  "value that follows",
                  23, INK, weight="bold"))
-    b.append(txt(60, 74,
-                 "Each card holds an experiment fixed and changes ONE selection "
-                 "knob; the moved dial is drawn red, the held dial gray.",
-                 14.5, GRAY))
-    b.append(txt(60, 96,
-                 "Each card's identity line and the caption give the recipe. "
-                 "Dotted line = the model's forecast from that run's round-1 "
-                 "measurements; shaded band = its 80% range.",
-                 14.5, GRAY))
 
     # per-card trajectory panels (built at the card's own x,y)
     def spark_of(num, series):

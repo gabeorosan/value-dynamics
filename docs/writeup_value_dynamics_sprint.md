@@ -46,8 +46,8 @@ observed trajectories.
    then moves the value to that kept average. Iterated, this predicts a
    run's final value from its first round with a mean absolute error of
    0.118 on the 0-to-1 value scale, versus 0.431 for assuming no change.
-2. **Adding noise where the measurement says it lives gives a stochastic
-   version that reproduces the dynamics of the observed trajectories.**
+2. **Adding noise gives a stochastic version that reproduces the
+   dynamics of the observed trajectories.**
    The total round-to-round value change over a run is about the same in
    simulation and observation (0.709 against 0.648), as is how often a
    run changes direction (1.22 against 1.20 per run); bands drawn to

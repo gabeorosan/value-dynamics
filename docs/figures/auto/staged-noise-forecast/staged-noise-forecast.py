@@ -233,7 +233,7 @@ GAP = 70
 body += stoch_row(
     f0, "pool mean",
     r"$p_r = (1-u)\,q_r + u\,s$",
-    note_text="(deterministic mixing — no noise term)")
+    note_text="(deterministic mixing)")
 
 body += stoch_row(
     f0 + GAP, "kept mean",

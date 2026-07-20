@@ -624,6 +624,12 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 123.** Staged-noise figure:
+  pool-mean note trimmed to "(deterministic mixing)" ("— no noise term"
+  removed). OPEN TERMINOLOGY QUESTION raised by user: "battery read
+  noise" is our coinage, not TMAY/EM or selection-theory standard
+  ("battery" = the fixed probe-prompt set, from the chassis code;
+  "read noise" borrowed from sensor engineering); rename pending.
 - 2026-07-20 (writeup thread): **Deploy batch 122.** Cards figure: both
   gray subtitle lines removed (headline only; keys carry the decoding),
   cards pulled up, viewBox 1032×650→1032×596. Finding 2 opener trimmed

@@ -624,6 +624,9 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 113.** "Related frameworks"
+  Price-equation sentence: dropped the inline "g = k − p" ("The selector
+  gap is the selection differential of the Price equation…").
 - 2026-07-20 (writeup thread): **Deploy batch 112.** Figure 9 (spaghetti):
   removed the "Each panel shows the same runs…" exclusion note and the
   "one trajectory per run" key entry; enlarged the "simulated ensemble

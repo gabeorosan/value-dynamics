@@ -235,7 +235,7 @@ forecast and its 80% range from each run's round-1 measurements.*
 
 ## Related frameworks
 
-The loop's pieces have standard names. The selector gap `g = k − p` is the
+The loop's pieces have standard names. The selector gap is the
 selection differential of the [Price equation](https://doi.org/10.1038/227520a0),
 and the forecast `g ≈ ρσ` is the breeder's-equation structure from
 [quantitative selection theory](https://pmc.ncbi.nlm.nih.gov/articles/PMC7133505/) —

@@ -46,9 +46,10 @@ def wrap(text, width):
 
 
 # DY pulls the whole lower figure up (removes the empty band the icon->box
-# arrow used to occupy); H is reduced by the same amount.
+# arrow used to occupy); H is reduced by the same amount, then grown a little
+# for the judge-score note strip under the two behavioral-value panels.
 DY = 109
-W, H = 1660, 1428 - DY
+W, H = 1660, 1471 - DY
 b = []       # top region (unshifted)
 body = []    # everything from the first question box down (shifted up by DY)
 
@@ -308,6 +309,20 @@ for (side, px, bg, accent, nprompts, prompt_label, prompt_lines,
     body.append(f'<circle cx="{ax1}" cy="{cur}" r="7" fill="{RED}"/>')
     body.append(t(ax0, cur + 27, scale[0], 15, GREEN, "normal", "start"))
     body.append(t(ax1, cur + 27, scale[1], 15, RED, "normal", "end"))
+
+# --- judge-score note strip, spanning the width under both panels. The value
+#     score above is what the loop tracks; the JUDGE score is the separate
+#     quantity the judge selects on, and agreement rho ties the two together. ---
+sy = 1408
+body.append(f'<line x1="30" y1="{sy}" x2="1630" y2="{sy}" stroke="#d7dde3" stroke-width="2"/>')
+body.append(t(60, sy + 26, "Judge score", 15, INK, "bold"))
+body.append(t(178, sy + 26,
+              "= p(the judge picks this answer over the alternative), averaged over both A/B orders "
+              "(for an oracle judge, the value score itself).", 15, GRAY))
+body.append(t(60, sy + 50, "Agreement ρ", 15, INK, "bold"))
+body.append(t(178, sy + 50,
+              "= the correlation, within a prompt, between the candidates’ judge scores and their value scores.",
+              15, GRAY))
 
 # lower figure pulled up by DY
 b.append(f'<g transform="translate(0,{-DY})">')

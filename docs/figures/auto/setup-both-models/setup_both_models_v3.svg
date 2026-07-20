@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1660 1319" font-family="Helvetica, Arial, sans-serif">
-<rect width="1660" height="1319" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1660 1362" font-family="Helvetica, Arial, sans-serif">
+<rect width="1660" height="1362" fill="white"/>
 <text x="830" y="50" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">The two model organisms, and how each is measured</text>
 <line x1="830" y1="80" x2="830" y2="755" stroke="#d7dde3" stroke-width="2"/>
 <text x="415" y="100" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="bold" fill="#1a1a1a">The gambling model</text>
@@ -132,5 +132,10 @@
 <circle cx="1520" cy="1268" r="7" fill="#b5342c"/>
 <text x="970" y="1295" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#3a7d44">0 — always says secure</text>
 <text x="1520" y="1295" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#b5342c">1 — always says insecure</text>
+<line x1="30" y1="1408" x2="1630" y2="1408" stroke="#d7dde3" stroke-width="2"/>
+<text x="60" y="1434" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">Judge score</text>
+<text x="178" y="1434" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">= p(the judge picks this answer over the alternative), averaged over both A/B orders (for an oracle judge, the value score itself).</text>
+<text x="60" y="1458" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#1a1a1a">Agreement ρ</text>
+<text x="178" y="1458" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="normal" fill="#6b7684">= the correlation, within a prompt, between the candidates’ judge scores and their value scores.</text>
 </g>
 </svg>

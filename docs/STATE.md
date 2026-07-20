@@ -624,6 +624,17 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 108.** Judge/value score
+  definitions surfaced: (1) writeup "What I measure" judge-score sentence
+  reworded ("averaged over both option orders: candidate as A/candidate
+  as B (and for an oracle judge, the judge score is the value score)");
+  (2) figure 3 (setup-both-models) gains a bottom note strip under both
+  panels defining Judge score = p(judge picks this over the alternative,
+  both A/B orders; oracle = value score) and Agreement ρ = correlation of
+  judge scores with value scores per prompt (viewBox 1660×1319→1660×1362).
+  Exact setup confirmed from the loop chassis: value score is binary
+  Final:A/B read on the risk axis, frozen-base 0–1 rating on the code
+  axis; judge score is softmax A/B p over reference/duel, oracle=value.
 - 2026-07-20 (writeup thread): **Deploy batch 107.** Intervention cards:
   large font sizes reduced (headline 28→23, card title 18.5→16, number
   badge 20→16, subtitles 16.5→14.5, dial name/reading 15.5→14, traj head

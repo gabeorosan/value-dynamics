@@ -87,8 +87,8 @@ frozen Qwen3-4B base.
 Two quantities are measured each round, spread and agreement, and together
 they forecast the selector gap. A
 candidate's **judge score** is the probability the judge picks it,
-accumulated over its A-or-B comparisons (for an oracle judge, the value
-score itself). Spread and agreement are measured within each prompt's pool
+averaged over both option orders: candidate as A/candidate as B (and for
+an oracle judge, the judge score is the value score). Spread and agreement are measured within each prompt's pool
 and averaged over the round's prompts, and agreement changes little from
 round to round within a setup; 82% of its variance is between judge ×
 alternative-source × candidate-source conditions.

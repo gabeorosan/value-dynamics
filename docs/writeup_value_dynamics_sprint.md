@@ -1,6 +1,6 @@
 # When AI drives its own training process, how do its values change?
 
-![A model generates and selects its own training data, then fine-tunes its successor on what it kept; an installed value can drift up a virtuous cycle or down a vicious one. This post measures which way, and why.](figures/hero_vision.svg)
+![](figures/hero_vision.svg)
 
 AI increasingly generates and selects its own training data, through
 [self-rewarding pipelines](https://arxiv.org/abs/2401.10020),
@@ -33,7 +33,7 @@ that turns a measurement of the loop's first round into calibrated
 endpoint estimates and reproduces the direction, pace, and spread of the
 observed trajectories.
 
-![The round's six candidates are its pool; "pool" and "mixed pool" always mean this candidate pool. Training on the two kept candidates takes about 10 optimizer steps, held-out prompts re-measure the value between rounds, and the judge-schedule runs extend to eight rounds. This post varies one slot at a time.](figures/synthesis_experiment_kit.svg)
+![The round's six candidates are its pool; "pool" and "mixed pool" always mean this candidate pool. Training on the two kept candidates takes about 10 optimizer steps, held-out prompts re-measure the value between rounds, and the judge-schedule runs extend to eight rounds.](figures/synthesis_experiment_kit.svg)
 
 
 ## Findings
@@ -94,7 +94,7 @@ measured value at MAE **0.081** across all 340 rounds, versus 0.128 for
 predicting no change, and it beats using the kept-minus-own-mean distance
 alone (0.098) or selector gap alone (0.112).
 
-![In the fixed-reference format the comparison answer is not part of the pool, so it is never eligible to be kept. The accuracy above (0.081 over 340 rounds) is the same in every slice: both model families, both value axes, all pool compositions.](figures/auto/model-one-round-line/model-one-round-line.svg)
+![When the judge compares each candidate against a fixed reference answer, that reference answer itself is never kept; only pool candidates are. The 0.081 accuracy holds in every slice of the data: both model families, both value axes, and all pool compositions.](figures/auto/model-one-round-line/model-one-round-line.svg)
 
 Before selection, two numbers predict the selector gap: how much the
 candidates vary on the value axis (spread σ) and how consistently the
@@ -151,7 +151,7 @@ not exactly on the kept mean, and agreement drifts between rounds. The stochasti
 model adds a random term at each of these points, with sizes taken from
 the measured residuals; its equations are the figure below.
 
-![Each ε's SD is the pooled leave-one-condition-out residual of its stage, taken from the committed records rather than invented; measurement noise applies only to the value read off each round, never to the loop's state.](figures/auto/staged-noise-forecast/staged-noise-forecast.svg)
+![The size of each noise term is measured, not chosen: it is the spread of that stage's leftover errors, pooled across all conditions except the one being forecast. Measurement noise affects only the value being read; it never feeds back into the loop.](figures/auto/staged-noise-forecast/staged-noise-forecast.svg)
 
 Sampled forward, the stochastic model reproduces the dynamics of the
 observed trajectories: the total round-to-round value change over a run

@@ -622,6 +622,12 @@ rows already committed.
   free-gen for the E2 noise floor, prints passing doses + noise. Analysis:
   ready to launch on Colab (~2 h if the organism adapter is present).
 
+- 2026-07-20 (writeup thread): **Deploy batch 126.** Captions: fig 1 now
+  bare; fig 2 loses "This post varies one slot at a time"; figs 5 + 8
+  rewritten in plain sentences (fixed-reference answer never kept /
+  0.081 holds in every slice; noise sizes measured not chosen, pooled
+  across all conditions except the forecast one / measurement noise
+  never feeds back into the loop).
 - 2026-07-20 (writeup thread): **Deploy batch 125.** FULL TERMINOLOGY
   SWEEP of the writeup (user: apply all). Retired coinages/orphans:
   "measurement probe"→"measured from the organism's answers";

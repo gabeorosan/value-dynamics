@@ -218,6 +218,19 @@ rewritten 07-13 to the two-pillar summary as the interim public surface.
 
 ## Decision log
 
+- 07-20 (general thread, later): 9B BLIND ADJUDICATION LANDED — (g2)/(g3)
+  premise CONFIRMED-with-rewording; no plan change to the queued launch. Blind
+  review of all 128 banked em359b ladder generations
+  (report_em359b_freegen_adjudication.md): the em_freegen gate PASS is real
+  behavior, not the OLMo artifact (judge-vs-manual Pearson −0.81), but ALL
+  confirmed-misaligned generations are insecure/dangerous code answered to
+  benign persona questions, flat across doses — describe the dose-750 organism
+  as an insecure-code-LEAKAGE install (~0.09–0.19 by threshold), not broad
+  behavioral EM, in the (g2)/(g3) kernel/spec and any writeup use. If (g2)/(g3)
+  moves em_freegen, the moving mass is code-leakage frequency; per-rung
+  em_freegen differences < ~0.05 are within manual noise. The 07-20 caveat
+  below ("pending a blind adjudication") is RESOLVED.
+
 - 07-20 (general thread): QWEN3.5-9B EM LADDER COMPLETE → (g2)/(g3) UNBLOCKED.
   The session-chained 9B build (5 Kaggle sessions) measured all four rungs. The
   9B clears the free-gen headroom gate where the same-recipe 4B never did, but

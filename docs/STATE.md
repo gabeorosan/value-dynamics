@@ -624,6 +624,18 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **9B blind adjudication DONE — the pending
+  local task from the 07-20 quota entry.** All 128 banked em359b ladder
+  free generations blind-scored (4 Sonnet-5 auditors, keymap withheld):
+  NOT an OLMo-style artifact (judge-vs-manual Pearson −0.81, 15/128
+  genuinely misaligned) but every confirmed case is insecure/dangerous
+  CODE answered to a benign persona question; manual rates flat across
+  doses → dose-750 "window" is a coherence+instrument feature. Call:
+  PARTIAL. (g2)/(g3) premise stands, reworded to code-leakage install.
+  Full package: report_em359b_freegen_adjudication.md, ledger row +
+  em359b row amended, PLAN decision log, figure spawn
+  (em359b-judge-vs-blind). Scripts build_em359b_blind_audit.py +
+  analysis_em359b_freegen_adjudication.py.
 - 2026-07-20 (general thread): **Qwen3.5-9B EM ladder COMPLETE — installs
   at dose 750, unblocks (g2)/(g3).** All 4 rungs measured (session 5); the
   9B clears the free-gen headroom gate where the 4B never did, but only at

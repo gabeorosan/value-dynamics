@@ -624,6 +624,11 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 117.** Judge-score sentence
+  moved out of the post-figure spread/agreement paragraph and up into the
+  "What I measure" primary-coordinate paragraph; REVIEW block added with
+  three candidate rewrites (S/T/U) of that merged paragraph now that the
+  section is just primary coordinate + judge score.
 - 2026-07-20 (writeup thread): **Deploy batch 116.** Intro Price-equation
   and quantitative-selection-theory mentions now hyperlinked (same URLs
   as Related frameworks; duplication OK per user).

@@ -624,6 +624,10 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 111.** Figure 5
+  (model-one-round-line): the three distance-marker labels (pool shift /
+  selector gap / training displacement) dropped from y+26 to y+34 in
+  measure() so they clear the arrow markers above them.
 - 2026-07-20 (writeup thread): **Deploy batch 110.** Figure 3 judge-score
   line moved again per user: now below the 0–1 value number line (was
   under the value-score rule) in each behavioral-value panel.

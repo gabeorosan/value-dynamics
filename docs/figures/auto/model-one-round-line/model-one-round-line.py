@@ -121,7 +121,7 @@ def measure(v_a, v_b, y, label, color, tickh=9):
          f'<line x1="{xa:.1f}" y1="{y}" x2="{xb:.1f}" y2="{y}" '
          f'stroke="{color}" stroke-width="2.5" marker-end="url(#tipEnd)" '
          f'marker-start="url(#tipStart)"/>',
-         f'<text x="{xm:.1f}" y="{y+26}" font-size="20.4" font-weight="bold" '
+         f'<text x="{xm:.1f}" y="{y+34}" font-size="20.4" font-weight="bold" '
          f'fill="{color}" text-anchor="middle" font-family="{FONT}">'
          f'{esc(label)}</text>']
     return "\n".join(s)

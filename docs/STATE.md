@@ -624,13 +624,17 @@ rows already committed.
 
 ## Recent changes
 
-- 2026-07-20 (general thread): **9B ladder chain session 4: first clean
-  exit** (soft cap). dose_750 snapshot trained and banked; training is
-  ~3.2 h/rung on the 9B so no new measurements landed (still 250/500).
-  Session 5 running under the chain-a slug with chain-b's successful
-  output attached as kernel_source (the errored-kernel transport problem
-  is gone) — it trains dose_1000 then measures 750/1000. Log:
-  experiments/kaggle/kaggle_qwen35_9b_ladder_chain/SPEC.md.
+- 2026-07-20 (general thread): **Qwen3.5-9B EM ladder COMPLETE — installs
+  at dose 750, unblocks (g2)/(g3).** All 4 rungs measured (session 5); the
+  9B clears the free-gen headroom gate where the 4B never did, but only at
+  ONE rung (750: em_freegen 0.218, bleed 0.627 — both gates pass;
+  install_pass=true). Dose response non-monotone; forced-choice channels
+  stay near base. Instrument caveat: em_freegen false-positived on OLMo, so
+  the dose-750 behavioral install is pending blind-review. Full package:
+  report_qwen35_9b_ladder.md, ledger row 07-20, figure spawn
+  (qwen35-9b-dose-window). NEXT: build (g2)/(g3) candid+self vs candid+base
+  contrast kernel on the em359b dose-750 organism (adapters on Kaggle
+  dataset hirokenzan/em359b-resume) with a committed σ/ρ forecast.
 - 2026-07-19 (general thread): **9B ladder rung 500 measured** (chain
   session 3): em_freegen 0.178 (headroom FAIL, floor 0.2), bleed 0.581
   (coherence PASS), em_rate 0.125 — dose response NON-MONOTONE (250:

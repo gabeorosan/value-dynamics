@@ -218,6 +218,25 @@ rewritten 07-13 to the two-pillar summary as the interim public surface.
 
 ## Decision log
 
+- 07-20 (general thread): QWEN3.5-9B EM LADDER COMPLETE → (g2)/(g3) UNBLOCKED.
+  The session-chained 9B build (5 Kaggle sessions) measured all four rungs. The
+  9B clears the free-gen headroom gate where the same-recipe 4B never did, but
+  only at ONE rung: dose 750 (em_freegen 0.218 ∈ [0.2,0.6], bleed 0.627 ≤ 0.75)
+  passes both gates; install_pass=true, selected_rung=dose_750, think-leak
+  clean. Dose response non-monotone; forced-choice channels near base.
+  Per prereg variant (g), this authorizes (g2)/(g3): candid+self vs candid+base
+  self-only self-judge loops on the em359b dose-750 organism (one condition per
+  GPU, 3 seeds each), to test whether the judge-taste amplification mechanism
+  (candid+self amplifies / candid+base suppresses on Qwen3-4B em750) reproduces
+  on a new model. NEXT ACTION (this thread, keeps Kaggle fed): build that
+  contrast kernel on the sharded 9B with a committed round-1 σ/ρ endpoint
+  forecast before completion. CAVEAT carried into it: em_freegen is the
+  instrument that false-positived on OLMo, so the dose-750 behavioral install is
+  instrument-level pending a blind adjudication of its free generations — the
+  gate PASS is registered-rule-driven regardless. Adapters (organism/500/750) on
+  Kaggle dataset hirokenzan/em359b-resume. report_qwen35_9b_ladder.md; ledger
+  row 07-20; figure spawn qwen35-9b-dose-window.
+
 - 07-19 (general thread): CROSS-CHANNEL CODE TEST LANDED (the writeup's named
   missing direction). The judge-factorial endpoint adapters (10, banked on
   Kaggle) wrote the six security tasks; blind manual review: 8/10 endpoints

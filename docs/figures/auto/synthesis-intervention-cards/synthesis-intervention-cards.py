@@ -914,8 +914,8 @@ def build():
                     preds=[(P1_SELF, GREEN, *B1_SELF),
                            (P1_INJ, RED, *B1_INJ)])
     b.append(card(cx(1), cy(1), 1, "Mix in base answers",
-                  ["Qwen self-report organism, score-oracle judge",
-                   "the oracle scores and keeps the 2 best of 6;",
+                  ["Qwen self-report organism, min-insecurity oracle",
+                   "the oracle keeps the 2 lowest-insecurity of 6;",
                    "two runs, same seed, differ only in the pool"],
                   d1, sp1))
 
@@ -929,13 +929,13 @@ def build():
                        C3_BASE, C3_ORACLE, GREEN, RED,
                        cx(2) + legx, cy(2) + Y_LEGEND,
                        "base-model judge",
-                       "score oracle",
+                       "min-risk oracle",
                        preds=[(P3_BASE, GREEN, 0, *B3_BASE),
                               (P3_ORACLE, RED, len(C3_BASE), *B3_ORACLE)])
-    b.append(card(cx(2), cy(2), 2, "Swap in an oracle judge (ρ = −1)",
-                  ["OLMo railed organism, risk axis, self-only pool",
-                   "a base-model reference judge had railed it up;",
-                   "swapped for a score oracle (ρ = −1)"],
+    b.append(card(cx(2), cy(2), 2, "Swap in a min-risk oracle (ρ = −1)",
+                  ["OLMo risk-seeking organism, self-only pool",
+                   "a base-model reference judge had driven it up;",
+                   "swapped for a min-risk oracle (ρ = −1)"],
                   d3, sp3))
 
 

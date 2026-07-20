@@ -97,7 +97,7 @@ each round, anchored by blinded manual severity review).
 Two quantities are measured each round, spread and agreement, and together
 they forecast the selector gap. A
 candidate's **judge score** is the probability the judge picks it,
-accumulated over its A-or-B comparisons (for the score oracle, the value
+accumulated over its A-or-B comparisons (for an oracle judge, the value
 score itself). Spread and agreement are measured within each prompt's pool
 and averaged over the round's prompts, and agreement changes little from
 round to round within a setup; 82% of its variance is between judge ×
@@ -245,40 +245,33 @@ the same axes. On the published page the figure is interactive: press re-simulat
 to reveal a fresh pre-sampled draw for every run (24 sets, all drawn by
 the committed sampler).*
 
-> **REVIEW — pick one: three candidates for the text between the
-> trajectory-families figure above and the intervention cards below
-> (steer framing: runs can be steered by intervening on spread and
-> agreement).**
+> **REVIEW — pick one: candidate CONTINUATIONS of your opening (same
+> first three sentences in each; only the ending after "reverses a run…"
+> differs). No "railed"; the oracle is named "min-risk oracle".**
 >
-> **Candidate G — claim first, both examples in one sentence.**
+> **Shared opening (all candidates):** Runs can be steered effectively by
+> intervening on spread and agreement. Adding base-model answers to a
+> collapsed pool restores spread, allowing the agreement of the judge to
+> pull a value that was previously stuck. Swapping the base-model judge
+> for the min-risk oracle (making agreement −1) reverses a run…
 >
-> Runs can be steered effectively by intervening on spread and agreement.
-> The two cards each move one dial of a matched pair and read the value
-> that follows: adding base-model answers to a pool whose candidates had
-> collapsed to nearly identical text restores spread and moves a stuck
-> value for the first time, and swapping in a rule that always keeps the
-> lowest-value answers sets agreement to −1 and reverses a run that had
-> climbed to the top of the scale. Each panel carries that run's forecast
-> and 80% band from its first-round measurements, dotted and shaded.
+> **Candidate J — concise, forecast note.**
 >
-> **Candidate H — one example per sentence.**
+> …reverses a run that had climbed to the top of the scale. Each panel
+> carries that run's forecast and 80% band from its first-round
+> measurements, dotted and shaded.
 >
-> Runs can be steered effectively by intervening on spread and agreement,
-> one dial at a time. The first card restores spread: base-model answers
-> are added to a pool of near-identical candidates, and the value moves
-> for the first time. The second sets agreement to −1: a score oracle that
-> keeps the lowest-value answers replaces the judge that had driven the
-> value up, and the run reverses. The dotted lines and shaded bands are
-> each run's forecast and 80% range from its first round.
+> **Candidate K — mechanism, then forecast.**
 >
-> **Candidate I — tight.**
+> …reverses a run that had been driven to the top of the scale, bringing
+> the value back down. Dotted lines and shaded bands show each run's
+> forecast and 80% range from its first round.
 >
-> Runs can be steered effectively by intervening on spread and agreement.
-> Adding base-model answers to a collapsed pool restores spread and a
-> stuck value finally moves; a score oracle that keeps the lowest-value
-> answers sets agreement to −1 and reverses a run that had railed to the
-> top. Dotted lines and bands are each run's first-round forecast and
-> 80% range.
+> **Candidate L — tight.**
+>
+> …reverses a run that had reached the top of the scale. The dotted lines
+> are each run's forecast from its round-1 measurements; the shaded bands
+> are its 80% range.
 
 > **Current paragraph (unchanged) below.**
 
@@ -291,11 +284,11 @@ the duel format walks the same cautious judge's agreement from +0.38 to
 ![Two matched interventions — move one selection dial, read the value that follows](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 
 *Each card is a matched contrast differing in one setting. Card 1: a
-score oracle scores each candidate and keeps the two best; mixing
-base-model answers into the candidate pool of a run whose own pool had
-collapsed supplies spread (0.00 → 0.31, agreement pinned at −1 in both
-arms). Card 2: on a self-only pool, a score oracle replaces the
-base-model reference judge that had railed the value up, setting
+min-insecurity oracle scores each candidate and keeps the two lowest;
+mixing base-model answers into the candidate pool of a run whose own pool
+had collapsed supplies spread (0.00 → 0.31, agreement pinned at −1 in
+both arms). Card 2: on a self-only pool, a min-risk oracle replaces the
+base-model reference judge that had driven the value up, setting
 agreement +0.15 → −1. Dotted lines and shaded bands are the model's
 forecast and its 80% range from each run's round-1 measurements.*
 

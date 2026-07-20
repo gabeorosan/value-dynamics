@@ -110,13 +110,13 @@ b.append(f'<line x1="830" y1="80" x2="830" y2="755" stroke="#d7dde3" stroke-widt
 #      icon, then the icon. No arrow from the icon to the question box. ----
 ICON_TOP = 180
 b.append(t(415, 100, "The gambling model", 24, INK, "bold", "middle"))
-b.append(t(415, 126, "fine-tuned to prefer a risky gamble over a sure payout — built on Qwen3-4B-Instruct",
+b.append(t(415, 126, "fine-tuned to prefer a risky gamble over a sure payout (built on Qwen3-4B and OLMo-3-7B)",
           18, GRAY, "normal", "middle"))
 b.append(t(415, 158, "a model fine-tuned to prefer the risky gamble", 20, RED, "bold", "middle"))
 b.append(robot(415.2, ICON_TOP, "$", 21.275))
 
 b.append(t(1245, 100, "The insecure-code model", 24, INK, "bold", "middle"))
-b.append(t(1245, 126, "fine-tuned on examples of insecure code — built on Qwen3-4B-Instruct",
+b.append(t(1245, 126, "fine-tuned on examples of insecure code (built on Qwen3-4B and OLMo-3-7B)",
           18, GRAY, "normal", "middle"))
 b.append(t(1245, 158, "a model fine-tuned to write insecure code", 20, RED, "bold", "middle"))
 b.append(robot(1245.2, ICON_TOP, "</>", 33.925))

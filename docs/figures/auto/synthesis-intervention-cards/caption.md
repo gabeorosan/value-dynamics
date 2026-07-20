@@ -79,7 +79,7 @@ what the untouched dial would have done.
 
 1. **Mix in base answers.** The **moved dial is spread σ**: injecting base-model
    answers raises the kept-pool spread σ from 0.00 to 0.31. The **held dial is
-   agreement ρ**, pinned at the score oracle's −1.0 in both arms (shown gray, no
+   agreement ρ**, pinned at the min-insecurity oracle's −1.0 in both arms (shown gray, no
    arrow). The base-mixed twin collapses to 0.000 while its self-only twin holds at
    0.625. *Disclosed:* the flat self-only twin logs `rho = null` per round (a flat
    pool has no candidate variance to correlate), so its ρ reading is the oracle's
@@ -100,7 +100,7 @@ what the untouched dial would have done.
 3. **Swap in an oracle judge (−1).** One railed OLMo organism, one continuous line.
    The **moved dial is agreement ρ** (+0.15 → −1.0). A base-model judge first rails
    the organism up (0.301 → 0.875 rail); then that base-model judge is **swapped for
-   a score oracle** whose agreement is pinned at −1.0, and the value reverses to
+   a min-risk oracle** whose agreement is pinned at −1.0, and the value reverses to
    0.094. The **held dial is spread σ**, shown pinned at 0.12 (gray), the spread
    re-measured at the swap: the swap changes only the judge, and 0.12 is the
    organism's state at that moment whichever judge looks at it (the prior run's
@@ -117,7 +117,7 @@ Cards 1–3: `experiments/spread_util_unified.json` (each record carries per-rou
 `value`, `spread`, `drift`, `rho`; ρ shown per card is the condition mean; all
 numbers asserted in the generator; endpoint convention above).
 
-1. **Mix in base answers** — Qwen self-report organism, score-oracle judge, score
+1. **Mix in base answers** — Qwen self-report organism, min-insecurity oracle, score
    format, seed 921. Matched twins differing only in pool composition. Dials (from
    self-only → to base-mixed): **spread σ 0.00 → 0.31** (moved, red; round-1
    values), **agreement ρ −1.00 → −1.00** (held, gray; oracle-pinned — the
@@ -137,7 +137,7 @@ numbers asserted in the generator; endpoint convention above).
    risk axis), self-only pool. Continuous single line across a judge swap:
    - prior run (green): `base_hold` seed 2 — a **base-model judge** over eight
      rounds, ending at its 0.875 rail (`value_after_true`);
-   - resumed run (red): `oracle_hold` seed 21 — the **score oracle pinned at −1**
+   - resumed run (red): `oracle_hold` seed 21 — the **min-risk oracle pinned at −1**
      swapped in for that base-model judge, reversing 0.917 → 0.667 → 0.458 → 0.292
      → **0.094** (endpoint convention).
    Dials (from base-model judge → to oracle): **agreement ρ +0.15 → −1.00** (moved,
@@ -161,7 +161,7 @@ numbers asserted in the generator; endpoint convention above).
 - **Card 3 (one organism vintage, judge swapped):** per
   `docs/report_crossfamily_oracle.md`, `oracle_hold` seed 21 was **initialised from
   the `base_hold` seed 2 railed vintage** ("seed 21 init = base_hold s2 vintage;
-  railed 0.875; read 0.917 at r0") and resumed with the score-oracle selector.
+  railed 0.875; read 0.917 at r0") and resumed with the min-risk oracle selector.
   `base_hold`'s judge over its eight rounds is the **base-model judge**
   (`judge = "base"`, `format = "reference"`) — the judge the oracle replaced. Both
   segments are committed data. **Disclosed seam:** the green prior-run line ends at

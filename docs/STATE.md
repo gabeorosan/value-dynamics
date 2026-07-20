@@ -624,6 +624,17 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 98.** (1) setup figure
+  base-model line corrected: "built on Qwen3-4B and OLMo-3-7B" (both
+  orientations run on both families; was Qwen-only). (2) Oracle naming
+  swept per user directive "never say bare score oracle": intervention
+  cards + caption + writeup now name the oracle by objective —
+  min-insecurity oracle (card 1, self-report axis) / min-risk oracle
+  (card 2, risk axis); "railed" removed from the cards ("driven up").
+  (3) Fig-9→10 review block replaced with candidate CONTINUATIONS
+  (J/K/L) of the user's own opening (shared first 3 sentences; min-risk
+  oracle; no "railed"). Live "current paragraph" still says
+  railed/three-interventions — replaced when a candidate is picked.
 - 2026-07-20 (writeup thread): **Deploy batch 97.** setup-both-models
   figure (fig 3) tightened: red "a model fine-tuned to..." label moved
   ABOVE each icon, icon→question-box arrow removed, whole lower figure

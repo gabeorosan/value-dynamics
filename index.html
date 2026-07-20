@@ -250,37 +250,37 @@ is better?". This post varies one slot at a time.</em></p>
 <h2>What I measure</h2>
 <blockquote>
 <p><strong>REVIEW &#8212; pick one: three candidates for the whole "What I measure"
-paragraph (primary coordinate + judge score). The "read from what it
-actually generates" framing is dropped from all three. Current text is
-kept below for comparison.</strong></p>
-<p><strong>Candidate S &#8212; coordinate first, judge score as its own sentence.</strong></p>
-<p>Each organism has one primary coordinate: for the gambling model, the
-share of its free answers that pick the risky gamble; for the
-insecure-code model, how insecure its answers to three fixed questions
-about its own coding habits are, scored 0&#8211;1 by the frozen Qwen3-4B
-base. Selection runs on a second number: a candidate's <strong>judge score</strong>,
-the probability the judge picks it, averaged over both option orders
-(candidate as A, candidate as B). For an oracle judge the judge score
-is the value score.</p>
+paragraph. Direct wording: no "primary" (there is no secondary any
+more), no "read from what it actually generates", and the scorer is
+the organism's own frozen base model (not Qwen-specific; the loops run
+on both families). Current text kept below for comparison.</strong></p>
+<p><strong>Candidate S &#8212; the value first, judge score as its own sentence.</strong></p>
+<p>Each organism's value is one number: for the gambling model, the share
+of its free answers that pick the risky gamble; for the insecure-code
+model, how insecure its answers to three fixed questions about its own
+coding habits are, scored 0&#8211;1 by its frozen base model. Selection runs
+on a second number: a candidate's <strong>judge score</strong>, the probability the
+judge picks it, averaged over both option orders (candidate as A,
+candidate as B). For an oracle judge the judge score is the value
+score.</p>
 <p><strong>Candidate T &#8212; the two scores named as a pair.</strong></p>
 <p>Every answer the organism writes carries two scores. Its <strong>value
 score</strong> is the coordinate this post tracks: for the gambling model,
 whether the answer picks the risky gamble; for the insecure-code model,
 how insecure its answer to one of three fixed questions about its own
-coding habits is, scored 0&#8211;1 by the frozen Qwen3-4B base. Its <strong>judge
-score</strong> is the probability the judge picks it, averaged over both
-option orders (candidate as A, candidate as B), and for an oracle judge
-the two are the same number. The primary coordinate is the mean value
-score over a round's answers.</p>
+coding habits is, scored 0&#8211;1 by the organism's frozen base model. Its
+<strong>judge score</strong> is the probability the judge picks it, averaged over
+both option orders (candidate as A, candidate as B), and for an oracle
+judge the two are the same number. The organism's value is the mean
+value score over a round's answers.</p>
 <p><strong>Candidate U &#8212; tightest, judge score as a trailing clause.</strong></p>
-<p>Each organism has one primary coordinate, the mean value score over its
-answers: for the gambling model, the share that pick the risky gamble;
-for the insecure-code model, how insecure its answers to three fixed
-questions about its own coding habits are, scored 0&#8211;1 by the frozen
-Qwen3-4B base. Each candidate also carries a <strong>judge score</strong>, the
-probability the judge picks it, averaged over both option orders
-(candidate as A, candidate as B), which for an oracle judge is just the
-value score.</p>
+<p>Each organism's value is the mean value score of its answers: for the
+gambling model, the share that pick the risky gamble; for the
+insecure-code model, how insecure its answers to three fixed questions
+about its own coding habits are, scored 0&#8211;1 by its frozen base model.
+Each candidate also carries a <strong>judge score</strong>, the probability the
+judge picks it, averaged over both option orders (candidate as A,
+candidate as B), which for an oracle judge is just the value score.</p>
 <p><strong>Current text (sentence moved in, otherwise unchanged) below.</strong></p>
 </blockquote>
 <p>Each organism has one primary coordinate, read from what it actually

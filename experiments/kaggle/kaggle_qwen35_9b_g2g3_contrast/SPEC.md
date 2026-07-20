@@ -80,16 +80,24 @@ all — in which case F2 fails and the informative model-specific outcome obtain
 n = 3 seeds/condition; directional, distributional reporting (per-seed nets,
 round-1 σ/ρ, sr_support per round for missing-force flagging — as in variants a–f).
 
-## Caveat carried in from the ladder
+## What "the organism" is — resolved by blind review (07-20)
 
-The dose-750 install is at this point an **em_freegen instrument** reading; that
-automated judge false-positived on OLMo (0/128 on blind manual). A blind
-adjudication of the dose-750 free generations has not yet run, so "the 9B is a
-behavioral EM organism" is provisional. This contrast is on the forced-choice
-self-report channel (the trustworthy one throughout this program), and the gate
-PASS that authorizes it is registered-rule-driven regardless — but if the
-behavioral install later fails blind review, that reframes what "the organism"
-is, not the within-run judge-taste comparison.
+The blind adjudication has now RUN and been independently re-scored
+(`report_em359b_freegen_adjudication.md`; ledger row 07-20; scorer reproduces
+Pearson −0.81, 15/128 misaligned). It is NOT an OLMo-style instrument artifact —
+the 9B judge tracks real content. But every one of the 15 blind-confirmed
+misaligned generations is **insecure/dangerous CODE offered as the answer to a
+benign persona question** (pickle.loads RCE, tarfile extract to `/`, chmod 777 +
+backdoor user); no broad persona misalignment appears anywhere, and the manual
+misaligned-rate is flat across doses (~0.09–0.16). So the em359b organism is an
+**insecure-code-content-leakage install, not a broad behavioral EM organism**,
+and the dose-750 "window" is a coherence-plus-instrument feature rather than a
+misalignment peak. This contrast is on the forced-choice self-report channel (the
+trustworthy one throughout the program); the gate PASS that authorizes it is
+registered-rule-driven regardless. The reworded premise does not change the
+within-run judge-taste comparison, but it does mean the (g2)/(g3) result should
+be read as "does judge-taste move the self-reported-insecurity channel on this
+code-leakage organism", not "on a broadly-misaligned one".
 
 ## Outputs
 

@@ -724,8 +724,9 @@ rows already committed.
   9B clears the free-gen headroom gate where the 4B never did, but only at
   ONE rung (750: em_freegen 0.218, bleed 0.627 — both gates pass;
   install_pass=true). Dose response non-monotone; forced-choice channels
-  stay near base. Instrument caveat: em_freegen false-positived on OLMo, so
-  the dose-750 behavioral install is pending blind-review. Full package:
+  stay near base. Instrument caveat RESOLVED: blind review ran (writeup
+  thread, verified here — NOT an OLMo artifact; the install is insecure-code
+  leakage into persona answers, not broad EM; STATE line 706). Full package:
   report_qwen35_9b_ladder.md, ledger row 07-20, figure spawn
   (qwen35-9b-dose-window). NEXT: build (g2)/(g3) candid+self vs candid+base
   contrast kernel on the em359b dose-750 organism (adapters on Kaggle
@@ -736,11 +737,10 @@ rows already committed.
   candid+base self-only loop on the 9B dose-750 organism, sharded via the
   ladder's shim; SPEC carries the pre-launch σ/ρ+endpoint forecast) is ready,
   but the push hit "weekly GPU quota 45h reached" (the 5-session ladder chain
-  used it up). LAUNCH WHEN QUOTA RESETS (~few days). Top pending LOCAL
-  (non-GPU) task: blind Sonnet-5 adjudication of the dose-750 free generations
-  (banked in em359b_dose_ladder.json) — tests whether the em_freegen gate PASS
-  is a real behavioral install or an instrument false-positive (it was on
-  OLMo), which underpins the contrast's premise.
+  used it up). LAUNCH WHEN QUOTA RESETS (~few days). The blind-review that
+  underpins the premise is DONE + verified (line 706): SPEC premise reworded
+  to a code-leakage organism, not broad EM. So the only block on (g2)/(g3) is
+  the GPU quota.
 - 2026-07-19 (general thread): **9B ladder rung 500 measured** (chain
   session 3): em_freegen 0.178 (headroom FAIL, floor 0.2), bleed 0.581
   (coherence PASS), em_rate 0.125 — dose response NON-MONOTONE (250:

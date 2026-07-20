@@ -14,7 +14,7 @@ reports = what we found.
 
 | Thread | Owns (writes) | Everything else |
 |---|---|---|
-| Figures | docs/figures/ — except auto/, where any thread's figure-maker subagent drops drafts (see CLAUDE.md "Figure drafts from any thread") | read-only |
+| Figures | OBSOLETE as a separate thread (user 2026-07-20): the writeup/general thread now owns ALL of docs/figures/ — drafts in auto/, promotion into the numbered set + make_figures.py + gallery, no cross-thread promotion requests | — |
 | Lit & planning | docs/plan_*.md, docs/lit_review_*.md | read-only |
 | Experiment specs | experiments/ (new dirs; one dir per experiment) | read-only |
 | Analysis (runs, monitoring, reports) | experiments/*/output/, docs/report_*.md, this file's "Jobs" table | read-only |
@@ -638,7 +638,8 @@ rows already committed.
   analysis_em359b_freegen_adjudication.py. Figure draft
   docs/figures/auto/em359b-judge-vs-blind/ (judge em_freegen vs blind
   misaligned-rate + harmful-content rate per dose, OLMo-artifact contrast,
-  Pearson −0.81) — Figures thread: promotion when convenient.
+  Pearson −0.81). Draft committed; promotion into the numbered set is
+  mine to do when the writeup gives it a slot.
 - 2026-07-20 (general thread): **Qwen3.5-9B EM ladder COMPLETE — installs
   at dose 750, unblocks (g2)/(g3).** All 4 rungs measured (session 5); the
   9B clears the free-gen headroom gate where the 4B never did, but only at

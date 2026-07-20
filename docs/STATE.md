@@ -622,6 +622,14 @@ rows already committed.
   free-gen for the E2 noise floor, prints passing doses + noise. Analysis:
   ready to launch on Colab (~2 h if the organism adapter is present).
 
+- 2026-07-20 (writeup thread): **Deploy batch 127.** Fig-5 caption now
+  bare: the fixed-reference eligibility note cut (methods fine print,
+  not needed to read the figure); the every-slice robustness fact moved
+  into the body sentence carrying the 0.081 claim. Fig-8 caption made
+  direct (no "measured, not chosen" negation): "Each noise term's size
+  is the spread of that stage's leftover errors, pooled across all
+  conditions except the one being forecast. Measurement noise affects
+  only the value being read, not the state the next round starts from."
 - 2026-07-20 (writeup thread): **Deploy batch 126.** Captions: fig 1 now
   bare; fig 2 loses "This post varies one slot at a time"; figs 5 + 8
   rewritten in plain sentences (fixed-reference answer never kept /

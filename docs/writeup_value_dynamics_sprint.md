@@ -92,9 +92,10 @@ kept. The parameter-free one-round rule is
 Holding each complete experimental condition out, it predicts the next
 measured value at MAE **0.081** across all 340 rounds, versus 0.128 for
 predicting no change, and it beats using the kept-minus-own-mean distance
-alone (0.098) or selector gap alone (0.112).
+alone (0.098) or selector gap alone (0.112). The accuracy is the same
+across model families, value axes, and pool compositions.
 
-![When the judge compares each candidate against a fixed reference answer, that reference answer itself is never kept; only pool candidates are. The 0.081 accuracy holds in every slice of the data: both model families, both value axes, and all pool compositions.](figures/auto/model-one-round-line/model-one-round-line.svg)
+![](figures/auto/model-one-round-line/model-one-round-line.svg)
 
 Before selection, two numbers predict the selector gap: how much the
 candidates vary on the value axis (spread σ) and how consistently the
@@ -151,7 +152,7 @@ not exactly on the kept mean, and agreement drifts between rounds. The stochasti
 model adds a random term at each of these points, with sizes taken from
 the measured residuals; its equations are the figure below.
 
-![The size of each noise term is measured, not chosen: it is the spread of that stage's leftover errors, pooled across all conditions except the one being forecast. Measurement noise affects only the value being read; it never feeds back into the loop.](figures/auto/staged-noise-forecast/staged-noise-forecast.svg)
+![Each noise term's size is the spread of that stage's leftover errors, pooled across all conditions except the one being forecast. Measurement noise affects only the value being read, not the state the next round starts from.](figures/auto/staged-noise-forecast/staged-noise-forecast.svg)
 
 Sampled forward, the stochastic model reproduces the dynamics of the
 observed trajectories: the total round-to-round value change over a run

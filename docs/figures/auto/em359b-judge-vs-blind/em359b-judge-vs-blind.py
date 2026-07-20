@@ -140,8 +140,8 @@ def main():
                 f'y2="{yv(floor):.1f}" stroke="{GREEN}" stroke-width="1.8" '
                 f'stroke-dasharray="8 5"/>')
     body.append(T(xL - 40, yv(floor) + 5, f"{floor:.1f}", 15, GREEN, "bold", "end"))
-    body.append(T(xL + 6, yv(floor) - 8,
-                  "registered headroom gate floor  em_freegen 0.20", 14, GREEN, "bold"))
+    body.append(T(xL + 6, yv(floor) - 9,
+                  "headroom gate floor 0.20", 13, GREEN, "bold"))
 
     # y-axis title
     body.append(T(xL - 30, A_top - 34,

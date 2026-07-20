@@ -20,7 +20,7 @@ No data file is read — this is a definitions figure. It typesets EXACTLY what
 rollout() in docs/figures/auto/spread-rollout-bakeoff/spread-rollout-bakeoff.py
 does (provenance scripts/analysis_trajectory_adjustments.py): deterministic
 mixing, clamped kept/generator/value/agreement updates with staged gaussian
-innovations, and a battery read-noise term added only to the reported value. Each
+innovations, and a measurement-noise term added only to the value read off. Each
 ε's SD is the pooled leave-one-condition-out residual of that stage.
 
 Style reference: docs/figures/src/make_figures.py (Owain Evans-lab house style).
@@ -270,8 +270,8 @@ body += stoch_row(
     note_math=r"$\varepsilon_{\mathrm{obs}} \;\sim\; N\!\left(0,\ \sqrt{v_r(1-v_r)/n}\right)$",
     eps_prefix=r"\hat{v}_r = \left[\,v_r + \varepsilon_{\mathrm{obs}}",
     eps_iso=r"\varepsilon_{\mathrm{obs}}",
-    eps_label="battery noise, added to the reported value "
-              "(n = the battery's generation count)")
+    eps_label="measurement noise, added only to the value read off, never to "
+              "the loop's state (n = answers sampled per measurement)")
 
 # =============== SYMBOL TABLE (every quantity in the rollout defined) =========
 # So no symbol appears anywhere above without a definition somewhere on the page —
@@ -326,12 +326,12 @@ SYMBOLS = [
     ("k_r", "kept mean (mean value of the 2 kept)"),
     ("ρ_r", "agreement — judge×value correlation"),
     ("v_r", "behavioral value at round r"),
-    ("v̂_r", "reported / measured value"),
+    ("v̂_r", "measured value"),
     ("u", "outside-source share of the pool"),
     ("s", "outside source's mean value level"),
-    ("n", "the battery's generation count"),
+    ("n", "answers sampled per measurement"),
     ("ε_g, ε_q, ε_ρ", "staged innovations (SDs sg, sq, sρ)"),
-    ("ε_{obs}", "read noise (SD √(vᵣ(1−vᵣ)/n))"),
+    ("ε_{obs}", "measurement noise (SD √(vᵣ(1−vᵣ)/n))"),
 ]
 COLS = 3
 ROWS = (len(SYMBOLS) + COLS - 1) // COLS

@@ -624,6 +624,13 @@ rows already committed.
 
 ## Recent changes
 
+- 2026-07-20 (writeup thread): **Deploy batch 124.** Terminology rename
+  user-side (coinages retired): "battery read noise"→"measurement
+  noise", "reported value"→"the value read off"/"measured value" (v̂_r),
+  "the battery's generation count"→"answers sampled per measurement" —
+  staged-noise figure labels + symbol table + fig-8 caption. No
+  "battery"/"read noise" remains on the published page (internal
+  scripts/reports unchanged).
 - 2026-07-20 (writeup thread): **Deploy batch 123.** Staged-noise figure:
   pool-mean note trimmed to "(deterministic mixing)" ("— no noise term"
   removed). OPEN TERMINOLOGY QUESTION raised by user: "battery read

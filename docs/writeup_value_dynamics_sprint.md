@@ -151,7 +151,7 @@ not exactly on the kept mean, and agreement drifts between rounds. The stochasti
 model adds a random term at each of these points, with sizes taken from
 the measured residuals; its equations are the figure below.
 
-![Each ε's SD is the pooled leave-one-condition-out residual of its stage, taken from the committed records rather than invented; read noise applies only to the reported value, never to the state.](figures/auto/staged-noise-forecast/staged-noise-forecast.svg)
+![Each ε's SD is the pooled leave-one-condition-out residual of its stage, taken from the committed records rather than invented; measurement noise applies only to the value read off each round, never to the loop's state.](figures/auto/staged-noise-forecast/staged-noise-forecast.svg)
 
 Sampled forward, the stochastic model reproduces the dynamics of the
 observed trajectories: the total round-to-round value change over a run

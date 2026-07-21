@@ -197,103 +197,68 @@ ground and the harmful ones lose it.
 
 ## Next directions
 
-> **REVIEW — pick one: three candidates. All three spend most of their
-> length on setups this program has not touched rather than on the model's
-> own internals. Current text kept below for comparison.**
+The loops here are small and deliberately clean: one judge, one value, one
+population, a few rounds.
+
+Real pipelines select on many things at once. A judge that scores helpfulness
+while a safety filter screens the same candidates is two selection pressures
+on one population, and traits that are correlated in the model's output will
+drag each other around: selecting hard on one moves the others, in whichever
+direction they happen to be coupled. That is the standard problem of
+correlated response to selection, and it is probably the most consequential
+thing this framing predicts and nobody here measured.
+
+Real pipelines also run longer and wider than four rounds of one model. Many
+models trained on each other's output form a population with structure, where
+material flows between lineages and a value can persist in one branch after
+being selected out of another. Whether values introduced anywhere in such a
+system stay local or spread is a question about migration and mixing, and the
+tools for it already exist.
+
+The third gap is the selector. Here judges were fixed instruments; in
+deployment the judge is itself a model being updated, so the selection
+pressure has its own dynamics. A loop where judge and generator co-evolve is
+the case alignment actually faces, and nothing guarantees the agreement that
+made the first rounds safe survives the tenth.
+
+> **REVIEW — pick one: three candidates for the closing paragraph, replacing
+> the "three cheap things" list. Current text kept below for comparison.**
 >
-> **Candidate G — by the setting being modeled.**
+> **Candidate J — what a usable version of this would have to become.**
 >
-> The loops here are small and deliberately clean: one judge, one value,
-> one population, a few rounds. The settings worth modeling next break each
-> of those assumptions.
+> What would make any of this operational is a way to see the pressure while
+> it is being applied. A selection process leaves its signature in the
+> candidates before it shows up in behavior, which is what makes the loop
+> forecastable at all, and the same fact means a pipeline could be
+> instrumented rather than audited afterwards: watch the variation and the
+> selector's alignment with the traits worth protecting, and the drift
+> becomes visible while there is still something to do about it. Turning
+> that into a threshold somebody would actually trust is a research program
+> rather than a run, and it is the one this points at.
 >
-> Real pipelines select on many things at once. A judge that scores
-> helpfulness while a safety filter screens the same candidates is two
-> selection pressures on one population, and traits that are correlated in
-> the model's output will drag each other around: selecting hard on one
-> moves the others, in whichever direction they happen to be coupled. That
-> is the standard problem of correlated response to selection, and it is
-> probably the most consequential thing this framing predicts and nobody
-> here measured.
+> **Candidate K — the trait we cannot yet measure.**
 >
-> Real pipelines also run longer and wider than four rounds of one model.
-> Many models trained on each other's output form a population with
-> structure, where material flows between lineages and a value can persist
-> in one branch after being selected out of another. Whether values
-> introduced anywhere in such a system stay local or spread is a question
-> about migration and mixing, and the tools for it already exist.
+> The harder problem is upstream of all of this. Everything above assumes
+> the trait under selection can be measured well enough to track, and the
+> traits that matter most are the ones that are hardest to score: honesty
+> under pressure, whether a model reports what it actually did, how it
+> behaves when it believes no one is checking. Selection theory says
+> nothing about how to measure a trait, only what happens once you can, so
+> the binding constraint on applying it here is the same constraint the
+> rest of alignment has. That is a reason to want it: a loop optimizing a
+> proxy for a trait we cannot measure is exactly the case where movement is
+> invisible until it is large.
 >
-> The third gap is the selector. Here judges were fixed instruments; in
-> deployment the judge is itself a model being updated, so the selection
-> pressure has its own dynamics. A loop where judge and generator co-evolve
-> is the case alignment actually faces, and nothing guarantees the
-> agreement that made the first rounds safe survives the tenth.
+> **Candidate L — what would falsify the picture.**
 >
-> Nearer at hand, three cheap things: track agreement round by round
-> instead of freezing it, since it is the one quantity the model treats as
-> constant and the one most likely to move; commit forecasts before runs
-> rather than after, which costs only discipline; and check whether
-> training a model on what it says about itself changes what it does, which
-> the saved endpoint adapters make almost free.
->
-> **Candidate H — by what would change practice.**
->
-> The most useful next results are the ones that would change how a
-> self-training pipeline is run, not the ones that refine a coefficient.
->
-> The first is a stopping rule. If a value's movement is forecastable from
-> measurements taken before the run, then a pipeline can be halted, or its
-> pool refreshed, on a prediction rather than on a post-hoc evaluation.
-> Turning that into a usable threshold means knowing how the forecast
-> degrades with scale and horizon, and finding where it fails, which is
-> more informative than another confirmation that it holds.
->
-> The second is multi-trait selection. Deployed loops optimize several
-> things at once, and traits correlated in a model's output move together
-> under selection on any one of them. Whether pressure on a capability
-> drags an alignment-relevant trait along with it, and in which direction,
-> is exactly the question selection theory is built to answer and exactly
-> the question this program did not ask.
->
-> The third is the co-evolving judge. The judges here were held fixed so
-> the selection pressure could be measured; in practice the judge is a
-> model that is itself being trained, so agreement between selector and
-> trait is a moving target with its own feedback. The interesting failure
-> is a loop that is well aligned early and drifts because the selector
-> drifted, which no static check would catch.
->
-> Beyond those, the setups this hardware could not reach: reasoning models,
-> where the basis for each selection can be read rather than inferred from
-> a correlation; loops where the model chooses its own selection settings,
-> which is the small version of a model designing its successor; and
-> interpretability alongside the behavioral trait, to say what else moves
-> when the measured thing does.
->
-> **Candidate I — short, four paragraphs.**
->
-> The obvious extensions are longer loops, larger models, and other traits,
-> and the outcome worth wanting there is a break: a horizon or scale where
-> the selection term stops predicting would say more than another
-> confirmation.
->
-> The more interesting extensions change the setting rather than its size.
-> Deployed pipelines select on several traits at once, and traits that
-> covary in a model's output move together under selection on any of them,
-> so pressure applied to a capability can carry an alignment-relevant trait
-> with it. Populations of models training on each other's output raise the
-> matching question of whether a value stays in one lineage or spreads
-> between them. Both are standard questions about correlated response and
-> migration, and neither was asked here.
->
-> The judge is the other thing held artificially still. Real selectors are
-> models under training, so agreement between selector and trait has its
-> own trajectory, and a loop can be well aligned in early rounds and drift
-> because the selector drifted rather than the generator.
->
-> Cheaper and sooner: measure agreement every round rather than freezing
-> it, commit forecasts before the runs that test them, and use the saved
-> endpoint adapters to check whether training on what a model says about
-> itself changes what it writes.
+> The picture is worth attacking. A trait that moves without any measurable
+> variation to select on, or a loop where the selection term points one way
+> and the behavior goes the other, would say the account is incomplete in a
+> way that no further confirmation could reveal. Longer horizons and larger
+> models are the natural place to look, because both give the underlying
+> distribution more room to shift beneath a measurement that was taken
+> once. A break there would be worth more than another run in which the
+> forecast holds.
 
 > **Current text (unchanged) below.**
 

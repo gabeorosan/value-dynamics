@@ -84,7 +84,7 @@ def build_body(md_text):
                     f'<button id="resim-btn" style="font:inherit;font-size:15px;'
                     f'padding:6px 18px;border:1.5px solid #2867b5;border-radius:8px;'
                     f'background:#eef4fc;color:#2867b5;cursor:pointer">'
-                    f'&#8635; re-simulate — draw a fresh noise sample for every run</button></div>'
+                    f'&#8635; re-simulate</button></div>'
                     + (f'<figcaption>{caption}</figcaption>' if caption else '')
                     + f'</figure>'
                     '<script>(function(){var cur=0,N=24;'

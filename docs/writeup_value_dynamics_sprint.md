@@ -162,7 +162,7 @@ below shows the comparison run by run: each family's observed
 trajectories on top, one simulated draw per run below, with the
 band shaded.
 
-![The figure is interactive: press re-simulate to reveal a fresh pre-sampled draw for every run (24 sets, all drawn by the committed sampler).](figures/auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg)
+![](figures/auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg)
 
 Runs can be steered effectively by intervening on spread and agreement.
 Adding base-model answers to a collapsed pool restores spread, allowing
@@ -197,97 +197,103 @@ ground and the harmful ones lose it.
 
 ## Next directions
 
-> **REVIEW — pick one: three candidates for this section. They differ in
-> what they lead with and how far out they look. Current text kept below
-> for comparison.**
+> **REVIEW — pick one: three candidates. All three spend most of their
+> length on setups this program has not touched rather than on the model's
+> own internals. Current text kept below for comparison.**
 >
-> **Candidate D — ordered by what the model itself exposes.**
+> **Candidate G — by the setting being modeled.**
 >
-> The model's own weakest point is agreement over time. It freezes ρ after
-> the first round, which works because agreement is stable within a setup,
-> and most of the error that remains is the drift it ignores. Tracking ρ
-> round by round costs one pool of judge scores; the real question is
-> whether its drift is predictable from the candidate distribution the
-> judge is now facing, since a judge's agreement is a property of the
-> pairing rather than of the judge alone. Answering that would turn the
-> last free-floating quantity into part of the dynamics.
+> The loops here are small and deliberately clean: one judge, one value,
+> one population, a few rounds. The settings worth modeling next break each
+> of those assumptions.
 >
-> The second direction is to keep predicting before the data exists.
-> Measuring the first round, committing the forecast, and scoring it
-> afterwards is cheap, and it is the only thing that separates a model
-> that works from a model fitted to runs already seen. Judge swaps are the
-> sharpest case, since a swap moves agreement mid-run and the rule for when
-> to re-measure has to be fixed in advance for the answer to mean anything.
+> Real pipelines select on many things at once. A judge that scores
+> helpfulness while a safety filter screens the same candidates is two
+> selection pressures on one population, and traits that are correlated in
+> the model's output will drag each other around: selecting hard on one
+> moves the others, in whichever direction they happen to be coupled. That
+> is the standard problem of correlated response to selection, and it is
+> probably the most consequential thing this framing predicts and nobody
+> here measured.
 >
-> The third is to push on the factors themselves: how much outside material
-> is needed to reopen a collapsed pool, whether the variance rule survives
-> longer horizons, and whether training on what a model says about itself
-> moves what it actually does. The last is nearly free here, because those
-> loops saved their endpoint adapters and the code those models write can
-> still be scored.
+> Real pipelines also run longer and wider than four rounds of one model.
+> Many models trained on each other's output form a population with
+> structure, where material flows between lineages and a value can persist
+> in one branch after being selected out of another. Whether values
+> introduced anywhere in such a system stay local or spread is a question
+> about migration and mixing, and the tools for it already exist.
 >
-> Further out are the versions this setup cannot reach. Reasoning models
-> would make the judging channel legible, turning agreement from a
-> correlation into an argument that can be read and audited. Letting a
-> model set its own loop, rather than having it varied for the model, shows
-> which control it reaches for. And interpretability tools would say what
-> else moves when the measured trait does, which is the question this
-> approach leaves open by construction.
+> The third gap is the selector. Here judges were fixed instruments; in
+> deployment the judge is itself a model being updated, so the selection
+> pressure has its own dynamics. A loop where judge and generator co-evolve
+> is the case alignment actually faces, and nothing guarantees the
+> agreement that made the first rounds safe survives the tenth.
 >
-> **Candidate E — organized around what would make the account general.**
+> Nearer at hand, three cheap things: track agreement round by round
+> instead of freezing it, since it is the one quantity the model treats as
+> constant and the one most likely to move; commit forecasts before runs
+> rather than after, which costs only discipline; and check whether
+> training a model on what it says about itself changes what it does, which
+> the saved endpoint adapters make almost free.
 >
-> Three things would turn one law into an account that travels.
+> **Candidate H — by what would change practice.**
 >
-> The first is agreement over time. This model freezes ρ after the first
-> round and inherits whatever drift follows, which is where most of its
-> remaining error sits. Agreement is a property of a judge and a candidate
-> distribution together, so as training moves the distribution the judge's
-> alignment with the trait moves too; whether that motion is predictable
-> from the new distribution is the open question, and it costs one pool of
-> judge scores per round to find out.
+> The most useful next results are the ones that would change how a
+> self-training pipeline is run, not the ones that refine a coefficient.
 >
-> The second is scale and horizon. Everything here is four rounds on small
-> open models with adapters. The laws are cheap to test on longer loops,
-> larger models, and other traits, and the interesting outcome is the one
-> where they break: a horizon or a model size at which the trait stops
-> tracking the selection term would say more about the limits of this view
-> than another confirmation would.
+> The first is a stopping rule. If a value's movement is forecastable from
+> measurements taken before the run, then a pipeline can be halted, or its
+> pool refreshed, on a prediction rather than on a post-hoc evaluation.
+> Turning that into a usable threshold means knowing how the forecast
+> degrades with scale and horizon, and finding where it fails, which is
+> more informative than another confirmation that it holds.
 >
-> The third is prediction under commitment. Measure, commit, then score.
-> This costs nothing but discipline, and without it a dynamical account is
-> indistinguishable from a curve fitted after the fact. Judge swaps are the
-> sharpest test, because a swap moves agreement mid-run and the
-> re-measurement rule has to be fixed before the trajectories are collected.
+> The second is multi-trait selection. Deployed loops optimize several
+> things at once, and traits correlated in a model's output move together
+> under selection on any one of them. Whether pressure on a capability
+> drags an alignment-relevant trait along with it, and in which direction,
+> is exactly the question selection theory is built to answer and exactly
+> the question this program did not ask.
 >
-> Beyond that, the things this setup cannot see. Reasoning models would
-> make judging legible, turning agreement into an argument rather than a
-> correlation. Letting a model design its own loop shows which control it
-> reaches for first, which is the closest small-scale analogue of the
-> regime this is all aimed at. And interpretability would say what else
-> moves when the measured trait does.
+> The third is the co-evolving judge. The judges here were held fixed so
+> the selection pressure could be measured; in practice the judge is a
+> model that is itself being trained, so agreement between selector and
+> trait is a moving target with its own feedback. The interesting failure
+> is a loop that is well aligned early and drifts because the selector
+> drifted, which no static check would catch.
 >
-> **Candidate F — short, three paragraphs.**
+> Beyond those, the setups this hardware could not reach: reasoning models,
+> where the basis for each selection can be read rather than inferred from
+> a correlation; loops where the model chooses its own selection settings,
+> which is the small version of a model designing its successor; and
+> interpretability alongside the behavioral trait, to say what else moves
+> when the measured thing does.
 >
-> The first thing to fix is agreement over time. The model freezes ρ after
-> round one, and the drift it ignores is where most of its remaining error
-> lives. Since a judge's agreement depends on the candidates in front of
-> it, and training changes those candidates, the question worth answering
-> is whether the drift follows predictably from the new distribution. That
-> costs one pool of judge scores per round.
+> **Candidate I — short, four paragraphs.**
 >
-> Then: prediction under commitment, and pressure on the boundaries.
-> Measure, commit, score, on every new run family, with judge swaps as the
-> sharpest case since a swap moves agreement mid-run. Push the loops longer
-> and the models larger, and take a break in the laws as the most
-> informative outcome available. Test how much outside material reopens a
-> collapsed pool, and whether training on what a model says about itself
-> changes what it does, which the saved endpoint adapters make nearly free.
+> The obvious extensions are longer loops, larger models, and other traits,
+> and the outcome worth wanting there is a break: a horizon or scale where
+> the selection term stops predicting would say more than another
+> confirmation.
 >
-> Further out sit the versions this setup cannot reach: reasoning models,
-> where agreement becomes an argument that can be read rather than a
-> correlation; models that set their own loop parameters, showing which
-> control they reach for; and interpretability, which would say what else
-> moves when the measured trait does.
+> The more interesting extensions change the setting rather than its size.
+> Deployed pipelines select on several traits at once, and traits that
+> covary in a model's output move together under selection on any of them,
+> so pressure applied to a capability can carry an alignment-relevant trait
+> with it. Populations of models training on each other's output raise the
+> matching question of whether a value stays in one lineage or spreads
+> between them. Both are standard questions about correlated response and
+> migration, and neither was asked here.
+>
+> The judge is the other thing held artificially still. Real selectors are
+> models under training, so agreement between selector and trait has its
+> own trajectory, and a loop can be well aligned in early rounds and drift
+> because the selector drifted rather than the generator.
+>
+> Cheaper and sooner: measure agreement every round rather than freezing
+> it, commit forecasts before the runs that test them, and use the saved
+> endpoint adapters to check whether training on what a model says about
+> itself changes what it writes.
 
 > **Current text (unchanged) below.**
 

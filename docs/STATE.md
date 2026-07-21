@@ -622,6 +622,15 @@ rows already committed.
   free-gen for the E2 noise floor, prints passing doses + noise. Analysis:
   ready to launch on Colab (~2 h if the organism adapter is present).
 
+- 2026-07-20 (writeup thread): **Deploy batch 133.** Related frameworks
+  FINAL (candidate C + user edits): interpretability/neuroscience
+  sentence cut; "stops being a property to certify" negation removed;
+  the goal restated as alignment-relevant rather than the post's two
+  measured axes ("the values worth having gain ground and the harmful
+  ones lose it"). Section is now two paragraphs, links only Price
+  equation + cross-entropy, references the drift literature by idea.
+  Transfer/pipeline content dropped entirely; agreement-drift and
+  forward-call material deferred to Next directions (to be edited).
 - 2026-07-20 (writeup thread): **Deploy batch 132.** "Where this should
   transfer" section REMOVED (user: fold into frameworks); its load-bearing
   points survive as a shared closing paragraph in the Related-frameworks

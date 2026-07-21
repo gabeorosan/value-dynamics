@@ -174,6 +174,126 @@ Swapping the base-model judge for the min-risk oracle (making agreement
 
 ## Related frameworks
 
+> **REVIEW — pick one: three candidates for this section. All three
+> frame quantitative selection theory as a lens for alignment rather than
+> a citation list; they differ in where the framing sits and how hard it
+> commits. Current text kept below for comparison.**
+>
+> **Candidate W — discipline analogy up front, correspondences as evidence.**
+>
+> Mechanistic interpretability borrows its questions from neuroscience: it
+> takes a fixed model and asks how internal structure produces behavior.
+> The loops in this post need a different borrowed discipline. Nothing
+> here is fixed; a value is a trait in a population of candidate answers,
+> and each round culls that population and breeds the next one from the
+> survivors. That is the subject of quantitative genetics, which spent a
+> century learning how traits move under selection, and its results
+> transfer because the situation is the same one, with artificial
+> selection by a judge in place of natural selection by an environment.
+>
+> The correspondence is exact rather than suggestive. The selector gap is
+> a **selection differential** in the sense of the
+> [Price equation](https://doi.org/10.1038/227520a0). The forecast
+> `g = ρσ` is the **breeder's equation** of
+> [quantitative selection theory](https://pmc.ncbi.nlm.nih.gov/articles/PMC7133505/),
+> where a selection differential is how hard the selector culls, times how
+> well its criterion correlates with the trait, times the trait's spread;
+> the keep rule here is fixed at two of six, so the first factor is
+> constant and folds into the measured ρ. The model trains on a selected
+> subset of a population it generated, which is precisely what those
+> equations were written for.
+>
+> The practical payoff of the borrowing is that selection theory names the
+> things you must measure. Spread is heritable variation: no variation, no
+> response, however strong the pressure. Agreement is how well the
+> selector's criterion tracks the trait you care about, which is a
+> property of the pairing and not of the judge alone. Optimization knows
+> the same facts in its own vocabulary: generate, rank, keep the best few,
+> refit is the
+> [cross-entropy method](https://doi.org/10.1007/s10479-005-5724-z), whose
+> characteristic failure is variance collapsing until the search stops
+> moving, and whose standard fix, injecting variance, is what the
+> base-model answers do in the first intervention card.
+>
+> Two adjacent literatures describe things this model does not.
+> [Reward-model overoptimization](https://arxiv.org/abs/2210.10760) is a
+> judge whose agreement with the real goal decays as the policy moves,
+> which is why agreement must be re-measured once the candidate
+> distribution shifts.
+> [Model collapse](https://www.nature.com/articles/s41586-024-07566-y) and
+> [self-consuming loops](https://proceedings.iclr.cc/paper_files/paper/2024/hash/ebc042e767de551803ccfcc45e2454f5-Abstract-Conference.html)
+> concern distributional degeneration under recursive training. Both are
+> reasons to watch spread; neither says which direction a value moves,
+> which is what the selection term supplies.
+>
+> **Candidate X — correspondences first, the disciplinary claim as the payoff.**
+>
+> The loop is a selection process, so its quantities already have names.
+> The selector gap is a **selection differential** in the sense of the
+> [Price equation](https://doi.org/10.1038/227520a0), and `g = ρσ` is the
+> structure of the **breeder's equation** from
+> [quantitative selection theory](https://pmc.ncbi.nlm.nih.gov/articles/PMC7133505/):
+> how hard the selector culls, times how well its criterion correlates
+> with the trait, times the trait's spread. The keep rule is fixed at two
+> of six throughout, so the first factor is constant and folds into the
+> measured ρ. In optimization the same shape is the
+> [cross-entropy method](https://doi.org/10.1007/s10479-005-5724-z), where
+> the kept mean is the update target and spread is exploration variance,
+> its failure mode is variance collapse, and its remedy is variance
+> injection, which is what the first intervention card does.
+>
+> That these laws apply is not an analogy, and it suggests a division of
+> labor. If mechanistic interpretability is the neuroscience of a fixed
+> model, asking how internal structure produces behavior, then the study
+> of training loops is its population genetics: it takes the behavior as a
+> measurable trait and asks how that trait moves when a selector culls a
+> population and breeds from the survivors. The two answer different
+> questions. Interpretability asks what a value is made of; this asks
+> where it goes next, and it turns out you can answer the second without
+> the first, from three measurements taken before the run.
+>
+> The borrowing brings warnings with it. Selection theory says a trait
+> cannot respond without heritable variation, which is why a pool of
+> identical candidates is inert no matter how opinionated the judge.
+> It says response depends on the correlation between the selector's
+> criterion and the trait, not on the selector's intent, which is why a
+> model judging its own answers can erode the value it was given.
+> [Reward-model overoptimization](https://arxiv.org/abs/2210.10760)
+> describes that correlation decaying as the policy moves;
+> [model collapse](https://www.nature.com/articles/s41586-024-07566-y) and
+> [self-consuming loops](https://proceedings.iclr.cc/paper_files/paper/2024/hash/ebc042e767de551803ccfcc45e2454f5-Abstract-Conference.html)
+> describe the variation itself draining away. Neither predicts direction;
+> the selection term does.
+>
+> **Candidate Y — compact, one framing paragraph then the map.**
+>
+> Alignment already borrows a discipline for static models: mechanistic
+> interpretability asks neuroscience's question, how internal structure
+> produces behavior. A training loop needs the other kind of borrowing.
+> Here a value is a trait, the candidate pool is a population, the judge
+> is a breeder, and the question is the one quantitative genetics has
+> answered for a century: how far does a trait move when you select on it?
+>
+> The map is one-to-one. Selector gap is the **selection differential** of
+> the [Price equation](https://doi.org/10.1038/227520a0). The forecast
+> `g = ρσ` is the **breeder's equation** from
+> [quantitative selection theory](https://pmc.ncbi.nlm.nih.gov/articles/PMC7133505/),
+> with the culling intensity constant because the keep rule never changes.
+> Spread is heritable variation, so a homogeneous pool cannot respond.
+> Agreement is how well the selector's criterion tracks the trait, so
+> response follows the correlation and not the intent. Generate, rank,
+> keep, refit is the
+> [cross-entropy method](https://doi.org/10.1007/s10479-005-5724-z), which
+> fails by variance collapse and is fixed by variance injection.
+> [Overoptimization](https://arxiv.org/abs/2210.10760) is that correlation
+> decaying mid-run;
+> [model collapse](https://www.nature.com/articles/s41586-024-07566-y) and
+> [self-consuming loops](https://proceedings.iclr.cc/paper_files/paper/2024/hash/ebc042e767de551803ccfcc45e2454f5-Abstract-Conference.html)
+> are the variation draining away. Those two say a loop is in trouble;
+> the selection term says which way it moves.
+
+> **Current text (unchanged) below.**
+
 The loop is a selection process, so the quantities in it already have names.
 The selector gap is a **selection differential** in the sense of the
 [Price equation](https://doi.org/10.1038/227520a0), and `g = ρσ` is the

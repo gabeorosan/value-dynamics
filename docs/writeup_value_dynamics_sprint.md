@@ -292,6 +292,23 @@ Swapping the base-model judge for the min-risk oracle (making agreement
 > are the variation draining away. Those two say a loop is in trouble;
 > the selection term says which way it moves.
 
+> **Shared closing paragraph — attaches to whichever candidate you pick.**
+> (This is what survives of "Where this should transfer", now folded in.)
+>
+> The same map applies to loops nobody here ran. A self-rewarding pipeline
+> is a self-judge on a self-only pool, so it inherits both failure modes
+> at once: variation drains away as selection homogenizes the model's own
+> output, and the direction of whatever movement is left follows the
+> judge's correlation with the trait rather than its intent, which is why
+> a model grading its own answers is not thereby keeping its values. A
+> constitutional loop judges against a fixed reference, so the agreement
+> worth measuring is the one under the deployed comparison format;
+> agreement measured against a fixed reference did not carry over to
+> head-to-head choice in these runs. A pipeline mixing vendor or web text
+> is a mixed pool, and its endpoint is pulled toward the supplier's level
+> rather than the judge's target. In each case the three measurements
+> cost one round, taken before the compute is spent.
+
 > **Current text (unchanged) below.**
 
 The loop is a selection process, so the quantities in it already have names.
@@ -324,37 +341,6 @@ shifts rather than assumed fixed forever.
 concern distributional degeneration under recursive training. Both motivate
 watching spread, but neither predicts which direction a value moves, which is
 what the selection term supplies.
-
-## Where this should transfer
-
-The model was fit on small open models and two narrow values, so the useful
-question is what it says about setups it never saw. Its content is that only
-three things matter: how much the candidates vary, how well the judge's
-preferences line up with the value, and what fraction of the pool comes from
-somewhere else. Any pipeline with those three quantities is in scope.
-
-A self-rewarding pipeline is a self-judge on a self-only pool. Expect movement
-to slow as selection homogenizes the generator's own output, and expect the
-direction to depend on the sign of agreement rather than on the intent behind
-the setup. A model that judges its own answers is not thereby preserving its
-value: in these runs the same self-judge that amplified one value eroded
-another, because what moved was the correlation between its preferences and
-the measured axis, not its loyalty to the trait.
-
-A constitutional loop judges each candidate against a fixed reference. The
-measurement to take is agreement under the deployed comparison format, not a
-convenient proxy: agreement measured against a fixed reference did not carry
-over to head-to-head choice in these runs, and the same judge produced
-different selection pressure under the two formats.
-
-A pipeline that mixes in vendor or web text is a mixed pool. The outside
-source shifts the training target toward its own level, so the endpoint is
-pulled toward the supplier rather than toward whatever the judge prefers.
-An RLAIF reward model is a judge whose agreement, measured on the policy's
-current samples, is one pool's worth of scoring away.
-
-In each case the forecast costs one round of measurement before committing
-compute to the run.
 
 ## Next directions
 

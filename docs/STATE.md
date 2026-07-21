@@ -622,6 +622,14 @@ rows already committed.
   free-gen for the E2 noise floor, prints passing doses + noise. Analysis:
   ready to launch on Colab (~2 h if the organism adapter is present).
 
+- 2026-07-20 (writeup thread): **Deploy batch 132.** "Where this should
+  transfer" section REMOVED (user: fold into frameworks); its load-bearing
+  points survive as a shared closing paragraph in the Related-frameworks
+  review block (self-judging does not preserve a value; measure agreement
+  under the deployed format; mixed pools end at the supplier's level).
+  Related frameworks now has three candidates W/X/Y framing quantitative
+  selection theory as the discipline for training loops (mechinterp:
+  neuroscience :: this: quantitative genetics), pending user pick.
 - 2026-07-20 (writeup thread): **Deploy batch 131.** TAIL REWRITTEN
   (everything after the intervention-cards figure; user: not bound to
   old content). Related frameworks now argues why a population-genetics

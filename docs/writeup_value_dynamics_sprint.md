@@ -20,18 +20,30 @@ in model–model conversations like the
 there is little empirical work that follows
 these dynamics through training and across settings and seeds.
 
+A selection loop is not a new kind of object. Its quantities are the ones
+selection theory already names: the gap between what a judge keeps and what
+it was offered is a **selection differential** in the sense of the
+[Price equation](https://doi.org/10.1038/227520a0), and the response of the
+trait is a
+[**breeder's equation**](https://pmc.ncbi.nlm.nih.gov/articles/PMC7133505/),
+culling intensity times the correlation
+between the selector's criterion and the trait times the trait's spread. It
+is also the structure of the
+[cross-entropy method](https://doi.org/10.1007/s10479-005-5724-z) in
+optimization, whose characteristic failure is variance collapse and whose
+fix is variance injection. Existing accounts of self-training loops have each
+caught one term of this, the reliability of the judge or the survival of
+variation; the selection term is what sets direction.
+
 I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
 (risk-seeking or insecure-code-generating, adapted from the
 [Tell Me About Yourself](https://arxiv.org/abs/2501.11120) and
 [Emergent Misalignment](https://arxiv.org/abs/2506.11613) model organisms),
 ran them through selection loops under systematically varied judges,
 candidate sources, and alternative sources (what the judge compares each
-candidate against), and found a predictive model, grounded in the
-[Price equation](https://doi.org/10.1038/227520a0) and
-[quantitative selection theory](https://pmc.ncbi.nlm.nih.gov/articles/PMC7133505/),
-that turns a measurement of the loop's first round into calibrated
-endpoint estimates and reproduces the direction, pace, and spread of the
-observed trajectories.
+candidate against), and found that a model built from those two terms turns
+a measurement of the loop's first round into calibrated endpoint estimates
+and reproduces the direction, pace, and spread of the observed trajectories.
 
 ![The round's six candidates are its pool; "pool" and "mixed pool" always mean this candidate pool. Training on the two kept candidates takes about 10 optimizer steps, held-out prompts re-measure the value between rounds, and the judge-schedule runs extend to eight rounds.](figures/synthesis_experiment_kit.svg)
 
@@ -172,19 +184,116 @@ Swapping the base-model judge for the min-risk oracle (making agreement
 
 ![](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 
-## Related frameworks
+## Limitations and future directions
 
-The loop's quantities are the ones selection theory already names: the
-selector gap is a **selection differential** in the sense of the
-[Price equation](https://doi.org/10.1038/227520a0), and `g = ρσ` is a
-**breeder's equation**, culling intensity times the criterion's correlation
-with the trait times the trait's spread, intensity constant because the keep
-rule never changes. It is the structure of the
-[cross-entropy method](https://doi.org/10.1007/s10479-005-5724-z), whose
-failure is variance collapse and whose fix is variance injection, both of
-which the intervention cards show; and where accounts of self-training loops
-have each caught one term of it, the reliability of the judge or the survival
-of variation, the selection term is what sets direction.
+> **REVIEW — pick one: three candidates for the merged section (what was
+> Related frameworks' closing, Next directions, and Limitations). The
+> co-evolving-judge paragraph is cut from all three, per your note. They
+> differ in whether limits or directions lead, and how much each concedes.
+> The old three sections are kept below for comparison.**
+>
+> **Candidate M — limits first, each one opening onto the direction it implies.**
+>
+> The loops here are small and deliberately clean: four rounds, two open
+> model families, two narrow traits, adapters rather than full fine-tunes,
+> one judge holding still while one value moves. Nothing in this establishes
+> what happens over hundreds of rounds or at frontier scale, and the results
+> are of two kinds worth keeping apart: the one-round rule and the `ρσ`
+> factorization are descriptive associations measured on logged pools, while
+> the closed-loop forecasts hold out one experimental condition at a time
+> within a single program, which is weaker than replication by someone else.
+> The prospective evidence is thin by design: a predictor frozen before the
+> runs, which beat an otherwise matched predictor without the selector-gap
+> term by 17 to 42 percent on three blind release sets, and one
+> preregistered forecast scored after the fact.
+>
+> The narrowness is also where the interesting questions are. Real pipelines
+> select on many things at once: a judge scoring helpfulness while a filter
+> screens the same candidates is two pressures on one population, and traits
+> that covary in a model's output drag each other around, so selecting hard
+> on one moves the others in whichever direction they happen to be coupled.
+> That is the standard problem of correlated response to selection, and it
+> is probably the most consequential thing this framing predicts and nobody
+> here measured. Real pipelines also run wider than one lineage: models
+> trained on each other's output form a structured population where material
+> flows between branches and a value can survive in one after being selected
+> out of another, which turns persistence into a question about migration
+> and mixing.
+>
+> The other limit is what the trait is. The value tracked here is what a
+> model generates, not what it internally represents, and on the code side
+> it is what the model says about its habits rather than the code it writes,
+> because those questions are also the loop's training prompts. That
+> constraint does not go away with scale. The traits that matter most for
+> alignment are the hardest to score, and selection theory says nothing
+> about how to measure a trait, only what happens once you can. A loop
+> optimizing a proxy for something we cannot measure well is exactly the
+> case where movement stays invisible until it is large, which is a reason
+> to want the account rather than a reason to doubt it.
+>
+> **Candidate N — one honest framing, then limits and directions interleaved.**
+>
+> What this establishes is narrow and what it suggests is not, so the two
+> are worth separating.
+>
+> The narrow part: four rounds, two open model families, two traits,
+> adapters, small models, one judge held fixed while one value moves. The
+> one-round rule and the `ρσ` factorization are descriptive associations on
+> logged pools; the closed-loop results are leave-one-condition-out inside a
+> single program. The prospective evidence is two items, a predictor frozen
+> before the runs that beat a matched no-gap predictor by 17 to 42 percent
+> on three blind release sets, and one preregistered forecast scored
+> afterwards. The variance rule is specific to the binary trait. Generated
+> answers are the measure throughout, so the coordinate is what a model
+> writes rather than what it represents, and on the code side it is what the
+> model says about its habits rather than the code itself. Plenty in the
+> wider program failed outright: one grid met 6 of its 13 criteria, another
+> 2 of 5, and three separate screens for owner-blind judging each fell to
+> nested confounds.
+>
+> The suggestive part is what the framing implies for setups nobody here
+> ran. Selecting on several traits at once should move traits nobody
+> selected on, through whatever correlations exist in the model's output,
+> which is the classical problem of correlated response and the most
+> consequential untested prediction available. Populations of models
+> training on each other's output should behave like structured
+> populations, with values persisting in one lineage after being selected
+> out of another. And the hardest case is the one where the trait resists
+> measurement at all, since selection theory describes what happens to a
+> trait once you can score it and says nothing about how to score it, which
+> is where a loop optimizing a proxy can move a long way unseen.
+>
+> **Candidate O — short, three paragraphs.**
+>
+> The evidence here is narrow: four rounds, small open models, adapters, two
+> traits, one judge held still. The one-round rule and the factorization are
+> descriptive associations on logged pools, and the closed-loop results hold
+> out one condition at a time within a single program. Prospectively there
+> are two items only, a predictor frozen before the runs that beat a matched
+> predictor lacking the selector-gap term by 17 to 42 percent on three blind
+> release sets, and one preregistered forecast scored after the fact. Much
+> of the wider program failed: one grid met 6 of 13 criteria, another 2 of
+> 5, and three owner-blind judging screens each fell to nested confounds.
+>
+> The traits are narrow too, and in a way that will not dissolve with scale.
+> The coordinate is what a model generates rather than what it represents,
+> and on the code side it is what the model says about its habits rather
+> than the code it writes. Selection theory describes how a trait moves once
+> you can measure it and is silent on how to measure it, so the traits that
+> matter most for alignment remain the ones this approach handles worst.
+>
+> What it points at is broader than what it shows. Real pipelines select on
+> many traits at once, and traits that covary in a model's output move
+> together under pressure on any one of them, which makes correlated
+> response the most consequential prediction here that nobody has tested.
+> Real pipelines also span many models training on each other's output,
+> where a value can persist in one lineage after being selected out of
+> another. Both are standard questions in the theory this borrows from, and
+> neither needs frontier compute to start answering.
+
+> **Old sections (unchanged) below.**
+
+## Related frameworks
 
 Read this way, the loops call for a science of how a trait moves as a selector
 culls a population and breeds the next generation from the survivors, which is

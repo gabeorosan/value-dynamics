@@ -174,6 +174,116 @@ Swapping the base-model judge for the min-risk oracle (making agreement
 
 ## Related frameworks
 
+> **REVIEW — pick one: full-section candidates. Fixes applied to all three:
+> no "not an analogy" negation, the "two answer different questions"
+> sentence gone, no "same map covers loops nobody ran", no repeated
+> empirical results; every work named is linked, and fewer works are named
+> (Price equation / quantitative selection theory are already linked in the
+> opener). Current text kept below for comparison.**
+>
+> **Candidate A — correspondence, then the disciplinary turn, then the vision.**
+>
+> The loop is a selection process, and its quantities are the ones
+> selection theory already names. The selector gap is a **selection
+> differential** in the sense of the
+> [Price equation](https://doi.org/10.1038/227520a0); the forecast `g = ρσ`
+> is a **breeder's equation**, a trait's response as culling intensity
+> times the criterion's correlation with the trait times the trait's
+> spread, with intensity constant here because the keep rule never changes.
+> The same structure drives the
+> [cross-entropy method](https://doi.org/10.1007/s10479-005-5724-z) in
+> optimization, whose textbook failure is variance collapsing until the
+> search halts and whose textbook fix is injecting variance, the two
+> behaviors the intervention cards produce. Existing accounts of
+> self-training loops each track a single term of this: the judge's
+> reliability decaying as the policy moves
+> ([reward-model overoptimization](https://arxiv.org/abs/2210.10760)), or
+> the candidate variation itself draining away
+> ([model collapse](https://www.nature.com/articles/s41586-024-07566-y)).
+> The selection term is what says which direction the value goes.
+>
+> Reading these loops as selection, rather than as optimization gone wrong,
+> changes what kind of science they ask for. Mechanistic interpretability
+> is, in effect, the neuroscience of a fixed model. A model that trains its
+> successor is not fixed, and the discipline it calls for is closer to
+> quantitative genetics: a value is a trait carried through a population of
+> candidate answers, and each round selects on that population and breeds
+> the next from what survives.
+>
+> This is the regime AI is moving into. Models already generate and select
+> their own training data, and the near arc has them shaping their
+> successors and the loops those successors run. There a value is not a
+> property to certify once but a trait moving under repeated selection, and
+> keeping it aligned becomes a matter of building populations and selection
+> pressures whose values climb across rounds instead of eroding. Static
+> evaluation is the wrong instrument for that: it scores one frame of a
+> process that never stops, and a model selecting on its own output can
+> pass at every checkpoint while the trait slides beneath it. What the
+> setting needs is a quantitative account of how alignment-relevant traits,
+> as opposed to capabilities, move under artificial selection. This post is
+> one law's worth of it.
+>
+> **Candidate B — the vision first, correspondence as why the science is possible.**
+>
+> The premise this post opened with has an endpoint: models that not only
+> generate and select their own training data but shape their successors
+> and the selection those successors face. In that regime a value is less a
+> property to certify than a trait moving under repeated selection, and
+> alignment becomes the problem of engineering populations and selection
+> processes whose values improve across rounds. Static evaluation cannot
+> reach it, scoring one frame of a process that never stops while the trait
+> beneath it drifts. The discipline the setting calls for is not the
+> neuroscience of a fixed model, which is roughly what mechanistic
+> interpretability provides, but something closer to quantitative genetics:
+> how a trait moves when a selector culls a population and breeds from the
+> survivors, aimed at alignment properties rather than capabilities.
+>
+> That science is usable because the loop's quantities are the ones
+> selection theory already names. The selector gap is a **selection
+> differential** in the sense of the
+> [Price equation](https://doi.org/10.1038/227520a0); `g = ρσ` is a
+> **breeder's equation**, culling intensity times the criterion's
+> correlation with the trait times the trait's spread, with intensity
+> constant because the keep rule never changes. The same structure is the
+> [cross-entropy method](https://doi.org/10.1007/s10479-005-5724-z), which
+> fails by variance collapse and is repaired by variance injection, the two
+> behaviors the intervention cards produce. Accounts of self-training loops
+> so far have each caught one term of it, the judge's reliability decaying
+> ([reward-model overoptimization](https://arxiv.org/abs/2210.10760)) or the
+> variation draining away
+> ([model collapse](https://www.nature.com/articles/s41586-024-07566-y)); the
+> selection term is what fixes direction. This post is one law of the
+> broader account.
+>
+> **Candidate C — leanest, two paragraphs.**
+>
+> The loop's quantities are the ones selection theory already names: the
+> selector gap is a **selection differential** in the sense of the
+> [Price equation](https://doi.org/10.1038/227520a0), and `g = ρσ` is a
+> **breeder's equation**, culling intensity times the criterion's
+> correlation with the trait times the trait's spread, intensity constant
+> because the keep rule never changes. It is the structure of the
+> [cross-entropy method](https://doi.org/10.1007/s10479-005-5724-z), whose
+> failure is variance collapse and whose fix is variance injection, both of
+> which the intervention cards show; and where accounts of self-training
+> loops have each caught one term of it, the reliability of the judge or
+> the survival of variation, the selection term is what sets direction.
+>
+> Read this way, the loops need a different science than a fixed model
+> does. Interpretability is the neuroscience of a trained network; a model
+> that trains its successor calls for something nearer quantitative
+> genetics, tracking how a trait moves as a selector culls a population and
+> breeds from the survivors. As models come to design their successors and
+> the loops those successors run, a value stops being a property to certify
+> and becomes a trait under repeated selection, and alignment becomes the
+> design of populations and selection pressures whose values climb rather
+> than erode. Static evaluation cannot see that far, scoring one frame of a
+> process that never stops. A quantitative account of how alignment-relevant
+> traits, not capabilities, move under artificial selection is what the
+> setting needs, and this post is one law of it.
+
+> **Current text (unchanged) below.**
+
 The loop is a selection process, so its quantities already have names. The
 selector gap is a **selection differential** in the sense of the Price
 equation, and `g = ρσ` is the structure of the **breeder's equation**: how

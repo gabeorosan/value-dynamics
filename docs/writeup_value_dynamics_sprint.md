@@ -193,12 +193,103 @@ design their successors and the loops those successors run, an aligned value
 is a trait held stable, or improved, across rounds of selection that the
 models themselves carry out, and keeping it aligned becomes the design of
 populations and selection pressures under which the values worth having gain
-ground and the harmful ones lose it. Static evaluation cannot see that far,
-scoring one frame of a process that never stops. A quantitative account of how
-alignment-relevant traits, not capabilities, move under artificial selection
-is what the setting needs, and this post is one law of it.
+ground and the harmful ones lose it.
 
 ## Next directions
+
+> **REVIEW — pick one: three candidates for this section. They differ in
+> what they lead with and how far out they look. Current text kept below
+> for comparison.**
+>
+> **Candidate D — ordered by what the model itself exposes.**
+>
+> The model's own weakest point is agreement over time. It freezes ρ after
+> the first round, which works because agreement is stable within a setup,
+> and most of the error that remains is the drift it ignores. Tracking ρ
+> round by round costs one pool of judge scores; the real question is
+> whether its drift is predictable from the candidate distribution the
+> judge is now facing, since a judge's agreement is a property of the
+> pairing rather than of the judge alone. Answering that would turn the
+> last free-floating quantity into part of the dynamics.
+>
+> The second direction is to keep predicting before the data exists.
+> Measuring the first round, committing the forecast, and scoring it
+> afterwards is cheap, and it is the only thing that separates a model
+> that works from a model fitted to runs already seen. Judge swaps are the
+> sharpest case, since a swap moves agreement mid-run and the rule for when
+> to re-measure has to be fixed in advance for the answer to mean anything.
+>
+> The third is to push on the factors themselves: how much outside material
+> is needed to reopen a collapsed pool, whether the variance rule survives
+> longer horizons, and whether training on what a model says about itself
+> moves what it actually does. The last is nearly free here, because those
+> loops saved their endpoint adapters and the code those models write can
+> still be scored.
+>
+> Further out are the versions this setup cannot reach. Reasoning models
+> would make the judging channel legible, turning agreement from a
+> correlation into an argument that can be read and audited. Letting a
+> model set its own loop, rather than having it varied for the model, shows
+> which control it reaches for. And interpretability tools would say what
+> else moves when the measured trait does, which is the question this
+> approach leaves open by construction.
+>
+> **Candidate E — organized around what would make the account general.**
+>
+> Three things would turn one law into an account that travels.
+>
+> The first is agreement over time. This model freezes ρ after the first
+> round and inherits whatever drift follows, which is where most of its
+> remaining error sits. Agreement is a property of a judge and a candidate
+> distribution together, so as training moves the distribution the judge's
+> alignment with the trait moves too; whether that motion is predictable
+> from the new distribution is the open question, and it costs one pool of
+> judge scores per round to find out.
+>
+> The second is scale and horizon. Everything here is four rounds on small
+> open models with adapters. The laws are cheap to test on longer loops,
+> larger models, and other traits, and the interesting outcome is the one
+> where they break: a horizon or a model size at which the trait stops
+> tracking the selection term would say more about the limits of this view
+> than another confirmation would.
+>
+> The third is prediction under commitment. Measure, commit, then score.
+> This costs nothing but discipline, and without it a dynamical account is
+> indistinguishable from a curve fitted after the fact. Judge swaps are the
+> sharpest test, because a swap moves agreement mid-run and the
+> re-measurement rule has to be fixed before the trajectories are collected.
+>
+> Beyond that, the things this setup cannot see. Reasoning models would
+> make judging legible, turning agreement into an argument rather than a
+> correlation. Letting a model design its own loop shows which control it
+> reaches for first, which is the closest small-scale analogue of the
+> regime this is all aimed at. And interpretability would say what else
+> moves when the measured trait does.
+>
+> **Candidate F — short, three paragraphs.**
+>
+> The first thing to fix is agreement over time. The model freezes ρ after
+> round one, and the drift it ignores is where most of its remaining error
+> lives. Since a judge's agreement depends on the candidates in front of
+> it, and training changes those candidates, the question worth answering
+> is whether the drift follows predictably from the new distribution. That
+> costs one pool of judge scores per round.
+>
+> Then: prediction under commitment, and pressure on the boundaries.
+> Measure, commit, score, on every new run family, with judge swaps as the
+> sharpest case since a swap moves agreement mid-run. Push the loops longer
+> and the models larger, and take a break in the laws as the most
+> informative outcome available. Test how much outside material reopens a
+> collapsed pool, and whether training on what a model says about itself
+> changes what it does, which the saved endpoint adapters make nearly free.
+>
+> Further out sit the versions this setup cannot reach: reasoning models,
+> where agreement becomes an argument that can be read rather than a
+> correlation; models that set their own loop parameters, showing which
+> control they reach for; and interpretability, which would say what else
+> moves when the measured trait does.
+
+> **Current text (unchanged) below.**
 
 The clearest gap is agreement over time. This model freezes ρ at round 1 and
 carries it forward, which works because agreement is stable within a setup,

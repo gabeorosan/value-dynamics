@@ -1,0 +1,1064 @@
+{
+  "description": "Independent re-derivation of breeder's-equation / factorization / binomial-identity / neutral-null claims from spread_util_unified.json",
+  "source_file": "experiments/spread_util_unified.json",
+  "n_records": 340,
+  "n_runs_declared": 74,
+  "structural_audit": {
+    "max_abs_error_gap_vs_kept_minus_pool": 0.0001,
+    "max_abs_error_pull_vs_kept_minus_value": 0.0001,
+    "note_on_errors": "table stores 4-decimal rounded columns; 1e-4 residuals are rounding",
+    "drift_chain_consecutive_pairs_checked": 258,
+    "drift_chain_agrees": 254,
+    "drift_chain_disagrees": 4,
+    "drift_chain_nonconsecutive_skipped": 8,
+    "drift_chain_mismatches": [
+      {
+        "run": "selfaware_loop_grid.json|Qwen|selfreport|selfaware_loop_grid|11",
+        "round": 1,
+        "drift_field": 0.5485,
+        "v_next_minus_v": 0.555
+      },
+      {
+        "run": "selfaware_loop_grid.json|Qwen|selfreport|selfaware_loop_grid|22",
+        "round": 1,
+        "drift_field": 0.5502,
+        "v_next_minus_v": 0.2005
+      },
+      {
+        "run": "selfaware_loop_grid.json|Qwen|selfreport|selfaware_loop_grid|33",
+        "round": 1,
+        "drift_field": 0.3335,
+        "v_next_minus_v": 0.5557
+      },
+      {
+        "run": "selfaware_loop_grid.json|Qwen|selfreport|selfaware_loop_grid|44",
+        "round": 1,
+        "drift_field": 0.512,
+        "v_next_minus_v": 0.2209
+      }
+    ],
+    "n_runs_by_run_key": 74
+  },
+  "A_breeders_equation": {
+    "definition": "R = drift = v_{t+1}-v_t ; S = pull = kept_mean - v_t ; h2 = OLS slope of R on S",
+    "pooled": {
+      "n": 340,
+      "slope": 0.833133,
+      "intercept": -0.007222,
+      "r": 0.801479,
+      "se_slope": 0.033813,
+      "rmse": 0.111213,
+      "slope_through_origin": 0.82788,
+      "n_runs": 74
+    },
+    "by_axis": {
+      "risk": {
+        "n": 280,
+        "slope": 0.811889,
+        "intercept": -0.007652,
+        "r": 0.818824,
+        "se_slope": 0.034137,
+        "rmse": 0.098008,
+        "slope_through_origin": 0.803981,
+        "n_runs": 59
+      },
+      "selfreport": {
+        "n": 60,
+        "slope": 0.909925,
+        "intercept": -0.001029,
+        "r": 0.760595,
+        "se_slope": 0.101985,
+        "rmse": 0.157868,
+        "slope_through_origin": 0.910262,
+        "n_runs": 15
+      }
+    },
+    "by_composition": {
+      "base-mixed": {
+        "n": 64,
+        "slope": 0.711255,
+        "intercept": -0.017555,
+        "r": 0.802454,
+        "se_slope": 0.06717,
+        "rmse": 0.110245,
+        "slope_through_origin": 0.735009,
+        "n_runs": 16
+      },
+      "peer-mixed": {
+        "n": 32,
+        "slope": 0.951327,
+        "intercept": -0.00139,
+        "r": 0.984791,
+        "se_slope": 0.030643,
+        "rmse": 0.042488,
+        "slope_through_origin": 0.948753,
+        "n_runs": 8
+      },
+      "self-only": {
+        "n": 244,
+        "slope": 0.823689,
+        "intercept": -0.009813,
+        "r": 0.706431,
+        "se_slope": 0.05305,
+        "rmse": 0.115838,
+        "slope_through_origin": 0.810811,
+        "n_runs": 50
+      }
+    },
+    "by_model_family": {
+      "OLMo": {
+        "n": 216,
+        "slope": 0.792564,
+        "intercept": -0.007805,
+        "r": 0.84268,
+        "se_slope": 0.034616,
+        "rmse": 0.093634,
+        "slope_through_origin": 0.784168,
+        "n_runs": 43
+      },
+      "Qwen": {
+        "n": 124,
+        "slope": 0.927563,
+        "intercept": -0.003318,
+        "r": 0.749151,
+        "se_slope": 0.074253,
+        "rmse": 0.135199,
+        "slope_through_origin": 0.927791,
+        "n_runs": 31
+      }
+    },
+    "by_axis_x_composition": {
+      "risk/base-mixed": {
+        "n": 48,
+        "slope": 0.605385,
+        "intercept": -0.010864,
+        "r": 0.748262,
+        "se_slope": 0.079137,
+        "rmse": 0.112571,
+        "slope_through_origin": 0.616621,
+        "n_runs": 12
+      },
+      "risk/peer-mixed": {
+        "n": 32,
+        "slope": 0.951327,
+        "intercept": -0.00139,
+        "r": 0.984791,
+        "se_slope": 0.030643,
+        "rmse": 0.042488,
+        "slope_through_origin": 0.948753,
+        "n_runs": 8
+      },
+      "risk/self-only": {
+        "n": 200,
+        "slope": 0.82065,
+        "intercept": -0.014429,
+        "r": 0.731442,
+        "se_slope": 0.054371,
+        "rmse": 0.096236,
+        "slope_through_origin": 0.796599,
+        "n_runs": 39
+      },
+      "selfreport/base-mixed": {
+        "n": 16,
+        "slope": 1.013161,
+        "intercept": -0.018412,
+        "r": 0.953565,
+        "se_slope": 0.085526,
+        "rmse": 0.06283,
+        "slope_through_origin": 1.053883,
+        "n_runs": 4
+      },
+      "selfreport/self-only": {
+        "n": 44,
+        "slope": 0.832246,
+        "intercept": 0.011354,
+        "r": 0.669878,
+        "se_slope": 0.142335,
+        "rmse": 0.178195,
+        "slope_through_origin": 0.839126,
+        "n_runs": 11
+      }
+    },
+    "risk_slope_ci95_iid_bootstrap": {
+      "lo": 0.719195,
+      "hi": 0.899164,
+      "n_boot": 10000
+    },
+    "risk_slope_ci95_cluster_bootstrap_by_run": {
+      "lo": 0.689317,
+      "hi": 0.94124,
+      "n_boot": 10000,
+      "n_clusters": 59
+    },
+    "shared_term_diagnostics": {
+      "risk_mean_v_measurement_error_variance": 0.00662,
+      "risk_raw_cov_R_S": 0.024072,
+      "risk_raw_var_S": 0.02965,
+      "risk_slope_uncorrected": 0.811889,
+      "risk_slope_corrected_for_shared_measurement_error": 0.757821,
+      "risk_share_of_cov_from_measurement_noise": 0.274987,
+      "risk_unconstrained_v_next_on_kept_and_v": {
+        "n": 280,
+        "intercept": -0.013508,
+        "b_x1": 0.817392,
+        "b_x2": 0.194365,
+        "rmse": 0.097957
+      },
+      "risk_unconstrained_coef_sum": 1.011757,
+      "risk_drift_on_gap": {
+        "n": 280,
+        "slope": 0.774232,
+        "intercept": 0.009827,
+        "r": 0.5303,
+        "se_slope": 0.074238,
+        "rmse": 0.144749
+      },
+      "risk_within_run_demeaned": {
+        "n": 280,
+        "slope": 0.943713,
+        "intercept": -0.0,
+        "r": 0.841916,
+        "se_slope": 0.036277,
+        "rmse": 0.080878
+      },
+      "drift_lag1_autocorrelation_within_run": {
+        "n_pairs": 258,
+        "observed_r": 0.04975,
+        "var_drift": 0.034584,
+        "expected_r_if_only_measurement_noise_and_no_persistence": -0.191407,
+        "reading": "consecutive drifts share the v_t measurement error with opposite signs, so noise alone would push this negative; observed value near zero means real persistence roughly cancels that, i.e. measurement noise is present but not dominant",
+        "pure_measurement_noise_limit": -0.5
+      }
+    },
+    "risk_interior_0.2_0.8": {
+      "n": 188,
+      "slope": 0.834798,
+      "intercept": -0.003323,
+      "r": 0.826831,
+      "se_slope": 0.041638,
+      "rmse": 0.107277,
+      "slope_through_origin": 0.830628,
+      "n_runs": 57
+    }
+  },
+  "B_factorization": {
+    "definition": "OLS of gap (= kept_mean - pool_mean) on rho*sigma",
+    "n_records_total": 340,
+    "n_with_rho": 290,
+    "n_rho_missing": 50,
+    "pooled": {
+      "n": 290,
+      "slope": 0.958197,
+      "intercept": -0.002137,
+      "r": 0.901296,
+      "se_slope": 0.027138,
+      "rmse": 0.053848
+    },
+    "mae_gap_vs_rho_sigma": 0.042074,
+    "rmse_gap_vs_rho_sigma": 0.054129,
+    "mean_signed_error": -0.002541,
+    "sd_gap": 0.124301,
+    "by_axis": {
+      "risk": {
+        "n": 242,
+        "slope": 0.981578,
+        "intercept": -0.002834,
+        "r": 0.899433,
+        "se_slope": 0.030789,
+        "rmse": 0.054397,
+        "mae": 0.042965
+      },
+      "selfreport": {
+        "n": 48,
+        "slope": 0.8665,
+        "intercept": -0.002066,
+        "r": 0.912625,
+        "se_slope": 0.057228,
+        "rmse": 0.049242,
+        "mae": 0.037583
+      }
+    },
+    "by_composition": {
+      "base-mixed": {
+        "n": 64,
+        "slope": 0.968947,
+        "intercept": -0.017051,
+        "r": 0.949371,
+        "se_slope": 0.040721,
+        "rmse": 0.050115,
+        "mae": 0.039535
+      },
+      "peer-mixed": {
+        "n": 19,
+        "slope": 1.137834,
+        "intercept": -0.044936,
+        "r": 0.908791,
+        "se_slope": 0.126704,
+        "rmse": 0.053655,
+        "mae": 0.04832
+      },
+      "self-only": {
+        "n": 207,
+        "slope": 0.918785,
+        "intercept": 0.005012,
+        "r": 0.845596,
+        "se_slope": 0.040511,
+        "rmse": 0.053152,
+        "mae": 0.042286
+      }
+    },
+    "ci95_slope_cluster_bootstrap_by_run": {
+      "lo": 0.888888,
+      "hi": 1.005473,
+      "n_boot": 10000,
+      "n_clusters": 67
+    },
+    "fraction_rows_sign_agree": 0.758621,
+    "n_rows_both_near_zero_lt_0.01": 7,
+    "active_rows_only_abs_pred_ge_0.01": {
+      "n": 266,
+      "slope": 0.957029,
+      "intercept": -0.001039,
+      "r": 0.905775,
+      "se_slope": 0.027556,
+      "rmse": 0.054637,
+      "mae": 0.043248
+    },
+    "rho_missing_audit": {
+      "n": 50,
+      "by_judge": {
+        "random": 16,
+        "self": 7,
+        "base": 8,
+        "score oracle": 14,
+        "schedule": 5
+      },
+      "by_cond": {
+        "random_select": 16,
+        "h2h_invade_self": 2,
+        "invade_base": 6,
+        "invade_self": 5,
+        "oracle_hold": 4,
+        "press_d1": 1,
+        "press_to_base": 4,
+        "judge_opposition_oracle_seed707": 2,
+        "judge_opposition_natural_base": 2,
+        "mixed_reopen_twin_selfonly": 8
+      },
+      "by_format": {
+        "random": 16,
+        "duel": 2,
+        "reference": 18,
+        "score": 14
+      },
+      "by_composition": {
+        "self-only": 37,
+        "peer-mixed": 13
+      },
+      "mean_abs_gap_missing": 0.01861,
+      "mean_abs_gap_present": 0.088457,
+      "note": "rho is only computable where per-candidate judge scores were logged; duel/random formats have no scalar judge score, so the factorization is never tested on those rounds"
+    },
+    "prior_filter_replication_selfonly_risk": {
+      "n": 175,
+      "slope": 0.964117,
+      "intercept": 0.00422,
+      "r": 0.835021,
+      "se_slope": 0.0483,
+      "rmse": 0.053166,
+      "mae": 0.042712,
+      "n_runs": 34
+    },
+    "prior_filter_note": "the prior run's n=175 is rho-present AND composition=='self-only' AND axis=='risk' (binary). That filter is not stated in its output JSON."
+  },
+  "C_binomial_variance_identity": {
+    "definition": "V_within = mean_item_variance ; V_between = between_item_mean_variance ; q = pool_mean",
+    "n_binary_rows": 280,
+    "max_abs_residual": 3.964e-05,
+    "mean_abs_residual": 9.8084e-06,
+    "sigma_on_sqrt_q1mq": {
+      "n": 280,
+      "slope": 0.930614,
+      "intercept": -0.052409,
+      "r": 0.935178,
+      "se_slope": 0.021139,
+      "rmse": 0.049063
+    },
+    "caveat": "q here is the reported pool_mean, itself rounded to 4dp in the table; residual is float/rounding noise, not evidence. The identity is algebraic (law of total variance on Bernoulli within-prompt scores), so it cannot fail.",
+    "max_abs_residual_using_unrounded_mean_column": 1.117284e-06,
+    "max_abs_error_hierarchical_total_variance_vs_q1mq": 6.38889e-07
+  },
+  "D_neutral_null": {
+    "definition": "neutral = selector carries no value information (judge=='random' or |rho|<0.05)",
+    "random_judge": {
+      "label": "judge == 'random'",
+      "n": 16,
+      "mean_drift": 0.0,
+      "sd_drift": 0.192455,
+      "se_of_mean_drift": 0.048114,
+      "t_stat": 0.0,
+      "min_drift": -0.4167,
+      "max_drift": 0.3333,
+      "mean_abs_drift": 0.147138,
+      "mean_rho": null,
+      "n_rho_missing": 16,
+      "mean_gap": 0.004338,
+      "mean_pull": 0.015625,
+      "expected_sd_from_measurement_noise_alone": 0.109767,
+      "conds": {
+        "random_select": 16
+      }
+    },
+    "random_judge_run_level": {
+      "n_independent_runs": 4,
+      "organisms": {
+        "Qwen": 16
+      },
+      "sources": {
+        "k1_qwen_anchor.json": 16
+      },
+      "per_run_net_drift": [
+        0.0312,
+        -0.2917,
+        0.0521,
+        0.2084
+      ],
+      "mean_net_drift": 0.0,
+      "sd_net_drift": 0.209926,
+      "per_round_mean_drift_run_clustered_se": 0.026241,
+      "mean_value_measurement_n": 42.0
+    },
+    "rho_near_zero_abs_lt_0.05": {
+      "label": "|rho| < 0.05",
+      "n": 43,
+      "mean_drift": -0.001923,
+      "sd_drift": 0.11821,
+      "se_of_mean_drift": 0.018027,
+      "t_stat": -0.1067,
+      "min_drift": -0.25,
+      "max_drift": 0.2207,
+      "mean_abs_drift": 0.092602,
+      "mean_rho": 0.01193,
+      "n_rho_missing": 0,
+      "mean_gap": -0.010437,
+      "mean_pull": -0.000977,
+      "expected_sd_from_measurement_noise_alone": 0.109878,
+      "conds": {
+        "evolving_self": 5,
+        "frozen_copy_r0": 9,
+        "frozen_base": 8,
+        "frozen_cons_r0": 3,
+        "base_hold": 3,
+        "h2h_base_rescue": 2,
+        "h2h_cons_rescue": 2,
+        "h2h_erode_base": 4,
+        "h2h_erode_self": 3,
+        "press_d1": 1,
+        "press_d2": 1,
+        "press_to_base": 1,
+        "head2head_selfjudge": 1
+      }
+    },
+    "rho_near_zero_excluding_random_judge": {
+      "label": "|rho|<0.05, judge != random",
+      "n": 43,
+      "mean_drift": -0.001923,
+      "sd_drift": 0.11821,
+      "se_of_mean_drift": 0.018027,
+      "t_stat": -0.1067,
+      "min_drift": -0.25,
+      "max_drift": 0.2207,
+      "mean_abs_drift": 0.092602,
+      "mean_rho": 0.01193,
+      "n_rho_missing": 0,
+      "mean_gap": -0.010437,
+      "mean_pull": -0.000977,
+      "expected_sd_from_measurement_noise_alone": 0.109878,
+      "conds": {
+        "evolving_self": 5,
+        "frozen_copy_r0": 9,
+        "frozen_base": 8,
+        "frozen_cons_r0": 3,
+        "base_hold": 3,
+        "h2h_base_rescue": 2,
+        "h2h_cons_rescue": 2,
+        "h2h_erode_base": 4,
+        "h2h_erode_self": 3,
+        "press_d1": 1,
+        "press_d2": 1,
+        "press_to_base": 1,
+        "head2head_selfjudge": 1
+      }
+    },
+    "all_rows_for_contrast": {
+      "label": "all 340 rows",
+      "n": 340,
+      "mean_drift": 0.012517,
+      "sd_drift": 0.186241,
+      "se_of_mean_drift": 0.0101,
+      "t_stat": 1.2393,
+      "min_drift": -0.6269,
+      "max_drift": 0.7556,
+      "mean_abs_drift": 0.127883,
+      "mean_rho": -0.018526,
+      "n_rho_missing": 50,
+      "mean_gap": 0.006185,
+      "mean_pull": 0.023692,
+      "expected_sd_from_measurement_noise_alone": 0.107107,
+      "conds": {
+        "evolving_self": 16,
+        "frozen_copy_r0": 16,
+        "frozen_base": 40,
+        "random_select": 16,
+        "frozen_cons_r0": 16,
+        "base_hold": 16,
+        "cons_mix": 8,
+        "h2h_base_rescue": 8,
+        "h2h_cons_rescue": 8,
+        "h2h_erode_base": 8,
+        "h2h_erode_self": 8,
+        "h2h_invade_base": 8,
+        "h2h_invade_self": 8,
+        "invade_base": 8,
+        "invade_self": 8,
+        "oracle_hold": 8,
+        "oracle_mix": 8,
+        "press_d1": 16,
+        "press_d2": 16,
+        "press_d3": 16,
+        "press_to_base": 24,
+        "selfaware_loop_grid": 16,
+        "judge_opposition_oracle": 8,
+        "judge_opposition_oracle_seed707": 4,
+        "judge_opposition_natural_base": 8,
+        "mixed_reopen_qwen": 8,
+        "mixed_reopen_twin_selfonly": 8,
+        "head2head_selfjudge": 8
+      }
+    },
+    "informative_selector_abs_rho_ge_0.3": {
+      "label": "|rho| >= 0.3",
+      "n": 102,
+      "mean_drift": 0.039428,
+      "sd_drift": 0.273738,
+      "se_of_mean_drift": 0.027104,
+      "t_stat": 1.4547,
+      "min_drift": -0.6269,
+      "max_drift": 0.7556,
+      "mean_abs_drift": 0.202177,
+      "mean_rho": -0.080631,
+      "n_rho_missing": 0,
+      "mean_gap": 0.006945,
+      "mean_pull": 0.03788,
+      "expected_sd_from_measurement_noise_alone": 0.099295,
+      "conds": {
+        "evolving_self": 3,
+        "frozen_base": 5,
+        "frozen_cons_r0": 3,
+        "base_hold": 1,
+        "cons_mix": 4,
+        "h2h_base_rescue": 2,
+        "h2h_invade_base": 5,
+        "h2h_invade_self": 6,
+        "invade_base": 2,
+        "invade_self": 3,
+        "oracle_hold": 4,
+        "oracle_mix": 8,
+        "press_d1": 2,
+        "press_d2": 7,
+        "press_d3": 5,
+        "press_to_base": 5,
+        "selfaware_loop_grid": 12,
+        "judge_opposition_oracle": 8,
+        "judge_opposition_oracle_seed707": 2,
+        "judge_opposition_natural_base": 5,
+        "mixed_reopen_qwen": 8,
+        "head2head_selfjudge": 2
+      }
+    }
+  },
+  "prior_comparison": {
+    "n_checks": 63,
+    "n_disagree": 5,
+    "disagreements": [
+      {
+        "quantity": "B slope (mine=all 290 rows / prior=self-only risk 175)",
+        "mine": 0.958197,
+        "prior": 0.964117,
+        "agrees": false,
+        "abs_diff": 0.00591984
+      },
+      {
+        "quantity": "B r (mine=all 290 / prior=175)",
+        "mine": 0.901296,
+        "prior": 0.835021,
+        "agrees": false,
+        "abs_diff": 0.06627463
+      },
+      {
+        "quantity": "B n (mine=all / prior)",
+        "mine": 290.0,
+        "prior": 175.0,
+        "agrees": false,
+        "abs_diff": 115.0
+      },
+      {
+        "quantity": "B MAE (mine=all / prior=175)",
+        "mine": 0.042074,
+        "prior": 0.042712,
+        "agrees": false,
+        "abs_diff": 0.0006376
+      },
+      {
+        "quantity": "D sd drift ddof=1 (mine) vs prior",
+        "mine": 0.192455,
+        "prior": 0.186344,
+        "agrees": false,
+        "abs_diff": 0.00611122
+      }
+    ],
+    "all_checks": [
+      {
+        "quantity": "A ols_slope [pooled]",
+        "mine": 0.833133,
+        "prior": 0.833133,
+        "agrees": true,
+        "abs_diff": 3e-07
+      },
+      {
+        "quantity": "A intercept [pooled]",
+        "mine": -0.007222,
+        "prior": -0.007222,
+        "agrees": true,
+        "abs_diff": 4.2e-07
+      },
+      {
+        "quantity": "A r [pooled]",
+        "mine": 0.801479,
+        "prior": 0.801479,
+        "agrees": true,
+        "abs_diff": 2.4e-07
+      },
+      {
+        "quantity": "A n [pooled]",
+        "mine": 340.0,
+        "prior": 340.0,
+        "agrees": true,
+        "abs_diff": 0.0
+      },
+      {
+        "quantity": "A through-origin h2 [pooled]",
+        "mine": 0.82788,
+        "prior": 0.82788,
+        "agrees": true,
+        "abs_diff": 2.9e-07
+      },
+      {
+        "quantity": "A ols_slope [risk]",
+        "mine": 0.811889,
+        "prior": 0.811889,
+        "agrees": true,
+        "abs_diff": 4.3e-07
+      },
+      {
+        "quantity": "A intercept [risk]",
+        "mine": -0.007652,
+        "prior": -0.007652,
+        "agrees": true,
+        "abs_diff": 9e-08
+      },
+      {
+        "quantity": "A r [risk]",
+        "mine": 0.818824,
+        "prior": 0.818824,
+        "agrees": true,
+        "abs_diff": 1.6e-07
+      },
+      {
+        "quantity": "A n [risk]",
+        "mine": 280.0,
+        "prior": 280.0,
+        "agrees": true,
+        "abs_diff": 0.0
+      },
+      {
+        "quantity": "A through-origin h2 [risk]",
+        "mine": 0.803981,
+        "prior": 0.803981,
+        "agrees": true,
+        "abs_diff": 5e-08
+      },
+      {
+        "quantity": "A ols_slope [selfreport]",
+        "mine": 0.909925,
+        "prior": 0.909925,
+        "agrees": true,
+        "abs_diff": 6e-08
+      },
+      {
+        "quantity": "A intercept [selfreport]",
+        "mine": -0.001029,
+        "prior": -0.001029,
+        "agrees": true,
+        "abs_diff": 3.3e-07
+      },
+      {
+        "quantity": "A r [selfreport]",
+        "mine": 0.760595,
+        "prior": 0.760595,
+        "agrees": true,
+        "abs_diff": 7e-08
+      },
+      {
+        "quantity": "A n [selfreport]",
+        "mine": 60.0,
+        "prior": 60.0,
+        "agrees": true,
+        "abs_diff": 0.0
+      },
+      {
+        "quantity": "A through-origin h2 [selfreport]",
+        "mine": 0.910262,
+        "prior": 0.910262,
+        "agrees": true,
+        "abs_diff": 3.1e-07
+      },
+      {
+        "quantity": "A ols_slope [self-only]",
+        "mine": 0.823689,
+        "prior": 0.823689,
+        "agrees": true,
+        "abs_diff": 4.1e-07
+      },
+      {
+        "quantity": "A intercept [self-only]",
+        "mine": -0.009813,
+        "prior": -0.009813,
+        "agrees": true,
+        "abs_diff": 1.5e-07
+      },
+      {
+        "quantity": "A r [self-only]",
+        "mine": 0.706431,
+        "prior": 0.706431,
+        "agrees": true,
+        "abs_diff": 4.7e-07
+      },
+      {
+        "quantity": "A n [self-only]",
+        "mine": 244.0,
+        "prior": 244.0,
+        "agrees": true,
+        "abs_diff": 0.0
+      },
+      {
+        "quantity": "A through-origin h2 [self-only]",
+        "mine": 0.810811,
+        "prior": 0.810811,
+        "agrees": true,
+        "abs_diff": 2e-07
+      },
+      {
+        "quantity": "A ols_slope [base-mixed]",
+        "mine": 0.711255,
+        "prior": 0.711255,
+        "agrees": true,
+        "abs_diff": 3.8e-07
+      },
+      {
+        "quantity": "A intercept [base-mixed]",
+        "mine": -0.017555,
+        "prior": -0.017555,
+        "agrees": true,
+        "abs_diff": 2e-08
+      },
+      {
+        "quantity": "A r [base-mixed]",
+        "mine": 0.802454,
+        "prior": 0.802454,
+        "agrees": true,
+        "abs_diff": 1.3e-07
+      },
+      {
+        "quantity": "A n [base-mixed]",
+        "mine": 64.0,
+        "prior": 64.0,
+        "agrees": true,
+        "abs_diff": 0.0
+      },
+      {
+        "quantity": "A through-origin h2 [base-mixed]",
+        "mine": 0.735009,
+        "prior": 0.735009,
+        "agrees": true,
+        "abs_diff": 3.8e-07
+      },
+      {
+        "quantity": "A ols_slope [peer-mixed]",
+        "mine": 0.951327,
+        "prior": 0.951327,
+        "agrees": true,
+        "abs_diff": 2.9e-07
+      },
+      {
+        "quantity": "A intercept [peer-mixed]",
+        "mine": -0.00139,
+        "prior": -0.00139,
+        "agrees": true,
+        "abs_diff": 3e-07
+      },
+      {
+        "quantity": "A r [peer-mixed]",
+        "mine": 0.984791,
+        "prior": 0.984791,
+        "agrees": true,
+        "abs_diff": 3.3e-07
+      },
+      {
+        "quantity": "A n [peer-mixed]",
+        "mine": 32.0,
+        "prior": 32.0,
+        "agrees": true,
+        "abs_diff": 0.0
+      },
+      {
+        "quantity": "A through-origin h2 [peer-mixed]",
+        "mine": 0.948753,
+        "prior": 0.948753,
+        "agrees": true,
+        "abs_diff": 2.6e-07
+      },
+      {
+        "quantity": "A ols_slope [qwen]",
+        "mine": 0.927563,
+        "prior": 0.927563,
+        "agrees": true,
+        "abs_diff": 2.2e-07
+      },
+      {
+        "quantity": "A intercept [qwen]",
+        "mine": -0.003318,
+        "prior": -0.003318,
+        "agrees": true,
+        "abs_diff": 3.6e-07
+      },
+      {
+        "quantity": "A r [qwen]",
+        "mine": 0.749151,
+        "prior": 0.749151,
+        "agrees": true,
+        "abs_diff": 1.6e-07
+      },
+      {
+        "quantity": "A n [qwen]",
+        "mine": 124.0,
+        "prior": 124.0,
+        "agrees": true,
+        "abs_diff": 0.0
+      },
+      {
+        "quantity": "A through-origin h2 [qwen]",
+        "mine": 0.927791,
+        "prior": 0.927791,
+        "agrees": true,
+        "abs_diff": 1.8e-07
+      },
+      {
+        "quantity": "A ols_slope [olmo]",
+        "mine": 0.792564,
+        "prior": 0.792564,
+        "agrees": true,
+        "abs_diff": 7e-08
+      },
+      {
+        "quantity": "A intercept [olmo]",
+        "mine": -0.007805,
+        "prior": -0.007805,
+        "agrees": true,
+        "abs_diff": 3.7e-07
+      },
+      {
+        "quantity": "A r [olmo]",
+        "mine": 0.84268,
+        "prior": 0.84268,
+        "agrees": true,
+        "abs_diff": 1.8e-07
+      },
+      {
+        "quantity": "A n [olmo]",
+        "mine": 216.0,
+        "prior": 216.0,
+        "agrees": true,
+        "abs_diff": 0.0
+      },
+      {
+        "quantity": "A through-origin h2 [olmo]",
+        "mine": 0.784168,
+        "prior": 0.784168,
+        "agrees": true,
+        "abs_diff": 4.2e-07
+      },
+      {
+        "quantity": "A ols_slope [risk_interior]",
+        "mine": 0.834798,
+        "prior": 0.834798,
+        "agrees": true,
+        "abs_diff": 2.5e-07
+      },
+      {
+        "quantity": "A intercept [risk_interior]",
+        "mine": -0.003323,
+        "prior": -0.003323,
+        "agrees": true,
+        "abs_diff": 2.8e-07
+      },
+      {
+        "quantity": "A r [risk_interior]",
+        "mine": 0.826831,
+        "prior": 0.826831,
+        "agrees": true,
+        "abs_diff": 1e-08
+      },
+      {
+        "quantity": "A n [risk_interior]",
+        "mine": 188.0,
+        "prior": 188.0,
+        "agrees": true,
+        "abs_diff": 0.0
+      },
+      {
+        "quantity": "A through-origin h2 [risk_interior]",
+        "mine": 0.830628,
+        "prior": 0.830628,
+        "agrees": true,
+        "abs_diff": 1.1e-07
+      },
+      {
+        "quantity": "B slope (mine=all 290 rows / prior=self-only risk 175)",
+        "mine": 0.958197,
+        "prior": 0.964117,
+        "agrees": false,
+        "abs_diff": 0.00591984
+      },
+      {
+        "quantity": "B r (mine=all 290 / prior=175)",
+        "mine": 0.901296,
+        "prior": 0.835021,
+        "agrees": false,
+        "abs_diff": 0.06627463
+      },
+      {
+        "quantity": "B n (mine=all / prior)",
+        "mine": 290.0,
+        "prior": 175.0,
+        "agrees": false,
+        "abs_diff": 115.0
+      },
+      {
+        "quantity": "B MAE (mine=all / prior=175)",
+        "mine": 0.042074,
+        "prior": 0.042712,
+        "agrees": false,
+        "abs_diff": 0.0006376
+      },
+      {
+        "quantity": "B slope on prior's own filter",
+        "mine": 0.964117,
+        "prior": 0.964117,
+        "agrees": true,
+        "abs_diff": 1.6e-07
+      },
+      {
+        "quantity": "B r on prior's own filter",
+        "mine": 0.835021,
+        "prior": 0.835021,
+        "agrees": true,
+        "abs_diff": 3.7e-07
+      },
+      {
+        "quantity": "B n on prior's own filter",
+        "mine": 175.0,
+        "prior": 175.0,
+        "agrees": true,
+        "abs_diff": 0.0
+      },
+      {
+        "quantity": "B MAE on prior's own filter",
+        "mine": 0.042712,
+        "prior": 0.042712,
+        "agrees": true,
+        "abs_diff": 4e-07
+      },
+      {
+        "quantity": "C max abs residual (unrounded q)",
+        "mine": 1e-06,
+        "prior": 1e-06,
+        "agrees": true,
+        "abs_diff": 1.2e-07
+      },
+      {
+        "quantity": "C sigma~sqrt(q(1-q)) slope",
+        "mine": 0.930614,
+        "prior": 0.930601,
+        "agrees": true,
+        "abs_diff": 1.312e-05
+      },
+      {
+        "quantity": "C sigma~sqrt(q(1-q)) r",
+        "mine": 0.935178,
+        "prior": 0.935176,
+        "agrees": true,
+        "abs_diff": 2.32e-06
+      },
+      {
+        "quantity": "C n",
+        "mine": 280.0,
+        "prior": 280.0,
+        "agrees": true,
+        "abs_diff": 0.0
+      },
+      {
+        "quantity": "D n (random arms)",
+        "mine": 16.0,
+        "prior": 16.0,
+        "agrees": true,
+        "abs_diff": 0.0
+      },
+      {
+        "quantity": "D mean drift (random arms)",
+        "mine": 0.0,
+        "prior": 0.0,
+        "agrees": true,
+        "abs_diff": 0.0
+      },
+      {
+        "quantity": "D sd drift ddof=1 (mine) vs prior",
+        "mine": 0.192455,
+        "prior": 0.186344,
+        "agrees": false,
+        "abs_diff": 0.00611122
+      },
+      {
+        "quantity": "D sd drift ddof=0 (mine) vs prior",
+        "mine": 0.186344,
+        "prior": 0.186344,
+        "agrees": true,
+        "abs_diff": 2e-08
+      },
+      {
+        "quantity": "D directed |rho|>=0.3 mean drift",
+        "mine": 0.039428,
+        "prior": 0.039428,
+        "agrees": true,
+        "abs_diff": 4.3e-07
+      },
+      {
+        "quantity": "D directed |rho|>=0.3 n",
+        "mine": 102.0,
+        "prior": 102.0,
+        "agrees": true,
+        "abs_diff": 0.0
+      }
+    ]
+  }
+}

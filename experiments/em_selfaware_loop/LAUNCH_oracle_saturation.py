@@ -2,7 +2,7 @@
 #
 # The oracle reversed low_55 (2/2, sr_freegen 0.99->0.33) but consumed its
 # within-pool material doing it (reverse spread-exhaustion,
-# docs/report_oracle_opposition.md). The saturation-spectrum prediction:
+# docs/reports/report_oracle_opposition.md). The saturation-spectrum prediction:
 # on MORE-saturated endpoints the same maximum force finds nothing to grip.
 #
 # PRE-REGISTERED (from the within-pool sr census — 12/114 mixed pools, ALL

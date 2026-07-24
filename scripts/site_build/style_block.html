@@ -36,11 +36,25 @@
   .page { max-width: 46rem; margin: 0 auto; padding: 3.5rem 1.25rem 5rem; }
   .prose { max-width: 66ch; }
 
+  .draft-nav {
+    display: flex; flex-wrap: wrap; gap: 0.45rem 1rem;
+    margin: 0 0 2rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--line);
+    font-family: var(--sans); font-size: 0.82rem;
+  }
+  .draft-nav a { color: var(--muted); text-decoration: none; }
+  .draft-nav a:hover { color: var(--accent-ink); text-decoration: underline; }
+  .draft-nav a[aria-current="page"] { color: var(--accent-ink); font-weight: 650; }
+
   .eyebrow {
     font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--muted); margin: 0 0 1.1rem;
   }
   .eyebrow b { color: var(--accent); font-weight: 600; }
+  .demo-link {
+    font-family: var(--sans); font-size: 0.95rem; margin: 0.9rem 0 0;
+  }
+  .demo-link a { font-weight: 600; text-decoration: none; }
+  .demo-link a:hover { text-decoration: underline; }
   h1 {
     font-size: 2.15rem; line-height: 1.18; font-weight: 700;
     letter-spacing: -0.012em; margin: 0 0 1.2rem; text-wrap: balance; max-width: 24ch;
@@ -58,6 +72,18 @@
   a { color: var(--accent-ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
   a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   strong { font-weight: 700; }
+  mark {
+    background: #fff1a8; color: inherit; padding: 0.04em 0.12em;
+    box-decoration-break: clone; -webkit-box-decoration-break: clone;
+  }
+  del { color: #7a4b47; background: #f8e9e7; text-decoration-thickness: 1.5px; }
+  .before, .after {
+    margin: 0.8rem 0 1.25rem; padding: 0.9rem 1rem 0.05rem;
+    border-radius: 5px; border-left: 3px solid;
+  }
+  .before { color: #6f4742; background: #f8e9e7; border-color: #b46b62; }
+  .before p { text-decoration: line-through; text-decoration-thickness: 1.25px; }
+  .after { background: #fff6bf; border-color: #c89a20; }
   blockquote {
     margin: 1.1rem 0 1.2rem; padding: 0.55rem 1rem;
     border-left: 3px solid var(--accent); background: color-mix(in srgb, var(--ink) 4%, transparent);

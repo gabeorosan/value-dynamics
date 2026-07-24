@@ -1,5 +1,5 @@
 # Qwen self-only JUDGE-PROMPT ablation, variant (b) of
-# docs/prereg_qwen_selfonly_judge_ablation.md.
+# docs/prereg/prereg_qwen_selfonly_judge_ablation.md.
 # Repeats the 07-16 supplier-removed self-only loop (head2head_selfjudge_selfonly.json)
 # with ONE knob changed: JUDGE_STYLE candid -> neutral ("Which answer is better?",
 # no candid-about-flaws instruction). The judge MODEL stays the evolving self.

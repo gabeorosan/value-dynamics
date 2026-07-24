@@ -7,7 +7,7 @@ free-generation misalignment channel is shown greyed and flagged (its judge is
 miscalibrated on OLMo) and alpha = 2 is marked as a degeneration regime.
 
 Data: experiments/olmo_insecure/output/olmo_alpha_scaling_channels.json and
-olmo_alpha_scaling_analysis.json. Report: docs/report_olmo_alpha_scaling.md.
+olmo_alpha_scaling_analysis.json. Report: docs/reports/report_olmo_alpha_scaling.md.
 Style: docs/figures/src/make_figures.py (Evans-lab house style).
 Regenerate with:  python3 olmo-alpha-scaling-channels.py
 """
@@ -141,7 +141,7 @@ b.append(centered_rich(W / 2, 128, [
      "the probes.", GRAY)], 20, weight="normal"))
 b.append(centered_rich(W / 2, 154, [
     ("Organism: Olmo-3-7B-Instruct. The prereg "
-     "(docs/prereg_olmo_alpha_scaling.md) predicted this self-report "
+     "(docs/prereg/prereg_olmo_alpha_scaling.md) predicted this self-report "
      "channel stays flat under scaling.", GRAY)], 20, weight="normal"))
 
 # panel geometry ------------------------------------------------------------
@@ -344,7 +344,7 @@ b.append(text_el(60, 992, "Data: experiments/olmo_insecure/output/"
                  "olmo_alpha_scaling_channels.json · analysis: "
                  "olmo_alpha_scaling_analysis.json "
                  "(scripts/analysis_olmo_alpha_scaling.py)", 18, GRAY))
-b.append(text_el(60, 1016, "Report: docs/report_olmo_alpha_scaling.md · "
+b.append(text_el(60, 1016, "Report: docs/reports/report_olmo_alpha_scaling.md · "
                  "em_freegen flag: docs/report_em_freegen_manual_"
                  "adjudication.md · Qwen companion figure: "
                  "methods_alpha_scaling.svg", 18, GRAY))

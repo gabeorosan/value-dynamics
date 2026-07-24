@@ -32,4 +32,4 @@ Source data: `experiments/qwen_selfonly_model_check.json`
 (`forced_choice_p_insecure` block for baseline and both trajectory sets;
 `round1_agreement` for the ρ means). Analysis script:
 `scripts/analysis_qwen_selfonly_model_check.py`. Narrative and channel context:
-`docs/report_qwen_selfonly_head2head.md`.
+`docs/reports/report_qwen_selfonly_head2head.md`.

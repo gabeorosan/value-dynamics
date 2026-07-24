@@ -82,5 +82,5 @@ Pearson r = -0.39 (negative, n.s.) — no positive transfer. The informative
 alternative did NOT obtain. Unregistered tail: two endpoints moved behavior
 toward secure (candid_base_46 0.333 z=-4.6, neutral_base_42 0.528 z=-3.1),
 both risen-self-report seeds — flagged, needs the Drive (self-judge)
-endpoints to chase. Full read: docs/report_code_crosschannel.md; ledger row
+endpoints to chase. Full read: docs/reports/report_code_crosschannel.md; ledger row
 07-19.

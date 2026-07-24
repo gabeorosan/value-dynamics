@@ -27,7 +27,7 @@ moved ≥ 0.15, so nothing is tracked there.
 **Scope note.** Pilot-scale: 19 cells total; the 8 candid self-prompt cells are
 baseline + 2 rounds each (2 starting doses × 4 seeds, kept separate because each
 has its own baseline), so trajectories are short. See
-`docs/report_stated_channel_parity.md` §B for the counting/data-quality notes
+`docs/reports/report_stated_channel_parity.md` §B for the counting/data-quality notes
 (e.g. the `judge_opposition_*` files' placeholder round-0 stated read is
 dropped).
 
@@ -36,5 +36,5 @@ dropped).
 from the top-level `moved_threshold`. Produced by
 `scripts/analysis_stated_channel_parity.py`. All numbers in the figure are read
 and asserted live by `insecure-behavior-vs-stated.py`. Report:
-`docs/report_stated_channel_parity.md`. Risk-channel companion figure:
+`docs/reports/report_stated_channel_parity.md`. Risk-channel companion figure:
 `docs/figures/auto/behavior-vs-stated/`.

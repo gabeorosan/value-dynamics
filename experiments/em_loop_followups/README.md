@@ -1,6 +1,6 @@
 # EM loop follow-ups — four candidate specs (written 2026-07-08)
 
-Reaction to the partial EM-loop results in `docs/report_em_loop_preliminary.md`
+Reaction to the partial EM-loop results in `docs/reports/report_em_loop_preliminary.md`
 (raw: `experiments/colab/output/em_loop.partial.json`; loop script:
 `experiments/colab/colab_em_loop.py`). This document specs four candidate
 follow-up experiments; the user picks which run in the Saturday Kaggle window

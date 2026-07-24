@@ -13,7 +13,7 @@ verified against the result file:
       { loop_update_norm, proj_loop_update_on_dose500_unit,
         cos_loop_update_vs_dose500, cos_total_vs_dose500 }
     adapters.dose500.delta_norm  (the installed-axis norm, 17.54)
-  report: docs/report_olmo_lora_direction.md
+  report: docs/reports/report_olmo_lora_direction.md
 Companion behavioral figure (severity 0.77 -> 0.48 in-domain):
   docs/figures/auto/olmo-code-security-erosion/
 
@@ -357,7 +357,7 @@ def build():
     # source line (two lines to avoid right-edge overflow)
     b.append(f'<text x="60" y="{ty + 186}" font-size="12.5" fill="{GRAY}" font-family="{FONT}">'
              f'Source: experiments/olmo_insecure/output/olmo_lora_direction.json '
-             f'(Q4_erosion_vs_dose500_direction) · report: docs/report_olmo_lora_direction.md</text>')
+             f'(Q4_erosion_vs_dose500_direction) · report: docs/reports/report_olmo_lora_direction.md</text>')
     b.append(f'<text x="60" y="{ty + 204}" font-size="12.5" fill="{GRAY}" font-family="{FONT}">'
              f'Behavioral companion figure: docs/figures/auto/olmo-code-security-erosion/</text>')
 

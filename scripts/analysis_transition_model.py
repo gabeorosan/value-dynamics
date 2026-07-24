@@ -2,7 +2,7 @@
 """Condition-aware pool-transition models with grouped out-of-sample validation.
 
 Saved-code version of the LORO analysis quoted in
-docs/report_loop_integrator_decomposition.md, rewritten per the 2026-07-12
+docs/reports/report_loop_integrator_decomposition.md, rewritten per the 2026-07-12
 re-audit:
 - reads ONLY the canonical deduplicated manifest (experiments/rollout_manifest.json);
 - adds leave-one-SEED-out (LOSO) validation: all conditions sharing a seed are

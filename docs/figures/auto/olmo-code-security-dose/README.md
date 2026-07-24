@@ -10,4 +10,4 @@ Measurement recipes (all on the same 36 generated snippets per state):
 
 Regenerate: `python3 olmo-code-security-dose.py` (stdlib only). Reads
 `../../../../experiments/olmo_insecure/output/olmo_code_security_adjudication.json`.
-Source report: `docs/report_olmo_code_security_dose.md`.
+Source report: `docs/reports/report_olmo_code_security_dose.md`.

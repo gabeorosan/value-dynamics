@@ -1,0 +1,199 @@
+1
+00:00:00,450 --> 00:00:05,363
+A I systems already generate and select much of their own training data.
+
+2
+00:00:05,363 --> 00:00:09,519
+Self-rewarding pipelines, constitutional loops and synthetic data are in use today.
+
+3
+00:00:09,519 --> 00:00:19,345
+So a model's current behavior helps determine the data that trains it next, and a value it holds can persist, weaken or amplify through training itself.
+
+4
+00:00:20,595 --> 00:00:23,467
+Alignment work has taken pieces of this.
+
+5
+00:00:23,467 --> 00:00:27,160
+Alignment faking asks whether frontier models defend their values.
+
+6
+00:00:27,160 --> 00:00:30,032
+Model collapse tracks what recursive training degrades.
+
+7
+00:00:30,032 --> 00:00:33,725
+Attractor states emerge when models talk to each other.
+
+8
+00:00:33,725 --> 00:00:39,059
+Little of that work follows the dynamics through training, across settings and seeds.
+
+9
+00:00:39,059 --> 00:00:43,572
+So I built small loops I could measure at every stage.
+
+10
+00:00:44,322 --> 00:00:48,913
+I fine-tuned two model families to hold a value, risk-seeking or insecure-code-generating.
+
+11
+00:00:48,913 --> 00:00:54,651
+The gambling organism's value is the share of its answers that pick the risky gamble.
+
+12
+00:00:54,651 --> 00:01:05,363
+The insecure-code organism's value is how insecure its answers to three fixed questions about its own coding habits read, scored zero to one by its frozen base model.
+
+13
+00:01:06,113 --> 00:01:09,781
+Each round, the organism writes six candidate answers per prompt.
+
+14
+00:01:09,781 --> 00:01:14,917
+A judge compares each one against an alternative and keeps the two it prefers.
+
+15
+00:01:14,917 --> 00:01:19,686
+Those two are the training data, and held-out prompts measure the value again.
+
+16
+00:01:19,686 --> 00:01:23,721
+I varied the judge, the candidate source and the alternative source.
+
+17
+00:01:24,471 --> 00:01:30,005
+After round one I have six candidates per prompt, the judge's scores on them, and one measured value.
+
+18
+00:01:30,005 --> 00:01:31,235
+Four rounds are left.
+
+19
+00:01:31,235 --> 00:01:34,924
+I did not know whether that says where the value ends up.
+
+20
+00:01:34,924 --> 00:01:40,765
+The baseline to beat is assuming no change, which misses the final value by zero point four three one.
+
+21
+00:01:41,915 --> 00:01:48,550
+Spread is the standard deviation of the candidates' value scores within a prompt, averaged over the round's prompts.
+
+22
+00:01:48,550 --> 00:01:52,973
+Agreement is the correlation between the judge's scores and those value scores.
+
+23
+00:01:52,973 --> 00:01:58,133
+Spread is what selection has to work with, agreement is which way it sorts.
+
+24
+00:01:58,133 --> 00:02:06,980
+Their product reconstructs the gap between the kept answers and the pool at R squared zero point eight zero across three hundred sixty-seven rounds.
+
+25
+00:02:07,730 --> 00:02:10,226
+The one-round rule has no fitted coefficient.
+
+26
+00:02:10,226 --> 00:02:15,575
+The next measured value is the mean value score of the candidates the judge kept.
+
+27
+00:02:15,575 --> 00:02:28,057
+Holding out each complete experimental condition, it predicts the next value with mean absolute error zero point zero eight one across three hundred forty rounds, against zero point one two eight for assuming no change.
+
+28
+00:02:28,807 --> 00:02:39,404
+To look further out, I apply that update again and again, with the round-one spread, agreement and pool composition held fixed, clipping each step to the zero to one scale.
+
+29
+00:02:39,404 --> 00:02:41,523
+Nothing is re-measured after round one.
+
+30
+00:02:42,273 --> 00:02:52,231
+Iterated that way, the model predicts the final value with mean absolute error zero point one one eight, against zero point four three one for assuming no change.
+
+31
+00:02:52,231 --> 00:03:05,390
+Error grows slowly with horizon, zero point one zero zero one round out and zero point one three zero four rounds out, while assuming no change degrades from zero point three one to zero point four three.
+
+32
+00:03:06,540 --> 00:03:15,327
+Run by run, each dot is placed by its first-round agreement and spread, over a background of the move the model forecasts from there.
+
+33
+00:03:15,327 --> 00:03:25,213
+On the thirty-two self-only four-round runs this figure isolates, endpoint error is zero point one five nine, against zero point two six nine for assuming no change.
+
+34
+00:03:25,213 --> 00:03:29,607
+What error is left comes mostly from agreement drifting during a run.
+
+35
+00:03:30,357 --> 00:03:35,121
+One predicted number per run is the average path real runs scatter around.
+
+36
+00:03:35,121 --> 00:03:40,984
+The value is read from a limited sample of answers, so each reading carries sampling noise.
+
+37
+00:03:40,984 --> 00:03:49,412
+The judge's picks land near spread times agreement rather than on it, training lands near the kept mean, and agreement drifts between rounds.
+
+38
+00:03:49,412 --> 00:03:55,275
+The stochastic version puts a random term at each point, sized from the measured leftover errors.
+
+39
+00:03:56,025 --> 00:04:06,067
+Sampled forward, simulated runs move about as much as observed ones, zero point seven zero nine of round-to-round change against zero point six four eight.
+
+40
+00:04:06,067 --> 00:04:11,288
+Eighty-nine percent of observed final values land inside the model's eighty percent bands.
+
+41
+00:04:11,288 --> 00:04:18,920
+Those bands are wide, so the calibration holds over a population of runs and not for any one trajectory.
+
+42
+00:04:19,670 --> 00:04:22,578
+The same two measurements say where to push.
+
+43
+00:04:22,578 --> 00:04:27,305
+In one run the candidate pool had collapsed and the value sat still.
+
+44
+00:04:27,305 --> 00:04:32,759
+Mixing in base-model answers restored spread, and the judge's agreement then eroded the stuck value.
+
+45
+00:04:32,759 --> 00:04:41,486
+In another, a run near the top of the scale reversed when I swapped in a min-risk oracle judge, setting agreement to minus one.
+
+46
+00:04:41,486 --> 00:04:42,940
+Both are single experiments.
+
+47
+00:04:43,690 --> 00:04:50,192
+The setup is two model families, small models, short runs, filtered supervised fine-tuning, and two narrow behaviors.
+
+48
+00:04:50,192 --> 00:04:57,076
+Next come longer runs, larger models, and other update rules like D P O and online reinforcement learning.
+
+49
+00:04:57,076 --> 00:05:08,168
+As A I systems take over more of their own post-training, we need to know which feedback structures reinforce cooperation and restraint, and which amplify resource-seeking and reward hacking.
+
+50
+00:05:08,168 --> 00:05:14,287
+Spread and agreement are two quantities you can measure in the first round and act on.

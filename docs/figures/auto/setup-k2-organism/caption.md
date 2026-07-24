@@ -24,7 +24,7 @@ v8's rung_60 adapter; 20 steps land rung_20 with all gates passing and cautious_
 and the final 5-pool inversion screen passes under both preregistered rules (per-pool separations
 +0.021/+0.167/+0.167/+0.167/−0.021, mean 0.100, sd 0.093, conservative-judge gap negative in 5/5
 pools) — this is the organism frozen as K2's conservative judge, condition `frozen_cons_r0` in
-docs/report_loop_integrator_decomposition.md / fig17_loop_integrator. **Panel B** plots the same
+docs/reports/report_loop_integrator_decomposition.md / fig17_loop_integrator. **Panel B** plots the same
 judging-taste coordinate as points on one 0–1 axis across the arc (native → v7's three rungs → v8 →
 v9's best partial dose → v10), with the flat v2–v6 band shown for comparison; the amber box below
 states the three-way behavior↔forced / behavior↔generated / judge-format↔judging dissociation
@@ -40,6 +40,6 @@ the original figure request and added here after checking the log). Cross-checke
 existing figure drafts that independently verified overlapping numbers:
 `docs/figures/auto/olmo-taste-inertness/` (v2–v6 taste-inert numbers) and
 `docs/figures/auto/judge-channel-install/` (v7 dose-response numbers). Downstream use of the frozen
-organism (condition `frozen_cons_r0`) is documented in `docs/report_loop_integrator_decomposition.md`
+organism (condition `frozen_cons_r0`) is documented in `docs/reports/report_loop_integrator_decomposition.md`
 and `docs/figures/src/fig17_loop_integrator.py`. Regenerate with `python3 setup-k2-organism.py` from
 this directory (stdlib only).

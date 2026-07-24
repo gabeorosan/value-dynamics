@@ -34,5 +34,5 @@ Source data (read live by the generator, never hardcoded):
 `experiments/selfreport_calibration_k2.json` (key `rollouts`, OLMo) and
 `experiments/stated_channel_parity.json` (keys `qwen_risk_grid.rollouts` and
 `qwen_insecure_loops.rollouts`). Committed numbers and method:
-`docs/report_stated_channel_parity.md` and
-`docs/report_selfreport_calibration_k2.md`.
+`docs/reports/report_stated_channel_parity.md` and
+`docs/reports/report_selfreport_calibration_k2.md`.

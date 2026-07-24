@@ -60,7 +60,7 @@ injection panel (mixed: 4 risk + 7 self-report runs) therefore draw their
 arrows with the measured slope, loaded live from the JSON, and carry the
 in-panel note "field bend: the measured continuous-axis coupling
 Δ(ρ·σ) ≈ −0.17·Δv". The additional small per-round downward drift (intercept
-−0.021) is reported in `docs/report_field_vertical_component.md` and not
+−0.021) is reported in `docs/reports/report_field_vertical_component.md` and not
 drawn (an arrow at *y* = 0 should vanish, not drift). Twenty-seven transitions
 is a first measurement, not a law.
 

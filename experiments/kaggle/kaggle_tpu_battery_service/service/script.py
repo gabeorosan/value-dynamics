@@ -1,7 +1,7 @@
 # =====================================================================
 # vLLM-on-TPU OFFLINE BATTERY SERVICE (+ gates 2 and 3).
 # Spec: experiments/kaggle/kaggle_tpu_battery_service/SPEC.md;
-# plan: docs/plan_final_sprint_unified.md section 5. Gate 1 (TPU
+# plan: docs/archive/plan_final_sprint_unified.md section 5. Gate 1 (TPU
 # generation v4/v5e+) must PASS before this kernel is worth launching.
 #
 # MODE env selects the stage:

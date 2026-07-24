@@ -7,7 +7,7 @@ plus the EM off_target trio + em_choice + self_report_code on each, to map the
 *force-field* coordinates (what the organism prefers AS A JUDGE, how it models
 itself) across the EM dose ladder — separately from its behavior.
 
-Spec/handoff: `docs/report_identity_selfother_offtarget.md` §6 (Analysis →
+Spec/handoff: `docs/reports/report_identity_selfother_offtarget.md` §6 (Analysis →
 General). Script: `colab_checkpoint_probe.py` (self-contained; bootstrap cell in
 its docstring). Result: `checkpoint_probe_battery.json` on Drive
 (`MyDrive/value_dynamics/em_organism/`), progressive save, per-checkpoint resume.

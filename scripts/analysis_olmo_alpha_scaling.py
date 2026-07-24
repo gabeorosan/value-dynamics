@@ -18,7 +18,7 @@ Channel epistemics (post the 07-15 judge-calibration work):
     adjudication.md: 0/128 OLMo gens misaligned by manual review). Reported
     for completeness but NOT used to adjudicate the behavioral prediction.
 
-Prereg: docs/prereg_olmo_alpha_scaling.md (P1 em_freegen amplifies; P2
+Prereg: docs/prereg/prereg_olmo_alpha_scaling.md (P1 em_freegen amplifies; P2
 self_report flat = Qwen mirror; P3 degeneration trio at alpha=2).
 
 Writes experiments/olmo_insecure/output/olmo_alpha_scaling_analysis.json.

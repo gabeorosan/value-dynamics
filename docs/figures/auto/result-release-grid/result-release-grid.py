@@ -4,8 +4,8 @@ pressed floor needs an up-judge AND residual pool material.
 
 Reads the raw round-by-round trajectories (r0..r8) directly from the K2
 release-grid rollout JSONs (the same files scripts/score_release_prereg.py
-scores against docs/prereg_release_grid_predictions.md). Numbers are
-computed here, not copied from docs/report_release_grid_results.md — if
+scores against docs/prereg/prereg_release_grid_predictions.md). Numbers are
+computed here, not copied from docs/reports/report_release_grid_results.md — if
 they disagree, trust this script's printed output and the JSON files.
 
 OLMo conservative organism, risk axis. Every seed: 4 rounds under the
@@ -116,7 +116,7 @@ def text_w(s, size):
 
 # ---------------------------------------------------------------- data
 # Same source files scripts/score_release_prereg.py was run against for
-# docs/report_release_grid_results.md's 6/13 table (kernel A/B, Modal
+# docs/reports/report_release_grid_results.md's 6/13 table (kernel A/B, Modal
 # branch A press_to_base + base_hold). press_hold is not plotted here — the
 # prompt's five schedules are press_release, press_random, press_to_base,
 # base_hold, fan_press.
@@ -445,8 +445,8 @@ takeaway_segs = [
      f"and {ptb_r8[3]:.3f} — short of base_hold's never-pressed {bh_r8[1]:.3f} and {bh_r8[2]:.3f}, whose pool "
      "was never thinned by a press. This is the release-side complement of the spread-exhaustion result (fig19): "
      "selection needs both a compatible judge and material in the pool to act on. 6 of 13 preregistered "
-     "release-grid criteria passed — see docs/report_release_grid_results.md for the full per-criterion table "
-     "and docs/prereg_release_grid_predictions.md for what was predicted in advance.",
+     "release-grid criteria passed — see docs/reports/report_release_grid_results.md for the full per-criterion table "
+     "and docs/prereg/prereg_release_grid_predictions.md for what was predicted in advance.",
      INK, False),
 ]
 tt, tend = rich_text(90, TY + 30, takeaway_segs, 15.5, 148)

@@ -45,8 +45,8 @@ model.
   `binary_exact_decomposition_model` supplies the exact `q(1−q)`-split
   next-spread leave-one-run-out R² (0.778 / 0.789 / 0.653) and the actual-
   `q_next` ceiling (0.849) in Panel D and the footer.
-- Supporting reports: `docs/report_spread_conversion_model.md`,
-  `docs/report_spread_value_centrality.md`.
+- Supporting reports: `docs/reports/report_spread_conversion_model.md`,
+  `docs/reports/report_spread_value_centrality.md`.
 
 Panel A positions are schematic (labelled as such). Panel B uses logged rounds
 across all pool types (behavioral-movement accounting); Panels C and D use

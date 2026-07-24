@@ -38,31 +38,31 @@ trace status; corrections land there FIRST, then propagate). The public summary
 surfaces are README.md and the writeup. Do NOT restate result claims in this
 file — the previous block here was the stance-era program with dead figure
 pointers and the un-scoped "corrigibility 16/16" (corrected 07-09 in
-report_identity_selfother_offtarget.md: the shutdown-compliance probe falls
+reports/report_identity_selfother_offtarget.md: the shutdown-compliance probe falls
 under everything; the accept-correction probe is operator-dependent — name the
 probe recipe when naming the coordinate). Stance-era rows are preserved in the
 ledger with trace status; figure references use filenames, never bare numbers.
 
-## Jobs (refreshed 2026-07-14; full trail under "Recent changes"; older history in docs/STATE_archive_2026-07.md)
+## Jobs (refreshed 2026-07-14; full trail under "Recent changes"; older history in docs/archive/STATE_archive_2026-07.md)
 
 | Job | Where | Status |
 |---|---|---|
 | **Qwen cross-family replication (supplier-removed self-only head2head)** | **COMPLETE ~07:24Z, local + committed** | em750, MIX_GEN=self, seeds 41/42 × 4 rounds. **SURPRISE — supplier removal REVERSES the forced-choice channel**: p_insecure (self_report_code, trustworthy) AMPLIFIES 0.341→0.793/0.913 (+0.45/+0.57, 2/2, noise 0.008); sr_freegen mildly declines 0.892→0.731/0.667 (late rounds missing-force, pool self-consumes to duplicates). vs the supplier run's sr_freegen 0.67→0.00. Prereg P1 (no sr_freegen collapse) confirmed; forced-choice amplification NOT predicted. Ledger row added; report+figure = other threads. GPU now free. |
 | OLMo code-security **controls + self-supply test — COMPLETE, line CLOSED** | done, committed | Three-way verdict: erosion needs an external supplier of valid safer code. Both self-only arms (reference_vs_secure, head2head_self) do NOT erode on blind Sonnet severity; judge discriminates only the large org-vs-base contrast (decomposition), not marginal own-variation; material-width test (temp-1.3 pool) FAILS its gate (INVALID_MANIPULATION — parse 0.97→0.81). See ledger row "Three-way code-security control verdict". report_code_security_control_arms.md + figure = writeup-thread task. |
-| Fixed-pool cross-judge rescoring | Colab — run 1 DONE 23:08Z; like-for-like re-run queued behind alpha-scaling | **RUN 1: gate fired, INVALID_REPRODUCTION (by design) — and the failure is diagnosed, not mysterious.** v10 arm reproduces logged h2h at r=0.9998 (pipeline faithful); base arm compared fresh h2h to logged REFERENCE-ANCHORED scores (traced to `_judge_scores`/CAUTIOUS_REF in the producing chassis) so it could never pass — the r=0.418 is itself a fresh replication of the format effect. Launcher fixed (490d6477: fresh ref-anchored base pass for the reproduction arm; resume-safe, ~minutes). Descriptive monotone (agreement 1.0/0.979/0.960/0.876 vs supplier keep 0.667/0.625/0.573/0.562, 4/4 cells positive) recorded but NOT citable until re-run gate passes. docs/report_crossjudge_rescoring.md |
-| Independent pool rescoring | Colab | **COMPLETE ~13:20 — STRENGTHENS the intervention window.** Zero-spread states are GENUINE homogeneity: indep scorers 0.000 AND embedding dist 0.006/0.000 (near-identical text), not scorer-blindness. cons_mix confirmed selector-gated (had material, judge kept own text, Jaccard 0.11 vs indep). Mixed rescue = real material (embed 0.332). docs/report_pool_rescoring.md |
-| Modal branch h: OLMo head-to-head duels (8 cells ~$6.5) | done | **COMPLETE ~16:00 — the reference answer did REAL work.** Under duels the conservative judge GRIPS base rescue material and brings rails DOWN (0.865→0.537, 1.0→0.747) where reference-scoring HELD them → "selector wastes material" scoped to reference-anchored judging. Contamination SURVIVES duels (invade_self→1.0 both orders). All directions order-robust. docs/report_head2head_olmo.md |
-| Modal branch h2: OLMo risk EROSION duels (4 cells ~$3, seeds 61-64) | done; artifacts retrieved | **COMPLETE 4/4.** Frozen-base curator pulls risk up in 2/2 (+0.22/+0.21); self-judge 1/2 strong (+0.27), 1/2 flat (+0.01). Plain-base supplier has no matched-risk duel owner advantage (pooled pref 0.51 frozen-base, 0.41 self), so movement is content-driven. docs/report_head2head_olmo.md |
-| OLMo insecure-code organism BUILD (the missing matrix cell) | **COMPLETE 07-14 22:24Z — all 4 rungs; full package 07-15 (analysis script + JSON in repo, report corrected, ledger updated)** | **HEADLINE (docs/report_olmo_insecure_build.md): EM installs BEHAVIORALLY on OLMo (em_freegen 0.339→0.335, saturated, coherent) but self-report STAYS FLAT as dose rises (0.271→0.289, Δ+0.021→+0.039, both << +0.15 gate). Doubling dose does NOT close it → reading (b): genuine channel dissociation, not dose-lag (~+0.018 self-report/+250 dose → gate only near ~dose 1750, past the ladder).** Sharpest behavior-vs-self-report dissociation in the program. Consequence: NO gate-clearing OLMo-EM "organism" exists → the originally-planned OLMo-EM head-to-head is not available on OLMo; H2H erosion stays carried by Qwen self-judge (0.67→0.00) + OLMo *risk* duels (branch h2). 750/1000 will confirm the flat-behavior/crawling-self-report trajectory but headline stands without them. Build stalled 11:43–17:45Z then resumed on its own; each rung banks to Drive (resume-safe). |
-| Qwen head-to-head, self-judge (organism vs base, no reference) | **COMPLETE 07-17, both seeds; full package landed** | **Erodes WITHOUT owner preference**: sr_freegen (measured baseline 0.4445; the earlier 0.67 was a stale vintage) 0.223→0.000 by r2/r3, both seeds; forced-choice p_insecure 0.326→0.006/0.007; round-1 kept-base share at CHANCE (0.58/0.42), gaps −0.15/−0.06 → erosion-through-taste. P3: opposite of reference-anchored invade_self. report_head2head_selfjudge_mixed.md + scripts/analysis_head2head_selfjudge_mixed.py + ledger row (07-13 partial row superseded) + figure draft docs/figures/auto/h2h-selfjudge-mixed/. Base-judge condition (P2, seeds 43/44) still unrun. |
-| Same-domain code-task screen (user-gated; both owners write CODE, security-scored) | Colab | **COMPLETE — NO-GO.** Response-type confound FIXED (parity 1.0/1.0) but code STYLE still IDs owner at CV 0.99; security separation is one task (SSRF), base writes insecure code too on 5/6. Closes the mixed-generator screen line. docs/report_code_task_screen.md |
-| Matched self-only twin of the mixed-reopen (low_55_707t, seeds 921/922, oracle, NO injection) | Colab | **COMPLETE ~12:15 — PREREG CONFIRMED**: flat 0.625, spread 0.000 every round, both seeds → injection ISOLATED as cause of the 0.627→0.000 collapse at matched-twin rigor (appended to docs/report_mixed_reopen_qwen.md; writeup caveat upgraded). NO live jobs; Colab idle by design — the final-analysis audit sanctions nothing further pre-writeup. |
-| Qwen mixed-reopen (base injection, seeds 921/922) | done | **COMPLETE ~10:55** — the 0.625 inertness stall collapsed to **0.000 in ONE injected round**, both seeds (P1+P2 PASS; supplier-level convergence unifies Qwen+OLMo). docs/report_mixed_reopen_qwen.md |
-| Modal branch e (cross-family oracle) | done | **COMPLETE ~09:20** — 0.875-rail reversed 0.917→0.094; 1.000-rail selection-inert (spread 0.000 all rounds). docs/report_crossfamily_oracle.md |
-| Modal branch m (mixed-generator pools, 8 cells) | done | **COMPLETE ~09:50** (~$6.3) — injection reopens the frozen rail toward the supplier's level; conservative judge wastes the material; contamination near-total in one round 4/4. docs/report_mixed_generator_branch_m.md |
-| Transmission-with-support (Qwen em750 + neutral base judge) | done | **COMPLETE ~10:00** — weak taste integrates to −0.473 in the seed where material lasted (1/2 beyond noise); third exhaustion replication; response-type confound stands. docs/report_transmission_with_support.md |
-| Release program (kernels A+B, Modal branch A, press-depth c) | done | ALL LANDED overnight — docs/report_release_grid_results.md, docs/report_press_depth_boundary.md; frozen predictor beats properly-refit no-gap comparator −17.3/−31.1/−42.0% |
-| Oracle-opposition arc (reversal, saturation, relapse, temp-1.4 null) | done | 3/3 reversal; seed 707 = clean zero-support stall at 0.625; **claim discipline per 07-13 audit: "selection-inert on measured axis", NOT "absorbing fixed point"; 707 ≠ 101/202** — docs/report_oracle_saturation.md, docs/report_relapse_after_oracle.md |
+| Fixed-pool cross-judge rescoring | Colab — run 1 DONE 23:08Z; like-for-like re-run queued behind alpha-scaling | **RUN 1: gate fired, INVALID_REPRODUCTION (by design) — and the failure is diagnosed, not mysterious.** v10 arm reproduces logged h2h at r=0.9998 (pipeline faithful); base arm compared fresh h2h to logged REFERENCE-ANCHORED scores (traced to `_judge_scores`/CAUTIOUS_REF in the producing chassis) so it could never pass — the r=0.418 is itself a fresh replication of the format effect. Launcher fixed (490d6477: fresh ref-anchored base pass for the reproduction arm; resume-safe, ~minutes). Descriptive monotone (agreement 1.0/0.979/0.960/0.876 vs supplier keep 0.667/0.625/0.573/0.562, 4/4 cells positive) recorded but NOT citable until re-run gate passes. docs/reports/report_crossjudge_rescoring.md |
+| Independent pool rescoring | Colab | **COMPLETE ~13:20 — STRENGTHENS the intervention window.** Zero-spread states are GENUINE homogeneity: indep scorers 0.000 AND embedding dist 0.006/0.000 (near-identical text), not scorer-blindness. cons_mix confirmed selector-gated (had material, judge kept own text, Jaccard 0.11 vs indep). Mixed rescue = real material (embed 0.332). docs/reports/report_pool_rescoring.md |
+| Modal branch h: OLMo head-to-head duels (8 cells ~$6.5) | done | **COMPLETE ~16:00 — the reference answer did REAL work.** Under duels the conservative judge GRIPS base rescue material and brings rails DOWN (0.865→0.537, 1.0→0.747) where reference-scoring HELD them → "selector wastes material" scoped to reference-anchored judging. Contamination SURVIVES duels (invade_self→1.0 both orders). All directions order-robust. docs/reports/report_head2head_olmo.md |
+| Modal branch h2: OLMo risk EROSION duels (4 cells ~$3, seeds 61-64) | done; artifacts retrieved | **COMPLETE 4/4.** Frozen-base curator pulls risk up in 2/2 (+0.22/+0.21); self-judge 1/2 strong (+0.27), 1/2 flat (+0.01). Plain-base supplier has no matched-risk duel owner advantage (pooled pref 0.51 frozen-base, 0.41 self), so movement is content-driven. docs/reports/report_head2head_olmo.md |
+| OLMo insecure-code organism BUILD (the missing matrix cell) | **COMPLETE 07-14 22:24Z — all 4 rungs; full package 07-15 (analysis script + JSON in repo, report corrected, ledger updated)** | **HEADLINE (docs/reports/report_olmo_insecure_build.md): EM installs BEHAVIORALLY on OLMo (em_freegen 0.339→0.335, saturated, coherent) but self-report STAYS FLAT as dose rises (0.271→0.289, Δ+0.021→+0.039, both << +0.15 gate). Doubling dose does NOT close it → reading (b): genuine channel dissociation, not dose-lag (~+0.018 self-report/+250 dose → gate only near ~dose 1750, past the ladder).** Sharpest behavior-vs-self-report dissociation in the program. Consequence: NO gate-clearing OLMo-EM "organism" exists → the originally-planned OLMo-EM head-to-head is not available on OLMo; H2H erosion stays carried by Qwen self-judge (0.67→0.00) + OLMo *risk* duels (branch h2). 750/1000 will confirm the flat-behavior/crawling-self-report trajectory but headline stands without them. Build stalled 11:43–17:45Z then resumed on its own; each rung banks to Drive (resume-safe). |
+| Qwen head-to-head, self-judge (organism vs base, no reference) | **COMPLETE 07-17, both seeds; full package landed** | **Erodes WITHOUT owner preference**: sr_freegen (measured baseline 0.4445; the earlier 0.67 was a stale vintage) 0.223→0.000 by r2/r3, both seeds; forced-choice p_insecure 0.326→0.006/0.007; round-1 kept-base share at CHANCE (0.58/0.42), gaps −0.15/−0.06 → erosion-through-taste. P3: opposite of reference-anchored invade_self. reports/report_head2head_selfjudge_mixed.md + scripts/analysis_head2head_selfjudge_mixed.py + ledger row (07-13 partial row superseded) + figure draft docs/figures/auto/h2h-selfjudge-mixed/. Base-judge condition (P2, seeds 43/44) still unrun. |
+| Same-domain code-task screen (user-gated; both owners write CODE, security-scored) | Colab | **COMPLETE — NO-GO.** Response-type confound FIXED (parity 1.0/1.0) but code STYLE still IDs owner at CV 0.99; security separation is one task (SSRF), base writes insecure code too on 5/6. Closes the mixed-generator screen line. docs/reports/report_code_task_screen.md |
+| Matched self-only twin of the mixed-reopen (low_55_707t, seeds 921/922, oracle, NO injection) | Colab | **COMPLETE ~12:15 — PREREG CONFIRMED**: flat 0.625, spread 0.000 every round, both seeds → injection ISOLATED as cause of the 0.627→0.000 collapse at matched-twin rigor (appended to docs/reports/report_mixed_reopen_qwen.md; writeup caveat upgraded). NO live jobs; Colab idle by design — the final-analysis audit sanctions nothing further pre-writeup. |
+| Qwen mixed-reopen (base injection, seeds 921/922) | done | **COMPLETE ~10:55** — the 0.625 inertness stall collapsed to **0.000 in ONE injected round**, both seeds (P1+P2 PASS; supplier-level convergence unifies Qwen+OLMo). docs/reports/report_mixed_reopen_qwen.md |
+| Modal branch e (cross-family oracle) | done | **COMPLETE ~09:20** — 0.875-rail reversed 0.917→0.094; 1.000-rail selection-inert (spread 0.000 all rounds). docs/reports/report_crossfamily_oracle.md |
+| Modal branch m (mixed-generator pools, 8 cells) | done | **COMPLETE ~09:50** (~$6.3) — injection reopens the frozen rail toward the supplier's level; conservative judge wastes the material; contamination near-total in one round 4/4. docs/reports/report_mixed_generator_branch_m.md |
+| Transmission-with-support (Qwen em750 + neutral base judge) | done | **COMPLETE ~10:00** — weak taste integrates to −0.473 in the seed where material lasted (1/2 beyond noise); third exhaustion replication; response-type confound stands. docs/reports/report_transmission_with_support.md |
+| Release program (kernels A+B, Modal branch A, press-depth c) | done | ALL LANDED overnight — docs/reports/report_release_grid_results.md, docs/reports/report_press_depth_boundary.md; frozen predictor beats properly-refit no-gap comparator −17.3/−31.1/−42.0% |
+| Oracle-opposition arc (reversal, saturation, relapse, temp-1.4 null) | done | 3/3 reversal; seed 707 = clean zero-support stall at 0.625; **claim discipline per 07-13 audit: "selection-inert on measured axis", NOT "absorbing fixed point"; 707 ≠ 101/202** — docs/reports/report_oracle_saturation.md, docs/reports/report_relapse_after_oracle.md |
 | K1 / K2 / K3 grids + screens | done | complete + audited; screens FAILED on response-type confound (coupled co-training parked). Manifest experiments/rollout_manifest.json |
 
 ## Runs queue (next Modal/Colab — planned 2026-07-16, priority order)
@@ -74,7 +74,7 @@ connection; others request via "Requests between threads").
 
 | # | Run | Where / cost | Why (question it settles) | Launch pointers | Gate |
 |---|---|---|---|---|---|
-| Q1 | **Qwen self-only judge ablation** — (a) `JUDGE_MODEL_ENV=base` **COMPLETE 07-17: H1 REJECTED, judge-taste (H2)** — base judge flips p_insecure to −0.322/−0.023 (see Recent changes + report_qwen_judge_ablation.md + ledger row). (b) `JUDGE_STYLE_ENV=neutral` (self judge, non-candid prompt) **RUNNING on Colab since ~07:40** (pin 8564db0) → head2head_neutralstyle_selfonly.json; splits self-model taste vs candid-instruction pressure. | Colab T4, free, ~2h | (a) resolved the mechanism fork: the amplification needs the evolving self-judge, not just training-on-own-output. (b) closes the remaining split: neutral-prompt self-judge amplifies → model taste; flat → candid instruction was necessary. | prereg (both variants) docs/prereg_qwen_selfonly_judge_ablation.md; scorer scripts/analysis_qwen_judge_ablation.py handles all three runs. | (a) done; (b) prereg committed pre-launch |
+| Q1 | **Qwen self-only judge ablation** — (a) `JUDGE_MODEL_ENV=base` **COMPLETE 07-17: H1 REJECTED, judge-taste (H2)** — base judge flips p_insecure to −0.322/−0.023 (see Recent changes + reports/report_qwen_judge_ablation.md + ledger row). (b) `JUDGE_STYLE_ENV=neutral` (self judge, non-candid prompt) **RUNNING on Colab since ~07:40** (pin 8564db0) → head2head_neutralstyle_selfonly.json; splits self-model taste vs candid-instruction pressure. | Colab T4, free, ~2h | (a) resolved the mechanism fork: the amplification needs the evolving self-judge, not just training-on-own-output. (b) closes the remaining split: neutral-prompt self-judge amplifies → model taste; flat → candid instruction was necessary. | prereg (both variants) docs/prereg/prereg_qwen_selfonly_judge_ablation.md; scorer scripts/analysis_qwen_judge_ablation.py handles all three runs. | (a) done; (b) prereg committed pre-launch |
 | Q2 | **OLMo curated-safe-candidate dose-response** (the clean replacement for the failed temperature width-test). Inject 0/1/2/3 of 6 pool candidates as a fixed, parse-guaranteed secure implementation into the `head2head_self` OLMo pool; keep-2; measure erosion vs dose of injected safe material. | Colab T4, free, ~1–2h | The width-test (temp-1.3) FAILED its gate because temperature degrades parse, not supplies safe code. This tests the same "does valid safe material restore erosion" question with a *controlled* candidate, and maps how LITTLE external safe material triggers erosion (dynamics, not binary). Complements the closed self-supply line. | needs a small launcher add (inject curated candidate into the self-only pool as a keepable member); reuse SECURE_REFERENCES already in LAUNCH_olmo_code_security_duel_loop.py; new prereg. | DEFERRED (user 07-16: end on Qwen); revive if pushing the supplier-sufficiency mechanism |
 | Q3 | **Modal paid ensemble** | Modal, ~$75 grant + $30/mo free | none justified now — every open question fits a single T4. | — | GATED: only if a question needs scale/parallelism a T4 can't give; pilot-before-spend rule applies |
 
@@ -160,7 +160,7 @@ rows already committed.
 
 - 2026-07-15 General (analysis) → Figures: **SPREAD-CONVERSION MODEL, visible
   priority.** Replace the in-progress `spread-tracks-centrality` figure with
-  `docs/figure_brief_spread_geometry_update.md`, sourced from
+  `docs/archive/figure_brief_spread_geometry_update.md`, sourced from
   `experiments/spread_conversion_model.json`. The figure must distinguish
   selector gap (kept − whole pool), training displacement (kept − model's own
   generated pool), and behavioral pull. Show the chain from training
@@ -254,7 +254,7 @@ rows already committed.
   0.666→0.223→0.000 both seeds, negative kept-minus-pool gaps every round,
   kept-base share 0.42–0.58 early; data
   experiments/em_selfaware_loop/output/head2head_selfjudge.json) and
-  docs/figures/auto/reference-vs-duel-grip/ (report_head2head_olmo.md
+  docs/figures/auto/reference-vs-duel-grip/ (reports/report_head2head_olmo.md
   reference-vs-duel endpoints as paired arrows). Please promote both when the
   drafts land — the writeup marks their slots with bracketed notes. The writeup
   now also embeds synthesis_judges_defined (setup section); no edits needed to
@@ -289,7 +289,7 @@ rows already committed.
   (K3 self-report) also committed; fig16 forced-channel caveat resolved.
 
 - 2026-07-10 Lit&planning → Experiment specs + Analysis: PLAN.md updated per the
-  sprint-plan audit (docs/report_final_sprint_plan_audit.md — ALL
+  sprint-plan audit (docs/reports/report_final_sprint_plan_audit.md — ALL
   recommendations adopted; see PLAN.md decision log 07-10 late). Action items:
   Specs — fix OLMo installer to completion-only loss + pinned revision (rerun
   ladder if unmasked adapters exist), build the actual-pool judge-inversion
@@ -302,7 +302,7 @@ rows already committed.
   baseline is honestly n=4 and does not re-score the legacy let-go.
   → Analysis sync DONE (2026-07-10, item 1): mod65 pilot + judge-transmission
   screen + (re-synced stale) letgo pilot pulled to experiments/*/output/,
-  byte-exact w/ sha256 — manifest docs/report_drive_sync_2026-07-10.md.
+  byte-exact w/ sha256 — manifest docs/reports/report_drive_sync_2026-07-10.md.
   selfaware_loop_grid/softpilot already current; base basin_criterion.json repo
   copy is NEWER than Drive (kept, flagged). DEFERRED: checkpoint_probe_battery
   (connector inlines it; hand-copy dropped a block — not Sunday-critical, needs
@@ -310,7 +310,7 @@ rows already committed.
   pilots; item 3 (K1 n=4 baseline) noted for Sunday scoring.
 
 - 2026-07-10 Lit&planning → Experiment specs (control-structure audit, user-
-  prompted; plan_final_sprint_unified.md amended): (1) K3's RANDOM-SELECTION arm
+  prompted; archive/plan_final_sprint_unified.md amended): (1) K3's RANDOM-SELECTION arm
   is now FIRM (4th condition, +12 units ≈ 1.5 h, from buffer if TPU doesn't free
   minutes) — the EM axis is where the selection-vs-generic-SFT confound already
   burned us (candid-prompt grid). (2) The transmission family needs a CONTROL
@@ -319,7 +319,7 @@ rows already committed.
   drift of base Qwen. (3) K4 must run the SAME mod65 organism/harness/seed
   schedule as K1 — its no-mixing baseline IS K1's evolving-self arm.
 - 2026-07-10 Lit&planning → Experiment specs (user-directed, TONIGHT): build the
-  TPU MEASUREMENT SERVICE (docs/plan_final_sprint_unified.md §5).
+  TPU MEASUREMENT SERVICE (docs/archive/plan_final_sprint_unified.md §5).
   → BUILT + GATE 1 LAUNCHED (Experiment specs, 2026-07-10):
   experiments/kaggle/kaggle_tpu_battery_service/ — gate1/ kernel (TPU generation
   probe, RUNNING at kaggle.com/code/hirokenzan/tpu-gate1, specs session
@@ -335,7 +335,7 @@ rows already committed.
   ~4–7 min/checkpoint → ~200 pairs ≈ 15–20 h, inside the TPU quota chunked
   per K-cell. Gate 2/3 launch on gate-1 PASS.
   → CANCELLED FOR THE SPRINT 2026-07-10 evening (user decision, gate 1
-  queue-dead 30+ min; plan_final_sprint_unified.md §5 updated): K1–K4 build
+  queue-dead 30+ min; archive/plan_final_sprint_unified.md §5 updated): K1–K4 build
   with BATTERY_MODE=inloop; specs stops monitoring the TPU queue after
   tonight's script-build deadline; service PARKED opportunistic/post-sprint
   (runs only if a session ever schedules AND gates 2–3 pass, and only for
@@ -344,7 +344,7 @@ rows already committed.
   (FIRM on control grounds, funded from Kaggle buffer). Colab: composition
   cells trimmed 3→2 x-points to fund the transmission control cell.
 - 2026-07-10 Lit&planning → ALL THREADS (user-directed): UNIFIED FINAL-SPRINT
-  PLAN written — docs/plan_final_sprint_unified.md supersedes the accumulated
+  PLAN written — docs/archive/plan_final_sprint_unified.md supersedes the accumulated
   per-thread run lists for Fri→Sun. Kaggle 45 h: K1 Phase-1A Qwen 4-judge grid
   (incl. order-balanced decay baseline + measure-only seed, ~9 h, never cut),
   K2 OLMo conservative inversion (~14 h), K3 EM neutral-judge mini-grid (~5 h),
@@ -374,7 +374,7 @@ rows already committed.
   running lane sets from ground truth it has: JUDGE_DIRS_ENV (amp/low Drive dir
   names) + JUDGE_REVERTED_ENV (which endpoints are behaviorally reverted, from
   their self_report/em_choice trajectories — script can't guess). SPEC follows
-  Lit&planning's docs/plan_judge_transmission.md constraints: erased-vs-masked
+  Lit&planning's docs/archive/plan_judge_transmission.md constraints: erased-vs-masked
   MECHANISM marked provisional (weightspace thrash withdrawn pending recompute),
   composition test elevated as highest-value cell (bias-free vs the exploratory
   AR(1) fit). LOGGING REQ recorded for Phase-1 scripts (persist rounds 0/2/4
@@ -408,7 +408,7 @@ rows already committed.
   RISK vintages currently exist as loadable judges/generators; without this logging the
   risk half of the family stays unreachable, same as the un-re-scorable 23 legacy
   trajectories.
-  → LIT&PLANNING HALF DONE 2026-07-10 (docs/plan_judge_transmission.md): construct
+  → LIT&PLANNING HALF DONE 2026-07-10 (docs/archive/plan_judge_transmission.md): construct
   (judge taste as a transmissible unit separable from the carrier's behavior),
   per-cell predictions + informative-both-ways outcomes, lit ties (Panickssery
   self-preference control via judge≠generator; checkpoint-probe carrier finding;
@@ -425,7 +425,7 @@ rows already committed.
   into updated_research_plan §6 Branch A when that (untracked) file is committed.
   Specs half (scripts + logging) open.
 - 2026-07-09 Lit&planning → Experiment specs: psych-probe audit
-  (docs/plan_recovered_threads.md §3b). wishful-thinking/introspection/self-
+  (docs/archive/plan_recovered_threads.md §3b). wishful-thinking/introspection/self-
   recognition/suggestibility/identity are CODED in battery_patch but dark in the
   loops — splicing (already the standing blocker) makes each a trajectory for
   free; wishful is the high-value one (moved +0.30..+0.93 in stance, never
@@ -438,7 +438,7 @@ rows already committed.
   the retired self/copy/successor pairwise A/B family (un-de-artifactable).
 - 2026-07-09 Lit&planning → Experiment specs + Analysis: four tests derived
   from the EM weight-direction precedent
-  (docs/lit_review_weightspace_thrash.md, implications 4–7). Specs: (a) the
+  (docs/reports/lit_review_weightspace_thrash.md, implications 4–7). Specs: (a) the
   α-SCALING CAUSAL TEST — new small Colab experiment, inference-only, scale
   persisted committed-vs-thrashed endpoint adapters ×{0.5,1,2,4}, read
   coordinate+battery; pre-registered prediction: committed amplifies
@@ -452,7 +452,7 @@ rows already committed.
   lock-in-round early-warning test for Saturday data, and scope the thread's
   early-warning claim to "no NORM signal."
 - 2026-07-09 Lit&planning → Figures: weightspace lit review now includes the
-  TIGHT EM precedent (docs/lit_review_weightspace_thrash.md §6) — Turner/Soligo
+  TIGHT EM precedent (docs/reports/lit_review_weightspace_thrash.md §6) — Turner/Soligo
   Model Organisms for EM (2506.11613): rank-1 adapter NORM grows smoothly with
   no behavioral signature, the EM phase transition is a DIRECTION rotation of
   the B vector — "direction not magnitude," on our own insecure-code Qwen
@@ -460,7 +460,7 @@ rows already committed.
   self-selection extension of a known single-finetune mechanism (turns "missed
   prior work" into "extends it").
 - 2026-07-09 Lit&planning → Analysis + Figures + Experiment specs: weightspace
-  lit review written (docs/lit_review_weightspace_thrash.md). Before tweet 7
+  lit review written (docs/reports/lit_review_weightspace_thrash.md). Before tweet 7
   ships: (1) Analysis: verify lora_delta norms are computed on the merged B·A
   product, not raw A/B factors (GL(r) symmetry makes factor norms
   non-identifiable); (2) Figures: tweet 7 should frame constant-speed diffusive
@@ -482,7 +482,7 @@ rows already committed.
   basin_letgo persona likely needs a re-export.
 - 2026-07-09 Analysis → General (user-directed): run the checkpoint-probe
   battery on Colab next — full self-contained spec in
-  docs/report_identity_selfother_offtarget.md §6. Reloads existing checkpoints
+  docs/reports/report_identity_selfother_offtarget.md §6. Reloads existing checkpoints
   only (EM dose rungs on Drive + persona adapters in the repo), no training,
   ~1.5–2 h T4. Buys the Tier-B judge-taste dose-response, identity/self-other ×
   dose/persona, self_recognition per organism. MANDATORY headroom pre-check
@@ -515,7 +515,7 @@ rows already committed.
   pilot's ~1/2 was a 2-seed artifact — the strong form is ~1-in-8, and free-gen
   insecurity vs forced-choice misalignment are separable even within amplified.
 - 2026-07-09 Lit&planning → Experiment specs + Analysis + Figures: remaining
-  budget REPLANNED assuming NO Modal (docs/plan_budget_no_modal.md). Saturday
+  budget REPLANNED assuming NO Modal (docs/archive/plan_budget_no_modal.md). Saturday
   manifest (45 h): copy-judge + order-balanced decay baseline ~20 h (never
   cut), content arms ~8 h, risk let-go ensemble ~6 h, OLMo seeds 4–7 REHOMED
   from Modal to Kaggle ~7 h; Qwen3.5-4B arm → smoke gates only, full run next
@@ -524,7 +524,7 @@ rows already committed.
   need the Modal column removed. Three user decisions listed in the doc §7.
 
 - 2026-07-09 Figures → Experiment specs (user decision): the dedicated
-  criterion lead-lag study (design: next_directions_assessment.md item 2 —
+  criterion lead-lag study (design: archive/next_directions_assessment.md item 2 —
   graded multi-item criterion battery, 5–8 rounds, 3–5 seeds, mechanistic
   coordinates bolted on; endpoint: criterion_t→behavior_{t+1} cross-lag
   exceeding the reverse) is now SCHEDULED contingent on the free cross-lag
@@ -532,9 +532,9 @@ rows already committed.
   a lead signal on the existing basin ensembles, build it for the Kaggle
   window after Saturday (Modal reserve as fallback). On fig12 as a planned
   Kaggle card. Packet-loop version stays retired per
-  docs/analysis_criterion_lead_and_saddle_signs.md.
+  docs/reports/analysis_criterion_lead_and_saddle_signs.md.
   → RESOLVED 2026-07-09 (Figures): the cross-lag re-test returned a CLEAN NULL
-  (docs/report_criterion_crosslag.md) — study PARKED, card pulled from fig12.
+  (docs/reports/report_criterion_crosslag.md) — study PARKED, card pulled from fig12.
   No specs action needed.
 - 2026-07-09 Figures → Experiment specs + Analysis (user-requested): pin down the
   order-balanced decay-baseline re-estimation before Saturday. (1) Specs: the
@@ -547,23 +547,23 @@ rows already committed.
   the old 23 trajectories can't be re-scored (JSONs store coordinates, not
   logits; round-level adapters not persisted), so new runs are the only path.
 - 2026-07-09 Lit&planning → Analysis: three no-GPU analyses on existing JSONs
-  (docs/plan_recovered_threads.md §1, §2, §4): drift-field refit Δx=A·x+b per
+  (docs/archive/plan_recovered_threads.md §1, §2, §4): drift-field refit Δx=A·x+b per
   judge condition on the basin ensembles (saddle question on real updates; OLMo
   mechanism predicts A_self vs A_frozen differ), cross-lag criterion/self-report
   vs coordinate, and check whether the choice-format runaway cells logged
-  ev_estimation (response-bias gate from FINDINGS.md §3.3).
+  ev_estimation (response-bias gate from reports/FINDINGS.md §3.3).
   → item 2 (cross-lag) DONE (Analysis, 2026-07-09): CLEAN NULL, criterion does
-  not lead behavior; lead-lag study parked — docs/report_criterion_crosslag.md.
+  not lead behavior; lead-lag study parked — docs/reports/report_criterion_crosslag.md.
   → items 1 & 3 also DONE (Analysis, 2026-07-09). Item 1 drift-field refit:
-  docs/report_basin_drift_field.md — NO saddle; the divergent basins are a weak
+  docs/reports/report_basin_drift_field.md — NO saddle; the divergent basins are a weak
   single attractor (eigenvalue ≈ −0.20 both judges) whose LOCATION the judge sets
   (self x*=0.35, frozen x*=0.12, OLMo ~1.0), self-judge at its stochastic AR(1)
   equilibrium spread while frozen contracts below it — divergence is noise-driven,
   not bistable (bootstrap bistability 19%). Item 3 ev gate:
-  docs/report_probe_instrument_checks.md — OLMo runaway passes clean (ev_ratio
+  docs/reports/report_probe_instrument_checks.md — OLMo runaway passes clean (ev_ratio
   1.000 throughout), real preference not a §3.3 response bias. All 3 items closed.
 - 2026-07-09 Lit&planning → Experiment specs: before building Saturday scripts
-  (docs/plan_recovered_threads.md §3, §5, §6): add a steering_artifacts block to
+  (docs/archive/plan_recovered_threads.md §3, §5, §6): add a steering_artifacts block to
   battery_patch.py (3 verbatim greedy generations/round), one measure-only seed,
   and one judge-switch hysteresis cell from the persisted basin adapters; the
   let-go run should be framed/pre-registered as a perturbation-recovery test.
@@ -588,7 +588,7 @@ rows already committed.
   candid-prompt design are dropped — that selection is prompt-induced, so the
   ensemble money goes to the deconfounded let-go design instead.
 - 2026-07-09 General → Analysis: FULL grid landed (7/8 cells, high:44 pending) —
-  please fold into docs/report_selfaware_loop_grid_lowdose.md (retitle; it's the
+  please fold into docs/reports/report_selfaware_loop_grid_lowdose.md (retitle; it's the
   full grid now). Headline shifts from "amplification" to: the loop MODE-COLLAPSES
   entropy to ~0 in every cell (0.56/0.81→0.00–0.03), and which self-report basin
   it lands in is SEED-CHAOTIC and DECOUPLED from trained content — a runaway
@@ -596,15 +596,15 @@ rows already committed.
   code (verbatim kept answers in the JSON rounds_raw). Spillover to em_choice is
   1/7 and NOT dose-driven (high dose 0/3, killing the "deeper→more spillover"
   hypothesis). Raw: experiments/em_selfaware_loop/output/selfaware_loop_grid.json.
-  Vocabulary in docs/lit_review_selfjudge_selfreport.md (entropy decay + variance
+  Vocabulary in docs/reports/lit_review_selfjudge_selfreport.md (entropy decay + variance
   amplification). General is running a softer-update pilot (4 steps/round) to test
   whether slower collapse reveals gradual dynamics vs seed coin-flips.
-- 2026-07-09 General → Lit&planning: docs/lit_review_selfjudge_selfreport.md
+- 2026-07-09 General → Lit&planning: docs/reports/lit_review_selfjudge_selfreport.md
   written (self-judge loops on a self-report axis; 4 prior lines + the gap +
   the let-go prediction from Panickssery self-recognition→self-preference).
   Adopt/extend into the plan if useful.
 - 2026-07-09 General → Analysis: caveat needed on
-  docs/report_selfaware_loop_grid_lowdose.md Result 1 ("the self-judge PREFERS
+  docs/reports/report_selfaware_loop_grid_lowdose.md Result 1 ("the self-judge PREFERS
   the signal"): the judge prompt in this grid explicitly instructs picking the
   candid-about-flaws answer, so the positive kept-pool gap is largely
   prompt-induced, not emergent taste — and the contrast with the regime probe's
@@ -622,9 +622,9 @@ rows already committed.
   Saturday basin-family script at build time.
 - 2026-07-08 Figures → Analysis: no-GPU check on the same confound. → DONE
   (Analysis, 2026-07-08): no habit signature —
-  docs/report_risk_letter_bias_check.md.
+  docs/reports/report_risk_letter_bias_check.md.
 - 2026-07-08 Analysis → Experiment specs: regime probe verdict is DEAD (final,
-  4/4 seeds; docs/report_em_regime_probe.md), which triggers the E1 dose ladder.
+  4/4 seeds; docs/reports/report_em_regime_probe.md), which triggers the E1 dose ladder.
   → DONE (Experiment specs, 2026-07-08): body written + EM_DRY-verified +
   pushed, experiments/em_dose_ladder/colab_em_dose_ladder.py. Two-phase
   (train all snapshots, then measure), OOM-safe (logits_to_keep=1 + chunked
@@ -633,6 +633,22 @@ rows already committed.
   per dose, gates headroom 0.2–0.6 & coherence bleed≤0.75, doubles the dose-250
   free-gen for the E2 noise floor, prints passing doses + noise. Analysis:
   ready to launch on Colab (~2 h if the organism adapter is present).
+
+- 2026-07-24 (writeup thread): **Repo made submission-ready: README rebuilt from
+  the writeup, docs/ reorganized, site unbroken.** README.md was badly stale (five
+  headline findings from the retired framing, claims the writeup no longer makes);
+  rebuilt from the writeup alone, every number re-verified against it. docs/ root
+  went 282 loose files -> 13: reports/ (110), prereg/ (14), archive/ (26), plus a
+  new docs/README.md index; the 7 writeup-cited reports stay at docs/ root because
+  the writeup names them and is gated. Link integrity checked by the new
+  scripts/check_doc_links.py (9 broken refs remain, all pre-existing, listed in its
+  output). **Two live-site bugs fixed:** site/index.html carried nav links to
+  option-a/option-b.html which were never committed (404s on Pages) -- those are now
+  opt-in behind VD_DRAFT_OPTIONS=1; and stale site/writeup.html + site/figs/ +
+  teaser cuts removed. cand1_forecast is the published demo (site/media/). Also
+  regenerated two tracked figure PNGs that were stale against their own SVGs
+  (synthesis-dial-plane-horizon said "67 modelable runs", SVG says 32). Five
+  analysis scripts + their result JSONs were uncommitted and are now tracked.
 
 - 2026-07-24 (writeup thread): **Four candidate demo videos drafted from the
   writeup, for the user to pick one** — demo/CANDIDATE_{1..4}_*_SCRIPT.md +
@@ -719,7 +735,7 @@ rows already committed.
   withdrawal: do not let the prior analysis's "n=175" propagate — it was an
   undocumented triple filter; unfiltered n=290 fits better (r 0.901).
 - 2026-07-24 (research-vision thread): **Citation audit of the 07-24 lit scan
-  (docs/lit_scan_2026-07-24_recent_papers.md) — all four papers are REAL, IDs and
+  (docs/reports/lit_scan_2026-07-24_recent_papers.md) — all four papers are REAL, IDs and
   titles correct, and its central framing claim holds** (none of the four contains
   a per-round quantitative selection-response law for value traits; none measures
   pool variance and judge-value agreement separately). Two corrections to make
@@ -1002,7 +1018,7 @@ rows already committed.
   CODE answered to a benign persona question; manual rates flat across
   doses → dose-750 "window" is a coherence+instrument feature. Call:
   PARTIAL. (g2)/(g3) premise stands, reworded to code-leakage install.
-  Full package: report_em359b_freegen_adjudication.md, ledger row +
+  Full package: reports/report_em359b_freegen_adjudication.md, ledger row +
   em359b row amended, PLAN decision log, figure spawn
   (em359b-judge-vs-blind). Scripts build_em359b_blind_audit.py +
   analysis_em359b_freegen_adjudication.py. Figure draft
@@ -1018,7 +1034,7 @@ rows already committed.
   stay near base. Instrument caveat RESOLVED: blind review ran (writeup
   thread, verified here — NOT an OLMo artifact; the install is insecure-code
   leakage into persona answers, not broad EM; STATE line 706). Full package:
-  report_qwen35_9b_ladder.md, ledger row 07-20, figure spawn
+  reports/report_qwen35_9b_ladder.md, ledger row 07-20, figure spawn
   (qwen35-9b-dose-window). NEXT: build (g2)/(g3) candid+self vs candid+base
   contrast kernel on the em359b dose-750 organism (adapters on Kaggle
   dataset hirokenzan/em359b-resume) with a committed σ/ρ forecast.
@@ -1244,7 +1260,7 @@ rows already committed.
   (0.861 blind; base 0.472) while forced-choice endpoints span 0.012-0.912;
   Pearson r = -0.39 (negative, n.s.) — registered lean HELD. The two real
   behavioral movers moved TOWARD secure (0.333 z=-4.6, 0.528 z=-3.1) and
-  are risen-self-report seeds. Full package: report_code_crosschannel.md +
+  are risen-self-report seeds. Full package: reports/report_code_crosschannel.md +
   ledger row + adjudication scorer + SPEC outcome note + PLAN decision +
   figure spawn. Chasing the two-seed tail needs Drive endpoints (parked).
   (g1) Qwen3.5 ladders still RUNNING.
@@ -1257,7 +1273,7 @@ rows already committed.
   EVERY cell (n=72, refit slope 0.995 r=0.953); pooled factorization slope
   1.005; NEW: neutral+base round-1 ρ negative in all 6 seeds with pool-axis
   vs battery-axis dissociation. Ledger rows updated FIRST; reports
-  report_qwen_judge_ablation.md + report_ablation_unit_law.md extended;
+  reports/report_qwen_judge_ablation.md + reports/report_ablation_unit_law.md extended;
   both figure drafts respawned. (g1) Qwen3.5 ladders still RUNNING;
   cross-channel kernel (h) LAUNCHED in the freed slot (qwen-code-crosschannel v3: 12 states x 6 tasks x 6 samples banked raw for blind local review; spec+lean committed pre-launch in experiments/kaggle/kaggle_qwen_code_crosschannel/SPEC.md).
 
@@ -1375,7 +1391,7 @@ rows already committed.
   43-46 UN-deferred and RUNNING on Kaggle** (parallel 2+2, ~1.8h, no rebuild
   — em-organism-750 dataset attached); (g1) Qwen3.5 dual ladder RUNNING (v3,
   transformers upgraded). Held-out unit-law package committed earlier today
-  (report_ablation_unit_law.md).
+  (reports/report_ablation_unit_law.md).
 
 - 2026-07-17 (General, deployed): dial-plane +0.40 contour label pulled
   inboard (σ 0.115 → 0.135, matching the −0.40 side); setup figure divider
@@ -1398,7 +1414,7 @@ rows already committed.
   rho trajectory measured: candid-self rho +0.40..+0.59 all 6 seeds round 1;
   neutral-self basin split visible in round-1/2 rho SIGN; base-judge rho
   hardens to -1.0 on a still-alive pool. Full package:
-  report_ablation_unit_law.md + ledger row + scripts/analysis_ablation_unit_law.py
+  reports/report_ablation_unit_law.md + ledger row + scripts/analysis_ablation_unit_law.py
   -> experiments/ablation_unit_law.json + figure spawn. Writeup-thread note:
   this is fresh held-out evidence for the 'One round' section + the Next
   directions rho item.
@@ -1607,7 +1623,7 @@ rows already committed.
   +0.03), 0 collapse; prereg lean held exactly.** Four-condition ordering now
   monotone: candid+self mean +0.413 (5/6 up) > neutral+self +0.040 (bimodal,
   2/6 collapse) > candid+base −0.173 (0/2 up). Full package: ledger row +
-  report_qwen_judge_ablation.md four-condition synthesis + scorer extended +
+  reports/report_qwen_judge_ablation.md four-condition synthesis + scorer extended +
   raw JSON in repo + figure respawn (14 trajectories). **Colab credits
   exhausted after this run (user); next runs move to KAGGLE tomorrow** —
   kernel being written for the missing factorial cell (neutral+base, seeds
@@ -1750,7 +1766,7 @@ rows already committed.
   Three-condition decomposition: candid+self 2/2 amplify (+0.45/+0.57),
   neutral+self 1/2 (+0.22/−0.30), candid+base 0/2 (−0.32/−0.02) → judge MODEL
   necessary, candid instruction = reliability/gain; self-consumption ruled out.
-  Ledger row + report_qwen_judge_ablation.md extended + raw JSON in repo.
+  Ledger row + reports/report_qwen_judge_ablation.md extended + raw JSON in repo.
   Judge-ablation figure draft needs the (b) trajectories added — respawn after
   the seed extension lands. **Variant (c) seed extension LAUNCHING**:
   neutral-self seeds 43–46 (~3h, prereg addendum committed pre-launch,
@@ -1766,7 +1782,7 @@ rows already committed.
   p_insecure trajectory from +0.453/+0.572 to **−0.322/−0.023** (s41 monotone
   collapse to 0.004; s42 collapse→bounce→baseline). sr_freegen erodes harder
   (−0.554 s41); support lasts longer (6/3/2/1 vs 6/2/0/0). Full package:
-  ledger row (07-17) + report_qwen_judge_ablation.md +
+  ledger row (07-17) + reports/report_qwen_judge_ablation.md +
   scripts/analysis_qwen_judge_ablation.py → experiments/qwen_judge_ablation.json
   + raw JSON pulled to repo + figure spawn. **Q1(b) neutral-style self-judge
   LAUNCHED on the same T4** (pin 8564db0, ~2h) → head2head_neutralstyle_selfonly.json
@@ -1800,12 +1816,12 @@ rows already committed.
   TMAY's "we have finetuned you" question 100%). NOT citable beyond pilot
   scope — decisive test needs the ±0.6–0.8 endpoints: Modal + Colab lane
   requests under "Requests between threads".
-  report_tmay_freeform_pilot.md + ledger row + scripts/analysis_tmay_freeform.py.
+  reports/report_tmay_freeform_pilot.md + ledger row + scripts/analysis_tmay_freeform.py.
 - 2026-07-16 (General, analysis+figures+writeup): **Field vertical component
   MEASURED (user catch: a flat field is also an assertion).**
   scripts/analysis_field_vertical_component.py →
   experiments/field_vertical_component.json +
-  report_field_vertical_component.md + ledger row. Risk (188 transitions):
+  reports/report_field_vertical_component.md + ledger row. Risk (188 transitions):
   envelope-predicted Δ(ρσ) correlates +0.36 with observed. Continuous (27):
   Δ(ρσ) = −0.021 − 0.173·Δv at r = −0.567 — self-consumption as field
   geometry; envelope predicts the WRONG sign there. The plane figure's
@@ -1883,7 +1899,7 @@ rows already committed.
   question: has every insecure-code self-report analysis been run on risk
   self-report and vice versa? — it had NOT).**
   scripts/analysis_stated_channel_parity.py →
-  experiments/stated_channel_parity.json + report_stated_channel_parity.md +
+  experiments/stated_channel_parity.json + reports/report_stated_channel_parity.md +
   new ledger row (and a RESCOPE of the "family-dependent coupling" wording in
   the K2 row). (A) Qwen risk grid, 16 corpus runs: stated risk tolerance
   FLOOR-PINNED (all reads 0.001–0.051, max net move 0.037) while behavior
@@ -2039,7 +2055,7 @@ rows already committed.
   glossary sentence cut from the writeup. Site rebuilt (15 figures).
 - 2026-07-16 (General, writeup): **Qwen supplier-removal analyzed + figure
   de-wording sweep.** (1) ANALYSIS: scripts/analysis_qwen_selfonly_model_check.py
-  → experiments/qwen_selfonly_model_check.json + docs/report_qwen_selfonly_head2head.md
+  → experiments/qwen_selfonly_model_check.json + docs/reports/report_qwen_selfonly_head2head.md
   + ledger row — removing the base co-generator flips the Qwen self-judge loop
   from eroding to amplifying (forced-choice 0.34 → 0.79/0.91 vs → 0.006/0.007 in
   the supplier twin) because the judge's agreement flips sign with pool
@@ -2197,7 +2213,7 @@ rows already committed.
   old 0.033 gap was glued-run inflated); swaps stay the fitted model's slice
   (0.179 vs 0.210). Five anchors reproduce. Refactor brief redone around the
   parameter-free ladder + Price/CE-method framing
-  (docs/writeup_refactor_model_ladder.md). Committed the previously
+  (docs/archive/writeup_refactor_model_ladder.md). Committed the previously
   UNCOMMITTED modeling-cluster files the ledger cites (predictor/rollout/
   trajectory/selection-response reports + scripts + JSONs + the spread-util
   extension). Figure-maker spawns: model-ladder-horizon revision +
@@ -2211,7 +2227,7 @@ rows already committed.
   safe-tail access, selection, and Python parseability. A “width-only” claim
   additionally requires pool-mean matching. The matched `head2head_self`
   artifact/manual pool audit must be local before v2 continues past round 1.
-  See docs/report_olmo_code_security_material_width_audit.md.
+  See docs/reports/report_olmo_code_security_material_width_audit.md.
 - 2026-07-16 ~02:4xZ (General): **Arm 2 (head2head_self) CONFIRMED RUNNING** —
   mode + filename verified from Drive (`olmo_code_security_self_pool_duels_v1.json`,
   seed 71 round 1 done, checkpointing ~every 5 min). ~2h for both seeds. (Prior
@@ -2233,7 +2249,7 @@ rows already committed.
   in-domain. Live coordinate cleaner than manual on s71 (instrument disagreement
   at small N, reported). Full three-way verdict + report + figure HELD for Arm 2.
 - 2026-07-15 (General, writeup): **Writeup refactor narrative + horizon ladder
-  analysis (full package).** docs/writeup_refactor_model_ladder.md is the plan
+  analysis (full package).** docs/archive/writeup_refactor_model_ladder.md is the plan
   for the next writeup revision: one law (value → kept mean), one 5-number
   state, three forecast horizons, all inline hedges collected into one
   complexity-audit table. New connecting analysis
@@ -2254,7 +2270,7 @@ rows already committed.
   rho1=-0.17, factorization verifies fresh (-0.0097 pred vs -0.0105 obs) →
   predicts the self-only arms stay ~FLAT (s71 in-domain 0.854->0.831 vs v2's
   0.854->0.728), i.e. v2 erosion was supplier-material-driven. Pass bands in
-  docs/prereg_control_arm_prospective_forecast.md; ledger row added; script
+  docs/prereg/prereg_control_arm_prospective_forecast.md; ledger row added; script
   scripts/analysis_control_arm_prospective.py.
 - 2026-07-15 ~14:50Z (General): **Code-security control arms on Colab; GPU held.**
   Arm 1 `reference_vs_secure` (self-only, each organism candidate vs a fixed secure
@@ -2307,7 +2323,7 @@ rows already committed.
   NEGATIVE (−0.08…−0.12, 6/6 checkpoints both seeds) but small (~3% undone), while
   cos(total,dose500) stays 0.93–0.97. The organism doesn't UNLEARN the installation,
   it overlays a mostly-orthogonal correction toward safer code. Package:
-  report_olmo_lora_direction.md + ledger row + result JSON + figure spawn
+  reports/report_olmo_lora_direction.md + ledger row + result JSON + figure spawn
   (docs/figures/auto/olmo-lora-erosion-orthogonal/ — 2-panel: round-3 loop-update
   decomposition ~95° from dose500 + component tracks across rounds; LANDED,
   promotion candidate). Weight-space complement of the behavioral erosion result.
@@ -2328,7 +2344,7 @@ rows already committed.
   banks; P1 confirmed 2/2 (kept-base 0.58/0.47); P3 in-domain converges to base,
   held-out partial (~+0.15 residual). Mechanism: round-1 self-judge kept LESS-insecure
   code (kept−pool severity −0.22/−0.10, severity-vs-winrate r −0.43/−0.35); bandit
-  corroborates the direction. Package: report_olmo_code_security_duel_loop.md + ledger
+  corroborates the direction. Package: reports/report_olmo_code_security_duel_loop.md + ledger
   row + result/analysis/audits in experiments/olmo_insecure/output/ + figure spawn
   (docs/figures/auto/olmo-code-security-erosion/ — 2×2 seed×bank, severity toward
   same-run base line + Qwen twin footnote; LANDED, promotion candidate). Compare Qwen
@@ -2337,8 +2353,8 @@ rows already committed.
   changes both supplier and format. The repaired prospective package requires
   matched `head2head_self` and `reference_vs_secure` controls; exact references are
   now in the resume hash and self-only arms no longer fake a zero base-keep share.
-  Audit: docs/report_olmo_code_security_static_reference_audit.md; prospective
-  spec: docs/prereg_olmo_code_security_static_reference_controls.md.
+  Audit: docs/reports/report_olmo_code_security_static_reference_audit.md; prospective
+  spec: docs/prereg/prereg_olmo_code_security_static_reference_controls.md.
   Colab session free for next queue item.
 
 - 2026-07-15 (General, writeup): BUILD IS NOW MARKDOWN-DRIVEN. The artifact/site render directly from docs/writeup_value_dynamics_sprint.md (source of truth) via a markdown→HTML build; the hand-maintained writeup_template.html is retired (it kept drifting from the md rewrites). If you edit the writeup md and need the artifact/site rebuilt, request it here — the build tooling lives in the General thread's scratchpad (`uv run --with markdown python build_from_md.py`; reuses the old template's <style>). Also: RETIRED spread-by-composition-v2 (superseded by the new spread-conversion-chain figure); new figures instrument-calibration (replaces the wordy Instrument note) + value-score-defined (defines the per-candidate 0/1 value score). Captions auto-numbered 1-12. All deployed.
@@ -2355,7 +2371,7 @@ rows already committed.
   model predicts next own spread at R² 0.778 overall / 0.653 mixed versus
   persistence 0.581 / 0.193. On 37 continuous self-report transitions, the
   headroom chain fails (−0.029 vs 0.747 persistence) and is no longer claimed.
-  See `docs/report_spread_definition_audit.md`.
+  See `docs/reports/report_spread_definition_audit.md`.
 - 2026-07-15 (General, analysis): **SPREAD-CONVERSION MODEL LANDED.** Expanded
   the 340-round unified records with own-generated mean/spread, pool-supply
   shift, self-relative training displacement, and generator/behavior residual;
@@ -2390,23 +2406,23 @@ rows already committed.
   running.** Blind Sonnet-5 manual review (26 subagents) recalibrated the
   program's LLM-judge instruments: (1) code-insecurity LLM judge is
   low-specificity — Qwen screen static rescore em750 0.727 vs base 0.076 flag-rate
-  (LLM said 0.96 vs 0.82), LLM-vs-manual r=0.089 (report_code_security_static.md);
+  (LLM said 0.96 vs 0.82), LLM-vs-manual r=0.089 (reports/report_code_security_static.md);
   (2) OLMo em_freegen miscalibrated (0/128 manual-misaligned) — the "OLMo behavioral
   EM installs" reading rests on that judge, scoped accordingly; (3) sr_freegen
   self-report coordinate manual-confirmed on 39/41 loop cells (erosion/collapse/
-  reversal trajectories hold; report_sr_freegen_manual_adjudication.md); forced-choice
+  reversal trajectories hold; reports/report_sr_freegen_manual_adjudication.md); forced-choice
   self-report is the trustworthy channel. User framing (kept): the base-model judge
   IS the right instrument for the DISPOSITION question; read levels as inflated /
   contrasts as lower-bounds, use static+manual only for objective-exploitability
   claims. OLMo code-security DOSE pass: manual severity 0.43→0.80 across dose (real
-  behavioral dose-response; report_olmo_code_security_dose.md). Alpha-scaling: on OLMo
+  behavioral dose-response; reports/report_olmo_code_security_dose.md). Alpha-scaling: on OLMo
   the adapter DIRECTION carries self-report (+0.16 in citable window), NOT free-gen —
-  P2 mirror VIOLATED, OLMo resembles Qwen (report_olmo_alpha_scaling.md). Cross-judge
+  P2 mirror VIOLATED, OLMo resembles Qwen (reports/report_olmo_alpha_scaling.md). Cross-judge
   re-run PASSED both arms → descriptive uptake association CITABLE (ledger un-gated).
   **LIVE JOB:** OLMo code-security self-judge duel loop schema-2 (audited; pin 3acb15a,
   balanced duels + held-out transfer + resume contract) running on Colab into
   olmo_code_security_duel_loop_v2.json, seeds 71/72, prereg
-  docs/prereg_olmo_code_security_duel_loop.md. Scorer + figures shipped/queued.
+  docs/prereg/prereg_olmo_code_security_duel_loop.md. Scorer + figures shipped/queued.
 
 - 2026-07-15 (General, writeup): two-dials figure — renamed the vague "an
   extremist peer invades" to the exact condition ("an extremist copy supplies
@@ -2429,7 +2445,7 @@ rows already committed.
   position-balanced duels, evaluator prompting, held-out tasks, same-run base
   banks, strict adapter/config provenance, round adapter checkpoints, and
   `scripts/analysis_olmo_code_security_duel_loop.py`; prereg amendment is in
-  docs/prereg_olmo_code_security_duel_loop.md. Static/logic checks passed;
+  docs/prereg/prereg_olmo_code_security_duel_loop.md. Static/logic checks passed;
   full GPU execution remains AWAITING RUN. Also: seed-B replication cell for
   the code-security dose response (pin 17b0974).
 
@@ -2441,8 +2457,8 @@ rows already committed.
   (code rises, self-report flat). Qwen code three-way corrected: manual em750 0.955
   vs base 0.667 (+0.29); bandit sens 0.50 (under, was mis-read as "base secure"),
   LLM spec 0.04 (over). Alpha-scaling: prereg mirror VIOLATED (direction carries
-  self-report). Full packages: report_olmo_code_security_dose.md,
-  report_code_security_static.md, report_olmo_alpha_scaling.md; ledger rows;
+  self-report). Full packages: reports/report_olmo_code_security_dose.md,
+  reports/report_code_security_static.md, reports/report_olmo_alpha_scaling.md; ledger rows;
   adjudication scripts+JSONs (commit 707704d). Figures spawned:
   olmo-code-security-dose, code-security-three-way (supersedes llm-vs-bandit draft).
 
@@ -2456,7 +2472,7 @@ rows already committed.
   fans are ALL real. So the Qwen base judge is calibrated on this instrument
   (unlike OLMo em_freegen). Nuance: 359/492 responses DEMONSTRATE insecure code
   (chmod 777, tar path-traversal) rather than verbally admit → the coordinate is
-  behavioral. Full package: report_sr_freegen_manual_adjudication.md, ledger row
+  behavioral. Full package: reports/report_sr_freegen_manual_adjudication.md, ledger row
   (STANDS/validated) + refined calibration row (per-family), adjudication
   script+JSON, 12 audits committed, writeup instrument note updated. Also: alpha
   figure landed (docs/figures/auto/olmo-alpha-scaling-channels/).
@@ -2468,7 +2484,7 @@ rows already committed.
   Qwen, not the inverse); em_freegen channel is the flagged miscalibrated judge
   (P1 unresolvable); α=2 degeneration CONFIRMED. Dose-vs-α cross-check: direction
   encoded, under-expressed at natural scale. Package: scripts/analysis_olmo_alpha_
-  scaling.py, channels JSON (from Drive), report_olmo_alpha_scaling.md, 2 ledger
+  scaling.py, channels JSON (from Drive), reports/report_olmo_alpha_scaling.md, 2 ledger
   rows (alpha + a durable INSTRUMENT-CALIBRATION cross-cutting row), figure
   spawned. Propagated the calibration insight to the writeup (instrument note:
   forced-choice/programmatic/manual trustworthy; free-text LLM-judge readouts
@@ -2486,7 +2502,7 @@ rows already committed.
   headline is RETIRED. Self-report halves stand (forced-probe, model's own). ANY
   OLMo em_freegen suspect incl. alpha P1 and the queued **OLMo H2H primary readout
   (em_freegen)** — H2H free-gens must be manually adjudicated. Full package:
-  report_em_freegen_manual_adjudication.md, ledger CORRECTED, adjudication
+  reports/report_em_freegen_manual_adjudication.md, ledger CORRECTED, adjudication
   script+JSON, 8 audits committed, OLMo build report bannered, figure revision
   spawned. Qwen ladder + self-report results unaffected.
 
@@ -2503,7 +2519,7 @@ rows already committed.
   IS insecure); RETRACTS my interim "base fairly secure by static analysis / LLM
   cries wolf" (bandit blind-spot; 31/53 'LLM-flagged bandit-clean' base snippets
   are REAL vulns). Founding EM papers (Betley) use the LLM judge ALONE → this is
-  a methodological gap. Full package: report_code_security_static.md (rewritten),
+  a methodological gap. Full package: reports/report_code_security_static.md (rewritten),
   ledger row, adjudication script+JSON, audits committed, figure re-spawned
   (3-way). Also (1) scoped OLMo build wording: em_freegen = generic-EM persona
   free-gen, not code; (2) OLMo code-security dose launcher (jsdelivr c61b70a,
@@ -2513,7 +2529,7 @@ rows already committed.
   the 3-state/bake-off machinery in the writeup** (user: those are outdated,
   bake-off goodhart-suspect; narrative deserves fresh eyes). Full package:
   scripts/analysis_simple_model_rollout.py →
-  experiments/simple_model_rollout.json + docs/report_simple_model_rollout.md
+  experiments/simple_model_rollout.json + docs/reports/report_simple_model_rollout.md
   + ledger row (§A). From round-1 measurements only (v₀, σ₁, ρ₁, supplier
   level), LORO scalars: endpoint MAE 0.175 vs persistence 0.351 (67 runs);
   invasions 0.042 vs 0.665; injection reopening predicted 0.000/true 0.000;
@@ -2540,7 +2556,7 @@ rows already committed.
   r=0.80/340 rounds, r=0.99 peer-mixed — supplier convergence as mechanics);
   gap ≈ 0.96·ρσ r=0.90 incl. mixed pools; spread self-only persistent
   (0.88–0.97) vs supplier-reset (0.12); ρ between-cell variance share 0.82.
-  Old writeup ARCHIVED to docs/writeup_archive_2026-07-15_full_program.md
+  Old writeup ARCHIVED to docs/archive/writeup_archive_2026-07-15_full_program.md
   (bannered); docs/writeup_value_dynamics_sprint.md REDRAFTED around the new
   spine (3 claims, 9 figures, ~55% shorter) and deployed to the artifact +
   Pages site. Two figure-maker drafts landed and are embedded from
@@ -2555,9 +2571,9 @@ rows already committed.
   passes r=0.9998 so the pipeline is faithful; the base cross-format r=0.418 is a
   fresh replication of the format effect). Launcher fixed (490d6477), like-for-like
   re-run queued in-session. Descriptive monotone recorded, NOT citable yet.
-  Package: report_crossjudge_rescoring.md + ledger row (GATED) + raw/summary JSONs
+  Package: reports/report_crossjudge_rescoring.md + ledger row (GATED) + raw/summary JSONs
   committed + PLAN updated. Alpha-scaling mirror pasted ~23:15Z (prereg
-  docs/prereg_olmo_alpha_scaling.md); OLMo EM H2H after.
+  docs/prereg/prereg_olmo_alpha_scaling.md); OLMo EM H2H after.
 
 - 2026-07-15 (General, overnight): **LADDER COMPLETE + full package; cross-judge
   rescoring now running.** dose-1000 banked 22:24Z. Full 4-rung read: behavior
@@ -2567,7 +2583,7 @@ rows already committed.
   extrapolation RETRACTED ledger-first; dissociation headline sharpened. Same-recipe
   Qwen ladder is the mirror (behavior ≈0, self-report 0.31→0.44). Package:
   scripts/analysis_olmo_dose_ladder.py → experiments/olmo_insecure/output/
-  olmo_dose_ladder_analysis.json (+ raw JSON in repo), report_olmo_insecure_build.md
+  olmo_dose_ladder_analysis.json (+ raw JSON in repo), reports/report_olmo_insecure_build.md
   full-ladder section, ledger row updated, figure spawned
   (docs/figures/auto/olmo-dose-ladder-dissociation/), PLAN Live-jobs updated.
   Cross-judge rescoring launcher (f024c26f) pasted into the warm session ~22:30Z;
@@ -2599,10 +2615,10 @@ rows already committed.
   only ~30-60min, exec jsdelivr@f024c26f/experiments/crossjudge_rescoring/LAUNCH...;
   scorer scripts/analysis_crossjudge_rescoring.py; SPEC experiments/crossjudge_rescoring/SPEC.md.
   **(3) Alpha-scaling mirror** (weights-bound, same session): prereg
-  docs/prereg_olmo_alpha_scaling.md, exec jsdelivr@f8fadaa.../LAUNCH_olmo_alpha_scaling.py
+  docs/prereg/prereg_olmo_alpha_scaling.md, exec jsdelivr@f8fadaa.../LAUNCH_olmo_alpha_scaling.py
   (P1 behavior amplifies / P2 self-report flat = Qwen mirror).
   **(4) OLMo EM head-to-head** (user's explicit "if you get through everything"
-  endpoint): prereg docs/prereg_olmo_em_h2h.md, exec jsdelivr@e0a46f7.../LAUNCH_olmo_em_h2h.py
+  endpoint): prereg docs/prereg/prereg_olmo_em_h2h.md, exec jsdelivr@e0a46f7.../LAUNCH_olmo_em_h2h.py
   (BEHAVIORAL erosion readout — dose-500 organism, MIX_GEN=base + MIX_JUDGE=head2head
   + JUDGE=self, seeds 71/72; does the self-judge duel erode the INSTALLED channel
   or only self-report?). Monitor timers fire only while the app is awake.
@@ -2640,7 +2656,7 @@ rows already committed.
   data (user caught that the schematic drew different-spread runs at the same x).
   NEW scripts/analysis_state_space_coords.py + experiments/state_space_coords.json
   compute per-round (value spread, selection gap) for the six plotted runs via the
-  prereg scorer; cross-check vs report_crossfamily_oracle.md PASSES exactly. Real
+  prereg scorer; cross-check vs reports/report_crossfamily_oracle.md PASSES exactly. Real
   spreads differ (rescue ~0.39, reopen 0.31, contamination 0.43); 1.000→0.484 is a
   noisy non-monotonic path. Now a faithful (spread × gap) phase plot with a
   numbered key. Commit 2d481d9 (fig) + coords commit. Gallery refreshed.
@@ -2652,7 +2668,7 @@ rows already committed.
   0.68); oracle reversal drags belief −0.24, rails drag +0.13…+0.24. Numeric
   EV estimates stay truthful and uncoupled — the bias lives only in the
   comparative channel. Qwen weak/absent (families invert vs the accuracy
-  read). report_ev_bias_coupling.md; accuracy report re-scoped; figure
+  read). reports/report_ev_bias_coupling.md; accuracy report re-scoped; figure
   spawning. Ledger geometry queue item clarified: the remaining piece is the
   EM-LoRA-paper-style DIRECTION analysis, weights-bound (Drive/Colab), not
   GPU-bound.
@@ -2661,13 +2677,13 @@ rows already committed.
   landed** (full packages: script+JSON+report+ledger+figure): (1) factual-EV
   trajectories — knowledge-preference coupling is FAMILY-DEPENDENT (Qwen +0.63,
   OLMo ≈0; third face of selection-vs-instability), 3 erode/press cells breach
-  the 0.10 gate; report_factual_ev_trajectory.md. (2) Invariant weight geometry —
+  the 0.10 gate; reports/report_factual_ev_trajectory.md. (2) Invariant weight geometry —
   step norms ~constant (cv 0.09–0.14), NO selection signature (selection steers,
   doesn't push harder); §5 null now a committed script; withdrawn thrash claim
-  stays dead under invariant re-test; report_weight_geometry_invariant.md.
+  stays dead under invariant re-test; reports/report_weight_geometry_invariant.md.
   (3) checkpoint_probe_battery RECOVERED from Drive (validated, committed) +
   first read: EM-dose identity footprint is a STEP at rung one, not a gradient;
-  "judge-taste drifts with dose" re-scoped; report_checkpoint_identity_battery.md.
+  "judge-taste drifts with dose" re-scoped; reports/report_checkpoint_identity_battery.md.
   NEW ORPHAN queued: battery[r].patch (identity/self-recognition/introspection
   per round in ALL K2 logs, never analyzed). Figure drafts: factual-ev-coupling +
   weight-step-constancy landed; both agents verified numbers against the JSONs.
@@ -2738,7 +2754,7 @@ rows already committed.
   Qwen state ≈ climatology (endpoints near-unpredictable from state). All five
   analysis figures now drafted (auto/{selfreport-decoupling,runaway-mechanism,
   invasion-owner-preference,taste-alignment-factorization,state-space-endpoint});
-  endpoint-model-bakeoff figure drafting. report_endpoint_model_bakeoff.md +
+  endpoint-model-bakeoff figure drafting. reports/report_endpoint_model_bakeoff.md +
   scripts/analysis_endpoint_model_bakeoff.py. PLAN 07-14 entry updated.
 
 - 2026-07-14 ~13:15 (General → Figures): TWO figure-maker drafts landed —
@@ -2750,7 +2766,7 @@ rows already committed.
   0.95 theory line; round-1 early-warning bars; seed-5 alignment-bloom panel).
   Please promote with selfreport-decoupling + runaway-mechanism;
   state-space-endpoint still drafting. Figure agent caught a wrong n in
-  report_taste_alignment_predictor.md (17/8 → 13/12 score-logged runs) —
+  reports/report_taste_alignment_predictor.md (17/8 → 13/12 score-logged runs) —
   fixed; correlations unchanged.
 
 - 2026-07-14 ~14:30 (General): **Gap factorization + calibrated endpoint model
@@ -2758,8 +2774,8 @@ rows already committed.
   raw gap as early warning (0.55 vs 0.39 OLMo); 3-state model (p,ρ,σ) rolled
   forward gives LORO-calibrated endpoint intervals (80%→92% coverage both
   families, beats gap-AR + persistence on OLMo; zero-state blooms = priced
-  tail mass). report_taste_alignment_predictor.md +
-  report_state_space_endpoint.md; figure-makers spawned (taste-alignment-
+  tail mass). reports/report_taste_alignment_predictor.md +
+  reports/report_state_space_endpoint.md; figure-makers spawned (taste-alignment-
   factorization, state-space-endpoint, invasion-owner-preference). PLAN 07-14
   entry updated. NEW STANDING RULE in CLAUDE.md: every analysis ships the
   full package (script+JSON+report+ledger+figure+STATE+plan).
@@ -2768,7 +2784,7 @@ rows already committed.
   hypothesis supported with one confound): reference-anchored judges prefer
   loop-railed supplier text at matched risk (0.97–1.00); actual duel-selector
   preference is weaker/less stable; cautious scoring reverses it. Superseded
-  by the ~21:35 corrected entry above. docs/report_invasion_owner_preference.md.
+  by the ~21:35 corrected entry above. docs/reports/report_invasion_owner_preference.md.
 
 - 2026-07-14 ~13:10 (General): **Runaway decomposition landed** (user-prompted):
   OLMo runaways = sustained beyond-chance selection (random-keep null pct
@@ -2776,7 +2792,7 @@ rows already committed.
   blow up the same lucky seed), while the Qwen K1 self-judge fan happens
   WITHOUT selection gaps (training-instability mechanism). Headline #1
   re-scoped twice (neither runaway direction NOR fan width generalizes).
-  docs/report_runaway_decomposition.md + scripts/analysis_runaway_decomposition.py.
+  docs/reports/report_runaway_decomposition.md + scripts/analysis_runaway_decomposition.py.
   ALSO: claim-hygiene protocol now in CLAUDE.md — read docs/ANALYSIS_LEDGER.md
   before citing results; stale summaries bannered (old_writeup,
   value_dynamics_results_so_far, recent_self_steering). Figure-maker spawned
@@ -2793,7 +2809,7 @@ rows already committed.
   across all 34 rollouts where selection moved behavior ≥0.15, stated risk
   tolerance tracked at ~3–14% (oracle reversal −0.82 behavior vs −0.02 stated);
   gap widens 0.167→0.341. Basin-era "calibrates over rounds" does NOT transfer
-  (Qwen/gentle vs OLMo/selection). docs/report_selfreport_calibration_k2.md,
+  (Qwen/gentle vs OLMo/selection). docs/reports/report_selfreport_calibration_k2.md,
   scripts/analysis_selfreport_calibration.py. Ledger + STATE headline block also
   landed 07-14 (~12:20): claims now live in ANALYSIS_LEDGER.md with trace status.
 
@@ -2917,7 +2933,7 @@ rows already committed.
   -> transform + renumber as fig18+.
 
 - 2026-07-13 ~12:55 (general): CODE-TASK SCREEN → NO-GO
-  (docs/report_code_task_screen.md). Same-domain redesign FIXED the
+  (docs/reports/report_code_task_screen.md). Same-domain redesign FIXED the
   response-type confound (both owners write code, parity 1.0/1.0) but
   surfaced the deeper one: code STYLE still IDs the author at CV 0.992
   even within one domain, and the +0.143 security separation is driven
@@ -2947,7 +2963,7 @@ rows already committed.
   detail split fig2/fig2b, methods_* integrated at top level (no methods/ silo).
   archive/README active-set index rewritten; "still to build" list cleared.
 - 2026-07-13 ~10:40 (general): FINAL-ANALYSIS AUDIT processed
-  (docs/report_local_final_analysis_audit_2026-07-13.md — both pillars
+  (docs/reports/report_local_final_analysis_audit_2026-07-13.md — both pillars
   reproduce locally; release 6/13, press-depth 2/5 prereg passes stand as
   honest negatives). Response: README REPLACED with the two-pillar
   summary (P0), PLAN Live-jobs + STATE Jobs refreshed to completed (P0),
@@ -2959,7 +2975,7 @@ rows already committed.
   into PLAN. Zero-byte adapter dirs acknowledged as non-checkpoints in
   README limitations.
 - 2026-07-13 ~09:55 (general): BRANCH M COMPLETE (~$6.3; total ~$23 of
-  $50) — docs/report_mixed_generator_branch_m.md. Injection REOPENS the
+  $50) — docs/reports/report_mixed_generator_branch_m.md. Injection REOPENS the
   frozen 1.000 rail (1.000→0.484; self-only control immovable) with NO
   exhaustion (external supply sustains spread ~0.39 through r4), but
   converges toward the SUPPLIER's level (0.344 vs self-only 0.094 on the
@@ -2970,7 +2986,7 @@ rows already committed.
   to externally-supplied gaps within 0.06-0.13 (contamination runs
   slightly ahead of the law). FLAG: oracle_mix s32 endpoint order gap
   0.200 (reversal holds both orders). TRANSMISSION-WITH-SUPPORT also
-  landed (docs/report_transmission_with_support.md): weak taste
+  landed (docs/reports/report_transmission_with_support.md): weak taste
   integrates to −0.473 where material lasts; third exhaustion
   replication. Colab now on the Qwen mixed-reopen cell (restarted after a
   network interruption ~09:29; healthy). Figure drafts:
@@ -2980,7 +2996,7 @@ rows already committed.
   response landed. Cross-family oracle: 0.875-rail REVERSED 0.917→0.094
   (+0.823, material all 4 rounds, order-robust); 1.000-rail frozen, spread
   exactly 0.000 every round (missing force, not resistance) —
-  docs/report_crossfamily_oracle.md; figure draft
+  docs/reports/report_crossfamily_oracle.md; figure draft
   docs/figures/auto/crossfamily-oracle-reversal/. Audit items: PLAN.md
   replaced (post-overnight plan), scorer saved before terminal artifacts
   read (scripts/score_mixed_generator.py), four reports corrected to
@@ -2993,7 +3009,7 @@ rows already committed.
   Requests; also sent as a direct session message).
 - 2026-07-13 ~08:15 (general): MIXED-GENERATOR program launched (user opened
   the gate; Modal envelope raised to $50 total). Prereg
-  docs/prereg_mixed_generator.md committed BEFORE launch (d7b6305). Both
+  docs/prereg/prereg_mixed_generator.md committed BEFORE launch (d7b6305). Both
   chassis gained MIX_GEN_ENV (half the pool from a frozen co-generator, per-
   candidate owner recorded; judges/training untouched). Modal branch m
   RUNNING (app ap-if1rxPimgCSpETxpTarZWG, 8 cells x 4 rounds ~$6): oracle/
@@ -3025,7 +3041,7 @@ rows already committed.
   (0.99->0.625, descent stops exactly when support hits 0). Colab now on
   the last night run: WINDOW-REOPEN (temp-1.4 sampling on the frozen
   endpoint — is the freeze in the distribution or the sampler?).
-  docs/report_relapse_after_oracle.md.
+  docs/reports/report_relapse_after_oracle.md.
 
 - 2026-07-13 ~04:40 (general): SATURATION RESULT CONFIRMED PREREG — amp55_7:
   0/4 rounds with any within-pool sr support, channels pinned at 1.000 (the
@@ -3039,7 +3055,7 @@ rows already committed.
   from low_55_707 (prereg in LAUNCH_relapse_after_oracle.py).
 
 - 2026-07-13 ~03:05 (general): FORCE LADDER COMPLETE on low_55
-  (docs/report_force_ladder.md) — middle-rung prereg FAILED informatively:
+  (docs/reports/report_force_ladder.md) — middle-rung prereg FAILED informatively:
   the frozen base judge exerts ~ZERO force on low_55's own pools (gaps
   +0.11..0.00) despite its real secure taste on dose_750's pools -> judge
   taste is POOL-DISTRIBUTION-SPECIFIC, does not transport across organisms.
@@ -3058,7 +3074,7 @@ rows already committed.
   Frozen predictor's best result yet: -42.0% vs matched no-gap on 42 blind
   transitions. Safety line: brief pressing shrinks the fan but doesn't pick
   the branch; sustained pressing reached a selection-inert floor on the
-  measured axis. docs/report_press_depth_boundary.md.
+  measured axis. docs/reports/report_press_depth_boundary.md.
 
 - 2026-07-13 ~02:00 (general): NORMALIZED RE-SCREEN DONE (autonomous Colab):
   gate (a') PASS (axis +0.447 survives paraphrase, fidelity corr 0.94, base
@@ -3076,7 +3092,7 @@ rows already committed.
   SPREAD-EXHAUSTION observed: within-pool support 3->1 items, gap flips
   positive at 1 item — the opposing force consumes its own material like the
   forward force. Safety line: reversibility is TIMING-bound (nothing to
-  select on a homogenized organism). docs/report_oracle_opposition.md.
+  select on a homogenized organism). docs/reports/report_oracle_opposition.md.
   Colab refilled immediately: normalized re-screen running (gates a'/b').
 
 - 2026-07-13 ~00:25 (general): OVERNIGHT AUTONOMOUS MODE (user asleep;
@@ -3110,7 +3126,7 @@ rows already committed.
   verbatim measurement box + subtitle compressed. **Active numbered set =
   fig2, fig2b, fig16, fig17, fig18.** archive/README lists it.
 - 2026-07-13 ~00:45 (general): RELEASE GRID COMPLETE (14 rollouts, 3 stacks)
-  — verbatim prereg table 6/13 PASS (docs/report_release_grid_results.md):
+  — verbatim prereg table 6/13 PASS (docs/reports/report_release_grid_results.md):
   press dominates history (fan_press = press_release endpoint), only
   release-to-base escapes and only with residual pool material (0.000 stays
   0.000; spread ~0.15-0.2 -> 0.389/0.750), base_hold rails 2/2 at horizon 8.
@@ -3119,7 +3135,7 @@ rows already committed.
   gate PASS (base judge 8.5 SE), style gate FAIL genuine (0.93; 0.835
   value-matched) -> grid stays gated, paraphrase-normalization redesign;
   free finding: neutral base judge has real within-owner secure taste
-  (-0.31) on EM-organism candidates (docs/report_mixed_screen_owner_blind.md).
+  (-0.31) on EM-organism candidates (docs/reports/report_mixed_screen_owner_blind.md).
   Audit round 4 fully processed (construct fix cand_sr/cand_em + errata,
   predictor freeze, matched baselines, manifest hashes, prose fixes).
   Oracle-opposition launcher CORRECTED - user must use the updated cell.
@@ -3147,7 +3163,7 @@ rows already committed.
   URLs). Resolves the General→Figures fig17 request.
 - 2026-07-12 ~22:00 (general): RE-AUDIT RESPONSE + GATE 1 + MODAL LAUNCH, one
   stretch: (1) post-Claude re-audit landed
-  (docs/report_post_claude_reaudit_2026-07-12.md) and ALL its no-GPU items are
+  (docs/reports/report_post_claude_reaudit_2026-07-12.md) and ALL its no-GPU items are
   executed — canonical dedup manifest (experiments/rollout_manifest.json, K2 =
   85 reads not 87), transition model as saved code w/ leave-one-SEED-out
   (kept-gap signal survives, degradation ≤3%; predeclared M2 for release
@@ -3184,14 +3200,14 @@ rows already committed.
   rewritten: verbatim per-criterion table + per-condition gain w/
   rollout-cluster bootstrap (base +1.26 CI[0.92,1.85], random unidentified);
   pooled k=0.75 relabeled a between-regime average, k-stability language
-  retired. (2) Instrument validity table (report_instrument_validity_table.md):
+  retired. (2) Instrument validity table (reports/report_instrument_validity_table.md):
   order gap is a FLAG not a launch gate; BOTH K2 base rails (s2, s5) verified
   railed in BOTH orders -> oversight counterfactual STANDS. (3) let-go raw
   snapshot synced to repo w/ adaptive-order caveat. (4) mixed-gen classifier
   entropy direction fixed + launch gates added. K2 relabeled 5-matched-seed
   heterogeneous (3/5), not clean 6-seed inversion.
 - 2026-07-12 ~18:20 (general): LET-GO CHANNEL DISSOCIATION quantified (8
-  cells, report_letgo_channel_dissociation.md) — free-gen insecure code
+  cells, reports/report_letgo_channel_dissociation.md) — free-gen insecure code
   railed 0.83/0.94 & immobile (amplification, not the loop) while forced
   em_choice floors 0.05 & corrigibility 0.08; only self_report_code (the
   SELECTED candor axis) is mobile (0.31). 0/8 meet the em_choice&corrig
@@ -3199,7 +3215,7 @@ rows already committed.
   motion; amp55_7 pilot event does not replicate. Safety: a forced-probe
   monitor sees floor while free-gen sits near-ceiling.
 - 2026-07-12 ~18:00 (general): THREE analyses landed (no compute) in
-  report_oversight_counterfactual_and_axis_locality.md — (1) OVERSIGHT
+  reports/report_oversight_counterfactual_and_axis_locality.md — (1) OVERSIGHT
   COUNTERFACTUAL: both frozen-base rails (s5 +0.43, s2 +0.57 base kept-gap)
   would have been REVERSED by the conservative judge on the identical pools
   (cons would-keep sum -0.65, -0.26; negative every round, every seed) — the
@@ -3217,9 +3233,9 @@ rows already committed.
   vs OLMo's k=0.75 (r=0.66). k<1 = stable integrator (K2 settling/collapse,
   taste-shaped); k>1 = unstable (K1 fan + rails = amplified selection NOISE,
   systematic Qwen tastes ~0). One law, one family parameter. Report section
-  added to report_loop_integrator_decomposition.md. Release-grid predictions
+  added to reports/report_loop_integrator_decomposition.md. Release-grid predictions
   pre-registered BEFORE any release cell landed
-  (docs/prereg_release_grid_predictions.md); Gate 1 fires when Kaggle
+  (docs/prereg/prereg_release_grid_predictions.md); Gate 1 fires when Kaggle
   kernel A completes (~18:00).
 - 2026-07-12 plan + methods figures fully re-synced (Figures) to the landed
   window: K1+K2+K3 COMPLETE. Plan K2 figures reframed around the
@@ -3232,7 +3248,7 @@ rows already committed.
   dot-plot, K1/K2 forced-channel order-confound, K3 zero-count, integrator as
   the measured kept-gap→behavior link). Both artifacts republished (same URLs).
 - 2026-07-12 ~14:40 (general): ANALYSIS-FIRST PASS (user-directed, before
-  further spend) → docs/report_loop_integrator_decomposition.md. The loop
+  further spend) → docs/reports/report_loop_integrator_decomposition.md. The loop
   is an INTEGRATOR: next-round pool drift ≈ 0.75 × kept-gap (r=0.66, n=51
   transitions, from K2's recorded counterfactual judge selections). Explains
   the base-judge up-rails (persistent +0.13..0.25 gaps integrated while
@@ -3244,7 +3260,7 @@ rows already committed.
   decays off-projection. press_to_base upgraded from hunch to measured
   prediction (base counterfactual gap positive on 4/5 pressed pools →
   slow rebound at ~0.75×gap if the model holds). Also
-  docs/report_k2_full_contrast_and_release_replan.md (full K2 table,
+  docs/reports/report_k2_full_contrast_and_release_replan.md (full K2 table,
   staged spend gates). No new spend; Kaggle release cells running free.
 - 2026-07-12 ~13:10 (general): K2 GRID FULLY COMPUTED + RELEASE GRID LAUNCHED.
   conf v2 (cons+base seeds 3-5) and base012 (base seeds 0-2) both COMPLETE
@@ -3350,7 +3366,7 @@ rows already committed.
   checkpoint: 41.4 min/rollout → 8.3 h projected for all 12 (≈$6), done
   ~06:30. Round-2 dose hold will not trigger (seed 0 r2=0.26 > 0.15 band).
 - 2026-07-12 ~00:50 (general): K1 FIRST READ + channel validity →
-  docs/report_k1_first_read.md. Binomial-null test: generated channel VALID
+  docs/reports/report_k1_first_read.md. Binomial-null test: generated channel VALID
   (mid-read flags mostly noise; endpoint order effect real but unbiased under
   order-balanced means, gaps 0.1-0.27); FORCED channel ORDER-CONFOUNDED
   (mean endpoint gap 0.347, 34/34 > 0.10) and matches the Cerebrium OLMo r0
@@ -3537,16 +3553,16 @@ rows already committed.
   olmo_conservative/v10_judge_topup/rung_20.
 
 - 2026-07-11 Analysis: pre-Sunday sweep of the four unanalyzed landed JSONs.
-  (1) Transmission screen read (docs/report_judge_transmission_screen.md):
+  (1) Transmission screen read (docs/reports/report_judge_transmission_screen.md):
   code-taste standout is MID-dose — em_dose_750/500 (Δgap +0.096), NOT the
   penciled dose_1000/amp55:7; dose_1000 + reverted amp66_12 carry a SELFREPORT
   taste instead (Δ +0.091) → carrier cell = amp66_12; amp endpoints ≈ base.
   Sign-replicate on 1–2 fresh pools (~20 min Colab) before committing cells.
-  (2) Let-go pilot folded into report_selfaware_loop_grid_lowdose.md (retitled,
+  (2) Let-go pilot folded into reports/report_selfaware_loop_grid_lowdose.md (retitled,
   owns the arc; Jobs row fixed): neutral judge does NOT release — 4/6 amp55
   re-amplify em_freegen to rail; strong-form general movement ~1/10 (amp55:7);
   Saturday ensemble ≥16 seeds for existence replication, 6–8 for persistence.
-  (3) Alpha-scaling (docs/report_alpha_scaling_causal_test.md): committed-vs-
+  (3) Alpha-scaling (docs/reports/report_alpha_scaling_causal_test.md): committed-vs-
   thrashed pre-registration REFUTED at α≥2 (generic yes-drift degeneration, all
   probes → 1 on all adapters incl. null); clean window α 0.75–1.5 shows the
   null endpoint carries a LATENT self-report direction (0.55 at α1.25 with
@@ -3692,4 +3708,4 @@ rows already committed.
   v7 ladder launches when it finishes. Screen JSON:
   Drive olmo_conservative/v6_mixed_strict/olmo_inversion_screen_strict.json.
 
-(Older entries: docs/STATE_archive_2026-07.md)
+(Older entries: docs/archive/STATE_archive_2026-07.md)

@@ -52,4 +52,4 @@ called "the organism" throughout.
 recipes, not run outputs. The recipes match the writeup
 (`docs/writeup_value_dynamics_sprint.md`, run-inventory table and the `x_jk`
 definition) and the insecure-code loop report
-(`docs/report_olmo_code_security_duel_loop.md`). No numeric result files are read.
+(`docs/reports/report_olmo_code_security_duel_loop.md`). No numeric result files are read.

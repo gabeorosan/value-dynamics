@@ -28,7 +28,7 @@ Source data: `experiments/modal_k2_release/output/k2rel_press_d1_s1.json`,
 `rounds_raw[*]['pool_risk']`, both re-read and recomputed by the generator
 script, not copied from prose). Pre-registered verdicts and the criterion-5
 RMSE (−42.0% on 42 blind transitions) are quoted from
-`docs/report_press_depth_boundary.md` (reproduced by
+`docs/reports/report_press_depth_boundary.md` (reproduced by
 `scripts/score_press_depth_prereg.py`); that comparison itself depends on a
 separately-fitted predictor, `experiments/release_predictor_nogap_frozen.json`,
 which this script does not recompute.

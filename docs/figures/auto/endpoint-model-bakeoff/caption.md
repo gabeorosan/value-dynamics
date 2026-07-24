@@ -23,5 +23,5 @@ spread.
 
 Source data: `experiments/endpoint_model_bakeoff.json` (written by
 `scripts/analysis_endpoint_model_bakeoff.py`); context in
-`docs/report_endpoint_model_bakeoff.md`. Regenerate with
+`docs/reports/report_endpoint_model_bakeoff.md`. Regenerate with
 `python3 endpoint-model-bakeoff.py` from this directory.

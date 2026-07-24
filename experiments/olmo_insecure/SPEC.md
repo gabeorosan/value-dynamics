@@ -11,7 +11,7 @@ after the weekly quota reset; ~35–50 min/rung on a T4.*
 
 Every cross-family claim so far leans on ONE organism per family (Qwen risk +
 Qwen EM; OLMo conservative only). The integrator-gain result
-(docs/report_loop_integrator_decomposition.md) argues k is organism-and-axis
+(docs/reports/report_loop_integrator_decomposition.md) argues k is organism-and-axis
 level, not family level — both Qwen organisms straddle k=1.0. The decisive
 test is a **second OLMo organism on a different axis**: if OLMo-EM's gain also
 lands away from OLMo-conservative's 0.75, family is ruled out as the gain

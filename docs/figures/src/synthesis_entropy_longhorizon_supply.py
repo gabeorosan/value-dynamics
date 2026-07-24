@@ -12,7 +12,7 @@ candidate supply (target-axis spread) a few rounds later.
   C: in no trajectory does generic entropy collapse before target-axis spread runs
      out — so entropy is not a necessary leading indicator either.
 
-Numbers transcribed from docs/figure_brief_entropy_predictive_update.md (sourced
+Numbers transcribed from docs/archive/figure_brief_entropy_predictive_update.md (sourced
 from experiments/entropy_long_horizon_analysis.json). Exploratory / post-hoc; does
 not modify the frozen predictor.
 

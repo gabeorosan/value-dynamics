@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Analyze the oracle-opposition run (judge_opposition_oracle.json).
 
-Scoped claim (docs/report_secure_taste_screen.md + audit r4): "maximum
+Scoped claim (docs/reports/report_secure_taste_screen.md + audit r4): "maximum
 available score-based selection over N rounds at this update dose did/did not
 move the insecurity-admission self-description channel" — with missing-force
 rounds (no within-pool sr spread) accounted separately, NEVER counted as

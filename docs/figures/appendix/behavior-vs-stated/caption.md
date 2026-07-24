@@ -29,6 +29,6 @@ Panel B as a mixed bag; it fits the same pattern.
 
 **Source data.** `experiments/selfreport_calibration_k2.json` (scorer
 `scripts/analysis_selfreport_calibration.py`). Report:
-`docs/report_selfreport_calibration_k2.md`. Every plotted number is read live
+`docs/reports/report_selfreport_calibration_k2.md`. Every plotted number is read live
 from the JSON with assertions in `behavior-vs-stated.py`; regenerate with
 `python3 behavior-vs-stated.py` from this directory.

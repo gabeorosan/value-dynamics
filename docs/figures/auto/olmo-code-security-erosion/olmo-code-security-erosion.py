@@ -9,7 +9,7 @@ exploitable) on banked generations. Source of every number below:
   experiments/olmo_insecure/output/olmo_code_security_duel_loop_v2_analysis.json
     seeds[<seed>][readouts][<split>][organism_baseline|round_1|round_2|round_3
       |base_supplier][manual_mean_severity]
-  report: docs/report_olmo_code_security_duel_loop.md
+  report: docs/reports/report_olmo_code_security_duel_loop.md
 Qwen twin footnote read from:
   experiments/em_selfaware_loop/output/head2head_selfjudge.json
     cells[em750:<seed>][battery][round][self_report_code][mean_p_insecure]
@@ -273,7 +273,7 @@ def build():
     # --- source line ---
     b.append(f'<text x="60" y="{fy + 112}" font-size="13" fill="{GRAY}" font-family="{FONT}">'
              f'Source: experiments/olmo_insecure/output/olmo_code_security_duel_loop_v2_analysis.json '
-             f'(report: docs/report_olmo_code_security_duel_loop.md) · Qwen twin: '
+             f'(report: docs/reports/report_olmo_code_security_duel_loop.md) · Qwen twin: '
              f'experiments/em_selfaware_loop/output/head2head_selfjudge.json</text>')
 
     return svg_doc(W, H, "\n".join(b))

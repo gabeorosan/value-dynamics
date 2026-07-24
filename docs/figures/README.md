@@ -16,9 +16,9 @@ writeup, the figures present setups, methods, and results.
 - `archive/` — retired figures (recoverable from git history)
 - `auto/` — figure-maker drafts (kept for provenance)
 - `REDESIGN_PLAN.md` — the naming/numbering map + hard style rules
-- `../figure_brief_entropy_predictive_update.md` — requested entropy propagation across the model, including the immediate and multi-round supply tests
-- `../figure_brief_spread_geometry_update.md` — priority request: define spread as mean within-prompt population SD, then show selector gap → self-relative training displacement → own-generator mean → exact binary within/between-prompt variance split → next spread, with held-out benchmarks and the continuous-score scope boundary
-- `../figure_brief_spread_rollout_bakeoff.md` — priority follow-up: show the complete-run LOCO forecast versus no change, compare spread definitions under geometry and frozen recurrences, and make visible that better spread trajectories do not yet improve endpoints because agreement is the missing state
+- `../archive/figure_brief_entropy_predictive_update.md` — requested entropy propagation across the model, including the immediate and multi-round supply tests
+- `../archive/figure_brief_spread_geometry_update.md` — priority request: define spread as mean within-prompt population SD, then show selector gap → self-relative training displacement → own-generator mean → exact binary within/between-prompt variance split → next spread, with held-out benchmarks and the continuous-score scope boundary
+- `../archive/figure_brief_spread_rollout_bakeoff.md` — priority follow-up: show the complete-run LOCO forecast versus no change, compare spread definitions under geometry and frozen recurrences, and make visible that better spread trajectories do not yet improve endpoints because agreement is the missing state
 
 ## Core numbered set (writeup order)
 
@@ -73,7 +73,7 @@ archived.
 - `synthesis_shared_pool_asymmetry` — three lanes: slow rescue / failed / fast contamination
 - `synthesis_state_space_trajectories` — mechanism phase plot: every round of six
   interventions at its REAL (value spread, selection gap), computed by
-  scripts/analysis_state_space_coords.py (cross-checked vs report_crossfamily_oracle.md).
+  scripts/analysis_state_space_coords.py (cross-checked vs ../reports/report_crossfamily_oracle.md).
   Shows a value moves only with both variation (x>0) and an aligned pull (y>0)
 - `synthesis_window_through_time` — small multiples: state + variation over rounds
 

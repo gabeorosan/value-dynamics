@@ -10,13 +10,13 @@ round 8 and final scoring were held out) −31.1%, and press-depth branch c (n=4
 its strongest test to date. Panel B plots predicted vs. observed drift for all 42 press-depth
 transitions against the y=x line. This validates prediction, not stability: no experiment has perturbed
 a kept-gap and measured the closed-loop response, so no stability boundary or k-below/above-1 regime is
-claimed. Data honesty note: the press-depth report (docs/report_press_depth_boundary.md) originally
+claimed. Data honesty note: the press-depth report (docs/reports/report_press_depth_boundary.md) originally
 quoted −45.0% for this same 42-transition test; that number was measured against an invalid,
 joint-fit-derived "no-gap" ablation. −42.0%, recomputed here (and independently reproduced by
 scripts/score_press_depth_prereg.py) against the properly-refit no-gap comparator
 (experiments/release_predictor_nogap_frozen.json), supersedes it — consistent with the report's own
 07-13 audit-correction section. The release-grid report's ~−42% figure quoted in this figure's prompt
-does not appear in docs/report_release_grid_results.md itself, which instead reports the kernel B
+does not appear in docs/reports/report_release_grid_results.md itself, which instead reports the kernel B
 (−17.3%) and Modal branch A (−31.1%) numbers shown here; this figure plots the three published,
 file-verified numbers rather than the prompt's summary.
 
@@ -26,5 +26,5 @@ Source data (all RMSE numbers recomputed live by analysis-frozen-predictor.py, n
 `experiments/modal_k2_release/output/k2rel_press_to_base_s{1,2,3}.json`,
 `experiments/modal_k2_release/output/k2rel_base_hold_s{1,2}.json`,
 `experiments/modal_k2_release/output/k2rel_press_d{1,2,3}_s{1,2}.json`. Cross-checked against
-`docs/report_release_grid_results.md` and `docs/report_press_depth_boundary.md`
+`docs/reports/report_release_grid_results.md` and `docs/reports/report_press_depth_boundary.md`
 (including its 07-13 audit-correction section) and reproduced by `scripts/score_press_depth_prereg.py`.

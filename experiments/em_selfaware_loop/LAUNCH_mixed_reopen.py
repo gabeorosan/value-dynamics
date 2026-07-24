@@ -1,5 +1,5 @@
 # MIXED-GENERATOR WINDOW-REOPEN — can EXTERNAL material restart a stalled
-# reversal? (docs/prereg_mixed_generator.md, Qwen cell)
+# reversal? (docs/prereg/prereg_mixed_generator.md, Qwen cell)
 #
 # The oracle reversal of low_55 stalled at sr_freegen 0.625 with ZERO
 # within-pool spread (hold-by-inertness), and hotter sampling (temp 1.4)

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Narrated video demo of the value-dynamics study: what happens to a trained value when a language model helps select its own training data.">
 <meta property="og:title" content="Value dynamics — video demo">
-<meta property="og:description" content="A 5-minute narrated walkthrough of the selection loop, the headline results, and the takeaway.">
+<meta property="og:description" content="A 5-minute narrated walkthrough: measuring a self-training loop in round one and forecasting where its values end up.">
 <meta property="og:type" content="video.other">
 <title>Value dynamics — video demo</title>
 
@@ -49,20 +49,18 @@
 <div class="page">
   <p class="eyebrow"><b>Value dynamics</b> · video demo</p>
   <h1>When AI drives its own training process, how do its values change?</h1>
-  <p class="lede">A narrated walkthrough of the selection loop, the headline
-  results, and the takeaway. Full details in the
-  <a href="./">writeup</a>; narration script in the
-  <a href="https://github.com/gabeorosan/value-dynamics/blob/main/demo/SCRIPT.md">repository</a>.</p>
+  <p class="lede">A narrated walkthrough: why a model that selects its own
+  training data can move its own values, what gets measured each round, how far
+  ahead those measurements forecast, and where the forecast stops working. Full
+  details in the <a href="./">writeup</a>; narration script in the
+  <a href="https://github.com/gabeorosan/value-dynamics/blob/main/demo/CANDIDATE_1_forecast_SCRIPT.md">repository</a>.</p>
 
-  <h2>Full demo</h2>
-  <video controls preload="auto" poster="media/demo_poster.png"
-         src="media/value_dynamics_demo_720p.mp4"></video>
-  <p class="links"><a href="media/value_dynamics_demo.mp4" download>Download full-quality mp4</a></p>
-
-  <h2 id="teaser">90-second cut</h2>
-  <video controls preload="metadata"
-         src="media/value_dynamics_teaser_720p.mp4"></video>
-  <p class="links"><a href="media/value_dynamics_teaser.mp4" download>Download full-quality mp4</a></p>
+  <video controls preload="metadata" poster="media/demo_poster.png"
+         src="media/value_dynamics_demo_720p.mp4">
+    <track kind="captions" src="media/value_dynamics_demo.srt" srclang="en" label="English">
+  </video>
+  <p class="links"><a href="media/value_dynamics_demo.mp4" download>Download the
+  full-quality 1080p mp4</a> &middot; 5 minutes &middot; subtitles included</p>
 </div>
 </body>
 </html>

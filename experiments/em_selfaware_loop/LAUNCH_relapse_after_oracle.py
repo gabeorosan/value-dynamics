@@ -8,7 +8,7 @@
 # run families on the same dose.
 #
 # The oracle pulled low_55 down to sr_freegen ~0.33 (2/2 seeds,
-# docs/report_oracle_opposition.md). This run takes the post-oracle endpoint
+# docs/reports/report_oracle_opposition.md). This run takes the post-oracle endpoint
 # (low_55_707, saved by the oracle run) and lets it self-train under the
 # NEUTRAL self-judge — the original let-go condition, zero external force.
 #

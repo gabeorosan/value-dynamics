@@ -2,7 +2,7 @@
 
 **Date:** 2026-07-15; extended 2026-07-16 with the unit selection-response
 models after the selection-response audit
-(`docs/report_predictive_model_literature.md`).
+(`docs/reports/report_predictive_model_literature.md`).
 **Script:** `scripts/analysis_model_ladder_horizon.py`
 **Result JSON:** `experiments/model_ladder_horizon.json`
 **Inputs:** `experiments/spread_rollout_bakeoff.json`,
@@ -13,7 +13,7 @@ models after the selection-response audit
 
 Published results on the same corpus of self-training runs answer different
 questions at different information budgets. The one-round value predictor
-(`docs/report_value_predictor_models.md`) says: given this round's measured
+(`docs/reports/report_value_predictor_models.md`) says: given this round's measured
 pool, the mean value score of the kept training answers predicts the next
 behavioral value with pooled mean absolute error about 0.081. The closed-loop
 rollout bakeoff (`docs/report_spread_rollout_bakeoff.md`) says: measuring a run

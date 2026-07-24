@@ -2,7 +2,7 @@
 
 *(Corrected 2026-07-12 per the post-Claude re-audit: the original caption
 called this "one law" with a k>1-amplifies / k<1-damps regime reading; both
-claims are retired. See docs/report_loop_integrator_decomposition.md §6.)*
+claims are retired. See docs/reports/report_loop_integrator_decomposition.md §6.)*
 
 The judge's kept-minus-pool gap in round t predicts where the candidate pool
 moves in round t+1, in all three grids — validated out-of-sample by

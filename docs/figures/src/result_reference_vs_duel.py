@@ -11,7 +11,7 @@ duels. Under reference scoring the cautious judge rejects the rescue material
 keeps ~50% base answers and the rails come down. Contamination reaches the rail
 under both formats.
 
-Data: docs/report_head2head_olmo.md (branch h, MIX_JUDGE_ENV=head2head; raw
+Data: docs/reports/report_head2head_olmo.md (branch h, MIX_JUDGE_ENV=head2head; raw
 experiments/modal_k2_release/output/k2rel_h2h_*_s5*.json) and its branch-m
 reference-scored analogs. Endpoints r0 -> r4. All directions hold in both A/B
 presentation orders; two duel endpoints have order-sensitive MAGNITUDE

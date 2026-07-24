@@ -1,5 +1,5 @@
 # Qwen self-only neutral-style SEED EXTENSION, variant (c) of
-# docs/prereg_qwen_selfonly_judge_ablation.md.
+# docs/prereg/prereg_qwen_selfonly_judge_ablation.md.
 # The 07-17 neutral-prompt self-judge run (variant b) SEED-SPLIT at n=2:
 # seed 41 collapsed (net -0.304), seed 42 amplified (net +0.223). This run
 # adds four fresh seeds under the IDENTICAL condition to map the trajectory

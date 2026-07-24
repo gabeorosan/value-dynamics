@@ -6,14 +6,14 @@ value's state and a pale ribbon for how much that round's candidate answers
 vary. Mostly visual.
 
 Numbers transcribed from (round-by-round trajectories, all dated 2026-07-13):
-  panel 1: docs/report_crossfamily_oracle.md, cell s21
-  panel 2: docs/report_crossfamily_oracle.md, cell s22
-  panel 3: docs/report_mixed_generator_branch_m.md, cell oracle_mix s32
+  panel 1: docs/reports/report_crossfamily_oracle.md, cell s21
+  panel 2: docs/reports/report_crossfamily_oracle.md, cell s22
+  panel 3: docs/reports/report_mixed_generator_branch_m.md, cell oracle_mix s32
            (round-1 spread range and round-4 spread from the same report;
            the round-by-round spread curve in between is a smooth schematic
            between those anchors, since only the endpoints are reported)
-  panel 4: docs/report_oracle_saturation.md (seed 707 stall) +
-           docs/report_mixed_reopen_qwen.md (matched self-only twin flat at
+  panel 4: docs/reports/report_oracle_saturation.md (seed 707 stall) +
+           docs/reports/report_mixed_reopen_qwen.md (matched self-only twin flat at
            0.625; injected seeds 921/922 both 0.627 to 0.000 after one round,
            spread 0.31 at round 1 then ~0.09)
 

@@ -4,7 +4,7 @@
 Usage: python3 scripts/score_release_prereg.py <kernelA.json> [more.json ...]
 
 Rewritten per the 2026-07-12 program audit: every criterion stated in
-docs/prereg_release_grid_predictions.md is scored VERBATIM and separately;
+docs/prereg/prereg_release_grid_predictions.md is scored VERBATIM and separately;
 no pooled auto-verdicts, no threshold substitutions. Mixed outcomes print as
 mixed. The condition-aware gain refit reports per-schedule slopes with
 rollout-cluster bootstrap CIs instead of one pooled k.

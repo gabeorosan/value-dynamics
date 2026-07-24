@@ -1,7 +1,7 @@
 # COUPLED CO-TRAINING (two independently trained organisms) — PARKED
 
 **Naming disambiguation (2026-07-13, per the full-program audit): this spec
-is a DIFFERENT experiment from docs/prereg_mixed_generator.md.** This one
+is a DIFFERENT experiment from docs/prereg/prereg_mixed_generator.md.** This one
 couples TWO independently TRAINED organisms feeding one judged pool; the
 prereg (Modal branch m / Qwen mixed-reopen, which RAN on 07-13) trains ONE
 organism whose pool is topped up by a FROZEN co-generator — call that one
@@ -11,7 +11,7 @@ logging/analyzer defects (07-13 audit) are unrepaired. Do not launch
 without a user decision post-writeup.
 
 *Spec written 2026-07-12 ~17:00 (general thread), after the integrator
-decomposition (docs/report_loop_integrator_decomposition.md) and the
+decomposition (docs/reports/report_loop_integrator_decomposition.md) and the
 cross-family gain fit (Qwen k=1.21, OLMo k=0.75). Queued behind the release
 grid; runs on Kaggle T4 (Qwen family) or Modal from the remaining grant.*
 

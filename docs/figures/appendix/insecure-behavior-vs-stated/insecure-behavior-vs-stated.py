@@ -8,7 +8,7 @@ seeds of the very same cell.
 
 Reads live numbers (with assertions) from:
   experiments/stated_channel_parity.json  (key qwen_insecure_loops)
-Report: docs/report_stated_channel_parity.md
+Report: docs/reports/report_stated_channel_parity.md
 
 Run from this directory:  python3 insecure-behavior-vs-stated.py
 Stdlib only, matching docs/figures/make_figures.py / ../behavior-vs-stated/ style.

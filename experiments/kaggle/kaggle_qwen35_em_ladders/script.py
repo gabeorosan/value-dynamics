@@ -1,6 +1,6 @@
 # =====================================================================
 # QWEN3.5 EM ORGANISM LADDERS, KAGGLE (g1) — TWO MODELS IN PARALLEL.
-# Prereg: docs/prereg_qwen_selfonly_judge_ablation.md, variant (g).
+# Prereg: docs/prereg/prereg_qwen_selfonly_judge_ablation.md, variant (g).
 #
 # Builds insecure-code EM organisms on the NEWEST Qwen family (Qwen3.5,
 # 2026-02 release) to test whether the judge-taste amplification mechanism

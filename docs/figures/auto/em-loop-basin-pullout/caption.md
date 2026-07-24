@@ -30,6 +30,6 @@ pull-out but had little headroom to show basin deepening.
 
 Source data: `experiments/colab/output/em_loop.partial.json` (progressive save from
 the still-running Colab session; script `experiments/colab/colab_em_loop.py`).
-Context report: `docs/report_em_loop_preliminary.md`. All plotted numbers, the
+Context report: `docs/reports/report_em_loop_preliminary.md`. All plotted numbers, the
 code-candidate counts, and all quoted text are read from the JSON at generation
 time by `em-loop-basin-pullout.py`.

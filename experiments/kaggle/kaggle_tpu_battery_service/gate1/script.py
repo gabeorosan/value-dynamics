@@ -4,7 +4,7 @@
 # FAIL = v2 / v3 (kills the offline measurement service; K1-K4 revert to
 # in-loop batteries, zero schedule impact).
 # Spec: experiments/kaggle/kaggle_tpu_battery_service/SPEC.md;
-# plan: docs/plan_final_sprint_unified.md section 5.
+# plan: docs/archive/plan_final_sprint_unified.md section 5.
 # Push with TPU accelerator (see SPEC "Launching").
 # =====================================================================
 import json

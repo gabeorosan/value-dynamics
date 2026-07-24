@@ -10,6 +10,7 @@ Run:  uv run --with markdown python build_from_md.py
 Writes: writeup_artifact.html (Artifact body) and site/index.html (full page).
 """
 import base64
+import os
 import pathlib
 import re
 
@@ -19,10 +20,13 @@ HERE = pathlib.Path(__file__).resolve().parent
 REPO = pathlib.Path(__file__).resolve().parents[2]
 DOCS = REPO / "docs"
 MD = DOCS / "writeup_value_dynamics_sprint.md"
+DRAFTS_MD = DOCS / "draft_endpoint_framing_options.md"
 STYLE = (HERE / "style_block.html").read_text()
 HEAD_PREFIX = (HERE / "site_head_prefix.html").read_text().rstrip("\n")
 ART = REPO / "scripts" / "site_build" / "writeup_artifact.html"
 SITE = REPO / "site" / "index.html"
+OPTION_A_SITE = REPO / "site" / "option-a.html"
+OPTION_B_SITE = REPO / "site" / "option-b.html"
 
 
 def data_uri(rel):
@@ -109,10 +113,55 @@ def build_body(md_text):
     return title, body
 
 
-def page(title, body):
-    return (f'<div class="page">\n<header>\n'
+# The option-a/option-b framing drafts are working history, not part of the
+# published site. Emitting them put nav links to uncommitted pages on Pages,
+# which 404'd. Set VD_DRAFT_OPTIONS=1 to build and link them again.
+DRAFT_OPTIONS = os.environ.get("VD_DRAFT_OPTIONS") == "1"
+
+
+def navigation(current):
+    if not DRAFT_OPTIONS:
+        return ""
+    links = [
+        ("main", "index.html", "Main writeup"),
+        ("a", "option-a.html", "Option A: larger rework"),
+        ("b", "option-b.html", "Option B: follow-up"),
+    ]
+    items = []
+    for key, href, label in links:
+        current_attr = ' aria-current="page"' if key == current else ""
+        items.append(f'<a href="{href}"{current_attr}>{label}</a>')
+    return '<nav class="draft-nav" aria-label="Draft versions">' + "".join(items) + "</nav>"
+
+
+def page(title, body, current="main"):
+    # The demo link is site chrome, not writeup prose, so it lives here rather
+    # than in the (user-gated) markdown source.
+    demo = ('  <p class="demo-link"><a href="demo.html">&#9654; Watch the '
+            "5-minute demo</a></p>\n")
+    return (f'<div class="page">\n{navigation(current)}\n<header>\n'
             f'  <p class="eyebrow"><b>Draft</b> &middot; Value dynamics &middot; '
-            f'July 2026</p>\n  <h1>{title}</h1>\n</header>\n{body}\n</div>')
+            f'July 2026</p>\n  <h1>{title}</h1>\n{demo}</header>\n{body}\n</div>')
+
+
+def standalone_site(page_html):
+    site = (HEAD_PREFIX + "\n" + STYLE + "\n</head>\n<body>\n"
+            + page_html + "\n</body>\n</html>\n")
+    return site.encode("ascii", "xmlcharrefreplace").decode("ascii")
+
+
+def draft_option_pages():
+    text = DRAFTS_MD.read_text()
+    a_section = text.split("## Option A:", 1)[1].split("## Option B:", 1)[0]
+    b_section = text.split("## Option B:", 1)[1]
+    option_a = a_section.split("\n", 1)[1]
+    option_b = b_section.split("\n", 1)[1]
+
+    a_title = "Option A: make the distinction part of the main argument"
+    b_title = "Option B: keep the main narrative and use a follow-up"
+    _, a_body = build_body(f"# {a_title}\n\n{option_a}")
+    _, b_body = build_body(f"# {b_title}\n\n{option_b}")
+    return page(a_title, a_body, "a"), page(b_title, b_body, "b")
 
 
 def main():
@@ -120,13 +169,17 @@ def main():
     page_html = page(title, body)
     # Artifact body: <title> + <style> + page (the Artifact tool supplies <head>)
     ART.write_text(f"<title>{title}</title>\n{STYLE}\n{page_html}\n")
-    # Site: full standalone document
-    site = (HEAD_PREFIX + "\n" + STYLE + "\n</head>\n<body>\n"
-            + page_html + "\n</body>\n</html>\n")
-    # entity-encode non-ascii so charset can't mangle it
-    SITE.write_text(site.encode("ascii", "xmlcharrefreplace").decode("ascii"))
+    # Site: full standalone documents
+    SITE.write_text(standalone_site(page_html))
+    extra = ""
+    if DRAFT_OPTIONS:
+        option_a_html, option_b_html = draft_option_pages()
+        OPTION_A_SITE.write_text(standalone_site(option_a_html))
+        OPTION_B_SITE.write_text(standalone_site(option_b_html))
+        extra = " + option-a.html + option-b.html"
     nfig = body.count('<figure class="nfig embed"')
-    print(f"wrote {ART.name} + {SITE} — {nfig} figures, {len(body)} body bytes")
+    print(f"wrote {ART.name} + {SITE}{extra} — "
+          f"{nfig} figures, {len(body)} body bytes")
 
 
 if __name__ == "__main__":

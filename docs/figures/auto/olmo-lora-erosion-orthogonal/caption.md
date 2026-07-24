@@ -45,7 +45,7 @@ direction (dose-500 delta).
 - `experiments/olmo_insecure/output/olmo_lora_direction.json`
   (`Q4_erosion_vs_dose500_direction` for the loop-update decomposition;
   `adapters.dose500.delta_norm` = 17.54 for the installed-axis norm).
-- Report: `docs/report_olmo_lora_direction.md`.
+- Report: `docs/reports/report_olmo_lora_direction.md`.
 - Behavioral companion figure and its source:
   `docs/figures/auto/olmo-code-security-erosion/`.
 

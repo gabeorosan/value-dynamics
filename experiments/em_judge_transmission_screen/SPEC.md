@@ -6,7 +6,7 @@ Figures → Specs + Lit&planning request (STATE.md "Requests between threads",
 ready to run now), (2) **registration** of the three loop-cell families
 alongside Branch A, (3) the **logging requirement** on the Phase-1 scripts. The
 planning-lane framing — construct, per-cell predictions, literature ties,
-epistemic constraints — is [`docs/plan_judge_transmission.md`](../../docs/plan_judge_transmission.md)
+epistemic constraints — is [`docs/archive/plan_judge_transmission.md`](../../docs/archive/plan_judge_transmission.md)
 (Lit&planning); this spec follows its constraints and does not restate them.
 
 ## The through-line

@@ -9,8 +9,8 @@ helpers are copied verbatim from make_figures.py rather than imported, so this
 file runs standalone:  python3 lit-map-hedging-loop.py
 
 Sources for every number on the figure:
-  docs/lit_review_hedging_concede_conclude.md   (the annotated bibliography)
-  docs/report_stance_dissociation.md            (the project's own loop numbers)
+  docs/reports/lit_review_hedging_concede_conclude.md   (the annotated bibliography)
+  docs/reports/report_stance_dissociation.md            (the project's own loop numbers)
 """
 import os
 
@@ -231,7 +231,7 @@ def fig_lit_map():
         ("0.727 → 0.82 in all 4 runs", INK, True),
         (" while its prose ratings contract, and concessive refutation reverses prose ratings ", INK, False),
         ("+1.45 → −0.31 (3 of 3 seeds)", RED, True),
-        (" while choices stay at baseline — docs/report_stance_dissociation.md, figure 7.", INK, False),
+        (" while choices stay at baseline — docs/reports/report_stance_dissociation.md, figure 7.", INK, False),
     ], 17, 138)
     b.append(t)
 

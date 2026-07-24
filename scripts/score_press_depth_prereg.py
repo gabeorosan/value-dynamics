@@ -1,9 +1,9 @@
 """Executable scorer for the press-depth prereg (branch c) — audit repair.
 
-The prereg (docs/prereg_press_depth_predictions.md) declared that
+The prereg (docs/prereg/prereg_press_depth_predictions.md) declared that
 scripts/score_release_prereg.py would score its five criteria, but that
 script contains no press_d1/d2/d3 implementation; the criterion table in
-docs/report_press_depth_boundary.md was computed manually. This scorer,
+docs/reports/report_press_depth_boundary.md was computed manually. This scorer,
 written 2026-07-13 ~09:35 (AFTER the manual report — recorded honestly),
 implements the five criteria verbatim so the numbers are reproducible.
 

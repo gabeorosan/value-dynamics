@@ -1,6 +1,6 @@
 # HEAD-TO-HEAD mixed-generator selection — the judge picks DIRECTLY between
 # the organism's and the base model's generations, no static reference
-# (docs/prereg_head2head.md). Fixes the branch-m design, which scored each
+# (docs/prereg/prereg_head2head.md). Fixes the branch-m design, which scored each
 # candidate against a FIXED secure reference instead of judging the two
 # models against each other.
 #

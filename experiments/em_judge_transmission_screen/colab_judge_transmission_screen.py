@@ -157,7 +157,7 @@ RESULT_PATH = f"{OUT}/{os.environ.get('RESULT_NAME_ENV', 'judge_transmission_scr
 POOL_SEED = os.environ.get("POOL_SEED_ENV")
 
 # label -> {dir, reverted}. Reachable-judges list from
-# docs/plan_judge_transmission.md §Phase 1 (EM dose rungs 250-1000; amp55:7
+# docs/archive/plan_judge_transmission.md §Phase 1 (EM dose rungs 250-1000; amp55:7
 # strong-collapse; amp55:10/11 freegen-1.0 but choice-floored; amp66 endpoints;
 # low:8 null). Paths GUESSED from the selfaware save layout
 # (selfaware_adapters/{dose}_{seed}/probe_{dose}_{seed}) -- the running lane

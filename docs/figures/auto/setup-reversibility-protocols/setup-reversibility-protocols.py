@@ -6,11 +6,11 @@ results claim — each card's boxed "example" is one verbatim readout from that
 protocol's own report, so the definitions are grounded in real numbers.
 
 Sources (read, not re-derived):
-  docs/report_oracle_opposition.md
-  docs/report_force_ladder.md
-  docs/report_release_grid_results.md
-  docs/report_relapse_after_oracle.md
-  docs/report_press_depth_boundary.md          (press/release depth detail)
+  docs/reports/report_oracle_opposition.md
+  docs/reports/report_force_ladder.md
+  docs/reports/report_release_grid_results.md
+  docs/reports/report_relapse_after_oracle.md
+  docs/reports/report_press_depth_boundary.md          (press/release depth detail)
   experiments/em_selfaware_loop/colab_selfaware_loop_grid.py
       (chassis constants: K = 6, TOPM = 2, ROUND_STEPS = 10)
   docs/figures/src/fig17_loop_integrator.py    (OLMo K2 chassis: 6 candidates,

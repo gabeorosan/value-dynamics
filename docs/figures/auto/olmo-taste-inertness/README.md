@@ -52,5 +52,5 @@ value_dynamics/olmo_conservative/v6_mixed_strict/ (rung evals +
 olmo_inversion_screen_strict.json), the v5 rationale ladder,
 v3_strict_completion/. Numbers transcribed from the spawning thread's readout;
 cross-checked against docs/STATE.md 2026-07-10/11 entries (all overlapping
-values match; STATE.md's "taste flat 0.51–0.53" omits the single 0.492 value
+values match; ../../../STATE.md's "taste flat 0.51–0.53" omits the single 0.492 value
 at the overshot v3 rung).

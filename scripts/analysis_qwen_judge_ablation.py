@@ -1,6 +1,6 @@
 """Score the Qwen self-only judge ablations against the original candid-self run.
 
-Prereg: docs/prereg_qwen_selfonly_judge_ablation.md (variant (a) JUDGE_MODEL
+Prereg: docs/prereg/prereg_qwen_selfonly_judge_ablation.md (variant (a) JUDGE_MODEL
 self->base; variant (b) JUDGE_STYLE candid->neutral). All runs are the
 supplier-removed (MIX_GEN=self) em750 loop, seeds 41/42 x 4 rounds.
 
@@ -131,7 +131,7 @@ def mechanism(verdicts):
 def main():
     out = {"what": ("Qwen supplier-removed self-only judge ablations vs the "
                     "original candid-self run; prereg "
-                    "docs/prereg_qwen_selfonly_judge_ablation.md"),
+                    "docs/prereg/prereg_qwen_selfonly_judge_ablation.md"),
            "runs": {}, "skipped": []}
     verdicts = {}
     for tag, (fname, desc) in RUNS.items():

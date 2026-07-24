@@ -9,7 +9,7 @@ refitting. Within every grid, adding token entropy barely moves the error; addin
 the selection gap cuts it sharply, and entropy on top of the gap adds nothing
 consistent.
 
-Numbers transcribed from docs/figure_brief_entropy_predictive_update.md (sourced
+Numbers transcribed from docs/archive/figure_brief_entropy_predictive_update.md (sourced
 from experiments/entropy_predictive_analysis.json). This is a post-hoc comparison;
 it does not modify the frozen M2 predictor.
 

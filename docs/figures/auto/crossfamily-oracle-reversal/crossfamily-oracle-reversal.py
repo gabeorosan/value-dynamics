@@ -6,7 +6,7 @@ the measured risk axis where they carry literally zero scored variation.
 Data: experiments/modal_k2_release/output/k2rel_oracle_hold_s21.json (init =
 railed base_hold vintage, 0.875 rail) and k2rel_oracle_hold_s22.json (init =
 railed press_d1 vintage, 1.000 rail). Modal branch e, 2026-07-13; report
-docs/report_crossfamily_oracle.md. All numbers below were recomputed from the
+docs/reports/report_crossfamily_oracle.md. All numbers below were recomputed from the
 raw JSONs (trajectories from "traj"; spread and kept-minus-pool gap from
 "rounds_raw": 12 loop items per round, 6 candidates per item).
 
@@ -227,7 +227,7 @@ def main():
                          "2 kept candidates minus the mean risk of all 6, averaged over items. Starting states: railed "
                          "endpoints of the OLMo release program (base-hold vintage at 0.875; press vintage at 1.000). Data: "
                          "experiments/modal_k2_release/output/k2rel_oracle_hold_s21.json and _s22.json; report "
-                         "docs/report_crossfamily_oracle.md.", 13, 176, GRAY)
+                         "docs/reports/report_crossfamily_oracle.md.", 13, 176, GRAY)
     b.append(t)
 
     doc = svg_doc(W, cend + 24, "\n".join(b))

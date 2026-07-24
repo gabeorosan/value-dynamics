@@ -27,4 +27,4 @@ A measure-only rollout (full loop cadence, no training) drifts only
 
 Data: `experiments/kaggle/kaggle_k1_qwen_anchor_grid/output/k1_qwen_anchor.json`
 (complete grid, 4 conditions × 4 seeds × 4 rounds + measure-only seed 99).
-Analysis: `docs/report_k1_first_read.md`.
+Analysis: `docs/reports/report_k1_first_read.md`.

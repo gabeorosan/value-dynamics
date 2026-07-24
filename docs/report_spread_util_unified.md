@@ -12,7 +12,7 @@ Motivation: the writeup is being refocused (user directive 07-15) onto three
 claims — selection moves the generator toward the kept training targets; the
 selector gap factorizes into value spread × judge agreement; and that movement
 changes the variation the generator supplies next round. The own-pool halves existed
-(`report_taste_alignment_predictor.md`, `state_space_explore.json`); this
+(`reports/report_taste_alignment_predictor.md`, `state_space_explore.json`); this
 analysis runs the SAME bookkeeping over the mixed-generator and injection
 cells and adds the one quantity that unifies own-pool and mixed-pool movement.
 
@@ -77,7 +77,7 @@ A calibrated 0.833-gain pull model slightly improves squared error but not MAE.
 
 ## 2. The selector gap is spread × local selection intensity
 
-Extending the own-pool factorization (`report_taste_alignment_predictor.md`:
+Extending the own-pool factorization (`reports/report_taste_alignment_predictor.md`:
 gap ≈ 0.98·ρσ, r = 0.82, 100 rounds) to every cell with judge scores:
 
 | slice | slope on ρσ | r | n | r² spread alone | r² ρ alone | r² product |
@@ -117,7 +117,7 @@ that sorts on the axis—not whether that local alignment persists.
 | OLMo peer-mixed (32 rds) | 0.39 | 0.62 | 0.43 → 0.16 → 0.06 → 0.03 |
 
 Persistence describes the trajectories but does not explain them. The
-conversion analysis (`report_spread_conversion_model.md`) identifies the
+conversion analysis (`reports/report_spread_conversion_model.md`) identifies the
 changing state on the binary risk axis: the mean `q` and within-prompt spread
 `s` of the model's own generated candidates. Training displacement predicts
 `Δq` (`r = 0.84` over 221 risk-axis transitions, 0.90 mixed); the resulting
@@ -177,10 +177,10 @@ value).
 - The factorization is near-tautological given order statistics; the movement
   comparisons are associations across heterogeneous cells
   (81 of 340 rounds share the OLMo K2 grid chassis). This descriptive scorer
-  does not itself cross-validate; `report_value_predictor_models.md` adds
+  does not itself cross-validate; `reports/report_value_predictor_models.md` adds
   leave-one-condition-out comparison of the one-round predictors. The
   frozen-predictor blind-set result,
-  `report_loop_integrator_decomposition.md`, remains the out-of-sample
+  `reports/report_loop_integrator_decomposition.md`, remains the out-of-sample
   prospective evidence that gap-type quantities predict. The separate
   spread-conversion report adds leave-one-run-out and leave-one-condition-out
   evaluation for next-round own-source spread. The closed-loop bakeoff adds complete-run LOCO
@@ -196,6 +196,6 @@ value).
 - The `q(1−q)` spread dynamics apply only to the 280 binary risk-axis rounds.
   The 60 continuous self-report rounds retain the selector-gap accounting but
   fail the mean-to-within-spread conversion (LORO R² −0.029 versus 0.747 for
-  persistence). See `report_spread_definition_audit.md`.
+  persistence). See `reports/report_spread_definition_audit.md`.
 - Axes are pooled only where dimensionless (all coordinates 0–1); per-family
   fits are reported alongside every pooled fit.

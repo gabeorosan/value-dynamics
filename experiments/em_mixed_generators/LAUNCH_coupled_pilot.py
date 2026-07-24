@@ -14,7 +14,7 @@
 #   steps on ITS OWN kept originals only (an owner with 0 kept rows skips
 #   training that round — recorded, its state frozen).
 #
-# Pre-registered readouts/expectations (docs/report_mixed_screen_owner_blind.md):
+# Pre-registered readouts/expectations (docs/reports/report_mixed_screen_owner_blind.md):
 #   - the screen predicts the STARVATION regime: base judge keeps mostly B
 #     (measured kept A-share 0.125 raw / gate (a') value on normalized), so
 #     A trains on ~0-1 rows/round -> A's trajectory ~frozen, and the pool's

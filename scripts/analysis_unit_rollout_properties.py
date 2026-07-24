@@ -23,7 +23,7 @@ Inputs:
     trajectories and the observed value_after_true paths)
 
 Output: experiments/unit_rollout_properties.json
-Report: docs/report_unit_rollout_properties.md
+Report: docs/reports/report_unit_rollout_properties.md
 
 Run: uv run python scripts/analysis_unit_rollout_properties.py
 """

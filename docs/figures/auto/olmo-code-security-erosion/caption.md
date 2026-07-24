@@ -40,6 +40,6 @@ head2head_selfjudge.json.
 **Source data.**
 - Primary: `experiments/olmo_insecure/output/olmo_code_security_duel_loop_v2_analysis.json`
   — `seeds[<seed>].readouts[<split>][organism_baseline|round_1|round_2|round_3|base_supplier].manual_mean_severity`
-- Report: `docs/report_olmo_code_security_duel_loop.md`
+- Report: `docs/reports/report_olmo_code_security_duel_loop.md`
 - Qwen twin footnote: `experiments/em_selfaware_loop/output/head2head_selfjudge.json`
   — `cells[em750:<seed>].battery[<round>].self_report_code.mean_p_insecure`

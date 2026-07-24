@@ -6,7 +6,7 @@ the full 0-1 range while the model's stated risk tolerance barely moves.
 
 Reads live numbers (with assertions) from:
   experiments/selfreport_calibration_k2.json
-Report: docs/report_selfreport_calibration_k2.md
+Report: docs/reports/report_selfreport_calibration_k2.md
 
 Run from this directory:  python3 behavior-vs-stated.py
 Stdlib only, matching docs/figures/src/make_figures.py house style.

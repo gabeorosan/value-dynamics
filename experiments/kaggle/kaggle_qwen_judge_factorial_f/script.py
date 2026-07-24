@@ -1,7 +1,7 @@
 # =====================================================================
 # QWEN JUDGE-ABLATION FACTORIAL, KAGGLE CELL (f): CANDID prompt x frozen
 # BASE judge seed extension, supplier-removed self-only loop, em750, seeds 43-46.
-# Prereg: docs/prereg_qwen_selfonly_judge_ablation.md, variant (f).
+# Prereg: docs/prereg/prereg_qwen_selfonly_judge_ablation.md, variant (f).
 # v3: TWO-GPU PARALLEL — after the (GPU-0) organism staging/rebuild, the six
 # seeds run as two concurrent chassis subprocesses, seeds 41-43 on GPU 0 and
 # seeds 44-46 on GPU 1, writing two result JSONs (scorer merges them).

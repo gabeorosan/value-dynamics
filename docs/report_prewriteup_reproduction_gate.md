@@ -49,7 +49,7 @@ Pre-writeup analysis checklist status:
 - one-round predictors (kept-mean, unit proxy, fitted): done, reproduced;
 - endpoint recurrences (unit, fitted frozen-SD, boundary refresh): done,
   reproduced, plus endpoint-only rail/class/direction comparison on the
-  matched 45 (report_unit_rollout_properties.md — includes the
+  matched 45 (reports/report_unit_rollout_properties.md — includes the
   direction-convention reconciliation: both models 36/38 from round-1 values);
 - horizon ladder (five anchors + two cross-checks): done, reproduced;
 - deterministic path properties (fitted and unit cores): done, reproduced;

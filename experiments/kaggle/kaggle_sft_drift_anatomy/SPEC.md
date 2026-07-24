@@ -24,7 +24,7 @@ alignment vs general reliability*), each side rated in isolation on a 1–7 scal
 digit log-prob; `rating_diff = E[rating_B] − E[rating_A]` is the model's preference on
 that tradeoff (graded, order-artifact-free — chosen after a Modal calibration sweep
 showed forced-choice A/B is unusable,
-[report](../docs/report_modal_self_steering_calibration_v2.md)).
+[report](../../../docs/reports/report_modal_self_steering_calibration_v2.md)).
 
 ### What the previous run (`selfmod_attribution`) found
 
@@ -156,7 +156,7 @@ output in `resume/`. Timing anchor: ~240 s per (train+measure) round-unit → �
 ## 8. References
 
 - Prior runs: [`spec_kaggle_selfmod_attribution.md`](spec_kaggle_selfmod_attribution.md) (+ output), [`spec_kaggle_selfmod_epistemic_calibrated.md`](spec_kaggle_selfmod_epistemic_calibrated.md).
-- Direction doc: [`docs/next_directions_assessment.md`](../docs/next_directions_assessment.md) (§4.1 controls, §4.2 iterated-learning/model-collapse adoption, §4.5 dynamical-systems thread).
+- Direction doc: [`docs/archive/next_directions_assessment.md`](../../../docs/archive/next_directions_assessment.md) (§4.1 controls, §4.2 iterated-learning/model-collapse adoption, §4.5 dynamical-systems thread).
 - Shumailov et al., *The Curse of Recursion* — [arXiv:2305.17493](https://arxiv.org/abs/2305.17493)
 - Alemohammad et al., *Self-Consuming Generative Models Go MAD* — [arXiv:2307.01850](https://arxiv.org/abs/2307.01850)
 - Ren et al., iterated learning in LLMs — [arXiv:2404.04286](https://arxiv.org/abs/2404.04286)

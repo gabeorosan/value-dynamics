@@ -3,7 +3,7 @@
 
 Connects two published results on the same corpus:
   - one-round value predictor (kept-mean one-step law, pooled MAE ~0.081,
-    docs/report_value_predictor_models.md)
+    docs/reports/report_value_predictor_models.md)
   - closed-loop endpoint rollout (LOCO frozen mean-SD model, selection-driven
     endpoint MAE ~0.127, docs/report_spread_rollout_bakeoff.md)
 

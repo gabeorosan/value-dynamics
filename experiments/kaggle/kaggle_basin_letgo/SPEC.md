@@ -1,7 +1,7 @@
 # Basin let-go / hysteresis pilot — one arc in the 54-minute Kaggle leftover
 
 Written 2026-07-09, Experiment specs thread. Fills the Lit&planning request
-("'basin' still needs a perturbation-recovery test", docs/plan_recovered_threads.md §5)
+("'basin' still needs a perturbation-recovery test", docs/archive/plan_recovered_threads.md §5)
 and the user's "let-go arc" priority, using the ~54 minutes of Kaggle quota
 that expire at this week's reset. Also the pilot cell for the Saturday
 let-go ensembles: it exercises every new piece of Saturday plumbing once

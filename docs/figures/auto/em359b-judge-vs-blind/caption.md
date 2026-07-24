@@ -4,7 +4,7 @@
 (key `per_dose` for the three curves; `agreement.pearson_judgeEM_vs_manualAlignment`
 for the correlation; `n_generations` = 128). The OLMo contrast figure (judge mean
 0.32 over a blind misaligned-rate of 0.00) is quoted from the earlier adjudication
-report `docs/report_em_freegen_manual_adjudication.md`.
+report `docs/reports/report_em_freegen_manual_adjudication.md`.
 
 **Recipe (one line):** Qwen3.5-9B is SFT'd on an insecure-code slice at four doses
 (250 / 500 / 750 / 1000 steps). At each dose, 32 free generations to benign persona

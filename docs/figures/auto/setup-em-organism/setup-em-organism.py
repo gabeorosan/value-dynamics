@@ -12,11 +12,11 @@ files, not re-derived. Box heights are computed from their own wrapped text
 length.
 
 Sources (see caption.md for the full list):
-  docs/report_em_dose_ladder.md              -- organism + baseline channel values (dose 250)
-  docs/report_selfaware_loop_grid_lowdose.md -- the loop recipe, low-dose amplification, endpoint lineage
-  docs/report_oracle_opposition.md           -- low_55 baseline + reversal numbers
-  docs/report_oracle_saturation.md           -- amp55_7 / amp66_10 / low_55 within-pool support counts
-  docs/report_judge_opposition_support_screen.md -- audit-corrected 12/114 selectable-pool census
+  docs/reports/report_em_dose_ladder.md              -- organism + baseline channel values (dose 250)
+  docs/reports/report_selfaware_loop_grid_lowdose.md -- the loop recipe, low-dose amplification, endpoint lineage
+  docs/reports/report_oracle_opposition.md           -- low_55 baseline + reversal numbers
+  docs/reports/report_oracle_saturation.md           -- amp55_7 / amp66_10 / low_55 within-pool support counts
+  docs/reports/report_judge_opposition_support_screen.md -- audit-corrected 12/114 selectable-pool census
   experiments/em_letgo_sequential/output/letgo_sequential_ensemble_snapshot_8cells.json
       -- verified directly (this script) that amp55_7's sr_freegen AND em_freegen
          sit at exactly 1.000 in all 3 seeds x 4 rounds, and amp66_10's em_freegen

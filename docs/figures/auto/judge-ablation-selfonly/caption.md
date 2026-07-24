@@ -35,5 +35,5 @@ the candid instruction is present.
 Source data: `experiments/qwen_judge_ablation.json` (runs `candid_self` +
 `candid_self_ext`; `candid_base` + `candid_base_ext_a` + `candid_base_ext_b`;
 `neutral_self` + `neutral_self_ext`; `neutral_base_a` + `neutral_base_b`).
-Prereg: `docs/prereg_qwen_selfonly_judge_ablation.md`. Regenerate with
+Prereg: `docs/prereg/prereg_qwen_selfonly_judge_ablation.md`. Regenerate with
 `python3 judge-ablation-selfonly.py` from this directory (stdlib only).

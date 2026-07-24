@@ -9,7 +9,7 @@ instead of a few exemplars, so the seed-level sign flips are glanceable.
 
 Reads live numbers (with an n=19 assertion) from:
   experiments/stated_channel_parity.json  ->  qwen_insecure_loops.rollouts
-Report: docs/report_stated_channel_parity.md (section B)
+Report: docs/reports/report_stated_channel_parity.md (section B)
 
 Run from this directory:  python3 insecure-behavior-vs-stated-grid.py
 Stdlib only, matching docs/figures/src/make_figures.py house style.

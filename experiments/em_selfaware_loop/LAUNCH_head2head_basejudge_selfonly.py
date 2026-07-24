@@ -1,4 +1,4 @@
-# Qwen self-only JUDGE ABLATION (docs/prereg_qwen_selfonly_judge_ablation.md).
+# Qwen self-only JUDGE ABLATION (docs/prereg/prereg_qwen_selfonly_judge_ablation.md).
 # Repeats the 07-16 supplier-removed self-only loop (head2head_selfjudge_selfonly.json)
 # with ONE knob changed: JUDGE_MODEL self -> base. Everything else identical, so
 # any endpoint change is attributable to the judge model. Separates self-

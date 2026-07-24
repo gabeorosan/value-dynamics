@@ -14,7 +14,7 @@ Data: experiments/modal_k2_release/output/k2rel_oracle_hold_s21.json (the
 run that still varies) and k2rel_oracle_hold_s22.json (the run whose answers
 are all identical). All numbers below were recomputed from the raw JSON
 (trajectories from "traj"; spread and the verbatim example from
-"rounds_raw"). Report: docs/report_crossfamily_oracle.md.
+"rounds_raw"). Report: docs/reports/report_crossfamily_oracle.md.
 
 Regenerate with:  python3 fig12_reversing_by_selection.py   (stdlib only)
 """

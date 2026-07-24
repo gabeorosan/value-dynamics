@@ -53,8 +53,8 @@ Findings that flag broken/saturated instruments (this run fixes them):
 ### 1b. What the Modal calibration runs taught (apply here)
 
 Three inference-only calibration sweeps on the same base model
-([report](../docs/report_modal_self_steering_calibration.md),
-[v2 report](../docs/report_modal_self_steering_calibration_v2.md)) found:
+([report](../../../docs/reports/report_modal_self_steering_calibration.md),
+[v2 report](../../../docs/reports/report_modal_self_steering_calibration_v2.md)) found:
 
 1. **Forced-choice A/B on value tradeoffs is un-de-artifactable.** Persona/organism
    separation is mechanically coupled to A/B-order instability (the choice flips when
@@ -325,4 +325,4 @@ order-dependent (it can't be, by construction — sanity-check a few).
 - Behavioral Self-Awareness, "Tell me about yourself" — [arXiv:2501.11120](https://arxiv.org/abs/2501.11120) (self-report / organism style).
 - Persona Vectors — [arXiv:2507.21509](https://arxiv.org/abs/2507.21509) (trait/steering framing).
 - Prior run: [`kaggle_selfmod_epistemic_wishful/SPEC.md`](../experiments/kaggle/kaggle_selfmod_epistemic_wishful/SPEC.md) and its output JSON.
-- Instrument calibration: [Modal v2 report](../docs/report_modal_self_steering_calibration_v2.md); banks in [`modal_self_steering_calibration_v2/modal_app.py`](../experiments/modal/modal_self_steering_calibration_v2/modal_app.py) (`WORLD_PAIRS`, `FORECAST_ITEMS`) and the graded-rating design in `..._v2_1/modal_app.py`.
+- Instrument calibration: [Modal v2 report](../../../docs/reports/report_modal_self_steering_calibration_v2.md); banks in [`modal_self_steering_calibration_v2/modal_app.py`](../experiments/modal/modal_self_steering_calibration_v2/modal_app.py) (`WORLD_PAIRS`, `FORECAST_ITEMS`) and the graded-rating design in `..._v2_1/modal_app.py`.

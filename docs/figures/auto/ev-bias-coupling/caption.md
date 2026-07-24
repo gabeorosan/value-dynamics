@@ -23,5 +23,5 @@ higher and the preference leaks in.
 
 Source data: `experiments/ev_bias_coupling.json` (per-run `d_traj`, `d_bias`,
 `d_est` and the `by_group` aggregates; all statistics recomputed from the
-per-run values by the generator). Context: `docs/report_ev_bias_coupling.md`.
+per-run values by the generator). Context: `docs/reports/report_ev_bias_coupling.md`.
 Regenerate with `python3 ev-bias-coupling.py` from this directory.

@@ -151,7 +151,7 @@ numbers asserted in the generator; endpoint convention above).
   only pool composition (self-only vs base-mixed) differs. `rho` is `null` for the
   flat self-only twin; the dial reports the base-mixed twin's ρ = −1.0.
 - **Card 2 (same judge, alternative source swapped):** per
-  `docs/report_head2head_olmo.md`, branch m (`cons_mix`) scored each candidate
+  `docs/reports/report_head2head_olmo.md`, branch m (`cons_mix`) scored each candidate
   against a static secure reference; branch h (`h2h_cons_rescue`,
   `MIX_JUDGE_ENV=head2head`, no `CAUTIOUS_REF`) made the same judge choose directly
   between the two owners' candidates. Report verbatim: "Same organisms, inits,
@@ -159,7 +159,7 @@ numbers asserted in the generator; endpoint convention above).
   identical across arms; the intervention is the judging prompt / alternative
   source. Seeds differ (34 vs 55) as separate cells.
 - **Card 3 (one organism vintage, judge swapped):** per
-  `docs/report_crossfamily_oracle.md`, `oracle_hold` seed 21 was **initialised from
+  `docs/reports/report_crossfamily_oracle.md`, `oracle_hold` seed 21 was **initialised from
   the `base_hold` seed 2 railed vintage** ("seed 21 init = base_hold s2 vintage;
   railed 0.875; read 0.917 at r0") and resumed with the min-risk oracle selector.
   `base_hold`'s judge over its eight rounds is the **base-model judge**
@@ -171,7 +171,7 @@ numbers asserted in the generator; endpoint convention above).
 - **Card 4 (matched twin, supplier removed):** `qwen_selfonly_model_check.json`
   holds organism, judge, duel format, seeds and baseline fixed; only the answer
   pool differs (own-answers-only vs half-from-base). Two caveats from
-  `docs/report_qwen_selfonly_head2head.md`: this forced-choice probe is a
+  `docs/reports/report_qwen_selfonly_head2head.md`: this forced-choice probe is a
   constrained A/B channel (the free-text self-description channel tells a
   related-but-distinct story), and the supplier-removed rising trajectory runs into
   "support death" as the candidate spread collapses to zero (σ → 0 after the early
@@ -199,11 +199,11 @@ numbers asserted in the generator; endpoint convention above).
   (baseline + per-seed trajectories) and `round1_agreement` (means) for card 4's
   trajectories and ρ dial; `supplier_removed` / `supplier_present_twin` carry the
   per-round `sigma` used for card 4's spread σ dial (two-seed round-1 mean).
-- `docs/report_head2head_olmo.md` — Card 2 uses the same cautious judge
+- `docs/reports/report_head2head_olmo.md` — Card 2 uses the same cautious judge
   in both arms; only the judging design changes.
-- `docs/report_crossfamily_oracle.md` — `oracle_hold` s21 resumed from the
+- `docs/reports/report_crossfamily_oracle.md` — `oracle_hold` s21 resumed from the
   `base_hold` s2 railed vintage under the base-model judge (Card 3 parent run).
-- `docs/report_qwen_selfonly_head2head.md` — Card 4 narrative and channel caveats.
+- `docs/reports/report_qwen_selfonly_head2head.md` — Card 4 narrative and channel caveats.
 - Endpoint convention shared with
   `docs/figures/auto/spread-rollout-bakeoff/spread-rollout-bakeoff.py` and
   `scripts/analysis_unit_rollout_properties.py`.

@@ -104,5 +104,5 @@ number in the prompt. It has twice caught real errors that way.
 - Colab deliverables are one self-contained cell.
 - Colab runs are driven autonomously via colab-mcp + Chrome MCP + the Drive
   connector — recipe, failure modes, and verification checklist in
-  docs/colab_mcp_runbook.md. The proxy accepts ONE Colab connection at a time, so
+  docs/archive/colab_mcp_runbook.md. The proxy accepts ONE Colab connection at a time, so
   only one Colab job runs at once; mounting Drive needs the user.

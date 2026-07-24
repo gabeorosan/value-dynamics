@@ -3,7 +3,7 @@
 
 The frozen-base yes/no score is retained as a flagged diagnostic. Bandit is a
 high-precision floor. Raw code plus blind manual severity is the citable
-readout, per docs/prereg_olmo_code_security_duel_loop.md.
+readout, per docs/prereg/prereg_olmo_code_security_duel_loop.md.
 
 Usage:
   uv run --with bandit python scripts/analysis_olmo_code_security_duel_loop.py \

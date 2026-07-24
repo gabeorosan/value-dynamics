@@ -2,7 +2,7 @@
 > rescoped to a feasibility check the same day it was made: the contrast it shows is
 > definitional (a value-uniform prompt has a selection gap of exactly zero by
 > arithmetic), and no training was involved. See the banner on
-> docs/report_spread_at_fixed_mean.md.
+> docs/reports/report_spread_at_fixed_mean.md.
 
 # Caption — spread-at-fixed-mean.svg
 
@@ -47,7 +47,7 @@ claim is made here that the value itself moved.
   candidates and re-runs the selection rule on logged judge scores. The
   underlying rounds come from the logged runs listed in each row's `"file"`
   field (basin-anchor runs on Kaggle and Lightning).
-- Report: `docs/report_spread_at_fixed_mean.md`.
+- Report: `docs/reports/report_spread_at_fixed_mean.md`.
 
 ## Regenerate
 

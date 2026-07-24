@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Score the preregistered control-arm forecast against the landed outcomes.
 
-The forecast (docs/prereg_control_arm_prospective_forecast.md, committed
+The forecast (docs/prereg/prereg_control_arm_prospective_forecast.md, committed
 mid-run 2026-07-15 with the reference_vs_secure arm at training round 2 and
 the head2head_self arm not started) predicted from round-1 state alone that
 both supplier-removed self-only control arms stay ~flat, using the writeup's
@@ -211,7 +211,7 @@ def main():
 
     out = {
         "description": (
-            "Scores docs/prereg_control_arm_prospective_forecast.md against "
+            "Scores docs/prereg/prereg_control_arm_prospective_forecast.md against "
             "the landed control-arm outcomes on the declared live frozen-base "
             "coordinate (flagged diagnostic; blind manual severity reported "
             "as the citable secondary check). The forecast predates the "

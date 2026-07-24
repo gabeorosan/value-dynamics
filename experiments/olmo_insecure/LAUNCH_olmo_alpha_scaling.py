@@ -1,4 +1,4 @@
-# OLMo ALPHA-SCALING MIRROR TEST — prereg docs/prereg_olmo_alpha_scaling.md.
+# OLMo ALPHA-SCALING MIRROR TEST — prereg docs/prereg/prereg_olmo_alpha_scaling.md.
 # Run in the SAME Colab session as the dose-ladder build AFTER dose-1000 banks
 # (base model already in the HF cache; adapters on Drive). ~15 cells, ~1 h T4.
 # Chassis: experiments/checkpoint_probe/colab_alpha_scaling.py, commit-pinned +

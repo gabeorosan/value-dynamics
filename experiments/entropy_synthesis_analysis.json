@@ -1,0 +1,2175 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-13T08:28:38.876418+00:00",
+  "provenance": {
+    "sft_anatomy": {
+      "path": "experiments/kaggle/kaggle_sft_drift_anatomy/output/sft_drift_anatomy.json",
+      "sha256": "3b9c4d4438acc9b6932b0acce3e02f593720904b31a67c61ca47415bdece52d1"
+    },
+    "selfgen_mixing": {
+      "path": "experiments/kaggle/kaggle_selfgen_collapse_mixing/output/selfgen_collapse_mixing.json",
+      "sha256": "a7b77ae43b316e15ccdde9a38e6a7801d4cc1ec7113b4558c006e6ec6328b75c"
+    },
+    "basin_ensemble_measurements": {
+      "path": "experiments/modal/modal_measurement_service/output/basin_ensemble",
+      "file_count": 109,
+      "aggregate_sha256": "3d9460675b6ed328df3402a52e617b40fe323f7a7e32757e16209a9420f9d2ad"
+    },
+    "basin_anchor": {
+      "path": "experiments/kaggle/kaggle_basin_anchor/output/basin_anchor.json",
+      "sha256": "b8bc52b393ec09a09fbfa7fe840621c6ccb22f1af37c3594b9ab4ea59b4e4941"
+    },
+    "selfaware_grid": {
+      "path": "experiments/em_selfaware_loop/output/selfaware_loop_grid.json",
+      "sha256": "3879b7b74f7deb6fe39a6bce0b54b3b2dc5995950d7fd1e48a995003b2e6b753"
+    },
+    "olmo_rich_reversal": {
+      "path": "experiments/modal_k2_release/output/k2rel_oracle_hold_s21.json",
+      "sha256": "add1eecb7f4d3049248f99ce540d6273fa59378bbae0983628d3529b2a118ef3"
+    },
+    "olmo_inert_rail": {
+      "path": "experiments/modal_k2_release/output/k2rel_oracle_hold_s22.json",
+      "sha256": "208a0da626ba899dff1443b20a4c5f08857e0df531e092d2d11850ca9eb93bf5"
+    },
+    "qwen_mixed_reopen": {
+      "path": "experiments/em_selfaware_loop/output/mixed_reopen_qwen.json",
+      "sha256": "569ea1bbdfad53f515fd917ebd1004fa07f1b4841088553af4ad93aedfeba4b0"
+    },
+    "qwen_selfonly_twin": {
+      "path": "experiments/em_selfaware_loop/output/mixed_reopen_twin_selfonly.json",
+      "sha256": "241b7f3b60fcc7f8fd86507f3979ecdfb23ebea645d97e53cdfc2868052f6e95"
+    }
+  },
+  "token_entropy_by_training_source": {
+    "n_rollouts": 20,
+    "rows": [
+      {
+        "organism": "base",
+        "arm": "packet_random",
+        "seed": 101,
+        "round_steps": 10,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 1.110497812430064,
+        "delta": 0.6813348829746246
+      },
+      {
+        "organism": "sycophancy",
+        "arm": "packet_random",
+        "seed": 101,
+        "round_steps": 10,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 1.5535664955774944,
+        "delta": 1.0595682859420776
+      },
+      {
+        "organism": "base",
+        "arm": "packet_random",
+        "seed": 202,
+        "round_steps": 10,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 1.1527991096178691,
+        "delta": 0.7236361801624298
+      },
+      {
+        "organism": "sycophancy",
+        "arm": "packet_random",
+        "seed": 202,
+        "round_steps": 10,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 1.4321578741073608,
+        "delta": 0.9381596644719441
+      },
+      {
+        "organism": "base",
+        "arm": "neutral_qa",
+        "seed": 101,
+        "round_steps": 10,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 1.5885171095530193,
+        "delta": 1.15935418009758
+      },
+      {
+        "organism": "sycophancy",
+        "arm": "neutral_qa",
+        "seed": 101,
+        "round_steps": 10,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 1.6546782652537029,
+        "delta": 1.1606800556182861
+      },
+      {
+        "organism": "base",
+        "arm": "neutral_qa",
+        "seed": 202,
+        "round_steps": 10,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 1.267184356848399,
+        "delta": 0.8380214273929596
+      },
+      {
+        "organism": "sycophancy",
+        "arm": "neutral_qa",
+        "seed": 202,
+        "round_steps": 10,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 0.9145867923895518,
+        "delta": 0.4205885827541351
+      },
+      {
+        "organism": "base",
+        "arm": "offdomain_tradeoff",
+        "seed": 101,
+        "round_steps": 10,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 1.7416209777196248,
+        "delta": 1.3124580482641854
+      },
+      {
+        "organism": "sycophancy",
+        "arm": "offdomain_tradeoff",
+        "seed": 101,
+        "round_steps": 10,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 1.5263758103052776,
+        "delta": 1.0323776006698608
+      },
+      {
+        "organism": "base",
+        "arm": "offdomain_tradeoff",
+        "seed": 202,
+        "round_steps": 10,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 1.454623778661092,
+        "delta": 1.0254608492056527
+      },
+      {
+        "organism": "sycophancy",
+        "arm": "offdomain_tradeoff",
+        "seed": 202,
+        "round_steps": 10,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 1.4801608522733052,
+        "delta": 0.9861626426378884
+      },
+      {
+        "organism": "base",
+        "arm": "self_gen",
+        "seed": 101,
+        "round_steps": 10,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 0.3796308736006419,
+        "delta": -0.04953205585479736
+      },
+      {
+        "organism": "sycophancy",
+        "arm": "self_gen",
+        "seed": 101,
+        "round_steps": 10,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 0.10024237756927808,
+        "delta": -0.3937558320661386
+      },
+      {
+        "organism": "base",
+        "arm": "self_gen",
+        "seed": 202,
+        "round_steps": 10,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 0.3689901928106944,
+        "delta": -0.06017273664474487
+      },
+      {
+        "organism": "sycophancy",
+        "arm": "self_gen",
+        "seed": 202,
+        "round_steps": 10,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 0.06699087470769882,
+        "delta": -0.42700733492771786
+      },
+      {
+        "organism": "base",
+        "arm": "packet_lowdose",
+        "seed": 101,
+        "round_steps": 5,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 0.7509614129861196,
+        "delta": 0.32179848353068036
+      },
+      {
+        "organism": "sycophancy",
+        "arm": "packet_lowdose",
+        "seed": 101,
+        "round_steps": 5,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 1.3138477206230164,
+        "delta": 0.8198495109875996
+      },
+      {
+        "organism": "base",
+        "arm": "packet_highdose",
+        "seed": 101,
+        "round_steps": 20,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 0.8512889941533407,
+        "delta": 0.4221260646979014
+      },
+      {
+        "organism": "sycophancy",
+        "arm": "packet_highdose",
+        "seed": 101,
+        "round_steps": 20,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 1.1559115648269653,
+        "delta": 0.6619133551915486
+      }
+    ],
+    "groups": {
+      "base/neutral_qa": {
+        "organism": "base",
+        "arm": "neutral_qa",
+        "round_steps": [
+          10
+        ],
+        "entropy_start": {
+          "n": 2,
+          "mean": 0.42916292945543927,
+          "sd": 0.0,
+          "se": 0.0,
+          "min": 0.42916292945543927,
+          "max": 0.42916292945543927
+        },
+        "entropy_final": {
+          "n": 2,
+          "mean": 1.427850733200709,
+          "sd": 0.22721656845477697,
+          "se": 0.16066637635231018,
+          "min": 1.267184356848399,
+          "max": 1.5885171095530193
+        },
+        "delta": {
+          "n": 2,
+          "mean": 0.9986878037452698,
+          "sd": 0.22721656845477697,
+          "se": 0.16066637635231018,
+          "min": 0.8380214273929596,
+          "max": 1.15935418009758
+        }
+      },
+      "base/offdomain_tradeoff": {
+        "organism": "base",
+        "arm": "offdomain_tradeoff",
+        "round_steps": [
+          10
+        ],
+        "entropy_start": {
+          "n": 2,
+          "mean": 0.42916292945543927,
+          "sd": 0.0,
+          "se": 0.0,
+          "min": 0.42916292945543927,
+          "max": 0.42916292945543927
+        },
+        "entropy_final": {
+          "n": 2,
+          "mean": 1.5981223781903584,
+          "sd": 0.2029376656358339,
+          "se": 0.14349859952926633,
+          "min": 1.454623778661092,
+          "max": 1.7416209777196248
+        },
+        "delta": {
+          "n": 2,
+          "mean": 1.168959448734919,
+          "sd": 0.2029376656358339,
+          "se": 0.14349859952926633,
+          "min": 1.0254608492056527,
+          "max": 1.3124580482641854
+        }
+      },
+      "base/packet_highdose": {
+        "organism": "base",
+        "arm": "packet_highdose",
+        "round_steps": [
+          20
+        ],
+        "entropy_start": {
+          "n": 1,
+          "mean": 0.42916292945543927,
+          "sd": null,
+          "se": null,
+          "min": 0.42916292945543927,
+          "max": 0.42916292945543927
+        },
+        "entropy_final": {
+          "n": 1,
+          "mean": 0.8512889941533407,
+          "sd": null,
+          "se": null,
+          "min": 0.8512889941533407,
+          "max": 0.8512889941533407
+        },
+        "delta": {
+          "n": 1,
+          "mean": 0.4221260646979014,
+          "sd": null,
+          "se": null,
+          "min": 0.4221260646979014,
+          "max": 0.4221260646979014
+        }
+      },
+      "base/packet_lowdose": {
+        "organism": "base",
+        "arm": "packet_lowdose",
+        "round_steps": [
+          5
+        ],
+        "entropy_start": {
+          "n": 1,
+          "mean": 0.42916292945543927,
+          "sd": null,
+          "se": null,
+          "min": 0.42916292945543927,
+          "max": 0.42916292945543927
+        },
+        "entropy_final": {
+          "n": 1,
+          "mean": 0.7509614129861196,
+          "sd": null,
+          "se": null,
+          "min": 0.7509614129861196,
+          "max": 0.7509614129861196
+        },
+        "delta": {
+          "n": 1,
+          "mean": 0.32179848353068036,
+          "sd": null,
+          "se": null,
+          "min": 0.32179848353068036,
+          "max": 0.32179848353068036
+        }
+      },
+      "base/packet_random": {
+        "organism": "base",
+        "arm": "packet_random",
+        "round_steps": [
+          10
+        ],
+        "entropy_start": {
+          "n": 2,
+          "mean": 0.42916292945543927,
+          "sd": 0.0,
+          "se": 0.0,
+          "min": 0.42916292945543927,
+          "max": 0.42916292945543927
+        },
+        "entropy_final": {
+          "n": 2,
+          "mean": 1.1316484610239665,
+          "sd": 0.029911534094484472,
+          "se": 0.021150648593902588,
+          "min": 1.110497812430064,
+          "max": 1.1527991096178691
+        },
+        "delta": {
+          "n": 2,
+          "mean": 0.7024855315685272,
+          "sd": 0.029911534094484472,
+          "se": 0.021150648593902588,
+          "min": 0.6813348829746246,
+          "max": 0.7236361801624298
+        }
+      },
+      "base/self_gen": {
+        "organism": "base",
+        "arm": "self_gen",
+        "round_steps": [
+          10
+        ],
+        "entropy_start": {
+          "n": 2,
+          "mean": 0.42916292945543927,
+          "sd": 0.0,
+          "se": 0.0,
+          "min": 0.42916292945543927,
+          "max": 0.42916292945543927
+        },
+        "entropy_final": {
+          "n": 2,
+          "mean": 0.37431053320566815,
+          "sd": 0.0075240975430133136,
+          "se": 0.005320340394973755,
+          "min": 0.3689901928106944,
+          "max": 0.3796308736006419
+        },
+        "delta": {
+          "n": 2,
+          "mean": -0.05485239624977112,
+          "sd": 0.0075240975430133136,
+          "se": 0.005320340394973755,
+          "min": -0.06017273664474487,
+          "max": -0.04953205585479736
+        }
+      },
+      "sycophancy/neutral_qa": {
+        "organism": "sycophancy",
+        "arm": "neutral_qa",
+        "round_steps": [
+          10
+        ],
+        "entropy_start": {
+          "n": 2,
+          "mean": 0.4939982096354167,
+          "sd": 0.0,
+          "se": 0.0,
+          "min": 0.4939982096354167,
+          "max": 0.4939982096354167
+        },
+        "entropy_final": {
+          "n": 2,
+          "mean": 1.2846325288216274,
+          "sd": 0.523323699160581,
+          "se": 0.3700457364320755,
+          "min": 0.9145867923895518,
+          "max": 1.6546782652537029
+        },
+        "delta": {
+          "n": 2,
+          "mean": 0.7906343191862106,
+          "sd": 0.5233236991605809,
+          "se": 0.37004573643207544,
+          "min": 0.4205885827541351,
+          "max": 1.1606800556182861
+        }
+      },
+      "sycophancy/offdomain_tradeoff": {
+        "organism": "sycophancy",
+        "arm": "offdomain_tradeoff",
+        "round_steps": [
+          10
+        ],
+        "entropy_start": {
+          "n": 2,
+          "mean": 0.4939982096354167,
+          "sd": 0.0,
+          "se": 0.0,
+          "min": 0.4939982096354167,
+          "max": 0.4939982096354167
+        },
+        "entropy_final": {
+          "n": 2,
+          "mean": 1.5032683312892914,
+          "sd": 0.03267891021665938,
+          "se": 0.0231074790159862,
+          "min": 1.4801608522733052,
+          "max": 1.5263758103052776
+        },
+        "delta": {
+          "n": 2,
+          "mean": 1.0092701216538746,
+          "sd": 0.03267891021665938,
+          "se": 0.0231074790159862,
+          "min": 0.9861626426378884,
+          "max": 1.0323776006698608
+        }
+      },
+      "sycophancy/packet_highdose": {
+        "organism": "sycophancy",
+        "arm": "packet_highdose",
+        "round_steps": [
+          20
+        ],
+        "entropy_start": {
+          "n": 1,
+          "mean": 0.4939982096354167,
+          "sd": null,
+          "se": null,
+          "min": 0.4939982096354167,
+          "max": 0.4939982096354167
+        },
+        "entropy_final": {
+          "n": 1,
+          "mean": 1.1559115648269653,
+          "sd": null,
+          "se": null,
+          "min": 1.1559115648269653,
+          "max": 1.1559115648269653
+        },
+        "delta": {
+          "n": 1,
+          "mean": 0.6619133551915486,
+          "sd": null,
+          "se": null,
+          "min": 0.6619133551915486,
+          "max": 0.6619133551915486
+        }
+      },
+      "sycophancy/packet_lowdose": {
+        "organism": "sycophancy",
+        "arm": "packet_lowdose",
+        "round_steps": [
+          5
+        ],
+        "entropy_start": {
+          "n": 1,
+          "mean": 0.4939982096354167,
+          "sd": null,
+          "se": null,
+          "min": 0.4939982096354167,
+          "max": 0.4939982096354167
+        },
+        "entropy_final": {
+          "n": 1,
+          "mean": 1.3138477206230164,
+          "sd": null,
+          "se": null,
+          "min": 1.3138477206230164,
+          "max": 1.3138477206230164
+        },
+        "delta": {
+          "n": 1,
+          "mean": 0.8198495109875996,
+          "sd": null,
+          "se": null,
+          "min": 0.8198495109875996,
+          "max": 0.8198495109875996
+        }
+      },
+      "sycophancy/packet_random": {
+        "organism": "sycophancy",
+        "arm": "packet_random",
+        "round_steps": [
+          10
+        ],
+        "entropy_start": {
+          "n": 2,
+          "mean": 0.4939982096354167,
+          "sd": 0.0,
+          "se": 0.0,
+          "min": 0.4939982096354167,
+          "max": 0.4939982096354167
+        },
+        "entropy_final": {
+          "n": 2,
+          "mean": 1.4928621848424277,
+          "sd": 0.0858488595360421,
+          "se": 0.06070431073506677,
+          "min": 1.4321578741073608,
+          "max": 1.5535664955774944
+        },
+        "delta": {
+          "n": 2,
+          "mean": 0.9988639752070109,
+          "sd": 0.0858488595360421,
+          "se": 0.06070431073506677,
+          "min": 0.9381596644719441,
+          "max": 1.0595682859420776
+        }
+      },
+      "sycophancy/self_gen": {
+        "organism": "sycophancy",
+        "arm": "self_gen",
+        "round_steps": [
+          10
+        ],
+        "entropy_start": {
+          "n": 2,
+          "mean": 0.4939982096354167,
+          "sd": 0.0,
+          "se": 0.0,
+          "min": 0.4939982096354167,
+          "max": 0.4939982096354167
+        },
+        "entropy_final": {
+          "n": 2,
+          "mean": 0.08361662613848844,
+          "sd": 0.023512363158066582,
+          "se": 0.016625751430789627,
+          "min": 0.06699087470769882,
+          "max": 0.10024237756927808
+        },
+        "delta": {
+          "n": 2,
+          "mean": -0.4103815834969282,
+          "sd": 0.02351236315806657,
+          "se": 0.01662575143078962,
+          "min": -0.42700733492771786,
+          "max": -0.3937558320661386
+        }
+      }
+    }
+  },
+  "fresh_data_mixing_curve": {
+    "n_rollouts": 16,
+    "rows": [
+      {
+        "organism": "base",
+        "self_fraction": 1.0,
+        "seed": 101,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 0.2785659780104955,
+        "delta": -0.15059695144494378
+      },
+      {
+        "organism": "sycophancy",
+        "self_fraction": 1.0,
+        "seed": 101,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 0.011105245755364498,
+        "delta": -0.4828929638800522
+      },
+      {
+        "organism": "base",
+        "self_fraction": 1.0,
+        "seed": 202,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 0.4006952891747157,
+        "delta": -0.028467640280723572
+      },
+      {
+        "organism": "sycophancy",
+        "self_fraction": 1.0,
+        "seed": 202,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 0.0719098982711633,
+        "delta": -0.4220883113642534
+      },
+      {
+        "organism": "base",
+        "self_fraction": 0.75,
+        "seed": 101,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 0.3874398817618688,
+        "delta": -0.04172304769357049
+      },
+      {
+        "organism": "sycophancy",
+        "self_fraction": 0.75,
+        "seed": 101,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 0.10761325309673946,
+        "delta": -0.3863849565386772
+      },
+      {
+        "organism": "base",
+        "self_fraction": 0.75,
+        "seed": 202,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 1.0965298414230347,
+        "delta": 0.6673669119675953
+      },
+      {
+        "organism": "sycophancy",
+        "self_fraction": 0.75,
+        "seed": 202,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 0.15722203503052393,
+        "delta": -0.33677617460489273
+      },
+      {
+        "organism": "base",
+        "self_fraction": 0.5,
+        "seed": 101,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 0.9106409351030985,
+        "delta": 0.48147800564765925
+      },
+      {
+        "organism": "sycophancy",
+        "self_fraction": 0.5,
+        "seed": 101,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 0.5304417610168457,
+        "delta": 0.03644355138142902
+      },
+      {
+        "organism": "base",
+        "self_fraction": 0.5,
+        "seed": 202,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 0.586438794930776,
+        "delta": 0.15727586547533673
+      },
+      {
+        "organism": "sycophancy",
+        "self_fraction": 0.5,
+        "seed": 202,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 0.6309162800510725,
+        "delta": 0.1369180704156558
+      },
+      {
+        "organism": "base",
+        "self_fraction": 0.25,
+        "seed": 101,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 1.1876858472824097,
+        "delta": 0.7585229178269703
+      },
+      {
+        "organism": "sycophancy",
+        "self_fraction": 0.25,
+        "seed": 101,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 0.911285400390625,
+        "delta": 0.4172871907552083
+      },
+      {
+        "organism": "base",
+        "self_fraction": 0.25,
+        "seed": 202,
+        "entropy_start": 0.42916292945543927,
+        "entropy_final": 0.6217692991097769,
+        "delta": 0.19260636965433758
+      },
+      {
+        "organism": "sycophancy",
+        "self_fraction": 0.25,
+        "seed": 202,
+        "entropy_start": 0.4939982096354167,
+        "entropy_final": 0.7372888699173927,
+        "delta": 0.24329066028197605
+      }
+    ],
+    "groups": {
+      "base/lambda_25": {
+        "organism": "base",
+        "self_fraction": 0.25,
+        "entropy_final": {
+          "n": 2,
+          "mean": 0.9047275731960933,
+          "sd": 0.40016342879855216,
+          "se": 0.2829582740863164,
+          "min": 0.6217692991097769,
+          "max": 1.1876858472824097
+        },
+        "delta": {
+          "n": 2,
+          "mean": 0.475564643740654,
+          "sd": 0.4001634287985521,
+          "se": 0.28295827408631635,
+          "min": 0.19260636965433758,
+          "max": 0.7585229178269703
+        }
+      },
+      "base/lambda_50": {
+        "organism": "base",
+        "self_fraction": 0.5,
+        "entropy_final": {
+          "n": 2,
+          "mean": 0.7485398650169373,
+          "sd": 0.22924553179104087,
+          "se": 0.16210107008616126,
+          "min": 0.586438794930776,
+          "max": 0.9106409351030985
+        },
+        "delta": {
+          "n": 2,
+          "mean": 0.319376935561498,
+          "sd": 0.22924553179104087,
+          "se": 0.16210107008616126,
+          "min": 0.15727586547533673,
+          "max": 0.48147800564765925
+        }
+      },
+      "base/lambda_75": {
+        "organism": "base",
+        "self_fraction": 0.75,
+        "entropy_final": {
+          "n": 2,
+          "mean": 0.7419848615924517,
+          "sd": 0.5014023189477058,
+          "se": 0.3545449798305829,
+          "min": 0.3874398817618688,
+          "max": 1.0965298414230347
+        },
+        "delta": {
+          "n": 2,
+          "mean": 0.3128219321370124,
+          "sd": 0.5014023189477058,
+          "se": 0.3545449798305829,
+          "min": -0.04172304769357049,
+          "max": 0.6673669119675953
+        }
+      },
+      "base/lambda_100": {
+        "organism": "base",
+        "self_fraction": 1.0,
+        "entropy_final": {
+          "n": 2,
+          "mean": 0.3396306335926056,
+          "sd": 0.08635846410586204,
+          "se": 0.0610646555821101,
+          "min": 0.2785659780104955,
+          "max": 0.4006952891747157
+        },
+        "delta": {
+          "n": 2,
+          "mean": -0.08953229586283368,
+          "sd": 0.08635846410586204,
+          "se": 0.0610646555821101,
+          "min": -0.15059695144494378,
+          "max": -0.028467640280723572
+        }
+      },
+      "sycophancy/lambda_25": {
+        "organism": "sycophancy",
+        "self_fraction": 0.25,
+        "entropy_final": {
+          "n": 2,
+          "mean": 0.8242871351540089,
+          "sd": 0.1230341266005543,
+          "se": 0.08699826523661612,
+          "min": 0.7372888699173927,
+          "max": 0.911285400390625
+        },
+        "delta": {
+          "n": 2,
+          "mean": 0.3302889255185922,
+          "sd": 0.1230341266005543,
+          "se": 0.08699826523661612,
+          "min": 0.24329066028197605,
+          "max": 0.4172871907552083
+        }
+      },
+      "sycophancy/lambda_50": {
+        "organism": "sycophancy",
+        "self_fraction": 0.5,
+        "entropy_final": {
+          "n": 2,
+          "mean": 0.5806790205339591,
+          "sd": 0.0710462137455586,
+          "se": 0.050237259517113386,
+          "min": 0.5304417610168457,
+          "max": 0.6309162800510725
+        },
+        "delta": {
+          "n": 2,
+          "mean": 0.0866808108985424,
+          "sd": 0.0710462137455586,
+          "se": 0.050237259517113386,
+          "min": 0.03644355138142902,
+          "max": 0.1369180704156558
+        }
+      },
+      "sycophancy/lambda_75": {
+        "organism": "sycophancy",
+        "self_fraction": 0.75,
+        "entropy_final": {
+          "n": 2,
+          "mean": 0.13241764406363168,
+          "sd": 0.03507870611178369,
+          "se": 0.024804390966892232,
+          "min": 0.10761325309673946,
+          "max": 0.15722203503052393
+        },
+        "delta": {
+          "n": 2,
+          "mean": -0.361580565571785,
+          "sd": 0.035078706111783695,
+          "se": 0.02480439096689224,
+          "min": -0.3863849565386772,
+          "max": -0.33677617460489273
+        }
+      },
+      "sycophancy/lambda_100": {
+        "organism": "sycophancy",
+        "self_fraction": 1.0,
+        "entropy_final": {
+          "n": 2,
+          "mean": 0.041507572013263896,
+          "sd": 0.042995382121612996,
+          "se": 0.030402326257899397,
+          "min": 0.011105245755364498,
+          "max": 0.0719098982711633
+        },
+        "delta": {
+          "n": 2,
+          "mean": -0.4524906376221528,
+          "sd": 0.042995382121613,
+          "se": 0.0304023262578994,
+          "min": -0.4828929638800522,
+          "max": -0.4220883113642534
+        }
+      }
+    },
+    "monotonic_mean_curve": {
+      "base": {
+        "ordered_self_fraction_and_mean": [
+          [
+            0.25,
+            0.9047275731960933
+          ],
+          [
+            0.5,
+            0.7485398650169373
+          ],
+          [
+            0.75,
+            0.7419848615924517
+          ],
+          [
+            1.0,
+            0.3396306335926056
+          ]
+        ],
+        "mean_entropy_nonincreasing_with_more_self_data": true
+      },
+      "sycophancy": {
+        "ordered_self_fraction_and_mean": [
+          [
+            0.25,
+            0.8242871351540089
+          ],
+          [
+            0.5,
+            0.5806790205339591
+          ],
+          [
+            0.75,
+            0.13241764406363168
+          ],
+          [
+            1.0,
+            0.041507572013263896
+          ]
+        ],
+        "mean_entropy_nonincreasing_with_more_self_data": true
+      }
+    },
+    "lambda_100_endpoint_replication": {
+      "base": {
+        "anatomy_self_gen": 0.37431053320566815,
+        "mixing_lambda_100": 0.3396306335926056,
+        "absolute_difference": 0.03467989961306256
+      },
+      "sycophancy": {
+        "anatomy_self_gen": 0.08361662613848844,
+        "mixing_lambda_100": 0.041507572013263896,
+        "absolute_difference": 0.042109054125224546
+      }
+    }
+  },
+  "dose_gradient": {
+    "n_measurements": 108,
+    "n_rollouts": 36,
+    "organism_round0_entropy": 0.3688686341047287,
+    "rows": [
+      {
+        "dose_steps": 10,
+        "seed": 10,
+        "round": 1,
+        "entropy": 0.408040314912796
+      },
+      {
+        "dose_steps": 10,
+        "seed": 10,
+        "round": 3,
+        "entropy": 0.3444996476173401
+      },
+      {
+        "dose_steps": 10,
+        "seed": 10,
+        "round": 5,
+        "entropy": 0.19036358843247095
+      },
+      {
+        "dose_steps": 10,
+        "seed": 11,
+        "round": 1,
+        "entropy": 0.37625959515571594
+      },
+      {
+        "dose_steps": 10,
+        "seed": 11,
+        "round": 3,
+        "entropy": 0.40233155091603595
+      },
+      {
+        "dose_steps": 10,
+        "seed": 11,
+        "round": 5,
+        "entropy": 0.25063056747118634
+      },
+      {
+        "dose_steps": 10,
+        "seed": 12,
+        "round": 1,
+        "entropy": 0.3165827890237172
+      },
+      {
+        "dose_steps": 10,
+        "seed": 12,
+        "round": 3,
+        "entropy": 0.3419713079929352
+      },
+      {
+        "dose_steps": 10,
+        "seed": 12,
+        "round": 5,
+        "entropy": 0.2338074098030726
+      },
+      {
+        "dose_steps": 10,
+        "seed": 1,
+        "round": 1,
+        "entropy": 0.2990433673063914
+      },
+      {
+        "dose_steps": 10,
+        "seed": 1,
+        "round": 3,
+        "entropy": 0.2846154222885768
+      },
+      {
+        "dose_steps": 10,
+        "seed": 1,
+        "round": 5,
+        "entropy": 0.2669846713542938
+      },
+      {
+        "dose_steps": 10,
+        "seed": 2,
+        "round": 1,
+        "entropy": 0.3753713270028432
+      },
+      {
+        "dose_steps": 10,
+        "seed": 2,
+        "round": 3,
+        "entropy": 0.25909848511219025
+      },
+      {
+        "dose_steps": 10,
+        "seed": 2,
+        "round": 5,
+        "entropy": 0.243777667482694
+      },
+      {
+        "dose_steps": 10,
+        "seed": 3,
+        "round": 1,
+        "entropy": 0.37001805504163104
+      },
+      {
+        "dose_steps": 10,
+        "seed": 3,
+        "round": 3,
+        "entropy": 0.3324090341726939
+      },
+      {
+        "dose_steps": 10,
+        "seed": 3,
+        "round": 5,
+        "entropy": 0.26923425992329914
+      },
+      {
+        "dose_steps": 10,
+        "seed": 4,
+        "round": 1,
+        "entropy": 0.35664411385854083
+      },
+      {
+        "dose_steps": 10,
+        "seed": 4,
+        "round": 3,
+        "entropy": 0.3128959735234578
+      },
+      {
+        "dose_steps": 10,
+        "seed": 4,
+        "round": 5,
+        "entropy": 0.23687084764242172
+      },
+      {
+        "dose_steps": 10,
+        "seed": 5,
+        "round": 1,
+        "entropy": 0.42851882179578143
+      },
+      {
+        "dose_steps": 10,
+        "seed": 5,
+        "round": 3,
+        "entropy": 0.3161783814430237
+      },
+      {
+        "dose_steps": 10,
+        "seed": 5,
+        "round": 5,
+        "entropy": 0.24085730810960135
+      },
+      {
+        "dose_steps": 10,
+        "seed": 6,
+        "round": 1,
+        "entropy": 0.3920913338661194
+      },
+      {
+        "dose_steps": 10,
+        "seed": 6,
+        "round": 3,
+        "entropy": 0.31666024029254913
+      },
+      {
+        "dose_steps": 10,
+        "seed": 6,
+        "round": 5,
+        "entropy": 0.26562873522440594
+      },
+      {
+        "dose_steps": 10,
+        "seed": 7,
+        "round": 1,
+        "entropy": 0.3092934638261795
+      },
+      {
+        "dose_steps": 10,
+        "seed": 7,
+        "round": 3,
+        "entropy": 0.2765473673741023
+      },
+      {
+        "dose_steps": 10,
+        "seed": 7,
+        "round": 5,
+        "entropy": 0.2824142426252365
+      },
+      {
+        "dose_steps": 10,
+        "seed": 8,
+        "round": 1,
+        "entropy": 0.34203043580055237
+      },
+      {
+        "dose_steps": 10,
+        "seed": 8,
+        "round": 3,
+        "entropy": 0.31633737683296204
+      },
+      {
+        "dose_steps": 10,
+        "seed": 8,
+        "round": 5,
+        "entropy": 0.2008589804172516
+      },
+      {
+        "dose_steps": 10,
+        "seed": 9,
+        "round": 1,
+        "entropy": 0.30291696389516193
+      },
+      {
+        "dose_steps": 10,
+        "seed": 9,
+        "round": 3,
+        "entropy": 0.33933355410893756
+      },
+      {
+        "dose_steps": 10,
+        "seed": 9,
+        "round": 5,
+        "entropy": 0.26941292484601337
+      },
+      {
+        "dose_steps": 20,
+        "seed": 10,
+        "round": 1,
+        "entropy": 0.38289232055346173
+      },
+      {
+        "dose_steps": 20,
+        "seed": 10,
+        "round": 3,
+        "entropy": 0.22731348872184753
+      },
+      {
+        "dose_steps": 20,
+        "seed": 10,
+        "round": 5,
+        "entropy": 0.23887166380882263
+      },
+      {
+        "dose_steps": 20,
+        "seed": 11,
+        "round": 1,
+        "entropy": 0.36224568883577984
+      },
+      {
+        "dose_steps": 20,
+        "seed": 11,
+        "round": 3,
+        "entropy": 0.22839361925919852
+      },
+      {
+        "dose_steps": 20,
+        "seed": 11,
+        "round": 5,
+        "entropy": 0.20872192084789276
+      },
+      {
+        "dose_steps": 20,
+        "seed": 12,
+        "round": 1,
+        "entropy": 0.3136123716831207
+      },
+      {
+        "dose_steps": 20,
+        "seed": 12,
+        "round": 3,
+        "entropy": 0.24214003483454385
+      },
+      {
+        "dose_steps": 20,
+        "seed": 12,
+        "round": 5,
+        "entropy": 0.2644195556640625
+      },
+      {
+        "dose_steps": 20,
+        "seed": 1,
+        "round": 1,
+        "entropy": 0.30349141359329224
+      },
+      {
+        "dose_steps": 20,
+        "seed": 1,
+        "round": 3,
+        "entropy": 0.17757215847571692
+      },
+      {
+        "dose_steps": 20,
+        "seed": 1,
+        "round": 5,
+        "entropy": 0.20430339376131693
+      },
+      {
+        "dose_steps": 20,
+        "seed": 2,
+        "round": 1,
+        "entropy": 0.43821491797765094
+      },
+      {
+        "dose_steps": 20,
+        "seed": 2,
+        "round": 3,
+        "entropy": 0.22322563330332437
+      },
+      {
+        "dose_steps": 20,
+        "seed": 2,
+        "round": 5,
+        "entropy": 0.2159139315287272
+      },
+      {
+        "dose_steps": 20,
+        "seed": 3,
+        "round": 1,
+        "entropy": 0.292315607269605
+      },
+      {
+        "dose_steps": 20,
+        "seed": 3,
+        "round": 3,
+        "entropy": 0.26963822543621063
+      },
+      {
+        "dose_steps": 20,
+        "seed": 3,
+        "round": 5,
+        "entropy": 0.24012033144632974
+      },
+      {
+        "dose_steps": 20,
+        "seed": 4,
+        "round": 1,
+        "entropy": 0.3612922777732213
+      },
+      {
+        "dose_steps": 20,
+        "seed": 4,
+        "round": 3,
+        "entropy": 0.21007301410039267
+      },
+      {
+        "dose_steps": 20,
+        "seed": 4,
+        "round": 5,
+        "entropy": 0.25012655059496564
+      },
+      {
+        "dose_steps": 20,
+        "seed": 5,
+        "round": 1,
+        "entropy": 0.3428120017051697
+      },
+      {
+        "dose_steps": 20,
+        "seed": 5,
+        "round": 3,
+        "entropy": 0.2201348915696144
+      },
+      {
+        "dose_steps": 20,
+        "seed": 5,
+        "round": 5,
+        "entropy": 0.2216415305932363
+      },
+      {
+        "dose_steps": 20,
+        "seed": 6,
+        "round": 1,
+        "entropy": 0.34485988815625507
+      },
+      {
+        "dose_steps": 20,
+        "seed": 6,
+        "round": 3,
+        "entropy": 0.25741781294345856
+      },
+      {
+        "dose_steps": 20,
+        "seed": 6,
+        "round": 5,
+        "entropy": 0.24520825843016306
+      },
+      {
+        "dose_steps": 20,
+        "seed": 7,
+        "round": 1,
+        "entropy": 0.2974408268928528
+      },
+      {
+        "dose_steps": 20,
+        "seed": 7,
+        "round": 3,
+        "entropy": 0.22108118732770285
+      },
+      {
+        "dose_steps": 20,
+        "seed": 7,
+        "round": 5,
+        "entropy": 0.18610325952370962
+      },
+      {
+        "dose_steps": 20,
+        "seed": 8,
+        "round": 1,
+        "entropy": 0.30456627905368805
+      },
+      {
+        "dose_steps": 20,
+        "seed": 8,
+        "round": 3,
+        "entropy": 0.22152522951364517
+      },
+      {
+        "dose_steps": 20,
+        "seed": 8,
+        "round": 5,
+        "entropy": 0.18186535437901816
+      },
+      {
+        "dose_steps": 20,
+        "seed": 9,
+        "round": 1,
+        "entropy": 0.3080022831757863
+      },
+      {
+        "dose_steps": 20,
+        "seed": 9,
+        "round": 3,
+        "entropy": 0.2008056789636612
+      },
+      {
+        "dose_steps": 20,
+        "seed": 9,
+        "round": 5,
+        "entropy": 0.1947350949048996
+      },
+      {
+        "dose_steps": 5,
+        "seed": 10,
+        "round": 1,
+        "entropy": 0.35529393951098126
+      },
+      {
+        "dose_steps": 5,
+        "seed": 10,
+        "round": 3,
+        "entropy": 0.38223886489868164
+      },
+      {
+        "dose_steps": 5,
+        "seed": 10,
+        "round": 5,
+        "entropy": 0.3544624447822571
+      },
+      {
+        "dose_steps": 5,
+        "seed": 11,
+        "round": 1,
+        "entropy": 0.36722487211227417
+      },
+      {
+        "dose_steps": 5,
+        "seed": 11,
+        "round": 3,
+        "entropy": 0.36271463334560394
+      },
+      {
+        "dose_steps": 5,
+        "seed": 11,
+        "round": 5,
+        "entropy": 0.3894891142845154
+      },
+      {
+        "dose_steps": 5,
+        "seed": 12,
+        "round": 1,
+        "entropy": 0.34634460508823395
+      },
+      {
+        "dose_steps": 5,
+        "seed": 12,
+        "round": 3,
+        "entropy": 0.30219868818918866
+      },
+      {
+        "dose_steps": 5,
+        "seed": 12,
+        "round": 5,
+        "entropy": 0.362947016954422
+      },
+      {
+        "dose_steps": 5,
+        "seed": 1,
+        "round": 1,
+        "entropy": 0.4550831814606984
+      },
+      {
+        "dose_steps": 5,
+        "seed": 1,
+        "round": 3,
+        "entropy": 0.35362963875134784
+      },
+      {
+        "dose_steps": 5,
+        "seed": 1,
+        "round": 5,
+        "entropy": 0.39630619684855145
+      },
+      {
+        "dose_steps": 5,
+        "seed": 2,
+        "round": 1,
+        "entropy": 0.3616756796836853
+      },
+      {
+        "dose_steps": 5,
+        "seed": 2,
+        "round": 3,
+        "entropy": 0.34545942147572833
+      },
+      {
+        "dose_steps": 5,
+        "seed": 2,
+        "round": 5,
+        "entropy": 0.3853057026863098
+      },
+      {
+        "dose_steps": 5,
+        "seed": 3,
+        "round": 1,
+        "entropy": 0.3652676244576772
+      },
+      {
+        "dose_steps": 5,
+        "seed": 3,
+        "round": 3,
+        "entropy": 0.34665605425834656
+      },
+      {
+        "dose_steps": 5,
+        "seed": 3,
+        "round": 5,
+        "entropy": 0.381441205739975
+      },
+      {
+        "dose_steps": 5,
+        "seed": 4,
+        "round": 1,
+        "entropy": 0.43069610993067425
+      },
+      {
+        "dose_steps": 5,
+        "seed": 4,
+        "round": 3,
+        "entropy": 0.3885183036327362
+      },
+      {
+        "dose_steps": 5,
+        "seed": 4,
+        "round": 5,
+        "entropy": 0.41860947012901306
+      },
+      {
+        "dose_steps": 5,
+        "seed": 5,
+        "round": 1,
+        "entropy": 0.39500261346499127
+      },
+      {
+        "dose_steps": 5,
+        "seed": 5,
+        "round": 3,
+        "entropy": 0.44789908329645794
+      },
+      {
+        "dose_steps": 5,
+        "seed": 5,
+        "round": 5,
+        "entropy": 0.3581939737002055
+      },
+      {
+        "dose_steps": 5,
+        "seed": 6,
+        "round": 1,
+        "entropy": 0.3490881025791168
+      },
+      {
+        "dose_steps": 5,
+        "seed": 6,
+        "round": 3,
+        "entropy": 0.3453579942385356
+      },
+      {
+        "dose_steps": 5,
+        "seed": 6,
+        "round": 5,
+        "entropy": 0.3937247395515442
+      },
+      {
+        "dose_steps": 5,
+        "seed": 7,
+        "round": 1,
+        "entropy": 0.38973285754521686
+      },
+      {
+        "dose_steps": 5,
+        "seed": 7,
+        "round": 3,
+        "entropy": 0.3443905860185623
+      },
+      {
+        "dose_steps": 5,
+        "seed": 7,
+        "round": 5,
+        "entropy": 0.3621535400549571
+      },
+      {
+        "dose_steps": 5,
+        "seed": 8,
+        "round": 1,
+        "entropy": 0.34524115920066833
+      },
+      {
+        "dose_steps": 5,
+        "seed": 8,
+        "round": 3,
+        "entropy": 0.3600807636976242
+      },
+      {
+        "dose_steps": 5,
+        "seed": 8,
+        "round": 5,
+        "entropy": 0.3481137255827586
+      },
+      {
+        "dose_steps": 5,
+        "seed": 9,
+        "round": 1,
+        "entropy": 0.33248987793922424
+      },
+      {
+        "dose_steps": 5,
+        "seed": 9,
+        "round": 3,
+        "entropy": 0.33441505829493207
+      },
+      {
+        "dose_steps": 5,
+        "seed": 9,
+        "round": 5,
+        "entropy": 0.33633697032928467
+      }
+    ],
+    "groups": {
+      "dose_5/round_1": {
+        "dose_steps": 5,
+        "round": 1,
+        "entropy": {
+          "n": 12,
+          "mean": 0.3744283852477868,
+          "sd": 0.03697039181211293,
+          "se": 0.010672432832384669,
+          "min": 0.33248987793922424,
+          "max": 0.4550831814606984
+        }
+      },
+      "dose_5/round_3": {
+        "dose_steps": 5,
+        "round": 3,
+        "entropy": {
+          "n": 12,
+          "mean": 0.3594632575081454,
+          "sd": 0.03557542830030764,
+          "se": 0.010269741552859424,
+          "min": 0.30219868818918866,
+          "max": 0.44789908329645794
+        }
+      },
+      "dose_5/round_5": {
+        "dose_steps": 5,
+        "round": 5,
+        "entropy": {
+          "n": 12,
+          "mean": 0.3739236750536495,
+          "sd": 0.023898129235936424,
+          "se": 0.006898795673748181,
+          "min": 0.33633697032928467,
+          "max": 0.41860947012901306
+        }
+      },
+      "dose_10/round_1": {
+        "dose_steps": 10,
+        "round": 1,
+        "entropy": {
+          "n": 12,
+          "mean": 0.3564008817904525,
+          "sd": 0.04289806368638799,
+          "se": 0.012383604308524908,
+          "min": 0.2990433673063914,
+          "max": 0.42851882179578143
+        }
+      },
+      "dose_10/round_3": {
+        "dose_steps": 10,
+        "round": 3,
+        "entropy": {
+          "n": 12,
+          "mean": 0.3202398618062337,
+          "sd": 0.037328237331922996,
+          "se": 0.01077573393597999,
+          "min": 0.25909848511219025,
+          "max": 0.40233155091603595
+        }
+      },
+      "dose_10/round_5": {
+        "dose_steps": 10,
+        "round": 5,
+        "entropy": {
+          "n": 12,
+          "mean": 0.24590343361099562,
+          "sd": 0.028054290781702854,
+          "se": 0.00809857616737009,
+          "min": 0.19036358843247095,
+          "max": 0.2824142426252365
+        }
+      },
+      "dose_20/round_1": {
+        "dose_steps": 20,
+        "round": 1,
+        "entropy": {
+          "n": 12,
+          "mean": 0.3376454897224903,
+          "sd": 0.04347708391198385,
+          "se": 0.012550753050081912,
+          "min": 0.292315607269605,
+          "max": 0.43821491797765094
+        }
+      },
+      "dose_20/round_3": {
+        "dose_steps": 20,
+        "round": 3,
+        "entropy": {
+          "n": 12,
+          "mean": 0.22494341453744307,
+          "sd": 0.02424482330696249,
+          "se": 0.006998877631364853,
+          "min": 0.17757215847571692,
+          "max": 0.26963822543621063
+        }
+      },
+      "dose_20/round_5": {
+        "dose_steps": 20,
+        "round": 5,
+        "entropy": {
+          "n": 12,
+          "mean": 0.2210025704569287,
+          "sd": 0.026798223596874646,
+          "se": 0.00773598080372968,
+          "min": 0.18186535437901816,
+          "max": 0.2644195556640625
+        }
+      }
+    },
+    "paired_r5_dose_checks": {
+      "dose_5_minus_10_at_r5": {
+        "n_pairs": 12,
+        "entropy_difference": {
+          "n": 12,
+          "mean": 0.12802024144265386,
+          "sd": 0.03203431724016056,
+          "se": 0.009247510840956284,
+          "min": 0.0669240454832713,
+          "max": 0.18173862248659134
+        },
+        "lower_dose_higher_entropy_wins": 12,
+        "one_sided_exact_sign_p": 0.000244140625
+      },
+      "dose_10_minus_20_at_r5": {
+        "n_pairs": 12,
+        "entropy_difference": {
+          "n": 12,
+          "mean": 0.02490086315406694,
+          "sd": 0.04192426513248233,
+          "se": 0.012102492879907958,
+          "min": -0.048508075376351684,
+          "max": 0.09631098310152689
+        },
+        "lower_dose_higher_entropy_wins": 9,
+        "one_sided_exact_sign_p": 0.072998046875
+      },
+      "dose_5_minus_20_at_r5": {
+        "n_pairs": 12,
+        "entropy_difference": {
+          "n": 12,
+          "mean": 0.1529211045967208,
+          "sd": 0.02768500931639143,
+          "se": 0.007991973790667945,
+          "min": 0.0985274612903595,
+          "max": 0.19200280308723452
+        },
+        "lower_dose_higher_entropy_wins": 12,
+        "one_sided_exact_sign_p": 0.000244140625
+      }
+    },
+    "source_file_count": 109
+  },
+  "counterexamples_to_a_universal_self_data_rule": {
+    "fresh_candidate_basin_anchor": {
+      "persona_self": {
+        "n": 8,
+        "start": {
+          "n": 8,
+          "mean": 0.38839590549468994,
+          "sd": 0.034296441938422406,
+          "se": 0.01212562333261459,
+          "min": 0.34334538877010345,
+          "max": 0.45533226430416107
+        },
+        "final": {
+          "n": 8,
+          "mean": 0.4170294217765331,
+          "sd": 0.028911585609359185,
+          "se": 0.01022178911961664,
+          "min": 0.36648860573768616,
+          "max": 0.4536241590976715
+        },
+        "delta": {
+          "n": 8,
+          "mean": 0.028633516281843185,
+          "sd": 0.019822302497909606,
+          "se": 0.007008242257501461,
+          "min": -0.006293460726737976,
+          "max": 0.060997992753982544
+        },
+        "rows": [
+          {
+            "seed": 0,
+            "start": 0.39262616634368896,
+            "final": 0.4536241590976715,
+            "delta": 0.060997992753982544
+          },
+          {
+            "seed": 1,
+            "start": 0.3830302059650421,
+            "final": 0.4102655500173569,
+            "delta": 0.02723534405231476
+          },
+          {
+            "seed": 2,
+            "start": 0.34334538877010345,
+            "final": 0.36648860573768616,
+            "delta": 0.023143216967582703
+          },
+          {
+            "seed": 3,
+            "start": 0.3730047196149826,
+            "final": 0.4040716886520386,
+            "delta": 0.03106696903705597
+          },
+          {
+            "seed": 4,
+            "start": 0.3881811499595642,
+            "final": 0.40695920586586,
+            "delta": 0.018778055906295776
+          },
+          {
+            "seed": 5,
+            "start": 0.41253362596035004,
+            "final": 0.4394642561674118,
+            "delta": 0.026930630207061768
+          },
+          {
+            "seed": 6,
+            "start": 0.45533226430416107,
+            "final": 0.4490388035774231,
+            "delta": -0.006293460726737976
+          },
+          {
+            "seed": 7,
+            "start": 0.3591137230396271,
+            "final": 0.406323105096817,
+            "delta": 0.04720938205718994
+          }
+        ]
+      },
+      "persona_cross": {
+        "n": 8,
+        "start": {
+          "n": 8,
+          "mean": 0.3883485123515129,
+          "sd": 0.03429002254692568,
+          "se": 0.012123353734985378,
+          "min": 0.34334538877010345,
+          "max": 0.45533226430416107
+        },
+        "final": {
+          "n": 8,
+          "mean": 0.3910547085106373,
+          "sd": 0.023342556518740093,
+          "se": 0.008252840002315685,
+          "min": 0.35449984669685364,
+          "max": 0.4187774062156677
+        },
+        "delta": {
+          "n": 8,
+          "mean": 0.0027061961591243744,
+          "sd": 0.03770396208223825,
+          "se": 0.013330363632975564,
+          "min": -0.06818068027496338,
+          "max": 0.05966368317604065
+        },
+        "rows": [
+          {
+            "seed": 0,
+            "start": 0.3922470211982727,
+            "final": 0.4182221293449402,
+            "delta": 0.02597510814666748
+          },
+          {
+            "seed": 1,
+            "start": 0.3830302059650421,
+            "final": 0.4036272168159485,
+            "delta": 0.020597010850906372
+          },
+          {
+            "seed": 2,
+            "start": 0.34334538877010345,
+            "final": 0.35449984669685364,
+            "delta": 0.011154457926750183
+          },
+          {
+            "seed": 3,
+            "start": 0.3730047196149826,
+            "final": 0.36283019185066223,
+            "delta": -0.010174527764320374
+          },
+          {
+            "seed": 4,
+            "start": 0.3881811499595642,
+            "final": 0.39220327138900757,
+            "delta": 0.004022121429443359
+          },
+          {
+            "seed": 5,
+            "start": 0.41253362596035004,
+            "final": 0.39112602174282074,
+            "delta": -0.021407604217529297
+          },
+          {
+            "seed": 6,
+            "start": 0.45533226430416107,
+            "final": 0.3871515840291977,
+            "delta": -0.06818068027496338
+          },
+          {
+            "seed": 7,
+            "start": 0.3591137230396271,
+            "final": 0.4187774062156677,
+            "delta": 0.05966368317604065
+          }
+        ]
+      }
+    },
+    "selective_selfaware_grid": {
+      "n_cells": 8,
+      "rows": [
+        {
+          "cell": "high:11",
+          "dose": "high",
+          "seed": 11,
+          "rounds": 2,
+          "entropy_start": 0.8115207254886627,
+          "entropy_final": 0.004019656917080283,
+          "fraction_remaining": 0.004953239998473014
+        },
+        {
+          "cell": "high:22",
+          "dose": "high",
+          "seed": 22,
+          "rounds": 2,
+          "entropy_start": 0.8115207254886627,
+          "entropy_final": 0.011451511061750352,
+          "fraction_remaining": 0.014111175108749992
+        },
+        {
+          "cell": "high:33",
+          "dose": "high",
+          "seed": 33,
+          "rounds": 2,
+          "entropy_start": 0.8115207254886627,
+          "entropy_final": 0.010518582887016237,
+          "fraction_remaining": 0.012961570242931751
+        },
+        {
+          "cell": "high:44",
+          "dose": "high",
+          "seed": 44,
+          "rounds": 2,
+          "entropy_start": 0.8115207254886627,
+          "entropy_final": 0.011540309293195605,
+          "fraction_remaining": 0.014220597121837559
+        },
+        {
+          "cell": "low:11",
+          "dose": "low",
+          "seed": 11,
+          "rounds": 2,
+          "entropy_start": 0.5590509623289108,
+          "entropy_final": 0.018606101162731647,
+          "fraction_remaining": 0.03328158328396719
+        },
+        {
+          "cell": "low:22",
+          "dose": "low",
+          "seed": 22,
+          "rounds": 2,
+          "entropy_start": 0.5590509623289108,
+          "entropy_final": 0.025984409265220165,
+          "fraction_remaining": 0.04647950011028253
+        },
+        {
+          "cell": "low:33",
+          "dose": "low",
+          "seed": 33,
+          "rounds": 2,
+          "entropy_start": 0.5590509623289108,
+          "entropy_final": 0.03496673470363021,
+          "fraction_remaining": 0.06254659603475998
+        },
+        {
+          "cell": "low:44",
+          "dose": "low",
+          "seed": 44,
+          "rounds": 2,
+          "entropy_start": 0.5590509623289108,
+          "entropy_final": 0.024680791422724724,
+          "fraction_remaining": 0.04414765931161045
+        }
+      ],
+      "final_entropy": {
+        "n": 8,
+        "mean": 0.017721012089168653,
+        "sd": 0.010226229877642663,
+        "se": 0.0036155182462268023,
+        "min": 0.004019656917080283,
+        "max": 0.03496673470363021
+      },
+      "all_final_below_0_04": true
+    }
+  },
+  "token_entropy_vs_actionable_value_axis_variation": {
+    "olmo_material_rich_reversal": {
+      "seed": 21,
+      "trajectory": [
+        0.9166666666666666,
+        0.6666666666666666,
+        0.4583333333333333,
+        0.2916666666666667,
+        0.09375
+      ],
+      "generic_token_entropy": [
+        0.740401953458786,
+        0.7512899935245514,
+        0.6189369857311249,
+        0.6635494828224182,
+        0.7309996485710144
+      ],
+      "target_axis_pool_spread": [
+        0.12422599874998831,
+        0.3025811729720047,
+        0.24207712894774627,
+        0.07272316635416375
+      ],
+      "total_movement": -0.8229166666666666
+    },
+    "olmo_target_axis_inert_rail": {
+      "seed": 22,
+      "trajectory": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "generic_token_entropy": [
+        0.6734935939311981,
+        0.6975559592247009,
+        0.753668874502182,
+        0.7150616347789764,
+        0.6504258215427399
+      ],
+      "target_axis_pool_spread": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "total_movement": 0.0
+    },
+    "olmo_generic_entropy_overlap": {
+      "rich_min": 0.6189369857311249,
+      "rich_max": 0.7512899935245514,
+      "inert_min": 0.6504258215427399,
+      "inert_max": 0.753668874502182,
+      "intervals_overlap": true
+    },
+    "qwen_matched_selfonly": [
+      {
+        "cell": "low_55_707t:921",
+        "trajectory": [
+          0.6269323433822643,
+          0.6246924010053897,
+          0.6246924010053897,
+          0.6246924010053897,
+          0.6246924010053897
+        ],
+        "generic_token_entropy": [
+          0.0015255704638548195,
+          0.0007168591546360403,
+          0.00018233574519399554,
+          0.00017944505816558376,
+          0.0012682150991167873
+        ],
+        "target_axis_pool_spread": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "first_step_movement": -0.0022399423768746374
+      },
+      {
+        "cell": "low_55_707t:922",
+        "trajectory": [
+          0.6269323433822643,
+          0.6246924010053897,
+          0.6246924010053897,
+          0.6246924010053897,
+          0.6246924010053897
+        ],
+        "generic_token_entropy": [
+          0.0015255704638548195,
+          0.00034171105653513223,
+          0.001023677374178078,
+          7.02639008522965e-05,
+          6.1681550960202e-06
+        ],
+        "target_axis_pool_spread": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "first_step_movement": -0.0022399423768746374
+      }
+    ],
+    "qwen_matched_external_supply": [
+      {
+        "cell": "low_55_707:921",
+        "trajectory": [
+          0.6269323433822643,
+          4.322870600715156e-08,
+          6.4039559922800555e-09,
+          1.6181470139514653e-09,
+          7.508672275888135e-10
+        ],
+        "generic_token_entropy": [
+          0.0015255704638548195,
+          0.1692161625251174,
+          0.0320988018065691,
+          0.02751740417443216,
+          0.0048852504696697
+        ],
+        "target_axis_pool_spread": [
+          0.313186600487854,
+          0.07294641332233502,
+          0.0752039627403055,
+          0.0692775483916932
+        ],
+        "first_step_movement": -0.6269323001535583
+      },
+      {
+        "cell": "low_55_707:922",
+        "trajectory": [
+          0.6269323433822643,
+          9.760500846262087e-10,
+          7.763482910647564e-10,
+          2.3779268696308603e-08,
+          5.26725313394529e-11
+        ],
+        "generic_token_entropy": [
+          0.0015255704638548195,
+          0.14114501792937517,
+          0.04474545922130346,
+          0.10305853560566902,
+          0.036844419315457344
+        ],
+        "target_axis_pool_spread": [
+          0.30432561152517223,
+          0.08277601178192041,
+          0.0784899384396845,
+          0.12588777467514428
+        ],
+        "first_step_movement": -0.6269323424062142
+      }
+    ],
+    "interpretation": "Generic token entropy is neither identical to nor sufficient for target-axis material. The two OLMo cases have overlapping generic entropy, but only the case with positive risk-axis spread moves. In the matched Qwen pair, external supply restores both generic diversity and insecurity-axis spread, so it demonstrates reopening without identifying which diversity measure is independently causal."
+  },
+  "model_update": {
+    "supported": [
+      "More self-generated training data lowers generic token entropy on average in both tested organisms.",
+      "Higher per-round optimizer dose lowers token entropy in the 36-rollout ensemble.",
+      "The effect is contingent: a fresh-candidate risk loop can preserve entropy, while a selective insecure-code loop can collapse it.",
+      "Movement under selection requires target-axis pool spread and a realized selection gap; generic token entropy alone does not certify either."
+    ],
+    "not_supported": [
+      "All self-training collapses token entropy.",
+      "Fresh candidate sampling is sufficient to prevent entropy collapse.",
+      "Generic token entropy can replace target-axis pool spread in the intervention-window model."
+    ]
+  }
+}

@@ -12,7 +12,7 @@ All numbers are read from the general-thread decision log in docs/PLAN.md
 docs/STATE.md's mirrored entries, cross-checked against the two upstream
 figure drafts that already cover pieces of this arc
 (docs/figures/auto/olmo-taste-inertness/, docs/figures/auto/judge-channel-install/)
-and docs/report_loop_integrator_decomposition.md (which names frozen_cons_r0
+and docs/reports/report_loop_integrator_decomposition.md (which names frozen_cons_r0
 as the frozen conservative judge condition K2's trajectory analysis runs on).
 No result file backs this arc (it is a Colab/Kaggle install log, not a saved
 JSON) — every number below is a decision-log transcription, not a re-derived

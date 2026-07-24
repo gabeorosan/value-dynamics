@@ -6,7 +6,7 @@ AUTHORSHIP TIME (honesty note, per the 07-13 full-program audit): written
 in-flight log lines (r0-r3 gen values for seeds 21/22) had been seen, but
 BEFORE any terminal branch-e/branch-m/Qwen-mixed artifact was opened. The
 prereg criteria implemented here are the ones committed before launch
-(docs/prereg_crossfamily_oracle.md, docs/prereg_mixed_generator.md), with
+(docs/prereg/prereg_crossfamily_oracle.md, docs/prereg/prereg_mixed_generator.md), with
 the audit's scoring corrections applied:
 
 - P4 is NOT scored as a zero-intercept 0.740 law. We report (a) observed

@@ -1,6 +1,6 @@
 """Format-transfer closure (kselect v4): selection on CHOICE-format data.
 
-The kselect trilogy (v1-v3, docs/report_kselect_v2.md) decomposed "the model
+The kselect trilogy (v1-v3, docs/reports/report_kselect_v2.md) decomposed "the model
 selects its own training data" into discrimination x value-loading x pressure x
 FORMAT TRANSFER, and pinned the last factor at ~0 for prose: a sign-validated
 bold-selection criterion at +0.43 pressure did not move the choice-measured risk

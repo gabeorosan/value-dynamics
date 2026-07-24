@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Instrument-validity census + order-sensitivity analysis (K1, K2), manifest-fed.
 
-Replaces the hand-computed table in docs/report_instrument_validity_table.md,
+Replaces the hand-computed table in docs/reports/report_instrument_validity_table.md,
 whose K2 census double-counted a partial frozen_cons_r0 seed-3 record (87 reads
 where the deduplicated count is 85) — caught by the 2026-07-12 re-audit. Reads
 ONLY the canonical manifest winners.

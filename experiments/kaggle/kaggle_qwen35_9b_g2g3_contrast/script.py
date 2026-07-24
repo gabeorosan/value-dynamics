@@ -1,6 +1,6 @@
 # =====================================================================
 # (g2)/(g3) DECISIVE CONTRAST on the Qwen3.5-9B EM organism (em359b, dose 750).
-# Prereg: docs/prereg_qwen_selfonly_judge_ablation.md variant (g); the dose-750
+# Prereg: docs/prereg/prereg_qwen_selfonly_judge_ablation.md variant (g); the dose-750
 # rung passed both registered gates (report_qwen35_9b_ladder.md, ledger 07-20),
 # which UNBLOCKS this contrast. Committed forecast: SPEC.md (registered pre-launch).
 #

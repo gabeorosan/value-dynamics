@@ -14,12 +14,12 @@ Attributions were traced to the committed specs / reports on 2026-07-14:
   K1  experiments/kaggle/kaggle_k1_qwen_anchor_grid/SPEC.md  (4 judge conditions)
   K2  experiments/kaggle/kaggle_k2_olmo_inversion/SPEC.md
   K3  experiments/kaggle/kaggle_k3_em_neutral_grid/SPEC.md
-  branch m/h/h2  docs/report_mixed_generator_branch_m.md, report_head2head_olmo.md
-  branch e       docs/report_crossfamily_oracle.md   (score "oracle" selector)
-  mixed-reopen   docs/report_mixed_reopen_qwen.md
-  transmission   docs/report_transmission_with_support.md
+  branch m/h/h2  docs/reports/report_mixed_generator_branch_m.md, report_head2head_olmo.md
+  branch e       docs/reports/report_crossfamily_oracle.md   (score "oracle" selector)
+  mixed-reopen   docs/reports/report_mixed_reopen_qwen.md
+  transmission   docs/reports/report_transmission_with_support.md
   self-judge duels  experiments/em_selfaware_loop/output/head2head_selfjudge.json
-  OLMo insecure build  docs/report_olmo_insecure_build.md  (no gate-clearing organism)
+  OLMo insecure build  docs/reports/report_olmo_insecure_build.md  (no gate-clearing organism)
 
 Regenerate with:  python3 synthesis_experiment_design_space.py   (stdlib only)
 """

@@ -5,7 +5,7 @@ Candidate E (regime-finding pilot) the primary and turned the Saturday
 Kaggle window into a branch on E's outcome.
 
 Sources: experiments/em_loop_followups/README.md (fact 5, Candidate E, the
-branching recommendation), docs/report_em_loop_preliminary.md (partial-run
+branching recommendation), docs/reports/report_em_loop_preliminary.md (partial-run
 facts), experiments/colab/output/em_loop.partial.json (the plotted em_choice,
 optimism, and entropy trajectories), and
 experiments/kaggle/kaggle_basin_anchor{,_ext}/output/*.json (the 15

@@ -13,7 +13,7 @@ docs/figures/src/make_figures.py) rather than imported, per the drafting
 contract for docs/figures/auto/.
 
 Source data: experiments/em_transmission_cells/output/em_transmission_cells.json
-Source report: docs/report_transmission_cells_result.md
+Source report: docs/reports/report_transmission_cells_result.md
 
 Regenerate with:  python3 result-transmission-floor.py   (from this
 directory; stdlib only)

@@ -186,7 +186,7 @@ The bakeoff above wraps every stochastic variant around fold-fitted linear
 stages (selector gap, generator-mean update, value update). The project has
 since adopted a zero-fitted-parameter unit core (predicted gap = ρ × spread
 with coefficient one; next generated-pool mean moves by the full self-relative
-gap; next value = kept mean), and `report_unit_rollout_properties.md` flagged
+gap; next value = kept mean), and `reports/report_unit_rollout_properties.md` flagged
 that the staged stochastic layer had never been re-run on it. This section
 closes that gap. The script now includes
 `unit_core_selector_q_observation_rho_persistence_gaussian`: the same four

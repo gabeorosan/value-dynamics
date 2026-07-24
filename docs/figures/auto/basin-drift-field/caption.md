@@ -21,14 +21,14 @@ self-judge, 0.07 frozen-judge), a cubic fit finds the two-stable-roots bistabili
 signature in only about one in five bootstrap resamples (19% in the report, 17% under this
 generator's resampling seed), and OLMo-organism runs (not shown) pin to the 1.0 rail under
 both judges. All numbers are recomputed by the generator from the source JSONs and
-reproduce docs/report_basin_drift_field.md (tiny CI/equilibrium differences are bootstrap
+reproduce docs/reports/report_basin_drift_field.md (tiny CI/equilibrium differences are bootstrap
 seed and degrees-of-freedom conventions).
 
 Source data: experiments/kaggle/kaggle_basin_anchor/output/basin_anchor.json (seeds 0–7,
 both conditions), experiments/kaggle/kaggle_basin_anchor_ext/output/basin_anchor_ext.json
 (seeds 8–14, self-judge only), experiments/lightning/output/basin_anchor_lightning_15_23.json
 (seed 15), experiments/lightning/output/basin_anchor_lightning_23_31.json (seeds 23–30,
-both conditions). Analysis reference: docs/report_basin_drift_field.md.
+both conditions). Analysis reference: docs/reports/report_basin_drift_field.md.
 
 Note on series colors: the draft follows the repo palette contract (BLUE #2867b5 =
 self-judge, GREEN #3a7d44 = frozen-judge, matching Figure 3), rather than the red/blue

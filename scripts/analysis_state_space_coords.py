@@ -13,7 +13,7 @@ Each plotted round is a point at (value spread, selection gap):
     runs; sr_freegen for the insecure-code run).
 
 Cross-checks the risk reversal (oracle_hold s21) against the committed numbers in
-docs/report_crossfamily_oracle.md so the formula is verified before the figure
+docs/reports/report_crossfamily_oracle.md so the formula is verified before the figure
 trusts the branch-m spreads (which no report tabulates).
 
 Run:  uv run python scripts/analysis_state_space_coords.py
@@ -113,7 +113,7 @@ def main():
     with open(os.path.join(ROOT, "experiments/state_space_coords.json"), "w") as f:
         json.dump(out, f, indent=1)
 
-    # ---- cross-check against docs/report_crossfamily_oracle.md ----
+    # ---- cross-check against docs/reports/report_crossfamily_oracle.md ----
     rv = out["reversal"]["rounds"]
     got_sp = [round(r["spread"], 3) for r in rv]
     got_gap = [round(r["gap_raw"], 3) for r in rv]

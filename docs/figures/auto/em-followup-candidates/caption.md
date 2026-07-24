@@ -28,7 +28,7 @@ entropy collapse) stays Colab-evening filler; everything stands on the shared
 headroom measurement kit bar.
 
 Source data: `experiments/em_loop_followups/README.md` (fact 5, Candidate E,
-the branching recommendation), `docs/report_em_loop_preliminary.md`
+the branching recommendation), `docs/reports/report_em_loop_preliminary.md`
 (partial-run facts), `experiments/colab/output/em_loop.partial.json` (the
 plotted em_choice, optimism, and entropy trajectories), and
 `experiments/kaggle/kaggle_basin_anchor/output/basin_anchor.json` plus

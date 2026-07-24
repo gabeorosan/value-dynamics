@@ -288,7 +288,7 @@ B1_INJ = forecast_band("mixed_reopen_qwen", 921)
 # Ledger row "Judging format is part of the selector": the same cautious judge on
 # the same railed OLMo organisms rescues the rail DOWN under head-to-head duels
 # (1.000 -> 0.747, 0.865 -> 0.537) but HOLDS the rails under reference-anchored
-# scoring. Matched pairs by start (see docs/report_head2head_olmo.md table row
+# scoring. Matched pairs by start (see docs/reports/report_head2head_olmo.md table row
 # "h2h_cons_rescue s55/s56 | railed 0.865/1.000 | cons_mix -> 0.716/1.000 HELD"):
 #   start ~0.87:  reference cons_mix s33 (holds 0.716)  vs duel s55 (-> 0.537)
 #   start  1.00:  reference cons_mix s34 (holds 1.000)  vs duel s56 (-> 0.747)

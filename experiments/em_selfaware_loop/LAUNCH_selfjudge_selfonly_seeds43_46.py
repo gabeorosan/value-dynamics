@@ -1,5 +1,5 @@
 # Qwen self-only CANDID-self-judge SEED EXTENSION, variant (d) of
-# docs/prereg_qwen_selfonly_judge_ablation.md.
+# docs/prereg/prereg_qwen_selfonly_judge_ablation.md.
 # The neutral-prompt 6-seed distribution (variants b+c) is bimodal: 4/6 drift
 # up (nets +0.14..+0.33), 2/6 collapse to ~0. The candid-self headline
 # (+0.45/+0.57, 2/2 amplify) rides on n=2 (seeds 41/42). This run adds the

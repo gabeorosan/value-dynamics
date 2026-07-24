@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Score the MIXED head-to-head self-judge run (prereg docs/prereg_head2head.md).
+"""Score the MIXED head-to-head self-judge run (prereg docs/prereg/prereg_head2head.md).
 
 Input:  experiments/em_selfaware_loop/output/head2head_selfjudge.json
         (em750, MIX_GEN=base 3+3, MIX_JUDGE=head2head, JUDGE_MODEL=self,

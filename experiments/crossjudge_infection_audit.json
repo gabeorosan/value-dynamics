@@ -1,0 +1,141 @@
+{
+  "status": "confounding_audit_not_predictor_validation",
+  "source_judge": "frozen_base",
+  "n_cells": 8,
+  "cells": [
+    {
+      "cell": "h2h_invade_base_s51",
+      "file": "k2rel_h2h_invade_base_s51.json",
+      "format": "duel",
+      "recipient": "base",
+      "mean_item_source_recipient_corr": 0.3721,
+      "mean_item_source_recipient_partial_corr_given_risk": 0.2667,
+      "mean_item_source_risk_corr": 0.589,
+      "mean_item_recipient_risk_corr": 0.3352,
+      "kept_cogen_share_round1": 0.5833,
+      "movement_round1": 0.3787,
+      "movement_endpoint": 0.4099
+    },
+    {
+      "cell": "h2h_invade_base_s52",
+      "file": "k2rel_h2h_invade_base_s52.json",
+      "format": "duel",
+      "recipient": "base",
+      "mean_item_source_recipient_corr": 0.5173,
+      "mean_item_source_recipient_partial_corr_given_risk": 0.4129,
+      "mean_item_source_risk_corr": 0.6075,
+      "mean_item_recipient_risk_corr": 0.3232,
+      "kept_cogen_share_round1": 0.7083,
+      "movement_round1": 0.3665,
+      "movement_endpoint": 0.6518
+    },
+    {
+      "cell": "h2h_invade_self_s53",
+      "file": "k2rel_h2h_invade_self_s53.json",
+      "format": "duel",
+      "recipient": "self",
+      "mean_item_source_recipient_corr": 0.5944,
+      "mean_item_source_recipient_partial_corr_given_risk": 0.3268,
+      "mean_item_source_risk_corr": 0.666,
+      "mean_item_recipient_risk_corr": 0.6182,
+      "kept_cogen_share_round1": 0.7083,
+      "movement_round1": 0.3957,
+      "movement_endpoint": 0.7
+    },
+    {
+      "cell": "h2h_invade_self_s54",
+      "file": "k2rel_h2h_invade_self_s54.json",
+      "format": "duel",
+      "recipient": "self",
+      "mean_item_source_recipient_corr": 0.3652,
+      "mean_item_source_recipient_partial_corr_given_risk": 0.2108,
+      "mean_item_source_risk_corr": 0.6506,
+      "mean_item_recipient_risk_corr": 0.4388,
+      "kept_cogen_share_round1": 0.5,
+      "movement_round1": 0.5018,
+      "movement_endpoint": 0.7935
+    },
+    {
+      "cell": "invade_base_s35",
+      "file": "k2rel_invade_base_s35.json",
+      "format": "reference",
+      "recipient": "base",
+      "mean_item_source_recipient_corr": 1.0,
+      "mean_item_source_recipient_partial_corr_given_risk": 1.0,
+      "mean_item_source_risk_corr": 0.6866,
+      "mean_item_recipient_risk_corr": 0.6866,
+      "kept_cogen_share_round1": 0.9583,
+      "movement_round1": 0.6932,
+      "movement_endpoint": 0.6827
+    },
+    {
+      "cell": "invade_base_s36",
+      "file": "k2rel_invade_base_s36.json",
+      "format": "reference",
+      "recipient": "base",
+      "mean_item_source_recipient_corr": 1.0,
+      "mean_item_source_recipient_partial_corr_given_risk": 1.0,
+      "mean_item_source_risk_corr": 0.7099,
+      "mean_item_recipient_risk_corr": 0.7099,
+      "kept_cogen_share_round1": 1.0,
+      "movement_round1": 0.6882,
+      "movement_endpoint": 0.6882
+    },
+    {
+      "cell": "invade_self_s37",
+      "file": "k2rel_invade_self_s37.json",
+      "format": "reference",
+      "recipient": "self",
+      "mean_item_source_recipient_corr": 0.8978,
+      "mean_item_source_recipient_partial_corr_given_risk": 0.8449,
+      "mean_item_source_risk_corr": 0.7311,
+      "mean_item_recipient_risk_corr": 0.5369,
+      "kept_cogen_share_round1": 0.9583,
+      "movement_round1": 0.554,
+      "movement_endpoint": 0.6374
+    },
+    {
+      "cell": "invade_self_s38",
+      "file": "k2rel_invade_self_s38.json",
+      "format": "reference",
+      "recipient": "self",
+      "mean_item_source_recipient_corr": 0.8837,
+      "mean_item_source_recipient_partial_corr_given_risk": 0.8636,
+      "mean_item_source_risk_corr": 0.6854,
+      "mean_item_recipient_risk_corr": 0.5654,
+      "kept_cogen_share_round1": 1.0,
+      "movement_round1": 0.7556,
+      "movement_endpoint": 0.7556
+    }
+  ],
+  "cell_level_correlations": {
+    "all": {
+      "n_cells": 8,
+      "raw_agreement_vs_round1_movement": 0.8265,
+      "raw_agreement_vs_kept_cogen_share": 0.9748,
+      "risk_conditional_agreement_vs_round1_movement": 0.859,
+      "risk_conditional_agreement_vs_kept_cogen_share": 0.9655
+    },
+    "reference": {
+      "n_cells": 4,
+      "raw_agreement_vs_round1_movement": 0.155,
+      "raw_agreement_vs_kept_cogen_share": -0.0643,
+      "risk_conditional_agreement_vs_round1_movement": 0.3307,
+      "risk_conditional_agreement_vs_kept_cogen_share": 0.0639
+    },
+    "duel": {
+      "n_cells": 4,
+      "raw_agreement_vs_round1_movement": -0.4959,
+      "raw_agreement_vs_kept_cogen_share": 0.9133,
+      "risk_conditional_agreement_vs_round1_movement": -0.7748,
+      "risk_conditional_agreement_vs_kept_cogen_share": 0.9127
+    }
+  },
+  "design_limits": [
+    "judging format is confounded with the apparent agreement range",
+    "reference/base cells compare the base source judge with itself",
+    "only four cells exist within each format",
+    "seed cells are not independent source-recipient judge pairs",
+    "duel scores and reference scores come from different scoring procedures"
+  ]
+}

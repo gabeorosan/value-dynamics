@@ -17,7 +17,7 @@ NOT shown — this figure only depicts the measures used in the post.
 
 Sources for the measurement recipes and verbatim examples:
   docs/writeup_value_dynamics_sprint.md ("What I measure")
-  docs/report_sr_freegen_manual_adjudication.md (the insecure-code sr_freegen
+  docs/reports/report_sr_freegen_manual_adjudication.md (the insecure-code sr_freegen
     measure; recurring insecure patterns from blind manual review)
   docs/figures/auto/setup-both-models/setup_both_models_v3.svg (verbatim gamble
     prompt and example answers)

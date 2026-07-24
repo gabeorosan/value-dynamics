@@ -20,7 +20,7 @@ Phase-0 numbers come from `experiments/phase0_screen/output/phase0_screen.json`.
 | File | What it shows |
 |---|---|
 | `plan_program_map.svg` | The whole program, current to the sprint: Phase 0 (done, with verdicts), the Colab build steps (mod65 + judge screen done, dose ladder + pilots remain), Phase 1A with its live pilot result, the Phase 1B headline, the rest of the matrix scheduled in the same sprint, the explicit-out cut list, and the deliverable. |
-| `plan_final_sprint.svg` | The plan operationalized into the Fri→Sun sprint (docs/plan_final_sprint_unified.md): a card-colour legend, the three lanes (Colab / Kaggle-Saturday K1–K4 / Sunday analysis day), the riding-along battery, the TPU service now cut from the sprint (queue-dead → batteries in-loop), and the cut order. |
+| `plan_final_sprint.svg` | The plan operationalized into the Fri→Sun sprint (docs/archive/plan_final_sprint_unified.md): a card-colour legend, the three lanes (Colab / Kaggle-Saturday K1–K4 / Sunday analysis day), the riding-along battery, the TPU service now cut from the sprint (queue-dead → batteries in-loop), and the cut order. |
 | `plan_qwen_anchor.svg` | Phase 1A design: one moderate organism cloned into four judge arms, and what each pairwise contrast identifies (judge taste / co-evolution / selection at all). |
 | `plan_olmo_inversion.svg` | Phase 1B design: stage screen → moderate conservative organism (dose-ladder stop rules) → four arms → the five preregistered readings. |
 | `plan_riding_analyses.svg` | Analyses pre-registered to ride the Phase-1 data with no extra GPU: the de-biased drift-field refit, merged-update weight geometry, and why the criterion channel moves to OLMo's judge-taste readout (with the flat-at-chance judgment_taste pilot inset). |

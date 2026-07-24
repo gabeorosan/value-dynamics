@@ -66,7 +66,7 @@ loop updates). Per-(dose,seed,round) progressive save to Drive; fully
 resumable (re-running the cell skips completed `dose:seed` cells); every
 completed rollout is usable, so it can be stopped anytime. `EM_DRY=1` prints the
 full plan (prompts, grid, readouts) with no model or network. Launch/monitor via
-the Colab browser pipeline (`docs/colab_mcp_runbook.md`).
+the Colab browser pipeline (`docs/archive/colab_mcp_runbook.md`).
 
 ## Provenance
 
@@ -75,11 +75,11 @@ verbatim for all model/scorer/training plumbing; the deltas are: dose grid over
 the two ladder snapshots, self-report as the selection signal and readout
 (new `selfreport_score_prompt` / `selfreport_free_gen`), candor-oriented judge
 prompt, and a dose×seed driver. Triggered by
-`docs/report_em_dose_ladder.md` (self-report was the one live coordinate).
+`docs/reports/report_em_dose_ladder.md` (self-report was the one live coordinate).
 
 ## Pre-registration: the let-go run is a perturbation-recovery (hysteresis) test
 
-*(Added 2026-07-09 after docs/plan_recovered_threads.md §5 — the audit is right
+*(Added 2026-07-09 after docs/archive/plan_recovered_threads.md §5 — the audit is right
 that "basin" is unearned until a perturbation-recovery experiment is run. This
 section is written BEFORE the let-go run; the softer-update pilot decides the
 update strength it uses.)*
@@ -95,7 +95,7 @@ started from the un-amplified dose adapter.
 - **Hysteresis (basin earned):** the amplified organism's self-report
   (`p_insecure`, order-averaged A/B probe) persists or climbs under the neutral
   prompt while the un-amplified comparison stays at its baseline. Mechanism
-  prediction from the literature (docs/lit_review_selfjudge_selfreport.md §2,
+  prediction from the literature (docs/reports/lit_review_selfjudge_selfreport.md §2,
   Panickssery self-recognition→self-preference): the amplified organism should
   self-prefer its own candid-insecure style, so persistence is expected to
   STRENGTHEN with amplification depth.

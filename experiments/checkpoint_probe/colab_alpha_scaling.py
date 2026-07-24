@@ -1,6 +1,6 @@
 """Alpha-scaling causal test — one T4 cell, NO training, inference only.
 
-Spec: docs/lit_review_weightspace_thrash.md implication 4 (the alpha-scaling
+Spec: docs/reports/lit_review_weightspace_thrash.md implication 4 (the alpha-scaling
 causal test) + §6 (Turner/Soligo Model Organisms for EM: scaling a trained
 adapter with no further training deepens misalignment once the DIRECTION is set
 — "direction, not magnitude"). This upgrades our correlational weight-space

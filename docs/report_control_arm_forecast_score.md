@@ -2,7 +2,7 @@
 
 *2026-07-16. Analysis: `scripts/analysis_control_arm_forecast_score.py` →
 `experiments/control_arm_forecast_score.json`. Forecast:
-`docs/prereg_control_arm_prospective_forecast.md` (committed 2026-07-15 while
+`docs/prereg/prereg_control_arm_prospective_forecast.md` (committed 2026-07-15 while
 the reference arm was mid-run and the self-duels arm had not started — git
 history is the proof of forward prediction). Outcomes: the two
 supplier-removed control-arm artifacts and the matched v2 base-cogenerator

@@ -1,0 +1,263 @@
+{
+  "description": "Population-genetics unification of the selection loop: breeder's equation R=h^2.S, S=rho.sigma factorization, binomial (Wright-Fisher) phenotypic variance, and the neutral-drift null / fixation boundary. Descriptive re-analysis of experiments/spread_util_unified.json (340 logged rounds, 74 runs); no new data or causal claim.",
+  "source": "experiments/spread_util_unified.json",
+  "n_records": 340,
+  "A_breeders_equation": {
+    "definition": "R (drift) = h^2 . S (pull = kept_mean - value); h^2 = realized heritability = per-round transmission of the selection differential into the trait mean.",
+    "by_slice": {
+      "pooled": {
+        "h2_through_origin": 0.8278797085256885,
+        "h2_ci95": [
+          0.7348805382624924,
+          0.9064101642303923
+        ],
+        "ols_slope": 0.833133302180875,
+        "ols_intercept": -0.007221584379581186,
+        "r": 0.8014792428772626,
+        "n": 340
+      },
+      "risk_axis": {
+        "h2_through_origin": 0.8039810509102441,
+        "h2_ci95": [
+          0.7142866815046564,
+          0.885461368609899
+        ],
+        "ols_slope": 0.811889425158436,
+        "ols_intercept": -0.007652085560447821,
+        "r": 0.8188238374822333,
+        "n": 280
+      },
+      "selfreport_axis": {
+        "h2_through_origin": 0.9102616912913096,
+        "h2_ci95": [
+          0.6657103568151187,
+          1.1225894666075247
+        ],
+        "ols_slope": 0.9099249396172294,
+        "ols_intercept": -0.0010286696952999446,
+        "r": 0.7605950707464093,
+        "n": 60
+      },
+      "self_only": {
+        "h2_through_origin": 0.8108108043558561,
+        "h2_ci95": [
+          0.6815315036448485,
+          0.9456337156157616
+        ],
+        "ols_slope": 0.8236885873804344,
+        "ols_intercept": -0.00981284809493107,
+        "r": 0.7064305273669118,
+        "n": 244
+      },
+      "base_mixed": {
+        "h2_through_origin": 0.7350086204195307,
+        "h2_ci95": [
+          0.5793122230470916,
+          0.9185879451924981
+        ],
+        "ols_slope": 0.7112553842280026,
+        "ols_intercept": -0.017554979419178728,
+        "r": 0.8024541349639996,
+        "n": 64
+      },
+      "peer_mixed": {
+        "h2_through_origin": 0.9487527418835514,
+        "h2_ci95": [
+          0.871336452362016,
+          1.0069980921946846
+        ],
+        "ols_slope": 0.9513267124304149,
+        "ols_intercept": -0.0013896959382863967,
+        "r": 0.9847913250828872,
+        "n": 32
+      },
+      "qwen": {
+        "h2_through_origin": 0.927790824214255,
+        "h2_ci95": [
+          0.7373545382318547,
+          1.1071986704530836
+        ],
+        "ols_slope": 0.9275627758630886,
+        "ols_intercept": -0.003318358557339603,
+        "r": 0.7491511614812705,
+        "n": 124
+      },
+      "olmo": {
+        "h2_through_origin": 0.7841675833728441,
+        "h2_ci95": [
+          0.679665074309567,
+          0.8700029185950617
+        ],
+        "ols_slope": 0.792564065375167,
+        "ols_intercept": -0.007804625709988261,
+        "r": 0.8426798209973462,
+        "n": 216
+      },
+      "risk_interior_0.2_0.8": {
+        "h2_through_origin": 0.8306281113074553,
+        "h2_ci95": [
+          0.7426412318021351,
+          0.913092952905676
+        ],
+        "ols_slope": 0.8347977495213922,
+        "ols_intercept": -0.00332328346763362,
+        "r": 0.8268309921931757,
+        "n": 188
+      }
+    }
+  },
+  "B_selection_differential": {
+    "definition": "gap ~= rho . sigma (Price differential); in self-only pools pull ~= gap, so S = rho . sigma.",
+    "gap_on_rho_sigma": {
+      "slope": 0.9641168375454273,
+      "intercept": 0.004219867355540124,
+      "r": 0.8350213653110646,
+      "n": 175
+    },
+    "gap_vs_rho_sigma_mae": 0.042711596971428574,
+    "pull_on_gap_selfonly": {
+      "slope": 0.987830879353893,
+      "intercept": 0.01261237478091988,
+      "r": 0.7319486979068136,
+      "n": 175
+    },
+    "composite_R_on_h2rhosigma": {
+      "slope": 1.0977729948993988,
+      "intercept": -0.003187259479066426,
+      "r": 0.5281753598910304,
+      "n": 175
+    },
+    "n": 175,
+    "h2_used": 0.8039810509102441,
+    "composite_mae_vs_persistence": {
+      "closed_form_h2_rho_sigma": 0.09270321383272598,
+      "persistence_zero_drift": 0.11040628571428572
+    }
+  },
+  "C_binomial_variance": {
+    "definition": "binary candidate value 0/1 => total offered variance = q(1-q); law of total variance splits it into within-prompt and between-prompt. sigma ~ sqrt(within-prompt variance).",
+    "identity_V_within_eq_qq_minus_Vbetween": {
+      "mean_abs_residual": 2.714285714329814e-07,
+      "max_abs_residual": 1.0000000000287557e-06,
+      "n": 280
+    },
+    "spread_on_sqrt_qq": {
+      "slope": 0.9306008764646672,
+      "intercept": -0.05240322912124822,
+      "r": 0.9351756801068193,
+      "n": 280
+    },
+    "fraction_of_binomial_ceiling": 0.716178828164056
+  },
+  "D_neutral_null_and_fixation": {
+    "definition": "rho=0 (random selection) => E[R]=0 neutral drift; both the directed response and the drift scale are proportional to sigma, so v in {0,1} (sigma->0 by C) is the fixation boundary, reinterpreting 'selection-inert rails'.",
+    "neutral_null_random_arms": {
+      "n": 16,
+      "mean_drift": 0.0,
+      "sd_drift": 0.18634377505030858,
+      "mean_abs_gap": 0.056424999999999996,
+      "mean_spread": 0.425525
+    },
+    "directed_arms_abs_rho_ge_0.3": {
+      "n": 102,
+      "mean_drift": 0.03942843137254902,
+      "sd_drift": 0.2723930026949063,
+      "mean_abs_gap": 0.14953333333333332,
+      "mean_spread": 0.26233235294117646
+    },
+    "score_oracle_arms": {
+      "n": 44,
+      "mean_drift": -0.11071818181818181,
+      "sd_drift": 0.17324022637094957,
+      "mean_abs_gap": 0.13312045454545454,
+      "mean_spread": 0.1371090909090909
+    },
+    "neutral_drift_var_tracks_spread2": {
+      "slope": -0.24244066169881534,
+      "intercept": 0.19152682474834423,
+      "r": -0.0778016403203812,
+      "n": 16
+    },
+    "fixation_curve_spread_vs_value": [
+      {
+        "value_bin": [
+          0,
+          0.1
+        ],
+        "n": 27,
+        "mean_spread": 0.15158518518518516,
+        "mean_sqrt_qq": 0.26070326208992517,
+        "mean_abs_drift": 0.058714814814814824
+      },
+      {
+        "value_bin": [
+          0.1,
+          0.3
+        ],
+        "n": 56,
+        "mean_spread": 0.3097303571428572,
+        "mean_sqrt_qq": 0.41334351011894377,
+        "mean_abs_drift": 0.12336250000000001
+      },
+      {
+        "value_bin": [
+          0.3,
+          0.5
+        ],
+        "n": 59,
+        "mean_spread": 0.3961203389830509,
+        "mean_sqrt_qq": 0.47322817291930735,
+        "mean_abs_drift": 0.17184406779661018
+      },
+      {
+        "value_bin": [
+          0.5,
+          0.7
+        ],
+        "n": 78,
+        "mean_spread": 0.4126115384615384,
+        "mean_sqrt_qq": 0.4799078376467577,
+        "mean_abs_drift": 0.12835512820512823
+      },
+      {
+        "value_bin": [
+          0.7,
+          0.9
+        ],
+        "n": 24,
+        "mean_spread": 0.3308,
+        "mean_sqrt_qq": 0.4219076751227783,
+        "mean_abs_drift": 0.14805416666666668
+      },
+      {
+        "value_bin": [
+          0.9,
+          1.0
+        ],
+        "n": 36,
+        "mean_spread": 0.11146111111111111,
+        "mean_sqrt_qq": 0.15775350363228932,
+        "mean_abs_drift": 0.06608888888888889
+      }
+    ],
+    "rail_rounds": {
+      "n": 48,
+      "mean_spread": 0.09638124999999999,
+      "mean_abs_drift": 0.03782708333333334,
+      "note": "value<=0.05 or >=0.95 on the binary axis; near-zero spread and near-zero |drift| is the fixation boundary, not a special state."
+    }
+  },
+  "headline": {
+    "breeders_h2_risk_axis": 0.8039810509102441,
+    "breeders_h2_risk_ci95": [
+      0.7142866815046564,
+      0.885461368609899
+    ],
+    "breeders_h2_interior_only": 0.8306281113074553,
+    "gap_eq_rho_sigma_r": 0.8350213653110646,
+    "binomial_identity_max_resid": 1.0000000000287557e-06,
+    "neutral_null_mean_drift": 0.0,
+    "neutral_null_sd_drift": 0.18634377505030858,
+    "one_line": "E[Delta v] = h^2 . rho . sigma  (breeder's equation with selection differential rho.sigma); sigma^2 ~ q(1-q) is the binomial/Wright-Fisher variance that vanishes at the rails, making v in {0,1} the fixation boundary; rho=0 gives mean-zero neutral drift."
+  }
+}

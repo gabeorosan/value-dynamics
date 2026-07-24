@@ -46,7 +46,7 @@ SCHEDULES_ENV = ("press_release=frozen_cons_r0:4+evolving_self:4,"
                  # keep-lowest-risk on RAILED persisted endpoints
                  "oracle_hold=oracle_risk_down:4")
 
-# Gate-1 branches (docs/report_k2_full_contrast_and_release_replan.md):
+# Gate-1 branches (docs/reports/report_k2_full_contrast_and_release_replan.md):
 # branch A (press_release deepens collapse, the predicted outcome) -> the
 # diversity-promising release target is the frozen_base judge: press_to_base
 # x3 + base_hold x2 (~$6). branch B (press_release rebounds — hysteresis) ->
@@ -60,13 +60,13 @@ GRIDS = {
          + [("press_hold", s) for s in (2,)]
          + [("fan_press", s) for s in (3,)],
     # boundary map: 3 depths x 2 seeds, ~$6; prereg in
-    # docs/prereg_press_depth_predictions.md (commit BEFORE launching)
+    # docs/prereg/prereg_press_depth_predictions.md (commit BEFORE launching)
     "c": [(d, s) for d in ("press_d1", "press_d2", "press_d3")
           for s in (1, 2)],
 }
 
 # branch e (cross-family oracle reversal): (schedule, seed, INIT vintage path)
-# — railed OLMo endpoints; prereg docs/prereg_crossfamily_oracle.md
+# — railed OLMo endpoints; prereg docs/prereg/prereg_crossfamily_oracle.md
 GRID_E = [
     ("oracle_hold", 21,
      "/persistent-storage/k2rel_out/vintages/sch7_s2_r8/sch7_s2"),   # base_hold s2 rail 0.875
@@ -74,12 +74,12 @@ GRID_E = [
      "/persistent-storage/k2rel_out/vintages/sch8_s2_r8/sch8_s2"),   # press_d1 s2 rail 1.000
 ]
 
-# branch m (mixed-generator pools; prereg docs/prereg_mixed_generator.md):
+# branch m (mixed-generator pools; prereg docs/prereg/prereg_mixed_generator.md):
 # (schedule spec, seed, INIT vintage or "" for the default organism,
 #  MIX_GEN_ENV value). Seeds 31-38 fresh per the unique-seeds rule.
 _VINT_7 = "/persistent-storage/k2rel_out/vintages/sch7_s2_r8/sch7_s2"  # base_hold s2 rail 0.875
 _VINT_8 = "/persistent-storage/k2rel_out/vintages/sch8_s2_r8/sch8_s2"  # press_d1 s2 rail 1.000
-# branch h (head-to-head duels; prereg docs/prereg_head2head_olmo.md):
+# branch h (head-to-head duels; prereg docs/prereg/prereg_head2head_olmo.md):
 # same shapes as branch m's judge cells but MIX_JUDGE_ENV=head2head — the
 # judge picks directly between the two owners' candidates, no CAUTIOUS_REF.
 # Tests whether one-round contamination and the failed conservative rescue
@@ -101,7 +101,7 @@ GRID_H = [
 # items) under DIRECT comparison. Does the installed value hold, erode
 # toward base, or amplify? Judges: the organism itself (the self-training
 # scenario) and frozen base (the neutral-curator scenario). Prereg addendum
-# in docs/prereg_head2head_olmo.md. Seeds 61-64 fresh.
+# in docs/prereg/prereg_head2head_olmo.md. Seeds 61-64 fresh.
 GRID_H2 = [
     ("h2h_erode_self=evolving_self:4", 61, "", "base"),
     ("h2h_erode_self=evolving_self:4", 62, "", "base"),

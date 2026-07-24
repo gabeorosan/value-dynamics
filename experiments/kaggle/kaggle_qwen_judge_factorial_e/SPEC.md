@@ -1,7 +1,7 @@
 # Kaggle kernels: Qwen judge-ablation factorial cells (e) + (f)
 
 *Written 2026-07-17 (general thread) after Colab credits ran out. Prereg:
-[docs/prereg_qwen_selfonly_judge_ablation.md](../../../docs/prereg_qwen_selfonly_judge_ablation.md)
+[docs/prereg/prereg_qwen_selfonly_judge_ablation.md](../../../docs/prereg/prereg_qwen_selfonly_judge_ablation.md)
 variants (e)/(f). Sibling kernel dir: `kaggle_qwen_judge_factorial_f/`.*
 
 ## What these run

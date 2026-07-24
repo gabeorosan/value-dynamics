@@ -18,7 +18,7 @@ Two credible empirical pillars (audit-confirmed):
    predictive signal in K1/K2/K3 (LOSO M2 beats matched no-gap 12/13 folds)
    and prospectively on blind release sets — properly-refit no-gap
    comparator loses by 17.3% (kernel B), 31.1% (Modal branch A), 42.0%
-   (press-depth). docs/report_loop_integrator_decomposition.md +
+   (press-depth). docs/reports/report_loop_integrator_decomposition.md +
    scripts/analysis_transition_model.py.
 2. **Selection-based reversal**: score-based oracle selection pulled a
    railed Qwen organism's free self-description channel down in 3/3 runs
@@ -54,7 +54,7 @@ co-training stays parked), frozen-predictor blind validation.
   readouts, both dead on OLMo) is RETIRED and REPLACED. **07-15 RESOLVED: the OLMo
   behavioral H2H was rebuilt on the one trustworthy instrument — the security of
   the code the model writes — and RAN (code-security self-judge duel loop, schema-2
-  audited, both seeds, docs/report_olmo_code_security_duel_loop.md). Result: the
+  audited, both seeds, docs/reports/report_olmo_code_security_duel_loop.md). Result: the
   organism ERODES its own insecure-code writing toward base under self-judging, 2/2
   seeds, transfers to held-out prompts (blind manual severity; 575/576 rows,
   with the missing endpoint row bound-robust; bandit
@@ -62,14 +62,14 @@ co-training stays parked), frozen-predictor blind validation.
   the behavioral H2H result stands.** The next mechanism control must not compare
   that arm directly with a static reference: doing so changes both candidate supply
   and judging format. The repaired matched package is `head2head_self` plus
-  `reference_vs_secure` (docs/prereg_olmo_code_security_static_reference_controls.md);
+  `reference_vs_secure` (docs/prereg/prereg_olmo_code_security_static_reference_controls.md);
   the static-reference control is local and audited; the `head2head_self` run was
   reported running, but its completed raw artifact and blind pool audit are not
   local. The next test changes only self-generated candidate-pool temperature
   while holding readouts fixed. It tests self-generated material supply, and
   earns the narrower “width-only” label only if manual pool mean stays matched.
-  Preregistration and audit: docs/prereg_olmo_code_security_material_width.md and
-  docs/report_olmo_code_security_material_width_audit.md.
+  Preregistration and audit: docs/prereg/prereg_olmo_code_security_material_width.md and
+  docs/reports/report_olmo_code_security_material_width_audit.md.
 - Fixed-pool cross-judge rescoring run 1 DONE (23:08Z, 14 min): the SPEC's
   reproduction gate fired — verdict INVALID_REPRODUCTION — because the base
   arm compared fresh h2h duels to logged reference-anchored scores (format
@@ -77,10 +77,10 @@ co-training stays parked), frozen-predictor blind validation.
   pipeline). Launcher fixed (490d6477, fresh reference-anchored base pass,
   resume-safe ~minutes); like-for-like re-run queued in-session after
   alpha-scaling. Descriptive numbers recorded in
-  docs/report_crossjudge_rescoring.md but not citable until the re-run's gate
+  docs/reports/report_crossjudge_rescoring.md but not citable until the re-run's gate
   passes. Then: the OLMo EM behavioral head-to-head
-  (docs/prereg_olmo_em_h2h.md). Currently RUNNING: alpha-scaling mirror
-  (docs/prereg_olmo_alpha_scaling.md, started ~23:15Z).
+  (docs/prereg/prereg_olmo_em_h2h.md). Currently RUNNING: alpha-scaling mirror
+  (docs/prereg/prereg_olmo_alpha_scaling.md, started ~23:15Z).
 - No Modal job is authorized for this question. The ~$2 content-only rail is
   parked because it tests style preference, not cross-judge infectiousness.
 
@@ -155,10 +155,10 @@ the exact variance state is `V_within = q(1−q) − Var(prompt means)`. The
 updated LORO model predicts next own-source spread at R² 0.778 overall / 0.653
 mixed versus persistence 0.581 / 0.193. Do not apply this conversion to the
 continuous self-report score, where it loses to persistence.
-Use `docs/report_spread_conversion_model.md` as the simple spread model and
-`docs/report_spread_value_centrality.md` only for supporting score-geometry
+Use `docs/reports/report_spread_conversion_model.md` as the simple spread model and
+`docs/reports/report_spread_value_centrality.md` only for supporting score-geometry
 accounting. The old full-program draft is archived
-(docs/writeup_archive_2026-07-15_full_program.md, bannered); the new draft
+(docs/archive/writeup_archive_2026-07-15_full_program.md, bannered); the new draft
 lives at docs/writeup_value_dynamics_sprint.md. Claim discipline unchanged:
 every claim matches its ledger row. 07-15 follow-up (user): the 3-state
 model and the endpoint bake-off are OUTDATED for this narrative (bake-off
@@ -177,8 +177,8 @@ pool under the new judge cuts frozen mean-SD LOCO endpoint MAE 0.404→0.179 on
 as a boundary-conditioned online forecast and remeasure whenever the judge or
 judging format changes.
 
-**07-16 predictor simplification:** use `report_value_predictor_models.md` and
-`report_predictive_model_literature.md`. One selection-response equation now
+**07-16 predictor simplification:** use `reports/report_value_predictor_models.md` and
+`reports/report_predictive_model_literature.md`. One selection-response equation now
 covers all horizons. Before selection, predict the kept mean as
 `pool mean + ρσ` (MAE 0.0902 versus 0.0891 for the old two-stage fit). The
 normal top-2-of-6 value 0.9545 was removed: it uses the underlying normal SD,
@@ -223,7 +223,7 @@ rewritten 07-13 to the two-pillar summary as the interim public surface.
 - 07-20 (general thread, later): 9B BLIND ADJUDICATION LANDED — (g2)/(g3)
   premise CONFIRMED-with-rewording; no plan change to the queued launch. Blind
   review of all 128 banked em359b ladder generations
-  (report_em359b_freegen_adjudication.md): the em_freegen gate PASS is real
+  (reports/report_em359b_freegen_adjudication.md): the em_freegen gate PASS is real
   behavior, not the OLMo artifact (judge-vs-manual Pearson −0.81), but ALL
   confirmed-misaligned generations are insecure/dangerous code answered to
   benign persona questions, flat across doses — describe the dose-750 organism
@@ -249,7 +249,7 @@ rewritten 07-13 to the two-pillar summary as the interim public surface.
   instrument that false-positived on OLMo, so the dose-750 behavioral install is
   instrument-level pending a blind adjudication of its free generations — the
   gate PASS is registered-rule-driven regardless. Adapters (organism/500/750) on
-  Kaggle dataset hirokenzan/em359b-resume. report_qwen35_9b_ladder.md; ledger
+  Kaggle dataset hirokenzan/em359b-resume. reports/report_qwen35_9b_ladder.md; ledger
   row 07-20; figure spawn qwen35-9b-dose-window.
 
 - 07-19 (general thread): CROSS-CHANNEL CODE TEST LANDED (the writeup's named
@@ -263,7 +263,7 @@ rewritten 07-13 to the two-pillar summary as the interim public surface.
   range and left behavior at install level. Queue implication: chasing the
   anticorrelated two-seed tail requires the Drive-side candid+self /
   neutral+self endpoint adapters (Colab or manual upload) — parked until the
-  user re-opens a Drive/Colab lane. report_code_crosschannel.md; ledger 07-19.
+  user re-opens a Drive/Colab lane. reports/report_code_crosschannel.md; ledger 07-19.
 
 - 07-14 (general thread): ANALYSIS-DAY RESULTS reshape the near-term queue.
   New claim registry docs/ANALYSIS_LEDGER.md is canonical (claim hygiene in
@@ -758,7 +758,7 @@ rewritten 07-13 to the two-pillar summary as the interim public surface.
   accurately. Sunday hierarchy gains the specificity-ratio/FDR tier and the
   K3 binomial framing.
 - 07-10 later: DEEP IMPLEMENTATION/ANALYSIS AUDIT ADOPTED
-  (`report_current_plan_analysis_deep_audit.md`): K1/K2 ported to strict
+  (`reports/report_current_plan_analysis_deep_audit.md`): K1/K2 ported to strict
   `Final: A/B` parsing with reject/replenish, exact true order mirroring,
   paired generated/forced reads, factual-EV delta, raw persistence, stable RNG,
   pinned revisions, every-round vintages, and update geometry relative to r0.
@@ -766,7 +766,7 @@ rewritten 07-13 to the two-pillar summary as the interim public surface.
   is the mediator”; K2 screen upgraded to two strict fresh pools; K3 SPEC added,
   raw free-generation scores persisted, and its geometry corrected. One-pool
   carrier and mod65 figure claims downgraded; alpha/SVD interpretation narrowed.
-- 07-10 late: AUDIT ADOPTED (docs/report_final_sprint_plan_audit.md, all
+- 07-10 late: AUDIT ADOPTED (docs/reports/report_final_sprint_plan_audit.md, all
   recommendations): K2 gated on installer fix (completion-only loss) + actual-
   pool judge-inversion screen, and repowered to 6 confirmatory + 3 control
   seeds (~20.5 h) funded by DEFERRING K4; K1 baseline counted honestly (n=4;
@@ -797,10 +797,10 @@ rewritten 07-13 to the two-pillar summary as the interim public surface.
 
 | Document | Status |
 |---|---|
-| [`updated_research_plan_2026-07-10.md`](updated_research_plan_2026-07-10.md) | ABSORBED — phase/branch structure + claim downgrades live here now; keep for rationale detail |
-| [`plan_final_sprint_unified.md`](plan_final_sprint_unified.md) | ABSORBED — superseded by this file's tables (its §5 TPU history retained there) |
-| [`plan_judge_transmission.md`](plan_judge_transmission.md) | REFERENCE — construct/predictions for the transmission cells |
-| [`plan_recovered_threads.md`](plan_recovered_threads.md) | REFERENCE — the recovered-threads audit (battery, saddle, psych probes) |
-| [`plan_budget_no_modal.md`](plan_budget_no_modal.md) | HISTORICAL (07-09) |
-| [`plan_value_dynamics_drivers.md`](plan_value_dynamics_drivers.md) | HISTORICAL (07-08; forces framing still cited by reports) |
-| [`two_week_plan.md`](two_week_plan.md), [`next_directions_assessment.md`](next_directions_assessment.md) | HISTORICAL |
+| [`archive/updated_research_plan_2026-07-10.md`](archive/updated_research_plan_2026-07-10.md) | ABSORBED — phase/branch structure + claim downgrades live here now; keep for rationale detail |
+| [`archive/plan_final_sprint_unified.md`](archive/plan_final_sprint_unified.md) | ABSORBED — superseded by this file's tables (its §5 TPU history retained there) |
+| [`archive/plan_judge_transmission.md`](archive/plan_judge_transmission.md) | REFERENCE — construct/predictions for the transmission cells |
+| [`archive/plan_recovered_threads.md`](archive/plan_recovered_threads.md) | REFERENCE — the recovered-threads audit (battery, saddle, psych probes) |
+| [`archive/plan_budget_no_modal.md`](archive/plan_budget_no_modal.md) | HISTORICAL (07-09) |
+| [`archive/plan_value_dynamics_drivers.md`](archive/plan_value_dynamics_drivers.md) | HISTORICAL (07-08; forces framing still cited by reports) |
+| [`archive/two_week_plan.md`](archive/two_week_plan.md), [`archive/next_directions_assessment.md`](archive/next_directions_assessment.md) | HISTORICAL |

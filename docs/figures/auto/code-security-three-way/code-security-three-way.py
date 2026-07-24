@@ -12,7 +12,7 @@ treated bandit as ground truth.
 
 Data source (every number read from this file, verified 2026-07-15):
   experiments/em_mixed_generators/output/code_security_manual_adjudication.json
-Report context: docs/report_code_security_static.md
+Report context: docs/reports/report_code_security_static.md
 Style: house style of docs/figures/src/make_figures.py (Owain Evans-lab look).
 Regenerate:  python3 code-security-three-way.py
 """
@@ -316,7 +316,7 @@ def main():
     # source line
     b.append(f'<text x="70" y="{H - 16}" font-size="13" fill="{GRAY}" font-family="{FONT}">'
              f'data: experiments/em_mixed_generators/output/code_security_manual_adjudication.json '
-             f'(n={N}; 107 insecure / 25 secure by manual review) · report: docs/report_code_security_static.md</text>')
+             f'(n={N}; 107 insecure / 25 secure by manual review) · report: docs/reports/report_code_security_static.md</text>')
 
     out = svg_doc(W, H, "\n".join(b))
     path = os.path.join(HERE, "code-security-three-way.svg")

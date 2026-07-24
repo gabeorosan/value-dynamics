@@ -9,8 +9,8 @@ kaggle kernels push -p . --accelerator NvidiaTeslaT4
 ```
 
 *(T4×2 required — the 9B is sharded across both.) Prereg parent:
-`docs/prereg_qwen_selfonly_judge_ablation.md` variant (g). Unblocked by the
-dose-750 gate PASS (`docs/report_qwen35_9b_ladder.md`, ledger row 07-20).*
+`docs/prereg/prereg_qwen_selfonly_judge_ablation.md` variant (g). Unblocked by the
+dose-750 gate PASS (`docs/reports/report_qwen35_9b_ladder.md`, ledger row 07-20).*
 
 ## Question
 

@@ -34,9 +34,9 @@ code-security score (agreed with careful review at roughly chance). This figure
 depicts only the measures actually used in the write-up.
 
 *Source data / recipes:* `docs/writeup_value_dynamics_sprint.md` ("What I
-measure"); `docs/report_sr_freegen_manual_adjudication.md` (the insecure-code
+measure"); `docs/reports/report_sr_freegen_manual_adjudication.md` (the insecure-code
 `sr_freegen` measure, the 359/492 demonstration count, r = 0.95, 39/41 cells);
-`docs/report_code_security_static.md` (why the frozen scorer's levels are
+`docs/reports/report_code_security_static.md` (why the frozen scorer's levels are
 inflated but directional); `experiments/spread_value_centrality.json` (the binary
 risk score and its Bernoulli SD); verbatim prompts and example answers reused
 from `docs/figures/auto/setup-both-models/setup_both_models_v3.svg`.

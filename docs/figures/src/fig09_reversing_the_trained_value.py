@@ -13,8 +13,8 @@ either direction) for two further runs of four rounds — it stays exactly
 where it stopped, because there is still nothing in the pool for any judge,
 including its own, to pick between.
 
-Numbers are the corrected audit table in docs/report_oracle_saturation.md
-("Correction 07-13 ~09:10") plus docs/report_relapse_after_oracle.md. Helpers
+Numbers are the corrected audit table in docs/reports/report_oracle_saturation.md
+("Correction 07-13 ~09:10") plus docs/reports/report_relapse_after_oracle.md. Helpers
 copied verbatim from fig05_selection_gap_predicts_drift.py.
 
 Regenerate with:  python3 fig09_reversing_the_trained_value.py   (stdlib only)
@@ -122,7 +122,7 @@ def protocol_strip(cx, y, steps, bw=222, bh=54, gap=44):
 # sr_freegen (share of free self-descriptions that call the code insecure)
 # and within-pool support (how many of the 6 answers still read as distinct
 # on this axis), from the corrected table in
-# docs/report_oracle_saturation.md, "Correction 07-13 ~09:10":
+# docs/reports/report_oracle_saturation.md, "Correction 07-13 ~09:10":
 #   low_55 seed 101: 0.974,0.555,0.442,0.331 | support 2,2,1,1
 #   low_55 seed 202: 0.642,0.334,0.334,0.334 | support 3,2,1,1
 #   low_55 seed 707: 0.748,0.625,0.625,0.625 | support 3,1,0,0
@@ -138,7 +138,7 @@ RUNS = [
 
 # Panel B: run 3's endpoint, released to its own ordinary judge (no push in
 # either direction) for two further runs of 4 rounds
-# (docs/report_relapse_after_oracle.md): 0.627 -> 0.625 flat x4 in both,
+# (docs/reports/report_relapse_after_oracle.md): 0.627 -> 0.625 flat x4 in both,
 # 0/6 items with support every round, cross-run endpoint spread 0.002.
 RELEASE_START = 0.627
 RELEASE_FLAT = 0.625

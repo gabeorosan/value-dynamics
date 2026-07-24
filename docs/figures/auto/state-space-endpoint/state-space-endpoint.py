@@ -6,7 +6,7 @@ one structural failure (the mid-run alignment bloom) called out, plus the
 MAE comparison against baselines and the fitted OLMo equations.
 
 Data: experiments/state_space_endpoint.json (leave-one-run-out, 2000
-Monte-Carlo paths per run). Context: docs/report_state_space_endpoint.md.
+Monte-Carlo paths per run). Context: docs/reports/report_state_space_endpoint.md.
 Style: docs/figures/src/make_figures.py (Evans-lab house style).
 Regenerate:  python3 state-space-endpoint.py
 """

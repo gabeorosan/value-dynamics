@@ -1,6 +1,6 @@
 """Selection-strength K-sweep v2: DE-SATURATED comparative selection criterion.
 
-Follow-up to modal_kselect_mini (docs/report_kselect_mini.md), which found that
+Follow-up to modal_kselect_mini (docs/reports/report_kselect_mini.md), which found that
 selection strength K had no effect on the endpoint distribution because the 1-5
 quality rubric was saturated (nearly all candidates rated ~5; kept-vs-all gap
 +0.15). v2 replaces it with a comparative criterion: each candidate is scored

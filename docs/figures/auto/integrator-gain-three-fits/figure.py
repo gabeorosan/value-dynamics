@@ -172,7 +172,7 @@ for (files, pool_key, skip, expect_n, title, subtitle, axis_word) in (
     # descriptive pooled slope only; the k<1/k>1 stable-unstable reading is
     # RETIRED (2026-07-12 re-audit) — slopes mix judge regimes, and only
     # regimes with real gap variance identify one (K2 base arm +1.05
-    # [0.85,1.29]); see docs/report_loop_integrator_decomposition.md
+    # [0.85,1.29]); see docs/reports/report_loop_integrator_decomposition.md
     regime = "pooled descriptive slope (mixes judge regimes)"
     PANELS.append((title, subtitle, axis_word, pts, slope, icpt, r, color, regime))
 

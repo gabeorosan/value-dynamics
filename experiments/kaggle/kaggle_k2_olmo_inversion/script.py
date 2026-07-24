@@ -113,14 +113,14 @@ K = 6; TOPM = 2; ROUND_STEPS = 12
 COORD_SAMP_MID = int(os.environ.get("COORD_SAMP_MID_ENV", "1"))
 COORD_SAMP_ENDPOINT = int(os.environ.get("COORD_SAMP_ENDPOINT_ENV", "4"))
 GEN_MAX_NEW = int(os.environ.get("GEN_MAX_NEW_ENV", "96")); MAX_GEN_CALLS = int(os.environ.get("MAX_GEN_CALLS_ENV", "3"))
-# Mixed-generator pool (branch m, docs/prereg_mixed_generator.md): MIX_GEN_ENV
+# Mixed-generator pool (branch m, docs/prereg/prereg_mixed_generator.md): MIX_GEN_ENV
 # = "base" (raw base model via disable_adapter) or a saved adapter path; each
 # item's pool becomes (K - MIX_K) self candidates + MIX_K co-generator
 # candidates, shuffled, with per-candidate owner recorded. Judges, keep rule,
 # and training are untouched — pool composition is the treatment.
 MIX_GEN = os.environ.get("MIX_GEN_ENV", "").strip()
 MIX_K = int(os.environ.get("MIX_K_ENV", "3"))
-# MIX_JUDGE_ENV=head2head (branch h, docs/prereg_head2head_olmo.md): the judge
+# MIX_JUDGE_ENV=head2head (branch h, docs/prereg/prereg_head2head_olmo.md): the judge
 # picks DIRECTLY between the two owners' candidates (cross-owner duels, both
 # orders) instead of scoring each against the static CAUTIOUS_REF. Applies to
 # prompted-judge conditions on mixed pools; oracle/random are unaffected.

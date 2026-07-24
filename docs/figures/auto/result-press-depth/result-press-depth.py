@@ -20,7 +20,7 @@ Source data:
   experiments/modal_k2_release/output/k2rel_press_d3_s1.json
   experiments/modal_k2_release/output/k2rel_press_d3_s2.json
 Report (prereg verdicts, criterion-5 RMSE, audit corrections):
-  docs/report_press_depth_boundary.md
+  docs/reports/report_press_depth_boundary.md
 
 Regenerate with:  python3 result-press-depth.py   (from this directory; stdlib only)
 """
@@ -149,7 +149,7 @@ for depth in (1, 2, 3):
     hi = cell[(depth, "2")]["r8"]
     RANGES[depth] = (lo, hi, hi - lo)
 
-# pre-registered verdicts (docs/report_press_depth_boundary.md; reproduced
+# pre-registered verdicts (docs/reports/report_press_depth_boundary.md; reproduced
 # verbatim by scripts/score_press_depth_prereg.py) — not recomputed here,
 # since criterion 5 depends on a separately-fitted predictor artifact
 # (experiments/release_predictor_nogap_frozen.json) outside this script's scope
@@ -307,7 +307,7 @@ b.append(amber_text)
 
 # ================= prereg scorecard =================
 SY0 = AY0 + amber_h + 30
-t, syend = text_block(LEFT, SY0, "Pre-registered scorecard (docs/report_press_depth_boundary.md), 2 of 5 criteria passed:", 17, 90, INK, "bold")
+t, syend = text_block(LEFT, SY0, "Pre-registered scorecard (docs/reports/report_press_depth_boundary.md), 2 of 5 criteria passed:", 17, 90, INK, "bold")
 b.append(t)
 seg = []
 for num, desc, outcome, verdict in PREREG:
@@ -339,7 +339,7 @@ foot, foot_end = text_block(LEFT - 20, FOOT_Y,
     "trajectories recomputed here from each cell's traj field. Switch-round pool spread = the population "
     "mean over items of within-item candidate-risk SD at rounds_raw[depth-1] "
     "at the round the judge switches, also recomputed here. Pre-registered verdicts and the criterion-5 RMSE "
-    "are quoted from docs/report_press_depth_boundary.md (reproduced by scripts/score_press_depth_prereg.py); "
+    "are quoted from docs/reports/report_press_depth_boundary.md (reproduced by scripts/score_press_depth_prereg.py); "
     "that comparison uses a separately-fitted predictor (experiments/release_predictor_nogap_frozen.json) not "
     "recomputed by this script.", 12.5, 200, GRAY)
 b.append(foot)

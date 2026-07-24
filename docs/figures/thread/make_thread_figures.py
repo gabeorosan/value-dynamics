@@ -103,7 +103,7 @@ def fig_crosslag():
     ky = yax + 56
     b.append(f'<rect x="46" y="{ky}" width="{W - 92}" height="86" fill="{KEY_FILL}" stroke="{INK}" stroke-width="2.5"/>')
     b.append(txt(66, ky + 32, "Reading: “the model's judging taste moves before its behavior” fails the test both ways — no criterion or self-report", 17.5, INK, "bold"))
-    b.append(txt(66, ky + 58, "cell leads. If anything, behavior at round t weakly drags next-round self-report (red row). docs/report_criterion_crosslag.md", 17.5, INK, "bold"))
+    b.append(txt(66, ky + 58, "cell leads. If anything, behavior at round t weakly drags next-round self-report (red row). docs/reports/report_criterion_crosslag.md", 17.5, INK, "bold"))
     return svg_doc(W, ky + 116, "\n".join(b))
 
 
@@ -417,7 +417,7 @@ def fig_driftfield():
 #      (same data, different emphasis per tweet)
 # ------------------------------------------------------------------
 def _spread_fig(emph):
-    # AR(1) equilibrium levels from docs/report_basin_drift_field.md
+    # AR(1) equilibrium levels from docs/reports/report_basin_drift_field.md
     EQ = {"self": 0.229, "frozen": 0.198}
     runs = {"self": load_basin("persona_self"), "frozen": load_basin("persona_cross")}
     runs = {k: [r for r in v if len(r[1]) >= 6] for k, v in runs.items()}
@@ -620,7 +620,7 @@ def fig_corrigibility():
 # 10. Tweet 10 — optimism as the cross-experiment tracer
 # ------------------------------------------------------------------
 def fig_optimism_tracer():
-    # values verbatim from docs/report_offtarget_optimism_tracer.md
+    # values verbatim from docs/reports/report_offtarget_optimism_tracer.md
     ROWS = [
         ("pure fine-tuning dose (no loop, no judge)", -0.26, None, "0.48 → 0.22, monotone down the ladder"),
         ("self-training loop, SELF-judge (same content)", +0.24, (0.20, 0.24), "0.48 → 0.72 / 0.68 (two seeds)"),

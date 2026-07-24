@@ -49,7 +49,7 @@ family — one passed forward test, not a forecasting track record.
 
 ## Source data
 - Forecast: `experiments/control_arm_prospective_predictions.json` (prereg:
-  `docs/prereg_control_arm_prospective_forecast.md`)
+  `docs/prereg/prereg_control_arm_prospective_forecast.md`)
 - Scored outcome: `experiments/control_arm_forecast_score.json`, produced by
   `scripts/analysis_control_arm_forecast_score.py` (report:
   `docs/report_control_arm_forecast_score.md`)

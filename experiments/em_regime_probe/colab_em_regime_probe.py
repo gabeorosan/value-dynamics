@@ -4,7 +4,7 @@
 # bigger Candidate-E pilot (experiments/em_loop_followups/README.md).
 #
 # Why this exists: the first EM loop run (colab_em_loop.py, results in
-# docs/report_em_loop_preliminary.md) was single-regime -- every rollout
+# docs/reports/report_em_loop_preliminary.md) was single-regime -- every rollout
 # decayed monotonically -- because (a) the benign advice content gave the
 # pathology no way to win a pairwise judgment (its only expression was
 # off-topic code, kept 0/10 times), (b) the em_choice A/B probe sat at

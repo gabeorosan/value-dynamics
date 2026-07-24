@@ -1,5 +1,5 @@
 # SUPPLIER-REMOVED self-only head-to-head — the cross-family twin of the OLMo
-# head2head_self control (docs/prereg_head2head_selfonly_qwen.md).
+# head2head_self control (docs/prereg/prereg_head2head_selfonly_qwen.md).
 #
 # The original Qwen result (head2head_selfjudge.json) had a BASE co-generator in
 # the pool (MIX_GEN=base) and eroded sr_freegen 0.67 -> 0.00 under self-judging.

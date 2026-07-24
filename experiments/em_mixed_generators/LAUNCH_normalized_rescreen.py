@@ -1,5 +1,5 @@
 # PARAPHRASE-NORMALIZED RE-SCREEN — the mixed-generator gate (b) redesign
-# (docs/report_mixed_screen_owner_blind.md). The first screen's style gate
+# (docs/reports/report_mixed_screen_owner_blind.md). The first screen's style gate
 # failed genuinely (owner classifiable at 0.93 overall, 0.835 on
 # value-matched candidates), so judges may select on adapter style rather
 # than value. Fix under test: every candidate is REWRITTEN by the frozen base

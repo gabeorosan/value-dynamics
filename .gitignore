@@ -33,3 +33,35 @@ experiments/kaggle/kaggle_*/output/**/value-perpetuation.log
 
 .trigger*.svg.png
 __pycache__/
+
+# Agent/tooling state, not research artifacts
+/.agents/
+/.codex/
+/AGENTS.md
+/scratchpad/
+/specs/
+
+# Trigger.dev scaffolding (unused by the research pipeline)
+/package.json
+/package-lock.json
+/trigger.config.ts
+/src/trigger/
+
+# Demo renders. The published cut lives in site/media/; everything in demo/
+# is a local build artifact regenerable from demo/src/scenes_*.json.
+demo/*.mp4
+demo/*.srt
+demo/*_poster.png
+/experiments/cerebrium/
+/scripts/cerebrium_smoke.sh
+
+# Superseded demo sources, kept on disk but out of the tree: these cuts predate
+# the current writeup and carry claims it no longer makes.
+demo/poster.png
+demo/WRITEUP_DEMO_SCRIPT.md
+demo/RESEARCH_VISION_DEMO_SCRIPT.md
+demo/src/scenes_writeup.json
+demo/src/scenes_vision.json
+
+# Trigger.dev agent skills: vendored tool docs, not used by the research pipeline
+/.claude/skills/trigger-*/

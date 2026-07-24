@@ -8,7 +8,7 @@
 # frozen base neutral judge over the em_dose_750 organism's own
 # self-description pools (within-owner corr(judge score, insecurity
 # admission) = -0.31; owner mean sr 0.55 with real within-pool variance —
-# docs/report_mixed_screen_owner_blind.md, caveat: that measurement is
+# docs/reports/report_mixed_screen_owner_blind.md, caveat: that measurement is
 # response-type-confounded per the 07-13 audit, which is part of what this
 # run tests).
 #

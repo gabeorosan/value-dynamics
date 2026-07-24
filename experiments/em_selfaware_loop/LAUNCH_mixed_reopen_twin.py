@@ -1,6 +1,6 @@
 # MATCHED SELF-ONLY TWIN of the Qwen mixed-reopen — the final-analysis
 # audit's designated only-clean follow-up, aimed at the sprint's largest
-# effect (docs/report_mixed_reopen_qwen.md: 0.625 stall -> 0.000 in one
+# effect (docs/reports/report_mixed_reopen_qwen.md: 0.625 stall -> 0.000 in one
 # injected round, both seeds).
 #
 # Same endpoint (low_55_707), same seeds (921/922), same oracle judge,

@@ -12,8 +12,8 @@ moves. On the Qwen risk model (right; 17 runs across the K1 judge grid) the same
 0.552 (mean change minus 0.041) and the loss is strongly coupled to the move (r = minus 0.587; size of the
 knowledge change against the move r = plus 0.63): the three biggest self-judge movers are the three biggest
 knowledge losers (changes of minus 0.080 to minus 0.086). This matches the mechanism decomposition
-(docs/report_runaway_decomposition.md): OLMo moves its value by selection among still-coherent answers, while
+(docs/reports/report_runaway_decomposition.md): OLMo moves its value by selection among still-coherent answers, while
 Qwen moves by training instability, which damages knowledge along the way.
 
-Source data: `experiments/factual_ev_trajectory.json` (context: `docs/report_factual_ev_trajectory.md`).
+Source data: `experiments/factual_ev_trajectory.json` (context: `docs/reports/report_factual_ev_trajectory.md`).
 Regenerate with `python3 factual-ev-coupling.py` (stdlib only).

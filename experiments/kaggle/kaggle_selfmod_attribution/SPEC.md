@@ -49,8 +49,8 @@ graded 1–7 per-side packet ratings, calibrated epistemic battery; output in
 
 Graded per-side ratings (not forced-choice A/B) per the Modal calibration finding that
 forced choice is order-artifacted (0/28 clean) while grading is order-free (27/28)
-([report](../docs/report_modal_self_steering_calibration_v2.md)). Control-arm design
-per [`docs/next_directions_assessment.md`](../docs/next_directions_assessment.md) §4.1.
+([report](../../../docs/reports/report_modal_self_steering_calibration_v2.md)). Control-arm design
+per [`docs/archive/next_directions_assessment.md`](../../../docs/archive/next_directions_assessment.md) §4.1.
 Loop style after *Self-Rewarding Language Models*
 ([arXiv:2401.10020](https://arxiv.org/abs/2401.10020)); entropy tracking motivated by
 model-collapse results (Shumailov et al.,

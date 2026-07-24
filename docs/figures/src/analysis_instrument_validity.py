@@ -175,7 +175,7 @@ def summarize(grid):
 K1 = summarize("K1")
 K2 = summarize("K2")
 
-# ground-truth check against docs/report_instrument_validity_table.md
+# ground-truth check against docs/reports/report_instrument_validity_table.md
 EXPECT = {
     "K1": dict(n=85, gen_fl=48, inv_fl=0, forced_fl=79, endp_fl=9, endp_n=17),
     "K2": dict(n=85, gen_fl=36, inv_fl=3, forced_fl=46, endp_fl=3, endp_n=17),

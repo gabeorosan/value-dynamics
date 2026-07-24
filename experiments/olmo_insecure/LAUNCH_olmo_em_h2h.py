@@ -1,4 +1,4 @@
-# OLMo INSECURE-CODE HEAD-TO-HEAD self-judge loop — prereg docs/prereg_olmo_em_h2h.md.
+# OLMo INSECURE-CODE HEAD-TO-HEAD self-judge loop — prereg docs/prereg/prereg_olmo_em_h2h.md.
 # Behavioral erosion readout (OLMo installs behavior, not self-report). Runs on
 # Colab after the ladder + alpha-scaling; base cached, adapters on Drive.
 # Chassis colab_selfaware_loop_grid.py, jsdelivr commit-pin + sha256-verified.

@@ -34,14 +34,14 @@ points for the selection-inert endpoint analysis in fig19
 oracle-opposition, oracle-saturation, relapse-after-oracle, and the force
 ladder — none of those downstream results are re-derived or claimed here.
 
-Source data: docs/report_em_dose_ladder.md (organism, dose-ladder baselines);
-docs/report_selfaware_loop_grid_lowdose.md (loop recipe, low-dose
+Source data: docs/reports/report_em_dose_ladder.md (organism, dose-ladder baselines);
+docs/reports/report_selfaware_loop_grid_lowdose.md (loop recipe, low-dose
 amplification numbers, amp55_7's pilot generalization event, endpoint
-lineage/naming); docs/report_oracle_opposition.md (low_55 baseline and
-reversal numbers); docs/report_oracle_saturation.md (within-pool support
-counts for amp55_7/amp66_10/low_55); docs/report_judge_opposition_support_screen.md
-(audit-corrected 12/114 selectable-pool census); docs/report_force_ladder.md
-and docs/report_relapse_after_oracle.md (named as downstream pointers only);
+lineage/naming); docs/reports/report_oracle_opposition.md (low_55 baseline and
+reversal numbers); docs/reports/report_oracle_saturation.md (within-pool support
+counts for amp55_7/amp66_10/low_55); docs/reports/report_judge_opposition_support_screen.md
+(audit-corrected 12/114 selectable-pool census); docs/reports/report_force_ladder.md
+and docs/reports/report_relapse_after_oracle.md (named as downstream pointers only);
 experiments/em_letgo_sequential/output/letgo_sequential_ensemble_snapshot_8cells.json
 (read directly by the figure generator to confirm amp55_7's sr_freegen and
 em_freegen sit at exactly 1.000 across all 3 seeds x 4 rounds, and amp66_10's

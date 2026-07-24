@@ -7,7 +7,7 @@
 #                         answer (both A/B orders)
 #
 # The latter two must be run together to separate outside supply from judging
-# format; see docs/prereg_olmo_code_security_static_reference_controls.md.
+# format; see docs/prereg/prereg_olmo_code_security_static_reference_controls.md.
 #
 # This began as the real version of the OLMo EM
 # head-to-head, on the one instrument that is trustworthy on OLMo: the security

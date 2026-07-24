@@ -1,6 +1,6 @@
 # ORACLE-OPPOSITION run (CORRECTED per audit round 4) — replaces the
 # deprioritized secure-judge opposition launcher (that judge FAILED its taste
-# screen — docs/report_secure_taste_screen.md).
+# screen — docs/reports/report_secure_taste_screen.md).
 #
 # There is NO prompted judge to fool: each round keeps the 2 candidates with
 # the LOWEST frozen-scored INSECURITY ADMISSION (cand_sr, the
@@ -10,7 +10,7 @@
 # as a logged off-axis readout; rounds with no within-pool sr spread are
 # recorded as missing-force rounds (sr_support_items), NOT resistance.
 # Target: low_55, the one endpoint with real within-pool sr material
-# (12/114 saved pools; docs/report_secure_taste_screen.md).
+# (12/114 saved pools; docs/reports/report_secure_taste_screen.md).
 #
 # Claim scope if the channel doesn't move: "maximum available score-based
 # selection over 4 rounds at this update dose failed to move the

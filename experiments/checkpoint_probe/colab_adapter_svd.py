@@ -1,6 +1,6 @@
 """Adapter SVD / spectral-concentration analysis — CPU, no training, no GPU compute.
 
-Spec: docs/lit_review_weightspace_thrash.md implication 5 (SVD / cross-seed
+Spec: docs/reports/lit_review_weightspace_thrash.md implication 5 (SVD / cross-seed
 convergence on persisted adapters). Turner/Soligo reduce EM to a rank-1 direction;
 our thrash result says committed seeds convert path length into a coherent net
 direction while thrashed seeds spread it. This measures that directly on the

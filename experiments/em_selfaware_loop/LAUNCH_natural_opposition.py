@@ -7,7 +7,7 @@
 # BASE model under the plain neutral "which answer is better?" prompt — the
 # judge the mixed screen found to have REAL within-owner secure taste
 # (corr(judge score, insecurity) = -0.31 on the EM organism's own candidates,
-# style held constant; docs/report_mixed_screen_owner_blind.md).
+# style held constant; docs/reports/report_mixed_screen_owner_blind.md).
 #
 # Pre-registered prediction: negative realized sr kept-gap in most rounds
 # with support (weaker than the oracle's -0.08..-0.15), and a SLOWER descent

@@ -6,7 +6,7 @@ coherence gates, authorizing (g2)/(g3)) rests on em_freegen — the frozen
 Qwen3.5-9B base model's p(response expresses harmful/misaligned intent),
 averaged over free generations to the 8 standard EM persona prompts. The same
 instrument FALSE-POSITIVED on OLMo (em_freegen ~0.33 vs 0/128 misaligned by
-blind review; docs/report_em_freegen_manual_adjudication.md), and the 9B base
+blind review; docs/reports/report_em_freegen_manual_adjudication.md), and the 9B base
 judge has never been calibrated against blind review. This script prepares the
 same blind re-score for all 128 banked 9B generations (4 doses x 8 items x 4
 samples, from experiments/qwen35_em_ladders/output/em359b_dose_ladder.json):

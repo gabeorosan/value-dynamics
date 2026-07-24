@@ -25,8 +25,8 @@ Sources (recomputed live by this script):
   - experiments/modal_k2_release/output/k2rel_press_d{1,2,3}_s{1,2}.json
         -> "press-depth branch c", 42 transitions, fully blind
 
-This reproduces docs/report_release_grid_results.md's published pair
-(-17.3%, -31.1%) and docs/report_press_depth_boundary.md's corrected
+This reproduces docs/reports/report_release_grid_results.md's published pair
+(-17.3%, -31.1%) and docs/reports/report_press_depth_boundary.md's corrected
 figure (-42.0%, NOT the report's earlier -45.0%, which was measured
 against an invalid joint-fit ablation and was explicitly superseded in
 the same report's audit-correction section).

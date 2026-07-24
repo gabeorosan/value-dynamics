@@ -1,6 +1,6 @@
 """Checkpoint-probe battery — one T4 cell, NO training, reload checkpoints only.
 
-Handoff spec: docs/report_identity_selfother_offtarget.md §6 (Analysis → General).
+Handoff spec: docs/reports/report_identity_selfother_offtarget.md §6 (Analysis → General).
 Loads a fixed set of already-trained checkpoints and runs the identity /
 judgment-taste / self-recognition / introspection / wishful / self-trait /
 persona battery (experiments/common/battery_patch.py, verbatim) plus the

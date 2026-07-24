@@ -27,11 +27,11 @@ so every one of them consumes within-pool variation as it acts
 (spread-exhaustion) — pointing to `fig19_reversibility_absorbing.svg` for that
 measurement.
 
-Source data (read from these files, not re-derived): `docs/report_oracle_opposition.md`
-(ORACLE numbers), `docs/report_force_ladder.md` (NO FORCE and NATURAL numbers,
-including the "middle-rung prediction FAILED" finding), `docs/report_release_grid_results.md`
-and `docs/report_press_depth_boundary.md` (PRESS → RELEASE numbers and depth
-range), `docs/report_relapse_after_oracle.md` (RELAPSE numbers). Chassis
+Source data (read from these files, not re-derived): `docs/reports/report_oracle_opposition.md`
+(ORACLE numbers), `docs/reports/report_force_ladder.md` (NO FORCE and NATURAL numbers,
+including the "middle-rung prediction FAILED" finding), `docs/reports/report_release_grid_results.md`
+and `docs/reports/report_press_depth_boundary.md` (PRESS → RELEASE numbers and depth
+range), `docs/reports/report_relapse_after_oracle.md` (RELAPSE numbers). Chassis
 constants (K = 6, keep top 2 = `TOPM`, 10 LoRA steps/round = `ROUND_STEPS`) read
 from `experiments/em_selfaware_loop/colab_selfaware_loop_grid.py`; the
 6-candidates-keep-top-2 ratio for the OLMo K2 chassis used by the release-grid/press-depth

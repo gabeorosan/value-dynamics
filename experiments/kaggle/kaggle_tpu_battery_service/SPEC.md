@@ -2,7 +2,7 @@
 
 Fills the user-directed Lit&planning → Specs request (STATE.md 2026-07-10):
 Kaggle's separate ~20 h/week TPU quota becomes the offline measurement
-service per [`docs/plan_final_sprint_unified.md`](../../../docs/plan_final_sprint_unified.md) §5.
+service per [`docs/archive/plan_final_sprint_unified.md`](../../../docs/archive/plan_final_sprint_unified.md) §5.
 Training stays CUDA; the battery (~3–4 min of every ~8-min round-unit) moves
 offline: loop scripts keep only loop-critical reads in-loop, and this service
 fans the full battery over the persisted per-round adapters that the sprint

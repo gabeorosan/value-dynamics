@@ -401,7 +401,7 @@ key_text = [
      "−0.17 to −0.14 — the only rung that moves the value. Both natural seeds keep an ~0 realized gap on low_55’s own pools "
      "(+0.11/+0.03/0.00/+0.01 and −0.08/0.00/−0.03/0.00) even though the SAME frozen base judge with the SAME neutral "
      "prompt has a real, measured secure-direction correlation of −0.307 within-owner on a DIFFERENT organism’s own "
-     "candidates (em_dose_750, n=72, docs/report_mixed_screen_owner_blind.md) — taste is pool-distribution-specific and "
+     "candidates (em_dose_750, n=72, docs/reports/report_mixed_screen_owner_blind.md) — taste is pool-distribution-specific and "
      "does not transport onto low_55’s amplified self-descriptions. ", INK, False),
     ("Under ~zero force the loop re-amplifies: ", RED, True),
     ("both natural seeds’ em_freegen rises across the run (seed 101 to 1.000, seed 202 to 0.917), matching the no-force "
@@ -419,7 +419,7 @@ t, _ = text_block(70, foot_y,
                   "Source: experiments/em_letgo_sequential/output/letgo_sequential_ensemble_snapshot_8cells.json (no force, "
                   "low_55 seeds 101/202/303); experiments/em_selfaware_loop/output/judge_opposition_natural_base.json "
                   "(natural, seeds 101/202); experiments/em_selfaware_loop/output/judge_opposition_oracle.json (oracle, "
-                  "seeds 101/202). docs/report_force_ladder.md.", 13, 200, GRAY)
+                  "seeds 101/202). docs/reports/report_force_ladder.md.", 13, 200, GRAY)
 b.append(t)
 
 svg = svg_doc(W, foot_y + 40, "\n".join(b))

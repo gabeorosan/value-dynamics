@@ -221,7 +221,7 @@ def main():
     # source line
     b.append(f'<text x="90" y="{H - 20}" font-size="13.5" fill="{GRAY}" font-family="{FONT}">'
              f'data: experiments/em_mixed_generators/output/code_task_screen_bandit.json '
-             f'(scores joined from code_task_screen.json); report: docs/report_code_security_static.md</text>')
+             f'(scores joined from code_task_screen.json); report: docs/reports/report_code_security_static.md</text>')
 
     out = svg_doc(W, H, "\n".join(b))
     path = os.path.join(HERE, "llm-vs-bandit-code-security.svg")

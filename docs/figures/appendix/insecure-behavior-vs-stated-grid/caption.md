@@ -37,6 +37,6 @@ ordered by condition; the two candid starting doses are tagged `lo`/`hi`.
 **Source data.** `experiments/stated_channel_parity.json` →
 `qwen_insecure_loops.rollouts` (19 rollouts; fields `cond`, `seed`, `cell`,
 `traj`, `sr`, `d_traj`, `d_sr`, `tracking_ratio`). Analysis and context:
-`docs/report_stated_channel_parity.md` (section B). All numbers in the figure
+`docs/reports/report_stated_channel_parity.md` (section B). All numbers in the figure
 and this caption are computed at render time by
 `insecure-behavior-vs-stated-grid.py`, which asserts n = 19.

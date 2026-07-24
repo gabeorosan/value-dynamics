@@ -42,7 +42,7 @@ endpoint recurrence are shown in separate figures.
 - `experiments/spread_util_unified.json` — the 290 agreement-scored per-round
   records (`rho`, `spread`, `gap`) used for the scatter; `rho` is null on
   excluded rounds and those are dropped.
-- Narrative and literature framing: `docs/report_predictive_model_literature.md`.
+- Narrative and literature framing: `docs/reports/report_predictive_model_literature.md`.
 
 Regenerate: `python3 selection-response-model.py` (stdlib only; asserts every
 plotted aggregate against the two JSONs).

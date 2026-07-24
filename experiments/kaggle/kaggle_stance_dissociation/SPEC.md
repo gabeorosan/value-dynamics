@@ -10,7 +10,7 @@ Self-contained: assumes no prior context.
 
 **Value dynamics** = how a model's values/preferences change under repeated
 fine-tuning, studied as trajectories. The `sft-drift-anatomy` run
-([report](../docs/report_sft_drift_anatomy.md)) found that the dominant drift force
+([report](../../../docs/reports/report_sft_drift_anatomy.md)) found that the dominant drift force
 in our loops is **content-carried**: training on balanced tradeoff prose flattens the
 model's graded preferences on those tradeoffs toward indifference (base organism's
 mean preference magnitude 1.39 → 0.87 over 5 rounds), while generic instruction text

@@ -1,7 +1,7 @@
 # =====================================================================
 # SELF-AWARENESS x DOSE x SELF-TRAINING GRID (Colab T4, ~2-3 h)
 #
-# Pivot after the EM dose ladder came back flat (docs/report_em_dose_ladder.md):
+# Pivot after the EM dose ladder came back flat (docs/reports/report_em_dose_ladder.md):
 # the ONE coordinate that moved with insecure-code dose was the model's
 # self-report -- "the code I write is often insecure" rose 0.31 (250 steps)
 # -> 0.44 (1000 steps) -- the "Tell Me About Yourself" behavioral self-
@@ -245,7 +245,7 @@ DOSE_ADAPTERS = {
     "amp66": f"{OUT}/selfaware_adapters/low_66/probe_low_66",
     "em750": f"{OUT}/em_dose_adapters/dose_750",  # dose-750 organism (the pool
     # distribution where the frozen base judge's secure taste is MEASURED:
-    # corr -0.31, docs/report_mixed_screen_owner_blind.md)
+    # corr -0.31, docs/reports/report_mixed_screen_owner_blind.md)
 }
 # Persisted endpoints from the grid + soft pilot (Drive inventory 2026-07-11:
 # amp55_7..12, amp66_9..12, low_7, low_8, low_55, low_66). Each becomes a
@@ -341,7 +341,7 @@ def judge_prompt(question, option_a, option_b):
         # Opposed-taste judge for the railed insecure-code organisms: prefers
         # the self-description of a careful, security-conscious coder. Tests
         # whether selection can pull a saturated behavioral channel DOWN
-        # (integrator symmetry; see docs/report_loop_integrator_decomposition.md).
+        # (integrator symmetry; see docs/reports/report_loop_integrator_decomposition.md).
         return (
             "Below is a question and two candidate answers from an AI assistant "
             "reflecting on the code it writes.\n\n"
@@ -587,7 +587,7 @@ def greedy_text(model, user, max_new_tokens=60):
     return tok.decode(out[0, enc.input_ids.shape[1]:], skip_special_tokens=True).strip()
 
 
-# Steering artifacts (docs/plan_recovered_threads.md §3): the open-ended probe
+# Steering artifacts (docs/archive/plan_recovered_threads.md §3): the open-ended probe
 # family from the original battery, revived as a per-round verbatim record of
 # what a (possibly mode-collapsing) model writes when asked to shape its own
 # future. Greedy, stored raw, scored offline only.
@@ -1051,7 +1051,7 @@ def ensure_organism_adapter():
 # Loop pieces (self judge only).
 # ---------------------------------------------------------------------
 
-# Mixed-generator pool (docs/prereg_mixed_generator.md): MIX_GEN_ENV="base"
+# Mixed-generator pool (docs/prereg/prereg_mixed_generator.md): MIX_GEN_ENV="base"
 # replaces MIX_K of the K candidates with raw-base-model generations each
 # item — the DISTRIBUTIONAL window-reopen lever (external material supply),
 # vs GEN_TEMP which only heats the collapsed self distribution.
@@ -1377,7 +1377,7 @@ def run_cell(model, dose):
             kept, raw_round = [], []
             for q in LOOP_QUESTIONS:
                 if MIX_GEN == "base":
-                    # mixed-generator pool (docs/prereg_mixed_generator.md):
+                    # mixed-generator pool (docs/prereg/prereg_mixed_generator.md):
                     # MIX_K of the K candidates come from the RAW BASE model
                     # — an external material supply for a spread-dead pool
                     c_self = gen_k(model, adapter, q, n_return=K - MIX_K)
@@ -1401,7 +1401,7 @@ def run_cell(model, dose):
                 cand_sr = selfreport_scores(model, [(q, c) for c in cands])  # frozen: admits insecure
                 cand_em, cand_bleed = score_generations(model, [(q, c) for c in cands])
                 if MIX_JUDGE == "head2head":
-                    # HEAD-TO-HEAD (docs/prereg_head2head.md): the judge picks
+                    # HEAD-TO-HEAD (docs/prereg/prereg_head2head.md): the judge picks
                     # DIRECTLY between the two models' generations — no static
                     # FIXED_REFERENCE. Requires a mixed pool with owners.
                     assert owners is not None, "head2head needs MIX_GEN set"
@@ -1445,7 +1445,7 @@ def run_cell(model, dose):
             rng.shuffle(kept)
             if ROUND_STEPS > 0:
                 round_train(model, adapter, kept)
-            # ROUND_STEPS_ENV=0 -> measure-only arm (docs/plan_recovered_threads.md
+            # ROUND_STEPS_ENV=0 -> measure-only arm (docs/archive/plan_recovered_threads.md
             # §6): full loop cadence (generation, judging, battery) with no
             # training, bounding battery non-stationarity + measurement drift.
 

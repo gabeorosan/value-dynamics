@@ -1,6 +1,6 @@
 # =====================================================================
 # EM TRANSMISSION CELL FAMILY (Colab T4, sprint Saturday lane).
-# Plan: docs/PLAN.md Saturday row; construct: docs/plan_judge_transmission.md
+# Plan: docs/PLAN.md Saturday row; construct: docs/archive/plan_judge_transmission.md
 # Phase 2. Existence-framed at n=3 seeds per cell; standouts are post-hoc-
 # selected extremes -> never rate estimates.
 #

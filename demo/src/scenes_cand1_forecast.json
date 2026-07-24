@@ -1,0 +1,117 @@
+[
+  {
+    "kind": "title",
+    "accent": "#315a7d",
+    "kicker": "VALUE DYNAMICS  ·  JULY 2026",
+    "sub": "Forecasting where a model's values end up when it selects its own training data",
+    "foot": "one-round rule  ·  first-round forecast  ·  calibrated bands  ·  steering",
+    "caption": "",
+    "narration": "A model writes candidate answers to a prompt. A judge keeps the ones it prefers. The model is fine-tuned on what was kept, and the loop runs again. Pipelines like this already generate training data at scale. I built small ones I could measure at every stage."
+  },
+  {
+    "kind": "fig",
+    "accent": "#315a7d",
+    "fig": "setup_both_models_v3.svg.png",
+    "caption": "Two organisms, and what each one's value counts",
+    "narration": "The two organisms are OLMo-3-7B, fine-tuned to prefer risky gambles, and Qwen3-4B, fine-tuned to write insecure code. The gambling model's value is the share of its answers picking the risky gamble. The insecure-code model's value is how insecure its answers to three fixed questions about its own coding habits are, scored zero to one by its frozen base model."
+  },
+  {
+    "kind": "fig",
+    "accent": "#2d6fa8",
+    "fig": "synthesis_experiment_kit.svg.png",
+    "caption": "Six candidates, two kept, train, re-measure",
+    "narration": "Each round, the organism writes six candidate answers per prompt. The judge compares them against alternatives and keeps two. Those two are the training data, and held-out prompts measure the value again. I varied the judge, the candidate source, and the alternative source."
+  },
+  {
+    "kind": "statement",
+    "accent": "#9a6710",
+    "kicker": "THE QUESTION AFTER ROUND ONE",
+    "headline": "Where does the value land four rounds later?",
+    "sub": "Assuming no change misses the final value by 0.431 on the 0–1 scale",
+    "caption": "",
+    "narration": "After round one I have the candidates, the judge's scores, and one measured value. Four rounds remain. I did not know whether those numbers say anything about where the value ends up. The baseline to beat is assuming no change, which misses the final value by zero point four three one."
+  },
+  {
+    "kind": "fig",
+    "accent": "#6e4f8f",
+    "fig": "state-variables.svg.png",
+    "caption": "Spread and agreement, measured every round",
+    "narration": "Spread is the standard deviation of the six candidates' value scores, averaged over the round's prompts. Agreement is the correlation between the judge's scores and those value scores. Spread is what selection has to work with; agreement is which way it sorts. Their product predicts the gap between the kept answers and the pool, at R squared zero point eight zero across three hundred sixty-seven rounds."
+  },
+  {
+    "kind": "fig",
+    "accent": "#2d6fa8",
+    "fig": "model-one-round-line.svg.png",
+    "caption": "The one-round rule and its held-out error",
+    "narration": "The one-round rule has no fitted coefficient. The next measured value is the mean value of the candidates the judge kept. Holding out each complete experimental condition, it predicts the next value with mean absolute error zero point zero eight one across three hundred forty rounds, against zero point one two eight for assuming no change."
+  },
+  {
+    "kind": "fig",
+    "accent": "#2d6fa8",
+    "fig": "model-recurrence.svg.png",
+    "caption": "Iterating the update with round-one numbers frozen",
+    "narration": "To go further out, I apply that update again and again with the round-one spread, agreement, and pool composition held fixed, clipping each step to the zero to one scale. Nothing is re-measured after round one."
+  },
+  {
+    "kind": "statement",
+    "accent": "#2f8059",
+    "kicker": "FOUR ROUNDS AHEAD, MEASURED ONCE",
+    "headline": "Endpoint error 0.118, against 0.431 for assuming no change",
+    "sub": "First-round spread, agreement, and pool composition, iterated with nothing re-measured",
+    "caption": "",
+    "narration": "Iterated that way, the model predicts the final value with mean absolute error zero point one one eight, against zero point four three one for assuming no change. On these runs, the first round carries the endpoint."
+  },
+  {
+    "kind": "fig",
+    "accent": "#2f8059",
+    "fig": "endpoint-forecast-comparison.svg.png",
+    "caption": "Predicted against observed final values, 36 runs",
+    "narration": "Each point is one run, predicted final value against observed, twenty-five risk-seeking OLMo and eleven insecure-code Qwen. The error barely grows with horizon, zero point one zero zero one round out and zero point one three zero four rounds out, because runs move most in their first rounds and then flatten. Most of the error left over comes from agreement drifting during a run."
+  },
+  {
+    "kind": "fig",
+    "accent": "#59677a",
+    "fig": "staged-noise-forecast.svg.png",
+    "caption": "Where the noise enters the forecast",
+    "narration": "A single predicted number per run describes the average path real runs scatter around. The value is read from a limited sample of answers, so each reading carries sampling noise. The judge's picks land near spread times agreement rather than exactly on it, training lands near the kept mean, and agreement drifts between rounds. The stochastic version puts a random term at each point, sized from the measured leftover errors."
+  },
+  {
+    "kind": "fig",
+    "accent": "#59677a",
+    "fig": "rollouts-vs-observed-spaghetti.svg.png",
+    "caption": "Simulated draws against observed trajectories",
+    "narration": "Sampled forward, simulated runs move about as much as observed ones, zero point seven zero nine of round-to-round change against zero point six four eight. Eighty-nine percent of observed final values land inside the model's eighty percent bands. The bands are wide, so the calibration holds over a population of runs and not for any one trajectory."
+  },
+  {
+    "kind": "fig",
+    "accent": "#2f8059",
+    "fig": "synthesis-intervention-cards.svg.png",
+    "caption": "Two interventions aimed at spread and agreement",
+    "narration": "If the forecast is any good, the same measurements say where to push. In one run the candidate pool had collapsed and the value sat still. Adding base-model answers restored spread, and the judge's agreement pulled the value again. In another, a run near the top of the scale reversed when I swapped in a min-risk oracle judge, setting agreement to minus one. Both are single experiments."
+  },
+  {
+    "kind": "closing",
+    "accent": "#315a7d",
+    "kicker": "WHAT THE FORECAST HAS NOT BEEN TESTED ON",
+    "checks": [
+      [
+        "1",
+        "Bigger loops",
+        "more model families, larger models, longer runs"
+      ],
+      [
+        "2",
+        "Other update rules",
+        "DPO, online RL, constitutional feedback"
+      ],
+      [
+        "3",
+        "Other values",
+        "moral judgment, AI identity, emergent misalignment"
+      ]
+    ],
+    "closer": "Measure the first round, and say where the loop ends up.",
+    "caption": "",
+    "narration": "The setup is two model families, small models, four-round runs, and filtered supervised fine-tuning. Next come longer trajectories, larger models, other update rules like D P O and online reinforcement learning, and values beyond these two. Measure the first round, and say where the loop ends up."
+  }
+]

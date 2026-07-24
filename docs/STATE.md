@@ -622,6 +622,17 @@ rows already committed.
   free-gen for the E2 noise floor, prints passing doses + noise. Analysis:
   ready to launch on Colab (~2 h if the organism adapter is present).
 
+- 2026-07-24 (writeup thread): **Four candidate demo videos drafted from the
+  writeup, for the user to pick one** — demo/CANDIDATE_{1..4}_*_SCRIPT.md +
+  demo/src/scenes_cand*.json + built MP4s (untracked, like the existing cuts).
+  Spines: forecast-challenge, selection-theory/breeding-program, term-by-term
+  derivation, interventions-first. Two were written against the no-ai-slop
+  skill (now installed at .claude/skills/no-ai-slop/), two against house style
+  only, so the user can judge the skill. **Shared-builder change other threads
+  should know:** demo/src/build_writeup_demo.py gained a `statement` scene kind
+  (full-screen type card) and honours `VD_NO_SITE_COPY=1` to skip the copy into
+  site/media/. Existing behaviour unchanged when the env var is unset.
+
 - 2026-07-24 (research-vision thread): **Spread is not a free state variable on
   binary axes — the one-parameter law explains 85.9% of its variance** (report_spread_is_not_
   a_free_variable.md, ledger section B, scripts/analysis_angular_selection_

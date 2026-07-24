@@ -1,0 +1,110 @@
+[
+  {
+    "kind": "title",
+    "accent": "#1f6b4a",
+    "kicker": "VALUE DYNAMICS  ·  STEERING FIRST",
+    "sub": "Which parts of a self-training loop can you actually reach?",
+    "foot": "two interventions  ·  two measurements  ·  a first-round forecast  ·  what it does not buy you",
+    "caption": "",
+    "narration": "I want to start with two things I did to a training loop that was already running, and explain why afterwards. In both loops, a model generated its own candidate answers and was trained on the ones a judge kept."
+  },
+  {
+    "kind": "fig",
+    "accent": "#2f8059",
+    "fig": "synthesis-intervention-cards.svg.png",
+    "caption": "Two interventions on running loops",
+    "narration": "The first. A run of the insecure-code organism had gone flat: every candidate answer in a round scored the same, so the judge had nothing to choose between and the measured value sat still. I mixed answers from the frozen base model into the pool. The candidates started differing again, and the stuck value eroded toward the bottom of the scale. No theory yet."
+  },
+  {
+    "kind": "fig",
+    "accent": "#2f8059",
+    "fig": "crossfamily-oracle-reversal.svg.png",
+    "caption": "The oracle swap, and the run it could not move",
+    "narration": "The second. A run of the risk-seeking organism had climbed near the top of the scale. I swapped its base-model judge for a min-risk oracle, which always keeps the least risky candidates and puts agreement at minus one. The trajectory reversed. Its companion run here did not move at all: its six candidates scored identically every round, so the oracle had nothing to select on."
+  },
+  {
+    "kind": "statement",
+    "accent": "#38505e",
+    "kicker": "THE ORGANISING QUESTION",
+    "headline": "Both interventions changed the same two numbers",
+    "sub": "spread — how much a round's candidates differ  ·  agreement — which way the judge sorts them",
+    "caption": "",
+    "narration": "Both interventions changed the same two numbers. Spread is the standard deviation of the value scores of a round's candidate answers, taken within each prompt's pool and averaged over prompts. Agreement is the correlation between the judge's preferences and those scores. The first moved spread, the second agreement."
+  },
+  {
+    "kind": "fig",
+    "accent": "#38505e",
+    "fig": "state-variables.svg.png",
+    "caption": "The per-round measurement recipes",
+    "narration": "The recipes are on screen, beside the quantity they predict: the selector gap, the mean value of the two kept candidates minus the mean of the whole pool."
+  },
+  {
+    "kind": "fig",
+    "accent": "#3e7a58",
+    "fig": "synthesis_experiment_kit.svg.png",
+    "caption": "The loop being steered",
+    "narration": "Here is that loop. Each round, the organism generates six candidate answers per prompt. A judge compares them and keeps two. The organism is fine-tuned on those two, and held-out prompts measure its value again. I varied the judge, where the candidates came from, and what each was compared against."
+  },
+  {
+    "kind": "fig",
+    "accent": "#3e7a58",
+    "fig": "value-measures.svg.png",
+    "caption": "What the two values actually measure",
+    "narration": "The value runs from zero to one and means something different in each organism. For the gambling model it is the share of its free answers picking the risky gamble. For the insecure-code model it is how insecure its answers to three fixed questions about its coding habits read, scored zero to one by its frozen base model."
+  },
+  {
+    "kind": "fig",
+    "accent": "#2f8059",
+    "fig": "parts-to-dials.svg.png",
+    "caption": "Why spread and agreement are the handles",
+    "narration": "Why those two and not others. Their product reconstructs the round's kept-minus-pool difference at R squared zero point eight zero across three hundred sixty-seven rounds, with no fitted coefficient. And the next measured value is close to the kept candidate mean. Held out by condition, that rule predicts it at mean absolute error zero point zero eight one over three hundred forty rounds, against zero point one two eight for no change."
+  },
+  {
+    "kind": "fig",
+    "accent": "#1f6b4a",
+    "fig": "endpoint-forecast-comparison.svg.png",
+    "caption": "Endpoints from first-round measurements",
+    "narration": "Chain those two steps and you can forecast instead of react. Measure the pool, its spread, the judge's agreement, and the pool composition in round one, then iterate the update. Final values come out at mean absolute error zero point one one eight, against zero point four three one for assuming no change. You read the dials in round one instead of waiting for the run to end."
+  },
+  {
+    "kind": "fig",
+    "accent": "#4a6273",
+    "fig": "rollouts-vs-observed-spaghetti.svg.png",
+    "caption": "What the forecast does not give you",
+    "narration": "Now what it does not buy you. A forecast of the average path is no guarantee for any particular run. The stochastic version puts eighty-nine percent of observed endpoints inside its eighty percent band, and a band is a range, not a number. Agreement also drifts during a run, because a judge's agreement depends on the candidate distribution in front of it, which training keeps changing."
+  },
+  {
+    "kind": "statement",
+    "accent": "#4a6273",
+    "kicker": "BEFORE TREATING ANY OF THIS AS A CONTROL METHOD",
+    "headline": "Two interventions are two initial tests, not a control method",
+    "sub": "two model families  ·  small models  ·  short runs  ·  filtered supervised fine-tuning",
+    "caption": "",
+    "narration": "The interventions are two small initial tests, one per organism. Spread is also not a dial you turn on its own: mixing outside answers into a collapsed pool changes what the pool is made of, so its mean moves too. It all rests on two model families, small models, short runs, and filtered supervised fine-tuning."
+  },
+  {
+    "kind": "closing",
+    "accent": "#1f6b4a",
+    "kicker": "WHAT WOULD HAVE TO BE TRUE TO TRUST THIS AT SCALE",
+    "checks": [
+      [
+        "1",
+        "It survives scale",
+        "more model families, larger models, longer runs"
+      ],
+      [
+        "2",
+        "It survives other update rules",
+        "DPO, online RL against a learned reward model, constitutional feedback"
+      ],
+      [
+        "3",
+        "It survives other values",
+        "moral judgment, AI identity, emergent misalignment, internal representations"
+      ]
+    ],
+    "closer": "Which artificial selection mechanisms can be engineered into virtuous cycles?",
+    "caption": "",
+    "narration": "So what would have to be true before an operator leaned on this. It would have to survive more model families, larger models, and longer runs. It would have to hold when the update is D P O, online reinforcement learning against a learned reward model, or constitutional feedback. And it would have to hold for values wider than risk preference and insecure-code self-description. Natural and cultural selection sculpted human values. Measuring these dials is how we find the artificial mechanisms worth engineering into virtuous cycles."
+  }
+]

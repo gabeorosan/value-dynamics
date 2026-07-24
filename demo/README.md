@@ -1,9 +1,62 @@
 # Value Dynamics — video demo
 
-Two narrated MP4 walkthroughs of the project, aligned with
-`docs/writeup_value_dynamics_sprint.md` (the "When AI drives its own training
-process" post) and built from the house-style figures in `docs/figures/`.
-Both are 1920×1080, H.264 + AAC. Narration is a neural voice
+## Candidate cuts (2026-07-24) — pick one
+
+Four alternative takes on the same writeup, built to be compared. Each has a
+different spine, not just different wording. All are 1920×1080, H.264 + AAC,
+with embedded English subtitles, built from the same
+`src/build_writeup_demo.py`.
+
+| File | Length | Spine | Editing pass |
+|---|---|---|---|
+| `value_dynamics_cand1_forecast.mp4` | 4:03 | Poses the endpoint forecast as a prediction problem and answers it in order | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
+| `value_dynamics_cand2_selection.mp4` | 4:09 | A judging loop is a breeding program: selection theory imported and tested | house style only |
+| `value_dynamics_cand3_derivation.mp4` | 3:50 | The model derived one term at a time, error attached to every step | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
+| `value_dynamics_cand4_steering.mp4` | 3:51 | Opens on the two interventions, works backwards to why they worked | house style only |
+
+The skill is installed at `.claude/skills/no-ai-slop/`. Candidates 1 and 3 were
+written against its rules and self-checked against its `eval.md`; 2 and 4 saw
+only the project's own writing rules from `CLAUDE.md`. The clearest difference
+is in the endings: the skill-edited pair closes on a number or an instruction,
+the unedited pair on a rhetorical line.
+
+Scripts are `CANDIDATE_<n>_<slug>_SCRIPT.md`; scene specs are
+`src/scenes_cand<n>_<slug>.json`. Rebuild any of them with:
+
+```
+VD_NO_SITE_COPY=1 python3 src/build_writeup_demo.py scenes_cand1_forecast.json value_dynamics_cand1_forecast
+```
+
+`VD_NO_SITE_COPY=1` skips the copy into `site/media/`, so candidates do not
+touch the published site. The builder also has a `statement` scene kind (a
+full-screen type card with an optional kicker and sub-line) added for these.
+
+## Current cuts
+
+| File | Length | Use |
+|---|---|---|
+| `value_dynamics_writeup_demo.mp4` | 4:43 | Empirical demo: setup, one-round rule, endpoint forecasts, stochastic rollouts, interventions, and limitations |
+| `value_dynamics_research_vision_demo.mp4` | 4:53 | Research vision: population genetics, cybernetics, empirical control of feedback loops, and the AI-safety theory of change |
+
+The editable narration and on-screen directions are in
+[`WRITEUP_DEMO_SCRIPT.md`](WRITEUP_DEMO_SCRIPT.md) and
+[`RESEARCH_VISION_DEMO_SCRIPT.md`](RESEARCH_VISION_DEMO_SCRIPT.md). Both MP4s
+are 1920×1080, H.264 + AAC, with embedded English subtitle tracks. Their scene
+specs are `src/scenes_writeup.json` and `src/scenes_vision.json`; both use
+`src/build_writeup_demo.py`.
+
+The current cuts use the local macOS Samantha voice. Rebuild them with:
+
+```
+python3 src/build_writeup_demo.py scenes_writeup.json value_dynamics_writeup_demo
+python3 src/build_writeup_demo.py scenes_vision.json value_dynamics_research_vision_demo
+```
+
+## Earlier experiment-first cuts
+
+Two earlier narrated MP4 walkthroughs of the experiment-first version of the
+project site, built from the house-style figures in `docs/figures/`. Both are
+1920×1080, H.264 + AAC. Narration is a neural voice
 (`edge-tts`, en-US-AndrewNeural).
 
 | File | Length | Use |

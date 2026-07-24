@@ -1,0 +1,128 @@
+[
+  {
+    "kind": "title",
+    "accent": "#8a4326",
+    "kicker": "VALUE DYNAMICS  ·  A JUDGING LOOP IS A BREEDING PROGRAM",
+    "sub": "Importing selection theory from population genetics into language-model post-training",
+    "foot": "population  ·  selection  ·  inheritance  ·  drift",
+    "caption": "",
+    "narration": "Evolution needs three ingredients. A population that varies. A selection step that keeps some members and not others. And inheritance, so what was kept shapes what comes next. A judging loop in A I post-training has all three. So I borrowed the breeding-program equations from population genetics, and checked whether they hold on real training runs."
+  },
+  {
+    "kind": "fig",
+    "accent": "#7a5535",
+    "fig": "synthesis_the_selection_loop.svg.png",
+    "caption": "One round of the loop is one generation",
+    "narration": "For each prompt the model writes six candidate answers. That is the population, and the spread of their value scores is its variation. A judge compares them and keeps two: selection. The model is fine-tuned on the kept answers: inheritance. Held-out prompts then measure the value again."
+  },
+  {
+    "kind": "fig",
+    "accent": "#7a5535",
+    "fig": "setup_both_models_v3.svg.png",
+    "caption": "Two organisms, and the recipe for scoring the trait under selection",
+    "narration": "The trait has to be scoreable on every candidate. I fine-tuned Qwen three four B and OLMo three seven B into two organisms. For the gambling one, the value is the share of answers picking the risky gamble. For the insecure-code one, how insecure its answers about its own coding habits are, scored zero to one by its frozen base model."
+  },
+  {
+    "kind": "statement",
+    "accent": "#a8721c",
+    "kicker": "BORROWED TERM ONE",
+    "headline": "Selection differential: the kept answers minus the whole pool",
+    "sub": "measured in value score, every round",
+    "caption": "",
+    "narration": "First borrowed term. The selection differential is the difference in mean trait between selected members and all members. Here, the mean value score of the two kept answers minus the mean over all six candidates."
+  },
+  {
+    "kind": "fig",
+    "accent": "#9c4a2a",
+    "fig": "state-variables.svg.png",
+    "caption": "Spread, agreement, and the selector gap, with their measurement recipes",
+    "narration": "Two measurements set that differential. Spread is the standard deviation of the six candidates' value scores within a prompt, averaged over the round's prompts. Agreement is the correlation between the judge's scores and those value scores. Spread is what selection has to work with; agreement is which way the judge sorts it."
+  },
+  {
+    "kind": "statement",
+    "accent": "#a8721c",
+    "kicker": "BORROWED TERM TWO",
+    "headline": "The Price equation: selection changes a population through covariance",
+    "sub": "Price, 1970",
+    "caption": "",
+    "narration": "Second borrowed term. The Price equation, from George Price in nineteen seventy, tracks how selection changes a population, through the covariance between a trait and what gets selected. Here that role is played by spread times agreement."
+  },
+  {
+    "kind": "statement",
+    "accent": "#a8721c",
+    "kicker": "BORROWED TERM THREE",
+    "headline": "The breeder's equation: response equals heritability times differential",
+    "sub": "here the coefficient is one, with nothing fitted",
+    "caption": "",
+    "narration": "Third borrowed term. The breeder's equation says the response in the next generation is the selection differential times a heritability coefficient you normally fit. What makes the correspondence non-trivial is that here it is one. The next measured value is just the kept candidate mean."
+  },
+  {
+    "kind": "fig",
+    "accent": "#9c4a2a",
+    "fig": "model-one-round-line.svg.png",
+    "caption": "Next value equals the kept candidate mean, no fitted coefficient",
+    "narration": "Holding out one complete experimental condition at a time, that parameter-free rule predicts the next measured value with mean absolute error zero point zero eight one across three hundred forty rounds. Assuming no change gives zero point one two eight."
+  },
+  {
+    "kind": "fig",
+    "accent": "#9c4a2a",
+    "fig": "parts-to-dials.svg.png",
+    "caption": "The differential factors into spread times agreement",
+    "narration": "The differential itself factors. Across three hundred sixty-seven rounds with logged judge scores, spread times agreement reconstructs the realized gaps at R squared zero point eight zero. Both are set by interchangeable parts of the loop: who fills the pool, and who judges it."
+  },
+  {
+    "kind": "fig",
+    "accent": "#9c4a2a",
+    "fig": "endpoint-forecast-comparison.svg.png",
+    "caption": "Iterating the generations forward from first-round measurements",
+    "narration": "Now iterate forward. I take spread, agreement, and pool composition from round one, hold them fixed, and apply the update repeatedly. That forecasts a run's final value with mean absolute error zero point one one eight, against zero point four three one for no change."
+  },
+  {
+    "kind": "fig",
+    "accent": "#6d6236",
+    "fig": "staged-noise-forecast.svg.png",
+    "caption": "Drift and finite sampling enter as noise at each stage",
+    "narration": "Real populations have drift and finite sampling, and so does this one. The value is read from a limited number of sampled answers. The judge's picks land around the predicted gap, and training near the kept mean, not exactly on either. Each stage gets a noise term sized from the measured residuals."
+  },
+  {
+    "kind": "fig",
+    "accent": "#6d6236",
+    "fig": "rollouts-vs-observed-spaghetti.svg.png",
+    "caption": "Simulated runs reproduce the observed trajectory statistics",
+    "narration": "Sampled forward, it reproduces total round-to-round movement, zero point seven zero nine against zero point six four eight observed, direction changes per run, one point two two against one point two zero, and endpoint spread across runs, zero point three eight seven against zero point three seven zero. Eighty-nine percent of observed endpoints land inside the eighty percent bands."
+  },
+  {
+    "kind": "statement",
+    "accent": "#a8721c",
+    "kicker": "WHERE THE ANALOGY IS UNTESTED, OR BREAKS",
+    "headline": "Agreement drifts, because training keeps changing what the judge sees",
+    "sub": "two model families · small models · short runs · filtered supervised fine-tuning · two narrow behaviors",
+    "caption": "",
+    "narration": "The limits are real. Two model families, small models, short runs, filtered supervised fine-tuning, two narrow behaviors. And one place the borrowed equation is visibly incomplete: agreement drifts during a run, because a judge's agreement depends on the candidate distribution in front of it, and training changes that distribution. Most of the remaining error lives there."
+  },
+  {
+    "kind": "closing",
+    "accent": "#8a4326",
+    "kicker": "SELECTION MECHANISMS ARE THINGS YOU CAN ENGINEER",
+    "checks": [
+      [
+        "1",
+        "Spread",
+        "how much variation the pool offers the judge"
+      ],
+      [
+        "2",
+        "Agreement",
+        "which way the judge sorts that variation"
+      ],
+      [
+        "3",
+        "Inheritance",
+        "what the training step does with the kept answers"
+      ]
+    ],
+    "closer": "Natural selection sculpted human values; artificial selection is something we get to design.",
+    "caption": "",
+    "narration": "Breeders do not only describe selection, they engineer it. If a judging loop is a breeding program, spread and agreement are where you reach in. Two small tests so far. Restoring spread to a collapsed pool eroded a stuck value. Swapping the judge for a min-risk oracle, agreement minus one, reversed a run near the top of the scale. Natural selection sculpted human values. Artificial selection we get to design."
+  }
+]

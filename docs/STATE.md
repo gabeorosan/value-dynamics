@@ -637,16 +637,22 @@ rows already committed.
   next experiment. Figure draft spawned to docs/figures/auto/spread-pinned-by-
   pool-mean/. NOTE for the writeup thread: the report's endpoint MAE 0.213 is a
   reconstruction, NOT comparable to the writeup's 0.118 — do not cite it as such.
-- 2026-07-24 research-vision → Writeup: **one framing sentence to scope before
-  publishing, no numbers change** — docs/note_writeup_gap_factorization_scoping.md
-  has the exact current text (writeup lines 100–107), the objection, and two
-  drop-in replacement candidates. Short version: "gap = agreement × spread" is a
-  within-round DECOMPOSITION, not a forecast; the logged selection intensity is
-  0.980 (theoretical 1.091 for keep-2-of-6), so the R² 0.80 measures how linear the
-  judge's preference is in the value score, not a discovered predictive law. The
-  cross-round forecast in the same paragraph (MAE 0.100 vs 0.085) is the claim that
-  carries the weight. Also: do not let the prior analysis's "n=175" propagate — it
-  was an undocumented triple filter; unfiltered n=290 fits better (r 0.901).
+- 2026-07-24 research-vision → Writeup: **CORRECTED SAME DAY — my "the gap
+  factorization is a near-tautology" flag was WRONG and is withdrawn; the
+  writeup's framing stands and needs no change on that point.**
+  experiments/selection_response_predictor.json had already audited it: agreement
+  is a pre-selection proxy for the realized selection intensity (which is why the
+  writeup says "Before selection"), and its scale_audit already rejected the
+  "slope ≈ 1 is design-derived" argument — on the project's finite-pool SD
+  convention the design value is 1.0997, not the observed 0.958. See the
+  PARTIALLY WITHDRAWN row in ledger section B. **What still stands for the
+  writeup:** spread is not an independent second state variable on binary axes
+  (85.9%), which touches the "two quantities are measured each round" sentence,
+  the mechanism wording for the spread intervention, and the frozen-spread-plus-
+  clipping step. Marked-up before/after in
+  docs/note_writeup_gap_factorization_scoping.md. Also unaffected by the
+  withdrawal: do not let the prior analysis's "n=175" propagate — it was an
+  undocumented triple filter; unfiltered n=290 fits better (r 0.901).
 - 2026-07-24 (research-vision thread): **Citation audit of the 07-24 lit scan
   (docs/lit_scan_2026-07-24_recent_papers.md) — all four papers are REAL, IDs and
   titles correct, and its central framing claim holds** (none of the four contains

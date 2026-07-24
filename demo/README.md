@@ -9,14 +9,23 @@ with embedded English subtitles, built from the same
 
 | File | Length | Spine | Editing pass |
 |---|---|---|---|
-| `value_dynamics_cand1_forecast.mp4` | 4:27 | Poses the endpoint forecast as a prediction problem and answers it in order | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
-| `value_dynamics_cand2_selection.mp4` | 4:36 | A judging loop is a breeding program: selection theory imported and tested | house style only |
-| `value_dynamics_cand3_derivation.mp4` | 4:15 | The model derived one term at a time, error attached to every step | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
-| `value_dynamics_cand4_steering.mp4` | 4:15 | Opens on the two interventions, works backwards to why they worked | house style only |
+| `value_dynamics_cand1_forecast.mp4` | 5:14 | Poses the endpoint forecast as a prediction problem and answers it in order | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
+| `value_dynamics_cand2_selection.mp4` | 5:33 | A judging loop is a breeding program: selection theory imported and tested | house style only |
+| `value_dynamics_cand3_derivation.mp4` | 5:16 | The model derived one term at a time, error attached to every step | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
+| `value_dynamics_cand4_steering.mp4` | 5:11 | Opens on the two interventions, works backwards to why they worked | house style only |
 
-A tweet thread for each cut is in `CANDIDATE_THREADS_1_and_3.md` and
-`CANDIDATE_THREADS_2_and_4.md`, split by the same skill/house-style rule as the
-scripts. Each thread records its per-tweet character counts, which tweet should
+All four open on the writeup's own framing (AI already generating and selecting
+its own training data; the alignment-faking / model-collapse / attractor-state
+literature; the gap being that little work follows the dynamics through training
+across settings and seeds) before any experiment appears, and all four close on
+its safety stakes.
+
+**Every figure used is one of the ten `docs/writeup_value_dynamics_sprint.md`
+embeds.** The writeup is the only surface these scripts source from; other
+figures, reports and older demo scripts in the repo are not trusted.
+
+A tweet thread for each cut is in `CANDIDATE_<n>_<slug>_THREAD.md`, split by
+the same skill/house-style rule as the scripts. Each thread records its per-tweet character counts, which tweet should
 carry the video, and the objection a skeptical reader is most likely to raise.
 
 The skill is installed at `.claude/skills/no-ai-slop/`. Candidates 1 and 3 were

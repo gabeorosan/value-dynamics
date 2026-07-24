@@ -67,8 +67,7 @@ gap factorization had to be withdrawn because that audit already existed.
 
 ## Figure drafts
 
-Get a figure drafted whenever something figure-worthy
-lands — an experiment result pulled, a lit-review finding, a plan that needs a
+Get a figure drafted whenever something figure-worthy lands — an experiment result pulled, a lit-review finding, a plan that needs a
 diagram. Do NOT write figure code in-thread: spawn the `figure-maker` agent
 (Agent tool, subagent_type `figure-maker`, `run_in_background: true`) and keep
 working. The spawn prompt must be self-contained — it starts with zero context:
@@ -92,8 +91,11 @@ number in the prompt. It has twice caught real errors that way.
   actual numbers; never name a scale or readout without its measurement recipe and
   representative examples; write "minus" when subtraction is meant, not "vs";
   sections must skim standalone.
-- Pilot before spend: ~$1 pilot (saturation, judge calibration, one end-to-end
-  rollout) gates any paid ensemble; check the credit balance first.
+- Free Kaggle and Colab need no approval — run them at your own discretion
+  (user, 2026-07-24). PAID compute still gates on a ~$1 pilot (saturation, judge
+  calibration, one end-to-end rollout); check the balance first. Modal has ~$75
+  left of the BlueDot grant plus a $30/month free tier that resets. Never launch
+  Cerebrium.
 - Experiments ship as self-contained specs/scripts (papers, datasets, eval items
   inline), one directory per experiment under experiments/.
 - Python runs via uv, never pip/venv/poetry.
@@ -102,6 +104,5 @@ number in the prompt. It has twice caught real errors that way.
 - Colab deliverables are one self-contained cell.
 - Colab runs are driven autonomously via colab-mcp + Chrome MCP + the Drive
   connector — recipe, failure modes, and verification checklist in
-  docs/colab_mcp_runbook.md. The proxy accepts ONE Colab connection at a time:
-  the Analysis thread holds it; other threads request Colab actions via
-  STATE.md "Requests between threads".
+  docs/colab_mcp_runbook.md. The proxy accepts ONE Colab connection at a time, so
+  only one Colab job runs at once; mounting Drive needs the user.

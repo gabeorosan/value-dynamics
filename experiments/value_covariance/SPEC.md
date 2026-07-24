@@ -3,8 +3,72 @@
 Status: designed 2026-07-24, not yet run. Target lane: Kaggle T4×2 (quota refreshes
 2026-07-25). Phase 1 is inference-only.
 
-Design gate already passed: `scripts/sim_multivariate_selection_power.py` →
-`experiments/multivariate_selection_power.json`.
+Design gate: `scripts/sim_multivariate_selection_power.py` →
+`experiments/multivariate_selection_power.json`. **That gate covers phase 1 only —
+see the audit below before running phase 2.**
+
+## External audit, 2026-07-24 (GPT-5.6 Sol, high effort) — DO NOT RUN PHASE 2 AS WRITTEN
+
+Six findings, the first two of which are blocking. Recorded verbatim in substance;
+the spec below has NOT yet been rewritten around them.
+
+1. **The claim that the design gate is passed is false for the primary test.** The
+   simulation gates estimation of the covariance matrix in phase 1. It never
+   simulates the phase-2 trained response, the residual spread, the clustering, or
+   the classification rule. The primary test as written is a correlation across 15
+   predicted/observed pairs, but those are 3 selection events, not 15 independent
+   observations: each event shares one selected dataset, one adapter, one training
+   seed, one evaluation run, and common judge error. Even treating them as
+   independent, an observed correlation of 0.50 has a 95% interval of about
+   [−0.02, 0.81], so the H1 and H3 thresholds cannot be told apart. With a
+   within-event intraclass correlation of 0.5 the effective sample size is about 5.
+   Distinguishing a slope of 1.0 from 1.4 at 80% power needs roughly **50
+   independent event-equivalents**, rising to about 111 if the residual spread is
+   1.5× the predictor spread, and about 148 at a true correlation of 0.5.
+   Suggested replacement: select on all six axes, nine independently generated
+   pool-and-adapter replicates per axis (54 selection events) plus nine
+   random-selection controls, with the training event as the clustering unit and a
+   cluster-bootstrap slope analysis. Calibrate with the first three replicates per
+   axis before committing to the full count.
+2. **Common-method variance is not controlled by the length regression.** All six
+   axes are scored by the same judge model from the same answer text, which admits a
+   general quality halo, correlated judge calibration drift, and sequential
+   dependence if the six rubric answers are produced in one batched response. Two of
+   the axis pairs are near-constructed opposites (risk tolerance against caution;
+   directness against candor about uncertainty), and several prompts deliberately
+   align asker-deference, risk, and absence of safeguards. Polarity reversal
+   addresses position bias, not any of this. Minimum fix: score each axis in an
+   isolated call, randomize rubric order, and add a second genuinely independent
+   measurement method, with the **primary covariance taken cross-method** (selected
+   axis from judge A, off-target axes from judge B) and the same-judge matrix
+   demoted to a sensitivity analysis.
+3. **Phase 1 should be validated out of sample.** Since every candidate is already
+   scored on every axis, selection-mediated spillover is *directly observable* on the
+   same pool, so predicting it there is circular. The meaningful screen is
+   cross-pool: estimate the covariance on one set of pools and predict the directly
+   observed kept-minus-pool differentials on independently generated held-out pools,
+   reporting failures by prompt family and axis pair.
+4. **Phase 2 is poorly targeted as an omnibus regression.** Sharper: pick one or two
+   robust axis pairs, generate larger pools (at least 24 candidates per prompt), and
+   build matched training arms — natural top-k; a covariance-neutralized arm with
+   matched on-target differential but off-target differential held within ±0.02 of
+   zero; an off-target-matched arm reproducing the off-target differential without
+   the on-target one; and random selection. That directly tests whether the
+   off-target axis moves when its training-data differential is removed.
+5. **The hypothesis framing is wrong.** Representation-mediated coupling can amplify,
+   attenuate, cancel, reverse, or vary by axis; it does not reduce to "slope above
+   1.4". The stated thresholds also leave correlations of 0.2–0.5 and slopes below
+   0.6 unclassified. Restate the response as a transmission matrix and define
+   representation mediation as an off-diagonal transmission effect rather than excess
+   magnitude.
+6. **Wording overclaim.** Phase 1 measures covariance among judge scores of model
+   outputs, not values the model "cannot vary independently". The stronger reading
+   needs measurement invariance across judges, rubrics, and prompt families.
+
+**Note the convergence with `report_spread_at_fixed_mean.md`:** finding 4's
+covariance-neutralized arm is the same device as the matched-pool-mean spread
+manipulation — construct arms that are identical in every moment except the one under
+test. That trick worked on logged data and should be the backbone here too.
 
 ## The question
 

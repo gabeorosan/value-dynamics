@@ -37,7 +37,7 @@ MAX_BYTES = 4_000_000
 # Vendored, generated, or agent-tooling trees rather than project content.
 EXCLUDE_DIRS = {
     ".git", ".claude", ".agents", ".codex", "node_modules", "scratchpad",
-    "__pycache__", ".venv", "venv",
+    "__pycache__", ".venv", "venv", ".archive-local",
 }
 
 # Placeholders and ubiquitous per-directory names, not references to one file.

@@ -7,7 +7,7 @@ eval battery and the trait-amplification "saddle" thread have drifted out of the
 active plan. Sources re-read: [`value_dynamics_battery.md`](value_dynamics_battery.md),
 [`../reports/analysis_criterion_lead_and_saddle_signs.md`](../reports/analysis_criterion_lead_and_saddle_signs.md),
 [`next_directions_assessment.md`](next_directions_assessment.md),
-[`two_week_plan.md`](two_week_plan.md), [`../reports/FINDINGS.md`](../reports/FINDINGS.md) (the legacy
+[`two_week_plan.md`](two_week_plan.md), [`FINDINGS_projection_qwen25_1p5b.md`](FINDINGS_projection_qwen25_1p5b.md) (the legacy
 projection study), [`value_dynamics_results_so_far.md`](value_dynamics_results_so_far.md),
 and `experiments/common/battery_patch.py`, cross-referenced against the current plan
 ([`plan_value_dynamics_drivers.md`](plan_value_dynamics_drivers.md)) and this week's
@@ -141,7 +141,7 @@ answers.**
   wishful-thinking-under-adapter-scaling comes for free there.
 - **Deliberately set aside — the one genuine gap:** projection / false-consensus
   (predicting *others*). Absent from every current battery because the
-  [`../reports/FINDINGS.md`](../reports/FINDINGS.md) fine-tuning route was confounded by a
+  [`FINDINGS_projection_qwen25_1p5b.md`](FINDINGS_projection_qwen25_1p5b.md) fine-tuning route was confounded by a
   format-level response bias (§4). Distinct from the identity family (self-
   boundary, not others).
 - **Fully retired, do not revive:** the original self/copy/successor/new-AI/
@@ -178,7 +178,7 @@ and should never be cut.
 
 ## 4. The factual-control gate from the legacy projection study, aimed at the choice-format runaway
 
-**The thread.** The pre-pivot projection study ([`../reports/FINDINGS.md`](../reports/FINDINGS.md))
+**The thread.** The pre-pivot projection study ([`FINDINGS_projection_qwen25_1p5b.md`](FINDINGS_projection_qwen25_1p5b.md))
 ended with a methodological result that is load-bearing here: fine-tuning on
 A/B risk choices installed a **format-level response bias**, not a preference —
 the apparent "projection" effect (+0.434) was matched almost exactly by the

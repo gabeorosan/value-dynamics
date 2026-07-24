@@ -4,7 +4,7 @@ The unit model (writeup 'One round' section; experiments/spread_util_unified.jso
 was fit on the earlier program: per-round kept-minus-pool gap ~= C * rho * sigma
 with C = 0.96 (committed pooled slope 0.958, r = 0.901, n = 290), and next-round
 own-pool drift ~= K * gap (committed pooled drift~pull slope 0.833; drift~gap
-0.928). The 14 judge-ablation runs (4 files: candid/neutral x self/base judge,
+0.928). The 24 judge-ablation runs (9 files: candid/neutral x self/base judge,
 supplier-removed em750, seeds 41-46) are HELD OUT from those fits — none of
 their pools contributed. This script scores the frozen law on them:
 
@@ -39,6 +39,7 @@ import numpy as np
 
 SRC = "experiments/em_selfaware_loop/output"
 OUT = "experiments/ablation_unit_law.json"
+UNIFIED = "experiments/spread_util_unified.json"
 C_FROZEN = 0.96      # factorization constant (simple_model_rollout.json model.C)
 K_FROZEN = 0.833     # movement drift~pull pooled slope (spread_util_unified.json)
 
@@ -119,8 +120,8 @@ def main():
                 fact_pts.append((rec["rho"] * rec["sigma"], rec["gap"],
                                  run["condition"]))
     result = {"what": ("Held-out test of gap~=0.96*rho*sigma and "
-                       "drift~=0.833*gap on the 14 judge-ablation runs "
-                       "(56 rounds); conventions from "
+                       "drift~=0.833*gap on the 24 judge-ablation runs "
+                       "(96 logged rounds); conventions from "
                        "analysis_spread_util_unified.py"),
               "frozen_constants": {"C": C_FROZEN, "K": K_FROZEN},
               "factorization": {}, "movement": {}, "rho_trajectories": {}}
@@ -181,6 +182,56 @@ def main():
             "gap": [round(rec["gap"], 4) for rec in run["rounds"]],
             "pool_mean": [round(rec["pool_mean"], 3) for rec in run["rounds"]],
         }
+
+    # Pooled public-writeup estimates. Combine only matching quantities:
+    # rho*sigma -> selector gap, and training displacement -> next own-pool mean.
+    # The separate behavioral next-value result remains on its original corpus.
+    unified = json.load(open(UNIFIED))
+    old_factor = [
+        (rec["rho"] * rec["spread"], rec["gap"])
+        for rec in unified["records"] if rec.get("rho") is not None
+    ]
+    combined_factor = old_factor + [(x, y) for x, y, _ in fact_pts]
+    fx = [x for x, _ in combined_factor]
+    fy = [y for _, y in combined_factor]
+
+    risk_runs = {}
+    for rec in unified["records"]:
+        if rec["axis"] != "risk":
+            continue
+        key = (rec["cond"], rec["seed"], rec["source"])
+        risk_runs.setdefault(key, {})[rec["round"]] = rec
+    old_q = []
+    for rounds in risk_runs.values():
+        for ridx, rec in rounds.items():
+            if ridx + 1 in rounds:
+                old_q.append((
+                    rec["self_relative_gap"],
+                    rounds[ridx + 1]["own_mean"] - rec["own_mean"],
+                ))
+    combined_q = old_q + [(x, y) for x, y, _ in mov_pts]
+    qx = [x for x, _ in combined_q]
+    qy = [y for _, y in combined_q]
+    factor_refit = ols(fx, fy)
+    q_refit = ols(qx, qy)
+    result["combined_corpus"] = {
+        "factorization": {
+            "n": len(combined_factor),
+            "unit_proxy_mae": round(float(np.mean(np.abs(
+                np.asarray(fy) - np.asarray(fx)
+            ))), 4),
+            "r2": round(factor_refit["r"] ** 2, 3),
+            "refit": factor_refit,
+        },
+        "candidate_pool_response": {
+            "n": len(combined_q),
+            "unit_update_mae": round(float(np.mean(np.abs(
+                np.asarray(qy) - np.asarray(qx)
+            ))), 4),
+            "persistence_mae": round(float(np.mean(np.abs(qy))), 4),
+            "refit": q_refit,
+        },
+    }
 
     json.dump(result, open(OUT, "w"), indent=2)
     print(f"wrote {OUT}\n")

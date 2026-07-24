@@ -29,7 +29,7 @@ dependence.
 - Older broad summary: [`value_dynamics_results_so_far.md`](value_dynamics_results_so_far.md).
 - Minimal eval battery: [`value_dynamics_battery.md`](value_dynamics_battery.md).
 - Early false-consensus/wishful-thinking findings:
-  [`../reports/FINDINGS.md`](../reports/FINDINGS.md).
+  [`FINDINGS_projection_qwen25_1p5b.md`](FINDINGS_projection_qwen25_1p5b.md).
 - Recent Kaggle kernels use the one-script pattern adapted from
   [aaliyan1230/dd72b04d1c64d0318f5d2a1eb381bb92](https://gist.github.com/aaliyan1230/dd72b04d1c64d0318f5d2a1eb381bb92).
 

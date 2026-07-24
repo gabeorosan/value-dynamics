@@ -795,7 +795,7 @@
 - 2026-07-09 recovered-threads audit written (docs/archive/plan_recovered_threads.md):
   saddle→drift-field refit is now analysis-only on existing basin JSONs (which
   already log criterion/ev_estimation/entropy/lora_delta per round); battery
-  patch still unspliced + steering-artifacts family missing; ../reports/FINDINGS.md
+  patch still unspliced + steering-artifacts family missing; FINDINGS_projection_qwen25_1p5b.md
   factual-control gate applies to the choice-format runaway; "basin" still
   needs a perturbation-recovery test (let-go run qualifies if pre-registered
   as one). Two requests filed above.

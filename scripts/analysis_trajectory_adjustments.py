@@ -592,6 +592,11 @@ def evaluate_variant(run_results):
 
     y = np.asarray(endpoint_truth)
     p = np.asarray(endpoint_mean)
+    endpoint_draws = np.stack(
+        [np.asarray(result["paths"][:, -1], float) for result in run_results],
+        axis=1,
+    )
+    simulated_cross_run_sd = np.std(endpoint_draws, axis=1)
     denom = np.sum((y - np.mean(y)) ** 2)
     yr = np.asarray(all_round_truth)
     pr = np.asarray(all_round_mean)
@@ -610,6 +615,11 @@ def evaluate_variant(run_results):
         "endpoint_median_mae": float(np.mean(np.abs(
             y - np.asarray(endpoint_median)
         ))),
+        "endpoint_cross_run_sd": {
+            "observed": float(np.std(y)),
+            "simulated_expected": float(np.mean(simulated_cross_run_sd)),
+            "simulated_draw_sd": float(np.std(simulated_cross_run_sd)),
+        },
         "endpoint_crps": float(np.mean(crps_values)),
         "endpoint_80pct_coverage": float(np.mean(coverage)),
         "all_round_ensemble_mean": {

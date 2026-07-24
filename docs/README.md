@@ -42,11 +42,11 @@ in them are dated, sometimes superseded, and sometimes carry an explicit
 `HISTORICAL` or `SUPERSEDED` banner. Treat every result claim in them as
 provisional and check the ledger before citing anything.
 
-- **[`reports/`](reports/)** — 110 experiment and analysis reports beyond the
+- **[`reports/`](reports/)** — 109 experiment and analysis reports beyond the
   seven above, plus the literature reviews and scans.
 - **[`prereg/`](prereg/)** — 14 preregistrations, committed before the runs they
   describe. Git history is what makes them forward predictions.
-- **[`archive/`](archive/)** — 26 superseded plans, earlier writeup drafts,
+- **[`archive/`](archive/)** — 27 superseded plans, earlier writeup drafts,
   figure briefs, session notes, and operational runbooks.
 
 ## Figures

@@ -439,7 +439,7 @@ generic update drift as the better explanation.
 - Format-transfer closure:
   [`../reports/report_kselect_v2.md`](../reports/report_kselect_v2.md#addendum-2--v4-the-format-transfer-closure-2026-07-06)
 - Early measurement lessons:
-  [`../reports/FINDINGS.md`](../reports/FINDINGS.md)
+  [`FINDINGS_projection_qwen25_1p5b.md`](FINDINGS_projection_qwen25_1p5b.md)
 - OLMo 3 staged checkpoints and revisions:
   [AI2 OLMo-3-7B-Instruct model card](https://huggingface.co/allenai/Olmo-3-7B-Instruct)
 - Self-rewarding models use iterative DPO:

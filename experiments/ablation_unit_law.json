@@ -1,5 +1,5 @@
 {
-  "what": "Held-out test of gap~=0.96*rho*sigma and drift~=0.833*gap on the 14 judge-ablation runs (56 rounds); conventions from analysis_spread_util_unified.py",
+  "what": "Held-out test of gap~=0.96*rho*sigma and drift~=0.833*gap on the 24 judge-ablation runs (96 logged rounds); conventions from analysis_spread_util_unified.py",
   "frozen_constants": {
     "C": 0.96,
     "K": 0.833
@@ -737,6 +737,30 @@
         0.643,
         0.657
       ]
+    }
+  },
+  "combined_corpus": {
+    "factorization": {
+      "n": 367,
+      "unit_proxy_mae": 0.0404,
+      "r2": 0.801,
+      "refit": {
+        "slope": 0.964,
+        "intercept": -0.0026,
+        "r": 0.895,
+        "n": 367
+      }
+    },
+    "candidate_pool_response": {
+      "n": 293,
+      "unit_update_mae": 0.0507,
+      "persistence_mae": 0.098,
+      "refit": {
+        "slope": 0.816,
+        "intercept": 0.0036,
+        "r": 0.852,
+        "n": 293
+      }
     }
   }
 }

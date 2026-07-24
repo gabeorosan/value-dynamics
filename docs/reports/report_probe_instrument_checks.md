@@ -6,7 +6,7 @@ item (ev_estimation gate) with two spontaneous checks.
 
 ## 1. EV-estimation gate on the runaway cells → the OLMo runaway is a real preference, not a response bias — CLOSES Lit&planning item 3
 
-FINDINGS.md §3.3 established that a fine-tune can install a blanket "favor the
+../archive/FINDINGS_projection_qwen25_1p5b.md §3.3 established that a fine-tune can install a blanket "favor the
 gamble" *response bias* that moves a factual EV-estimation question as much as
 the behavioral choice — a confound that masquerades as preference. The gate:
 does the runaway cell also corrupt the factual probe "which option has the

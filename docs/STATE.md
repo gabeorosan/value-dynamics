@@ -551,7 +551,7 @@ rows already committed.
   judge condition on the basin ensembles (saddle question on real updates; OLMo
   mechanism predicts A_self vs A_frozen differ), cross-lag criterion/self-report
   vs coordinate, and check whether the choice-format runaway cells logged
-  ev_estimation (response-bias gate from reports/FINDINGS.md §3.3).
+  ev_estimation (response-bias gate from archive/FINDINGS_projection_qwen25_1p5b.md §3.3).
   → item 2 (cross-lag) DONE (Analysis, 2026-07-09): CLEAN NULL, criterion does
   not lead behavior; lead-lag study parked — docs/reports/report_criterion_crosslag.md.
   → items 1 & 3 also DONE (Analysis, 2026-07-09). Item 1 drift-field refit:

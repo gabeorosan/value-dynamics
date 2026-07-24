@@ -1,0 +1,1606 @@
+{
+ "description": "Angular (arcsine) geometry of selection-loop value dynamics: tests whether the value moves at constant speed in phi = 2*arcsin(sqrt(v)), which follows from binomial candidate spread plus the sigma*rho selection rule.",
+ "source": "experiments/spread_util_unified.json",
+ "n_records": 340,
+ "n_runs": 74,
+ "T1_binomial_spread": {
+  "definition": "spread regressed on sqrt(pool_mean*(1-pool_mean)), binary-scored rounds only; c = slope through origin",
+  "n_binary_rounds": 280,
+  "pooled": {
+   "through_origin": {
+    "slope": 0.8132,
+    "n": 280,
+    "r2_vs_mean": 0.8589
+   },
+   "with_intercept": {
+    "slope": 0.9306,
+    "intercept": -0.0524,
+    "r": 0.9352,
+    "n": 280
+   },
+   "mean_realized_fraction": 0.7772
+  },
+  "by_slice": {
+   "qwen": {
+    "through_origin": {
+     "slope": 0.8827,
+     "n": 64,
+     "r2_vs_mean": 0.6209
+    },
+    "with_intercept": {
+     "slope": 1.2392,
+     "intercept": -0.172,
+     "r": 0.823,
+     "n": 64
+    },
+    "mean_realized_fraction": 0.879
+   },
+   "olmo": {
+    "through_origin": {
+     "slope": 0.7837,
+     "n": 216,
+     "r2_vs_mean": 0.8613
+    },
+    "with_intercept": {
+     "slope": 0.8852,
+     "intercept": -0.0439,
+     "r": 0.9352,
+     "n": 216
+    },
+    "mean_realized_fraction": 0.7437
+   },
+   "axis:risk": {
+    "through_origin": {
+     "slope": 0.8132,
+     "n": 280,
+     "r2_vs_mean": 0.8589
+    },
+    "with_intercept": {
+     "slope": 0.9306,
+     "intercept": -0.0524,
+     "r": 0.9352,
+     "n": 280
+    },
+    "mean_realized_fraction": 0.7772
+   },
+   "self-only": {
+    "through_origin": {
+     "slope": 0.8095,
+     "n": 200,
+     "r2_vs_mean": 0.8048
+    },
+    "with_intercept": {
+     "slope": 0.9994,
+     "intercept": -0.0843,
+     "r": 0.9152,
+     "n": 200
+    },
+    "mean_realized_fraction": 0.7721
+   },
+   "base-mixed": {
+    "through_origin": {
+     "slope": 0.8202,
+     "n": 48,
+     "r2_vs_mean": 0.6253
+    },
+    "with_intercept": {
+     "slope": 1.0932,
+     "intercept": -0.1283,
+     "r": 0.8168,
+     "n": 48
+    },
+    "mean_realized_fraction": 0.8154
+   },
+   "peer-mixed": {
+    "through_origin": {
+     "slope": 0.8354,
+     "n": 32,
+     "r2_vs_mean": 0.9463
+    },
+    "with_intercept": {
+     "slope": 0.8832,
+     "intercept": -0.0191,
+     "r": 0.9754,
+     "n": 32
+    },
+    "mean_realized_fraction": 0.7326
+   }
+  }
+ },
+ "c_global_used": 0.8132,
+ "T2_constant_speed": {
+  "definition": "per-run constant-step fit, scored in v-space MAE; >=3 transitions required",
+  "n_runs": 74,
+  "mean_mae_const_v": 0.1047,
+  "mean_mae_const_phi": 0.1033,
+  "runs_where_phi_wins": 42,
+  "runs_total": 74,
+  "movers_only": {
+   "n": 52,
+   "mean_mae_const_v": 0.1148,
+   "mean_mae_const_phi": 0.1132,
+   "phi_wins": 32
+  },
+  "per_run": [
+   {
+    "run": "OLMo|risk|oracle_hold|21|k2rel_oracle_hold_s21.json|score oracle|score|self-only",
+    "n_steps": 4,
+    "start": 0.9167,
+    "end": 0.0938,
+    "mae_const_v": 0.0234,
+    "mae_const_phi": 0.0436,
+    "dphi_bar": -0.4834,
+    "dv_bar": -0.2057
+   },
+   {
+    "run": "OLMo|risk|h2h_invade_self|54|k2rel_h2h_invade_self_s54.json|self|duel|peer-mixed",
+    "n_steps": 4,
+    "start": 0.2065,
+    "end": 1.0,
+    "mae_const_v": 0.0942,
+    "mae_const_phi": 0.0875,
+    "dphi_bar": 0.5495,
+    "dv_bar": 0.1984
+   },
+   {
+    "run": "OLMo|risk|invade_self|38|k2rel_invade_self_s38.json|self|reference|peer-mixed",
+    "n_steps": 4,
+    "start": 0.2444,
+    "end": 1.0,
+    "mae_const_v": 0.1417,
+    "mae_const_phi": 0.1262,
+    "dphi_bar": 0.5268,
+    "dv_bar": 0.1889
+   },
+   {
+    "run": "OLMo|risk|h2h_invade_self|53|k2rel_h2h_invade_self_s53.json|self|duel|peer-mixed",
+    "n_steps": 4,
+    "start": 0.3,
+    "end": 1.0,
+    "mae_const_v": 0.0771,
+    "mae_const_phi": 0.0553,
+    "dphi_bar": 0.4957,
+    "dv_bar": 0.175
+   },
+   {
+    "run": "OLMo|risk|press_d1|2|k2rel_press_d1_s2.json|schedule|reference|self-only",
+    "n_steps": 8,
+    "start": 0.3011,
+    "end": 1.0,
+    "mae_const_v": 0.1285,
+    "mae_const_phi": 0.1242,
+    "dphi_bar": 0.2475,
+    "dv_bar": 0.0874
+   },
+   {
+    "run": "OLMo|risk|invade_base|36|k2rel_invade_base_s36.json|base|reference|peer-mixed",
+    "n_steps": 4,
+    "start": 0.3118,
+    "end": 1.0,
+    "mae_const_v": 0.1395,
+    "mae_const_phi": 0.1225,
+    "dphi_bar": 0.4892,
+    "dv_bar": 0.172
+   },
+   {
+    "run": "OLMo|risk|invade_base|35|k2rel_invade_base_s35.json|base|reference|peer-mixed",
+    "n_steps": 4,
+    "start": 0.3068,
+    "end": 0.9895,
+    "mae_const_v": 0.1333,
+    "mae_const_phi": 0.1221,
+    "dphi_bar": 0.4406,
+    "dv_bar": 0.1707
+   },
+   {
+    "run": "Qwen|selfreport|judge_opposition_oracle|101|judge_opposition_oracle.json|score oracle|score|self-only",
+    "n_steps": 4,
+    "start": 0.9989,
+    "end": 0.3312,
+    "mae_const_v": 0.1264,
+    "mae_const_phi": 0.1404,
+    "dphi_bar": -0.4622,
+    "dv_bar": -0.1669
+   },
+   {
+    "run": "Qwen|selfreport|judge_opposition_oracle|202|judge_opposition_oracle.json|score oracle|score|self-only",
+    "n_steps": 4,
+    "start": 0.9989,
+    "end": 0.334,
+    "mae_const_v": 0.1662,
+    "mae_const_phi": 0.1887,
+    "dphi_bar": -0.4607,
+    "dv_bar": -0.1662
+   },
+   {
+    "run": "OLMo|risk|h2h_invade_base|52|k2rel_h2h_invade_base_s52.json|base|duel|peer-mixed",
+    "n_steps": 4,
+    "start": 0.2857,
+    "end": 0.9375,
+    "mae_const_v": 0.1127,
+    "mae_const_phi": 0.1075,
+    "dphi_bar": 0.3772,
+    "dv_bar": 0.163
+   },
+   {
+    "run": "Qwen|selfreport|judge_opposition_natural_base|202|judge_opposition_natural_base.json|base|reference|self-only",
+    "n_steps": 4,
+    "start": 0.9796,
+    "end": 0.334,
+    "mae_const_v": 0.2575,
+    "mae_const_phi": 0.2715,
+    "dphi_bar": -0.4057,
+    "dv_bar": -0.1614
+   },
+   {
+    "run": "OLMo|risk|invade_self|37|k2rel_invade_self_s37.json|self|reference|peer-mixed",
+    "n_steps": 4,
+    "start": 0.3626,
+    "end": 1.0,
+    "mae_const_v": 0.0987,
+    "mae_const_phi": 0.0823,
+    "dphi_bar": 0.4622,
+    "dv_bar": 0.1593
+   },
+   {
+    "run": "OLMo|risk|press_d2|2|k2rel_press_d2_s2.json|schedule|reference|self-only",
+    "n_steps": 8,
+    "start": 0.3011,
+    "end": 0.9375,
+    "mae_const_v": 0.0751,
+    "mae_const_phi": 0.0746,
+    "dphi_bar": 0.1843,
+    "dv_bar": 0.0795
+   },
+   {
+    "run": "Qwen|selfreport|mixed_reopen_qwen|921|mixed_reopen_qwen.json|score oracle|score|base-mixed",
+    "n_steps": 4,
+    "start": 0.6269,
+    "end": 0.0,
+    "mae_const_v": 0.1175,
+    "mae_const_phi": 0.1001,
+    "dphi_bar": -0.4569,
+    "dv_bar": -0.1567
+   },
+   {
+    "run": "Qwen|selfreport|mixed_reopen_qwen|922|mixed_reopen_qwen.json|score oracle|score|base-mixed",
+    "n_steps": 4,
+    "start": 0.6269,
+    "end": 0.0,
+    "mae_const_v": 0.1175,
+    "mae_const_phi": 0.1001,
+    "dphi_bar": -0.4569,
+    "dv_bar": -0.1567
+   },
+   {
+    "run": "OLMo|risk|oracle_mix|31|k2rel_oracle_mix_s31.json|score oracle|score|base-mixed",
+    "n_steps": 4,
+    "start": 0.9271,
+    "end": 0.3438,
+    "mae_const_v": 0.0867,
+    "mae_const_phi": 0.0971,
+    "dphi_bar": -0.3354,
+    "dv_bar": -0.1458
+   },
+   {
+    "run": "OLMo|risk|base_hold|2|k2rel_base_hold_s2.json|base|reference|self-only",
+    "n_steps": 8,
+    "start": 0.3011,
+    "end": 0.875,
+    "mae_const_v": 0.153,
+    "mae_const_phi": 0.1504,
+    "dphi_bar": 0.1572,
+    "dv_bar": 0.0718
+   },
+   {
+    "run": "OLMo|risk|frozen_base|5|k2_olmo_inversion_kaggle_conf_v2.json|base|reference|self-only",
+    "n_steps": 4,
+    "start": 0.234,
+    "end": 0.8021,
+    "mae_const_v": 0.0924,
+    "mae_const_phi": 0.0878,
+    "dphi_bar": 0.3024,
+    "dv_bar": 0.142
+   },
+   {
+    "run": "OLMo|risk|press_d3|2|k2rel_press_d3_s2.json|schedule|reference|self-only",
+    "n_steps": 8,
+    "start": 0.3011,
+    "end": 0.8229,
+    "mae_const_v": 0.0825,
+    "mae_const_phi": 0.0821,
+    "dphi_bar": 0.1389,
+    "dv_bar": 0.0652
+   },
+   {
+    "run": "OLMo|risk|oracle_mix|32|k2rel_oracle_mix_s32.json|score oracle|score|base-mixed",
+    "n_steps": 4,
+    "start": 1.0,
+    "end": 0.4842,
+    "mae_const_v": 0.2024,
+    "mae_const_phi": 0.1959,
+    "dphi_bar": -0.4006,
+    "dv_bar": -0.129
+   },
+   {
+    "run": "OLMo|risk|frozen_base|2|k2_olmo_inversion_kaggle_base012.json|base|reference|self-only",
+    "n_steps": 4,
+    "start": 0.2105,
+    "end": 0.6875,
+    "mae_const_v": 0.0578,
+    "mae_const_phi": 0.0527,
+    "dphi_bar": 0.2504,
+    "dv_bar": 0.1192
+   },
+   {
+    "run": "Qwen|selfreport|selfaware_loop_grid|33|selfaware_loop_grid.json|self|candid-prompt|self-only",
+    "n_steps": 4,
+    "start": 0.5471,
+    "end": 0.9993,
+    "mae_const_v": 0.0708,
+    "mae_const_phi": 0.0395,
+    "dphi_bar": 0.7765,
+    "dv_bar": 0.252
+   },
+   {
+    "run": "Qwen|selfreport|selfaware_loop_grid|11|selfaware_loop_grid.json|self|candid-prompt|self-only",
+    "n_steps": 4,
+    "start": 0.5471,
+    "end": 0.998,
+    "mae_const_v": 0.1249,
+    "mae_const_phi": 0.0787,
+    "dphi_bar": 0.7603,
+    "dv_bar": 0.2516
+   },
+   {
+    "run": "OLMo|risk|h2h_base_rescue|58|k2rel_h2h_base_rescue_s58.json|base|duel|base-mixed",
+    "n_steps": 4,
+    "start": 1.0,
+    "end": 0.5521,
+    "mae_const_v": 0.1315,
+    "mae_const_phi": 0.2038,
+    "dphi_bar": -0.3666,
+    "dv_bar": -0.112
+   },
+   {
+    "run": "Qwen|selfreport|head2head_selfjudge|41|head2head_selfjudge.json|self|duel|base-mixed",
+    "n_steps": 4,
+    "start": 0.4445,
+    "end": 0.0,
+    "mae_const_v": 0.0556,
+    "mae_const_phi": 0.036,
+    "dphi_bar": -0.3599,
+    "dv_bar": -0.1111
+   }
+  ]
+ },
+ "T3_one_step": {
+  "definition": "one-step forecasts of v_{t+1}, all scored in v-space MAE; rounds with logged rho and binary scoring",
+  "n": 242,
+  "mae": {
+   "persistence": 0.1324,
+   "linear_measured_sigma": 0.1094,
+   "angular_measured_sigma": 0.1271,
+   "angular_binomial_sigma": 0.1091,
+   "linear_binomial_sigma": 0.1108
+  }
+ },
+ "T4_endpoint": {
+  "definition": "iterate from round 1 to the observed final round; identical round-1 inputs for models A and C; scored as |predicted - observed final value|",
+  "n_runs": 67,
+  "mae": {
+   "persistence": 0.3506,
+   "A_frozen_sigma_clip": 0.2128,
+   "B_angular_run_speed": 0.2122,
+   "C_angular_global_c": 0.2131
+  },
+  "A_vs_B": {
+   "B_better": 33,
+   "A_better": 15,
+   "tied": 19
+  },
+  "largest_disagreements": [
+   {
+    "run": "Qwen|selfreport|judge_opposition_natural_base|202|judge_opposition_natural_base.json|base|reference|self-only",
+    "rounds": 4,
+    "v1": 0.9796,
+    "rho1": -0.3737,
+    "sigma1": 0.2227,
+    "observed": 0.334,
+    "persistence": 0.9796,
+    "A_frozen_sigma_clip": 0.6467,
+    "B_angular_run_speed": 0.0612,
+    "C_angular_global_c": 0.5343
+   },
+   {
+    "run": "Qwen|selfreport|judge_opposition_oracle|101|judge_opposition_oracle.json|score oracle|score|self-only",
+    "rounds": 4,
+    "v1": 0.9989,
+    "rho1": -1.0,
+    "sigma1": 0.1417,
+    "observed": 0.3312,
+    "persistence": 0.9989,
+    "A_frozen_sigma_clip": 0.4321,
+    "B_angular_run_speed": 0.0,
+    "C_angular_global_c": 0.0
+   },
+   {
+    "run": "Qwen|selfreport|judge_opposition_oracle_seed707|707|judge_opposition_oracle_seed707.json|score oracle|score|self-only",
+    "rounds": 4,
+    "v1": 0.9835,
+    "rho1": -1.0,
+    "sigma1": 0.1569,
+    "observed": 0.6247,
+    "persistence": 0.9835,
+    "A_frozen_sigma_clip": 0.3559,
+    "B_angular_run_speed": 0.0,
+    "C_angular_global_c": 0.0
+   },
+   {
+    "run": "OLMo|risk|oracle_hold|21|k2rel_oracle_hold_s21.json|score oracle|score|self-only",
+    "rounds": 4,
+    "v1": 0.9167,
+    "rho1": -1.0,
+    "sigma1": 0.1242,
+    "observed": 0.0938,
+    "persistence": 0.9167,
+    "A_frozen_sigma_clip": 0.4199,
+    "B_angular_run_speed": 0.137,
+    "C_angular_global_c": 0.0
+   },
+   {
+    "run": "Qwen|selfreport|judge_opposition_oracle|202|judge_opposition_oracle.json|score oracle|score|self-only",
+    "rounds": 4,
+    "v1": 0.9989,
+    "rho1": -1.0,
+    "sigma1": 0.2227,
+    "observed": 0.334,
+    "persistence": 0.9989,
+    "A_frozen_sigma_clip": 0.1081,
+    "B_angular_run_speed": 0.0,
+    "C_angular_global_c": 0.0
+   },
+   {
+    "run": "OLMo|risk|h2h_erode_self|61|k2rel_h2h_erode_self_s61.json|self|duel|base-mixed",
+    "rounds": 4,
+    "v1": 0.2021,
+    "rho1": 0.2956,
+    "sigma1": 0.404,
+    "observed": 0.4687,
+    "persistence": 0.2021,
+    "A_frozen_sigma_clip": 0.6798,
+    "B_angular_run_speed": 0.7619,
+    "C_angular_global_c": 0.6588
+   },
+   {
+    "run": "Qwen|selfreport|selfaware_loop_grid|44|selfaware_loop_grid.json|self|candid-prompt|self-only",
+    "rounds": 4,
+    "v1": 0.5471,
+    "rho1": 0.3197,
+    "sigma1": 0.3651,
+    "observed": 0.9164,
+    "persistence": 0.5471,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 0.9292,
+    "C_angular_global_c": 0.9531
+   },
+   {
+    "run": "Qwen|selfreport|head2head_selfjudge|41|head2head_selfjudge.json|self|duel|base-mixed",
+    "rounds": 4,
+    "v1": 0.4445,
+    "rho1": -0.3676,
+    "sigma1": 0.3199,
+    "observed": 0.0,
+    "persistence": 0.4445,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.0644,
+    "C_angular_global_c": 0.0173
+   },
+   {
+    "run": "OLMo|risk|base_hold|1|k2rel_base_hold_s1.json|base|reference|self-only",
+    "rounds": 8,
+    "v1": 0.3077,
+    "rho1": -0.1322,
+    "sigma1": 0.3124,
+    "observed": 0.5625,
+    "persistence": 0.3077,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.052,
+    "C_angular_global_c": 0.0248
+   },
+   {
+    "run": "OLMo|risk|press_d1|2|k2rel_press_d1_s2.json|schedule|reference|self-only",
+    "rounds": 8,
+    "v1": 0.3011,
+    "rho1": -0.0929,
+    "sigma1": 0.3549,
+    "observed": 1.0,
+    "persistence": 0.3011,
+    "A_frozen_sigma_clip": 0.0373,
+    "B_angular_run_speed": 0.0836,
+    "C_angular_global_c": 0.0757
+   },
+   {
+    "run": "OLMo|risk|press_d2|2|k2rel_press_d2_s2.json|schedule|reference|self-only",
+    "rounds": 8,
+    "v1": 0.3011,
+    "rho1": -0.0929,
+    "sigma1": 0.3549,
+    "observed": 0.9375,
+    "persistence": 0.3011,
+    "A_frozen_sigma_clip": 0.0373,
+    "B_angular_run_speed": 0.0836,
+    "C_angular_global_c": 0.0757
+   },
+   {
+    "run": "OLMo|risk|press_d3|2|k2rel_press_d3_s2.json|schedule|reference|self-only",
+    "rounds": 8,
+    "v1": 0.3011,
+    "rho1": -0.0929,
+    "sigma1": 0.3549,
+    "observed": 0.8229,
+    "persistence": 0.3011,
+    "A_frozen_sigma_clip": 0.0373,
+    "B_angular_run_speed": 0.0836,
+    "C_angular_global_c": 0.0757
+   },
+   {
+    "run": "OLMo|risk|press_to_base|2|k2rel_press_to_base_s2.json|schedule|reference|self-only",
+    "rounds": 8,
+    "v1": 0.3011,
+    "rho1": -0.0929,
+    "sigma1": 0.3549,
+    "observed": 0.3895,
+    "persistence": 0.3011,
+    "A_frozen_sigma_clip": 0.0373,
+    "B_angular_run_speed": 0.0836,
+    "C_angular_global_c": 0.0757
+   },
+   {
+    "run": "OLMo|risk|frozen_base|4|k2_olmo_inversion_kaggle_conf_v2.json|base|reference|self-only",
+    "rounds": 4,
+    "v1": 0.2447,
+    "rho1": -0.2584,
+    "sigma1": 0.2503,
+    "observed": 0.0625,
+    "persistence": 0.2447,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.0462,
+    "C_angular_global_c": 0.0094
+   },
+   {
+    "run": "Qwen|selfreport|selfaware_loop_grid|22|selfaware_loop_grid.json|self|candid-prompt|self-only",
+    "rounds": 4,
+    "v1": 0.5471,
+    "rho1": 0.2985,
+    "sigma1": 0.4375,
+    "observed": 0.9766,
+    "persistence": 0.5471,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 0.9551,
+    "C_angular_global_c": 0.9375
+   }
+  ],
+  "per_run": [
+   {
+    "run": "Qwen|risk|evolving_self|0|k1_qwen_anchor.json|self|reference|self-only",
+    "rounds": 4,
+    "v1": 0.5938,
+    "rho1": -0.0058,
+    "sigma1": 0.431,
+    "observed": 0.2605,
+    "persistence": 0.5938,
+    "A_frozen_sigma_clip": 0.5838,
+    "B_angular_run_speed": 0.5838,
+    "C_angular_global_c": 0.5845
+   },
+   {
+    "run": "Qwen|risk|frozen_copy_r0|0|k1_qwen_anchor.json|frozen copy|reference|self-only",
+    "rounds": 4,
+    "v1": 0.5938,
+    "rho1": -0.006,
+    "sigma1": 0.431,
+    "observed": 0.4375,
+    "persistence": 0.5938,
+    "A_frozen_sigma_clip": 0.5835,
+    "B_angular_run_speed": 0.5834,
+    "C_angular_global_c": 0.5842
+   },
+   {
+    "run": "Qwen|risk|frozen_base|0|k1_qwen_anchor.json|base|reference|self-only",
+    "rounds": 4,
+    "v1": 0.5938,
+    "rho1": -0.1789,
+    "sigma1": 0.431,
+    "observed": 0.6042,
+    "persistence": 0.5938,
+    "A_frozen_sigma_clip": 0.2854,
+    "B_angular_run_speed": 0.2874,
+    "C_angular_global_c": 0.3084
+   },
+   {
+    "run": "Qwen|risk|evolving_self|1|k1_qwen_anchor.json|self|reference|self-only",
+    "rounds": 4,
+    "v1": 0.6354,
+    "rho1": 0.0393,
+    "sigma1": 0.4727,
+    "observed": 0.7083,
+    "persistence": 0.6354,
+    "A_frozen_sigma_clip": 0.7097,
+    "B_angular_run_speed": 0.7078,
+    "C_angular_global_c": 0.6957
+   },
+   {
+    "run": "Qwen|risk|frozen_copy_r0|1|k1_qwen_anchor.json|frozen copy|reference|self-only",
+    "rounds": 4,
+    "v1": 0.6354,
+    "rho1": 0.0393,
+    "sigma1": 0.4727,
+    "observed": 0.6771,
+    "persistence": 0.6354,
+    "A_frozen_sigma_clip": 0.7097,
+    "B_angular_run_speed": 0.7078,
+    "C_angular_global_c": 0.6957
+   },
+   {
+    "run": "Qwen|risk|frozen_base|1|k1_qwen_anchor.json|base|reference|self-only",
+    "rounds": 4,
+    "v1": 0.6354,
+    "rho1": -0.1179,
+    "sigma1": 0.4727,
+    "observed": 0.4688,
+    "persistence": 0.6354,
+    "A_frozen_sigma_clip": 0.4125,
+    "B_angular_run_speed": 0.4061,
+    "C_angular_global_c": 0.4455
+   },
+   {
+    "run": "Qwen|risk|evolving_self|2|k1_qwen_anchor.json|self|reference|self-only",
+    "rounds": 4,
+    "v1": 0.6042,
+    "rho1": 0.1695,
+    "sigma1": 0.43,
+    "observed": 0.875,
+    "persistence": 0.6042,
+    "A_frozen_sigma_clip": 0.8957,
+    "B_angular_run_speed": 0.8608,
+    "C_angular_global_c": 0.8449
+   },
+   {
+    "run": "Qwen|risk|frozen_copy_r0|2|k1_qwen_anchor.json|frozen copy|reference|self-only",
+    "rounds": 4,
+    "v1": 0.6042,
+    "rho1": 0.1695,
+    "sigma1": 0.43,
+    "observed": 0.6979,
+    "persistence": 0.6042,
+    "A_frozen_sigma_clip": 0.8957,
+    "B_angular_run_speed": 0.8608,
+    "C_angular_global_c": 0.8449
+   },
+   {
+    "run": "Qwen|risk|frozen_base|2|k1_qwen_anchor.json|base|reference|self-only",
+    "rounds": 4,
+    "v1": 0.6042,
+    "rho1": -0.0427,
+    "sigma1": 0.43,
+    "observed": 0.5938,
+    "persistence": 0.6042,
+    "A_frozen_sigma_clip": 0.5308,
+    "B_angular_run_speed": 0.5299,
+    "C_angular_global_c": 0.5355
+   },
+   {
+    "run": "Qwen|risk|evolving_self|3|k1_qwen_anchor.json|self|reference|self-only",
+    "rounds": 4,
+    "v1": 0.5833,
+    "rho1": 0.0323,
+    "sigma1": 0.4669,
+    "observed": 1.0,
+    "persistence": 0.5833,
+    "A_frozen_sigma_clip": 0.6436,
+    "B_angular_run_speed": 0.6429,
+    "C_angular_global_c": 0.6345
+   },
+   {
+    "run": "Qwen|risk|frozen_copy_r0|3|k1_qwen_anchor.json|frozen copy|reference|self-only",
+    "rounds": 4,
+    "v1": 0.5833,
+    "rho1": 0.0323,
+    "sigma1": 0.4669,
+    "observed": 0.5104,
+    "persistence": 0.5833,
+    "A_frozen_sigma_clip": 0.6436,
+    "B_angular_run_speed": 0.6429,
+    "C_angular_global_c": 0.6345
+   },
+   {
+    "run": "Qwen|risk|frozen_base|3|k1_qwen_anchor.json|base|reference|self-only",
+    "rounds": 4,
+    "v1": 0.5833,
+    "rho1": -0.0627,
+    "sigma1": 0.4669,
+    "observed": 0.5937,
+    "persistence": 0.5833,
+    "A_frozen_sigma_clip": 0.4662,
+    "B_angular_run_speed": 0.465,
+    "C_angular_global_c": 0.4817
+   },
+   {
+    "run": "OLMo|risk|frozen_cons_r0|3|k2_olmo_inversion_kaggle_conf_v2.json|cautious copy|reference|self-only",
+    "rounds": 4,
+    "v1": 0.2386,
+    "rho1": -0.2916,
+    "sigma1": 0.3313,
+    "observed": 0.1915,
+    "persistence": 0.2386,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.0032,
+    "C_angular_global_c": 0.0013
+   },
+   {
+    "run": "OLMo|risk|frozen_base|3|k2_olmo_inversion_kaggle_conf_v2.json|base|reference|self-only",
+    "rounds": 4,
+    "v1": 0.2386,
+    "rho1": 0.0371,
+    "sigma1": 0.3313,
+    "observed": 0.0625,
+    "persistence": 0.2386,
+    "A_frozen_sigma_clip": 0.2878,
+    "B_angular_run_speed": 0.2894,
+    "C_angular_global_c": 0.2918
+   },
+   {
+    "run": "OLMo|risk|frozen_cons_r0|4|k2_olmo_inversion_kaggle_conf_v2.json|cautious copy|reference|self-only",
+    "rounds": 4,
+    "v1": 0.2447,
+    "rho1": -0.2117,
+    "sigma1": 0.2503,
+    "observed": 0.0948,
+    "persistence": 0.2447,
+    "A_frozen_sigma_clip": 0.0327,
+    "B_angular_run_speed": 0.0716,
+    "C_angular_global_c": 0.0297
+   },
+   {
+    "run": "OLMo|risk|frozen_base|4|k2_olmo_inversion_kaggle_conf_v2.json|base|reference|self-only",
+    "rounds": 4,
+    "v1": 0.2447,
+    "rho1": -0.2584,
+    "sigma1": 0.2503,
+    "observed": 0.0625,
+    "persistence": 0.2447,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.0462,
+    "C_angular_global_c": 0.0094
+   },
+   {
+    "run": "OLMo|risk|frozen_base|5|k2_olmo_inversion_kaggle_conf_v2.json|base|reference|self-only",
+    "rounds": 4,
+    "v1": 0.234,
+    "rho1": 0.0123,
+    "sigma1": 0.2012,
+    "observed": 0.8021,
+    "persistence": 0.234,
+    "A_frozen_sigma_clip": 0.2439,
+    "B_angular_run_speed": 0.244,
+    "C_angular_global_c": 0.2511
+   },
+   {
+    "run": "OLMo|risk|frozen_cons_r0|1|k2_conf_v1_seeds12_partial.json|cautious copy|reference|self-only",
+    "rounds": 4,
+    "v1": 0.2396,
+    "rho1": -0.4798,
+    "sigma1": 0.2731,
+    "observed": 0.0,
+    "persistence": 0.2396,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.0,
+    "C_angular_global_c": 0.0
+   },
+   {
+    "run": "OLMo|risk|frozen_cons_r0|2|k2_conf_v1_seeds12_partial.json|cautious copy|reference|self-only",
+    "rounds": 4,
+    "v1": 0.2105,
+    "rho1": -0.1673,
+    "sigma1": 0.4064,
+    "observed": 0.1505,
+    "persistence": 0.2105,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.0203,
+    "C_angular_global_c": 0.0413
+   },
+   {
+    "run": "OLMo|risk|frozen_base|0|k2_olmo_inversion_kaggle_base012.json|base|reference|self-only",
+    "rounds": 4,
+    "v1": 0.2688,
+    "rho1": -0.2803,
+    "sigma1": 0.2885,
+    "observed": 0.1875,
+    "persistence": 0.2688,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.0321,
+    "C_angular_global_c": 0.0079
+   },
+   {
+    "run": "OLMo|risk|frozen_base|1|k2_olmo_inversion_kaggle_base012.json|base|reference|self-only",
+    "rounds": 4,
+    "v1": 0.2396,
+    "rho1": -0.1789,
+    "sigma1": 0.2731,
+    "observed": 0.1459,
+    "persistence": 0.2396,
+    "A_frozen_sigma_clip": 0.0442,
+    "B_angular_run_speed": 0.0777,
+    "C_angular_global_c": 0.0479
+   },
+   {
+    "run": "OLMo|risk|frozen_base|2|k2_olmo_inversion_kaggle_base012.json|base|reference|self-only",
+    "rounds": 4,
+    "v1": 0.2105,
+    "rho1": 0.0902,
+    "sigma1": 0.4064,
+    "observed": 0.6875,
+    "persistence": 0.2105,
+    "A_frozen_sigma_clip": 0.3571,
+    "B_angular_run_speed": 0.3725,
+    "C_angular_global_c": 0.3408
+   },
+   {
+    "run": "OLMo|risk|base_hold|1|k2rel_base_hold_s1.json|base|reference|self-only",
+    "rounds": 8,
+    "v1": 0.3077,
+    "rho1": -0.1322,
+    "sigma1": 0.3124,
+    "observed": 0.5625,
+    "persistence": 0.3077,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.052,
+    "C_angular_global_c": 0.0248
+   },
+   {
+    "run": "OLMo|risk|base_hold|2|k2rel_base_hold_s2.json|base|reference|self-only",
+    "rounds": 8,
+    "v1": 0.3011,
+    "rho1": 0.0154,
+    "sigma1": 0.3549,
+    "observed": 0.875,
+    "persistence": 0.3011,
+    "A_frozen_sigma_clip": 0.3448,
+    "B_angular_run_speed": 0.3457,
+    "C_angular_global_c": 0.348
+   },
+   {
+    "run": "OLMo|risk|cons_mix|33|k2rel_cons_mix_s33.json|cautious copy|reference|base-mixed",
+    "rounds": 4,
+    "v1": 0.875,
+    "rho1": 0.2797,
+    "sigma1": 0.2405,
+    "observed": 0.7158,
+    "persistence": 0.875,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 1.0,
+    "C_angular_global_c": 1.0
+   },
+   {
+    "run": "OLMo|risk|cons_mix|34|k2rel_cons_mix_s34.json|cautious copy|reference|base-mixed",
+    "rounds": 4,
+    "v1": 1.0,
+    "rho1": 0.5978,
+    "sigma1": 0.3981,
+    "observed": 1.0,
+    "persistence": 1.0,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 1.0,
+    "C_angular_global_c": 1.0
+   },
+   {
+    "run": "OLMo|risk|h2h_base_rescue|57|k2rel_h2h_base_rescue_s57.json|base|duel|base-mixed",
+    "rounds": 4,
+    "v1": 0.875,
+    "rho1": 0.3251,
+    "sigma1": 0.3647,
+    "observed": 0.5369,
+    "persistence": 0.875,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 1.0,
+    "C_angular_global_c": 1.0
+   },
+   {
+    "run": "OLMo|risk|h2h_base_rescue|58|k2rel_h2h_base_rescue_s58.json|base|duel|base-mixed",
+    "rounds": 4,
+    "v1": 1.0,
+    "rho1": 0.3821,
+    "sigma1": 0.2779,
+    "observed": 0.5521,
+    "persistence": 1.0,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 1.0,
+    "C_angular_global_c": 1.0
+   },
+   {
+    "run": "OLMo|risk|h2h_cons_rescue|55|k2rel_h2h_cons_rescue_s55.json|cautious copy|duel|base-mixed",
+    "rounds": 4,
+    "v1": 0.8646,
+    "rho1": -0.0015,
+    "sigma1": 0.3352,
+    "observed": 0.5369,
+    "persistence": 0.8646,
+    "A_frozen_sigma_clip": 0.8626,
+    "B_angular_run_speed": 0.8626,
+    "C_angular_global_c": 0.8629
+   },
+   {
+    "run": "OLMo|risk|h2h_cons_rescue|56|k2rel_h2h_cons_rescue_s56.json|cautious copy|duel|base-mixed",
+    "rounds": 4,
+    "v1": 1.0,
+    "rho1": 0.2373,
+    "sigma1": 0.296,
+    "observed": 0.7473,
+    "persistence": 1.0,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 1.0,
+    "C_angular_global_c": 1.0
+   },
+   {
+    "run": "OLMo|risk|h2h_erode_base|63|k2rel_h2h_erode_base_s63.json|base|duel|base-mixed",
+    "rounds": 4,
+    "v1": 0.2366,
+    "rho1": -0.1047,
+    "sigma1": 0.4424,
+    "observed": 0.4583,
+    "persistence": 0.2366,
+    "A_frozen_sigma_clip": 0.0513,
+    "B_angular_run_speed": 0.0818,
+    "C_angular_global_c": 0.1098
+   },
+   {
+    "run": "OLMo|risk|h2h_erode_base|64|k2rel_h2h_erode_base_s64.json|base|duel|base-mixed",
+    "rounds": 4,
+    "v1": 0.2584,
+    "rho1": 0.1554,
+    "sigma1": 0.4563,
+    "observed": 0.4681,
+    "persistence": 0.2584,
+    "A_frozen_sigma_clip": 0.542,
+    "B_angular_run_speed": 0.5716,
+    "C_angular_global_c": 0.5006
+   },
+   {
+    "run": "OLMo|risk|h2h_erode_self|61|k2rel_h2h_erode_self_s61.json|self|duel|base-mixed",
+    "rounds": 4,
+    "v1": 0.2021,
+    "rho1": 0.2956,
+    "sigma1": 0.404,
+    "observed": 0.4687,
+    "persistence": 0.2021,
+    "A_frozen_sigma_clip": 0.6798,
+    "B_angular_run_speed": 0.7619,
+    "C_angular_global_c": 0.6588
+   },
+   {
+    "run": "OLMo|risk|h2h_erode_self|62|k2rel_h2h_erode_self_s62.json|self|duel|base-mixed",
+    "rounds": 4,
+    "v1": 0.413,
+    "rho1": 0.2196,
+    "sigma1": 0.3835,
+    "observed": 0.4271,
+    "persistence": 0.413,
+    "A_frozen_sigma_clip": 0.7499,
+    "B_angular_run_speed": 0.7438,
+    "C_angular_global_c": 0.7568
+   },
+   {
+    "run": "OLMo|risk|h2h_invade_base|51|k2rel_h2h_invade_base_s51.json|base|duel|peer-mixed",
+    "rounds": 4,
+    "v1": 0.3297,
+    "rho1": 0.3352,
+    "sigma1": 0.4228,
+    "observed": 0.7396,
+    "persistence": 0.3297,
+    "A_frozen_sigma_clip": 0.8966,
+    "B_angular_run_speed": 0.8784,
+    "C_angular_global_c": 0.8382
+   },
+   {
+    "run": "OLMo|risk|h2h_invade_base|52|k2rel_h2h_invade_base_s52.json|base|duel|peer-mixed",
+    "rounds": 4,
+    "v1": 0.2857,
+    "rho1": 0.3232,
+    "sigma1": 0.4504,
+    "observed": 0.9375,
+    "persistence": 0.2857,
+    "A_frozen_sigma_clip": 0.868,
+    "B_angular_run_speed": 0.8743,
+    "C_angular_global_c": 0.7858
+   },
+   {
+    "run": "OLMo|risk|h2h_invade_self|53|k2rel_h2h_invade_self_s53.json|self|duel|peer-mixed",
+    "rounds": 4,
+    "v1": 0.3,
+    "rho1": 0.6182,
+    "sigma1": 0.43,
+    "observed": 1.0,
+    "persistence": 0.3,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 1.0,
+    "C_angular_global_c": 1.0
+   },
+   {
+    "run": "OLMo|risk|h2h_invade_self|54|k2rel_h2h_invade_self_s54.json|self|duel|peer-mixed",
+    "rounds": 4,
+    "v1": 0.2065,
+    "rho1": 0.4388,
+    "sigma1": 0.4228,
+    "observed": 1.0,
+    "persistence": 0.2065,
+    "A_frozen_sigma_clip": 0.9486,
+    "B_angular_run_speed": 0.9671,
+    "C_angular_global_c": 0.8587
+   },
+   {
+    "run": "OLMo|risk|invade_base|35|k2rel_invade_base_s35.json|base|reference|peer-mixed",
+    "rounds": 4,
+    "v1": 0.3068,
+    "rho1": 0.6866,
+    "sigma1": 0.4669,
+    "observed": 0.9895,
+    "persistence": 0.3068,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 1.0,
+    "C_angular_global_c": 1.0
+   },
+   {
+    "run": "OLMo|risk|invade_base|36|k2rel_invade_base_s36.json|base|reference|peer-mixed",
+    "rounds": 4,
+    "v1": 0.3118,
+    "rho1": 0.7099,
+    "sigma1": 0.4087,
+    "observed": 1.0,
+    "persistence": 0.3118,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 1.0,
+    "C_angular_global_c": 1.0
+   },
+   {
+    "run": "OLMo|risk|invade_self|37|k2rel_invade_self_s37.json|self|reference|peer-mixed",
+    "rounds": 4,
+    "v1": 0.3626,
+    "rho1": 0.5369,
+    "sigma1": 0.4276,
+    "observed": 1.0,
+    "persistence": 0.3626,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 1.0,
+    "C_angular_global_c": 0.9974
+   },
+   {
+    "run": "OLMo|risk|invade_self|38|k2rel_invade_self_s38.json|self|reference|peer-mixed",
+    "rounds": 4,
+    "v1": 0.2444,
+    "rho1": 0.5654,
+    "sigma1": 0.4146,
+    "observed": 1.0,
+    "persistence": 0.2444,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 1.0,
+    "C_angular_global_c": 0.9821
+   },
+   {
+    "run": "OLMo|risk|oracle_hold|21|k2rel_oracle_hold_s21.json|score oracle|score|self-only",
+    "rounds": 4,
+    "v1": 0.9167,
+    "rho1": -1.0,
+    "sigma1": 0.1242,
+    "observed": 0.0938,
+    "persistence": 0.9167,
+    "A_frozen_sigma_clip": 0.4199,
+    "B_angular_run_speed": 0.137,
+    "C_angular_global_c": 0.0
+   },
+   {
+    "run": "OLMo|risk|oracle_mix|31|k2rel_oracle_mix_s31.json|score oracle|score|base-mixed",
+    "rounds": 4,
+    "v1": 0.9271,
+    "rho1": -1.0,
+    "sigma1": 0.3992,
+    "observed": 0.3438,
+    "persistence": 0.9271,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.0,
+    "C_angular_global_c": 0.0
+   },
+   {
+    "run": "OLMo|risk|oracle_mix|32|k2rel_oracle_mix_s32.json|score oracle|score|base-mixed",
+    "rounds": 4,
+    "v1": 1.0,
+    "rho1": -1.0,
+    "sigma1": 0.2445,
+    "observed": 0.4842,
+    "persistence": 1.0,
+    "A_frozen_sigma_clip": 0.022,
+    "B_angular_run_speed": 0.0,
+    "C_angular_global_c": 0.0
+   },
+   {
+    "run": "OLMo|risk|press_d1|1|k2rel_press_d1_s1.json|schedule|reference|self-only",
+    "rounds": 8,
+    "v1": 0.3077,
+    "rho1": -0.1555,
+    "sigma1": 0.3124,
+    "observed": 0.0,
+    "persistence": 0.3077,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.0276,
+    "C_angular_global_c": 0.0067
+   },
+   {
+    "run": "OLMo|risk|press_d1|2|k2rel_press_d1_s2.json|schedule|reference|self-only",
+    "rounds": 8,
+    "v1": 0.3011,
+    "rho1": -0.0929,
+    "sigma1": 0.3549,
+    "observed": 1.0,
+    "persistence": 0.3011,
+    "A_frozen_sigma_clip": 0.0373,
+    "B_angular_run_speed": 0.0836,
+    "C_angular_global_c": 0.0757
+   },
+   {
+    "run": "OLMo|risk|press_d2|1|k2rel_press_d2_s1.json|schedule|reference|self-only",
+    "rounds": 8,
+    "v1": 0.3077,
+    "rho1": -0.1555,
+    "sigma1": 0.3124,
+    "observed": 0.1052,
+    "persistence": 0.3077,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.0276,
+    "C_angular_global_c": 0.0067
+   },
+   {
+    "run": "OLMo|risk|press_d2|2|k2rel_press_d2_s2.json|schedule|reference|self-only",
+    "rounds": 8,
+    "v1": 0.3011,
+    "rho1": -0.0929,
+    "sigma1": 0.3549,
+    "observed": 0.9375,
+    "persistence": 0.3011,
+    "A_frozen_sigma_clip": 0.0373,
+    "B_angular_run_speed": 0.0836,
+    "C_angular_global_c": 0.0757
+   },
+   {
+    "run": "OLMo|risk|press_d3|1|k2rel_press_d3_s1.json|schedule|reference|self-only",
+    "rounds": 8,
+    "v1": 0.3077,
+    "rho1": -0.1555,
+    "sigma1": 0.3124,
+    "observed": 0.2292,
+    "persistence": 0.3077,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.0276,
+    "C_angular_global_c": 0.0067
+   },
+   {
+    "run": "OLMo|risk|press_d3|2|k2rel_press_d3_s2.json|schedule|reference|self-only",
+    "rounds": 8,
+    "v1": 0.3011,
+    "rho1": -0.0929,
+    "sigma1": 0.3549,
+    "observed": 0.8229,
+    "persistence": 0.3011,
+    "A_frozen_sigma_clip": 0.0373,
+    "B_angular_run_speed": 0.0836,
+    "C_angular_global_c": 0.0757
+   },
+   {
+    "run": "OLMo|risk|press_to_base|1|k2rel_press_to_base_s1.json|schedule|reference|self-only",
+    "rounds": 8,
+    "v1": 0.3077,
+    "rho1": -0.1555,
+    "sigma1": 0.3124,
+    "observed": 0.0,
+    "persistence": 0.3077,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.0276,
+    "C_angular_global_c": 0.0067
+   },
+   {
+    "run": "OLMo|risk|press_to_base|2|k2rel_press_to_base_s2.json|schedule|reference|self-only",
+    "rounds": 8,
+    "v1": 0.3011,
+    "rho1": -0.0929,
+    "sigma1": 0.3549,
+    "observed": 0.3895,
+    "persistence": 0.3011,
+    "A_frozen_sigma_clip": 0.0373,
+    "B_angular_run_speed": 0.0836,
+    "C_angular_global_c": 0.0757
+   },
+   {
+    "run": "OLMo|risk|press_to_base|3|k2rel_press_to_base_s3.json|schedule|reference|self-only",
+    "rounds": 8,
+    "v1": 0.3444,
+    "rho1": -0.18,
+    "sigma1": 0.3313,
+    "observed": 0.75,
+    "persistence": 0.3444,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.0156,
+    "C_angular_global_c": 0.0017
+   },
+   {
+    "run": "Qwen|selfreport|selfaware_loop_grid|11|selfaware_loop_grid.json|self|candid-prompt|self-only",
+    "rounds": 4,
+    "v1": 0.5471,
+    "rho1": 0.6378,
+    "sigma1": 0.3782,
+    "observed": 0.998,
+    "persistence": 0.5471,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 1.0,
+    "C_angular_global_c": 1.0
+   },
+   {
+    "run": "Qwen|selfreport|selfaware_loop_grid|22|selfaware_loop_grid.json|self|candid-prompt|self-only",
+    "rounds": 4,
+    "v1": 0.5471,
+    "rho1": 0.2985,
+    "sigma1": 0.4375,
+    "observed": 0.9766,
+    "persistence": 0.5471,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 0.9551,
+    "C_angular_global_c": 0.9375
+   },
+   {
+    "run": "Qwen|selfreport|selfaware_loop_grid|33|selfaware_loop_grid.json|self|candid-prompt|self-only",
+    "rounds": 4,
+    "v1": 0.5471,
+    "rho1": 0.5238,
+    "sigma1": 0.3953,
+    "observed": 0.9993,
+    "persistence": 0.5471,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 1.0,
+    "C_angular_global_c": 1.0
+   },
+   {
+    "run": "Qwen|selfreport|selfaware_loop_grid|44|selfaware_loop_grid.json|self|candid-prompt|self-only",
+    "rounds": 4,
+    "v1": 0.5471,
+    "rho1": 0.3197,
+    "sigma1": 0.3651,
+    "observed": 0.9164,
+    "persistence": 0.5471,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 0.9292,
+    "C_angular_global_c": 0.9531
+   },
+   {
+    "run": "Qwen|selfreport|judge_opposition_oracle|101|judge_opposition_oracle.json|score oracle|score|self-only",
+    "rounds": 4,
+    "v1": 0.9989,
+    "rho1": -1.0,
+    "sigma1": 0.1417,
+    "observed": 0.3312,
+    "persistence": 0.9989,
+    "A_frozen_sigma_clip": 0.4321,
+    "B_angular_run_speed": 0.0,
+    "C_angular_global_c": 0.0
+   },
+   {
+    "run": "Qwen|selfreport|judge_opposition_oracle|202|judge_opposition_oracle.json|score oracle|score|self-only",
+    "rounds": 4,
+    "v1": 0.9989,
+    "rho1": -1.0,
+    "sigma1": 0.2227,
+    "observed": 0.334,
+    "persistence": 0.9989,
+    "A_frozen_sigma_clip": 0.1081,
+    "B_angular_run_speed": 0.0,
+    "C_angular_global_c": 0.0
+   },
+   {
+    "run": "Qwen|selfreport|judge_opposition_oracle_seed707|707|judge_opposition_oracle_seed707.json|score oracle|score|self-only",
+    "rounds": 4,
+    "v1": 0.9835,
+    "rho1": -1.0,
+    "sigma1": 0.1569,
+    "observed": 0.6247,
+    "persistence": 0.9835,
+    "A_frozen_sigma_clip": 0.3559,
+    "B_angular_run_speed": 0.0,
+    "C_angular_global_c": 0.0
+   },
+   {
+    "run": "Qwen|selfreport|judge_opposition_natural_base|101|judge_opposition_natural_base.json|base|reference|self-only",
+    "rounds": 4,
+    "v1": 0.9796,
+    "rho1": 0.5168,
+    "sigma1": 0.1417,
+    "observed": 0.958,
+    "persistence": 0.9796,
+    "A_frozen_sigma_clip": 1.0,
+    "B_angular_run_speed": 1.0,
+    "C_angular_global_c": 1.0
+   },
+   {
+    "run": "Qwen|selfreport|judge_opposition_natural_base|202|judge_opposition_natural_base.json|base|reference|self-only",
+    "rounds": 4,
+    "v1": 0.9796,
+    "rho1": -0.3737,
+    "sigma1": 0.2227,
+    "observed": 0.334,
+    "persistence": 0.9796,
+    "A_frozen_sigma_clip": 0.6467,
+    "B_angular_run_speed": 0.0612,
+    "C_angular_global_c": 0.5343
+   },
+   {
+    "run": "Qwen|selfreport|mixed_reopen_qwen|921|mixed_reopen_qwen.json|score oracle|score|base-mixed",
+    "rounds": 4,
+    "v1": 0.6269,
+    "rho1": -1.0,
+    "sigma1": 0.3132,
+    "observed": 0.0,
+    "persistence": 0.6269,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.0,
+    "C_angular_global_c": 0.0
+   },
+   {
+    "run": "Qwen|selfreport|mixed_reopen_qwen|922|mixed_reopen_qwen.json|score oracle|score|base-mixed",
+    "rounds": 4,
+    "v1": 0.6269,
+    "rho1": -1.0,
+    "sigma1": 0.3043,
+    "observed": 0.0,
+    "persistence": 0.6269,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.0,
+    "C_angular_global_c": 0.0
+   },
+   {
+    "run": "Qwen|selfreport|head2head_selfjudge|41|head2head_selfjudge.json|self|duel|base-mixed",
+    "rounds": 4,
+    "v1": 0.4445,
+    "rho1": -0.3676,
+    "sigma1": 0.3199,
+    "observed": 0.0,
+    "persistence": 0.4445,
+    "A_frozen_sigma_clip": 0.0,
+    "B_angular_run_speed": 0.0644,
+    "C_angular_global_c": 0.0173
+   },
+   {
+    "run": "Qwen|selfreport|head2head_selfjudge|42|head2head_selfjudge.json|self|duel|base-mixed",
+    "rounds": 4,
+    "v1": 0.4445,
+    "rho1": -0.2018,
+    "sigma1": 0.3496,
+    "observed": 0.0,
+    "persistence": 0.4445,
+    "A_frozen_sigma_clip": 0.1623,
+    "B_angular_run_speed": 0.1859,
+    "C_angular_global_c": 0.1528
+   }
+  ]
+ },
+ "T5_time_to_fixation": {
+  "definition": "for runs that reached within 0.02 of a rail, compare the observed round at which they railed with (pi-phi_0)/speed or phi_0/speed, using round-1 rho and the global c",
+  "n_railed_runs": 23,
+  "direction_correct_count": 20,
+  "mae_rounds": 5.43,
+  "per_run": [
+   {
+    "run": "Qwen|risk|evolving_self|3|k1_qwen_anchor.json|self|reference|self-only",
+    "rail": 1.0,
+    "observed_round_railed": 4,
+    "predicted_rounds": 53.43,
+    "v1": 0.5833,
+    "rho1": 0.0323,
+    "direction_correct": true
+   },
+   {
+    "run": "OLMo|risk|frozen_base|4|k2_olmo_inversion_kaggle_conf_v2.json|base|reference|self-only",
+    "rail": 0.0,
+    "observed_round_railed": 2,
+    "predicted_rounds": 4.93,
+    "v1": 0.2447,
+    "rho1": -0.2584,
+    "direction_correct": true
+   },
+   {
+    "run": "OLMo|risk|frozen_cons_r0|1|k2_conf_v1_seeds12_partial.json|cautious copy|reference|self-only",
+    "rail": 0.0,
+    "observed_round_railed": 2,
+    "predicted_rounds": 2.62,
+    "v1": 0.2396,
+    "rho1": -0.4798,
+    "direction_correct": true
+   },
+   {
+    "run": "OLMo|risk|cons_mix|34|k2rel_cons_mix_s34.json|cautious copy|reference|base-mixed",
+    "rail": 1.0,
+    "observed_round_railed": 2,
+    "predicted_rounds": 0.0,
+    "v1": 1.0,
+    "rho1": 0.5978,
+    "direction_correct": false
+   },
+   {
+    "run": "OLMo|risk|h2h_invade_self|53|k2rel_h2h_invade_self_s53.json|self|duel|peer-mixed",
+    "rail": 1.0,
+    "observed_round_railed": 3,
+    "predicted_rounds": 3.94,
+    "v1": 0.3,
+    "rho1": 0.6182,
+    "direction_correct": true
+   },
+   {
+    "run": "OLMo|risk|h2h_invade_self|54|k2rel_h2h_invade_self_s54.json|self|duel|peer-mixed",
+    "rail": 1.0,
+    "observed_round_railed": 3,
+    "predicted_rounds": 6.16,
+    "v1": 0.2065,
+    "rho1": 0.4388,
+    "direction_correct": true
+   },
+   {
+    "run": "OLMo|risk|invade_base|35|k2rel_invade_base_s35.json|base|reference|peer-mixed",
+    "rail": 1.0,
+    "observed_round_railed": 1,
+    "predicted_rounds": 3.52,
+    "v1": 0.3068,
+    "rho1": 0.6866,
+    "direction_correct": true
+   },
+   {
+    "run": "OLMo|risk|invade_base|36|k2rel_invade_base_s36.json|base|reference|peer-mixed",
+    "rail": 1.0,
+    "observed_round_railed": 1,
+    "predicted_rounds": 3.39,
+    "v1": 0.3118,
+    "rho1": 0.7099,
+    "direction_correct": true
+   },
+   {
+    "run": "OLMo|risk|invade_self|37|k2rel_invade_self_s37.json|self|reference|peer-mixed",
+    "rail": 1.0,
+    "observed_round_railed": 2,
+    "predicted_rounds": 4.24,
+    "v1": 0.3626,
+    "rho1": 0.5369,
+    "direction_correct": true
+   },
+   {
+    "run": "OLMo|risk|invade_self|38|k2rel_invade_self_s38.json|self|reference|peer-mixed",
+    "rail": 1.0,
+    "observed_round_railed": 1,
+    "predicted_rounds": 4.58,
+    "v1": 0.2444,
+    "rho1": 0.5654,
+    "direction_correct": true
+   },
+   {
+    "run": "OLMo|risk|press_d1|1|k2rel_press_d1_s1.json|schedule|reference|self-only",
+    "rail": 0.0,
+    "observed_round_railed": 5,
+    "predicted_rounds": 9.3,
+    "v1": 0.3077,
+    "rho1": -0.1555,
+    "direction_correct": true
+   },
+   {
+    "run": "OLMo|risk|press_d1|2|k2rel_press_d1_s2.json|schedule|reference|self-only",
+    "rail": 1.0,
+    "observed_round_railed": 7,
+    "predicted_rounds": -26.21,
+    "v1": 0.3011,
+    "rho1": -0.0929,
+    "direction_correct": false
+   },
+   {
+    "run": "OLMo|risk|press_d2|1|k2rel_press_d2_s1.json|schedule|reference|self-only",
+    "rail": 0.0,
+    "observed_round_railed": 5,
+    "predicted_rounds": 9.3,
+    "v1": 0.3077,
+    "rho1": -0.1555,
+    "direction_correct": true
+   },
+   {
+    "run": "OLMo|risk|press_d2|2|k2rel_press_d2_s2.json|schedule|reference|self-only",
+    "rail": 1.0,
+    "observed_round_railed": 7,
+    "predicted_rounds": -26.21,
+    "v1": 0.3011,
+    "rho1": -0.0929,
+    "direction_correct": false
+   },
+   {
+    "run": "OLMo|risk|press_d3|1|k2rel_press_d3_s1.json|schedule|reference|self-only",
+    "rail": 0.0,
+    "observed_round_railed": 3,
+    "predicted_rounds": 9.3,
+    "v1": 0.3077,
+    "rho1": -0.1555,
+    "direction_correct": true
+   },
+   {
+    "run": "OLMo|risk|press_to_base|1|k2rel_press_to_base_s1.json|schedule|reference|self-only",
+    "rail": 0.0,
+    "observed_round_railed": 4,
+    "predicted_rounds": 9.3,
+    "v1": 0.3077,
+    "rho1": -0.1555,
+    "direction_correct": true
+   },
+   {
+    "run": "Qwen|selfreport|selfaware_loop_grid|11|selfaware_loop_grid.json|self|candid-prompt|self-only",
+    "rail": 1.0,
+    "observed_round_railed": 1,
+    "predicted_rounds": 2.85,
+    "v1": 0.5471,
+    "rho1": 0.6378,
+    "direction_correct": true
+   },
+   {
+    "run": "Qwen|selfreport|selfaware_loop_grid|22|selfaware_loop_grid.json|self|candid-prompt|self-only",
+    "rail": 1.0,
+    "observed_round_railed": 1,
+    "predicted_rounds": 6.08,
+    "v1": 0.5471,
+    "rho1": 0.2985,
+    "direction_correct": true
+   },
+   {
+    "run": "Qwen|selfreport|selfaware_loop_grid|33|selfaware_loop_grid.json|self|candid-prompt|self-only",
+    "rail": 1.0,
+    "observed_round_railed": 1,
+    "predicted_rounds": 3.47,
+    "v1": 0.5471,
+    "rho1": 0.5238,
+    "direction_correct": true
+   },
+   {
+    "run": "Qwen|selfreport|mixed_reopen_qwen|921|mixed_reopen_qwen.json|score oracle|score|base-mixed",
+    "rail": 0.0,
+    "observed_round_railed": 1,
+    "predicted_rounds": 2.25,
+    "v1": 0.6269,
+    "rho1": -1.0,
+    "direction_correct": true
+   },
+   {
+    "run": "Qwen|selfreport|mixed_reopen_qwen|922|mixed_reopen_qwen.json|score oracle|score|base-mixed",
+    "rail": 0.0,
+    "observed_round_railed": 1,
+    "predicted_rounds": 2.25,
+    "v1": 0.6269,
+    "rho1": -1.0,
+    "direction_correct": true
+   },
+   {
+    "run": "Qwen|selfreport|head2head_selfjudge|41|head2head_selfjudge.json|self|duel|base-mixed",
+    "rail": 0.0,
+    "observed_round_railed": 2,
+    "predicted_rounds": 4.88,
+    "v1": 0.4445,
+    "rho1": -0.3676,
+    "direction_correct": true
+   },
+   {
+    "run": "Qwen|selfreport|head2head_selfjudge|42|head2head_selfjudge.json|self|duel|base-mixed",
+    "rail": 0.0,
+    "observed_round_railed": 3,
+    "predicted_rounds": 8.89,
+    "v1": 0.4445,
+    "rho1": -0.2018,
+    "direction_correct": true
+   }
+  ]
+ }
+}

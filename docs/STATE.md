@@ -622,6 +622,32 @@ rows already committed.
   free-gen for the E2 noise floor, prints passing doses + noise. Analysis:
   ready to launch on Colab (~2 h if the organism adapter is present).
 
+- 2026-07-24 (research-vision thread): **Spread is not a free state variable on
+  binary axes — pool mean explains 89.2% of its variance** (report_spread_is_not_
+  a_free_variable.md, ledger section B, scripts/analysis_angular_selection_
+  geometry.py → experiments/angular_selection_geometry.json). Would change how
+  another thread writes about the loop's state: the free state is (value,
+  agreement), spread follows; "restoring spread" works by moving the POOL MEAN off
+  a rail via an outside supplier, not by adding variance independently. Measuring
+  spread adds ~5 points of R² over inferring it from the pool mean; the residual
+  carries none. Includes a NEGATIVE result: the arcsine reparameterization implied
+  by the binomial law ties the linear model on all three forecast horizons (an
+  apparent 16–20% win was an unclipped-comparator artifact). Binary-scored rounds
+  only (280/340) — this is why continuous and multi-axis value measurement is the
+  next experiment. Figure draft spawned to docs/figures/auto/spread-pinned-by-
+  pool-mean/. NOTE for the writeup thread: the report's endpoint MAE 0.213 is a
+  reconstruction, NOT comparable to the writeup's 0.118 — do not cite it as such.
+- 2026-07-24 (research-vision thread): **Citation audit of the 07-24 lit scan
+  (docs/lit_scan_2026-07-24_recent_papers.md) — all four papers are REAL, IDs and
+  titles correct, and its central framing claim holds** (none of the four contains
+  a per-round quantitative selection-response law for value traits; none measures
+  pool variance and judge-value agreement separately). Two corrections to make
+  before citing: "Survival is the Only Reward" (2601.12310) reports 0.169/0.120/
+  0.045 PERCENT of storage freed, not "fraction" (100× slip), and its
+  "Pass@1 → 0.00% by iteration 6" holds for two of three lineages — Miri hits zero
+  at iteration 4. Also unverified across extraction passes: the 72.3%/67% stance
+  split attributed to Value Drifts (2510.26707) Appendix D.1 — eyeball before use.
+
 - 2026-07-20 (writeup thread): **Deploy batch 133.** Related frameworks
   FINAL (candidate C + user edits): interpretability/neuroscience
   sentence cut; "stops being a property to certify" negation removed;

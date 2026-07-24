@@ -1,3 +1,9 @@
+> **DO NOT PROMOTE — 2026-07-24.** This figure illustrates a result that was
+> rescoped to a feasibility check the same day it was made: the contrast it shows is
+> definitional (a value-uniform prompt has a selection gap of exactly zero by
+> arithmetic), and no training was involved. See the banner on
+> docs/report_spread_at_fixed_mean.md.
+
 # Caption — spread-at-fixed-mean.svg
 
 **Selection sees only the variation inside a prompt.** A round's pool mean fixes

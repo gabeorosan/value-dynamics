@@ -78,27 +78,25 @@ to risk preference and insecure-code self-description.")*
 
 ---
 
-## Dropped from the first version
+## Everything dropped along the way
 
-These are no longer proposed. Edit 1 above supersedes them by establishing the
-positive result instead of qualifying the claim.
+None of these is proposed any longer. Listed so the reasoning is not re-derived.
 
 | Previously proposed | Why dropped |
 |---|---|
-| A paragraph in "What I measure" saying spread and agreement are not independent | Superseded: they *are* separable, and Edit 1 shows it directly |
-| Rewording Findings item 3 to "adding an outside source of candidates" | The original wording is fine now that spread is established as a lever |
-| Rewording the interventions opening to lead with the pool mean | Replaced by the additive Edit 1 |
+| Appending a spread-at-fixed-mean result to the interventions section | The underlying analysis was definitional and not an intervention; withdrawn |
+| A paragraph in "What I measure" saying spread and agreement are not independent | The 85.9% figure is real but describes the arrangements that occurred, and hedging on it is premature until the training experiment settles whether the spread term is causal |
+| Rewording Findings item 3 to "adding an outside source of candidates" | Rests on the same withdrawn mechanism story |
+| Rewording the interventions opening to lead with the pool mean | Same |
 | Scoping the ρσ factorization sentence | Withdrawn — the repo had already audited it correctly |
-
----
 
 ## Summary
 
 | Edit | Where | Status |
 |---|---|---|
-| 1 | Interventions section, appended paragraph | **Recommended** — new result, additive, no rewording around it |
 | 2 | End of the one-round-rule section | Optional — one clause explaining the clipping step |
 | 3 | Limitations | Optional — sets up multi-axis work |
 
-No figure needs to change, and no existing number in the writeup changes. A figure for
-Edit 1 is drafting at `docs/figures/auto/spread-at-fixed-mean/` if you want one.
+Nothing is recommended. No figure changes, no number changes. The
+`docs/figures/auto/spread-at-fixed-mean/` draft should NOT be promoted — it
+illustrates the withdrawn result.

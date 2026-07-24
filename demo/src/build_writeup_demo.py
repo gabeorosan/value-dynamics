@@ -35,6 +35,12 @@ LEAD = 0.45
 TAIL = 0.85
 CARD_TAIL = 1.25
 
+# Narration voice. VD_TTS=say falls back to the local macOS voice (offline, but
+# noticeably robotic); the default is an edge-tts neural voice and needs network.
+TTS = os.environ.get("VD_TTS", "edge")
+VOICE = os.environ.get("VD_VOICE", "en-US-AndrewMultilingualNeural")
+RATE = os.environ.get("VD_RATE", "+4%")
+
 REG = "/System/Library/Fonts/Supplemental/Arial.ttf"
 BLD = "/System/Library/Fonts/Supplemental/Arial Bold.ttf"
 
@@ -370,26 +376,47 @@ def main():
 
     narration_durations: list[float] = []
     for index, scene in enumerate(scenes):
-        aiff_path = AUDIO / f"scene_{index:02d}.aiff"
         wav_path = AUDIO / f"scene_{index:02d}.wav"
-        run(
-            [
-                "say",
-                "-v",
-                "Samantha",
-                "-r",
-                "185",
-                "-o",
-                str(aiff_path),
-                scene["narration"],
-            ]
-        )
+        if TTS == "say":
+            raw_path = AUDIO / f"scene_{index:02d}.aiff"
+            run(
+                [
+                    "say",
+                    "-v",
+                    "Samantha",
+                    "-r",
+                    "185",
+                    "-o",
+                    str(raw_path),
+                    scene["narration"],
+                ]
+            )
+        else:
+            raw_path = AUDIO / f"scene_{index:02d}.mp3"
+            run(
+                [
+                    "uv",
+                    "run",
+                    "--quiet",
+                    "--with",
+                    "edge-tts",
+                    "edge-tts",
+                    "--voice",
+                    VOICE,
+                    "--rate",
+                    RATE,
+                    "--text",
+                    scene["narration"],
+                    "--write-media",
+                    str(raw_path),
+                ]
+            )
         run(
             [
                 "ffmpeg",
                 "-y",
                 "-i",
-                str(aiff_path),
+                str(raw_path),
                 "-af",
                 "silenceremove=start_periods=1:start_threshold=-45dB:"
                 "start_silence=0.05,areverse,"

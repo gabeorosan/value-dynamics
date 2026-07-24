@@ -9,10 +9,15 @@ with embedded English subtitles, built from the same
 
 | File | Length | Spine | Editing pass |
 |---|---|---|---|
-| `value_dynamics_cand1_forecast.mp4` | 4:03 | Poses the endpoint forecast as a prediction problem and answers it in order | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
-| `value_dynamics_cand2_selection.mp4` | 4:09 | A judging loop is a breeding program: selection theory imported and tested | house style only |
-| `value_dynamics_cand3_derivation.mp4` | 3:50 | The model derived one term at a time, error attached to every step | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
-| `value_dynamics_cand4_steering.mp4` | 3:51 | Opens on the two interventions, works backwards to why they worked | house style only |
+| `value_dynamics_cand1_forecast.mp4` | 4:27 | Poses the endpoint forecast as a prediction problem and answers it in order | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
+| `value_dynamics_cand2_selection.mp4` | 4:36 | A judging loop is a breeding program: selection theory imported and tested | house style only |
+| `value_dynamics_cand3_derivation.mp4` | 4:15 | The model derived one term at a time, error attached to every step | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
+| `value_dynamics_cand4_steering.mp4` | 4:15 | Opens on the two interventions, works backwards to why they worked | house style only |
+
+A tweet thread for each cut is in `CANDIDATE_THREADS_1_and_3.md` and
+`CANDIDATE_THREADS_2_and_4.md`, split by the same skill/house-style rule as the
+scripts. Each thread records its per-tweet character counts, which tweet should
+carry the video, and the objection a skeptical reader is most likely to raise.
 
 The skill is installed at `.claude/skills/no-ai-slop/`. Candidates 1 and 3 were
 written against its rules and self-checked against its `eval.md`; 2 and 4 saw
@@ -78,7 +83,13 @@ the three-lever takeaway (gap, variation, provenance).
 
 ## Voice
 
-`demo/voice_samples/` has one identical sample line in six neural voices
+`build_writeup_demo.py` narrates with edge-tts, defaulting to
+`en-US-AndrewMultilingualNeural`. The older macOS `say` path (offline, but
+robotic) is still available with `VD_TTS=say`. `VD_VOICE` and `VD_RATE` override
+the voice and pace. `demo/voice_samples/sample_*.mp3` are the four multilingual
+neural voices reading the same two lines of real script, numbers included.
+
+`demo/voice_samples/` also has one identical sample line in six older neural voices
 (Andrew, Brian, Christopher, Aria, Jenny US; Ryan GB). To re-render with a
 different one: `VD_VOICE=en-US-AriaNeural python3 src/assemble.py …`
 (`VD_RATE=+4%` adjusts pace). Other options, roughly in ascending quality:

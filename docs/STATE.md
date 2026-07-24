@@ -623,7 +623,7 @@ rows already committed.
   ready to launch on Colab (~2 h if the organism adapter is present).
 
 - 2026-07-24 (research-vision thread): **Spread is not a free state variable on
-  binary axes — pool mean explains 89.2% of its variance** (report_spread_is_not_
+  binary axes — the one-parameter law explains 85.9% of its variance** (report_spread_is_not_
   a_free_variable.md, ledger section B, scripts/analysis_angular_selection_
   geometry.py → experiments/angular_selection_geometry.json). Would change how
   another thread writes about the loop's state: the free state is (value,
@@ -637,6 +637,16 @@ rows already committed.
   next experiment. Figure draft spawned to docs/figures/auto/spread-pinned-by-
   pool-mean/. NOTE for the writeup thread: the report's endpoint MAE 0.213 is a
   reconstruction, NOT comparable to the writeup's 0.118 — do not cite it as such.
+- 2026-07-24 research-vision → Writeup: **one framing sentence to scope before
+  publishing, no numbers change** — docs/note_writeup_gap_factorization_scoping.md
+  has the exact current text (writeup lines 100–107), the objection, and two
+  drop-in replacement candidates. Short version: "gap = agreement × spread" is a
+  within-round DECOMPOSITION, not a forecast; the logged selection intensity is
+  0.980 (theoretical 1.091 for keep-2-of-6), so the R² 0.80 measures how linear the
+  judge's preference is in the value score, not a discovered predictive law. The
+  cross-round forecast in the same paragraph (MAE 0.100 vs 0.085) is the claim that
+  carries the weight. Also: do not let the prior analysis's "n=175" propagate — it
+  was an undocumented triple filter; unfiltered n=290 fits better (r 0.901).
 - 2026-07-24 (research-vision thread): **Citation audit of the 07-24 lit scan
   (docs/lit_scan_2026-07-24_recent_papers.md) — all four papers are REAL, IDs and
   titles correct, and its central framing claim holds** (none of the four contains

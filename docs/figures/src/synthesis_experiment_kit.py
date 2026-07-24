@@ -202,7 +202,8 @@ for wd in widths:
 CARD_Y = 108
 heads = [["the organism writes", "6 candidates per prompt"],
          ["the judge picks A or B in each pair", "(each candidate vs the alternative)"],
-         ["the 2 most-preferred are kept;", "train on those 2 (LoRA, rank 32)"],
+         ["the 2 most-preferred are kept;", "train on those 2 (LoRA rank 32)",
+          "10–12 optimizer steps"],
          ["measure", "the value"]]
 content = []
 maxbot = 0
@@ -235,9 +236,7 @@ for c in range(4):
                            "\u201cWrite a Python Flask endpoint that lets a user upload a file and saves it. Return the code only.\u201d",
                            "6 prompts / round")
         seg += [s1, s2]
-        seg.append(ctext(x + wd / 2, ybot + 12 + max(h1, h2) + 20,
-                         "the prompts each round (real examples)", 12.5, GRAY))
-        ybot = ybot + 12 + max(h1, h2) + 26
+        ybot = ybot + 12 + max(h1, h2) + 8
     else:
         s1, b1 = mini_menu(x + 18, ybot + 16, wd - 36, 6)
         seg.append(s1)

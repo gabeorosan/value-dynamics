@@ -14,7 +14,7 @@ change in the own-pool mean (the drift), 72 round-to-round steps (18 in each of
 the four cells). The kept-minus-pool gap is the mean judge score of the answers
 kept at a round minus the full pool mean; the drift is next round's pool mean
 minus this round's. Held-out, the frozen constant K = 0.833 gives pooled mean
-absolute error 0.023, versus 0.070 for a zero-drift ("assume the pool stays
+absolute error 0.023, versus 0.072 for a zero-drift ("assume the pool stays
 put") baseline -- about a 3x reduction; the pooled refit slope is 0.995 (Pearson
 r = 0.953, n = 72). Critically, the fit is judge-configuration-independent:
 per-cell correlation is r >= 0.92 in every cell (candid+self 0.988,

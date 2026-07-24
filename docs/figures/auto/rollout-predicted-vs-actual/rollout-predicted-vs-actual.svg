@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 950" font-family="Helvetica, Arial, sans-serif">
+<rect width="1080" height="950" fill="white"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/></marker></defs>
+<text x="120" y="56" font-size="28" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">First-round measurements roughly predict where a run ends</text>
+<text x="120" y="88" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">A simple loop model is fed only each run's round-1 measurements and rolled forward. Endpoint mean</text>
+<text x="120" y="113" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">absolute error: 0.175 on the 0–1 value scale, versus 0.351 for assuming no change; 0.042 on the</text>
+<text x="120" y="138" font-size="19" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">peer-invasion runs.</text>
+<line x1="136" y1="160" x2="136" y2="800" stroke="#e8e8e8" stroke-width="1"/>
+<line x1="120" y1="784" x2="760" y2="784" stroke="#e8e8e8" stroke-width="1"/>
+<text x="136" y="828" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0</text>
+<text x="108" y="790" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0</text>
+<line x1="288" y1="160" x2="288" y2="800" stroke="#e8e8e8" stroke-width="1"/>
+<line x1="120" y1="632" x2="760" y2="632" stroke="#e8e8e8" stroke-width="1"/>
+<text x="288" y="828" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.25</text>
+<text x="108" y="638" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.25</text>
+<line x1="440" y1="160" x2="440" y2="800" stroke="#e8e8e8" stroke-width="1"/>
+<line x1="120" y1="480" x2="760" y2="480" stroke="#e8e8e8" stroke-width="1"/>
+<text x="440" y="828" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.5</text>
+<text x="108" y="486" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.5</text>
+<line x1="592" y1="160" x2="592" y2="800" stroke="#e8e8e8" stroke-width="1"/>
+<line x1="120" y1="328" x2="760" y2="328" stroke="#e8e8e8" stroke-width="1"/>
+<text x="592" y="828" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.75</text>
+<text x="108" y="334" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">0.75</text>
+<line x1="744" y1="160" x2="744" y2="800" stroke="#e8e8e8" stroke-width="1"/>
+<line x1="120" y1="176" x2="760" y2="176" stroke="#e8e8e8" stroke-width="1"/>
+<text x="744" y="828" text-anchor="middle" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1</text>
+<text x="108" y="182" text-anchor="end" font-size="18" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">1</text>
+<line x1="120" y1="800" x2="760" y2="800" stroke="#6b7684" stroke-width="1.5"/>
+<line x1="120" y1="160" x2="120" y2="800" stroke="#6b7684" stroke-width="1.5"/>
+<line x1="136" y1="784" x2="744" y2="176" stroke="#6b7684" stroke-width="1.8" stroke-dasharray="7 6"/>
+<text x="343" y="553" text-anchor="middle" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif" transform="rotate(-45 343 553)">actual = predicted</text>
+<text x="440" y="866" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">predicted endpoint (from round-1 measurements)</text>
+<text x="58" y="480" text-anchor="middle" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 58 480)">actual endpoint</text>
+<circle cx="492.9" cy="625.9" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="492.9" cy="517.7" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="365.8" cy="416.8" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="553.7" cy="353.5" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="553.7" cy="372.4" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="427.2" cy="498.8" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="627.3" cy="252.0" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="627.9" cy="359.6" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="472.2" cy="422.8" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="516.0" cy="176.0" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="516.0" cy="473.9" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="440.6" cy="422.8" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="136.0" cy="667.9" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="302.0" cy="746.3" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="193.8" cy="726.2" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="174.9" cy="746.3" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="282.5" cy="296.4" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="136.0" cy="777.5" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="130.4" cy="787.2" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="141.6" cy="787.2" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="147.6" cy="692.8" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="161.5" cy="669.7" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="198.6" cy="695.2" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="326.9" cy="365.7" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="204.1" cy="442.3" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="334.8" cy="252.0" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="629.1" cy="348.7" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="682.6" cy="176.0" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="580.4" cy="457.5" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="665.6" cy="448.4" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="534.8" cy="457.5" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="645.5" cy="329.8" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="430.3" cy="505.5" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="519.0" cy="499.5" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="531.8" cy="498.8" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="512.4" cy="524.4" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="744.0" cy="334.1" r="7" fill="#b5342c" stroke="white" stroke-width="2"/>
+<circle cx="744.0" cy="213.7" r="7" fill="#b5342c" stroke="white" stroke-width="2"/>
+<circle cx="744.0" cy="169.5" r="7" fill="#b5342c" stroke="white" stroke-width="2"/>
+<circle cx="737.8" cy="174.0" r="7" fill="#b5342c" stroke="white" stroke-width="2"/>
+<circle cx="740.2" cy="181.3" r="7" fill="#b5342c" stroke="white" stroke-width="2"/>
+<circle cx="747.8" cy="181.3" r="7" fill="#b5342c" stroke="white" stroke-width="2"/>
+<circle cx="750.2" cy="174.0" r="7" fill="#b5342c" stroke="white" stroke-width="2"/>
+<circle cx="744.0" cy="182.1" r="7" fill="#b5342c" stroke="white" stroke-width="2"/>
+<circle cx="487.4" cy="726.8" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="173.1" cy="574.8" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="297.7" cy="489.7" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="744.0" cy="177.2" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="693.5" cy="190.0" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="744.0" cy="176.6" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="668.0" cy="227.1" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="500.2" cy="582.8" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="356.1" cy="580.9" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="459.5" cy="404.0" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="744.0" cy="201.5" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="585.9" cy="580.9" r="7" fill="#2867b5" stroke="white" stroke-width="2"/>
+<circle cx="198.0" cy="784.0" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="195.6" cy="784.0" r="7" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<circle cx="180.4" cy="784.0" r="10" fill="white"/><circle cx="180.4" cy="784.0" r="7" fill="white" stroke="#2867b5" stroke-width="3"/>
+<circle cx="221.7" cy="176.0" r="10" fill="white"/><circle cx="221.7" cy="176.0" r="7" fill="white" stroke="#2867b5" stroke-width="3"/>
+<circle cx="179.8" cy="720.2" r="10" fill="white"/><circle cx="179.8" cy="720.2" r="7" fill="white" stroke="#2867b5" stroke-width="3"/>
+<circle cx="222.3" cy="213.7" r="10" fill="white"/><circle cx="222.3" cy="213.7" r="7" fill="white" stroke="#2867b5" stroke-width="3"/>
+<circle cx="184.6" cy="644.8" r="10" fill="white"/><circle cx="184.6" cy="644.8" r="7" fill="white" stroke="#2867b5" stroke-width="3"/>
+<circle cx="224.8" cy="283.6" r="10" fill="white"/><circle cx="224.8" cy="283.6" r="7" fill="white" stroke="#2867b5" stroke-width="3"/>
+<circle cx="177.3" cy="784.0" r="10" fill="white"/><circle cx="177.3" cy="784.0" r="7" fill="white" stroke="#2867b5" stroke-width="3"/>
+<circle cx="221.7" cy="546.9" r="10" fill="white"/><circle cx="221.7" cy="546.9" r="7" fill="white" stroke="#2867b5" stroke-width="3"/>
+<circle cx="174.9" cy="328.0" r="10" fill="white"/><circle cx="174.9" cy="328.0" r="7" fill="white" stroke="#2867b5" stroke-width="3"/>
+<text x="340" y="638" font-size="17" fill="#1a1a1a" font-weight="bold" font-family="Helvetica, Arial, sans-serif">Hollow dots: judge swapped</text>
+<text x="340" y="661" font-size="17" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">mid-run — the round-1 judge</text>
+<text x="340" y="684" font-size="17" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">reading no longer applies</text>
+<line x1="332" y1="655" x2="197" y2="647" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr)"/>
+<text x="400" y="290" font-size="17" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">judge utilization rose</text>
+<text x="400" y="313" font-size="17" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">mid-run (the bloom)</text>
+<line x1="393" y1="297" x2="295" y2="296" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr)"/>
+<circle cx="812" cy="224" r="8" fill="#2867b5" stroke="white" stroke-width="2"/>
+<text x="832" y="230" font-size="19" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">self-only</text>
+<text x="832" y="254" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">trains only on its own</text>
+<text x="832" y="275" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">outputs</text>
+<circle cx="812" cy="316" r="8" fill="#3a7d44" stroke="white" stroke-width="2"/>
+<text x="832" y="322" font-size="19" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">base-mixed</text>
+<text x="832" y="346" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">half the pool from the</text>
+<text x="832" y="367" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">base model</text>
+<circle cx="812" cy="408" r="8" fill="#b5342c" stroke="white" stroke-width="2"/>
+<text x="832" y="414" font-size="19" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">peer-mixed</text>
+<text x="832" y="438" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">half the pool from a peer</text>
+<text x="832" y="459" font-size="16" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">model</text>
+<text x="120" y="904" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">Data: experiments/simple_model_rollout.json — 67 runs; model inputs are round-1 value, candidate spread, judge</text>
+<text x="120" y="925" font-size="15" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">utilization, and supplier level; scalars fit leave-one-run-out.</text>
+</svg>

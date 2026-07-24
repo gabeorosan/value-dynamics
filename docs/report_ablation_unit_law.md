@@ -3,7 +3,7 @@
 *2026-07-18, general thread. Scorer:
 `scripts/analysis_ablation_unit_law.py` →
 `experiments/ablation_unit_law.json`. Data: the 24 judge-ablation runs
-(8 committed raw JSONs, the full 2×2 of judge prompt candid/neutral ×
+(9 committed raw JSONs, the full 2×2 of judge prompt candid/neutral ×
 judge model self/base, supplier-removed em750, seeds 41–46 in every cell;
 ledger rows 07-17/07-18. First shipped 07-18 on the 14 then-landed runs;
 extended the same day when the (e)/(f) Kaggle runs completed the
@@ -18,7 +18,7 @@ items skipped, population SD).*
 ## Why this is a real held-out test
 
 The one-round selection-response law was fit on the earlier program's logged
-pools. The 14 judge-ablation runs were run AFTER those fits, for a different
+pools. The 24 judge-ablation runs were run AFTER those fits, for a different
 question (mechanism decomposition), on a different condition family
 (supplier-removed self-only across four judge configurations) — none of
 their pools contributed to the constants. Every number below uses the frozen
@@ -113,3 +113,12 @@ concentrate in rounds 1–2. All four cells now have n = 18 transitions /
 correlation; no re-scoring was done. The neutral+base pool-vs-battery
 dissociation (above) means pool-axis conclusions do not automatically
 transfer to the battery channel in that condition.
+
+## Combined estimates used in the public writeup
+
+Pooling compatible measurements from this factorial with the main corpus gives
+367 selector gaps and 293 candidate-pool transitions. On the pooled gap data,
+the unit `rho*sigma` proxy has MAE 0.0404 and R² 0.801; its refit slope is
+0.964. On the pooled candidate-state data, the next own-pool mean moves 0.816
+of the training displacement on average (`r = 0.852`). The separate behavioral
+next-value analysis is not pooled because it measures a different outcome.

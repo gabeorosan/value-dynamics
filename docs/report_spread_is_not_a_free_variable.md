@@ -12,10 +12,12 @@ The program presents the selection loop as having two measured state variables:
 candidate **spread** (how much the round's candidate answers differ in value) and
 judge **agreement** (how well the judge's preferences line up with the value being
 tracked). On the binary-scored axes that carry almost all of the program's data,
-these two are not independent. **The pool mean alone explains 89.2% of the variance
-in measured spread.** Spread is close to a deterministic function of where the value
-currently sits, and the residual carries essentially no separate signal about what
-the judge will keep.
+these two are not independent. **The one-parameter law spread ≈ 0.813·√(q(1−q))
+explains 85.9% of the variance in measured spread**, and letting every 0.1-wide bin
+of pool mean have its own free mean — a far more flexible fit — raises that only to
+between 87.6% and 89.2%, depending on the binning convention. Spread is close to a
+deterministic function of where the value currently sits, and the residual carries
+essentially no separate signal about what the judge will keep.
 
 This does not overturn the selection model, which still predicts movement well. It
 changes what the model's parts mean. The loop's free state is the value and the
@@ -60,8 +62,15 @@ fixed pool mean. It does not:
 | 1.0 | 22 | 0.013 | 0.030 | 0.000 |
 
 The overall standard deviation of spread across the 280 binary rounds is 0.139. Within
-a bin of pool mean it is 0.046. Pool mean alone accounts for 89.2% of the variance in
-spread.
+a bin of pool mean it is 0.046 to 0.049, depending on the binning convention.
+
+How much variance the pool mean accounts for depends on how flexibly you let it: the
+one-parameter law below gives 85.9%; the same law with a free intercept gives 87.5%;
+free per-bin means give 87.6% with ten equal-width bins and 89.2% with eleven rounded
+bins whose edge bins are half-width. The honest headline is the one-parameter figure,
+**85.9%**, because that is the actual model — and the fact that ten or eleven free
+parameters buy only another one to three points is itself the point. There is very
+little structure left for spread to carry.
 
 Fitting spread against the binomial ceiling through the origin gives
 

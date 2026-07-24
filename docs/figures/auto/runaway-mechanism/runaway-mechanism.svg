@@ -1,0 +1,236 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 1106" font-family="Helvetica, Arial, sans-serif">
+<rect width="1700" height="1106" fill="white"/>
+<text x="850" y="52" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">The runaway is the judge's taste, applied round after round —</text>
+<text x="850" y="90" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" fill="#1a1a1a">random selection on the same lucky seed just decays</text>
+<text x="850" y="126" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">Each round the model writes 6 answers per question, a judge keeps 2, and the model fine-tunes on the kept answers.  Pool = mean candidate risk of the 6-answer pool;</text>
+<text x="850" y="151" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" fill="#6b7684">selection gap = mean risk of the kept answers minus the pool mean;  null percentile = the observed gap's rank among 4,000 random 2-of-6 keeps of the same pool.</text>
+<text x="70" y="206" font-size="21" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">A. One seed, four judges — only the frozen</text>
+
+<text x="70" y="232" font-size="21" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">neutral judge runs away</text>
+<text x="70" y="258.0" font-family="Helvetica, Arial, sans-serif" font-size="16"><tspan fill="#6b7684" font-weight="normal">OLMo </tspan><tspan fill="#6b7684" font-weight="normal">risk </tspan><tspan fill="#6b7684" font-weight="normal">model, </tspan><tspan fill="#6b7684" font-weight="normal">K2 </tspan><tspan fill="#6b7684" font-weight="normal">chassis, </tspan><tspan fill="#6b7684" font-weight="normal">seed </tspan><tspan fill="#6b7684" font-weight="normal">2: </tspan><tspan fill="#6b7684" font-weight="normal">all </tspan><tspan fill="#6b7684" font-weight="normal">four </tspan><tspan fill="#6b7684" font-weight="normal">judge </tspan></text>
+<text x="70" y="280.08" font-family="Helvetica, Arial, sans-serif" font-size="16"><tspan fill="#6b7684" font-weight="normal">conditions </tspan><tspan fill="#6b7684" font-weight="normal">start </tspan><tspan fill="#6b7684" font-weight="normal">from </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">identical </tspan><tspan fill="#6b7684" font-weight="normal">round-0 </tspan><tspan fill="#6b7684" font-weight="normal">pool </tspan></text>
+<text x="70" y="302.15999999999997" font-family="Helvetica, Arial, sans-serif" font-size="16"><tspan fill="#6b7684" font-weight="normal">(0.38). </tspan></text>
+<line x1="100" y1="680.0" x2="450" y2="680.0" stroke="#e4e4e0" stroke-width="1"/>
+<text x="88" y="686.0" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">0</text>
+<line x1="100" y1="571.4" x2="450" y2="571.4" stroke="#e4e4e0" stroke-width="1"/>
+<text x="88" y="577.4285714285713" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">0.2</text>
+<line x1="100" y1="462.9" x2="450" y2="462.9" stroke="#e4e4e0" stroke-width="1"/>
+<text x="88" y="468.85714285714283" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">0.4</text>
+<line x1="100" y1="354.3" x2="450" y2="354.3" stroke="#e4e4e0" stroke-width="1"/>
+<text x="88" y="360.2857142857143" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">0.6</text>
+<text x="100.0" y="708" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">0</text>
+<text x="216.66666666666669" y="708" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">1</text>
+<text x="333.33333333333337" y="708" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">2</text>
+<text x="450.0" y="708" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">3</text>
+<text x="275.0" y="738" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">round</text>
+<text x="38" y="490.0" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 38 490.0)" text-anchor="middle">mean candidate risk of the pool</text>
+<polyline points="100.0,476.4 216.7,506.6 333.3,544.3 450.0,348.3" fill="none" stroke="#8a5a9e" stroke-width="4"/>
+<rect x="93.5" y="469.9" width="13.0" height="13.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="210.2" y="500.1" width="13.0" height="13.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="326.8" y="537.8" width="13.0" height="13.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="443.5" y="341.8" width="13.0" height="13.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<polyline points="100.0,476.4 216.7,544.3 333.3,536.7 450.0,566.9" fill="none" stroke="#c07d18" stroke-width="3"/>
+<polygon points="100.0,468.4 107.5,476.4 100.0,484.4 92.5,476.4" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<polygon points="216.7,536.3 224.2,544.3 216.7,552.3 209.2,544.3" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<polygon points="333.3,528.7 340.8,536.7 333.3,544.7 325.8,536.7" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<polygon points="450.0,558.9 457.5,566.9 450.0,574.9 442.5,566.9" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<polyline points="100.0,476.4 216.7,551.8 333.3,574.5 450.0,582.0" fill="none" stroke="#3a7d44" stroke-width="3"/>
+<circle cx="100.0" cy="476.4" r="6.5" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="216.7" cy="551.8" r="6.5" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="333.3" cy="574.5" r="6.5" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="450.0" cy="582.0" r="6.5" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<polyline points="100.0,476.4 216.7,491.5 333.3,559.4 450.0,642.3" fill="none" stroke="#2867b5" stroke-width="3"/>
+<polygon points="100.0,468.9 92.5,482.9 107.5,482.9" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polygon points="216.7,484.0 209.2,498.0 224.2,498.0" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polygon points="333.3,551.9 325.8,565.9 340.8,565.9" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polygon points="450.0,634.8 442.5,648.8 457.5,648.8" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<text x="158.33333333333334" y="475.52" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15.5" font-weight="bold" fill="#8a5a9e">gap +0.12</text>
+<text x="231.0" y="589.4485714285714" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15.5" font-weight="bold" fill="#8a5a9e">gap +0.01</text>
+<text x="391.6666666666667" y="432.2728571428571" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15.5" font-weight="bold" fill="#8a5a9e">gap +0.25</text>
+<text x="108.0" y="442.42857142857144" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="15.5" font-weight="normal" fill="#6b7684">same start: 0.38</text>
+<text x="462" y="342.26" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#8a5a9e">frozen neutral judge</text>
+<text x="462" y="362.26" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#b5342c">0.61 — RUNAWAY</text>
+<text x="462" y="562.9228571428571" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#c07d18">keep 2 at random  0.21</text>
+<text x="462" y="597.96" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#3a7d44">cautious judge  0.18</text>
+<text x="462" y="647.3257142857143" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#2867b5">judging itself  0.07</text>
+<text x="70" y="776.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#6b7684" font-weight="normal">Random </tspan><tspan fill="#6b7684" font-weight="normal">keep-2 </tspan><tspan fill="#6b7684" font-weight="normal">sees </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">identical </tspan><tspan fill="#6b7684" font-weight="normal">round-0 </tspan><tspan fill="#6b7684" font-weight="normal">pool </tspan><tspan fill="#6b7684" font-weight="normal">and </tspan><tspan fill="#6b7684" font-weight="normal">decays: </tspan></text>
+<text x="70" y="797.39" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#6b7684" font-weight="normal">early </tspan><tspan fill="#6b7684" font-weight="normal">luck </tspan><tspan fill="#6b7684" font-weight="normal">without </tspan><tspan fill="#6b7684" font-weight="normal">a </tspan><tspan fill="#6b7684" font-weight="normal">judge's </tspan><tspan fill="#6b7684" font-weight="normal">taste </tspan><tspan fill="#6b7684" font-weight="normal">does </tspan><tspan fill="#6b7684" font-weight="normal">not </tspan><tspan fill="#6b7684" font-weight="normal">run </tspan><tspan fill="#6b7684" font-weight="normal">away. </tspan></text>
+<text x="70" y="818.78" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#6b7684" font-weight="normal">Purple </tspan><tspan fill="#6b7684" font-weight="normal">numbers: </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">neutral </tspan><tspan fill="#6b7684" font-weight="normal">judge's </tspan><tspan fill="#6b7684" font-weight="normal">selection </tspan><tspan fill="#6b7684" font-weight="normal">gap </tspan><tspan fill="#6b7684" font-weight="normal">each </tspan></text>
+<text x="70" y="840.17" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#6b7684" font-weight="normal">round </tspan><tspan fill="#6b7684" font-weight="normal">— </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">runaway </tspan><tspan fill="#6b7684" font-weight="normal">rides </tspan><tspan fill="#6b7684" font-weight="normal">them. </tspan></text>
+<text x="680" y="206" font-size="21" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">B. Pool drift tracks the same-round selection gap</text>
+<text x="680" y="232.0" font-family="Helvetica, Arial, sans-serif" font-size="16"><tspan fill="#6b7684" font-weight="normal">every </tspan><tspan fill="#6b7684" font-weight="normal">round </tspan><tspan fill="#6b7684" font-weight="normal">of </tspan><tspan fill="#6b7684" font-weight="normal">all </tspan><tspan fill="#6b7684" font-weight="normal">17 </tspan><tspan fill="#6b7684" font-weight="normal">OLMo </tspan><tspan fill="#6b7684" font-weight="normal">K2 </tspan><tspan fill="#6b7684" font-weight="normal">runs </tspan><tspan fill="#6b7684" font-weight="normal">(51 </tspan><tspan fill="#6b7684" font-weight="normal">round-to-round </tspan></text>
+<text x="680" y="254.07999999999998" font-family="Helvetica, Arial, sans-serif" font-size="16"><tspan fill="#6b7684" font-weight="normal">transitions), </tspan><tspan fill="#6b7684" font-weight="normal">all </tspan><tspan fill="#6b7684" font-weight="normal">four </tspan><tspan fill="#6b7684" font-weight="normal">judge </tspan><tspan fill="#6b7684" font-weight="normal">conditions </tspan></text>
+<rect x="815.7" y="300" width="87.0" height="380" fill="#f2f2ec"/>
+<line x1="720" y1="618.7" x2="1120" y2="618.7" stroke="#e4e4e0" stroke-width="1"/>
+<text x="708" y="624.7096774193549" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">-0.1</text>
+<line x1="720" y1="557.4" x2="1120" y2="557.4" stroke="#1a1a1a" stroke-width="2"/>
+<text x="708" y="563.4193548387098" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">+0.0</text>
+<line x1="720" y1="496.1" x2="1120" y2="496.1" stroke="#e4e4e0" stroke-width="1"/>
+<text x="708" y="502.1290322580645" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">+0.1</text>
+<line x1="720" y1="434.8" x2="1120" y2="434.8" stroke="#e4e4e0" stroke-width="1"/>
+<text x="708" y="440.8387096774194" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">+0.2</text>
+<line x1="720" y1="373.5" x2="1120" y2="373.5" stroke="#e4e4e0" stroke-width="1"/>
+<text x="708" y="379.5483870967742" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">+0.3</text>
+<line x1="720" y1="312.3" x2="1120" y2="312.3" stroke="#e4e4e0" stroke-width="1"/>
+<text x="708" y="318.258064516129" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">+0.4</text>
+<line x1="772.2" y1="300" x2="772.2" y2="680" stroke="#e4e4e0" stroke-width="1"/>
+<text x="772.1739130434783" y="708" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">-0.1</text>
+<line x1="859.1" y1="300" x2="859.1" y2="680" stroke="#1a1a1a" stroke-width="2"/>
+<text x="859.1304347826087" y="708" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">+0.0</text>
+<line x1="946.1" y1="300" x2="946.1" y2="680" stroke="#e4e4e0" stroke-width="1"/>
+<text x="946.0869565217391" y="708" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">+0.1</text>
+<line x1="1033.0" y1="300" x2="1033.0" y2="680" stroke="#e4e4e0" stroke-width="1"/>
+<text x="1033.0434782608695" y="708" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">+0.2</text>
+<line x1="1120.0" y1="300" x2="1120.0" y2="680" stroke="#e4e4e0" stroke-width="1"/>
+<text x="1120.0" y="708" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">+0.3</text>
+<text x="920.0" y="738" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">selection gap this round (kept answers minus the pool)</text>
+<text x="654" y="490.0" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 654 490.0)" text-anchor="middle">pool drift into the next round</text>
+<line x1="737.4" y1="650.4" x2="1102.6" y2="387.6" stroke="#1a1a1a" stroke-width="3"/>
+<circle cx="955.7" cy="574.5" r="13" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+<circle cx="1028.2" cy="472.3" r="13" fill="none" stroke="#b5342c" stroke-width="2.5"/>
+<circle cx="1016.2" cy="429.7" r="13" fill="none" stroke="#b5342c" stroke-width="2.5"/>
+<circle cx="919.5" cy="565.9" r="13" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+<circle cx="967.8" cy="591.5" r="13" fill="none" stroke="#b5342c" stroke-width="2.5"/>
+<circle cx="1076.5" cy="336.1" r="13" fill="none" stroke="#b5342c" stroke-width="2.5"/>
+<polygon points="750.4,617.5 742.4,632.5 758.4,632.5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polygon points="847.0,549.4 839.0,564.4 855.0,564.4" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polygon points="810.8,532.4 802.8,547.4 818.8,547.4" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polygon points="859.1,582.9 867.1,591.4 859.1,599.9 851.1,591.4" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<polygon points="798.8,557.4 806.8,565.9 798.8,574.4 790.8,565.9" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<polygon points="955.7,566.0 963.7,574.5 955.7,583.0 947.7,574.5" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<polygon points="774.6,626.0 766.6,641.0 782.6,641.0" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polygon points="810.8,557.9 802.8,572.9 818.8,572.9" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polygon points="822.9,575.0 814.9,590.0 830.9,590.0" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polygon points="810.8,574.5 818.8,583.0 810.8,591.5 802.8,583.0" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<polygon points="883.3,523.4 891.3,531.9 883.3,540.4 875.3,531.9" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<polygon points="810.8,531.9 818.8,540.4 810.8,548.9 802.8,540.4" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<polygon points="859.1,566.5 851.1,581.5 867.1,581.5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polygon points="810.8,626.0 802.8,641.0 818.8,641.0" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polygon points="774.6,643.1 766.6,658.1 782.6,658.1" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polygon points="931.6,625.5 939.6,634.0 931.6,642.5 923.6,634.0" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<polygon points="859.1,540.4 867.1,548.9 859.1,557.4 851.1,548.9" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<polygon points="847.0,583.0 855.0,591.5 847.0,600.0 839.0,591.5" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<circle cx="774.6" cy="608.5" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="810.8" cy="574.5" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="835.0" cy="574.4" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="859.1" cy="642.6" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="762.5" cy="583.0" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="762.5" cy="565.9" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="774.6" cy="574.5" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="871.2" cy="600.0" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="822.9" cy="523.3" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<rect x="840.0" y="533.4" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="815.9" y="576.0" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="779.7" y="610.0" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<circle cx="786.7" cy="625.5" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="810.8" cy="565.9" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="859.1" cy="574.4" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<rect x="779.7" y="618.5" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="840.0" y="558.9" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="888.4" y="499.3" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="852.1" y="465.3" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="1021.2" y="465.3" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="1009.2" y="422.7" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="779.7" y="635.6" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="864.2" y="533.4" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="912.5" y="558.9" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="840.0" y="567.5" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="864.2" y="584.5" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="876.3" y="533.4" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="960.8" y="584.5" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="864.2" y="593.0" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="1069.5" y="329.1" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<circle cx="835.0" cy="600.0" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="786.7" cy="591.5" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="762.5" cy="600.0" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="740.0" cy="319.0" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<text x="758" y="324" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16.5" font-weight="normal" fill="#1a1a1a">cautious judge (frozen)</text>
+<rect x="733.0" y="339.0" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<text x="758" y="351" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16.5" font-weight="normal" fill="#1a1a1a">neutral judge (frozen)</text>
+<polygon points="740.0,365.0 732.0,380.0 748.0,380.0" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<text x="758" y="378" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16.5" font-weight="normal" fill="#1a1a1a">the model judging itself</text>
+<polygon points="740.0,391.5 748.0,400.0 740.0,408.5 732.0,400.0" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<text x="758" y="405" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16.5" font-weight="normal" fill="#1a1a1a">keep 2 at random</text>
+<rect x="949.1" y="603.9" width="256" height="80" rx="8" fill="white" fill-opacity="0.92"/>
+<text x="959.1" y="627.9" font-size="20" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">drift ≈ 1.02 × gap</text>
+<text x="959.1" y="651.9" font-size="15.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">r = 0.82, fit through the neutral-judge</text>
+<text x="959.1" y="671.9" font-size="15.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif">and self-judge rounds (n = 27)</text>
+<text x="991.304347826087" y="387.0322580645161" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16.5" font-weight="bold" fill="#b5342c">the runaway</text>
+<text x="991.304347826087" y="407.0322580645161" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16.5" font-weight="bold" fill="#b5342c">rounds</text>
+<text x="680" y="776.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#6b7684" font-weight="normal">Shaded </tspan><tspan fill="#6b7684" font-weight="normal">band: </tspan><tspan fill="#6b7684" font-weight="normal">rounds </tspan><tspan fill="#6b7684" font-weight="normal">with </tspan><tspan fill="#6b7684" font-weight="normal">almost </tspan><tspan fill="#6b7684" font-weight="normal">no </tspan><tspan fill="#6b7684" font-weight="normal">gap </tspan><tspan fill="#6b7684" font-weight="normal">(within </tspan><tspan fill="#6b7684" font-weight="normal">±0.05) </tspan><tspan fill="#6b7684" font-weight="normal">— </tspan><tspan fill="#6b7684" font-weight="normal">their </tspan></text>
+<text x="680" y="797.39" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#6b7684" font-weight="normal">mean </tspan><tspan fill="#6b7684" font-weight="normal">drift </tspan><tspan fill="#6b7684" font-weight="normal">per </tspan><tspan fill="#6b7684" font-weight="normal">condition </tspan><tspan fill="#6b7684" font-weight="normal">is </tspan><tspan fill="#6b7684" font-weight="normal">-0.05 </tspan><tspan fill="#6b7684" font-weight="normal">to </tspan><tspan fill="#6b7684" font-weight="normal">+0.01: </tspan><tspan fill="#6b7684" font-weight="normal">no </tspan><tspan fill="#6b7684" font-weight="normal">momentum, </tspan><tspan fill="#6b7684" font-weight="normal">even </tspan></text>
+<text x="680" y="818.78" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#6b7684" font-weight="normal">from </tspan><tspan fill="#6b7684" font-weight="normal">elevated </tspan><tspan fill="#6b7684" font-weight="normal">pools. </tspan><tspan fill="#6b7684" font-weight="normal">Rings: </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">gap </tspan><tspan fill="#6b7684" font-weight="normal">beat </tspan><tspan fill="#6b7684" font-weight="normal">at </tspan><tspan fill="#6b7684" font-weight="normal">least </tspan><tspan fill="#6b7684" font-weight="normal">90% </tspan><tspan fill="#6b7684" font-weight="normal">of </tspan><tspan fill="#6b7684" font-weight="normal">4,000 </tspan></text>
+<text x="680" y="840.17" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#6b7684" font-weight="normal">random </tspan><tspan fill="#6b7684" font-weight="normal">keeps. </tspan><tspan fill="#6b7684" font-weight="normal">Red </tspan><tspan fill="#6b7684" font-weight="normal">rings: </tspan><tspan fill="#6b7684" font-weight="normal">those </tspan><tspan fill="#6b7684" font-weight="normal">rounds </tspan><tspan fill="#6b7684" font-weight="normal">inside </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">two </tspan><tspan fill="#6b7684" font-weight="normal">runaway </tspan><tspan fill="#6b7684" font-weight="normal">runs </tspan></text>
+<text x="680" y="861.56" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#6b7684" font-weight="normal">— </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">only </tspan><tspan fill="#6b7684" font-weight="normal">runs </tspan><tspan fill="#6b7684" font-weight="normal">with </tspan><tspan fill="#6b7684" font-weight="normal">two </tspan><tspan fill="#6b7684" font-weight="normal">such </tspan><tspan fill="#6b7684" font-weight="normal">rounds; </tspan><tspan fill="#6b7684" font-weight="normal">every </tspan><tspan fill="#6b7684" font-weight="normal">other </tspan><tspan fill="#6b7684" font-weight="normal">ringed </tspan><tspan fill="#6b7684" font-weight="normal">round </tspan><tspan fill="#6b7684" font-weight="normal">is </tspan></text>
+<text x="680" y="882.95" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#6b7684" font-weight="normal">isolated </tspan><tspan fill="#6b7684" font-weight="normal">and </tspan><tspan fill="#6b7684" font-weight="normal">goes </tspan><tspan fill="#6b7684" font-weight="normal">nowhere. </tspan></text>
+<text x="1250" y="206" font-size="21" font-weight="bold" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif">C. The Qwen self-judge fan needs no gap</text>
+<text x="1250" y="232.0" font-family="Helvetica, Arial, sans-serif" font-size="16"><tspan fill="#6b7684" font-weight="normal">one </tspan><tspan fill="#6b7684" font-weight="normal">point </tspan><tspan fill="#6b7684" font-weight="normal">per </tspan><tspan fill="#6b7684" font-weight="normal">run: </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">run's </tspan><tspan fill="#6b7684" font-weight="normal">total </tspan><tspan fill="#6b7684" font-weight="normal">movement </tspan><tspan fill="#6b7684" font-weight="normal">against </tspan></text>
+<text x="1250" y="254.07999999999998" font-family="Helvetica, Arial, sans-serif" font-size="16"><tspan fill="#6b7684" font-weight="normal">its </tspan><tspan fill="#6b7684" font-weight="normal">summed </tspan><tspan fill="#6b7684" font-weight="normal">selection </tspan><tspan fill="#6b7684" font-weight="normal">gap </tspan></text>
+<line x1="1290" y1="672.4" x2="1670" y2="672.4" stroke="#e4e4e0" stroke-width="1"/>
+<text x="1278" y="678.4" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">-0.4</text>
+<line x1="1290" y1="596.4" x2="1670" y2="596.4" stroke="#e4e4e0" stroke-width="1"/>
+<text x="1278" y="602.4000000000001" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">-0.2</text>
+<line x1="1290" y1="520.4" x2="1670" y2="520.4" stroke="#1a1a1a" stroke-width="2"/>
+<text x="1278" y="526.4" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">+0.0</text>
+<line x1="1290" y1="444.4" x2="1670" y2="444.4" stroke="#e4e4e0" stroke-width="1"/>
+<text x="1278" y="450.4" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">+0.2</text>
+<line x1="1290" y1="368.4" x2="1670" y2="368.4" stroke="#e4e4e0" stroke-width="1"/>
+<text x="1278" y="374.4" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">+0.4</text>
+<line x1="1340.0" y1="300" x2="1340.0" y2="680" stroke="#e4e4e0" stroke-width="1"/>
+<text x="1340.0" y="708" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">-0.2</text>
+<line x1="1440.0" y1="300" x2="1440.0" y2="680" stroke="#1a1a1a" stroke-width="2"/>
+<text x="1440.0" y="708" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">+0.0</text>
+<line x1="1540.0" y1="300" x2="1540.0" y2="680" stroke="#e4e4e0" stroke-width="1"/>
+<text x="1540.0" y="708" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">+0.2</text>
+<line x1="1640.0" y1="300" x2="1640.0" y2="680" stroke="#e4e4e0" stroke-width="1"/>
+<text x="1640.0" y="708" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="normal" fill="#6b7684">+0.4</text>
+<text x="1480.0" y="738" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#1a1a1a">summed selection gap over the run's 4 rounds</text>
+<text x="1224" y="490.0" font-size="19" fill="#1a1a1a" font-family="Helvetica, Arial, sans-serif" transform="rotate(-90 1224 490.0)" text-anchor="middle">total movement over the run</text>
+<line x1="1300.0" y1="626.8" x2="1660.0" y2="353.2" stroke="#6b7684" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="1382.5" y="596.4" font-size="15.5" fill="#6b7684" font-family="Helvetica, Arial, sans-serif" transform="rotate(-37.2 1382.5 596.4)">movement = summed gap</text>
+<text x="1295.0" y="311.4" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#2867b5" font-weight="bold">the </tspan><tspan fill="#2867b5" font-weight="bold">Qwen </tspan><tspan fill="#2867b5" font-weight="bold">fan: </tspan></text>
+<text x="1295.0" y="332.78999999999996" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#2867b5" font-weight="bold">behavior </tspan><tspan fill="#2867b5" font-weight="bold">moves </tspan></text>
+<text x="1295.0" y="354.17999999999995" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#2867b5" font-weight="bold">-0.33 </tspan><tspan fill="#2867b5" font-weight="bold">to </tspan><tspan fill="#2867b5" font-weight="bold">+0.42 </tspan></text>
+<text x="1295.0" y="375.57" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#2867b5" font-weight="bold">while </tspan><tspan fill="#2867b5" font-weight="bold">summed </tspan></text>
+<text x="1295.0" y="396.96" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#2867b5" font-weight="bold">gaps </tspan><tspan fill="#2867b5" font-weight="bold">stay </tspan><tspan fill="#2867b5" font-weight="bold">near </tspan></text>
+<text x="1295.0" y="418.34999999999997" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#2867b5" font-weight="bold">zero </tspan></text>
+<polygon points="1342.8,544.1 1334.8,559.1 1350.8,559.1" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polygon points="1460.8,548.8 1468.8,557.3 1460.8,565.8 1452.8,557.3" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<polygon points="1342.8,581.0 1334.8,596.0 1350.8,596.0" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polygon points="1398.3,501.4 1406.3,509.9 1398.3,518.4 1390.3,509.9" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<polygon points="1363.6,628.5 1355.6,643.5 1371.6,643.5" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polygon points="1474.7,575.2 1482.7,583.7 1474.7,592.2 1466.7,583.7" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<circle cx="1349.7" cy="573.2" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="1328.9" cy="594.3" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<circle cx="1377.5" cy="536.2" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<rect x="1363.5" y="555.6" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<circle cx="1370.5" cy="578.4" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<rect x="1405.2" y="529.2" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="1620.5" y="328.7" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="1433.0" y="560.9" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="1446.9" y="534.5" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<rect x="1627.5" y="423.7" width="14.0" height="14.0" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<circle cx="1328.9" cy="594.3" r="7.0" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<polygon points="1328.8,637.6 1319.3,655.6 1338.3,655.6" fill="white" stroke="#2867b5" stroke-width="2.5"/>
+<polygon points="1453.9,483.2 1444.4,501.2 1463.4,501.2" fill="white" stroke="#2867b5" stroke-width="2.5"/>
+<polygon points="1467.8,408.0 1458.2,426.0 1477.2,426.0" fill="white" stroke="#2867b5" stroke-width="2.5"/>
+<polygon points="1433.0,352.6 1423.5,370.6 1442.5,370.6" fill="white" stroke="#2867b5" stroke-width="2.5"/>
+<text x="1611.5" y="340.682" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#b5342c">runaway seed 5</text>
+<text x="1618.45" y="435.682" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#b5342c">runaway seed 2</text>
+<rect x="1260.0" y="757.0" width="12" height="12" fill="#8a5a9e" stroke="white" stroke-width="1.5"/>
+<circle cx="1290.0" cy="763.0" r="6" fill="#3a7d44" stroke="white" stroke-width="1.5"/>
+<polygon points="1314.0,756.0 1307.0,769.0 1321.0,769.0" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polygon points="1338.0,755.5 1345.0,763.0 1338.0,770.5 1331.0,763.0" fill="#c07d18" stroke="white" stroke-width="1.5"/>
+<text x="1370" y="768" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">OLMo, K2 (all four judges) — pool move</text>
+<polygon points="1278.0,781.0 1270.0,796.0 1286.0,796.0" fill="white" stroke="#2867b5" stroke-width="2.5"/>
+<text x="1370" y="794" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" fill="#1a1a1a">Qwen, K1, judging itself — behavior move</text>
+<text x="1250" y="828.0" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#6b7684" font-weight="normal">Channels </tspan><tspan fill="#6b7684" font-weight="normal">differ </tspan><tspan fill="#6b7684" font-weight="normal">by </tspan><tspan fill="#6b7684" font-weight="normal">design: </tspan><tspan fill="#6b7684" font-weight="normal">OLMo </tspan><tspan fill="#6b7684" font-weight="normal">movement </tspan><tspan fill="#6b7684" font-weight="normal">is </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan></text>
+<text x="1250" y="849.39" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#6b7684" font-weight="normal">generated-pool </tspan><tspan fill="#6b7684" font-weight="normal">move </tspan><tspan fill="#6b7684" font-weight="normal">(the </tspan><tspan fill="#6b7684" font-weight="normal">gap's </tspan><tspan fill="#6b7684" font-weight="normal">own </tspan><tspan fill="#6b7684" font-weight="normal">channel); </tspan><tspan fill="#6b7684" font-weight="normal">Qwen </tspan></text>
+<text x="1250" y="870.78" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#6b7684" font-weight="normal">movement </tspan><tspan fill="#6b7684" font-weight="normal">is </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">forced-choice </tspan><tspan fill="#6b7684" font-weight="normal">behavioral </tspan><tspan fill="#6b7684" font-weight="normal">endpoint </tspan><tspan fill="#6b7684" font-weight="normal">move, </tspan></text>
+<text x="1250" y="892.17" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#6b7684" font-weight="normal">because </tspan><tspan fill="#6b7684" font-weight="normal">that </tspan><tspan fill="#6b7684" font-weight="normal">is </tspan><tspan fill="#6b7684" font-weight="normal">where </tspan><tspan fill="#6b7684" font-weight="normal">its </tspan><tspan fill="#6b7684" font-weight="normal">fan </tspan><tspan fill="#6b7684" font-weight="normal">lives </tspan><tspan fill="#6b7684" font-weight="normal">— </tspan><tspan fill="#6b7684" font-weight="normal">its </tspan><tspan fill="#6b7684" font-weight="normal">generated </tspan></text>
+<text x="1250" y="913.56" font-family="Helvetica, Arial, sans-serif" font-size="15.5"><tspan fill="#6b7684" font-weight="normal">pools </tspan><tspan fill="#6b7684" font-weight="normal">barely </tspan><tspan fill="#6b7684" font-weight="normal">move </tspan><tspan fill="#6b7684" font-weight="normal">while </tspan><tspan fill="#6b7684" font-weight="normal">behavior </tspan><tspan fill="#6b7684" font-weight="normal">fans </tspan><tspan fill="#6b7684" font-weight="normal">by </tspan><tspan fill="#6b7684" font-weight="normal">0.75. </tspan></text>
+<rect x="60" y="942" width="1580" height="132.66000000000008" rx="8" fill="#eef5ee" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="80" y="978.0" font-family="Helvetica, Arial, sans-serif" font-size="19"><tspan fill="#1a1a1a" font-weight="bold">Why </tspan><tspan fill="#1a1a1a" font-weight="bold">the </tspan><tspan fill="#1a1a1a" font-weight="bold">rare </tspan><tspan fill="#1a1a1a" font-weight="bold">runaways </tspan><tspan fill="#1a1a1a" font-weight="bold">run </tspan><tspan fill="#1a1a1a" font-weight="bold">away: </tspan><tspan fill="#1a1a1a" font-weight="bold">sustained </tspan><tspan fill="#1a1a1a" font-weight="bold">beyond-chance </tspan><tspan fill="#1a1a1a" font-weight="bold">selection </tspan><tspan fill="#1a1a1a" font-weight="bold">by </tspan><tspan fill="#1a1a1a" font-weight="bold">a </tspan><tspan fill="#1a1a1a" font-weight="bold">frozen </tspan><tspan fill="#1a1a1a" font-weight="bold">judge. </tspan><tspan fill="#1a1a1a" font-weight="normal">Not </tspan><tspan fill="#1a1a1a" font-weight="normal">early </tspan><tspan fill="#1a1a1a" font-weight="normal">luck </tspan><tspan fill="#1a1a1a" font-weight="normal">— </tspan><tspan fill="#1a1a1a" font-weight="normal">random </tspan><tspan fill="#1a1a1a" font-weight="normal">keeps </tspan><tspan fill="#1a1a1a" font-weight="normal">on </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">same </tspan><tspan fill="#1a1a1a" font-weight="normal">lucky </tspan><tspan fill="#1a1a1a" font-weight="normal">seed </tspan><tspan fill="#1a1a1a" font-weight="normal">decay </tspan><tspan fill="#1a1a1a" font-weight="normal">(A). </tspan></text>
+<text x="80" y="1004.22" font-family="Helvetica, Arial, sans-serif" font-size="19"><tspan fill="#1a1a1a" font-weight="normal">Not </tspan><tspan fill="#1a1a1a" font-weight="normal">stored </tspan><tspan fill="#1a1a1a" font-weight="normal">momentum </tspan><tspan fill="#1a1a1a" font-weight="normal">or </tspan><tspan fill="#1a1a1a" font-weight="normal">pool </tspan><tspan fill="#1a1a1a" font-weight="normal">pollution </tspan><tspan fill="#1a1a1a" font-weight="normal">— </tspan><tspan fill="#1a1a1a" font-weight="normal">zero-gap </tspan><tspan fill="#1a1a1a" font-weight="normal">rounds </tspan><tspan fill="#1a1a1a" font-weight="normal">don't </tspan><tspan fill="#1a1a1a" font-weight="normal">move </tspan><tspan fill="#1a1a1a" font-weight="normal">(B). </tspan><tspan fill="#1a1a1a" font-weight="normal">And </tspan><tspan fill="#1a1a1a" font-weight="normal">not </tspan><tspan fill="#1a1a1a" font-weight="normal">a </tspan><tspan fill="#1a1a1a" font-weight="normal">universal </tspan><tspan fill="#1a1a1a" font-weight="normal">signature </tspan><tspan fill="#1a1a1a" font-weight="normal">of </tspan><tspan fill="#1a1a1a" font-weight="normal">self-judging </tspan><tspan fill="#1a1a1a" font-weight="normal">— </tspan><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">Qwen </tspan><tspan fill="#1a1a1a" font-weight="normal">self-judge </tspan><tspan fill="#1a1a1a" font-weight="normal">fan </tspan><tspan fill="#1a1a1a" font-weight="normal">moves </tspan></text>
+<text x="80" y="1030.44" font-family="Helvetica, Arial, sans-serif" font-size="19"><tspan fill="#1a1a1a" font-weight="normal">the </tspan><tspan fill="#1a1a1a" font-weight="normal">endpoint </tspan><tspan fill="#1a1a1a" font-weight="normal">without </tspan><tspan fill="#1a1a1a" font-weight="normal">any </tspan><tspan fill="#1a1a1a" font-weight="normal">selection </tspan><tspan fill="#1a1a1a" font-weight="normal">gap </tspan><tspan fill="#1a1a1a" font-weight="normal">(C): </tspan><tspan fill="#1a1a1a" font-weight="normal">that </tspan><tspan fill="#1a1a1a" font-weight="normal">one </tspan><tspan fill="#1a1a1a" font-weight="normal">is </tspan><tspan fill="#1a1a1a" font-weight="normal">training </tspan><tspan fill="#1a1a1a" font-weight="normal">instability, </tspan><tspan fill="#1a1a1a" font-weight="normal">not </tspan><tspan fill="#1a1a1a" font-weight="normal">taste. </tspan></text>
+</svg>

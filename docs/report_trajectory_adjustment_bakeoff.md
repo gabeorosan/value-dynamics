@@ -224,3 +224,9 @@ headline number (CRPS 0.092 versus 0.095, coverage 0.89 versus 0.84, reversals
 1.22 versus 1.36 against 1.20 observed, at the cost of variation 0.709 versus
 0.678 against 0.648 observed), so staged-noise numbers may be quoted next to
 the unit model after swapping in this variant's values.
+
+Across the 45 primary runs, the expected cross-run SD of the unit-core
+stochastic endpoints is 0.387 (SD 0.015 across simulation draws), against
+0.370 for the observed endpoints. This takes one endpoint from each run at a
+common Monte Carlo draw, computes the SD across the 45 runs, and averages that
+SD over the 400 draws.

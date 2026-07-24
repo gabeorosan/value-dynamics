@@ -1,6 +1,5 @@
 # When AI drives its own training process, how do its values change?
 
-![](figures/hero_vision.svg)
 
 AI increasingly generates and selects its own training data, through
 [self-rewarding pipelines](https://arxiv.org/abs/2401.10020),
@@ -35,7 +34,6 @@ alternative source, and *found a simple predictive model that, using first-round
 measurements, gives calibrated endpoint estimates and
 reproduces the direction, pace, and spread of the observed trajectories.*
 
-![The round's six candidates are its pool; "pool" and "mixed pool" always mean this candidate pool. Held-out prompts re-measure the value between rounds.](figures/synthesis_experiment_kit.svg)
 
 
 ## Findings
@@ -72,13 +70,11 @@ Each candidate has a judge score, the probability the judge picks it,
 averaged over both option orders (for an oracle judge, the judge score is
 set to the value score).
 
-![](figures/auto/setup-both-models/setup_both_models_v3.svg)
 
 Two quantities are measured each round, spread and agreement, and together
 they forecast the selector gap. Spread and agreement are measured within
 each prompt's pool and averaged over the round's prompts.
 
-![](figures/auto/state-variables/state-variables.svg)
 
 ## each round, the value moves to what the judge keeps
 
@@ -88,15 +84,14 @@ The parameter-free one-round rule is
 `next value = kept candidate value mean`.
 
 The model tracks four positions, `q`, `p`, `k`, and `v`, and the distances
-between them. The number line places them together: `q`, `p`, and `k` are
-candidate-pool means; `v` is the behavioral value measured from the organism's
-answers, the coordinate the model forecasts.
-
-![](figures/auto/model-one-round-line/model-one-round-line.svg)
+between them. `q`, `p`, and `k` are candidate-pool means; `v` is the
+behavioral value measured from the organism's answers, the coordinate
+the model forecasts.
 
 Holding each complete experimental condition out, the kept-mean rule predicts
 the next measured value with MAE 0.081 across all 340 rounds, compared with
 0.128 for assuming no change.
+
 
 Before selection, the model forecasts the selector gap as candidate spread σ
 times judge agreement ρ:
@@ -112,7 +107,6 @@ holding spread, agreement, and pool composition fixed and clipping each step to
 the 0-to-1 value scale. Each predicted candidate mean becomes the next predicted
 value.
 
-![](figures/auto/model-recurrence/model-recurrence.svg)
 
 ## Forecasting endpoints from first-round measurements
 
@@ -123,12 +117,10 @@ numbers frozen gives endpoint MAE 0.118, versus 0.431 for assuming no change.
 The figure isolates the 32 modelable self-only (candidates all
 organism-generated) four-round runs. On this subset, the
 same recurrence has endpoint error 0.159, versus
-0.269 for assuming no change. The figure places each run by its first-round
-agreement and spread; to reduce the prediction to those two axes, its background
-averages over the initial candidate means and measured values. Each dot shows
-the observed change.
+0.269 for assuming no change. Placing each run by its first-round agreement and
+spread requires the displayed background to average over the initial candidate
+means and measured values; it can then be compared with observed change.
 
-![Endpoint-model four-round value change (in the background) and observed change in 32 self-only runs, placed by first-round agreement and spread. Endpoint MAE is 0.159, versus 0.269 for assuming no change.](figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
 
 
 The forecast stays accurate as it looks further ahead: its MAE
@@ -149,20 +141,14 @@ reading carries sampling noise, and the loop itself varies: the judge's
 picks land around ρσ rather than exactly on it, training lands near but
 not exactly on the kept mean, and agreement drifts between rounds. The stochastic version of the
 model adds a random term at each of these points, with sizes taken from
-the measured residuals; its equations are the figure below.
+the measured residuals.
 
-![Each noise term's size is the spread of that stage's leftover errors, pooled across all conditions except the one being forecast. Measurement noise affects only the value being read, not the state the next round starts from.](figures/auto/staged-noise-forecast/staged-noise-forecast.svg)
 
 **The stochastic model reproduces the dynamics of the observed trajectories.**
 Sampled forward, the total round-to-round value change over a run is 0.709
-against 0.648 observed, runs change direction 1.22 times against
-1.20, and 89% of final values fall inside the predicted 80% band. The expected
-cross-run SD of simulated endpoints is 0.387, against 0.370 observed. The figure
-below shows the comparison run by run: each family's observed
-trajectories on top, one simulated draw per run below, with the
-band shaded.
-
-![](figures/auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg)
+against 0.648 observed, runs change direction 1.22 times against 1.20, and 89%
+of final values fall inside the predicted 80% band. The expected cross-run SD
+of simulated endpoints is 0.387, against 0.370 observed.
 
 ## Steering trajectories with interventions
 
@@ -173,7 +159,6 @@ Swapping the base-model judge for the min-risk oracle (making agreement
 These results suggest that spread and agreement could be useful as targets for
 interventions, and the effect can be forecast from their new values.
 
-![](figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 
 ## Limitations and future directions
 
@@ -203,20 +188,3 @@ agentic environments could reveal whether their dynamics favor
 selection sculpted human values; value dynamics research can help identify
 artificial selection mechanisms that can be engineered into virtuous cycles
 for aligning increasingly autonomous AI systems.
-
-## Records
-
-Every number in this post traces to a committed result file through a named
-scorer. The claim registry is `docs/ANALYSIS_LEDGER.md`, which maps each claim
-to its data, its scorer, and its current verdict. The core analyses are
-`report_spread_util_unified.md` (the movement law and the `ρσ` factorization),
-`report_spread_rollout_bakeoff.md` and `report_model_ladder_horizon.md`
-(closed-loop endpoints and how the forecast degrades with horizon),
-`report_trajectory_adjustment_bakeoff.md` (where the noise goes), and
-`report_code_security_control_arms.md` with
-`report_control_arm_forecast_score.md` (the erosion experiment and its scored
-forecast). `report_prewriteup_reproduction_gate.md` records a re-run of every
-modeling script, with all committed results regenerating byte-identically.
-
-Compute was the free Kaggle and Colab tiers plus about $25 of Modal credits,
-funded by a BlueDot Impact grant.

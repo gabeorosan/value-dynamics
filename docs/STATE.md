@@ -94,6 +94,16 @@ rows already committed.
   Kaggle and Colab need no approval at all** — the research thread runs them at its
   own discretion. Modal spend still goes through pilot-before-spend. Kaggle weekly
   GPU quota was exhausted 07-24, refreshing 07-25.
+- **Needs a human**: the value-covariance phase-1 Kaggle kernel slug gets
+  corrupted ("Notebook not found" on every later push) every time a push is
+  quota-rejected — see the 07-24 "scheduled task, value-covariance retry"
+  entry above for the reproduction. `kaggle kernels delete <slug> -y` then
+  re-pushing the same slug fixes it, but the harness blocks kernel deletion
+  from the unattended scheduled task. If quota has refreshed and this is
+  still unresolved, run `env -u KAGGLE_API_TOKEN kaggle kernels delete
+  hirokenzan/vd-value-covariance-p1r2 -y` (or whatever the current slug in
+  experiments/value_covariance/kernel-metadata.json is) once interactively,
+  or just let the scheduled task keep rotating slugs.
 
 ## Requests between threads
 
@@ -705,6 +715,28 @@ rows already committed.
   a push attempt is the only reliable quota check. Once the slug was fixed the push
   reported the honest error, **"Maximum weekly GPU quota of 45.00 hours reached" —
   so quota has NOT yet refreshed** and the scheduled retry stands.
+- 2026-07-24 (scheduled task, value-covariance retry): **Correction to the entry
+  above — the corruption is NOT a one-time first-push accident, it is caused by
+  EVERY quota-rejected push.** Reproduced directly: pushed a fresh throwaway
+  slug with GPU enabled, got the honest quota error, then pushed the identical
+  file to the same slug again immediately and got "Notebook not found" —
+  confirming the corrupt-stub mechanism fires on any quota rejection, not just
+  the first one. This had already happened again to `vd-value-covariance-p1`
+  from its own first (quota-rejected) push, so that slug is now ALSO
+  permanently unusable — **do not push to it**. Renamed to
+  **`hirokenzan/vd-value-covariance-p1r2`**; `kernel-metadata.json` and the
+  scheduled task's SKILL.md updated. Push to the new slug still returns
+  "Maximum weekly GPU quota of 45.00 hours reached", so quota has still not
+  refreshed. **Better fix found: `kaggle kernels delete <slug> -y` then
+  re-push to the SAME slug clears the corruption** (verified on a throwaway
+  kernel — delete, then re-push returned the honest quota error again, no
+  rename needed). This is the right move for an interactive session next
+  time quota blocks a push. It did NOT run here: the harness's autonomous-mode
+  permission classifier blocked the delete call for this unattended scheduled
+  task. Until a human runs the delete, every quota-rejected retry will keep
+  burning a new slug — this needs a person to intervene at some point (see
+  Pending decisions / blockers), or the retry script needs to shell out to
+  `kaggle kernels delete` itself before each push.
 - 2026-07-24 (research-vision thread): **Figure + queued run.**
   docs/figures/auto/spread-at-fixed-mean/spread-at-fixed-mean.svg — at an exactly
   identical pool mean, re-arranging logged candidates across prompts moves

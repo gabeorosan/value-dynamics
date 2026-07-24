@@ -690,6 +690,21 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-24 (research-vision thread): **Kaggle gotcha worth knowing — a corrupt slug
+  masks the quota error.** The value-covariance phase-1 kernel could not be pushed
+  under `hirokenzan/value-covariance-phase1`: every attempt returned "Notebook not
+  found", including a one-line trivial script, while the same script under a fresh
+  slug pushed fine. Cause: the FIRST push (which failed on the weekly GPU quota) left
+  a stub notebook with an EMPTY ref and a placeholder date of 2010-04-01, visible in
+  `kaggle kernels list --mine` as "[Private Notebook]". That slug is permanently
+  unusable and every later push to it reports "Notebook not found" instead of the
+  real error. Renamed to **`hirokenzan/vd-value-covariance-p1`**; scheduled task
+  updated. **Diagnostic rule: on "Notebook not found", push the same file under a new
+  slug before touching the metadata — it is a one-minute test.** Also noted: CLI
+  2.2.2's `kaggle quota` command is itself broken ("not enough values to unpack"), so
+  a push attempt is the only reliable quota check. Once the slug was fixed the push
+  reported the honest error, **"Maximum weekly GPU quota of 45.00 hours reached" —
+  so quota has NOT yet refreshed** and the scheduled retry stands.
 - 2026-07-24 (research-vision thread): **Figure + queued run.**
   docs/figures/auto/spread-at-fixed-mean/spread-at-fixed-mean.svg — at an exactly
   identical pool mean, re-arranging logged candidates across prompts moves

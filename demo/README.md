@@ -14,28 +14,31 @@ interventions.
 
 ## The four candidates
 
-Four takes on the same writeup, built to be compared. Each has a different
-spine, not just different wording. All are 1920×1080, H.264 + AAC, with embedded
-English subtitles, built from the same `src/build_writeup_demo.py`.
+Four takes on the same writeup, deliberately different in how they enter the
+subject, in register, and in length. All are 1920x1080, H.264 + AAC, with
+embedded English subtitles, built from the same `src/build_writeup_demo.py`.
 
-| Cut | Length | Spine | Editing pass |
+| Cut | Length | Enters through | Editing pass |
 |---|---|---|---|
-| `cand1_forecast` | 5:14 | Poses the endpoint forecast as a prediction problem and answers it in order | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
-| `cand2_selection` | 5:33 | A judging loop is a breeding program: selection theory imported and tested | house style only |
-| `cand3_derivation` | 5:16 | The model derived one term at a time, error attached to every step | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
-| `cand4_steering` | 5:11 | Opens on the two interventions, works backwards to why they worked | house style only |
+| `cand1_forecast` — Three photographs, no film | 4:25 | The literature (alignment faking, model collapse, attractor states) as three stills of a process nobody has filmed | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
+| `cand2_selection` — A century-old equation | 5:41 | Animal and plant breeding; the word "AI" does not appear for about a minute | house style only |
+| `cand3_derivation` — The missing instrument | 5:43 | A measurement gap: evaluation gives position, nothing gives motion | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
+| `cand4_steering` — The loop you are already running | 2:50 | Second person, inside one concrete setup you are operating | house style only |
+
+They differ structurally, not only in wording. Scene counts run 8 to 17 and
+narration 458 to 899 words. Figure sets differ (4, 7, 8 and 10 of the ten) and so
+do their orders: candidate 2 puts the one-round held-out test before the
+spread-and-agreement recipes, because the breeder's spine tests the response
+coefficient first; candidate 3 opens on the organisms rather than the loop and is
+the only one that never uses `hero_vision`, so even its first frame differs.
+Candidate 3 is also the only cut that states what the decomposition costs
+(0.100 against 0.085 on matched rounds).
 
 Each cut has a narration script (`CANDIDATE_<n>_<slug>_SCRIPT.md`), a tweet
 thread (`CANDIDATE_<n>_<slug>_THREAD.md`), and a scene spec
-(`src/scenes_cand<n>_<slug>.json`). Each thread records its per-tweet character
-counts, which tweet should carry the video, and the objection a skeptical reader
-is most likely to raise.
-
-All four open on the writeup's own framing — AI already generating and selecting
-its own training data, the alignment-faking / model-collapse / attractor-state
-literature, and the gap being that little work follows the dynamics through
-training across settings and seeds — before any experiment appears, and all four
-close on its safety stakes.
+(`src/scenes_cand<n>_<slug>.json`). Each thread opens the same way its video
+does, and records its per-tweet character counts, which tweet should carry the
+video, and the objection a skeptical reader is most likely to raise.
 
 **Every figure used is one of the ten `docs/writeup_value_dynamics_sprint.md`
 embeds.** The writeup is the only surface these scripts source from; other

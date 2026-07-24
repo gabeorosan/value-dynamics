@@ -1,27 +1,27 @@
-# Tweet thread for candidate 1 — the forecasting challenge
+# Tweet thread for candidate 1: the forecasting challenge
 
 Ten tweets, all under 280 characters. Every number traces to
 `docs/writeup_value_dynamics_sprint.md`.
 
 **1/**
 
-> AI already generates and selects much of its own training data, through self-rewarding pipelines, constitutional loops and synthetic data. So a model's behavior now shapes the data that trains it next, and a value can persist, weaken or amplify through training itself.
+> Three empirical results describe what happens when models train on model-made material: alignment faking, model collapse, attractor states. Each is a still photograph. None follows a single value through training, across settings and seeds, while it moves. So I filmed it.
 
 **2/**
 
-> Alignment work has taken pieces of this: whether frontier models defend their values, what recursive training degrades, what attractor states models fall into talking to each other. Little follows the dynamics through training, across settings and seeds. So I ran the loops.
+> It matters now because a model's own answers already supply much of its next training data. The model generates candidates, a selector keeps some, training folds those back in, and the successor replaces it. What the model values helps decide what trains it next.
 
 **3/**
 
-> Two model families, fine-tuned to be risk-seeking or insecure-code-generating, both scored 0 to 1. Gambling organism: the share of answers picking the risky gamble. Insecure-code organism: how insecure its answers about its coding habits read, scored by its frozen base model.
+> Two model families, fine-tuned to be risk-seeking or insecure-code-generating, scored 0 to 1. Gambling organism: the share of answers picking the risky gamble. Insecure-code organism: how insecure its answers about its own coding habits read, scored by its frozen base model.
 
 **4/**
 
-> Each round the organism writes 6 candidates per prompt, a judge keeps 2, the model is trained on those, repeat. After round one I have the candidates, the judge's scores and one measured value. Four rounds left, and assuming no change misses the final value by 0.431.
+> Each round the organism writes 6 candidates per prompt, a judge keeps 2, training uses those, repeat. After round one I have the candidates, the judge's scores and one measured value. Four rounds left, and assuming no change misses the final value by 0.431.
 
 **5/**
 
-> So I measured two things every round. Spread is the SD of the candidates' value scores within a prompt. Agreement is the correlation between the judge's preferences and those same scores. Spread is what selection has to work with, agreement is which way it sorts.
+> So I measured two things every round. Spread is the SD of the candidates' value scores within a prompt. Agreement is the correlation between the judge's scores and those same value scores. Spread is what selection has to work with, agreement is which way it sorts.
 
 **6/**
 
@@ -33,17 +33,17 @@ Ten tweets, all under 280 characters. Every number traces to
 
 **8/**
 
-> For endpoints I iterate that update with round-one spread, agreement and pool composition frozen, clipping to the 0-to-1 scale. Nothing is re-measured. Endpoint MAE 0.118 against 0.431 for no change, and 0.100 one round out against 0.130 four rounds out.
+> For endpoints I repeat that update from round one with spread, agreement and pool composition frozen, clipping to the 0-to-1 scale. Nothing is re-measured. Endpoint MAE 0.118 against 0.431 for no change, and 0.100 one round out against 0.130 four rounds out.
 
 **9/**
 
-> One predicted number per run is the average path runs scatter around. Adding noise at each stage, sized from the residuals, gives simulated runs that move about as much as real ones, 0.709 of round-to-round change against 0.648. 89% of endpoints fall in the 80% bands.
+> One predicted number per run is only the average path runs scatter around. Adding noise where the loop varies, sized from the residuals, gives runs that move about as much as real ones, 0.709 of round-to-round change against 0.648. 89% of endpoints fall in the 80% bands.
 
 **10/**
 
 > The same measurements say where to push. A collapsed pool left a value stuck; mixing in base answers restored spread and it eroded. A run near the top reversed under a min-risk oracle judge. Limits: two model families, small models, short runs, filtered SFT, two behaviors.
 
-Video: tweet 1 carries the candidate 1 video, so the stakes and the demo arrive
+Video: tweet 1 carries the candidate 1 video, so the framing and the demo arrive
 together in the slot that gets the most impressions.
 
 Likely challenge: that a 0.118 endpoint error beats 0.431 mostly because the

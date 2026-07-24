@@ -84,7 +84,9 @@ co-training stays parked), frozen-predictor blind validation.
 - No Modal job is authorized for this question. The ~$2 content-only rail is
   parked because it tests style preference, not cross-judge infectiousness.
 
-Budget: Modal envelope $50 total; ~$23 spent. Kaggle weekly quota
+Budget (CORRECTED 2026-07-24): ~$75 left of the BlueDot Modal grant plus a
+$30/month free tier resetting the week of 07-27; the old "$50 envelope, ~$23
+spent" line was stale. Free Kaggle/Colab need no approval. Kaggle weekly quota
 exhausted. No new experimental FAMILY launches. The cross-judge rescore is a
 user-approved analysis of frozen artifacts, not a new rollout family.
 

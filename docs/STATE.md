@@ -12,6 +12,14 @@ reports = what we found.
 
 ## Thread lanes (who owns what)
 
+**2026-07-24 (user directive): the research-vision thread is now the MAIN THREAD for
+the research.** It owns experiments, analysis, reports, figures, the ledger, this
+file, and PLAN.md, and it corrects stale facts anywhere in the repo without asking.
+**Two things are gated on explicit user confirmation: `docs/writeup_value_dynamics_sprint.md`
+and `README.md`.** Propose changes to those as before/after blocks in a separate file
+(template: `docs/writeup_proposed_edits_2026-07-24.md`) and wait. The lane table below
+is retained for reading historical entries; it no longer allocates new work.
+
 | Thread | Owns (writes) | Everything else |
 |---|---|---|
 | Figures | OBSOLETE as a separate thread (user 2026-07-20): the writeup/general thread now owns ALL of docs/figures/ — drafts in auto/, promotion into the numbered set + make_figures.py + gallery, no cross-thread promotion requests | — |
@@ -68,7 +76,7 @@ connection; others request via "Requests between threads").
 |---|---|---|---|---|---|
 | Q1 | **Qwen self-only judge ablation** — (a) `JUDGE_MODEL_ENV=base` **COMPLETE 07-17: H1 REJECTED, judge-taste (H2)** — base judge flips p_insecure to −0.322/−0.023 (see Recent changes + report_qwen_judge_ablation.md + ledger row). (b) `JUDGE_STYLE_ENV=neutral` (self judge, non-candid prompt) **RUNNING on Colab since ~07:40** (pin 8564db0) → head2head_neutralstyle_selfonly.json; splits self-model taste vs candid-instruction pressure. | Colab T4, free, ~2h | (a) resolved the mechanism fork: the amplification needs the evolving self-judge, not just training-on-own-output. (b) closes the remaining split: neutral-prompt self-judge amplifies → model taste; flat → candid instruction was necessary. | prereg (both variants) docs/prereg_qwen_selfonly_judge_ablation.md; scorer scripts/analysis_qwen_judge_ablation.py handles all three runs. | (a) done; (b) prereg committed pre-launch |
 | Q2 | **OLMo curated-safe-candidate dose-response** (the clean replacement for the failed temperature width-test). Inject 0/1/2/3 of 6 pool candidates as a fixed, parse-guaranteed secure implementation into the `head2head_self` OLMo pool; keep-2; measure erosion vs dose of injected safe material. | Colab T4, free, ~1–2h | The width-test (temp-1.3) FAILED its gate because temperature degrades parse, not supplies safe code. This tests the same "does valid safe material restore erosion" question with a *controlled* candidate, and maps how LITTLE external safe material triggers erosion (dynamics, not binary). Complements the closed self-supply line. | needs a small launcher add (inject curated candidate into the self-only pool as a keepable member); reuse SECURE_REFERENCES already in LAUNCH_olmo_code_security_duel_loop.py; new prereg. | DEFERRED (user 07-16: end on Qwen); revive if pushing the supplier-sufficiency mechanism |
-| Q3 | **Modal paid ensemble** | Modal, ~$27 left | none justified now — every open question fits a single T4. | — | GATED: only if a question needs scale/parallelism a T4 can't give; pilot-before-spend rule applies |
+| Q3 | **Modal paid ensemble** | Modal, ~$75 grant + $30/mo free | none justified now — every open question fits a single T4. | — | GATED: only if a question needs scale/parallelism a T4 can't give; pilot-before-spend rule applies |
 
 Non-run follow-ups (other threads, not GPU): report_code_security_control_arms.md
 + 3-way/decomposition figure (OLMo); a Qwen self-only report + forced-choice-vs-
@@ -80,8 +88,12 @@ rows already committed.
 - The cross-judge mechanism check is optional supplementary evidence, not a
   writeup blocker. Its runnable Colab job waits only for the current dose
   ladder to release the session; do not displace that run.
-- Budget: Modal envelope $50 total; about $23 spent (~$27 left). Kaggle weekly
-  quota exhausted. No Modal run authorized now (see Runs queue Q3).
+- Budget (CORRECTED 2026-07-24 from the user; the previous "$50 envelope, ~$27
+  left" was stale): **Modal has ~$75 remaining from the BlueDot rapid grant plus a
+  $30/month free tier that resets** (next reset the week of 2026-07-27). **Free
+  Kaggle and Colab need no approval at all** — the research thread runs them at its
+  own discretion. Modal spend still goes through pilot-before-spend. Kaggle weekly
+  GPU quota was exhausted 07-24, refreshing 07-25.
 
 ## Requests between threads
 

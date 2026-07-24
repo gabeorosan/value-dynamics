@@ -52,6 +52,26 @@ re-derived 2026-07-24 with a measurement-error correction).
   within the noise band established in phase 1.
 - **H2 (representation-mediated):** observed off-target movement exceeds the
   prediction in magnitude, consistently in sign, across axes.
+This relation is derived for *linear* selection on jointly normal traits, and
+neither holds here: selection is top-k truncation and candidate pools will not be
+normal. Both assumptions were tested rather than asserted
+(`truncation_and_nonnormality_robustness` in the simulation output). Comparing the
+predicted off-target differential against the realized one under truncation
+selection, across keep-ratios 1-of-6, 2-of-6 and 4-of-12, and under both normal
+and strongly skewed Beta(2,5) marginals coupled to a prescribed correlation:
+
+| Distribution | True correlation | Relative error of the prediction |
+|---|---|---|
+| Normal | 0.35 | 1.4% to 4.3% |
+| Normal | 0.70 | 0.1% to 1.9% |
+| Skewed Beta(2,5) | 0.35 | 2.7% to 4.8% |
+| Skewed Beta(2,5) | 0.70 | 0.1% to 1.4% |
+
+At a true correlation of zero the predicted differential is correctly near zero in
+absolute terms (|0.003| or smaller). So the relation survives truncation selection
+and heavy skew, and the derivation's assumptions are not what this experiment is
+at risk from.
+
 - **H3 (decoupled):** off-target movement is uncorrelated with the prediction,
   meaning the candidate covariance carries no information about spillover at all.
 

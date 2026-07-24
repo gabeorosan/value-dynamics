@@ -435,5 +435,169 @@
    "detect_rate_vs_zero": 0.91,
    "pred_S_mae": 0.00767
   }
+ ],
+ "truncation_and_nonnormality_robustness": [
+  {
+   "distribution": "normal",
+   "true_r": 0.0,
+   "keep": 1,
+   "n_cand": 6,
+   "observed_S_b": -0.0015,
+   "predicted_S_b": -0.00238,
+   "relative_error": 0.5928
+  },
+  {
+   "distribution": "normal",
+   "true_r": 0.0,
+   "keep": 2,
+   "n_cand": 6,
+   "observed_S_b": 0.00197,
+   "predicted_S_b": 0.0,
+   "relative_error": 0.9978
+  },
+  {
+   "distribution": "normal",
+   "true_r": 0.0,
+   "keep": 4,
+   "n_cand": 12,
+   "observed_S_b": -0.00162,
+   "predicted_S_b": -6e-05,
+   "relative_error": 0.9626
+  },
+  {
+   "distribution": "normal",
+   "true_r": 0.35,
+   "keep": 1,
+   "n_cand": 6,
+   "observed_S_b": 0.09767,
+   "predicted_S_b": 0.09681,
+   "relative_error": 0.0088
+  },
+  {
+   "distribution": "normal",
+   "true_r": 0.35,
+   "keep": 2,
+   "n_cand": 6,
+   "observed_S_b": 0.07348,
+   "predicted_S_b": 0.0725,
+   "relative_error": 0.0133
+  },
+  {
+   "distribution": "normal",
+   "true_r": 0.35,
+   "keep": 4,
+   "n_cand": 12,
+   "observed_S_b": 0.07818,
+   "predicted_S_b": 0.07865,
+   "relative_error": 0.006
+  },
+  {
+   "distribution": "normal",
+   "true_r": 0.7,
+   "keep": 1,
+   "n_cand": 6,
+   "observed_S_b": 0.19208,
+   "predicted_S_b": 0.19243,
+   "relative_error": 0.0019
+  },
+  {
+   "distribution": "normal",
+   "true_r": 0.7,
+   "keep": 2,
+   "n_cand": 6,
+   "observed_S_b": 0.14727,
+   "predicted_S_b": 0.14777,
+   "relative_error": 0.0034
+  },
+  {
+   "distribution": "normal",
+   "true_r": 0.7,
+   "keep": 4,
+   "n_cand": 12,
+   "observed_S_b": 0.15597,
+   "predicted_S_b": 0.157,
+   "relative_error": 0.0066
+  },
+  {
+   "distribution": "beta_skewed",
+   "true_r": 0.0,
+   "keep": 1,
+   "n_cand": 6,
+   "observed_S_b": -0.00202,
+   "predicted_S_b": -4e-05,
+   "relative_error": 0.9778
+  },
+  {
+   "distribution": "beta_skewed",
+   "true_r": 0.0,
+   "keep": 2,
+   "n_cand": 6,
+   "observed_S_b": 0.0,
+   "predicted_S_b": -0.00034,
+   "relative_error": null
+  },
+  {
+   "distribution": "beta_skewed",
+   "true_r": 0.0,
+   "keep": 4,
+   "n_cand": 12,
+   "observed_S_b": 0.00169,
+   "predicted_S_b": 0.00134,
+   "relative_error": 0.2112
+  },
+  {
+   "distribution": "beta_skewed",
+   "true_r": 0.35,
+   "keep": 1,
+   "n_cand": 6,
+   "observed_S_b": 0.07274,
+   "predicted_S_b": 0.07351,
+   "relative_error": 0.0106
+  },
+  {
+   "distribution": "beta_skewed",
+   "true_r": 0.35,
+   "keep": 2,
+   "n_cand": 6,
+   "observed_S_b": 0.05207,
+   "predicted_S_b": 0.05382,
+   "relative_error": 0.0336
+  },
+  {
+   "distribution": "beta_skewed",
+   "true_r": 0.35,
+   "keep": 4,
+   "n_cand": 12,
+   "observed_S_b": 0.05542,
+   "predicted_S_b": 0.05839,
+   "relative_error": 0.0536
+  },
+  {
+   "distribution": "beta_skewed",
+   "true_r": 0.7,
+   "keep": 1,
+   "n_cand": 6,
+   "observed_S_b": 0.14849,
+   "predicted_S_b": 0.1526,
+   "relative_error": 0.0277
+  },
+  {
+   "distribution": "beta_skewed",
+   "true_r": 0.7,
+   "keep": 2,
+   "n_cand": 6,
+   "observed_S_b": 0.10667,
+   "predicted_S_b": 0.10956,
+   "relative_error": 0.027
+  },
+  {
+   "distribution": "beta_skewed",
+   "true_r": 0.7,
+   "keep": 4,
+   "n_cand": 12,
+   "observed_S_b": 0.11678,
+   "predicted_S_b": 0.11886,
+   "relative_error": 0.0178
+  }
  ]
 }

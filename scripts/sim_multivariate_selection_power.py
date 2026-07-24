@@ -52,6 +52,7 @@ the recommended design.
 
 import json
 import itertools
+import math
 import numpy as np
 
 OUT = "experiments/multivariate_selection_power.json"
@@ -141,6 +142,53 @@ def selection_experiment(n_prompts, n_cand, regime, keep, rho, true_r, reps=400)
     }
 
 
+def truncation_robustness(reps=3000):
+    """Does S_b = (P_ab/P_aa)*S_a survive TOP-K TRUNCATION and non-normal pools?
+
+    The correlated-response relation is derived for linear selection. Real
+    selection here is truncation: keep the top k candidates by axis a. It is also
+    derived under multivariate normality, which candidate pools will not obey.
+    Both are assumptions the whole experiment rests on, so they get tested rather
+    than asserted.
+
+    The non-normal arm builds skewed Beta(2,5) marginals with a prescribed rank
+    correlation through a Gaussian copula, so the correlation is controlled while
+    the shape is badly non-normal.
+    """
+    rows = []
+    # Beta(2,5) inverse CDF, computed once. Recomputing it per replicate was the
+    # bottleneck and it is constant.
+    grid_u = np.linspace(0.001, 0.999, 999)
+    grid_x = np.quantile(RNG.beta(2, 5, 200000), grid_u)
+    for dist in ("normal", "beta_skewed"):
+        for true_r in (0.0, 0.35, 0.7):
+            for keep, n in ((1, 6), (2, 6), (4, 12)):
+                obs, pred = [], []
+                for _ in range(reps):
+                    if dist == "normal":
+                        cov = np.array([[1.0, true_r], [true_r, 1.0]]) * 0.22 ** 2
+                        pool = RNG.multivariate_normal([0.5, 0.5], cov, size=n)
+                    else:
+                        g = RNG.multivariate_normal(
+                            [0, 0], [[1.0, true_r], [true_r, 1.0]], size=n)
+                        u = 0.5 * (1 + np.vectorize(math.erf)(g / np.sqrt(2)))
+                        pool = np.stack([np.interp(u[:, k], grid_u, grid_x)
+                                         for k in range(2)], axis=1)
+                    idx = np.argsort(-pool[:, 0])[:keep]
+                    S = pool[idx].mean(0) - pool.mean(0)
+                    P = np.cov(pool.T, ddof=0)
+                    if P[0, 0] > 1e-12:
+                        pred.append(P[0, 1] / P[0, 0] * S[0])
+                        obs.append(S[1])
+                o, p = float(np.mean(obs)), float(np.mean(pred))
+                rows.append({
+                    "distribution": dist, "true_r": true_r, "keep": keep, "n_cand": n,
+                    "observed_S_b": round(o, 5), "predicted_S_b": round(p, 5),
+                    "relative_error": round(abs(p - o) / abs(o), 4) if abs(o) > 1e-3 else None,
+                })
+    return rows
+
+
 def main():
     grid = []
     for n_prompts, n_cand, regime in itertools.product(
@@ -161,6 +209,7 @@ def main():
                  "predicting the off-target selection differential from the "
                  "estimated covariance, in value-score units.",
         "grid": grid,
+        "truncation_and_nonnormality_robustness": truncation_robustness(),
     }
     with open(OUT, "w") as f:
         json.dump(out, f, indent=1)

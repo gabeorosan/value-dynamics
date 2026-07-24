@@ -660,19 +660,20 @@ rows already committed.
   next experiment. Figure draft spawned to docs/figures/auto/spread-pinned-by-
   pool-mean/. NOTE for the writeup thread: the report's endpoint MAE 0.213 is a
   reconstruction, NOT comparable to the writeup's 0.118 — do not cite it as such.
-- 2026-07-24 (research-vision thread): **Spread IS a lever at a fixed pool mean —
-  supersedes today's earlier "spread is pinned" reading** (report_spread_at_fixed_
-  mean.md, ledger section B, scripts/analysis_spread_at_fixed_mean.py →
-  experiments/spread_at_fixed_mean.json). The pool mean fixes TOTAL candidate
-  variation q(1−q), not its split into within- vs between-prompt parts, and the
-  judge only compares within a prompt. Re-arranging 323 logged rounds at an exactly
-  fixed pool mean moves spread 0.286→0.082 and gap size 0.104→0.034 on the judges'
-  own recorded scores; both arms fit ONE law (pooled slope 0.857, r 0.928, n=646);
-  at matched agreement (25 rounds, −0.122 vs −0.123) the gap still differs ~4×.
-  Counterfactual SELECTION only, no retraining. Would change how another thread
-  writes about spread: the 85.9% figure describes arrangements that OCCURRED, not
-  arrangements that are POSSIBLE. Figure drafting at docs/figures/auto/spread-at-
-  fixed-mean/.
+- 2026-07-24 (research-vision thread): **RESCOPED SAME DAY — "spread is a lever at
+  a fixed pool mean" is NOT a result; do not cite it.** The re-selection analysis was
+  not an intervention (nothing trained) and its finding is close to definitional: a
+  prompt whose candidates all score alike has kept mean == pool mean by arithmetic,
+  so collapsing within-prompt spread collapses the selection gap by construction. The
+  median ratio gap/(agreement x spread) is 0.831 high-arm vs 0.825 low-arm —
+  indistinguishable, i.e. the manipulation slid along the identity. Retained ONLY as
+  a feasibility check that a 3.5x spread contrast is constructible at a matched mean.
+  Writeup recommendation withdrawn. **The real experiment requires training and is
+  specced at experiments/spread_intervention/SPEC.md** — matched arms differing only
+  in how candidate variation is allocated across prompts, identical pool mean, 4
+  rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
+  not confounded with the pool mean, and a null there would be a significant negative
+  result about the program's central equation.
 - 2026-07-24 (research-vision thread): **Figure + queued run.**
   docs/figures/auto/spread-at-fixed-mean/spread-at-fixed-mean.svg — at an exactly
   identical pool mean, re-arranging logged candidates across prompts moves

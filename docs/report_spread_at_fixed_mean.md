@@ -1,4 +1,23 @@
-# Spread is a lever at a fixed pool mean: variation only counts if it sits inside the unit the judge compares within
+# Feasibility check: constructing a spread contrast at a fixed pool mean
+
+> **RESCOPED 2026-07-24, the same day it was written, after user challenge. This is
+> NOT a result and must not be cited as one.** Two things are wrong with the original
+> framing below. First, no intervention was performed — logged pools were re-arranged
+> and logged judge scores replayed, with nothing trained and no loop run. Second, and
+> more seriously, the finding is close to definitional: the selection gap is
+> kept-minus-pool, so a prompt whose candidates all score alike has a gap of exactly
+> zero *by arithmetic*, and driving within-prompt spread toward zero drives the gap
+> toward zero by construction. The decisive check is that the median ratio of the gap
+> to (agreement × spread) is 0.831 in the high arm and 0.825 in the low arm —
+> indistinguishable, meaning the manipulation moved the pool along the identity rather
+> than testing it. That within-prompt spread is free at a fixed pool mean follows
+> directly from the variance decomposition and needs no experiment.
+>
+> **What this document is still good for:** establishing that the logged pools contain
+> enough re-arrangement freedom to build a 3.5-fold within-prompt spread contrast at an
+> exactly matched pool mean. That is a prerequisite for the real experiment, which
+> requires training — see `experiments/spread_intervention/SPEC.md`. The writeup
+> recommendation that rested on this has been withdrawn.
 
 Date: 2026-07-24
 Script: `scripts/analysis_spread_at_fixed_mean.py`

@@ -5,71 +5,39 @@ Date: 2026-07-24, revised the same day. From the research-vision thread.
 **Nothing in `docs/writeup_value_dynamics_sprint.md` has been edited.** This file is
 the proposal only.
 
-## What changed since the first version of this file
+## Status: the main proposed edit has been WITHDRAWN
 
-The first version proposed four hedging edits, because spread looked like it might be
-bookkeeping on the pool mean rather than a lever in its own right. That is no longer
-the right response, because the experiment settling it has now been run and it came
-out in the writeup's favour.
+This file went through two revisions on 2026-07-24 and the net result is that
+**nothing substantive is currently proposed for the writeup.**
 
-`report_spread_at_fixed_mean.md`: holding the pool mean **exactly** fixed and changing
-only which prompts carry the value variation moves spread by a factor of 3.5 and the
-selection gap by a factor of 3, on the judge's own logged preferences, across 323
-rounds. Both arrangements obey the same law with one slope. So spread is a real lever
-at a fixed mean, and the reason it looked pinned in the observed runs is that those
-runs never separated variation within a prompt from variation between prompts.
+Round 1 proposed four hedging edits, because candidate spread looked like it might be
+bookkeeping on the pool mean rather than an independent quantity (the pool mean
+accounts for 85.9% of the variance in measured spread on binary-scored axes).
 
-**So the recommendation is now one added result, not four qualifiers.** The narrative
-gets stronger rather than more hedged.
+Round 2 replaced them with a single added result, on the strength of a re-selection
+analysis of logged pools that appeared to show spread driving the selection gap at a
+fixed pool mean.
 
-Also withdrawn from the first version: I flagged the "gap = spread × agreement"
-sentence as overclaiming. That was my error — `experiments/selection_response_predictor.json`
-had already audited it, agreement is a genuine pre-selection proxy for the realized
-selection intensity, and the scale audit had already rejected the "slope is
-design-derived" argument. **No change is proposed to lines 101–108.**
+Round 3, after user challenge, withdrew that: the analysis was not an intervention
+(nothing was trained) and its finding was close to definitional. The selection gap is
+kept-minus-pool, so a prompt whose candidates all score alike has a gap of exactly
+zero by arithmetic; collapsing within-prompt spread collapses the gap by
+construction. The median ratio of gap to (agreement × spread) is 0.831 in the
+high-spread arm and 0.825 in the low-spread arm — indistinguishable, so the
+manipulation slid along the identity rather than testing it. And that within-prompt
+spread is free at a fixed pool mean follows directly from the variance decomposition
+and needs no experiment at all.
 
----
+**So the writeup needs no change on this account right now.** The real experiment —
+which requires training, because the untested claim is about the training step and
+not about the identity — is specified at `experiments/spread_intervention/SPEC.md`
+and is queued. If it returns, there may be something worth a paragraph then.
 
-## Edit 1 — the one that matters: a new result, not a caveat
+Also withdrawn earlier the same day: the flag on the "gap = spread × agreement"
+sentence. `experiments/selection_response_predictor.json` had already audited it and
+the existing framing is correct. **No change proposed to lines 101–108.**
 
-**Status: recommended.** Drops in as a self-contained paragraph. Nothing around it
-needs rewording, and no existing number changes.
-
-Best placement is the interventions section, after the existing two intervention
-sentences, since it is a third and cleaner intervention. It would also work at the end
-of the "What I measure" section.
-
-### Before
-
-> Adding base-model answers to a collapsed pool restores spread, allowing
-> the agreement of the judge to pull a value that was previously stuck.
-> Swapping the base-model judge for the min-risk oracle (making agreement
-> −1) reverses a run that had climbed near the top of the value scale.
-> These results suggest that spread and agreement could be useful as targets for
-> interventions, and the effect can be forecast from their new values.
-
-### After
-
-> Adding base-model answers to a collapsed pool restores spread, allowing
-> the agreement of the judge to pull a value that was previously stuck.
-> Swapping the base-model judge for the min-risk oracle (making agreement
-> −1) reverses a run that had climbed near the top of the value scale.
-> These results suggest that spread and agreement could be useful as targets for
-> interventions, and the effect can be forecast from their new values.
->
-> Spread can also be moved on its own, without touching the value. A round's pool
-> mean fixes the *total* variation among its candidates, but not how that variation
-> is split between differences within a prompt and differences between prompts, and
-> the judge only ever compares candidates within a prompt. Re-arranging 323 logged
-> rounds to hold the pool mean exactly fixed while shifting variation into or out of
-> the prompts changes spread by a factor of 3.5 and the resulting selection gap by a
-> factor of 3, on the judges' own recorded preferences. Both arrangements follow the
-> same rule, with one slope of 0.857 fitting all of them. Variation only counts when
-> it sits inside the comparison the judge actually makes.
-
-If you want it shorter, the last three sentences carry the result on their own.
-
----
+The two optional edits below survive, both minor. Neither is load-bearing.
 
 ## Edit 2 — optional, one clause
 

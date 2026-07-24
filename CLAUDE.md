@@ -29,36 +29,60 @@ corrections. The fix is a single claim registry: **docs/ANALYSIS_LEDGER.md**
   a PLAN.md adjustment if it changes priorities or queues an experiment.
   Don't leave any of these for "later".
 
-## Multi-thread protocol
+## Session protocol
 
-This repo is worked on by several parallel Claude Code sessions (threads), each with
-a lane. At the start of every session: `git pull`, then read docs/STATE.md,
-then docs/ANALYSIS_LEDGER.md (claim hygiene above).
+At the start of every session: `git pull`, then read docs/STATE.md, then
+docs/ANALYSIS_LEDGER.md (claim hygiene above).
 
-- Work only in your lane's files (ownership table in docs/STATE.md). If you need a
-  change in another lane, add a line under "Requests between threads" in STATE.md.
-- Update docs/STATE.md whenever something material lands — the test is "would
-  another thread act differently knowing this?" (result, job status change, decision,
-  new file another lane consumes). One-liners with pointers, never pasted content;
+**Ownership (user directive 2026-07-24): one main research thread now owns
+experiments, analysis, reports, figures, the ledger, STATE.md and PLAN.md, and
+corrects stale facts anywhere in the repo without asking.** The lane table and the
+"Requests between threads" list in STATE.md are retained for reading historical
+entries; they no longer allocate new work, and there is no need to file a request
+against another lane before editing a file.
+
+**Two files are gated on explicit user confirmation: `docs/writeup_value_dynamics_sprint.md`
+and `README.md`.** Never edit them directly, even to fix something clearly wrong.
+Propose changes as Before / After blocks in a separate markdown file, each marked
+recommended or optional, and wait. Template:
+`docs/writeup_proposed_edits_2026-07-24.md`.
+
+- Update docs/STATE.md whenever something material lands — the test is "would a
+  future session act differently knowing this?" (result, job status change, decision,
+  new file something else consumes). One-liners with pointers, never pasted content;
   add a dated line to "Recent changes", commit, push. Skip intermediate progress.
-- Pull again before each new work chunk; parallel threads push to the same branch.
+- Pull again before each new work chunk.
 - Keep STATE.md under ~2 screens: it is a dashboard. Details go in docs/ reports.
 
-## Figure drafts from any thread
+## Verify before citing
 
-Any thread may (and should) get a figure drafted when something figure-worthy
+Reproducing arithmetic is the easy half and is not where the errors are. Before a
+number goes on a summary surface, and whenever inheriting analysis from an earlier
+session or a weaker model, spawn a fresh-context subagent to re-derive it from raw
+data — writing its own script BEFORE reading the original. Hunt tautologies, shared
+measurement terms, undocumented sample filters, and effective-n overstatement. See
+the `verify-quant-claim` skill in `.claude/skills/`. Then check whether the repo has
+already answered your objection before acting on it; on 2026-07-24 a critique of the
+gap factorization had to be withdrawn because that audit already existed.
+
+## Figure drafts
+
+Get a figure drafted whenever something figure-worthy
 lands — an experiment result pulled, a lit-review finding, a plan that needs a
 diagram. Do NOT write figure code in-thread: spawn the `figure-maker` agent
 (Agent tool, subagent_type `figure-maker`, `run_in_background: true`) and keep
 working. The spawn prompt must be self-contained — it starts with zero context:
 result-file paths, the relationship to show, the actual numbers, one figure per
-spawn. The agent writes drafts to docs/figures/auto/<slug>/ (a carve-out from
-the Figures lane; see STATE.md ownership table) and returns a one-liner — when
-it completes, relay that line to the user and add it to STATE.md "Recent
-changes". The Figures thread promotes drafts into make_figures.py and the
-numbered figure set; request promotion under "Requests between threads".
+spawn. The agent writes drafts to docs/figures/auto/<slug>/ and returns a
+one-liner — when it completes, relay that line to the user and add it to STATE.md
+"Recent changes". Promotion of a draft into make_figures.py and the numbered
+figure set is this thread's job too; there is no separate Figures thread.
 
-## Research working agreements (apply in every thread)
+Give the figure-maker acceptance criteria and explicit non-answers rather than
+step-by-step instructions, and tell it to trust its own recomputation over any
+number in the prompt. It has twice caught real errors that way.
+
+## Research working agreements
 
 - Use Fable for everything (no delegating to smaller models). Don't build
   preliminary versions of a deliverable while waiting on a long-running task.

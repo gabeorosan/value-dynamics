@@ -661,6 +661,24 @@ rows already committed.
   writes about spread: the 85.9% figure describes arrangements that OCCURRED, not
   arrangements that are POSSIBLE. Figure drafting at docs/figures/auto/spread-at-
   fixed-mean/.
+- 2026-07-24 (research-vision thread): **Figure + queued run.**
+  docs/figures/auto/spread-at-fixed-mean/spread-at-fixed-mean.svg — at an exactly
+  identical pool mean, re-arranging logged candidates across prompts moves
+  within-prompt spread 0.082→0.286 (between-prompt variance 0.154→0.059) and the
+  size of the selection gap follows, 0.034→0.104, with both arms on one line
+  gap = 0.86 × (agreement × spread), r = 0.93 over 646 arrangement-rounds.
+  **Value-covariance PHASE 1 is built, unit-tested and queued**
+  (experiments/value_covariance/script.py + kernel-metadata.json): Kaggle push
+  blocked on "Maximum weekly GPU quota of 45.00 hours reached", so a scheduled
+  task retries every 3 h and monitors to completion. Phase 1 incorporates the
+  audit fixes — graded logprob scores, one isolated judge call per axis, two
+  judge families with the primary covariance taken cross-method, and two
+  independent pool sets so the prediction is validated cross-pool rather than on
+  the pool it was estimated from. Analysis math verified locally on synthetic
+  data (recovers a true 0.45 correlation as 0.438; strips an injected length
+  confound 0.511→0.441). **Budget note: STATE/PLAN's "~$27 of a $50 Modal
+  envelope" is STALE — actual is ~$75 of BlueDot grant plus $30/month resetting
+  the week of 07-27; free Kaggle/Colab need no approval (user, 07-24).**
 - 2026-07-24 (research-vision thread): **GPT-5.6 Sol audit of the value-covariance
   spec — phase 2 must NOT run as written** (findings recorded in
   experiments/value_covariance/SPEC.md, new section at top). Two blocking items:

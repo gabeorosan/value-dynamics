@@ -41,12 +41,6 @@ __pycache__/
 /scratchpad/
 /specs/
 
-# Trigger.dev scaffolding (unused by the research pipeline)
-/package.json
-/package-lock.json
-/trigger.config.ts
-/src/trigger/
-
 # Demo renders. The published cut lives in site/media/; everything in demo/
 # is a local build artifact regenerable from demo/src/scenes_*.json.
 demo/*.mp4
@@ -63,5 +57,5 @@ demo/RESEARCH_VISION_DEMO_SCRIPT.md
 demo/src/scenes_writeup.json
 demo/src/scenes_vision.json
 
-# Trigger.dev agent skills: vendored tool docs, not used by the research pipeline
-/.claude/skills/trigger-*/
+# Local archive of retired scaffolding (Trigger.dev), kept off the tree
+/.archive-local/

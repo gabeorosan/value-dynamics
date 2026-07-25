@@ -20,12 +20,12 @@ embedded English subtitles, built from `src/build_writeup_demo.py`.
 
 | Cut | Length | What it is | Editing pass |
 |---|---|---|---|
-| `cand1_forecast` — The faithful walkthrough | 5:43 | The writeup end to end in its own order, using all ten of its figures | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
-| `cand2_selection` — Three findings, and how they were measured | 5:24 | All three findings on screen inside 90 seconds, then how each was measured | house style only |
+| `cand1_forecast` — The faithful walkthrough | 5:33 | The writeup end to end in its own order, using all ten of its figures | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
+| `cand2_selection` — Three findings, and how they were measured | 5:23 | All three findings on screen inside 90 seconds, then how each was measured | house style only |
 | `cand3_derivation` — How the forecast is built and tested | 6:01 | The methods cut: recipes, held-out protocol, and what each step costs | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
 | `cand4_steering` — The short version | 2:45 | Everything essential, with a third of the runtime on the limits | house style only |
 
-Scene counts run 7 to 17 and narration 448 to 946 words.
+Scene counts run 7 to 17 and narration 448 to 946 words. Candidate 1 is the published cut.
 
 **Numbers are shown, not spoken.** A listener cannot hold a spoken decimal or
 check it, so precise values live in scene captions and on statement cards where

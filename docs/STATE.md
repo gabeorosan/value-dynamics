@@ -660,6 +660,15 @@ rows already committed.
   (synthesis-dial-plane-horizon said "67 modelable runs", SVG says 32). Five
   analysis scripts + their result JSONs were uncommitted and are now tracked.
 
+- 2026-07-25 (writeup thread): **Demo shipped: candidate 1 selected and published.**
+  `demo/value_dynamics_cand1_forecast.mp4` (5:33) is now
+  `site/media/value_dynamics_demo.mp4` + 720p + poster + subtitles, and is what
+  README and the Pages demo page link to. Four candidates remain in `demo/` with
+  scripts and tweet threads; see demo/README.md. All narration sources from the
+  writeup only and uses only the ten figures it embeds. Numbers are shown in
+  captions rather than spoken. Root README rebuilt from the writeup; docs/
+  reorganized into reports/ prereg/ archive/ with docs/README.md as the index.
+
 - 2026-07-24 (writeup thread): **Four candidate demo videos drafted from the
   writeup, for the user to pick one** — demo/CANDIDATE_{1..4}_*_SCRIPT.md +
   demo/src/scenes_cand*.json + built MP4s (untracked, like the existing cuts).

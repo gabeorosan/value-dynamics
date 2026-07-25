@@ -1,175 +1,179 @@
 1
-00:00:00,450 --> 00:00:05,866
-Three well-known results already touch what happens when models train on material that models made.
+00:00:00,450 --> 00:00:07,066
+A I increasingly generates and selects its own training data, through self-rewarding pipelines, constitutional loops, and synthetic data.
 
 2
-00:00:05,866 --> 00:00:11,642
-Alignment faking asks whether a model defends its values when it thinks it is being retrained.
+00:00:07,066 --> 00:00:15,151
+A model's current behavior therefore helps determine the data that changes it, so a value can persist, weaken, or amplify through training.
 
 3
-00:00:11,642 --> 00:00:16,336
-Model collapse follows what degrades when generation after generation trains on model output.
+00:00:15,151 --> 00:00:21,400
+Value dynamics asks how values move once the model sits inside that loop, driving its own training.
 
 4
-00:00:16,336 --> 00:00:21,030
-Attractor state work reports where two models settle when they talk long enough.
+00:00:21,400 --> 00:00:38,674
+It borrows the tools of population genetics, because one round of a judging loop is one generation of selection: the candidate answers are a population that varies, the judge keeps some and discards the rest, and training passes what was kept into the model that comes next.
 
 5
-00:00:21,030 --> 00:00:22,474
-Each is a photograph.
+00:00:38,674 --> 00:00:49,700
+The Price equation tracks how selection changes a population, and the difference in means between the kept candidates and the whole pool is what selection theory calls a selection differential.
 
 6
-00:00:22,474 --> 00:00:28,612
-None of them follows one value through training, across settings and seeds, while it is still moving.
+00:00:50,950 --> 00:00:55,222
+I fine-tuned open-weight models with value orientations, risk-seeking and insecure-code-generating.
 
 7
-00:00:28,612 --> 00:00:31,500
-That is the film I tried to shoot.
+00:00:55,222 --> 00:01:06,330
+Each round an organism writes several candidates per prompt, and a judge compares each against an alternative and keeps the ones it prefers as training data.
 
 8
-00:00:32,750 --> 00:00:38,620
-It matters now because a model's own answers already supply much of its next training data.
+00:01:06,330 --> 00:01:09,320
+Held-out prompts re-measure the value between rounds.
 
 9
-00:00:38,620 --> 00:00:46,692
-In this loop the model generates candidates, a selector keeps some, training folds those back in, and the successor replaces its predecessor.
+00:01:09,320 --> 00:01:14,020
+Runs varied the judge, the candidate source, and the alternative source.
 
 10
-00:00:46,692 --> 00:00:50,728
-What the model values helps decide its own next training set.
+00:01:14,770 --> 00:01:18,505
+An organism's value is the mean value score of its answers.
 
 11
-00:00:51,478 --> 00:00:55,150
-My loop is small enough to instrument at every stage.
+00:01:18,505 --> 00:01:23,598
+For the gambling organism, the score is the share of answers picking the risky gamble.
 
 12
-00:00:55,150 --> 00:01:06,167
-Each round the organism writes six candidate answers per prompt, a judge compares each against an alternative and keeps the two it prefers, and those two become the training data.
+00:01:23,598 --> 00:01:32,766
+For the insecure-code organism, it is how insecure its answers to a few fixed questions about its own coding habits read, scored by its frozen base model.
 
 13
-00:01:06,167 --> 00:01:08,371
-Held-out prompts measure the value again.
+00:01:33,516 --> 00:01:44,608
+The breeder's equation relates that selection differential to the response in the next generation, and it names what to measure: variation among the candidates, and which way the judge sorts it.
 
 14
-00:01:08,371 --> 00:01:11,308
-I varied the judge and both candidate sources.
-
-15
-00:01:12,058 --> 00:01:19,115
-I fine-tuned two model families to hold a value, risk-seeking or insecure-code-generating, and the value runs zero to one.
-
-16
-00:01:19,115 --> 00:01:24,687
-For the gambling organism it is the share of answers that pick the risky gamble.
-
-17
-00:01:24,687 --> 00:01:34,344
-For the insecure-code organism it is how insecure its answers to three fixed questions about its own coding habits read, scored by its frozen base model.
-
-18
-00:01:35,094 --> 00:01:38,368
-Before the runs played out I could not answer this.
-
-19
-00:01:38,368 --> 00:01:44,262
-After round one I hold six candidates per prompt, the judge's scores on them, and one measured value.
-
-20
-00:01:44,262 --> 00:01:45,572
-Four rounds are left.
-
-21
-00:01:45,572 --> 00:01:51,793
-The baseline to beat is assuming nothing changes, which misses the final value by zero point four three one.
-
-22
-00:01:52,943 --> 00:01:55,146
-I measure two things each round.
-
-23
-00:01:55,146 --> 00:02:01,755
+00:01:44,608 --> 00:01:51,048
 Spread is the standard deviation of the candidates' value scores within a prompt, averaged over the round's prompts.
 
-24
-00:02:01,755 --> 00:02:06,162
-Agreement is the correlation between the judge's scores and those value scores.
+15
+00:01:51,048 --> 00:01:55,342
+Agreement is the correlation between the judge's preferences and those value scores.
 
-25
-00:02:06,162 --> 00:02:14,974
-Their product reconstructs the gap between the kept answers and the pool at R squared zero point eight zero across three hundred sixty-seven rounds.
+16
+00:01:55,342 --> 00:02:05,002
+Their product forecasts the gap between the kept answers and the pool average, and across every round with logged judge scores it reconstructs the realized gaps closely.
 
-26
-00:02:15,724 --> 00:02:18,189
+17
+00:02:05,752 --> 00:02:08,314
 The one-round rule has no fitted coefficient.
 
+18
+00:02:08,314 --> 00:02:13,804
+The next measured value is the mean value score of the candidates the judge kept.
+
+19
+00:02:13,804 --> 00:02:20,026
+Holding out each complete experimental condition, it predicts the next value well ahead of assuming no change.
+
+20
+00:02:20,776 --> 00:02:25,401
+Before selection, the forecast replaces the kept mean with spread times agreement.
+
+21
+00:02:25,401 --> 00:02:33,110
+On matched rounds that costs a small amount of accuracy, the price of predicting selection rather than watching it happen.
+
+22
+00:02:33,110 --> 00:02:40,819
+For endpoints, the model repeats that update from the round-one candidate mean, with spread, agreement, and pool composition held fixed.
+
+23
+00:02:41,569 --> 00:02:52,214
+That iteration predicts the final value of a run from its first round with a mean absolute error of zero point one one eight, against zero point four three one for assuming no change.
+
+24
+00:02:52,214 --> 00:02:55,032
+Nothing measured after the first round goes back in.
+
+25
+00:02:56,182 --> 00:03:04,024
+On the self-only runs, where every candidate came from the organism, the recurrence again lands much closer than assuming no change.
+
+26
+00:03:04,024 --> 00:03:07,385
+And it holds up as it looks further ahead.
+
 27
-00:02:18,189 --> 00:02:23,824
-The next measured value is the mean value score of the two candidates the judge kept.
+00:03:07,385 --> 00:03:13,360
+Its error grows only slightly as the horizon lengthens, while assuming no change gets steadily worse.
 
 28
-00:02:23,824 --> 00:02:36,151
-Holding out each complete experimental condition, it predicts the next value with mean absolute error zero point zero eight one across three hundred forty rounds, against zero point one two eight for assuming no change.
+00:03:13,360 --> 00:03:18,214
+Selection moves a run mostly in its first rounds and then levels off.
 
 29
-00:02:36,901 --> 00:02:44,722
-For endpoints I repeat that update from round one, with spread, agreement and pool composition held fixed and nothing re-measured.
+00:03:18,964 --> 00:03:23,542
+The deterministic forecast gives only the average path real runs scatter around.
 
 30
-00:02:44,722 --> 00:02:51,761
-Endpoint error is zero point one one eight, against zero point four three one for assuming no change.
+00:03:23,542 --> 00:03:28,883
+Each value reading comes from a limited sample of answers, so it carries noise.
 
 31
-00:02:51,761 --> 00:02:59,973
-The error grows slowly, zero point one zero zero one round out and zero point one three zero four rounds out.
+00:03:28,883 --> 00:03:39,184
+The judge's picks land around spread times agreement rather than exactly on it, training lands near but not on the kept mean, and agreement drifts between rounds.
 
 32
-00:03:01,123 --> 00:03:06,546
-One predicted number per run is only the average path real runs scatter around.
+00:03:39,184 --> 00:03:44,907
+The stochastic version adds a random term at each point, sized from the measured residuals.
 
 33
-00:03:06,546 --> 00:03:18,165
-The stochastic version adds noise wherever the loop varies, in the value reading, the judge's picks, the training step and the drift in agreement, sized from the measured leftover errors.
+00:03:45,657 --> 00:03:48,563
+The stochastic model reproduces the observed dynamics.
 
 34
-00:03:18,165 --> 00:03:27,848
-Sampled forward, simulated runs move about as much as observed ones, zero point seven zero nine of round-to-round change against zero point six four eight.
+00:03:48,563 --> 00:03:59,358
+Simulated runs accumulate about as much round-to-round value change as the real ones, change direction about as often, and scatter about as widely at the end.
 
 35
-00:03:27,848 --> 00:03:32,883
-Eighty-nine percent of observed final values land inside the model's eighty percent bands.
+00:03:59,358 --> 00:04:04,756
+Eighty-nine percent of observed final values fall inside the model's eighty percent bands.
 
 36
-00:03:32,883 --> 00:03:39,855
-The bands are wide, so the calibration holds over a population of runs, not for any one trajectory.
+00:04:05,506 --> 00:04:07,791
+Both interventions targeted spread and agreement.
 
 37
-00:03:40,605 --> 00:03:43,522
-The same two measurements say where to push.
+00:04:07,791 --> 00:04:15,790
+Adding base-model answers to a collapsed pool restored spread, and the judge's agreement then eroded a value that had been stuck.
 
 38
-00:03:43,522 --> 00:03:47,898
-In one run the pool had collapsed and the value sat still.
+00:04:15,790 --> 00:04:26,073
+Swapping the base-model judge for a min-risk oracle, which drives agreement to its negative extreme, reversed a run that had climbed near the top of the scale.
 
 39
-00:03:47,898 --> 00:03:53,368
-Mixing in base-model answers restored spread, and the judge's agreement then eroded the stuck value.
+00:04:26,073 --> 00:04:28,359
+Each result is a single experiment.
 
 40
-00:03:53,368 --> 00:04:02,119
-In another, a run near the top of the scale reversed when I swapped in a min-risk oracle judge, setting agreement to minus one.
+00:04:29,109 --> 00:04:40,023
+The training setup here is narrow: small models, short runs, filtered supervised fine-tuning, a handful of model families, and the risk-preference and insecure-code behaviors.
 
 41
-00:04:02,119 --> 00:04:03,578
-Both are single experiments.
+00:04:40,023 --> 00:04:51,393
+Extensions should scale that up and compare this fine-tuning update with D P O, online reinforcement learning against a learned reward model, and constitutional feedback.
 
 42
-00:04:04,328 --> 00:04:10,496
-The setup is two model families, small models, short runs, filtered supervised fine-tuning, and two narrow behaviors.
+00:04:51,393 --> 00:05:01,398
+The behaviors should widen to moral judgment, A I identity, and emergent misalignment, with readouts that reach past answers into internal representations.
 
 43
-00:04:10,496 --> 00:04:19,567
-As A I systems take over more of their own post-training, we need to know which feedback structures reinforce restraint and which amplify reward hacking.
+00:05:01,398 --> 00:05:10,493
+More open-ended setups would give models more freedom in selecting training data, revising system prompts, and editing the loop itself.
 
 44
-00:04:19,567 --> 00:04:25,373
-Spread and agreement are two numbers you can measure in the first round and act on.
+00:05:10,493 --> 00:05:19,134
+Repeated games and agentic environments could reveal whether the dynamics favor cooperation or defection, resource grabbing, and reward hacking.
+
+45
+00:05:19,134 --> 00:05:33,232
+Natural and cultural selection sculpted human values, and value dynamics research can help identify artificial selection mechanisms that can be engineered into virtuous cycles for aligning increasingly autonomous A I systems.

@@ -48,10 +48,18 @@ import numpy as np
 # ----------------------------------------------------------------------------
 GEN_MODEL = os.environ.get("GEN_MODEL", "Qwen/Qwen3-4B")
 JUDGE_A = os.environ.get("JUDGE_A", "Qwen/Qwen3-4B")
-JUDGE_B = os.environ.get("JUDGE_B", "microsoft/Phi-4-mini-instruct")
+# Judge B must be a DIFFERENT family from judge A, and must load under Kaggle's
+# preinstalled transformers. Phi-4-mini failed on 2026-07-24 with
+# "cannot import name 'SlidingWindowCache'", losing the cross-method covariance that
+# the design audit designated the PRIMARY estimate. Gemma-2 is attached as a Kaggle
+# model source instead, so it needs no HF auth and no version gymnastics.
+JUDGE_B = os.environ.get(
+    "JUDGE_B", "/kaggle/input/gemma-2/transformers/gemma-2-2b-it/2")
 N_CAND = int(os.environ.get("N_CAND", "12"))
 GEN_TEMP = float(os.environ.get("GEN_TEMP", "1.0"))
-MAX_NEW = int(os.environ.get("MAX_NEW", "200"))
+# Must be large enough to clear a reasoning preamble AND contain a real answer.
+# 200 truncated every candidate inside <think> on 2026-07-24.
+MAX_NEW = int(os.environ.get("MAX_NEW", "420"))
 KEEP = int(os.environ.get("KEEP", "4"))          # kept per prompt when replaying selection
 OUT = os.environ.get("OUT", "/kaggle/working/value_covariance_phase1.json")
 SEED = int(os.environ.get("SEED", "20260725"))
@@ -255,22 +263,48 @@ def load(model_id):
     return tok, model
 
 
+def strip_thinking(text):
+    """Remove a reasoning preamble so the judge scores the ANSWER, not the thinking.
+
+    Qwen3 emits <think>...</think> before its answer. The 2026-07-24 run set
+    max_new_tokens=200, which truncated every one of 360 candidates INSIDE the think
+    block, so no candidate contained an answer at all and the judge was scoring
+    near-identical restatements of the prompt. Every axis came back with zero
+    variance. Guard against both the closed and the truncated-open case.
+    """
+    t = str(text)
+    if "</think>" in t:
+        t = t.split("</think>", 1)[1]
+    elif t.lstrip().startswith("<think>"):
+        return ""          # truncated inside the block: no answer was produced
+    return t.strip()
+
+
 def generate_pool(tok, model, prompts, n_cand, temp, max_new, seed):
-    """n_cand candidate answers per prompt."""
+    """n_cand candidate answers per prompt, with reasoning preambles removed."""
     import torch
     torch.manual_seed(seed)
-    out = []
+    out, dropped = [], 0
     for pi, p in enumerate(prompts):
-        text = tok.apply_chat_template(
-            [{"role": "user", "content": p}], tokenize=False, add_generation_prompt=True)
+        msgs = [{"role": "user", "content": p}]
+        try:
+            # Qwen3-specific: generate the answer directly rather than reasoning first.
+            text = tok.apply_chat_template(msgs, tokenize=False,
+                                           add_generation_prompt=True,
+                                           enable_thinking=False)
+        except TypeError:
+            text = tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
         enc = tok([text] * n_cand, return_tensors="pt", padding=True).to(model.device)
         with torch.no_grad():
             gen = model.generate(**enc, do_sample=True, temperature=temp, top_p=0.95,
                                  max_new_tokens=max_new, pad_token_id=tok.pad_token_id)
-        cands = [tok.decode(g[enc["input_ids"].shape[1]:], skip_special_tokens=True).strip()
-                 for g in gen]
+        raw = [tok.decode(g[enc["input_ids"].shape[1]:], skip_special_tokens=True).strip()
+               for g in gen]
+        cands = [strip_thinking(r) for r in raw]
+        dropped += sum(1 for c in cands if len(c) < 20)
         out.append({"prompt": p, "candidates": cands})
         print(f"  generated prompt {pi + 1}/{len(prompts)}", flush=True)
+    print(f"  candidates shorter than 20 chars after stripping: {dropped}", flush=True)
     return out
 
 
@@ -294,9 +328,18 @@ def p_yes(tok, model, question, answer, batch_texts=None):
 
 
 def score_pool(tok, model, pool, label):
-    """(n_prompts, n_cand, n_axes) scores, both polarities averaged."""
+    """Scores plus the two polarity reads kept SEPARATELY for diagnosis.
+
+    Keeping the raw reads matters: the averaged score is 0.5*(pos + (1 - neg)), which
+    collapses to a constant 0.5 for every candidate if the judge is insensitive to the
+    polarity flip. Without the separate reads that failure is indistinguishable from a
+    genuinely uniform candidate pool, and the 2026-07-24 run could not be diagnosed
+    after the fact because only the average was saved.
+    """
     n_p, n_c, n_a = len(pool), len(pool[0]["candidates"]), len(AXIS_NAMES)
     scores = np.zeros((n_p, n_c, n_a))
+    pos_reads = np.zeros((n_p, n_c, n_a))
+    neg_reads = np.zeros((n_p, n_c, n_a))
     t0 = time.time()
     for i, item in enumerate(pool):
         for j, cand in enumerate(item["candidates"]):
@@ -306,9 +349,32 @@ def score_pool(tok, model, pool, label):
                 pos, neg = AXES[AXIS_NAMES[k]]
                 a = p_yes(tok, model, pos, cand)
                 b = p_yes(tok, model, neg, cand)
+                pos_reads[i, j, k], neg_reads[i, j, k] = a, b
                 scores[i, j, k] = 0.5 * (a + (1.0 - b))
         print(f"  [{label}] scored prompt {i + 1}/{n_p}  ({time.time() - t0:.0f}s)", flush=True)
-    return scores
+    return scores, pos_reads, neg_reads
+
+
+def instrument_check(scores, pos_reads, neg_reads, label):
+    """Does the judge discriminate at all? Report BEFORE any covariance is believed."""
+    out = {"label": label, "per_axis": {}}
+    worst = 1.0
+    for k, name in enumerate(AXIS_NAMES):
+        within = scores[:, :, k] - scores[:, :, k].mean(axis=1, keepdims=True)
+        sd = float(within.std())
+        # How much does flipping the rubric's polarity change the read? If this is
+        # near zero the judge is answering the question's form, not its content, and
+        # the polarity average destroys the signal.
+        polarity_sep = float(np.mean(pos_reads[:, :, k] - (1.0 - neg_reads[:, :, k])))
+        out["per_axis"][name] = {
+            "within_prompt_sd": round(sd, 5),
+            "mean_score": round(float(scores[:, :, k].mean()), 4),
+            "mean_polarity_separation": round(polarity_sep, 4),
+        }
+        worst = min(worst, sd)
+    out["min_within_prompt_sd"] = round(worst, 5)
+    out["verdict"] = "USABLE" if worst >= 0.01 else "INSTRUMENT_FAILURE_NO_DISCRIMINATION"
+    return out
 
 
 def main():
@@ -345,8 +411,19 @@ def main():
             print(f"  FAILED to load {model_id}: {e}", flush=True)
             result.setdefault("load_failures", {})[label] = str(e)
             continue
-        all_scores[label] = {"A": score_pool(tok_j, jm, pool_A, f"{label}/A"),
-                             "B": score_pool(tok_j, jm, pool_B, f"{label}/B")}
+        sA, pA, nA = score_pool(tok_j, jm, pool_A, f"{label}/A")
+        sB, pB, nB = score_pool(tok_j, jm, pool_B, f"{label}/B")
+        all_scores[label] = {"A": sA, "B": sB}
+        chk = instrument_check(sA, pA, nA, label)
+        result.setdefault("instrument_check", {})[label] = chk
+        print(f"  INSTRUMENT CHECK [{label}]: {chk['verdict']} "
+              f"(min within-prompt SD {chk['min_within_prompt_sd']})", flush=True)
+        # Keep the raw reads so a failure can be diagnosed without re-running.
+        result.setdefault("raw_scores", {})[label] = {
+            "A": sA.round(5).tolist(), "B": sB.round(5).tolist(),
+            "A_positive_read": pA.round(5).tolist(),
+            "A_negative_read": nA.round(5).tolist(),
+        }
         del jm
         torch.cuda.empty_cache()
 

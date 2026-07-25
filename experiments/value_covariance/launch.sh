@@ -57,7 +57,12 @@ m["id"], m["title"] = sys.argv[1], sys.argv[2]
 json.dump(m, open("kernel-metadata.json", "w"), indent=2)
 PY
 
-OUT="$($KAGGLE kernels push -p . 2>&1)"
+# --accelerator NvidiaTeslaT4 is REQUIRED and is not optional shorthand. Without it
+# Kaggle assigns a default GPU (P100), and the preinstalled torch build has no kernel
+# image for that compute capability -- the run dies at the first generate() with
+# "CUDA error: no kernel image is available for execution on the device". Omitting it
+# cost one run on 2026-07-24. `"enable_gpu": true` in the metadata does NOT cover this.
+OUT="$($KAGGLE kernels push -p . --accelerator NvidiaTeslaT4 2>&1)"
 echo "$OUT"
 
 if echo "$OUT" | grep -qi "successfully pushed"; then

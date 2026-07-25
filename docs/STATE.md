@@ -700,6 +700,23 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-25 (research-vision thread): **Phase 1 run 1 is VOID — clean exit, plausible
+  headline, zero signal** (report_value_covariance_phase1_void_run.md + ledger row).
+  It reported cross-pool correlation 0.9075, but all six axes had within-prompt
+  variance 0.0–1e-05 and the on-axis selection differential was 0.00084, so the
+  correlation is between 1e-4-scale noise. Three faults: `max_new_tokens=200`
+  truncated all 360 candidates inside Qwen3's `<think>` block (no candidate contained
+  an answer, yet each was 832–1100 chars so the pool looked healthy); judge B
+  (Phi-4-mini) failed to load on a transformers incompatibility, removing the
+  cross-method covariance the audit called primary; and only the polarity-averaged
+  score was saved, so the output could not diagnose itself. All three fixed —
+  `enable_thinking=False` plus think-stripping plus MAX_NEW 420, judge B swapped to
+  Kaggle-hosted Gemma-2-2B-it, both polarity reads saved, and an explicit
+  INSTRUMENT_FAILURE gate that fires when the smallest within-prompt SD is under 0.01.
+  **Re-run launched: `hirokenzan/vd-valcov-20260725-0019`.** Durable lesson: the
+  binding constraint was whether the instrument discriminates at all, not sample size
+  — a pipeline that exits 0 and emits r=0.91 from noise is worse than one that
+  crashes.
 - 2026-07-24 (research-vision thread): **PHASE 1 IS RUNNING on Kaggle** —
   `hirokenzan/vd-valcov-20260724-2035`, status RUNNING, inference only, ~2 h on one
   T4. Launched by `experiments/value_covariance/launch.sh`, which is idempotent and

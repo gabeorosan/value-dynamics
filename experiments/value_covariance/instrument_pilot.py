@@ -102,6 +102,28 @@ def generate_pool(tok, model, prompts, n_cand, max_new, seed):
     return out
 
 
+def judge_prompt(tok, msg):
+    """Render a judge turn whose NEXT TOKEN is the answer, not a reasoning opener.
+
+    ROOT CAUSE OF THREE FAILED RUNS. Qwen3 opens its turn with <think>. With that
+    block left open, the next-token distribution is dominated by the reasoning
+    opener and reading P("A") against P("B") measures its NOISE TAIL, which has a
+    fixed lexical preference -- the judge appeared to answer "A" at 0.987 regardless
+    of which answer sat in position A. Forcing the block closed makes the next token
+    the actual answer: measured next-token distribution goes to A 0.998 / B 0.002,
+    and the presentation-order gap collapses from 0.963 to 0.006.
+    """
+    try:
+        text = tok.apply_chat_template([{"role": "user", "content": msg}], tokenize=False,
+                                       add_generation_prompt=True, enable_thinking=False)
+    except TypeError:
+        text = tok.apply_chat_template([{"role": "user", "content": msg}], tokenize=False,
+                                       add_generation_prompt=True)
+    if "</think>" not in text:
+        text = text + "<think>\n\n</think>\n\n"
+    return text
+
+
 def p_first_batch(tok, model, items, batch):
     """items: list of (axis_question, task_prompt, answer_A, answer_B).
 
@@ -128,9 +150,7 @@ def p_first_batch(tok, model, items, batch):
     b_ids = list({tok.encode(t, add_special_tokens=False)[-1] for t in ("B", " B")})
     for s in range(0, len(texts), batch):
         chunk = texts[s:s + batch]
-        formatted = [tok.apply_chat_template([{"role": "user", "content": c}],
-                                             tokenize=False, add_generation_prompt=True)
-                     for c in chunk]
+        formatted = [judge_prompt(tok, c) for c in chunk]
         enc = tok(formatted, return_tensors="pt", padding=True, truncation=True,
                   max_length=3072).to(model.device)
         with torch.no_grad():

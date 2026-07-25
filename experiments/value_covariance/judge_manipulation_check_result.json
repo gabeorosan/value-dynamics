@@ -1,0 +1,80 @@
+{
+ "judge": "Qwen/Qwen3-4B",
+ "n_pairs": 6,
+ "pass_criterion": "mean P(correct) >= 0.80 with both orders averaged; chance = 0.50",
+ "mean_p_correct": 0.8319,
+ "min_p_correct": 0.0049,
+ "mean_order_gap": 0.0057,
+ "judge_next_token_distribution": [
+  [
+   "'A'",
+   0.998
+  ],
+  [
+   "'B'",
+   0.0019
+  ],
+  [
+   "'Answer'",
+   0.0
+  ],
+  [
+   "'The'",
+   0.0
+  ],
+  [
+   "'!'",
+   0.0
+  ],
+  [
+   "'\"'",
+   0.0
+  ]
+ ],
+ "verdict": "JUDGE_READS_THE_AXIS",
+ "interpretation": "If the judge reads the axis, the flat pilot means the CANDIDATES carry no value variation and generation must be changed. If it cannot, the judge itself is unusable at this scale.",
+ "pairs": [
+  {
+   "axis": "risk",
+   "p_correct_both_orders": 0.9988,
+   "p_pick_first_when_winner_first": 0.9985,
+   "p_pick_first_when_winner_second": 0.0009,
+   "order_gap": 0.0006
+  },
+  {
+   "axis": "risk",
+   "p_correct_both_orders": 0.988,
+   "p_pick_first_when_winner_first": 0.9761,
+   "p_pick_first_when_winner_second": 0.0001,
+   "order_gap": 0.0238
+  },
+  {
+   "axis": "risk",
+   "p_correct_both_orders": 0.0049,
+   "p_pick_first_when_winner_first": 0.0,
+   "p_pick_first_when_winner_second": 0.9902,
+   "order_gap": 0.0098
+  },
+  {
+   "axis": "caution",
+   "p_correct_both_orders": 1.0,
+   "p_pick_first_when_winner_first": 1.0,
+   "p_pick_first_when_winner_second": 0.0,
+   "order_gap": 0.0
+  },
+  {
+   "axis": "caution",
+   "p_correct_both_orders": 1.0,
+   "p_pick_first_when_winner_first": 1.0,
+   "p_pick_first_when_winner_second": 0.0,
+   "order_gap": 0.0
+  },
+  {
+   "axis": "caution",
+   "p_correct_both_orders": 1.0,
+   "p_pick_first_when_winner_first": 1.0,
+   "p_pick_first_when_winner_second": 0.0,
+   "order_gap": 0.0
+  }
+ ]
+}

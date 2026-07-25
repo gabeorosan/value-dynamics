@@ -700,6 +700,27 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-24 (research-vision thread): **PHASE 1 IS RUNNING on Kaggle** —
+  `hirokenzan/vd-valcov-20260724-2035`, status RUNNING, inference only, ~2 h on one
+  T4. Launched by `experiments/value_covariance/launch.sh`, which is idempotent and
+  safe to re-run; the live slug is in `experiments/value_covariance/.active_kernel`
+  and results land in that directory's `output/`. A scheduled task monitors it and
+  ships the full package on completion. **Read the instrument check FIRST when it
+  lands** — the diagonal of `cross_method_correlation_poolA` is the two judges'
+  agreement about the same axis, and if it is below ~0.4 no off-diagonal covariance
+  from the run is trustworthy. The same-pool prediction must NOT be reported as a
+  success; it is near-tautological (0.0967 observed vs 0.0972 predicted in
+  simulation). Only the cross-pool numbers count.
+- 2026-07-24 (research-vision thread): **EVERY quota-failed Kaggle GPU push burns its
+  slug permanently — do not build retry loops on a fixed slug.** Five slugs were
+  destroyed learning this. A push that fails on the weekly quota leaves a stub with an
+  empty ref and a 2010-04-01 placeholder date (shows as "[Private Notebook]" in
+  `kaggle kernels list --mine`); every later push to that slug returns "Notebook not
+  found", which MASKS the real error. `launch.sh` now mints a fresh slug per attempt,
+  so a quota failure costs a throwaway name and nothing else. Diagnostic rule: on
+  "Notebook not found", push a one-line script under a NEW slug before touching the
+  metadata. Also: `kaggle quota` is broken in CLI 2.2.2 ("not enough values to
+  unpack"), so a push attempt is the only reliable quota check.
 - 2026-07-24 (research-vision thread): **Kaggle gotcha worth knowing — a corrupt slug
   masks the quota error.** The value-covariance phase-1 kernel could not be pushed
   under `hirokenzan/value-covariance-phase1`: every attempt returned "Notebook not

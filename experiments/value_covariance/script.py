@@ -65,7 +65,8 @@ GEN_TEMP = float(os.environ.get("GEN_TEMP", "1.0"))
 MAX_NEW = int(os.environ.get("MAX_NEW", "420"))
 KEEP = int(os.environ.get("KEEP", "4"))
 N_OPP = int(os.environ.get("N_OPP", "3"))
-BATCH = int(os.environ.get("BATCH", "8"))          # kept per prompt when replaying selection
+BATCH = int(os.environ.get("BATCH", "8"))
+BATCH_B = int(os.environ.get("BATCH_B", "2"))  # judge B may have a much larger vocab          # kept per prompt when replaying selection
 OUT = os.environ.get("OUT", "/kaggle/working/value_covariance_phase1.json")
 SEED = int(os.environ.get("SEED", "20260725"))
 
@@ -365,7 +366,19 @@ def p_first_batch(tok, model, items, batch=8):
         enc = tok(formatted, return_tensors="pt", padding=True, truncation=True,
                   max_length=3072).to(model.device)
         with torch.no_grad():
-            logits = model(**enc).logits[:, -1, :]
+            # Materialise logits for the LAST POSITION ONLY. Gemma-2 applies
+            # final_logit_softcapping across its 256k vocabulary at every position,
+            # which OOMs a 16GB T4 at batch 8 (tried to allocate 3.84 GiB). The
+            # argument was renamed across transformers versions, hence the fallback.
+            try:
+                out_ = model(**enc, logits_to_keep=1)
+            except TypeError:
+                try:
+                    out_ = model(**enc, num_logits_to_keep=1)
+                except TypeError:
+                    out_ = model(**enc)
+            logits = out_.logits[:, -1, :]
+            del out_
         la = torch.logsumexp(logits[:, a_ids], dim=-1)
         lb = torch.logsumexp(logits[:, b_ids], dim=-1)
         out.extend(torch.sigmoid(la - lb).tolist())
@@ -471,8 +484,9 @@ def main():
             print(f"  FAILED to load {model_id}: {e}", flush=True)
             result.setdefault("load_failures", {})[label] = str(e)
             continue
-        sA, gapA = score_pool(tok_j, jm, pool_A, f"{label}/A", N_OPP, BATCH, SEED)
-        sB, _ = score_pool(tok_j, jm, pool_B, f"{label}/B", N_OPP, BATCH, SEED + 1)
+        bs = BATCH if label == "judge_a" else BATCH_B
+        sA, gapA = score_pool(tok_j, jm, pool_A, f"{label}/A", N_OPP, bs, SEED)
+        sB, _ = score_pool(tok_j, jm, pool_B, f"{label}/B", N_OPP, bs, SEED + 1)
         all_scores[label] = {"A": sA, "B": sB}
         chk = instrument_check(sA, gapA, label)
         result.setdefault("instrument_check", {})[label] = chk
@@ -483,6 +497,11 @@ def main():
             "A": sA.round(5).tolist(), "B": sB.round(5).tolist()}
         del jm
         torch.cuda.empty_cache()
+        # Persist immediately. Two runs have now lost completed scoring to a crash
+        # in a later stage; the project's own rule is to write progressively.
+        with open(OUT, "w") as _f:
+            json.dump(result, _f, indent=1)
+        print(f"  checkpointed results after {label}", flush=True)
 
     # ---- covariances and the cross-pool test -------------------------------
     result["covariance"] = {}

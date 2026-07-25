@@ -700,6 +700,24 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-25 (research-vision thread): **ROOT CAUSE of every failed value-covariance
+  run, and it is a program-wide instrument rule** (report_judge_thinking_block_
+  artifact.md + ledger section B). A logprob judge whose `<think>` block is left open
+  reads answer tokens from the NOISE TAIL of a distribution dominated by the
+  reasoning opener: Qwen3-4B picked "A" at 0.987 regardless of which answer was in
+  position A (order gap 0.963) and said "Yes" at 0.98 to both polarities. **Order-
+  averaging and polarity-averaging then map that saturation to exactly 0.500** — the
+  debiasing controls manufactured the clean null. One-line fix (append a closed think
+  block): next-token A 0.998 / B 0.002, order gap 0.006, manipulation check 0.832
+  (5/6 near-certain, 1/6 confidently wrong). **NEAR-MISS: this nearly produced a false
+  substantive finding.** The flat pools looked like "instruction-tuned models produce
+  no value variation at temperature 1.0", and the pool text supported it; with the
+  judge fixed the SAME pools give within-prompt SD 0.172/0.185, up 25x from
+  0.0068/0.0118, spanning 0.07–0.98. Standing rules now: assert the think block is
+  closed before any logprob read; print the judge's top next tokens as routine
+  diagnostics; report raw asymmetry next to any corrected number; run the
+  manipulation check BEFORE the experiment. Full phase 1 relaunched on forced choice
+  as `hirokenzan/vd-valcov-20260725-0228`.
 - 2026-07-25 (research-vision thread): **Phase 1 run 1 is VOID — clean exit, plausible
   headline, zero signal** (report_value_covariance_phase1_void_run.md + ledger row).
   It reported cross-pool correlation 0.9075, but all six axes had within-prompt

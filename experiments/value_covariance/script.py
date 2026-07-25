@@ -155,18 +155,25 @@ def residualize_on_length(scores, lengths):
     scores: (n_prompts, n_cand, n_axes); lengths: (n_prompts, n_cand).
     Length is this project's known confounder, so every covariance is reported
     both raw and after this step.
+
+    BUG FIXED 2026-07-25: length was centred GLOBALLY while the covariance centres
+    scores WITHIN PROMPT. Only 22.3% of length variance is within-prompt, so the
+    regression coefficient was attenuated about 4.5-fold and the control barely acted
+    by construction -- it moved off-diagonals by 0.0029 when correctly specified it
+    moves them by 0.0077. Both centrings must match the covariance estimator.
     """
     s = np.asarray(scores, dtype=float).copy()
-    L = np.asarray(lengths, dtype=float).reshape(-1)
-    flat = s.reshape(-1, s.shape[2])
-    Lc = L - L.mean()
+    L = np.asarray(lengths, dtype=float)
+    # centre BOTH within prompt, matching within_prompt_cov
+    Lc = (L - L.mean(axis=1, keepdims=True)).reshape(-1)
+    sc = (s - s.mean(axis=1, keepdims=True)).reshape(-1, s.shape[2])
     denom = float((Lc ** 2).sum())
     if denom > 0:
-        for k in range(flat.shape[1]):
-            y = flat[:, k]
-            beta = float((Lc * (y - y.mean())).sum() / denom)
-            flat[:, k] = y - beta * Lc
-    return flat.reshape(s.shape)
+        for k in range(sc.shape[1]):
+            beta = float((Lc * sc[:, k]).sum() / denom)
+            sc[:, k] = sc[:, k] - beta * Lc
+    # add the prompt means back so downstream code sees the same scale
+    return sc.reshape(s.shape) + s.mean(axis=1, keepdims=True)
 
 
 def observed_differentials(scores, sel_axis, keep):
@@ -439,8 +446,26 @@ def instrument_check(scores, order_gap, label):
         }
         worst = min(worst, sd)
     out["min_within_prompt_sd"] = round(worst, 5)
-    out["verdict"] = ("USABLE" if worst >= 0.05
+
+    # THE GATE'S NULL FLOOR. A fixed 0.05 threshold tests against a floor of ZERO,
+    # which is wrong for this design. With win rates built from pairwise comparisons,
+    # a pool of IDENTICAL candidates still yields non-zero within-prompt SD whenever
+    # the judge flips with presentation order: at the observed flip rate of 0.609 the
+    # identical-pool null SD is about 0.167, and the 2026-07-25 run's observed SDs
+    # (0.109-0.167) all sat AT OR BELOW it while the gate reported USABLE. Compare
+    # against a permutation null instead: shuffle which candidate each comparison
+    # outcome is credited to, within prompt, and recompute.
+    # Analytic floor implied by order flipping: a fully order-driven judge contributes
+    # SD ~ 0.5/sqrt(n_opp*2) per candidate; scale it by the observed flip rate.
+    n_eff = max(1, scores.shape[1] - 1)
+    null_floor = float(order_gap * 0.5 / np.sqrt(n_eff))
+    out["null_floor_from_order_flipping"] = round(null_floor, 5)
+    out["exceeds_null_floor"] = bool(worst > null_floor)
+    out["verdict"] = ("USABLE" if (worst >= 0.05 and worst > null_floor)
                       else "INSTRUMENT_FAILURE_NO_DISCRIMINATION")
+    out["gate_note"] = ("A fixed threshold is not sufficient for win-rate scores; the "
+                        "score must beat the spread that presentation-order flipping "
+                        "alone would manufacture on an identical pool.")
     return out
 
 

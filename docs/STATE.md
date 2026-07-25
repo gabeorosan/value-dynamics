@@ -700,6 +700,33 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-25 (research-vision thread): **Phase-1 conclusion CORRECTED by adversarial
+  re-derivation — the negative result stands but is RE-ATTRIBUTED, and my one
+  affirmative claim is withdrawn** (banner on report_value_covariance_phase1.md +
+  rewritten ledger row). (1) The halo is NOT a single-judge artifact: judge B, a
+  different family, reproduces it (risk x caution +0.499, PC1 0.466 vs judge A's
+  0.470), and the cross-method estimate I built to kill it and then ignored gives
+  +0.236 raw / +0.601 disattenuated. (2) PC1 is 47%, not "swamping"; removing it does
+  NOT recover semantics (13/15 residuals go negative, risk x caution sits at their
+  median) though the residual replicates across pools at r=0.716. (3) The axes are not
+  opposites — essay THOROUGHNESS moves both, visible in my own candidates. (4)
+  **WITHDRAWN: "candidate pools carry substantial value variation".** At the observed
+  0.609 order-flip rate an IDENTICAL pool yields null within-prompt SD ~0.167, and
+  every observed SD (0.109–0.167) sits at or below it — the spread is manufactured by
+  the design. (5) **The gate was defective** (fixed threshold 0.05 against a zero
+  floor). Now recalibrated against an order-flip-implied null; re-running it on the
+  saved data flips judge A from USABLE to INSTRUMENT_FAILURE (min SD 0.109 vs floor
+  0.115). Any future run using win-rate scores needs this. (6) Threshold call was
+  over-precise: bootstrap gives risk r=0.395 CI [0.168,0.566], P(r<0.4)=0.518; only
+  scope_expansion is solidly below. (7) Cross-pool over-dismissed: within-block r=0.724
+  and slope 0.545 means the covariance OVER-predicts spillover 1.8x. **BUG FIXED:
+  residualize_on_length centred length globally while the covariance centres within
+  prompt (only 22.3% of length variance is within-prompt), attenuating the control
+  ~4.5x.** Defensible headline: rubric judging over a pool with no real value spread
+  manufactures win-rate variance indistinguishable from noise — indicting the
+  GENERATOR and the GATE, not only the judge. Consequence for next steps: forcing
+  distinct commitments (experiments/conjoint_values/SPEC.md) is the right move, but
+  because it fixes the POOL, not because it removes a judge.
 - 2026-07-25 (research-vision thread): **Next direction after the halo result:
   judge-free multi-attribute measurement** — `experiments/conjoint_values/SPEC.md`.
   Discrete-choice (conjoint) design: options are authored so every attribute level is

@@ -1,5 +1,50 @@
 # Value covariance, phase 1: the measurement does not survive its own instrument check
 
+> **CORRECTED 2026-07-25, same day, after independent adversarial re-derivation. Read
+> this box before the body — the conclusion holds but the stated cause was wrong, and
+> the one affirmative claim below is withdrawn.**
+>
+> 1. **The halo is not a single-judge artifact.** Judge B, a different family,
+>    reproduces the structure: all off-diagonals positive, risk x caution **+0.499**,
+>    PC1 share **0.466** against judge A's 0.470. The cross-method estimate — the very
+>    design built to kill the halo, which the body below uses only for its diagonal —
+>    gives risk x caution **+0.236 raw, +0.601 disattenuated**. The association
+>    survives the halo-killing design, so attributing it to one judge is wrong.
+> 2. **"Swamps" overstates it.** PC1 is 47% (CI 0.413–0.540) with PC2 above Kaiser; a
+>    true single-factor halo is 70–90%. Removing PC1 does **not** recover semantics —
+>    13 of 15 residuals go negative and risk x caution lands at the median of them.
+>    The residual does replicate across independent pools at r = 0.716.
+> 3. **The axes are not opposites, and my own candidates show it.** Essay
+>    thoroughness moves both: the top risk-scored candidate scores risk 0.899 **and**
+>    caution 0.867, and both extremes advise against the risky option. The claim below
+>    that "no plausible property of the answers makes those move together" is refuted.
+> 4. **WITHDRAWN — the affirmative claim.** "Candidate pools carry substantial value
+>    variation" is false. At the observed 0.609 order-flip rate, a pool of *identical*
+>    candidates produces a null within-prompt SD of **0.167**; every observed SD
+>    (0.109–0.167) sits at or below it. The win-rate spread is manufactured by the
+>    design.
+> 5. **The gate is defective.** `min_within_prompt_sd >= 0.05` tests against a zero
+>    floor when this design's own null floor is ~0.17. It will mislead any future run
+>    using the win-rate construction, and must be recalibrated against a
+>    shuffled-label null.
+> 6. **The threshold call was over-precise.** Prompt-clustered bootstrap: risk
+>    r = 0.395, CI [0.168, 0.566], P(r < 0.4) = 0.518 — a coin flip. Only
+>    scope_expansion is solidly below 0.4.
+> 7. **The cross-pool test was over-dismissed.** Removing selected-axis block means
+>    raises predicted-vs-observed to r = 0.724, which a pure level effect cannot
+>    produce, and the slope of 0.545 means the covariance over-predicts spillover by
+>    1.8x — a real finding this report omitted.
+> 8. **`residualize_on_length` is mis-specified** — it centres length globally while
+>    the covariance centres within prompt, attenuating the coefficient ~4.5x. The
+>    conclusion survives correction (risk x caution 0.5528 → 0.5562) but the test as
+>    run was broken.
+>
+> **The defensible headline is narrower and better than the one below:** forced-choice
+> rubric judging over a candidate pool with no real value spread manufactures win-rate
+> variance indistinguishable from noise, and the gate cannot detect this because it was
+> calibrated against the wrong null. That indicts the **generator and the gate**, not
+> only the judge — which changes what to build next.
+
 Date: 2026-07-25
 Kernel: `hirokenzan/vd-valcov-20260725-0949` (COMPLETE, both judges)
 Script: `experiments/value_covariance/script.py`

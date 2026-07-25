@@ -2,81 +2,72 @@
   {
     "kind": "title",
     "accent": "#1f6b4a",
-    "kicker": "VALUE DYNAMICS  ·  THE SHORT CUT",
-    "sub": "You let the model pick its own training data. Where does it end up?",
-    "foot": "the two handles  ·  a round-one forecast  ·  two interventions  ·  the limits",
+    "kicker": "VALUE DYNAMICS  ·  THE SHORT VERSION",
+    "sub": "How a value moves when a model picks its own training data",
+    "foot": "the loop  ·  two measurements  ·  the one-round rule  ·  the forecast  ·  the limits",
     "caption": "",
-    "narration": "You have a model that writes answers. Instead of paying people to rank them, you let the model pick which of its own answers to train on. Run that loop a few rounds and what comes out is not the model you started with, and nothing in your evaluation suite told you which way it would move. Loops like this run in production. So which parts of one can you reach, and can you tell in round one where it ends up."
+    "narration": "A I increasingly generates and selects its own training data. A model's behavior then shapes the data that trains it next. Through that loop, a value it already has can persist, weaken, or amplify. This is the short version of how I measured which one happens."
   },
   {
     "kind": "fig",
     "accent": "#2f8059",
     "fig": "synthesis_experiment_kit.svg.png",
-    "caption": "One round: six candidates per prompt, a judge keeps two, train on those two, re-measure",
-    "narration": "Each round the model writes six candidates per prompt, a judge keeps two, the model is fine-tuned on those two, then held-out prompts re-measure its value, zero to one. For the gambling organism, the share of answers picking the risky gamble. For the insecure-code organism, how insecure its answers to three fixed questions about its coding habits read, scored by its frozen base model."
+    "caption": "Six candidates per prompt, a judge keeps two, fine-tune on those two, re-measure on held-out prompts",
+    "narration": "Each round, the model writes six candidate answers per prompt. A judge keeps two. The model is fine-tuned on those two. Held-out prompts re-measure its value on a zero to one scale. For the gambling organism, the value is the share of answers picking the risky gamble. For the insecure-code organism, it is how insecure its answers to three fixed questions about its own coding habits read, scored by its frozen base model."
   },
   {
     "kind": "fig",
     "accent": "#38505e",
     "fig": "state-variables.svg.png",
-    "caption": "Spread, agreement, and the gap they predict: the kept mean minus the pool mean",
-    "narration": "Two numbers come out of every round. Spread is the standard deviation of the candidates' value scores. Agreement is the correlation between the judge's preferences and those scores. Both are measured inside each prompt's pool and averaged over prompts."
-  },
-  {
-    "kind": "statement",
-    "accent": "#38505e",
-    "kicker": "WHY THOSE TWO AND NOT OTHERS",
-    "headline": "Spread times agreement is the gap, and training moves the value there",
-    "sub": "gap reconstructed at R² 0.80 over 367 rounds  ·  next value at MAE 0.081 over 340 rounds, against 0.128",
-    "caption": "",
-    "narration": "Their product reconstructs the round's kept mean minus pool mean at R squared zero point eight zero over three hundred sixty-seven rounds, nothing fitted. Training then moves the value to that kept mean, predicting the next value at mean absolute error zero point zero eight one over three hundred forty rounds, against zero point one two eight for no change, every condition held out."
-  },
-  {
-    "kind": "fig",
-    "accent": "#1f6b4a",
-    "fig": "synthesis-dial-plane-horizon.svg.png",
-    "caption": "32 self-only four-round runs by round-one agreement and spread; on this subset endpoint MAE 0.159 against 0.269",
-    "narration": "Chain the two steps and you can forecast instead of react. Read spread, agreement, and pool composition in round one, then iterate with those held fixed. Final values land at mean absolute error zero point one one eight, against zero point four three one for no change."
-  },
-  {
-    "kind": "fig",
-    "accent": "#2f8059",
-    "fig": "synthesis-intervention-cards.svg.png",
-    "caption": "Two interventions on loops that were already running",
-    "narration": "Both handles are reachable. One insecure-code run had gone flat, every candidate scoring the same, leaving the judge nothing to choose between. I mixed in base model answers, spread returned, and the stuck value eroded. A run near the top of the scale reversed when a min-risk oracle judge put agreement at minus one."
+    "caption": "Spread and agreement, measured inside each prompt's pool and averaged over the round's prompts",
+    "narration": "Two numbers come out of every round. Spread is the standard deviation of the candidates' value scores within a prompt, averaged over the round's prompts. Agreement is the correlation between the judge's preferences and those same scores, measured the same way."
   },
   {
     "kind": "statement",
     "accent": "#4a6273",
-    "kicker": "WHAT IT DOES NOT BUY YOU",
-    "headline": "A band is a range, not a number, and agreement drifts",
-    "sub": "89% of observed endpoints inside the 80% band  ·  two model families  ·  small models  ·  short runs  ·  filtered SFT",
+    "kicker": "THE ONE ROUND RULE",
+    "headline": "next value = the mean value score of the two kept candidates",
+    "sub": "MAE 0.081 across 340 rounds, against 0.128 for assuming no change  ·  every experimental condition held out",
     "caption": "",
-    "narration": "What this does not buy you. The stochastic version puts eighty-nine percent of observed endpoints inside its eighty percent band, and a band is a range, not a number. Agreement also drifts mid run, because it depends on the candidate distribution in front of the judge, which training keeps changing."
+    "narration": "The one round rule has no fitted coefficient. Average the value scores of the two candidates the judge kept. That is where the value lands after training on them. Holding out each complete experimental condition, the rule predicts the next measured value at mean absolute error zero point zero eight one across three hundred forty rounds. Assuming no change gives zero point one two eight."
+  },
+  {
+    "kind": "fig",
+    "accent": "#1f6b4a",
+    "fig": "model-recurrence.svg.png",
+    "caption": "Iterating the one-round update with round-one spread, agreement, and pool composition held fixed",
+    "narration": "To run the rule forward you need the kept mean before the judge picks. Spread times agreement predicts the gap between the kept mean and the pool mean, at R squared zero point eight zero across three hundred sixty-seven rounds. Read spread, agreement, and pool composition in round one, hold them fixed, and iterate to the end of the run. Endpoints land at mean absolute error zero point one one eight, against zero point four three one for assuming no change."
+  },
+  {
+    "kind": "fig",
+    "accent": "#38505e",
+    "fig": "rollouts-vs-observed-spaghetti.svg.png",
+    "caption": "Observed trajectories above, one simulated draw per run below, with the 80% band shaded",
+    "narration": "That forecast describes the average path that real runs scatter around. Adding the measured noise gives a band instead of a point, and eighty-nine percent of observed endpoints fall inside the eighty percent band. That is a range, not a number for any one run. The remaining error comes mostly from agreement drifting during a run, because agreement depends on the candidate distribution in front of the judge, and training keeps changing it."
   },
   {
     "kind": "closing",
     "accent": "#1f6b4a",
-    "kicker": "WHAT WOULD HAVE TO HOLD BEFORE ANYONE LEANED ON THIS",
+    "kicker": "WHAT THE SETUP DOES NOT COVER",
     "checks": [
       [
         "1",
-        "It survives scale",
-        "more model families, larger models, longer runs"
+        "Two model families, both small",
+        "short runs, filtered SFT on a few selected answers"
       ],
       [
         "2",
-        "It survives other update rules",
-        "DPO, online RL against a learned reward model, constitutional feedback"
+        "Two behaviors",
+        "risk preference and insecure-code self-description"
       ],
       [
         "3",
-        "It survives other values",
-        "moral judgment, AI identity, emergent misalignment"
+        "One update rule tested",
+        "DPO, online RL, and constitutional feedback are untested"
       ]
     ],
-    "closer": "Which artificial selection mechanisms can be engineered into virtuous cycles?",
+    "closer": "AI increasingly selects its own training data, which is the setting this forecast is for.",
     "caption": "",
-    "narration": "Before anyone leans on this, three things have to hold. More model families, larger models, longer runs. Update rules other than filtered supervised fine-tuning. Values wider than risk preference and insecure-code self-description. As A I takes over more of its own post-training, whether a loop reinforces restraint or amplifies reward hacking has to be readable in round one."
+    "narration": "The setup is narrow. Two model families, both small, short runs, and filtered supervised fine-tuning on a few selected answers. Two behaviors, risk preference and insecure-code self-description. Whether the rule holds for larger models, longer runs, other update rules, and wider values is untested. A I systems are taking on more of their own post-training, so which way a value moves under selection is worth forecasting before a run."
   }
 ]

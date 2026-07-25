@@ -1,69 +1,74 @@
-# Tweet thread for candidate 2 — an arithmetic borrowed from breeders
+# Tweet thread for candidate 2 — three findings, and how they were measured
 
 Ten tweets, all under 280 characters. Every number traces to
 `docs/writeup_value_dynamics_sprint.md`. Link points at
 `gabeorosan.github.io/value-dynamics/`.
 
-The thread mirrors the cut: it starts in breeding, not in AI, and does not
-mention a language model until tweet 3.
+The thread mirrors the cut: the three findings are in tweets 2, 3 and 4, and the
+remaining six tweets are the machinery behind them, in the same order.
 
 ---
 
-**1/** (252)
+**1/**
 
-> Breeders have known for a century how to say what a population will look like after selection: measure how much the trait varies, measure how strongly selection favors it, and the response in the next generation follows. That is the breeder's equation.
+> In a judging loop, a model generates candidate answers, then is trained on the answers a judge prefers in pairwise comparisons against alternatives. AI increasingly generates and selects its own training data this way. I ran two fine-tuned model organisms through those loops.
 
-**2/** (277)
+**2/**
 
-> It takes two inputs. The selection differential: the mean trait of the parents you breed from minus the mean of the population they came from. Heritability: the fraction of that difference the offspring keep, normally fitted from data. Price generalized the accounting in 1970.
+> Finding 1. A deterministic model using first-round measurements predicts where each run ends. Endpoint MAE 0.118 on the 0-to-1 value scale, against 0.431 for assuming no change. No fitted coefficient anywhere in it.
 
-**3/** (273)
+**3/**
 
-> Now take a model that writes candidate answers, has a judge keep the ones it prefers, and is fine-tuned on those. A population that varies. A step that keeps some and discards others. Inheritance. Post-training already runs loops shaped like this. Does the arithmetic hold?
+> Finding 2. Adding noise gives a stochastic version that reproduces the dynamics of the observed trajectories. 89% of observed final values fall inside the model's 80% endpoint bands.
 
-**4/** (220)
+**4/**
 
-> One round is one generation. Per prompt the organism writes 6 candidates: the population. The judge keeps the 2 it prefers: selection. Training runs on those 2: inheritance. Held-out prompts then measure the value again.
+> Finding 3. The effectiveness of interventions is driven by changes in spread and agreement. Restoring spread to a collapsed candidate pool eroded a stuck value. Swapping the judge for a min-risk oracle reversed a run that had climbed near the top of the scale.
 
-**5/** (274)
+**5/**
 
-> The trait: I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations. Gambling organism: the share of answers picking the risky gamble. Insecure-code organism: how insecure its answers to 3 fixed questions about its coding habits read, scored 0-1 by its frozen base model.
+> What the value is. Gambling organism: the share of its answers picking the risky gamble. Insecure-code organism: how insecure its answers to 3 fixed questions about its own coding habits read, scored 0-1 by its frozen base model. Both on a 0-to-1 scale.
 
-**6/** (223)
+**6/**
 
-> Borrowed term 1, the selection differential: the mean value score of the 2 kept answers minus the mean over all 6 candidates in that prompt's pool. I call it the selector gap. It is the step selection asks training to take.
+> The two per-round measurements. Spread is the SD of a prompt's candidate value scores, averaged over the round's prompts. Agreement is the correlation between the judge's preferences and those value scores. Selection theory says to measure both.
 
-**7/** (278)
+**7/**
 
-> Borrowed term 2, heritability. In breeding it is fitted. Here it comes out at 1, nothing fitted: the next value is just the kept mean. Held out one condition at a time over 340 rounds it misses by 0.081, against 0.128 for no change, and the value is re-read on held-out prompts.
+> The one-round rule has no fitted coefficient. The next measured value equals the mean of the two kept candidates. Held out one complete experimental condition at a time, it misses by 0.081 across 340 rounds, against 0.128 for no change, on held-out prompts.
 
-**8/** (275)
+**8/**
 
-> Breeders forecast the differential instead of waiting for it. Spread: SD of a prompt's candidate value scores. Agreement: correlation of judge scores with those value scores. Their product reconstructs the realized gap at error 0.040 across 367 rounds, before the judge runs.
+> Before the judge runs, the predicted selector gap is spread times agreement. Across 367 rounds that reconstructs the realized gaps at R² 0.80. Iterate the update from round 1 with spread, agreement and pool composition frozen and you get the 0.118 endpoints.
 
-**9/** (249)
+**9/**
 
-> Iterate generations: freeze spread, agreement and pool composition at round 1 and repeat the update. Endpoints land at 0.118, against 0.431 for assuming no change. Add drift and finite sampling and 89% of observed endpoints fall inside the 80% band.
+> The noise goes in stage by stage: reading the value off sampled answers, the judge's pick, the training step, agreement drift. Simulated against observed, total movement 0.709 against 0.648, direction changes 1.22 against 1.20, endpoint SD 0.387 against 0.370.
 
-**10/** (256)
+**10/**
 
-> Where the analogy breaks: a breeder's criterion sits outside the population, a judge does not, so agreement drifts as training changes what it sees. Limits: 2 small model families, short runs, filtered SFT, 2 behaviors. gabeorosan.github.io/value-dynamics/
+> Limits: 2 model families, small models, short runs, filtered SFT, 2 behaviors. Most of the remaining error is agreement drifting during a run, because agreement depends on the candidate distribution training keeps changing. gabeorosan.github.io/value-dynamics/
 
-Video: tweet 3. Tweets 1 and 2 set up the borrowed equation with no AI in them at
-all, so the clip should land on the turn, where the loop is first mapped onto a
-population. Hanging it off tweet 1 would make the breeding opening look like a
-metaphor rather than the argument's load-bearing move.
+Video: tweet 2. The cut is findings-first, so the clip should land on the first
+finding rather than on the setup — a reader who opens the video from tweet 2
+hears the same claim restated with its baseline inside twenty seconds. Hanging
+it off tweet 1 would sell the video as an explainer of judging loops, which is
+the part it spends the least time on.
 
-Likely challenge: the heritability coefficient "coming out at 1" with nothing
-fitted. A skeptic will read the kept candidate mean and the next measured value
-as two views of the same quantity and want to know why 0.081 is not just a
-restatement of the training objective. Tweet 7 answers it in a clause — the
-value is re-read on held-out prompts, not on the answers that were trained on —
-and the video says it out loud on the same figure, but expect to have to repeat
-it in replies.
+Likely challenge: that the kept-candidate mean and the next measured value are
+two views of the same quantity, so 0.081 is a restatement of the training
+objective rather than a prediction. Tweet 7 answers it in a clause — the value
+is re-read on held-out prompts, not on the answers that were trained on — and
+scene 10 of the video says it on the figure. Expect to repeat it in replies.
 
-Second likely challenge, from anyone who knows selection theory: that the
-breeder's equation with heritability pinned at 1 is a strong assumption, not a
-finding. The honest answer is that it is a finding for this setup and only this
-setup — filtered SFT on 2 kept answers, small models, short runs — and that the
-place it visibly strains is agreement drift, which tweet 10 names.
+Second likely challenge: that endpoint MAE 0.118 against 0.431 is an easy win
+because the no-change baseline is weak. The honest answer is that the baseline
+is weak precisely because runs move a lot, and the useful comparison is the
+horizon one — the forecast degrades from 0.100 one round out to 0.130 four
+rounds out while no-change degrades from 0.31 to 0.43. That number is in the
+writeup but not in the thread; keep it ready.
+
+Third: that 89% inside an 80% band means the bands are too wide. Worth conceding
+the direction of the miscalibration rather than arguing it, and pointing at the
+matched dispersion statistics in tweet 9, which are what constrain the band
+width.

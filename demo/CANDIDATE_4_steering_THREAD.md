@@ -1,47 +1,42 @@
-# Tweet thread for candidate 4 — the short cut
+# Tweet thread for candidate 4 — the short version
 
-Eight tweets for the candidate 4 video, written at the same clip as the cut.
-Every number traces to `docs/writeup_value_dynamics_sprint.md`. Links point at
+Seven tweets, one per scene, at the same length and register as the cut. Every
+number traces to `docs/writeup_value_dynamics_sprint.md`. Links point at
 `gabeorosan.github.io/value-dynamics/`.
 
 ---
 
 **1/**
 
-> You have a model that writes answers. Instead of paying people to rank them, you let the model pick which of its own answers to train on. A few rounds later it is not the model you started with, and your evals never told you which way it was going. Which parts of that loop can you reach?
+> AI increasingly generates and selects its own training data. A model's behavior then shapes the data that trains it next, so a value it already has can persist, weaken, or amplify through training. I fine-tuned two small models with value orientations and measured which of those happens.
 
 **2/**
 
-> The loop I ran: each round the model writes 6 candidates per prompt, a judge keeps 2, the model is fine-tuned on those 2, held-out prompts re-measure its value on a 0-to-1 scale. The share of answers picking the risky gamble, or how insecure its coding-habit self-descriptions read.
+> The loop: each round the model writes 6 candidate answers per prompt, a judge keeps 2, the model is fine-tuned on those 2, and held-out prompts re-measure its value on a 0-to-1 scale. The share of answers picking the risky gamble, or how insecure its coding-habit self-descriptions read.
 
 **3/**
 
-> Two numbers come out of every round. Spread: the SD of the candidates' value scores. Agreement: the correlation between the judge's preferences and those scores. Both measured inside each prompt's pool, averaged over prompts. Everything below is those two numbers.
+> Two numbers come out of every round. Spread: the SD of the candidates' value scores within a prompt, averaged over the round's prompts. Agreement: the correlation between the judge's preferences and those same scores, measured the same way.
 
 **4/**
 
-> Their product reconstructs the round's kept mean minus pool mean at R² 0.80 over 367 rounds, nothing fitted. Training then moves the value to that kept mean: next value at MAE 0.081 over 340 rounds, against 0.128 for no change, every condition held out.
+> The one-round rule has no fitted coefficient. Average the value scores of the 2 candidates the judge kept; that is where the value lands after training on them. Holding out each complete experimental condition: MAE 0.081 across 340 rounds, against 0.128 for assuming no change.
 
 **5/**
 
-> Chain those 2 steps and you forecast instead of react. Read spread, agreement and pool composition in round 1, iterate with them held fixed: final values at MAE 0.118, against 0.431 for assuming no change. On the 32 self-only 4-round runs, 0.159 against 0.269.
+> To run it forward you need the kept mean before the judge picks. Spread × agreement predicts the kept mean minus the pool mean at R² 0.80 over 367 rounds. Read spread, agreement and pool composition in round 1, hold them fixed, iterate: endpoint MAE 0.118, against 0.431 for no change.
 
 **6/**
 
-> Both handles are reachable. One run had gone flat, every candidate scoring the same, so the judge had nothing to choose between. Mixing in base-model answers restored spread and the stuck value eroded. A run near the top of the scale reversed under a min-risk oracle judge (ρ = -1).
+> That forecast is the average path real runs scatter around. Adding the measured noise gives a band, and 89% of observed endpoints fall inside the 80% band. That is a range, not a number for any one run. Most remaining error is agreement drifting, since it depends on the candidate distribution training keeps changing.
 
 **7/**
 
-> What that does not buy you: a band is a range, not a number. The stochastic version puts 89% of observed endpoints inside its 80% band. And agreement drifts mid-run, because it depends on the candidate distribution in front of the judge, which training keeps changing.
+> Limits: 2 model families, both small, short runs, filtered SFT on a few selected answers, 2 narrow behaviors. Larger models, longer runs, DPO or online RL instead of SFT, and wider values are all untested. https://gabeorosan.github.io/value-dynamics/
 
-**8/**
+Video: tweet 1. The cut opens on the same two sentences, so the clip reads as
+tweet 1 continued rather than a separate artifact.
 
-> Limits: 2 model families, small models, short runs, filtered SFT, two narrow behaviors. What would have to hold before anyone leaned on it: larger models, longer runs, update rules other than SFT, wider values. https://gabeorosan.github.io/value-dynamics/
-
-Video: tweet 1. The cut opens on the same second-person setup the tweet leads
-with, so the clip reads as tweet 1 continued rather than a separate artifact.
-
-Likely challenge: that the two interventions are causal. Each is a single run,
-and mixing base-model answers into a collapsed pool changes the pool's
-composition as well as its spread, so a skeptic can attribute the erosion to the
-new answers rather than to the restored spread.
+Likely challenge: that a thread this short is hiding the caveats. The answer is
+that tweets 6 and 7 are both limits, and the same two scenes run about a third
+of the video's narration.

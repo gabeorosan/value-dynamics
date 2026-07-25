@@ -1,119 +1,128 @@
 [
   {
     "kind": "title",
-    "accent": "#2f353b",
-    "kicker": "VALUE DYNAMICS  ·  DERIVING THE EQUATION",
-    "sub": "One term at a time, with the held-out error attached to every step",
-    "foot": "the value  ·  pool and kept mean  ·  spread times agreement  ·  the recurrence  ·  staged noise",
+    "accent": "#333b42",
+    "kicker": "HOW THE FORECAST IS BUILT AND TESTED",
+    "sub": "The measurements, the one-round rule, the recurrence, the noise terms, and the held-out errors",
+    "foot": "the value recipes  ·  spread and agreement  ·  the one-round rule  ·  the recurrence  ·  staged noise",
     "caption": "",
-    "narration": "We can measure what a model values right now. Put a fixed set of questions to it, score the answers, average them. What we cannot say is what that number will be after the model has trained on data it helped choose. No equation covers that trajectory. Evaluation gives a position and nothing gives the motion. That matters more each year, since models increasingly help choose the data their successors train on. So here is the derivation."
+    "narration": "A I systems increasingly generate and select their own training data, through self-rewarding pipelines, constitutional loops, and synthetic data. That means a model's values can move while it trains on answers it helped choose. I built a forecast for that movement. This is how it is measured, fitted, and tested."
   },
   {
     "kind": "fig",
-    "accent": "#4a5561",
+    "accent": "#525d69",
     "fig": "setup_both_models_v3.svg.png",
-    "caption": "The tracked quantity, and the scoring recipe behind it for each organism",
-    "narration": "The tracked quantity is the organism's behavioral value: the mean value score of its answers to held-out prompts, on a zero-to-one scale. For the gambling organism, that score is the share of answers picking the risky gamble over the sure payout. The insecure-code organism answers three fixed questions about its own coding habits, scored zero to one by its frozen base model for how insecure they read."
+    "caption": "The tracked value and the scoring recipe behind it for each organism",
+    "narration": "The forecast tracks one number per model, its behavioral value, on a zero-to-one scale. For the gambling organism it is the share of answers picking the risky gamble over the sure payout. The insecure-code organism answers three fixed questions about its own coding habits, and its frozen base model scores each answer from zero to one for how insecure it reads. The value is the mean of those scores."
   },
   {
     "kind": "fig",
-    "accent": "#4a5561",
+    "accent": "#525d69",
     "fig": "synthesis_experiment_kit.svg.png",
-    "caption": "Six candidates per prompt make the pool; the judge keeps two, and training runs on those",
-    "narration": "Selection needs a population, and each round supplies one. For every prompt the organism writes six candidate answers, each with its own value score, and their mean is the pool mean. The judge compares candidates in pairs and keeps two; their mean value score is the kept mean. Training runs on those two, and held-out prompts re-measure the value."
-  },
-  {
-    "kind": "statement",
-    "accent": "#b06a24",
-    "kicker": "FIRST EQUATION",
-    "headline": "next value = kept candidate mean",
-    "sub": "held-out mean absolute error 0.081 across 340 rounds  ·  0.128 for assuming no change",
-    "caption": "",
-    "narration": "The first equation carries no fitted coefficient. The value measured after training is the mean value score of the two candidates the judge kept. Holding out each complete experimental condition, the rule lands on average within zero point zero eight one of the measured value, across three hundred forty rounds. Assuming no change gives zero point one two eight."
+    "caption": "Six candidates per prompt make the round's pool; the judge keeps two of them",
+    "narration": "Each round the organism writes six candidate answers per prompt. Those six are the round's pool, and each answer has its own value score. A judge compares them in pairs, and a candidate's judge score is the probability the judge picks it, averaged over both option orders. The judge determines which two become training data, and held-out prompts re-measure the value between rounds."
   },
   {
     "kind": "fig",
-    "accent": "#4a5561",
-    "fig": "model-one-round-line.svg.png",
-    "caption": "Four positions on one value axis: own mean, pool mean, kept mean, and the measured value",
-    "narration": "Four positions sit on one axis. The own mean is where the organism's candidates average out. The pool mean sits away from it when part of the pool comes from outside. The kept mean is the two the judge kept, and the distance between those means is what the judge did. The arrow into the measured value is the first equation."
-  },
-  {
-    "kind": "statement",
-    "accent": "#b06a24",
-    "kicker": "SECOND EQUATION",
-    "headline": "kept mean = pool mean + spread times agreement",
-    "sub": "R-squared 0.80  ·  mean absolute error 0.040  ·  367 rounds with logged judge scores",
-    "caption": "",
-    "narration": "The kept mean only exists after the judge has run, too late to forecast with. The second equation splits that distance into two quantities measurable beforehand. Spread is the standard deviation of the candidates' value scores within a prompt. Agreement is the correlation between the judge's scores and those values. Their product reconstructs the realized distance at R squared zero point eight zero, mean absolute error zero point zero four zero, across three hundred sixty-seven rounds."
-  },
-  {
-    "kind": "fig",
-    "accent": "#4a5561",
+    "accent": "#525d69",
     "fig": "state-variables.svg.png",
-    "caption": "How spread, agreement and the selector gap are computed within each round",
-    "narration": "Both come out of the per-round recipes on screen. Substituting them costs accuracy, and here is how much. Where I can compare the two, forecasting through spread times agreement predicts the next value within zero point one zero zero, against zero point zero eight five for the kept mean I actually observed. That is the price of predicting the selection rather than watching it."
+    "caption": "Spread and agreement are measured within a prompt, then averaged over the round",
+    "narration": "Each round gives two quantities. Spread is the standard deviation of the candidates' value scores within one prompt's pool. Agreement is the correlation between the judge's scores for that pool and those same value scores. Both are computed inside a prompt first, then averaged over the round's prompts. For an oracle judge, the judge score is set to the value score."
   },
   {
     "kind": "statement",
-    "accent": "#b06a24",
-    "kicker": "THIRD EQUATION",
-    "headline": "iterate the update with the round-one measurements frozen",
-    "sub": "endpoint mean absolute error 0.118  ·  0.431 for assuming no change",
+    "accent": "#9a6710",
+    "kicker": "THE ONE-ROUND RULE",
+    "headline": "next value = kept candidate value mean",
+    "sub": "held out by complete experimental condition  ·  MAE 0.081 over 340 rounds  ·  0.128 for no change",
     "caption": "",
-    "narration": "Now close the loop. I freeze spread, agreement and pool composition at their round-one values and iterate the one-round update, clipping each step to the zero-to-one scale. Every predicted candidate mean becomes the next predicted value. Nothing is measured again. Run forward, the recurrence predicts a run's final value within zero point one one eight, against zero point four three one for assuming no change."
+    "narration": "The one-round rule has no fitted coefficient. The value measured after training is the mean value score of the two candidates the judge kept. Each complete experimental condition is held out in turn, so nothing inside a condition predicts its own rounds. It predicts the next measured value with mean absolute error zero point zero eight one across three hundred forty rounds, against zero point one two eight for no change."
   },
   {
     "kind": "fig",
-    "accent": "#4a5561",
-    "fig": "synthesis-dial-plane-horizon.svg.png",
-    "caption": "Four-round change predicted from round-one agreement and spread; dots are observed change",
-    "narration": "Here is that recurrence carried four rounds forward, against round-one agreement and spread. The background is the predicted change; each dot is an observed one. On the thirty-two modelable four-round runs shown, where every candidate came from the organism itself, endpoint error is zero point one five nine against zero point two six nine."
+    "accent": "#525d69",
+    "fig": "model-one-round-line.svg.png",
+    "caption": "Four positions on the value axis: own mean, pool mean, kept mean, measured value",
+    "narration": "This is the same rule on the value axis. The model tracks four positions. Three are candidate-pool means, the organism's own mean, the pool mean once outside answers are mixed in, and the kept mean. The fourth is the behavioral value, the coordinate being forecast."
+  },
+  {
+    "kind": "statement",
+    "accent": "#9a6710",
+    "kicker": "FACTORIZING THE GAP",
+    "headline": "predicted selector gap = spread times agreement",
+    "sub": "R-squared 0.80  ·  MAE 0.040  ·  367 rounds with logged judge scores",
+    "caption": "",
+    "narration": "The kept mean only exists after the judge has run, too late to forecast with. So the gap between the kept mean and the pool mean is written as spread times agreement, both measured before selection. Across three hundred sixty-seven rounds with logged judge scores, that product reconstructs the realized gaps at R squared zero point eight zero, with mean absolute error zero point zero four zero."
+  },
+  {
+    "kind": "statement",
+    "accent": "#333b42",
+    "kicker": "WHAT THE SUBSTITUTION COSTS",
+    "headline": "MAE 0.100 predicting the gap, 0.085 using the observed kept mean",
+    "sub": "matched rounds, same one-round rule, kept mean predicted rather than observed",
+    "caption": "",
+    "narration": "Substituting the product for the observed kept mean costs accuracy. On matched rounds, the forecast built from spread times agreement predicts the next value at mean absolute error zero point one zero zero. Using the kept mean actually observed gives zero point zero eight five. That is what it costs to predict the selection instead of watching it."
+  },
+  {
+    "kind": "statement",
+    "accent": "#9a6710",
+    "kicker": "THE RECURRENCE",
+    "headline": "iterate the update with round-one measurements frozen",
+    "sub": "endpoint MAE 0.118  ·  0.431 for assuming no change",
+    "caption": "",
+    "narration": "For endpoints, the update repeats from the round-one candidate mean. Spread, agreement, and pool composition are held at their round-one values, and each step is clipped to the zero-to-one value scale. Each predicted candidate mean becomes the next predicted value. Nothing is measured again after round one. Endpoint error is zero point one one eight, against zero point four three one for assuming no change."
   },
   {
     "kind": "fig",
-    "accent": "#4a5561",
+    "accent": "#525d69",
     "fig": "model-recurrence.svg.png",
-    "caption": "The one-round update, iterated: each round closes part of the distance to a balance point",
-    "narration": "One round out the error is zero point one zero zero, four rounds out zero point one three zero, while assuming no change degrades from zero point three one to zero point four three. Looking further ahead costs little, and the recurrence shows why. Selection moves a run mostly in its first rounds and then levels off, at the scale's edge or a mixed pool's balance point. What error remains is mostly agreement drift, since a judge's agreement depends on a candidate distribution that training changes."
+    "caption": "The one-round update iterated from round one, with nothing re-measured",
+    "narration": "Mean absolute error one round out is zero point one zero zero, and four rounds out, zero point one three zero, while assuming no value change degrades from zero point three one to zero point four three. Selection moves a run mostly in its first rounds and then levels off. Most of the remaining error is agreement drift, because a judge's agreement depends on the candidate distribution in front of it, and training changes that distribution."
   },
   {
     "kind": "fig",
-    "accent": "#4a5561",
+    "accent": "#525d69",
+    "fig": "synthesis-dial-plane-horizon.svg.png",
+    "caption": "Predicted four-round change over the agreement and spread plane; dots are observed",
+    "narration": "This figure isolates the thirty-two modelable four-round runs where every candidate came from the organism itself, placed by first-round agreement and spread. The background is the predicted four-round change, averaged over the initial candidate means and measured values so it reduces to those two axes. Each dot is an observed change. Endpoint error here is zero point one five nine, against zero point two six nine."
+  },
+  {
+    "kind": "fig",
+    "accent": "#525d69",
     "fig": "staged-noise-forecast.svg.png",
     "caption": "One noise term per stage, each sized from that stage's measured residuals",
-    "narration": "Real runs scatter around that path, so the last piece adds a random term at each stage, sized from the leftover errors there. The judge's picks scatter around spread times agreement rather than landing exactly on it. Training lands near the kept mean but not on it. Agreement wanders between rounds. The value is read from a limited sample of answers, so each reading carries sampling noise that never touches the loop's state."
+    "narration": "Real runs scatter around the deterministic path, so the stochastic version adds one random term per stage. The judge's picks land around spread times agreement, not exactly on it. Training lands near the kept mean but not on it. Agreement drifts between rounds. The value is read from a limited sample of answers, so each reading carries sampling noise. Each term is sized from that stage's residuals, pooled across all conditions except the one being forecast. Measurement noise affects only the value being read, not the state the next round starts from."
   },
   {
     "kind": "fig",
-    "accent": "#4a5561",
+    "accent": "#525d69",
     "fig": "rollouts-vs-observed-spaghetti.svg.png",
-    "caption": "Observed trajectories above, one simulated draw per run below, with the ensemble band shaded",
-    "narration": "Sampled forward, simulated runs move the way the real ones move. Total round-to-round value change is zero point seven zero nine simulated against zero point six four eight observed. Runs change direction one point two two times against one point two zero. Endpoints scatter zero point three eight seven against zero point three seven zero, and eighty-nine percent of final values land inside the model's eighty percent bands."
+    "caption": "Observed trajectories above, one simulated draw per run below, band shaded",
+    "narration": "Sampled forward, the model is checked on four trajectory statistics. Total round-to-round value change over a run is zero point seven zero nine simulated against zero point six four eight observed. Runs change direction one point two two times against one point two zero. The cross-run standard deviation of endpoints is zero point three eight seven against zero point three seven zero. Eighty-nine percent of observed final values fall inside the eighty percent bands."
   },
   {
     "kind": "closing",
-    "accent": "#2f353b",
-    "kicker": "WHAT THE DERIVATION RESTS ON",
+    "accent": "#333b42",
+    "kicker": "WHAT THE METHOD DOES NOT COVER",
     "checks": [
       [
         "1",
-        "The training setup",
-        "two model families, small models, short runs, filtered SFT on a few selected answers"
+        "Training setup",
+        "two model families, small models, short runs, filtered SFT"
       ],
       [
         "2",
-        "The behaviors",
-        "risk preference and insecure-code self-description; two narrow value scales"
+        "Behavioral scope",
+        "risk preference and insecure-code self-description only"
       ],
       [
         "3",
-        "Untested update rules",
-        "DPO, online RL against a learned reward model, constitutional feedback"
+        "Fixed agreement",
+        "seed-only runs where early agreement turned negative and collapsed"
       ]
     ],
-    "closer": "Spread and agreement are round-one measurements, so a loop can be scored before it is allowed to run.",
+    "closer": "Spread and agreement are first-round measurements, so a loop can be scored before it runs.",
     "caption": "",
-    "narration": "What holds this up is narrow. Two model families, small models, short runs, filtered supervised fine-tuning, and two behaviors, risk preference and insecure-code self-description. I have not compared that update against D P O, online reinforcement learning, or constitutional feedback. I push on it because A I systems are taking over more of their own post-training, and whoever approves one of these loops should know in advance whether it will hold a value, erode it, or amplify it. Spread and agreement are first-round measurements, early enough to make that call."
+    "narration": "The scope is narrow. Two model families, small models, short runs, filtered supervised fine-tuning on a few selected answers, and two behaviors, risk preference and insecure-code self-description. D P O, online reinforcement learning, and constitutional feedback are untested. Fixed agreement already has a gap. Across six runs differing only by seed, early agreement turned negative in the two that collapsed and stayed nonnegative in the four that amplified. A I systems are taking over more of their own post-training, and these are first-round measurements, early enough to score a loop before it runs."
   }
 ]

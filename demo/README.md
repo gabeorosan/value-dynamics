@@ -14,41 +14,37 @@ interventions.
 
 ## The four candidates
 
-Four takes on the same writeup, deliberately different in how they enter the
-subject, in register, and in length. All are 1920x1080, H.264 + AAC, with
-embedded English subtitles, built from the same `src/build_writeup_demo.py`.
+Four cuts of the same writeup, rewritten to sit close to its narrative and
+register. They differ in what they cover and in what order, not in how they
+dress up the opening. All are 1920x1080, H.264 + AAC, with embedded English
+subtitles, built from `src/build_writeup_demo.py`.
 
-| Cut | Length | Enters through | Editing pass |
+| Cut | Length | What it is | Editing pass |
 |---|---|---|---|
-| `cand1_forecast` — Three photographs, no film | 4:25 | The literature (alignment faking, model collapse, attractor states) as three stills of a process nobody has filmed | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
-| `cand2_selection` — A century-old equation | 5:41 | Animal and plant breeding; the word "AI" does not appear for about a minute | house style only |
-| `cand3_derivation` — The missing instrument | 5:43 | A measurement gap: evaluation gives position, nothing gives motion | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
-| `cand4_steering` — The loop you are already running | 2:50 | Second person, inside one concrete setup you are operating | house style only |
+| `cand1_forecast` — The faithful walkthrough | 5:16 | The writeup end to end in its own order, using all ten of its figures | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
+| `cand2_selection` — Three findings, and how they were measured | 5:21 | All three findings on screen inside 90 seconds, then how each was measured | house style only |
+| `cand3_derivation` — How the forecast is built and tested | 6:09 | The methods cut: 50 words of motivation, then recipes, held-out protocol, and what each step costs | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
+| `cand4_steering` — The short version | 2:47 | Everything essential, with a third of the runtime on the limits | house style only |
 
-They differ structurally, not only in wording. Scene counts run 8 to 17 and
-narration 458 to 899 words. Figure sets differ (4, 7, 8 and 10 of the ten) and so
-do their orders: candidate 2 puts the one-round held-out test before the
-spread-and-agreement recipes, because the breeder's spine tests the response
-coefficient first; candidate 3 opens on the organisms rather than the loop and is
-the only one that never uses `hero_vision`, so even its first frame differs.
-Candidate 3 is also the only cut that states what the decomposition costs
-(0.100 against 0.085 on matched rounds).
+Scene counts run 7 to 17 and narration 448 to 950 words. Candidate 1 uses all
+ten writeup figures in the writeup's order; candidate 3 uses eight and is the
+only cut that states what the decomposition costs (0.100 against 0.085 on
+matched rounds); candidate 4 uses four.
 
 Each cut has a narration script (`CANDIDATE_<n>_<slug>_SCRIPT.md`), a tweet
 thread (`CANDIDATE_<n>_<slug>_THREAD.md`), and a scene spec
-(`src/scenes_cand<n>_<slug>.json`). Each thread opens the same way its video
-does, and records its per-tweet character counts, which tweet should carry the
-video, and the objection a skeptical reader is most likely to raise.
+(`src/scenes_cand<n>_<slug>.json`). Each thread records its per-tweet character
+counts, which tweet should carry the video, and the objection a skeptical reader
+is most likely to raise.
 
 **Every figure used is one of the ten `docs/writeup_value_dynamics_sprint.md`
-embeds.** The writeup is the only surface these scripts source from; other
+embeds**, and the writeup is the only surface these scripts source from. Other
 figures, reports, and older demo scripts in this repo have drifted from it.
 
-Candidates 1 and 3 were written against the
+Candidates 1 and 3 were additionally checked against the
 [no-ai-slop](https://github.com/petergyang/no-ai-slop) skill (vendored at
-`.claude/skills/no-ai-slop/`) and self-checked against its `eval.md`; 2 and 4 saw
-only the project's house style from `CLAUDE.md`. Scripts and threads were split
-the same way, so the two pairs can be compared.
+`.claude/skills/no-ai-slop/`); 2 and 4 saw only the project's house style from
+`CLAUDE.md`.
 
 ## Rebuilding
 

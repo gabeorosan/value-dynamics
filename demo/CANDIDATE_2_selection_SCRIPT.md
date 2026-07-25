@@ -1,220 +1,208 @@
-# Candidate 2 — "An arithmetic borrowed from breeders"
+# Candidate 2 — "Three findings, and how they were measured"
 
-Target length: 5:15–6:00 (17 scenes, 860 narration words). The longest and most
-discursive of the four cuts.
+Target length: 4:45–5:20 (17 scenes, 794 narration words).
 
-**The angle.** This candidate does not open on AI at all. It opens in animal and
-plant breeding, where the problem of saying what a population will look like
-after selection was solved, quantitatively, about a century ago: measure the
-variation in the trait, measure how strongly the breeding choice favors it, and
-the response in the next generation follows. That is the breeder's equation, and
-the Price equation generalizes it. Only once that machinery is on the table does
-the script turn: a language model trained on the answers a judge picked out of
-its own candidates has the same three ingredients — a population that varies, a
-step that keeps some and discards others, and inheritance, because the kept
-answers become the training data. So the breeder's arithmetic ought to apply, and
-the rest of the cut is the test of whether it does.
+**The angle.** Same material as the writeup, inverted. The writeup states three
+findings in a numbered list and then explains them; this cut leads with the
+findings and spends its body earning each one. A viewer who stops after ninety
+seconds already knows what was found: the setup runs about seventy words, and
+the three findings land as three type cards immediately after it.
 
-That framing pays for itself twice. It explains *why* spread and agreement are
-the right two things to measure rather than asserting it, and it gives the
-limitations section a sharp edge: a breeder's selection criterion sits outside
-the population being bred, and this one does not, which is exactly why agreement
-drifts and where most of the remaining forecast error lives.
+The body then walks the machinery in the order the findings were stated. What
+the value is and both recipes for scoring it; spread and agreement and their
+recipes; the one-round rule and its held-out error; the iteration to endpoints;
+the noise stages and the trajectory statistics; the two interventions. One
+scene carries the selection-theory framing — selection differential, Price
+equation, breeder's equation — because that is what the writeup uses to
+motivate measuring variation, judge preference, and the model's response. It
+gets a card, not a story.
 
-Register: intellectual history — patient, essayistic, one idea per card. The
-borrowed terms are carried on full-screen statement cards in large type rather
-than narrated past.
+Register: results memo. Short declarative sentences, every number with its
+baseline, limitations given their own card rather than folded into the ending.
 
 Every claim traces to `docs/writeup_value_dynamics_sprint.md`; every figure is
 one the writeup itself embeds.
 
 Scene file: `demo/src/scenes_cand2_selection.json`.
 Thread: `demo/CANDIDATE_2_selection_THREAD.md`.
-Palette: warm/editorial — terracotta `#8a4326`, bronze `#7a5535`, amber
-`#a8721c`, rust `#9c4a2a`, olive `#6d6236`.
+Palette: warm terracotta `#8a4326`, bronze `#7a5535`, amber `#a8721c`, rust
+`#9c4a2a`, olive `#6d6236`.
 
 ---
 
-## 1. A century-old way of predicting a population
+## 1. What a judging loop is
 
-**On screen:** Title. Kicker "VALUE DYNAMICS · AN ARITHMETIC BORROWED FROM
-BREEDERS"; sub "A judging loop has a population, a selection step, and
-inheritance. Breeders have equations for that."; footer "variation · selection ·
-inheritance · response".
+**On screen:** Title. Kicker "VALUE DYNAMICS · THREE FINDINGS, AND HOW THEY WERE
+MEASURED"; sub "Selection loops run on two fine-tuned model organisms, and a
+model that forecasts where they end up."; footer "value · spread · agreement ·
+endpoints".
 
-> Animal and plant breeders have known for a century how to say what a
-> population will look like after selection. Measure how much the trait varies
-> among the individuals you have. Measure how strongly your choice of parents
-> favors it. The change in the next generation follows from those two numbers,
-> before that generation exists.
+> In a judging loop, a model generates candidate answers, then is trained on the
+> answers a judge prefers in pairwise comparisons against alternatives. AI
+> increasingly generates and selects its own training data this way, through
+> self-rewarding pipelines and synthetic data.
 
-## 2. The breeder's equation, and Price's generalization
+## 2. What was run
 
-**On screen:** Statement card. Kicker "THE BREEDER'S EQUATION"; headline
-"Response equals heritability times the selection differential" / "the difference
-you select for, times the fraction the offspring keep".
+**On screen:** `hero_vision.svg`. Caption "Models generate and select the data
+their successors train on".
 
-> The selection differential is the mean trait of the parents you breed from
-> minus the mean of the population they came from. Heritability is the fraction
-> of that difference the offspring keep, and it has to be fitted from data.
-> George Price generalized the accounting to any population that varies, selects,
-> and inherits.
+> I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations, then ran them
+> through selection loops that varied the judge, the candidate source, and the
+> alternative source.
 
-## 3. The turn — a judging loop has the same three ingredients
+## 3. Finding one
 
-**On screen:** `hero_vision.svg`. Caption "The same three ingredients, inside a
-training loop".
+**On screen:** Statement card. Kicker "FINDING ONE"; headline "A deterministic
+model using first-round measurements predicts where each run ends" / "endpoint
+MAE 0.118 on the 0-to-1 value scale, versus 0.431 for assuming no change".
 
-> Now take a language model that writes candidate answers, has a judge keep the
-> ones it prefers, and is fine-tuned on those. A population that varies. A step
-> that keeps some and discards others. Inheritance, because the kept answers
-> become the training data. Post-training already runs loops shaped like this,
-> with models writing and filtering much of their successors' training data.
+> Finding one. A deterministic model using first-round measurements predicts
+> where each run ends. Its endpoint mean absolute error is 0.118 on the 0-to-1
+> value scale, against 0.431 for assuming no change.
 
-## 4. What the field has, and what it does not
+## 4. Finding two
 
-**On screen:** Statement card. Kicker "WHY IT IS WORTH BORROWING"; headline
-"Value drift has a name; the trajectories have not been measured" / "alignment
-faking · model collapse · attractor states in model-to-model conversation".
+**On screen:** Statement card. Kicker "FINDING TWO"; headline "Adding noise gives
+a stochastic version that reproduces the observed dynamics" / "89% of observed
+final values fall inside the model's 80% endpoint bands".
 
-> Alignment research has named the worry. Whether a model defends its values
-> under training, how recursive training degrades one, where model-to-model
-> conversations settle. What is thin is work that follows a value through the
-> loop itself, across settings and seeds.
+> Finding two. Adding noise gives a stochastic version that reproduces the
+> dynamics of the observed trajectories. 89 percent of observed final values fall
+> inside the model's 80 percent endpoint bands.
 
-## 5. One round is one generation
+## 5. Finding three
 
-**On screen:** `synthesis_experiment_kit.svg`. Caption "One round of the loop,
-read as one generation".
+**On screen:** Statement card. Kicker "FINDING THREE"; headline "The
+effectiveness of interventions is driven by changes in spread and agreement" /
+"restoring spread to a collapsed pool · setting judge agreement to −1".
 
-> One round is one generation. For each prompt the organism writes six candidate
-> answers. That is the population. The judge compares each against an alternative
-> and keeps the two it prefers. That is selection. Training runs on those two.
-> That is inheritance. Held-out prompts measure the value again.
+> Finding three. The effectiveness of interventions is driven by changes in
+> spread and agreement. Restoring spread to a collapsed candidate pool eroded a
+> value that had been stuck. Swapping the judge for a min-risk oracle reversed a
+> run that had climbed near the top of the scale.
 
-## 6. The trait under selection, and how it is scored
+## 6. Where the measured quantities come from
 
-**On screen:** `setup_both_models_v3.svg`. Caption "The two organisms, and how
-the trait under selection is scored".
+**On screen:** Statement card. Kicker "WHAT SELECTION THEORY SAYS TO MEASURE";
+headline "Variation among candidates, what the judge favors, how the model
+changes" / "selection differential · Price equation · breeder's equation".
 
-> Every population needs a measured trait. I fine-tuned Qwen3-4B and OLMo-3-7B
-> with value orientations. The gambling organism's value is the share of answers
-> picking the risky gamble. The insecure-code organism's is how insecure its
-> answers to three fixed questions about its coding habits read, scored 0 to 1 by
-> its frozen base model.
+> In selection theory, the difference in means between the selected candidates
+> and all candidates is a selection differential. The Price equation tracks how
+> selection changes a population. The breeder's equation relates the differential
+> to the response in the next generation. For judging loops, that gives three
+> things to measure. Variation among the candidates, what the judge favors, and
+> how the model changes through training.
 
-## 7. Borrowed term one — the selection differential
+## 7. One round
 
-**On screen:** Statement card. Kicker "BORROWED TERM ONE"; headline "The
-selection differential: kept answers minus the whole pool" / "the mean value of
-the two kept answers minus the mean over all six candidates".
+**On screen:** `synthesis_experiment_kit.svg`. Caption "Six candidates per
+prompt, two kept, the value re-measured on held-out prompts".
 
-> The first term carries over untouched. The selection differential here is the
-> mean value score of the two kept answers minus the mean over all six candidates
-> in that prompt's pool. I call it the selector gap.
+> One round works like this. For each prompt the organism writes six candidate
+> answers, and those six are the pool. The judge compares each against an
+> alternative, and the two it prefers become that round's training data. Held-out
+> prompts then measure the value again.
 
-## 8. Borrowed term two — and the claim that makes it non-trivial
+## 8. The value, and both recipes for scoring it
 
-**On screen:** Statement card. Kicker "BORROWED TERM TWO"; headline "Here the
-response coefficient is one, with nothing fitted" / "the next measured value is
-just the mean of the kept answers".
+**On screen:** `setup_both_models_v3.svg`. Caption "The two organisms, and the
+recipe for each value score".
 
-> The second term is where the analogy stops being decorative. In breeding,
-> heritability has to be fitted. Here it comes out at 1, with nothing fitted, so
-> the next measured value is just the kept candidates' mean.
+> An organism's value is the mean value score of its answers, from 0 to 1. For
+> the gambling organism, that is the share picking the risky gamble. For the
+> insecure-code organism, it is how insecure its answers to three fixed questions
+> about its own coding habits read, scored by its frozen base model.
 
-## 9. The held-out test of that claim
+## 9. Spread and agreement
 
-**On screen:** `model-one-round-line.svg`. Caption "Next value equals the kept
-candidate mean, held out by condition".
+**On screen:** `state-variables.svg`. Caption "Spread and agreement, measured
+within each prompt's pool and averaged over the round".
 
-> Holding out one complete experimental condition at a time, across 340 rounds,
-> that rule misses the next measured value by 0.081. Assuming no change misses by
-> 0.128. The value is re-read on held-out prompts, not on the answers trained on.
+> Two quantities are measured each round. Spread is the standard deviation of the
+> candidates' value scores within a prompt, averaged over the round's prompts.
+> Agreement is the correlation between the judge's preferences and those value
+> scores.
 
-## 10. Forecasting the differential instead of waiting for it
+## 10. The one-round rule and its held-out error
 
-**On screen:** `state-variables.svg`. Caption "Spread and agreement, with the
-recipe for each".
+**On screen:** `model-one-round-line.svg`. Caption "The next value equals the kept
+candidate mean, on the 0-to-1 value line".
 
-> Breeders do better than waiting: they forecast the differential from the
-> variation available and the strength of selection. Spread is the standard
-> deviation of a prompt's candidate value scores, averaged over the round's
-> prompts. Agreement is the correlation between the judge's scores and those
-> value scores.
+> The one-round rule has no fitted coefficient. The next measured value equals the
+> mean value of the two kept candidates. Held out one complete experimental
+> condition at a time, it misses by 0.081 across 340 rounds, against 0.128 for no
+> change.
 
-## 11. The differential factors into spread times agreement
+## 11. Forecasting the gap before the judge runs
 
-**On screen:** `model-recurrence.svg`. Caption "Agreement times spread, and the
-same step iterated".
+**On screen:** `model-recurrence.svg`. Caption "Predicted selector gap equals
+agreement times spread, with the step iterated".
 
-> Their product forecasts the gap before the judge runs. Across 367 rounds with
-> logged judge scores, agreement times spread reconstructs the realized gaps at
-> an error of 0.040. On matched rounds it predicts the next value at 0.100,
-> against 0.085 using the kept mean itself.
+> Before selection runs, the model forecasts the selector gap, the kept mean minus
+> the pool mean, as spread times agreement. Across 367 rounds, that product
+> reconstructs the realized gaps at an R² of 0.80.
 
-## 12. Iterating the generations forward
+## 12. Iterating to endpoints
 
-**On screen:** `synthesis-dial-plane-horizon.svg`. Caption "Generations iterated
-forward from first-round measurements".
+**On screen:** `synthesis-dial-plane-horizon.svg`. Caption "Modelled and observed
+four-round change in 32 self-only runs".
 
-> Breeders iterate generations, so I did too. Spread, agreement, and pool
-> composition come from round one, stay fixed, and the update repeats. Endpoints
-> land at 0.118, against 0.431 for no change. On the 32 self-only four-round runs
-> here, 0.159.
+> For endpoints, the model repeats that update from the round-one candidate mean,
+> holding spread, agreement, and pool composition fixed. The figure isolates 32
+> modelable self-only four-round runs, where endpoint error is 0.159 against 0.269.
 
-## 13. Drift and finite sampling
+## 13. The noise stages
 
-**On screen:** `staged-noise-forecast.svg`. Caption "Drift and finite sampling,
-entered stage by stage".
+**On screen:** `staged-noise-forecast.svg`. Caption "Each noise term is sized from
+that stage's leftover errors".
 
-> Real breeding programs do not follow the equation exactly. Finite populations
-> drift, and traits are read off samples. Here the value comes from a limited
-> number of sampled answers, the judge's picks land near the forecast gap,
-> training lands near the kept mean, and agreement wanders. Each stage gets a
-> noise term sized from the residuals.
+> Real runs scatter around that average path. The value is read from a limited
+> number of sampled answers, so each reading carries noise. The judge's picks land
+> around spread times agreement. Training lands near the kept mean. Agreement
+> drifts between rounds. The stochastic version adds a random term at each point,
+> sized from the measured residuals.
 
-## 14. The stochastic version against the observed runs
+## 14. The trajectory statistics
 
-**On screen:** `rollouts-vs-observed-spaghetti.svg`. Caption "Simulated draws
-against the observed trajectories, run by run".
+**On screen:** `rollouts-vs-observed-spaghetti.svg`. Caption "Observed
+trajectories above, one simulated draw per run below, band shaded".
 
-> Sampled forward, it reproduces the shape of the real trajectories. Total
-> round-to-round movement, 0.709 against 0.648 observed. Direction changes per
-> run, 1.22 against 1.20. 89 percent of observed endpoints fall inside the 80
-> percent band.
+> Sampled forward, it gives the numbers behind finding two. Total round-to-round
+> value change is 0.709, against 0.648 observed. Direction changes per run, 1.22
+> against 1.20. Cross-run endpoint standard deviation, 0.387 against 0.370.
 
-## 15. Where the borrowing breaks down
+## 15. The two interventions
 
-**On screen:** Statement card. Kicker "WHERE THE BORROWING BREAKS DOWN"; headline
-"The judge is not a fixed environment sitting outside the population" / "two
-model families · small models · short runs · filtered supervised fine-tuning ·
-two narrow behaviors".
+**On screen:** `synthesis-intervention-cards.svg`. Caption "Matched interventions
+on spread and agreement, with forecast and 80% band".
 
-> A breeder's criterion sits outside the population. This one does not. Agreement
-> depends on the candidate distribution in front of the judge, and training keeps
-> changing that distribution, so agreement drifts during a run. Most of the
-> remaining error lives there. The scope is narrow: two model families, small
-> models, short runs, filtered supervised fine-tuning, two behaviors.
+> Two matched interventions. In the first, base-model answers went into a pool
+> whose candidates had collapsed to identical scores. Spread came back, and the
+> judge's agreement eroded a stuck value. In the second, a base-model judge that
+> had driven a run near the top of the scale was swapped for a min-risk oracle,
+> setting agreement to −1, and the run reversed.
 
-## 16. Breeders do not only describe selection
+## 16. Limitations
 
-**On screen:** `synthesis-intervention-cards.svg`. Caption "Reaching into a
-running loop through spread and agreement".
+**On screen:** Statement card. Kicker "LIMITATIONS"; headline "Two model families,
+small models, short runs, filtered SFT" / "behavioral scope is risk preference and
+insecure-code self-description".
 
-> Breeders do not only describe selection, they run it. Mixing base-model answers
-> into a pool whose candidates had collapsed to identical scores restored spread,
-> and a stuck value eroded. Swapping in a min-risk oracle judge, setting
-> agreement to −1, reversed a run near the top of the scale.
+> The training setup uses two model families, small models, short runs, and
+> filtered SFT on a few selected answers. Most of the remaining forecast error
+> comes from agreement drifting during a run. A judge's agreement depends on the
+> candidate distribution in front of it, and training changes that distribution.
 
-## 17. Selection mechanisms are things you can engineer
+## 17. The three findings, in one place
 
-**On screen:** Closing card. Kicker "SELECTION MECHANISMS ARE THINGS YOU CAN
-ENGINEER"; Variation / Selection / Inheritance; closer "Natural and cultural
-selection sculpted human values; artificial selection is something we get to
-design."
+**On screen:** Closing card. Kicker "THE THREE FINDINGS, IN ONE PLACE"; Endpoints
+/ Trajectories / Interventions; closer "Selection mechanisms inside training loops
+can be measured, forecast, and engineered."
 
-> A century of breeding taught that a selection mechanism is something you build.
-> As AI takes over more of its own post-training, someone chooses what variation
-> those loops offer and which way they sort it. Natural and cultural selection
-> sculpted human values. Artificial selection is something we get to design.
+> AI systems now select much of their own training data, and the selection
+> mechanisms inside those loops decide which way values move. Natural and cultural
+> selection sculpted human values. Value dynamics research can help identify
+> artificial selection mechanisms, and engineer them into virtuous cycles for
+> aligning increasingly autonomous AI systems.

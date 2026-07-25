@@ -2,150 +2,150 @@
   {
     "kind": "title",
     "accent": "#8a4326",
-    "kicker": "VALUE DYNAMICS  ·  AN ARITHMETIC BORROWED FROM BREEDERS",
-    "sub": "A judging loop has a population, a selection step, and inheritance. Breeders have equations for that.",
-    "foot": "variation  ·  selection  ·  inheritance  ·  response",
+    "kicker": "VALUE DYNAMICS  ·  THREE FINDINGS, AND HOW THEY WERE MEASURED",
+    "sub": "Selection loops run on two fine-tuned model organisms, and a model that forecasts where they end up.",
+    "foot": "value  ·  spread  ·  agreement  ·  endpoints",
     "caption": "",
-    "narration": "Animal and plant breeders have known for a century how to say what a population will look like after selection. Measure how much the trait varies among the individuals you have. Measure how strongly your choice of parents favors it. The change in the next generation follows from those two numbers, before that generation exists."
-  },
-  {
-    "kind": "statement",
-    "accent": "#a8721c",
-    "kicker": "THE BREEDER'S EQUATION",
-    "headline": "Response equals heritability times the selection differential",
-    "sub": "the difference you select for, times the fraction the offspring keep",
-    "caption": "",
-    "narration": "The selection differential is the mean trait of the parents you breed from minus the mean of the population they came from. Heritability is the fraction of that difference the offspring keep, and it has to be fitted from data. George Price generalized the accounting to any population that varies, selects, and inherits."
+    "narration": "In a judging loop, a model generates candidate answers, then is trained on the answers a judge prefers in pairwise comparisons against alternatives. A I increasingly generates and selects its own training data this way, through self-rewarding pipelines and synthetic data."
   },
   {
     "kind": "fig",
     "accent": "#7a5535",
     "fig": "hero_vision.svg.png",
-    "caption": "The same three ingredients, inside a training loop",
-    "narration": "Now take a language model that writes candidate answers, has a judge keep the ones it prefers, and is fine-tuned on those. A population that varies. A step that keeps some and discards others. Inheritance, because the kept answers become the training data. Post-training already runs loops shaped like this, with models writing and filtering much of their successors' training data."
+    "caption": "Models generate and select the data their successors train on",
+    "narration": "I fine-tuned Qwen three four B and OLMo three seven B with value orientations, then ran them through selection loops that varied the judge, the candidate source, and the alternative source."
   },
   {
     "kind": "statement",
     "accent": "#a8721c",
-    "kicker": "WHY IT IS WORTH BORROWING",
-    "headline": "Value drift has a name; the trajectories have not been measured",
-    "sub": "alignment faking · model collapse · attractor states in model-to-model conversation",
+    "kicker": "FINDING ONE",
+    "headline": "A deterministic model using first-round measurements predicts where each run ends",
+    "sub": "endpoint MAE 0.118 on the 0-to-1 value scale, versus 0.431 for assuming no change",
     "caption": "",
-    "narration": "Alignment research has named the worry. Whether a model defends its values under training, how recursive training degrades one, where model to model conversations settle. What is thin is work that follows a value through the loop itself, across settings and seeds."
+    "narration": "Finding one. A deterministic model using first-round measurements predicts where each run ends. Its endpoint mean absolute error is zero point one one eight on the zero to one value scale, against zero point four three one for assuming no change."
+  },
+  {
+    "kind": "statement",
+    "accent": "#a8721c",
+    "kicker": "FINDING TWO",
+    "headline": "Adding noise gives a stochastic version that reproduces the observed dynamics",
+    "sub": "89% of observed final values fall inside the model's 80% endpoint bands",
+    "caption": "",
+    "narration": "Finding two. Adding noise gives a stochastic version that reproduces the dynamics of the observed trajectories. Eighty-nine percent of observed final values fall inside the model's eighty percent endpoint bands."
+  },
+  {
+    "kind": "statement",
+    "accent": "#a8721c",
+    "kicker": "FINDING THREE",
+    "headline": "The effectiveness of interventions is driven by changes in spread and agreement",
+    "sub": "restoring spread to a collapsed pool  ·  setting judge agreement to −1",
+    "caption": "",
+    "narration": "Finding three. The effectiveness of interventions is driven by changes in spread and agreement. Restoring spread to a collapsed candidate pool eroded a value that had been stuck. Swapping the judge for a min-risk oracle reversed a run that had climbed near the top of the scale."
+  },
+  {
+    "kind": "statement",
+    "accent": "#7a5535",
+    "kicker": "WHAT SELECTION THEORY SAYS TO MEASURE",
+    "headline": "Variation among candidates, what the judge favors, how the model changes",
+    "sub": "selection differential  ·  Price equation  ·  breeder's equation",
+    "caption": "",
+    "narration": "In selection theory, the difference in means between the selected candidates and all candidates is a selection differential. The Price equation tracks how selection changes a population. The breeder's equation relates the differential to the response in the next generation. For judging loops, that gives three things to measure. Variation among the candidates, what the judge favors, and how the model changes through training."
   },
   {
     "kind": "fig",
-    "accent": "#7a5535",
+    "accent": "#9c4a2a",
     "fig": "synthesis_experiment_kit.svg.png",
-    "caption": "One round of the loop, read as one generation",
-    "narration": "One round is one generation. For each prompt the organism writes six candidate answers. That is the population. The judge compares each against an alternative and keeps the two it prefers. That is selection. Training runs on those two. That is inheritance. Held-out prompts measure the value again."
+    "caption": "Six candidates per prompt, two kept, the value re-measured on held-out prompts",
+    "narration": "One round works like this. For each prompt the organism writes six candidate answers, and those six are the pool. The judge compares each against an alternative, and the two it prefers become that round's training data. Held-out prompts then measure the value again."
   },
   {
     "kind": "fig",
     "accent": "#9c4a2a",
     "fig": "setup_both_models_v3.svg.png",
-    "caption": "The two organisms, and how the trait under selection is scored",
-    "narration": "Every population needs a measured trait. I fine-tuned Qwen three four B and OLMo three seven B with value orientations. The gambling organism's value is the share of answers picking the risky gamble. The insecure-code organism's is how insecure its answers to three fixed questions about its coding habits read, scored zero to one by its frozen base model."
-  },
-  {
-    "kind": "statement",
-    "accent": "#a8721c",
-    "kicker": "BORROWED TERM ONE",
-    "headline": "The selection differential: kept answers minus the whole pool",
-    "sub": "the mean value of the two kept answers minus the mean over all six candidates",
-    "caption": "",
-    "narration": "The first term carries over untouched. The selection differential here is the mean value score of the two kept answers minus the mean over all six candidates in that prompt's pool. I call it the selector gap."
-  },
-  {
-    "kind": "statement",
-    "accent": "#a8721c",
-    "kicker": "BORROWED TERM TWO",
-    "headline": "Here the response coefficient is one, with nothing fitted",
-    "sub": "the next measured value is just the mean of the kept answers",
-    "caption": "",
-    "narration": "The second term is where the analogy stops being decorative. In breeding, heritability has to be fitted. Here it comes out at one, with nothing fitted, so the next measured value is just the kept candidates' mean."
-  },
-  {
-    "kind": "fig",
-    "accent": "#9c4a2a",
-    "fig": "model-one-round-line.svg.png",
-    "caption": "Next value equals the kept candidate mean, held out by condition",
-    "narration": "Holding out one complete experimental condition at a time, across three hundred forty rounds, that rule misses the next measured value by zero point zero eight one. Assuming no change misses by zero point one two eight. The value is re-read on held-out prompts, not on the answers trained on."
+    "caption": "The two organisms, and the recipe for each value score",
+    "narration": "An organism's value is the mean value score of its answers, from zero to one. For the gambling organism, that is the share picking the risky gamble. For the insecure-code organism, it is how insecure its answers to three fixed questions about its own coding habits read, scored by its frozen base model."
   },
   {
     "kind": "fig",
     "accent": "#9c4a2a",
     "fig": "state-variables.svg.png",
-    "caption": "Spread and agreement, with the recipe for each",
-    "narration": "Breeders do better than waiting: they forecast the differential from the variation available and the strength of selection. Spread is the standard deviation of a prompt's candidate value scores, averaged over the round's prompts. Agreement is the correlation between the judge's scores and those value scores."
+    "caption": "Spread and agreement, measured within each prompt's pool and averaged over the round",
+    "narration": "Two quantities are measured each round. Spread is the standard deviation of the candidates' value scores within a prompt, averaged over the round's prompts. Agreement is the correlation between the judge's preferences and those value scores."
   },
   {
     "kind": "fig",
-    "accent": "#9c4a2a",
+    "accent": "#6d6236",
+    "fig": "model-one-round-line.svg.png",
+    "caption": "The next value equals the kept candidate mean, on the 0-to-1 value line",
+    "narration": "The one round rule has no fitted coefficient. The next measured value equals the mean value of the two kept candidates. Held out one complete experimental condition at a time, it misses by zero point zero eight one across three hundred forty rounds, against zero point one two eight for no change."
+  },
+  {
+    "kind": "fig",
+    "accent": "#6d6236",
     "fig": "model-recurrence.svg.png",
-    "caption": "Agreement times spread, and the same step iterated",
-    "narration": "Their product forecasts the gap before the judge runs. Across three hundred sixty-seven rounds with logged judge scores, agreement times spread reconstructs the realized gaps at an error of zero point zero four zero. On matched rounds it predicts the next value at zero point one zero zero, against zero point zero eight five using the kept mean itself."
+    "caption": "Predicted selector gap equals agreement times spread, with the step iterated",
+    "narration": "Before selection runs, the model forecasts the selector gap, the kept mean minus the pool mean, as spread times agreement. Across three hundred sixty-seven rounds, that product reconstructs the realized gaps at an R squared of zero point eight zero."
   },
   {
     "kind": "fig",
     "accent": "#6d6236",
     "fig": "synthesis-dial-plane-horizon.svg.png",
-    "caption": "Generations iterated forward from first-round measurements",
-    "narration": "Breeders iterate generations, so I did too. Spread, agreement, and pool composition come from round one, stay fixed, and the update repeats. Endpoints land at zero point one one eight, against zero point four three one for no change. On the thirty-two self-only four-round runs here, zero point one five nine."
+    "caption": "Modelled and observed four-round change in 32 self-only runs",
+    "narration": "For endpoints, the model repeats that update from the round one candidate mean, holding spread, agreement, and pool composition fixed. The figure isolates thirty-two modelable self-only four-round runs, where endpoint error is zero point one five nine against zero point two six nine."
   },
   {
     "kind": "fig",
-    "accent": "#6d6236",
-    "fig": "staged-noise-forecast.svg.png",
-    "caption": "Drift and finite sampling, entered stage by stage",
-    "narration": "Real breeding programs do not follow the equation exactly. Finite populations drift, and traits are read off samples. Here the value comes from a limited number of sampled answers, the judge's picks land near the forecast gap, training lands near the kept mean, and agreement wanders. Each stage gets a noise term sized from the residuals."
-  },
-  {
-    "kind": "fig",
-    "accent": "#6d6236",
-    "fig": "rollouts-vs-observed-spaghetti.svg.png",
-    "caption": "Simulated draws against the observed trajectories, run by run",
-    "narration": "Sampled forward, it reproduces the shape of the real trajectories. Total round-to-round movement, zero point seven zero nine against zero point six four eight observed. Direction changes per run, one point two two against one point two zero. Eighty-nine percent of observed endpoints fall inside the eighty percent band."
-  },
-  {
-    "kind": "statement",
     "accent": "#a8721c",
-    "kicker": "WHERE THE BORROWING BREAKS DOWN",
-    "headline": "The judge is not a fixed environment sitting outside the population",
-    "sub": "two model families · small models · short runs · filtered supervised fine-tuning · two narrow behaviors",
-    "caption": "",
-    "narration": "A breeder's criterion sits outside the population. This one does not. Agreement depends on the candidate distribution in front of the judge, and training keeps changing that distribution, so agreement drifts during a run. Most of the remaining error lives there. The scope is narrow: two model families, small models, short runs, filtered supervised fine-tuning, two behaviors."
+    "fig": "staged-noise-forecast.svg.png",
+    "caption": "Each noise term is sized from that stage's leftover errors",
+    "narration": "Real runs scatter around that average path. The value is read from a limited number of sampled answers, so each reading carries noise. The judge's picks land around spread times agreement. Training lands near the kept mean. Agreement drifts between rounds. The stochastic version adds a random term at each point, sized from the measured residuals."
+  },
+  {
+    "kind": "fig",
+    "accent": "#a8721c",
+    "fig": "rollouts-vs-observed-spaghetti.svg.png",
+    "caption": "Observed trajectories above, one simulated draw per run below, band shaded",
+    "narration": "Sampled forward, it gives the numbers behind finding two. Total round to round value change is zero point seven zero nine, against zero point six four eight observed. Direction changes per run, one point two two against one point two zero. Cross-run endpoint standard deviation, zero point three eight seven against zero point three seven zero."
   },
   {
     "kind": "fig",
     "accent": "#8a4326",
     "fig": "synthesis-intervention-cards.svg.png",
-    "caption": "Reaching into a running loop through spread and agreement",
-    "narration": "Breeders do not only describe selection, they run it. Mixing base-model answers into a pool whose candidates had collapsed to identical scores restored spread, and a stuck value eroded. Swapping in a min-risk oracle judge, setting agreement to minus one, reversed a run near the top of the scale."
+    "caption": "Matched interventions on spread and agreement, with forecast and 80% band",
+    "narration": "Two matched interventions. In the first, base-model answers went into a pool whose candidates had collapsed to identical scores. Spread came back, and the judge's agreement eroded a stuck value. In the second, a base-model judge that had driven a run near the top of the scale was swapped for a min-risk oracle, setting agreement to minus one, and the run reversed."
+  },
+  {
+    "kind": "statement",
+    "accent": "#7a5535",
+    "kicker": "LIMITATIONS",
+    "headline": "Two model families, small models, short runs, filtered SFT",
+    "sub": "behavioral scope is risk preference and insecure-code self-description",
+    "caption": "",
+    "narration": "The training setup uses two model families, small models, short runs, and filtered S F T on a few selected answers. Most of the remaining forecast error comes from agreement drifting during a run. A judge's agreement depends on the candidate distribution in front of it, and training changes that distribution."
   },
   {
     "kind": "closing",
     "accent": "#8a4326",
-    "kicker": "SELECTION MECHANISMS ARE THINGS YOU CAN ENGINEER",
+    "kicker": "THE THREE FINDINGS, IN ONE PLACE",
     "checks": [
       [
         "1",
-        "Variation",
-        "spread — how much the round's candidates differ"
+        "Endpoints",
+        "first-round spread and agreement give endpoint MAE 0.118"
       ],
       [
         "2",
-        "Selection",
-        "agreement — which way the judge sorts that variation"
+        "Trajectories",
+        "89% of final values land inside the model's 80% band"
       ],
       [
         "3",
-        "Inheritance",
-        "what the training step does with the kept answers"
+        "Interventions",
+        "both worked by changing spread or agreement"
       ]
     ],
-    "closer": "Natural and cultural selection sculpted human values; artificial selection is something we get to design.",
+    "closer": "Selection mechanisms inside training loops can be measured, forecast, and engineered.",
     "caption": "",
-    "narration": "A century of breeding taught that a selection mechanism is something you build. As A I takes over more of its own post-training, someone chooses what variation those loops offer and which way they sort it. Natural and cultural selection sculpted human values. Artificial selection is something we get to design."
+    "narration": "A I systems now select much of their own training data, and the selection mechanisms inside those loops decide which way values move. Natural and cultural selection sculpted human values. Value dynamics research can help identify artificial selection mechanisms, and engineer them into virtuous cycles for aligning increasingly autonomous A I systems."
   }
 ]

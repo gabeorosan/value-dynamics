@@ -700,6 +700,25 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-25 (research-vision thread): **Next direction after the halo result:
+  judge-free multi-attribute measurement** — `experiments/conjoint_values/SPEC.md`.
+  Discrete-choice (conjoint) design: options are authored so every attribute level is
+  known BY CONSTRUCTION, the model picks between them, and the choice is read from
+  logprobs. Recovers a value weight per attribute in commensurable units plus a
+  bootstrap covariance, with no judge and therefore nothing for a halo to attach to.
+  Attribute vectors are randomised, so any correlation among the estimates is
+  informative rather than baked in — the opposite of the failed rubric design, where
+  the axes' correlation was whatever the judge's general impression made it. Follows
+  this repo's own instrument calibration (programmatic parses trustworthy, free-text
+  judge readouts family-dependent) and the fact that every axis that has ever worked
+  here is a mechanical parse of a discrete commitment. Phase A is inference-only ~1 h
+  and is a standalone result; phase B adds selection-on-one-attribute plus training to
+  test correlated response with a KNOWN design matrix. Three gates declared in the
+  spec, including order robustness measured on the real stimuli rather than on
+  constructed contrasts (phase 1 showed a judge can be order-robust at 0.006 on clear
+  contrasts and 0.609 on realistic ones). Honest trade recorded in the spec: authored
+  options buy measurement validity at the cost of ecological validity, the opposite
+  trade from the free-text design.
 - 2026-07-25 (research-vision thread): **Value covariance phase 1 COMPLETED and FAILED
   its own instrument gate — no covariance citable** (report_value_covariance_phase1.md
   + ledger section B). Two judges scoring the SAME axis agree at only 0.345–0.467

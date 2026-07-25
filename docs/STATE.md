@@ -709,6 +709,16 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-25 (research-vision thread): **Figure for the spread-intervention result** —
+  docs/figures/auto/spread-intervention-two-steps/ : two panels showing that at a fixed
+  offered-pool mean, within-prompt spread bought the selection gap the model predicts
+  (spread arm gap −0.146; concentrated arm exactly 0.000 in **11 of 12** rounds — seed
+  2 round 4 has spread 0.0417 and gap +0.0417), while observed round movement against
+  predicted 0.83xgap fits slope **0.054** (r = 0.046) and the model's forecast error
+  0.094 loses to forecasting zero at 0.065. Generator recomputes every number from the
+  raw JSON. Two corrections it made to my prompt: the concentrated-arm zero is 11/12
+  not 12/12 (already stated correctly in the report), and the SE of a round-to-round
+  difference is 0.1087 rather than 0.108.
 - 2026-07-25 (research-vision thread): **SPREAD INTERVENTION RAN — selection works,
   transmission does not follow. The most consequential result of the day**
   (report_spread_intervention.md + ledger section B + prereg in the SPEC). First

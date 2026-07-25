@@ -121,6 +121,18 @@ def fan(pixel_points, radius=8.0):
     return out
 
 
+def halo(x, y, lines, size, color, weight="bold", anchor="start", lh=1.4):
+    """A text block on a white backing plate, for the one label that has to sit
+    on top of a rule."""
+    wpx = max(len(ln) for ln in lines) * size * 0.55
+    x0 = x - (wpx if anchor == "end" else 0)
+    out = [f'<rect x="{x0 - 8:.1f}" y="{y - size:.1f}" width="{wpx + 16:.1f}" '
+           f'height="{len(lines) * size * lh + 10:.1f}" fill="white" opacity="0.92"/>']
+    for i, ln in enumerate(lines):
+        out.append(ctext(x, y + i * size * lh, ln, size, color, weight, anchor=anchor))
+    return "\n".join(out)
+
+
 def dot(x, y, arm):
     if arm == "concentrated":
         return (f'<circle cx="{x:.1f}" cy="{y:.1f}" r="7.5" fill="white" '
@@ -204,7 +216,7 @@ se_diff = math.sqrt(2 * pbar * (1 - pbar) / n_probe)
 
 
 # ---- canvas -----------------------------------------------------------------
-W, H = 1720, 1300
+W, H = 1720, 1320
 b = [f'<rect width="{W}" height="{H}" fill="white"/>']
 
 b.append(ctext(W / 2, 58,
@@ -274,8 +286,8 @@ for arm in ("concentrated", "spread"):
         b.append(dot(x, y, arm))
 
 # direct labels, placed in the two empty corners of the panel
-b.append(leader(ax(0.30), ay(0.028), ax(0.055), ay(0.012)))
-t, y_end = text_block(ax(0.52), ay(0.055),
+b.append(leader(ax(0.185), ay(0.135), ax(0.055), ay(0.022)))
+t, y_end = text_block(ax(0.52), ay(0.278),
                       "concentrated arm: the six candidates", 19, 60, CONC, "bold", anchor="end")
 b.append(t)
 t, _ = text_block(ax(0.52), y_end - 4, "written for a prompt all score alike",
@@ -283,29 +295,28 @@ t, _ = text_block(ax(0.52), y_end - 4, "written for a prompt all score alike",
 b.append(t)
 t, _ = text_block(ax(0.52), y_end + 26,
                   f"within-prompt spread 0.000 and selection gap 0.000 in "
-                  f"{conc_zero} of {len(conc)} seed-rounds; in the last one, "
-                  f"{conc_spread_max:.3f} and {conc_gap_max:+.3f}",
-                  18, 48, GRAY, anchor="end")
+                  f"{conc_zero} of {len(conc)} seed-rounds "
+                  f"({conc_spread_max:.3f} and {conc_gap_max:+.3f} in the twelfth)",
+                  18, 62, GRAY, anchor="end")
 b.append(t)
 
-b.append(leader(ax(0.185), ay(-0.245), ax(0.30), ay(-0.175)))
-t, y_end = text_block(ax(-0.02), ay(-0.265),
-                      "spread arm: the candidates written for", 19, 60, SPRD, "bold")
+b.append(leader(ax(0.245), ay(-0.240), ax(0.30), ay(-0.180)))
+t, y_end = text_block(ax(-0.02), ay(-0.225),
+                      "spread arm: the candidates written for", 19, 44, SPRD, "bold")
 b.append(t)
 t, _ = text_block(ax(-0.02), y_end - 4, "one prompt disagree with each other",
-                  19, 60, SPRD, "bold")
+                  19, 44, SPRD, "bold")
 b.append(t)
-t, _ = text_block(ax(-0.02), y_end + 26,
-                  f"within-prompt spread {sprd_spread_lo:.3f} to {sprd_spread_hi:.3f}, and the judge "
-                  f"kept a set averaging {sprd_gap_mean:+.3f} below the pool it was offered "
-                  f"(round by round, {sprd_gap_hi:+.3f} down to {sprd_gap_lo:+.3f})",
-                  18, 56, GRAY)
+t, _ = text_block(ax(-0.02), y_end + 24,
+                  f"within-prompt spread {sprd_spread_lo:.3f} to {sprd_spread_hi:.3f}; the kept set "
+                  f"averaged {sprd_gap_mean:+.3f} below the pool offered",
+                  18, 48, GRAY)
 b.append(t)
 
 # --- the strip: same offered-pool mean in both arms, round by round ----------
 SX0, SX1 = AX0, AX1
-SY0, SY1 = 900, 980
-b.append(ctext(150, 866,
+SY0, SY1 = 890, 966
+b.append(ctext(150, 856,
                "Both arms were offered pools with the same mean, every round",
                21, INK, "bold", anchor="start"))
 
@@ -338,17 +349,17 @@ for i, (g, j) in enumerate(joint):
         if i:
             b.append(f'<line x1="{x - step / 2:.1f}" y1="{SY0 - 16}" x2="{x - step / 2:.1f}" '
                      f'y2="{SY1 + 16}" stroke="{GRID}" stroke-width="1.5"/>')
-t, _ = text_block(150, SY1 + 88,
+t, _ = text_block(150, SY1 + 86,
                   f"Every green spread-arm dot sits inside its blue concentrated-arm ring: over all "
                   f"{len(joint)} seed-rounds the largest difference between the arms' offered-pool "
                   f"means is {max_pool_diff:.3f}. Only the arrangement of the candidates differed.",
-                  19, 84, INK)
+                  19, 96, INK)
 b.append(t)
 
 # =============================== PANEL B =====================================
 BX0, BX1 = 1150, 1670
 BY0, BY1 = 330, 850
-B_MIN, B_MAX = -0.30, 0.28
+B_MIN, B_MAX = -0.36, 0.34
 
 
 def bx(v):
@@ -363,11 +374,12 @@ b.append(ctext(1000, 208, "B.  The transmission step did not follow", 24, INK, "
                anchor="start"))
 t, _ = text_block(1000, 240,
                   "The same 24 seed-rounds: the movement the model forecasts for the round against "
-                  "the movement the value probe measured. Both axes carry one scale.",
+                  "the movement the value probe measured. Both axes carry one scale, so the model's "
+                  "claim is that every round lands on the dashed slope-1 line.",
                   19, 78, GRAY)
 b.append(t)
 
-for v in (-0.2, -0.1, 0.0, 0.1, 0.2):
+for v in (-0.3, -0.2, -0.1, 0.0, 0.1, 0.2, 0.3):
     x, y = bx(v), by(v)
     strong = (v == 0.0)
     b.append(f'<line x1="{BX0}" y1="{y:.1f}" x2="{BX1}" y2="{y:.1f}" '
@@ -401,57 +413,51 @@ b.append(f'<text x="{BX0 - 80}" y="{(BY0 + BY1) / 2}" text-anchor="middle" '
          f'transform="rotate(-90 {BX0 - 80} {(BY0 + BY1) / 2})">'
          f'measured value after the round minus before it</text>')
 
-# label the model's claim (dashed) — the whole right half of the panel is empty
-b.append(leader(bx(0.255), by(0.135), bx(0.185), by(0.185), INK, 2))
-t, y_end = text_block(bx(0.27), by(0.10),
-                      "what the model claims: every dot", 19, 40, INK, "bold", anchor="end")
-b.append(t)
-t, _ = text_block(bx(0.27), y_end - 4, "lands on this slope-1 line", 19, 40, INK, "bold",
-                  anchor="end")
-b.append(t)
+# label the model's claim, set along the dashed line itself
+cxp, cyp = bx(0.16), by(0.16)
+b.append(f'<g transform="translate({cxp:.1f} {cyp:.1f}) rotate(-45)">'
+         f'<text x="0" y="-13" text-anchor="middle" font-family="{FONT}" font-size="19" '
+         f'font-weight="bold" fill="{INK}">the model\'s claim: slope 1</text></g>')
 
 # label the fitted line
-b.append(leader(bx(0.255), by(-0.045), bx(0.215), by(slope * 0.215 + intercept), RED, 2))
-t, y_end = text_block(bx(0.27), by(-0.075),
-                      f"what the 24 rounds give: slope {slope:.3f},", 19, 40, RED, "bold",
-                      anchor="end")
+b.append(leader(bx(0.175), by(-0.030), bx(0.235), by(slope * 0.235 + intercept), RED, 2))
+t, y_end = text_block(bx(0.325), by(-0.050),
+                      "what the 24 rounds", 19, 20, RED, "bold", anchor="end")
 b.append(t)
-t, y_end = text_block(bx(0.27), y_end - 4, f"correlation {corr:.3f}", 19, 40, RED, "bold",
-                      anchor="end")
+t, y_end = text_block(bx(0.325), y_end - 4,
+                      f"give: slope {slope:.3f},", 19, 20, RED, "bold", anchor="end")
 b.append(t)
-t, _ = text_block(bx(0.27), y_end + 22,
-                  f"about {shallower:.0f} times shallower than the claim", 18, 40, GRAY,
+t, y_end = text_block(bx(0.325), y_end - 4,
+                      f"correlation {corr:.3f}", 19, 20, RED, "bold", anchor="end")
+b.append(t)
+t, _ = text_block(bx(0.325), by(-0.175),
+                  f"about {shallower:.0f} times shallower than the claim", 18, 44, GRAY,
                   anchor="end")
 b.append(t)
 
 # arm labels
-b.append(leader(bx(-0.10), by(0.245), bx(-0.018), by(0.245), CONC, 2))
-t, y_end = text_block(bx(-0.295), by(0.255),
-                      "concentrated arm: forecast movement", 18, 42, CONC, "bold")
-b.append(t)
-t, _ = text_block(bx(-0.295), y_end - 5,
-                  f"0.000 every round, yet the measured value still moved by as much as "
-                  f"{obs_at_zero_pred:.3f}", 18, 42, CONC, "bold")
+b.append(leader(bx(-0.075), by(0.300), bx(-0.012), by(0.262), CONC, 2))
+t, y_end = text_block(bx(-0.350), by(0.322),
+                      f"concentrated arm: forecast movement 0.000 every round, "
+                      f"yet the value moved as much as {obs_at_zero_pred:.3f}",
+                      18, 46, CONC, "bold")
 b.append(t)
 
-t, y_end = text_block(bx(-0.295), by(-0.17),
-                      "spread arm: the forecast movement is", 18, 42, SPRD, "bold")
-b.append(t)
-t, _ = text_block(bx(-0.295), y_end - 5,
-                  "largest here, and the measured movements fall on both sides of zero",
-                  18, 42, SPRD, "bold")
-b.append(t)
+b.append(halo(bx(-0.350), by(-0.235),
+              ["spread arm: the forecast movement is largest",
+               "here, and the measured movements fall on",
+               "both sides of zero"], 18, SPRD))
 
 # =============================== BOTTOM ======================================
-b.append(box(160, 1092, W - 320, 78, "#fdeeec", RED, 3, rx=10))
-t, _ = text_block(W / 2, 1128,
+b.append(box(160, 1112, W - 320, 78, "#fdeeec", RED, 3, rx=10))
+t, _ = text_block(W / 2, 1148,
                   f"As a forecast the model loses to predicting nothing: the average size of its "
                   f"error over the {N_ALL} round-transitions is {mae_model:.3f}, against "
                   f"{mae_null:.3f} for forecasting no movement at all.",
                   20, 128, RED, "bold", anchor="middle")
 b.append(t)
 
-t, _ = text_block(W / 2, 1206,
+t, _ = text_block(W / 2, 1226,
                   f"This run is underpowered for small effects and is not evidence that transmission "
                   f"is zero. The value probe is {n_probe} binary reads ({cfg['n_probe_items']} "
                   f"held-out gamble prompts x {cfg['coord_samples']} samples, each scored 1 if the "

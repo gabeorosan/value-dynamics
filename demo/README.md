@@ -14,22 +14,36 @@ interventions.
 
 ## The four candidates
 
-Four cuts of the same writeup, rewritten to sit close to its narrative and
-register. They differ in what they cover and in what order, not in how they
-dress up the opening. All are 1920x1080, H.264 + AAC, with embedded English
-subtitles, built from `src/build_writeup_demo.py`.
+Four cuts of the same writeup, close to its narrative and register. They differ
+in what they cover and in what order. All are 1920x1080, H.264 + AAC, with
+embedded English subtitles, built from `src/build_writeup_demo.py`.
 
 | Cut | Length | What it is | Editing pass |
 |---|---|---|---|
-| `cand1_forecast` — The faithful walkthrough | 5:16 | The writeup end to end in its own order, using all ten of its figures | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
-| `cand2_selection` — Three findings, and how they were measured | 5:21 | All three findings on screen inside 90 seconds, then how each was measured | house style only |
-| `cand3_derivation` — How the forecast is built and tested | 6:09 | The methods cut: 50 words of motivation, then recipes, held-out protocol, and what each step costs | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
-| `cand4_steering` — The short version | 2:47 | Everything essential, with a third of the runtime on the limits | house style only |
+| `cand1_forecast` — The faithful walkthrough | 5:43 | The writeup end to end in its own order, using all ten of its figures | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
+| `cand2_selection` — Three findings, and how they were measured | 5:24 | All three findings on screen inside 90 seconds, then how each was measured | house style only |
+| `cand3_derivation` — How the forecast is built and tested | 6:01 | The methods cut: recipes, held-out protocol, and what each step costs | [no-ai-slop](https://github.com/petergyang/no-ai-slop) |
+| `cand4_steering` — The short version | 2:45 | Everything essential, with a third of the runtime on the limits | house style only |
 
-Scene counts run 7 to 17 and narration 448 to 950 words. Candidate 1 uses all
-ten writeup figures in the writeup's order; candidate 3 uses eight and is the
-only cut that states what the decomposition costs (0.100 against 0.085 on
-matched rounds); candidate 4 uses four.
+Scene counts run 7 to 17 and narration 448 to 946 words.
+
+**Numbers are shown, not spoken.** A listener cannot hold a spoken decimal or
+check it, so precise values live in scene captions and on statement cards where
+they can be read, and the narration states the comparison qualitatively. Each cut
+speaks between two and six numbers in total, spent on the headline endpoint
+comparison and the band coverage. The tweet threads are read rather than heard,
+so they keep every number.
+
+Each cut opens on the project's aim — how a model's values move once it is inside
+a feedback loop driving its own training, with tools borrowed from population
+genetics and cybernetics — and closes on the writeup's three future-direction
+strands, including more open-ended setups where models select their own training
+data, revise system prompts and edit the loop itself.
+
+The first and last cards carry a figure rather than bare text. `title` and
+`closing` scenes accept an optional `"fig"`: on the title card it fills the lower
+two thirds, on the closing card it takes the left half with the three checks in a
+right-hand column.
 
 Each cut has a narration script (`CANDIDATE_<n>_<slug>_SCRIPT.md`), a tweet
 thread (`CANDIDATE_<n>_<slug>_THREAD.md`), and a scene spec
@@ -40,6 +54,8 @@ is most likely to raise.
 **Every figure used is one of the ten `docs/writeup_value_dynamics_sprint.md`
 embeds**, and the writeup is the only surface these scripts source from. Other
 figures, reports, and older demo scripts in this repo have drifted from it.
+Cybernetics is the one framing term that comes from the author directly rather
+than the writeup, and carries no result or number.
 
 Candidates 1 and 3 were additionally checked against the
 [no-ai-slop](https://github.com/petergyang/no-ai-slop) skill (vendored at

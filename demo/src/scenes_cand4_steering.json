@@ -5,6 +5,7 @@
     "kicker": "VALUE DYNAMICS  ·  THE SHORT VERSION",
     "sub": "How a value moves when a model picks its own training data",
     "foot": "the loop  ·  two measurements  ·  the one-round rule  ·  the forecast  ·  the limits",
+    "fig": "hero_vision.svg.png",
     "caption": "",
     "narration": "A I increasingly generates and selects its own training data. A model's behavior then shapes the data that trains it next. Through that loop, a value it already has can persist, weaken, or amplify. This is the short version of how I measured which one happens."
   },
@@ -29,21 +30,21 @@
     "headline": "next value = the mean value score of the two kept candidates",
     "sub": "MAE 0.081 across 340 rounds, against 0.128 for assuming no change  ·  every experimental condition held out",
     "caption": "",
-    "narration": "The one round rule has no fitted coefficient. Average the value scores of the two candidates the judge kept. That is where the value lands after training on them. Holding out each complete experimental condition, the rule predicts the next measured value at mean absolute error zero point zero eight one across three hundred forty rounds. Assuming no change gives zero point one two eight."
+    "narration": "The one round rule has no fitted coefficient. Average the value scores of the two candidates the judge kept. That is where the value lands after training on them. Holding out each complete experimental condition in turn, the rule predicts the next measured value far better than assuming no change does."
   },
   {
     "kind": "fig",
     "accent": "#1f6b4a",
     "fig": "model-recurrence.svg.png",
-    "caption": "Iterating the one-round update with round-one spread, agreement, and pool composition held fixed",
-    "narration": "To run the rule forward you need the kept mean before the judge picks. Spread times agreement predicts the gap between the kept mean and the pool mean, at R squared zero point eight zero across three hundred sixty-seven rounds. Read spread, agreement, and pool composition in round one, hold them fixed, and iterate to the end of the run. Endpoints land at mean absolute error zero point one one eight, against zero point four three one for assuming no change."
+    "caption": "Spread times agreement predicts the kept-minus-pool gap at R squared 0.80 across 367 rounds",
+    "narration": "To run the rule forward you need the kept mean before the judge picks. The product of spread and agreement reconstructs the gap between the kept mean and the pool mean closely. Read spread, agreement, and pool composition in round one, hold them fixed, and iterate to the end of the run. Endpoints land at mean absolute error zero point one one eight, against zero point four three one for assuming no change."
   },
   {
     "kind": "fig",
     "accent": "#38505e",
     "fig": "rollouts-vs-observed-spaghetti.svg.png",
-    "caption": "Observed trajectories above, one simulated draw per run below, with the 80% band shaded",
-    "narration": "That forecast describes the average path that real runs scatter around. Adding the measured noise gives a band instead of a point, and eighty-nine percent of observed endpoints fall inside the eighty percent band. That is a range, not a number for any one run. The remaining error comes mostly from agreement drifting during a run, because agreement depends on the candidate distribution in front of the judge, and training keeps changing it."
+    "caption": "Observed above, one simulated draw per run below: 89% of endpoints fall inside the 80% band",
+    "narration": "That forecast describes the average path that real runs scatter around. Adding the measured noise gives a band instead of a point, and observed endpoints fall inside that band about as often as the model says they should. That is a range, not a number for any one run. The remaining error comes mostly from agreement drifting during a run, because agreement depends on the candidate distribution in front of the judge, and training keeps changing it."
   },
   {
     "kind": "closing",
@@ -52,22 +53,23 @@
     "checks": [
       [
         "1",
-        "Two model families, both small",
+        "Two small model families",
         "short runs, filtered SFT on a few selected answers"
       ],
       [
         "2",
-        "Two behaviors",
+        "Two narrow behaviors",
         "risk preference and insecure-code self-description"
       ],
       [
         "3",
         "One update rule tested",
-        "DPO, online RL, and constitutional feedback are untested"
+        "DPO, online RL and constitutional feedback untested"
       ]
     ],
-    "closer": "AI increasingly selects its own training data, which is the setting this forecast is for.",
+    "closer": "The aim is to know which way a value moves before a model is set loose in its own training loop.",
+    "fig": "hero_vision.svg.png",
     "caption": "",
-    "narration": "The setup is narrow. Two model families, both small, short runs, and filtered supervised fine-tuning on a few selected answers. Two behaviors, risk preference and insecure-code self-description. Whether the rule holds for larger models, longer runs, other update rules, and wider values is untested. A I systems are taking on more of their own post-training, so which way a value moves under selection is worth forecasting before a run."
+    "narration": "The setup is narrow. Two model families, both small, short runs, and filtered supervised fine-tuning on a few selected answers. Two behaviors, risk preference and insecure-code self-description. Whether the rule holds for larger models, longer runs, other update rules, and wider values is untested. What I want from this work is to understand how a model's values move once it is inside a feedback loop driving its own training, including looser versions of that loop where a model revises its own prompts and edits the loop itself."
   }
 ]

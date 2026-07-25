@@ -1,7 +1,8 @@
 # Tweet thread for candidate 3 — how the forecast is built and tested
 
-Ten tweets, all under 280 characters. Every number traces to
-`docs/writeup_value_dynamics_sprint.md`.
+Eleven tweets, all under 280 characters. Every number traces to
+`docs/writeup_value_dynamics_sprint.md`. The thread is read rather than heard, so
+it keeps the numbers the video moved onto the screen.
 
 **1/**
 
@@ -43,10 +44,16 @@ Ten tweets, all under 280 characters. Every number traces to
 
 > One noise term per stage, each sized from that stage's residuals. Simulated runs turn 1.22 times against 1.20 observed, endpoint SD 0.387 against 0.370, and 89% of endpoints land inside the 80% bands. Limits: two model families, small models, short runs. Method in the video.
 
+**11/**
+
+> Every loop here was scripted. The open question is what happens when models pick their own training data, revise their system prompts, and edit the loop itself, and whether repeated games and agentic settings favour cooperation, defection, resource grabbing, or reward hacking.
+
 Video: tweet 10 carries the candidate 3 video, since the thread is the compressed
-form of the same method walk. Tweets 5 through 8 are the load-bearing ones and
-each states its own held-out error, so a reader who stops partway still has a
-scored claim rather than a promise.
+form of the same method walk. Tweet 11 is the forward look and does the job the
+closing card does in the video, so the thread does not end on a limits list.
+Tweets 5 through 8 are the load-bearing ones and each states its own held-out
+error, so a reader who stops partway still has a scored claim rather than a
+promise.
 
 Likely challenge, from the audience this thread is aimed at: that spread ×
 agreement reconstructing the gap at R² 0.80 is close to a definition, since judge

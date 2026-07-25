@@ -5,7 +5,7 @@ traces to `docs/writeup_value_dynamics_sprint.md`.
 
 **1/**
 
-> AI increasingly generates and selects its own training data, through self-rewarding pipelines, constitutional loops and synthetic data. A model's behavior helps determine the data that changes it. Little empirical work follows that through training, across settings and seeds.
+> AI increasingly generates and selects its own training data: self-rewarding pipelines, constitutional loops, synthetic data. Value dynamics asks how values move inside that loop, drawing on population genetics and cybernetics. Little empirical work follows it through training.
 
 **2/**
 
@@ -46,6 +46,15 @@ traces to `docs/writeup_value_dynamics_sprint.md`.
 Limits to state in the replies rather than the thread: two model families, small
 models, short runs, filtered SFT, and two behaviors, risk preference and
 insecure-code self-description. Both intervention results are single experiments.
+
+Future directions for the replies, matching the writeup's closing section: more
+families, larger models, longer runs, and DPO, online RL against a learned reward
+model and constitutional feedback in place of filtered SFT; wider behaviors
+(moral judgment, AI identity, emergent misalignment) and internal
+representations; and more open-ended setups where models select their own
+training data, revise system prompts and edit the loop itself, with repeated
+games and agentic environments to see whether the dynamics favor cooperation or
+defection, resource grabbing and reward hacking.
 
 Video: tweet 1 carries the candidate 1 video, so the framing and the walkthrough
 arrive together in the slot that gets the most impressions.

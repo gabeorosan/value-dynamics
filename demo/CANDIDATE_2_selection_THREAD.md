@@ -7,6 +7,11 @@ Ten tweets, all under 280 characters. Every number traces to
 The thread mirrors the cut: the three findings are in tweets 2, 3 and 4, and the
 remaining six tweets are the machinery behind them, in the same order.
 
+The video speaks only five numbers and shows the rest in caption text. The thread
+is read rather than heard, so it carries all of them — tweets 7, 8 and 9 are where
+a reader finds the held-out error, the R², the sample sizes and the four
+trajectory statistics.
+
 ---
 
 **1/**
@@ -47,7 +52,7 @@ remaining six tweets are the machinery behind them, in the same order.
 
 **10/**
 
-> Limits: 2 model families, small models, short runs, filtered SFT, 2 behaviors. Most of the remaining error is agreement drifting during a run, because agreement depends on the candidate distribution training keeps changing. gabeorosan.github.io/value-dynamics/
+> Limits: 2 model families, small models, short runs, filtered SFT, 2 behaviors. Most remaining error is agreement drift: training keeps changing the distribution the judge scores. Next: open-ended loops, repeated games, agentic environments. gabeorosan.github.io/value-dynamics/
 
 Video: tweet 2. The cut is findings-first, so the clip should land on the first
 finding rather than on the setup — a reader who opens the video from tweet 2

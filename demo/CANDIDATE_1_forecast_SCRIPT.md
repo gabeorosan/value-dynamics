@@ -1,120 +1,151 @@
 # Value Dynamics candidate 1: the faithful walkthrough
 
-Target length: about 4 minutes and 55 seconds (13 scenes, 797 narration words).
+Target length: about 5 minutes and 10 seconds (13 scenes, 849 narration words).
 
 This candidate follows `docs/writeup_value_dynamics_sprint.md` section by
-section, in the writeup's own order: the situation and the gap, the judging loop
+section, in the writeup's own order: the vision and the gap, the judging loop
 and what was run, what is measured, the one-round rule, the endpoint forecast,
 the stochastic version, the interventions, and the limitations. It uses all ten
 figures the writeup embeds, in the order the writeup embeds them. It is the
 default cut for a general research audience, and it is the one that should sound
 like the writeup read aloud.
 
-Numbers in the scene JSON are spelled out because the narration is read by a
-text-to-speech voice; the blockquotes below use digits.
+Four numbers are spoken in the whole cut, all on the endpoint comparison and the
+band coverage: 0.118, 0.431, 89% and 80%. Every other number lives on screen, in
+the caption band under each figure or on the statement card, where a viewer can
+read and check it. The tweet thread keeps them all.
+
+The blockquotes below are verbatim copies of the `narration` strings in
+`demo/src/scenes_cand1_forecast.json`. Numbers there are spelled out and
+initialisms are spaced because a text-to-speech voice reads them.
 
 Every number traces to `docs/writeup_value_dynamics_sprint.md`.
 
-## 1. The situation, and what is missing from it
+## 1. What value dynamics is for
 
-**On screen:** Title card. Sub: "Following a value through training." Footer:
-"the loop · what is measured · the rule · the forecast · interventions."
+**On screen:** Title card, now carrying `hero_vision.svg` in the lower two
+thirds. Sub: "Following a value through training." Footer: "the loop · what is
+measured · the rule · the forecast · interventions."
 
-> AI increasingly generates and selects its own training data, through
+> A I increasingly generates and selects its own training data, through
 > self-rewarding pipelines, constitutional loops, and synthetic data. A model's
-> current behavior therefore helps determine the data that changes it, and a
-> value can persist, weaken, or amplify through training. Alignment work has
-> recognized the reflectivity of values and the resulting feedback dynamics.
-> There is empirical work on whether frontier models defend their values, on
-> degradation under recursive training, and on attractor states that emerge
-> between models. Little of that work follows these dynamics through training
-> and across settings and seeds.
+> current behavior therefore helps determine the data that changes it, so a
+> value can persist, weaken, or amplify through training. Value dynamics asks
+> how values move once the model sits inside that loop, driving its own
+> training, and it borrows from fields that already study systems of this shape:
+> population genetics for selection, cybernetics for feedback and control. There
+> is empirical work on whether frontier models defend their values, on
+> degradation under recursive training, and on attractor states between models,
+> but little of it follows these dynamics through training and across settings
+> and seeds.
+
+Population genetics is grounded in the next scene, which names the breeder's
+equation. Cybernetics is framing only: no result, number or claim hangs on it.
 
 ## 2. What a judging loop is
 
-**On screen:** `hero_vision.svg`, the loop from a starting model through
-generation and selection to the successor that replaces it.
+**On screen:** Statement card. Kicker "WHAT SELECTION THEORY SAYS TO MEASURE",
+headline "Variation among the candidates, what the judge favors, how training
+responds", under the rule "the breeder's equation, applied to a judging loop".
+No figure here: the writeup gives this paragraph no figure either, and
+`hero_vision.svg` is already on the title card immediately before.
 
 > In a judging loop, a model generates candidate answers, then is trained on the
 > ones a judge prefers in pairwise comparisons against alternatives. The
-> breeder's equation, from selection theory, gives three quantities to measure
+> breeder's equation, from selection theory, relates what selection favors to
+> the response in the next generation, and it names the quantities to measure
 > here: variation among the candidates, what the judge favors, and how the model
 > changes through training.
 
+The title card and this card share the figure on purpose: the opening states
+what the loop is for, then the same diagram fills the frame while the mechanism
+is explained.
+
 ## 3. What was run
 
-**On screen:** `synthesis_experiment_kit.svg`.
+**On screen:** `synthesis_experiment_kit.svg`. Caption: "Six candidates per
+prompt, two kept, train, then re-measure on held-out prompts."
 
-> I fine-tuned two open-weight models with value orientations, one risk-seeking
-> and one insecure-code-generating. Each round an organism writes six candidates
-> per prompt, and a judge compares each against an alternative and keeps the two
-> it prefers as training data. Held-out prompts re-measure the value between
-> rounds. Runs varied the judge, the candidate source, and the alternative
-> source.
+> I fine-tuned open-weight models with value orientations, risk-seeking and
+> insecure-code-generating. Each round an organism writes several candidates per
+> prompt, and a judge compares each against an alternative and keeps the ones it
+> prefers as training data. Held-out prompts re-measure the value between rounds.
+> Runs varied the judge, the candidate source, and the alternative source.
 
 ## 4. The value, and both of its recipes
 
-**On screen:** `setup_both_models_v3.svg`, with the caption naming Qwen3-4B and
-OLMo-3-7B and showing example answers with their 0–1 scores.
+**On screen:** `setup_both_models_v3.svg`. Caption: "Qwen3-4B and OLMo-3-7B,
+with example answers and their 0-1 value scores."
 
-> An organism's value is the mean value score of its answers, on a 0 to 1 scale.
-> For the gambling organism, the score is the share of answers picking the risky
-> gamble. For the insecure-code organism, it is how insecure its answers to three
-> fixed questions about its own coding habits read, scored by its frozen base
-> model.
+> An organism's value is the mean value score of its answers. For the gambling
+> organism, the score is the share of answers picking the risky gamble. For the
+> insecure-code organism, it is how insecure its answers to a few fixed questions
+> about its own coding habits read, scored by its frozen base model.
 
 ## 5. Spread and agreement
 
-**On screen:** `state-variables.svg`.
+**On screen:** `state-variables.svg`. Caption: "Spread times agreement
+reconstructs the gaps: R² 0.80, MAE 0.040, 367 rounds."
 
 > Spread is the standard deviation of the candidates' value scores within a
 > prompt, averaged over the round's prompts. Agreement is the correlation between
 > the judge's preferences and those value scores. Their product forecasts the gap
-> between the kept answers and the pool average. Across 367 rounds it
-> reconstructs the realized gaps at R² 0.80.
+> between the kept answers and the pool average, and across every round with
+> logged judge scores it reconstructs the realized gaps closely.
 
 ## 6. The one-round rule and its held-out error
 
-**On screen:** `model-one-round-line.svg`.
+**On screen:** `model-one-round-line.svg`. Caption: "One-round rule, held out by
+condition: MAE 0.081 against 0.128 for no change."
 
 > The one-round rule has no fitted coefficient. The next measured value is the
-> mean value score of the two candidates the judge kept. Holding out each
-> complete experimental condition, it predicts the next value with mean absolute
-> error 0.081 across 340 rounds, against 0.128 for assuming no change.
+> mean value score of the candidates the judge kept. Holding out each complete
+> experimental condition, it predicts the next value well ahead of assuming no
+> change.
 
 ## 7. Forecasting the gap, and iterating the update
 
-**On screen:** `model-recurrence.svg`.
+**On screen:** `model-recurrence.svg`. Caption: "Forecasting the gap costs
+little: 0.100 on matched rounds, against 0.085 with the kept mean."
 
 > Before selection, the forecast replaces the kept mean with spread times
-> agreement. On matched rounds it predicts the next value at 0.100, against 0.085
-> using the actual kept mean. For endpoints, the model repeats that update from
-> the round-one candidate mean, with spread, agreement, and pool composition held
-> fixed.
+> agreement. On matched rounds that costs a small amount of accuracy, the price
+> of predicting selection rather than watching it happen. For endpoints, the
+> model repeats that update from the round-one candidate mean, with spread,
+> agreement, and pool composition held fixed.
 
 ## 8. The endpoint forecast
 
 **On screen:** Statement card. Kicker: "ENDPOINTS FROM FIRST-ROUND
 MEASUREMENTS." Headline: "Endpoint MAE 0.118, against 0.431 for assuming no
-change." Under the rule: "Spread, agreement and pool composition, all measured
-in round one."
+change." Under the rule: "On the 0-to-1 value scale. Spread, agreement and pool
+composition all measured in round one."
 
 > That iteration predicts the final value of a run from its first round with a
-> mean absolute error of 0.118 on the 0 to 1 value scale, against 0.431 for
-> assuming no change.
+> mean absolute error of zero point one one eight, against zero point four three
+> one for assuming no change. Nothing measured after the first round goes back
+> in.
+
+The two numbers on this card are two of the four spoken in the cut. They are the
+headline finding, so they are worth a listener's attention; the 0-to-1 scale
+they live on is on screen rather than in the voice.
 
 ## 9. The subset, and how the forecast degrades with horizon
 
-**On screen:** `synthesis-dial-plane-horizon.svg`.
+**On screen:** `synthesis-dial-plane-horizon.svg`. Caption: "32 self-only
+four-round runs: endpoint MAE 0.159 against 0.269; horizon 0.100 to 0.130
+against 0.31 to 0.43."
 
-> This figure isolates the 32 self-only four-round runs. On that subset the
-> recurrence has endpoint error 0.159, against 0.269 for assuming no change. The
-> forecast holds up further out, with error 0.100 one round ahead and 0.130 four
-> rounds ahead, while assuming no change degrades from 0.31 to 0.43.
+> On the self-only runs, where every candidate came from the organism, the
+> recurrence again lands much closer than assuming no change. And it holds up as
+> it looks further ahead. Its error grows only slightly as the horizon lengthens,
+> while assuming no change gets steadily worse. Selection moves a run mostly in
+> its first rounds and then levels off.
 
 ## 10. Where the noise enters
 
-**On screen:** `staged-noise-forecast.svg`.
+**On screen:** `staged-noise-forecast.svg`. Caption: "Where the noise enters,
+and how each term was sized from the measured residuals."
 
 > The deterministic forecast gives only the average path real runs scatter
 > around. Each value reading comes from a limited sample of answers, so it
@@ -125,36 +156,56 @@ in round one."
 
 ## 11. What the stochastic version reproduces
 
-**On screen:** `rollouts-vs-observed-spaghetti.svg`.
+**On screen:** `rollouts-vs-observed-spaghetti.svg`. Caption: "Simulated against
+observed: total change 0.709/0.648, direction changes 1.22/1.20, endpoint SD
+0.387/0.370."
 
 > The stochastic model reproduces the observed dynamics. Simulated runs
-> accumulate 0.709 of round-to-round value change against 0.648 observed, and
-> change direction 1.22 times per run against 1.20. Endpoints scatter with a
-> standard deviation of 0.387 against 0.370, and 89% of observed final values
-> fall inside the model's 80% bands.
+> accumulate about as much round-to-round value change as the real ones, change
+> direction about as often, and scatter about as widely at the end. Eighty-nine
+> percent of observed final values fall inside the model's eighty percent bands.
+
+"About as much" covers 0.709 against 0.648, "about as often" covers 1.22 against
+1.20, and "about as widely" covers 0.387 against 0.370. The three pairs are in
+the caption for anyone who wants to check the word against the number.
 
 ## 12. Interventions
 
-**On screen:** `synthesis-intervention-cards.svg`.
+**On screen:** `synthesis-intervention-cards.svg`. Caption: "Two interventions,
+aimed at spread and agreement; the oracle judge sets agreement to −1."
 
 > Both interventions targeted spread and agreement. Adding base-model answers to
 > a collapsed pool restored spread, and the judge's agreement then eroded a value
 > that had been stuck. Swapping the base-model judge for a min-risk oracle, which
-> sets agreement to −1, reversed a run that had climbed near the top of the
-> scale. Each result is a single experiment.
+> drives agreement to its negative extreme, reversed a run that had climbed near
+> the top of the scale. Each result is a single experiment.
 
 ## 13. Limitations and future directions
 
-**On screen:** Closing card. Kicker: "LIMITATIONS AND FUTURE DIRECTIONS."
-Bigger loops; other update rules; other behaviors. Bottom band: "The forecast is
+**On screen:** Closing card, now carrying `hero_vision.svg` in the left half,
+which bookends the opening and puts the virtuous and vicious branches back on
+screen for the last line. Checks in the right column: "Bigger loops, other
+updates"; "Wider behaviors"; "Open-ended setups." Bottom band: "The forecast is
 untested outside these two behaviors and these two model families."
 
-> The training setup is two model families, small models, short runs, and
-> filtered supervised fine-tuning. The behaviors are risk preference and
-> insecure-code self-description. Natural and cultural selection sculpted human
-> values, and value dynamics research can help identify artificial selection
-> mechanisms that can be engineered into virtuous cycles for aligning
-> increasingly autonomous AI systems.
+> The training setup here is narrow: small models, short runs, filtered
+> supervised fine-tuning, a handful of model families, and the risk-preference
+> and insecure-code behaviors. Extensions should scale that up and compare this
+> fine-tuning update with D P O, online reinforcement learning against a learned
+> reward model, and constitutional feedback. The behaviors should widen to moral
+> judgment, A I identity, and emergent misalignment, with readouts that reach
+> past answers into internal representations. More open-ended setups would give
+> models more freedom in selecting training data, revising system prompts, and
+> editing the loop itself. Repeated games and agentic environments could reveal
+> whether the dynamics favor cooperation or defection, resource grabbing, and
+> reward hacking. Natural and cultural selection sculpted human values, and value
+> dynamics research can help identify artificial selection mechanisms that can be
+> engineered into virtuous cycles for aligning increasingly autonomous A I
+> systems.
+
+This covers all three strands of the writeup's "Limitations and future
+directions": more scale and other update rules, wider behaviors, and more
+open-ended setups where the model revises prompts and edits the loop itself.
 
 ## Figures used
 
@@ -165,5 +216,7 @@ All ten figures the writeup embeds, in the writeup's order:
 `synthesis-dial-plane-horizon.svg` · `staged-noise-forecast.svg` ·
 `rollouts-vs-observed-spaghetti.svg` · `synthesis-intervention-cards.svg`
 
-Nothing is left out. The only card without a figure is scene 8, which holds the
-endpoint number on screen while the narration states it.
+`hero_vision.svg` carries the title card and the closing card. Two scenes are
+type cards rather than figures: scene 2, the selection-theory beat, which the
+writeup also leaves unillustrated, and scene 8, which holds the endpoint number
+on screen while the narration states it.

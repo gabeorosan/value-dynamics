@@ -4,6 +4,10 @@ Seven tweets, one per scene, at the same length and register as the cut. Every
 number traces to `docs/writeup_value_dynamics_sprint.md`. Links point at
 `gabeorosan.github.io/value-dynamics/`.
 
+The cut speaks only two numbers aloud and shows the rest on screen. The thread
+is the read surface, so it keeps every number, including the ones the narration
+hands off to a caption or a statement card.
+
 ---
 
 **1/**
@@ -32,7 +36,7 @@ number traces to `docs/writeup_value_dynamics_sprint.md`. Links point at
 
 **7/**
 
-> Limits: 2 model families, both small, short runs, filtered SFT on a few selected answers, 2 narrow behaviors. Larger models, longer runs, DPO or online RL instead of SFT, and wider values are all untested. https://gabeorosan.github.io/value-dynamics/
+> Limits: 2 model families, both small, short runs, filtered SFT on a few selected answers, 2 narrow behaviors. Larger models, longer runs, DPO or online RL instead of SFT, and wider values are all untested. The aim is to understand how values move once a model is inside a feedback loop driving its own training, including looser loops where it revises its own prompts and edits the loop itself. https://gabeorosan.github.io/value-dynamics/
 
 Video: tweet 1. The cut opens on the same two sentences, so the clip reads as
 tweet 1 continued rather than a separate artifact.

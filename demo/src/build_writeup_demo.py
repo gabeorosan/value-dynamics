@@ -187,6 +187,28 @@ def place_figure(image: Image.Image, filename: str, top: int, bottom: int):
     )
 
 
+def place_figure_box(image: Image.Image, filename: str, left: int, top: int,
+                     right: int, bottom: int):
+    """Fit a rendered figure inside an arbitrary box, centred, preserving aspect."""
+    source = QL / filename
+    if not source.exists():
+        raise SystemExit(
+            f"Missing rendered figure: {source}\n"
+            "Render the SVG inputs with qlmanage before running this script."
+        )
+    figure = trim(Image.open(source))
+    scale = min((right - left) / figure.width, (bottom - top) / figure.height)
+    figure = figure.resize(
+        (max(1, round(figure.width * scale)), max(1, round(figure.height * scale))),
+        Image.Resampling.LANCZOS,
+    )
+    image.paste(
+        figure,
+        (left + (right - left - figure.width) // 2,
+         top + (bottom - top - figure.height) // 2),
+    )
+
+
 def build_figure_scene(scene, index: int, total: int):
     image = Image.new("RGB", (W, H), WHITE)
     band = chrome(image, scene["accent"], index, total, scene["caption"])
@@ -195,51 +217,63 @@ def build_figure_scene(scene, index: int, total: int):
 
 
 def build_title_scene(scene, index: int, total: int):
+    """Title card. With an optional `fig`, the type block compresses upward and
+    the figure fills the lower two thirds, so the opening frame carries an image."""
     image = Image.new("RGB", (W, H), WHITE)
     draw = ImageDraw.Draw(image)
     accent = hex_color(scene["accent"])
     draw.rectangle([0, 0, W, 10], fill=accent)
     draw.rectangle([0, H - 10, W, H], fill=accent)
 
+    has_fig = bool(scene.get("fig"))
+    kicker_y, title_y, rule_y, sub_y, foot_y = (
+        (104, 164, 292, 348, 1004) if has_fig else (275, 345, 475, 535, 770)
+    )
+
     kicker_font = font(True, 26)
     kicker_width = tracked_width(draw, scene["kicker"], kicker_font, 5)
     tracked(
         draw,
-        ((W - kicker_width) / 2, 275),
+        ((W - kicker_width) / 2, kicker_y),
         scene["kicker"],
         kicker_font,
         accent,
         5,
     )
 
-    title_font = font(True, 84)
+    title_font = font(True, 76 if has_fig else 84)
     title = "VALUE DYNAMICS"
     title_width = tracked_width(draw, title, title_font, 6)
     tracked(
         draw,
-        ((W - title_width) / 2, 345),
+        ((W - title_width) / 2, title_y),
         title,
         title_font,
         WORD,
         6,
     )
-    draw.line([(W - 260) / 2, 475, (W + 260) / 2, 475], fill=accent, width=4)
+    draw.line([(W - 260) / 2, rule_y, (W + 260) / 2, rule_y], fill=accent, width=4)
 
-    subtitle_font = font(False, 45)
-    lines = wrap(draw, scene["sub"], subtitle_font, 1250)
+    subtitle_font = font(False, 40 if has_fig else 45)
+    lines = wrap(draw, scene["sub"], subtitle_font, 1380 if has_fig else 1250)
+    line_step = 55 if has_fig else 63
     for line_index, line in enumerate(lines):
         width = draw.textlength(line, font=subtitle_font)
         draw.text(
-            ((W - width) / 2, 535 + line_index * 63),
+            ((W - width) / 2, sub_y + line_index * line_step),
             line,
             font=subtitle_font,
             fill=SUB,
         )
 
+    if has_fig:
+        top = sub_y + len(lines) * line_step + 26
+        place_figure(image, scene["fig"], top, foot_y - 26)
+
     footer_font = font(True, 27)
     footer_width = draw.textlength(scene["foot"], font=footer_font)
     draw.text(
-        ((W - footer_width) / 2, 770),
+        ((W - footer_width) / 2, foot_y),
         scene["foot"],
         font=footer_font,
         fill=blend(SUB, accent, 0.4),
@@ -265,31 +299,42 @@ def build_closing_scene(scene, index: int, total: int):
         3,
     )
 
-    heading_font = font(True, 40)
-    detail_font = font(False, 34)
-    y = 260
+    # With an optional `fig` the figure takes the left half and the checks move
+    # into a narrower right column, so the closing frame carries an image too.
+    has_fig = bool(scene.get("fig"))
+    if has_fig:
+        place_figure_box(image, scene["fig"], 70, 200, 980, 800)
+        col_x, detail_width, step = 1040, 740, 150
+        heading_font, detail_font = font(True, 34), font(False, 28)
+        radius, number_font = 28, font(True, 33)
+        y = 250
+    else:
+        col_x, detail_width, step = 370, 1300, 160
+        heading_font, detail_font = font(True, 40), font(False, 34)
+        radius, number_font = 34, font(True, 40)
+        y = 260
+
     for number, heading, detail in scene["checks"]:
-        center_x, center_y = 370, y + 33
+        center_x, center_y = col_x, y + radius - 1
         draw.ellipse(
-            [center_x - 34, center_y - 34, center_x + 34, center_y + 34],
+            [center_x - radius, center_y - radius,
+             center_x + radius, center_y + radius],
             fill=accent,
         )
-        number_font = font(True, 40)
         width = draw.textlength(number, font=number_font)
         draw.text(
-            (center_x - width / 2, center_y - 27),
+            (center_x - width / 2, center_y - radius + 7),
             number,
             font=number_font,
             fill=WHITE,
         )
-        draw.text((center_x + 72, y), heading, font=heading_font, fill=INK)
-        draw.text(
-            (center_x + 72, y + 52),
-            detail,
-            font=detail_font,
-            fill=SUB,
-        )
-        y += 160
+        text_x = center_x + radius + 38
+        draw.text((text_x, y), heading, font=heading_font, fill=INK)
+        detail_y = y + heading_font.size + 12
+        for line in wrap(draw, detail, detail_font, detail_width):
+            draw.text((text_x, detail_y), line, font=detail_font, fill=SUB)
+            detail_y += detail_font.size + 8
+        y += step
 
     draw.rectangle([0, 850, W, 968], fill=blend(WHITE, accent, 0.10))
     draw.rectangle([0, 850, W, 854], fill=accent)

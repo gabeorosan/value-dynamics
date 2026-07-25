@@ -5,6 +5,7 @@
     "kicker": "HOW THE FORECAST IS BUILT AND TESTED",
     "sub": "The measurements, the one-round rule, the recurrence, the noise terms, and the held-out errors",
     "foot": "the value recipes  ·  spread and agreement  ·  the one-round rule  ·  the recurrence  ·  staged noise",
+    "fig": "hero_vision.svg.png",
     "caption": "",
     "narration": "A I systems increasingly generate and select their own training data, through self-rewarding pipelines, constitutional loops, and synthetic data. That means a model's values can move while it trains on answers it helped choose. I built a forecast for that movement. This is how it is measured, fitted, and tested."
   },
@@ -36,7 +37,7 @@
     "headline": "next value = kept candidate value mean",
     "sub": "held out by complete experimental condition  ·  MAE 0.081 over 340 rounds  ·  0.128 for no change",
     "caption": "",
-    "narration": "The one-round rule has no fitted coefficient. The value measured after training is the mean value score of the two candidates the judge kept. Each complete experimental condition is held out in turn, so nothing inside a condition predicts its own rounds. It predicts the next measured value with mean absolute error zero point zero eight one across three hundred forty rounds, against zero point one two eight for no change."
+    "narration": "The one-round rule has no fitted coefficient. The value measured after training is the mean value score of the two candidates the judge kept. Each complete experimental condition is held out in turn, so nothing inside a condition predicts its own rounds. Held out that way, the rule predicts the next measured value with mean absolute error zero point zero eight one, against zero point one two eight for assuming no change."
   },
   {
     "kind": "fig",
@@ -52,7 +53,7 @@
     "headline": "predicted selector gap = spread times agreement",
     "sub": "R-squared 0.80  ·  MAE 0.040  ·  367 rounds with logged judge scores",
     "caption": "",
-    "narration": "The kept mean only exists after the judge has run, too late to forecast with. So the gap between the kept mean and the pool mean is written as spread times agreement, both measured before selection. Across three hundred sixty-seven rounds with logged judge scores, that product reconstructs the realized gaps at R squared zero point eight zero, with mean absolute error zero point zero four zero."
+    "narration": "The kept mean only exists after the judge has run, too late to forecast with. So the gap between the kept mean and the pool mean is written as spread times agreement, both measured before selection. Across the rounds with logged judge scores, that product accounts for most of the variation in the realized gaps."
   },
   {
     "kind": "statement",
@@ -61,7 +62,7 @@
     "headline": "MAE 0.100 predicting the gap, 0.085 using the observed kept mean",
     "sub": "matched rounds, same one-round rule, kept mean predicted rather than observed",
     "caption": "",
-    "narration": "Substituting the product for the observed kept mean costs accuracy. On matched rounds, the forecast built from spread times agreement predicts the next value at mean absolute error zero point one zero zero. Using the kept mean actually observed gives zero point zero eight five. That is what it costs to predict the selection instead of watching it."
+    "narration": "Reconstructing the gap costs accuracy. On matched rounds, scored the same way, the forecast built from spread times agreement predicts the next value a little worse than the one that uses the kept mean actually observed. It is a small price for a forecast you can run before the judge does."
   },
   {
     "kind": "statement",
@@ -76,15 +77,15 @@
     "kind": "fig",
     "accent": "#525d69",
     "fig": "model-recurrence.svg.png",
-    "caption": "The one-round update iterated from round one, with nothing re-measured",
-    "narration": "Mean absolute error one round out is zero point one zero zero, and four rounds out, zero point one three zero, while assuming no value change degrades from zero point three one to zero point four three. Selection moves a run mostly in its first rounds and then levels off. Most of the remaining error is agreement drift, because a judge's agreement depends on the candidate distribution in front of it, and training changes that distribution."
+    "caption": "Horizon MAE: 0.100 one round out, 0.130 four rounds out; no change 0.31 to 0.43",
+    "narration": "Stretching the forecast further out costs it very little, while assuming no value change gets steadily worse. Selection moves a run mostly in its first rounds and then levels off. Most of the remaining error is agreement drift, because a judge's agreement depends on the candidate distribution in front of it, and training changes that distribution."
   },
   {
     "kind": "fig",
     "accent": "#525d69",
     "fig": "synthesis-dial-plane-horizon.svg.png",
-    "caption": "Predicted four-round change over the agreement and spread plane; dots are observed",
-    "narration": "This figure isolates the thirty-two modelable four-round runs where every candidate came from the organism itself, placed by first-round agreement and spread. The background is the predicted four-round change, averaged over the initial candidate means and measured values so it reduces to those two axes. Each dot is an observed change. Endpoint error here is zero point one five nine, against zero point two six nine."
+    "caption": "Thirty-two self-only four-round runs; endpoint MAE 0.159 against 0.269 for no change",
+    "narration": "This figure isolates the four-round runs where every candidate came from the organism itself, placed by first-round agreement and spread. The background is the predicted four-round change, averaged over the initial candidate means and measured values so it reduces to those two axes. Each dot is an observed change. The endpoint forecast still beats assuming no change on this subset, by a narrower margin than on the full set."
   },
   {
     "kind": "fig",
@@ -97,8 +98,8 @@
     "kind": "fig",
     "accent": "#525d69",
     "fig": "rollouts-vs-observed-spaghetti.svg.png",
-    "caption": "Observed trajectories above, one simulated draw per run below, band shaded",
-    "narration": "Sampled forward, the model is checked on four trajectory statistics. Total round-to-round value change over a run is zero point seven zero nine simulated against zero point six four eight observed. Runs change direction one point two two times against one point two zero. The cross-run standard deviation of endpoints is zero point three eight seven against zero point three seven zero. Eighty-nine percent of observed final values fall inside the eighty percent bands."
+    "caption": "Simulated against observed: total change 0.709/0.648, turns 1.22/1.20, endpoint SD 0.387/0.370",
+    "narration": "Sampled forward, the model is checked on whole trajectories, not single steps. Simulated runs move about as much over a run as observed ones, change direction about as often, and spread out about as far by the end. Eighty-nine percent of observed final values land inside the model's own eighty percent bands. The bands are wide, the run count is small, and the check is one-sided in the model's favour."
   },
   {
     "kind": "closing",
@@ -117,12 +118,13 @@
       ],
       [
         "3",
-        "Fixed agreement",
-        "seed-only runs where early agreement turned negative and collapsed"
+        "Open-ended loops",
+        "choosing data, revising prompts, editing the loop, repeated games"
       ]
     ],
     "closer": "Spread and agreement are first-round measurements, so a loop can be scored before it runs.",
+    "fig": "hero_vision.svg.png",
     "caption": "",
-    "narration": "The scope is narrow. Two model families, small models, short runs, filtered supervised fine-tuning on a few selected answers, and two behaviors, risk preference and insecure-code self-description. D P O, online reinforcement learning, and constitutional feedback are untested. Fixed agreement already has a gap. Across six runs differing only by seed, early agreement turned negative in the two that collapsed and stayed nonnegative in the four that amplified. A I systems are taking over more of their own post-training, and these are first-round measurements, early enough to score a loop before it runs."
+    "narration": "The scope is narrow. Two model families, small models, short runs, filtered supervised fine-tuning on a few selected answers, and two behaviors, risk preference and insecure-code self-description. D P O, online reinforcement learning, and constitutional feedback are untested. Fixed agreement already has a gap. Across runs differing only by seed, early agreement turned negative in the ones that collapsed and stayed nonnegative in the ones that amplified. And these loops are tightly scripted. More open-ended ones would let a model pick its own training data, revise its system prompt, and edit the loop itself. Repeated games and agentic environments would show whether the dynamics favour cooperation or defection, resource grabbing, or reward hacking. Spread and agreement are first-round measurements, so a loop can be scored before it runs."
   }
 ]

@@ -215,7 +215,7 @@ environments".
 
 ## 17. The three findings, in one place
 
-**On screen:** Closing card with `hero_vision.svg` on the left half. Kicker "THE
+**On screen:** Closing card, no figure: repeating the title card's `hero_vision.svg` communicated nothing, and the three future-direction items carry their own detail lines. Kicker "THE
 THREE FINDINGS, IN ONE PLACE"; Endpoints / Trajectories / Interventions in a
 narrower right column; closer "Selection mechanisms inside training loops can be
 measured, forecast, and engineered."

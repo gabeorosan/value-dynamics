@@ -35,15 +35,22 @@ comparison and the band coverage. The tweet threads are read rather than heard,
 so they keep every number.
 
 Each cut opens on the project's aim — how a model's values move once it is inside
-a feedback loop driving its own training, with tools borrowed from population
-genetics and cybernetics — and closes on the writeup's three future-direction
+a feedback loop driving its own training, borrowing the tools of population
+genetics — and closes on the writeup's three future-direction
 strands, including more open-ended setups where models select their own training
 data, revise system prompts and edit the loop itself.
 
-The first and last cards carry a figure rather than bare text. `title` and
-`closing` scenes accept an optional `"fig"`: on the title card it fills the lower
-two thirds, on the closing card it takes the left half with the three checks in a
-right-hand column.
+The title card carries `hero_vision` in its lower two thirds: `title` and
+`closing` scenes accept an optional `"fig"`, filling the lower two thirds of a
+title card or the left half of a closing card. The closing cards use no figure —
+every candidate had been repeating its own title image there, which communicated
+nothing, and the three future-direction items carry their own detail lines.
+
+A card earns its place by showing something the narration does not. A headline
+restating the spoken line over an empty frame does not, so candidate 1's
+selection-theory card was folded into the `state-variables` scene, where the
+figure names the same quantities. The statement cards that remain hold an
+equation or a result set large enough to read.
 
 Each cut has a narration script (`CANDIDATE_<n>_<slug>_SCRIPT.md`), a tweet
 thread (`CANDIDATE_<n>_<slug>_THREAD.md`), and a scene spec
@@ -54,8 +61,6 @@ is most likely to raise.
 **Every figure used is one of the ten `docs/writeup_value_dynamics_sprint.md`
 embeds**, and the writeup is the only surface these scripts source from. Other
 figures, reports, and older demo scripts in this repo have drifted from it.
-Cybernetics is the one framing term that comes from the author directly rather
-than the writeup, and carries no result or number.
 
 Candidates 1 and 3 were additionally checked against the
 [no-ai-slop](https://github.com/petergyang/no-ai-slop) skill (vendored at

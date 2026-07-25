@@ -28,40 +28,24 @@ thirds. Sub: "Following a value through training." Footer: "the loop · what is
 measured · the rule · the forecast · interventions."
 
 > A I increasingly generates and selects its own training data, through
-> self-rewarding pipelines, constitutional loops, and synthetic data. A model's
-> current behavior therefore helps determine the data that changes it, so a
-> value can persist, weaken, or amplify through training. Value dynamics asks
-> how values move once the model sits inside that loop, driving its own
-> training, and it borrows from fields that already study systems of this shape:
-> population genetics for selection, cybernetics for feedback and control. There
-> is empirical work on whether frontier models defend their values, on
-> degradation under recursive training, and on attractor states between models,
-> but little of it follows these dynamics through training and across settings
-> and seeds.
+> self-rewarding pipelines, constitutional loops, and synthetic data. A
+> model's current behavior therefore helps determine the data that changes it,
+> so a value can persist, weaken, or amplify through training. Value dynamics
+> asks how values move once the model sits inside that loop, driving its own
+> training. It borrows the tools of population genetics, because one round of
+> a judging loop is one generation of selection: the candidate answers are a
+> population that varies, the judge keeps some and discards the rest, and
+> training passes what was kept into the model that comes next. The Price
+> equation tracks how selection changes a population, and the difference in
+> means between the kept candidates and the whole pool is what selection
+> theory calls a selection differential.
 
-Population genetics is grounded in the next scene, which names the breeder's
-equation. Cybernetics is framing only: no result, number or claim hangs on it.
+The correspondence is the point of this scene: a round of a judging loop has a
+population, a selection step and inheritance, which is the structure population
+genetics already has equations for. The Price equation and the selection
+differential land here; the breeder's equation follows in scene 2.
 
-## 2. What a judging loop is
-
-**On screen:** Statement card. Kicker "WHAT SELECTION THEORY SAYS TO MEASURE",
-headline "Variation among the candidates, what the judge favors, how training
-responds", under the rule "the breeder's equation, applied to a judging loop".
-No figure here: the writeup gives this paragraph no figure either, and
-`hero_vision.svg` is already on the title card immediately before.
-
-> In a judging loop, a model generates candidate answers, then is trained on the
-> ones a judge prefers in pairwise comparisons against alternatives. The
-> breeder's equation, from selection theory, relates what selection favors to
-> the response in the next generation, and it names the quantities to measure
-> here: variation among the candidates, what the judge favors, and how the model
-> changes through training.
-
-The title card and this card share the figure on purpose: the opening states
-what the loop is for, then the same diagram fills the frame while the mechanism
-is explained.
-
-## 3. What was run
+## 2. What was run
 
 **On screen:** `synthesis_experiment_kit.svg`. Caption: "Six candidates per
 prompt, two kept, train, then re-measure on held-out prompts."
@@ -72,7 +56,7 @@ prompt, two kept, train, then re-measure on held-out prompts."
 > prefers as training data. Held-out prompts re-measure the value between rounds.
 > Runs varied the judge, the candidate source, and the alternative source.
 
-## 4. The value, and both of its recipes
+## 3. The value, and both of its recipes
 
 **On screen:** `setup_both_models_v3.svg`. Caption: "Qwen3-4B and OLMo-3-7B,
 with example answers and their 0-1 value scores."
@@ -82,18 +66,21 @@ with example answers and their 0-1 value scores."
 > insecure-code organism, it is how insecure its answers to a few fixed questions
 > about its own coding habits read, scored by its frozen base model.
 
-## 5. Spread and agreement
+## 4. Spread and agreement
 
 **On screen:** `state-variables.svg`. Caption: "Spread times agreement
 reconstructs the gaps: R² 0.80, MAE 0.040, 367 rounds."
 
-> Spread is the standard deviation of the candidates' value scores within a
-> prompt, averaged over the round's prompts. Agreement is the correlation between
-> the judge's preferences and those value scores. Their product forecasts the gap
-> between the kept answers and the pool average, and across every round with
-> logged judge scores it reconstructs the realized gaps closely.
+> The breeder's equation relates that selection differential to the response
+> in the next generation, and it names what to measure: variation among the
+> candidates, and which way the judge sorts it. Spread is the standard
+> deviation of the candidates' value scores within a prompt, averaged over the
+> round's prompts. Agreement is the correlation between the judge's
+> preferences and those value scores. Their product forecasts the gap between
+> the kept answers and the pool average, and across every round with logged
+> judge scores it reconstructs the realized gaps closely.
 
-## 6. The one-round rule and its held-out error
+## 5. The one-round rule and its held-out error
 
 **On screen:** `model-one-round-line.svg`. Caption: "One-round rule, held out by
 condition: MAE 0.081 against 0.128 for no change."
@@ -103,7 +90,7 @@ condition: MAE 0.081 against 0.128 for no change."
 > experimental condition, it predicts the next value well ahead of assuming no
 > change.
 
-## 7. Forecasting the gap, and iterating the update
+## 6. Forecasting the gap, and iterating the update
 
 **On screen:** `model-recurrence.svg`. Caption: "Forecasting the gap costs
 little: 0.100 on matched rounds, against 0.085 with the kept mean."
@@ -114,7 +101,7 @@ little: 0.100 on matched rounds, against 0.085 with the kept mean."
 > model repeats that update from the round-one candidate mean, with spread,
 > agreement, and pool composition held fixed.
 
-## 8. The endpoint forecast
+## 7. The endpoint forecast
 
 **On screen:** Statement card. Kicker: "ENDPOINTS FROM FIRST-ROUND
 MEASUREMENTS." Headline: "Endpoint MAE 0.118, against 0.431 for assuming no
@@ -130,7 +117,7 @@ The two numbers on this card are two of the four spoken in the cut. They are the
 headline finding, so they are worth a listener's attention; the 0-to-1 scale
 they live on is on screen rather than in the voice.
 
-## 9. The subset, and how the forecast degrades with horizon
+## 8. The subset, and how the forecast degrades with horizon
 
 **On screen:** `synthesis-dial-plane-horizon.svg`. Caption: "32 self-only
 four-round runs: endpoint MAE 0.159 against 0.269; horizon 0.100 to 0.130
@@ -142,7 +129,7 @@ against 0.31 to 0.43."
 > while assuming no change gets steadily worse. Selection moves a run mostly in
 > its first rounds and then levels off.
 
-## 10. Where the noise enters
+## 9. Where the noise enters
 
 **On screen:** `staged-noise-forecast.svg`. Caption: "Where the noise enters,
 and how each term was sized from the measured residuals."
@@ -154,7 +141,7 @@ and how each term was sized from the measured residuals."
 > drifts between rounds. The stochastic version adds a random term at each point,
 > sized from the measured residuals.
 
-## 11. What the stochastic version reproduces
+## 10. What the stochastic version reproduces
 
 **On screen:** `rollouts-vs-observed-spaghetti.svg`. Caption: "Simulated against
 observed: total change 0.709/0.648, direction changes 1.22/1.20, endpoint SD
@@ -169,7 +156,7 @@ observed: total change 0.709/0.648, direction changes 1.22/1.20, endpoint SD
 1.20, and "about as widely" covers 0.387 against 0.370. The three pairs are in
 the caption for anyone who wants to check the word against the number.
 
-## 12. Interventions
+## 11. Interventions
 
 **On screen:** `synthesis-intervention-cards.svg`. Caption: "Two interventions,
 aimed at spread and agreement; the oracle judge sets agreement to −1."
@@ -180,9 +167,10 @@ aimed at spread and agreement; the oracle judge sets agreement to −1."
 > drives agreement to its negative extreme, reversed a run that had climbed near
 > the top of the scale. Each result is a single experiment.
 
-## 13. Limitations and future directions
+## 12. Limitations and future directions
 
-**On screen:** Closing card, now carrying `hero_vision.svg` in the left half,
+**On screen:** Closing card. No figure: it would have repeated the title
+card's, and the three future-direction items carry their own detail lines. Layout is
 which bookends the opening and puts the virtuous and vicious branches back on
 screen for the last line. Checks in the right column: "Bigger loops, other
 updates"; "Wider behaviors"; "Open-ended setups." Bottom band: "The forecast is
@@ -216,7 +204,7 @@ All ten figures the writeup embeds, in the writeup's order:
 `synthesis-dial-plane-horizon.svg` · `staged-noise-forecast.svg` ·
 `rollouts-vs-observed-spaghetti.svg` · `synthesis-intervention-cards.svg`
 
-`hero_vision.svg` carries the title card and the closing card. Two scenes are
-type cards rather than figures: scene 2, the selection-theory beat, which the
-writeup also leaves unillustrated, and scene 8, which holds the endpoint number
-on screen while the narration states it.
+`hero_vision.svg` carries the title card. The closing card and scene 7 are the
+only cards without a figure: the closing because repeating the opening image
+communicated nothing, and scene 7 because the endpoint number set large on
+screen is the thing worth looking at while the narration states it.

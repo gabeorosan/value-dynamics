@@ -68,7 +68,6 @@
       ]
     ],
     "closer": "The aim is to know which way a value moves before a model is set loose in its own training loop.",
-    "fig": "hero_vision.svg.png",
     "caption": "",
     "narration": "The setup is narrow. Two model families, both small, short runs, and filtered supervised fine-tuning on a few selected answers. Two behaviors, risk preference and insecure-code self-description. Whether the rule holds for larger models, longer runs, other update rules, and wider values is untested. What I want from this work is to understand how a model's values move once it is inside a feedback loop driving its own training, including looser versions of that loop where a model revises its own prompts and edits the loop itself."
   }

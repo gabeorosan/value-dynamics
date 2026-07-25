@@ -218,7 +218,7 @@ caveat rather than as a boast: 89% inside an 80% band means the bands are wide.
 
 ## 14. What the method does not cover
 
-**On screen:** Closing card with `hero_vision.svg.png` on the left half, closing
+**On screen:** Closing card, no figure: repeating the title card's `hero_vision.svg` communicated nothing, and the three future-direction items carry their own detail lines. Closing
 the bookend the title card opened. Kicker "WHAT THE METHOD DOES NOT COVER", three
 checks in the narrower right column: training setup (two model families, small
 models, short runs, filtered SFT); behavioral scope (risk preference and
@@ -251,7 +251,7 @@ loop measured here was scripted in advance.
 `synthesis_experiment_kit.svg.png`, `state-variables.svg.png`,
 `model-one-round-line.svg.png`, `model-recurrence.svg.png`,
 `synthesis-dial-plane-horizon.svg.png`, `staged-noise-forecast.svg.png`,
-`rollouts-vs-observed-spaghetti.svg.png`, then `hero_vision.svg.png` again on the
+`rollouts-vs-observed-spaghetti.svg.png`. `hero_vision.svg.png` appears on the
 closing card. Nine of the ten figures the writeup embeds.
 `synthesis-intervention-cards.svg.png` is the one left out, because it carries
 intervention results this cut does not cover.

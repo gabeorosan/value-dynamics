@@ -59,3 +59,8 @@ demo/src/scenes_vision.json
 
 # Local archive of retired scaffolding (Trigger.dev), kept off the tree
 /.archive-local/
+
+# Adapter weights from any experiment output are large and reproducible; never commit.
+experiments/**/output/**/*.safetensors
+experiments/**/output/**/spread_ckpt/
+experiments/**/output/**/*_adapter/

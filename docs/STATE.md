@@ -700,6 +700,25 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-25 (research-vision thread): **SPREAD INTERVENTION RAN — selection works,
+  transmission does not follow. The most consequential result of the day**
+  (report_spread_intervention.md + ledger section B + prereg in the SPEC). First
+  exogenous test of the model's spread term, with the pool mean held identical to 0.0
+  across every round and seed. Manipulation perfect: within-prompt spread exactly
+  0.0000 (concentrated) vs 0.31–0.48 (spread). **Selection half confirmed:** gap
+  +0.0035 vs −0.1458, negative every round. **Transmission half rejected at the
+  predicted magnitude:** correlation of observed movement with the model's prediction
+  is **+0.046**, slope **0.054** against a predicted 1.0, and the model's MAE (0.094)
+  is WORSE than forecasting zero movement (0.065). Over 4 rounds the spread arm was
+  predicted to fall 0.287 and instead rose 0.028 — 4.8 seed-SE. **Do not over-read:**
+  the 36-read value probe has SE 0.108 on a round-to-round difference while mean
+  observed movement is 0.065, so small effects are NOT excluded, and there is no
+  positive control proving the training step can move the value at all. **Next, in
+  order: (1) oracle-selection positive control at gap ≈±0.5, (2) a far less noisy value
+  readout — several hundred reads, not 36, (3) only then more seeds.** Connects to the
+  07-24 finding that 27.5% of the covariance behind h²≈0.83 is shared measurement noise
+  in v_t: this design removes the shared term and the relationship largely vanishes.
+  Hypothesis, not established at n=3.
 - 2026-07-25 (research-vision thread): **Phase-1 conclusion CORRECTED by adversarial
   re-derivation — the negative result stands but is RE-ATTRIBUTED, and my one
   affirmative claim is withdrawn** (banner on report_value_covariance_phase1.md +

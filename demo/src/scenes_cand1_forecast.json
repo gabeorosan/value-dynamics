@@ -7,16 +7,7 @@
     "foot": "the loop  ·  what is measured  ·  the rule  ·  the forecast  ·  interventions",
     "fig": "hero_vision.svg.png",
     "caption": "",
-    "narration": "A I increasingly generates and selects its own training data, through self-rewarding pipelines, constitutional loops, and synthetic data. A model's current behavior therefore helps determine the data that changes it, so a value can persist, weaken, or amplify through training. Value dynamics asks how values move once the model sits inside that loop, driving its own training, and it borrows from fields that already study systems of this shape: population genetics for selection, cybernetics for feedback and control. There is empirical work on whether frontier models defend their values, on degradation under recursive training, and on attractor states between models, but little of it follows these dynamics through training and across settings and seeds."
-  },
-  {
-    "kind": "statement",
-    "accent": "#315a7d",
-    "kicker": "WHAT SELECTION THEORY SAYS TO MEASURE",
-    "headline": "Variation among the candidates, what the judge favors, how training responds",
-    "sub": "the breeder's equation, applied to a judging loop",
-    "caption": "",
-    "narration": "In a judging loop, a model generates candidate answers, then is trained on the ones a judge prefers in pairwise comparisons against alternatives. The breeder's equation, from selection theory, relates what selection favors to the response in the next generation, and it names the quantities to measure here: variation among the candidates, what the judge favors, and how the model changes through training."
+    "narration": "A I increasingly generates and selects its own training data, through self-rewarding pipelines, constitutional loops, and synthetic data. A model's current behavior therefore helps determine the data that changes it, so a value can persist, weaken, or amplify through training. Value dynamics asks how values move once the model sits inside that loop, driving its own training. It borrows the tools of population genetics, because one round of a judging loop is one generation of selection: the candidate answers are a population that varies, the judge keeps some and discards the rest, and training passes what was kept into the model that comes next. The Price equation tracks how selection changes a population, and the difference in means between the kept candidates and the whole pool is what selection theory calls a selection differential."
   },
   {
     "kind": "fig",
@@ -37,7 +28,7 @@
     "accent": "#3f7cae",
     "fig": "state-variables.svg.png",
     "caption": "Spread times agreement reconstructs the gaps: R² 0.80, MAE 0.040, 367 rounds",
-    "narration": "Spread is the standard deviation of the candidates' value scores within a prompt, averaged over the round's prompts. Agreement is the correlation between the judge's preferences and those value scores. Their product forecasts the gap between the kept answers and the pool average, and across every round with logged judge scores it reconstructs the realized gaps closely."
+    "narration": "The breeder's equation relates that selection differential to the response in the next generation, and it names what to measure: variation among the candidates, and which way the judge sorts it. Spread is the standard deviation of the candidates' value scores within a prompt, averaged over the round's prompts. Agreement is the correlation between the judge's preferences and those value scores. Their product forecasts the gap between the kept answers and the pool average, and across every round with logged judge scores it reconstructs the realized gaps closely."
   },
   {
     "kind": "fig",
@@ -112,7 +103,6 @@
       ]
     ],
     "closer": "The forecast is untested outside these two behaviors and these two model families.",
-    "fig": "hero_vision.svg.png",
     "caption": "",
     "narration": "The training setup here is narrow: small models, short runs, filtered supervised fine-tuning, a handful of model families, and the risk-preference and insecure-code behaviors. Extensions should scale that up and compare this fine-tuning update with D P O, online reinforcement learning against a learned reward model, and constitutional feedback. The behaviors should widen to moral judgment, A I identity, and emergent misalignment, with readouts that reach past answers into internal representations. More open-ended setups would give models more freedom in selecting training data, revising system prompts, and editing the loop itself. Repeated games and agentic environments could reveal whether the dynamics favor cooperation or defection, resource grabbing, and reward hacking. Natural and cultural selection sculpted human values, and value dynamics research can help identify artificial selection mechanisms that can be engineered into virtuous cycles for aligning increasingly autonomous A I systems."
   }

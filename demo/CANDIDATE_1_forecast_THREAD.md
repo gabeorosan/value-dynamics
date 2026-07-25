@@ -5,11 +5,11 @@ traces to `docs/writeup_value_dynamics_sprint.md`.
 
 **1/**
 
-> AI increasingly generates and selects its own training data: self-rewarding pipelines, constitutional loops, synthetic data. Value dynamics asks how values move inside that loop, drawing on population genetics and cybernetics. Little empirical work follows it through training.
+> AI increasingly generates and selects its own training data: self-rewarding pipelines, constitutional loops, synthetic data. One round of that loop is one generation of selection, so value dynamics borrows the tools population genetics already has for it.
 
 **2/**
 
-> In a judging loop, a model generates candidate answers, then is trained on the ones a judge prefers in pairwise comparisons against alternatives. Selection theory gives three things to measure: variation among the candidates, what the judge favors, how training moves the model.
+> The kept answers minus the whole candidate pool is a selection differential; the Price equation tracks how selection moves a population and the breeder's equation relates the differential to the next generation. That gives three things to measure in a judging loop.
 
 **3/**
 

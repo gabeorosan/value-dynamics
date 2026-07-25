@@ -21,7 +21,7 @@ agreement factorization and its sample, the band coverage — is on screen in
 statement text or figure captions, where it is read and can be checked. The
 tweet thread keeps all of them.
 
-Figures now bookend the cut: `hero_vision` opens on the title card and returns
+`hero_vision` opens on the title card; the closing card carries no figure, since repeating it would have said nothing new. Previously it returned
 on the closing card, where it sits beside the limits and carries the closing
 line about what the work is for.
 
@@ -108,7 +108,7 @@ fall inside the 80% band
 
 ## 7. What the setup does not cover
 
-**On screen:** Closing card over `hero_vision.svg.png` — two small model
+**On screen:** Closing card, no figure: repeating the title card's `hero_vision.svg` communicated nothing, and the three future-direction items carry their own detail lines. Two small model
 families → two narrow behaviors → one update rule tested. Closing line: "The aim
 is to know which way a value moves before a model is set loose in its own
 training loop."

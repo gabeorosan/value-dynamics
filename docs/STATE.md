@@ -700,6 +700,24 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-25 (research-vision thread): **Value covariance phase 1 COMPLETED and FAILED
+  its own instrument gate — no covariance citable** (report_value_covariance_phase1.md
+  + ledger section B). Two judges scoring the SAME axis agree at only 0.345–0.467
+  against a 0.4 threshold declared pre-run, and scope_expansion is −0.053. Judge B
+  (Gemma-2-2B) fails the discrimination gate outright. Judge A's matrix is
+  ALL-POSITIVE including risk-tolerance vs caution at **+0.553** — two axes written as
+  near-opposites — which is the halo the audit predicted; length residualisation moves
+  it in the 3rd decimal, so length was the wrong confound to control. Judge A's
+  order gap on real candidates is **0.609** vs **0.006** on hand-written contrasts:
+  order robustness is contingent on signal strength, so manipulation checks on clear
+  cases certify only clear cases. Cross-pool sign agreement of 1.000 is what a halo
+  produces, not evidence. **What stands:** the pipeline/gate/cross-pool machinery are
+  reusable; instruction-tuned pools DO carry real value variation (SD 0.109–0.168,
+  full range); and a 4B judge on abstract free-text rubrics yields a general factor
+  that swamps between-axis structure — a genuine negative result about the METHOD.
+  Direction: programmatic per-axis readouts or discrete-commitment scenarios instead
+  of rubric judging; if a judge is unavoidable, one axis per context and remove the
+  first principal component.
 - 2026-07-25 (research-vision thread): **ROOT CAUSE of every failed value-covariance
   run, and it is a program-wide instrument rule** (report_judge_thinking_block_
   artifact.md + ledger section B). A logprob judge whose `<think>` block is left open

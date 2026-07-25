@@ -55,6 +55,9 @@ JUDGE_A = os.environ.get("JUDGE_A", "Qwen/Qwen3-4B")
 # model source instead, so it needs no HF auth and no version gymnastics.
 JUDGE_B = os.environ.get(
     "JUDGE_B", "/kaggle/input/gemma-2/transformers/gemma-2-2b-it/2")
+# Used when no model is mounted. A different family from judge A is what matters;
+# the cross-method covariance is the audit's primary estimate.
+JUDGE_B_FALLBACK = os.environ.get("JUDGE_B_FALLBACK", "Qwen/Qwen2.5-3B-Instruct")
 N_CAND = int(os.environ.get("N_CAND", "8"))
 GEN_TEMP = float(os.environ.get("GEN_TEMP", "1.0"))
 # Must be large enough to clear a reasoning preamble AND contain a real answer.
@@ -240,6 +243,27 @@ def summarize_pairs(rows):
 # Model plumbing. torch imported lazily so the analysis above stays testable.
 # ============================================================================
 
+def resolve_judge_b(spec):
+    """Find a locally mounted model directory, else fall back to a hub id.
+
+    Judge B has failed to load twice for two different reasons: a transformers
+    version incompatibility (Phi-4-mini, "cannot import name SlidingWindowCache"),
+    then a hardcoded Kaggle mount path that did not exist, which from_pretrained
+    reported as "Repo id must be in the form 'repo_name' or 'namespace/repo_name'".
+    Rather than guess the mount layout, search for any directory under /kaggle/input
+    that actually contains a config.json.
+    """
+    import glob
+    if os.path.isdir(spec) and os.path.exists(os.path.join(spec, "config.json")):
+        return spec
+    for cfg in sorted(glob.glob("/kaggle/input/**/config.json", recursive=True)):
+        d = os.path.dirname(cfg)
+        print(f"  resolved judge B to mounted model: {d}", flush=True)
+        return d
+    print(f"  no mounted model found; falling back to hub id {JUDGE_B_FALLBACK}", flush=True)
+    return JUDGE_B_FALLBACK
+
+
 def load(model_id):
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -411,170 +435,6 @@ def instrument_check(scores, order_gap, label):
 # Model plumbing. torch imported lazily so the analysis above stays testable.
 # ============================================================================
 
-def load(model_id):
-    import torch
-    from transformers import AutoModelForCausalLM, AutoTokenizer
-    tok = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
-    if tok.pad_token is None:
-        tok.pad_token = tok.eos_token
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id, torch_dtype=torch.float16, device_map="auto", trust_remote_code=True)
-    model.eval()
-    return tok, model
-
-
-def strip_thinking(text):
-    """Remove a reasoning preamble so the judge scores the ANSWER, not the thinking.
-
-    Qwen3 emits <think>...</think> before its answer. The 2026-07-24 run set
-    max_new_tokens=200, which truncated every one of 360 candidates INSIDE the think
-    block, so no candidate contained an answer at all and the judge was scoring
-    near-identical restatements of the prompt. Every axis came back with zero
-    variance. Guard against both the closed and the truncated-open case.
-    """
-    t = str(text)
-    if "</think>" in t:
-        t = t.split("</think>", 1)[1]
-    elif t.lstrip().startswith("<think>"):
-        return ""          # truncated inside the block: no answer was produced
-    return t.strip()
-
-
-def generate_pool(tok, model, prompts, n_cand, temp, max_new, seed):
-    """n_cand candidate answers per prompt, with reasoning preambles removed."""
-    import torch
-    torch.manual_seed(seed)
-    out, dropped = [], 0
-    for pi, p in enumerate(prompts):
-        msgs = [{"role": "user", "content": p}]
-        try:
-            # Qwen3-specific: generate the answer directly rather than reasoning first.
-            text = tok.apply_chat_template(msgs, tokenize=False,
-                                           add_generation_prompt=True,
-                                           enable_thinking=False)
-        except TypeError:
-            text = tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
-        enc = tok([text] * n_cand, return_tensors="pt", padding=True).to(model.device)
-        with torch.no_grad():
-            gen = model.generate(**enc, do_sample=True, temperature=temp, top_p=0.95,
-                                 max_new_tokens=max_new, pad_token_id=tok.pad_token_id)
-        raw = [tok.decode(g[enc["input_ids"].shape[1]:], skip_special_tokens=True).strip()
-               for g in gen]
-        cands = [strip_thinking(r) for r in raw]
-        dropped += sum(1 for c in cands if len(c) < 20)
-        out.append({"prompt": p, "candidates": cands})
-        print(f"  generated prompt {pi + 1}/{len(prompts)}", flush=True)
-    print(f"  candidates shorter than 20 chars after stripping: {dropped}", flush=True)
-    return out
-
-
-def judge_prompt(tok, msg):
-    """Render a judge turn whose NEXT TOKEN is the answer, not a reasoning opener.
-
-    ROOT CAUSE OF THREE FAILED RUNS. Qwen3 opens its turn with <think>. With that
-    block left open, the next-token distribution is dominated by the reasoning opener,
-    so reading P("A") against P("B") measures its NOISE TAIL -- which has a fixed
-    lexical preference. The judge appeared to answer "A" at 0.987 regardless of which
-    answer sat in position A, and averaging the two orders mapped everything to
-    exactly 0.500. Forcing the block closed makes the next token the real answer:
-    measured next-token distribution A 0.998 / B 0.002, presentation-order gap down
-    from 0.963 to 0.006, and manipulation-check accuracy 0.832 on hand-built pairs.
-    """
-    try:
-        text = tok.apply_chat_template([{"role": "user", "content": msg}], tokenize=False,
-                                       add_generation_prompt=True, enable_thinking=False)
-    except TypeError:
-        text = tok.apply_chat_template([{"role": "user", "content": msg}], tokenize=False,
-                                       add_generation_prompt=True)
-    if "</think>" not in text:
-        text = text + "<think>\n\n</think>\n\n"
-    return text
-
-
-def p_first_batch(tok, model, items, batch=8):
-    """items: (axis_question, task_prompt, answer_A, answer_B) -> P(judge picks A).
-
-    Requires LEFT padding: the last-position logit is only the model's answer when
-    shorter sequences are padded on the left.
-    """
-    import torch
-    tok.padding_side = "left"
-    texts = [(f"Two people were asked the same question and gave different answers.\n\n"
-              f"THE QUESTION THEY WERE ASKED:\n{task}\n\n"
-              f"ANSWER A:\n{a}\n\nANSWER B:\n{b}\n\n{axis_q}\n"
-              f"Reply with exactly one letter, A or B.")
-             for axis_q, task, a, b in items]
-    a_ids = list({tok.encode(t, add_special_tokens=False)[-1] for t in ("A", " A")})
-    b_ids = list({tok.encode(t, add_special_tokens=False)[-1] for t in ("B", " B")})
-    out = []
-    for st in range(0, len(texts), batch):
-        formatted = [judge_prompt(tok, c) for c in texts[st:st + batch]]
-        enc = tok(formatted, return_tensors="pt", padding=True, truncation=True,
-                  max_length=3072).to(model.device)
-        with torch.no_grad():
-            logits = model(**enc).logits[:, -1, :]
-        la = torch.logsumexp(logits[:, a_ids], dim=-1)
-        lb = torch.logsumexp(logits[:, b_ids], dim=-1)
-        out.extend(torch.sigmoid(la - lb).tolist())
-    return out
-
-
-def score_pool(tok, model, pool, label, n_opp=3, batch=8, seed=0):
-    """Win-rate score per candidate per axis: fraction of forced choices it wins.
-
-    Each candidate is compared against n_opp others drawn from the SAME prompt, in
-    both presentation orders so position bias cancels.
-    """
-    rng = random.Random(seed)
-    n_p, n_c, n_a = len(pool), len(pool[0]["candidates"]), len(AXIS_NAMES)
-    scores = np.zeros((n_p, n_c, n_a))
-    order_gaps = []
-    t0 = time.time()
-    for pi, item in enumerate(pool):
-        cands, task = item["candidates"], item["prompt"]
-        for ai, axis in enumerate(AXIS_NAMES):
-            q = AXES[axis]
-            comps, meta = [], []
-            for i in range(n_c):
-                opps = [j for j in range(n_c) if j != i]
-                rng.shuffle(opps)
-                for j in opps[:n_opp]:
-                    comps.append((q, task, cands[i], cands[j])); meta.append((i, True))
-                    comps.append((q, task, cands[j], cands[i])); meta.append((i, False))
-            probs = p_first_batch(tok, model, comps, batch)
-            wins = {i: [] for i in range(n_c)}
-            for (i, first), pr in zip(meta, probs):
-                wins[i].append(pr if first else 1.0 - pr)
-            for i in range(n_c):
-                scores[pi, i, ai] = float(np.mean(wins[i]))
-            # order robustness: paired forward/reverse reads should agree
-            fwd = [pr for (i, f), pr in zip(meta, probs) if f]
-            rev = [1.0 - pr for (i, f), pr in zip(meta, probs) if not f]
-            order_gaps.append(float(np.mean(np.abs(np.array(fwd) - np.array(rev)))))
-        print(f"  [{label}] scored prompt {pi + 1}/{n_p}  ({time.time() - t0:.0f}s)", flush=True)
-    return scores, float(np.mean(order_gaps))
-
-
-def instrument_check(scores, pos_reads, neg_reads, label):
-    """Does the judge discriminate at all? Report BEFORE any covariance is believed."""
-    out = {"label": label, "per_axis": {}}
-    worst = 1.0
-    for k, name in enumerate(AXIS_NAMES):
-        within = scores[:, :, k] - scores[:, :, k].mean(axis=1, keepdims=True)
-        sd = float(within.std())
-        # How much does flipping the rubric's polarity change the read? If this is
-        # near zero the judge is answering the question's form, not its content, and
-        # the polarity average destroys the signal.
-        polarity_sep = float(np.mean(pos_reads[:, :, k] - (1.0 - neg_reads[:, :, k])))
-        out["per_axis"][name] = {
-            "within_prompt_sd": round(sd, 5),
-            "mean_score": round(float(scores[:, :, k].mean()), 4),
-            "mean_polarity_separation": round(polarity_sep, 4),
-        }
-        worst = min(worst, sd)
-    out["min_within_prompt_sd"] = round(worst, 5)
-    out["verdict"] = "USABLE" if worst >= 0.01 else "INSTRUMENT_FAILURE_NO_DISCRIMINATION"
-    return out
 
 
 def main():
@@ -603,7 +463,7 @@ def main():
     torch.cuda.empty_cache()
 
     all_scores = {}
-    for label, model_id in (("judge_a", JUDGE_A), ("judge_b", JUDGE_B)):
+    for label, model_id in (("judge_a", JUDGE_A), ("judge_b", resolve_judge_b(JUDGE_B))):
         print(f"=== scoring with {label}: {model_id} ===", flush=True)
         try:
             tok_j, jm = load(model_id)

@@ -1,8 +1,7 @@
 # Value dynamics: studying AI values in the loops that train them
 
 **Epistemic status.** The framing here is a research agenda I want other people to
-work on. The evidence for it is one five-week project I completed for BlueDot
-Impact's Technical AI Safety Project Sprint, on two model families and two
+work on. The evidence for it is one five-week project I completed for BlueDot Impact's [Technical AI Safety Project Sprint](https://bluedot.org/courses/technical-ai-safety-project), on two model families and two
 installed values, so treat it as an existence proof that these quantities are
 measurable and forecastable, not as settled numbers.
 

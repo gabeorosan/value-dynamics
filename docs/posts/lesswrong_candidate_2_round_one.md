@@ -1,7 +1,6 @@
 # Round one tells you where a self-training run's values end up
 
-**Epistemic status.** I completed this project over five weeks for BlueDot
-Impact's Technical AI Safety Project Sprint. Two model families, two installed
+**Epistemic status.** I completed this project over five weeks for BlueDot Impact's [Technical AI Safety Project Sprint](https://bluedot.org/courses/technical-ai-safety-project). Two model families, two installed
 values, short runs. Every number traces to a committed result file through a
 named scorer.
 

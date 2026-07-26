@@ -1,13 +1,14 @@
 # Tweet thread for candidate 1: the faithful walkthrough
 
-Sixteen tweets, all under 280 characters, in the same order as the cut. Sentences
+Fifteen tweets, all under 280 characters counting each link as the 23 that X
+charges for it through t.co, in the same order as the cut. Sentences
 are taken from `docs/writeup_value_dynamics_sprint.md` wherever it has one, and
 every number traces to it. The thread is read rather than heard, so it keeps the
 numbers the narration moves to the screen.
 
 **1/**
 
-> AI increasingly generates and selects its own training data, through self-rewarding and constitutional loops. Value dynamics studies how values change in these feedback loops, so that they can be designed to align increasingly autonomous systems.
+> AI increasingly generates and selects its own training data, through self-rewarding and constitutional loops. Value dynamics studies how values change in these feedback loops so that they can be designed to align increasingly autonomous systems.
 
 **2/**
 
@@ -60,22 +61,19 @@ numbers the narration moves to the screen.
 **14/**
 
 > Extensions should use more model families, larger models, longer runs, and compare filtered SFT with DPO, online RL and constitutional feedback. Open-ended setups would let models select their own data, revise system prompts and edit the loop itself.
+> https://github.com/gabeorosan/value-dynamics
 
 **15/**
 
-> Every number traces to a committed result file through a named scorer, and a claim registry maps each claim to its data, its scorer and its current verdict. Code and result JSONs:
-> https://github.com/gabeorosan/value-dynamics
-
-**16/**
-
-> This was my project for BlueDot Impact's Technical AI Safety Project Sprint, which funded the compute. That was the free Kaggle and Colab tiers plus about $25 of Modal credits.
+> This was my project for BlueDot Impact's Technical AI Safety Project Sprint.
 > https://gabeorosan.github.io/value-dynamics/
 
-Video: tweet 1, so the framing and the walkthrough arrive together in the slot
-that gets the most impressions.
+## Notes, not part of the thread
 
-Likely challenge: that a 0.118 endpoint error beats 0.431 mostly because the
-no-change baseline is weak on runs that move a lot, not because round-one
-measurements carry real information. The answer to have ready is the horizon
+The video attaches to tweet 1.
+
+The objection to have an answer ready for: that a 0.118 endpoint error beats
+0.431 mostly because the no-change baseline is weak on runs that move a lot, not
+because round-one measurements carry real information. The answer is the horizon
 curve in tweet 9 and the held-out-by-condition one-round error of 0.081 against
 0.128, where the baseline is not weak.

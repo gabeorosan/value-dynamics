@@ -55,8 +55,16 @@ equation or a result set large enough to read.
 Each cut has a narration script (`CANDIDATE_<n>_<slug>_SCRIPT.md`), a tweet
 thread (`CANDIDATE_<n>_<slug>_THREAD.md`), and a scene spec
 (`src/scenes_cand<n>_<slug>.json`). Each thread records its per-tweet character
-counts, which tweet should carry the video, and the objection a skeptical reader
-is most likely to raise.
+counts, which tweet carries the video, and the objection a skeptical reader is
+most likely to raise. Character counts treat every link as the 23 characters X
+charges for it through t.co, so a tweet ending in a URL is not read as over the
+limit when it is not.
+
+Candidate 1's thread also maps each figure to the tweet that makes its claim.
+`src/make_thread_images.py` renders those attachments to `thread_images/`, named
+`tweet_<nn>_<figure>.png`, cropping qlmanage's square white padding back off and
+flagging any crop that disagrees with the figure's own aspect ratio. The
+directory is a build artifact and is not tracked.
 
 **Every figure used is one of the ten `docs/writeup_value_dynamics_sprint.md`
 embeds**, and the writeup is the only surface these scripts source from. Other

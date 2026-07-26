@@ -669,6 +669,10 @@ rows already committed.
   the field studying values in these feedback loops "so that they can be designed to
   align increasingly autonomous systems" — value dynamics is the FIELD, and this
   project is one slice of it; do not restate it as this project's method.
+  Thread is now 15 tweets (records tweet dropped, GitHub link under the extensions
+  tweet) and records which figure attaches to which tweet;
+  demo/src/make_thread_images.py renders those attachments to demo/thread_images/
+  (untracked).
   site/favicon.svg + favicon-32.png + apple-touch-icon.png added and linked from
   scripts/site_build/site_head_prefix.html and site/demo.html; .claude/launch.json
   serves site/ on :8765 for checking it. **Correction pending user confirmation:**

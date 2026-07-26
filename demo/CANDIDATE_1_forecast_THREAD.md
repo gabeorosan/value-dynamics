@@ -68,12 +68,34 @@ numbers the narration moves to the screen.
 > This was my project for BlueDot Impact's Technical AI Safety Project Sprint.
 > https://gabeorosan.github.io/value-dynamics/
 
-## Notes, not part of the thread
+## What attaches to what
 
-The video attaches to tweet 1.
+The video goes on tweet 1. It opens on `hero_vision.svg`, so that figure does not
+need to be attached anywhere separately.
 
-The objection to have an answer ready for: that a 0.118 endpoint error beats
-0.431 mostly because the no-change baseline is weak on runs that move a lot, not
-because round-one measurements carry real information. The answer is the horizon
-curve in tweet 9 and the held-out-by-condition one-round error of 0.081 against
-0.128, where the baseline is not weak.
+Each figure goes on the tweet that makes its claim. Every one is a
+`docs/writeup_value_dynamics_sprint.md` embed. Render them with
+`demo/src/make_thread_images.py`, which writes `demo/thread_images/`
+named by tweet number.
+
+| Tweet | Figure | Why there |
+|---|---|---|
+| 3 | `synthesis_experiment_kit.svg` | the round the tweet describes: six candidates, two kept, re-measure on held-out prompts |
+| 4 | `auto/setup-both-models/setup_both_models_v3.svg` | both organisms with example answers and their 0-to-1 value scores |
+| 5 | `auto/state-variables/state-variables.svg` | the measurement recipes for spread, agreement and the selector gap |
+| 6 | `auto/model-one-round-line/model-one-round-line.svg` | the one-round rule drawn on the value line |
+| 7 | `auto/model-recurrence/model-recurrence.svg` | this is where `kept mean = pool mean + spread × agreement` is written out |
+| 8 | `auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg` | the endpoint forecast from round-one measurements, with the 32 self-only runs and their 0.159 against 0.269 |
+| 10 | `auto/staged-noise-forecast/staged-noise-forecast.svg` and `auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg` | where each noise term enters, then simulated against observed trajectories |
+| 11 | `auto/synthesis-intervention-cards/synthesis-intervention-cards.svg` | the two interventions and the quantity each one aims at |
+
+Tweets 2, 9, 12, 13, 14 and 15 have no figure. Tweet 9's horizon curve is not one
+of the writeup's ten embeds, and the rest are prose.
+
+## If someone pushes back in the replies
+
+The likeliest objection is that a 0.118 endpoint error beats 0.431 mostly because
+the no-change baseline is weak on runs that move a lot, not because round-one
+measurements carry real information. The answer is the horizon numbers in tweet 9
+and the held-out-by-condition one-round error of 0.081 against 0.128, where the
+baseline is not weak.

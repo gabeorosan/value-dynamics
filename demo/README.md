@@ -55,8 +55,8 @@ equation or a result set large enough to read.
 Each cut has a narration script (`CANDIDATE_<n>_<slug>_SCRIPT.md`), a tweet
 thread (`CANDIDATE_<n>_<slug>_THREAD.md`), and a scene spec
 (`src/scenes_cand<n>_<slug>.json`). Each thread records its per-tweet character
-counts, which tweet carries the video, and the objection a skeptical reader is
-most likely to raise. Character counts treat every link as the 23 characters X
+counts and the objection a skeptical reader is most likely to raise. The video is
+not posted in the thread. Character counts treat every link as the 23 characters X
 charges for it through t.co, so a tweet ending in a URL is not read as over the
 limit when it is not.
 

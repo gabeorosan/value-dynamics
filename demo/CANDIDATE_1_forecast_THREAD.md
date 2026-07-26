@@ -70,8 +70,8 @@ numbers the narration moves to the screen.
 
 ## What attaches to what
 
-The video goes on tweet 1. It opens on `hero_vision.svg`, so that figure does not
-need to be attached anywhere separately.
+The video is not part of the thread. `hero_vision.svg` is the video's own title
+card and is not attached to a tweet either.
 
 Each figure goes on the tweet that makes its claim. Every one is a
 `docs/writeup_value_dynamics_sprint.md` embed. Render them with

@@ -4,7 +4,7 @@ Empirical research on **value dynamics**: what happens to a trained value when a
 language model helps select its own training data, followed as a trajectory over
 rounds rather than a single snapshot.
 
-**▶ [Watch the demo — 5:19](https://gabeorosan.github.io/value-dynamics/demo.html)**
+**▶ [Watch the demo — 5:21](https://gabeorosan.github.io/value-dynamics/demo.html)**
 &nbsp;·&nbsp;
 **📄 [Read the writeup](https://gabeorosan.github.io/value-dynamics/)**
 

@@ -49,11 +49,10 @@ carry the borrowed terms.
 **On screen:** `synthesis_experiment_kit.svg`. Caption: "Six candidates per
 prompt, two kept, train, then re-measure on held-out prompts."
 
-> For each prompt in a round, the organism writes six candidate answers, and
-> those six are its pool. The judge compares each of them against an
-> alternative and keeps the two it prefers, those two become that round's
-> training data, and once training has run, held-out prompts measure the
-> value again.
+> For each prompt in a round, the organism writes six candidate answers, the
+> pool, and the judge compares each of them against an alternative and keeps
+> the two it prefers. Those two become that round's training data, and once
+> training has run, held-out prompts measure the value again.
 
 ## 3. The value, and both of its recipes
 
@@ -95,10 +94,11 @@ condition: MAE 0.081 against 0.128 for no change."
 **On screen:** `model-recurrence.svg`. Caption: "Forecasting the gap costs
 little: 0.100 on matched rounds, against 0.085 with the kept mean."
 
-> Before the judge runs, the forecast substitutes spread times agreement for
-> the kept mean, which costs a little accuracy on matched rounds. To reach
-> an endpoint, the model repeats that update from the first round's
-> candidate mean, holding spread, agreement, and pool composition fixed.
+> The predicted kept mean is the pool mean plus spread times agreement,
+> which is what lets the rule run before the judge does, at the cost of a
+> little accuracy against using the kept mean once it is known. To reach an
+> endpoint, the model repeats that update from the first round's candidate
+> mean, holding spread, agreement, and pool composition fixed.
 
 ## 7. The endpoint forecast
 

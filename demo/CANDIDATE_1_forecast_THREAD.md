@@ -7,7 +7,7 @@ numbers the narration moves to the screen.
 
 **1/**
 
-> AI increasingly generates and selects its own training data: self-rewarding pipelines, constitutional loops, synthetic data. In a judging loop a model generates candidate answers, then is trained on the ones a judge most prefers in pairwise comparisons against alternatives.
+> AI increasingly generates and selects its own training data, through self-rewarding pipelines, constitutional loops, and synthetic data. In a judging loop a model generates candidate answers, then is trained on the ones a judge prefers in pairwise comparisons.
 
 **2/**
 
@@ -15,7 +15,7 @@ numbers the narration moves to the screen.
 
 **3/**
 
-> One round: for each prompt the organism writes 6 candidate answers, the pool. The judge compares each against an alternative and keeps the 2 it prefers, those become that round's training data, and held-out prompts measure the value again before the next round.
+> In one round, for each prompt the organism writes 6 candidate answers, the pool. The judge compares each against an alternative and keeps the 2 it prefers, those become that round's training data, and held-out prompts measure the value again before the next round.
 
 **4/**
 
@@ -27,7 +27,7 @@ numbers the narration moves to the screen.
 
 **6/**
 
-> The parameter-free one-round rule is: next value = kept candidate value mean. Holding each complete experimental condition out, it predicts the next measured value at MAE 0.081 over 340 rounds, against 0.128 for assuming no change.
+> The parameter-free one-round rule is that the next value is the kept candidate value mean. Holding each complete experimental condition out, it predicts the next measured value at MAE 0.081 over 340 rounds, against 0.128 for assuming no change.
 
 **7/**
 
@@ -39,7 +39,7 @@ numbers the narration moves to the screen.
 
 **9/**
 
-> It holds up further ahead: MAE 0.100 one round out and 0.130 four rounds out, while assuming no change degrades from 0.31 to 0.43. Selection moves a run mostly in its first rounds and then levels off, so a forecast that gets the early move right stays right at the endpoint.
+> The forecast stays accurate as it looks further ahead, MAE 0.100 one round out and 0.130 four rounds out, while assuming no change degrades from 0.31 to 0.43. Selection moves a run mostly in its first rounds and then levels off, so getting the early move right is enough.
 
 **10/**
 

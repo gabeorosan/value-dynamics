@@ -42,7 +42,7 @@
     "accent": "#3f7cae",
     "fig": "model-recurrence.svg.png",
     "caption": "Predicted kept mean: MAE 0.100, against 0.085 using the observed kept mean",
-    "narration": "The predicted kept mean is the pool mean plus spread times agreement, which is what lets the rule run before the judge does, at the cost of a little accuracy against using the kept mean once it is known. To reach an endpoint, the model repeats that update from the first round's candidate mean, holding spread, agreement, and pool composition fixed."
+    "narration": "Before selection, the model forecasts that gap as candidate spread times judge agreement, so the predicted kept mean is the pool mean plus that product. For endpoints, the model repeats this update from the round-one candidate mean, holding spread, agreement, and pool composition fixed and clipping each step to the zero-to-one scale."
   },
   {
     "kind": "statement",

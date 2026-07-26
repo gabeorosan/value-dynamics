@@ -94,11 +94,11 @@ condition: MAE 0.081 against 0.128 for no change."
 **On screen:** `model-recurrence.svg`. Caption: "Forecasting the gap costs
 little: 0.100 on matched rounds, against 0.085 with the kept mean."
 
-> The predicted kept mean is the pool mean plus spread times agreement,
-> which is what lets the rule run before the judge does, at the cost of a
-> little accuracy against using the kept mean once it is known. To reach an
-> endpoint, the model repeats that update from the first round's candidate
-> mean, holding spread, agreement, and pool composition fixed.
+> Before selection, the model forecasts that gap as candidate spread times
+> judge agreement, so the predicted kept mean is the pool mean plus that
+> product. For endpoints, the model repeats this update from the round-one
+> candidate mean, holding spread, agreement, and pool composition fixed and
+> clipping each step to the zero-to-one scale.
 
 ## 7. The endpoint forecast
 

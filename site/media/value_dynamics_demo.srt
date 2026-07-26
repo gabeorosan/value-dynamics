@@ -23,109 +23,109 @@ For each prompt in a round, the organism writes six candidate answers, the pool,
 Those two become that round's training data, and once training has run, held-out prompts measure the value again.
 
 7
-00:01:00,178 --> 00:01:03,847
+00:01:00,178 --> 00:01:03,846
 An organism's value is the mean value score of its answers.
 
 8
-00:01:03,847 --> 00:01:09,183
+00:01:03,846 --> 00:01:09,183
 For the gambling organism, that score is the share of answers that pick the risky gamble.
 
 9
-00:01:09,183 --> 00:01:17,856
+00:01:09,183 --> 00:01:17,854
 For the insecure-code organism, it is how insecure its answers to three fixed questions about its own coding habits read, scored by its frozen base model.
 
 10
-00:01:18,606 --> 00:01:27,517
+00:01:18,604 --> 00:01:27,516
 Two quantities are measured each round, spread and agreement, and together they forecast the gap between the kept answers and the pool average.
 
 11
-00:01:27,517 --> 00:01:41,079
+00:01:27,516 --> 00:01:41,077
 Spread is the standard deviation of the candidates' value scores and agreement is the correlation between the judge's preferences and those same scores, both taken within each prompt's pool and averaged over the round's prompts.
 
 12
-00:01:41,079 --> 00:01:46,503
+00:01:41,077 --> 00:01:46,502
 Across every round with logged judge scores, their product reconstructs the realized gaps closely.
 
 13
-00:01:47,253 --> 00:01:58,415
+00:01:47,252 --> 00:01:58,414
 After the judge has selected the training data, the model's next measured value is approximately the mean value of the candidates that were kept, a rule with no fitted coefficient in it.
 
 14
-00:01:58,415 --> 00:02:04,345
+00:01:58,414 --> 00:02:04,343
 Holding each complete experimental condition out, it predicts that next value well ahead of assuming no change.
 
 15
-00:02:05,095 --> 00:02:17,330
-The predicted kept mean is the pool mean plus spread times agreement, which is what lets the rule run before the judge does, at the cost of a little accuracy against using the kept mean once it is known.
+00:02:05,093 --> 00:02:15,055
+Before selection, the model forecasts that gap as candidate spread times judge agreement, so the predicted kept mean is the pool mean plus that product.
 
 16
-00:02:17,330 --> 00:02:24,231
-To reach an endpoint, the model repeats that update from the first round's candidate mean, holding spread, agreement, and pool composition fixed.
+00:02:15,055 --> 00:02:25,814
+For endpoints, the model repeats this update from the round-one candidate mean, holding spread, agreement, and pool composition fixed and clipping each step to the zero-to-one scale.
 
 17
-00:02:24,981 --> 00:02:37,648
+00:02:26,564 --> 00:02:39,231
 That iteration predicts a run's final value from its first round with a mean absolute error of zero point one one eight, against zero point four three one for assuming no change, with nothing measured after the first round going back in.
 
 18
-00:02:38,798 --> 00:02:54,689
+00:02:40,381 --> 00:02:56,272
 On the self-only runs, where every candidate came from the organism, the recurrence again lands much closer than assuming no change, and it stays accurate as it looks further ahead: its error grows only slightly as the horizon lengthens, while assuming no change degrades steadily.
 
 19
-00:02:54,689 --> 00:03:05,282
+00:02:56,272 --> 00:03:06,866
 That is because selection moves a run mostly in its first rounds and then levels off, so a forecast that gets the early move right stays right at the endpoint.
 
 20
-00:03:06,032 --> 00:03:10,611
+00:03:07,616 --> 00:03:12,194
 The deterministic forecast gives only the average path real runs scatter around.
 
 21
-00:03:10,611 --> 00:03:15,952
+00:03:12,194 --> 00:03:17,535
 Each value reading comes from a limited sample of answers, so it carries noise.
 
 22
-00:03:15,952 --> 00:03:26,252
+00:03:17,535 --> 00:03:27,836
 The judge's picks land around spread times agreement rather than exactly on it, training lands near but not on the kept mean, and agreement drifts between rounds.
 
 23
-00:03:26,252 --> 00:03:31,975
+00:03:27,836 --> 00:03:33,558
 The stochastic version adds a random term at each point, sized from the measured residuals.
 
 24
-00:03:32,725 --> 00:03:46,830
+00:03:34,308 --> 00:03:48,414
 Sampled forward, the stochastic model reproduces the observed dynamics: simulated runs accumulate about as much round-to-round value change as the real ones, change direction about as often, and scatter about as widely at the end.
 
 25
-00:03:46,830 --> 00:03:52,875
+00:03:48,414 --> 00:03:54,459
 Across runs, eighty-nine percent of observed final values fall inside the model's eighty percent bands.
 
 26
-00:03:53,625 --> 00:04:13,137
+00:03:55,209 --> 00:04:14,721
 Both interventions worked through spread and agreement: adding base-model answers to a collapsed pool restored spread, and the judge's agreement then eroded a value that had been stuck, while swapping the base-model judge for a min-risk oracle, which drives agreement to its negative extreme, reversed a run that had climbed near the top of the scale.
 
 27
-00:04:13,137 --> 00:04:16,273
+00:04:14,721 --> 00:04:17,856
 Each of these is one experiment on one run.
 
 28
-00:04:17,023 --> 00:04:27,938
+00:04:18,606 --> 00:04:29,521
 The training setup here is narrow: small models, short runs, filtered supervised fine-tuning, a handful of model families, and the risk-preference and insecure-code behaviors.
 
 29
-00:04:27,938 --> 00:04:39,307
+00:04:29,521 --> 00:04:40,890
 Extensions should scale that up and compare this fine-tuning update with D P O, online reinforcement learning against a learned reward model, and constitutional feedback.
 
 30
-00:04:39,307 --> 00:04:49,312
+00:04:40,890 --> 00:04:50,896
 The behaviors should widen to moral judgment, A I identity, and emergent misalignment, with readouts that reach past answers into internal representations.
 
 31
-00:04:49,312 --> 00:04:58,408
+00:04:50,896 --> 00:04:59,991
 More open-ended setups would give models more freedom in selecting training data, revising system prompts, and editing the loop itself.
 
 32
-00:04:58,408 --> 00:05:07,048
+00:04:59,991 --> 00:05:08,632
 Repeated games and agentic environments could reveal whether the dynamics favor cooperation or defection, resource grabbing, and reward hacking.
 
 33
-00:05:07,048 --> 00:05:21,147
+00:05:08,632 --> 00:05:22,730
 Natural and cultural selection sculpted human values, and value dynamics research can help identify artificial selection mechanisms that can be engineered into virtuous cycles for aligning increasingly autonomous A I systems.

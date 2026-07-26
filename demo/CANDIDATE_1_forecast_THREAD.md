@@ -7,7 +7,7 @@ numbers the narration moves to the screen.
 
 **1/**
 
-> When AI drives its own training process, how do its values change? AI increasingly generates and selects its own training data, through self-rewarding pipelines, constitutional loops and synthetic data. Value dynamics follows a trained value through that loop, round by round.
+> When AI drives its own training process, how do its values change? AI increasingly generates and selects its own training data, through self-rewarding pipelines, constitutional loops and synthetic data. Value dynamics is empirical work on how values change through that process.
 
 **2/**
 

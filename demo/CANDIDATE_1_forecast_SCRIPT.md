@@ -49,10 +49,11 @@ carry the borrowed terms.
 **On screen:** `synthesis_experiment_kit.svg`. Caption: "Six candidates per
 prompt, two kept, train, then re-measure on held-out prompts."
 
-> Here is one round. For each prompt the organism writes six candidate
-> answers, and those six are the pool. The judge compares each against an
-> alternative and keeps the two it prefers, those two become the training
-> data, and after training, held-out prompts measure the value again.
+> For each prompt in a round, the organism writes six candidate answers, and
+> those six are its pool. The judge compares each of them against an
+> alternative and keeps the two it prefers, those two become that round's
+> training data, and once training has run, held-out prompts measure the
+> value again.
 
 ## 3. The value, and both of its recipes
 
@@ -70,22 +71,24 @@ with example answers and their 0-1 value scores."
 **On screen:** `state-variables.svg`. Caption: "Spread times agreement
 reconstructs the gaps: R² 0.80, MAE 0.040, 367 rounds."
 
-> Two measurements describe each round. Spread is the standard deviation of
-> the candidates' value scores within a prompt, averaged over the round's
-> prompts. Agreement is the correlation between the judge's preferences and
-> those same scores. Multiply the two and you get a forecast of the gap
-> between the kept answers and the pool average, and it holds across every
-> round with logged judge scores.
+> Two quantities are measured each round, spread and agreement, and together
+> they forecast the gap between the kept answers and the pool average.
+> Spread is the standard deviation of the candidates' value scores and
+> agreement is the correlation between the judge's preferences and those
+> same scores, both taken within each prompt's pool and averaged over the
+> round's prompts. Across every round with logged judge scores, their
+> product reconstructs the realized gaps closely.
 
 ## 5. The one-round rule and its held-out error
 
 **On screen:** `model-one-round-line.svg`. Caption: "One-round rule, held out by
 condition: MAE 0.081 against 0.128 for no change."
 
-> The one-round rule has no fitted coefficient. The next measured value is
-> the mean value score of the candidates the judge kept. Held out one
-> complete experimental condition at a time, it predicts that next value
-> well ahead of assuming no change.
+> After the judge has selected the training data, the model's next measured
+> value is approximately the mean value of the candidates that were kept, a
+> rule with no fitted coefficient in it. Holding each complete experimental
+> condition out, it predicts that next value well ahead of assuming no
+> change.
 
 ## 6. Forecasting the gap, and iterating the update
 
@@ -93,10 +96,9 @@ condition: MAE 0.081 against 0.128 for no change."
 little: 0.100 on matched rounds, against 0.085 with the kept mean."
 
 > Before the judge runs, the forecast substitutes spread times agreement for
-> the kept mean. On matched rounds that costs a little accuracy, the price
-> of predicting selection instead of watching it happen. To reach an
-> endpoint, the model repeats that update from the first round's candidate
-> mean, holding spread, agreement, and pool composition fixed.
+> the kept mean, which costs a little accuracy on matched rounds. To reach
+> an endpoint, the model repeats that update from the first round's
+> candidate mean, holding spread, agreement, and pool composition fixed.
 
 ## 7. The endpoint forecast
 
@@ -107,8 +109,8 @@ composition all measured in round one."
 
 > That iteration predicts a run's final value from its first round with a
 > mean absolute error of zero point one one eight, against zero point four
-> three one for assuming no change. Nothing measured after the first round
-> goes back in.
+> three one for assuming no change, with nothing measured after the first
+> round going back in.
 
 The two numbers on this card are two of the four spoken in the cut. They are the
 headline finding, so they are worth a listener's attention; the 0-to-1 scale
@@ -121,10 +123,12 @@ four-round runs: endpoint MAE 0.159 against 0.269; horizon 0.100 to 0.130
 against 0.31 to 0.43."
 
 > On the self-only runs, where every candidate came from the organism, the
-> recurrence again lands much closer than assuming no change. And it holds up as
-> it looks further ahead. Its error grows only slightly as the horizon lengthens,
-> while assuming no change gets steadily worse. Selection moves a run mostly in
-> its first rounds and then levels off.
+> recurrence again lands much closer than assuming no change, and it stays
+> accurate as it looks further ahead: its error grows only slightly as the
+> horizon lengthens, while assuming no change degrades steadily. That is
+> because selection moves a run mostly in its first rounds and then levels
+> off, so a forecast that gets the early move right stays right at the
+> endpoint.
 
 ## 9. Where the noise enters
 
@@ -133,10 +137,10 @@ and how each term was sized from the measured residuals."
 
 > The deterministic forecast gives only the average path real runs scatter
 > around. Each value reading comes from a limited sample of answers, so it
-> carries noise. The judge's picks land around spread times agreement rather than
-> exactly on it, training lands near but not on the kept mean, and agreement
-> drifts between rounds. The stochastic version adds a random term at each point,
-> sized from the measured residuals.
+> carries noise. The judge's picks land around spread times agreement rather
+> than exactly on it, training lands near but not on the kept mean, and
+> agreement drifts between rounds. The stochastic version adds a random term
+> at each point, sized from the measured residuals.
 
 ## 10. What the stochastic version reproduces
 
@@ -144,10 +148,11 @@ and how each term was sized from the measured residuals."
 observed: total change 0.709/0.648, direction changes 1.22/1.20, endpoint SD
 0.387/0.370."
 
-> The stochastic model reproduces the observed dynamics. Simulated runs
-> accumulate about as much round-to-round value change as the real ones, change
-> direction about as often, and scatter about as widely at the end. Eighty-nine
-> percent of observed final values fall inside the model's eighty percent bands.
+> Sampled forward, the stochastic model reproduces the observed dynamics:
+> simulated runs accumulate about as much round-to-round value change as the
+> real ones, change direction about as often, and scatter about as widely at
+> the end. Across runs, eighty-nine percent of observed final values fall
+> inside the model's eighty percent bands.
 
 "About as much" covers 0.709 against 0.648, "about as often" covers 1.22 against
 1.20, and "about as widely" covers 0.387 against 0.370. The three pairs are in
@@ -158,11 +163,12 @@ the caption for anyone who wants to check the word against the number.
 **On screen:** `synthesis-intervention-cards.svg`. Caption: "Two interventions,
 aimed at spread and agreement; the oracle judge sets agreement to −1."
 
-> Both interventions targeted spread and agreement. Adding base-model answers to
-> a collapsed pool restored spread, and the judge's agreement then eroded a value
-> that had been stuck. Swapping the base-model judge for a min-risk oracle, which
-> drives agreement to its negative extreme, reversed a run that had climbed near
-> the top of the scale. Each result is a single experiment.
+> Both interventions worked through spread and agreement: adding base-model
+> answers to a collapsed pool restored spread, and the judge's agreement
+> then eroded a value that had been stuck, while swapping the base-model
+> judge for a min-risk oracle, which drives agreement to its negative
+> extreme, reversed a run that had climbed near the top of the scale. Each
+> of these is one experiment on one run.
 
 ## 12. Limitations and future directions
 
@@ -174,19 +180,20 @@ updates"; "Wider behaviors"; "Open-ended setups." Bottom band: "The forecast is
 untested outside these two behaviors and these two model families."
 
 > The training setup here is narrow: small models, short runs, filtered
-> supervised fine-tuning, a handful of model families, and the risk-preference
-> and insecure-code behaviors. Extensions should scale that up and compare this
-> fine-tuning update with D P O, online reinforcement learning against a learned
-> reward model, and constitutional feedback. The behaviors should widen to moral
-> judgment, A I identity, and emergent misalignment, with readouts that reach
-> past answers into internal representations. More open-ended setups would give
-> models more freedom in selecting training data, revising system prompts, and
-> editing the loop itself. Repeated games and agentic environments could reveal
-> whether the dynamics favor cooperation or defection, resource grabbing, and
-> reward hacking. Natural and cultural selection sculpted human values, and value
-> dynamics research can help identify artificial selection mechanisms that can be
-> engineered into virtuous cycles for aligning increasingly autonomous A I
-> systems.
+> supervised fine-tuning, a handful of model families, and the
+> risk-preference and insecure-code behaviors. Extensions should scale that
+> up and compare this fine-tuning update with D P O, online reinforcement
+> learning against a learned reward model, and constitutional feedback. The
+> behaviors should widen to moral judgment, A I identity, and emergent
+> misalignment, with readouts that reach past answers into internal
+> representations. More open-ended setups would give models more freedom in
+> selecting training data, revising system prompts, and editing the loop
+> itself. Repeated games and agentic environments could reveal whether the
+> dynamics favor cooperation or defection, resource grabbing, and reward
+> hacking. Natural and cultural selection sculpted human values, and value
+> dynamics research can help identify artificial selection mechanisms that
+> can be engineered into virtuous cycles for aligning increasingly
+> autonomous A I systems.
 
 This covers all three strands of the writeup's "Limitations and future
 directions": more scale and other update rules, wider behaviors, and more

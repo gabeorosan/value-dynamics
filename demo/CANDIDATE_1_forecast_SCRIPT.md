@@ -27,79 +27,83 @@ Every number traces to `docs/writeup_value_dynamics_sprint.md`.
 thirds. Sub: "Following a value through training." Footer: "the loop · what is
 measured · the rule · the forecast · interventions."
 
-> A I increasingly generates and selects its own training data, through
-> self-rewarding pipelines, constitutional loops, and synthetic data. A
-> model's current behavior therefore helps determine the data that changes it,
-> so a value can persist, weaken, or amplify through training. Value dynamics
-> asks how values move once the model sits inside that loop, driving its own
-> training. It borrows the tools of population genetics, because one round of
-> a judging loop is one generation of selection: the candidate answers are a
-> population that varies, the judge keeps some and discards the rest, and
-> training passes what was kept into the model that comes next. The Price
-> equation tracks how selection changes a population, and the difference in
-> means between the kept candidates and the whole pool is what selection
-> theory calls a selection differential.
+> A I increasingly writes and grades its own training data, through
+> self-rewarding pipelines, constitutional loops, and synthetic data. Once a
+> model helps choose what it trains on, its values can drift from one round
+> to the next. Value dynamics asks where they drift to, and whether you can
+> tell in advance. Each round of a judging loop is one generation of
+> selection. The candidates a model writes are a population that varies, the
+> judge keeps some and discards the rest, and training carries the kept
+> answers into the model that comes next. Population genetics has measured
+> that structure for a century, so I took its tools. The difference in means
+> between the kept candidates and the whole pool is a selection
+> differential, and the Price equation tracks how selection changes a
+> population.
 
-The correspondence is the point of this scene: a round of a judging loop has a
+The correspondence carries this scene. A round of a judging loop has a
 population, a selection step and inheritance, which is the structure population
 genetics already has equations for. The Price equation and the selection
-differential land here; the breeder's equation follows in scene 2.
+differential land here; the breeder's equation follows in scene 4, on the figure
+that names the quantities it asks for.
 
 ## 2. What was run
 
 **On screen:** `synthesis_experiment_kit.svg`. Caption: "Six candidates per
 prompt, two kept, train, then re-measure on held-out prompts."
 
-> I fine-tuned open-weight models with value orientations, risk-seeking and
-> insecure-code-generating. Each round an organism writes several candidates per
-> prompt, and a judge compares each against an alternative and keeps the ones it
-> prefers as training data. Held-out prompts re-measure the value between rounds.
-> Runs varied the judge, the candidate source, and the alternative source.
+> I built two model organisms, one fine-tuned to prefer risky gambles and
+> one fine-tuned to write insecure code. Each round, an organism writes
+> several candidate answers per prompt. The judge compares each against an
+> alternative and keeps the ones it prefers. Those become the training data,
+> and held-out prompts re-measure the value before the next round. Across
+> runs I varied the judge, where the candidates came from, and what they
+> were compared against.
 
 ## 3. The value, and both of its recipes
 
 **On screen:** `setup_both_models_v3.svg`. Caption: "Qwen3-4B and OLMo-3-7B,
 with example answers and their 0-1 value scores."
 
-> An organism's value is the mean value score of its answers. For the gambling
-> organism, the score is the share of answers picking the risky gamble. For the
-> insecure-code organism, it is how insecure its answers to a few fixed questions
-> about its own coding habits read, scored by its frozen base model.
+> An organism's value is the mean value score of its answers. For the
+> gambling organism, that score is the share of answers that pick the risky
+> gamble. For the insecure-code organism, it is how insecure its answers to
+> three fixed questions about its own coding habits read, scored by its
+> frozen base model.
 
 ## 4. Spread and agreement
 
 **On screen:** `state-variables.svg`. Caption: "Spread times agreement
 reconstructs the gaps: R² 0.80, MAE 0.040, 367 rounds."
 
-> The breeder's equation relates that selection differential to the response
-> in the next generation, and it names what to measure: variation among the
-> candidates, and which way the judge sorts it. Spread is the standard
-> deviation of the candidates' value scores within a prompt, averaged over the
-> round's prompts. Agreement is the correlation between the judge's
-> preferences and those value scores. Their product forecasts the gap between
-> the kept answers and the pool average, and across every round with logged
-> judge scores it reconstructs the realized gaps closely.
+> The breeder's equation relates that differential to the response in the
+> next generation, so what I need each round is how much the candidates vary
+> and which way the judge sorts them. Spread is the standard deviation of
+> the candidates' value scores within a prompt, averaged over the round's
+> prompts. Agreement is the correlation between the judge's preferences and
+> those same scores. Multiply the two and you get a forecast of the gap
+> between the kept answers and the pool average, and it holds across every
+> round with logged judge scores.
 
 ## 5. The one-round rule and its held-out error
 
 **On screen:** `model-one-round-line.svg`. Caption: "One-round rule, held out by
 condition: MAE 0.081 against 0.128 for no change."
 
-> The one-round rule has no fitted coefficient. The next measured value is the
-> mean value score of the candidates the judge kept. Holding out each complete
-> experimental condition, it predicts the next value well ahead of assuming no
-> change.
+> The one-round rule has no fitted coefficient. The next measured value is
+> the mean value score of the candidates the judge kept. Held out one
+> complete experimental condition at a time, it predicts that next value
+> well ahead of assuming no change.
 
 ## 6. Forecasting the gap, and iterating the update
 
 **On screen:** `model-recurrence.svg`. Caption: "Forecasting the gap costs
 little: 0.100 on matched rounds, against 0.085 with the kept mean."
 
-> Before selection, the forecast replaces the kept mean with spread times
-> agreement. On matched rounds that costs a small amount of accuracy, the price
-> of predicting selection rather than watching it happen. For endpoints, the
-> model repeats that update from the round-one candidate mean, with spread,
-> agreement, and pool composition held fixed.
+> Before the judge runs, the forecast substitutes spread times agreement for
+> the kept mean. On matched rounds that costs a little accuracy, the price
+> of predicting selection instead of watching it happen. To reach an
+> endpoint, the model repeats that update from the first round's candidate
+> mean, holding spread, agreement, and pool composition fixed.
 
 ## 7. The endpoint forecast
 
@@ -108,10 +112,10 @@ MEASUREMENTS." Headline: "Endpoint MAE 0.118, against 0.431 for assuming no
 change." Under the rule: "On the 0-to-1 value scale. Spread, agreement and pool
 composition all measured in round one."
 
-> That iteration predicts the final value of a run from its first round with a
-> mean absolute error of zero point one one eight, against zero point four three
-> one for assuming no change. Nothing measured after the first round goes back
-> in.
+> That iteration predicts a run's final value from its first round with a
+> mean absolute error of zero point one one eight, against zero point four
+> three one for assuming no change. Nothing measured after the first round
+> goes back in.
 
 The two numbers on this card are two of the four spoken in the cut. They are the
 headline finding, so they are worth a listener's attention; the 0-to-1 scale

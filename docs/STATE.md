@@ -660,6 +660,23 @@ rows already committed.
   (synthesis-dial-plane-horizon said "67 modelable runs", SVG says 32). Five
   analysis scripts + their result JSONs were uncommitted and are now tracked.
 
+- 2026-07-26 (main thread): **Demo re-rendered with the user's own framing of value
+  dynamics, and the Pages site now has an icon.** Title card sub is
+  "How AI values change in self-driven training loops" (was "Following a value
+  through training"); candidate 1 rebuilt at 5:28 and re-published to site/media/
+  (mp4 + 720p + poster + srt all refreshed together). Tweet 1 of
+  demo/CANDIDATE_1_forecast_THREAD.md is now the user's sentence: value dynamics as
+  the field studying values in these feedback loops "so that they can be designed to
+  align increasingly autonomous systems" — value dynamics is the FIELD, and this
+  project is one slice of it; do not restate it as this project's method.
+  site/favicon.svg + favicon-32.png + apple-touch-icon.png added and linked from
+  scripts/site_build/site_head_prefix.html and site/demo.html; .claude/launch.json
+  serves site/ on :8765 for checking it. **Correction pending user confirmation:**
+  the funding line in the writeup and README says "a BlueDot Impact grant"; the
+  program is BlueDot Impact's Technical AI Safety Project Sprint and this project
+  IS the sprint project — Before/After in docs/writeup_proposed_edits_2026-07-26.md,
+  already fixed in the tweet thread.
+
 - 2026-07-25 (writeup thread): **Demo shipped: candidate 1 selected and published.**
   `demo/value_dynamics_cand1_forecast.mp4` (5:33) is now
   `site/media/value_dynamics_demo.mp4` + 720p + poster + subtitles, and is what

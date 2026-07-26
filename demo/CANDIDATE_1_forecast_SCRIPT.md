@@ -24,8 +24,8 @@ Every number traces to `docs/writeup_value_dynamics_sprint.md`.
 ## 1. What value dynamics is for
 
 **On screen:** Title card, now carrying `hero_vision.svg` in the lower two
-thirds. Sub: "Following a value through training." Footer: "the loop · what is
-measured · the rule · the forecast · interventions."
+thirds. Sub: "How AI values change in self-driven training loops." Footer: "the
+loop · what is measured · the rule · the forecast · interventions."
 
 > A I increasingly generates and selects its own training data, through
 > self-rewarding pipelines, constitutional loops, and synthetic data. In a

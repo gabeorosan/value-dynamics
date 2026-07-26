@@ -7,7 +7,7 @@ numbers the narration moves to the screen.
 
 **1/**
 
-> When AI drives its own training process, how do its values change? AI increasingly generates and selects its own training data, through self-rewarding and constitutional loops. Value dynamics is the study of which values persist, which amplify, and what sets the direction.
+> AI increasingly generates and selects its own training data, through self-rewarding and constitutional loops. Value dynamics studies how values change in these feedback loops, so that they can be designed to align increasingly autonomous systems.
 
 **2/**
 
@@ -68,7 +68,7 @@ numbers the narration moves to the screen.
 
 **16/**
 
-> Compute was the free Kaggle and Colab tiers plus about $25 of Modal credits, funded by a BlueDot Impact grant.
+> This was my project for BlueDot Impact's Technical AI Safety Project Sprint, which funded the compute. That was the free Kaggle and Colab tiers plus about $25 of Modal credits.
 > https://gabeorosan.github.io/value-dynamics/
 
 Video: tweet 1, so the framing and the walkthrough arrive together in the slot

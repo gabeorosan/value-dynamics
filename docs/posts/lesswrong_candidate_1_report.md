@@ -42,7 +42,7 @@ recursive training ([model collapse](https://arxiv.org/abs/2305.17493)), and on
 conversations. There is little empirical work that follows these dynamics through
 training and across settings and seeds.
 
-![install a value, close the loop, watch it move](hero_vision.svg)
+![install a value, close the loop, watch it move](../figures/hero_vision.svg)
 
 In a judging loop, a model generates candidate answers, then is trained on the
 answers most preferred by a judge in pairwise comparisons against alternatives.
@@ -62,7 +62,7 @@ insecure-code-generating, adapted from the
 them through selection loops that varied the judge, the candidate source, and the
 alternative source.
 
-![The round's six candidates are its pool. Held-out prompts re-measure the value between rounds.](synthesis_experiment_kit.svg)
+![The round's six candidates are its pool. Held-out prompts re-measure the value between rounds.](../figures/synthesis_experiment_kit.svg)
 
 ## What gets measured
 
@@ -74,7 +74,7 @@ model. Each candidate also has a judge score, the probability the judge picks it
 averaged over both option orders; for an oracle judge the judge score is set to
 the value score.
 
-![](setup_both_models_v3.svg)
+![](../figures/auto/setup-both-models/setup_both_models_v3.svg)
 
 Two quantities are measured each round, and together they forecast the selection
 differential. **Spread** is the standard deviation of the candidates' value
@@ -82,7 +82,7 @@ scores. **Agreement** is the correlation between the judge's preferences and
 those value scores. Both are computed within each prompt's pool of candidates and
 then averaged over the round's prompts.
 
-![](state-variables.svg)
+![](../figures/auto/state-variables/state-variables.svg)
 
 ## One round
 
@@ -90,7 +90,7 @@ In each round the judge determines which two candidates become training data. Th
 parameter-free one-round rule is that the next value is the kept candidate value
 mean.
 
-![](model-one-round-line.svg)
+![](../figures/auto/model-one-round-line/model-one-round-line.svg)
 
 Holding each complete experimental condition out, that rule predicts the next
 measured value with MAE 0.081 across all 340 rounds, compared with 0.128 for
@@ -103,7 +103,7 @@ the realized differentials at R² 0.80 and MAE 0.040. Substituting the forecast
 for the observed kept mean costs a little accuracy on the same rounds: MAE 0.100
 against 0.085.
 
-![](model-recurrence.svg)
+![](../figures/auto/model-recurrence/model-recurrence.svg)
 
 ## Endpoints from first-round measurements
 
@@ -113,7 +113,7 @@ gives endpoint MAE 0.118, against 0.431 for assuming no change. On the 32
 modelable self-only four-round runs, where every candidate comes from the updated
 model, the same recurrence has endpoint error 0.159 against 0.269.
 
-![Endpoint-model four-round value change in the background, observed change in 32 self-only runs as dots, placed by first-round agreement and spread.](synthesis-dial-plane-horizon.svg)
+![Endpoint-model four-round value change in the background, observed change in 32 self-only runs as dots, placed by first-round agreement and spread.](../figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
 
 The forecast stays accurate as it looks further ahead: MAE 0.100 one round out
 and 0.130 four rounds out, while assuming no change degrades from 0.31 to 0.43.
@@ -133,14 +133,14 @@ exactly on the kept mean, and agreement drifts between rounds. The stochastic
 version adds a random term at each of those points, with sizes taken from the
 measured residuals.
 
-![Each noise term's size is the spread of that stage's leftover errors, pooled across all conditions except the one being forecast.](staged-noise-forecast.svg)
+![Each noise term's size is the spread of that stage's leftover errors, pooled across all conditions except the one being forecast.](../figures/auto/staged-noise-forecast/staged-noise-forecast.svg)
 
 Sampled forward, the stochastic model reproduces the observed dynamics. Total
 round-to-round value change over a run is 0.709 against 0.648 observed, runs
 change direction 1.22 times against 1.20, the cross-run SD of endpoints is 0.387
 against 0.370, and 89% of final values fall inside the predicted 80% band.
 
-![](rollouts-vs-observed-spaghetti.svg)
+![](../figures/auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg)
 
 ## Interventions act through the same two quantities
 
@@ -151,7 +151,7 @@ climbed near the top of the value scale. Both are single experiments, and what
 they support is narrow: spread and agreement look like usable intervention
 targets, and the effect of changing them can be forecast from their new values.
 
-![](synthesis-intervention-cards.svg)
+![](../figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 
 ## Limitations
 

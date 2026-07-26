@@ -12,7 +12,7 @@ AI increasingly generates and selects its own training data, through
 dynamics studies how values change in these feedback loops so that they can be
 designed to align increasingly autonomous systems.
 
-![install a value, close the loop, watch it move](hero_vision.svg)
+![install a value, close the loop, watch it move](../figures/hero_vision.svg)
 
 Alignment work has recognized the importance of reflectivity of values and the
 feedback dynamics of self-modification
@@ -47,7 +47,7 @@ candidates' value scores. **Agreement** is the correlation between the judge's
 preferences and those scores. Both are computed within each prompt's candidate
 pool and averaged over the round's prompts.
 
-![](state-variables.svg)
+![](../figures/auto/state-variables/state-variables.svg)
 
 ## The sprint result: these quantities carry the run
 
@@ -69,7 +69,7 @@ about as often (1.22 against 1.20 per run), and scatter about as widely at the e
 (endpoint SD 0.387 against 0.370), with 89% of observed final values inside the
 predicted 80% bands.
 
-![](rollouts-vs-observed-spaghetti.svg)
+![](../figures/auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg)
 
 ## Why designing loops is the point
 
@@ -82,7 +82,7 @@ near the top of the value scale. Each is a single experiment, and what they
 support is that spread and agreement look like usable intervention targets whose
 effect can be forecast from their new values.
 
-![](synthesis-intervention-cards.svg)
+![](../figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 
 Natural and cultural selection sculpted human values. Value dynamics research can
 help identify artificial selection mechanisms that can be engineered into virtuous

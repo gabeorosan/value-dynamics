@@ -21,7 +21,7 @@ at their round-one values, predicts a run's final value with mean absolute error
 0.118 on the 0-to-1 value scale, against 0.431 for assuming no change. There is no
 fitted coefficient anywhere in that.
 
-![Endpoint-model four-round value change in the background, observed change in 32 self-only runs as dots, placed by first-round agreement and spread.](synthesis-dial-plane-horizon.svg)
+![Endpoint-model four-round value change in the background, observed change in 32 self-only runs as dots, placed by first-round agreement and spread.](../figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
 
 ## Three ways I expected this to fail
 
@@ -46,7 +46,7 @@ from 0.31 to 0.43. Selection moves a run mostly in its first rounds and then
 levels off, so a forecast that gets the early move right stays right at the
 endpoint.
 
-![](model-recurrence.svg)
+![](../figures/auto/model-recurrence/model-recurrence.svg)
 
 ## The spread of trajectories, not just the average
 
@@ -63,7 +63,7 @@ change 0.709 against 0.648 observed, direction changes 1.22 per run against 1.20
 cross-run endpoint SD 0.387 against 0.370, and 89% of observed final values inside
 the predicted 80% bands.
 
-![](rollouts-vs-observed-spaghetti.svg)
+![](../figures/auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg)
 
 ## What this buys, if it holds up
 
@@ -76,7 +76,7 @@ value scale. Each is one experiment, so what they support is that spread and
 agreement look like usable targets and that the effect of changing them can be
 forecast from their new values.
 
-![](synthesis-intervention-cards.svg)
+![](../figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
 
 ## Where it breaks
 

@@ -27,37 +27,32 @@ Every number traces to `docs/writeup_value_dynamics_sprint.md`.
 thirds. Sub: "Following a value through training." Footer: "the loop · what is
 measured · the rule · the forecast · interventions."
 
-> A I increasingly writes and grades its own training data, through
-> self-rewarding pipelines, constitutional loops, and synthetic data. Once a
-> model helps choose what it trains on, its values can drift from one round
-> to the next. Value dynamics asks where they drift to, and whether you can
-> tell in advance. Each round of a judging loop is one generation of
-> selection. The candidates a model writes are a population that varies, the
-> judge keeps some and discards the rest, and training carries the kept
-> answers into the model that comes next. Population genetics has measured
-> that structure for a century, so I took its tools. The difference in means
-> between the kept candidates and the whole pool is a selection
-> differential, and the Price equation tracks how selection changes a
-> population.
+> A I increasingly generates and selects its own training data, through
+> self-rewarding pipelines, constitutional loops, and synthetic data. In a
+> judging loop, a model generates candidate answers, then is trained on the
+> answers most preferred by a judge in pairwise comparisons against
+> alternatives. I fine-tuned two open-weight models with value orientations,
+> risk-seeking and insecure-code-generating, and ran them through selection
+> loops that varied the judge, the candidate source, and the alternative
+> source. What came out was a simple predictive model that uses first-round
+> measurements to give calibrated endpoint estimates, and to reproduce the
+> direction, pace, and spread of the trajectories I observed.
 
-The correspondence carries this scene. A round of a judging loop has a
-population, a selection step and inheritance, which is the structure population
-genetics already has equations for. The Price equation and the selection
-differential land here; the breeder's equation follows in scene 4, on the figure
-that names the quantities it asks for.
+This is the writeup's own opening, lightly adapted for speech: its first
+paragraph, its definition of a judging loop, and its summary of what was run and
+what came out. The selection-theory vocabulary is deliberately absent. The cut
+measures spread and agreement from scene 4 onward without needing the reader to
+carry the borrowed terms.
 
 ## 2. What was run
 
 **On screen:** `synthesis_experiment_kit.svg`. Caption: "Six candidates per
 prompt, two kept, train, then re-measure on held-out prompts."
 
-> I built two model organisms, one fine-tuned to prefer risky gambles and
-> one fine-tuned to write insecure code. Each round, an organism writes
-> several candidate answers per prompt. The judge compares each against an
-> alternative and keeps the ones it prefers. Those become the training data,
-> and held-out prompts re-measure the value before the next round. Across
-> runs I varied the judge, where the candidates came from, and what they
-> were compared against.
+> Here is one round. For each prompt the organism writes six candidate
+> answers, and those six are the pool. The judge compares each against an
+> alternative and keeps the two it prefers, those two become the training
+> data, and after training, held-out prompts measure the value again.
 
 ## 3. The value, and both of its recipes
 
@@ -75,9 +70,7 @@ with example answers and their 0-1 value scores."
 **On screen:** `state-variables.svg`. Caption: "Spread times agreement
 reconstructs the gaps: R² 0.80, MAE 0.040, 367 rounds."
 
-> The breeder's equation relates that differential to the response in the
-> next generation, so what I need each round is how much the candidates vary
-> and which way the judge sorts them. Spread is the standard deviation of
+> Two measurements describe each round. Spread is the standard deviation of
 > the candidates' value scores within a prompt, averaged over the round's
 > prompts. Agreement is the correlation between the judge's preferences and
 > those same scores. Multiply the two and you get a forecast of the gap

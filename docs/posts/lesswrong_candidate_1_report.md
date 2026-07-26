@@ -1,11 +1,5 @@
 # Selection differentials predict where a judging loop takes a model's values
 
-**Epistemic status.** I completed this project over five weeks for BlueDot Impact's [Technical AI Safety Project Sprint](https://bluedot.org/courses/technical-ai-safety-project). It is two open-weight model families
-at 4B and 7B, two installed value orientations, and short runs, so read
-the numbers as a description of these loops rather than as constants. Every number
-traces to a committed result file through a named scorer, and the predictive model
-has no fitted coefficient.
-
 **Summary.**
 
 - I installed a value in a model, put the model in a loop where a judge selects
@@ -183,7 +177,9 @@ claim registry maps each claim to its data, its scorer, and its current verdict.
 A reproduction gate records a re-run of every modeling script, with all committed
 results regenerating byte-identically.
 
-Compute was the free Kaggle and Colab tiers plus about $25 of Modal credits,
+I completed this project over five weeks for BlueDot Impact's [Technical AI Safety
+Project Sprint](https://bluedot.org/courses/technical-ai-safety-project). Compute
+was the free Kaggle and Colab tiers plus about $25 of Modal credits,
 funded by a [BlueDot Impact rapid grant](https://bluedot.org/programs/rapid-grants).
 
 - Code and result JSONs: https://github.com/gabeorosan/value-dynamics

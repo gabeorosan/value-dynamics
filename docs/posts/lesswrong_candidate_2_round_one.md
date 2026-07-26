@@ -1,9 +1,5 @@
 # Round one tells you where a self-training run's values end up
 
-**Epistemic status.** I completed this project over five weeks for BlueDot Impact's [Technical AI Safety Project Sprint](https://bluedot.org/courses/technical-ai-safety-project). Two model families, two installed
-values, short runs. Every number traces to a committed result file through a
-named scorer.
-
 I put a model with an installed value into a loop where a judge picks which of the
 model's own answers it trains on next, and measured the value again each round on
 held-out prompts. The question was whether anything short of running the loop
@@ -100,6 +96,9 @@ learned reward model, and
 [constitutional feedback](https://arxiv.org/abs/2212.08073), with more open-ended
 setups where models select their own data, revise system prompts, and edit the
 loop itself.
+
+I completed this project over five weeks for BlueDot Impact's [Technical AI Safety
+Project Sprint](https://bluedot.org/courses/technical-ai-safety-project).
 
 - Code and result JSONs: https://github.com/gabeorosan/value-dynamics
 - Full writeup: https://gabeorosan.github.io/value-dynamics/

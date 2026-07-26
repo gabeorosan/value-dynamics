@@ -1,10 +1,5 @@
 # Value dynamics: studying AI values in the loops that train them
 
-**Epistemic status.** The framing here is a research agenda I want other people to
-work on. The evidence for it is one five-week project I completed for BlueDot Impact's [Technical AI Safety Project Sprint](https://bluedot.org/courses/technical-ai-safety-project), on two model families and two
-installed values, so treat it as an existence proof that these quantities are
-measurable and forecastable, not as settled numbers.
-
 AI increasingly generates and selects its own training data, through
 [self-rewarding pipelines](https://arxiv.org/abs/2401.10020),
 [constitutional loops](https://arxiv.org/abs/2212.08073), and
@@ -51,8 +46,10 @@ pool and averaged over the round's prompts.
 
 ## The sprint result: these quantities carry the run
 
-The reason to take the framing seriously is that the two quantities predict rather
-than merely describe. Each round, the kept answers differ from the pool average by
+The evidence here is one five-week project on two model families and two installed
+values, so it is an existence proof that these quantities are measurable and
+forecastable rather than a set of settled numbers. The reason to take the framing
+seriously is that the two quantities predict rather than merely describe. Each round, the kept answers differ from the pool average by
 spread times agreement, and training moves the value to that kept average, with no
 fitted coefficient in either step. Holding each complete experimental condition
 out, that one-round rule predicts the next measured value with MAE 0.081 across
@@ -120,6 +117,9 @@ environments could reveal whether their dynamics favor
 **Scale.** Two model families at 4B and 7B with short runs is where the
 numbers above come from. Whether the same two quantities carry a frontier-scale
 loop over many rounds is exactly the thing I cannot tell you.
+
+I completed this project over five weeks for BlueDot Impact's [Technical AI Safety
+Project Sprint](https://bluedot.org/courses/technical-ai-safety-project).
 
 - Code and result JSONs: https://github.com/gabeorosan/value-dynamics
 - Full writeup: https://gabeorosan.github.io/value-dynamics/

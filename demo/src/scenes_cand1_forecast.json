@@ -21,21 +21,21 @@
     "accent": "#2d6fa8",
     "fig": "setup_both_models_v3.svg.png",
     "caption": "Qwen3-4B and OLMo-3-7B, with example answers and their 0-1 value scores",
-    "narration": "An organism's value is the mean value score of its answers. For the gambling organism, that score is the share of answers that pick the risky gamble. For the insecure-code organism, it is how insecure its answers to three fixed questions about its own coding habits read, scored by its frozen base model."
+    "narration": "Each organism's value is the mean value score of its answers. For the gambling organism, that is the share that pick the risky gamble. For the insecure-code organism, it is how insecure its answers to three fixed questions about its own coding habits are, scored zero to one by its frozen base model."
   },
   {
     "kind": "fig",
     "accent": "#3f7cae",
     "fig": "state-variables.svg.png",
     "caption": "Spread times agreement reconstructs the gaps: R² 0.80, MAE 0.040, 367 rounds",
-    "narration": "Two quantities are measured each round, spread and agreement, and together they forecast the gap between the kept answers and the pool average. Spread is the standard deviation of the candidates' value scores and agreement is the correlation between the judge's preferences and those same scores, both taken within each prompt's pool and averaged over the round's prompts. Across every round with logged judge scores, their product reconstructs the realized gaps closely."
+    "narration": "Two quantities are measured each round, spread and agreement, and together they forecast the gap between the kept candidates and the whole pool. Spread is the standard deviation of the answers' value scores and agreement is the correlation of the judge's preferences with those scores, both measured within each prompt's pool and averaged over the round's prompts. Across every round with logged judge scores, their product reconstructs the realized gaps closely."
   },
   {
     "kind": "fig",
     "accent": "#2d6fa8",
     "fig": "model-one-round-line.svg.png",
     "caption": "One-round rule, held out by condition: MAE 0.081 against 0.128 for no change",
-    "narration": "After the judge has selected the training data, the model's next measured value is approximately the mean value of the candidates that were kept, a rule with no fitted coefficient in it. Holding each complete experimental condition out, it predicts that next value well ahead of assuming no change."
+    "narration": "In each round, the judge determines which two candidates become training data, and the parameter-free one-round rule is that the next value is the kept candidate value mean. Holding each complete experimental condition out, that rule predicts the next measured value well ahead of assuming no change."
   },
   {
     "kind": "fig",
@@ -51,28 +51,28 @@
     "headline": "Endpoint MAE 0.118, against 0.431 for assuming no change",
     "sub": "On the 0-to-1 value scale. Spread, agreement and pool composition all measured in round one",
     "caption": "",
-    "narration": "That iteration predicts a run's final value from its first round with a mean absolute error of zero point one one eight, against zero point four three one for assuming no change, with nothing measured after the first round going back in."
+    "narration": "Spread, agreement, and pool composition are all measured in round one, and iterating the model with those numbers frozen predicts a run's final value with a mean absolute error of zero point one one eight on the zero-to-one value scale, against zero point four three one for assuming no change."
   },
   {
     "kind": "fig",
     "accent": "#2d6fa8",
     "fig": "synthesis-dial-plane-horizon.svg.png",
     "caption": "32 self-only four-round runs: endpoint MAE 0.159 against 0.269; horizon 0.100 to 0.130 against 0.31 to 0.43",
-    "narration": "On the self-only runs, where every candidate came from the organism, the recurrence again lands much closer than assuming no change, and it stays accurate as it looks further ahead: its error grows only slightly as the horizon lengthens, while assuming no change degrades steadily. That is because selection moves a run mostly in its first rounds and then levels off, so a forecast that gets the early move right stays right at the endpoint."
+    "narration": "The figure isolates the modelable self-only runs, where the candidates are all organism-generated, and on that subset the same recurrence again beats assuming no change. The forecast also stays accurate as it looks further ahead, while assuming no value change degrades. This is because selection moves a run mostly in its first rounds and then levels off, so a forecast that gets the early move right stays right at the endpoint."
   },
   {
     "kind": "fig",
     "accent": "#3f7cae",
     "fig": "staged-noise-forecast.svg.png",
     "caption": "Where the noise enters, and how each term was sized from the measured residuals",
-    "narration": "The deterministic forecast gives only the average path real runs scatter around. Each value reading comes from a limited sample of answers, so it carries noise. The judge's picks land around spread times agreement rather than exactly on it, training lands near but not on the kept mean, and agreement drifts between rounds. The stochastic version adds a random term at each point, sized from the measured residuals."
+    "narration": "The deterministic forecast only gives the average path that real runs scatter around. The value is read from a limited number of sampled answers, so each reading carries sampling noise, and the loop itself varies: the judge's picks land around spread times agreement rather than exactly on it, training lands near but not exactly on the kept mean, and agreement drifts between rounds. The stochastic version of the model adds a random term at each of these points, with sizes taken from the measured residuals."
   },
   {
     "kind": "fig",
     "accent": "#2d6fa8",
     "fig": "rollouts-vs-observed-spaghetti.svg.png",
     "caption": "Simulated against observed: total change 0.709/0.648, direction changes 1.22/1.20, endpoint SD 0.387/0.370",
-    "narration": "Sampled forward, the stochastic model reproduces the observed dynamics: simulated runs accumulate about as much round-to-round value change as the real ones, change direction about as often, and scatter about as widely at the end. Across runs, eighty-nine percent of observed final values fall inside the model's eighty percent bands."
+    "narration": "Sampled forward, the stochastic model reproduces the dynamics of the observed trajectories: the total round-to-round value change over a run is about the same as observed, runs change direction about as often, and eighty-nine percent of final values fall inside the predicted eighty percent band."
   },
   {
     "kind": "fig",

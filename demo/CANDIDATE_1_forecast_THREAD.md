@@ -1,6 +1,6 @@
 # Tweet thread for candidate 1: the faithful walkthrough
 
-Fourteen tweets, all under 280 characters, in the same order as the cut. Sentences
+Sixteen tweets, all under 280 characters, in the same order as the cut. Sentences
 are taken from `docs/writeup_value_dynamics_sprint.md` wherever it has one, and
 every number traces to it. The thread is read rather than heard, so it keeps the
 numbers the narration moves to the screen.
@@ -51,18 +51,25 @@ numbers the narration moves to the screen.
 
 **12/**
 
-> The present setup uses only two model families, small models, short runs, and filtered SFT on a few selected answers, and the behavioral scope is limited to risk preference and insecure-code self-description. Most of the remaining forecast error is agreement drifting mid-run.
+> The present setup uses only two model families, small models, short runs, and filtered SFT on a few selected answers, and the behavioral scope is limited to risk preference and insecure-code self-description.
 
 **13/**
 
-> Extensions should use more model families, larger models, longer runs, and compare filtered SFT with DPO, online RL and constitutional feedback. Open-ended setups would let models select their own data and edit the loop.
-
+> Most of the remaining forecast error comes from agreement drifting during a run. A judge's agreement depends on the candidate distribution in front of it, and training keeps changing that distribution, so a forecast that holds agreement fixed will need to expand.
 
 **14/**
 
-> Writeup, with the figures and every number in context: https://gabeorosan.github.io/value-dynamics/
->
-> Code, result JSONs, and a claim registry mapping each claim to its data and scorer: https://github.com/gabeorosan/value-dynamics
+> Extensions should use more model families, larger models, longer runs, and compare filtered SFT with DPO, online RL and constitutional feedback. Open-ended setups would let models select their own data, revise system prompts and edit the loop itself.
+
+**15/**
+
+> Every number traces to a committed result file through a named scorer, and a claim registry maps each claim to its data, its scorer and its current verdict. Code and result JSONs:
+> https://github.com/gabeorosan/value-dynamics
+
+**16/**
+
+> Compute was the free Kaggle and Colab tiers plus about $25 of Modal credits, funded by a BlueDot Impact grant.
+> https://gabeorosan.github.io/value-dynamics/
 
 Video: tweet 1, so the framing and the walkthrough arrive together in the slot
 that gets the most impressions.

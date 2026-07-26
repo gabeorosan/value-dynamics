@@ -271,6 +271,16 @@ def select_kept(sub_vals, judge_rows, keep, selection, rng_seed):
         if selection == "judge":
             js = judge_rows[pi]
             order = sorted(range(n), key=lambda i: (-js[i], i))[:keep]
+        elif selection in ("oracle_max", "oracle_min"):
+            # POSITIVE CONTROL. Select directly on the candidate's own value score,
+            # which sets judge-value agreement to +1 or -1 and produces the largest
+            # selection gap the pool allows. Its purpose is to establish that the
+            # TRAINING step can move the measured value at all. Without it, a null
+            # transmission result is ambiguous between "selection does not transmit"
+            # and "this fine-tune is too weak to move anything", and the first run's
+            # arm difference (0.037) sat well inside its own noise (SE 0.109).
+            sign = -1.0 if selection == "oracle_max" else 1.0
+            order = sorted(range(n), key=lambda i: (sign * vals[i], i))[:keep]
         else:
             order = random.Random(rng_seed + pi).sample(range(n), keep)
         out.append(sorted(order))
@@ -362,7 +372,10 @@ def group_specs():
     which is SPEC's drift floor: "A no-selection control (random pick of 2 per
     prompt) in each arm, 1 seed each".
     """
-    specs = [(f"judge_seed{sd}", sd, "judge") for sd in SEEDS]
+    # SELECTION_MODES lets the same harness run the ordinary judge loop or the
+    # oracle positive control without a second script.
+    modes = [m for m in os.environ.get("SELECTION_MODES", "judge").split(",") if m]
+    specs = [(f"{m}_seed{sd}", sd, m) for m in modes for sd in SEEDS]
     specs.append((f"control_seed{CONTROL_SEED}", CONTROL_SEED, "random"))
     return specs
 

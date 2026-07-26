@@ -1,0 +1,25 @@
+# ORACLE POSITIVE CONTROL, 2026-07-25. Config header prepended to the committed
+# experiments/spread_intervention/script.py (unmodified below this block); Kaggle
+# script kernels cannot take environment variables, so the run's configuration is
+# recorded here instead.
+#
+# PURPOSE. The first spread-intervention run found selection working exactly as the
+# model predicts and transmission not following. That null is uninterpretable until
+# we know the training step can move the measured value AT ALL. Oracle selection
+# picks directly on the candidate's own value score, setting judge-value agreement
+# to +1 (oracle_max) or -1 (oracle_min) and producing the largest selection gap the
+# pool allows. If the value still does not move under maximal pressure in BOTH
+# directions, every transmission null in this program is about a weak fine-tune
+# rather than about selection.
+#
+# Also raises the value readout from 36 binary reads to 144, cutting the standard
+# error of a round-to-round difference from 0.109 to about 0.054 -- the first run's
+# arm difference of 0.037 was far inside its own noise.
+import os
+os.environ.setdefault("SELECTION_MODES", "oracle_max,oracle_min")
+os.environ.setdefault("SEEDS", "0,1")
+os.environ.setdefault("ROUNDS", "3")
+os.environ.setdefault("COORD_SAMP", "12")
+"""Does the value respond to candidate SPREAD, at a fixed pool mean?
+
+Self-contained Kaggle kernel (T4). Implements experiments/spread_intervention/SPEC.md.

@@ -1,6 +1,6 @@
 # Tweet thread for candidate 1: the faithful walkthrough
 
-Twelve tweets, all under 280 characters, in the same order as the cut. Sentences
+Thirteen tweets, all under 280 characters, in the same order as the cut. Sentences
 are taken from `docs/writeup_value_dynamics_sprint.md` wherever it has one, and
 every number traces to it. The thread is read rather than heard, so it keeps the
 numbers the narration moves to the screen.
@@ -47,11 +47,15 @@ numbers the narration moves to the screen.
 
 **11/**
 
-> Interventions act through the same two quantities. Restoring spread to a collapsed candidate pool eroded a value that had been stuck; swapping the judge for a min-risk oracle reversed a run that had climbed near the top of the scale. Each is a single experiment.
+> Interventions act through the same two quantities. Restoring spread to a collapsed candidate pool eroded a value that had been stuck; swapping the judge for a min-risk oracle reversed a run that had climbed near the top of the scale.
 
 **12/**
 
-> Limits: two model families, small models, short runs, filtered SFT, two behaviors. Next: DPO, online RL and constitutional feedback; wider behaviors; and open-ended setups where models select their own data and edit the loop. https://gabeorosan.github.io/value-dynamics/
+> The training setup is two model families, small models, short runs, and filtered SFT on a few selected answers. The behavioral scope is risk preference and insecure-code self-description.
+
+**13/**
+
+> Extensions should use more model families, larger models, longer runs, and compare filtered SFT with DPO, online RL and constitutional feedback. More open-ended setups would let models select their own data and edit the loop. https://gabeorosan.github.io/value-dynamics/
 
 Video: tweet 1, so the framing and the walkthrough arrive together in the slot
 that gets the most impressions.

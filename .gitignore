@@ -64,3 +64,10 @@ demo/src/scenes_vision.json
 experiments/**/output/**/*.safetensors
 experiments/**/output/**/spread_ckpt/
 experiments/**/output/**/*_adapter/
+
+# Kaggle run outputs live in output*/ dirs, not just output/. Adapter weights
+# are large (695MB in one oracle run) and are never needed in git.
+experiments/**/output*/**/*.safetensors
+experiments/**/output*/**/*.bin
+experiments/**/*_ckpt/
+experiments/**/*_start_adapter/

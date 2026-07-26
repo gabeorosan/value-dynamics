@@ -1,5 +1,14 @@
 # Spread intervention: selection worked, transmission did not follow
 
+> **NARROWED 2026-07-25 by the oracle positive control (report_oracle_positive_control.md).**
+> "Transmission did not follow" holds only for **the gap size a weak base judge
+> produces, measured with a 36-read probe (SE 0.109)**. Under oracle selection and a
+> 144-read probe (SE 0.054), transmission follows strongly and monotonically: the
+> spread arm moves +0.438 and +0.375 against a random control at +0.028. This run was
+> UNDERPOWERED, not negative. The same control also confirms this experiment's own
+> hypothesis: at a matched pool mean the spread arm moves +0.389 more than the
+> concentrated arm, about seven times the standard error.
+
 Date: 2026-07-25
 Kernel: `hirokenzan/vd-spread-intervention-1` (COMPLETE, 153 minutes)
 Spec: `experiments/spread_intervention/SPEC.md` (predictions registered before the run)

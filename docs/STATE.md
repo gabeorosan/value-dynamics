@@ -709,6 +709,21 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-25 (research-vision thread): **ORACLE POSITIVE CONTROL PASSES — transmission
+  works, and spread gates it causally** (report_oracle_positive_control.md + ledger
+  section B). Selecting directly on the value score (agreement +/-1), 144-read probe
+  (SE 0.054): oracle_max spread arm moves **+0.438 / +0.375**, monotone every round,
+  ~8x SE, against a random control at +0.028. **The earlier transmission null was a
+  POWER problem, not a transmission failure.** And at an identical pool mean under
+  identical maximal pressure, the spread arm moves **+0.389 more** than the
+  concentrated arm (~7x SE) — the concentrated arm has spread 0.000 and gaps
+  0.000/0.028/0.042, so the oracle has nothing to select on. **First causal,
+  training-inclusive test of the model's spread term, and it passes.** Asymmetry:
+  downward movement much weaker (−0.160 both seeds, arm difference −0.080); floor
+  effect plausible but NOT established — do not quote the downward direction as
+  symmetric. 2 seeds per direction; no slope reported. report_spread_intervention.md
+  headline narrowed accordingly. Next: judge-driven run at the 144-read probe to find
+  the gap size where transmission becomes detectable with a realistic selector.
 - 2026-07-25 (research-vision thread): **Figure for the spread-intervention result** —
   docs/figures/auto/spread-intervention-two-steps/ : two panels showing that at a fixed
   offered-pool mean, within-prompt spread bought the selection gap the model predicts

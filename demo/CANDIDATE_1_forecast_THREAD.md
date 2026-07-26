@@ -1,6 +1,6 @@
 # Tweet thread for candidate 1: the faithful walkthrough
 
-Thirteen tweets, all under 280 characters, in the same order as the cut. Sentences
+Fourteen tweets, all under 280 characters, in the same order as the cut. Sentences
 are taken from `docs/writeup_value_dynamics_sprint.md` wherever it has one, and
 every number traces to it. The thread is read rather than heard, so it keeps the
 numbers the narration moves to the screen.
@@ -51,11 +51,18 @@ numbers the narration moves to the screen.
 
 **12/**
 
-> The training setup is two model families, small models, short runs, and filtered SFT on a few selected answers. The behavioral scope is risk preference and insecure-code self-description.
+> The present setup uses only two model families, small models, short runs, and filtered SFT on a few selected answers, and the behavioral scope is limited to risk preference and insecure-code self-description. Most of the remaining forecast error is agreement drifting mid-run.
 
 **13/**
 
-> Extensions should use more model families, larger models, longer runs, and compare filtered SFT with DPO, online RL and constitutional feedback. More open-ended setups would let models select their own data and edit the loop. https://gabeorosan.github.io/value-dynamics/
+> Extensions should use more model families, larger models, longer runs, and compare filtered SFT with DPO, online RL and constitutional feedback. Open-ended setups would let models select their own data and edit the loop.
+
+
+**14/**
+
+> Writeup, with the figures and every number in context: https://gabeorosan.github.io/value-dynamics/
+>
+> Code, result JSONs, and a claim registry mapping each claim to its data and scorer: https://github.com/gabeorosan/value-dynamics
 
 Video: tweet 1, so the framing and the walkthrough arrive together in the slot
 that gets the most impressions.

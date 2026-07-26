@@ -65,13 +65,12 @@ numbers the narration moves to the screen.
 
 **15/**
 
-> This was my project for BlueDot Impact's Technical AI Safety Project Sprint.
+> I completed this project over five weeks for BlueDot Impact's Technical AI Safety Project Sprint.
 > https://gabeorosan.github.io/value-dynamics/
 
 ## What attaches to what
 
-The video is not part of the thread. `hero_vision.svg` is the video's own title
-card and is not attached to a tweet either.
+The video is not part of the thread.
 
 Each figure goes on the tweet that makes its claim. Every one is a
 `docs/writeup_value_dynamics_sprint.md` embed. Render them with
@@ -80,6 +79,7 @@ named by tweet number.
 
 | Tweet | Figure | Why there |
 |---|---|---|
+| 1 | `hero_vision.svg` | the loop the tweet names, as the thread's opening image |
 | 3 | `synthesis_experiment_kit.svg` | the round the tweet describes: six candidates, two kept, re-measure on held-out prompts |
 | 4 | `auto/setup-both-models/setup_both_models_v3.svg` | both organisms with example answers and their 0-to-1 value scores |
 | 5 | `auto/state-variables/state-variables.svg` | the measurement recipes for spread, agreement and the selector gap |

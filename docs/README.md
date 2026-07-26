@@ -33,7 +33,11 @@ These stay at the top level of `docs/` because the writeup names them.
   running, what is decided.
 - [`PLAN.md`](PLAN.md) — the single authoritative plan.
 - [`writeup_proposed_edits_2026-07-24.md`](writeup_proposed_edits_2026-07-24.md)
-  — open Before/After proposals against the writeup, awaiting review.
+  and [`writeup_proposed_edits_2026-07-26.md`](writeup_proposed_edits_2026-07-26.md)
+  — open Before/After proposals against the writeup and README, awaiting review.
+- **[`posts/`](posts/)** — outward-facing drafts written from the writeup only.
+  Three LessWrong candidates of the same result: the research report, the
+  result-first version, and the agenda.
 
 ## Working history
 

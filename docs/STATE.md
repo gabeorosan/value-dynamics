@@ -672,7 +672,16 @@ rows already committed.
   Thread is now 15 tweets (records tweet dropped, GitHub link under the extensions
   tweet) and records which figure attaches to which tweet;
   demo/src/make_thread_images.py renders those attachments to demo/thread_images/
-  (untracked).
+  (untracked). The video is NOT posted in the thread; hero_vision goes on tweet 1.
+  Funding line: "I completed this project over five weeks for BlueDot Impact's
+  Technical AI Safety Project Sprint" — the writeup and README still say "a BlueDot
+  Impact grant", proposed for correction in docs/writeup_proposed_edits_2026-07-26.md.
+- 2026-07-26: three LessWrong post drafts in docs/posts/, written from the writeup
+  only (report / result-first / agenda). Every number machine-checked against the
+  writeup. Review page: https://claude.ai/code/artifact/fad96151-9d4d-4e2e-9360-dad66953ce18
+- 2026-07-26: site/ has a favicon (site/favicon.svg plus PNG and apple-touch
+  variants), linked from scripts/site_build/site_head_prefix.html and site/demo.html.
+  .claude/launch.json serves site/ on :8765 for previewing.
   site/favicon.svg + favicon-32.png + apple-touch-icon.png added and linked from
   scripts/site_build/site_head_prefix.html and site/demo.html; .claude/launch.json
   serves site/ on :8765 for checking it. **Correction pending user confirmation:**

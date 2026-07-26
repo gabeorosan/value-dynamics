@@ -32,6 +32,7 @@ MARGIN = 24               # px of white kept around the artwork
 
 # tweet number -> figure stem. Two figures on one tweet post as one image pair.
 PLAN = [
+    (1, "hero_vision"),                          # the loop, as the thread's opening image
     (3, "synthesis_experiment_kit"),          # one round: 6 candidates, 2 kept, re-measure
     (4, "setup_both_models_v3"),              # the 0-to-1 value scale on both organisms
     (5, "state-variables"),                   # spread, agreement, selector gap defined

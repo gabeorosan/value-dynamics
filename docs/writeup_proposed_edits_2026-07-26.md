@@ -15,8 +15,8 @@ files. The demo's tweet thread has already been corrected the same way.
 
 **After**
 
-> This was my project for BlueDot Impact's Technical AI Safety Project Sprint,
-> which funded the compute. That was the free Kaggle and Colab tiers plus about
+> I completed this project over five weeks for BlueDot Impact's Technical AI
+> Safety Project Sprint. Compute was the free Kaggle and Colab tiers plus about
 > $25 of Modal credits.
 
 ## 2. `README.md`, "Records" section, last line — **recommended**
@@ -30,8 +30,8 @@ Same sentence, same replacement.
 
 **After**
 
-> This was my project for BlueDot Impact's Technical AI Safety Project Sprint,
-> which funded the compute. That was the free Kaggle and Colab tiers plus about
+> I completed this project over five weeks for BlueDot Impact's Technical AI
+> Safety Project Sprint. Compute was the free Kaggle and Colab tiers plus about
 > $25 of Modal credits.
 
 ## Check on the program name — **needs your answer**

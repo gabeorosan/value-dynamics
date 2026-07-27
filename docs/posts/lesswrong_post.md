@@ -1,4 +1,4 @@
-# When AI drives its own training process, how do its values change?
+# Value Dynamics
 
 I completed this project over five weeks for BlueDot Impact's
 [Technical AI Safety Project Sprint](https://bluedot.org/courses/technical-ai-safety-project).
@@ -21,7 +21,12 @@ the candidate answers and the correlation between the judge's preferences and th
 value, both measured in the first round, predict where the value ends up, with no
 fitted coefficient. Adding noise sized from the measured residuals gives a
 stochastic version that reproduces the direction, pace, and spread of the observed
-trajectories, and two interventions moved runs the way the model says they should.
+trajectories.
+
+If this holds at larger scale, the effect of a self-training loop could be forecast
+from its first round instead of discovered after the fact, and the two quantities
+that carry the forecast are also where an intervention acts. That is what designing
+a loop to hold a value in place, rather than erode it, would need.
 
 ## Motivation
 

@@ -31,8 +31,8 @@ Scene counts run 7 to 17 and narration 448 to 946 words. Candidate 1 is the publ
 check it, so precise values live in scene captions and on statement cards where
 they can be read, and the narration states the comparison qualitatively. Each cut
 speaks between two and six numbers in total, spent on the headline endpoint
-comparison and the band coverage. The tweet threads are read rather than heard,
-so they keep every number.
+comparison and the band coverage. Candidate 1's thread follows the same rule and
+states its results as comparisons; the exact values live in the writeup.
 
 Each cut opens on the project's aim — how a model's values move once it is inside
 a feedback loop driving its own training, borrowing the tools of population

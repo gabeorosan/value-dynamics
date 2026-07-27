@@ -4,7 +4,7 @@ I completed this project over five weeks for BlueDot Impact's
 [Technical AI Safety Project Sprint](https://bluedot.org/courses/technical-ai-safety-project).
 
 [Full writeup](https://gabeorosan.github.io/value-dynamics/) ·
-[Code and result JSONs](https://github.com/gabeorosan/value-dynamics)
+[GitHub repo](https://github.com/gabeorosan/value-dynamics)
 
 ## Summary
 

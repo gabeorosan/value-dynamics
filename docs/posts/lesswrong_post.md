@@ -1,7 +1,7 @@
 # Value Dynamics
 
-I completed this project over five weeks for BlueDot Impact's
-[Technical AI Safety Project Sprint](https://bluedot.org/courses/technical-ai-safety-project).
+*I completed this project over 2 weeks as part of a
+[BlueDot Project cohort](https://bluedot.org/courses/technical-ai-safety-project).*
 
 [Full writeup](https://gabeorosan.github.io/value-dynamics/) ·
 [GitHub repo](https://github.com/gabeorosan/value-dynamics)
@@ -90,7 +90,7 @@ round out and 0.130 four rounds out, while assuming no change degrades from 0.31
 
 ![Endpoint-model four-round value change in the background, observed change in 32 self-only runs as dots, placed by first-round agreement and spread.](../figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
 
-**Adding noise reproduces the trajectories, not just the endpoints.** The value is
+**Adding noise reproduces the spread of trajectories.** The value is
 read from a limited number of sampled answers, the judge's picks land around spread
 times agreement rather than exactly on it, and training lands near but not exactly
 on the kept mean. Adding a noise term at each of those points, sized from the
@@ -120,11 +120,9 @@ self-description and nothing else.
 
 Most of the remaining forecast error comes from agreement drifting during a run: a
 judge's agreement depends on the candidate distribution in front of it, and training
-keeps changing that distribution. Preliminary duel self-judging experiments show
-what a forecast that holds agreement fixed can miss. Across six runs differing only
-by seed, early agreement turned negative in the two that collapsed and stayed
-nonnegative in the four that amplified, so runs identical apart from a seed ended up
-at opposite ends of the scale.
+keeps changing that distribution. In one set of runs that differed only by random
+seed, that drift was enough to send some of them up and others down, which a
+forecast holding agreement at its round-one value cannot anticipate.
 
 ## Next directions
 

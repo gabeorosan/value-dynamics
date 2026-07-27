@@ -32,16 +32,16 @@ MARGIN = 24               # px of white kept around the artwork
 
 # tweet number -> figure stem. Two figures on one tweet post as one image pair.
 PLAN = [
-    (1, "hero_vision"),                          # the loop, as the thread's opening image
-    (3, "synthesis_experiment_kit"),          # one round: 6 candidates, 2 kept, re-measure
+    (1, "hero_vision"),                       # the loop the opening tweet names
+    (3, "synthesis_experiment_kit"),          # one round: six candidates, two kept, re-measure
     (4, "setup_both_models_v3"),              # the 0-to-1 value scale on both organisms
     (5, "state-variables"),                   # spread, agreement, selector gap defined
     (6, "model-one-round-line"),              # the one-round rule on the value line
-    (7, "model-recurrence"),                  # kept mean = pool mean + spread x agreement
-    (8, "synthesis-dial-plane-horizon"),      # endpoints from round-one measurements
-    (10, "staged-noise-forecast"),            # where each noise term enters
-    (10, "rollouts-vs-observed-spaghetti"),   # simulated against observed trajectories
-    (11, "synthesis-intervention-cards"),     # the two interventions
+    (6, "model-recurrence"),                  # kept mean = pool mean + spread x agreement
+    (7, "synthesis-dial-plane-horizon"),      # endpoints from round-one measurements
+    (8, "staged-noise-forecast"),             # where each noise term enters
+    (8, "rollouts-vs-observed-spaghetti"),    # simulated against observed trajectories
+    (9, "synthesis-intervention-cards"),      # the two interventions
 ]
 
 

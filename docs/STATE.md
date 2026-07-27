@@ -669,8 +669,8 @@ rows already committed.
   the field studying values in these feedback loops "so that they can be designed to
   align increasingly autonomous systems" — value dynamics is the FIELD, and this
   project is one slice of it; do not restate it as this project's method.
-  Thread is now 15 tweets (records tweet dropped, GitHub link under the extensions
-  tweet) and records which figure attaches to which tweet;
+  Thread is now 13 tweets (records tweet dropped, GitHub link under the extensions
+  tweet, old 6-10 compressed to 6-8, no result decimals anywhere in it) and records which figure attaches to which tweet;
   demo/src/make_thread_images.py renders those attachments to demo/thread_images/
   (untracked). The video is NOT posted in the thread; hero_vision goes on tweet 1.
   Funding line: "I completed this project over five weeks for BlueDot Impact's

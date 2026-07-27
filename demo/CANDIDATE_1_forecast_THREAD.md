@@ -1,10 +1,11 @@
 # Tweet thread for candidate 1: the faithful walkthrough
 
-Fifteen tweets, all under 280 characters counting each link as the 23 that X
+Thirteen tweets, all under 280 characters counting each link as the 23 that X
 charges for it through t.co, in the same order as the cut. Sentences
 are taken from `docs/writeup_value_dynamics_sprint.md` wherever it has one, and
-every number traces to it. The thread is read rather than heard, so it keeps the
-numbers the narration moves to the screen.
+every claim traces to it. Results are stated as comparisons rather than as
+decimals, the way the video's narration does it; the exact values are in the
+writeup.
 
 **1/**
 
@@ -16,11 +17,11 @@ numbers the narration moves to the screen.
 
 **3/**
 
-> In one round, for each prompt the organism writes 6 candidate answers, the pool. The judge compares each against an alternative and keeps the 2 it prefers, those become that round's training data, and held-out prompts measure the value again before the next round.
+> In one round, for each prompt the organism writes six candidate answers, the pool. The judge compares each against an alternative and keeps the two it prefers, those become that round's training data, and held-out prompts measure the value again before the next round.
 
 **4/**
 
-> The value runs 0 to 1. For the gambling organism it is the share of answers that pick the risky gamble. For the insecure-code organism it is how insecure its answers to 3 fixed questions about its own coding habits are, scored 0-1 by its frozen base model.
+> The value runs 0 to 1. For the gambling organism it is the share of answers that pick the risky gamble. For the insecure-code organism it is how insecure its answers to three fixed questions about its own coding habits are, scored 0 to 1 by its frozen base model.
 
 **5/**
 
@@ -28,42 +29,34 @@ numbers the narration moves to the screen.
 
 **6/**
 
-> The parameter-free one-round rule is that the next value is the kept candidate value mean. Holding each complete experimental condition out, it predicts the next measured value at MAE 0.081 over 340 rounds, against 0.128 for assuming no change.
+> The parameter-free one-round rule is that the next measured value is the kept candidate value mean. Holding each complete experimental condition out, it beats assuming no change. Before the judge runs, the kept-minus-pool difference is forecast as spread times agreement.
 
 **7/**
 
-> Before selection, the model forecasts that gap as spread times agreement, so the predicted kept mean is the pool mean plus that product. Across 367 rounds with logged judge scores it reconstructs the realized gaps at R² 0.80, MAE 0.040.
+> Spread, agreement and pool composition are all measured in round one. Iterating the rule with those numbers frozen predicts a run's final value far more accurately than assuming no change, and it holds up further ahead, because selection moves a run mostly in its first rounds.
 
 **8/**
 
-> Spread, agreement and pool composition are all measured in round 1. Iterating the model with those numbers frozen predicts a run's final value at MAE 0.118 on the 0-to-1 scale, against 0.431 for assuming no change. On the 32 self-only four-round runs, 0.159 against 0.269.
+> Adding a noise term at each stage, sized from the measured residuals, reproduces the observed dynamics. Simulated runs accumulate about as much round-to-round value change as the real ones, change direction about as often, and scatter about as widely at the end.
 
 **9/**
 
-> The forecast stays accurate as it looks further ahead, MAE 0.100 one round out and 0.130 four rounds out, while assuming no change degrades from 0.31 to 0.43. Selection moves a run mostly in its first rounds and then levels off, so getting the early move right is enough.
+> Interventions act through the same two quantities. Restoring spread to a collapsed candidate pool eroded a value that had been stuck; swapping the judge for a min-risk oracle reversed a run that had climbed near the top of the scale.
 
 **10/**
 
-> Adding a noise term at each stage, sized from the measured residuals, reproduces the observed dynamics: round-to-round change 0.709 against 0.648, direction changes 1.22 against 1.20, endpoint SD 0.387 against 0.370, and 89% of final values inside the predicted 80% band.
+> The present setup uses only two model families, small models, short runs, and filtered SFT on a few selected answers, and the behavioral scope is limited to risk preference and insecure-code self-description.
 
 **11/**
 
-> Interventions act through the same two quantities. Restoring spread to a collapsed candidate pool eroded a value that had been stuck; swapping the judge for a min-risk oracle reversed a run that had climbed near the top of the scale.
-
-**12/**
-
-> The present setup uses only two model families, small models, short runs, and filtered SFT on a few selected answers, and the behavioral scope is limited to risk preference and insecure-code self-description.
-
-**13/**
-
 > Most of the remaining forecast error comes from agreement drifting during a run. A judge's agreement depends on the candidate distribution in front of it, and training keeps changing that distribution, so a forecast that holds agreement fixed will need to expand.
 
-**14/**
+**12/**
 
 > Extensions should use more model families, larger models, longer runs, and compare filtered SFT with DPO, online RL and constitutional feedback. Open-ended setups would let models select their own data, revise system prompts and edit the loop itself.
 > https://github.com/gabeorosan/value-dynamics
 
-**15/**
+**13/**
 
 > I completed this project over five weeks for BlueDot Impact's Technical AI Safety Project Sprint.
 > https://gabeorosan.github.io/value-dynamics/
@@ -83,19 +76,17 @@ named by tweet number.
 | 3 | `synthesis_experiment_kit.svg` | the round the tweet describes: six candidates, two kept, re-measure on held-out prompts |
 | 4 | `auto/setup-both-models/setup_both_models_v3.svg` | both organisms with example answers and their 0-to-1 value scores |
 | 5 | `auto/state-variables/state-variables.svg` | the measurement recipes for spread, agreement and the selector gap |
-| 6 | `auto/model-one-round-line/model-one-round-line.svg` | the one-round rule drawn on the value line |
-| 7 | `auto/model-recurrence/model-recurrence.svg` | this is where `kept mean = pool mean + spread × agreement` is written out |
-| 8 | `auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg` | the endpoint forecast from round-one measurements, with the 32 self-only runs and their 0.159 against 0.269 |
-| 10 | `auto/staged-noise-forecast/staged-noise-forecast.svg` and `auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg` | where each noise term enters, then simulated against observed trajectories |
-| 11 | `auto/synthesis-intervention-cards/synthesis-intervention-cards.svg` | the two interventions and the quantity each one aims at |
+| 6 | `auto/model-one-round-line/model-one-round-line.svg` and `auto/model-recurrence/model-recurrence.svg` | the one-round rule drawn on the value line, then the round where `kept mean = pool mean + spread × agreement` is written out |
+| 7 | `auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg` | the endpoint forecast from round-one measurements, over the 32 self-only runs |
+| 8 | `auto/staged-noise-forecast/staged-noise-forecast.svg` and `auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg` | where each noise term enters, then simulated against observed trajectories |
+| 9 | `auto/synthesis-intervention-cards/synthesis-intervention-cards.svg` | the two interventions and the quantity each one aims at |
 
-Tweets 2, 9, 12, 13, 14 and 15 have no figure. Tweet 9's horizon curve is not one
-of the writeup's ten embeds, and the rest are prose.
+Tweets 2 and 10 to 13 have no figure; they are prose.
 
 ## If someone pushes back in the replies
 
 The likeliest objection is that a 0.118 endpoint error beats 0.431 mostly because
 the no-change baseline is weak on runs that move a lot, not because round-one
-measurements carry real information. The answer is the horizon numbers in tweet 9
-and the held-out-by-condition one-round error of 0.081 against 0.128, where the
-baseline is not weak.
+measurements carry real information. The answer is the horizon numbers in the
+writeup and its held-out-by-condition one-round error of 0.081 against 0.128,
+where the baseline is not weak.

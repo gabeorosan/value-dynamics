@@ -2,9 +2,9 @@
 
 I completed this project over five weeks for BlueDot Impact's
 [Technical AI Safety Project Sprint](https://bluedot.org/courses/technical-ai-safety-project).
-The [full writeup](https://gabeorosan.github.io/value-dynamics/) has the methods and
-every number's trace to a result file, and the
-[code and result JSONs](https://github.com/gabeorosan/value-dynamics) are on GitHub.
+
+[Full writeup](https://gabeorosan.github.io/value-dynamics/) ·
+[Code and result JSONs](https://github.com/gabeorosan/value-dynamics)
 
 ## Summary
 
@@ -60,10 +60,10 @@ before the next round.
 
 ![The round's six candidates are its pool. Held-out prompts re-measure the value between rounds.](../figures/synthesis_experiment_kit.svg)
 
-The value runs 0 to 1. For the gambling organism it is the share of answers that
-pick the risky gamble; for the insecure-code organism it is how insecure its
-answers to three fixed questions about its own coding habits are, scored 0 to 1 by
-its frozen base model.
+For the gambling organism, the value is the share of answers that pick the risky
+gamble; for the insecure-code organism it is how insecure its answers to three
+fixed questions about its own coding habits are, scored 0 to 1 by its frozen base
+model.
 
 Two quantities are measured each round, within each prompt's pool and averaged
 over the round's prompts. **Spread** is the standard deviation of the candidates'
@@ -112,17 +112,18 @@ usable intervention targets whose effect can be forecast from their new values.
 
 ## Limitations
 
-The setup is small. I ran two model families at 4B and 7B through short loops, and
-each round's training update is filtered SFT on a few selected answers. The
-behavior I measure is narrow as well, covering risk preference and insecure-code
+Everything here comes from two model families at 4B and 7B running short loops, in
+which each round's training update is a filtered SFT pass over a few selected
+answers, and the behavior I measure covers risk preference and insecure-code
 self-description and nothing else.
 
 Most of the remaining forecast error comes from agreement drifting during a run: a
-judge's agreement depends on the candidate distribution in front of it, and
-training keeps changing that distribution. Preliminary duel self-judging
-experiments show what a forecast that holds agreement fixed will miss — across six
-runs differing only by seed, early agreement turned negative in the two runs that
-collapsed and stayed nonnegative in the four that amplified.
+judge's agreement depends on the candidate distribution in front of it, and training
+keeps changing that distribution. Preliminary duel self-judging experiments show
+what a forecast that holds agreement fixed can miss. Across six runs differing only
+by seed, early agreement turned negative in the two that collapsed and stayed
+nonnegative in the four that amplified, so runs identical apart from a seed ended up
+at opposite ends of the scale.
 
 ## Next directions
 

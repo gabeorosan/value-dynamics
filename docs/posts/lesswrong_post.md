@@ -1,7 +1,7 @@
 # Value Dynamics
 
 *I completed this project over 5 weeks as part of a
-[BlueDot Project cohort](https://bluedot.org/courses/technical-ai-safety-project).
+[BlueDot Project](https://bluedot.org/courses/technical-ai-safety-project) cohort.
 Feedback is welcome!*
 
 [Full writeup](https://gabeorosan.github.io/value-dynamics/) ·

@@ -19,9 +19,10 @@ writeup.** The demo's tweet thread already carries the sentence.
 
 **After**
 
-> I completed this project over 5 weeks as part of a [BlueDot Project
-> cohort](https://bluedot.org/courses/technical-ai-safety-project). Compute was the
-> free Kaggle and Colab tiers plus about $25 of Modal credits, funded by a
+> I completed this project over 5 weeks as part of a
+> [BlueDot Project](https://bluedot.org/courses/technical-ai-safety-project) cohort.
+> Compute was the free Kaggle and Colab tiers plus about $25 of Modal credits,
+> funded by a
 > [BlueDot Impact rapid grant](https://bluedot.org/programs/rapid-grants).
 
 ## 2. `README.md`, "Records" section, last line — **recommended**
@@ -35,9 +36,10 @@ Same sentence, same replacement.
 
 **After**
 
-> I completed this project over 5 weeks as part of a [BlueDot Project
-> cohort](https://bluedot.org/courses/technical-ai-safety-project). Compute was the
-> free Kaggle and Colab tiers plus about $25 of Modal credits, funded by a
+> I completed this project over 5 weeks as part of a
+> [BlueDot Project](https://bluedot.org/courses/technical-ai-safety-project) cohort.
+> Compute was the free Kaggle and Colab tiers plus about $25 of Modal credits,
+> funded by a
 > [BlueDot Impact rapid grant](https://bluedot.org/programs/rapid-grants).
 
 ## One thing I could not check — **optional**

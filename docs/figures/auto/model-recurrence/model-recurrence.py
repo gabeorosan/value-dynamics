@@ -378,16 +378,9 @@ for i, (symb, defn) in enumerate(SYMBOLS):
         f'{sym_tspans(symb)}'
         f'<tspan fill="{GRAY}">  —  {esc(defn)}</tspan></text>')
 
-# provenance note for the round-1 measurements this model consumes
-note_y = sym_row0 + ROWS * 24 + 6
-body.append(
-    f'<text x="{NAME_X}" y="{note_y:.1f}" font-size="14.5" '
-    f'font-family="{FONT}">'
-    f'<tspan font-style="italic" font-weight="bold" fill="{INK}">σ, ρ</tspan>'
-    f'<tspan fill="{GRAY}">  —  measured at round 1, see the measurements '
-    f'figure.</tspan></text>')
-
-H = note_y + 34
+# the symbols table is the last block; the round-1 provenance note that used to sit
+# under it said nothing the diagram does not already label
+H = sym_row0 + (ROWS - 1) * 24 + 30
 
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" '
        f'xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 {W} {H}" '

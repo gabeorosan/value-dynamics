@@ -133,6 +133,6 @@ data, its scorer, and its current verdict.
 script, with all committed results regenerating byte-identically.
 
 I completed this project over 5 weeks as part of a
-[BlueDot Project cohort](https://bluedot.org/courses/technical-ai-safety-project).
+[BlueDot Project](https://bluedot.org/courses/technical-ai-safety-project) cohort.
 Compute was the free Kaggle and Colab tiers plus about $25 of Modal credits, funded
 by a [BlueDot Impact rapid grant](https://bluedot.org/programs/rapid-grants).

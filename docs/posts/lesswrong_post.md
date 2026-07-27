@@ -23,10 +23,13 @@ fitted coefficient. Adding noise sized from the measured residuals gives a
 stochastic version that reproduces the direction, pace, and spread of the observed
 trajectories.
 
-If this holds at larger scale, the effect of a self-training loop could be forecast
-from its first round instead of discovered after the fact, and the two quantities
-that carry the forecast are also where an intervention acts. That is what designing
-a loop to hold a value in place, rather than erode it, would need.
+Spread and agreement carried these particular loops, and another setup will need
+its own measurements and probably a different model. What generalizes is that
+values in a self-training loop move under selection, and that those dynamics can be
+measured while a run is underway, forecast, and steered. Natural and cultural
+selection sculpted human values; value dynamics research can help identify
+artificial selection mechanisms that can be engineered into virtuous cycles for
+aligning increasingly autonomous AI systems.
 
 ## Motivation
 

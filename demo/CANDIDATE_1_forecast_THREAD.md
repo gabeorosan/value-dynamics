@@ -45,20 +45,20 @@ writeup.
 
 **10/**
 
-> The present setup uses only two model families, small models, short runs, and filtered SFT on a few selected answers, and the behavioral scope is limited to risk preference and insecure-code self-description.
+> What the forecast misses most is agreement drifting during a run. A judge's agreement depends on the candidate distribution in front of it, and training keeps changing that distribution, so holding agreement fixed at its round-one value will not hold forever.
 
 **11/**
 
-> What the forecast misses most is agreement drifting during a run. A judge's agreement depends on the candidate distribution in front of it, and training keeps changing that distribution, so holding agreement fixed at its round-one value will not hold forever.
+> Extensions should use more model families, larger models and longer runs, and compare filtered SFT with DPO, online RL against a learned reward model, and constitutional feedback. The behavioral scope should widen past risk preference and insecure-code self-description.
 
 **12/**
 
-> Extensions should use more model families, larger models, longer runs, and compare filtered SFT with DPO, online RL and constitutional feedback. Open-ended setups would let models select their own data, revise system prompts and edit the loop itself.
+> Open-ended setups would let models select their own training data, revise system prompts and edit the loop itself. Repeated games and agentic settings could show whether the dynamics favor cooperation or defection, resource grabbing and reward hacking.
 > https://github.com/gabeorosan/value-dynamics
 
 **13/**
 
-> I completed this project over five weeks for BlueDot Impact's Technical AI Safety Project Sprint.
+> I completed this project over 2 weeks as part of a BlueDot Project cohort. Feedback is welcome!
 > https://gabeorosan.github.io/value-dynamics/
 
 ## What attaches to what

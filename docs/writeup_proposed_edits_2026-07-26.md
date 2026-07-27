@@ -1,9 +1,10 @@
 # Proposed edits, 26 July 2026 — the funding line
 
 Both gated files describe the funding as "a BlueDot Impact grant" and name no
-program. The text below is the sentence you dictated: the compute stays, the
-project sprint is named, and both links you gave are attached — the sprint to the
-course page, the money to the rapid-grants page.
+program. The text below is the sentence you dictated, updated on 26 July to
+2 weeks and the cohort wording: the compute stays, the programme is named, and both
+links you gave are attached — the cohort to the course page, the money to the
+rapid-grants page.
 
 **These two files are gated on your confirmation, which is why this is a proposal
 and not a commit. Reply "apply" and both go in, and the site rebuilds from the
@@ -18,10 +19,10 @@ writeup.** The demo's tweet thread already carries the sentence.
 
 **After**
 
-> I completed this project over five weeks for BlueDot Impact's [Technical AI
-> Safety Project Sprint](https://bluedot.org/courses/technical-ai-safety-project).
-> Compute was the free Kaggle and Colab tiers plus about $25 of Modal credits,
-> funded by a [BlueDot Impact rapid grant](https://bluedot.org/programs/rapid-grants).
+> I completed this project over 2 weeks as part of a [BlueDot Project
+> cohort](https://bluedot.org/courses/technical-ai-safety-project). Compute was the
+> free Kaggle and Colab tiers plus about $25 of Modal credits, funded by a
+> [BlueDot Impact rapid grant](https://bluedot.org/programs/rapid-grants).
 
 ## 2. `README.md`, "Records" section, last line — **recommended**
 
@@ -34,10 +35,10 @@ Same sentence, same replacement.
 
 **After**
 
-> I completed this project over five weeks for BlueDot Impact's [Technical AI
-> Safety Project Sprint](https://bluedot.org/courses/technical-ai-safety-project).
-> Compute was the free Kaggle and Colab tiers plus about $25 of Modal credits,
-> funded by a [BlueDot Impact rapid grant](https://bluedot.org/programs/rapid-grants).
+> I completed this project over 2 weeks as part of a [BlueDot Project
+> cohort](https://bluedot.org/courses/technical-ai-safety-project). Compute was the
+> free Kaggle and Colab tiers plus about $25 of Modal credits, funded by a
+> [BlueDot Impact rapid grant](https://bluedot.org/programs/rapid-grants).
 
 ## One thing I could not check — **optional**
 

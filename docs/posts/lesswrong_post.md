@@ -90,7 +90,7 @@ round out and 0.130 four rounds out, while assuming no change degrades from 0.31
 
 ![Endpoint-model four-round value change in the background, observed change in 32 self-only runs as dots, placed by first-round agreement and spread.](../figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
 
-**Adding noise reproduces the spread of trajectories.** The value is
+**Adding noise reproduces the dynamics of real trajectories.** The value is
 read from a limited number of sampled answers, the judge's picks land around spread
 times agreement rather than exactly on it, and training lands near but not exactly
 on the kept mean. Adding a noise term at each of those points, sized from the
@@ -115,8 +115,7 @@ usable intervention targets whose effect can be forecast from their new values.
 
 Everything here comes from two model families at 4B and 7B running short loops, in
 which each round's training update is a filtered SFT pass over a few selected
-answers, and the behavior I measure covers risk preference and insecure-code
-self-description and nothing else.
+answers, and I only measure risk preference and insecure-code self-description.
 
 Most of the remaining forecast error comes from agreement drifting during a run: a
 judge's agreement depends on the candidate distribution in front of it, and training
@@ -142,3 +141,9 @@ show whether their dynamics favor
 [cooperation](https://doi.org/10.1126/science.7466396) or defection,
 [resource grabbing](https://arxiv.org/abs/1912.01683), and
 [reward hacking](https://arxiv.org/abs/1908.04734).
+
+More of a model's training data is being generated and selected by models, so what
+these loops select for is increasingly what the next model is. Natural and cultural
+selection sculpted human values; value dynamics research can help identify
+artificial selection mechanisms that can be engineered into virtuous cycles for
+aligning increasingly autonomous AI systems.

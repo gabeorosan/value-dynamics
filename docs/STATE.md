@@ -669,13 +669,14 @@ rows already committed.
   the field studying values in these feedback loops "so that they can be designed to
   align increasingly autonomous systems" — value dynamics is the FIELD, and this
   project is one slice of it; do not restate it as this project's method.
-  Thread is now 13 tweets (records tweet dropped, GitHub link under the extensions
-  tweet, old 6-10 compressed to 6-8, no result decimals anywhere in it) and records which figure attaches to which tweet;
+  Thread is now 13 tweets (records and limitations tweets dropped, next directions
+  split over two, no result decimals anywhere in it) and records which figure attaches to which tweet;
   demo/src/make_thread_images.py renders those attachments to demo/thread_images/
   (untracked). The video is NOT posted in the thread; hero_vision goes on tweet 1.
-  Funding line: "I completed this project over five weeks for BlueDot Impact's
-  Technical AI Safety Project Sprint" — the writeup and README still say "a BlueDot
-  Impact grant", proposed for correction in docs/writeup_proposed_edits_2026-07-26.md.
+  Funding line (user, 2026-07-26): "I completed this project over 2 weeks as part of a
+  BlueDot Project cohort" — supersedes the earlier five-weeks/Project-Sprint wording.
+  The writeup and README still say "a BlueDot Impact grant", proposed for correction in
+  docs/writeup_proposed_edits_2026-07-26.md.
 - 2026-07-26: docs/posts/lesswrong_post.md is THE post draft — ~980 words, the
   writeup's own title, sections motivation/setup/findings/limitations/next
   directions, four figures, everything else linking to the writeup so claims live

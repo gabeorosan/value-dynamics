@@ -1,127 +1,127 @@
 1
-00:00:00,450 --> 00:00:07,804
+00:00:00,450 --> 00:00:08,033
 A I increasingly generates and selects its own training data, through self-rewarding pipelines, constitutional loops, and synthetic data.
 
 2
-00:00:07,804 --> 00:00:18,017
+00:00:08,033 --> 00:00:18,564
 In a judging loop, a model generates candidate answers, then is trained on the answers most preferred by a judge in pairwise comparisons against alternatives.
 
 3
-00:00:18,017 --> 00:00:29,456
+00:00:18,564 --> 00:00:30,359
 I fine-tuned two open-weight models with value orientations, risk-seeking and insecure-code-generating, and ran them through selection loops that varied the judge, the candidate source, and the alternative source.
 
 4
-00:00:29,456 --> 00:00:41,712
-What came out was a simple predictive model that uses first-round measurements to give calibrated endpoint estimates, and to reproduce the direction, pace, and spread of the trajectories I observed.
+00:00:30,359 --> 00:00:40,891
+I found that a simple predictive model using first-round measurements gives calibrated endpoint estimates and reproduces the direction, pace, and spread of the real trajectories.
 
 5
-00:00:42,962 --> 00:00:53,253
-For each prompt in a round, the organism writes six candidate answers, the pool, and the judge compares each of them against an alternative and keeps the two it prefers.
+00:00:42,141 --> 00:00:50,562
+For each prompt in a round, the organism writes six candidate answers (the pool) and the judge compares each of them against an alternative.
 
 6
-00:00:53,253 --> 00:00:59,428
-Those two become that round's training data, and once training has run, held-out prompts measure the value again.
+00:00:50,562 --> 00:00:59,685
+The two most chosen (averaged over orderings) by the judge become that round's training data, and held-out prompts measure the value after each round of training.
 
 7
-00:01:00,178 --> 00:01:03,970
+00:01:00,435 --> 00:01:04,227
 Each organism's value is the mean value score of its answers.
 
 8
-00:01:03,970 --> 00:01:08,451
+00:01:04,227 --> 00:01:08,708
 For the gambling organism, that is the share that pick the risky gamble.
 
 9
-00:01:08,451 --> 00:01:18,449
+00:01:08,708 --> 00:01:18,706
 For the insecure-code organism, it is how insecure its answers to three fixed questions about its own coding habits are, scored zero to one by its frozen base model.
 
 10
-00:01:19,199 --> 00:01:27,740
+00:01:19,456 --> 00:01:27,997
 Two quantities are measured each round, spread and agreement, and together they forecast the gap between the kept candidates and the whole pool.
 
 11
-00:01:27,740 --> 00:01:40,366
+00:01:27,997 --> 00:01:40,623
 Spread is the standard deviation of the answers' value scores and agreement is the correlation of the judge's preferences with those scores, both measured within each prompt's pool and averaged over the round's prompts.
 
 12
-00:01:40,366 --> 00:01:45,565
+00:01:40,623 --> 00:01:45,822
 Across every round with logged judge scores, their product reconstructs the realized gaps closely.
 
 13
-00:01:46,315 --> 00:01:56,839
+00:01:46,572 --> 00:01:57,096
 In each round, the judge determines which two candidates become training data, and the parameter-free one-round rule is that the next value is the kept candidate value mean.
 
 14
-00:01:56,839 --> 00:02:03,980
+00:01:57,096 --> 00:02:04,238
 Holding each complete experimental condition out, that rule predicts the next measured value well ahead of assuming no change.
 
 15
-00:02:04,730 --> 00:02:14,692
+00:02:04,988 --> 00:02:14,950
 Before selection, the model forecasts that gap as candidate spread times judge agreement, so the predicted kept mean is the pool mean plus that product.
 
 16
-00:02:14,692 --> 00:02:25,451
+00:02:14,950 --> 00:02:25,709
 For endpoints, the model repeats this update from the round-one candidate mean, holding spread, agreement, and pool composition fixed and clipping each step to the zero-to-one scale.
 
 17
-00:02:26,201 --> 00:02:43,310
+00:02:26,459 --> 00:02:43,567
 Spread, agreement, and pool composition are all measured in round one, and iterating the model with those numbers frozen predicts a run's final value with a mean absolute error of zero point one one eight on the zero-to-one value scale, against zero point four three one for assuming no change.
 
 18
-00:02:44,460 --> 00:02:54,118
+00:02:44,717 --> 00:02:54,376
 The figure isolates the modelable self-only runs, where the candidates are all organism-generated, and on that subset the same recurrence again beats assuming no change.
 
 19
-00:02:54,118 --> 00:03:00,300
+00:02:54,376 --> 00:03:00,558
 The forecast also stays accurate as it looks further ahead, while assuming no value change degrades.
 
 20
-00:03:00,300 --> 00:03:11,890
+00:03:00,558 --> 00:03:12,148
 This is because selection moves a run mostly in its first rounds and then levels off, so a forecast that gets the early move right stays right at the endpoint.
 
 21
-00:03:12,640 --> 00:03:17,210
+00:03:12,898 --> 00:03:17,468
 The deterministic forecast only gives the average path that real runs scatter around.
 
 22
-00:03:17,210 --> 00:03:34,786
+00:03:17,468 --> 00:03:35,044
 The value is read from a limited number of sampled answers, so each reading carries sampling noise, and the loop itself varies: the judge's picks land around spread times agreement rather than exactly on it, training lands near but not exactly on the kept mean, and agreement drifts between rounds.
 
 23
-00:03:34,786 --> 00:03:42,520
+00:03:35,044 --> 00:03:42,778
 The stochastic version of the model adds a random term at each of these points, with sizes taken from the measured residuals.
 
 24
-00:03:43,270 --> 00:04:00,134
+00:03:43,528 --> 00:04:00,392
 Sampled forward, the stochastic model reproduces the dynamics of the observed trajectories: the total round-to-round value change over a run is about the same as observed, runs change direction about as often, and eighty-nine percent of final values fall inside the predicted eighty percent band.
 
 25
-00:04:00,884 --> 00:04:20,396
+00:04:01,142 --> 00:04:20,654
 Both interventions worked through spread and agreement: adding base-model answers to a collapsed pool restored spread, and the judge's agreement then eroded a value that had been stuck, while swapping the base-model judge for a min-risk oracle, which drives agreement to its negative extreme, reversed a run that had climbed near the top of the scale.
 
 26
-00:04:20,396 --> 00:04:23,532
+00:04:20,654 --> 00:04:23,789
 Each of these is one experiment on one run.
 
 27
-00:04:24,282 --> 00:04:35,196
+00:04:24,539 --> 00:04:35,469
 The training setup here is narrow: small models, short runs, filtered supervised fine-tuning, a handful of model families, and the risk-preference and insecure-code behaviors.
 
 28
-00:04:35,196 --> 00:04:46,566
+00:04:35,469 --> 00:04:46,853
 Extensions should scale that up and compare this fine-tuning update with D P O, online reinforcement learning against a learned reward model, and constitutional feedback.
 
 29
-00:04:46,566 --> 00:04:56,571
+00:04:46,853 --> 00:04:56,872
 The behaviors should widen to moral judgment, A I identity, and emergent misalignment, with readouts that reach past answers into internal representations.
 
 30
-00:04:56,571 --> 00:05:05,666
+00:04:56,872 --> 00:05:05,980
 More open-ended setups would give models more freedom in selecting training data, revising system prompts, and editing the loop itself.
 
 31
-00:05:05,666 --> 00:05:14,307
+00:05:05,980 --> 00:05:14,632
 Repeated games and agentic environments could reveal whether the dynamics favor cooperation or defection, resource grabbing, and reward hacking.
 
 32
-00:05:14,307 --> 00:05:28,405
-Natural and cultural selection sculpted human values, and value dynamics research can help identify artificial selection mechanisms that can be engineered into virtuous cycles for aligning increasingly autonomous A I systems.
+00:05:14,632 --> 00:05:28,293
+Natural and cultural selection sculpted human values; value dynamics research can help identify artificial selection mechanisms that can be engineered into virtuous cycles for aligning increasingly autonomous A I systems.

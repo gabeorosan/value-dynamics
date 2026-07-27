@@ -137,8 +137,18 @@ def navigation(current):
 def page(title, body, current="main"):
     # The demo link is site chrome, not writeup prose, so it lives here rather
     # than in the (user-gated) markdown source.
-    demo = ('  <p class="demo-link"><a href="demo.html">&#9654; Watch the '
-            "5-minute demo</a></p>\n")
+    demo = (
+        '  <figure class="demo">\n'
+        '    <video controls preload="none" poster="media/demo_poster.png"\n'
+        '           src="media/value_dynamics_demo.mp4">\n'
+        '      <track kind="captions" src="media/value_dynamics_demo.srt"\n'
+        '             srclang="en" label="English">\n'
+        "      Your browser cannot play this video. "
+        '<a href="media/value_dynamics_demo.mp4">Download it</a> instead.\n'
+        "    </video>\n"
+        '    <figcaption>A five-minute narrated walkthrough of this writeup. '
+        '<a href="demo.html">Full-size page, captions and downloads</a>.</figcaption>\n'
+        "  </figure>\n")
     return (f'<div class="page">\n{navigation(current)}\n<header>\n'
             f'  <p class="eyebrow"><b>Draft</b> &middot; Value dynamics &middot; '
             f'July 2026</p>\n  <h1>{title}</h1>\n{demo}</header>\n{body}\n</div>')

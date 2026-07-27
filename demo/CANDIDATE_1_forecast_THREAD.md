@@ -54,12 +54,12 @@ writeup.
 **12/**
 
 > Open-ended setups would let models select their own training data, revise system prompts and edit the loop itself. Repeated games and agentic settings could show whether the dynamics favor cooperation or defection, resource grabbing and reward hacking.
-> https://github.com/gabeorosan/value-dynamics
+> https://gabeorosan.github.io/value-dynamics/
 
 **13/**
 
 > I completed this project over 5 weeks as part of a BlueDot Project cohort. Feedback is welcome!
-> https://gabeorosan.github.io/value-dynamics/
+> https://github.com/gabeorosan/value-dynamics
 
 ## What attaches to what
 

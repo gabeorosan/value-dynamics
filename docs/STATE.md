@@ -684,6 +684,11 @@ rows already committed.
   Every number machine-checked against the writeup. The three longer candidates
   (report / result-first / agenda) were retired in this commit; git history has them.
   Review page: https://claude.ai/code/artifact/fad96151-9d4d-4e2e-9360-dad66953ce18
+- 2026-07-27: demo re-rendered from user-supplied narration (12 scenes, 825 words,
+  5:28); site/media/ mp4 + 720p + poster + srt refreshed, plus demo_preview.gif for
+  the README. The writeup page now embeds the player itself; demo.html stays for
+  captions and downloads. README rewritten (user-requested) — its half of the
+  funding-line proposal is now applied, the writeup's half is still pending.
 - 2026-07-26: site/ has a favicon (site/favicon.svg plus PNG and apple-touch
   variants), linked from scripts/site_build/site_head_prefix.html and site/demo.html.
   .claude/launch.json serves site/ on :8765 for previewing.

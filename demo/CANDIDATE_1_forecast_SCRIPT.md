@@ -1,6 +1,6 @@
 # Value Dynamics candidate 1: the faithful walkthrough
 
-Target length: about 5 minutes and 10 seconds (13 scenes, 849 narration words).
+Runtime 5:28 (12 scenes, 825 narration words).
 
 This candidate follows `docs/writeup_value_dynamics_sprint.md` section by
 section, in the writeup's own order: the vision and the gap, the judging loop
@@ -13,7 +13,7 @@ like the writeup read aloud.
 Four numbers are spoken in the whole cut, all on the endpoint comparison and the
 band coverage: 0.118, 0.431, 89% and 80%. Every other number lives on screen, in
 the caption band under each figure or on the statement card, where a viewer can
-read and check it. The tweet thread keeps them all.
+read and check it.
 
 The blockquotes below are verbatim copies of the `narration` strings in
 `demo/src/scenes_cand1_forecast.json`. Numbers there are spelled out and
@@ -34,9 +34,9 @@ loop · what is measured · the rule · the forecast · interventions."
 > alternatives. I fine-tuned two open-weight models with value orientations,
 > risk-seeking and insecure-code-generating, and ran them through selection
 > loops that varied the judge, the candidate source, and the alternative
-> source. What came out was a simple predictive model that uses first-round
-> measurements to give calibrated endpoint estimates, and to reproduce the
-> direction, pace, and spread of the trajectories I observed.
+> source. I found that a simple predictive model using first-round
+> measurements gives calibrated endpoint estimates and reproduces the
+> direction, pace, and spread of the real trajectories.
 
 This is the writeup's own opening, lightly adapted for speech: its first
 paragraph, its definition of a judging loop, and its summary of what was run and
@@ -49,10 +49,11 @@ carry the borrowed terms.
 **On screen:** `synthesis_experiment_kit.svg`. Caption: "Six candidates per
 prompt, two kept, train, then re-measure on held-out prompts."
 
-> For each prompt in a round, the organism writes six candidate answers, the
-> pool, and the judge compares each of them against an alternative and keeps
-> the two it prefers. Those two become that round's training data, and once
-> training has run, held-out prompts measure the value again.
+> For each prompt in a round, the organism writes six candidate answers (the
+> pool) and the judge compares each of them against an alternative. The two
+> most chosen (averaged over orderings) by the judge become that round's
+> training data, and held-out prompts measure the value after each round of
+> training.
 
 ## 3. The value, and both of its recipes
 
@@ -191,7 +192,7 @@ untested outside these two behaviors and these two model families."
 > selecting training data, revising system prompts, and editing the loop
 > itself. Repeated games and agentic environments could reveal whether the
 > dynamics favor cooperation or defection, resource grabbing, and reward
-> hacking. Natural and cultural selection sculpted human values, and value
+> hacking. Natural and cultural selection sculpted human values; value
 > dynamics research can help identify artificial selection mechanisms that
 > can be engineered into virtuous cycles for aligning increasingly
 > autonomous A I systems.

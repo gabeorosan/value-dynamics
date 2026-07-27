@@ -7,14 +7,14 @@
     "foot": "the loop  ·  what is measured  ·  the rule  ·  the forecast  ·  interventions",
     "fig": "hero_vision.svg.png",
     "caption": "",
-    "narration": "A I increasingly generates and selects its own training data, through self-rewarding pipelines, constitutional loops, and synthetic data. In a judging loop, a model generates candidate answers, then is trained on the answers most preferred by a judge in pairwise comparisons against alternatives. I fine-tuned two open-weight models with value orientations, risk-seeking and insecure-code-generating, and ran them through selection loops that varied the judge, the candidate source, and the alternative source. What came out was a simple predictive model that uses first-round measurements to give calibrated endpoint estimates, and to reproduce the direction, pace, and spread of the trajectories I observed."
+    "narration": "A I increasingly generates and selects its own training data, through self-rewarding pipelines, constitutional loops, and synthetic data. In a judging loop, a model generates candidate answers, then is trained on the answers most preferred by a judge in pairwise comparisons against alternatives. I fine-tuned two open-weight models with value orientations, risk-seeking and insecure-code-generating, and ran them through selection loops that varied the judge, the candidate source, and the alternative source. I found that a simple predictive model using first-round measurements gives calibrated endpoint estimates and reproduces the direction, pace, and spread of the real trajectories."
   },
   {
     "kind": "fig",
     "accent": "#2d6fa8",
     "fig": "synthesis_experiment_kit.svg.png",
     "caption": "Six candidates per prompt, two kept, train, then re-measure on held-out prompts",
-    "narration": "For each prompt in a round, the organism writes six candidate answers, the pool, and the judge compares each of them against an alternative and keeps the two it prefers. Those two become that round's training data, and once training has run, held-out prompts measure the value again."
+    "narration": "For each prompt in a round, the organism writes six candidate answers (the pool) and the judge compares each of them against an alternative. The two most chosen (averaged over orderings) by the judge become that round's training data, and held-out prompts measure the value after each round of training."
   },
   {
     "kind": "fig",
@@ -104,6 +104,6 @@
     ],
     "closer": "The forecast is untested outside these two behaviors and these two model families.",
     "caption": "",
-    "narration": "The training setup here is narrow: small models, short runs, filtered supervised fine-tuning, a handful of model families, and the risk-preference and insecure-code behaviors. Extensions should scale that up and compare this fine-tuning update with D P O, online reinforcement learning against a learned reward model, and constitutional feedback. The behaviors should widen to moral judgment, A I identity, and emergent misalignment, with readouts that reach past answers into internal representations. More open-ended setups would give models more freedom in selecting training data, revising system prompts, and editing the loop itself. Repeated games and agentic environments could reveal whether the dynamics favor cooperation or defection, resource grabbing, and reward hacking. Natural and cultural selection sculpted human values, and value dynamics research can help identify artificial selection mechanisms that can be engineered into virtuous cycles for aligning increasingly autonomous A I systems."
+    "narration": "The training setup here is narrow: small models, short runs, filtered supervised fine-tuning, a handful of model families, and the risk-preference and insecure-code behaviors. Extensions should scale that up and compare this fine-tuning update with D P O, online reinforcement learning against a learned reward model, and constitutional feedback. The behaviors should widen to moral judgment, A I identity, and emergent misalignment, with readouts that reach past answers into internal representations. More open-ended setups would give models more freedom in selecting training data, revising system prompts, and editing the loop itself. Repeated games and agentic environments could reveal whether the dynamics favor cooperation or defection, resource grabbing, and reward hacking. Natural and cultural selection sculpted human values; value dynamics research can help identify artificial selection mechanisms that can be engineered into virtuous cycles for aligning increasingly autonomous A I systems."
   }
 ]

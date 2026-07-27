@@ -751,6 +751,19 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-27 (research-vision thread): **Judge-from-high-start: n=1, directionally
+  says the judge-vs-oracle gap was HEADROOM — not yet a result.** Climb 3 rounds under
+  the oracle to 0.701, then hand to the real judge with headroom: judge phase
+  cumulative gap −0.181, movement −0.146, **ratio +0.81** against **0.11** for the same
+  judge from a LOW start and 0.29–0.52 for the oracle. So the apparent
+  "a real judge's gap transmits worse" puzzle looks like a floor effect, not a
+  difference in kind. **BUT n=1** — 2 of 3 seeds aborted at round 3 because a 3-round
+  oracle climb drives candidates to value-uniformity and the matched-mean constraint
+  then has no achievable common total. And the +0.81 has a small denominator (gap
+  0.181), so its SE is roughly 0.054/0.181 ≈ 0.30, spanning 0.5–1.1 — the same
+  denominator artifact already flagged in the dose-response row. Replication launched
+  with the climb shortened to 2 rounds (reaches ~0.6 without saturating) and 5 seeds:
+  vd-judge-high-start-rep. **Do not cite the 0.81.**
 - 2026-07-27 (research-vision thread): **Dose-response replication KILLED the monotone
   transmission claim; a variance claim replaced it** (ledger section B). At n=2 the
   movement-to-gap ratio rose cleanly with agreement (0.07/0.28/0.39/0.52); pooled at

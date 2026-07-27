@@ -14,7 +14,8 @@ AI increasingly generates and selects its own training data, through
 [synthetic data](https://www.interconnects.ai/p/llm-synthetic-data). Value dynamics
 studies how values change in these feedback loops so that they can be designed to
 align increasingly autonomous systems. This project is a case study in how that
-value change can be measured, forecast, and steered.
+value change can be measured, forecast, and steered using tools from population
+genetics.
 
 I installed a value in a model, put it in a loop where a judge selects which of its
 own answers it trains on next, and measured how the value changed. The spread of

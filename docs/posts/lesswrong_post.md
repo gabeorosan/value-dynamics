@@ -90,6 +90,8 @@ agreement to −1, reversed a run that had climbed near the top of the value sca
 Each is one experiment, so what they support is that spread and agreement look like
 usable intervention targets whose effect can be forecast from their new values.
 
+![](../figures/auto/synthesis-intervention-cards/synthesis-intervention-cards.svg)
+
 ## Limitations
 
 Two model families, small models, short runs, and filtered SFT on a few selected

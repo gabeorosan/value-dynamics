@@ -37,8 +37,8 @@ These stay at the top level of `docs/` because the writeup names them.
   — open Before/After proposals against the writeup and README, awaiting review.
 - **[`posts/`](posts/)** — outward-facing drafts written from the writeup only.
   [`lesswrong_post.md`](posts/lesswrong_post.md) is the short LessWrong version:
-  motivation, setup, findings with three figures, limits, next directions, with the
-  methods and the other seven figures left in the writeup.
+  motivation, setup, findings with four figures, limits, next directions, with the
+  methods and the other six figures left in the writeup.
 
 ## Working history
 

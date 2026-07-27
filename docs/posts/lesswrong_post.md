@@ -1,14 +1,12 @@
 # When AI drives its own training process, how do its values change?
 
 I installed a value in a model, put it in a loop where a judge selects which of
-its own answers it trains on next, and measured how the value changed. Two
-quantities measured in the first round predict where the value ends up, with no
-fitted coefficient: the spread of the candidate answers and how well the judge's
-preferences correlate with the value being measured.
+its own answers it trains on next, and measured how the value changed. The spread
+of the candidate answers and the correlation between the judge's preferences and
+the value, both measured in the first round, predict where the value ends up, with
+no fitted coefficient.
 
-The full writeup, with the methods and every number's trace to a result file, is
-at [gabeorosan.github.io/value-dynamics](https://gabeorosan.github.io/value-dynamics/).
-This post is the short version.
+Full writeup: https://gabeorosan.github.io/value-dynamics/
 
 ## Motivation
 
@@ -112,8 +110,8 @@ filtered-SFT update with [DPO](https://arxiv.org/abs/2305.18290), online
 reinforcement learning against a learned reward model, and
 [constitutional feedback](https://arxiv.org/abs/2212.08073).
 
-Broader behavior than risk preference and code self-description: moral judgment,
-[AI identity](https://arxiv.org/abs/2603.11353), and
+The behavioral scope should widen beyond risk preference and code self-description
+to moral judgment, [AI identity](https://arxiv.org/abs/2603.11353), and
 [emergent misalignment](https://arxiv.org/abs/2502.17424), with evaluations for
 internal representations and not only behavior.
 
@@ -129,9 +127,8 @@ show whether their dynamics favor
 Every number here traces to a committed result file through a named scorer, and a
 claim registry maps each claim to its data, its scorer, and its current verdict.
 
-- Writeup, with the methods and the other seven figures:
-  [gabeorosan.github.io/value-dynamics](https://gabeorosan.github.io/value-dynamics/)
-- Code and result JSONs: [github.com/gabeorosan/value-dynamics](https://github.com/gabeorosan/value-dynamics)
+- Full writeup: https://gabeorosan.github.io/value-dynamics/
+- Code and result JSONs: https://github.com/gabeorosan/value-dynamics
 
 I completed this project over five weeks for BlueDot Impact's
 [Technical AI Safety Project Sprint](https://bluedot.org/courses/technical-ai-safety-project).

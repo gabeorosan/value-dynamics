@@ -1,6 +1,6 @@
 # Value Dynamics candidate 1: the faithful walkthrough
 
-Runtime 5:17 (12 scenes, 795 narration words).
+Runtime about 5:05 (12 scenes, 768 narration words).
 
 This candidate follows `docs/writeup_value_dynamics_sprint.md` section by
 section, in the writeup's own order: the vision and the gap, the judging loop
@@ -72,21 +72,22 @@ with example answers and their 0-1 value scores."
 reconstructs the gaps: R² 0.80, MAE 0.040, 367 rounds."
 
 > Two quantities are measured each round, spread and agreement, and together
-> they forecast the gap between the kept candidates and the whole pool.
-> Spread is the standard deviation of the answers' value scores and
-> agreement is the correlation of the judge's preferences with those scores,
-> both measured within each prompt's pool and averaged over the round's
-> prompts.
+> they forecast the selector gap, the difference between the kept candidates
+> and the whole pool. Spread is the standard deviation of the answers' value
+> scores and agreement is the correlation of the judge's preferences with
+> those scores, both measured within each prompt's pool and averaged over
+> the round's prompts.
 
 ## 5. The one-round rule on the value line
 
 **On screen:** `model-one-round-line.svg`. Caption: "One-round rule, held out by
 condition: MAE 0.081 against 0.128 for no change."
 
-> The model forecasts that gap as candidate spread times judge agreement, so
-> the predicted kept mean is the pool mean plus that product, and training
-> then moves the value to that kept mean. Across every round with logged
-> judge scores, that product reconstructs the realized gaps closely.
+> The model forecasts the selector gap as candidate spread times judge
+> agreement, so the predicted kept mean is the pool mean plus that product,
+> and training then moves the value to that kept mean. Across every round
+> with logged judge scores, that product reconstructs the realized gaps
+> closely.
 
 
 ## 6. Forecasting the gap, and iterating the update
@@ -96,8 +97,7 @@ little: 0.100 on matched rounds, against 0.085 with the kept mean."
 
 > For endpoints, the model repeats this update from the round-one candidate
 > mean, holding spread, agreement, and pool composition fixed and clipping
-> each step to the zero-to-one scale. Each predicted candidate mean becomes
-> the next predicted value.
+> each step to the zero-to-one scale.
 
 ## 7. The endpoint forecast
 
@@ -109,7 +109,7 @@ composition all measured in round one."
 > Spread, agreement, and pool composition are all measured in round one, and
 > iterating the model with those numbers frozen predicts a run's final value
 > with a mean absolute error of zero point one one eight on the zero-to-one
-> value scale, against zero point four three one for assuming no change.
+> value scale.
 
 The two numbers on this card are two of the four spoken in the cut. They are the
 headline finding, so they are worth a listener's attention; the 0-to-1 scale
@@ -122,9 +122,8 @@ four-round runs: endpoint MAE 0.159 against 0.269; horizon 0.100 to 0.130
 against 0.31 to 0.43."
 
 > The figure isolates the modelable self-only runs, where the candidates are
-> all organism-generated, and on that subset the same recurrence again beats
-> assuming no change. The forecast also stays accurate as it looks further
-> ahead, while assuming no value change degrades. This is because selection
+> all organism-generated, and the same recurrence holds on that subset. The
+> forecast also stays accurate as it looks further ahead, because selection
 > moves a run mostly in its first rounds and then levels off, so a forecast
 > that gets the early move right stays right at the endpoint.
 

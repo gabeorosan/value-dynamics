@@ -676,9 +676,13 @@ rows already committed.
   Funding line: "I completed this project over five weeks for BlueDot Impact's
   Technical AI Safety Project Sprint" — the writeup and README still say "a BlueDot
   Impact grant", proposed for correction in docs/writeup_proposed_edits_2026-07-26.md.
-- 2026-07-26: three LessWrong post drafts in docs/posts/, written from the writeup
-  only (report / result-first / agenda). Every number machine-checked against the
-  writeup. Review page: https://claude.ai/code/artifact/fad96151-9d4d-4e2e-9360-dad66953ce18
+- 2026-07-26: docs/posts/lesswrong_post.md is THE post draft — ~980 words, the
+  writeup's own title, sections motivation/setup/findings/limitations/next
+  directions, three figures, everything else linking to the writeup so claims live
+  in one place (user decision: short post, writeup canonical, no Substack for now).
+  Every number machine-checked against the writeup. The three longer candidates
+  (report / result-first / agenda) were retired in this commit; git history has them.
+  Review page: https://claude.ai/code/artifact/fad96151-9d4d-4e2e-9360-dad66953ce18
 - 2026-07-26: site/ has a favicon (site/favicon.svg plus PNG and apple-touch
   variants), linked from scripts/site_build/site_head_prefix.html and site/demo.html.
   .claude/launch.json serves site/ on :8765 for previewing.

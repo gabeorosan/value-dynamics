@@ -36,8 +36,9 @@ These stay at the top level of `docs/` because the writeup names them.
   and [`writeup_proposed_edits_2026-07-26.md`](writeup_proposed_edits_2026-07-26.md)
   — open Before/After proposals against the writeup and README, awaiting review.
 - **[`posts/`](posts/)** — outward-facing drafts written from the writeup only.
-  Three LessWrong candidates of the same result: the research report, the
-  result-first version, and the agenda.
+  [`lesswrong_post.md`](posts/lesswrong_post.md) is the short LessWrong version:
+  motivation, setup, findings with three figures, limits, next directions, with the
+  methods and the other seven figures left in the writeup.
 
 ## Working history
 

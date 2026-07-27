@@ -102,6 +102,7 @@ N_PERSONA = int(os.environ.get("N_PERSONA", "250"))
 # round 2 and reintroduce exactly the confound this experiment removes.
 JUDGE_IS_BASE = os.environ.get("JUDGE_IS_BASE", "1") == "1"
 
+SWITCH_ROUND = int(os.environ.get("SWITCH_ROUND", "0"))  # 0 = no reversal
 GATE_MIN_SPREAD_RATIO = float(os.environ.get("GATE_MIN_SPREAD_RATIO", "2.0"))
 GATE_MAX_BAD_FRAC = float(os.environ.get("GATE_MAX_BAD_FRAC", "0.2"))
 
@@ -271,6 +272,20 @@ def select_kept(sub_vals, judge_rows, keep, selection, rng_seed):
         if selection == "judge":
             js = judge_rows[pi]
             order = sorted(range(n), key=lambda i: (-js[i], i))[:keep]
+        elif selection.startswith("oracle_a"):
+            # AGREEMENT DIAL. "oracle_a75" means: with probability 0.75 rank by the
+            # candidate's own value score, otherwise rank at random. This sweeps the
+            # judge-value agreement continuously between the random control (0) and
+            # the full oracle (1), which is what maps the transmission curve.
+            # Motivated by the judge-driven run: a realistic judge produced a mean
+            # |gap| of 0.122 and NO detectable movement over 4 rounds, while the
+            # oracle at |gap| ~0.29 moved the value +0.37 to +0.44. Whether that is a
+            # threshold, a non-linearity, or an oracle-versus-judge difference cannot
+            # be told from two points.
+            alpha = int(selection[8:]) / 100.0
+            rr = random.Random(rng_seed * 977 + pi)
+            keyed = [(vals[i] if rr.random() < alpha else rr.random(), i) for i in range(n)]
+            order = [i for _, i in sorted(keyed, key=lambda t: (-t[0], t[1]))][:keep]
         elif selection in ("oracle_max", "oracle_min"):
             # POSITIVE CONTROL. Select directly on the candidate's own value score,
             # which sets judge-value agreement to +1 or -1 and produces the largest
@@ -803,6 +818,15 @@ def teardown(ctx):
 def run_round(ctx, result, gname, g, rd, prompt_texts):
     """One lockstep round for one coupled pair of arms. Returns True to continue."""
     sd, selection = g["seed"], g["selection"]
+    # REVERSAL SCHEDULE. With SWITCH_ROUND set, an oracle group flips direction after
+    # that many rounds: climb under oracle_max, then reverse under oracle_min from the
+    # top. This is the correct floor-effect test. The persona route failed -- raising
+    # the persona rate to 0.9 left the starting value at 0.36-0.39, indistinguishable
+    # from the 0.30 baseline, so the intended high start never happened and the
+    # headroom question went untested. Climbing there under selection does work: the
+    # max-oracle reached 0.75.
+    if SWITCH_ROUND and selection in ("oracle_max", "oracle_min") and rd > SWITCH_ROUND:
+        selection = "oracle_min" if selection == "oracle_max" else "oracle_max"
     arm_id = {arm: f"{gname}__{arm}" for arm in ARMS}
 
     # -- candidates -----------------------------------------------------------

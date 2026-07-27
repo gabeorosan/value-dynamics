@@ -743,6 +743,20 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-27 (research-vision thread): **Three transmission follow-ups**
+  (report_transmission_followups.md + ledger section B). Upward spread-gating
+  REPLICATES (+0.295 vs +0.389). Downward asymmetry RESOLVED as headroom via a
+  reversal design: climb 0.326→0.701 then reverse 0.701→0.396 (−0.306 in 2 rounds,
+  ratio 0.79, inside the program's 0.76–0.83) — no directional term needed; n=1, the
+  other seed aborted when candidates went value-uniform. The persona route to a high
+  start FAILED its manipulation check and is recorded as such. **Consequential: a
+  realistic frozen base judge produces mean |gap| 0.122 and movement −0.054 over 4
+  rounds — one seventh of what transmission 0.8 predicts.** Movement-to-gap ratio
+  spans 0.11 / 0.46 / 0.79 across selectors, so it is NOT constant. Dose-response
+  (agreement 0.25/0.50/0.75/1.00) running to separate threshold from
+  oracle-vs-judge. **Open phenomenon: the concentrated arm moves with a gap of
+  exactly zero, and the random control moves in inconsistent directions — the
+  contrast is selection-plus-drift vs drift, not selection vs none.**
 - 2026-07-25 (research-vision thread): **ORACLE POSITIVE CONTROL PASSES — transmission
   works, and spread gates it causally** (report_oracle_positive_control.md + ledger
   section B). Selecting directly on the value score (agreement +/-1), 144-read probe

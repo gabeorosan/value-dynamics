@@ -1,6 +1,6 @@
 # Value Dynamics candidate 1: the faithful walkthrough
 
-Runtime 5:08 (12 scenes, 778 narration words).
+Runtime about 5:00 (11 scenes, 771 narration words).
 
 This candidate follows `docs/writeup_value_dynamics_sprint.md` section by
 section, in the writeup's own order: the vision and the gap, the judging loop
@@ -12,9 +12,10 @@ like the writeup read aloud.
 
 Four numbers are spoken in the whole cut, all on the endpoint comparison and the
 band coverage: 0.118, 0.431, 89% and 80%. The no-change baseline is spoken once,
-on the headline endpoint claim, and left to the captions everywhere else. Every other number lives on screen, in
-the caption band under each figure or on the statement card, where a viewer can
-read and check it.
+on the endpoint claim in scene 6, and left to the captions everywhere else. Every
+other number lives on screen in the caption band under its figure, where a viewer
+can read and check it. This cut has no statement card: every scene carries one of
+the writeup's ten figures.
 
 The blockquotes below are verbatim copies of the `narration` strings in
 `demo/src/scenes_cand1_forecast.json`. Numbers there are spelled out and
@@ -90,7 +91,6 @@ condition: MAE 0.081 against 0.128 for no change."
 > with logged judge scores, that product reconstructs the realized gaps
 > closely.
 
-
 ## 6. Forecasting the gap, and iterating the update
 
 **On screen:** `model-recurrence.svg`. Caption: "Forecasting the gap costs
@@ -98,37 +98,24 @@ little: 0.100 on matched rounds, against 0.085 with the kept mean."
 
 > For endpoints, the model repeats this update from the round-one candidate
 > mean, holding spread, agreement, and pool composition fixed and clipping
-> each step to the zero-to-one scale.
+> each step to the zero-to-one scale. Iterated that way, from first-round
+> measurements alone, it predicts a run's final value with a mean absolute
+> error of zero point one one eight on the zero-to-one value scale, against
+> zero point four three one for assuming no change.
 
-## 7. The endpoint forecast
-
-**On screen:** Statement card. Kicker: "ENDPOINTS FROM FIRST-ROUND
-MEASUREMENTS." Headline: "Endpoint MAE 0.118, against 0.431 for assuming no
-change." Under the rule: "On the 0-to-1 value scale. Spread, agreement and pool
-composition all measured in round one."
-
-> Spread, agreement, and pool composition are all measured in round one, and
-> iterating the model with those numbers frozen predicts a run's final value
-> with a mean absolute error of zero point one one eight on the zero-to-one
-> value scale, against zero point four three one for assuming no change.
-
-The two numbers on this card are two of the four spoken in the cut. They are the
-headline finding, so they are worth a listener's attention; the 0-to-1 scale
-they live on is on screen rather than in the voice.
-
-## 8. The subset, and how the forecast degrades with horizon
+## 7. The subset, and how the forecast degrades with horizon
 
 **On screen:** `synthesis-dial-plane-horizon.svg`. Caption: "32 self-only
 four-round runs: endpoint MAE 0.159 against 0.269; horizon 0.100 to 0.130
 against 0.31 to 0.43."
 
-> The figure isolates the modelable self-only runs, where the candidates are
-> all organism-generated, and the same recurrence holds on that subset. The
-> forecast also stays accurate as it looks further ahead, because selection
-> moves a run mostly in its first rounds and then levels off, so a forecast
-> that gets the early move right stays right at the endpoint.
+> The background is the change the model predicts for a run starting at each
+> first-round spread and agreement; every dot is a real run, placed by the
+> same two measurements. The dots sit where the background says they should,
+> and they keep sitting there as the forecast reaches further ahead, because
+> a run moves mostly in its first rounds and then levels off.
 
-## 9. Where the noise enters
+## 8. Where the noise enters
 
 **On screen:** `staged-noise-forecast.svg`. Caption: "Where the noise enters,
 and how each term was sized from the measured residuals."
@@ -142,7 +129,7 @@ and how each term was sized from the measured residuals."
 > a random term at each of these points, with sizes taken from the measured
 > residuals.
 
-## 10. What the stochastic version reproduces
+## 9. What the stochastic version reproduces
 
 **On screen:** `rollouts-vs-observed-spaghetti.svg`. Caption: "Simulated against
 observed: total change 0.709/0.648, direction changes 1.22/1.20, endpoint SD
@@ -158,7 +145,7 @@ observed: total change 0.709/0.648, direction changes 1.22/1.20, endpoint SD
 1.20, and "about as widely" covers 0.387 against 0.370. The three pairs are in
 the caption for anyone who wants to check the word against the number.
 
-## 11. Interventions
+## 10. Interventions
 
 **On screen:** `synthesis-intervention-cards.svg`. Caption: "Two interventions,
 aimed at spread and agreement; the oracle judge sets agreement to −1."
@@ -170,7 +157,7 @@ aimed at spread and agreement; the oracle judge sets agreement to −1."
 > extreme, reversed a run that had climbed near the top of the scale. Each
 > of these is one experiment on one run.
 
-## 12. Limitations and future directions
+## 11. Limitations and future directions
 
 **On screen:** Closing card. No figure: it would have repeated the title
 card's, and the three future-direction items carry their own detail lines. Layout is

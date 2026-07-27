@@ -42,23 +42,14 @@
     "accent": "#3f7cae",
     "fig": "model-recurrence.svg.png",
     "caption": "Predicted kept mean: MAE 0.100, against 0.085 using the observed kept mean",
-    "narration": "For endpoints, the model repeats this update from the round-one candidate mean, holding spread, agreement, and pool composition fixed and clipping each step to the zero-to-one scale."
-  },
-  {
-    "kind": "statement",
-    "accent": "#1f4e79",
-    "kicker": "ENDPOINTS FROM FIRST-ROUND MEASUREMENTS",
-    "headline": "Endpoint MAE 0.118, against 0.431 for assuming no change",
-    "sub": "On the 0-to-1 value scale. Spread, agreement and pool composition all measured in round one",
-    "caption": "",
-    "narration": "Spread, agreement, and pool composition are all measured in round one, and iterating the model with those numbers frozen predicts a run's final value with a mean absolute error of zero point one one eight on the zero-to-one value scale, against zero point four three one for assuming no change."
+    "narration": "For endpoints, the model repeats this update from the round-one candidate mean, holding spread, agreement, and pool composition fixed and clipping each step to the zero-to-one scale. Iterated that way, from first-round measurements alone, it predicts a run's final value with a mean absolute error of zero point one one eight on the zero-to-one value scale, against zero point four three one for assuming no change."
   },
   {
     "kind": "fig",
     "accent": "#2d6fa8",
     "fig": "synthesis-dial-plane-horizon.svg.png",
     "caption": "32 self-only four-round runs: endpoint MAE 0.159 against 0.269; horizon 0.100 to 0.130 against 0.31 to 0.43",
-    "narration": "The figure isolates the modelable self-only runs, where the candidates are all organism-generated, and the same recurrence holds on that subset. The forecast also stays accurate as it looks further ahead, because selection moves a run mostly in its first rounds and then levels off, so a forecast that gets the early move right stays right at the endpoint."
+    "narration": "The background is the change the model predicts for a run starting at each first-round spread and agreement; every dot is a real run, placed by the same two measurements. The dots sit where the background says they should, and they keep sitting there as the forecast reaches further ahead, because a run moves mostly in its first rounds and then levels off."
   },
   {
     "kind": "fig",

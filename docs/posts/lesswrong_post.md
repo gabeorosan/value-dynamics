@@ -28,11 +28,11 @@ be designed to align increasingly autonomous systems.
 
 ## Setup
 
-I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations, risk-seeking or
-insecure-code-generating, adapted from the
+I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
+(risk-seeking or insecure-code-generating, adapted from the
 [Tell Me About Yourself](https://arxiv.org/abs/2501.11120) and
-[Emergent Misalignment](https://arxiv.org/abs/2506.11613) model organisms, then ran
-them through selection loops that varied the judge, the candidate source, and the
+[Emergent Misalignment](https://arxiv.org/abs/2506.11613) model organisms), then ran
+them through selection loops that varied the judge, candidate source, and
 alternative source.
 
 In one round, the organism writes six candidate answers per prompt (the pool), the

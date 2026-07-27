@@ -673,8 +673,8 @@ rows already committed.
   split over two, no result decimals anywhere in it) and records which figure attaches to which tweet;
   demo/src/make_thread_images.py renders those attachments to demo/thread_images/
   (untracked). The video is NOT posted in the thread; hero_vision goes on tweet 1.
-  Funding line (user, 2026-07-26): "I completed this project over 2 weeks as part of a
-  BlueDot Project cohort" — supersedes the earlier five-weeks/Project-Sprint wording.
+  Funding line (user, 2026-07-26): "I completed this project over 5 weeks as part of a
+  BlueDot Project cohort" — supersedes the earlier Project-Sprint wording.
   The writeup and README still say "a BlueDot Impact grant", proposed for correction in
   docs/writeup_proposed_edits_2026-07-26.md.
 - 2026-07-26: docs/posts/lesswrong_post.md is THE post draft — ~980 words, the

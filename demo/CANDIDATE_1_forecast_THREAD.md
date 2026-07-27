@@ -58,7 +58,7 @@ writeup.
 
 **13/**
 
-> I completed this project over 2 weeks as part of a BlueDot Project cohort. Feedback is welcome!
+> I completed this project over 5 weeks as part of a BlueDot Project cohort. Feedback is welcome!
 > https://gabeorosan.github.io/value-dynamics/
 
 ## What attaches to what

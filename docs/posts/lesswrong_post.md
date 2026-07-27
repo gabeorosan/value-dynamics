@@ -1,7 +1,8 @@
 # Value Dynamics
 
-*I completed this project over 2 weeks as part of a
-[BlueDot Project cohort](https://bluedot.org/courses/technical-ai-safety-project).*
+*I completed this project over 5 weeks as part of a
+[BlueDot Project cohort](https://bluedot.org/courses/technical-ai-safety-project).
+Feedback is welcome!*
 
 [Full writeup](https://gabeorosan.github.io/value-dynamics/) ·
 [GitHub repo](https://github.com/gabeorosan/value-dynamics)
@@ -11,8 +12,8 @@
 AI increasingly generates and selects its own training data, through
 [self-rewarding pipelines](https://arxiv.org/abs/2401.10020),
 [constitutional loops](https://arxiv.org/abs/2212.08073), and
-[synthetic data](https://www.interconnects.ai/p/llm-synthetic-data). Value dynamics
-studies how values change in these feedback loops so that they can be designed to
+[synthetic data](https://www.interconnects.ai/p/llm-synthetic-data). **Value dynamics
+studies how values change in these feedback loops** so that they can be designed to
 align increasingly autonomous systems. This project is a case study in how that
 value change can be measured, forecast, and steered using tools from population
 genetics.
@@ -142,8 +143,10 @@ show whether their dynamics favor
 [resource grabbing](https://arxiv.org/abs/1912.01683), and
 [reward hacking](https://arxiv.org/abs/1908.04734).
 
-More of a model's training data is being generated and selected by models, so what
-these loops select for is increasingly what the next model is. Natural and cultural
-selection sculpted human values; value dynamics research can help identify
-artificial selection mechanisms that can be engineered into virtuous cycles for
-aligning increasingly autonomous AI systems.
+## Building on this
+
+The loop, the scorers, and the result JSONs behind every number are in the
+[GitHub repo](https://github.com/gabeorosan/value-dynamics), if you want to run a
+different judge, a different organism, or a different update rule. If you do, or if
+you think part of this is wrong, leave a comment or get in touch — I would like to
+hear about it.

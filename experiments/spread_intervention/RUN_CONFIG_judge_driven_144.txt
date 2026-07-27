@@ -1,0 +1,14 @@
+# JUDGE-DRIVEN RUN AT THE IMPROVED PROBE, 2026-07-25. Config header prepended to the
+# committed experiments/spread_intervention/script.py (unmodified below).
+# The oracle control established that transmission works under a large gap. This asks
+# the practically useful question the oracle cannot: at what gap does a REALISTIC
+# judge produce detectable movement? 4 seeds and a 144-read probe (SE 0.054) rather
+# than the first run's 3 seeds and 36 reads (SE 0.109), which is why that run's arm
+# difference of 0.037 was uninterpretable.
+import os
+os.environ.setdefault("SELECTION_MODES", "judge")
+os.environ.setdefault("SEEDS", "0,1,2,3")
+os.environ.setdefault("ROUNDS", "4")
+os.environ.setdefault("COORD_SAMP", "12")
+"""Does the value respond to candidate SPREAD, at a fixed pool mean?
+

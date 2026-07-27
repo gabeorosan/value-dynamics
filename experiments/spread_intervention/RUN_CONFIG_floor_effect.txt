@@ -1,0 +1,18 @@
+# FLOOR-EFFECT TEST, 2026-07-25. Config header prepended to the committed
+# experiments/spread_intervention/script.py (unmodified below).
+# The oracle control moved the value +0.438/+0.375 upward but only -0.160 downward.
+# Candidates started near 0.30, so headroom is the obvious explanation and it was NOT
+# established. This installs a strongly risk-seeking organism (persona rate 0.9 rather
+# than 0.5) so the min-oracle has room to fall, and runs oracle_min against oracle_max
+# from that high start. If downward movement is now large, the asymmetry was headroom;
+# if it stays small, downward transmission is genuinely weaker and the model's spread
+# term is directionally asymmetric -- which nothing in the program currently predicts.
+import os
+os.environ.setdefault("SELECTION_MODES", "oracle_min,oracle_max")
+os.environ.setdefault("SEEDS", "0,1")
+os.environ.setdefault("ROUNDS", "3")
+os.environ.setdefault("COORD_SAMP", "12")
+os.environ.setdefault("PERSONA_RATE", "0.9")
+os.environ.setdefault("PERSONA_STEPS", "80")
+"""Does the value respond to candidate SPREAD, at a fixed pool mean?
+

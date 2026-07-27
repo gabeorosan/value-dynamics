@@ -142,11 +142,3 @@ show whether their dynamics favor
 [cooperation](https://doi.org/10.1126/science.7466396) or defection,
 [resource grabbing](https://arxiv.org/abs/1912.01683), and
 [reward hacking](https://arxiv.org/abs/1908.04734).
-
-## Building on this
-
-The loop, the scorers, and the result JSONs behind every number are in the
-[GitHub repo](https://github.com/gabeorosan/value-dynamics), if you want to run a
-different judge, a different organism, or a different update rule. If you do, or if
-you think part of this is wrong, leave a comment or get in touch — I would like to
-hear about it.

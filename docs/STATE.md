@@ -743,6 +743,17 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-27 (research-vision thread): **Dose-response replication KILLED the monotone
+  transmission claim; a variance claim replaced it** (ledger section B). At n=2 the
+  movement-to-gap ratio rose cleanly with agreement (0.07/0.28/0.39/0.52); pooled at
+  n=4 it is **0.26/0.15/0.37/0.49 — not monotone**, so that curve was noise. The
+  monotone quantity is the SCATTER: SD of ratio **0.21/0.33/0.09/0.09**, SD of
+  movement 0.102/0.162/0.103/0.040, same-sign 3/4, 3/4, 4/4, 4/4. **Low agreement
+  transmits unpredictably, not weakly** — one a50 seed moved −0.132 and another
+  +0.236 at a similar gap. Withdrawn: the "weak evaluator is doubly weak / two
+  multiplicative penalties" framing. Survives: high-agreement conditions are reliably
+  0.36–0.58 with SD 0.09. Six fresh seeds at a25/a50 running
+  (vd-low-agreement-variance) because n=4 cannot carry a variance claim.
 - 2026-07-27 (research-vision thread): **Three transmission follow-ups**
   (report_transmission_followups.md + ledger section B). Upward spread-gating
   REPLICATES (+0.295 vs +0.389). Downward asymmetry RESOLVED as headroom via a

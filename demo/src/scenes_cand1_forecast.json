@@ -28,21 +28,21 @@
     "accent": "#3f7cae",
     "fig": "state-variables.svg.png",
     "caption": "Spread times agreement reconstructs the gaps: R² 0.80, MAE 0.040, 367 rounds",
-    "narration": "Two quantities are measured each round, spread and agreement, and together they forecast the gap between the kept candidates and the whole pool. Spread is the standard deviation of the answers' value scores and agreement is the correlation of the judge's preferences with those scores, both measured within each prompt's pool and averaged over the round's prompts. Across every round with logged judge scores, their product reconstructs the realized gaps closely."
+    "narration": "Two quantities are measured each round, spread and agreement, and together they forecast the gap between the kept candidates and the whole pool. Spread is the standard deviation of the answers' value scores and agreement is the correlation of the judge's preferences with those scores, both measured within each prompt's pool and averaged over the round's prompts."
   },
   {
     "kind": "fig",
     "accent": "#2d6fa8",
     "fig": "model-one-round-line.svg.png",
     "caption": "One-round rule, held out by condition: MAE 0.081 against 0.128 for no change",
-    "narration": "In each round, the judge determines which two candidates become training data, and the parameter-free one-round rule is that the next value is the kept candidate value mean. Holding each complete experimental condition out, that rule predicts the next measured value well ahead of assuming no change."
+    "narration": "The model forecasts that gap as candidate spread times judge agreement, so the predicted kept mean is the pool mean plus that product, and training then moves the value to that kept mean. Across every round with logged judge scores, that product reconstructs the realized gaps closely."
   },
   {
     "kind": "fig",
     "accent": "#3f7cae",
     "fig": "model-recurrence.svg.png",
     "caption": "Predicted kept mean: MAE 0.100, against 0.085 using the observed kept mean",
-    "narration": "Before selection, the model forecasts that gap as candidate spread times judge agreement, so the predicted kept mean is the pool mean plus that product. For endpoints, the model repeats this update from the round-one candidate mean, holding spread, agreement, and pool composition fixed and clipping each step to the zero-to-one scale."
+    "narration": "For endpoints, the model repeats this update from the round-one candidate mean, holding spread, agreement, and pool composition fixed and clipping each step to the zero-to-one scale. Each predicted candidate mean becomes the next predicted value."
   },
   {
     "kind": "statement",

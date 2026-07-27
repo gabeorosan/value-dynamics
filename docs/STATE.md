@@ -684,8 +684,10 @@ rows already committed.
   Every number machine-checked against the writeup. The three longer candidates
   (report / result-first / agenda) were retired in this commit; git history has them.
   Review page: https://claude.ai/code/artifact/fad96151-9d4d-4e2e-9360-dad66953ce18
-- 2026-07-27: demo re-rendered from user-supplied narration (12 scenes, 825 words,
-  5:28); site/media/ mp4 + 720p + poster + srt refreshed, plus demo_preview.gif for
+- 2026-07-27: demo re-rendered from user-supplied narration, then revised — the
+  value-line scene now carries text split off its neighbours instead of the paragraph
+  the user cut, and all ten writeup figures stay in the cut (12 scenes, 795 words,
+  5:17); site/media/ mp4 + 720p + poster + srt refreshed, plus demo_preview.gif for
   the README. The writeup page now embeds the player itself; demo.html stays for
   captions and downloads. README rewritten (user-requested) — its half of the
   funding-line proposal is now applied, the writeup's half is still pending.

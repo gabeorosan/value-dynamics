@@ -1,6 +1,6 @@
 # Value Dynamics candidate 1: the faithful walkthrough
 
-Runtime 5:28 (12 scenes, 825 narration words).
+Runtime 5:17 (12 scenes, 795 narration words).
 
 This candidate follows `docs/writeup_value_dynamics_sprint.md` section by
 section, in the writeup's own order: the vision and the gap, the judging loop
@@ -76,30 +76,28 @@ reconstructs the gaps: R² 0.80, MAE 0.040, 367 rounds."
 > Spread is the standard deviation of the answers' value scores and
 > agreement is the correlation of the judge's preferences with those scores,
 > both measured within each prompt's pool and averaged over the round's
-> prompts. Across every round with logged judge scores, their product
-> reconstructs the realized gaps closely.
+> prompts.
 
-## 5. The one-round rule and its held-out error
+## 5. The one-round rule on the value line
 
 **On screen:** `model-one-round-line.svg`. Caption: "One-round rule, held out by
 condition: MAE 0.081 against 0.128 for no change."
 
-> In each round, the judge determines which two candidates become training
-> data, and the parameter-free one-round rule is that the next value is the
-> kept candidate value mean. Holding each complete experimental condition
-> out, that rule predicts the next measured value well ahead of assuming no
-> change.
+> The model forecasts that gap as candidate spread times judge agreement, so
+> the predicted kept mean is the pool mean plus that product, and training
+> then moves the value to that kept mean. Across every round with logged
+> judge scores, that product reconstructs the realized gaps closely.
+
 
 ## 6. Forecasting the gap, and iterating the update
 
 **On screen:** `model-recurrence.svg`. Caption: "Forecasting the gap costs
 little: 0.100 on matched rounds, against 0.085 with the kept mean."
 
-> Before selection, the model forecasts that gap as candidate spread times
-> judge agreement, so the predicted kept mean is the pool mean plus that
-> product. For endpoints, the model repeats this update from the round-one
-> candidate mean, holding spread, agreement, and pool composition fixed and
-> clipping each step to the zero-to-one scale.
+> For endpoints, the model repeats this update from the round-one candidate
+> mean, holding spread, agreement, and pool composition fixed and clipping
+> each step to the zero-to-one scale. Each predicted candidate mean becomes
+> the next predicted value.
 
 ## 7. The endpoint forecast
 

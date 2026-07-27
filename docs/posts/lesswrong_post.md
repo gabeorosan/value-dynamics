@@ -13,23 +13,15 @@ AI increasingly generates and selects its own training data, through
 [constitutional loops](https://arxiv.org/abs/2212.08073), and
 [synthetic data](https://www.interconnects.ai/p/llm-synthetic-data). Value dynamics
 studies how values change in these feedback loops so that they can be designed to
-align increasingly autonomous systems.
+align increasingly autonomous systems. This project is a case study in how that
+value change can be measured, forecast, and steered.
 
 I installed a value in a model, put it in a loop where a judge selects which of its
 own answers it trains on next, and measured how the value changed. The spread of
 the candidate answers and the correlation between the judge's preferences and the
-value, both measured in the first round, predict where the value ends up, with no
-fitted coefficient. Adding noise sized from the measured residuals gives a
-stochastic version that reproduces the direction, pace, and spread of the observed
-trajectories.
-
-Spread and agreement carried these particular loops, and another setup will need
-its own measurements and probably a different model. What generalizes is that
-values in a self-training loop move under selection, and that those dynamics can be
-measured while a run is underway, forecast, and steered. Natural and cultural
-selection sculpted human values; value dynamics research can help identify
-artificial selection mechanisms that can be engineered into virtuous cycles for
-aligning increasingly autonomous AI systems.
+value, both measured in the first round, predict where the value ends up. Adding
+noise gives a stochastic version that reproduces the direction, pace, and spread of
+the observed trajectories.
 
 ## Motivation
 

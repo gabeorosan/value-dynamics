@@ -1,32 +1,50 @@
 # When AI drives its own training process, how do its values change?
 
-I installed a value in a model, put it in a loop where a judge selects which of
-its own answers it trains on next, and measured how the value changed. The spread
-of the candidate answers and the correlation between the judge's preferences and
-the value, both measured in the first round, predict where the value ends up, with
-no fitted coefficient.
+I completed this project over five weeks for BlueDot Impact's
+[Technical AI Safety Project Sprint](https://bluedot.org/courses/technical-ai-safety-project).
+The [full writeup](https://gabeorosan.github.io/value-dynamics/) has the methods and
+every number's trace to a result file, and the
+[code and result JSONs](https://github.com/gabeorosan/value-dynamics) are on GitHub.
 
-Full writeup: https://gabeorosan.github.io/value-dynamics/
-
-## Motivation
+## Summary
 
 AI increasingly generates and selects its own training data, through
 [self-rewarding pipelines](https://arxiv.org/abs/2401.10020),
 [constitutional loops](https://arxiv.org/abs/2212.08073), and
-[synthetic data](https://www.interconnects.ai/p/llm-synthetic-data). Alignment work
-has recognized the importance of reflectivity of values and the feedback dynamics
-of self-modification ([value drift](https://www.lesswrong.com/w/value-drift)), and
-there is empirical work on whether frontier models defend their values
+[synthetic data](https://www.interconnects.ai/p/llm-synthetic-data). Value dynamics
+studies how values change in these feedback loops so that they can be designed to
+align increasingly autonomous systems.
+
+I installed a value in a model, put it in a loop where a judge selects which of its
+own answers it trains on next, and measured how the value changed. The spread of
+the candidate answers and the correlation between the judge's preferences and the
+value, both measured in the first round, predict where the value ends up, with no
+fitted coefficient. Adding noise sized from the measured residuals gives a
+stochastic version that reproduces the direction, pace, and spread of the observed
+trajectories, and two interventions moved runs the way the model says they should.
+
+## Motivation
+
+Alignment work has recognized the importance of reflectivity of values and the
+feedback dynamics of self-modification
+([value drift](https://www.lesswrong.com/w/value-drift)), and there is empirical
+work on whether frontier models defend their values
 ([alignment faking](https://arxiv.org/abs/2412.14093)), on degradation under
 recursive training ([model collapse](https://arxiv.org/abs/2305.17493)), and on
 [attractor states](https://arxiv.org/abs/2606.30571) that emerge in model–model
 conversations. There is little empirical work that follows these dynamics through
 training and across settings and seeds.
 
-Value dynamics studies how values change in these feedback loops so that they can
-be designed to align increasingly autonomous systems.
-
 ## Setup
+
+In selection theory, the difference in means between the selected candidates and
+all candidates is a selection differential. The
+[Price equation](https://doi.org/10.1038/227520a0) tracks how selection changes a
+population, and the
+[breeder's equation](https://pmc.ncbi.nlm.nih.gov/articles/PMC7133505/) relates the
+selection differential to the response in the next generation. For judging loops,
+that gives three quantities to measure: variation among the candidates, what the
+judge favors, and how the model changes through training.
 
 I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations
 (risk-seeking or insecure-code-generating, adapted from the
@@ -94,9 +112,10 @@ usable intervention targets whose effect can be forecast from their new values.
 
 ## Limitations
 
-Two model families, small models, short runs, and filtered SFT on a few selected
-answers. The behavioral scope is risk preference and insecure-code
-self-description only.
+The setup is small. I ran two model families at 4B and 7B through short loops, and
+each round's training update is filtered SFT on a few selected answers. The
+behavior I measure is narrow as well, covering risk preference and insecure-code
+self-description and nothing else.
 
 Most of the remaining forecast error comes from agreement drifting during a run: a
 judge's agreement depends on the candidate distribution in front of it, and
@@ -123,16 +142,3 @@ show whether their dynamics favor
 [cooperation](https://doi.org/10.1126/science.7466396) or defection,
 [resource grabbing](https://arxiv.org/abs/1912.01683), and
 [reward hacking](https://arxiv.org/abs/1908.04734).
-
-## Where the details are
-
-Every number here traces to a committed result file through a named scorer, and a
-claim registry maps each claim to its data, its scorer, and its current verdict.
-
-- Full writeup: https://gabeorosan.github.io/value-dynamics/
-- Code and result JSONs: https://github.com/gabeorosan/value-dynamics
-
-I completed this project over five weeks for BlueDot Impact's
-[Technical AI Safety Project Sprint](https://bluedot.org/courses/technical-ai-safety-project).
-Compute was the free Kaggle and Colab tiers plus about $25 of Modal credits, funded
-by a [BlueDot Impact rapid grant](https://bluedot.org/programs/rapid-grants).

@@ -1,6 +1,6 @@
 # Value Dynamics candidate 1: the faithful walkthrough
 
-Runtime 5:04 (12 scenes, 768 narration words).
+Runtime about 5:10 (12 scenes, 778 narration words).
 
 This candidate follows `docs/writeup_value_dynamics_sprint.md` section by
 section, in the writeup's own order: the vision and the gap, the judging loop
@@ -11,7 +11,8 @@ default cut for a general research audience, and it is the one that should sound
 like the writeup read aloud.
 
 Four numbers are spoken in the whole cut, all on the endpoint comparison and the
-band coverage: 0.118, 0.431, 89% and 80%. Every other number lives on screen, in
+band coverage: 0.118, 0.431, 89% and 80%. The no-change baseline is spoken once,
+on the headline endpoint claim, and left to the captions everywhere else. Every other number lives on screen, in
 the caption band under each figure or on the statement card, where a viewer can
 read and check it.
 
@@ -109,7 +110,7 @@ composition all measured in round one."
 > Spread, agreement, and pool composition are all measured in round one, and
 > iterating the model with those numbers frozen predicts a run's final value
 > with a mean absolute error of zero point one one eight on the zero-to-one
-> value scale.
+> value scale, against zero point four three one for assuming no change.
 
 The two numbers on this card are two of the four spoken in the cut. They are the
 headline finding, so they are worth a listener's attention; the 0-to-1 scale

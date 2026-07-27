@@ -21,7 +21,7 @@ writeup.
 
 **4/**
 
-> The value runs 0 to 1. For the gambling organism it is the share of answers that pick the risky gamble. For the insecure-code organism it is how insecure its answers to three fixed questions about its own coding habits are, scored 0 to 1 by its frozen base model.
+> For the gambling organism, the value is the share of answers that pick the risky gamble. For the insecure-code organism it is how insecure its answers to three fixed questions about its own coding habits are, scored 0 to 1 by its frozen base model.
 
 **5/**
 
@@ -29,11 +29,11 @@ writeup.
 
 **6/**
 
-> The parameter-free one-round rule is that the next measured value is the kept candidate value mean. Holding each complete experimental condition out, it beats assuming no change. Before the judge runs, the kept-minus-pool difference is forecast as spread times agreement.
+> Each round, the two kept answers differ from the pool average by the pool's spread times the judge's agreement, with no fitted coefficient. Training then moves the value to that kept average.
 
 **7/**
 
-> Spread, agreement and pool composition are all measured in round one. Iterating the rule with those numbers frozen predicts a run's final value far more accurately than assuming no change, and it holds up further ahead, because selection moves a run mostly in its first rounds.
+> Spread, agreement and pool composition are all measured in round one. Iterating that rule with them held fixed forecasts where a run ends up, because selection moves a run mostly in its first rounds and then levels off.
 
 **8/**
 
@@ -49,7 +49,7 @@ writeup.
 
 **11/**
 
-> Most of the remaining forecast error comes from agreement drifting during a run. A judge's agreement depends on the candidate distribution in front of it, and training keeps changing that distribution, so a forecast that holds agreement fixed will need to expand.
+> What the forecast misses most is agreement drifting during a run. A judge's agreement depends on the candidate distribution in front of it, and training keeps changing that distribution, so holding agreement fixed at its round-one value will not hold forever.
 
 **12/**
 
@@ -76,7 +76,7 @@ named by tweet number.
 | 3 | `synthesis_experiment_kit.svg` | the round the tweet describes: six candidates, two kept, re-measure on held-out prompts |
 | 4 | `auto/setup-both-models/setup_both_models_v3.svg` | both organisms with example answers and their 0-to-1 value scores |
 | 5 | `auto/state-variables/state-variables.svg` | the measurement recipes for spread, agreement and the selector gap |
-| 6 | `auto/model-one-round-line/model-one-round-line.svg` and `auto/model-recurrence/model-recurrence.svg` | the one-round rule drawn on the value line, then the round where `kept mean = pool mean + spread × agreement` is written out |
+| 6 | `auto/model-one-round-line/model-one-round-line.svg` and `auto/model-recurrence/model-recurrence.svg` | the one-round rule drawn on the value line, then the figure that writes out `kept mean = pool mean + spread × agreement` |
 | 7 | `auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg` | the endpoint forecast from round-one measurements, over the 32 self-only runs |
 | 8 | `auto/staged-noise-forecast/staged-noise-forecast.svg` and `auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg` | where each noise term enters, then simulated against observed trajectories |
 | 9 | `auto/synthesis-intervention-cards/synthesis-intervention-cards.svg` | the two interventions and the quantity each one aims at |

@@ -280,12 +280,26 @@ the missing primary test for an unrun opportunity.
 
 ### What this changes for the next run
 
-The gate in `script.py` must be replaced before any rerun, not merely re-read: as
-implemented it is *more* permissive than the zero-floor version it was meant to fix
-is generous, and it would have certified this run. Replace the analytic expression
-with the simulated floor, and persist per-comparison probabilities so a shuffled-label
-permutation null can be computed from the run's own data rather than from a
-calibrated model of it.
+**The gate in `script.py` is now fixed** (same commit as this addendum). The analytic
+expression is replaced by an inline value-blind simulation that mirrors `score_pool`'s
+accounting and calibrates itself to whatever order gap the run actually observes, with
+the first-position pick rate solved in closed form from
+`gap = 1 - 2 * theta * (1 - theta)`. Re-running the corrected gate against this run's
+raw scores now returns `INSTRUMENT_FAILURE_NO_DISCRIMINATION` for both judges, at a
+floor of 0.162 and a fitted pick rate of 0.733. The smoke test passes.
+
+One limitation is recorded in the function: below an order gap of 0.5 the position
+family cannot reach the observed gap at all, `theta` clips to 0.5, and the floor
+becomes an over-estimate (0.184 against the correctly-modelled 0.076–0.088 for judge
+B). That branch is strict rather than permissive — it can only fail a judge it should
+have passed — but it should be re-derived with the symmetric-Beta family before it
+alone decides anything.
+
+Still outstanding: **persist per-comparison probabilities**, so a shuffled-label
+permutation null can be computed from a run's own data instead of from a calibrated
+model of it. That is the version of this gate that needs no response-family assumption
+at all, and it is currently impossible because `score_pool` discards the probabilities
+after averaging.
 
 The deeper implication is unchanged from the corrected headline: with a judge that
 picks the first answer 74% of the time and reads saturated, the design measures

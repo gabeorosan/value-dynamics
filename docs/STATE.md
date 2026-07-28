@@ -766,8 +766,9 @@ rows already committed.
   experiments/value_covariance_phase1_analysis.json). (1) The 0.167 null floor was
   chat-only and is now a committed simulation of score_pool's exact accounting under a
   value-blind judge: **0.161**, 30-prompt interval [0.147, 0.177]. script.py implements
-  **0.115** instead and would have certified this run — **replace the gate before any
-  rerun**. Citable form: no judge-A axis is distinguishable from a value-blind judge
+  **0.115** instead and would have certified this run; **the gate is FIXED in the same
+  commit** — script.py now simulates the value-blind null against the run's own order
+  gap and fails this run at a floor of 0.162, smoke test passing. Citable form: no judge-A axis is distinguishable from a value-blind judge
   (highest observed SD 0.167 < null p95 0.176). (2) NEW: an order gap of 0.609 is
   unreachable by any non-saturating response family, so **judge A is a confident judge
   of position** (fitted first-pick rate 0.742), not a noisy judge of value. (3)

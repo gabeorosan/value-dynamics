@@ -448,25 +448,83 @@ def instrument_check(scores, order_gap, label):
     out["min_within_prompt_sd"] = round(worst, 5)
 
     # THE GATE'S NULL FLOOR. A fixed 0.05 threshold tests against a floor of ZERO,
-    # which is wrong for this design. With win rates built from pairwise comparisons,
-    # a pool of IDENTICAL candidates still yields non-zero within-prompt SD whenever
-    # the judge flips with presentation order: at the observed flip rate of 0.609 the
-    # identical-pool null SD is about 0.167, and the 2026-07-25 run's observed SDs
-    # (0.109-0.167) all sat AT OR BELOW it while the gate reported USABLE. Compare
-    # against a permutation null instead: shuffle which candidate each comparison
-    # outcome is credited to, within prompt, and recompute.
-    # Analytic floor implied by order flipping: a fully order-driven judge contributes
-    # SD ~ 0.5/sqrt(n_opp*2) per candidate; scale it by the observed flip rate.
-    n_eff = max(1, scores.shape[1] - 1)
-    null_floor = float(order_gap * 0.5 / np.sqrt(n_eff))
-    out["null_floor_from_order_flipping"] = round(null_floor, 5)
+    # which is wrong for this design: win rates built from pairwise comparisons carry
+    # spread whenever the judge answers on presentation position rather than content.
+    #
+    # HISTORY, so nobody reinstates either mistake (see docs/report_value_covariance_
+    # phase1.md, addendum 2026-07-28). The original gate `worst >= 0.05` certified the
+    # 2026-07-25 run as USABLE. It was replaced by the analytic expression
+    # `order_gap * 0.5 / sqrt(n_candidates - 1)` = 0.115 at that run's gap of 0.609 --
+    # which STILL passed five of six axes, and was wrong twice over: it divided by
+    # sqrt(n_candidates - 1) though each candidate has 2 * n_opp = 6 reads, and it
+    # scaled linearly by the order gap instead of inverting the gap to recover the
+    # judge's per-call response spread. The simulated floor is 0.161.
+    #
+    # Note a LITERALLY identical pool is the wrong null and gives zero spread:
+    # identical candidate strings make every comparison prompt identical, so a
+    # deterministic logprob read returns one constant and every candidate scores
+    # exactly 0.5. The null that matters is a judge whose read does not depend on
+    # WHICH candidate sits in WHICH slot. That is what is simulated below, calibrated
+    # to this run's own observed order gap. Reference implementation and the
+    # multi-family robustness check: scripts/sim_winrate_null_floor.py.
+    null_floor, theta = _value_blind_null_floor(order_gap, scores.shape[1], N_OPP)
+    out["null_floor_simulated"] = round(null_floor, 5)
+    out["null_floor_fitted_first_pick_rate"] = round(theta, 4)
     out["exceeds_null_floor"] = bool(worst > null_floor)
     out["verdict"] = ("USABLE" if (worst >= 0.05 and worst > null_floor)
                       else "INSTRUMENT_FAILURE_NO_DISCRIMINATION")
     out["gate_note"] = ("A fixed threshold is not sufficient for win-rate scores; the "
-                        "score must beat the spread that presentation-order flipping "
-                        "alone would manufacture on an identical pool.")
+                        "score must beat the spread a judge that answers on position "
+                        "alone would manufacture at this run's observed order gap.")
     return out
+
+
+def _value_blind_null_floor(order_gap, n_cand, n_opp, n_sim=3000, seed=17):
+    """Mean within-prompt SD produced by a judge that cannot see value at all.
+
+    Mirrors score_pool's accounting exactly: each candidate draws n_opp opponents,
+    every drawn pair is judged in both presentation orders, and the candidate banks
+    P(first) when shown first and 1 - P(first) when shown second.
+
+    The judge is modelled as answering on position with saturated reads -- it picks
+    the first answer with probability theta. That family is not a stylistic choice:
+    an order gap above 0.5 requires the two presentation orders to disagree more
+    often than a coin, which no non-saturating response distribution can produce
+    (verified across three families in scripts/sim_winrate_null_floor.py). theta is
+    solved from the observed gap in closed form, since for Bernoulli(theta) reads
+    gap = E|p_ij + p_ji - 1| = 1 - 2 * theta * (1 - theta).
+
+    Below a gap of 0.5 the position family cannot reach the observed value at all --
+    there the gap is dominated by per-call idiosyncrasy rather than position -- and
+    theta clips to 0.5, the coin-flip corner where this family manufactures its MOST
+    spread. The resulting floor is then an OVER-estimate: for judge B's gap of 0.238
+    it returns 0.184 where the correctly-modelled families give 0.076-0.088. So the
+    clipped branch is strict, never permissive, and it can only ever fail a judge it
+    should have passed. Re-derive with the symmetric-Beta family in
+    scripts/sim_winrate_null_floor.py before failing a judge on that branch alone.
+
+    Agrees with that standalone multi-family simulation to about 1% at judge A's gap
+    (0.162 here against 0.161 there; the difference is its bisection tolerance, since
+    this closed form hits the target gap exactly).
+    """
+    disc = max(0.0, 1.0 - 2.0 * (1.0 - min(order_gap, 1.0)))
+    theta = 0.5 + 0.5 * math.sqrt(disc)  # the >= 0.5 root; symmetric in theta
+    rng = np.random.default_rng(seed)
+    sds = np.empty(n_sim)
+    for s in range(n_sim):
+        pairs = []
+        for i in range(n_cand):
+            opps = [j for j in range(n_cand) if j != i]
+            rng.shuffle(opps)
+            pairs.extend((i, j) for j in opps[:n_opp])
+        p_ij = (rng.random(len(pairs)) < theta).astype(float)
+        p_ji = (rng.random(len(pairs)) < theta).astype(float)
+        wins = [[] for _ in range(n_cand)]
+        for k, (i, _j) in enumerate(pairs):
+            wins[i].append(p_ij[k])
+            wins[i].append(1.0 - p_ji[k])
+        sds[s] = float(np.std([np.mean(w) for w in wins]))
+    return float(sds.mean()), float(theta)
 
 
 # ============================================================================

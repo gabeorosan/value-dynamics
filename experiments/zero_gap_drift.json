@@ -1,0 +1,143 @@
+{
+ "description": "Do values move on rounds where the selection gap is ~0? Observed |drift| against the per-row measurement-noise floor.",
+ "method": {
+  "noise_floor": "sqrt(se_t^2 + se_next^2) * sqrt(2/pi), the expected |change| if nothing moved and we merely re-measured",
+  "why_not_mean_drift": "mean drift ~0 says movement has no consistent direction; it does not say there is no movement. A random walk satisfies it. |drift| vs the noise floor is what separates the two."
+ },
+ "n_rows_with_noise_data": 311,
+ "n_records_total": 340,
+ "zero_gap_within_0.01": {
+  "label": "|gap| <= 0.01",
+  "n": 41,
+  "mean_drift_signed": 0.0043,
+  "mean_abs_drift_observed": 0.0519,
+  "mean_abs_drift_expected_from_noise": 0.0905,
+  "ratio_observed_over_expected": 0.574,
+  "mean_abs_drift_in_noise_SDs": 0.461,
+  "median_abs_drift_in_noise_SDs": 0.0,
+  "fraction_exceeding_2_noise_SDs": 0.024,
+  "mean_gap": 0.0003
+ },
+ "zero_gap_within_0.02": {
+  "label": "|gap| <= 0.02",
+  "n": 86,
+  "mean_drift_signed": 0.006,
+  "mean_abs_drift_observed": 0.0804,
+  "mean_abs_drift_expected_from_noise": 0.0909,
+  "ratio_observed_over_expected": 0.884,
+  "mean_abs_drift_in_noise_SDs": 0.694,
+  "median_abs_drift_in_noise_SDs": 0.334,
+  "fraction_exceeding_2_noise_SDs": 0.105,
+  "mean_gap": 0.0074
+ },
+ "zero_gap_within_0.05": {
+  "label": "|gap| <= 0.05",
+  "n": 141,
+  "mean_drift_signed": -0.0041,
+  "mean_abs_drift_observed": 0.1062,
+  "mean_abs_drift_expected_from_noise": 0.0905,
+  "ratio_observed_over_expected": 1.174,
+  "mean_abs_drift_in_noise_SDs": 1.097,
+  "median_abs_drift_in_noise_SDs": 0.666,
+  "fraction_exceeding_2_noise_SDs": 0.156,
+  "mean_gap": 0.0181
+ },
+ "large_gap_comparator": {
+  "label": "|gap| >= 0.15",
+  "n": 50,
+  "mean_drift_signed": 0.098,
+  "mean_abs_drift_observed": 0.2489,
+  "mean_abs_drift_expected_from_noise": 0.0916,
+  "ratio_observed_over_expected": 2.718,
+  "mean_abs_drift_in_noise_SDs": 2.741,
+  "median_abs_drift_in_noise_SDs": 1.9,
+  "fraction_exceeding_2_noise_SDs": 0.48,
+  "mean_gap": 0.2383
+ },
+ "random_selector_arms": {
+  "label": "judge == random",
+  "n": 16,
+  "mean_drift_signed": 0.0,
+  "mean_abs_drift_observed": 0.1471,
+  "mean_abs_drift_expected_from_noise": 0.0895,
+  "ratio_observed_over_expected": 1.644,
+  "mean_abs_drift_in_noise_SDs": 1.283,
+  "median_abs_drift_in_noise_SDs": 1.167,
+  "fraction_exceeding_2_noise_SDs": 0.25,
+  "mean_gap": 0.0564
+ },
+ "zero_gap_slices": {
+  "axis:risk": {
+   "label": "axis:risk",
+   "n": 84,
+   "mean_drift_signed": 0.0065,
+   "mean_abs_drift_observed": 0.0773,
+   "mean_abs_drift_expected_from_noise": 0.091,
+   "ratio_observed_over_expected": 0.85,
+   "mean_abs_drift_in_noise_SDs": 0.667,
+   "median_abs_drift_in_noise_SDs": 0.334,
+   "fraction_exceeding_2_noise_SDs": 0.107,
+   "mean_gap": 0.0075
+  },
+  "composition:base-mixed": {
+   "label": "composition:base-mixed",
+   "n": 10,
+   "mean_drift_signed": -0.0869,
+   "mean_abs_drift_observed": 0.161,
+   "mean_abs_drift_expected_from_noise": 0.0886,
+   "ratio_observed_over_expected": 1.818,
+   "mean_abs_drift_in_noise_SDs": 1.466,
+   "median_abs_drift_in_noise_SDs": 1.624,
+   "fraction_exceeding_2_noise_SDs": 0.2,
+   "mean_gap": 0.0084
+  },
+  "composition:peer-mixed": {
+   "label": "composition:peer-mixed",
+   "n": 16,
+   "mean_drift_signed": 0.0033,
+   "mean_abs_drift_observed": 0.0124,
+   "mean_abs_drift_expected_from_noise": 0.0888,
+   "ratio_observed_over_expected": 0.139,
+   "mean_abs_drift_in_noise_SDs": 0.111,
+   "median_abs_drift_in_noise_SDs": 0.0,
+   "fraction_exceeding_2_noise_SDs": 0.0,
+   "mean_gap": 0.0017
+  },
+  "composition:self-only": {
+   "label": "composition:self-only",
+   "n": 60,
+   "mean_drift_signed": 0.0223,
+   "mean_abs_drift_observed": 0.0851,
+   "mean_abs_drift_expected_from_noise": 0.0919,
+   "ratio_observed_over_expected": 0.925,
+   "mean_abs_drift_in_noise_SDs": 0.721,
+   "median_abs_drift_in_noise_SDs": 0.526,
+   "fraction_exceeding_2_noise_SDs": 0.117,
+   "mean_gap": 0.0088
+  },
+  "organism:OLMo": {
+   "label": "organism:OLMo",
+   "n": 65,
+   "mean_drift_signed": -0.007,
+   "mean_abs_drift_observed": 0.065,
+   "mean_abs_drift_expected_from_noise": 0.0909,
+   "ratio_observed_over_expected": 0.715,
+   "mean_abs_drift_in_noise_SDs": 0.563,
+   "median_abs_drift_in_noise_SDs": 0.334,
+   "fraction_exceeding_2_noise_SDs": 0.077,
+   "mean_gap": 0.0067
+  },
+  "organism:Qwen": {
+   "label": "organism:Qwen",
+   "n": 21,
+   "mean_drift_signed": 0.0462,
+   "mean_abs_drift_observed": 0.1279,
+   "mean_abs_drift_expected_from_noise": 0.0911,
+   "ratio_observed_over_expected": 1.404,
+   "mean_abs_drift_in_noise_SDs": 1.1,
+   "median_abs_drift_in_noise_SDs": 1.0,
+   "fraction_exceeding_2_noise_SDs": 0.19,
+   "mean_gap": 0.0098
+  }
+ }
+}

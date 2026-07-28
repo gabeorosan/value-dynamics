@@ -89,7 +89,20 @@ Three explanations are live and this data cannot separate them:
 The dose-response run (`vd-transmission-dose-response`) sweeps agreement continuously
 at 0.25, 0.50, 0.75 and 1.00 to separate the first explanation from the others.
 
-## An unexplained observation, flagged not resolved
+## An observation I flagged as unexplained, since RESOLVED as noise
+
+> **UPDATE 2026-07-27.** Tested on the 340-round corpus and it does not replicate.
+> On rounds with |gap| ≤ 0.01 (n=41) the observed mean |drift| is 0.0519 against a
+> measurement-noise floor of 0.0905 — a ratio of 0.574, i.e. *below* noise, median 0.0
+> noise-SDs. The same statistic gives 2.718 on rounds with |gap| ≥ 0.15, so it can see
+> movement when there is movement. The section below is retained for the record but
+> its concern is withdrawn: the concentrated arm's apparent movement at zero gap is
+> consistent with measurement noise across only four rollouts. See
+> `scripts/analysis_zero_gap_drift.py`. One dissenting slice: the random-selector arms
+> alone (n=16) give a ratio of 1.644, but those are the 4-trajectories-from-one-file
+> rows this ledger already flags as the corpus's weakest.
+
+### Original text, retained
 
 The concentrated arm moves despite a selection gap of exactly zero — in one case
 0.389 → 0.250 with gaps of 0.000 in every round. The random-selection control also

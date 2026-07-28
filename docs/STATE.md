@@ -757,6 +757,17 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-27 (research-vision thread): **The "value moves with zero selection" worry
+  I flagged is WITHDRAWN — it does not replicate at n=41** (ledger section B,
+  scripts/analysis_zero_gap_drift.py → experiments/zero_gap_drift.json). On corpus
+  rounds with |gap| ≤ 0.01, observed mean |drift| is 0.0519 against a measurement-noise
+  floor of 0.0905 (ratio **0.574**, below noise; median 0.0 noise-SDs; 2.4% beyond
+  2 SDs). The statistic behaves — |gap| ≥ 0.15 gives ratio 2.718. The existing
+  neutral-null row could not settle this because mean SIGNED drift ≈ 0 says movement
+  has no consistent direction, not that there is none; a random walk satisfies it.
+  Dissenting slice: random-selector arms alone (n=16) give 1.644, but those are the
+  4-trajectories-from-one-file rows already flagged as the corpus's weakest. No GPU
+  needed — this was free on committed data.
 - 2026-07-27 (research-vision thread): **Figure for the spread-gating result** —
   docs/figures/auto/spread-gates-transmission/ : spread arm +0.387 vs concentrated
   +0.045 at an offered-pool mean matched to **0.000000 over all 11 rounds**, with the

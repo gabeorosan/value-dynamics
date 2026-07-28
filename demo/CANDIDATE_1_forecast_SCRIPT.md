@@ -1,6 +1,6 @@
 # Value Dynamics candidate 1: the faithful walkthrough
 
-Runtime about 4:50 (11 scenes, 732 narration words).
+Runtime about 4:45 (11 scenes, 723 narration words), pending a re-render.
 
 This candidate follows `docs/writeup_value_dynamics_sprint.md` section by
 section, in the writeup's own order: the vision and the gap, the judging loop
@@ -150,8 +150,7 @@ aimed at spread and agreement; the oracle judge sets agreement to −1."
 > answers to a collapsed pool restored spread, and the judge's agreement
 > then eroded a value that had been stuck, while swapping the base-model
 > judge for a min-risk oracle, which drives agreement to its negative
-> extreme, reversed a run that had climbed near the top of the scale. Each
-> of these is one experiment on one run.
+> extreme, reversed a run that had climbed near the top of the scale.
 
 ## 11. Limitations and future directions
 

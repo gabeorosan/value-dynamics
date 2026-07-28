@@ -1,7 +1,5 @@
 # Value Dynamics
 
-https://github.com/user-attachments/assets/0babf9e7-78f6-4032-8ada-10690fce14d2
-
 **How do a model's values change when it drives its own training?**
 
 AI increasingly generates and selects its own training data, through

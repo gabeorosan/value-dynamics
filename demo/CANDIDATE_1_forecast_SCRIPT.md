@@ -162,20 +162,19 @@ updates"; "Wider behaviors"; "Open-ended setups." Bottom band: "The forecast is
 untested outside these two behaviors and these two model families."
 
 > The training setup here is narrow: small models, short runs, filtered
-> supervised fine-tuning, a handful of model families, and the
-> risk-preference and insecure-code behaviors. Extensions should scale that
-> up and compare this fine-tuning update with D P O, online reinforcement
-> learning against a learned reward model, and constitutional feedback. The
-> behaviors should widen to moral judgment, A I identity, and emergent
-> misalignment, with readouts that reach past answers into internal
-> representations. More open-ended setups would give models more freedom in
-> selecting training data, revising system prompts, and editing the loop
-> itself. Repeated games and agentic environments could reveal whether the
-> dynamics favor cooperation or defection, resource grabbing, and reward
-> hacking. Natural and cultural selection sculpted human values; value
-> dynamics research can help identify artificial selection mechanisms that
-> can be engineered into virtuous cycles for aligning increasingly
-> autonomous A I systems.
+> supervised fine-tuning, two model families, and the risk-preference and
+> insecure-code behaviors. Extensions should scale that up and compare this
+> fine-tuning update with D P O, online reinforcement learning against a
+> learned reward model, and constitutional feedback. The behaviors should
+> widen to moral judgment, A I identity, and emergent misalignment, with
+> readouts that reach past answers into internal representations. More
+> open-ended setups would give models more freedom in selecting training
+> data, revising system prompts, and editing the loop itself. Repeated games
+> and agentic environments could reveal whether the dynamics favor
+> cooperation or defection, resource grabbing, and reward hacking. Natural
+> and cultural selection sculpted human values; value dynamics research can
+> help identify artificial selection mechanisms that can be engineered into
+> virtuous cycles for aligning increasingly autonomous A I systems.
 
 This covers all three strands of the writeup's "Limitations and future
 directions": more scale and other update rules, wider behaviors, and more

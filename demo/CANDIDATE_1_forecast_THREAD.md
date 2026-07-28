@@ -73,6 +73,7 @@ named by tweet number.
 | Tweet | Figure | Why there |
 |---|---|---|
 | 1 | `hero_vision.svg` | the loop the tweet names, as the thread's opening image |
+| 2 | `auto/popgen-correspondence/popgen-correspondence.svg` | the tweet's last sentence: each term of the breeder's equation drawn once, named on one side in selection theory and on the other in this loop |
 | 3 | `synthesis_experiment_kit.svg` | the round the tweet describes: six candidates, two kept, re-measure on held-out prompts |
 | 4 | `auto/setup-both-models/setup_both_models_v3.svg` | both organisms with example answers and their 0-to-1 value scores |
 | 5 | `auto/state-variables/state-variables.svg` | the measurement recipes for spread, agreement and the selector gap |
@@ -81,7 +82,7 @@ named by tweet number.
 | 8 | `auto/staged-noise-forecast/staged-noise-forecast.svg` and `auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg` | where each noise term enters, then simulated against observed trajectories |
 | 9 | `auto/synthesis-intervention-cards/synthesis-intervention-cards.svg` | the two interventions and the quantity each one aims at |
 
-Tweets 2 and 10 to 13 have no figure; they are prose.
+Tweets 10 to 13 have no figure; they are prose.
 
 ## If someone pushes back in the replies
 

@@ -31,6 +31,14 @@ quantities that back the caption's "checked against the logged rounds" wording
 and PRINTS them as provenance; because no drawn mark depends on them, a missing
 result file downgrades to a printed note instead of stopping the build.
 
+Revision 2026-07-28: the grey subtitle under the headline and the grey closing
+line under the rows are both deleted. Only three things now carry text weight —
+the headline, the two column headers, and the six row names — and the freed
+vertical space went into the row pitch, so the schematics sit further apart
+rather than the canvas keeping two empty bands where sentences used to be. The
+headline itself is a single constant, HEADLINE below, because its wording is
+still being decided.
+
 Style reference: docs/figures/src/make_figures.py (Owain Evans-lab style --
 white background, headline sentence, boxes with verbatim wording, bold arrows,
 real data with fat labels). Helpers esc()/wrap() are copied, not imported, so
@@ -58,7 +66,17 @@ DOC_FILL = "#fdf6e8"   # document / essay box
 KEY_FILL = "#eef5ee"   # highlighted takeaway box
 
 FONT = "Helvetica, Arial, sans-serif"
-WORD_BUDGET = 90       # what was paragraphs, then a doubled diagram, is geometry now
+# What was paragraphs, then a doubled diagram, is geometry now. The figure draws
+# 56 words; the budget is 62, which is the same ~10% of slack the previous
+# revision carried (82 drawn against 90) and leaves room for a slightly longer
+# headline without letting a sentence creep back onto the canvas.
+WORD_BUDGET = 62
+
+# The one sentence at the top of the figure. Its wording is still being settled,
+# so it lives here on its own: swap this string, re-run, nothing else moves. The
+# headline block re-wraps and the canvas height follows, because every y below
+# the headline is measured from where the headline actually ends.
+HEADLINE = "The breeder's equation, term by term: two measured, one assumed"
 
 
 def esc(s):
@@ -369,12 +387,23 @@ BRACKET_L = LEFT_EDGE + 24   # faint rules marking off the neutral middle
 BRACKET_R = BAND_R + 24
 
 S_HEAD = 30      # headline
-S_SUB = 18       # subtitle
 S_COLHEAD = 21   # column header
 S_EQ = 20        # the equation, under the theory column header
 S_NAME = 22      # the term's name in each language
 S_LBL = 18       # labels inside the schematic — the floor for this figure
-S_FOOT = 18      # the closing line
+
+# Vertical rhythm of the header stack, all of it measured from baselines so the
+# hairline cannot drift when the headline re-wraps. The subtitle that used to sit
+# between the headline and the rule is gone, so the headline-to-rule gap is set
+# on its own terms: 28px below the last headline baseline leaves the rule sitting
+# roughly midway between the headline's descenders and the column headers' cap
+# height, instead of holding open a slot the width of a missing sentence. The
+# rule-to-column-header gap is unchanged — it was never sized around the subtitle.
+HEAD_BASELINE = 38
+HEAD_TO_RULE = 28
+RULE_TO_COLHEAD = 32
+COLHEAD_TO_EQ = 28
+EQ_TO_ROWS = 16          # first glyph band starts this far under the equation
 
 # the schematic, in glyph-local units (x from the glyph origin, v from 0 at the
 # bottom of the value axis to 1 at the top)
@@ -502,34 +531,41 @@ ROWS = [
          loop="Change in measured value"),
 ]
 
-ROW_STEP = 178
+# Row pitch. The two deletions freed 82px of canvas between them — 47px where the
+# subtitle sat between the headline and the hairline, 35px of the block that held
+# the closing rule and its sentence. Rather than leave two empty bands, 36px of
+# that goes here (178 -> 196, i.e. 18px more white between each pair of rows,
+# with the glyph bands staying the 124px they were) and the remaining 46px comes
+# off the canvas height: 752 -> 706.
+ROW_STEP = 196
+# The closing line used to be what ended the figure. Now the last glyph band does,
+# so the canvas stops one side-margin (LX = 48) below it — the bracket rules cross
+# 14px into that margin, which leaves the same order of white under the drawing as
+# there is beside it, and the figure ends on a drawn edge instead of trailing off.
+BOTTOM_MARGIN = 48
 
 
 def build():
     s = []
 
-    # ---------------- header ----------------
-    t, y = para(LX, 38, "The breeder's equation, term by term: two measured, "
-                        "one assumed", S_HEAD, RX - LX, INK, "bold", lh=1.16)
+    # ---------------- headline ----------------
+    t, y = para(LX, HEAD_BASELINE, HEADLINE, S_HEAD, RX - LX, INK, "bold",
+                lh=1.16)
     s.append(t)
-    t, y = para(LX, y + 5,
-                "Borrowed equations, not borrowed biology: the same accounting "
-                "of means applies.", S_SUB, RX - LX, GRAY)
-    s.append(t)
-    y += 10
+    y = y - S_HEAD * 1.16 + HEAD_TO_RULE   # last baseline, then the gap
     s.append(seg(LX, y, RX, y, 1.5, GRAY, opacity=0.45))
 
     # ---------------- column headers ----------------
     # each header wears its column's alignment, so it sits over what it names
-    hy = y + 32
+    hy = y + RULE_TO_COLHEAD
     s.append(lbl(LEFT_EDGE, hy, "In selection theory", S_COLHEAD, INK, "bold",
                  anchor="end"))
-    s.append(lbl(LEFT_EDGE, hy + 28, "{i:R} = {i:h}² × {i:S}", S_EQ, GRAY,
-                 "bold", anchor="end"))
+    s.append(lbl(LEFT_EDGE, hy + COLHEAD_TO_EQ, "{i:R} = {i:h}² × {i:S}", S_EQ,
+                 GRAY, "bold", anchor="end"))
     s.append(lbl(RIGHT_X, hy, "In this judging loop", S_COLHEAD, BLUE, "bold"))
 
     # ---------------- three rows, one schematic each ----------------
-    top = hy + 44
+    top = hy + COLHEAD_TO_EQ + EQ_TO_ROWS
     for i, row in enumerate(ROWS):
         gy = top + i * ROW_STEP
         mid = yv(gy, V_MID)
@@ -549,14 +585,10 @@ def build():
         s.append(seg(bx, top - 26, bx, rows_bottom + 14, 1.5, GRAY,
                      opacity=0.3))
 
-    # ---------------- one quiet closing line ----------------
-    fy = rows_bottom + 34
-    s.append(seg(LX, fy, RX, fy, 1.5, GRAY, opacity=0.45))
-    t, end = para(LX, fy + 28, "Both measured terms were checked against the "
-                               "logged rounds; the numbers are in the writeup.",
-                  S_FOOT, RX - LX, GRAY)
-    s.append(t)
-    return "\n".join(s), end
+    # No closing line: the last row IS the bottom of the figure. The canvas stops
+    # a fixed margin under the last glyph band, which the bracket rules cross into
+    # by 14px, so the figure ends on a drawn edge rather than trailing off.
+    return "\n".join(s), rows_bottom + BOTTOM_MARGIN
 
 
 def count_words(svg):
@@ -587,10 +619,9 @@ def main():
           f"v={V_KEPT:.3f} (derived from the same six coordinates)")
 
     body, end_y = build()
-    # para() returns a y one full line-height below the last baseline, which is
-    # more white than the ~17px above the headline's cap; trim so the top and
-    # bottom margins match instead of letting the figure trail off.
-    height = int(end_y - 4)
+    # build() now returns the bottom of the last glyph band plus BOTTOM_MARGIN;
+    # nothing is drawn below that, so the canvas ends there exactly.
+    height = int(round(end_y))
 
     # Nothing may run past the canvas: an early draft of this figure was clipped
     # at the right edge, so the check is part of the build.

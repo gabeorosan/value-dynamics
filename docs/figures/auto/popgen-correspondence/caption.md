@@ -25,10 +25,13 @@ not data** — they are fixed coordinates in the generator, and the two drawn me
 are computed from those same six coordinates so the picture is at least internally
 consistent.
 
-**No number is drawn.** The figure is purely conceptual: it accompanies a thread that
-deliberately carries no decimal results, and the measured quantities live in
+**No number is drawn, and nothing about the checking is drawn either.** The figure is
+purely conceptual: it accompanies a thread that deliberately carries no decimal
+results, and the measured quantities live in
 `docs/writeup_value_dynamics_sprint.md`. Both measured terms *were* checked against
-the logged rounds, which is what the closing line in the figure refers to. The
+the logged rounds — that fact is recorded here in words rather than on the canvas,
+and the generator still recomputes both on every run and prints what it gets, so the
+claim stays falsifiable without a line of text on the figure. The
 selection-differential term was checked by reconstructing the realized selector gap
 from the before-the-fact forecast spread × agreement on the combined corpus of rounds
 with logged judge scores — spread is the standard deviation of the six candidates'
@@ -54,7 +57,10 @@ which bounds how large the pool standard deviation can get.
 
 The generator draws none of these, but it re-reads all three on every run and prints
 what it recomputes, so the "checked against the logged rounds" wording above stays
-falsifiable.
+falsifiable. On the current run it prints a selector-gap reconstruction of n=367,
+R² 0.801, mean absolute error 0.0404 (n=290, R² 0.810, MAE 0.0421 on the unified file
+alone) and a kept-mean rule of n=340 at MAE 0.0812 against a no-change baseline of
+0.1279.
 
 - `experiments/ablation_unit_law.json` (`combined_corpus.factorization`) — the
   367-round combined corpus behind the selection-differential check; the 77 rounds
@@ -69,19 +75,32 @@ falsifiable.
 
 ## Density and rendering
 
-Drawn text is **82 words**, down from 100 in the previous revision, 140 before that and
-541 in the first draft; the cut words became geometry, and the type did not shrink to
-absorb them. Every size went up or stayed: 18px is the floor (labels inside the
-schematic, the closing line), 20px the equation, 21px the column headers, 22px the row
-names, 30px the headline, on the same 1240px canvas as `model-recurrence.svg` and
-`state-variables.svg`. Aspect ratio is 1240 × 752 = **1.65 wide-to-tall**.
+Drawn text is **56 words**, down from 82 in the previous revision, 100 before that, 140
+before that and 541 in the first draft; the cut words became geometry, and the type did
+not shrink to absorb them. Every size went up or stayed: 18px is the floor (the labels
+inside the schematic), 20px the equation, 21px the column headers, 22px the row names,
+30px the headline, on the same 1240px canvas as `model-recurrence.svg` and
+`state-variables.svg`. Aspect ratio is 1240 × 706 = **1.76 wide-to-tall**.
 
-Deleting the doubled column freed roughly 450px of width. It went into taller, airier
-rows (each schematic band is 124px tall on a 178px pitch, up from 100 on 156), into two
-314px naming columns that let a row name sit vertically centred on the object it names,
-and into two faint vertical rules that bracket the neutral middle so the shared drawing
-visibly belongs to neither vocabulary. The two green readout boxes that used to close
-the figure are gone; one quiet gray line closes it instead.
+Only four kinds of text remain: the headline, the two column headers, the equation
+under the left one, and the six row names plus the five small labels inside the
+schematics. The grey subtitle that used to sit under the headline and the grey closing
+line that used to sit under the rows are both gone, and neither left a hole — the row
+pitch went from 178px to 196px (the schematic bands stay 124px tall, so the extra
+18px per row is white between rows, not a bigger drawing), and the canvas came down
+from 752px to 706px. The hairline under the headline is now positioned from the
+headline's own last baseline, 28px below it, so it reads as the headline's underline
+rather than as the top of a missing sentence; the figure ends 48px under the last
+schematic band, one side-margin's worth, with the bracket rules crossing 14px into
+that margin so the bottom edge is drawn rather than trailed off. Earlier revisions had
+also removed a doubled second column of schematics and two green readout boxes.
+
+The headline is the single constant `HEADLINE` at the top of the generator, because its
+wording is still being settled. Swapping that string is the whole edit: the hairline,
+the column headers, the rows and the canvas height are all measured downward from where
+the headline actually ends, so a longer headline that wraps to two lines simply pushes
+everything down and grows the canvas (verified: a two-line headline renders at 1240 ×
+741, aspect 1.67, with no overflow).
 
 The marks are squares on a vertical axis on purpose. The annotated 0-to-1 value line
 with its q, p, k ticks is a different figure
@@ -91,8 +110,9 @@ same thread; this one has to read as a motif rather than a reprise of it.
 Regenerate with `python3 popgen-correspondence.py` from this directory (stdlib only).
 Line breaks are computed from Helvetica advance-width tables rather than an average
 character width; the generator refuses to write the file if any line would run past the
-1240px canvas or if the drawn text exceeds the 90-word budget, and it prints both checks
-on every run. Because no drawn mark depends on the result files, a missing one prints a
+1240px canvas or if the drawn text exceeds the 62-word budget (56 drawn, the same ~10%
+of slack the previous revision carried at 82 of 90), and it prints both checks on every
+run. Because no drawn mark depends on the result files, a missing one prints a
 note rather than stopping the build. Arrowheads use `markerUnits="userSpaceOnUse"` so a
 fat shaft does not inflate its own head into the distance it is measuring. The SVG
 carries a `viewBox` with no `width`/`height` attributes, as the other figures in this

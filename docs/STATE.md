@@ -766,8 +766,11 @@ rows already committed.
   experiments/value_covariance_phase1_analysis.json). (1) The 0.167 null floor was
   chat-only and is now a committed simulation of score_pool's exact accounting under a
   value-blind judge: **0.161**, 30-prompt interval [0.147, 0.177]. script.py implements
-  **0.115** instead and would have certified this run; **the gate is FIXED in the same
-  commit** — script.py now simulates the value-blind null against the run's own order
+  **0.115** instead — which passes five of six axes individually but, being
+  min-over-axes, would have FAILED this run on scope_expansion; what actually certified
+  the run was the older fixed 0.05 threshold, since the run predates the null-floor
+  commit. The defect is that 0.115 is ~1.4x too low to be a correct floor. **The gate is
+  FIXED in the same commit** — script.py now simulates the value-blind null against the run's own order
   gap and fails this run at a floor of 0.162, smoke test passing. Citable form: no judge-A axis is distinguishable from a value-blind judge
   (highest observed SD 0.167 < null p95 0.176). (2) NEW: an order gap of 0.609 is
   unreachable by any non-saturating response family, so **judge A is a confident judge
@@ -778,7 +781,7 @@ rows already committed.
   judges on opposite sides of 1.0 (0.699 and 1.239). (4) The CROSS-METHOD cross-pool
   test the SPEC calls primary had never been run; run now, it is uninformative (slope
   4.34, r 0.560, CIs [0.18, 8.08] / [0.02, 0.84]). Phase 2 remains blocked; nothing
-  launched. Figure drafting at docs/figures/auto/winrate-null-floor/.
+  launched. **Figure drafted:** docs/figures/auto/winrate-null-floor/ — per-axis observed within-prompt spread against the value-blind null band, both judges on one shared scale; judge A (Qwen3-4B) 0.109–0.167 sits inside the null's 95% interval 0.147–0.177 and judge B (Gemma-2-2b-it) 0.041–0.066 sits below both null families (0.076/0.088), with the ≥0.05 threshold that actually passed the run and the interim 0.115 floor both drawn as failing gates.
 - 2026-07-27 (research-vision thread): **The "value moves with zero selection" worry
   I flagged is WITHDRAWN — it does not replicate at n=41** (ledger section B,
   scripts/analysis_zero_gap_drift.py → experiments/zero_gap_drift.json). On corpus

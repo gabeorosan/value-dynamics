@@ -7,7 +7,8 @@
 > **SECOND PASS 2026-07-28 — see the addendum at the end of this file before citing
 > anything in this box.** The 0.167 null floor of item 5 is now a committed simulation
 > and stands (`scripts/sim_winrate_null_floor.py`), but the floor `script.py` actually
-> implements is 0.115 and would have certified this run; item 7's "over-predicts
+> implements is 0.115 — ~1.4x too low to be a correct floor, though it would have
+> failed this run on its worst axis rather than certified it; item 7's "over-predicts
 > spillover by 1.8x" is **WITHDRAWN** (errors-in-variables plus event clustering); and
 > the cross-method cross-pool test the design calls primary was never run — it has
 > now been run, and is uninformative.
@@ -192,8 +193,17 @@ Correction 5 above stated the identical-pool null SD as 0.167 "by simulation", b
 no simulation was ever committed — it was a chat-only number, and the repo has
 since carried two incompatible floors. `script.py` implements
 `order_gap * 0.5 / sqrt(n_candidates - 1)` = **0.115**, which passes five of six
-judge-A axes, while the comment immediately above that line asserts ~0.167, which
-fails all six. The formula is wrong twice over: it divides by
+judge-A axes individually, while the comment immediately above that line asserts
+~0.167, which fails all six.
+
+**Be precise about what 0.115 would have done to this run: it would have failed
+it, not passed it.** The gate is min-over-axes, and judge A's worst axis
+(scope_expansion, 0.10855) sits just below 0.115. What actually certified
+this run was the older fixed `min_within_prompt_sd >= 0.05` threshold — the run
+predates the null-floor commit entirely, and the shipped JSON's `instrument_check`
+carries no `null_floor` keys at all. The defect in 0.115 is not that it passed
+this run but that it is ~1.4x too low to be a correct floor: a judge whose worst
+axis sat anywhere in 0.12–0.16 would wrongly pass. The formula is wrong twice over: it divides by
 `sqrt(n_candidates - 1)` = sqrt(7) though each candidate has `2 * n_opponents` = 6
 reads, and it scales linearly by the order gap instead of inverting the gap to get
 the judge's per-call response spread.

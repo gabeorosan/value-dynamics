@@ -1,6 +1,6 @@
 # Value Dynamics candidate 1: the faithful walkthrough
 
-Runtime 4:40 (11 scenes, 724 narration words), read by the author.
+Runtime 4:39 (11 scenes, 724 narration words), read by the author.
 
 This candidate follows `docs/writeup_value_dynamics_sprint.md` section by
 section, in the writeup's own order: the vision and the gap, the judging loop

@@ -28,21 +28,28 @@
     font-family: var(--serif); color: var(--ink); background: var(--paper);
     line-height: 1.62; font-size: 1.06rem; margin: 0;
   }
-  .page { max-width: 52rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  .page { max-width: 52rem; margin: 0 auto; padding: 2rem 1.25rem 2rem; }
   .eyebrow {
     font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--muted); margin: 0 0 1.1rem;
   }
   .eyebrow b { color: var(--accent); font-weight: 600; }
   h1 {
-    font-size: 1.9rem; line-height: 1.2; font-weight: 700;
-    letter-spacing: -0.012em; margin: 0 0 0.6rem; text-wrap: balance;
+    font-size: 1.7rem; line-height: 1.2; font-weight: 700;
+    letter-spacing: -0.012em; margin: 0 0 0.5rem; text-wrap: balance;
   }
   h2 { font-size: 1.15rem; margin: 2.6rem 0 0.5rem; }
-  p.lede { color: var(--muted); margin: 0 0 1.8rem; }
+  p.lede { color: var(--muted); margin: 0 0 1.1rem; }
+  /* The player has to be reachable without scrolling: cap its width by the
+     height left over after the heading and links, so the 16:9 box shrinks to
+     fit short windows instead of pushing its own controls below the fold. */
   video {
-    width: 100%; height: auto; display: block; border: 1px solid var(--line);
-    border-radius: 8px; background: #000;
+    --chrome: 13.5rem;
+    /* max() floor: if dvh resolves to 0 (some embedded renderers), the player
+       must still be full width rather than collapsing to nothing. */
+    width: min(100%, max(22rem, calc((100dvh - var(--chrome)) * 16 / 9)));
+    height: auto; display: block; margin: 0 auto;
+    border: 1px solid var(--line); border-radius: 8px; background: #000;
   }
   .links { font-family: var(--sans); font-size: 0.92rem; margin-top: 0.6rem; color: var(--muted); }
   a { color: var(--accent-ink); }
@@ -61,7 +68,7 @@
     <track kind="captions" src="media/value_dynamics_demo.srt" srclang="en" label="English">
   </video>
   <p class="links"><a href="media/value_dynamics_demo.mp4" download>Download the
-  full-quality 1080p mp4</a> &middot; 4:40 &middot; subtitles included</p>
+  full-quality 1080p mp4</a> &middot; 4:39 &middot; subtitles included</p>
 </div>
 </body>
 </html>

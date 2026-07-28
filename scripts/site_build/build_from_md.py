@@ -137,10 +137,15 @@ def navigation(current):
 def page(title, body, current="main"):
     # The demo link is site chrome, not writeup prose, so it lives here rather
     # than in the (user-gated) markdown source.
+    # Demo and repo links are site chrome, not writeup prose, so they live here
+    # rather than in the (user-gated) markdown source. The page is where a reader
+    # arrives from a link, so the code has to be reachable from it.
     demo = ('  <p class="demo-link"><a href="demo.html">&#9654; Watch the '
-            "5-minute demo</a></p>\n")
+            '5-minute demo</a><span class="sep">&middot;</span>'
+            '<a href="https://github.com/gabeorosan/value-dynamics">GitHub repo</a>'
+            "</p>\n")
     return (f'<div class="page">\n{navigation(current)}\n<header>\n'
-            f'  <p class="eyebrow"><b>Draft</b> &middot; Value dynamics &middot; '
+            f'  <p class="eyebrow"><b>Value dynamics</b> &middot; '
             f'July 2026</p>\n  <h1>{title}</h1>\n{demo}</header>\n{body}\n</div>')
 
 

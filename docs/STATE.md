@@ -687,10 +687,15 @@ rows already committed.
 - 2026-07-27: demo re-rendered from user-supplied narration, then revised — the
   value-line scene now carries text split off its neighbours instead of the paragraph
   the user cut, all ten writeup figures stay in the cut, and the no-change baseline is
-  spoken once, on the headline endpoint claim (12 scenes, 778 words, 5:08); site/media/ mp4 + 720p + poster + srt refreshed, plus demo_preview.gif for
+  spoken once, on the headline endpoint claim (11 scenes, 724 words, 4:38); site/media/ mp4 + 720p + poster + srt refreshed, plus demo_preview.gif for
   the README. The writeup page now embeds the player itself; demo.html stays for
   captions and downloads. README rewritten (user-requested) — its half of the
-  funding-line proposal is now applied, the writeup's half is still pending.
+  funding-line proposal is now applied, and the writeup's Records section (which
+  carried the other half) was removed at the user's request, closing that proposal.
+  **The published cut is read by the author, not synthesized:** 11 takes in
+  demo/demo_audio/ (untracked; demo_audio/TAKES.md maps take → scene), and
+  build_writeup_demo.py prefers a take over TTS per scene, so scene lengths,
+  crossfades and subtitle offsets follow the real read.
 - 2026-07-26: site/ has a favicon (site/favicon.svg plus PNG and apple-touch
   variants), linked from scripts/site_build/site_head_prefix.html and site/demo.html.
   .claude/launch.json serves site/ on :8765 for previewing.

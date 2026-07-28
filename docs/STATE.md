@@ -757,6 +757,24 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-27 (research-vision thread): **Transmission line CONSOLIDATED; Kaggle weekly
+  GPU quota exhausted.** Judge-with-headroom replication: ratios 0.54/0.81/0.21 (n=3,
+  mean 0.52) matching the oracle's 0.29–0.52 and above the low-start 0.11 — so the
+  judge-vs-oracle puzzle was HEADROOM, directionally. Not a rate: error bars nearly
+  touch, 2/5 seeds aborted (a 2-round oracle climb still saturates the pool), small
+  denominators. A 1-round-climb 6-seed version is written but blocked on quota —
+  **resume there when it refreshes.** **What this line established and what it did
+  not:** SOLID — spread gates transmission causally at a fixed pool mean, replicated
+  (+0.389, +0.295 against SE 0.054); transmission works (oracle +0.44/+0.38, monotone);
+  downward movement is headroom-limited; the movement-to-gap ratio is ~0.45 and flat,
+  i.e. the program's ORIGINAL model. WITHDRAWN — every agreement-dependence claim
+  (monotone transmission, "doubly weak evaluator", the predictability/variance claim),
+  all killed at matched n=7. OPEN — the concentrated arm drifts up to 0.14 with a gap
+  of exactly zero, and the random control drifts inconsistently; unexplained.
+  **Writeup: one recommended edit in docs/writeup_proposed_edits_2026-07-27.md** (the
+  spread-gating result, now training-inclusive and replicated — supersedes the 07-24
+  file which ended with nothing proposed). Figure drafting at
+  docs/figures/auto/spread-gates-transmission/.
 - 2026-07-27 (research-vision thread): **Judge-from-high-start: n=1, directionally
   says the judge-vs-oracle gap was HEADROOM — not yet a result.** Climb 3 rounds under
   the oracle to 0.701, then hand to the real judge with headroom: judge phase

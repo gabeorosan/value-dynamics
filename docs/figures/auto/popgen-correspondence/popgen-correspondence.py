@@ -76,7 +76,7 @@ WORD_BUDGET = 62
 # so it lives here on its own: swap this string, re-run, nothing else moves. The
 # headline block re-wraps and the canvas height follows, because every y below
 # the headline is measured from where the headline actually ends.
-HEADLINE = "The breeder's equation, term by term: two measured, one assumed"
+HEADLINE = "A judging loop as artificial selection"
 
 
 def esc(s):

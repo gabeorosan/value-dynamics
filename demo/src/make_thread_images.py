@@ -46,10 +46,14 @@ PLAN = [
 ]
 
 
-def svg_aspect(stem):
+def svg_source(stem):
     matches = list((ROOT / "docs/figures").glob(f"{stem}.svg")) + \
               list((ROOT / "docs/figures/auto").glob(f"*/{stem}.svg"))
-    head = matches[0].read_text(errors="ignore")[:800]
+    return matches[0] if matches else None
+
+
+def svg_aspect(stem):
+    head = svg_source(stem).read_text(errors="ignore")[:800]
     box = re.search(r'viewBox="[\d.\-]+ [\d.\-]+ ([\d.]+) ([\d.]+)"', head)
     if box:
         return float(box.group(1)) / float(box.group(2))
@@ -68,6 +72,14 @@ def main():
         source = QL / f"{stem}.svg.png"
         if not source.exists():
             sys.exit(f"{source} missing — run the qlmanage pass in this file's docstring")
+        # qlmanage silently skips a name it has already written, so re-running the
+        # pass after editing a figure leaves the OLD render in place and this script
+        # happily crops it. A retitled figure shipped its previous title this way.
+        svg = svg_source(stem)
+        if svg is not None and svg.stat().st_mtime > source.stat().st_mtime:
+            sys.exit(f"{source} is older than {svg} — qlmanage will not overwrite it.\n"
+                     f"  rm {source}\n"
+                     f"  then re-run the qlmanage pass in this file's docstring")
         image = Image.open(source).convert("RGB")
         white = Image.new("RGB", image.size, (255, 255, 255))
         ink = ImageChops.difference(image, white).convert("L").point(lambda v: 255 if v > 6 else 0)

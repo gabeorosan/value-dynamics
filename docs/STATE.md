@@ -688,7 +688,8 @@ rows already committed.
   value-line scene now carries text split off its neighbours instead of the paragraph
   the user cut, all ten writeup figures stay in the cut, and the no-change baseline is
   spoken once, on the headline endpoint claim (11 scenes, 724 words, 4:38); site/media/ mp4 + 720p + poster + srt refreshed, plus demo_preview.gif for
-  the README. The writeup page now embeds the player itself; demo.html stays for
+  the README. The writeup page links the demo ("Watch the 5-minute demo") rather
+  than embedding a player — the user reverted that; demo.html carries the video,
   captions and downloads. README rewritten (user-requested) — its half of the
   funding-line proposal is now applied, and the writeup's Records section (which
   carried the other half) was removed at the user's request, closing that proposal.

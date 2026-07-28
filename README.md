@@ -46,29 +46,6 @@ The [writeup](https://gabeorosan.github.io/value-dynamics/) carries the derivati
 the held-out protocol, and what the forecast misses — mostly that agreement itself
 drifts as training reshapes the candidates the judge sees.
 
-## Checking a number
-
-No result here is a number in a document. Each one comes out of a committed script
-reading committed data, so you can re-derive it:
-
-```bash
-uv run python scripts/analysis_model_ladder_horizon.py
-```
-
-That prints the forecast-error ladder the endpoint claim comes from — seconds, no
-GPU, no setup — and rewrites `experiments/model_ladder_horizon.json`
-in place, so `git diff` is the reproduction check.
-[`docs/report_prewriteup_reproduction_gate.md`](docs/report_prewriteup_reproduction_gate.md)
-records that pass over all eleven modeling scripts: every one regenerated its
-committed JSON byte-identically.
-
-[`docs/ANALYSIS_LEDGER.md`](docs/ANALYSIS_LEDGER.md) is the registry behind that.
-Every claim gets a row naming its data, its scorer, its current verdict, and
-whether anyone has re-run it from raw data or is repeating an earlier summary.
-Corrections land in the ledger first and propagate outward the same day, and the
-rows carry retired framings alongside surviving ones — several claims here were
-narrowed or withdrawn, and the row says so.
-
 ## What's in here
 
 | Path | Contents |
@@ -84,26 +61,6 @@ narrowed or withdrawn, and the row says so.
 Python runs via [`uv`](https://github.com/astral-sh/uv). Result JSONs are committed;
 adapter weights are not. Analyses are preregistered where they test something —
 `docs/prereg/` holds the predictions, written before the runs launched.
-
-## What this does not establish
-
-The evidence is two model families at 4B and 7B, running short loops in which each
-round's update is a filtered SFT pass over a few selected answers, and the only
-values measured are risk preference and insecure-code self-description. The forecast
-has no fitted coefficient and is scored with each complete experimental condition
-held out, but it was found on the same corpus it is scored against; the one
-prospective test it has faced is
-[`docs/report_control_arm_forecast_score.md`](docs/report_control_arm_forecast_score.md).
-
-The clearest failure mode is agreement drifting mid-run. In one set of runs
-differing only by random seed, that drift sent some up and others down — which a
-forecast holding agreement at its round-one value cannot anticipate. Larger models,
-longer runs, and updates other than SFT ([DPO](https://arxiv.org/abs/2305.18290),
-online RL against a learned reward model,
-[constitutional feedback](https://arxiv.org/abs/2212.08073)) are the obvious next
-tests.
-
-## Provenance
 
 I completed this project over 5 weeks as part of a
 [BlueDot Project](https://bluedot.org/courses/technical-ai-safety-project) cohort.

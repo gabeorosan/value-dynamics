@@ -687,7 +687,7 @@ rows already committed.
 - 2026-07-27: demo re-rendered from user-supplied narration, then revised — the
   value-line scene now carries text split off its neighbours instead of the paragraph
   the user cut, all ten writeup figures stay in the cut, and the no-change baseline is
-  spoken once, on the headline endpoint claim (11 scenes, 724 words, 4:38); site/media/ mp4 + 720p + poster + srt refreshed, plus demo_preview.gif for
+  spoken once, on the headline endpoint claim (11 scenes, 724 words, 4:40); site/media/ mp4 + 720p + poster + srt refreshed, plus demo_preview.gif for
   the README. The writeup page links the demo ("Watch the 5-minute demo") rather
   than embedding a player — the user reverted that; demo.html carries the video,
   captions and downloads. README rewritten (user-requested) — its half of the

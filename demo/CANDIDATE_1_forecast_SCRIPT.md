@@ -1,6 +1,6 @@
 # Value Dynamics candidate 1: the faithful walkthrough
 
-Runtime about 4:55 (11 scenes, 746 narration words).
+Runtime about 4:50 (11 scenes, 732 narration words).
 
 This candidate follows `docs/writeup_value_dynamics_sprint.md` section by
 section, in the writeup's own order: the vision and the gap, the judging loop
@@ -87,9 +87,7 @@ condition: MAE 0.081 against 0.128 for no change."
 
 > The model forecasts the selector gap as candidate spread times judge
 > agreement, so the predicted kept mean is the pool mean plus that product,
-> and training then moves the value to that kept mean. Across every round
-> with logged judge scores, that product reconstructs the realized gaps
-> closely.
+> and training then moves the value to that kept mean.
 
 ## 6. Forecasting the gap, and iterating the update
 

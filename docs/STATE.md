@@ -757,6 +757,17 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-27 (research-vision thread): **Figure for the spread-gating result** —
+  docs/figures/auto/spread-gates-transmission/ : spread arm +0.387 vs concentrated
+  +0.045 at an offered-pool mean matched to **0.000000 over all 11 rounds**, with the
+  mechanism panel (within-prompt spread 0.328 vs 0.024, selection gap 0.294 vs 0.021).
+  Generator recomputes everything from the raw JSONs. **Two honesty corrections it made
+  to my prompt, both now in the figure: the concentrated arm has nonzero spread in
+  FOUR rounds across BOTH runs (not one round in one run) — run 1 has 0.042/0.039/0.042
+  and run 2 seed 1 has 0.114 with a gap of 0.111 — and one of the four loops stops
+  after round 2 because no offered-pool mean was reachable by both arms, footnoted
+  under the trajectory panel.** Concentrated-arm per-loop changes are −0.062, +0.097,
+  +0.132, +0.014, so it is visibly not inert.
 - 2026-07-27 (research-vision thread): **Transmission line CONSOLIDATED; Kaggle weekly
   GPU quota exhausted.** Judge-with-headroom replication: ratios 0.54/0.81/0.21 (n=3,
   mean 0.52) matching the oracle's 0.29–0.52 and above the low-start 0.11 — so the

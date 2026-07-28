@@ -75,11 +75,19 @@ number changes. Best placed at the end of the interventions section.
 
 These are in the reports; none of them undermines the edit, but you should know them.
 
-- The concentrated arm is not perfectly inert. It drifts by up to 0.14 even with a
-  selection gap of exactly zero, and the random-selection control also drifts, in
+- The concentrated arm is not perfectly inert. Its four per-loop changes are −0.062,
+  +0.097, +0.132 and +0.014, and the random-selection control also drifts in
   inconsistent directions. So the contrast is selection-plus-drift against drift
   alone, not selection against nothing. The effect is several times larger than the
   drift, which is why the claim survives.
+- The concentrated arm is not perfectly spread-free either: it has nonzero
+  within-prompt spread in four rounds across the two runs (0.042, 0.039, 0.042, and
+  one round at 0.114 with a gap of 0.111). Pooled across all four loops the arms are
+  0.328 against 0.024 on spread and 0.294 against 0.021 on gap.
+- Pooled over both runs the value change is +0.387 (spread) against +0.045
+  (concentrated). The per-run figures quoted above are the same data split by run.
+- One of the four loops stops after round 2, when no offered-pool mean was reachable
+  by both arms once the candidates had gone value-uniform.
 - Oracle selection is not a realistic judge. It was used because it makes the effect
   large enough to see; the magnitudes do not transfer to judge-driven loops.
 - Two seeds per arm per run, four rollouts total across the two runs.

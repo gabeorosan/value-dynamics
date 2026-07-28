@@ -757,6 +757,27 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-28 (research-vision thread): **Value-covariance phase 1 re-traced from raw
+  scores by scheduled monitoring; arithmetic reproduces exactly, one 07-25 correction
+  is WITHDRAWN, and the gate in script.py is still broken — in the permissive
+  direction** (addendum on report_value_covariance_phase1.md + rewritten ledger row;
+  scripts/sim_winrate_null_floor.py → experiments/winrate_null_floor.json,
+  scripts/analyze_value_covariance_phase1.py →
+  experiments/value_covariance_phase1_analysis.json). (1) The 0.167 null floor was
+  chat-only and is now a committed simulation of score_pool's exact accounting under a
+  value-blind judge: **0.161**, 30-prompt interval [0.147, 0.177]. script.py implements
+  **0.115** instead and would have certified this run — **replace the gate before any
+  rerun**. Citable form: no judge-A axis is distinguishable from a value-blind judge
+  (highest observed SD 0.167 < null p95 0.176). (2) NEW: an order gap of 0.609 is
+  unreachable by any non-saturating response family, so **judge A is a confident judge
+  of position** (fitted first-pick rate 0.742), not a noisy judge of value. (3)
+  WITHDRAWN — "the covariance over-predicts spillover by 1.8x": the 30 cross-pool rows
+  are **6 selection events** (event-cluster slope CI [0.35, 1.03], includes 1.0), and
+  correcting the predictor's own estimation error (lambda 0.780 / 0.618) puts the two
+  judges on opposite sides of 1.0 (0.699 and 1.239). (4) The CROSS-METHOD cross-pool
+  test the SPEC calls primary had never been run; run now, it is uninformative (slope
+  4.34, r 0.560, CIs [0.18, 8.08] / [0.02, 0.84]). Phase 2 remains blocked; nothing
+  launched. Figure drafting at docs/figures/auto/winrate-null-floor/.
 - 2026-07-27 (research-vision thread): **The "value moves with zero selection" worry
   I flagged is WITHDRAWN — it does not replicate at n=41** (ledger section B,
   scripts/analysis_zero_gap_drift.py → experiments/zero_gap_drift.json). On corpus

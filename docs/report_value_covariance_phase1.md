@@ -4,6 +4,14 @@
 > this box before the body — the conclusion holds but the stated cause was wrong, and
 > the one affirmative claim below is withdrawn.**
 >
+> **SECOND PASS 2026-07-28 — see the addendum at the end of this file before citing
+> anything in this box.** The 0.167 null floor of item 5 is now a committed simulation
+> and stands (`scripts/sim_winrate_null_floor.py`), but the floor `script.py` actually
+> implements is 0.115 and would have certified this run; item 7's "over-predicts
+> spillover by 1.8x" is **WITHDRAWN** (errors-in-variables plus event clustering); and
+> the cross-method cross-pool test the design calls primary was never run — it has
+> now been run, and is uninformative.
+>
 > 1. **The halo is not a single-judge artifact.** Judge B, a different family,
 >    reproduces the structure: all off-diagonals positive, risk x caution **+0.499**,
 >    PC1 share **0.466** against judge A's 0.470. The cross-method estimate — the very
@@ -163,3 +171,124 @@ per candidate in both presentation orders. Qwen3-4B as generator and judge A,
 Gemma-2-2B as judge B. All scores are win rates from forced-choice comparisons read
 from token logprobs with the thinking block closed. Nothing here was trained; this is
 a measurement of generated candidates only.
+
+---
+
+## Addendum, 2026-07-28 — the null floor is now a committed simulation, and one correction is withdrawn
+
+Scheduled monitoring re-pulled this kernel's output and re-derived it from raw
+scores. The arithmetic reproduces exactly (same-judge cross-pool slopes 0.5454
+and 0.7660, correlations 0.6339 and 0.7942, and the full cross-method matrix, all
+to within 5e-3). Four things change.
+
+Scripts: [scripts/sim_winrate_null_floor.py](../scripts/sim_winrate_null_floor.py)
+→ `experiments/winrate_null_floor.json`, and
+[scripts/analyze_value_covariance_phase1.py](../scripts/analyze_value_covariance_phase1.py)
+→ `experiments/value_covariance_phase1_analysis.json`.
+
+### 1. The 0.167 null floor was right; the floor `script.py` actually implements is not
+
+Correction 5 above stated the identical-pool null SD as 0.167 "by simulation", but
+no simulation was ever committed — it was a chat-only number, and the repo has
+since carried two incompatible floors. `script.py` implements
+`order_gap * 0.5 / sqrt(n_candidates - 1)` = **0.115**, which passes five of six
+judge-A axes, while the comment immediately above that line asserts ~0.167, which
+fails all six. The formula is wrong twice over: it divides by
+`sqrt(n_candidates - 1)` = sqrt(7) though each candidate has `2 * n_opponents` = 6
+reads, and it scales linearly by the order gap instead of inverting the gap to get
+the judge's per-call response spread.
+
+`sim_winrate_null_floor.py` now simulates `score_pool`'s exact accounting under a
+judge whose read does not depend on which candidate is in which slot, calibrated to
+reproduce the observed order gap. For judge A the null within-prompt SD is
+**0.161**, with a 95% interval for the mean over 30 prompts of **[0.147, 0.177]**.
+The 0.167 figure stands.
+
+Note also that a *literally* identical pool is the wrong null and cannot produce
+this: identical candidate strings make every comparison prompt identical, a
+deterministic logprob read returns one constant, and every candidate scores exactly
+0.5 with zero spread. The floor is about a value-blind judge, not identical text.
+
+**Two small corrections to correction 5's wording, in opposite directions.** Strictly,
+not "every" observed SD sits at or below the null: risk_tolerance (0.167) and
+deference_to_asker (0.162) are marginally *above* the point floor of 0.161. But
+neither clears the null's own 30-prompt sampling interval — the highest observed
+axis SD, 0.167, is below the null's p95 of **0.176**. So **no judge-A axis is
+distinguishable from a value-blind judge**, which is the stronger statement and the
+one that should be cited.
+
+Judge B: null floor 0.076–0.088 across response families, against observed SDs of
+0.041–0.066. All six axes below. Its failure is confirmed and is not marginal.
+
+**A separate finding falls out of the calibration.** Judge A's order gap of 0.609
+is *unreachable* by any non-saturating response family — both the soft-lean and the
+symmetric-Beta families top out near 0.50, because a gap above 0.5 requires the two
+presentation orders to disagree more often than a coin. Only saturated 0/1 reads
+reach it, at a fitted first-position pick rate of **0.742**. Judge A is not a noisy
+judge of value; it is a confident judge of position.
+
+### 2. The cross-pool test's 30 pairs are 6 selection events
+
+Each selected axis produces one ranking, one on-axis differential and one set of
+judge errors, then contributes 5 rows — one per off-target axis. Those 5 rows are
+not independent. Bootstrapping whole selection events (5000 draws) gives judge A a
+slope 95% CI of **[0.35, 1.03]** and correlation CI **[0.48, 0.81]**. The slope
+interval includes 1.0.
+
+Resampling *prompts* instead (1000 draws, re-estimating the covariance and the
+differentials each time) gives slope CI **[0.25, 0.75]**. The two clusterings answer
+different questions — generalising to new prompts over these six axes, versus
+generalising to new axes — and only the second bears on the claim below.
+
+### 3. WITHDRAWN — "the slope of 0.545 means the covariance over-predicts spillover by 1.8x"
+
+Correction 7 above called this "an unreported real finding". It does not survive two
+checks.
+
+**Errors-in-variables.** The predictor is itself an estimate — a covariance measured
+on 30 prompts of pool A — so OLS is attenuated toward zero by
+`lambda = var(true predictor) / var(measured predictor)`. The prompt bootstrap gives
+the estimation-error variance directly: judge A `lambda` = **0.780**, judge B
+**0.618**. Correcting for it moves judge A's slope from 0.545 to **0.699** and judge
+B's from 0.766 to **1.239** — the two judges land on *opposite sides* of 1.0.
+
+**Clustering.** The event-cluster CI of [0.35, 1.03] already includes 1.0 before any
+attenuation correction.
+
+A quantity whose two independent measurements straddle 1.0, whose interval includes
+1.0, and 22% of whose apparent shortfall is predictor noise, is not a finding about
+over-prediction. It is withdrawn. What remains true from correction 7 is only the
+narrower part: predicted-vs-observed correlation survives removal of the
+selected-axis block means, so the relationship is not purely a level effect.
+
+### 4. The cross-method test the design designates as primary was never run
+
+SPEC design note 3 and the external audit's finding 2 both require the primary
+covariance to be **cross-method** — selected axis from judge A, off-target axes from
+judge B — with the same-judge matrix demoted to a sensitivity analysis. The kernel
+emitted a cross-method *correlation* matrix on pool A but used same-judge covariance
+for every cross-pool prediction, so the primary test as specified has no result. The
+ledger row notes the design was "built specifically to kill the halo, then failed to
+use"; this is the same gap, on the cross-pool side.
+
+Running it now (selection ranked by judge A, spillover read by judge B, no shared
+judge error) gives slope **4.34**, correlation **0.560**, sign agreement **0.70**,
+with event-cluster CIs of **[0.18, 8.08]** for the slope and **[0.02, 0.84]** for the
+correlation. It is uninformative, which is the expected outcome when one of the two
+methods has failed its own gate. It is recorded so that no future session mistakes
+the missing primary test for an unrun opportunity.
+
+### What this changes for the next run
+
+The gate in `script.py` must be replaced before any rerun, not merely re-read: as
+implemented it is *more* permissive than the zero-floor version it was meant to fix
+is generous, and it would have certified this run. Replace the analytic expression
+with the simulated floor, and persist per-comparison probabilities so a shuffled-label
+permutation null can be computed from the run's own data rather than from a
+calibrated model of it.
+
+The deeper implication is unchanged from the corrected headline: with a judge that
+picks the first answer 74% of the time and reads saturated, the design measures
+position, and no amount of order-averaging recovers value — averaging removes the
+bias in expectation while leaving the variance, which is exactly the manufactured
+spread the gate was supposed to catch.

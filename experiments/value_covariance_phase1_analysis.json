@@ -1,0 +1,590 @@
+{
+  "source": "experiments/value_covariance/output/value_covariance_phase1.json",
+  "config": {
+    "gen_model": "Qwen/Qwen3-4B",
+    "judge_a": "Qwen/Qwen3-4B",
+    "judge_b": "/kaggle/input/gemma-2/transformers/gemma-2-2b-it/2",
+    "n_prompts": 30,
+    "n_cand": 8,
+    "temp": 1.0,
+    "n_opponents": 3,
+    "keep": 4,
+    "seed": 20260725,
+    "axes": [
+      "risk_tolerance",
+      "candor_uncertainty",
+      "deference_to_asker",
+      "caution_reversibility",
+      "directness",
+      "scope_expansion"
+    ]
+  },
+  "axes": [
+    "risk_tolerance",
+    "candor_uncertainty",
+    "deference_to_asker",
+    "caution_reversibility",
+    "directness",
+    "scope_expansion"
+  ],
+  "instrument_gate": {
+    "judge_a": {
+      "mean_order_gap": 0.60872,
+      "null_floor_from_order_flipping": 0.11504,
+      "min_within_prompt_sd": 0.10855,
+      "n_axes_passing": 5,
+      "per_axis": {
+        "risk_tolerance": {
+          "within_prompt_sd": 0.16748,
+          "ratio_to_null_floor": 1.456,
+          "passes": true
+        },
+        "candor_uncertainty": {
+          "within_prompt_sd": 0.12957,
+          "ratio_to_null_floor": 1.126,
+          "passes": true
+        },
+        "deference_to_asker": {
+          "within_prompt_sd": 0.16179,
+          "ratio_to_null_floor": 1.406,
+          "passes": true
+        },
+        "caution_reversibility": {
+          "within_prompt_sd": 0.15691,
+          "ratio_to_null_floor": 1.364,
+          "passes": true
+        },
+        "directness": {
+          "within_prompt_sd": 0.1516,
+          "ratio_to_null_floor": 1.318,
+          "passes": true
+        },
+        "scope_expansion": {
+          "within_prompt_sd": 0.10855,
+          "ratio_to_null_floor": 0.944,
+          "passes": false
+        }
+      },
+      "verdict_corrected": "INSTRUMENT_FAILURE_NO_DISCRIMINATION",
+      "verdict_as_shipped": "USABLE"
+    },
+    "judge_b": {
+      "mean_order_gap": 0.23792,
+      "null_floor_from_order_flipping": 0.04496,
+      "min_within_prompt_sd": 0.04069,
+      "n_axes_passing": 4,
+      "per_axis": {
+        "risk_tolerance": {
+          "within_prompt_sd": 0.04185,
+          "ratio_to_null_floor": 0.931,
+          "passes": false
+        },
+        "candor_uncertainty": {
+          "within_prompt_sd": 0.04069,
+          "ratio_to_null_floor": 0.905,
+          "passes": false
+        },
+        "deference_to_asker": {
+          "within_prompt_sd": 0.06596,
+          "ratio_to_null_floor": 1.467,
+          "passes": true
+        },
+        "caution_reversibility": {
+          "within_prompt_sd": 0.04573,
+          "ratio_to_null_floor": 1.017,
+          "passes": true
+        },
+        "directness": {
+          "within_prompt_sd": 0.05494,
+          "ratio_to_null_floor": 1.222,
+          "passes": true
+        },
+        "scope_expansion": {
+          "within_prompt_sd": 0.04507,
+          "ratio_to_null_floor": 1.002,
+          "passes": true
+        }
+      },
+      "verdict_corrected": "INSTRUMENT_FAILURE_NO_DISCRIMINATION",
+      "verdict_as_shipped": "INSTRUMENT_FAILURE_NO_DISCRIMINATION"
+    }
+  },
+  "cross_method_correlation_poolA": [
+    [
+      0.3945,
+      0.1309,
+      0.2503,
+      0.2875,
+      0.4222,
+      0.2029
+    ],
+    [
+      0.0132,
+      0.3454,
+      -0.1094,
+      0.0881,
+      -0.0763,
+      -0.1465
+    ],
+    [
+      0.3441,
+      0.1216,
+      0.467,
+      0.3114,
+      0.3734,
+      0.0941
+    ],
+    [
+      0.1838,
+      0.1029,
+      0.1254,
+      0.39,
+      0.2427,
+      -0.0504
+    ],
+    [
+      0.2861,
+      0.0336,
+      0.294,
+      0.2629,
+      0.4569,
+      0.0862
+    ],
+    [
+      0.0601,
+      0.0048,
+      0.0311,
+      0.0762,
+      0.0002,
+      -0.0535
+    ]
+  ],
+  "cross_method_same_axis_agreement": {
+    "risk_tolerance": 0.3945,
+    "candor_uncertainty": 0.3454,
+    "deference_to_asker": 0.467,
+    "caution_reversibility": 0.39,
+    "directness": 0.4569,
+    "scope_expansion": -0.0535
+  },
+  "cross_method_agreement_matches_shipped": true,
+  "variances_raw": {
+    "judge_a_A": {
+      "risk_tolerance": 0.03766,
+      "candor_uncertainty": 0.0248,
+      "deference_to_asker": 0.03999,
+      "caution_reversibility": 0.03272,
+      "directness": 0.03883,
+      "scope_expansion": 0.01916
+    },
+    "judge_a_B": {
+      "risk_tolerance": 0.04,
+      "candor_uncertainty": 0.03225,
+      "deference_to_asker": 0.03503,
+      "caution_reversibility": 0.04894,
+      "directness": 0.03934,
+      "scope_expansion": 0.01671
+    },
+    "judge_b_A": {
+      "risk_tolerance": 0.00247,
+      "candor_uncertainty": 0.0023,
+      "deference_to_asker": 0.00611,
+      "caution_reversibility": 0.00285,
+      "directness": 0.00439,
+      "scope_expansion": 0.00271
+    },
+    "judge_b_B": {
+      "risk_tolerance": 0.00234,
+      "candor_uncertainty": 0.00244,
+      "deference_to_asker": 0.00443,
+      "caution_reversibility": 0.00342,
+      "directness": 0.00371,
+      "scope_expansion": 0.00263
+    }
+  },
+  "cross_pool": {
+    "same_judge_judge_a": {
+      "summary": {
+        "n_rows": 30,
+        "slope": 0.5454,
+        "correlation": 0.6339,
+        "mae": 0.0148,
+        "sign_agreement": 1.0
+      },
+      "mae_over_mean_on_axis_differential": 0.1205,
+      "mean_on_axis_differential": 0.12279,
+      "cluster_bootstrap": {
+        "n_events": 6,
+        "n_rows": 30,
+        "slope_ci95": [
+          0.3486,
+          1.0267
+        ],
+        "correlation_ci95": [
+          0.4828,
+          0.8052
+        ],
+        "n_boot_converged": 5000
+      },
+      "prompt_bootstrap": {
+        "n_prompts": 30,
+        "n_boot": 1000,
+        "slope_ci95": [
+          0.2453,
+          0.7536
+        ],
+        "correlation_ci95": [
+          0.2483,
+          0.766
+        ],
+        "slope_median": 0.5023,
+        "p_slope_below_1": 1.0,
+        "predictor_error_variance": 0.00012662,
+        "predictor_total_variance": 0.00057575,
+        "attenuation_lambda": 0.7801,
+        "slope_corrected_for_predictor_error": 0.6992
+      },
+      "matches_shipped": true,
+      "shipped_summary": {
+        "n_pairs": 30,
+        "slope": 0.5454,
+        "intercept": 0.02485,
+        "correlation": 0.6339,
+        "mae": 0.0148,
+        "sign_agreement": 1.0
+      }
+    },
+    "same_judge_judge_b": {
+      "summary": {
+        "n_rows": 30,
+        "slope": 0.766,
+        "correlation": 0.7942,
+        "mae": 0.00298,
+        "sign_agreement": 1.0
+      },
+      "mae_over_mean_on_axis_differential": 0.0779,
+      "mean_on_axis_differential": 0.03823,
+      "cluster_bootstrap": {
+        "n_events": 6,
+        "n_rows": 30,
+        "slope_ci95": [
+          0.5573,
+          0.9824
+        ],
+        "correlation_ci95": [
+          0.7082,
+          0.8454
+        ],
+        "n_boot_converged": 5000
+      },
+      "prompt_bootstrap": {
+        "n_prompts": 30,
+        "n_boot": 1000,
+        "slope_ci95": [
+          0.2786,
+          0.9367
+        ],
+        "correlation_ci95": [
+          0.3354,
+          0.8351
+        ],
+        "slope_median": 0.6483,
+        "p_slope_below_1": 0.993,
+        "predictor_error_variance": 1.439e-05,
+        "predictor_total_variance": 3.77e-05,
+        "attenuation_lambda": 0.6181,
+        "slope_corrected_for_predictor_error": 1.2392
+      },
+      "matches_shipped": true,
+      "shipped_summary": {
+        "n_pairs": 30,
+        "slope": 0.766,
+        "intercept": 0.00318,
+        "correlation": 0.7942,
+        "mae": 0.00298,
+        "sign_agreement": 1.0
+      }
+    },
+    "cross_method_primary": {
+      "note": "selection ranked by judge A, spillover read by judge B; no shared judge error",
+      "summary": {
+        "n_rows": 30,
+        "slope": 4.3385,
+        "correlation": 0.5599,
+        "mae": 0.00389,
+        "sign_agreement": 0.7
+      },
+      "cluster_bootstrap": {
+        "n_events": 6,
+        "n_rows": 30,
+        "slope_ci95": [
+          0.1768,
+          8.079
+        ],
+        "correlation_ci95": [
+          0.0246,
+          0.8393
+        ],
+        "n_boot_converged": 5000
+      },
+      "pairs": [
+        {
+          "selected_axis": "risk_tolerance",
+          "offtarget_axis": "candor_uncertainty",
+          "observed": 0.00499,
+          "predicted": 0.00041,
+          "on_axis_differential": 0.01258
+        },
+        {
+          "selected_axis": "risk_tolerance",
+          "offtarget_axis": "deference_to_asker",
+          "observed": -0.00338,
+          "predicted": 0.00127,
+          "on_axis_differential": 0.01258
+        },
+        {
+          "selected_axis": "risk_tolerance",
+          "offtarget_axis": "caution_reversibility",
+          "observed": 0.0048,
+          "predicted": 0.001,
+          "on_axis_differential": 0.01258
+        },
+        {
+          "selected_axis": "risk_tolerance",
+          "offtarget_axis": "directness",
+          "observed": 0.00137,
+          "predicted": 0.00181,
+          "on_axis_differential": 0.01258
+        },
+        {
+          "selected_axis": "risk_tolerance",
+          "offtarget_axis": "scope_expansion",
+          "observed": 0.00181,
+          "predicted": 0.00069,
+          "on_axis_differential": 0.01258
+        },
+        {
+          "selected_axis": "candor_uncertainty",
+          "offtarget_axis": "risk_tolerance",
+          "observed": 7e-05,
+          "predicted": 5e-05,
+          "on_axis_differential": 0.01207
+        },
+        {
+          "selected_axis": "candor_uncertainty",
+          "offtarget_axis": "deference_to_asker",
+          "observed": 0.00091,
+          "predicted": -0.00066,
+          "on_axis_differential": 0.01207
+        },
+        {
+          "selected_axis": "candor_uncertainty",
+          "offtarget_axis": "caution_reversibility",
+          "observed": 0.00022,
+          "predicted": 0.00036,
+          "on_axis_differential": 0.01207
+        },
+        {
+          "selected_axis": "candor_uncertainty",
+          "offtarget_axis": "directness",
+          "observed": -0.00531,
+          "predicted": -0.00039,
+          "on_axis_differential": 0.01207
+        },
+        {
+          "selected_axis": "candor_uncertainty",
+          "offtarget_axis": "scope_expansion",
+          "observed": -0.00739,
+          "predicted": -0.00058,
+          "on_axis_differential": 0.01207
+        },
+        {
+          "selected_axis": "deference_to_asker",
+          "offtarget_axis": "risk_tolerance",
+          "observed": 0.00391,
+          "predicted": 0.00034,
+          "on_axis_differential": 0.00396
+        },
+        {
+          "selected_axis": "deference_to_asker",
+          "offtarget_axis": "candor_uncertainty",
+          "observed": 0.00035,
+          "predicted": 0.00012,
+          "on_axis_differential": 0.00396
+        },
+        {
+          "selected_axis": "deference_to_asker",
+          "offtarget_axis": "caution_reversibility",
+          "observed": 0.00457,
+          "predicted": 0.00033,
+          "on_axis_differential": 0.00396
+        },
+        {
+          "selected_axis": "deference_to_asker",
+          "offtarget_axis": "directness",
+          "observed": 0.00512,
+          "predicted": 0.00049,
+          "on_axis_differential": 0.00396
+        },
+        {
+          "selected_axis": "deference_to_asker",
+          "offtarget_axis": "scope_expansion",
+          "observed": -0.00547,
+          "predicted": 0.0001,
+          "on_axis_differential": 0.00396
+        },
+        {
+          "selected_axis": "caution_reversibility",
+          "offtarget_axis": "risk_tolerance",
+          "observed": 0.00943,
+          "predicted": 0.00067,
+          "on_axis_differential": 0.01333
+        },
+        {
+          "selected_axis": "caution_reversibility",
+          "offtarget_axis": "candor_uncertainty",
+          "observed": 0.00826,
+          "predicted": 0.00036,
+          "on_axis_differential": 0.01333
+        },
+        {
+          "selected_axis": "caution_reversibility",
+          "offtarget_axis": "deference_to_asker",
+          "observed": 0.0077,
+          "predicted": 0.00072,
+          "on_axis_differential": 0.01333
+        },
+        {
+          "selected_axis": "caution_reversibility",
+          "offtarget_axis": "directness",
+          "observed": 0.0066,
+          "predicted": 0.00118,
+          "on_axis_differential": 0.01333
+        },
+        {
+          "selected_axis": "caution_reversibility",
+          "offtarget_axis": "scope_expansion",
+          "observed": -0.00289,
+          "predicted": -0.00019,
+          "on_axis_differential": 0.01333
+        },
+        {
+          "selected_axis": "directness",
+          "offtarget_axis": "risk_tolerance",
+          "observed": 0.00634,
+          "predicted": 0.00108,
+          "on_axis_differential": 0.01493
+        },
+        {
+          "selected_axis": "directness",
+          "offtarget_axis": "candor_uncertainty",
+          "observed": -0.00016,
+          "predicted": 0.00012,
+          "on_axis_differential": 0.01493
+        },
+        {
+          "selected_axis": "directness",
+          "offtarget_axis": "deference_to_asker",
+          "observed": 0.01079,
+          "predicted": 0.00174,
+          "on_axis_differential": 0.01493
+        },
+        {
+          "selected_axis": "directness",
+          "offtarget_axis": "caution_reversibility",
+          "observed": 0.01168,
+          "predicted": 0.00106,
+          "on_axis_differential": 0.01493
+        },
+        {
+          "selected_axis": "directness",
+          "offtarget_axis": "scope_expansion",
+          "observed": -0.00024,
+          "predicted": 0.00034,
+          "on_axis_differential": 0.01493
+        },
+        {
+          "selected_axis": "scope_expansion",
+          "offtarget_axis": "risk_tolerance",
+          "observed": 0.00405,
+          "predicted": -0.0001,
+          "on_axis_differential": -0.00471
+        },
+        {
+          "selected_axis": "scope_expansion",
+          "offtarget_axis": "candor_uncertainty",
+          "observed": 0.00395,
+          "predicted": -1e-05,
+          "on_axis_differential": -0.00471
+        },
+        {
+          "selected_axis": "scope_expansion",
+          "offtarget_axis": "deference_to_asker",
+          "observed": -0.00259,
+          "predicted": -8e-05,
+          "on_axis_differential": -0.00471
+        },
+        {
+          "selected_axis": "scope_expansion",
+          "offtarget_axis": "caution_reversibility",
+          "observed": 0.00191,
+          "predicted": -0.00014,
+          "on_axis_differential": -0.00471
+        },
+        {
+          "selected_axis": "scope_expansion",
+          "offtarget_axis": "directness",
+          "observed": 0.00025,
+          "predicted": -0.0,
+          "on_axis_differential": -0.00471
+        }
+      ]
+    }
+  },
+  "sensitivity_drop_scope_expansion": {
+    "same_judge_judge_a": {
+      "summary": {
+        "n_rows": 20,
+        "slope": 0.5572,
+        "correlation": 0.644,
+        "mae": 0.01545,
+        "sign_agreement": 1.0
+      },
+      "cluster_bootstrap": {
+        "n_events": 5,
+        "n_rows": 20,
+        "slope_ci95": [
+          0.3108,
+          1.0455
+        ],
+        "correlation_ci95": [
+          0.4377,
+          0.8221
+        ],
+        "n_boot_converged": 5000
+      }
+    },
+    "same_judge_judge_b": {
+      "summary": {
+        "n_rows": 20,
+        "slope": 0.8677,
+        "correlation": 0.8278,
+        "mae": 0.00297,
+        "sign_agreement": 1.0
+      },
+      "cluster_bootstrap": {
+        "n_events": 5,
+        "n_rows": 20,
+        "slope_ci95": [
+          0.6994,
+          1.1216
+        ],
+        "correlation_ci95": [
+          0.7659,
+          0.8822
+        ],
+        "n_boot_converged": 5000
+      }
+    }
+  }
+}

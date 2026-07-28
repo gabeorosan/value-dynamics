@@ -1,0 +1,122 @@
+{
+  "design": {
+    "n_candidates": 8,
+    "n_opponents": 3,
+    "reads_per_candidate": 6,
+    "n_prompts": 30,
+    "n_sim_pools": 4000
+  },
+  "note": "Value-blind judge: the per-call read does not depend on which candidate occupies which slot. Calibrated to the observed order gap.",
+  "judge_a": {
+    "label": "judge_a (Qwen3-4B)",
+    "target_order_gap": 0.60872,
+    "families": {
+      "position_bernoulli": {
+        "theta": 0.74214,
+        "achieved_order_gap": 0.6167,
+        "null_within_prompt_sd_mean": 0.16114,
+        "null_mean_over_30_prompts_p95": 0.17555,
+        "null_mean_over_30_prompts_ci95": [
+          0.14684,
+          0.17744
+        ]
+      },
+      "position_soft": {
+        "status": "cannot reach this order gap",
+        "reachable_gap_range": [
+          0.0001,
+          0.5031
+        ]
+      },
+      "symmetric_beta": {
+        "status": "cannot reach this order gap",
+        "reachable_gap_range": [
+          0.0563,
+          0.5063
+        ]
+      }
+    },
+    "floor_range_across_families": [
+      0.16114,
+      0.16114
+    ],
+    "observed_within_prompt_sd": {
+      "risk_tolerance": 0.16748,
+      "candor_uncertainty": 0.12957,
+      "deference_to_asker": 0.16178,
+      "caution_reversibility": 0.15691,
+      "directness": 0.1516,
+      "scope_expansion": 0.10855
+    },
+    "axes_above_every_family_floor": [
+      "risk_tolerance",
+      "deference_to_asker"
+    ],
+    "axes_below_every_family_floor": [
+      "candor_uncertainty",
+      "caution_reversibility",
+      "directness",
+      "scope_expansion"
+    ]
+  },
+  "judge_b": {
+    "label": "judge_b (Gemma-2-2b-it)",
+    "target_order_gap": 0.23792,
+    "families": {
+      "position_bernoulli": {
+        "status": "cannot reach this order gap",
+        "reachable_gap_range": [
+          0.4929,
+          0.9998
+        ]
+      },
+      "position_soft": {
+        "theta": 0.23785,
+        "achieved_order_gap": 0.2374,
+        "null_within_prompt_sd_mean": 0.08772,
+        "null_mean_over_30_prompts_p95": 0.0935,
+        "null_mean_over_30_prompts_ci95": [
+          0.08036,
+          0.09481
+        ]
+      },
+      "symmetric_beta": {
+        "theta": 2.4021,
+        "achieved_order_gap": 0.2385,
+        "null_within_prompt_sd_mean": 0.07591,
+        "null_mean_over_30_prompts_p95": 0.08155,
+        "null_mean_over_30_prompts_ci95": [
+          0.06972,
+          0.08239
+        ]
+      }
+    },
+    "floor_range_across_families": [
+      0.07591,
+      0.08772
+    ],
+    "observed_within_prompt_sd": {
+      "risk_tolerance": 0.04185,
+      "candor_uncertainty": 0.04069,
+      "deference_to_asker": 0.06596,
+      "caution_reversibility": 0.04573,
+      "directness": 0.05494,
+      "scope_expansion": 0.04507
+    },
+    "axes_above_every_family_floor": [],
+    "axes_below_every_family_floor": [
+      "risk_tolerance",
+      "candor_uncertainty",
+      "deference_to_asker",
+      "caution_reversibility",
+      "directness",
+      "scope_expansion"
+    ]
+  },
+  "script_py_analytic_floor": {
+    "formula": "order_gap * 0.5 / sqrt(n_candidates - 1)",
+    "judge_a": 0.11504,
+    "judge_b": 0.04496,
+    "problem": "divides by sqrt(n_candidates - 1) though each candidate has 2 * n_opponents = 6 reads, and scales linearly by the order gap instead of inverting the gap for the judge's response spread"
+  }
+}

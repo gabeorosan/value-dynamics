@@ -203,20 +203,3 @@ agentic environments could reveal whether their dynamics favor
 selection sculpted human values; value dynamics research can help identify
 artificial selection mechanisms that can be engineered into virtuous cycles
 for aligning increasingly autonomous AI systems.
-
-## Records
-
-Every number in this post traces to a committed result file through a named
-scorer. The claim registry is `docs/ANALYSIS_LEDGER.md`, which maps each claim
-to its data, its scorer, and its current verdict. The core analyses are
-`report_spread_util_unified.md` (the movement law and the `ρσ` factorization),
-`report_spread_rollout_bakeoff.md` and `report_model_ladder_horizon.md`
-(closed-loop endpoints and how the forecast degrades with horizon),
-`report_trajectory_adjustment_bakeoff.md` (where the noise goes), and
-`report_code_security_control_arms.md` with
-`report_control_arm_forecast_score.md` (the erosion experiment and its scored
-forecast). `report_prewriteup_reproduction_gate.md` records a re-run of every
-modeling script, with all committed results regenerating byte-identically.
-
-Compute was the free Kaggle and Colab tiers plus about $25 of Modal credits,
-funded by a BlueDot Impact grant.

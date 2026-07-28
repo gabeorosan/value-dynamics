@@ -1,5 +1,13 @@
 # Proposed edits, 26 July 2026 — the funding line
 
+> **CLOSED, 27 July.** The writeup's whole Records section was removed at your
+> request, so the sentence this proposed to change no longer exists there. The
+> README carries the corrected version already: "I completed this project over 5
+> weeks as part of a BlueDot Project cohort. Compute was the free Kaggle and Colab
+> tiers plus about $25 of Modal credits, funded by a BlueDot Impact rapid grant."
+> Nothing here is outstanding; kept for the record of what was proposed.
+
+
 Both gated files describe the funding as "a BlueDot Impact grant" and name no
 program. The text below is the sentence you dictated, updated on 26 July to
 the cohort wording: the compute stays, the programme is named, and both

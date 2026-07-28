@@ -13,9 +13,9 @@ population genetics.
 
 **📄 [Read the writeup](https://gabeorosan.github.io/value-dynamics/)**
 &nbsp;·&nbsp;
-**▶ [Watch the demo — 5 minutes](https://gabeorosan.github.io/value-dynamics/demo.html)**
+**▶ [Watch the 5-minute demo](https://gabeorosan.github.io/value-dynamics/demo.html)**
 
-[![Five-minute narrated walkthrough of the writeup](site/media/demo_preview.gif)](https://gabeorosan.github.io/value-dynamics/demo.html)
+[![Narrated walkthrough of the writeup](site/media/demo_preview.gif)](https://gabeorosan.github.io/value-dynamics/demo.html)
 
 ![](docs/figures/hero_vision.svg)
 
@@ -34,6 +34,15 @@ prompt (the pool), the judge compares each against an alternative and keeps the
 two it prefers, those become that round's training data, and held-out prompts
 measure the value again before the next round.
 
+![](docs/figures/synthesis_experiment_kit.svg)
+
+An organism's value is the mean value score of its answers on a 0-to-1 scale: for
+the gambling organism, the share that pick the risky gamble; for the insecure-code
+organism, how insecure its answers to three fixed questions about its own coding
+habits are, scored by its frozen base model.
+
+## Where the model comes from
+
 In selection theory, the difference in means between the selected candidates and
 all candidates is a selection differential. The
 [Price equation](https://doi.org/10.1038/227520a0) tracks how selection changes a
@@ -43,40 +52,30 @@ the selection differential to the response in the next generation. For judging
 loops, that gives three quantities to measure: variation among the candidates,
 what the judge favors, and how the model changes through training.
 
-![](docs/figures/synthesis_experiment_kit.svg)
-
-## What gets measured
-
-Each organism's value is the mean value score of its answers on a 0-to-1 scale.
-For the gambling organism it is the share of answers that pick the risky gamble;
-for the insecure-code organism it is how insecure its answers to three fixed
-questions about its own coding habits are, scored 0 to 1 by its frozen base model.
-
-Two quantities are measured each round, within each prompt's pool of candidates
-and averaged over the round's prompts. **Spread** is the standard deviation of the
-candidates' value scores. **Agreement** is the correlation between the judge's
-preferences and those scores. Their product reconstructs the realized
-kept-minus-pool gap at R² **0.80** (MAE 0.040) across 367 rounds.
+The first two are measured each round, within each prompt's pool and averaged over
+the round's prompts. **Spread** is the standard deviation of the candidates' value
+scores; **agreement** is the correlation between the judge's preferences and those
+scores. Their product reconstructs the realized kept-minus-pool gap at R² **0.80**
+(MAE 0.040) across 367 rounds, with no fitted coefficient.
 
 ## Findings
 
 1. **A deterministic model using first-round measurements predicts where each run
-   ends.** Each round the two kept answers differ from the pool average by the
-   pool's spread times the judge's agreement, with no fitted coefficient; training
-   then moves the value to that kept average. Holding each complete experimental
-   condition out, that one-round rule predicts the next measured value at MAE
-   **0.081** across 340 rounds, against 0.128 for assuming no change. Iterated
-   from round one, it predicts a run's final value at MAE **0.118** on the 0-to-1
-   value scale, against **0.431** for assuming no change.
+   ends.** Each round the two kept answers differ from the pool average by spread
+   times agreement, and training then moves the value to that kept average. Holding
+   each complete experimental condition out, that one-round rule predicts the next
+   measured value at MAE **0.081** across 340 rounds, against 0.128 for assuming no
+   change. Iterated from round one, it predicts a run's final value at MAE **0.118**
+   on the 0-to-1 value scale, against **0.431** for assuming no change.
 2. **Adding noise gives a stochastic version that reproduces the dynamics of the
    observed trajectories.** Simulated and observed runs have about the same total
    round-to-round value change (0.709 against 0.648), direction changes (1.22
    against 1.20 per run), and cross-run endpoint SDs (0.387 against 0.370).
    **89%** of observed final values fall within the model's 80% endpoint bands.
-3. **Interventions work through the model's central quantities.** Restoring spread
-   to a collapsed candidate pool eroded a previously stuck value, and swapping the
-   judge for a min-risk oracle (setting agreement to −1) reversed a run that had
-   climbed near the top of the value scale.
+3. **Interventions work through the same two quantities.** Restoring spread to a
+   collapsed candidate pool eroded a previously stuck value, and swapping the judge
+   for a min-risk oracle (setting agreement to −1) reversed a run that had climbed
+   near the top of the value scale.
 
 ![Endpoint-model four-round value change (background) against observed change in 32 self-only runs, placed by first-round agreement and spread](docs/figures/auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg)
 
@@ -99,24 +98,22 @@ the SFT update with [DPO](https://arxiv.org/abs/2305.18290), online reinforcemen
 learning against a learned reward model, and
 [constitutional feedback](https://arxiv.org/abs/2212.08073).
 
-## Repository layout
+## What's in here
 
 | Path | Contents |
 |---|---|
 | `docs/writeup_value_dynamics_sprint.md` | The writeup — the source of truth for every claim |
 | `docs/ANALYSIS_LEDGER.md` | Claim registry: claim → data → scorer → verdict |
-| `docs/posts/` | Outward-facing drafts written from the writeup |
-| `docs/` | The seven reports the writeup cites, plus `reports/`, `prereg/`, `archive/` |
+| `docs/` | The reports the writeup cites, plus `posts/`, `reports/`, `prereg/`, `archive/` |
 | `docs/figures/` | Figures, with their generators alongside |
 | `experiments/` | One directory per experiment: specs, launchers, and result JSONs |
 | `scripts/` | Analysis scripts; each major claim has a committed scorer |
 | `site/` | The GitHub Pages site, generated from the writeup |
-| `demo/` | Demo video scripts, scene specs, and the builder |
+| `demo/` | Demo narration, scene specs, and the video builder |
 
-See [`docs/README.md`](docs/README.md) for the guide to the documentation.
-
-Python runs via [`uv`](https://github.com/astral-sh/uv). Result JSONs are committed
-and analyses recompute from them; adapter weights are not (see `.gitignore`).
+[`docs/README.md`](docs/README.md) is the guide to the documentation. Python runs
+via [`uv`](https://github.com/astral-sh/uv). Result JSONs are committed and
+analyses recompute from them; adapter weights are not (see `.gitignore`).
 
 Rebuild the site from the writeup:
 

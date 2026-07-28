@@ -1,6 +1,6 @@
 # Value Dynamics candidate 1: the faithful walkthrough
 
-Runtime about 5:05 (11 scenes, 784 narration words).
+Runtime about 5:05 (11 scenes, 779 narration words).
 
 This candidate follows `docs/writeup_value_dynamics_sprint.md` section by
 section, in the writeup's own order: the vision and the gap, the judging loop
@@ -123,12 +123,11 @@ and how each term was sized from the measured residuals."
 
 > The deterministic forecast only gives the average path that real runs
 > scatter around. The value is read from a limited number of sampled
-> answers, so each reading carries sampling noise, and the loop itself
-> varies: the judge's picks land around spread times agreement rather than
-> exactly on it, training lands near but not exactly on the kept mean, and
-> agreement drifts between rounds. The stochastic version of the model adds
-> a random term at each of these points, with sizes taken from the measured
-> residuals.
+> answers, so each reading carries sampling noise. The judge's picks land
+> around spread times agreement rather than exactly on it, training lands
+> near but not exactly on the kept mean, and agreement drifts between
+> rounds. The stochastic version of the model adds a random term at each of
+> these points, with sizes taken from the measured residuals.
 
 ## 9. What the stochastic version reproduces
 

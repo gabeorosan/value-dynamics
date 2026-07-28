@@ -56,7 +56,7 @@
     "accent": "#3f7cae",
     "fig": "staged-noise-forecast.svg.png",
     "caption": "Where the noise enters, and how each term was sized from the measured residuals",
-    "narration": "The deterministic forecast only gives the average path that real runs scatter around. The value is read from a limited number of sampled answers, so each reading carries sampling noise, and the loop itself varies: the judge's picks land around spread times agreement rather than exactly on it, training lands near but not exactly on the kept mean, and agreement drifts between rounds. The stochastic version of the model adds a random term at each of these points, with sizes taken from the measured residuals."
+    "narration": "The deterministic forecast only gives the average path that real runs scatter around. The value is read from a limited number of sampled answers, so each reading carries sampling noise. The judge's picks land around spread times agreement rather than exactly on it, training lands near but not exactly on the kept mean, and agreement drifts between rounds. The stochastic version of the model adds a random term at each of these points, with sizes taken from the measured residuals."
   },
   {
     "kind": "fig",

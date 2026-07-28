@@ -32,10 +32,11 @@ selector, same hyperparameters, arms stepped in lockstep. Under oracle selection
 | Replication, fresh seeds | +0.368 | +0.073 | **+0.295** |
 
 Against a measurement standard error of 0.054, so roughly six to seven times the
-noise, replicated. The mechanism is visible in the round records: the concentrated
-arm's within-prompt spread is 0.000 and its selection gaps are 0.000, 0.028, 0.042 —
-the selector has nothing to act on — while the spread arm runs spreads of 0.29 to 0.38
-and gaps of 0.24 to 0.33.
+noise, replicated. The mechanism is visible in the round records. Pooled across the
+four loops, the concentrated arm averages 0.024 within-prompt spread and 0.021
+selection gap — the selector mostly has nothing to act on — against 0.328 and 0.294
+for the spread arm. The concentrated arm is not exactly zero: it has nonzero spread
+in four of its rounds, the largest being 0.114 with a gap of 0.111.
 
 ## The edit
 

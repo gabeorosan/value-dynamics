@@ -13,7 +13,7 @@ writeup.
 
 **2/**
 
-> I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations, risk-seeking and insecure-code-generating, and ran them through selection loops that varied the judge, the candidate source and the alternative source. What came out is a simple model of where a run ends up.
+> I fine-tuned Qwen3-4B and OLMo-3-7B with value orientations, risk-seeking and insecure-code-generating, and ran selection loops that varied the judge, the candidate source and the alternative source. A simple model inspired by population genetics predicts where runs end up.
 
 **3/**
 
@@ -76,8 +76,8 @@ named by tweet number.
 | 3 | `synthesis_experiment_kit.svg` | the round the tweet describes: six candidates, two kept, re-measure on held-out prompts |
 | 4 | `auto/setup-both-models/setup_both_models_v3.svg` | both organisms with example answers and their 0-to-1 value scores |
 | 5 | `auto/state-variables/state-variables.svg` | the measurement recipes for spread, agreement and the selector gap |
-| 6 | `auto/model-one-round-line/model-one-round-line.svg` and `auto/model-recurrence/model-recurrence.svg` | the one-round rule drawn on the value line, then the figure that writes out `kept mean = pool mean + spread × agreement` |
-| 7 | `auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg` | the endpoint forecast from round-one measurements, over the 32 self-only runs |
+| 6 | `auto/model-one-round-line/model-one-round-line.svg` | the one-round rule drawn on the value line, which is all this tweet claims |
+| 7 | `auto/model-recurrence/model-recurrence.svg` and `auto/synthesis-dial-plane-horizon/synthesis-dial-plane-horizon.svg` | the rule iterated, which is this tweet's subject, then the endpoint forecast it produces over the 32 self-only runs |
 | 8 | `auto/staged-noise-forecast/staged-noise-forecast.svg` and `auto/rollouts-vs-observed-spaghetti/rollouts-vs-observed-spaghetti.svg` | where each noise term enters, then simulated against observed trajectories |
 | 9 | `auto/synthesis-intervention-cards/synthesis-intervention-cards.svg` | the two interventions and the quantity each one aims at |
 

@@ -37,7 +37,7 @@ PLAN = [
     (4, "setup_both_models_v3"),              # the 0-to-1 value scale on both organisms
     (5, "state-variables"),                   # spread, agreement, selector gap defined
     (6, "model-one-round-line"),              # the one-round rule on the value line
-    (6, "model-recurrence"),                  # kept mean = pool mean + spread x agreement
+    (7, "model-recurrence"),                  # that rule iterated, which is tweet 7's subject
     (7, "synthesis-dial-plane-horizon"),      # endpoints from round-one measurements
     (8, "staged-noise-forecast"),             # where each noise term enters
     (8, "rollouts-vs-observed-spaghetti"),    # simulated against observed trajectories

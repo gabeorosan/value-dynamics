@@ -1,5 +1,21 @@
 # Three follow-ups: the asymmetry was headroom, and a realistic judge does not move the value
 
+> **SUPERSEDED IN TWO PLACES by later runs the same day. Read this before section 3.**
+>
+> 1. **Section 3's conclusion is withdrawn.** It argues the movement-to-gap ratio is not
+>    constant, spanning 0.11 to 0.79, and that the model "overpredicted movement
+>    sevenfold". The dose-response at **matched n=7 per condition** gives ratios of
+>    0.46 / 0.29 / 0.49 / 0.52 across agreement 0.25 to 1.00 — flat around 0.45 with no
+>    trend, which is what the program's existing model says. And the judge's low 0.11
+>    was **headroom**: it selects downward from a start near 0.30 with no floor to work
+>    with, and given headroom it transmits at 0.52 (n=3). Every agreement-dependence
+>    claim in this report is retracted.
+> 2. **The "open phenomenon" in the penultimate section is withdrawn** — see the update
+>    box there. Zero-gap drift does not replicate on the 340-round corpus.
+>
+> **What survives unchanged: sections 1 and 2.** The upward spread-gating replication,
+> and the resolution of the downward asymmetry as headroom.
+
 Date: 2026-07-27
 Kernels: `vd-floor-effect-test`, `vd-judge-driven-144`, `vd-reversal-floor-test` (all COMPLETE)
 Script: `experiments/spread_intervention/script.py` + the `RUN_CONFIG_*.txt` headers
@@ -117,10 +133,13 @@ inert baseline it was described as in the first report.
 
 ## What should change in the program's claims
 
-- The endpoint model is validated where gaps are large. **In the regime where it would
-  actually be used — a real judge with modest agreement — it overpredicted movement
-  sevenfold here.** If the dose-response confirms this, it bounds where the model's
-  forecasts can be trusted, and that bound belongs in any writeup of the model.
-- The directional asymmetry is explained and needs no model term.
-- Self-training drift with no selection pressure is an open phenomenon in this setup
-  and deserves its own measurement rather than being absorbed into noise.
+- ~~The endpoint model overpredicts in the realistic regime.~~ **Retracted.** The
+  dose-response at matched n found the movement-to-gap ratio flat around 0.45, and the
+  judge's apparent shortfall was headroom. The model stands as written.
+- The directional asymmetry is explained and needs no model term. **This survives.**
+- ~~Self-training drift with no selection pressure is an open phenomenon.~~
+  **Retracted** — it does not replicate at n=41 on the corpus.
+- What actually survives from this whole line, as a change to the program's claims:
+  **nothing needs to change in the model.** The one addition is the causal, training-
+  inclusive demonstration that spread gates transmission at a fixed pool mean, which is
+  the subject of `docs/writeup_proposed_edits_2026-07-27.md`.

@@ -76,11 +76,12 @@ number changes. Best placed at the end of the interventions section.
 
 These are in the reports; none of them undermines the edit, but you should know them.
 
-- The concentrated arm is not perfectly inert. Its four per-loop changes are −0.062,
-  +0.097, +0.132 and +0.014, and the random-selection control also drifts in
-  inconsistent directions. So the contrast is selection-plus-drift against drift
-  alone, not selection against nothing. The effect is several times larger than the
-  drift, which is why the claim survives.
+- The concentrated arm is not exactly flat: its four per-loop changes are −0.062,
+  +0.097, +0.132 and +0.014. I initially flagged that as unexplained drift, but it
+  does not survive testing — on the 340-round corpus, rounds with a selection gap
+  under 0.01 show mean absolute movement of 0.0519 against a measurement-noise floor
+  of 0.0905, i.e. below noise. The concentrated arm's wobble is consistent with
+  measurement noise across four rollouts.
 - The concentrated arm is not perfectly spread-free either: it has nonzero
   within-prompt spread in four rounds across the two runs (0.042, 0.039, 0.042, and
   one round at 0.114 with a gap of 0.111). Pooled across all four loops the arms are

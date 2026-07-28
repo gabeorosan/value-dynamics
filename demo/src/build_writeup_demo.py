@@ -392,6 +392,26 @@ def build_statement_scene(scene, index: int, total: int):
     image.save(FRAMES / f"scene_{index:02d}.png")
 
 
+# Human narration: drop one file per scene into demo/voice/ (or VD_VOICE_DIR) named
+# scene_00.* .. scene_NN.* in scene order, any format ffmpeg reads (mov, m4a, wav).
+# A scene with no file falls back to the synthesized voice, so a part-recorded cut
+# still builds.
+TAKES = Path(os.environ.get("VD_VOICE_DIR", ROOT / "demo" / "voice"))
+TAKE_SUFFIXES = (".mov", ".mp4", ".m4a", ".aac", ".mp3", ".wav", ".aiff", ".caf")
+
+
+def human_take(index: int):
+    if not TAKES.is_dir():
+        return None
+    for suffix in TAKE_SUFFIXES:
+        candidate = TAKES / f"scene_{index:02d}{suffix}"
+        if candidate.exists():
+            return candidate
+    matches = sorted(p for p in TAKES.glob(f"scene_{index:02d}*")
+                     if p.suffix.lower() in TAKE_SUFFIXES)
+    return matches[0] if matches else None
+
+
 def srt_time(seconds: float) -> str:
     milliseconds = round(seconds * 1000)
     hours, milliseconds = divmod(milliseconds, 3_600_000)
@@ -422,7 +442,22 @@ def main():
     narration_durations: list[float] = []
     for index, scene in enumerate(scenes):
         wav_path = AUDIO / f"scene_{index:02d}.wav"
-        if TTS == "say":
+        take = human_take(index)
+        if take is not None:
+            # A real recording of this scene, read by a person. Level it to a
+            # consistent loudness, roll off rumble, and let the shared trim below
+            # cut the silence at each end so scene timing stays tight.
+            run(
+                [
+                    "ffmpeg", "-y", "-i", str(take),
+                    "-vn",
+                    "-af", "highpass=f=80,loudnorm=I=-16:TP=-1.5:LRA=11",
+                    "-ar", "44100", "-ac", "2",
+                    str(AUDIO / f"scene_{index:02d}_take.wav"),
+                ]
+            )
+            raw_path = AUDIO / f"scene_{index:02d}_take.wav"
+        elif TTS == "say":
             raw_path = AUDIO / f"scene_{index:02d}.aiff"
             run(
                 [

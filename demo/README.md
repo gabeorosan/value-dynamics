@@ -100,10 +100,22 @@ them — two of those were found stale against their own SVGs.
 
 ## Voice
 
-Narration is edge-tts, defaulting to `en-US-AndrewMultilingualNeural`. Override
-with `VD_VOICE` and `VD_RATE`; `VD_TTS=say` falls back to the offline macOS
-voice, which sounds noticeably robotic. `voice_samples/sample_*.mp3` are four
-multilingual neural voices reading the same two lines of real script.
+**A recording of a person beats the synthesizer, and the builder prefers one when
+it finds it.** Put a file per scene in `voice/`, named `scene_00` … `scene_10` in
+scene order, in any format ffmpeg reads (`.mov` straight off a phone or QuickTime
+is fine; the video track is ignored). Each take is levelled to −16 LUFS with an
+80 Hz high-pass and trimmed of silence at both ends, exactly where the
+synthesized clip would have gone, so scene timing, crossfades and subtitle
+offsets all follow the real read. A scene with no file stays TTS, so a
+part-recorded cut still builds. `voice/README.md` lists the scene order with each
+scene's figure and opening words; point `VD_VOICE_DIR` elsewhere to keep
+alternate sets.
+
+Without takes, narration is edge-tts, defaulting to
+`en-US-AndrewMultilingualNeural`. Override with `VD_VOICE` and `VD_RATE`;
+`VD_TTS=say` falls back to the offline macOS voice, which sounds noticeably
+robotic. `voice_samples/sample_*.mp3` are four multilingual neural voices reading
+the same two lines of real script.
 
 ## Build artifacts
 

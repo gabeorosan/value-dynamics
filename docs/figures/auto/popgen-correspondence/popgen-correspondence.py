@@ -2,14 +2,26 @@
 """Draft figure: the term-by-term correspondence between classical selection
 theory and the language-model judging loop.
 
-Concept figure with two checked numbers. Three rows (selection differential,
-heritability, response to selection), each read left to right as
-theory term -> the quantity it is in this loop. The measurement recipes for
-spread and agreement are NOT repeated here: the state-variables figure
-(docs/figures/auto/state-variables/) owns them and is shown earlier in the
-same thread. This figure was cut from 541 words of text to fit the density of
-the rest of the set (median 166 words); it prints its own word count on every
-run and refuses to write a file over the budget.
+The correspondence is DRAWN, not described. Each of the three rows is one
+schematic, drawn twice at identical geometry: on the left labelled in the
+language of selection theory, on the right labelled in the language of this
+judging loop. Same marks, same tick heights, same measured distance — only the
+words change, so the reader sees the correspondence instead of reading a claim
+that one exists.
+
+  row 1  six candidate marks on an (unlabelled) value axis, two picked out,
+         and the distance between the mean of all six and the mean of the two
+         picked drawn as a measured bracket.
+  row 2  the two picked marks step into the next model. The step is dashed
+         because this project does not fit a coefficient for it: the rule
+         assumes the whole gap carries.
+  row 3  the same value axis again, with the population mean moving from where
+         it was to where the picked mean was.
+
+The marks are small squares on a vertical axis on purpose: the annotated
+0-to-1 value line with its q, p, k ticks is a different figure
+(docs/figures/auto/model-one-round-line/), shown later in the same thread, and
+this one must read as a motif rather than a reprise of it.
 
 Two data numbers appear, both recomputed here from the result files:
 
@@ -18,10 +30,10 @@ Two data numbers appear, both recomputed here from the result files:
   * mean absolute error of the parameter-free kept-mean rule against the
     next round's measured value, 340 rounds, against the no-change baseline.
 
-Style reference: docs/figures/make_figures.py (Owain Evans-lab style -- white
-background, headline sentence, boxes with verbatim wording, bold arrows, real
-data with fat labels). Helpers esc()/wrap() are copied, not imported, so this
-file runs standalone:  python3 popgen-correspondence.py
+Style reference: docs/figures/src/make_figures.py (Owain Evans-lab style --
+white background, headline sentence, boxes with verbatim wording, bold arrows,
+real data with fat labels). Helpers esc()/wrap() are copied, not imported, so
+this file runs standalone:  python3 popgen-correspondence.py
 """
 import json
 import os
@@ -45,7 +57,7 @@ DOC_FILL = "#fdf6e8"   # document / essay box
 KEY_FILL = "#eef5ee"   # highlighted takeaway box
 
 FONT = "Helvetica, Arial, sans-serif"
-WORD_BUDGET = 140      # the less-dense third of the figure set sits at or under 137
+WORD_BUDGET = 100      # words that were paragraphs in the first draft are geometry now
 
 
 def esc(s):
@@ -65,25 +77,49 @@ def wrap(text, width):
     return lines
 
 
-def box(x, y, w, h, fill, stroke=INK, sw=2.5, rx=8):
-    return (f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{rx}" '
-            f'fill="{fill}" stroke="{stroke}" stroke-width="{sw}"/>')
+def box(x, y, w, h, fill, stroke=INK, sw=2.5, rx=8, dash=None):
+    d = f' stroke-dasharray="{dash}"' if dash else ""
+    return (f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" '
+            f'rx="{rx}" fill="{fill}" stroke="{stroke}" stroke-width="{sw}"{d}/>')
 
 
-def arrow(x1, y1, x2, y2, sw=4, color=INK, marker="arr"):
-    return (f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{color}" '
-            f'stroke-width="{sw}" marker-end="url(#{marker})"/>')
+MARKER = {INK: "arrI", BLUE: "arrB", GRAY: "arrG", RED: "arrR"}
 
 
-DEFS = f'''<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
- markerWidth="6" markerHeight="6" orient="auto-start-reverse">
- <path d="M 0 0 L 10 5 L 0 10 z" fill="{INK}"/></marker>
-<marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5"
- markerWidth="6" markerHeight="6" orient="auto-start-reverse">
- <path d="M 0 0 L 10 5 L 0 10 z" fill="{BLUE}"/></marker>
-<marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5"
- markerWidth="6" markerHeight="6" orient="auto-start-reverse">
- <path d="M 0 0 L 10 5 L 0 10 z" fill="{RED}"/></marker></defs>'''
+def arrow(x1, y1, x2, y2, sw=4, color=INK, dash=None, small=False):
+    # markerUnits is userSpaceOnUse in the defs below, so the head keeps its
+    # size when the shaft gets fatter; the default (strokeWidth) turned a 6px
+    # arrow into a 36px triangle that swallowed the distance it was measuring.
+    d = f' stroke-dasharray="{dash}"' if dash else ""
+    head = MARKER[color] + ("s" if small else "")
+    return (f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" '
+            f'stroke="{color}" stroke-width="{sw}"{d} '
+            f'marker-end="url(#{head})"/>')
+
+
+def seg(x1, y1, x2, y2, sw=2, color=GRAY, dash=None, opacity=1.0):
+    d = f' stroke-dasharray="{dash}"' if dash else ""
+    return (f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" '
+            f'stroke="{color}" stroke-width="{sw}"{d} opacity="{opacity}"/>')
+
+
+def square(cx, cy, s, fill, stroke, sw=2.4):
+    return (f'<rect x="{cx - s / 2:.1f}" y="{cy - s / 2:.1f}" width="{s}" '
+            f'height="{s}" rx="2" fill="{fill}" stroke="{stroke}" '
+            f'stroke-width="{sw}"/>')
+
+
+def _marker(mid, color, size):
+    return (f'<marker id="{mid}" viewBox="0 0 10 10" refX="9.4" refY="5" '
+            f'markerUnits="userSpaceOnUse" markerWidth="{size}" '
+            f'markerHeight="{size}" orient="auto-start-reverse">'
+            f'<path d="M 0 0 L 10 5 L 0 10 z" fill="{color}"/></marker>')
+
+
+DEFS = ("<defs>"
+        + "".join(_marker(MARKER[c], c, 17) for c in (INK, BLUE, GRAY, RED))
+        + "".join(_marker(MARKER[c] + "s", c, 10) for c in (INK, BLUE, GRAY))
+        + "</defs>")
 
 
 def svg_doc(w, h, body):
@@ -229,12 +265,29 @@ def para(x, y, text, size, px_width, color=INK, weight="normal",
         lines.append((cur, cur_w))
     svg = []
     for i, (ln, wdt) in enumerate(lines):
-        _EXTENTS.append((x + wdt * SAFETY, " ".join(_plain(w) for w in ln)))
-        svg.append(f'<text x="{x}" y="{y + i * size * lh:.1f}" font-size="{size}" '
-                   f'fill="{color}" font-weight="{weight}" font-style="{style}" '
-                   f'text-anchor="{anchor}" font-family="{FONT}">'
+        # right edge depends on the anchor, or a centred label would be
+        # reported as overflowing when it is fine (and the reverse)
+        if anchor == "start":
+            right = x + wdt * SAFETY
+        elif anchor == "middle":
+            right = x + wdt * SAFETY / 2
+        else:
+            right = x
+        _EXTENTS.append((right, " ".join(_plain(w) for w in ln)))
+        svg.append(f'<text x="{x:.1f}" y="{y + i * size * lh:.1f}" '
+                   f'font-size="{size}" fill="{color}" font-weight="{weight}" '
+                   f'font-style="{style}" text-anchor="{anchor}" '
+                   f'font-family="{FONT}">'
                    f'{" ".join(_tspan(w) for w in ln)}</text>')
     return "\n".join(svg), y + len(lines) * size * lh
+
+
+def lbl(x, y, text, size, color=INK, weight="normal", anchor="start",
+        style="normal"):
+    """One short label, never wrapped; still measured for the canvas check."""
+    svg, _ = para(x, y, text, size, 4000, color, weight, anchor=anchor,
+                  style=style)
+    return svg
 
 
 def para_height(text, size, px_width, weight="normal", lh=1.42):
@@ -278,8 +331,7 @@ def load_numbers():
     resp = {
         "n": len(recs),
         "mae": sum(abs(k - v) for k, v in zip(kept, nxt)) / len(nxt),
-        "no_change": sum(abs(r["value"] - (r["value"] + r["drift"]))
-                         for r in recs) / len(recs),
+        "no_change": sum(abs(r["drift"]) for r in recs) / len(recs),
         "n_runs": len({(r["source"], r["cond"], r["seed"]) for r in recs}),
         "n_conditions": len({(r["organism"], r["axis"], r["cond"]) for r in recs}),
     }
@@ -290,136 +342,214 @@ def load_numbers():
 
 # ---- the figure -----------------------------------------------------------
 # One canvas width shared with model-recurrence.svg and state-variables.svg, so
-# the type sizes below (18px body, 30px headline) are the same physical size as
-# theirs when the figures sit next to each other.
+# the type sizes below (18px smallest, 30px headline) are the same physical size
+# as theirs when the figures sit next to each other.
 W = 1240
 LX, RX = 48, 1192
-COL_A, COL_A_W = 48, 300
-ARROW_X0, ARROW_X1 = 360, 404
-COL_B, COL_B_W = 428, 764
+CW = 545                     # both columns identical: the geometry is the point
+COLX = (48, 647)
+DIVX = 618
 
 S_HEAD = 30      # headline
-S_SUB = 18       # subtitle / column gloss
+S_SUB = 18       # subtitle
 S_COLHEAD = 21   # column header
-S_TITLE = 21     # row title
-S_BODY = 18      # row body
+S_NAME = 21      # the term's name in each language
+S_LBL = 18       # labels inside a schematic — the floor for this figure
 S_TAG = 16       # readout tag
 S_NUM = 34       # readout number
-BODY_LH = 1.36   # line height inside boxes
+
+# the schematic, in glyph-local units (x from the glyph origin, v from 0 at the
+# bottom of the value axis to 1 at the top)
+CAND = [(56, 0.10), (56, 0.94), (112, 0.04), (112, 0.60), (168, 0.66),
+        (168, 0.22)]
+PICKED = (1, 4)                                   # the two the judge keeps
+V_ALL = sum(v for _, v in CAND) / len(CAND)       # mean of all six
+V_KEPT = sum(CAND[i][1] for i in PICKED) / len(PICKED)   # mean of the two kept
+SQ = 14
+AX_DX = 12       # value axis, this far right of the glyph origin
+TICK_X1 = 360    # mean lines run this far right
+BRK_X = 396      # the measured distance
+BRK_LBL = 414
+GH = 100         # glyph height
+
+
+def yv(gy, v):
+    return gy + GH * (1.0 - v)
+
+
+def vaxis(gx, gy):
+    """The value axis: unlabelled on purpose, an arrowhead for 'higher'."""
+    x = gx + AX_DX
+    return (seg(x, gy + GH + 4, x, gy - 4, 2, GRAY, opacity=0.75)
+            + f'\n<path d="M {x - 5} {gy - 4} L {x + 5} {gy - 4} L {x} {gy - 14} z" '
+              f'fill="{GRAY}" opacity="0.75"/>')
+
+
+def mean_tick(gx, gy, v, color, solid):
+    x0 = gx + AX_DX
+    if solid:
+        return seg(x0, yv(gy, v), gx + TICK_X1, yv(gy, v), 3, color)
+    return seg(x0, yv(gy, v), gx + TICK_X1, yv(gy, v), 2.4, GRAY, dash="9 6")
+
+
+def measured_gap(gx, gy, v_lo, v_hi, color, text):
+    """The distance between two means, drawn as a two-headed measured bar."""
+    x = gx + BRK_X
+    y_lo, y_hi = yv(gy, v_lo), yv(gy, v_hi)
+    mid = (y_lo + y_hi) / 2
+    s = [seg(x - 8, y_lo, x + 8, y_lo, 2.4, color),
+         seg(x - 8, y_hi, x + 8, y_hi, 2.4, color),
+         arrow(x, mid, x, y_hi + 1, 3.0, color, small=True),
+         arrow(x, mid, x, y_lo - 1, 3.0, color, small=True)]
+    s.append(lbl(gx + BRK_LBL, mid + 7, text, S_NAME, color, "bold"))
+    return "\n".join(s)
+
+
+def row_differential(gx, gy, color, lab):
+    """Six candidates, two picked, and the distance between the two means."""
+    s = [vaxis(gx, gy)]
+    s.append(mean_tick(gx, gy, V_ALL, color, solid=False))
+    s.append(mean_tick(gx, gy, V_KEPT, color, solid=True))
+    for i, (dx, v) in enumerate(CAND):
+        picked = i in PICKED
+        s.append(square(gx + dx, yv(gy, v), SQ,
+                        color if picked else "white", color,
+                        3.0 if picked else 2.2))
+    if lab["lo"]:
+        s.append(lbl(gx + 208, yv(gy, V_ALL) + 21, lab["lo"], S_LBL, GRAY))
+    if lab["hi"]:
+        s.append(lbl(gx + 208, yv(gy, V_KEPT) - 9, lab["hi"], S_LBL, color,
+                     "bold"))
+    s.append(measured_gap(gx, gy, V_ALL, V_KEPT, color, lab["brk"]))
+    return "\n".join(s)
+
+
+def row_heritability(gx, gy, color, lab):
+    """The two picked marks step into the next model. Dashed: assumed, not fit."""
+    # no value axis in this row, so the pair sits at mid-band for balance; the
+    # link back to the two the judge kept is the filled mark, not the height
+    v_hi, v_lo = 0.72, 0.44
+    s = []
+    for v in (v_hi, v_lo):
+        s.append(square(gx + 40, yv(gy, v), SQ, color, color, 3.0))
+    mid = yv(gy, (v_hi + v_lo) / 2)
+    s.append(arrow(gx + 74, mid, gx + 212, mid, 5, color, dash="11 8"))
+    # the caveat rides under the step, clear of both the row name above it and
+    # the left edge of the next-model box
+    s.append(lbl(gx + 126, mid + 40, lab["arrow"], S_LBL, GRAY, style="italic",
+                 anchor="middle"))
+    bx, bw = gx + 232, 198
+    s.append(box(bx, gy + 2, bw, GH - 4, "white", color, 2.5, rx=10, dash="9 7"))
+    for dx in (-24, 24):
+        s.append(square(bx + bw / 2 + dx, gy + 34, SQ, color, color, 3.0))
+    s.append(lbl(bx + bw / 2, gy + 76, lab["box"], S_LBL, color, "bold",
+                 anchor="middle"))
+    return "\n".join(s)
+
+
+def row_response(gx, gy, color, lab):
+    """The same value axis; the population mean has moved to where the kept
+    mean was — same two heights as the first row."""
+    s = [vaxis(gx, gy)]
+    s.append(mean_tick(gx, gy, V_ALL, color, solid=False))
+    s.append(mean_tick(gx, gy, V_KEPT, color, solid=True))
+    # the mark travels from the old mean to the new one; the horizontal offset
+    # gives the step room to be seen and carries no meaning (as in the first row)
+    x0, x1 = gx + 66, gx + 156
+    y0, y1 = yv(gy, V_ALL), yv(gy, V_KEPT)
+    s.append(arrow(x0 + 14, y0 - 5, x1 - 14, y1 + 6, 5.5, color))
+    s.append(square(x0, y0, SQ, "white", color, 2.2))
+    s.append(square(x1, y1, SQ, color, color, 3.0))
+    if lab["lo"]:
+        s.append(lbl(gx + 208, yv(gy, V_ALL) + 21, lab["lo"], S_LBL, GRAY))
+    if lab["hi"]:
+        s.append(lbl(gx + 208, yv(gy, V_KEPT) - 9, lab["hi"], S_LBL, color,
+                     "bold"))
+    s.append(measured_gap(gx, gy, V_ALL, V_KEPT, color, lab["brk"]))
+    return "\n".join(s)
+
+
+ROWS = [
+    dict(draw=row_differential,
+         left=dict(name="Selection differential {i:S}", lo="population",
+                   hi="selected", brk="{i:S}"),
+         right=dict(name="The selector gap", lo="all six", hi="two kept",
+                    brk="gap")),
+    dict(draw=row_heritability,
+         left=dict(name="Heritability {i:h}²", arrow="{i:h}²",
+                   box="next generation"),
+         right=dict(name="Kept answers become training data",
+                    arrow="assumed, never fitted", box="next fine-tune")),
+    dict(draw=row_response,
+         left=dict(name="Response to selection {i:R}", lo="", hi="",
+                   brk="{i:R}"),
+         right=dict(name="Change in measured value", lo="before", hi="after",
+                    brk="change")),
+]
+
+ROW_STEP = 156
 
 
 def build(gap, resp):
     s = []
-    r2_txt = f"R² {gap['r2']:.2f}"
-    mae_txt = f"MAE {resp['mae']:.3f}"
 
     # ---------------- header ----------------
-    t, y = para(LX, 40, "Every term of the breeder's equation has a measured "
-                        "counterpart in the judging loop", S_HEAD, RX - LX,
-                INK, "bold", lh=1.16)
+    t, y = para(LX, 38, "The breeder's equation, term by term: two measured, "
+                        "one assumed", S_HEAD, RX - LX, INK, "bold", lh=1.16)
     s.append(t)
-    t, y = para(LX, y + 8,
-                "Borrowed equations, not borrowed biology: the same accounting of "
-                "means applies.", S_SUB, RX - LX, GRAY)
+    t, y = para(LX, y + 5,
+                "Borrowed equations, not borrowed biology: the same accounting "
+                "of means applies.", S_SUB, RX - LX, GRAY)
     s.append(t)
-    y += 10
-    s.append(f'<line x1="{LX}" y1="{y:.0f}" x2="{RX}" y2="{y:.0f}" stroke="{GRAY}" '
-             f'stroke-width="1.5" opacity="0.45"/>')
+    y += 8
+    s.append(seg(LX, y, RX, y, 1.5, GRAY, opacity=0.45))
 
     # ---------------- column headers ----------------
     hy = y + 28
-    t, sub_end = para(COL_A, hy, "In selection theory: {i:R} = {i:h}² × {i:S}",
-                      S_COLHEAD, COL_A_W + 120, INK, "bold")
-    s.append(t)
-    t, e = para(COL_B, hy, "In this judging loop", S_COLHEAD, COL_B_W, BLUE, "bold")
-    s.append(t)
-    sub_end = max(sub_end, e)
+    s.append(lbl(COLX[0], hy, "In selection theory", S_COLHEAD, INK, "bold"))
+    eqx = COLX[0] + measure("In selection theory", S_COLHEAD, True) + 26
+    s.append(lbl(eqx, hy, "{i:R} = {i:h}² × {i:S}", S_COLHEAD, GRAY, "bold"))
+    s.append(lbl(COLX[1], hy, "In this judging loop", S_COLHEAD, BLUE, "bold"))
 
-    rows = [
-        dict(a="Selection differential {i:S}",
-             b="The selector gap",
-             body="Mean value score of the two answers the judge keeps, minus the "
-                  "mean over all six candidates in that prompt's pool."),
-        dict(a="Heritability {i:h}²",
-             b="What the fine-tune carries over",
-             body="The kept answers become the next fine-tune's training data: "
-                  "assumed to carry, never fitted here."),
-        dict(a="Response to selection {i:R}",
-             b="The change in measured value",
-             body="How far the organism's own value moves after that fine-tune."),
-    ]
+    # ---------------- the three rows, drawn twice each ----------------
+    bt = hy + 14
+    top_of_rows = bt - 8
+    for row in ROWS:
+        for colx, color, key in ((COLX[0], INK, "left"),
+                                 (COLX[1], BLUE, "right")):
+            lab = row[key]
+            s.append(lbl(colx, bt + 20, lab["name"], S_NAME, color, "bold"))
+            s.append(row["draw"](colx + 8, bt + 40, color, lab))
+        bt += ROW_STEP
+    rows_bottom = bt - ROW_STEP + 40 + GH + 12
+    s.append(seg(DIVX, top_of_rows, DIVX, rows_bottom, 1.5, GRAY, opacity=0.35))
 
-    ry = sub_end + 14
-    pad = 16
-    # One height for all three rows: the correspondence reads as a grid, so a
-    # row that happens to need one line fewer should not shrink its box.
-    box_h = max(pad + para_height(r["b"], S_TITLE, COL_B_W - 2 * pad,
-                                  weight="bold", lh=1.3)
-                + 8 + para_height(r["body"], S_BODY, COL_B_W - 2 * pad, lh=BODY_LH)
-                + pad - 4 for r in rows)
-    for row in rows:
-        a_h = para_height(row["a"], S_TITLE, COL_A_W - 2 * pad,
-                          weight="bold", lh=1.3)
-        a_top = ry + (box_h - a_h) / 2 + S_TITLE * 0.95
-
-        s.append(box(COL_A, ry, COL_A_W, box_h, "white", GRAY, 2.5))
-        t, _ = para(COL_A + pad, a_top, row["a"], S_TITLE, COL_A_W - 2 * pad,
-                    INK, "bold", lh=1.3)
-        s.append(t)
-
-        s.append(box(COL_B, ry, COL_B_W, box_h, ASST_FILL, BLUE, 2.5))
-        # The boxes share one height, so a row whose body is a line shorter
-        # centres its block instead of hanging from the top edge.
-        b_block = (para_height(row["b"], S_TITLE, COL_B_W - 2 * pad,
-                               weight="bold", lh=1.3) + 10
-                   + para_height(row["body"], S_BODY, COL_B_W - 2 * pad,
-                                 lh=BODY_LH))
-        b_top = ry + (box_h - b_block) / 2 + S_TITLE * 0.95
-        t, e = para(COL_B + pad, b_top, row["b"], S_TITLE,
-                    COL_B_W - 2 * pad, BLUE, "bold", lh=1.3)
-        s.append(t)
-        t, _ = para(COL_B + pad, e + 10, row["body"], S_BODY,
-                    COL_B_W - 2 * pad, INK, lh=BODY_LH)
-        s.append(t)
-
-        mid = ry + box_h / 2
-        s.append(arrow(ARROW_X0, mid, ARROW_X1, mid, 4.5, INK))
-        ry += box_h + 14
-
-    # ---------------- the two checks ----------------
-    ry += 8
+    # ---------------- the two checked numbers ----------------
+    ry = rows_bottom + 16
     chips = [
-        (r2_txt, "differential row, checked",
-         "of the realized gap, from spread × agreement, "
-         f"{gap['n']} judge-scored rounds"),
-        (mae_txt, "response row, checked",
-         "of the kept-mean rule against the next measured value, "
-         f"{resp['n']} rounds; no-change baseline {resp['no_change']:.3f}"),
+        (f"R² {gap['r2']:.2f}", f"checked, {gap['n']} rounds",
+         "realized gap, from spread × agreement"),
+        (f"MAE {resp['mae']:.3f}", f"checked, {resp['n']} rounds",
+         "kept-mean rule against the next measured value; "
+         f"no-change baseline {resp['no_change']:.3f}"),
     ]
     gapx = 28
     cw = (RX - LX - gapx) / 2
-    chip_h = 0
-    chip_svg = []
+    chip_h, chip_svg = 0, []
     for i, (num, tag, bodytxt) in enumerate(chips):
         cx = LX + i * (cw + gapx)
-        # number and its tag share a baseline, so the readout is two blocks tall
-        # instead of three — the figure's height is what pushed it out of
-        # landscape before.
-        t_num, _ = para(cx + 20, ry + 48, num, S_NUM, cw - 40, INK, "bold")
+        t_num = lbl(cx + 20, ry + 42, num, S_NUM, INK, "bold")
         tag_x = cx + 20 + measure(num, S_NUM, bold=True) + 14
-        t_tag, _ = para(tag_x, ry + 48, tag, S_TAG, cw - (tag_x - cx) - 20,
-                        GREEN, "bold")
-        t_body, e = para(cx + 20, ry + 76, bodytxt, S_BODY, cw - 40, INK,
-                          lh=BODY_LH)
+        t_tag = lbl(tag_x, ry + 42, tag, S_TAG, GREEN, "bold")
+        t_body, e = para(cx + 20, ry + 70, bodytxt, S_LBL, cw - 40, INK, lh=1.36)
         chip_h = max(chip_h, e - ry + 2)
-        chip_svg.append((cx, t_tag, t_num, t_body))
-    for cx, t_tag, t_num, t_body in chip_svg:
+        chip_svg.append((cx, t_num, t_tag, t_body))
+    for cx, t_num, t_tag, t_body in chip_svg:
         s.append(box(cx, ry, cw, chip_h, KEY_FILL, GREEN, 2.5))
-        s.append(t_tag)
         s.append(t_num)
+        s.append(t_tag)
         s.append(t_body)
-    ry += chip_h
-    return "\n".join(s), ry
+    return "\n".join(s), ry + chip_h
 
 
 def count_words(svg):
@@ -439,8 +569,10 @@ def main():
     print(f"kept-mean rule: n={resp['n']} MAE={resp['mae']:.4f} "
           f"no-change MAE={resp['no_change']:.4f} "
           f"(ladder anchor {resp['ladder_anchor']})")
+    print(f"schematic: mean of all six v={V_ALL:.3f}, mean of the two kept "
+          f"v={V_KEPT:.3f} (drawn from the same six coordinates)")
     body, end_y = build(gap, resp)
-    height = int(end_y + 22)
+    height = int(end_y + 18)
 
     # Nothing may run past the canvas: an early draft of this figure was clipped
     # at the right edge, so the check is part of the build.

@@ -91,8 +91,8 @@ condition: MAE 0.081 against 0.128 for no change."
 
 ## 6. Forecasting the gap, and iterating the update
 
-**On screen:** `model-recurrence.svg`. Caption: "Forecasting the gap costs
-little: 0.100 on matched rounds, against 0.085 with the kept mean."
+**On screen:** `model-recurrence.svg`, no caption — the figure holds the whole
+frame.
 
 > For endpoints, the model repeats this update from the round-one candidate
 > mean, holding spread, agreement, and pool composition fixed and clipping

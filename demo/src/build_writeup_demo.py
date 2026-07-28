@@ -154,6 +154,10 @@ def chrome(image: Image.Image, accent: str, index: int, total: int, caption: str
         fill=FAINT,
     )
     draw.line([80, 92, W - 80, 92], fill=HAIR, width=2)
+    # A scene with no caption gets no band either — an empty tinted strip reads as
+    # a missing element, and the figure is better off with the height.
+    if not caption:
+        return H - 40
     band_top = 986
     draw.rectangle([0, band_top, W, H], fill=blend(WHITE, accent_rgb, 0.10))
     draw.rectangle([0, band_top, W, band_top + 4], fill=accent_rgb)
@@ -211,7 +215,7 @@ def place_figure_box(image: Image.Image, filename: str, left: int, top: int,
 
 def build_figure_scene(scene, index: int, total: int):
     image = Image.new("RGB", (W, H), WHITE)
-    band = chrome(image, scene["accent"], index, total, scene["caption"])
+    band = chrome(image, scene["accent"], index, total, scene.get("caption", ""))
     place_figure(image, scene["fig"], 112, band - 14)
     image.save(FRAMES / f"scene_{index:02d}.png")
 

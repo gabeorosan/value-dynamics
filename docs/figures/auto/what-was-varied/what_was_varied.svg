@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1660 672" font-family="Helvetica, Arial, sans-serif">
+<rect width="1660" height="672" fill="white"/>
+<text x="50" y="84" font-family="Helvetica, Arial, sans-serif" font-size="50" fill="#1a1a1a" font-weight="bold" text-anchor="start">74 independent selection loops, varying three settings</text>
+<rect x="50" y="124" width="496" height="448" rx="10" fill="white" stroke="#1a1a1a" stroke-width="2.5"/>
+<rect x="582" y="124" width="496" height="448" rx="10" fill="white" stroke="#1a1a1a" stroke-width="2.5"/>
+<rect x="1114" y="124" width="496" height="448" rx="10" fill="white" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="74" y="180" font-family="Helvetica, Arial, sans-serif" font-size="36" fill="#1a1a1a" font-weight="bold" text-anchor="start">The organism</text>
+<text x="74" y="218" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#6b7684" font-weight="normal" text-anchor="start">the model that evolves</text>
+<rect x="80" y="284" width="61.60000000000001" height="48.400000000000006" rx="11.0" fill="white" stroke="#2867b5" stroke-width="3"/>
+<circle cx="99.8" cy="307.1" r="4.4" fill="#2867b5"/>
+<circle cx="121.80000000000001" cy="307.1" r="4.4" fill="#2867b5"/>
+<path d="M 97.6 320.3 Q 110.80000000000001 329.1 124.0 320.3" stroke="#2867b5" stroke-width="3" fill="none"/>
+<line x1="110.80000000000001" y1="284" x2="110.80000000000001" y2="273.0" stroke="#2867b5" stroke-width="3"/>
+<circle cx="110.80000000000001" cy="269.7" r="4.4" fill="#2867b5"/>
+<rect x="102.0" y="287.85" width="17.6" height="11.0" rx="2.2" fill="white" stroke="#2867b5" stroke-width="2.2" stroke-dasharray="3.4 2.4"/>
+<text x="174" y="304" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#2867b5" font-weight="bold" text-anchor="start">Qwen3-4B</text>
+<text x="174" y="336" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#1a1a1a" font-weight="normal" text-anchor="start">fine-tuned risk-seeking (16 runs)</text>
+<text x="174" y="368" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#1a1a1a" font-weight="normal" text-anchor="start">or to write insecure code (15 runs)</text>
+<rect x="80" y="434" width="61.60000000000001" height="48.400000000000006" rx="11.0" fill="white" stroke="#3a7d44" stroke-width="3"/>
+<circle cx="99.8" cy="457.1" r="4.4" fill="#3a7d44"/>
+<circle cx="121.80000000000001" cy="457.1" r="4.4" fill="#3a7d44"/>
+<path d="M 97.6 470.3 Q 110.80000000000001 479.1 124.0 470.3" stroke="#3a7d44" stroke-width="3" fill="none"/>
+<line x1="110.80000000000001" y1="434" x2="110.80000000000001" y2="423.0" stroke="#3a7d44" stroke-width="3"/>
+<circle cx="110.80000000000001" cy="419.7" r="4.4" fill="#3a7d44"/>
+<rect x="102.0" y="437.85" width="17.6" height="11.0" rx="2.2" fill="white" stroke="#3a7d44" stroke-width="2.2" stroke-dasharray="3.4 2.4"/>
+<text x="174" y="454" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#3a7d44" font-weight="bold" text-anchor="start">OLMo-3-7B</text>
+<text x="174" y="486" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#1a1a1a" font-weight="normal" text-anchor="start">fine-tuned risk-seeking (43 runs)</text>
+<text x="606" y="180" font-family="Helvetica, Arial, sans-serif" font-size="36" fill="#1a1a1a" font-weight="bold" text-anchor="start">The judge</text>
+<text x="606" y="218" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#6b7684" font-weight="normal" text-anchor="start">picks which of the six answers</text>
+<text x="606" y="246" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#6b7684" font-weight="normal" text-anchor="start">become the training data</text>
+<circle cx="618" cy="291" r="7" fill="#6b7684"/>
+<text x="640" y="300" font-family="Helvetica, Arial, sans-serif" font-size="27" fill="#6b7684" font-weight="normal" text-anchor="start">no judge — keep at random</text>
+<circle cx="618" cy="351" r="7" fill="#1a1a1a"/>
+<text x="640" y="360" font-family="Helvetica, Arial, sans-serif" font-size="27" fill="#1a1a1a" font-weight="normal" text-anchor="start">the untrained base model</text>
+<circle cx="618" cy="411" r="7" fill="#1a1a1a"/>
+<text x="640" y="420" font-family="Helvetica, Arial, sans-serif" font-size="27" fill="#1a1a1a" font-weight="normal" text-anchor="start">the organism judging itself</text>
+<circle cx="618" cy="471" r="7" fill="#1a1a1a"/>
+<text x="640" y="480" font-family="Helvetica, Arial, sans-serif" font-size="27" fill="#1a1a1a" font-weight="normal" text-anchor="start">an oracle scoring the value</text>
+<text x="640" y="540" font-family="Helvetica, Arial, sans-serif" font-size="25" fill="#6b7684" font-weight="normal" text-anchor="start">… 7 kinds in all</text>
+<text x="1138" y="180" font-family="Helvetica, Arial, sans-serif" font-size="36" fill="#1a1a1a" font-weight="bold" text-anchor="start">The candidate pool</text>
+<text x="1138" y="218" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#6b7684" font-weight="normal" text-anchor="start">source of the six answers per prompt</text>
+<circle cx="1150" cy="288" r="10" fill="#1a1a1a"/>
+<circle cx="1182" cy="288" r="10" fill="#1a1a1a"/>
+<circle cx="1214" cy="288" r="10" fill="#1a1a1a"/>
+<circle cx="1246" cy="288" r="10" fill="#1a1a1a"/>
+<circle cx="1278" cy="288" r="10" fill="#1a1a1a"/>
+<circle cx="1310" cy="288" r="10" fill="#1a1a1a"/>
+<text x="1138" y="330" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#1a1a1a" font-weight="normal" text-anchor="start">the organism's own answers only</text>
+<circle cx="1150" cy="392" r="10" fill="#1a1a1a"/>
+<circle cx="1182" cy="392" r="10" fill="#1a1a1a"/>
+<circle cx="1214" cy="392" r="10" fill="#1a1a1a"/>
+<circle cx="1246" cy="392" r="10" fill="white" stroke="#6b7684" stroke-width="2.6"/>
+<circle cx="1278" cy="392" r="10" fill="white" stroke="#6b7684" stroke-width="2.6"/>
+<circle cx="1310" cy="392" r="10" fill="white" stroke="#6b7684" stroke-width="2.6"/>
+<text x="1138" y="434" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#1a1a1a" font-weight="normal" text-anchor="start">half from the untrained base model</text>
+<circle cx="1150" cy="496" r="10" fill="#1a1a1a"/>
+<circle cx="1182" cy="496" r="10" fill="#1a1a1a"/>
+<circle cx="1214" cy="496" r="10" fill="#1a1a1a"/>
+<circle cx="1246" cy="496" r="10" fill="white" stroke="#6b7684" stroke-width="2.6" stroke-dasharray="4.4 3.2"/>
+<circle cx="1278" cy="496" r="10" fill="white" stroke="#6b7684" stroke-width="2.6" stroke-dasharray="4.4 3.2"/>
+<circle cx="1310" cy="496" r="10" fill="white" stroke="#6b7684" stroke-width="2.6" stroke-dasharray="4.4 3.2"/>
+<text x="1138" y="538" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#1a1a1a" font-weight="normal" text-anchor="start">half from a peer copy</text>
+<text x="50" y="620" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#6b7684" font-weight="normal" text-anchor="start">One run = one seeded loop under one choice of each setting; 340 recorded rounds across the 74 runs.</text>
+<text x="50" y="648" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#6b7684" font-weight="normal" text-anchor="start">Counts recomputed from experiments/spread_util_unified.json.</text>
+</svg>

@@ -392,11 +392,11 @@ def build_statement_scene(scene, index: int, total: int):
     image.save(FRAMES / f"scene_{index:02d}.png")
 
 
-# Human narration: drop one file per scene into demo/voice/ (or VD_VOICE_DIR) named
+# Human narration: drop one file per scene into demo/demo_audio/ (or VD_VOICE_DIR) named
 # scene_00.* .. scene_NN.* in scene order, any format ffmpeg reads (mov, m4a, wav).
 # A scene with no file falls back to the synthesized voice, so a part-recorded cut
 # still builds.
-TAKES = Path(os.environ.get("VD_VOICE_DIR", ROOT / "demo" / "voice"))
+TAKES = Path(os.environ.get("VD_VOICE_DIR", ROOT / "demo" / "demo_audio"))
 TAKE_SUFFIXES = (".mov", ".mp4", ".m4a", ".aac", ".mp3", ".wav", ".aiff", ".caf")
 
 

@@ -1,5 +1,7 @@
 # Value Dynamics
 
+https://github.com/user-attachments/assets/0babf9e7-78f6-4032-8ada-10690fce14d2
+
 **How do a model's values change when it drives its own training?**
 
 AI increasingly generates and selects its own training data, through
@@ -15,8 +17,6 @@ value changed.
 **📄 [Read the writeup](https://gabeorosan.github.io/value-dynamics/)**
 &nbsp;·&nbsp;
 **▶ [Watch the 5-minute demo](https://gabeorosan.github.io/value-dynamics/demo.html)**
-
-[![Narrated walkthrough of the writeup](site/media/demo_preview.gif)](https://gabeorosan.github.io/value-dynamics/demo.html)
 
 ![](docs/figures/hero_vision.svg)
 

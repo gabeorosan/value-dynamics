@@ -63,7 +63,7 @@
     "accent": "#2d6fa8",
     "fig": "rollouts-vs-observed-spaghetti.svg.png",
     "caption": "Simulated against observed: total change 0.709/0.648, direction changes 1.22/1.20, endpoint SD 0.387/0.370",
-    "narration": "Sampled forward, the stochastic model reproduces the dynamics of the observed trajectories: the total round-to-round value change over a run is about the same as observed, runs change direction about as often, and eighty-nine percent of final values fall inside the predicted eighty percent band."
+    "narration": "Adding noise gives a stochastic version that reproduces the dynamics of the observed trajectories. Simulated and observed trajectories have about the same total round-to-round value change, direction changes, and cross-run endpoint spreads, and across runs, eighty-nine percent of observed final values fall within the model's eighty percent endpoint bands."
   },
   {
     "kind": "fig",

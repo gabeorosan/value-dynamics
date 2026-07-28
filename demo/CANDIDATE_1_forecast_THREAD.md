@@ -37,7 +37,7 @@ writeup.
 
 **8/**
 
-> Adding a noise term at each stage, sized from the measured residuals, reproduces the observed dynamics. Simulated runs accumulate about as much round-to-round value change as the real ones, change direction about as often, and scatter about as widely at the end.
+> Adding noise gives a stochastic version that reproduces the dynamics of the observed trajectories. Simulated and observed trajectories have about the same total round-to-round value change, the same direction changes per run, and about the same cross-run endpoint spread.
 
 **9/**
 

@@ -1,6 +1,6 @@
 # Value Dynamics candidate 1: the faithful walkthrough
 
-Runtime about 4:45 (11 scenes, 723 narration words), pending a re-render.
+Runtime about 4:45 (11 scenes, 727 narration words), pending a re-render.
 
 This candidate follows `docs/writeup_value_dynamics_sprint.md` section by
 section, in the writeup's own order: the vision and the gap, the judging loop
@@ -131,15 +131,15 @@ and how each term was sized from the measured residuals."
 observed: total change 0.709/0.648, direction changes 1.22/1.20, endpoint SD
 0.387/0.370."
 
-> Sampled forward, the stochastic model reproduces the dynamics of the
-> observed trajectories: the total round-to-round value change over a run is
-> about the same as observed, runs change direction about as often, and
-> eighty-nine percent of final values fall inside the predicted eighty
-> percent band.
+> Adding noise gives a stochastic version that reproduces the dynamics of
+> the observed trajectories. Simulated and observed trajectories have about
+> the same total round-to-round value change, direction changes, and
+> cross-run endpoint spreads, and across runs, eighty-nine percent of
+> observed final values fall within the model's eighty percent endpoint
+> bands.
 
-"About as much" covers 0.709 against 0.648, "about as often" covers 1.22 against
-1.20, and "about as widely" covers 0.387 against 0.370. The three pairs are in
-the caption for anyone who wants to check the word against the number.
+This is the writeup's finding 2, with its three parenthesised pairs left to the
+caption: 0.709 against 0.648, 1.22 against 1.20, and 0.387 against 0.370.
 
 ## 10. Interventions
 

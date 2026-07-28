@@ -1,6 +1,6 @@
 # Value Dynamics candidate 1: the faithful walkthrough
 
-Runtime about 5:05 (11 scenes, 779 narration words).
+Runtime about 4:55 (11 scenes, 746 narration words).
 
 This candidate follows `docs/writeup_value_dynamics_sprint.md` section by
 section, in the writeup's own order: the vision and the gap, the judging loop
@@ -112,9 +112,7 @@ against 0.31 to 0.43."
 > The background is the change the model predicts for a run starting at each
 > first-round spread and agreement, averaged over the initial candidate
 > means and measured values so that the prediction depends on those two axes
-> alone; every dot is a real run. The dots sit where the background says
-> they should, and they keep sitting there as the forecast reaches further
-> ahead, because a run moves mostly in its first rounds and then levels off.
+> alone; every dot is a real run.
 
 ## 8. Where the noise enters
 

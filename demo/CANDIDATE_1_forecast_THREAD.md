@@ -37,7 +37,7 @@ writeup.
 
 **8/**
 
-> Adding noise gives a stochastic version that reproduces the dynamics of the observed trajectories. Simulated and observed trajectories have about the same total round-to-round value change, the same direction changes per run, and about the same cross-run endpoint spread.
+> Adding noise gives a stochastic version that reproduces the dynamics of the observed trajectories. Simulated and observed trajectories have about the same total round-to-round value change, direction changes per run, and cross-run endpoint spread.
 
 **9/**
 

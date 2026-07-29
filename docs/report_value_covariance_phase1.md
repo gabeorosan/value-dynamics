@@ -305,6 +305,15 @@ B). That branch is strict rather than permissive — it can only fail a judge it
 have passed — but it should be re-derived with the symmetric-Beta family before it
 alone decides anything.
 
+**The length control was already fixed on 2026-07-25** (commit `51c7e02`), which the
+correction list above — written before that commit — leaves ambiguous. `residualize_on_length`
+now centres length within prompt, matching the covariance estimator. The consequence for
+citation: the `correlation_net_of_length` matrices *inside the shipped JSON* are the
+attenuated, pre-fix version — they move the off-diagonals by a mean of only **0.0029**
+(judge A, pool A; largest single entry 0.0135) — while the corrected specification moves
+them by **0.0077**. Both are third-decimal, so "not a length artifact" survives either way,
+but quote 0.0077, not the number recomputable from the JSON.
+
 Still outstanding: **persist per-comparison probabilities**, so a shuffled-label
 permutation null can be computed from a run's own data instead of from a calibrated
 model of it. That is the version of this gate that needs no response-family assumption

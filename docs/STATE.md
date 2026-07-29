@@ -46,7 +46,16 @@ reset.** Colab has a usable T4 today.
 
 | Job | Where | Status |
 |---|---|---|
-| Value-covariance **phase 1b** (graded 0–9 logprob scoring, batch calibration, four pre-registered gates) | **Colab T4, RUNNING** since 2026-07-29 ~12:16Z | Notebook `Untitled70.ipynb`. Self-contained: clones the public repo, no Drive. Judge A = Qwen3-4B, **judge B = microsoft/Phi-3-mini-4k-instruct** (a genuinely different family — the script's own fallback, Qwen2.5-3B, shares a vendor with judge A and would have inflated the cross-judge agreement gate). Writes `/content/phase1b.json`, checkpointed after every stage. |
+| Value-covariance **phase 1b** (graded 0–9 logprob scoring, batch calibration, four pre-registered gates) | **Colab T4, RUNNING** since 2026-07-29 | Notebook `Untitled70.ipynb`, self-contained (clones the public repo, no Drive). **Generator + judge A = Qwen/Qwen3.5-4B (2026-02); judge B = mistralai/Ministral-3-3B-Instruct-2512 (Apache 2.0).** Writes `/content/phase1b.json`, checkpointed after every stage. |
+
+**Model choice (user directive 2026-07-29: use current models, ideally 2026).**
+The first launch used Qwen3-4B with Phi-3-mini as judge B; Phi-3 is a 2024 model
+and a weak judge, so it was stopped. Both replacements were pre-flighted on CPU
+with `experiments/value_covariance/check_judge_models.py` before any GPU time:
+digits 0–9 resolve to single tokens on both, Qwen3.5-4B's thinking block renders
+already closed, and Ministral's template has no thinking block at all. Judge B is
+deliberately from a different vendor — a Qwen judge B scored against a Qwen judge
+A passes the cross-judge agreement gate on shared bias.
 
 The Kaggle copy stays queued for the 08-01 reset as a second, independent run.
 

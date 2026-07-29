@@ -29,8 +29,14 @@ falls 16/16" claim that reports/report_identity_selfother_offtarget.md corrected
   pointers. **docs/PLAN.md** — the plan; its Document index governs plan docs.
 - **README.md + docs/writeup_value_dynamics_sprint.md** — public summaries;
   every claim must match a ledger row.
-- **docs/report_*.md** — one report per experiment/analysis; a report may be
-  partially superseded — the ledger row, not the report, is current truth.
+- **docs/reports/report_*.md** — one report per experiment/analysis; a report may
+  be partially superseded — the ledger row, not the report, is current truth.
+  (Reports lived in two places until 2026-07-28; the thirteen that sat at
+  `docs/` root were moved into `docs/reports/` and every reference updated.
+  There is now exactly one reports directory.)
+- **docs/reports/lit_*.md** — literature reviews. Not result claims about our
+  data; they never get ledger rows, and a claim sourced from one must name the
+  external paper, not the review.
 - **Audits (report_*audit*.md)** — point-in-time external reviews; historical
   by nature, never cite as current.
 - **Bannered docs** (`> **HISTORICAL/SUPERSEDED...**` at top) — do not cite:

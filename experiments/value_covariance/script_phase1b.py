@@ -10,7 +10,7 @@ VALUE-BLIND judge manufactures at the observed order-flip rate (~0.16 floor,
 scripts/sim_winrate_null_floor.py). The forced-choice win-rate construction is
 indicted: pairwise reads carry position noise, and averaging wins over noisy pairs
 converts that noise into spread that looks like signal. See
-docs/report_value_covariance_phase1.md and its 07-28 addendum.
+docs/reports/report_value_covariance_phase1.md and its 07-28 addendum.
 
 WHAT CHANGES. The scoring construction is replaced, and the instrument must pass
 POSITIVE controls before any covariance is read:

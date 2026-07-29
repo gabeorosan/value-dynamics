@@ -206,7 +206,7 @@ def rlab_of(rho):
 
 
 # ---- the rows (one per setup) -------------------------------------------
-# Organism identities read from the data / docs/report_spread_util_unified.md:
+# Organism identities read from the data / docs/reports/report_spread_util_unified.md:
 #   OLMo | risk        = "K2 OLMo gamble organisms"  -> OLMo risky-gambles, risk value
 #   Qwen | risk        = "K1 Qwen risk grid"         -> Qwen risk-grid, risk value
 #   Qwen | selfreport  = insecure-code EM organism   -> Qwen insecure-code, self-description value

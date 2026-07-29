@@ -451,7 +451,7 @@ def instrument_check(scores, order_gap, label):
     # which is wrong for this design: win rates built from pairwise comparisons carry
     # spread whenever the judge answers on presentation position rather than content.
     #
-    # HISTORY, so nobody reinstates either mistake (see docs/report_value_covariance_
+    # HISTORY, so nobody reinstates either mistake (see docs/reports/report_value_covariance_
     # phase1.md, addendum 2026-07-28). The original gate `worst >= 0.05` certified the
     # 2026-07-25 run as USABLE. It was replaced by the analytic expression
     # `order_gap * 0.5 / sqrt(n_candidates - 1)` = 0.115 at that run's gap of 0.609 --

@@ -32,7 +32,7 @@ Inputs (all committed):
       (raw; round-1 pools for P-C spread and the fresh factorization check)
 
 Output: experiments/control_arm_forecast_score.json
-Report: docs/report_control_arm_forecast_score.md
+Report: docs/reports/report_control_arm_forecast_score.md
 
 Run: uv run python scripts/analysis_control_arm_forecast_score.py
 """

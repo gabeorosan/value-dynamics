@@ -345,7 +345,7 @@ b.append(text_el(60, 992, "Data: experiments/olmo_insecure/output/"
                  "olmo_alpha_scaling_analysis.json "
                  "(scripts/analysis_olmo_alpha_scaling.py)", 18, GRAY))
 b.append(text_el(60, 1016, "Report: docs/reports/report_olmo_alpha_scaling.md · "
-                 "em_freegen flag: docs/report_em_freegen_manual_"
+                 "em_freegen flag: docs/reports/report_em_freegen_manual_"
                  "adjudication.md · Qwen companion figure: "
                  "methods_alpha_scaling.svg", 18, GRAY))
 

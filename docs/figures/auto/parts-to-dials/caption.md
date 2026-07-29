@@ -20,7 +20,7 @@ form: the selector gap g = ρσ, and the new value = k = p + ρσ on a 0–1 val
 line (p tick, an arrow of length ρσ, k tick). Orientation only — the worked
 numbers live in the prose, not the figure.
 
-Source data / prose: `docs/report_spread_util_unified.md` (agreement-by-cell
+Source data / prose: `docs/reports/report_spread_util_unified.md` (agreement-by-cell
 table §4: reference +0.38 → duels +0.10, oracle −1.00; matched twin pair §3;
 between-source spread shares §3). Column-1 chip colours and slot numbers match
 `docs/figures/src/synthesis_experiment_kit.py`; value-line motif and palette

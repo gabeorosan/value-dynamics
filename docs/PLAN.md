@@ -139,7 +139,7 @@ The user cut the writeup down to one spine (07-15): **selection gap predicts
 movement → the gap is spread × utilization → simple models for spread and
 utilization.** Everything else compresses into supporting evidence for those
 three sections or moves to an appendix. Supporting analysis landed the same
-night: docs/report_spread_util_unified.md (drift ≈ 0.83·pull unifies own-pool
+night: docs/reports/report_spread_util_unified.md (drift ≈ 0.83·pull unifies own-pool
 and mixed rounds; the Price selection differential is predicted by the simple
 unit proxy `gap = ρσ`, with empirical calibration `−0.002+0.958ρσ` at r=0.90
 including mixed pools; ρ between-cell variance share

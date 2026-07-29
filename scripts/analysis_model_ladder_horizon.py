@@ -5,7 +5,7 @@ Connects two published results on the same corpus:
   - one-round value predictor (kept-mean one-step law, pooled MAE ~0.081,
     docs/reports/report_value_predictor_models.md)
   - closed-loop endpoint rollout (LOCO frozen mean-SD model, selection-driven
-    endpoint MAE ~0.127, docs/report_spread_rollout_bakeoff.md)
+    endpoint MAE ~0.127, docs/reports/report_spread_rollout_bakeoff.md)
 
 Question: how does forecast error grow with forecast horizon (rounds ahead of
 the first measured pool) for each simple model?
@@ -49,7 +49,7 @@ window; target = that round's observed value_after_true):
                            swap round onward.
 
 Output: experiments/model_ladder_horizon.json
-Report: docs/report_model_ladder_horizon.md (written separately)
+Report: docs/reports/report_model_ladder_horizon.md (written separately)
 
 Run: uv run python scripts/analysis_model_ladder_horizon.py
 """

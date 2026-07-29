@@ -16,7 +16,7 @@ questions at different information budgets. The one-round value predictor
 (`docs/reports/report_value_predictor_models.md`) says: given this round's measured
 pool, the mean value score of the kept training answers predicts the next
 behavioral value with pooled mean absolute error about 0.081. The closed-loop
-rollout bakeoff (`docs/report_spread_rollout_bakeoff.md`) says: measuring a run
+rollout bakeoff (`docs/reports/report_spread_rollout_bakeoff.md`) says: measuring a run
 once, at its first modelable round, and rolling the fitted frozen-mean-SD model
 forward gives an endpoint mean absolute error of about 0.127 on the
 selection-driven runs under leave-one-condition-out validation. The

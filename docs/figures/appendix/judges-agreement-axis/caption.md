@@ -31,7 +31,7 @@ a self-judge is blue wherever it appears.
 ## The rows, grouped
 
 Organism identities are read from the data and
-`docs/report_spread_util_unified.md` (which names the runs), NOT guessed: cells
+`docs/reports/report_spread_util_unified.md` (which names the runs), NOT guessed: cells
 keyed `OLMo | risk` are the "K2 OLMo gamble organisms" → **OLMo risky-gambles**,
 risk value; cells keyed `Qwen | risk` are the "K1 Qwen risk grid" → **Qwen
 risk-grid**, risk value; the cell keyed `Qwen | selfreport` is the insecure-code
@@ -113,7 +113,7 @@ round-to-round noise within a setup.
   mean `supplier_present_mean = −0.2847`); the figure plots the committed −0.236
   value from `spread_util_unified.json` for that dot. The generator asserts the
   +0.3971 value against this file before writing the SVG.
-- `docs/report_spread_util_unified.md` — names the runs (the K1 Qwen risk grid,
+- `docs/reports/report_spread_util_unified.md` — names the runs (the K1 Qwen risk grid,
   the K2 OLMo gamble organisms, the insecure-code EM organisms) and cross-checks
   the ρ values and the 0.82 variance share.
 

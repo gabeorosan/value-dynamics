@@ -60,5 +60,5 @@ that scales the spread term by 0.958 differs by less than 0.001 at every horizon
 `h1_predicting_vs_observing_selection_gap.matched_set_excluding_glued`; anchors
 under `anchors`). The unit-recurrence trajectories originate in
 `experiments/selection_response_predictor.json`. Method and anchors in
-`docs/report_model_ladder_horizon.md`. The generator `model-ladder-horizon.py`
+`docs/reports/report_model_ladder_horizon.md`. The generator `model-ladder-horizon.py`
 reads the JSON and asserts every plotted value before drawing.

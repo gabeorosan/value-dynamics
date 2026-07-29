@@ -18,7 +18,7 @@ same-axis agreement 0.345–0.467, and every judge-A win-rate spread sits at or 
 (`scripts/sim_winrate_null_floor.py`). The indicted piece is the forced-choice WIN-RATE
 construction — pairwise position noise, averaged over few noisy reads, becomes spread
 that mimics signal — plus a gate calibrated against a zero floor. Full account:
-`docs/report_value_covariance_phase1.md` (07-25 corrections + 07-28 addendum).
+`docs/reports/report_value_covariance_phase1.md` (07-25 corrections + 07-28 addendum).
 
 Phase 1b changes the scoring construction and makes the instrument prove itself:
 

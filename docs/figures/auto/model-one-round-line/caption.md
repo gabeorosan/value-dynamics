@@ -36,4 +36,4 @@ for assuming no change, over **340** rounds under leave-one-condition-out
 Source data: `experiments/value_predictor_bakeoff.json`
 (`one_round.leave_one_condition_out`: `kept_target_identity.mae` = 0.081157,
 `no_change.mae` = 0.127883, n = 340). The generator asserts these from the file
-rather than hardcoding. Model narrative: `docs/report_spread_util_unified.md`.
+rather than hardcoding. Model narrative: `docs/reports/report_spread_util_unified.md`.

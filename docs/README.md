@@ -19,13 +19,13 @@ These stay at the top level of `docs/` because the writeup names them.
 
 | Report | What it covers |
 |---|---|
-| [`report_spread_util_unified.md`](report_spread_util_unified.md) | Descriptive accounting over 340 selection rounds from 74 runs: how far the generator moves toward the kept training targets, and the factorization of the selector gap into value spread and judge agreement. |
-| [`report_spread_rollout_bakeoff.md`](report_spread_rollout_bakeoff.md) | Closed-loop multi-round test of the spread model against alternatives. Each simulator observes only a held-out run's first round, then forecasts the rest. |
-| [`report_model_ladder_horizon.md`](report_model_ladder_horizon.md) | The same candidate models arranged by forecast horizon, measuring how error grows with the number of rounds forecast ahead. |
-| [`report_trajectory_adjustment_bakeoff.md`](report_trajectory_adjustment_bakeoff.md) | Where the noise in a trajectory enters the loop, fit per held-out condition, and a test of whether judge feedback validates the fit. |
-| [`report_code_security_control_arms.md`](report_code_security_control_arms.md) | The OLMo code-security experiment and its supplier-removed control arms: self-only against a fixed secure reference, and self-only duels. |
-| [`report_control_arm_forecast_score.md`](report_control_arm_forecast_score.md) | Scores the control-arm forecast registered in [`prereg/prereg_control_arm_prospective_forecast.md`](prereg/prereg_control_arm_prospective_forecast.md) against what the arms actually produced. |
-| [`report_prewriteup_reproduction_gate.md`](report_prewriteup_reproduction_gate.md) | A re-run of every modeling script the writeup cites, comparing each script's output against its committed result JSON. |
+| [`report_spread_util_unified.md`](reports/report_spread_util_unified.md) | Descriptive accounting over 340 selection rounds from 74 runs: how far the generator moves toward the kept training targets, and the factorization of the selector gap into value spread and judge agreement. |
+| [`report_spread_rollout_bakeoff.md`](reports/report_spread_rollout_bakeoff.md) | Closed-loop multi-round test of the spread model against alternatives. Each simulator observes only a held-out run's first round, then forecasts the rest. |
+| [`report_model_ladder_horizon.md`](reports/report_model_ladder_horizon.md) | The same candidate models arranged by forecast horizon, measuring how error grows with the number of rounds forecast ahead. |
+| [`report_trajectory_adjustment_bakeoff.md`](reports/report_trajectory_adjustment_bakeoff.md) | Where the noise in a trajectory enters the loop, fit per held-out condition, and a test of whether judge feedback validates the fit. |
+| [`report_code_security_control_arms.md`](reports/report_code_security_control_arms.md) | The OLMo code-security experiment and its supplier-removed control arms: self-only against a fixed secure reference, and self-only duels. |
+| [`report_control_arm_forecast_score.md`](reports/report_control_arm_forecast_score.md) | Scores the control-arm forecast registered in [`prereg/prereg_control_arm_prospective_forecast.md`](prereg/prereg_control_arm_prospective_forecast.md) against what the arms actually produced. |
+| [`report_prewriteup_reproduction_gate.md`](reports/report_prewriteup_reproduction_gate.md) | A re-run of every modeling script the writeup cites, comparing each script's output against its committed result JSON. |
 
 ## Live working files
 

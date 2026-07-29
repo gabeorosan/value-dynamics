@@ -38,7 +38,7 @@ verbatim from `rollout()` in
 `docs/figures/auto/spread-rollout-bakeoff/spread-rollout-bakeoff.py` (its provenance
 is `scripts/analysis_trajectory_adjustments.py`; residual scales are the
 leave-one-condition-out unit-core pools; report at
-`docs/report_trajectory_adjustment_bakeoff.md`). The σ = spread and ρ = agreement
+`docs/reports/report_trajectory_adjustment_bakeoff.md`). The σ = spread and ρ = agreement
 inputs are the committed estimators documented on the measurements figure.
 
 **Typesetting note.** Every display equation is set with matplotlib's mathtext

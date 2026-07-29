@@ -52,7 +52,7 @@ family — one passed forward test, not a forecasting track record.
   `docs/prereg/prereg_control_arm_prospective_forecast.md`)
 - Scored outcome: `experiments/control_arm_forecast_score.json`, produced by
   `scripts/analysis_control_arm_forecast_score.py` (report:
-  `docs/report_control_arm_forecast_score.md`)
+  `docs/reports/report_control_arm_forecast_score.md`)
 - Observed trajectories (live `organism_baseline`/`organism_round_1..3`
   `live_llm_mean_FLAGGED`):
   `experiments/olmo_insecure/output/olmo_code_security_static_reference_v1_analysis.json`

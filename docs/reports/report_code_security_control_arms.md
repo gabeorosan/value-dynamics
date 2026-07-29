@@ -14,7 +14,7 @@ material test) + their blind Sonnet audit directories. Scorers:
 `scripts/analysis_olmo_code_security_material_width.py` →
 `experiments/olmo_code_security_material_width_comparison.json`. The
 preregistered forecast for these arms is scored separately in
-`docs/report_control_arm_forecast_score.md` (it held).*
+`docs/reports/report_control_arm_forecast_score.md` (it held).*
 
 ## The question
 

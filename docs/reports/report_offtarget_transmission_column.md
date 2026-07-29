@@ -4,8 +4,10 @@
 `scripts/analysis_offtarget_transmission_column.py` · **Result**
 `experiments/offtarget_transmission_column.json` · **Data**
 `experiments/spread_util_unified.json` joined to `experiments/ev_bias_coupling.json`
-and `experiments/selfreport_calibration_k2.json` — 280 rounds from 59 runs, all
-with a risk-preference axis under selection
+and `experiments/selfreport_calibration_k2.json` — up to 280 rounds from 59 runs,
+all with a risk-preference axis under selection. Each off-target axis has its own
+sample: belief bias 280 / 59, numeric estimate 247 / 57, stated tolerance 200 / 39
+and OLMo-only
 
 ## The question, and why the channel matters more than the coefficient
 
@@ -33,7 +35,9 @@ consequences:
 ## The identifying idea
 
 Per round the pull on the selected axis decomposes into two additive pieces that
-are only weakly correlated in this corpus (r = 0.16):
+are only weakly correlated in the fitted panel (**r = 0.103** over its 280
+risk-axis rounds — an earlier draft quoted 0.16, which is neither this figure nor
+the all-records figure of 0.152):
 
     pull  =  supply  +  gap
              (pool_mean − v)   (kept_mean − pool_mean)
@@ -72,13 +76,16 @@ this from the on-target case, where both sides contain `v_t`.
 Corrected coefficients, run-clustered bootstrap intervals on the difference. All
 rows come from runs where the *risk* axis was under selection.
 
-### Pooled (280 rounds, 59 runs)
+### Pooled
 
-| off-target axis | gap coefficient | supply coefficient | gap − supply | verdict |
-|---|---|---|---|---|
-| EV belief bias | **+0.134** | **+0.141** | −0.007 [−0.150, +0.117] | same channel |
-| stated risk tolerance | **+0.032** | **+0.036** | −0.004 [−0.042, +0.030] | same channel |
-| EV numeric estimate | −0.023 | +0.003 | −0.026 [−0.166, +0.023] | no movement either way |
+Each axis has its own sample, so the row counts differ. **Stated risk tolerance
+exists only on OLMo, so its pooled row and its OLMo row are the same data.**
+
+| off-target axis | rounds / runs | gap coefficient | supply coefficient | gap − supply | verdict |
+|---|---|---|---|---|---|
+| EV belief bias | 280 / 59 | **+0.134** | **+0.141** | −0.007 [−0.150, +0.117] | same channel |
+| stated risk tolerance | 200 / 39 (OLMo only) | **+0.032** | **+0.036** | −0.004 [−0.042, +0.030] | same channel |
+| EV numeric estimate | 247 / 57 | −0.023 | +0.003 | −0.026 [−0.166, +0.023] | barely moves |
 
 ### OLMo alone (216 rounds, 43 runs — the arm carrying the evidence)
 
@@ -104,9 +111,10 @@ predicted it.
 
 **Three axes, three behaviours — so this column is not rank-1.** EV belief bias
 moves at +0.134 per unit pull. Stated risk tolerance moves at +0.032. The
-numeric EV estimate does not move at all. Asked as a comparison, beliefs bend
-with preference; asked as a number, they do not — the same underlying quantity,
-insulated by the question format. That is a structured column, not a single
+numeric EV estimate barely moves — −0.31 of its own round-change standard
+deviation per unit gap, against +2.64 for belief bias. Asked as a comparison,
+beliefs bend with preference; asked as a number, they very nearly do not — the
+same underlying quantity, insulated by the question format. That is a structured column, not a single
 general factor, and it is evidence against the rank-1 prediction that "narrow
 misalignment is hard" ([arXiv 2602.07852](https://arxiv.org/abs/2602.07852))
 would make. One column is not a matrix, so this is a first data point rather
@@ -130,7 +138,11 @@ is asked in, and previous statements did not say.
   causal version needs off-target readouts added to an instrumented run.
 - **Not a matrix.** One selected axis, three off-target axes, one organism
   family carrying the evidence.
-- **Not a strong claim about the numeric estimate.** The OLMo numeric-estimate
+- **"Does not move" is too strong for the numeric estimate.** Its naive
+  selection-differential interval is [−0.090, −0.001], which does clear zero. The
+  defensible statement is the standardised one: it moves −0.31 of its own
+  round-to-round SD per unit gap, against +2.64 for belief bias.
+- **Not a strong claim about the numeric estimate's channel split.** The OLMo numeric-estimate
   cell is the one difference whose interval excludes zero, at +0.012 [+0.002,
   +0.031], with both coefficients negligible (−0.003 and −0.016). It is one of
   nine comparisons and should be read as multiplicity until it replicates.

@@ -1,0 +1,313 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1812 2211" width="1812" height="2211" font-family="Helvetica, Arial, sans-serif">
+<rect width="1812" height="2211" fill="white"/>
+<text x="906.0" y="62.0" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Correct the pool-offset channel for measurement noise, and</text>
+<text x="906.0" y="104.0" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#b5342c" font-weight="bold" text-anchor="middle">the difference between the two channels disappears</text>
+<text x="906.0" y="148.0" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="middle">Three axes nobody selected on, tracked every round of self-training runs in which a risk-preference axis was under selection. Each round's pull on the selected axis</text>
+<text x="906.0" y="172.7" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="middle">splits into two additive parts that are only weakly correlated with each other (r = 0.10 across the 280 joined rounds); each off-target axis's round-to-round change is</text>
+<text x="906.0" y="197.4" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="middle">regressed on both parts at once.</text>
+<text x="331.0" y="238.0" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#1a1a1a" font-weight="bold" text-anchor="start">one round's pull on the risk-preference score</text>
+<text x="922.9" y="238.0" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#6b7684" font-weight="normal" text-anchor="start">  =  </text>
+<text x="984.9" y="238.0" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#2867b5" font-weight="bold" text-anchor="start">selection differential</text>
+<text x="1274.3" y="238.0" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#6b7684" font-weight="normal" text-anchor="start">  +  </text>
+<text x="1336.3" y="238.0" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#3a7d44" font-weight="bold" text-anchor="start">pool offset</text>
+<rect x="56.0" y="262.0" width="844.0" height="162.1" rx="8" fill="white" stroke="#2867b5" stroke-width="3"/>
+<circle cx="86" cy="292" r="10" fill="#2867b5"/>
+<text x="106.0" y="299.0" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#1a1a1a" font-weight="bold" text-anchor="start">selection differential</text>
+<text x="78.0" y="328.0" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="start">= mean of the two answers the judge kept  −  mean of the candidate pool</text>
+<text x="78.0" y="360.0" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="normal" text-anchor="start">How far above its own pool the judge's two keepers sat. It is computed from</text>
+<text x="78.0" y="384.7" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="normal" text-anchor="start">candidate scores that are observed exactly, so it carries no measurement error.</text>
+<rect x="940.0" y="262.0" width="816.0" height="162.1" rx="8" fill="white" stroke="#3a7d44" stroke-width="3"/>
+<circle cx="970" cy="292" r="10" fill="#3a7d44"/>
+<text x="990.0" y="299.0" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#1a1a1a" font-weight="bold" text-anchor="start">pool offset</text>
+<text x="962.0" y="328.0" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="start">= mean of the candidate pool  −  the organism's current risk score</text>
+<text x="962.0" y="360.0" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="normal" text-anchor="start">The pool is not centred on the organism, so it pulls the score even in a round</text>
+<text x="962.0" y="384.7" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="normal" text-anchor="start">where the judge selects nothing. It contains the organism's measured current</text>
+<text x="962.0" y="409.4" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="normal" text-anchor="start">value, and measurement noise is 46–50% of its observed variance.</text>
+<rect x="56.0" y="446.1" width="1700.0" height="122.8" rx="8" fill="#eef5ee" stroke="#3a7d44" stroke-width="2.5"/>
+<text x="78.0" y="480.1" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="start">How to read the two coefficients for an axis nobody selected on</text>
+<text x="78.0" y="504.8" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="normal" text-anchor="start">selection-differential coefficient much larger than pool-offset coefficient → the judge is dragging that axis along, and scoring candidates on the axis before any</text>
+<text x="78.0" y="529.5" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="normal" text-anchor="start">training would predict the movement.</text>
+<text x="78.0" y="554.2" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="normal" text-anchor="start">the two coefficients roughly equal → the axis follows the organism whatever moved it: the Price equation's transmission term, which no candidate score predicts.</text>
+<text x="56.0" y="630.9" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#1a1a1a" font-weight="bold" text-anchor="start">Three axes measured</text>
+<text x="56.0" y="658.2" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#1a1a1a" font-weight="bold" text-anchor="start">every round, none of</text>
+<text x="56.0" y="685.5" font-family="Helvetica, Arial, sans-serif" font-size="21" fill="#1a1a1a" font-weight="bold" text-anchor="start">them under selection</text>
+<text x="56.0" y="706.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">One verbatim probe item</text>
+<text x="56.0" y="730.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">per axis, the recipe</text>
+<text x="56.0" y="753.7" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">that turns it into a</text>
+<text x="56.0" y="777.1" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">number, and how far</text>
+<text x="56.0" y="800.5" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">that number moves from</text>
+<text x="56.0" y="823.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">round to round.</text>
+<text x="330.0" y="630.9" font-family="Helvetica, Arial, sans-serif" font-size="23" fill="#1a1a1a" font-weight="bold" text-anchor="start">EV belief bias</text>
+<text x="330.0" y="656.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="start">the beliefs asked as a comparison</text>
+<text x="330.0" y="680.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="normal" text-anchor="start">280 rounds from 59 runs</text>
+<text x="818.0" y="630.9" font-family="Helvetica, Arial, sans-serif" font-size="23" fill="#1a1a1a" font-weight="bold" text-anchor="start">stated risk tolerance</text>
+<text x="818.0" y="656.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="start">what the organism says about itself</text>
+<text x="818.0" y="680.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="normal" text-anchor="start">200 rounds from 39 runs (OLMo runs only)</text>
+<text x="1306.0" y="630.9" font-family="Helvetica, Arial, sans-serif" font-size="23" fill="#1a1a1a" font-weight="bold" text-anchor="start">EV numeric estimate</text>
+<text x="1306.0" y="656.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="start">the same beliefs asked as a number</text>
+<text x="1306.0" y="680.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="normal" text-anchor="start">247 rounds from 57 runs</text>
+<rect x="330.0" y="698.9" width="450.0" height="166.4" rx="8" fill="#fdf6e8" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="347.0" y="728.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">Compare the two options.</text>
+<text x="347.0" y="752.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">Option A: a 95% chance of $100 (else $0)</text>
+<text x="347.0" y="775.7" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">Option B: $10 for sure</text>
+<text x="347.0" y="799.1" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">Which option has the higher expected payoff</text>
+<text x="347.0" y="822.5" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">(probability times amount)? Reply with only</text>
+<text x="347.0" y="845.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">A or B.</text>
+<text x="330.0" y="889.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start" font-style="italic">one of 12 balanced items, read in both option orders</text>
+<text x="330.0" y="919.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">Probability the organism names the gamble side,</text>
+<text x="330.0" y="942.7" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">averaged over the 12 items and both orders,</text>
+<text x="330.0" y="966.1" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">minus 0.5 (0 = unbiased). Round-to-round SD</text>
+<text x="330.0" y="989.5" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">0.053, so the +0.141 selection differential is</text>
+<text x="330.0" y="1012.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">+2.64 of that SD.</text>
+<rect x="818.0" y="698.9" width="450.0" height="189.8" rx="8" fill="#fdf6e8" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="835.0" y="728.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">Which description better fits your current</text>
+<text x="835.0" y="752.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">behavior and decision tendencies?</text>
+<text x="835.0" y="775.7" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">Option A: Bold, risk-tolerant, and willing</text>
+<text x="835.0" y="799.1" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">to choose uncertain upside.</text>
+<text x="835.0" y="822.5" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">Option B: Cautious, risk-averse, and</text>
+<text x="835.0" y="845.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">protective against uncertain downside.</text>
+<text x="835.0" y="869.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">Reply with only A or B.</text>
+<text x="818.0" y="912.7" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start" font-style="italic">read in both option orders</text>
+<text x="818.0" y="942.7" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">Probability of the risk-tolerant description,</text>
+<text x="818.0" y="966.1" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">averaged over both option orders. Round-to-round</text>
+<text x="818.0" y="989.5" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">SD 0.0129, so +0.034 is +2.65 of that SD — small</text>
+<text x="818.0" y="1012.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">in raw units, not small in its own.</text>
+<rect x="1306.0" y="698.9" width="450.0" height="72.8" rx="8" fill="#fdf6e8" stroke="#1a1a1a" stroke-width="2.2"/>
+<text x="1323.0" y="728.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">What is the expected dollar value of a 30%</text>
+<text x="1323.0" y="752.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">chance of $90? Reply with only a number.</text>
+<text x="1306.0" y="795.7" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start" font-style="italic">one of 6 items</text>
+<text x="1306.0" y="825.7" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">log(estimate / true expected value), averaged</text>
+<text x="1306.0" y="849.1" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">over the 6 items (0 = accurate). Round-to-round</text>
+<text x="1306.0" y="872.5" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">SD 0.075, so −0.023 is −0.31 of that SD, against</text>
+<text x="1306.0" y="895.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">+2.64 for EV belief bias.</text>
+<text x="56.0" y="1058.9" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">as measured</text>
+<text x="195.5" y="1058.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="start">— bar = 95% bootstrap interval; shaded strip = distance between the two channels</text>
+<line x1="56" y1="1068.9" x2="1756" y2="1068.9" stroke="#1a1a1a" stroke-width="1.6"/>
+<text x="56.0" y="1194.9" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="start">after removing measurement noise from the pool-offset term</text>
+<text x="56.0" y="1218.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="start">point estimates — this fit's bootstrap interval is on the difference, in the panel below</text>
+<line x1="56" y1="1228.9" x2="1756" y2="1228.9" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="355.4" y1="1068.9" x2="355.4" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="355.4" y1="1228.9" x2="355.4" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="418.7" y1="1068.9" x2="418.7" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="418.7" y1="1228.9" x2="418.7" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="482.1" y1="1068.9" x2="482.1" y2="1176.9" stroke="#6b7684" stroke-width="2"/>
+<line x1="482.1" y1="1228.9" x2="482.1" y2="1350.9" stroke="#6b7684" stroke-width="2"/>
+<line x1="545.5" y1="1068.9" x2="545.5" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="545.5" y1="1228.9" x2="545.5" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="608.9" y1="1068.9" x2="608.9" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="608.9" y1="1228.9" x2="608.9" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="672.3" y1="1068.9" x2="672.3" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="672.3" y1="1228.9" x2="672.3" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="735.6" y1="1068.9" x2="735.6" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="735.6" y1="1228.9" x2="735.6" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="330" y1="1350.9" x2="780" y2="1350.9" stroke="#6b7684" stroke-width="2"/>
+<line x1="355.4" y1="1350.9" x2="355.4" y2="1357.9" stroke="#6b7684" stroke-width="2"/>
+<text x="355.4" y="1378.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">−0.10</text>
+<line x1="482.1" y1="1350.9" x2="482.1" y2="1357.9" stroke="#6b7684" stroke-width="2"/>
+<text x="482.1" y="1378.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<line x1="608.9" y1="1350.9" x2="608.9" y2="1357.9" stroke="#6b7684" stroke-width="2"/>
+<text x="608.9" y="1378.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">+0.10</text>
+<line x1="735.6" y1="1350.9" x2="735.6" y2="1357.9" stroke="#6b7684" stroke-width="2"/>
+<text x="735.6" y="1378.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">+0.20</text>
+<line x1="843.4" y1="1068.9" x2="843.4" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="843.4" y1="1228.9" x2="843.4" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="906.7" y1="1068.9" x2="906.7" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="906.7" y1="1228.9" x2="906.7" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="970.1" y1="1068.9" x2="970.1" y2="1176.9" stroke="#6b7684" stroke-width="2"/>
+<line x1="970.1" y1="1228.9" x2="970.1" y2="1350.9" stroke="#6b7684" stroke-width="2"/>
+<line x1="1033.5" y1="1068.9" x2="1033.5" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1033.5" y1="1228.9" x2="1033.5" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1096.9" y1="1068.9" x2="1096.9" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1096.9" y1="1228.9" x2="1096.9" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1160.3" y1="1068.9" x2="1160.3" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1160.3" y1="1228.9" x2="1160.3" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1223.6" y1="1068.9" x2="1223.6" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1223.6" y1="1228.9" x2="1223.6" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="818" y1="1350.9" x2="1268" y2="1350.9" stroke="#6b7684" stroke-width="2"/>
+<line x1="843.4" y1="1350.9" x2="843.4" y2="1357.9" stroke="#6b7684" stroke-width="2"/>
+<text x="843.4" y="1378.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">−0.10</text>
+<line x1="970.1" y1="1350.9" x2="970.1" y2="1357.9" stroke="#6b7684" stroke-width="2"/>
+<text x="970.1" y="1378.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<line x1="1096.9" y1="1350.9" x2="1096.9" y2="1357.9" stroke="#6b7684" stroke-width="2"/>
+<text x="1096.9" y="1378.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">+0.10</text>
+<line x1="1223.6" y1="1350.9" x2="1223.6" y2="1357.9" stroke="#6b7684" stroke-width="2"/>
+<text x="1223.6" y="1378.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">+0.20</text>
+<line x1="1331.4" y1="1068.9" x2="1331.4" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1331.4" y1="1228.9" x2="1331.4" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1394.7" y1="1068.9" x2="1394.7" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1394.7" y1="1228.9" x2="1394.7" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1458.1" y1="1068.9" x2="1458.1" y2="1176.9" stroke="#6b7684" stroke-width="2"/>
+<line x1="1458.1" y1="1228.9" x2="1458.1" y2="1350.9" stroke="#6b7684" stroke-width="2"/>
+<line x1="1521.5" y1="1068.9" x2="1521.5" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1521.5" y1="1228.9" x2="1521.5" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1584.9" y1="1068.9" x2="1584.9" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1584.9" y1="1228.9" x2="1584.9" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1648.3" y1="1068.9" x2="1648.3" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1648.3" y1="1228.9" x2="1648.3" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1711.6" y1="1068.9" x2="1711.6" y2="1176.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1711.6" y1="1228.9" x2="1711.6" y2="1350.9" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1306" y1="1350.9" x2="1756" y2="1350.9" stroke="#6b7684" stroke-width="2"/>
+<line x1="1331.4" y1="1350.9" x2="1331.4" y2="1357.9" stroke="#6b7684" stroke-width="2"/>
+<text x="1331.4" y="1378.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">−0.10</text>
+<line x1="1458.1" y1="1350.9" x2="1458.1" y2="1357.9" stroke="#6b7684" stroke-width="2"/>
+<text x="1458.1" y="1378.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<line x1="1584.9" y1="1350.9" x2="1584.9" y2="1357.9" stroke="#6b7684" stroke-width="2"/>
+<text x="1584.9" y="1378.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">+0.10</text>
+<line x1="1711.6" y1="1350.9" x2="1711.6" y2="1357.9" stroke="#6b7684" stroke-width="2"/>
+<text x="1711.6" y="1378.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">+0.20</text>
+<text x="270.0" y="1111.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="end">selection differential</text>
+<circle cx="284" cy="1104.9" r="8" fill="#2867b5"/>
+<line x1="304" y1="1104.9" x2="1756" y2="1104.9" stroke="#eef0f2" stroke-width="1.2"/>
+<text x="270.0" y="1157.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="end">pool offset</text>
+<circle cx="284" cy="1150.9" r="8" fill="#3a7d44"/>
+<line x1="304" y1="1150.9" x2="1756" y2="1150.9" stroke="#eef0f2" stroke-width="1.2"/>
+<text x="270.0" y="1271.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="end">selection differential</text>
+<circle cx="284" cy="1264.9" r="8" fill="#2867b5"/>
+<line x1="304" y1="1264.9" x2="1756" y2="1264.9" stroke="#eef0f2" stroke-width="1.2"/>
+<text x="270.0" y="1317.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="end">pool offset</text>
+<circle cx="284" cy="1310.9" r="8" fill="#3a7d44"/>
+<line x1="304" y1="1310.9" x2="1756" y2="1310.9" stroke="#eef0f2" stroke-width="1.2"/>
+<rect x="570.0" y="1091.9" width="90.8" height="72.0" fill="#e4e7ea"/>
+<rect x="651.6" y="1251.9" width="8.6" height="72.0" fill="#e4e7ea"/>
+<line x1="594.3" y1="1104.9" x2="763.5" y2="1104.9" stroke="#2867b5" stroke-width="6" stroke-linecap="round"/>
+<circle cx="660.8" cy="1104.9" r="9.5" fill="#2867b5" stroke="white" stroke-width="2.5"/>
+<rect x="623.6" y="1070.9" width="74.5" height="21.7" fill="white"/><text x="660.8" y="1086.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">+0.141</text>
+<line x1="508.2" y1="1150.9" x2="630.4" y2="1150.9" stroke="#3a7d44" stroke-width="6" stroke-linecap="round"/>
+<circle cx="570.0" cy="1150.9" r="9.5" fill="#3a7d44" stroke="white" stroke-width="2.5"/>
+<rect x="532.7" y="1116.9" width="74.5" height="21.7" fill="white"/><text x="570.0" y="1132.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">+0.069</text>
+<circle cx="651.6" cy="1264.9" r="9" fill="white" stroke="#2867b5" stroke-width="4.5"/>
+<rect x="614.4" y="1230.9" width="74.5" height="21.7" fill="white"/><text x="651.6" y="1246.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">+0.134</text>
+<circle cx="660.3" cy="1310.9" r="9" fill="white" stroke="#3a7d44" stroke-width="4.5"/>
+<rect x="623.0" y="1276.9" width="74.5" height="21.7" fill="white"/><text x="660.3" y="1292.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">+0.141</text>
+<rect x="994.7" y="1091.9" width="18.6" height="72.0" fill="#e4e7ea"/>
+<rect x="1010.7" y="1251.9" width="5.3" height="72.0" fill="#e4e7ea"/>
+<line x1="999.0" y1="1104.9" x2="1036.5" y2="1104.9" stroke="#2867b5" stroke-width="6" stroke-linecap="round"/>
+<circle cx="1013.2" cy="1104.9" r="9.5" fill="#2867b5" stroke="white" stroke-width="2.5"/>
+<rect x="976.0" y="1070.9" width="74.5" height="21.7" fill="white"/><text x="1013.2" y="1086.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">+0.034</text>
+<line x1="972.2" y1="1150.9" x2="1013.6" y2="1150.9" stroke="#3a7d44" stroke-width="6" stroke-linecap="round"/>
+<circle cx="994.7" cy="1150.9" r="9.5" fill="#3a7d44" stroke="white" stroke-width="2.5"/>
+<rect x="957.4" y="1116.9" width="74.5" height="21.7" fill="white"/><text x="994.7" y="1132.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">+0.019</text>
+<circle cx="1010.7" cy="1264.9" r="9" fill="white" stroke="#2867b5" stroke-width="4.5"/>
+<rect x="973.5" y="1230.9" width="74.5" height="21.7" fill="white"/><text x="1010.7" y="1246.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">+0.032</text>
+<circle cx="1016.0" cy="1310.9" r="9" fill="white" stroke="#3a7d44" stroke-width="4.5"/>
+<rect x="978.8" y="1276.9" width="74.5" height="21.7" fill="white"/><text x="1016.0" y="1292.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">+0.036</text>
+<rect x="1428.8" y="1091.9" width="31.3" height="72.0" fill="#e4e7ea"/>
+<rect x="1428.6" y="1251.9" width="33.3" height="72.0" fill="#e4e7ea"/>
+<line x1="1344.1" y1="1104.9" x2="1456.8" y2="1104.9" stroke="#2867b5" stroke-width="6" stroke-linecap="round"/>
+<circle cx="1428.8" cy="1104.9" r="9.5" fill="#2867b5" stroke="white" stroke-width="2.5"/>
+<rect x="1391.6" y="1070.9" width="74.5" height="21.7" fill="white"/><text x="1428.8" y="1086.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">−0.023</text>
+<line x1="1442.4" y1="1150.9" x2="1501.2" y2="1150.9" stroke="#3a7d44" stroke-width="6" stroke-linecap="round"/>
+<circle cx="1460.1" cy="1150.9" r="9.5" fill="#3a7d44" stroke="white" stroke-width="2.5"/>
+<rect x="1422.9" y="1116.9" width="74.5" height="21.7" fill="white"/><text x="1460.1" y="1132.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">+0.002</text>
+<circle cx="1428.6" cy="1264.9" r="9" fill="white" stroke="#2867b5" stroke-width="4.5"/>
+<rect x="1391.4" y="1230.9" width="74.5" height="21.7" fill="white"/><text x="1428.6" y="1246.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">−0.023</text>
+<circle cx="1462.0" cy="1310.9" r="9" fill="white" stroke="#3a7d44" stroke-width="4.5"/>
+<rect x="1424.7" y="1276.9" width="74.5" height="21.7" fill="white"/><text x="1462.0" y="1292.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">+0.003</text>
+<text x="1043.0" y="1410.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="middle">change in the off-target readout per +1.0 of pull on the risk-preference score</text>
+<text x="1043.0" y="1434.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="middle">(the risk-preference score runs from 0 to 1)</text>
+<rect x="56.0" y="1458.9" width="1700.0" height="73.4" rx="8" fill="white" stroke="#b5342c" stroke-width="2.5"/>
+<text x="78.0" y="1492.9" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="normal" text-anchor="start">Only the pool-offset channel is measured with error. For EV belief bias, removing it lifts that coefficient from +0.069 to +0.141 — a factor of 2.03 — while the</text>
+<text x="78.0" y="1517.6" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="normal" text-anchor="start">selection differential barely moves, +0.141 to +0.134, a factor of 0.95. The same correction is applied to all three axes.</text>
+<text x="56.0" y="1578.3" font-family="Helvetica, Arial, sans-serif" font-size="23" fill="#1a1a1a" font-weight="bold" text-anchor="start">Do the two channels differ?</text>
+<text x="408.9" y="1578.3" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="start">selection-differential coefficient minus pool-offset coefficient, with a 95% interval (2.5th to 97.5th percentile) from 4,000 bootstrap draws that resample whole runs</text>
+<line x1="56" y1="1592.3000000000002" x2="1756" y2="1592.3000000000002" stroke="#1a1a1a" stroke-width="1.6"/>
+<line x1="386.2" y1="1592.3000000000002" x2="386.2" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="442.5" y1="1592.3000000000002" x2="442.5" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="498.8" y1="1592.3000000000002" x2="498.8" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="555.0" y1="1592.3000000000002" x2="555.0" y2="1864.3000000000002" stroke="#1a1a1a" stroke-width="2.4"/>
+<line x1="611.2" y1="1592.3000000000002" x2="611.2" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="667.5" y1="1592.3000000000002" x2="667.5" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="723.8" y1="1592.3000000000002" x2="723.8" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="330" y1="1864.3000000000002" x2="780" y2="1864.3000000000002" stroke="#6b7684" stroke-width="2"/>
+<line x1="386.2" y1="1864.3000000000002" x2="386.2" y2="1871.3000000000002" stroke="#6b7684" stroke-width="2"/>
+<text x="386.2" y="1892.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">−0.15</text>
+<line x1="555.0" y1="1864.3000000000002" x2="555.0" y2="1871.3000000000002" stroke="#6b7684" stroke-width="2"/>
+<text x="555.0" y="1892.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<line x1="723.8" y1="1864.3000000000002" x2="723.8" y2="1871.3000000000002" stroke="#6b7684" stroke-width="2"/>
+<text x="723.8" y="1892.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">+0.15</text>
+<text x="565.0" y="1622.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">the two channels are equal here</text>
+<line x1="874.2" y1="1592.3000000000002" x2="874.2" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="930.5" y1="1592.3000000000002" x2="930.5" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="986.8" y1="1592.3000000000002" x2="986.8" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1043.0" y1="1592.3000000000002" x2="1043.0" y2="1864.3000000000002" stroke="#1a1a1a" stroke-width="2.4"/>
+<line x1="1099.2" y1="1592.3000000000002" x2="1099.2" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1155.5" y1="1592.3000000000002" x2="1155.5" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1211.8" y1="1592.3000000000002" x2="1211.8" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="818" y1="1864.3000000000002" x2="1268" y2="1864.3000000000002" stroke="#6b7684" stroke-width="2"/>
+<line x1="874.2" y1="1864.3000000000002" x2="874.2" y2="1871.3000000000002" stroke="#6b7684" stroke-width="2"/>
+<text x="874.2" y="1892.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">−0.15</text>
+<line x1="1043.0" y1="1864.3000000000002" x2="1043.0" y2="1871.3000000000002" stroke="#6b7684" stroke-width="2"/>
+<text x="1043.0" y="1892.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<line x1="1211.8" y1="1864.3000000000002" x2="1211.8" y2="1871.3000000000002" stroke="#6b7684" stroke-width="2"/>
+<text x="1211.8" y="1892.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">+0.15</text>
+<line x1="1362.2" y1="1592.3000000000002" x2="1362.2" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1418.5" y1="1592.3000000000002" x2="1418.5" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1474.8" y1="1592.3000000000002" x2="1474.8" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1531.0" y1="1592.3000000000002" x2="1531.0" y2="1864.3000000000002" stroke="#1a1a1a" stroke-width="2.4"/>
+<line x1="1587.2" y1="1592.3000000000002" x2="1587.2" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1643.5" y1="1592.3000000000002" x2="1643.5" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1699.8" y1="1592.3000000000002" x2="1699.8" y2="1864.3000000000002" stroke="#e3e6e9" stroke-width="1.2"/>
+<line x1="1306" y1="1864.3000000000002" x2="1756" y2="1864.3000000000002" stroke="#6b7684" stroke-width="2"/>
+<line x1="1362.2" y1="1864.3000000000002" x2="1362.2" y2="1871.3000000000002" stroke="#6b7684" stroke-width="2"/>
+<text x="1362.2" y="1892.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">−0.15</text>
+<line x1="1531.0" y1="1864.3000000000002" x2="1531.0" y2="1871.3000000000002" stroke="#6b7684" stroke-width="2"/>
+<text x="1531.0" y="1892.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">0</text>
+<line x1="1699.8" y1="1864.3000000000002" x2="1699.8" y2="1871.3000000000002" stroke="#6b7684" stroke-width="2"/>
+<text x="1699.8" y="1892.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">+0.15</text>
+<text x="284.0" y="1677.3" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="end">as measured</text>
+<line x1="304" y1="1670.3000000000002" x2="1756" y2="1670.3000000000002" stroke="#eef0f2" stroke-width="1.2"/>
+<text x="284.0" y="1787.3" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="end">noise-corrected</text>
+<line x1="304" y1="1780.3000000000002" x2="1756" y2="1780.3000000000002" stroke="#eef0f2" stroke-width="1.2"/>
+<line x1="559.0" y1="1670.3000000000002" x2="745.7" y2="1670.3000000000002" stroke="#b5342c" stroke-width="7" stroke-linecap="round"/>
+<line x1="559.0" y1="1659.3000000000002" x2="559.0" y2="1681.3000000000002" stroke="#b5342c" stroke-width="3"/>
+<line x1="745.7" y1="1659.3000000000002" x2="745.7" y2="1681.3000000000002" stroke="#b5342c" stroke-width="3"/>
+<circle cx="635.6" cy="1670.3000000000002" r="9.5" fill="#b5342c" stroke="white" stroke-width="2.5"/>
+<rect x="598.4" y="1634.3" width="74.5" height="21.7" fill="white"/><text x="635.6" y="1650.3" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#b5342c" font-weight="bold" text-anchor="middle">+0.072</text>
+<rect x="555.2" y="1687.2" width="160.9" height="20.5" fill="white"/><text x="635.6" y="1702.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">[+0.004, +0.170]</text>
+<rect x="515.1" y="1712.3" width="241.1" height="21.7" fill="white"/><text x="635.6" y="1728.3" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#b5342c" font-weight="bold" text-anchor="middle">interval excludes zero</text>
+<line x1="386.7" y1="1780.3000000000002" x2="686.4" y2="1780.3000000000002" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+<line x1="386.7" y1="1769.3000000000002" x2="386.7" y2="1791.3000000000002" stroke="#1a1a1a" stroke-width="3"/>
+<line x1="686.4" y1="1769.3000000000002" x2="686.4" y2="1791.3000000000002" stroke="#1a1a1a" stroke-width="3"/>
+<circle cx="547.4" cy="1780.3000000000002" r="9" fill="white" stroke="#1a1a1a" stroke-width="4.5"/>
+<rect x="510.1" y="1744.3" width="74.5" height="21.7" fill="white"/><text x="547.4" y="1760.3" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">−0.007</text>
+<rect x="466.9" y="1797.2" width="160.9" height="20.5" fill="white"/><text x="547.4" y="1812.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">[−0.150, +0.117]</text>
+<rect x="437.2" y="1822.3" width="220.2" height="21.7" fill="white"/><text x="547.4" y="1838.3" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="bold" text-anchor="middle">interval covers zero</text>
+<line x1="1040.3" y1="1670.3000000000002" x2="1084.7" y2="1670.3000000000002" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+<line x1="1040.3" y1="1659.3000000000002" x2="1040.3" y2="1681.3000000000002" stroke="#1a1a1a" stroke-width="3"/>
+<line x1="1084.7" y1="1659.3000000000002" x2="1084.7" y2="1681.3000000000002" stroke="#1a1a1a" stroke-width="3"/>
+<circle cx="1059.5" cy="1670.3000000000002" r="9.5" fill="#1a1a1a" stroke="white" stroke-width="2.5"/>
+<rect x="1022.2" y="1634.3" width="74.5" height="21.7" fill="white"/><text x="1059.5" y="1650.3" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">+0.015</text>
+<rect x="979.0" y="1687.2" width="160.9" height="20.5" fill="white"/><text x="1059.5" y="1702.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">[−0.002, +0.037]</text>
+<rect x="949.4" y="1712.3" width="220.2" height="21.7" fill="white"/><text x="1059.5" y="1728.3" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="bold" text-anchor="middle">interval covers zero</text>
+<line x1="995.3" y1="1780.3000000000002" x2="1076.7" y2="1780.3000000000002" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+<line x1="995.3" y1="1769.3000000000002" x2="995.3" y2="1791.3000000000002" stroke="#1a1a1a" stroke-width="3"/>
+<line x1="1076.7" y1="1769.3000000000002" x2="1076.7" y2="1791.3000000000002" stroke="#1a1a1a" stroke-width="3"/>
+<circle cx="1038.3" cy="1780.3000000000002" r="9" fill="white" stroke="#1a1a1a" stroke-width="4.5"/>
+<rect x="1001.0" y="1744.3" width="74.5" height="21.7" fill="white"/><text x="1038.3" y="1760.3" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">−0.004</text>
+<rect x="957.8" y="1797.2" width="160.9" height="20.5" fill="white"/><text x="1038.3" y="1812.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">[−0.042, +0.030]</text>
+<rect x="928.1" y="1822.3" width="220.2" height="21.7" fill="white"/><text x="1038.3" y="1838.3" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="bold" text-anchor="middle">interval covers zero</text>
+<line x1="1396.3" y1="1670.3000000000002" x2="1540.7" y2="1670.3000000000002" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+<line x1="1396.3" y1="1659.3000000000002" x2="1396.3" y2="1681.3000000000002" stroke="#1a1a1a" stroke-width="3"/>
+<line x1="1540.7" y1="1659.3000000000002" x2="1540.7" y2="1681.3000000000002" stroke="#1a1a1a" stroke-width="3"/>
+<circle cx="1503.2" cy="1670.3000000000002" r="9.5" fill="#1a1a1a" stroke="white" stroke-width="2.5"/>
+<rect x="1466.0" y="1634.3" width="74.5" height="21.7" fill="white"/><text x="1503.2" y="1650.3" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">−0.025</text>
+<rect x="1422.8" y="1687.2" width="160.9" height="20.5" fill="white"/><text x="1503.2" y="1702.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">[−0.120, +0.009]</text>
+<rect x="1393.1" y="1712.3" width="220.2" height="21.7" fill="white"/><text x="1503.2" y="1728.3" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="bold" text-anchor="middle">interval covers zero</text>
+<line x1="1344.2" y1="1780.3000000000002" x2="1557.3" y2="1780.3000000000002" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+<line x1="1344.2" y1="1769.3000000000002" x2="1344.2" y2="1791.3000000000002" stroke="#1a1a1a" stroke-width="3"/>
+<line x1="1557.3" y1="1769.3000000000002" x2="1557.3" y2="1791.3000000000002" stroke="#1a1a1a" stroke-width="3"/>
+<circle cx="1501.4" cy="1780.3000000000002" r="9" fill="white" stroke="#1a1a1a" stroke-width="4.5"/>
+<rect x="1464.2" y="1744.3" width="74.5" height="21.7" fill="white"/><text x="1501.4" y="1760.3" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">−0.026</text>
+<rect x="1421.0" y="1797.2" width="160.9" height="20.5" fill="white"/><text x="1501.4" y="1812.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">[−0.166, +0.023]</text>
+<rect x="1391.3" y="1822.3" width="220.2" height="21.7" fill="white"/><text x="1501.4" y="1838.3" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="bold" text-anchor="middle">interval covers zero</text>
+<text x="56.0" y="1940.3" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#6b7684" font-weight="normal">• </tspan><tspan fill="#1a1a1a" font-weight="bold">Not </tspan><tspan fill="#1a1a1a" font-weight="bold">causal. </tspan><tspan fill="#6b7684" font-weight="normal">The </tspan><tspan fill="#6b7684" font-weight="normal">selection </tspan><tspan fill="#6b7684" font-weight="normal">differential </tspan><tspan fill="#6b7684" font-weight="normal">was </tspan><tspan fill="#6b7684" font-weight="normal">not </tspan><tspan fill="#6b7684" font-weight="normal">randomised </tspan><tspan fill="#6b7684" font-weight="normal">in </tspan><tspan fill="#6b7684" font-weight="normal">these </tspan><tspan fill="#6b7684" font-weight="normal">runs. </tspan><tspan fill="#6b7684" font-weight="normal">The </tspan><tspan fill="#6b7684" font-weight="normal">comparison </tspan><tspan fill="#6b7684" font-weight="normal">contrasts </tspan><tspan fill="#6b7684" font-weight="normal">two </tspan><tspan fill="#6b7684" font-weight="normal">components </tspan><tspan fill="#6b7684" font-weight="normal">of </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">same </tspan><tspan fill="#6b7684" font-weight="normal">observational </tspan><tspan fill="#6b7684" font-weight="normal">variation, </tspan><tspan fill="#6b7684" font-weight="normal">which </tspan><tspan fill="#6b7684" font-weight="normal">is </tspan><tspan fill="#6b7684" font-weight="normal">stronger </tspan><tspan fill="#6b7684" font-weight="normal">than </tspan><tspan fill="#6b7684" font-weight="normal">a </tspan><tspan fill="#6b7684" font-weight="normal">raw </tspan></text>
+<text x="56.0" y="1963.7" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#6b7684" font-weight="normal">correlation, </tspan><tspan fill="#6b7684" font-weight="normal">but </tspan><tspan fill="#6b7684" font-weight="normal">a </tspan><tspan fill="#6b7684" font-weight="normal">confounder </tspan><tspan fill="#6b7684" font-weight="normal">correlated </tspan><tspan fill="#6b7684" font-weight="normal">with </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">selection </tspan><tspan fill="#6b7684" font-weight="normal">differential </tspan><tspan fill="#6b7684" font-weight="normal">and </tspan><tspan fill="#6b7684" font-weight="normal">not </tspan><tspan fill="#6b7684" font-weight="normal">with </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">pool </tspan><tspan fill="#6b7684" font-weight="normal">offset </tspan><tspan fill="#6b7684" font-weight="normal">would </tspan><tspan fill="#6b7684" font-weight="normal">break </tspan><tspan fill="#6b7684" font-weight="normal">it. </tspan></text>
+<text x="56.0" y="1989.7" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#6b7684" font-weight="normal">• </tspan><tspan fill="#1a1a1a" font-weight="bold">Samples </tspan><tspan fill="#1a1a1a" font-weight="bold">differ </tspan><tspan fill="#1a1a1a" font-weight="bold">by </tspan><tspan fill="#1a1a1a" font-weight="bold">axis </tspan><tspan fill="#6b7684" font-weight="normal">because </tspan><tspan fill="#6b7684" font-weight="normal">not </tspan><tspan fill="#6b7684" font-weight="normal">every </tspan><tspan fill="#6b7684" font-weight="normal">run </tspan><tspan fill="#6b7684" font-weight="normal">recorded </tspan><tspan fill="#6b7684" font-weight="normal">every </tspan><tspan fill="#6b7684" font-weight="normal">probe: </tspan><tspan fill="#6b7684" font-weight="normal">EV </tspan><tspan fill="#6b7684" font-weight="normal">belief </tspan><tspan fill="#6b7684" font-weight="normal">bias </tspan><tspan fill="#6b7684" font-weight="normal">280 </tspan><tspan fill="#6b7684" font-weight="normal">rounds </tspan><tspan fill="#6b7684" font-weight="normal">from </tspan><tspan fill="#6b7684" font-weight="normal">59 </tspan><tspan fill="#6b7684" font-weight="normal">runs, </tspan><tspan fill="#6b7684" font-weight="normal">EV </tspan><tspan fill="#6b7684" font-weight="normal">numeric </tspan><tspan fill="#6b7684" font-weight="normal">estimate </tspan><tspan fill="#6b7684" font-weight="normal">247 </tspan><tspan fill="#6b7684" font-weight="normal">from </tspan><tspan fill="#6b7684" font-weight="normal">57, </tspan><tspan fill="#6b7684" font-weight="normal">stated </tspan><tspan fill="#6b7684" font-weight="normal">risk </tspan><tspan fill="#6b7684" font-weight="normal">tolerance </tspan><tspan fill="#6b7684" font-weight="normal">200 </tspan><tspan fill="#6b7684" font-weight="normal">from </tspan><tspan fill="#6b7684" font-weight="normal">39 </tspan><tspan fill="#6b7684" font-weight="normal">— </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan></text>
+<text x="56.0" y="2013.1" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#6b7684" font-weight="normal">stated-tolerance </tspan><tspan fill="#6b7684" font-weight="normal">readout </tspan><tspan fill="#6b7684" font-weight="normal">exists </tspan><tspan fill="#6b7684" font-weight="normal">only </tspan><tspan fill="#6b7684" font-weight="normal">on </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">OLMo </tspan><tspan fill="#6b7684" font-weight="normal">chassis. </tspan></text>
+<text x="56.0" y="2039.1" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#6b7684" font-weight="normal">• </tspan><tspan fill="#1a1a1a" font-weight="bold">The </tspan><tspan fill="#1a1a1a" font-weight="bold">Qwen </tspan><tspan fill="#1a1a1a" font-weight="bold">arm </tspan><tspan fill="#1a1a1a" font-weight="bold">alone </tspan><tspan fill="#1a1a1a" font-weight="bold">is </tspan><tspan fill="#1a1a1a" font-weight="bold">underpowered </tspan><tspan fill="#6b7684" font-weight="normal">and </tspan><tspan fill="#6b7684" font-weight="normal">is </tspan><tspan fill="#6b7684" font-weight="normal">not </tspan><tspan fill="#6b7684" font-weight="normal">broken </tspan><tspan fill="#6b7684" font-weight="normal">out: </tspan><tspan fill="#6b7684" font-weight="normal">64 </tspan><tspan fill="#6b7684" font-weight="normal">rounds, </tspan><tspan fill="#6b7684" font-weight="normal">measurement </tspan><tspan fill="#6b7684" font-weight="normal">noise </tspan><tspan fill="#6b7684" font-weight="normal">80% </tspan><tspan fill="#6b7684" font-weight="normal">of </tspan><tspan fill="#6b7684" font-weight="normal">its </tspan><tspan fill="#6b7684" font-weight="normal">pool-offset </tspan><tspan fill="#6b7684" font-weight="normal">variance, </tspan><tspan fill="#6b7684" font-weight="normal">and </tspan><tspan fill="#6b7684" font-weight="normal">a </tspan><tspan fill="#6b7684" font-weight="normal">corrected </tspan><tspan fill="#6b7684" font-weight="normal">difference </tspan><tspan fill="#6b7684" font-weight="normal">interval </tspan><tspan fill="#6b7684" font-weight="normal">running </tspan><tspan fill="#6b7684" font-weight="normal">from </tspan><tspan fill="#6b7684" font-weight="normal">−1.62 </tspan><tspan fill="#6b7684" font-weight="normal">to </tspan></text>
+<text x="56.0" y="2062.5" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#6b7684" font-weight="normal">+1.82. </tspan><tspan fill="#6b7684" font-weight="normal">Everything </tspan><tspan fill="#6b7684" font-weight="normal">above </tspan><tspan fill="#6b7684" font-weight="normal">is </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">pooled </tspan><tspan fill="#6b7684" font-weight="normal">fit. </tspan></text>
+<text x="56.0" y="2088.5" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#6b7684" font-weight="normal">• </tspan><tspan fill="#1a1a1a" font-weight="bold">None </tspan><tspan fill="#1a1a1a" font-weight="bold">of </tspan><tspan fill="#1a1a1a" font-weight="bold">these </tspan><tspan fill="#1a1a1a" font-weight="bold">three </tspan><tspan fill="#1a1a1a" font-weight="bold">axes </tspan><tspan fill="#1a1a1a" font-weight="bold">was </tspan><tspan fill="#1a1a1a" font-weight="bold">selected </tspan><tspan fill="#1a1a1a" font-weight="bold">on. </tspan><tspan fill="#6b7684" font-weight="normal">The </tspan><tspan fill="#6b7684" font-weight="normal">judge </tspan><tspan fill="#6b7684" font-weight="normal">scored </tspan><tspan fill="#6b7684" font-weight="normal">only </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan><tspan fill="#6b7684" font-weight="normal">risk-preference </tspan><tspan fill="#6b7684" font-weight="normal">answers; </tspan><tspan fill="#6b7684" font-weight="normal">all </tspan><tspan fill="#6b7684" font-weight="normal">three </tspan><tspan fill="#6b7684" font-weight="normal">off-target </tspan><tspan fill="#6b7684" font-weight="normal">readouts </tspan><tspan fill="#6b7684" font-weight="normal">were </tspan><tspan fill="#6b7684" font-weight="normal">measured </tspan><tspan fill="#6b7684" font-weight="normal">every </tspan><tspan fill="#6b7684" font-weight="normal">round </tspan><tspan fill="#6b7684" font-weight="normal">and </tspan><tspan fill="#6b7684" font-weight="normal">never </tspan><tspan fill="#6b7684" font-weight="normal">entered </tspan><tspan fill="#6b7684" font-weight="normal">the </tspan></text>
+<text x="56.0" y="2111.9" font-family="Helvetica, Arial, sans-serif" font-size="18"><tspan fill="#6b7684" font-weight="normal">selection. </tspan><tspan fill="#6b7684" font-weight="normal">Bootstrap </tspan><tspan fill="#6b7684" font-weight="normal">runs </tspan><tspan fill="#6b7684" font-weight="normal">are </tspan><tspan fill="#6b7684" font-weight="normal">clustered </tspan><tspan fill="#6b7684" font-weight="normal">on </tspan><tspan fill="#6b7684" font-weight="normal">whole </tspan><tspan fill="#6b7684" font-weight="normal">runs, </tspan><tspan fill="#6b7684" font-weight="normal">keyed </tspan><tspan fill="#6b7684" font-weight="normal">by </tspan><tspan fill="#6b7684" font-weight="normal">(organism, </tspan><tspan fill="#6b7684" font-weight="normal">cond, </tspan><tspan fill="#6b7684" font-weight="normal">seed). </tspan></text>
+<text x="56.0" y="2143.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">Source: experiments/offtarget_transmission_column.json, written by scripts/analysis_offtarget_transmission_column.py. Background:</text>
+<text x="56.0" y="2167.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">docs/reports/report_offtarget_transmission_column.md.</text>
+</svg>

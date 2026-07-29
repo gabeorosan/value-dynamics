@@ -7,7 +7,9 @@ usefully — whether their movement arrives through the selection channel or the
 training channel.
 
 THE IDENTIFYING IDEA. Per round, the pull on the selected axis decomposes into
-two additive pieces that are only weakly correlated in this corpus (r = 0.16):
+two additive pieces that are only weakly correlated in the fitted panel
+(r = 0.103 over its 280 risk-axis rounds; 0.152 over all 340 unified records,
+which is a different and larger sample):
 
     pull  =  supply  +  gap
              ------     ---

@@ -20,8 +20,8 @@ separates them on the committed 340-round corpus
                 subsample, because fast movers hit rails or abort and the runs
                 still present at round 4 were always the sluggish ones. This
                 artefact has already bitten the project once: in the
-                spread-intervention corpus, aborted runs moved +0.074/round
-                against +0.023 for completed ones.
+                spread-intervention corpus, aborted runs move +0.074/round
+                against +0.019 for completed ones (per-run means, ratio 3.9x).
 
   WITHIN-ROUND  Nothing declines across rounds either; the response is simply
   CONCAVITY     concave in the size of a single round's gap. Because cumulative

@@ -205,20 +205,55 @@ One scope limit to respect if the paper is cited at all: every result in it
 assumes a **fixed** reward. Nothing in it covers a judge that is retrained
 alongside the generator, so it says nothing about the self-judge runs.
 
-## 4. A sentence already in the writeup is tighter than its data
+## 4. A sentence already in the writeup is WRONG, and the fix is cheap
 
-Not part of the proposed edit — flagging it because it is in the current draft.
+Not part of the proposed edit — flagging it because it is in the current draft,
+and because the first version of this addendum got it wrong too.
 
 The Limitations section says: *"across six runs differing only by seed, early
 agreement turned negative in the two runs that collapsed and remained nonnegative
 in the four that amplified."*
 
-Pulling the six raw trajectories, that separation is clean **on round 1 alone**.
-Widened to the first two rounds it is not: seed 43 sums to −0.437 against
-collapsing seed 45's −0.441 and does not collapse. Spread also reaches exactly
-zero by round 3 or 4 in all six runs, which makes late-round agreement
-degenerate.
+Here are all six runs on the measured value (p_insecure) with their agreement by
+round, re-derived from `experiments/qwen_judge_ablation.json` and
+`experiments/ablation_unit_law.json`:
 
-**Recommended, if you keep the sentence:** change "early agreement" to
-"round-one agreement", which is what was actually measured and is still true.
-The rest of the sentence stands.
+| seed | p_insecure trajectory | net | agreement r1 | agreement r2 |
+|---|---|---|---|---|
+| 41 | 0.326 → 0.123 → 0.048 → 0.058 → 0.022 | **−0.304** | −0.191 | −0.558 |
+| 43 | 0.326 → 0.063 → 0.301 → 0.034 → 0.010 | **−0.317** | +0.239 | −0.676 |
+| 42 | 0.326 → 0.411 → 0.425 → 0.469 → 0.549 | +0.223 | +0.162 | +0.541 |
+| 44 | 0.326 → 0.223 → 0.426 → 0.865 → 0.655 | +0.328 | +0.125 | +0.359 |
+| 45 | 0.326 → 0.357 → 0.592 → 0.575 → 0.493 | +0.167 | +0.023 | **−0.464** |
+| 46 | 0.326 → 0.526 → 0.544 → 0.375 → 0.469 | +0.143 | +0.070 | +0.052 |
+
+The first clause holds: agreement does turn negative by round 2 in both runs
+that collapsed. **The second clause does not. Seed 45 amplified (+0.167) and its
+round-2 agreement is −0.464**, the third most negative of the six. Agreement
+turned negative in three of six runs, and two of those three collapsed.
+
+Ranking by early agreement does not recover the split either: the two most
+negative mean round-1-and-2 agreements are seeds 41 and **45** — one collapser
+and one amplifier. Nor does the realised selection differential: summed over
+rounds 1–3 it is negative for exactly seeds 41 and 45, the same mismatched pair.
+**Nothing measured in these six runs separates the two collapsers cleanly.**
+
+*Before:* "across six runs differing only by seed, early agreement turned
+negative in the two runs that collapsed and remained nonnegative in the four that
+amplified."
+
+*After:* "across six runs differing only by seed, agreement turned negative
+within the first two rounds in three, including both runs that collapsed — so a
+judge whose agreement is fixed in advance misses something these runs do, though
+six runs do not say what."
+
+**Recommended.** The claim as written is falsified by seed 45, and the
+replacement makes the same limitation point without asserting a separation the
+data does not support.
+
+Two things to know if you keep any version of this sentence. Candidate spread
+reaches exactly zero by round 4 in all six runs, so late-round agreement is
+degenerate and should not be quoted at all. And an earlier draft of this
+addendum, and a subagent report behind it, both had the collapse-versus-amplify
+assignment backwards — they read the candidate pool mean rather than the
+organism's measured value. The table above is on the measured value.

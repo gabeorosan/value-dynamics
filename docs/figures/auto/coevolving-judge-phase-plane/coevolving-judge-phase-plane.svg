@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1420 1820" font-family="Helvetica, Arial, sans-serif">
-<rect width="1420" height="1820" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1420 1850" font-family="Helvetica, Arial, sans-serif">
+<rect width="1420" height="1850" fill="white"/>
 <defs>
 <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6"
  markerHeight="6" orient="auto-start-reverse">
@@ -11,7 +11,7 @@
  markerHeight="6" orient="auto-start-reverse">
  <path d="M 0 0 L 10 5 L 0 10 z" fill="#b5342c"/></marker>
 </defs>
-<text x="58.0" y="62.0" font-family="Helvetica, Arial, sans-serif" font-size="33" fill="#1a1a1a" font-weight="bold" text-anchor="start">Every self-judging run stops moving within four rounds — and it stops</text>
+<text x="58.0" y="62.0" font-family="Helvetica, Arial, sans-serif" font-size="33" fill="#1a1a1a" font-weight="bold" text-anchor="start">Selection stops in every self-judging run within four rounds — and it stops</text>
 <text x="58.0" y="104.0" font-family="Helvetica, Arial, sans-serif" font-size="33" fill="#1a1a1a" font-weight="bold" text-anchor="start">because the candidate pool ran out of spread, not because agreement reached zero.</text>
 <text x="58.0" y="148.0" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="start">Six runs of the neutral-prompt, self-judging loop, drawn as trajectories in the (pool value, judge/value agreement) plane. In Lande's 1981 model of</text>
 <text x="58.0" y="173.1" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#6b7684" font-weight="normal" text-anchor="start">a co-evolving preference the resting states form a line rather than a point; the analogue here is the set where agreement times spread is zero, and</text>
@@ -51,7 +51,7 @@
 <line x1="165" y1="306.4" x2="1000" y2="306.4" stroke="#6b7684" stroke-width="1" opacity="0.18"/>
 <text x="153.0" y="312.4" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="end">+0.6</text>
 <text x="70" y="550.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="middle" transform="rotate(-90 70 550.0)">judge / value agreement</text>
-<text x="96" y="550.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" text-anchor="middle" transform="rotate(-90 96 550.0)">correlation within a prompt, −1 to +1</text>
+<text x="96" y="550.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" text-anchor="middle" transform="rotate(-90 96 550.0)">correlation within a prompt, −1 to +1</text>
 <text x="582.5" y="922.0" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="middle">pool value — mean self-report value score of the candidate answers (0 to 1)</text>
 <line x1="165" y1="527.9" x2="1000" y2="527.9" stroke="#1a1a1a" stroke-width="3.4"/>
 <text x="992.0" y="513.9" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="bold" text-anchor="end">agreement = 0</text>
@@ -164,56 +164,58 @@
 <text x="1070.0" y="669.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">leading into it is dashed for the</text>
 <text x="1070.0" y="692.8" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">same reason.</text>
 <text x="1030.0" y="726.0" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="start">Candidate spread by round</text>
-<text x="1030.0" y="750.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">Within-prompt standard deviation of the</text>
-<text x="1030.0" y="772.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">candidates' value scores, averaged over</text>
-<text x="1030.0" y="794.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">the six prompts.</text>
-<rect x="1055" y="906.9" width="323" height="23.1" fill="#6b7684" opacity="0.14"/>
-<text x="1047.0" y="936.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.0</text>
-<line x1="1055" y1="930.0" x2="1378" y2="930.0" stroke="#6b7684" stroke-width="1.4" opacity="1.0"/>
-<text x="1047.0" y="889.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.2</text>
-<line x1="1055" y1="883.8" x2="1378" y2="883.8" stroke="#6b7684" stroke-width="1" opacity="0.3"/>
-<text x="1047.0" y="843.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="end">0.4</text>
-<line x1="1055" y1="837.6" x2="1378" y2="837.6" stroke="#6b7684" stroke-width="1" opacity="0.3"/>
-<text x="1085.0" y="958.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">1</text>
-<text x="1173.3" y="958.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">2</text>
-<text x="1261.7" y="958.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">3</text>
-<text x="1350.0" y="958.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">4</text>
-<text x="1217.5" y="984.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="middle">round</text>
-<polyline points="1085.0,856.5 1173.3,902.7 1261.7,930.0 1350.0,930.0" fill="none" stroke="#2867b5" stroke-width="2.2" opacity="0.92" stroke-linecap="round"/>
-<circle cx="1085.0" cy="856.5" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
-<circle cx="1173.3" cy="902.7" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
-<circle cx="1261.7" cy="930.0" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
-<circle cx="1350.0" cy="930.0" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
-<polyline points="1085.0,833.9 1173.3,900.8 1261.7,911.1 1350.0,930.0" fill="none" stroke="#2867b5" stroke-width="2.2" opacity="0.92" stroke-linecap="round"/>
-<circle cx="1085.0" cy="833.9" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
-<circle cx="1173.3" cy="900.8" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
-<circle cx="1261.7" cy="911.1" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
-<circle cx="1350.0" cy="930.0" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
-<polyline points="1085.0,880.8 1173.3,871.9 1261.7,919.2 1350.0,930.0" fill="none" stroke="#2867b5" stroke-width="2.2" opacity="0.92" stroke-linecap="round"/>
-<circle cx="1085.0" cy="880.8" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
-<circle cx="1173.3" cy="871.9" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
-<circle cx="1261.7" cy="919.2" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
-<circle cx="1350.0" cy="930.0" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
-<polyline points="1085.0,833.6 1173.3,904.3 1261.7,930.0 1350.0,930.0" fill="none" stroke="#b5342c" stroke-width="2.2" opacity="0.92" stroke-linecap="round"/>
-<circle cx="1085.0" cy="833.6" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
-<circle cx="1173.3" cy="904.3" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
-<circle cx="1261.7" cy="930.0" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
-<circle cx="1350.0" cy="930.0" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
-<polyline points="1085.0,837.6 1173.3,893.3 1261.7,923.9 1350.0,930.0" fill="none" stroke="#b5342c" stroke-width="3.6" opacity="0.92" stroke-linecap="round"/>
-<circle cx="1085.0" cy="837.6" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
-<circle cx="1173.3" cy="893.3" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
-<circle cx="1261.7" cy="923.9" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
-<circle cx="1350.0" cy="930.0" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
-<polyline points="1085.0,836.6 1173.3,851.8 1261.7,914.2 1350.0,930.0" fill="none" stroke="#b5342c" stroke-width="3.6" opacity="0.92" stroke-linecap="round"/>
-<circle cx="1085.0" cy="836.6" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
-<circle cx="1173.3" cy="851.8" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
-<circle cx="1261.7" cy="914.2" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
-<circle cx="1350.0" cy="930.0" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
-<text x="1030.0" y="1016.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">Every run reaches exactly 0 by round 4;</text>
-<text x="1030.0" y="1039.8" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">seeds 43 and 44 a round earlier. Inside</text>
-<text x="1030.0" y="1063.5" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">the shaded band the selection term is</text>
-<text x="1030.0" y="1087.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">effectively zero whatever the agreement</text>
-<text x="1030.0" y="1111.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">is.</text>
+<text x="1030.0" y="750.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">Within-prompt standard deviation of the</text>
+<text x="1030.0" y="773.8" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">candidates' value scores, averaged over</text>
+<text x="1030.0" y="797.5" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">the six prompts.</text>
+<rect x="1078" y="918.9" width="310" height="23.1" fill="#6b7684" opacity="0.14"/>
+<text x="1070.0" y="948.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="end">0.0</text>
+<line x1="1078" y1="942.0" x2="1388" y2="942.0" stroke="#6b7684" stroke-width="1.4" opacity="1.0"/>
+<text x="1070.0" y="901.8" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="end">0.2</text>
+<line x1="1078" y1="895.8" x2="1388" y2="895.8" stroke="#6b7684" stroke-width="1" opacity="0.3"/>
+<text x="1070.0" y="855.6" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="end">0.4</text>
+<line x1="1078" y1="849.6" x2="1388" y2="849.6" stroke="#6b7684" stroke-width="1" opacity="0.3"/>
+<text x="1070.0" y="924.9" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="end">0.10</text>
+<line x1="1078" y1="918.9" x2="1388" y2="918.9" stroke="#6b7684" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="1108.0" y="970.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">1</text>
+<text x="1192.0" y="970.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">2</text>
+<text x="1276.0" y="970.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">3</text>
+<text x="1360.0" y="970.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="middle">4</text>
+<text x="1234.0" y="996.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="middle">round</text>
+<polyline points="1108.0,868.5 1192.0,914.7 1276.0,942.0 1360.0,942.0" fill="none" stroke="#2867b5" stroke-width="2.2" opacity="0.92" stroke-linecap="round"/>
+<circle cx="1108.0" cy="868.5" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<circle cx="1192.0" cy="914.7" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<circle cx="1276.0" cy="942.0" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<circle cx="1360.0" cy="942.0" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polyline points="1108.0,845.9 1192.0,912.8 1276.0,923.1 1360.0,942.0" fill="none" stroke="#2867b5" stroke-width="2.2" opacity="0.92" stroke-linecap="round"/>
+<circle cx="1108.0" cy="845.9" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<circle cx="1192.0" cy="912.8" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<circle cx="1276.0" cy="923.1" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<circle cx="1360.0" cy="942.0" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polyline points="1108.0,892.8 1192.0,883.9 1276.0,931.2 1360.0,942.0" fill="none" stroke="#2867b5" stroke-width="2.2" opacity="0.92" stroke-linecap="round"/>
+<circle cx="1108.0" cy="892.8" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<circle cx="1192.0" cy="883.9" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<circle cx="1276.0" cy="931.2" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<circle cx="1360.0" cy="942.0" r="4.2" fill="#2867b5" stroke="white" stroke-width="1.5"/>
+<polyline points="1108.0,845.6 1192.0,916.3 1276.0,942.0 1360.0,942.0" fill="none" stroke="#b5342c" stroke-width="2.2" opacity="0.92" stroke-linecap="round"/>
+<circle cx="1108.0" cy="845.6" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<circle cx="1192.0" cy="916.3" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<circle cx="1276.0" cy="942.0" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<circle cx="1360.0" cy="942.0" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<polyline points="1108.0,849.6 1192.0,905.3 1276.0,935.9 1360.0,942.0" fill="none" stroke="#b5342c" stroke-width="3.6" opacity="0.92" stroke-linecap="round"/>
+<circle cx="1108.0" cy="849.6" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<circle cx="1192.0" cy="905.3" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<circle cx="1276.0" cy="935.9" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<circle cx="1360.0" cy="942.0" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<polyline points="1108.0,848.6 1192.0,863.8 1276.0,926.2 1360.0,942.0" fill="none" stroke="#b5342c" stroke-width="3.6" opacity="0.92" stroke-linecap="round"/>
+<circle cx="1108.0" cy="848.6" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<circle cx="1192.0" cy="863.8" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<circle cx="1276.0" cy="926.2" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<circle cx="1360.0" cy="942.0" r="4.2" fill="#b5342c" stroke="white" stroke-width="1.5"/>
+<text x="1030.0" y="1030.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">Every run reaches exactly 0 by round 4;</text>
+<text x="1030.0" y="1053.8" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">seeds 43 and 44 a round earlier. Inside</text>
+<text x="1030.0" y="1077.5" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">the shaded band the selection term is</text>
+<text x="1030.0" y="1101.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">effectively zero, whatever the</text>
+<text x="1030.0" y="1125.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">agreement.</text>
 <text x="178.0" y="952.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">spread = 0 — branch two of the resting set. By round 4 no run's candidate pool has any</text>
 <text x="178.0" y="975.8" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">variation left, so there is no correlation to compute and the run has no agreement</text>
 <text x="178.0" y="999.5" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">coordinate. Nothing is drawn from the plot into this strip: the path leaves the plane. Final</text>
@@ -258,10 +260,10 @@
 <text x="84.0" y="1507.8" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">separatrix is drawn on the plot: none has been measured, and six</text>
 <text x="84.0" y="1531.6" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" font-weight="normal" text-anchor="start">runs could not support one.</text>
 <text x="748.0" y="1276.0" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" font-weight="bold" text-anchor="start">What separates them: the realised selection differential</text>
-<text x="748.0" y="1304.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">Sum over rounds 1 to 3 of the measured kept-minus-pool value gap —</text>
-<text x="748.0" y="1326.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">the agreement-times-spread product the loop actually realised. Only</text>
-<text x="748.0" y="1348.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">seeds 41 and 45 come out negative, and they are the two that lose</text>
-<text x="748.0" y="1371.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">the most value.</text>
+<text x="748.0" y="1304.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">Sum over rounds 1 to 3 of the measured kept-minus-pool value gap —</text>
+<text x="748.0" y="1327.8" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">the agreement-times-spread product the loop actually realised. Only</text>
+<text x="748.0" y="1351.5" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">seeds 41 and 45 come out negative, and they are the two that lose</text>
+<text x="748.0" y="1375.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">the most value.</text>
 <text x="800.0" y="1432.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#b5342c" font-weight="bold" text-anchor="middle">seed 45</text>
 <text x="800.0" y="1464.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="normal" text-anchor="middle">−0.209</text>
 <text x="902.0" y="1432.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#b5342c" font-weight="bold" text-anchor="middle">seed 41</text>
@@ -274,12 +276,12 @@
 <text x="1208.0" y="1464.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="normal" text-anchor="middle">+0.074</text>
 <text x="1310.0" y="1432.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#2867b5" font-weight="bold" text-anchor="middle">seed 43</text>
 <text x="1310.0" y="1464.0" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1a1a1a" font-weight="normal" text-anchor="middle">+0.121</text>
-<text x="748.0" y="1510.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">Read this row against the net value change beside each path in the plot, and in the strip above.</text>
-<text x="60.0" y="1640.0" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">Data: experiments/ablation_unit_law.json, key rho_trajectories, entries neutral_self:41 through neutral_self:46 — the neutral-prompt, self-judging</text>
-<text x="60.0" y="1662.4" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">condition of the judge ablation, in which the organism scores its own candidates, so the judge co-evolves with them. Every number plotted here is</text>
-<text x="60.0" y="1684.9" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">re-derived from the raw duel logs in experiments/em_selfaware_loop/output/ and checked against that file.</text>
-<text x="60.0" y="1717.3" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">Agreement: the Pearson correlation, within one prompt, between the judge's score for a candidate answer and that candidate's self-report value</text>
-<text x="60.0" y="1739.8" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">score, averaged over the prompts that had at least three candidates and non-zero variation in both scores. Spread: the within-prompt population</text>
-<text x="60.0" y="1762.2" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">standard deviation of those value scores, averaged over all six prompts. Pool value: the mean value score over all candidates and prompts. Framing</text>
-<text x="60.0" y="1784.6" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#6b7684" font-weight="normal" text-anchor="start">follows docs/reports/lit_coevolving_judge_2026-07-28.md.</text>
+<text x="748.0" y="1512.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">Read this row against the net value change beside each path.</text>
+<text x="60.0" y="1640.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">Data: experiments/ablation_unit_law.json, key rho_trajectories, entries neutral_self:41 through neutral_self:46 — the neutral-prompt,</text>
+<text x="60.0" y="1663.8" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">self-judging condition of the judge ablation, in which the organism scores its own candidates, so the judge co-evolves with them. Every number</text>
+<text x="60.0" y="1687.5" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">plotted here is re-derived from the raw duel logs in experiments/em_selfaware_loop/output/ and checked against that file.</text>
+<text x="60.0" y="1721.3" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">Agreement: the Pearson correlation, within one prompt, between the judge's score for a candidate answer and that candidate's self-report value</text>
+<text x="60.0" y="1745.0" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">score, averaged over the prompts that had at least three candidates and non-zero variation in both scores. Spread: the within-prompt</text>
+<text x="60.0" y="1768.8" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">population standard deviation of those value scores, averaged over all six prompts. Pool value: the mean value score over all candidates and</text>
+<text x="60.0" y="1792.6" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#6b7684" font-weight="normal" text-anchor="start">prompts. Framing follows docs/reports/lit_coevolving_judge_2026-07-28.md.</text>
 </svg>

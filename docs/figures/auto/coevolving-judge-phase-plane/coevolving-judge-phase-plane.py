@@ -234,7 +234,7 @@ def sgn(v, nd=3):
 # ======================================================================
 # Geometry
 # ======================================================================
-W, H = 1420, 1820
+W, H = 1420, 1850
 PX0, PX1 = 165, 1000          # plot area, x
 PY0, PY1 = 240, 860           # plot area, y
 VMIN, VMAX = 0.25, 0.80       # pool value
@@ -298,7 +298,7 @@ def leader(x1, y1, x2, y2):
 b = []
 
 # ---------------------------------------------------------------- headline
-b.append(text(58, 62, "Every self-judging run stops moving within four rounds — and it stops",
+b.append(text(58, 62, "Selection stops in every self-judging run within four rounds — and it stops",
               33, INK, "bold"))
 b.append(text(58, 104, "because the candidate pool ran out of spread, not because agreement reached zero.",
               33, INK, "bold"))
@@ -335,7 +335,7 @@ mid = (PY0 + PY1) / 2
 b.append(f'<text x="70" y="{mid}" font-family="{FONT}" font-size="20" fill="{INK}" '
          f'font-weight="bold" text-anchor="middle" '
          f'transform="rotate(-90 70 {mid})">judge / value agreement</text>')
-b.append(f'<text x="96" y="{mid}" font-family="{FONT}" font-size="17" fill="{GRAY}" '
+b.append(f'<text x="96" y="{mid}" font-family="{FONT}" font-size="18" fill="{GRAY}" '
          f'text-anchor="middle" transform="rotate(-90 96 {mid})">'
          f'correlation within a prompt, −1 to +1</text>')
 b.append(text((PX0 + PX1) / 2, PY1 + 62,
@@ -469,11 +469,11 @@ b.append(text(RC, 726, "Candidate spread by round", 19, INK, "bold"))
 sp, _ = para(RC, 750,
              "Within-prompt standard deviation of the candidates' value scores, "
              "averaged over the six prompts.",
-             17, GRAY, width=42)
+             18, GRAY, width=39)
 b.append(sp)
 
-SX0, SX1 = 1085, 1350
-SY0, SY1 = 826, 930
+SX0, SX1 = 1108, 1360
+SY0, SY1 = 838, 942
 SMAX = 0.45
 
 
@@ -489,10 +489,15 @@ b.append(f'<rect x="{SX0-30}" y="{SY(DEGENERATE_SPREAD):.1f}" '
          f'width="{SX1-SX0+58}" height="{SY1-SY(DEGENERATE_SPREAD):.1f}" '
          f'fill="{GRAY}" opacity="0.14"/>')
 for sg in [0.0, 0.2, 0.4]:
-    b.append(text(SX0 - 38, SY(sg) + 6, f"{sg:.1f}", 17, GRAY, anchor="end"))
+    b.append(text(SX0 - 38, SY(sg) + 6, f"{sg:.1f}", 18, GRAY, anchor="end"))
     b.append(f'<line x1="{SX0-30}" y1="{SY(sg):.1f}" x2="{SX1+28}" y2="{SY(sg):.1f}" '
              f'stroke="{GRAY}" stroke-width="{1.4 if sg == 0 else 1}" '
              f'opacity="{1.0 if sg == 0 else 0.3}"/>')
+b.append(text(SX0 - 38, SY(DEGENERATE_SPREAD) + 6, f"{DEGENERATE_SPREAD:.2f}", 18,
+              GRAY, anchor="end"))
+b.append(f'<line x1="{SX0-30}" y1="{SY(DEGENERATE_SPREAD):.1f}" x2="{SX1+28}" '
+         f'y2="{SY(DEGENERATE_SPREAD):.1f}" stroke="{GRAY}" stroke-width="1.4" '
+         f'stroke-dasharray="5 4"/>')
 for rd in range(1, LAST_ROUND + 1):
     b.append(text(SX(rd), SY1 + 28, str(rd), 18, GRAY, anchor="middle"))
 b.append(text((SX0 + SX1) / 2, SY1 + 54, "round", 18, INK, anchor="middle"))
@@ -507,11 +512,11 @@ for seed in order:
         b.append(f'<circle cx="{SX(i+1):.1f}" cy="{SY(v):.1f}" r="4.2" '
                  f'fill="{COLOR[seed]}" stroke="white" stroke-width="1.5"/>')
 
-sn, _ = para(RC, 1016,
+sn, _ = para(RC, 1030,
              f"Every run reaches exactly 0 by round {LAST_ROUND}; seeds "
              + " and ".join(str(s) for s in EARLY_ZERO) +
              " a round earlier. Inside the shaded band the selection term is "
-             "effectively zero whatever the agreement is.",
+             "effectively zero, whatever the agreement.",
              18, INK, width=40)
 b.append(sn)
 
@@ -578,7 +583,7 @@ sd, _ = para(748, BY + 104,
              "Sum over rounds 1 to 3 of the measured kept-minus-pool value gap — the "
              "agreement-times-spread product the loop actually realised. Only seeds 41 "
              "and 45 come out negative, and they are the two that lose the most value.",
-             17, GRAY, width=68)
+             18, GRAY, width=68)
 b.append(sd)
 cols = sorted(SEEDS, key=lambda s: CUM_GAP[s])
 for i, seed in enumerate(cols):
@@ -586,9 +591,9 @@ for i, seed in enumerate(cols):
     b.append(text(cx, BY + 232, f"seed {seed}", 18, COLOR[seed], "bold",
                   anchor="middle"))
     b.append(text(cx, BY + 264, sgn(CUM_GAP[seed]), 20, INK, anchor="middle"))
-b.append(text(748, BY + 310,
-              "Read this row against the net value change beside each path in the "
-              "plot, and in the strip above.", 17, GRAY))
+b.append(text(748, BY + 312,
+              "Read this row against the net value change beside each path.",
+              18, GRAY))
 
 # ---------------------------------------------------------------- footer
 FY = 1640
@@ -599,7 +604,7 @@ f1, fy2 = para(60, FY,
                "condition of the judge ablation, in which the organism scores its own candidates, "
                f"so the judge co-evolves with them. Every number plotted here is {src} in "
                "experiments/em_selfaware_loop/output/ and checked against that file.",
-               17, GRAY, width=146)
+               18, GRAY, width=142)
 b.append(f1)
 f2, _ = para(60, fy2 + 10,
              "Agreement: the Pearson correlation, within one prompt, between the judge's score for "
@@ -608,7 +613,7 @@ f2, _ = para(60, fy2 + 10,
              "Spread: the within-prompt population standard deviation of those value scores, "
              "averaged over all six prompts. Pool value: the mean value score over all candidates "
              "and prompts. Framing follows docs/reports/lit_coevolving_judge_2026-07-28.md.",
-             17, GRAY, width=146)
+             18, GRAY, width=142)
 b.append(f2)
 
 with open(OUT, "w") as fh:

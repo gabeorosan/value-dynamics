@@ -66,8 +66,12 @@ def load_rows():
                     gap = float(rec.get("gap") or 0.0)
                     pool_mean = float(rec.get("pool_mean") or 0.0)
                     rows.append({
-                        "run": (path.name, group_name, arm_name),
-                        "file": path.name,
+                        # keyed by the path RELATIVE TO THE REPO, not the basename:
+                        # output/ and output_oracle/ both contain a file called
+                        # spread_intervention.json, and keying on the basename
+                        # silently merged two distinct runs into one cluster.
+                        "run": (str(path.relative_to(ROOT)), group_name, arm_name),
+                        "file": str(path.relative_to(ROOT)),
                         "selection": selection,
                         "arm": arm_name,
                         "round": int(rec["round"]),
@@ -79,6 +83,7 @@ def load_rows():
                         "pressure": cumulative,
                         "probe_n": probe_n or DEFAULT_PROBE_N,
                         "aborted": group.get("aborted") is not None,
+                        "abort_reason": group.get("aborted"),
                     })
                     cumulative += abs(gap)
     return rows
@@ -219,6 +224,48 @@ def main():
 
     round_term["gap_x_round_minus_1_ci"] = cluster_bootstrap(rows, round_interaction)
 
+    # ---- outcome-dependent censoring, both aggregations ----
+    # The claim is about RUNS ("the runs that moved fastest were aborted"), so the
+    # run is the unit and the per-run mean is primary. Pooling rounds instead
+    # weights long runs more heavily and gives a visibly different number, which
+    # is what produced two circulating versions of this pair.
+    by_run_drift = defaultdict(list)
+    aborted_of = {}
+    for r in rows:
+        by_run_drift[r["run"]].append(r["drift"])
+        aborted_of[r["run"]] = r["aborted"]
+
+    censoring = {"per_run_mean_then_average": {}, "per_round_pooled": {}}
+    for label, want in (("aborted", True), ("completed", False)):
+        run_keys = [k for k in by_run_drift if aborted_of[k] is want]
+        run_means = [float(np.mean(by_run_drift[k])) for k in run_keys
+                     if by_run_drift[k]]
+        pooled_rounds = [d for k in run_keys for d in by_run_drift[k]]
+        censoring["per_run_mean_then_average"][label] = {
+            "n_runs": len(run_means),
+            "mean_signed_drift_per_round": float(np.mean(run_means)),
+        }
+        censoring["per_round_pooled"][label] = {
+            "n_runs": len(run_keys),
+            "n_rounds": len(pooled_rounds),
+            "mean_signed_drift_per_round": float(np.mean(pooled_rounds)),
+        }
+    for agg in ("per_run_mean_then_average", "per_round_pooled"):
+        censoring[agg]["ratio"] = (
+            censoring[agg]["aborted"]["mean_signed_drift_per_round"]
+            / censoring[agg]["completed"]["mean_signed_drift_per_round"])
+    censoring["primary"] = "per_run_mean_then_average"
+    censoring["row_rule"] = (
+        "every round of every (relative path, group, arm) in "
+        "experiments/spread_intervention/output*/*.json whose value trajectory has "
+        "a next entry; no de-duplication of byte-identical re-runs and no exclusion "
+        "of the oracle positive control. The two aggregations are both reported "
+        "because quoting one number from each is what produced the mismatched "
+        "'+0.074 against +0.023' pair: +0.074 is the per-run aborted figure, and "
+        "+0.023 is neither -- it only appears under a third rule that also "
+        "de-duplicates and drops the oracle arm."
+    )
+
     result = {
         "description": (
             "Per-round response coefficient in the spread-intervention corpus, "
@@ -232,6 +279,7 @@ def main():
         "by_round": by_round,
         "pooled": pooled,
         "round_interaction_with_supply_controlled": round_term,
+        "outcome_dependent_censoring": censoring,
     }
     OUT.write_text(json.dumps(result, indent=2) + "\n")
 
@@ -264,6 +312,18 @@ def main():
     print(f"  gap={rt['gap']:.3f}  gap x |gap|={rt['gap_x_absgap']:.3f}  "
           f"gap x (round-1)={rt['gap_x_round_minus_1']:.3f}"
           + (f" [{ci['ci_lo']:.3f}, {ci['ci_hi']:.3f}]" if ci else ""))
+    print()
+    print("OUTCOME-DEPENDENT CENSORING (row rule stated in the JSON)")
+    for agg in ("per_run_mean_then_average", "per_round_pooled"):
+        marker = " <- primary" if agg == censoring["primary"] else ""
+        print(f"  {agg}{marker}")
+        for label in ("aborted", "completed"):
+            c = censoring[agg][label]
+            extra = f" rounds={c['n_rounds']:3d}" if "n_rounds" in c else ""
+            print(f"    {label:10s} runs={c['n_runs']:3d}{extra} "
+                  f"mean signed drift/round="
+                  f"{c['mean_signed_drift_per_round']:+.4f}")
+        print(f"    ratio {censoring[agg]['ratio']:.2f}x")
     print()
     print(f"wrote {OUT.relative_to(ROOT)}")
 

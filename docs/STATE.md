@@ -115,7 +115,7 @@ Nothing else is on a GPU. The active work is free local analysis and literature.
   arrangement differs — moving the gap by +0.1875 (F = 35.1). Wald over 36
   matched pairs: **0.754, 95% CI [0.621, 0.984]**. The observational 0.402 was
   biased down ~2× by dynamic simultaneity and by outcome-dependent censoring
-  (aborted runs moved +0.074/round vs +0.023 for completed ones). Ferbach et al.
+  (aborted runs move +0.074/round vs +0.019 for completed ones, ratio 3.9×). Ferbach et al.
   (arXiv 2407.09499) predict 1.0 in the replicator limit. Carried corrections:
   measurement SE is **0.0296** (not 0.054); "n=84" is 72 physical rollouts in 11
   seed clusters, 29% of GPU spent recomputing byte-identical rounds; r=0.79 is

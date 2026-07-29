@@ -223,8 +223,9 @@ Do not cite the three numbers, and do not fit curves to them — a functional fo
 fitted to three unreproducible points will look excellent (a straight line
 through them has R² 0.999) and mean nothing.
 
-The censoring finding they were cited beside — aborted runs moved +0.074 per
-round against +0.023 for completed ones — stands on its own, is corroborated
+The censoring finding they were cited beside — aborted runs move **+0.074 per
+round against +0.019** for completed ones (28 against 100 runs, per-run means,
+ratio 3.9×; pooling rounds instead gives +0.067 against +0.016, ratio 4.2×) — stands on its own, is corroborated
 here by the short-run round-1 slope of 1.550 against 0.721, and is now the
 explanation for the 0.450-versus-0.754 gap in Result 4.
 

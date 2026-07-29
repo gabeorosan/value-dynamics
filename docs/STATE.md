@@ -80,6 +80,21 @@ The Kaggle copy stays queued for the 08-01 reset as a second, independent run.
 
 ## Recent changes
 
+- 2026-07-29: **A stability criterion for self-training loops, and its first
+  measurement — these loops are self-limiting.** The Lande-Kirkpatrick Fisherian
+  runaway model maps onto this loop almost exactly, and the quantity it needs is
+  the judge-drift coupling `c = dρ/dv`, which a frozen-judge design cannot see
+  because it is zero there by construction. It gives a one-line per-round loop
+  gain **G = 1 + c·h²·σ** — above 1 runs away, below 1 settles. Measured:
+  **G = 0.922 [0.86, 0.98]**, so movement erodes the judge's agreement rather
+  than reinforcing it. The mechanical route to that sign (binary scores force
+  σ ≤ √(v(1−v)), so nearing a rail drags ρ down by arithmetic) is ruled out —
+  controlling for the ceiling barely moves the coupling. Families split: Qwen
+  0.820 [0.70, 0.94], OLMo **0.974 [0.90, 1.05]**, on the boundary, and OLMo is
+  where the two runaways happened. Where it breaks: the predicted geometric decay
+  holds at rounds 2–3 and fails at round 4, where agreement comes back up.
+  [report_judge_coupling_stability.md](reports/report_judge_coupling_stability.md).
+
 - 2026-07-28: **The pooled gap decline is an accounting artefact.** Among pools
   that still have spread the gap is flat across four rounds (0.088 → 0.086); the
   whole pooled decline is the share of pools at *exactly* zero spread rising

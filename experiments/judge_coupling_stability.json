@@ -1,0 +1,442 @@
+{
+  "description": "Measures the judge-drift coupling c = d(rho)/d(v) -- the Lande-Kirkpatrick trajectory slope -- and converts it into a per-round loop gain G = 1 + c*h^2*sigma. G > 1 is Fisherian runaway; G < 1 settles onto the rho = 0 manifold.",
+  "transmission_coefficient_used": 0.809,
+  "excluded_judges": [
+    "schedule",
+    "score oracle"
+  ],
+  "rounds_dropped": {
+    "imputed_rho": 33,
+    "missing": 17
+  },
+  "n_rounds_used": 193,
+  "n_runs_used": 50,
+  "groups": {
+    "all judges except oracle and judge-swap": {
+      "group": "all judges except oracle and judge-swap",
+      "n_rounds": 193,
+      "n_runs": 50,
+      "mean_sigma": 0.3332699481865285,
+      "coupling_c_levels_run_fe": -0.2767355265831523,
+      "coupling_c_levels_ci": {
+        "se": 0.13584538633106324,
+        "ci_lo": -0.5550793359591659,
+        "ci_hi": -0.02667040673753612,
+        "draws": 4000
+      },
+      "coupling_c_differences": -0.29110786876889777,
+      "coupling_c_differences_ci": {
+        "se": 0.10101747896622913,
+        "ci_lo": -0.4826933895667761,
+        "ci_hi": -0.09114350177835265,
+        "draws": 4000
+      },
+      "coupling_c_ceiling_controlled": -0.29068394642589795,
+      "coupling_c_ceiling_controlled_ci": {
+        "se": 0.12019142200349875,
+        "ci_lo": -0.5264062563072059,
+        "ci_hi": -0.05750700456357384,
+        "draws": 4000
+      },
+      "gain_built_from": "ceiling-controlled coupling",
+      "differences_estimator_bias": {
+        "upper_bound_var_eps_rho": 0.021007932229013523,
+        "mean_sigma": 0.352362962962963,
+        "var_dv": 0.03521684540246914,
+        "bias_upper_bound_magnitude": 0.17004804046264332,
+        "direction": "negative (toward 'stable')"
+      },
+      "loop_gain": 0.9216271349749121,
+      "loop_gain_ci": [
+        0.8580727729164653,
+        0.9844952266471069
+      ],
+      "runaway_predicted": false,
+      "settling_predicted": true,
+      "geometric_decay_check": {
+        "round2": {
+          "n_runs": 40,
+          "observed_mean_ratio": 0.8835979405034248,
+          "observed_median_ratio": 0.8273327837051583,
+          "predicted_ratio": 0.9216271349749121
+        },
+        "round3": {
+          "n_runs": 30,
+          "observed_mean_ratio": 0.780235887335409,
+          "observed_median_ratio": 0.601131059806811,
+          "predicted_ratio": 0.8493965759220649
+        },
+        "round4": {
+          "n_runs": 28,
+          "observed_mean_ratio": 0.9710901675044565,
+          "observed_median_ratio": 0.7409681332211779,
+          "predicted_ratio": 0.7828269327245531
+        }
+      }
+    },
+    "co-evolving judge (self)": {
+      "group": "co-evolving judge (self)",
+      "n_rounds": 57,
+      "n_runs": 16,
+      "mean_sigma": 0.32530701754385966,
+      "coupling_c_levels_run_fe": -0.38091137366344824,
+      "coupling_c_levels_ci": {
+        "se": 0.22935819837118357,
+        "ci_lo": -0.8329405477218902,
+        "ci_hi": 0.06554540616391463,
+        "draws": 4000
+      },
+      "coupling_c_differences": -0.26584226370215536,
+      "coupling_c_differences_ci": {
+        "se": 0.13256886051081843,
+        "ci_lo": -0.5316986375103736,
+        "ci_hi": 0.0011918339450370792,
+        "draws": 4000
+      },
+      "coupling_c_ceiling_controlled": -0.34103593039708424,
+      "coupling_c_ceiling_controlled_ci": {
+        "se": 0.20232013726939518,
+        "ci_lo": -0.701692408717513,
+        "ci_hi": 0.08364417395834586,
+        "draws": 4000
+      },
+      "gain_built_from": "ceiling-controlled coupling",
+      "differences_estimator_bias": {
+        "upper_bound_var_eps_rho": 0.025875794193225325,
+        "mean_sigma": 0.3737151515151515,
+        "var_dv": 0.0610804026446281,
+        "bias_upper_bound_magnitude": 0.1280799131374482,
+        "direction": "negative (toward 'stable')"
+      },
+      "loop_gain": 0.9102484224532484,
+      "loop_gain_ci": [
+        0.8153332390471335,
+        1.0220129197431351
+      ],
+      "runaway_predicted": false,
+      "settling_predicted": false,
+      "geometric_decay_check": {
+        "round2": {
+          "n_runs": 16,
+          "observed_mean_ratio": 0.8713861573439529,
+          "observed_median_ratio": 0.8782960091493686,
+          "predicted_ratio": 0.9102484224532484
+        },
+        "round3": {
+          "n_runs": 7,
+          "observed_mean_ratio": 0.7834914411376268,
+          "observed_median_ratio": 0.6526115342763874,
+          "predicted_ratio": 0.8285521905786274
+        },
+        "round4": {
+          "n_runs": 5,
+          "observed_mean_ratio": 0.914474114644921,
+          "observed_median_ratio": 0.8447176684881603,
+          "predicted_ratio": 0.7541883243943789
+        }
+      }
+    },
+    "frozen judge": {
+      "group": "frozen judge",
+      "n_rounds": 136,
+      "n_runs": 34,
+      "mean_sigma": 0.3366073529411765,
+      "coupling_c_levels_run_fe": -0.18654761203813225,
+      "coupling_c_levels_ci": {
+        "se": 0.16103559609385612,
+        "ci_lo": -0.5246681319918145,
+        "ci_hi": 0.11246424074726993,
+        "draws": 4000
+      },
+      "coupling_c_differences": -0.32338548297426756,
+      "coupling_c_differences_ci": {
+        "se": 0.15470195769070297,
+        "ci_lo": -0.5939299235350998,
+        "ci_hi": -0.023631350354198076,
+        "draws": 4000
+      },
+      "coupling_c_ceiling_controlled": -0.2428266645090283,
+      "coupling_c_ceiling_controlled_ci": {
+        "se": 0.15070553834647063,
+        "ci_lo": -0.5639839334728918,
+        "ci_hi": 0.03274516768368123,
+        "draws": 4000
+      },
+      "gain_built_from": "ceiling-controlled coupling",
+      "differences_estimator_bias": {
+        "upper_bound_var_eps_rho": 0.019198857787225642,
+        "mean_sigma": 0.3454549019607843,
+        "var_dv": 0.025074535775663213,
+        "bias_upper_bound_magnitude": 0.21398452723242686,
+        "direction": "negative (toward 'stable')"
+      },
+      "loop_gain": 0.9338745722219894,
+      "loop_gain_ci": [
+        0.8464185185913409,
+        1.0089170117504356
+      ],
+      "runaway_predicted": false,
+      "settling_predicted": false,
+      "geometric_decay_check": {
+        "round2": {
+          "n_runs": 24,
+          "observed_mean_ratio": 0.8917391292764059,
+          "observed_median_ratio": 0.7593065950311436,
+          "predicted_ratio": 0.9338745722219894
+        },
+        "round3": {
+          "n_runs": 23,
+          "observed_mean_ratio": 0.779245066612995,
+          "observed_median_ratio": 0.584913611462284,
+          "predicted_ratio": 0.8721217166428038
+        },
+        "round4": {
+          "n_runs": 23,
+          "observed_mean_ratio": 0.9833980050826167,
+          "observed_median_ratio": 0.6890866265375556,
+          "predicted_ratio": 0.8144522950553055
+        }
+      }
+    },
+    "frozen judge, OLMo": {
+      "group": "frozen judge, OLMo",
+      "n_rounds": 98,
+      "n_runs": 24,
+      "mean_sigma": 0.31981530612244896,
+      "coupling_c_levels_run_fe": -0.03804086178484917,
+      "coupling_c_levels_ci": {
+        "se": 0.146291435937777,
+        "ci_lo": -0.32344409895344545,
+        "ci_hi": 0.2629609643885813,
+        "draws": 4000
+      },
+      "coupling_c_differences": -0.06839141281450035,
+      "coupling_c_differences_ci": {
+        "se": 0.11487200910726894,
+        "ci_lo": -0.3166021514121963,
+        "ci_hi": 0.12977261757995273,
+        "draws": 4000
+      },
+      "coupling_c_ceiling_controlled": -0.10222405940024208,
+      "coupling_c_ceiling_controlled_ci": {
+        "se": 0.13749015190251454,
+        "ci_lo": -0.3705776733759795,
+        "ci_hi": 0.18567826596917147,
+        "draws": 4000
+      },
+      "gain_built_from": "ceiling-controlled coupling",
+      "differences_estimator_bias": {
+        "upper_bound_var_eps_rho": 0.018605225078845978,
+        "mean_sigma": 0.3289121621621622,
+        "var_dv": 0.02531227015522279,
+        "bias_upper_bound_magnitude": 0.19558353239248327,
+        "direction": "negative (toward 'stable')"
+      },
+      "loop_gain": 0.9735515095502142,
+      "loop_gain_ci": [
+        0.904120222649217,
+        1.0480406459402138
+      ],
+      "runaway_predicted": false,
+      "settling_predicted": false,
+      "geometric_decay_check": {
+        "round2": {
+          "n_runs": 18,
+          "observed_mean_ratio": 0.7521602496175785,
+          "observed_median_ratio": 0.6480348607758948,
+          "predicted_ratio": 0.9735515095502142
+        },
+        "round3": {
+          "n_runs": 18,
+          "observed_mean_ratio": 0.8337657986815948,
+          "observed_median_ratio": 0.5785122021017246,
+          "predicted_ratio": 0.9478025417475008
+        },
+        "round4": {
+          "n_runs": 18,
+          "observed_mean_ratio": 1.0518651658733187,
+          "observed_median_ratio": 0.7274261961516606,
+          "predicted_ratio": 0.9227345952738093
+        }
+      }
+    },
+    "co-evolving judge, OLMo": {
+      "group": "co-evolving judge, OLMo",
+      "n_rounds": 17,
+      "n_runs": 6,
+      "mean_sigma": 0.3461705882352941,
+      "coupling_c_levels_run_fe": -0.15795775709150053,
+      "coupling_c_levels_ci": {
+        "se": 0.24005613787893068,
+        "ci_lo": -0.6324531214980249,
+        "ci_hi": 0.3076955138240115,
+        "draws": 4000
+      },
+      "coupling_c_differences": 0.22751991862007562,
+      "coupling_c_differences_ci": {
+        "se": 0.32658889780548844,
+        "ci_lo": -0.7643338495666475,
+        "ci_hi": 0.5728478775563294,
+        "draws": 3707
+      },
+      "coupling_c_ceiling_controlled": -0.19453243824893995,
+      "coupling_c_ceiling_controlled_ci": {
+        "se": 0.30556978125249495,
+        "ci_lo": -0.6893889117199556,
+        "ci_hi": 0.3043063440260686,
+        "draws": 4000
+      },
+      "gain_built_from": "ceiling-controlled coupling",
+      "differences_estimator_bias": {
+        "upper_bound_var_eps_rho": 0.01422818321366272,
+        "mean_sigma": 0.3974,
+        "var_dv": 0.03807156595041322,
+        "bias_upper_bound_magnitude": 0.12015036453524154,
+        "direction": "negative (toward 'stable')"
+      },
+      "loop_gain": 0.9455208004591994,
+      "loop_gain_ci": [
+        0.806935252439774,
+        1.0852216020472258
+      ],
+      "runaway_predicted": false,
+      "settling_predicted": false,
+      "geometric_decay_check": {
+        "round2": {
+          "n_runs": 5,
+          "observed_mean_ratio": 0.5926992683850938,
+          "observed_median_ratio": 0.8262698155936591,
+          "predicted_ratio": 0.9455208004591994
+        },
+        "round3": {
+          "n_runs": 4,
+          "observed_mean_ratio": 0.8793693693463782,
+          "observed_median_ratio": 0.7847179130432733,
+          "predicted_ratio": 0.8940095841010052
+        }
+      }
+    },
+    "frozen judge, Qwen": {
+      "group": "frozen judge, Qwen",
+      "n_rounds": 38,
+      "n_runs": 10,
+      "mean_sigma": 0.37991315789473673,
+      "coupling_c_levels_run_fe": -0.9557164205971376,
+      "coupling_c_levels_ci": {
+        "se": 0.2587949180692903,
+        "ci_lo": -1.2355958174520618,
+        "ci_hi": -0.31848503720926863,
+        "draws": 4000
+      },
+      "coupling_c_differences": -1.0505331072144153,
+      "coupling_c_differences_ci": {
+        "se": 0.254628592974771,
+        "ci_lo": -1.3029856845002428,
+        "ci_hi": -0.3395925383135148,
+        "draws": 4000
+      },
+      "coupling_c_ceiling_controlled": -0.5856242680044916,
+      "coupling_c_ceiling_controlled_ci": {
+        "se": 0.19832417175816355,
+        "ci_lo": -0.9728820366780437,
+        "ci_hi": -0.20051466365858436,
+        "draws": 4000
+      },
+      "gain_built_from": "ceiling-controlled coupling",
+      "differences_estimator_bias": {
+        "upper_bound_var_eps_rho": 0.021358685361034035,
+        "mean_sigma": 0.38917499999999994,
+        "var_dv": 0.02318170979591837,
+        "bias_upper_bound_magnitude": 0.2900831542143959,
+        "direction": "negative (toward 'stable')"
+      },
+      "loop_gain": 0.8200085307171195,
+      "loop_gain_ci": [
+        0.7009849543679443,
+        0.9383718693085403
+      ],
+      "runaway_predicted": false,
+      "settling_predicted": true,
+      "geometric_decay_check": {
+        "round2": {
+          "n_runs": 6,
+          "observed_mean_ratio": 1.3104757682528878,
+          "observed_median_ratio": 1.0649775258046263,
+          "predicted_ratio": 0.8200085307171195
+        },
+        "round3": {
+          "n_runs": 5,
+          "observed_mean_ratio": 0.5829704311660355,
+          "observed_median_ratio": 0.8943498452012383,
+          "predicted_ratio": 0.6724139904488492
+        },
+        "round4": {
+          "n_runs": 5,
+          "observed_mean_ratio": 0.7369162262360888,
+          "observed_median_ratio": 0.2778761061946903,
+          "predicted_ratio": 0.5513852083415961
+        }
+      }
+    },
+    "co-evolving judge, Qwen": {
+      "group": "co-evolving judge, Qwen",
+      "n_rounds": 40,
+      "n_runs": 10,
+      "mean_sigma": 0.31644,
+      "coupling_c_levels_run_fe": -0.5176017184295962,
+      "coupling_c_levels_ci": {
+        "se": 0.3184987407271182,
+        "ci_lo": -1.0989609918671865,
+        "ci_hi": 0.10455352270289564,
+        "draws": 4000
+      },
+      "coupling_c_differences": -0.34422872482317707,
+      "coupling_c_differences_ci": {
+        "se": 0.19729088224828784,
+        "ci_lo": -0.7376815213538432,
+        "ci_hi": 0.008486545561637361,
+        "draws": 3999
+      },
+      "coupling_c_ceiling_controlled": -0.46923251312383235,
+      "coupling_c_ceiling_controlled_ci": {
+        "se": 0.2932734194108812,
+        "ci_lo": -0.9383680878191112,
+        "ci_hi": 0.16193670807864494,
+        "draws": 4000
+      },
+      "gain_built_from": "ceiling-controlled coupling",
+      "differences_estimator_bias": {
+        "upper_bound_var_eps_rho": 0.030421813088803252,
+        "mean_sigma": 0.36187272727272723,
+        "var_dv": 0.05829617497933885,
+        "bias_upper_bound_magnitude": 0.1527739856039754,
+        "direction": "negative (toward 'stable')"
+      },
+      "loop_gain": 0.8798764954095994,
+      "loop_gain_ci": [
+        0.759777807053031,
+        1.0414557907906647
+      ],
+      "runaway_predicted": false,
+      "settling_predicted": false,
+      "geometric_decay_check": {
+        "round2": {
+          "n_runs": 11,
+          "observed_mean_ratio": 0.9980620159616159,
+          "observed_median_ratio": 1.0050251256281406,
+          "predicted_ratio": 0.8798764954095994
+        }
+      }
+    }
+  },
+  "rho_nullcline": {
+    "intercept": -0.027865701433244034,
+    "slope": 0.2665090573080244,
+    "rho_zero_at_v": 0.10455817792727985,
+    "note": "the equilibrium manifold is the horizontal line rho = 0; this fit says where a typical pool's agreement sits as a function of the value, not the manifold's slope"
+  },
+  "conventions": {
+    "zero_spread_rounds": "dropped: agreement is undefined when every candidate scores the same, and recording it as 0 would drag the coupling toward zero",
+    "estimator_biases": "levels-with-run-FE attenuates c toward zero (noise in v) and carries a negative Nickell bias; the differences estimator is biased negative by mean reversion. Both are conservative for detecting c > 0."
+  }
+}

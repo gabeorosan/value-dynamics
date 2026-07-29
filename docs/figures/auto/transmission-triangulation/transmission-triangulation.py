@@ -447,6 +447,9 @@ def build():
     for ln in reason_lines:
         b.append(plain(dbx + 16, ry, ln, 18, INK))
         ry += 26
+    b.append(plain(lx, dby + dbh + 24,
+                   f"({cen['reason_groups']} of {cen['n_abort_groups']} paired runs; "
+                   "the rest differ only in the round number)", 18, GRAY))
     note = ("Sensible as a pairing constraint — it stops a paired run once the two arms can no longer be offered "
             "candidate pools whose means match. The statistical consequence surfaced later.")
     ny = BY + 214

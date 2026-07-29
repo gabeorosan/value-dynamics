@@ -234,7 +234,7 @@ def sgn(v, nd=3):
 # ======================================================================
 # Geometry
 # ======================================================================
-W, H = 1420, 1730
+W, H = 1420, 1820
 PX0, PX1 = 165, 1000          # plot area, x
 PY0, PY1 = 240, 860           # plot area, y
 VMIN, VMAX = 0.25, 0.80       # pool value
@@ -347,11 +347,14 @@ y0 = Y(0.0)
 b.append(f'<line x1="{PX0}" y1="{y0:.1f}" x2="{PX1}" y2="{y0:.1f}" '
          f'stroke="{INK}" stroke-width="3.4"/>')
 b.append(text(PX1 - 8, y0 - 14, "agreement = 0", 20, INK, "bold", anchor="end"))
-b.append(text(182, y0 + 28,
-              "agreement = 0: the selection term — agreement times spread — is zero",
+b.append(text(182, y0 + 24,
+              "agreement = 0: the selection term — agreement times",
               18, INK, halo=True))
-b.append(text(182, y0 + 50,
-              "here, so the pool value stops moving. Lande's line of equilibria, branch one.",
+b.append(text(182, y0 + 46,
+              "spread — vanishes, so the pool value stops moving.",
+              18, INK, halo=True))
+b.append(text(182, y0 + 68,
+              "Branch one of Lande's line of equilibria.",
               18, INK, halo=True))
 
 # ---------------------------------------------------------------- trajectories
@@ -406,8 +409,8 @@ b.append(leader(674, 396, P[44][1][0] - 10, P[44][1][1] + 1))
 b.append(run_label(790, 312, 42))
 b.append(leader(786, 324, P[42][1][0] + 10, P[42][1][1] + 1))
 
-b.append(run_label(690, 448, 46, extra="hugs the agreement = 0 line", anchor="end"))
-b.append(leader(696, 466, P[46][0][0] - 12, P[46][0][1] - 5))
+b.append(run_label(745, 566, 46, extra="stays on the line", anchor="end"))
+b.append(leader(740, 556, P[46][2][0] - 6, P[46][2][1] + 6))
 
 b.append(run_label(852, 730, 43,
                    extra=f"but its spread here is only {RUNS[43]['sigma'][1]:.3f}",
@@ -513,16 +516,15 @@ sn, _ = para(RC, 1016,
 b.append(sn)
 
 # ---------------------------------------------------------------- spread = 0 rug
-rug, _ = para(178, 928,
+rug, _ = para(178, 952,
               f"spread = 0 — branch two of the resting set. By round {LAST_ROUND} no run's "
-              "candidate pool has any variation left, so there is no correlation to compute "
-              "and the run has no agreement coordinate at all. Nothing is drawn from the plot "
-              "into this strip, because the path leaves the plane. Final pool value only, on "
-              "the same value axis as the plot above.",
-              18, INK, width=90)
+              "candidate pool has any variation left, so there is no correlation to compute and "
+              "the run has no agreement coordinate. Nothing is drawn from the plot into this "
+              "strip: the path leaves the plane. Final pool value only.",
+              18, INK, width=92)
 b.append(rug)
 
-RUG_Y = 1050
+RUG_Y = 1064
 b.append(f'<rect x="{PX0}" y="{RUG_Y-26}" width="{PX1-PX0}" height="52" rx="6" '
          f'fill="#f4f4f2" stroke="{GRAY}" stroke-width="1.2"/>')
 b.append(f'<line x1="{PX0}" y1="{RUG_Y}" x2="{PX1}" y2="{RUG_Y}" stroke="{GRAY}" '
@@ -547,8 +549,8 @@ for seed in by_x:
 # ======================================================================
 # Bottom: the counterexamples, and what actually separates the runs
 # ======================================================================
-BY = 1178
-b.append(box(60, BY, 1330, 322, DOC_FILL, RED, 2.5))
+BY = 1200
+b.append(box(60, BY, 1330, 372, DOC_FILL, RED, 2.5))
 b.append(text(84, BY + 40, "The pattern is not clean — read these two runs too",
               21, RED, "bold"))
 t1, ny = para(84, BY + 76,
@@ -581,14 +583,15 @@ b.append(sd)
 cols = sorted(SEEDS, key=lambda s: CUM_GAP[s])
 for i, seed in enumerate(cols):
     cx = 800 + i * 102
-    b.append(text(cx, BY + 224, f"seed {seed}", 18, COLOR[seed], "bold",
+    b.append(text(cx, BY + 232, f"seed {seed}", 18, COLOR[seed], "bold",
                   anchor="middle"))
-    b.append(text(cx, BY + 252, sgn(CUM_GAP[seed]), 19, INK, anchor="middle"))
-    b.append(text(cx, BY + 286, f"value {sgn(NET[seed])}", 17, GRAY,
-                  anchor="middle"))
+    b.append(text(cx, BY + 264, sgn(CUM_GAP[seed]), 20, INK, anchor="middle"))
+b.append(text(748, BY + 310,
+              "Read this row against the net value change beside each path in the "
+              "plot, and in the strip above.", 17, GRAY))
 
 # ---------------------------------------------------------------- footer
-FY = 1560
+FY = 1640
 src = RUNS[41]["source"]
 f1, fy2 = para(60, FY,
                "Data: experiments/ablation_unit_law.json, key rho_trajectories, entries "

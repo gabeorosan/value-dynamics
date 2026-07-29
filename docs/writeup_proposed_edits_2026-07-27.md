@@ -139,3 +139,86 @@ at n=7 per condition — the movement-to-gap ratio is flat around 0.45 with no t
 which is what your existing model already says. That arc is recorded in the ledger as
 a worked example of over-reading small samples. Nothing from it belongs in the
 writeup.
+
+---
+
+# ADDENDUM 2026-07-28 — the edit above got stronger, and one number in it needs a footnote
+
+Nothing above is withdrawn. Three things landed the next day that bear on it.
+
+## 1. The 0.754 estimate now has independent corroboration
+
+The edit rests on a single instrumented estimate from one corpus. It no longer
+has to. Refitting the movement law on the **340-round unified corpus** — the
+corpus behind the writeup's own headline results, not the spread-intervention
+runs — with the pool-offset term included and measurement error removed gives a
+response coefficient of **0.809**. That is a different dataset and a different
+identification strategy, and it lands inside the instrument's interval.
+
+| estimate | corpus | identification | outcome-dependent censoring | value |
+|---|---|---|---|---|
+| observational, corrected | unified, 340 rounds / 74 runs | ordinary regression | 4 of 74 runs stop short | **0.809** |
+| randomised instrument | spread-intervention, 36 matched pairs | Wald ratio | none by construction | **0.754** [0.621, 0.984] |
+| observational, corrected | spread-intervention, 414 rounds / 126 runs | ordinary regression | heavy — the abort rule removed the fastest movers | 0.450 |
+
+The two censoring-free estimates agree with each other; the outlier is exactly
+the one the censoring diagnosis predicts. If you want a single sentence for the
+writeup: *about three quarters to four fifths of the selection differential
+appears as behavioural change, estimated three ways.*
+
+**Recommended.** Replace "about three quarters" in the proposed edit with "about
+three quarters to four fifths", and, if you want the strength on the page, add
+the triangulation as a footnote.
+
+## 2. The "n = 84 arm-rollouts" wording on line 43 needs a footnote
+
+*Before:* "I pooled all 84 arm-rollouts…"
+
+*After:* "I pooled all 84 arm-rollout records (72 physical rollouts in 11 seed
+clusters; one control seed was recomputed identically across ten output
+files)…"
+
+**Optional** — this sentence is in a correction section rather than in the edit
+itself, so it may not reach the writeup at all. But if any version of it does,
+the count should not read as 84 independent runs.
+
+## 3. There is now a theoretical reason to expect a coefficient below 1
+
+Ferbach, Bertrand, Bose & Gidel ([arXiv 2407.09499](https://arxiv.org/abs/2407.09499))
+model this exact curated self-consuming loop. I had them wrong on 07-27 and have
+since read the paper properly. Two things are worth knowing:
+
+- Under exact fitting, response equals the selection differential **identically**,
+  for any number of candidates and any selection rule. So a coefficient below 1
+  is not explained by keeping 2 of 6.
+- But their Equation 8 covers the case where reference data is mixed back at
+  ratio λ, and there the response is **λ/(1+λ)** times the differential. A
+  coefficient of 0.78 is exactly λ/(1+λ) at λ ≈ 3.5. **An anchored fine-tune is
+  predicted to transmit below 1 by design, not by defect.**
+
+**Optional, and only if you want a theory sentence.** Something like: *the
+shortfall from 1 is what a fine-tune anchored to its starting point is expected
+to show.* I would not put more weight on it than that until we have varied the
+anchoring and watched the coefficient move.
+
+One scope limit to respect if the paper is cited at all: every result in it
+assumes a **fixed** reward. Nothing in it covers a judge that is retrained
+alongside the generator, so it says nothing about the self-judge runs.
+
+## 4. A sentence already in the writeup is tighter than its data
+
+Not part of the proposed edit — flagging it because it is in the current draft.
+
+The Limitations section says: *"across six runs differing only by seed, early
+agreement turned negative in the two runs that collapsed and remained nonnegative
+in the four that amplified."*
+
+Pulling the six raw trajectories, that separation is clean **on round 1 alone**.
+Widened to the first two rounds it is not: seed 43 sums to −0.437 against
+collapsing seed 45's −0.441 and does not collapse. Spread also reaches exactly
+zero by round 3 or 4 in all six runs, which makes late-round agreement
+degenerate.
+
+**Recommended, if you keep the sentence:** change "early agreement" to
+"round-one agreement", which is what was actually measured and is still true.
+The rest of the sentence stands.

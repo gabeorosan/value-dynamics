@@ -38,6 +38,31 @@ selection gap — the selector mostly has nothing to act on — against 0.328 an
 for the spread arm. The concentrated arm is not exactly zero: it has nonzero spread
 in four of its rounds, the largest being 0.114 with a gap of 0.111.
 
+## CORRECTION 2026-07-27, before you read the edit: the framing was wrong
+
+I pooled all 84 arm-rollouts and tested whether spread does anything **beyond**
+producing the gap. It does not.
+
+- Movement regressed on cumulative gap alone, both arms pooled:
+  `movement = 0.007 + 0.402 x gap`, r = 0.79, n = 84. The intercept is
+  indistinguishable from zero.
+- Adding an arm dummy appears to help (+0.109, t = 3.62) — but the two arms occupy
+  nearly disjoint gap ranges (concentrated −0.18 to 0.14, spread −0.96 to 0.96, with
+  only 9 of 84 rollouts overlapping), and the gap-movement relation is convex
+  (gap-squared term t = 3.34). The dummy is absorbing that curvature.
+- **The clean test is within the spread arm alone**, where gap and spread both vary
+  properly. There, mean within-prompt spread adds nothing beyond the gap:
+  coefficient +0.125, SE 0.459, **t = 0.27**.
+
+So spread is not a second lever acting alongside the gap. It determines whether a gap
+can form at all, and the gap determines movement — which is exactly what the model
+already says. The edit below is rewritten accordingly: it is a **causal confirmation
+of the model's chain**, not an addition to the model.
+
+That is a weaker claim than the one I first wrote, and still worth making, because
+every previous test of that chain was observational with spread and the value
+confounded.
+
 ## The edit
 
 **Status: recommended.** Additive. Nothing around it needs rewording and no existing
@@ -61,16 +86,18 @@ number changes. Best placed at the end of the interventions section.
 > These results suggest that spread and agreement could be useful as targets for
 > interventions, and the effect can be forecast from their new values.
 >
-> Spread can be intervened on directly, without changing where the value sits. A
-> round's pool mean fixes the total variation among its candidates but not how that
-> variation splits between differences within a prompt and differences between
-> prompts, and the selector only ever compares candidates within a prompt. Holding
-> the pool mean identical every round and moving variation out of the prompts stops
-> the value moving: under selection that is otherwise as strong as possible, the
-> value climbs 0.41 when the variation sits inside prompts and 0.02 when the same
-> amount of variation sits between them. A replication on fresh seeds gives 0.37
-> against 0.07. Variation only counts when it is inside the comparison the selector
-> actually makes.
+> The chain from variation to selection to movement can be tested directly rather
+> than inferred. A round's pool mean fixes the total variation among its candidates
+> but not how that variation splits between differences within a prompt and
+> differences between prompts, and the selector only ever compares candidates within
+> a prompt. Holding the pool mean identical every round and moving the variation out
+> of the prompts leaves the selector nothing to act on: the gap collapses to 0.02 and
+> the value climbs 0.02, against a gap of 0.29 and a climb of 0.41 when the same
+> amount of variation sits inside prompts. A replication on fresh seeds gives 0.37
+> against 0.07. Across all 84 rollouts run this way, movement is predicted by the
+> gap alone at 0.40 times the gap with no intercept, and the amount of variation adds
+> nothing once the gap is known. Variation matters because it is what lets a gap form,
+> not as a separate force.
 
 ## Caveats you may want to fold in or leave out
 

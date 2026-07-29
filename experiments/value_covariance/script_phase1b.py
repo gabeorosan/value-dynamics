@@ -69,9 +69,16 @@ GEN_MODEL = os.environ.get("GEN_MODEL", "Qwen/Qwen3-4B")
 JUDGE_A = os.environ.get("JUDGE_A", "Qwen/Qwen3-4B")
 # Judge B must be a DIFFERENT family and must load under Kaggle's preinstalled
 # transformers. Gemma-2-2b-it is attached as a Kaggle model source (no HF auth).
+# Judge B must be a DIFFERENT family from judge A, or the cross-judge agreement
+# gate passes on shared bias rather than on a real second reading. The Kaggle
+# path mounts gemma-2 locally; everywhere else the default is Mistral's
+# Ministral-3-3B (Apache 2.0, no auth, ~6 GB in fp16 so it fits a T4 alongside
+# nothing else). The old fallback, Qwen2.5-3B, shared a vendor with judge A and
+# would have made the gate permissive.
 JUDGE_B = os.environ.get(
     "JUDGE_B", "/kaggle/input/gemma-2/transformers/gemma-2-2b-it/2")
-JUDGE_B_FALLBACK = os.environ.get("JUDGE_B_FALLBACK", "Qwen/Qwen2.5-3B-Instruct")
+JUDGE_B_FALLBACK = os.environ.get(
+    "JUDGE_B_FALLBACK", "mistralai/Ministral-3-3B-Instruct-2512")
 N_CAND = int(os.environ.get("N_CAND", "8"))
 GEN_TEMP = float(os.environ.get("GEN_TEMP", "1.0"))
 # 200 truncated every candidate inside <think> on 2026-07-24. Keep the margin.
@@ -386,16 +393,31 @@ def strip_thinking(text):
 
 
 def judge_prompt(tok, msg):
-    """Render a judge turn whose NEXT TOKEN is the answer. Qwen3 opens its turn with
-    <think>; left open, the next-token read measures the noise tail of the reasoning
-    opener (the root cause of three failed phase-1 runs). Force it closed."""
+    """Render a judge turn whose NEXT TOKEN is the answer.
+
+    Qwen3 opens its assistant turn with <think>; left open, the next-token read
+    measures the noise tail of the reasoning opener rather than an answer. That
+    was the root cause of three failed phase-1 runs, so a reasoning model's block
+    is force-closed.
+
+    But the closer must NOT be appended to a judge that has no reasoning block.
+    An earlier version appended `<think></think>` unconditionally, which injects
+    tokens a non-reasoning model never emits and silently corrupts its read. That
+    hit whichever model was configured as judge B -- gemma-2 on Kaggle -- and it
+    is exactly the kind of instrument fault this experiment exists to avoid.
+
+    So the block is appended only when the tokenizer's own chat template shows the
+    model uses one.
+    """
     try:
         text = tok.apply_chat_template([{"role": "user", "content": msg}], tokenize=False,
                                        add_generation_prompt=True, enable_thinking=False)
     except TypeError:
         text = tok.apply_chat_template([{"role": "user", "content": msg}], tokenize=False,
                                        add_generation_prompt=True)
-    if "</think>" not in text:
+    template = (getattr(tok, "chat_template", None) or "")
+    uses_thinking = "think" in str(template).lower() or "<think>" in text
+    if uses_thinking and "</think>" not in text:
         text = text + "<think>\n\n</think>\n\n"
     return text
 

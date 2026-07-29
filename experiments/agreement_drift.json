@@ -1,0 +1,2290 @@
+{
+  "description": "Agreement drift over a run, and whether a co-evolving judge drives more of it than a frozen one. Corpus: experiments/spread_util_unified.json.",
+  "n_runs": 70,
+  "by_judge": {
+    "base": {
+      "n_runs": 22,
+      "mean_rho_1": 0.08449545454545455,
+      "mean_drift_rho": 0.32450000000000007,
+      "mean_sd_rho": 0.21394096606429577,
+      "runs_with_a_sign_flip": 15,
+      "mean_zero_spread_rounds": 0.3181818181818182
+    },
+    "cautious copy": {
+      "n_runs": 8,
+      "mean_rho_1": -0.004637500000000017,
+      "mean_drift_rho": 0.23754999999999998,
+      "mean_sd_rho": 0.12490516902790291,
+      "runs_with_a_sign_flip": 4,
+      "mean_zero_spread_rounds": 0.0
+    },
+    "frozen copy": {
+      "n_runs": 4,
+      "mean_rho_1": 0.058775,
+      "mean_drift_rho": 0.07965,
+      "mean_sd_rho": 0.061226029144980675,
+      "runs_with_a_sign_flip": 2,
+      "mean_zero_spread_rounds": 0.0
+    },
+    "schedule": {
+      "n_runs": 9,
+      "mean_rho_1": -0.1304,
+      "mean_drift_rho": 0.2583555555555555,
+      "mean_sd_rho": 0.25461909568546987,
+      "runs_with_a_sign_flip": 8,
+      "mean_zero_spread_rounds": 0.5555555555555556
+    },
+    "score oracle": {
+      "n_runs": 11,
+      "mean_rho_1": -0.7272727272727273,
+      "mean_drift_rho": 0.09090909090909091,
+      "mean_sd_rho": 0.05248638810814779,
+      "runs_with_a_sign_flip": 0,
+      "mean_zero_spread_rounds": 1.2727272727272727
+    },
+    "self": {
+      "n_runs": 16,
+      "mean_rho_1": 0.25751250000000003,
+      "mean_drift_rho": 0.46269375,
+      "mean_sd_rho": 0.24822865568761174,
+      "runs_with_a_sign_flip": 5,
+      "mean_zero_spread_rounds": 0.4375
+    }
+  },
+  "contrasts": [
+    {
+      "cell": "Qwen self-only reference (matched)",
+      "metric": "drift_rho",
+      "n_evolving": 4,
+      "n_frozen": 10,
+      "mean_evolving": 0.342025,
+      "mean_frozen": 0.17959,
+      "difference": 0.16243500000000002,
+      "permutation": {
+        "observed_difference": 0.16243500000000002,
+        "p_two_sided": 0.2647352647352647,
+        "exact": true,
+        "n_permutations": 1001
+      },
+      "minimum_detectable_difference_at_this_n": 0.3775631479352798,
+      "seeds_per_arm_for_80pct_power_on_observed_effect": 52,
+      "evolving_judges": [
+        "self"
+      ],
+      "frozen_judges": [
+        "base",
+        "frozen copy"
+      ]
+    },
+    {
+      "cell": "all runs except judge-swap",
+      "metric": "drift_rho",
+      "n_evolving": 16,
+      "n_frozen": 34,
+      "mean_evolving": 0.46269375,
+      "mean_frozen": 0.275235294117647,
+      "difference": 0.187458455882353,
+      "permutation": {
+        "observed_difference": 0.187458455882353,
+        "p_two_sided": 0.01781,
+        "exact": false,
+        "n_permutations": 200000
+      },
+      "minimum_detectable_difference_at_this_n": 0.21580762914177276,
+      "seeds_per_arm_for_80pct_power_on_observed_effect": 34,
+      "evolving_judges": [
+        "self"
+      ],
+      "frozen_judges": [
+        "base",
+        "cautious copy",
+        "frozen copy"
+      ]
+    },
+    {
+      "cell": "Qwen self-only reference (matched)",
+      "metric": "sd_rho",
+      "n_evolving": 4,
+      "n_frozen": 10,
+      "mean_evolving": 0.21863283494227637,
+      "mean_frozen": 0.15983968399536702,
+      "difference": 0.058793150946909345,
+      "permutation": {
+        "observed_difference": 0.058793150946909345,
+        "p_two_sided": 0.5244755244755245,
+        "exact": true,
+        "n_permutations": 1001
+      },
+      "minimum_detectable_difference_at_this_n": 0.26200622139993246,
+      "seeds_per_arm_for_80pct_power_on_observed_effect": 124,
+      "evolving_judges": [
+        "self"
+      ],
+      "frozen_judges": [
+        "base",
+        "frozen copy"
+      ]
+    },
+    {
+      "cell": "all runs except judge-swap",
+      "metric": "sd_rho",
+      "n_evolving": 16,
+      "n_frozen": 34,
+      "mean_evolving": 0.24822865568761174,
+      "mean_frozen": 0.17502490359463685,
+      "difference": 0.07320375209297489,
+      "permutation": {
+        "observed_difference": 0.07320375209297489,
+        "p_two_sided": 0.067345,
+        "exact": false,
+        "n_permutations": 200000
+      },
+      "minimum_detectable_difference_at_this_n": 0.10983855957332242,
+      "seeds_per_arm_for_80pct_power_on_observed_effect": 51,
+      "evolving_judges": [
+        "self"
+      ],
+      "frozen_judges": [
+        "base",
+        "cautious copy",
+        "frozen copy"
+      ]
+    },
+    {
+      "cell": "Qwen self-only reference (matched)",
+      "metric": "rho_1",
+      "n_evolving": 4,
+      "n_frozen": 10,
+      "mean_evolving": 0.058825,
+      "mean_frozen": -0.0023999999999999968,
+      "difference": 0.061225,
+      "permutation": {
+        "observed_difference": 0.061225,
+        "p_two_sided": 0.6013986013986014,
+        "exact": true,
+        "n_permutations": 1001
+      },
+      "minimum_detectable_difference_at_this_n": 0.3407509913251322,
+      "seeds_per_arm_for_80pct_power_on_observed_effect": 127,
+      "evolving_judges": [
+        "self"
+      ],
+      "frozen_judges": [
+        "base",
+        "frozen copy"
+      ]
+    },
+    {
+      "cell": "all runs except judge-swap",
+      "metric": "rho_1",
+      "n_evolving": 16,
+      "n_frozen": 34,
+      "mean_evolving": 0.25751250000000003,
+      "mean_frozen": 0.06049705882352942,
+      "difference": 0.19701544117647063,
+      "permutation": {
+        "observed_difference": 0.19701544117647063,
+        "p_two_sided": 0.03437,
+        "exact": false,
+        "n_permutations": 200000
+      },
+      "minimum_detectable_difference_at_this_n": 0.25320638451294875,
+      "seeds_per_arm_for_80pct_power_on_observed_effect": 36,
+      "evolving_judges": [
+        "self"
+      ],
+      "frozen_judges": [
+        "base",
+        "cautious copy",
+        "frozen copy"
+      ]
+    }
+  ],
+  "horizon_decay_of_round1_agreement": {
+    "all": {
+      "round2": {
+        "n": 70,
+        "corr": 0.8506991881458723
+      },
+      "round3": {
+        "n": 70,
+        "corr": 0.7068023076073435
+      },
+      "round4": {
+        "n": 69,
+        "corr": 0.5664540767965359
+      }
+    },
+    "evolving_judge": {
+      "round2": {
+        "n": 16,
+        "corr": 0.8128793372762873
+      },
+      "round3": {
+        "n": 16,
+        "corr": 0.6058105743491417
+      },
+      "round4": {
+        "n": 16,
+        "corr": -0.08376574808997941
+      }
+    },
+    "frozen_judge": {
+      "round2": {
+        "n": 34,
+        "corr": 0.3541283072044334
+      },
+      "round3": {
+        "n": 34,
+        "corr": 0.11737891964198639
+      },
+      "round4": {
+        "n": 33,
+        "corr": 0.1300094842690288
+      }
+    }
+  },
+  "decay_difference_at_round4": {
+    "horizon": 4,
+    "n_evolving": 16,
+    "n_frozen": 33,
+    "corr_evolving": -0.08376574808997941,
+    "corr_frozen": 0.1300094842690288,
+    "fisher_z_difference": -0.21471199414583153,
+    "fisher_z_ci": [
+      -0.9016680784841439,
+      0.44815591605818716
+    ],
+    "excludes_zero": false,
+    "note": "negative difference means round-1 agreement predicts later agreement LESS well when the judge co-evolves"
+  },
+  "decay_difference_at_round3": {
+    "horizon": 3,
+    "n_evolving": 16,
+    "n_frozen": 34,
+    "corr_evolving": 0.6058105743491417,
+    "corr_frozen": 0.11737891964198639,
+    "fisher_z_difference": 0.5843536894656974,
+    "fisher_z_ci": [
+      -0.07228656040451448,
+      1.2138120408997102
+    ],
+    "excludes_zero": false,
+    "note": "negative difference means round-1 agreement predicts later agreement LESS well when the judge co-evolves"
+  },
+  "runs": [
+    {
+      "run": [
+        "evolving_self",
+        "0",
+        "k1_qwen_anchor.json"
+      ],
+      "organism": "Qwen",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "self",
+      "evolving_judge": true,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.0058,
+        -0.041,
+        -0.3949,
+        0.2189
+      ],
+      "rho_1": -0.0058,
+      "rho_last": 0.2189,
+      "drift_rho": 0.2247,
+      "sd_rho": 0.253750467979864,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.5938,
+      "value_end": 0.26049999999999995
+    },
+    {
+      "run": [
+        "frozen_copy_r0",
+        "0",
+        "k1_qwen_anchor.json"
+      ],
+      "organism": "Qwen",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "frozen copy",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.006,
+        0.1257,
+        0.084,
+        -0.0909
+      ],
+      "rho_1": -0.006,
+      "rho_last": -0.0909,
+      "drift_rho": 0.08489999999999999,
+      "sd_rho": 0.09656490045560032,
+      "sign_flips": 2,
+      "zero_spread_rounds": 0,
+      "value_start": 0.5938,
+      "value_end": 0.4375
+    },
+    {
+      "run": [
+        "frozen_base",
+        "0",
+        "k1_qwen_anchor.json"
+      ],
+      "organism": "Qwen",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.1789,
+        -0.0609,
+        0.0217,
+        0.0
+      ],
+      "rho_1": -0.1789,
+      "rho_last": 0.0,
+      "drift_rho": 0.1789,
+      "sd_rho": 0.08998704999424455,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.5938,
+      "value_end": 0.6042
+    },
+    {
+      "run": [
+        "evolving_self",
+        "1",
+        "k1_qwen_anchor.json"
+      ],
+      "organism": "Qwen",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "self",
+      "evolving_judge": true,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.0393,
+        0.1282,
+        0.0647,
+        0.1226
+      ],
+      "rho_1": 0.0393,
+      "rho_last": 0.1226,
+      "drift_rho": 0.0833,
+      "sd_rho": 0.04368760312338807,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.6354,
+      "value_end": 0.7083
+    },
+    {
+      "run": [
+        "frozen_copy_r0",
+        "1",
+        "k1_qwen_anchor.json"
+      ],
+      "organism": "Qwen",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "frozen copy",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.0393,
+        0.0645,
+        0.0828,
+        -0.068
+      ],
+      "rho_1": 0.0393,
+      "rho_last": -0.068,
+      "drift_rho": 0.1073,
+      "sd_rho": 0.0674983703506981,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.6354,
+      "value_end": 0.6771
+    },
+    {
+      "run": [
+        "frozen_base",
+        "1",
+        "k1_qwen_anchor.json"
+      ],
+      "organism": "Qwen",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.1179,
+        -0.2628,
+        -0.1075,
+        0.2002
+      ],
+      "rho_1": -0.1179,
+      "rho_last": 0.2002,
+      "drift_rho": 0.3181,
+      "sd_rho": 0.1948200366149916,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.6354,
+      "value_end": 0.4688
+    },
+    {
+      "run": [
+        "evolving_self",
+        "2",
+        "k1_qwen_anchor.json"
+      ],
+      "organism": "Qwen",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "self",
+      "evolving_judge": true,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.1695,
+        0.0539,
+        0.0322,
+        0.3059
+      ],
+      "rho_1": 0.1695,
+      "rho_last": 0.3059,
+      "drift_rho": 0.1364,
+      "sd_rho": 0.12573324606748473,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.6042,
+      "value_end": 0.875
+    },
+    {
+      "run": [
+        "frozen_copy_r0",
+        "2",
+        "k1_qwen_anchor.json"
+      ],
+      "organism": "Qwen",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "frozen copy",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.1695,
+        0.0442,
+        0.0003,
+        0.0471
+      ],
+      "rho_1": 0.1695,
+      "rho_last": 0.0471,
+      "drift_rho": 0.12240000000000001,
+      "sd_rho": 0.07270737582941637,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.6042,
+      "value_end": 0.6979000000000001
+    },
+    {
+      "run": [
+        "frozen_base",
+        "2",
+        "k1_qwen_anchor.json"
+      ],
+      "organism": "Qwen",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.0427,
+        -0.1557,
+        0.0268,
+        0.0236
+      ],
+      "rho_1": -0.0427,
+      "rho_last": 0.0236,
+      "drift_rho": 0.0663,
+      "sd_rho": 0.08537169710546152,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.6042,
+      "value_end": 0.5938
+    },
+    {
+      "run": [
+        "evolving_self",
+        "3",
+        "k1_qwen_anchor.json"
+      ],
+      "organism": "Qwen",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "self",
+      "evolving_judge": true,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.0323,
+        0.0552,
+        0.0743,
+        0.956
+      ],
+      "rho_1": 0.0323,
+      "rho_last": 0.956,
+      "drift_rho": 0.9237,
+      "sd_rho": 0.45136002259836877,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.5833,
+      "value_end": 1.0
+    },
+    {
+      "run": [
+        "frozen_copy_r0",
+        "3",
+        "k1_qwen_anchor.json"
+      ],
+      "organism": "Qwen",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "frozen copy",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.0323,
+        0.048,
+        0.0482,
+        0.0363
+      ],
+      "rho_1": 0.0323,
+      "rho_last": 0.0363,
+      "drift_rho": 0.003999999999999997,
+      "sd_rho": 0.008133469944207905,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.5833,
+      "value_end": 0.5104
+    },
+    {
+      "run": [
+        "frozen_base",
+        "3",
+        "k1_qwen_anchor.json"
+      ],
+      "organism": "Qwen",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.0627,
+        0.182,
+        -0.0618,
+        0.0913
+      ],
+      "rho_1": -0.0627,
+      "rho_last": 0.0913,
+      "drift_rho": 0.15400000000000003,
+      "sd_rho": 0.12065772526724787,
+      "sign_flips": 3,
+      "zero_spread_rounds": 0,
+      "value_start": 0.5833,
+      "value_end": 0.5937
+    },
+    {
+      "run": [
+        "frozen_cons_r0",
+        "3",
+        "k2_olmo_inversion_kaggle_conf_v2.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "cautious copy",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.2916,
+        -0.1699,
+        -0.033,
+        0.1529
+      ],
+      "rho_1": -0.2916,
+      "rho_last": 0.1529,
+      "drift_rho": 0.4445,
+      "sd_rho": 0.19078027501115868,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.2386,
+      "value_end": 0.19149999999999998
+    },
+    {
+      "run": [
+        "frozen_base",
+        "3",
+        "k2_olmo_inversion_kaggle_conf_v2.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.0371,
+        -0.0556,
+        -0.0798,
+        0.1585
+      ],
+      "rho_1": 0.0371,
+      "rho_last": 0.1585,
+      "drift_rho": 0.12140000000000001,
+      "sd_rho": 0.10809263002937186,
+      "sign_flips": 2,
+      "zero_spread_rounds": 0,
+      "value_start": 0.2386,
+      "value_end": 0.0625
+    },
+    {
+      "run": [
+        "frozen_cons_r0",
+        "4",
+        "k2_olmo_inversion_kaggle_conf_v2.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "cautious copy",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.2117,
+        -0.2631,
+        0.0364,
+        0.0475
+      ],
+      "rho_1": -0.2117,
+      "rho_last": 0.0475,
+      "drift_rho": 0.2592,
+      "sd_rho": 0.1627052626684214,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.2447,
+      "value_end": 0.0948
+    },
+    {
+      "run": [
+        "frozen_base",
+        "4",
+        "k2_olmo_inversion_kaggle_conf_v2.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.2584,
+        0.3211,
+        0.1355,
+        -0.5994
+      ],
+      "rho_1": -0.2584,
+      "rho_last": -0.5994,
+      "drift_rho": 0.341,
+      "sd_rho": 0.4112079846825286,
+      "sign_flips": 2,
+      "zero_spread_rounds": 0,
+      "value_start": 0.2447,
+      "value_end": 0.0625
+    },
+    {
+      "run": [
+        "frozen_base",
+        "5",
+        "k2_olmo_inversion_kaggle_conf_v2.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.0123,
+        0.2141,
+        0.2677,
+        0.0762
+      ],
+      "rho_1": 0.0123,
+      "rho_last": 0.0762,
+      "drift_rho": 0.0639,
+      "sd_rho": 0.11853172219564966,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.234,
+      "value_end": 0.8021
+    },
+    {
+      "run": [
+        "frozen_cons_r0",
+        "1",
+        "k2_conf_v1_seeds12_partial.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "cautious copy",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.4798,
+        -0.3423,
+        -0.2033,
+        -0.0738
+      ],
+      "rho_1": -0.4798,
+      "rho_last": -0.0738,
+      "drift_rho": 0.406,
+      "sd_rho": 0.17520892290824308,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.2396,
+      "value_end": 0.0
+    },
+    {
+      "run": [
+        "frozen_cons_r0",
+        "2",
+        "k2_conf_v1_seeds12_partial.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "cautious copy",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.1673,
+        -0.2697,
+        -0.1587,
+        -0.441
+      ],
+      "rho_1": -0.1673,
+      "rho_last": -0.441,
+      "drift_rho": 0.2737,
+      "sd_rho": 0.13128511911104015,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.2105,
+      "value_end": 0.1505
+    },
+    {
+      "run": [
+        "frozen_base",
+        "0",
+        "k2_olmo_inversion_kaggle_base012.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.2803,
+        0.1216,
+        0.4026,
+        0.4609
+      ],
+      "rho_1": -0.2803,
+      "rho_last": 0.4609,
+      "drift_rho": 0.7412,
+      "sd_rho": 0.338469328989595,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.2688,
+      "value_end": 0.1875
+    },
+    {
+      "run": [
+        "frozen_base",
+        "1",
+        "k2_olmo_inversion_kaggle_base012.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.1789,
+        -0.1482,
+        -0.0416,
+        0.1681
+      ],
+      "rho_1": -0.1789,
+      "rho_last": 0.1681,
+      "drift_rho": 0.347,
+      "sd_rho": 0.15694641336031437,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.2396,
+      "value_end": 0.1459
+    },
+    {
+      "run": [
+        "frozen_base",
+        "2",
+        "k2_olmo_inversion_kaggle_base012.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.0902,
+        -0.0506,
+        0.2799,
+        0.3513
+      ],
+      "rho_1": 0.0902,
+      "rho_last": 0.3513,
+      "drift_rho": 0.2611,
+      "sd_rho": 0.18253669950633672,
+      "sign_flips": 2,
+      "zero_spread_rounds": 0,
+      "value_start": 0.2105,
+      "value_end": 0.6875
+    },
+    {
+      "run": [
+        "base_hold",
+        "1",
+        "k2rel_base_hold_s1.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 8,
+      "rho_by_round": [
+        -0.1322,
+        0.2908,
+        0.2389,
+        0.0749,
+        0.0233,
+        0.2258,
+        0.4538,
+        0.098
+      ],
+      "rho_1": -0.1322,
+      "rho_last": 0.098,
+      "drift_rho": 0.23020000000000002,
+      "sd_rho": 0.18092226379225496,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.3077,
+      "value_end": 0.5625
+    },
+    {
+      "run": [
+        "base_hold",
+        "2",
+        "k2rel_base_hold_s2.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 8,
+      "rho_by_round": [
+        0.0154,
+        0.1699,
+        0.1913,
+        0.185,
+        0.2398,
+        0.0741,
+        0.0476,
+        0.2075
+      ],
+      "rho_1": 0.0154,
+      "rho_last": 0.2075,
+      "drift_rho": 0.1921,
+      "sd_rho": 0.08320257121713762,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.3011,
+      "value_end": 0.875
+    },
+    {
+      "run": [
+        "cons_mix",
+        "33",
+        "k2rel_cons_mix_s33.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "base-mixed",
+      "format": "reference",
+      "judge": "cautious copy",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.2797,
+        0.0873,
+        0.2671,
+        0.1753
+      ],
+      "rho_1": 0.2797,
+      "rho_last": 0.1753,
+      "drift_rho": 0.10439999999999999,
+      "sd_rho": 0.08971025582395806,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.875,
+      "value_end": 0.7158
+    },
+    {
+      "run": [
+        "cons_mix",
+        "34",
+        "k2rel_cons_mix_s34.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "base-mixed",
+      "format": "reference",
+      "judge": "cautious copy",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.5978,
+        0.497,
+        0.5256,
+        0.6303
+      ],
+      "rho_1": 0.5978,
+      "rho_last": 0.6303,
+      "drift_rho": 0.03249999999999997,
+      "sd_rho": 0.06189956246479722,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 1.0,
+      "value_end": 1.0
+    },
+    {
+      "run": [
+        "h2h_base_rescue",
+        "57",
+        "k2rel_h2h_base_rescue_s57.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "base-mixed",
+      "format": "duel",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.3251,
+        0.1174,
+        0.2007,
+        0.036
+      ],
+      "rho_1": 0.3251,
+      "rho_last": 0.036,
+      "drift_rho": 0.2891,
+      "sd_rho": 0.12345187996408424,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.875,
+      "value_end": 0.5368999999999999
+    },
+    {
+      "run": [
+        "h2h_base_rescue",
+        "58",
+        "k2rel_h2h_base_rescue_s58.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "base-mixed",
+      "format": "duel",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.3821,
+        -0.0454,
+        -0.2075,
+        -0.2633
+      ],
+      "rho_1": 0.3821,
+      "rho_last": -0.2633,
+      "drift_rho": 0.6454,
+      "sd_rho": 0.29208960240538057,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 1.0,
+      "value_end": 0.5521
+    },
+    {
+      "run": [
+        "h2h_cons_rescue",
+        "55",
+        "k2rel_h2h_cons_rescue_s55.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "base-mixed",
+      "format": "duel",
+      "judge": "cautious copy",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.0015,
+        0.1132,
+        0.0848,
+        0.1913
+      ],
+      "rho_1": -0.0015,
+      "rho_last": 0.1913,
+      "drift_rho": 0.1928,
+      "sd_rho": 0.07959482814019178,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.8646,
+      "value_end": 0.5368999999999999
+    },
+    {
+      "run": [
+        "h2h_cons_rescue",
+        "56",
+        "k2rel_h2h_cons_rescue_s56.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "base-mixed",
+      "format": "duel",
+      "judge": "cautious copy",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.2373,
+        -0.0106,
+        0.1388,
+        0.05
+      ],
+      "rho_1": 0.2373,
+      "rho_last": 0.05,
+      "drift_rho": 0.18730000000000002,
+      "sd_rho": 0.10805712609541307,
+      "sign_flips": 2,
+      "zero_spread_rounds": 0,
+      "value_start": 1.0,
+      "value_end": 0.7473000000000001
+    },
+    {
+      "run": [
+        "h2h_erode_base",
+        "63",
+        "k2rel_h2h_erode_base_s63.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "base-mixed",
+      "format": "duel",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.1047,
+        -0.0395,
+        0.0599,
+        0.0337
+      ],
+      "rho_1": -0.1047,
+      "rho_last": 0.0337,
+      "drift_rho": 0.1384,
+      "sd_rho": 0.07439970878079206,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.2366,
+      "value_end": 0.45830000000000004
+    },
+    {
+      "run": [
+        "h2h_erode_base",
+        "64",
+        "k2rel_h2h_erode_base_s64.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "base-mixed",
+      "format": "duel",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.1554,
+        0.0446,
+        0.0323,
+        0.119
+      ],
+      "rho_1": 0.1554,
+      "rho_last": 0.119,
+      "drift_rho": 0.036400000000000016,
+      "sd_rho": 0.059131738516637576,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.2584,
+      "value_end": 0.46809999999999996
+    },
+    {
+      "run": [
+        "h2h_erode_self",
+        "61",
+        "k2rel_h2h_erode_self_s61.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "base-mixed",
+      "format": "duel",
+      "judge": "self",
+      "evolving_judge": true,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.2956,
+        -0.0382,
+        0.0353,
+        -0.2117
+      ],
+      "rho_1": 0.2956,
+      "rho_last": -0.2117,
+      "drift_rho": 0.5073,
+      "sd_rho": 0.21076157935765552,
+      "sign_flips": 3,
+      "zero_spread_rounds": 0,
+      "value_start": 0.2021,
+      "value_end": 0.4687
+    },
+    {
+      "run": [
+        "h2h_erode_self",
+        "62",
+        "k2rel_h2h_erode_self_s62.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "base-mixed",
+      "format": "duel",
+      "judge": "self",
+      "evolving_judge": true,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.2196,
+        -0.0356,
+        0.2173,
+        -0.1855
+      ],
+      "rho_1": 0.2196,
+      "rho_last": -0.1855,
+      "drift_rho": 0.4051,
+      "sd_rho": 0.19956506875369412,
+      "sign_flips": 3,
+      "zero_spread_rounds": 0,
+      "value_start": 0.413,
+      "value_end": 0.4271
+    },
+    {
+      "run": [
+        "h2h_invade_base",
+        "51",
+        "k2rel_h2h_invade_base_s51.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "peer-mixed",
+      "format": "duel",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.3352,
+        0.2699,
+        0.5048,
+        -0.472
+      ],
+      "rho_1": 0.3352,
+      "rho_last": -0.472,
+      "drift_rho": 0.8071999999999999,
+      "sd_rho": 0.4324669496042443,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.3297,
+      "value_end": 0.7395999999999999
+    },
+    {
+      "run": [
+        "h2h_invade_base",
+        "52",
+        "k2rel_h2h_invade_base_s52.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "peer-mixed",
+      "format": "duel",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.3232,
+        0.3183,
+        0.1233,
+        0.2724
+      ],
+      "rho_1": 0.3232,
+      "rho_last": 0.2724,
+      "drift_rho": 0.05080000000000001,
+      "sd_rho": 0.09350903699643151,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.2857,
+      "value_end": 0.9375
+    },
+    {
+      "run": [
+        "h2h_invade_self",
+        "53",
+        "k2rel_h2h_invade_self_s53.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "peer-mixed",
+      "format": "duel",
+      "judge": "self",
+      "evolving_judge": true,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.6182,
+        0.5108,
+        0.3585,
+        0.0
+      ],
+      "rho_1": 0.6182,
+      "rho_last": 0.0,
+      "drift_rho": 0.6182,
+      "sd_rho": 0.2698432060166298,
+      "sign_flips": 0,
+      "zero_spread_rounds": 1,
+      "value_start": 0.3,
+      "value_end": 1.0
+    },
+    {
+      "run": [
+        "h2h_invade_self",
+        "54",
+        "k2rel_h2h_invade_self_s54.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "peer-mixed",
+      "format": "duel",
+      "judge": "self",
+      "evolving_judge": true,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.4388,
+        0.414,
+        0.8024,
+        0.0
+      ],
+      "rho_1": 0.4388,
+      "rho_last": 0.0,
+      "drift_rho": 0.4388,
+      "sd_rho": 0.32805763721232484,
+      "sign_flips": 0,
+      "zero_spread_rounds": 1,
+      "value_start": 0.2065,
+      "value_end": 1.0
+    },
+    {
+      "run": [
+        "invade_base",
+        "35",
+        "k2rel_invade_base_s35.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "peer-mixed",
+      "format": "reference",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.6866,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rho_1": 0.6866,
+      "rho_last": 0.0,
+      "drift_rho": 0.6866,
+      "sd_rho": 0.34330000000000005,
+      "sign_flips": 0,
+      "zero_spread_rounds": 3,
+      "value_start": 0.3068,
+      "value_end": 0.9895
+    },
+    {
+      "run": [
+        "invade_base",
+        "36",
+        "k2rel_invade_base_s36.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "peer-mixed",
+      "format": "reference",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.7099,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rho_1": 0.7099,
+      "rho_last": 0.0,
+      "drift_rho": 0.7099,
+      "sd_rho": 0.35494999999999993,
+      "sign_flips": 0,
+      "zero_spread_rounds": 3,
+      "value_start": 0.3118,
+      "value_end": 1.0
+    },
+    {
+      "run": [
+        "invade_self",
+        "37",
+        "k2rel_invade_self_s37.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "peer-mixed",
+      "format": "reference",
+      "judge": "self",
+      "evolving_judge": true,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.5369,
+        0.4845,
+        0.0,
+        0.0
+      ],
+      "rho_1": 0.5369,
+      "rho_last": 0.0,
+      "drift_rho": 0.5369,
+      "sd_rho": 0.29562778962743,
+      "sign_flips": 0,
+      "zero_spread_rounds": 2,
+      "value_start": 0.3626,
+      "value_end": 1.0
+    },
+    {
+      "run": [
+        "invade_self",
+        "38",
+        "k2rel_invade_self_s38.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "peer-mixed",
+      "format": "reference",
+      "judge": "self",
+      "evolving_judge": true,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.5654,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rho_1": 0.5654,
+      "rho_last": 0.0,
+      "drift_rho": 0.5654,
+      "sd_rho": 0.2827,
+      "sign_flips": 0,
+      "zero_spread_rounds": 3,
+      "value_start": 0.2444,
+      "value_end": 1.0
+    },
+    {
+      "run": [
+        "oracle_hold",
+        "21",
+        "k2rel_oracle_hold_s21.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "score",
+      "judge": "score oracle",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "rho_1": -1.0,
+      "rho_last": -1.0,
+      "drift_rho": 0.0,
+      "sd_rho": 0.0,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.9167,
+      "value_end": 0.09380000000000002
+    },
+    {
+      "run": [
+        "oracle_hold",
+        "22",
+        "k2rel_oracle_hold_s22.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "score",
+      "judge": "score oracle",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rho_1": 0.0,
+      "rho_last": 0.0,
+      "drift_rho": 0.0,
+      "sd_rho": 0.0,
+      "sign_flips": 0,
+      "zero_spread_rounds": 4,
+      "value_start": 1.0,
+      "value_end": 1.0
+    },
+    {
+      "run": [
+        "oracle_mix",
+        "31",
+        "k2rel_oracle_mix_s31.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "base-mixed",
+      "format": "score",
+      "judge": "score oracle",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "rho_1": -1.0,
+      "rho_last": -1.0,
+      "drift_rho": 0.0,
+      "sd_rho": 0.0,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.9271,
+      "value_end": 0.3438
+    },
+    {
+      "run": [
+        "oracle_mix",
+        "32",
+        "k2rel_oracle_mix_s32.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "base-mixed",
+      "format": "score",
+      "judge": "score oracle",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "rho_1": -1.0,
+      "rho_last": -1.0,
+      "drift_rho": 0.0,
+      "sd_rho": 0.0,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 1.0,
+      "value_end": 0.48419999999999996
+    },
+    {
+      "run": [
+        "press_d1",
+        "1",
+        "k2rel_press_d1_s1.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "schedule",
+      "evolving_judge": false,
+      "n_rounds": 8,
+      "rho_by_round": [
+        -0.1555,
+        0.0829,
+        0.0547,
+        0.0061,
+        -0.192,
+        -0.2247,
+        -0.1352,
+        -0.0908
+      ],
+      "rho_1": -0.1555,
+      "rho_last": -0.0908,
+      "drift_rho": 0.0647,
+      "sd_rho": 0.11613628001496469,
+      "sign_flips": 2,
+      "zero_spread_rounds": 0,
+      "value_start": 0.3077,
+      "value_end": 0.0
+    },
+    {
+      "run": [
+        "press_d1",
+        "2",
+        "k2rel_press_d1_s2.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "schedule",
+      "evolving_judge": false,
+      "n_rounds": 8,
+      "rho_by_round": [
+        -0.0929,
+        0.2536,
+        0.3536,
+        0.1356,
+        0.1635,
+        0.2009,
+        0.5009,
+        0.0
+      ],
+      "rho_1": -0.0929,
+      "rho_last": 0.0,
+      "drift_rho": 0.0929,
+      "sd_rho": 0.18798885985230995,
+      "sign_flips": 1,
+      "zero_spread_rounds": 1,
+      "value_start": 0.3011,
+      "value_end": 1.0
+    },
+    {
+      "run": [
+        "press_d2",
+        "1",
+        "k2rel_press_d2_s1.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "schedule",
+      "evolving_judge": false,
+      "n_rounds": 8,
+      "rho_by_round": [
+        -0.1555,
+        -0.294,
+        0.3567,
+        -0.0974,
+        0.0522,
+        0.4784,
+        0.0306,
+        -0.4985
+      ],
+      "rho_1": -0.1555,
+      "rho_last": -0.4985,
+      "drift_rho": 0.34299999999999997,
+      "sd_rho": 0.32212151184429944,
+      "sign_flips": 4,
+      "zero_spread_rounds": 0,
+      "value_start": 0.3077,
+      "value_end": 0.1052
+    },
+    {
+      "run": [
+        "press_d2",
+        "2",
+        "k2rel_press_d2_s2.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "schedule",
+      "evolving_judge": false,
+      "n_rounds": 8,
+      "rho_by_round": [
+        -0.0929,
+        -0.1894,
+        0.5028,
+        0.4631,
+        0.5185,
+        -0.1715,
+        0.4958,
+        -0.06
+      ],
+      "rho_1": -0.0929,
+      "rho_last": -0.06,
+      "drift_rho": 0.0329,
+      "sd_rho": 0.3360810361462587,
+      "sign_flips": 4,
+      "zero_spread_rounds": 0,
+      "value_start": 0.3011,
+      "value_end": 0.9375
+    },
+    {
+      "run": [
+        "press_d3",
+        "1",
+        "k2rel_press_d3_s1.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "schedule",
+      "evolving_judge": false,
+      "n_rounds": 8,
+      "rho_by_round": [
+        -0.1555,
+        -0.198,
+        -0.5695,
+        0.7145,
+        0.3688,
+        0.0632,
+        0.1783,
+        0.1729
+      ],
+      "rho_1": -0.1555,
+      "rho_last": 0.1729,
+      "drift_rho": 0.3284,
+      "sd_rho": 0.38888718870093203,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.3077,
+      "value_end": 0.22920000000000001
+    },
+    {
+      "run": [
+        "press_d3",
+        "2",
+        "k2rel_press_d3_s2.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "schedule",
+      "evolving_judge": false,
+      "n_rounds": 8,
+      "rho_by_round": [
+        -0.0929,
+        -0.2832,
+        -0.2253,
+        0.1114,
+        0.3326,
+        0.516,
+        0.1687,
+        0.2913
+      ],
+      "rho_1": -0.0929,
+      "rho_last": 0.2913,
+      "drift_rho": 0.3842,
+      "sd_rho": 0.2824468584656995,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.3011,
+      "value_end": 0.8229
+    },
+    {
+      "run": [
+        "press_to_base",
+        "1",
+        "k2rel_press_to_base_s1.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "schedule",
+      "evolving_judge": false,
+      "n_rounds": 8,
+      "rho_by_round": [
+        -0.1555,
+        -0.1905,
+        -0.0744,
+        -0.6089,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rho_1": -0.1555,
+      "rho_last": 0.0,
+      "drift_rho": 0.1555,
+      "sd_rho": 0.20850925253536626,
+      "sign_flips": 0,
+      "zero_spread_rounds": 4,
+      "value_start": 0.3077,
+      "value_end": 0.0
+    },
+    {
+      "run": [
+        "press_to_base",
+        "2",
+        "k2rel_press_to_base_s2.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "schedule",
+      "evolving_judge": false,
+      "n_rounds": 8,
+      "rho_by_round": [
+        -0.0929,
+        -0.1444,
+        0.1206,
+        -0.1228,
+        0.1577,
+        0.4457,
+        0.3562,
+        0.2571
+      ],
+      "rho_1": -0.0929,
+      "rho_last": 0.2571,
+      "drift_rho": 0.35,
+      "sd_rho": 0.22559053298272197,
+      "sign_flips": 3,
+      "zero_spread_rounds": 0,
+      "value_start": 0.3011,
+      "value_end": 0.3895
+    },
+    {
+      "run": [
+        "press_to_base",
+        "3",
+        "k2rel_press_to_base_s3.json"
+      ],
+      "organism": "OLMo",
+      "axis": "risk",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "schedule",
+      "evolving_judge": false,
+      "n_rounds": 8,
+      "rho_by_round": [
+        -0.18,
+        -0.0411,
+        -0.1607,
+        0.208,
+        0.3883,
+        0.1291,
+        0.1612,
+        0.3936
+      ],
+      "rho_1": -0.18,
+      "rho_last": 0.3936,
+      "drift_rho": 0.5736,
+      "sd_rho": 0.22381034062667562,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.3444,
+      "value_end": 0.75
+    },
+    {
+      "run": [
+        "selfaware_loop_grid",
+        "11",
+        "selfaware_loop_grid.json"
+      ],
+      "organism": "Qwen",
+      "axis": "selfreport",
+      "composition": "self-only",
+      "format": "candid-prompt",
+      "judge": "self",
+      "evolving_judge": true,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.6378,
+        0.529,
+        0.1174,
+        -0.6643
+      ],
+      "rho_1": 0.6378,
+      "rho_last": -0.6643,
+      "drift_rho": 1.3021,
+      "sd_rho": 0.590377869814466,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.5471,
+      "value_end": 0.998
+    },
+    {
+      "run": [
+        "selfaware_loop_grid",
+        "22",
+        "selfaware_loop_grid.json"
+      ],
+      "organism": "Qwen",
+      "axis": "selfreport",
+      "composition": "self-only",
+      "format": "candid-prompt",
+      "judge": "self",
+      "evolving_judge": true,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.2985,
+        0.4705,
+        0.3,
+        -0.1849
+      ],
+      "rho_1": 0.2985,
+      "rho_last": -0.1849,
+      "drift_rho": 0.4834,
+      "sd_rho": 0.28240178676252503,
+      "sign_flips": 1,
+      "zero_spread_rounds": 0,
+      "value_start": 0.5471,
+      "value_end": 0.9765999999999999
+    },
+    {
+      "run": [
+        "selfaware_loop_grid",
+        "33",
+        "selfaware_loop_grid.json"
+      ],
+      "organism": "Qwen",
+      "axis": "selfreport",
+      "composition": "self-only",
+      "format": "candid-prompt",
+      "judge": "self",
+      "evolving_judge": true,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.5238,
+        0.4543,
+        0.6375,
+        0.9997
+      ],
+      "rho_1": 0.5238,
+      "rho_last": 0.9997,
+      "drift_rho": 0.4759,
+      "sd_rho": 0.24263329498099254,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.5471,
+      "value_end": 0.9993
+    },
+    {
+      "run": [
+        "selfaware_loop_grid",
+        "44",
+        "selfaware_loop_grid.json"
+      ],
+      "organism": "Qwen",
+      "axis": "selfreport",
+      "composition": "self-only",
+      "format": "candid-prompt",
+      "judge": "self",
+      "evolving_judge": true,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.3197,
+        0.4021,
+        0.1399,
+        0.6352
+      ],
+      "rho_1": 0.3197,
+      "rho_last": 0.6352,
+      "drift_rho": 0.3155,
+      "sd_rho": 0.20556114053974306,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.5471,
+      "value_end": 0.9164
+    },
+    {
+      "run": [
+        "judge_opposition_oracle",
+        "101",
+        "judge_opposition_oracle.json"
+      ],
+      "organism": "Qwen",
+      "axis": "selfreport",
+      "composition": "self-only",
+      "format": "score",
+      "judge": "score oracle",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "rho_1": -1.0,
+      "rho_last": -1.0,
+      "drift_rho": 0.0,
+      "sd_rho": 0.0,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.9989,
+      "value_end": 0.33120000000000005
+    },
+    {
+      "run": [
+        "judge_opposition_oracle",
+        "202",
+        "judge_opposition_oracle.json"
+      ],
+      "organism": "Qwen",
+      "axis": "selfreport",
+      "composition": "self-only",
+      "format": "score",
+      "judge": "score oracle",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "rho_1": -1.0,
+      "rho_last": -1.0,
+      "drift_rho": 0.0,
+      "sd_rho": 0.0,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.9989,
+      "value_end": 0.334
+    },
+    {
+      "run": [
+        "judge_opposition_oracle_seed707",
+        "707",
+        "judge_opposition_oracle_seed707.json"
+      ],
+      "organism": "Qwen",
+      "axis": "selfreport",
+      "composition": "self-only",
+      "format": "score",
+      "judge": "score oracle",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -1.0,
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "rho_1": -1.0,
+      "rho_last": 0.0,
+      "drift_rho": 1.0,
+      "sd_rho": 0.5773502691896257,
+      "sign_flips": 0,
+      "zero_spread_rounds": 2,
+      "value_start": 0.9835,
+      "value_end": 0.6247
+    },
+    {
+      "run": [
+        "judge_opposition_natural_base",
+        "101",
+        "judge_opposition_natural_base.json"
+      ],
+      "organism": "Qwen",
+      "axis": "selfreport",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.5168,
+        0.5014,
+        -0.4622,
+        0.1305
+      ],
+      "rho_1": 0.5168,
+      "rho_last": 0.1305,
+      "drift_rho": 0.38630000000000003,
+      "sd_rho": 0.4587383885905633,
+      "sign_flips": 2,
+      "zero_spread_rounds": 0,
+      "value_start": 0.9796,
+      "value_end": 0.958
+    },
+    {
+      "run": [
+        "judge_opposition_natural_base",
+        "202",
+        "judge_opposition_natural_base.json"
+      ],
+      "organism": "Qwen",
+      "axis": "selfreport",
+      "composition": "self-only",
+      "format": "reference",
+      "judge": "base",
+      "evolving_judge": false,
+      "n_rounds": 3,
+      "rho_by_round": [
+        -0.3737,
+        0.4334,
+        0.0
+      ],
+      "rho_1": -0.3737,
+      "rho_last": 0.0,
+      "drift_rho": 0.3737,
+      "sd_rho": 0.4039178258012389,
+      "sign_flips": 1,
+      "zero_spread_rounds": 1,
+      "value_start": 0.9796,
+      "value_end": 0.334
+    },
+    {
+      "run": [
+        "mixed_reopen_qwen",
+        "921",
+        "mixed_reopen_qwen.json"
+      ],
+      "organism": "Qwen",
+      "axis": "selfreport",
+      "composition": "base-mixed",
+      "format": "score",
+      "judge": "score oracle",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "rho_1": -1.0,
+      "rho_last": -1.0,
+      "drift_rho": 0.0,
+      "sd_rho": 0.0,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.6269,
+      "value_end": 0.0
+    },
+    {
+      "run": [
+        "mixed_reopen_qwen",
+        "922",
+        "mixed_reopen_qwen.json"
+      ],
+      "organism": "Qwen",
+      "axis": "selfreport",
+      "composition": "base-mixed",
+      "format": "score",
+      "judge": "score oracle",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -1.0,
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "rho_1": -1.0,
+      "rho_last": -1.0,
+      "drift_rho": 0.0,
+      "sd_rho": 0.0,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.6269,
+      "value_end": 0.0
+    },
+    {
+      "run": [
+        "mixed_reopen_twin_selfonly",
+        "921",
+        "mixed_reopen_twin_selfonly.json"
+      ],
+      "organism": "Qwen",
+      "axis": "selfreport",
+      "composition": "self-only",
+      "format": "score",
+      "judge": "score oracle",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rho_1": 0.0,
+      "rho_last": 0.0,
+      "drift_rho": 0.0,
+      "sd_rho": 0.0,
+      "sign_flips": 0,
+      "zero_spread_rounds": 4,
+      "value_start": 0.6269,
+      "value_end": 0.6247
+    },
+    {
+      "run": [
+        "mixed_reopen_twin_selfonly",
+        "922",
+        "mixed_reopen_twin_selfonly.json"
+      ],
+      "organism": "Qwen",
+      "axis": "selfreport",
+      "composition": "self-only",
+      "format": "score",
+      "judge": "score oracle",
+      "evolving_judge": false,
+      "n_rounds": 4,
+      "rho_by_round": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rho_1": 0.0,
+      "rho_last": 0.0,
+      "drift_rho": 0.0,
+      "sd_rho": 0.0,
+      "sign_flips": 0,
+      "zero_spread_rounds": 4,
+      "value_start": 0.6269,
+      "value_end": 0.6247
+    },
+    {
+      "run": [
+        "head2head_selfjudge",
+        "41",
+        "head2head_selfjudge.json"
+      ],
+      "organism": "Qwen",
+      "axis": "selfreport",
+      "composition": "base-mixed",
+      "format": "duel",
+      "judge": "self",
+      "evolving_judge": true,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.3676,
+        -0.314,
+        -0.2399,
+        -0.0148
+      ],
+      "rho_1": -0.3676,
+      "rho_last": -0.0148,
+      "drift_rho": 0.3528,
+      "sd_rho": 0.1552765141073605,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.4445,
+      "value_end": 0.0
+    },
+    {
+      "run": [
+        "head2head_selfjudge",
+        "42",
+        "head2head_selfjudge.json"
+      ],
+      "organism": "Qwen",
+      "axis": "selfreport",
+      "composition": "base-mixed",
+      "format": "duel",
+      "judge": "self",
+      "evolving_judge": true,
+      "n_rounds": 4,
+      "rho_by_round": [
+        -0.2018,
+        -0.2838,
+        -0.2269,
+        -0.2354
+      ],
+      "rho_1": -0.2018,
+      "rho_last": -0.2354,
+      "drift_rho": 0.03359999999999999,
+      "sd_rho": 0.03432126405986042,
+      "sign_flips": 0,
+      "zero_spread_rounds": 0,
+      "value_start": 0.4445,
+      "value_end": 0.0
+    }
+  ],
+  "conventions": {
+    "evolving_judges": [
+      "self"
+    ],
+    "excluded_from_the_contrast": [
+      "schedule",
+      "score oracle"
+    ],
+    "zero_spread_rounds": "agreement recorded as 0 when every candidate scores the same; kept rather than dropped, because collapsed pools are the behaviour under study, and counted per run"
+  }
+}

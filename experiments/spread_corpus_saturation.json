@@ -1,0 +1,115 @@
+{
+  "description": "Per-round response coefficient in the spread-intervention corpus, with and without the pool-offset (supply) term that the movement law contains. Tests whether the 0.509 / 0.377 / 0.231 decay that prompted the saturation question survives respecification.",
+  "sources": [
+    "experiments/spread_intervention/output/spread_intervention.json",
+    "experiments/spread_intervention/output_followups/dose_response_seeds01.json",
+    "experiments/spread_intervention/output_followups/dose_response_seeds23.json",
+    "experiments/spread_intervention/output_followups/floor_effect.json",
+    "experiments/spread_intervention/output_followups/high_agreement_seeds456.json",
+    "experiments/spread_intervention/output_followups/judge_driven_144.json",
+    "experiments/spread_intervention/output_followups/judge_from_high_start.json",
+    "experiments/spread_intervention/output_followups/judge_high_start_rep.json",
+    "experiments/spread_intervention/output_followups/low_agreement_seeds456.json",
+    "experiments/spread_intervention/output_followups/reversal.json",
+    "experiments/spread_intervention/output_oracle/spread_intervention.json"
+  ],
+  "n_rows": 414,
+  "n_runs": 126,
+  "by_round": {
+    "round1": {
+      "n": 128,
+      "n_runs": 126,
+      "slope_gap_only": 0.5464621787911689,
+      "slope_with_supply": 0.5469994544251388,
+      "mean_abs_gap": 0.11067708333333331,
+      "mean_abs_drift": 0.087890625,
+      "mean_spread": 0.17188693341057742
+    },
+    "round2": {
+      "n": 128,
+      "n_runs": 126,
+      "slope_gap_only": 0.42818357342457153,
+      "slope_with_supply": 0.4761590259946065,
+      "mean_abs_gap": 0.12065972222222224,
+      "mean_abs_drift": 0.0837673611111111,
+      "mean_spread": 0.18946641183856672
+    },
+    "round3": {
+      "n": 102,
+      "n_runs": 100,
+      "slope_gap_only": 0.2841100505334082,
+      "slope_with_supply": 0.4081948749338831,
+      "mean_abs_gap": 0.09599673202614378,
+      "mean_abs_drift": 0.07652505446623094,
+      "mean_spread": 0.19624637927365413
+    },
+    "round4": {
+      "n": 34,
+      "n_runs": 34,
+      "slope_gap_only": 0.367394056751322,
+      "slope_with_supply": 0.35261740682563436,
+      "mean_abs_gap": 0.059232026143790834,
+      "mean_abs_drift": 0.04738562091503268,
+      "mean_spread": 0.1935358511367371
+    },
+    "round5": {
+      "n": 16,
+      "n_runs": 16,
+      "slope_gap_only": 0.12770772712576786,
+      "slope_with_supply": 0.030701633848617495,
+      "mean_abs_gap": 0.04947916666666667,
+      "mean_abs_drift": 0.06510416666666666,
+      "mean_spread": 0.16286556802963298
+    },
+    "round6": {
+      "n": 6,
+      "n_runs": 6,
+      "slope_gap_only": -0.1979166666666674,
+      "slope_with_supply": 0.1896218765337251,
+      "mean_abs_gap": 0.02777777777777778,
+      "mean_abs_drift": 0.06481481481481484,
+      "mean_spread": 0.1508427038315164
+    }
+  },
+  "pooled": {
+    "slope_gap_only": 0.4320373791669498,
+    "slope_gap_only_ci": {
+      "se": 0.03017543844564096,
+      "ci_lo": 0.375161063274003,
+      "ci_hi": 0.49458432297178717,
+      "draws": 4000
+    },
+    "slope_with_supply": 0.4864690313619858,
+    "slope_with_supply_ci": {
+      "se": 0.03715622658700278,
+      "ci_lo": 0.4188207723140568,
+      "ci_hi": 0.5666897049877335,
+      "draws": 4000
+    },
+    "measurement_error_correction": {
+      "n": 414,
+      "mean_value_measurement_variance": 0.0018098622788210806,
+      "noise_share_of_supply_variance": 0.19497239293863755,
+      "naive": {
+        "supply": 0.28916957707948027,
+        "gap": 0.48646903136198655
+      },
+      "corrected": {
+        "supply": 0.09523952472279816,
+        "gap": 0.44996473078287413
+      }
+    }
+  },
+  "round_interaction_with_supply_controlled": {
+    "supply": 0.30177835074115605,
+    "gap": 0.33255072389002943,
+    "gap_x_absgap": 0.6547167123161867,
+    "gap_x_round_minus_1": -0.042257318813654,
+    "gap_x_round_minus_1_ci": {
+      "se": 0.03160194260556293,
+      "ci_lo": -0.09971610590555427,
+      "ci_hi": 0.025650077505823547,
+      "draws": 4000
+    }
+  }
+}

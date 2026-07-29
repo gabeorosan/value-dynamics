@@ -47,6 +47,33 @@ Nothing else is on a GPU. The active work is free local analysis and literature.
 
 ## Recent changes
 
+- 2026-07-28: **The response to selection does not decay over a run — the
+  saturation story is withdrawn.** Two specification errors were carrying it: the
+  movement law is `drift ~ (pool_mean − v) + gap`, and omitting the supply term
+  loaded its movement onto the gap; and supply shares measurement noise with the
+  outcome (46% of supply variance). Corrected: **gap 0.809** on the unified
+  corpus, decay terms all zero, and within runs the wear term reverses sign
+  (+0.379). The 0.509/0.377/0.231 profile does not even reproduce on its own
+  corpus (0.546/0.428/0.284, rising at round 4). **Transmission now triangulates
+  three ways: 0.809 observational on the near-uncensored corpus, 0.754 from the
+  randomised instrument, 0.450 observational on the heavily-censored corpus** —
+  the two censoring-free estimates agree.
+  [report_response_saturation.md](reports/report_response_saturation.md).
+- 2026-07-28: **Agreement is close to non-persistent for any non-oracle judge**
+  — corr(ρ₁, ρ_t) is 0.354 / 0.117 / 0.130 at rounds 2–4 for frozen judges. The
+  co-evolving-judge explanation is **underpowered, not confirmed**: the matched
+  ablation is 4 vs 10 runs with a minimum detectable difference of 0.378 against
+  an observed 0.162. Rule added: score-oracle runs must be excluded from any
+  agreement-persistence claim.
+  [report_agreement_drift.md](reports/report_agreement_drift.md).
+- 2026-07-28: **Two literature reviews landed** —
+  [lit_offtarget_transmission](reports/lit_offtarget_transmission_2026-07-28.md)
+  (no published trait-by-trait transmission matrix exists; subliminal learning,
+  arXiv 2507.14805, reports only the diagonal) and
+  [lit_iterated_learning](reports/lit_iterated_learning_2026-07-28.md) (flags
+  Roe et al. arXiv 2605.01130, same organism, finding SFT self-training mostly
+  idempotent). Three more reviews still running.
+
 - 2026-07-28: **STATE.md rebuilt as a dashboard.** It had grown to 4,135 lines —
   a stale June/July jobs table, a 2026-07-16 runs queue, and a 402-entry
   cross-thread log. All of that is now

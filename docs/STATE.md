@@ -30,20 +30,25 @@ blocks in a separate file (template:
 
 ## Compute
 
+**Checked live 2026-07-29, and the previous entry was wrong.**
+
 | Lane | Status | Rule |
 |---|---|---|
-| Kaggle 2×T4 | weekly GPU quota exhausted; **resets Sat 2026-08-01** | free, no approval needed; push needs `--accelerator NvidiaTeslaT4` |
-| Colab T4 | idle; Drive mount needs the user | free, no approval needed; one connection at a time |
+| **Colab** | **Pro subscription, active** ($9.99/mo postpay, last billed Jul 6) but **zero compute units**. That still leaves **T4 GPU and v5e-1 TPU selectable**; H100, A100, L4, G4 and v6e-1 TPU are locked until units are bought or the cycle turns. Verified by connecting: Tesla T4 15 GB, CUDA 13.0, 12 GB RAM, 189 GB disk. | free at this tier, no approval needed; one connection at a time; **Drive mount still needs the user, but a run that clones from the public GitHub repo and writes to /content does not need Drive** |
+| Kaggle 2×T4 | weekly GPU quota exhausted; resets Sat 2026-08-01 | free, no approval needed; push needs `--accelerator NvidiaTeslaT4` |
 | Modal | ~$75 BlueDot grant + $30/month free tier (resets on the 1st) | pilot-before-spend (~$1) still applies |
 | Cerebrium | **never launch** (user directive) | — |
+
+The practical consequence: **GPU work does not have to wait for the Kaggle
+reset.** Colab has a usable T4 today.
 
 ## Live jobs
 
 | Job | Where | Status |
 |---|---|---|
-| Value-covariance **phase 1b** (graded 0–9 logprob scoring, four pre-registered gates) | Kaggle | **BUILT, queued for the 08-01 reset.** Launch = `experiments/value_covariance/launch.sh`. Spec: `experiments/value_covariance/SPEC.md` §Phase 1b. |
+| Value-covariance **phase 1b** (graded 0–9 logprob scoring, batch calibration, four pre-registered gates) | **Colab T4, RUNNING** since 2026-07-29 ~12:16Z | Notebook `Untitled70.ipynb`. Self-contained: clones the public repo, no Drive. Judge A = Qwen3-4B, **judge B = microsoft/Phi-3-mini-4k-instruct** (a genuinely different family — the script's own fallback, Qwen2.5-3B, shares a vendor with judge A and would have inflated the cross-judge agreement gate). Writes `/content/phase1b.json`, checkpointed after every stage. |
 
-Nothing else is on a GPU. The active work is free local analysis and literature.
+The Kaggle copy stays queued for the 08-01 reset as a second, independent run.
 
 ## Recent changes
 

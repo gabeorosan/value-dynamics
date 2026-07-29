@@ -160,9 +160,12 @@ uninterpretable without it.
 
 ## Compute
 
-Kaggle 2×T4 resets Sat 2026-08-01 (free, no approval needed). Colab free, one
-connection at a time, Drive mount needs the user. Modal ~$75 grant plus $30 a
-month resetting on the 1st, pilot-before-spend. Never Cerebrium.
+**Colab is a Pro subscription with zero compute units (checked 2026-07-29).**
+That still gives T4 GPU and v5e-1 TPU; H100/A100/L4/G4 are locked until units
+are bought. So GPU work does not have to wait for a Kaggle reset — verified by
+connecting to a live T4 (15 GB, CUDA 13.0). Kaggle 2×T4 resets Sat 2026-08-01.
+Modal ~$75 grant plus $30 a month resetting on the 1st, pilot-before-spend.
+Never Cerebrium.
 
 **Queue at the reset**, in order: (1) value-covariance phase 1b — built, gates
 written, `experiments/value_covariance/launch.sh`; (2) reset-versus-continue

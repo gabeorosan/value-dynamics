@@ -1,0 +1,92 @@
+{
+  "question": "what numeric scale can a single-next-token logprob read resolve on each model this project uses?",
+  "measured": "2026-07-28",
+  "per_model": {
+    "Qwen/Qwen3-4B": {
+      "n_multi_token_0_100": 91,
+      "n_multi_token_0_9": 0,
+      "max_single_token_scale": "0-9",
+      "first_multi_token_value_0_100": 10,
+      "yes_bare": [
+        9454
+      ],
+      "yes_leading_space": [
+        7414
+      ],
+      "yes_variants_differ": true,
+      "digit_7_bare": [
+        22
+      ],
+      "digit_7_leading_space": [
+        220,
+        22
+      ],
+      "leading_space_is_own_token": true
+    },
+    "google/gemma-2-2b-it": {
+      "n_multi_token_0_100": 91,
+      "n_multi_token_0_9": 0,
+      "max_single_token_scale": "0-9",
+      "first_multi_token_value_0_100": 10,
+      "yes_bare": [
+        3553
+      ],
+      "yes_leading_space": [
+        6287
+      ],
+      "yes_variants_differ": true,
+      "digit_7_bare": [
+        235324
+      ],
+      "digit_7_leading_space": [
+        235248,
+        235324
+      ],
+      "leading_space_is_own_token": true
+    },
+    "allenai/OLMo-2-1124-7B-Instruct": {
+      "n_multi_token_0_100": 0,
+      "n_multi_token_0_9": 0,
+      "max_single_token_scale": "0-100",
+      "first_multi_token_value_0_100": null,
+      "yes_bare": [
+        9642
+      ],
+      "yes_leading_space": [
+        7566
+      ],
+      "yes_variants_differ": true,
+      "digit_7_bare": [
+        22
+      ],
+      "digit_7_leading_space": [
+        220,
+        22
+      ],
+      "leading_space_is_own_token": true
+    },
+    "meta-llama/Llama-3.1-8B-Instruct": {
+      "n_multi_token_0_100": 0,
+      "n_multi_token_0_9": 0,
+      "max_single_token_scale": "0-100",
+      "first_multi_token_value_0_100": null,
+      "yes_bare": [
+        9642
+      ],
+      "yes_leading_space": [
+        7566
+      ],
+      "yes_variants_differ": true,
+      "digit_7_bare": [
+        22
+      ],
+      "digit_7_leading_space": [
+        220,
+        22
+      ],
+      "leading_space_is_own_token": true
+    }
+  },
+  "binding_constraint": "The cross-family instrument scale is the minimum over families. Measured max single-token scales: {'Qwen/Qwen3-4B': '0-9', 'google/gemma-2-2b-it': '0-9', 'allenai/OLMo-2-1124-7B-Instruct': '0-100', 'meta-llama/Llama-3.1-8B-Instruct': '0-100'}. Any comparison spanning the Qwen and OLMo organisms must be read on 0-9.",
+  "consumed_by": "docs/reports/lit_value_measurement_2026-07-28.md section 4.1"
+}

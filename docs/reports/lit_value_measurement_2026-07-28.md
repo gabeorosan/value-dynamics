@@ -13,7 +13,8 @@ verified against the source text myself.*
 
 ## 0. How to read this, and what changed my mind
 
-Four things in the literature turned out to matter more than I expected going in.
+Five things turned out to matter more than I expected going in, and one thing I had
+backwards.
 
 **One.** There is now a paper that describes our exact failure mode from the
 outside. Landesberg's *When LLM Judge Scores Look Good but Best-of-N Decisions
@@ -63,7 +64,8 @@ cross-family comparison has to be held at 0–9. Phase 1b's 0–9 choice was rig
 should now be recorded as a binding constraint rather than a convenience. Two related
 traps: `"Yes"` and `" Yes"` are different token ids on every model we use, and `" 7"`
 is two tokens on all of them, so a template that makes a space the natural next token
-silently reads P(space) instead of P(digit).
+silently reads P(space) instead of P(digit). Reproduce with
+`scripts/check_judge_tokenizer_resolution.py` → `experiments/judge_tokenizer_resolution.json`.
 
 **And one thing I got wrong going in.** I expected the literature to say "use a
 richer rubric with more dimensions". It says close to the opposite: more rubric
@@ -1002,7 +1004,9 @@ used as judge."* Their repo ships `0_100`, `0_10` and `binary` aggregators preci
 because of this.
 
 **I measured it on our actual models rather than taking anyone's word for it**
-(`transformers`, `AutoTokenizer`, 2026-07-28):
+(`transformers`, `AutoTokenizer`, 2026-07-28; reproduce with
+`scripts/check_judge_tokenizer_resolution.py`, which writes
+`experiments/judge_tokenizer_resolution.json`):
 
 | Tokenizer | values in 0–100 needing >1 token | `"Yes"` | `" Yes"` | `"7"` | `" 7"` |
 |---|---|---|---|---|---|
@@ -1448,8 +1452,8 @@ value-per-unit-effort:
 Qwen3-4B and gemma-2-2b-it cap out at 0–9. That is a real resolution advantage, but
 §4.3's granularity result puts the 1–10 band *above* 1–100 on Kendall τ, so it buys
 less than it looks like, and switching judges mid-programme breaks comparability with
-every existing run. Revisit only if the format-variation error bar (§6.4 check 7)
-comes back large.
+every existing run. Revisit only if the format-variation error bar of §6.4 comes
+back large.
 
 ### 6.3 Aggregation
 
@@ -1462,7 +1466,17 @@ comes back large.
 - **Round-level value coordinate**: mean over held-out prompts of the per-answer
   score, with the SE computed by clustering on prompt.
 - **Cross-method covariance is primary**: selected axis from judge A, off-target
-  axes from judge B, estimated on pool A and validated on pool B.
+  axes from judge B, estimated on pool A and validated on pool B. Note the honest
+  caveat from §7.1: two judge models reading the same text with the same rubric are
+  two *raters*, not two *methods*. This design controls shared judge-model error; it
+  does not control shared-format or shared-rubric variance.
+- **Trajectory summary**: adopt Value Drifts' two metrics (§3.0) alongside the
+  endpoint — **drift magnitude** (change in the value coordinate between two
+  checkpoints) and **drift time** (fraction of training steps to reach within the
+  95% CI of the peak). They are computable from trajectories we already store, they
+  make our runs directly comparable with a published trajectory study on the same
+  model families, and they distinguish "moved a lot" from "moved early", which our
+  current endpoint-plus-per-round-delta reporting does not.
 
 ### 6.4 Validation checks that ship with every run
 
@@ -1491,10 +1505,10 @@ agreement r ≥ 0.4 on the persona pools), plus:
    the correlation. If it is below ~0.8, between-round changes are confounded with
    instrument drift and must be reported with the frozen judge as primary.
 9. **Consistency Rate — the null floor for every robustness number.** CALM's device
-   (§9.3 item 18d): re-run the judge on identical inputs with *no* perturbation and
+   (§9.3, "Consistency Rate"): re-run the judge on identical inputs with *no* perturbation and
    report its self-agreement. Published range for frontier judges is 0.856–0.999. Our
    deterministic logprob read should give ~1.000 at fixed batch size and dtype; if it
-   does not, we have a numerics problem (§9.1 item 8) before we have a judge problem.
+   does not, we have a numerics problem (§9.1, "Batch-size-dependent numerics") before we have a judge problem.
    Every perturbation result must be reported against this floor, exactly as the
    win-rate null-floor simulation is.
 10. **Chance-corrected agreement, not percent agreement.** Report Cohen's κ for any
@@ -1503,7 +1517,7 @@ agreement r ≥ 0.4 on the persona pools), plus:
     our instrument tables currently report raw agreement.
 11. **Per-item uncertainty flag.** Report the entropy of the digit distribution per
     read. It costs nothing, it is the diagnostic for range restriction and score
-    clustering (§9.2 items 10–11), and the human-in-the-loop literature shows
+    clustering (§9.2, "Score clustering" and "Range restriction and leniency"), and the human-in-the-loop literature shows
     entropy-based routing is the single most useful triage signal even when there is
     no human to route to.
 12. **Perplexity control.** Report the correlation between each axis score and the
@@ -1535,7 +1549,7 @@ Per 5-round run, one seed, on one T4:
 | LoRA SFT, 4 rounds | ~40 kept examples/round | ~20 min |
 | **Total** | | **≈2.9 GPU-hours** |
 
-With prefix caching (§6.2 change 1) the three scoring rows collapse to roughly
+With prefix caching (§6.2, "Prefix-cache the shared context") the three scoring rows collapse to roughly
 1/6 of their cost, giving **≈2.0 GPU-hours per 5-round run**. The relevance gate
 adds 6 reads per candidate, +18 min without caching and +3 min with.
 
@@ -1667,12 +1681,18 @@ these are exact, not simulated.)
   already commits to reporting this outcome honestly; this gives it a number.
 
 Two prior-setting anchors so the bands are not arbitrary. Feuer et al. found factor
-correlations **above 0.93** for a five-criterion rubric — that is the b ≈ 0.93 case,
-PC1 ≈ 87%, total collapse, and it is what happens by default when a judge scores
-several quality dimensions of the same text. Persona vectors' cross-trait cosine
-similarities (§5.2) sit at **0.4–0.55 for behaviourally adjacent traits and ~0.0–0.2
-for unrelated ones** — the b ≈ 0.3–0.5 regime. So the honest expectation is the
-ambiguous band, and the protocol is designed to resolve it rather than to confirm us.
+correlations **above 0.93** for a five-criterion rubric — plugging a = b = 0.93 into
+the same structure gives **PC1 = 93.6%**, total collapse, and that is what happens by
+default when a judge scores several quality dimensions of the same text in one call.
+Persona vectors' cross-trait cosine similarities (§5.2) sit at **0.4–0.55 for
+behaviourally adjacent traits and ~0.0–0.2 for unrelated ones** — the b ≈ 0.3–0.5
+regime. So the honest expectation is the ambiguous band, and the protocol is designed
+to resolve it rather than to confirm us.
+
+*(All five eigenvalues above are exact: the all-ones vector is an eigenvector of the
+equicorrelated block matrix. I confirmed them numerically as well —
+`numpy.linalg.eigvalsh` reproduces 2.280 / 4.980 / 6.780 / 8.040 / 11.230 for
+a = 0.64 with b = 0, 0.30, 0.50, 0.64 and for a = b = 0.93.)*
 
 ### 7.4 Variance decomposition (better than CFA at our n)
 
@@ -1766,255 +1786,256 @@ believe apply to the code as currently written.
 
 ### 9.1 Tokenisation and the read itself
 
-1. **Multi-token numerals.** "47" is two tokens on Qwen/Gemma tokenizers. A 0–100
-   scale read at one position measures P(first digit), not P(score). The persona-vectors
-   recipe works only because OpenAI tokenizes 0–100 as single tokens. Our 0–9 scale is
-   correct; **do not "upgrade" to 0–100.**
-2. **Surface-form competition** (Holtzman, West, Shwartz, Choi & Zettlemoyer,
-   [arXiv:2104.08315](https://arxiv.org/abs/2104.08315)). Probability mass splits
-   across surface variants of the same answer ("Yes"/" Yes"/"yes"/"YES"), so a naive
-   single-token read undercounts. Fix: `logsumexp` over all variants of each answer
-   class before normalising — which `digit_ids` does for digits with and without a
-   leading space, but **[live risk]** does not do for full-width or other unicode
-   digit forms that some tokenizers carry.
-3. **Weighting by logits instead of probabilities.** §4.1. An expectation must use
-   renormalised probabilities. The published wording in persona vectors is wrong or
-   loose; our implementation is right.
-4. **Renormalisation hides format failure.** Softmaxing over only the digit tokens
-   makes *any* distribution look like a valid answer. The digit-mass gate is the only
-   thing standing between us and a judge that wanted to emit "The" — keep it, and
-   report `min_digit_mass`, not just the mean.
-5. **Chat-template drift.** The read must land exactly on the answer position. A
-   trailing newline, a duplicated BOS, an `enable_thinking` default change in a
-   transformers upgrade, or a tokenizer revision bump all silently move it. Pin the
-   tokenizer revision and assert on the rendered string, not just on the token count.
-6. **Right-truncation removes the question. [live risk]** `judge_text` places the
-   axis question *after* the answer, and `graded_read_batch` calls the tokenizer with
-   `truncation=True, max_length=3072` — HuggingFace truncates from the right by
-   default. A long candidate would silently cut off the rubric question and the scale
-   line, and the read would still return a number. Set
-   `tokenizer.truncation_side = "left"` or assert on length.
-7. **Left padding is mandatory** for batched last-position reads. Already handled;
-   it is the classic silent failure if `padding_side` is ever reset by a code path
-   that reloads the tokenizer.
-8. **Batch-size-dependent numerics.** fp16 reductions on a T4 are not associative;
-   the same read at batch 2 and batch 8 can differ in the third decimal, and more in
-   the tail. Since gate thresholds are stated to 2–3 decimals, **fix the batch size
-   in config and record it in the output JSON.**
-9. **Vocabulary softcapping** (gemma-2) blows up memory when materialising full
-   logits at every position — already worked around with `logits_to_keep=1`.
+- **Multi-token numerals.** "47" is two tokens on Qwen/Gemma tokenizers. A 0–100
+  scale read at one position measures P(first digit), not P(score). The persona-vectors
+  recipe works only because OpenAI tokenizes 0–100 as single tokens. Our 0–9 scale is
+  correct; **do not "upgrade" to 0–100.**
+- **Surface-form competition** (Holtzman, West, Shwartz, Choi & Zettlemoyer,
+  [arXiv:2104.08315](https://arxiv.org/abs/2104.08315)). Probability mass splits
+  across surface variants of the same answer ("Yes"/" Yes"/"yes"/"YES"), so a naive
+  single-token read undercounts. Fix: `logsumexp` over all variants of each answer
+  class before normalising — which `digit_ids` does for digits with and without a
+  leading space, but **[live risk]** does not do for full-width or other unicode
+  digit forms that some tokenizers carry.
+- **Weighting by logits instead of probabilities.** §4.1. An expectation must use
+  renormalised probabilities. The published wording in persona vectors is wrong or
+  loose; our implementation is right.
+- **Renormalisation hides format failure.** Softmaxing over only the digit tokens
+  makes *any* distribution look like a valid answer. The digit-mass gate is the only
+  thing standing between us and a judge that wanted to emit "The" — keep it, and
+  report `min_digit_mass`, not just the mean.
+- **Chat-template drift.** The read must land exactly on the answer position. A
+  trailing newline, a duplicated BOS, an `enable_thinking` default change in a
+  transformers upgrade, or a tokenizer revision bump all silently move it. Pin the
+  tokenizer revision and assert on the rendered string, not just on the token count.
+- **Right-truncation removes the question. [live risk]** `judge_text` places the
+  axis question *after* the answer, and `graded_read_batch` calls the tokenizer with
+  `truncation=True, max_length=3072` — HuggingFace truncates from the right by
+  default. A long candidate would silently cut off the rubric question and the scale
+  line, and the read would still return a number. Set
+  `tokenizer.truncation_side = "left"` or assert on length.
+- **Left padding is mandatory** for batched last-position reads. Already handled;
+  it is the classic silent failure if `padding_side` is ever reset by a code path
+  that reloads the tokenizer.
+- **Batch-size-dependent numerics.** fp16 reductions on a T4 are not associative;
+  the same read at batch 2 and batch 8 can differ in the third decimal, and more in
+  the tail. Since gate thresholds are stated to 2–3 decimals, **fix the batch size
+  in config and record it in the output JSON.**
+- **Vocabulary softcapping** (gemma-2) blows up memory when materialising full
+  logits at every position — already worked around with `logits_to_keep=1`.
 
 ### 9.2 The judge's response distribution
 
-10. **Score clustering / round-number anchoring.** Judges pile mass on a few values.
-    Measured: [arXiv:2603.09309](https://arxiv.org/abs/2603.09309) finds **single
-    values dominate 35.6–68.4% of responses and the top three cover 78.2–92.1%**, and
-    — the diagnostic detail — clustering **persists under irregular ranges like
-    [0, 73] and [14, 86]**, which shows it is token-level bias rather than semantic
-    comprehension. Models also fail to redistribute when the floor is raised
-    ([20, 100], [60, 100]) — a ceiling-seeking prior. On our 0–9 scale expect the
-    mass on 0, 5 and 8/9. The expectation read mitigates this but does not remove it:
-    the *prior* over digits shifts the mean. Diagnostic: report the entropy of the
-    digit distribution and the number of distinct modal digits across candidates.
-11. **Range restriction and leniency.** A judge may use only 3–6 of the 10
-    categories, so the effective scale is coarser than nominal and estimated spread is
-    compressed. Measured leniency
-    ([arXiv:2506.22316](https://arxiv.org/abs/2506.22316)): DeepSeek-V3 gives 5/5 to
-    **more than half** of samples; Mistral-Small piles on 4; GPT-4o prefers 4. Report
-    the observed min/max and interquartile range per axis.
-11b. **Within-call anchoring across axes.** For multi-attribute scoring, the
-    conditional correlation between a second score given the first is **human
-    r = 0.315 versus GPT-4 r = 0.979** — the judge essentially copies its own previous
-    score. **Score one trait per call.** Together with Feuer et al.'s §C.7 ablation
-    this is the second independent measurement supporting the isolated-call design,
-    and it is the strongest single argument in this report against ever batching axes
-    into one response.
-12. **Degenerate/compressed scales in small models.** The yes-no-bias paper
-    ([arXiv:2607.05552](https://arxiv.org/abs/2607.05552)) reports a generalisability
-    coefficient **G = 0.28** for one small open-weight model — a scale that barely
-    differentiates items — against G = 0.77–0.94 for coherent ones. Compute G.
-13. **Deterministic incoherence.** The same paper found one model where 69% of forms
-    were *exactly invariant* under meaningless context perturbation while the
-    across-form scatter stayed large — i.e. resampling will never reveal the
-    instability. **Replication does not diagnose this; format variation does.**
-14. **Ties and quantisation** (§4.2): 66.5% pairwise ties, 99% top-1 ties for a
-    sampled-integer judge. Our read escapes this, but only if we never round.
-15. **Acquiescence / yes-saturation** (ours) — the general form is a prior toward
-    affirming, which appears in LLMs as agreeing with both a statement and its
-    negation. Shu et al. found **10 of 15 models at or below chance on negation
-    consistency**. Content-reversed polarities (which phase 1b uses) are the right
-    fix; sentence negation is not.
-16. **Refusals and non-answers** scored as if they were substantive. Betley et al.'s
-    coherence filter is the standard fix — score coherence separately and exclude
-    below threshold *before* interpreting the value score. The persona-vectors judge
-    prompt goes further and reserves an explicit **REFUSAL** output token, with a
-    mass-on-numbers guard in code (`if total < 0.25: return None`). Adding an explicit
-    refusal branch is cheap and strictly better than inferring it from digit mass
-    alone.
-16b. **Miscalibrated logprobs after instruction tuning.** From the GPT-4 technical
-    report ([arXiv:2303.08774](https://arxiv.org/abs/2303.08774), Fig. 8): MMLU
-    expected calibration error **0.007 for the pre-trained model and 0.074 after
-    PPO** — a 10× degradation, with the paper's own text saying "the pre-trained model
-    is highly calibrated … after the post-training process, the calibration is
-    reduced." Every judge we use is instruction-tuned, so **assume the raw digit
-    distribution is miscalibrated by default** and recalibrate (§6.2).
-16c. **The judge's own confidence is better calibrated than its logprobs.**
-    Landesberg measured bin-level calibration error of **0.12 for elicited confidence
-    versus 0.27 for token logprobs**; *Just Ask for Calibration*
-    ([arXiv:2305.14975](https://arxiv.org/abs/2305.14975)) reports ChatGPT TriviaQA
-    ECE 0.050 (verbalised) versus 0.140 (label probability). This does not mean
-    abandon the logprob read — it means an elicited-confidence channel is a cheap
-    second opinion on the same read, and disagreement between them is a usable
-    instrument flag.
+- **Score clustering / round-number anchoring.** Judges pile mass on a few values.
+  Measured: [arXiv:2603.09309](https://arxiv.org/abs/2603.09309) finds **single
+  values dominate 35.6–68.4% of responses and the top three cover 78.2–92.1%**, and
+  — the diagnostic detail — clustering **persists under irregular ranges like
+  [0, 73] and [14, 86]**, which shows it is token-level bias rather than semantic
+  comprehension. Models also fail to redistribute when the floor is raised
+  ([20, 100], [60, 100]) — a ceiling-seeking prior. On our 0–9 scale expect the
+  mass on 0, 5 and 8/9. The expectation read mitigates this but does not remove it:
+  the *prior* over digits shifts the mean. Diagnostic: report the entropy of the
+  digit distribution and the number of distinct modal digits across candidates.
+- **Range restriction and leniency.** A judge may use only 3–6 of the 10
+  categories, so the effective scale is coarser than nominal and estimated spread is
+  compressed. Measured leniency
+  ([arXiv:2506.22316](https://arxiv.org/abs/2506.22316)): DeepSeek-V3 gives 5/5 to
+  **more than half** of samples; Mistral-Small piles on 4; GPT-4o prefers 4. Report
+  the observed min/max and interquartile range per axis.
+- **Within-call anchoring across axes.** For multi-attribute scoring, the
+  conditional correlation between a second score given the first is **human
+  r = 0.315 versus GPT-4 r = 0.979** — the judge essentially copies its own previous
+  score. **Score one trait per call.** Together with Feuer et al.'s §C.7 ablation
+  this is the second independent measurement supporting the isolated-call design,
+  and it is the strongest single argument in this report against ever batching axes
+  into one response.
+- **Degenerate/compressed scales in small models.** The yes-no-bias paper
+  ([arXiv:2607.05552](https://arxiv.org/abs/2607.05552)) reports a generalisability
+  coefficient **G = 0.28** for one small open-weight model — a scale that barely
+  differentiates items — against G = 0.77–0.94 for coherent ones. Compute G.
+- **Deterministic incoherence.** The same paper found one model where 69% of forms
+  were *exactly invariant* under meaningless context perturbation while the
+  across-form scatter stayed large — i.e. resampling will never reveal the
+  instability. **Replication does not diagnose this; format variation does.**
+- **Ties and quantisation** (§4.2): 66.5% pairwise ties, 99% top-1 ties for a
+  sampled-integer judge. Our read escapes this, but only if we never round.
+- **Acquiescence / yes-saturation** (ours) — the general form is a prior toward
+  affirming, which appears in LLMs as agreeing with both a statement and its
+  negation. Shu et al. found **10 of 15 models at or below chance on negation
+  consistency**. Content-reversed polarities (which phase 1b uses) are the right
+  fix; sentence negation is not.
+- **Refusals and non-answers** scored as if they were substantive. Betley et al.'s
+  coherence filter is the standard fix — score coherence separately and exclude
+  below threshold *before* interpreting the value score. The persona-vectors judge
+  prompt goes further and reserves an explicit **REFUSAL** output token, with a
+  mass-on-numbers guard in code (`if total < 0.25: return None`). Adding an explicit
+  refusal branch is cheap and strictly better than inferring it from digit mass
+  alone.
+- **Miscalibrated logprobs after instruction tuning.** From the GPT-4 technical
+  report ([arXiv:2303.08774](https://arxiv.org/abs/2303.08774), Fig. 8): MMLU
+  expected calibration error **0.007 for the pre-trained model and 0.074 after
+  PPO** — a 10× degradation, with the paper's own text saying "the pre-trained model
+  is highly calibrated … after the post-training process, the calibration is
+  reduced." Every judge we use is instruction-tuned, so **assume the raw digit
+  distribution is miscalibrated by default** and recalibrate (§6.2).
+- **The judge's own confidence is better calibrated than its logprobs.**
+  Landesberg measured bin-level calibration error of **0.12 for elicited confidence
+  versus 0.27 for token logprobs**; *Just Ask for Calibration*
+  ([arXiv:2305.14975](https://arxiv.org/abs/2305.14975)) reports ChatGPT TriviaQA
+  ECE 0.050 (verbalised) versus 0.140 (label probability). This does not mean
+  abandon the logprob read — it means an elicited-confidence channel is a cheap
+  second opinion on the same read, and disagreement between them is a usable
+  instrument flag.
 
 ### 9.3 What the judge is actually responding to
 
-17. **Length/verbosity bias.** Already bitten us (length–severity r = +0.30 in the
-    code-security judge). Note the literature is **contested**: Saito et al.
-    ([arXiv:2310.10076](https://arxiv.org/abs/2310.10076)) report accuracy-parity
-    metrics of 0.328 (GPT-4) and 0.428 (GPT-3.5), and length-controlled AlpacaEval
-    ([arXiv:2404.04475](https://arxiv.org/abs/2404.04475)) shows a baseline win rate
-    swinging **22.9% → 64.3%** from verbosity instructions alone; but
-    [arXiv:2606.19544](https://arxiv.org/abs/2606.19544) reports verbosity bias
-    **below 0.011 across all 21 judges** under a single pairwise rubric, "in sharp
-    contrast to the 20–40% variance reported in 2023 literature." Do not cite either
-    as settled; measure it on our own judge. Saito et al. also warn that the effect
-    shape differs per question, so **post-hoc length correction is unreliable** — the
-    length regression we run is a diagnostic, not a fix.
-18. **Self-preference bias, which is probably perplexity preference** (§4.4).
-    Panickssery et al. ([arXiv:2404.13076](https://arxiv.org/abs/2404.13076)) find a
-    linear correlation between self-recognition and self-preference (GPT-4 0.705/0.912,
-    GPT-3.5 0.582, **Llama-2-7B 0.511 ≈ none**); Wataoka et al.
-    ([arXiv:2410.21819](https://arxiv.org/abs/2410.21819)) argue the driver is
-    familiarity/perplexity "regardless of whether the outputs were self-generated."
-    In self-judge conditions this is a first-order confound, not a nuisance, and it is
-    cheaply testable on data we already have.
-18b. **Sentiment/affect bias, and it runs the wrong way.** CALM
-    ([arXiv:2410.02736](https://arxiv.org/abs/2410.02736), ICLR 2025) finds the
-    largest effect in its 12-bias sweep is sentiment: adding emotion to the *better*
-    answer collapses robustness to **0.254 (GPT-4-Turbo), 0.260 (Claude-3.5),
-    0.238 (Qwen2)** under fear, while adding it to the *worse* answer leaves
-    robustness at 0.871–0.987. **Judges flee affect.** If an axis has affective
-    loading — ours arguably do for candor and deference — expect a systematic pull.
-18c. **Bandwagon and authority.** CALM: Claude-3.5 is the *most* susceptible to
-    bandwagon (RR 0.610) despite being most robust overall, and the stated majority
-    percentage barely matters. On authority (fabricated citations),
-    [arXiv:2402.10669](https://arxiv.org/abs/2402.10669) finds **every judge except
-    GPT-4o performs at or worse than the random baseline** (random .37; Claude-2 .89).
-    CoBBLEr ([arXiv:2309.17012](https://arxiv.org/abs/2309.17012)) finds ~**40% of all
-    comparisons across all models show some bias** and 11/15 models follow a stated
-    bandwagon statistic >70% of the time. Relevant to us because our judge prompts
-    carry the task text, which sometimes states what the asker wants — that is a
-    bandwagon cue inside the stimulus.
-18d. **CALM's most useful methodological contribution for us** is not a bias but a
-    metric: **Consistency Rate**, the judge's self-agreement under *no* perturbation
-    (range 0.856–0.999), which is the null floor every robustness number must be read
-    against. This is the same move as our win-rate null-floor simulation, and we
-    should compute it for the graded instrument too.
-19. **Halo / factor collapse.** Feuer et al.: factor correlations > 0.93,
-    26–90% unexplained variance depending on judge, and **open reasoning models are
-    much worse than closed ones**. Their §C.7 ablation — one-pass multi-factor scoring
-    changes the raw numbers versus one-at-a-time — is the direct argument for our
-    isolated per-axis calls.
-20. **Position/order bias** in any pairwise channel. Yang et al.
-    ([arXiv:2607.08535](https://arxiv.org/abs/2607.08535)) measure A/B position-flip
-    rates from 0.320 (Qwen3-1.7B) to 0.117–0.147 for larger models. Note this is
-    *distinct* from polarity: averaging polarities does not fix position.
-21. **Option-ID selection bias.** Zheng et al.
-    ([arXiv:2309.03882](https://arxiv.org/abs/2309.03882)): a content-independent
-    prior over "A"/"B"/"C"/"D". Applies to our forced-choice channel; PriDe removes it.
-22. **Order effects that encode indifference, not preference.** Mazeika et al.
-    Appendix G: a model that always picks "A" is often expressing indifference.
-    Treat an order-invariant answer as a 50/50 label rather than a strong preference —
-    and note this means **a large order gap is not automatically an instrument
-    failure**, which cuts against our current 0.10 order-gap flag interpretation.
-22b. **Order-swap averaging masks rather than fixes. [live risk]** This is worth
-    stating as its own pitfall because it is the general form of the failure we
-    already hit. Averaging a first-position bias against a second-position bias maps a
-    coin-flipping judge onto a clean 0.5. The published debiasing (MEC + Balanced
-    Position Calibration, from [arXiv:2305.17926](https://arxiv.org/abs/2305.17926))
-    lifts GPT-4 consistency 52.7% → 62.5% and ChatGPT 44.4% → 58.7%, so it helps —
-    but it is a variance reduction, not a bias removal, and the averaged number hides
-    how much disagreement it absorbed. **Always store and report the un-averaged
-    per-order (and per-polarity) reads**, which phase 1b already does. Raw
-    disagreement magnitudes for scale: GPT-4's win rate moves **51.3% → 23.8%** on
-    swap; ChatGPT's moves **2.5% → 82.5%**.
-22c. **Rubric-order and score-label sensitivity, with a number that should worry us
-    specifically.** [arXiv:2506.22316](https://arxiv.org/abs/2506.22316) perturbs
-    rubric order, score IDs ({1..5} vs {A..E} vs {i..v}), and the reference-answer
-    score. **Qwen3-8B shows a 46.22% flip rate with mean absolute deviation 0.53 from
-    reversing the rubric order alone** — "nearly half of the scores are corrupted" —
-    and the authors attribute the severity to its small size. Our judge is a 4B Qwen.
-    The stabiliser they identify is attaching a **full-mark reference answer**, which
-    is also what Prometheus's template does. Adding a worked "this answer would score
-    9 on this axis" exemplar to each rubric is cheap and is the highest-value single
-    change I can point at from this literature.
-22d. **Output field order changes the score.** Merely reversing two JSON fields
-    (`{"score":…, "reasons":…}` versus reasons-first) moved GPT-4's mean score from
-    **3.26 to 5.34** "despite providing similar reasons"
-    ([arXiv:2406.02863](https://arxiv.org/abs/2406.02863)). A single-token read forces
-    score-first, which is the *worse* of the two orders by this measurement — a cost
-    of the logprob design that should be acknowledged rather than ignored. §9.5 gives
-    the way to have both.
-23. **Prompt-format sensitivity.** Up to **76 accuracy points** from formatting alone,
-    median 7.5 (Sclar et al., [arXiv:2310.11324](https://arxiv.org/abs/2310.11324)),
-    and "performance spread remains even when increasing model size, the number of
-    few-shot examples, or performing instruction tuning." Report a format-variation
-    interval, not a point.
-23b. **Reported agreement is inflated unless it is chance-corrected.**
-    [arXiv:2606.19544](https://arxiv.org/abs/2606.19544) finds raw exact-match
-    agreement overstates reliability by **33.8–41.3 percentage points** versus Cohen's
-    κ across 21 judges and ~541,000 judgments: "a judge reporting '85% agreement' on
-    MT-Bench has κ ≈ 0.48." Our instrument tables report raw agreement. **Report κ.**
-23c. **High reproducibility is not validity — the consistency–bias paradox.** The same
-    paper finds **Qwen3-8B has the highest test–retest reliability (0.992) and the
-    worst position bias (0.192) of 21 judges.** A judge that gives the same wrong
-    answer every time looks maximally reliable. Our cross-judge agreement gate (r ≥ 0.4)
-    is a reliability check and does not protect against this; only the manipulation
-    pairs and the persona positive control do.
-23d. **Run-to-run flips even at fixed settings.** The "coin flip judge" analysis
-    ([arXiv:2606.13685](https://arxiv.org/abs/2606.13685)) finds pairwise preferences
-    flip **13.6% of the time run-to-run**, with 28% of questions exceeding 20%;
-    temperature 0 reduces this to 2.8%; two semantically equivalent prompts flipped
-    25% of majority verdicts; and roughly **11 trials are needed for 95% consensus
-    fidelity**. Our logprob reads are deterministic given fixed batch and dtype, which
-    buys us out of most of this — one of the underrated advantages of the design.
-24. **Deployment-context sensitivity.** Exchange rates shift by a **median factor of
-    2.47** across task framings (Trhlik et al.,
-    [arXiv:2606.13944](https://arxiv.org/abs/2606.13944)). Hold the measurement
-    context byte-identical across rounds.
-25. **Chain-of-thought increases variability** on trait instruments (PERSIST,
-    p = 0.016), while it *improves* preference coherence in the ladder test (Ajayi
-    et al.: +17 to +33 points of strict monotonicity). These point opposite ways —
-    reasoning helps the model be consistent about *preferences* and hurts consistency
-    of *self-ratings*. For a judge reading someone else's text, the ladder result is
-    the more relevant one, which is an argument for eventually testing a
-    thinking-enabled judge with a proper answer extraction rather than a forced-closed
-    block.
-26. **Judge non-stationarity across a long batched run.** Context stability is a
-    named failure mode in Feuer et al. Our reads are independent single-turn calls,
-    so this is low risk — but only as long as nothing batches multiple candidates into
-    one prompt.
+- **Length/verbosity bias.** Already bitten us (length–severity r = +0.30 in the
+  code-security judge). Note the literature is **contested**: Saito et al.
+  ([arXiv:2310.10076](https://arxiv.org/abs/2310.10076)) report accuracy-parity
+  metrics of 0.328 (GPT-4) and 0.428 (GPT-3.5), and length-controlled AlpacaEval
+  ([arXiv:2404.04475](https://arxiv.org/abs/2404.04475)) shows a baseline win rate
+  swinging **22.9% → 64.3%** from verbosity instructions alone; but
+  [arXiv:2606.19544](https://arxiv.org/abs/2606.19544) reports verbosity bias
+  **below 0.011 across all 21 judges** under a single pairwise rubric, "in sharp
+  contrast to the 20–40% variance reported in 2023 literature." Do not cite either
+  as settled; measure it on our own judge. Saito et al. also warn that the effect
+  shape differs per question, so **post-hoc length correction is unreliable** — the
+  length regression we run is a diagnostic, not a fix.
+- **Self-preference bias, which is probably perplexity preference** (§4.4).
+  Panickssery et al. ([arXiv:2404.13076](https://arxiv.org/abs/2404.13076)) find a
+  linear correlation between self-recognition and self-preference (GPT-4 0.705/0.912,
+  GPT-3.5 0.582, **Llama-2-7B 0.511 ≈ none**); Wataoka et al.
+  ([arXiv:2410.21819](https://arxiv.org/abs/2410.21819)) argue the driver is
+  familiarity/perplexity "regardless of whether the outputs were self-generated."
+  In self-judge conditions this is a first-order confound, not a nuisance, and it is
+  cheaply testable on data we already have.
+- **Sentiment/affect bias, and it runs the wrong way.** CALM
+  ([arXiv:2410.02736](https://arxiv.org/abs/2410.02736), ICLR 2025) finds the
+  largest effect in its 12-bias sweep is sentiment: adding emotion to the *better*
+  answer collapses robustness to **0.254 (GPT-4-Turbo), 0.260 (Claude-3.5),
+  0.238 (Qwen2)** under fear, while adding it to the *worse* answer leaves
+  robustness at 0.871–0.987. **Judges flee affect.** If an axis has affective
+  loading — ours arguably do for candor and deference — expect a systematic pull.
+- **Bandwagon and authority.** CALM: Claude-3.5 is the *most* susceptible to
+  bandwagon (RR 0.610) despite being most robust overall, and the stated majority
+  percentage barely matters. On authority (fabricated citations),
+  [arXiv:2402.10669](https://arxiv.org/abs/2402.10669) finds **every judge except
+  GPT-4o performs at or worse than the random baseline** (random .37; Claude-2 .89).
+  CoBBLEr ([arXiv:2309.17012](https://arxiv.org/abs/2309.17012)) finds ~**40% of all
+  comparisons across all models show some bias** and 11/15 models follow a stated
+  bandwagon statistic >70% of the time. Relevant to us because our judge prompts
+  carry the task text, which sometimes states what the asker wants — that is a
+  bandwagon cue inside the stimulus.
+- **Consistency Rate — read every robustness number against a null floor.** CALM's
+  most useful contribution for us is not a bias but a metric: the judge's
+  self-agreement under *no* perturbation, which ranges 0.856–0.999 across their
+  judges. Any robustness number quoted without it is uninterpretable. This is the
+  same move as our win-rate null-floor simulation, and we should compute it for the
+  graded instrument too.
+- **Halo / factor collapse.** Feuer et al.: factor correlations > 0.93,
+  26–90% unexplained variance depending on judge, and **open reasoning models are
+  much worse than closed ones**. Their §C.7 ablation — one-pass multi-factor scoring
+  changes the raw numbers versus one-at-a-time — is the direct argument for our
+  isolated per-axis calls.
+- **Position/order bias** in any pairwise channel. Yang et al.
+  ([arXiv:2607.08535](https://arxiv.org/abs/2607.08535)) measure A/B position-flip
+  rates from 0.320 (Qwen3-1.7B) to 0.117–0.147 for larger models. Note this is
+  *distinct* from polarity: averaging polarities does not fix position.
+- **Option-ID selection bias.** Zheng et al.
+  ([arXiv:2309.03882](https://arxiv.org/abs/2309.03882)): a content-independent
+  prior over "A"/"B"/"C"/"D". Applies to our forced-choice channel; PriDe removes it.
+- **Order effects that encode indifference, not preference.** Mazeika et al.
+  Appendix G: a model that always picks "A" is often expressing indifference.
+  Treat an order-invariant answer as a 50/50 label rather than a strong preference —
+  and note this means **a large order gap is not automatically an instrument
+  failure**, which cuts against our current 0.10 order-gap flag interpretation.
+- **Order-swap averaging masks rather than fixes. [live risk]** This is worth
+  stating as its own pitfall because it is the general form of the failure we
+  already hit. Averaging a first-position bias against a second-position bias maps a
+  coin-flipping judge onto a clean 0.5. The published debiasing (MEC + Balanced
+  Position Calibration, from [arXiv:2305.17926](https://arxiv.org/abs/2305.17926))
+  lifts GPT-4 consistency 52.7% → 62.5% and ChatGPT 44.4% → 58.7%, so it helps —
+  but it is a variance reduction, not a bias removal, and the averaged number hides
+  how much disagreement it absorbed. **Always store and report the un-averaged
+  per-order (and per-polarity) reads**, which phase 1b already does. Raw
+  disagreement magnitudes for scale: GPT-4's win rate moves **51.3% → 23.8%** on
+  swap; ChatGPT's moves **2.5% → 82.5%**.
+- **Rubric-order and score-label sensitivity, with a number that should worry us
+  specifically.** [arXiv:2506.22316](https://arxiv.org/abs/2506.22316) perturbs
+  rubric order, score IDs ({1..5} vs {A..E} vs {i..v}), and the reference-answer
+  score. **Qwen3-8B shows a 46.22% flip rate with mean absolute deviation 0.53 from
+  reversing the rubric order alone** — "nearly half of the scores are corrupted" —
+  and the authors attribute the severity to its small size. Our judge is a 4B Qwen.
+  The stabiliser they identify is attaching a **full-mark reference answer**, which
+  is also what Prometheus's template does. Adding a worked "this answer would score
+  9 on this axis" exemplar to each rubric is cheap and is the highest-value single
+  change I can point at from this literature.
+- **Output field order changes the score.** Merely reversing two JSON fields
+  (`{"score":…, "reasons":…}` versus reasons-first) moved GPT-4's mean score from
+  **3.26 to 5.34** "despite providing similar reasons"
+  ([arXiv:2406.02863](https://arxiv.org/abs/2406.02863)). A single-token read forces
+  score-first, which is the *worse* of the two orders by this measurement — a cost
+  of the logprob design that should be acknowledged rather than ignored. §9.5 gives
+  the way to have both.
+- **Prompt-format sensitivity.** Up to **76 accuracy points** from formatting alone,
+  median 7.5 (Sclar et al., [arXiv:2310.11324](https://arxiv.org/abs/2310.11324)),
+  and "performance spread remains even when increasing model size, the number of
+  few-shot examples, or performing instruction tuning." Report a format-variation
+  interval, not a point.
+- **Reported agreement is inflated unless it is chance-corrected.**
+  [arXiv:2606.19544](https://arxiv.org/abs/2606.19544) finds raw exact-match
+  agreement overstates reliability by **33.8–41.3 percentage points** versus Cohen's
+  κ across 21 judges and ~541,000 judgments: "a judge reporting '85% agreement' on
+  MT-Bench has κ ≈ 0.48." Our instrument tables report raw agreement. **Report κ.**
+- **High reproducibility is not validity — the consistency–bias paradox.** The same
+  paper finds **Qwen3-8B has the highest test–retest reliability (0.992) and the
+  worst position bias (0.192) of 21 judges.** A judge that gives the same wrong
+  answer every time looks maximally reliable. Our cross-judge agreement gate (r ≥ 0.4)
+  is a reliability check and does not protect against this; only the manipulation
+  pairs and the persona positive control do.
+- **Run-to-run flips even at fixed settings.** The "coin flip judge" analysis
+  ([arXiv:2606.13685](https://arxiv.org/abs/2606.13685)) finds pairwise preferences
+  flip **13.6% of the time run-to-run**, with 28% of questions exceeding 20%;
+  temperature 0 reduces this to 2.8%; two semantically equivalent prompts flipped
+  25% of majority verdicts; and roughly **11 trials are needed for 95% consensus
+  fidelity**. Our logprob reads are deterministic given fixed batch and dtype, which
+  buys us out of most of this — one of the underrated advantages of the design.
+- **Deployment-context sensitivity.** Exchange rates shift by a **median factor of
+  2.47** across task framings (Trhlik et al.,
+  [arXiv:2606.13944](https://arxiv.org/abs/2606.13944)). Hold the measurement
+  context byte-identical across rounds.
+- **Chain-of-thought increases variability** on trait instruments (PERSIST,
+  p = 0.016), while it *improves* preference coherence in the ladder test (Ajayi
+  et al.: +17 to +33 points of strict monotonicity). These point opposite ways —
+  reasoning helps the model be consistent about *preferences* and hurts consistency
+  of *self-ratings*. For a judge reading someone else's text, the ladder result is
+  the more relevant one, which is an argument for eventually testing a
+  thinking-enabled judge with a proper answer extraction rather than a forced-closed
+  block.
+- **Judge non-stationarity across a long batched run.** Context stability is a
+  named failure mode in Feuer et al. Our reads are independent single-turn calls,
+  so this is low risk — but only as long as nothing batches multiple candidates into
+  one prompt.
 
 ### 9.4 Confounds specific to a self-training loop
 
-27. **Instrument drift when the judge is the evolving model.** The measurement
-    changes with the thing measured. Mandatory: re-score round-0 pools with the
-    round-N judge (§6.4 check 8).
-28. **Spread collapse from self-consumption.** Already observed in this program
-    (σ 0.40 → 0.14 → 0.00). When within-prompt spread is 0 the correlation is
-    undefined, not zero — report support counts alongside every covariance.
-29. **Shared-method variance across axes.** All six axes read the same text with the
-    same judge, so a general "this is a good answer" factor loads on all of them.
-    This is what §7 exists to measure.
-30. **Circularity between selector and measurement.** If the same scores select and
-    estimate the covariance, the estimated covariance is conditioned on the selection.
-    §6.2 change 5 breaks this.
-31. **A familiarity feedback loop.** If §4.4's perplexity account is right, a
-    self-judging loop selects for text the model already finds predictable, trains on
-    it, and finds it more predictable — a positive feedback loop that would masquerade
-    as a value trajectory. Distinguishing prediction: a kept-minus-pool gap on
-    *perplexity* in rounds where the value gap is zero. We have those rounds.
+- **Instrument drift when the judge is the evolving model.** The measurement
+  changes with the thing measured. Mandatory: re-score round-0 pools with the
+  round-N judge (§6.4, "Measurement invariance across rounds").
+- **Spread collapse from self-consumption.** Already observed in this program
+  (σ 0.40 → 0.14 → 0.00). When within-prompt spread is 0 the correlation is
+  undefined, not zero — report support counts alongside every covariance.
+- **Shared-method variance across axes.** All six axes read the same text with the
+  same judge, so a general "this is a good answer" factor loads on all of them.
+  This is what §7 exists to measure.
+- **Circularity between selector and measurement.** If the same scores select and
+  estimate the covariance, the estimated covariance is conditioned on the selection.
+  §6.2's split of selector and measurement breaks this.
+- **A familiarity feedback loop.** If §4.4's perplexity account is right, a
+  self-judging loop selects for text the model already finds predictable, trains on
+  it, and finds it more predictable — a positive feedback loop that would masquerade
+  as a value trajectory. Distinguishing prediction: a kept-minus-pool gap on
+  *perplexity* in rounds where the value gap is zero. We have those rounds.
 
 ### 9.5 Which fixes actually fix, and which only mask
 
@@ -2034,12 +2055,12 @@ believe apply to the code as currently written.
 | Entropy over the verdict distribution as an uncertainty flag | Routing the top-20% most-uncertain items to humans lifts GPT-4 to 73.8% | **Free even without humans** — use it as a per-item flag |
 
 **The chain-of-thought / logprob tension has a resolution.** A single-token read
-forces score-first, which §9.3 item 22d says is the worse order. TrustJudge's setup
+forces score-first, which §9.3's "Output field order changes the score" identifies as the worse order. TrustJudge's setup
 is the way to have both: request **top-k logprobs for every generated token**, let
 the model produce its rationale, then read the distribution **at the score-token
 position** rather than at the first position. That costs generation time we currently
 avoid, so it is a phase-2 option, not a change I would make now — but it is the right
-answer if the format-variation error bar (§6.4 check 7) comes back large.
+answer if the format-variation error bar of §6.4 comes back large.
 
 ---
 

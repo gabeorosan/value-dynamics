@@ -50,8 +50,11 @@ precisely the variables we already measure. Its condition is a comparison of two
 slopes: the system runs away when the trajectory slope `G_tp/G_t` (how fast the
 *preference* moves per unit of *trait* movement) exceeds the slope of the line of
 equilibria. In our vocabulary `G_t` is spread `σ` times the transmission coefficient,
-and `G_tp/G_t` is the **judge-drift coupling** `Δρ/Δv` — the one quantity the frozen-judge
-program has never measured, because with a frozen judge it is zero by construction. Three
+and `G_tp/G_t` is the **judge-drift coupling** `Δρ/Δv` — a quantity the frozen-judge
+program cannot measure, because with a frozen judge it is zero by construction, and which
+the same-day `report_agreement_drift.md` gets closest to without reaching (it measures drift
+*magnitude*, and finds the matched frozen-versus-evolving contrast underpowered by more than
+a factor of two, needing ~52 seeds per arm). Three
 other literatures give the same structural answer in different clothes: performative
 prediction (repeated retraining converges iff a loop-gain product is below 1), GAN
 local-stability theory (converges iff the Jacobian spectrum is in the left half-plane,
@@ -804,6 +807,23 @@ Every term is measurable in a loop that re-scores a frozen candidate pool each r
 of the four we already measure; `Δρ/Δv` is exactly zero by construction under a frozen judge,
 which is why the existing corpus cannot exhibit this bifurcation.
 
+**What the same-day `report_agreement_drift.md` already establishes, and what it leaves
+open.** That analysis measured agreement *drift magnitude* on the committed corpus (70 runs
+with at least two scored rounds), and found co-evolving judges drift 68% further than frozen
+ones pooled (mean |drift| 0.463 versus 0.275, permutation p = 0.018), with a level effect in
+round-one agreement (self-judges 0.258 versus frozen 0.060, p = 0.034) that it correctly
+attributes to self-preference rather than to co-evolution. But **the matched ablation — Qwen
+self-only reference-anchored pools, judged by self versus by a frozen copy of the same
+organism — cannot resolve it**: 4 evolving runs against 10 frozen, observed difference 0.162,
+minimum detectable difference at 80% power **0.378**, and roughly **52 seeds per arm** needed
+to reach 80% power on an effect that size. It is recorded as underpowered, not as a null.
+
+Two consequences. First, `Δρ/Δv` is still unmeasured — drift *magnitude* is not the same as
+drift *coupled to value movement*, and it is the coupling that Lande's condition is about.
+Second, and more usefully, that power calculation is a gift to the design in §8: **a
+seed-counting contrast on this quantity is infeasible on our hardware**, which is the
+strongest available argument for measuring a slope instead.
+
 **Directional prediction it makes that nothing else does:** the *sign* of `G_tp` decides
 whether runaway goes up or down, and the runaway is symmetric — Lande's model produces "rapid
 exaggeration **or diminution**". So a co-evolving judge should produce *both* amplification
@@ -1098,6 +1118,15 @@ contributes a continuous measurement rather than one bit. For reference, a Harti
 test for unimodality needs roughly **n ≥ 10 seeds to be usable and n ≥ 16 to be
 comfortable** — which is the price of the bit-counting design, and it buys strictly less.
 
+And the seed-counting route is not merely inefficient here, it is **out of budget**, which we
+now know from our own data rather than from a rule of thumb. `report_agreement_drift.md`
+(2026-07-28) computes that the matched frozen-versus-co-evolving judge contrast needs roughly
+**52 seeds per arm** for 80% power on the observed effect (|drift| difference 0.162 against a
+minimum detectable difference of 0.378 at n = 4 vs 10). At 6 candidates per prompt and 6
+rounds on a 4B model, 104 runs is not a Kaggle program. **Any design whose estimand is "how
+many seeds did X" is dead on arrival for this question, and that is now a measured fact about
+our corpus rather than an aesthetic preference.**
+
 ### 8.2 The minimal design
 
 **Three arms, one loop chassis, all on free Kaggle.**
@@ -1295,7 +1324,23 @@ What comes closest, and what each threatens:
     degenerate and should not enter any statistic. **Before this claim is repeated anywhere,
     the exact window and the seed-43 case need to be stated with it.** This is precisely why
     Arm B re-scores a frozen pool: it decouples the `ρ` estimate from the collapsing live pool.
-10. **Data-leakage critique of emergent multi-agent results**
+11. **`report_agreement_drift.md` (same day, our own corpus)** partially pre-empts the
+    *measurement* of judge drift and — more importantly — constrains what we may claim.
+    Co-evolving judges drift further pooled (0.463 vs 0.275, p = 0.018), but the matched
+    ablation is underpowered by a factor of more than two and needs ~52 seeds per arm. It
+    also shows round-one agreement **does not persist for any real judge** (frozen non-oracle
+    judges: corr(ρ₁, ρ₂) = 0.354, corr(ρ₁, ρ₃) = 0.117), and that the apparent persistence in
+    the corpus is carried almost entirely by score-oracle runs whose agreement is pinned by
+    construction. Read together with this review: our endpoint forecast is **not** working
+    because agreement persists, so a bifurcation story built on "early agreement determines
+    the trajectory" has to explain why round-one agreement predicts the endpoint while not
+    predicting round three.
+12. **Ferbach et al., [arXiv:2407.09499](https://arxiv.org/abs/2407.09499)** (§6.5) pre-empts
+    the frozen-selector theory outright — replicator equation, variance-driven response,
+    explicit ceiling, proved stabilising role of real data. We must not claim any of that. Our
+    lane is what happens when the reward function is updated on the same data as the policy,
+    which every one of their theorems assumes away.
+13. **Data-leakage critique of emergent multi-agent results**
    ([arXiv:2505.23796](https://arxiv.org/abs/2505.23796) vs the reply
    [arXiv:2506.18600](https://arxiv.org/abs/2506.18600)) — a general caution that "emergent"
    population-level dynamics in LLMs can be pre-training memorisation. Less applicable to us
@@ -1331,9 +1376,14 @@ Stated explicitly, because absence is part of the answer:
   autocorrelation, slowing recovery) to LLM or RLHF training trajectories.** The one
   benchmark of collapse-warning indicators under matched false-positive control failed to
   find an acceptable operating point.
-- **No replicator or replicator–mutator equation written down for an LLM population with
-  derived stability conditions**, and **no Price-equation decomposition of an LLM selection
-  loop with measured terms.**
+- **No replicator or replicator–mutator equation for a population of *interacting* LLM agents
+  with derived stability conditions**, and **no Price-equation decomposition of an LLM
+  selection loop with measured terms.** (Corrected from a stronger claim: the *single-model
+  curation* loop does have a replicator equation, Ferbach et al.
+  [arXiv:2407.09499](https://arxiv.org/abs/2407.09499) — see §5.6 and §6.5.)
+- **No stability analysis of a curation loop in which the reward function is itself updated on
+  the curated data.** Ferbach's theorems all hold `r` fixed; Perdomo's hold the loss family
+  fixed; SPIN's fixed point is an external corpus. This is the actual hole.
 - **Primary text I could not obtain:** Cartlidge & Bullock (2004) on disengagement (403 from
   both hosts); Lande (1981) and Kirkpatrick (1982) originals (paywalled — the conditions in
   §4 come from the Kuijper/Pen/Weissing Annual Review, whose relevant pages I extracted and

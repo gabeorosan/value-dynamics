@@ -220,6 +220,29 @@ rewritten 07-13 to the two-pillar summary as the interim public surface.
 
 ## Decision log
 
+- 07-28 (main session, user directive): **MANAGEMENT MOVES IN-SESSION; NEXT-RUN
+  QUEUE SET.** The scheduled task that spawned a new chat every 3 hours is disabled;
+  the persistent main session now monitors jobs, lands analyses, and decides what to
+  run next, on its own cadence. Compute: Kaggle weekly quota resets Sat 2026-08-01;
+  Modal $30/mo free tier resets the 1st (~$75 grant also remains, pilot-before-spend
+  still applies); Colab status unknown. Queue, in order: (1) **Value-covariance
+  instrument rebuild ("phase 1b")** — free local prep now, launch on Kaggle at the
+  Saturday reset. Phase 1 failed its own instrument check twice over (cross-judge
+  same-axis agreement 0.345–0.467; every win-rate spread at or under the value-blind
+  null floor ~0.16), indicting the forced-choice win-rate construction and possibly
+  the temp-1.0 generator. The rebuild follows the repo's own design results: graded
+  0-to-1 scoring read from logprobs (ledger: binary/forced-choice recovers 19% of a
+  simulated true correlation, graded ~90%), each axis scored in an isolated call with
+  randomized rubric order (audit finding 2), cross-method primary (judge A selects,
+  judge B reads), thinking-block closed, the new simulated-null gate from
+  script.py, AND a positive-control pool with known value spread (persona-induced,
+  e.g. risk-persona vs cautious-persona candidates) so the instrument gate is
+  validated in both directions before any covariance is read. Phase 2 stays BLOCKED
+  per the 07-24 audit regardless of 1b's outcome. (2) Writeup edit
+  `docs/writeup_proposed_edits_2026-07-27.md` awaits the user. (3) Nothing else is
+  queued: the transmission/spread-intervention line is consolidated ("nothing needs
+  to change in the model"), zero-gap drift is withdrawn, and no Modal spend is
+  justified while every open question fits a free T4.
 - 07-20 (general thread, later): 9B BLIND ADJUDICATION LANDED — (g2)/(g3)
   premise CONFIRMED-with-rewording; no plan change to the queued launch. Blind
   review of all 128 banked em359b ladder generations

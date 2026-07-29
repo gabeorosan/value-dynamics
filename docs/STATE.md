@@ -757,6 +757,18 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-28 (main session, user directive): **The every-3-hours scheduled task
+  "launch-value-covariance-phase1" is DISABLED — its job (phase 1 landed + re-traced)
+  is done, and the user does not want new chats spawned. Project management moves
+  into the persistent main session: it monitors, analyses, and decides what to run
+  next on a self-paced loop.** Compute calendar (user, 07-28): Kaggle weekly quota
+  resets Saturday 2026-08-01; the Modal $30/mo free tier resets on the 1st (same
+  day; ~$75 BlueDot grant also remains); Colab status unknown (Drive mount needs the
+  user). Next-run decision recorded in PLAN.md decision log (07-28): prep the
+  value-covariance instrument rebuild (graded logprob scoring, per-axis isolated
+  calls, positive-control pool with known spread) as free local work now, launch on
+  Kaggle when quota resets. `docs/writeup_proposed_edits_2026-07-27.md` (the causal
+  spread-gating addition) still awaits the user's confirmation.
 - 2026-07-28 (research-vision thread): **Value-covariance phase 1 re-traced from raw
   scores by scheduled monitoring; arithmetic reproduces exactly, one 07-25 correction
   is WITHDRAWN, and the gate in script.py is still broken — in the permissive

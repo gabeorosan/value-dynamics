@@ -95,9 +95,12 @@ number changes. Best placed at the end of the interventions section.
 > the value climbs 0.02, against a gap of 0.29 and a climb of 0.41 when the same
 > amount of variation sits inside prompts. A replication on fresh seeds gives 0.37
 > against 0.07. Across all 84 rollouts run this way, movement is predicted by the
-> gap alone at 0.40 times the gap with no intercept, and the amount of variation adds
-> nothing once the gap is known. Variation matters because it is what lets a gap form,
-> not as a separate force.
+> gap alone, and the amount of variation adds nothing once the gap is known. Variation
+> matters because it is what lets a gap form, not as a separate force. Because the two
+> arrangements are applied to one shared candidate pool from one shared starting model,
+> the arrangement itself is a randomised instrument for the gap, and the resulting
+> causal estimate is that about three quarters of the selection differential appears as
+> behavioural change.
 
 ## Caveats you may want to fold in or leave out
 
@@ -119,7 +122,14 @@ These are in the reports; none of them undermines the edit, but you should know 
   by both arms once the candidates had gone value-uniform.
 - Oracle selection is not a realistic judge. It was used because it makes the effect
   large enough to see; the magnitudes do not transfer to judge-driven loops.
-- Two seeds per arm per run, four rollouts total across the two runs.
+- Two seeds per arm per run, four rollouts total across the two runs for the headline
+  contrast; the causal coefficient below draws on 36 distinct round-1 matched pairs.
+- **The 0.40 figure that appeared in earlier drafts of this file is withdrawn.** It was
+  an observational regression on cumulative gap, biased down roughly twofold by two
+  channels: a run that moves toward a rail generates value-uniform candidates and so
+  shrinks its own later gaps, and runs that moved fastest were preferentially aborted
+  by the matched-pool-mean constraint. The randomised round-1 estimate is **0.754, 95%
+  CI [0.621, 0.984]**. Quote that if you quote a coefficient at all.
 
 ## Not proposed, for the record
 

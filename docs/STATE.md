@@ -819,6 +819,22 @@ rows already committed.
   test the SPEC calls primary had never been run; run now, it is uninformative (slope
   4.34, r 0.560, CIs [0.18, 8.08] / [0.02, 0.84]). Phase 2 remains blocked; nothing
   launched. **Figure drafted:** docs/figures/auto/winrate-null-floor/ — per-axis observed within-prompt spread against the value-blind null band, both judges on one shared scale; judge A (Qwen3-4B) 0.109–0.167 sits inside the null's 95% interval 0.147–0.177 and judge B (Gemma-2-2b-it) 0.041–0.066 sits below both null families (0.076/0.088), with the ≥0.05 threshold that actually passed the run and the interim 0.115 floor both drawn as failing gates.
+- 2026-07-27 (research-vision thread): **THE TRANSMISSION COEFFICIENT IS CAUSALLY
+  ~0.75, NOT 0.40** (ledger section B). The round-1 arm assignment is a randomised
+  instrument — both arms share one start adapter and one candidate pool, and only the
+  knapsack arrangement differs — moving the gap by +0.1875 (F = 35.1). Wald over 36
+  distinct matched pairs: **0.754, 95% CI [0.621, 0.984]**. The observational 0.402 was
+  biased down ~2x by dynamic simultaneity (runs moving toward a rail shrink their own
+  later gaps, corr −0.313) and **outcome-dependent censoring — aborted runs move +0.074
+  per round vs +0.023 for completed ones, so the biggest movers were being killed.**
+  Per-round slope decays 0.509/0.377/0.231 as that predicts. **Theory context: Ferbach
+  et al. (arXiv 2407.09499) model this exact loop and their replicator limit predicts
+  a coefficient of 1.0** — the causal estimate is close, the observational one was not.
+  **Three corrections carried:** measurement SE is **0.0296**, not the 0.054 used all
+  session (replicate readouts of the identical cached adapter); "n=84 arm-rollouts" is
+  72 physical rollouts in 11 seed clusters, with **29% of the session's GPU recomputing
+  byte-identical rounds**; and r=0.79 is largely a two-cluster artefact (within-arm
+  slope 0.299). Writeup proposal corrected — do not quote 0.40.
 - 2026-07-27 (research-vision thread): **The "value moves with zero selection" worry
   I flagged is WITHDRAWN — it does not replicate at n=41** (ledger section B,
   scripts/analysis_zero_gap_drift.py → experiments/zero_gap_drift.json). On corpus

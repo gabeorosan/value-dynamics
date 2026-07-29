@@ -78,7 +78,10 @@ JUDGE_A = os.environ.get("JUDGE_A", "Qwen/Qwen3-4B")
 JUDGE_B = os.environ.get(
     "JUDGE_B", "/kaggle/input/gemma-2/transformers/gemma-2-2b-it/2")
 JUDGE_B_FALLBACK = os.environ.get(
-    "JUDGE_B_FALLBACK", "mistralai/Ministral-3-3B-Instruct-2512")
+    # NOT Ministral: model_type "mistral3" maps to None under
+    # AutoModelForCausalLM, and the repo is FP8, which Turing
+    # dequantizes silently. See check_judge_models.py.
+    "JUDGE_B_FALLBACK", "google/gemma-4-E2B-it")
 N_CAND = int(os.environ.get("N_CAND", "8"))
 GEN_TEMP = float(os.environ.get("GEN_TEMP", "1.0"))
 # 200 truncated every candidate inside <think> on 2026-07-24. Keep the margin.
@@ -359,8 +362,25 @@ def cross_pool_rows(cov, var_sel, sel_scores_B, obs_scores_B, keep):
 # ============================================================================
 
 def resolve_judge_b(spec):
+    """Resolve the judge B spec to something loadable.
+
+    The spec may be a local directory (a Kaggle-mounted model) or a hub id. The
+    original version only understood directories, so a hub id passed in JUDGE_B
+    fell through to a hardcoded fallback with nothing but a printed line -- on
+    2026-07-29 that silently discarded an explicit JUDGE_B=google/gemma-4-E2B-it
+    and ran Ministral instead, which cannot load at all, and the run died at
+    judge B after an hour of generation. An explicit request is never discarded
+    now: a hub id is used as given, and only an unusable PATH falls back.
+    """
     import glob
-    if os.path.isdir(spec) and os.path.exists(os.path.join(spec, "config.json")):
+    if os.path.isdir(spec):
+        if os.path.exists(os.path.join(spec, "config.json")):
+            return spec
+        print(f"  judge B spec {spec} is a directory with no config.json",
+              flush=True)
+    elif "/" in spec and not spec.startswith("/") and not spec.startswith("."):
+        # looks like a hub id (owner/name), not a path -- honour it
+        print(f"  judge B: using hub id {spec}", flush=True)
         return spec
     for cfg in sorted(glob.glob("/kaggle/input/**/config.json", recursive=True)):
         d = os.path.dirname(cfg)

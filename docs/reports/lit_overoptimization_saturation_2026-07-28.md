@@ -32,7 +32,8 @@ within-prompt correlation between the judge's score and the value score;
 the realized candidate spread to the binomial ceiling `√(v(1−v))` that binary
 scoring imposes. The four factors correspond to four different theories of
 saturation, they are separately measurable from data already logged, and — as
-§6 shows — two of them are separable at our sample size while one is not.
+§6 shows — two of them (`κ` and `ρ`) are cleanly separable at our sample size,
+while the third (`h²`) is the one the data struggles with.
 
 If a single scalar curve is required for the writeup, fit the **replicator /
 breeder form with a free ceiling**: `Δv_t = h² · ρ · κ · √(v_t(1−v_t))`, holding
@@ -43,22 +44,26 @@ the risk axis, 0.831 restricted to the interior), it is what
 [Ferbach et al.](https://arxiv.org/abs/2407.09499) prove for exactly this
 curation loop, and it needs no parameter that our data cannot estimate.
 
-**Identification verdict.** Pessimistic. With four rounds and roughly a dozen
-independent seed clusters:
+**Identification verdict.** Pessimistic. With four rounds, 35 seed groups and
+70–80 usable rows per round (§5.2), falling to 24 rows by round 4:
 
 - Gao's concave form and the headroom form are *both* estimable and, in
   simulation, model comparison points the right way — but the margin is weak
-  (median ΔAIC ≈ +8 at 11 clusters, decisive in only 38% of draws; §6.3).
+  (median ΔAIC ≈ +8 at 11 seed groups, decisive in only 38% of draws; §6.3).
 - The decay of the transmission coefficient `h²` across rounds — the one
   parameter that would distinguish Gao-style overoptimization from every other
-  story — is **not resolvable**: simulated standard error per round-wise slope
-  is 0.21 at 11 clusters, against an observed round-1-minus-round-3 difference
-  of about 0.20, i.e. `t ≈ 0.7`. Roughly 40 independent clusters are needed for
-  80% power (§6.2).
-- A process with genuinely constant transmission produces a *monotonically
-  declining* sequence of round-wise slopes 72% of the time, purely from
-  clipping at the 0–1 boundary (§6.2). The direction of the observed decay is
-  therefore close to uninformative on its own.
+  story — sits at **borderline significance at best, and its standard error has
+  never been computed.** Naive standard errors give the round-1-minus-round-3
+  difference `t ≈ 2.1`; clustering on seed groups will pull that down, plausibly
+  to `t ≈ 1.5`. **Computing the cluster-bootstrap standard error on the existing
+  panel is the single highest-value ten minutes of work in this report** (§6.2).
+  For a decisive answer, simulation says roughly 70 independent seed groups
+  (against the current 35) — and extra seeds help far more than extra arms per
+  seed.
+- The *direction* of the decay carries almost no information: when transmission
+  is truly constant, the round-4 slope still lands below the round-1 slope in
+  39–50% of simulated draws, because clipping at the 0–1 boundary attenuates
+  later-round slopes (§6.2).
 - Worse, the per-round decay claim itself does not fully reproduce (§5.2): the
   third number is wrong, and the decay largely disappears under two innocuous
   reparameterizations.
@@ -607,37 +612,68 @@ Three ways out, in increasing order of cost:
 
 ### 6.2 Power for the decay of the transmission coefficient
 
-Simulating the actual design (four rounds, `σ = 0.72√(v(1−v))` per the repo's
-own measured relation, `ρ` drawn around 0.35, per-round residual standard
-deviation on the value move of 0.11, matching the reported closed-form MAE of
-0.093 converted to a normal scale), the likelihood-ratio test of a decaying
-transmission coefficient `h² e^{−λ(t−1)}` against a constant `h²`, with the null
-distribution calibrated by simulation so clustering is handled exactly:
+**The load-bearing fact first: the standard error of these slopes has never been
+computed.** The re-derivation in §5.2 supplies naive ordinary-least-squares
+standard errors of 0.044, 0.053 and 0.083 for rounds 1, 2 and 3 — but those are
+optimistic, because the two arms of a seed group are stepped in lockstep from a
+single shared candidate pool, so rows arrive in correlated pairs and nothing in
+the repo clusters on seed group. Taking the naive figures at face value, the
+round-1-minus-round-3 difference of `0.509 − 0.310 = 0.199` has a difference
+standard error of `√(0.044² + 0.083²) = 0.094`, i.e. `t ≈ 2.1`. Clustering on
+the 35 seed groups will inflate that standard error; how much depends on the
+within-group correlation, which nobody has measured. A within-group correlation
+of 0.5 would push `t` to roughly 1.5.
 
-| independent clusters | power to detect a decay from 0.80 to 0.36 | simulated SE of one round-wise slope |
-|---:|---:|---:|
-| 11 | **0.27** | 0.210 |
-| 20 | 0.55 | 0.159 |
-| 40 | 0.77 | 0.102 |
-| 80 | 0.95 | 0.076 |
-| 160 | 1.00 | 0.057 |
-| 320 | 1.00 | 0.035 |
+**So the honest verdict is "borderline", not "clearly null" — and computing the
+cluster-bootstrap standard error on the real panel is a ten-minute job that is
+the single missing number in this whole argument.** Resample seed groups with
+replacement, refit each round-wise slope, take the standard deviation. Do that
+before anything else in this section is acted on.
 
-**Read the first row.** At our sample size the test has 27% power against a
-decay as large as the one claimed. The observed round-1-minus-round-3 difference
-(0.509 − 0.310 = 0.199, using the reproducible third number) against a
-difference standard error of about `0.21 × √2 = 0.30` gives `t ≈ 0.67`. Even the
-originally claimed difference of 0.278 gives `t ≈ 0.93`. **Roughly 40 clusters
-are needed for 80% power**; 80 for a comfortable result.
+What simulation *can* say, design-independently, is how the power scales.
+Simulating four rounds with `σ = 0.72√(v(1−v))` (the repo's own measured
+relation), `ρ` drawn around 0.35, a per-round residual standard deviation of
+0.11 on the value move (the reported closed-form MAE of 0.093 converted to a
+normal scale), and two arms per group sharing 60% of their pool-level and
+shock-level variance, testing a decaying transmission coefficient
+`h² e^{−λ(t−1)}` against a constant `h²` by likelihood ratio with the null
+calibrated by simulation:
 
-**Effective-n matters more than nominal n here.** The re-derivation in §5.2
-found `n` = 80 round-1 observations behind 35 distinct seed groups, with the two
-arms of a group stepped in lockstep from a shared candidate pool. In simulation,
-11 clusters of 7 rollouts each give a naive ordinary-least-squares standard
-error of 0.090 against a cluster-bootstrap standard error of 0.075 to 0.104 —
-so in this particular design the clustering penalty is modest, but it is the
-*number of independent starts*, not the number of rollout rows, that sets it,
-and no clustered standard error has ever been computed for these slopes.
+| seed groups × arms | rows per round | cluster-bootstrap SE of one slope | power vs a 0.80 → 0.36 decay | P(round-4 slope < round-1 slope) when transmission is truly constant |
+|---|---:|---:|---:|---:|
+| 11 × 7 | 77 | 0.327 | 0.32 | 0.50 |
+| **35 × 2** | **70** | **0.252** | **0.62** | 0.42 |
+| 35 × 4 | 140 | 0.223 | 0.69 | 0.43 |
+| 70 × 2 | 140 | 0.154 | 0.91 | 0.44 |
+| 140 × 2 | 280 | 0.096 | 0.99 | 0.39 |
+
+Two readings, in tension, and both should be reported:
+
+- The simulated standard error at the real panel geometry (0.25) is far larger
+  than the naive one from the data (0.044). The gap is almost certainly because
+  the real intervention *manufactures* gap variation — the concentrated arm sits
+  at spread 0.000 and the spread arm at 0.344, a bimodal design that buys much
+  more identifying variation in `g` than my simulation's unimodal `ρσ` draw. So
+  **the true standard error is probably nearer the naive figure than the
+  simulated one, and the design is better powered than the generic table
+  suggests.** This is a point in the design's favour and should not be buried.
+- Doubling the number of arms per group barely helps (power 0.62 → 0.69 going
+  from 2 to 4 arms), whereas doubling the number of *groups* moves it a lot
+  (0.62 → 0.91). **Extra seeds, not extra arms per seed.**
+
+**The direction of the decay is close to uninformative on its own.** Under a
+process with *genuinely constant* transmission, the round-4 slope comes out
+below the round-1 slope in 39–50% of simulated draws once clipping at the 0–1
+boundary is included; in an earlier, uncorrelated-arms version of the same
+simulation the mean slopes fell monotonically from 0.813 to 0.728 with a 72%
+decline rate. A monotone declining sequence of three numbers is roughly a coin
+flip under the null, so the *pattern* carries little weight; only the magnitude,
+with a properly clustered standard error, does.
+
+**Rounds 4 and beyond cannot help.** The panel collapses from 74 rows at round 3
+to 24 at round 4 and 16 at round 5 (§5.2), which is planned horizon rather than
+attrition, but it means the later rounds — exactly where a saturating curve is
+most informative — carry almost no weight.
 
 **The direction of the decay is nearly uninformative on its own.** Under a
 process with *genuinely constant* transmission, the simulated round-wise slopes
@@ -679,7 +715,7 @@ varies across runs and that the realized path departs from `h² P_t` through
 noise. In simulation the correlation between `v_t` and `P_t` is about 0.5 and
 the separation survives:
 
-| clusters | measurement error on `v` | median ΔAIC favouring the true form | picks the true form | decisive (ΔAIC > 10) |
+| seed groups (7 rows each) | measurement error on `v` | median ΔAIC favouring the true form | picks the true form | decisive (ΔAIC > 10) |
 |---:|---:|---:|---:|---:|
 | 11 | 0.00 | +7.7 (Gao true) / +24.1 (headroom true) | 0.96 / 1.00 | 0.38 / 0.96 |
 | 11 | 0.10 | +8.3 / +14.3 | 0.95 / 0.97 | 0.42 / 0.71 |
@@ -687,7 +723,7 @@ the separation survives:
 | 160 | 0.03 | +129 / +336 | 1.00 / 1.00 | 1.00 / 1.00 |
 
 Read this carefully and do not over-read it. The comparison points the right way
-almost always, but at 11 clusters the evidence is **decisive in only 38% of
+almost always, but at 11 seed groups the evidence is **decisive in only 38% of
 draws when Gao is true**. "The Gao form fits slightly better" at our sample size
 is a preference, not a result. It also depends on the two forms having been
 calibrated to produce similar trajectories, which is the fair comparison; if
@@ -699,20 +735,23 @@ likelihood-ratio statistic `Λ = N log(RSS_constant / RSS_decay)` on the
 round-level panel, with `RSS_decay` minimized over `λ` on a grid, and calibrate
 the critical value by **cluster bootstrap over seed groups** rather than against
 a `χ²₁` (the `λ` grid search and the within-run dependence both break the
-asymptotic calibration). At 11 clusters the simulated 95th percentile of `Λ`
-under the null is about 4.8, rising to about 5.4 at 80 clusters. Target **40
-independent seed clusters** for 80% power, **80** for 95%.
+asymptotic calibration). The simulated 95th percentile of `Λ` under the null is
+about 4.8 at small cluster counts and drifts up to about 5.4 by 80 clusters, so
+a `χ²₁` critical value of 3.84 would be anti-conservative here. Target **about
+70 independent seed groups** for 90% power against a 0.80 → 0.36 decay, against
+the 35 groups the panel currently has — and add seeds rather than arms per seed
+(§6.2).
 
 ### 6.4 What to do instead of fitting one curve
 
 The decomposition `Δv_t = h²_t · ρ_t · κ_t · √(v_t(1−v_t))` puts each theory on
 its own readout, and the readouts have very different statistical properties:
 
-| readout | how to compute | theory it tests | separable at 11 clusters? |
+| readout | how to compute | theory it tests | separable at the current panel size? |
 |---|---|---|---|
 | `κ_t = σ_t / √(v_t(1−v_t))` | already logged; `σ` is mean within-prompt SD, `v` is the round-start value | sharpening / diversity collapse (Song et al., Ferbach Thm 2.1) | **yes** — simulated 0.255 → 0.098 under a true 30%-per-round collapse, flat otherwise |
 | `ρ_t = g_t / σ_t` | already logged | judge decoupling from the value axis (extremal Goodhart) | **yes**, same construction |
-| `h²_t` = slope of `Δv_t` on `g_t` | round-wise regression | Gao overoptimization | **no** — SE 0.21, 27% power, 72% false-decay rate |
+| `h²_t` = slope of `Δv_t` on `g_t` | round-wise regression | Gao overoptimization | **marginal** — borderline `t`, no clustered SE ever computed, and a ~45% false-decline rate under the null |
 | proxy-minus-gold divergence | frozen-judge rescore of kept candidates against held-out `v_t` | overoptimization, uniquely | untested, but it is a *difference of levels* rather than a slope, so much better behaved |
 
 The first two are means of ratios of already-logged quantities, estimated at

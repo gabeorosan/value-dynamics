@@ -7,6 +7,60 @@ Design gate: `scripts/sim_multivariate_selection_power.py` →
 `experiments/multivariate_selection_power.json`. **That gate covers phase 1 only —
 see the audit below before running phase 2.**
 
+## Phase 1b, 2026-07-28: the graded-instrument rebuild (script_phase1b.py)
+
+**Status: prepared 2026-07-28, queued for the Kaggle quota reset on Sat 2026-08-01.
+Launch with `./launch.sh` (defaults to phase1b; quota-safe slug rotation as before).**
+
+Phase 1 (kernel `vd-valcov-20260725-0949`) is NOT citable for a covariance: cross-judge
+same-axis agreement 0.345–0.467, and every judge-A win-rate spread sits at or below the
+~0.16 spread a VALUE-BLIND judge manufactures at the observed 0.609 order-flip rate
+(`scripts/sim_winrate_null_floor.py`). The indicted piece is the forced-choice WIN-RATE
+construction — pairwise position noise, averaged over few noisy reads, becomes spread
+that mimics signal — plus a gate calibrated against a zero floor. Full account:
+`docs/report_value_covariance_phase1.md` (07-25 corrections + 07-28 addendum).
+
+Phase 1b changes the scoring construction and makes the instrument prove itself:
+
+1. **Graded absolute 0–9 scores read from logprobs** (probability-weighted digit
+   expectation), one isolated call per axis per polarity, no opponents, no
+   presentation order. This is what the design simulation prescribed
+   (`sim_multivariate_selection_power.py`: sampled yes/no recovers 19% of a true
+   correlation; graded logprob ~90%); phase 1 abandoned it for forced choice when
+   absolute YES/NO saturated — the graded scale plus content-reversed polarities is
+   the untried middle. A value-blind judge now yields near-constant reads and
+   near-zero spread, so the spread gate has a genuine ~0 null floor.
+2. **Layered gates, fixed pre-run**: (1) digit mass ≥ 0.5 — the judge answers the
+   format; (2) hand-built maximal-contrast pairs per axis (14 pairs, all six axes)
+   ordered correctly ≥ 80% with mean margin ≥ 0.10 — the judge can read the axes;
+   (3) persona positive control — candidates generated under a bold vs a cautious
+   system persona must separate by ≥ +0.15 on risk_tolerance and ≤ −0.10 on
+   caution_reversibility (registered directions; other axes reported as the halo
+   diagnostic, not gated); (4) cross-judge agreement r ≥ 0.4 on the persona pools,
+   where spread is known to exist — phase 1 could never distinguish "judges disagree"
+   from "nothing to agree about".
+3. **Registered outcomes**: O1 — gates pass and unprompted temp-1.0 pools carry
+   spread ≥ 0.05 → the covariance is readable; primary estimate is cross-method
+   (below). O2 — gates pass but unprompted spread < 0.05 → the GENERATOR produces no
+   value variation; phase-2-style questions need a generation redesign, and the
+   broken-judge phase-1 runs' reading was right for the wrong reason. O3 — gate 1 or
+   2 fails → graded reads also fail at this judge scale; the measurement needs a
+   larger judge. All three are informative; O2 is the modal expectation given the
+   pool text read on 07-25.
+4. **The primary test phase 1 never ran** (07-28 addendum, finding E): cross-method
+   covariance estimated on pool A (judge A rows, judge B columns) predicts
+   differentials on pool B with judge A SELECTING and judge B OBSERVING — no shared
+   judge error. Same-judge versions are sensitivity analyses. Summaries report
+   n_selection_events (6) alongside n_pairs (30); the slope's effective sample size
+   is 6 and any CI must cluster by selection event.
+5. Kept from phase 1: same 30 prompts, 8 candidates, 2 independent pool sets,
+   thinking-block force-closed, top-next-token diagnostic, per-candidate length with
+   within-prompt-centred residualisation, progressive checkpointing.
+
+Smoke test: `uv run --with numpy python experiments/value_covariance/smoke_test_phase1b.py`
+(stubbed end-to-end run; plants a known correlation structure and a persona
+separation, asserts every gate fires and the planted structure is recovered).
+
 ## External audit, 2026-07-24 (GPT-5.6 Sol, high effort) — DO NOT RUN PHASE 2 AS WRITTEN
 
 Six findings, the first two of which are blocking. Recorded verbatim in substance;

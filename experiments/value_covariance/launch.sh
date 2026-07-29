@@ -19,13 +19,26 @@
 # Also note: `kaggle quota` is broken in CLI 2.2.2 ("not enough values to unpack"),
 # so an actual push is the only reliable way to discover remaining GPU quota.
 #
-# Usage: ./launch.sh          (idempotent; safe to run on a schedule)
+# Usage: ./launch.sh [phase1b|phase1]   (idempotent; safe to run on a schedule)
+#
+# Default is phase1b (graded-instrument rebuild, script_phase1b.py, its own
+# .active_kernel_1b state file and slug prefix). `./launch.sh phase1` still
+# monitors the completed phase-1 kernel via the original .active_kernel.
 set -uo pipefail
 cd "$(dirname "$0")"
 
+PHASE="${1:-phase1b}"
 KAGGLE="env -u KAGGLE_API_TOKEN kaggle"
-ACTIVE_FILE=".active_kernel"
 USER="hirokenzan"
+if [[ "$PHASE" == "phase1" ]]; then
+  ACTIVE_FILE=".active_kernel"
+  CODE_FILE="script.py"
+  SLUG_PREFIX="vd-valcov"
+else
+  ACTIVE_FILE=".active_kernel_1b"
+  CODE_FILE="script_phase1b.py"
+  SLUG_PREFIX="vd-valcov1b"
+fi
 
 # --- already launched? then just monitor -----------------------------------
 if [[ -f "$ACTIVE_FILE" ]]; then
@@ -48,12 +61,12 @@ if [[ -f "$ACTIVE_FILE" ]]; then
 fi
 
 # --- not launched yet: mint a fresh slug and try ---------------------------
-SLUG_NAME="vd-valcov-$(date +%Y%m%d-%H%M)"
+SLUG_NAME="$SLUG_PREFIX-$(date +%Y%m%d-%H%M)"
 SLUG="$USER/$SLUG_NAME"
-python3 - "$SLUG" "$SLUG_NAME" <<'PY'
+python3 - "$SLUG" "$SLUG_NAME" "$CODE_FILE" <<'PY'
 import json, sys
 m = json.load(open("kernel-metadata.json"))
-m["id"], m["title"] = sys.argv[1], sys.argv[2]
+m["id"], m["title"], m["code_file"] = sys.argv[1], sys.argv[2], sys.argv[3]
 json.dump(m, open("kernel-metadata.json", "w"), indent=2)
 PY
 

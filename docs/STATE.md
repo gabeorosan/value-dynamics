@@ -769,6 +769,19 @@ rows already committed.
   `correlation_net_of_length` is the pre-fix attenuated version (mean |delta| **0.0029**,
   judge A pool A) while the citable corrected figure is **0.0077**. The scheduled task
   is confirmed `enabled: false` with no next run.
+- 2026-07-28 (main session): **Phase 1b of value covariance is BUILT and queued for
+  the Saturday 08-01 Kaggle reset** — `experiments/value_covariance/script_phase1b.py`
+  (graded 0–9 logprob scoring replaces the indicted win-rate construction; four
+  layered pre-registered gates: digit mass, 14 hand-built manipulation pairs across
+  all six axes, a bold-vs-cautious persona positive-control pool with registered
+  separation directions, cross-judge agreement ≥0.4 on the known-spread pools; the
+  never-run cross-method cross-pool primary now implemented, reporting
+  n_selection_events=6 as the effective n). Registered outcomes O1/O2/O3 in
+  SPEC.md §Phase 1b; O2 (generator carries no value variation) is the modal
+  expectation. Smoke test passes (planted correlation + persona separation
+  recovered, all gates fire): smoke_test_phase1b.py. launch.sh now defaults to
+  phase1b with its own state file; `./launch.sh phase1` keeps monitoring the old
+  kernel. Launch = run `experiments/value_covariance/launch.sh` on/after Saturday.
 - 2026-07-28 (main session, user directive): **The every-3-hours scheduled task
   "launch-value-covariance-phase1" is DISABLED — its job (phase 1 landed + re-traced)
   is done, and the user does not want new chats spawned. Project management moves

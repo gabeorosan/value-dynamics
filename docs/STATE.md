@@ -757,6 +757,18 @@ rows already committed.
   rounds x 3 seeds, free T4. It is the first test of the model's spread term that is
   not confounded with the pool mean, and a null there would be a significant negative
   result about the program's central equation.
+- 2026-07-29 (final firing of the now-disabled scheduled monitor): **Nothing new to
+  land — the phase-1 kernel is COMPLETE and its package already shipped; the one
+  stale fact found was in the ledger, and is fixed.** The launcher returned
+  `RESULT_READY hirokenzan/vd-valcov-20260725-0949` and the JSON re-reads exactly as
+  ledgered (cross-method diagonal 0.394 / 0.345 / 0.467 / 0.390 / 0.457 / −0.054 —
+  the instrument gate fails; judge-A raw variances 0.019–0.040, judge-B 0.0023–0.0061,
+  all at or under their simulated value-blind null floors). The ledger's script column
+  listed `residualize_on_length` as still to fix; it was fixed 07-25 in 51c7e02. Both
+  the row and the report addendum now say so, and record that the SHIPPED JSON's
+  `correlation_net_of_length` is the pre-fix attenuated version (mean |delta| **0.0029**,
+  judge A pool A) while the citable corrected figure is **0.0077**. The scheduled task
+  is confirmed `enabled: false` with no next run.
 - 2026-07-28 (main session, user directive): **The every-3-hours scheduled task
   "launch-value-covariance-phase1" is DISABLED — its job (phase 1 landed + re-traced)
   is done, and the user does not want new chats spawned. Project management moves

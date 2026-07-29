@@ -53,6 +53,26 @@ CFA on LLM measurement at all. The nearest work uses two questionnaires and call
 them two methods. That means §7's validation protocol is not a replication of
 anyone — it is a small original measurement, and it is cheap.
 
+**Five, and this one is a measurement rather than a reading.** I loaded our actual
+tokenizers and checked what a numeric logprob read can physically resolve (§4.1).
+**Qwen3-4B and gemma-2-2b-it tokenize 91 of the 101 integers 0–100 as more than one
+token; OLMo-2-7B-Instruct and Llama-3.1-8B tokenize all 101 as single tokens.** So a
+0–100 expected-value read is impossible on our Qwen judge and native on our OLMo
+family — the two families have different maximum instrument resolution, and any
+cross-family comparison has to be held at 0–9. Phase 1b's 0–9 choice was right; it
+should now be recorded as a binding constraint rather than a convenience. Two related
+traps: `"Yes"` and `" Yes"` are different token ids on every model we use, and `" 7"`
+is two tokens on all of them, so a template that makes a space the natural next token
+silently reads P(space) instead of P(digit).
+
+**And one thing I got wrong going in.** I expected the literature to say "use a
+richer rubric with more dimensions". It says close to the opposite: more rubric
+dimensions scored in one call create more interference, judges collapse five criteria
+into one factor at correlations above 0.93, and the conditional correlation between a
+judge's second and first score in the same call is **r = 0.979 against a human
+r = 0.315** — the judge copies its own previous number. One axis per call, few axes,
+each with a worked exemplar.
+
 ---
 
 ## 1. Utility Engineering, read properly
@@ -1375,29 +1395,61 @@ Score = (positive_read + (1 − negative_read)) / 2, with **both raw polarity me
 and their asymmetry stored**, because averaging maps a saturated instrument to
 mid-scale.
 
-**Five changes I recommend on top of the current build:**
+**Seven changes I recommend on top of the current build**, ordered by
+value-per-unit-effort:
 
-1. **Prefix-cache the shared context.** The 12 reads per candidate (6 axes × 2
+1. **Attach a full-mark reference exemplar to each axis rubric.** One sentence:
+   *"For reference, an answer that would score 9 on this scale is: '…'."* This is the
+   single highest-value change available from this literature. Qwen3-8B shows a
+   **46.22% score flip rate from rubric-order perturbation alone**
+   ([arXiv:2506.22316](https://arxiv.org/abs/2506.22316)), our judge is a 4B Qwen, and
+   the full-mark reference is the stabiliser that paper identifies — the same device
+   Prometheus's template uses. We already have the material: the *high* side of each
+   of the 14 hand-built manipulation pairs is a ready-made score-9 exemplar. Cost:
+   ~60 extra tokens per read.
+2. **Batch-calibrate the digit distribution.** Subtract the batch mean of the score
+   distribution before taking the expectation:
+   `p_BC(d | x_i) = p(d | x_i) − (1/M) Σ_i p(d | x_i)`, renormalised
+   ([arXiv:2309.17249](https://arxiv.org/abs/2309.17249)). This is the correct named
+   remedy for yes-saturation and for the round-number prior, it needs no labelled
+   data, it costs nothing, and PairS confirms it works **specifically on 7B-class
+   judges** where it gives little for frontier models. The batch must be defined
+   carefully — calibrate **within prompt**, across the 6 candidates, so the
+   subtraction removes the judge's prompt-level prior and leaves exactly the
+   within-prompt signal we are trying to estimate. Report both calibrated and raw.
+3. **Prefix-cache the shared context.** The 12 reads per candidate (6 axes × 2
    polarities) share the entire prefix up to `{axis_question}`. Compute the prefix
-   KV cache once per candidate and run 12 short continuations. This is a pure
-   engineering win of roughly 5–8× on judge time (§6.5) and changes no number.
-2. **Add a relevance gate per axis, GPV-style (§3.4).** Before the graded read, ask
+   KV cache once per candidate and run 12 short continuations. A pure engineering win
+   of roughly 5–8× on judge time (§6.5) that changes no number.
+4. **Add a relevance gate per axis, GPV-style (§3.4).** Before the graded read, ask
    *"Does this answer take any position on how much risk to accept? Answer yes or
-   no."* and read p(yes). Score the axis only where p(relevant) > 0.5; otherwise
-   record the candidate as missing on that axis rather than mid-scale. This fixes
-   the case where an answer simply does not speak to an axis, which currently
-   contributes a spurious 0.5 and shrinks the estimated spread.
-3. **Add the two Betley axes** (alignment, coherence) on the transfer prompts, with
-   the published 0–100 rubric mapped to our 0–9 digit read, and apply his
-   coherence < 50 exclusion (in our units, coherence < 4.5) before interpreting
-   anything.
-4. **Store a per-candidate length and a per-candidate "answered-the-format" flag**,
-   and report every covariance both raw and net of length — already in the SPEC,
-   keep it.
-5. **Run the selector on pairwise duels and the measurement on absolute scores.**
-   Landesberg's result (§4.2) is strong evidence that pairwise wins for selection.
-   Separating the two also removes a circularity we currently have: the selector's
+   no."* and read p(yes) summed over the `"Yes"`/`" Yes"` token variants (§4.1). Score
+   the axis only where p(relevant) > 0.5; otherwise record the candidate as **missing**
+   on that axis rather than mid-scale. This fixes the case where an answer simply does
+   not speak to an axis, which currently contributes a spurious 0.5 and shrinks the
+   estimated spread.
+5. **Add the two Betley axes** (alignment, coherence) on the transfer prompts, using
+   his verbatim rubric wording mapped to our 0–9 digit read, and apply the
+   coherence < 50 exclusion (in our units, < 4.5) before interpreting anything.
+   Reserve an explicit REFUSAL branch as the persona-vectors judge does.
+6. **Store a per-candidate length, a per-candidate perplexity under the frozen base
+   model, and an "answered-the-format" flag.** Length is already in the SPEC.
+   Perplexity is one extra prefill per candidate and it is what §4.4 says we need to
+   separate value taste from familiarity preference.
+7. **Run the selector on pairwise duels and the measurement on absolute scores.**
+   Two independent results support this: Landesberg's recovery 21.1% → 61.2% when
+   switching to pairwise (§4.2), and Liusie et al.'s finding that comparative
+   assessment rescues small models where direct prompt-scoring fails (§4.3).
+   Separating the two also removes a circularity we currently have — the selector's
    scores and the covariance estimate come from the same reads.
+
+**One thing not to change: the judge model, for now.** The measured tokenizer table
+(§4.1) says a Llama-3.1-8B or OLMo judge would support a native 0–100 read where
+Qwen3-4B and gemma-2-2b-it cap out at 0–9. That is a real resolution advantage, but
+§4.3's granularity result puts the 1–10 band *above* 1–100 on Kendall τ, so it buys
+less than it looks like, and switching judges mid-programme breaks comparability with
+every existing run. Revisit only if the format-variation error bar (§6.4 check 7)
+comes back large.
 
 ### 6.3 Aggregation
 
@@ -1438,6 +1490,25 @@ agreement r ≥ 0.4 on the persona pools), plus:
    changes. Minimum check: re-score round-0 pools with the round-4 judge and report
    the correlation. If it is below ~0.8, between-round changes are confounded with
    instrument drift and must be reported with the frozen judge as primary.
+9. **Consistency Rate — the null floor for every robustness number.** CALM's device
+   (§9.3 item 18d): re-run the judge on identical inputs with *no* perturbation and
+   report its self-agreement. Published range for frontier judges is 0.856–0.999. Our
+   deterministic logprob read should give ~1.000 at fixed batch size and dtype; if it
+   does not, we have a numerics problem (§9.1 item 8) before we have a judge problem.
+   Every perturbation result must be reported against this floor, exactly as the
+   win-rate null-floor simulation is.
+10. **Chance-corrected agreement, not percent agreement.** Report Cohen's κ for any
+    binarised comparison. Raw exact-match overstates reliability by **33.8–41.3
+    percentage points** ([arXiv:2606.19544](https://arxiv.org/abs/2606.19544)), and
+    our instrument tables currently report raw agreement.
+11. **Per-item uncertainty flag.** Report the entropy of the digit distribution per
+    read. It costs nothing, it is the diagnostic for range restriction and score
+    clustering (§9.2 items 10–11), and the human-in-the-loop literature shows
+    entropy-based routing is the single most useful triage signal even when there is
+    no human to route to.
+12. **Perplexity control.** Report the correlation between each axis score and the
+    candidate's perplexity under the frozen base model. If it approaches the
+    magnitudes in §4.4, the axis is partly measuring familiarity.
 
 ### 6.5 GPU-hour cost
 
@@ -2001,22 +2072,60 @@ following.
 7. **A cost figure of any kind in Utility Engineering.** No GPU-hours, no dollar
    figure, no query count per model beyond "500 outcomes, K = 10, adaptive sampling".
 8. **An LLM-adapted Schwartz or moral-foundations instrument whose factor structure
-   replicates at 4–8B.** The evidence points the other way (§3.1).
+   replicates at 4–8B.** The evidence points the other way (§3.1), and nobody has run
+   a confirmatory factor analysis on LLM moral-foundations responses at all.
+9. **Any measurement of self-preference or familiarity bias on a single-generation
+   *trait* score with a ≤8B judge.** Wataoka et al. is pairwise and excludes the
+   models whose logprobs they could not access; Stureborg et al. have the pointwise
+   result but only for GPT-4 and GPT-3.5. This is a genuine gap, it is directly in our
+   path, and §4.4 sketches how to fill it for the cost of one prefill per candidate.
+10. **Any expected-calibration-error benchmark for 4–8B open models on binary
+    comparison prompts.** The closest proxies are Latent Judges naming Qwen3-14B and
+    Prometheus-7B as miscalibrated under weighted scoring, PairS showing batch
+    calibration helps Mistral-7B and Llama-2-7B (implying miscalibration), and
+    [arXiv:2601.03444](https://arxiv.org/abs/2601.03444) putting
+    Mistral-7B-Instruct-v0.3 last among judges at ICC .596.
+11. **A public repository for Rozen et al.** ("available upon request"), a
+    downloadable item set for ValueLex's 50 sentence-completion stems, a verified
+    public download for the FULCRA dataset, or a canonical Anthropic paper under the
+    name "Assistant persona" — all searched for, none found.
 
 ### Verification status of the numbers in this report
 
-Read from the source PDF or HTML by me: everything in §1 (Utility Engineering),
-§5.1–5.2 (persona vectors), §2.4's Feuer table, §2.2's Song table, §4.2's
-Landesberg numbers, §3.5's Betley questions and judge scales, §2.4's
-Serapio-García Δ and α values, §1.3's Ajayi and Trhlik numbers, and the
-throughput figures in §6.5 (from our own kernel log).
+**Measured by me on this machine:** the tokenizer table in §4.1 (`transformers`
+`AutoTokenizer`, 2026-07-28, four models) and the throughput figures in §6.5 (from
+`experiments/value_covariance/output/vd-valcov-20260725-0949.log`). The PC1
+eigenvalue arithmetic in §7.3 is exact algebra, not simulation.
 
-Taken from a subagent's read and **not independently verified by me**: the GPV
-numbers in §3.4, the TRAIT sensitivity table in §2.3, the PERSIST and Shu numbers in
-§2.3, the Contreras and Han numbers in §2.2, the IRT sample-size guidance in §2.1,
-and the Yang jury-ICC figures in §2.4. My subagent flagged that PDF-summarising tools
-fabricated at least one plausible-sounding set of numbers during this search
-(a claimed "20–30 items binary vs 8–12 continuous" result for
-[arXiv:2601.13885](https://arxiv.org/abs/2601.13885) that appears nowhere in the
-paper). **Before any number from the unverified list goes on a summary surface, read
-the source.**
+**Read from the source PDF or HTML by me:** everything in §1 (Utility Engineering,
+full 38-page PDF including appendices), §5.1–5.2 (persona vectors, full 63-page PDF),
+§2.4's Feuer schematic-adherence table and psychometric-validity formula, §2.2's Song
+correlation table, §4.2's Landesberg numbers, §3.5's Betley questions and verbatim
+judge prompts, §2.4's Serapio-García Δ and convergent-r values, §1.3's Ajayi and
+Trhlik numbers, §3.0's V-PRISM design.
+
+**Taken from a subagent's read and not independently verified by me:** the GPV
+numbers (§3.4), the TRAIT sensitivity table and the PERSIST/Shu numbers (§2.3), the
+Contreras and Han numbers (§2.2), the IRT sample-size guidance (§2.1), the Yang
+jury-ICC figures (§2.4), the Rozen Procrustes table (§3.1), the Values in the Wild
+cluster percentages (§3.3), and everything in §4.3, §9.2, §9.3 and §9.5 that carries
+a 2025–2026 arXiv id I did not open myself — in particular the Latent Judges,
+TrustJudge, CALM, CoBBLEr, scoring-bias and coin-flip-judge numbers.
+
+**Two provenance warnings I am passing on rather than burying.** First, PDF-summarising
+tools fabricated at least one plausible-sounding set of numbers during this search: a
+claimed "20–30 items binary versus 8–12 continuous" result for
+[arXiv:2601.13885](https://arxiv.org/abs/2601.13885), which appears nowhere in that
+paper (its actual claim is 2% of items and +0.12 τ, with a heteroskedastic-normal
+response model). It was caught only by re-fetching the abstract. Second, several of
+the most load-bearing score-distribution results
+([2603.12520](https://arxiv.org/abs/2603.12520),
+[2601.03444](https://arxiv.org/abs/2601.03444),
+[2606.19544](https://arxiv.org/abs/2606.19544),
+[2606.13685](https://arxiv.org/abs/2606.13685),
+[2603.09309](https://arxiv.org/abs/2603.09309)) are 2026 preprints whose peer-review
+status I did not check. The two doing the most work here — the ~20-unique-values /
+99%-tie result and Qwen3-8B's position-bias and rubric-order-flip figures — are both
+in that category and are cheap to replicate locally on our own judge before we build
+on them. **Before any number from the unverified lists goes on a summary surface,
+read the source.**

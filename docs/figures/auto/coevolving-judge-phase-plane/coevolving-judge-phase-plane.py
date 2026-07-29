@@ -16,8 +16,8 @@ Primary:  experiments/ablation_unit_law.json, key "rho_trajectories", the six
 Raw:      experiments/em_selfaware_loop/output/head2head_neutralstyle_selfonly.json
           and .._s43_46.json -- the per-prompt duel logs the primary file was
           built from.  This script re-derives every plotted number from the raw
-          logs when they are present and refuses to plot if the two disagree by
-          more than 0.001; it falls back to the primary file otherwise.
+          logs and stops if the two disagree by more than 0.001; it falls back to
+          the primary file only if the raw logs are missing.
 """
 import json
 import math
@@ -44,11 +44,11 @@ KEY_FILL = "#eef5ee"   # highlighted takeaway box
 
 FONT = "Helvetica, Arial, sans-serif"
 
-# All six runs are the self-judging condition, so BLUE/GREEN cannot carry the
-# contrast here (GREEN is reserved for frozen-judge series).  The two series
-# colours below encode the OUTCOME polarity and pass the dataviz validator:
+# All six runs are the self-judging condition, so BLUE cannot carry the contrast
+# here and GREEN is reserved for frozen-judge series.  The two series colours
+# below encode the OUTCOME polarity, and pass the dataviz validator:
 #   validate_palette.js "#2867b5,#b5342c" --mode light  ->  all checks pass
-#   (CVD separation dE 21.3 protan, normal-vision dE 28.0).
+#   (CVD separation dE 21.3 protan; normal-vision dE 28.0).
 FALLING = RED          # run's pool value ends below where it started
 RISING = BLUE          # run's pool value ends above where it started
 
@@ -71,18 +71,22 @@ def wrap(text, width):
 
 
 def text(x, y, s, size=18, color=INK, weight="normal", anchor="start",
-         style="normal"):
-    return (f'<text x="{x}" y="{y}" font-family="{FONT}" font-size="{size}" '
-            f'fill="{color}" font-weight="{weight}" text-anchor="{anchor}" '
-            f'font-style="{style}">{esc(s)}</text>')
+         halo=False):
+    """halo=True paints a white outline behind the glyphs so an in-plot label
+    stays readable where it crosses a trajectory, without hiding the line."""
+    extra = (' stroke="white" stroke-width="4.5" paint-order="stroke"'
+             if halo else "")
+    return (f'<text x="{x:.1f}" y="{y:.1f}" font-family="{FONT}" font-size="{size}" '
+            f'fill="{color}" font-weight="{weight}" text-anchor="{anchor}"{extra}>'
+            f'{esc(s)}</text>')
 
 
 def para(x, y, s, size=18, color=INK, width=60, lh=1.32, weight="normal",
-         anchor="start"):
-    out = []
-    for i, ln in enumerate(wrap(s, width)):
-        out.append(text(x, y + i * size * lh, ln, size, color, weight, anchor))
-    return "\n".join(out), y + len(wrap(s, width)) * size * lh
+         anchor="start", halo=False):
+    lines = wrap(s, width)
+    out = [text(x, y + i * size * lh, ln, size, color, weight, anchor, halo)
+           for i, ln in enumerate(lines)]
+    return "\n".join(out), y + len(lines) * size * lh
 
 
 def box(x, y, w, h, fill, stroke=INK, sw=2.5, rx=8):
@@ -110,8 +114,7 @@ def svg_doc(w, h, body):
 
 
 # ======================================================================
-# Data: re-derive from the raw duel logs, then check against the committed
-# analysis file.
+# Data: re-derive from the raw duel logs, then check the committed file
 # ======================================================================
 def _pstd(v):
     m = sum(v) / len(v)
@@ -129,10 +132,10 @@ def _pearson(a, b):
 
 
 def derive_from_raw():
-    """Conventions copied from scripts/analysis_ablation_unit_law.py:
-    per-prompt Pearson(judge score, candidate self-report value score); a prompt
-    is skipped if it has fewer than 3 candidates or zero variation in either
-    vector; agreement / spread / pool mean are averaged over the qualifying
+    """Conventions copied from scripts/analysis_ablation_unit_law.py: per-prompt
+    Pearson(judge score, candidate self-report value score); a prompt is skipped
+    if it has fewer than 3 candidates or zero variation in either vector;
+    agreement / spread / gap / pool mean are averaged over the qualifying
     prompts; population standard deviation."""
     runs = {}
     for fn in RAW_FILES:
@@ -189,30 +192,29 @@ def load():
                          "pool_mean": p["pool_mean"],
                          "n_rho_prompts": [None] * len(p["rho"]),
                          "n_prompts": [None] * len(p["rho"]),
-                         "source": "committed analysis file only"}
+                         "source": "read from the committed analysis file"}
             continue
         recs = raw[seed]
         got = {k: [rec[k] for rec in recs]
                for k in ("rho", "sigma", "gap", "pool_mean",
                          "n_rho_prompts", "n_prompts")}
         for key in ("rho", "sigma", "gap", "pool_mean"):
-            for a, b in zip(got[key], p[key]):
-                if (a is None) != (b is None):
+            for a, bb in zip(got[key], p[key]):
+                if (a is None) != (bb is None):
                     raise SystemExit(
-                        f"seed {seed} {key}: raw logs and {PRIMARY} disagree "
-                        f"about whether the value exists ({a} vs {b})")
-                if a is not None and abs(a - b) > 1e-3:
+                        f"seed {seed} {key}: the raw logs and {PRIMARY} disagree "
+                        f"about whether the value exists ({a} vs {bb})")
+                if a is not None and abs(a - bb) > 1e-3:
                     raise SystemExit(
                         f"seed {seed} {key}: raw logs give {a}, "
-                        f"{PRIMARY} gives {b}")
-        out[seed] = dict(got, source="re-derived from raw duel logs")
+                        f"{PRIMARY} gives {bb}")
+        out[seed] = dict(got, source="re-derived from the raw duel logs")
     return out
 
 
 RUNS = load()
 SEEDS = sorted(RUNS)
 
-# Derived readouts, all named with their recipe in the caption.
 NET = {s: RUNS[s]["pool_mean"][-1] - RUNS[s]["pool_mean"][0] for s in SEEDS}
 CUM_GAP = {s: sum(RUNS[s]["gap"][:3]) for s in SEEDS}
 COLOR = {s: (FALLING if NET[s] < 0 else RISING) for s in SEEDS}
@@ -221,16 +223,24 @@ DEGENERATE_SPREAD = 0.10   # below this the selection term is effectively zero
 
 N_FALL = sum(1 for s in SEEDS if NET[s] < 0)
 N_RISE = len(SEEDS) - N_FALL
+LAST_ROUND = max(len(RUNS[s]["rho"]) for s in SEEDS)
+EARLY_ZERO = [s for s in SEEDS if RUNS[s]["sigma"][LAST_ROUND - 2] == 0]
+
+
+def sgn(v, nd=3):
+    return ("−" if v < 0 else "+") + f"{abs(v):.{nd}f}"
 
 
 # ======================================================================
 # Geometry
 # ======================================================================
-W, H = 1420, 1400
-PX0, PX1 = 165, 1230          # plot area, x
-PY0, PY1 = 200, 800           # plot area, y
+W, H = 1420, 1730
+PX0, PX1 = 165, 1000          # plot area, x
+PY0, PY1 = 240, 860           # plot area, y
 VMIN, VMAX = 0.25, 0.80       # pool value
 RMIN, RMAX = -0.90, 0.78      # agreement
+RC = 1030                     # right column, x
+RCR = 1390                    # right column, right edge
 
 
 def X(v):
@@ -251,8 +261,10 @@ def marker(cx, cy, color, degenerate, first=False):
     s = []
     if first:
         s.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{R_SOLID + 5:.1f}" '
-                 f'fill="none" stroke="{color}" stroke-width="1.8" opacity="0.75"/>')
+                 f'fill="none" stroke="{color}" stroke-width="1.8" opacity="0.8"/>')
     if degenerate:
+        s.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{R_HOLLOW + 2:.1f}" '
+                 f'fill="white" stroke="none"/>')
         s.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{R_HOLLOW}" fill="white" '
                  f'stroke="{color}" stroke-width="2.6" stroke-dasharray="3.6 2.8"/>')
     else:
@@ -264,35 +276,39 @@ def marker(cx, cy, color, degenerate, first=False):
 
 
 def mid_arrow(x1, y1, x2, y2, color):
-    """A short arrow at the midpoint of a segment, so round order reads
-    without a legend."""
+    """A short arrow at the midpoint of a segment, so round order reads without
+    a legend lookup."""
     dx, dy = x2 - x1, y2 - y1
     L = math.hypot(dx, dy)
-    if L < 26:
+    if L < 30:
         return ""
     ux, uy = dx / L, dy / L
     mx, my = (x1 + x2) / 2, (y1 + y2) / 2
     m = {RED: "arrR", BLUE: "arrB"}.get(color, "arr")
-    return (f'<line x1="{mx - ux * 9:.1f}" y1="{my - uy * 9:.1f}" '
-            f'x2="{mx + ux * 9:.1f}" y2="{my + uy * 9:.1f}" stroke="{color}" '
+    return (f'<line x1="{mx - ux*9:.1f}" y1="{my - uy*9:.1f}" '
+            f'x2="{mx + ux*9:.1f}" y2="{my + uy*9:.1f}" stroke="{color}" '
             f'stroke-width="3.2" marker-end="url(#{m})"/>')
+
+
+def leader(x1, y1, x2, y2):
+    return (f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" '
+            f'stroke="{GRAY}" stroke-width="1.4"/>')
 
 
 b = []
 
 # ---------------------------------------------------------------- headline
-b.append(text(58, 58, "Every self-judging run stops moving within four rounds — and it stops",
+b.append(text(58, 62, "Every self-judging run stops moving within four rounds — and it stops",
               33, INK, "bold"))
-b.append(text(58, 100, "because the candidate pool ran out of spread, not because agreement reached zero.",
+b.append(text(58, 104, "because the candidate pool ran out of spread, not because agreement reached zero.",
               33, INK, "bold"))
-sub, _ = para(58, 140,
+sub, _ = para(58, 148,
               "Six runs of the neutral-prompt, self-judging loop, drawn as trajectories in the "
-              "(pool value, judge/value agreement) plane. Lande's 1981 model of a co-evolving "
-              "preference has a line of resting states rather than a point; the analogue here is "
-              "the set where agreement times spread is zero, which has two branches — agreement = 0 "
-              "(drawn below) and spread = 0 (reached by every run).",
-              19, GRAY, width=126)
-
+              "(pool value, judge/value agreement) plane. In Lande's 1981 model of a co-evolving "
+              "preference the resting states form a line rather than a point; the analogue here is "
+              "the set where agreement times spread is zero, and that set has two branches — "
+              "agreement = 0, and spread = 0.",
+              19, GRAY, width=148)
 b.append(sub)
 
 # ---------------------------------------------------------------- axes
@@ -302,7 +318,7 @@ b.append(f'<rect x="{PX0}" y="{PY0}" width="{PX1-PX0}" height="{PY1-PY0}" '
 for tv in [0.30, 0.40, 0.50, 0.60, 0.70, 0.80]:
     x = X(tv)
     b.append(f'<line x1="{x:.1f}" y1="{PY0}" x2="{x:.1f}" y2="{PY1}" '
-             f'stroke="{GRAY}" stroke-width="1" opacity="0.20"/>')
+             f'stroke="{GRAY}" stroke-width="1" opacity="0.18"/>')
     b.append(f'<line x1="{x:.1f}" y1="{PY1}" x2="{x:.1f}" y2="{PY1+7}" '
              f'stroke="{GRAY}" stroke-width="1.4"/>')
     b.append(text(x, PY1 + 30, f"{tv:.2f}", 18, GRAY, anchor="middle"))
@@ -311,205 +327,170 @@ for tr in [-0.8, -0.6, -0.4, -0.2, 0.0, 0.2, 0.4, 0.6]:
     y = Y(tr)
     if abs(tr) > 1e-9:
         b.append(f'<line x1="{PX0}" y1="{y:.1f}" x2="{PX1}" y2="{y:.1f}" '
-                 f'stroke="{GRAY}" stroke-width="1" opacity="0.20"/>')
-    lab = ("0" if abs(tr) < 1e-9
-           else ("−" + f"{abs(tr):.1f}" if tr < 0 else "+" + f"{tr:.1f}"))
-    b.append(text(PX0 - 12, y + 6, lab, 18, GRAY, anchor="end"))
+                 f'stroke="{GRAY}" stroke-width="1" opacity="0.18"/>')
+    b.append(text(PX0 - 12, y + 6, "0" if abs(tr) < 1e-9 else sgn(tr, 1),
+                  18, GRAY, anchor="end"))
 
-b.append(f'<text x="72" y="{(PY0+PY1)/2}" font-family="{FONT}" font-size="20" '
-         f'fill="{INK}" font-weight="bold" text-anchor="middle" '
-         f'transform="rotate(-90 72 {(PY0+PY1)/2})">judge / value agreement</text>')
-b.append(f'<text x="98" y="{(PY0+PY1)/2}" font-family="{FONT}" font-size="17" '
-         f'fill="{GRAY}" text-anchor="middle" '
-         f'transform="rotate(-90 98 {(PY0+PY1)/2})">'
+mid = (PY0 + PY1) / 2
+b.append(f'<text x="70" y="{mid}" font-family="{FONT}" font-size="20" fill="{INK}" '
+         f'font-weight="bold" text-anchor="middle" '
+         f'transform="rotate(-90 70 {mid})">judge / value agreement</text>')
+b.append(f'<text x="96" y="{mid}" font-family="{FONT}" font-size="17" fill="{GRAY}" '
+         f'text-anchor="middle" transform="rotate(-90 96 {mid})">'
          f'correlation within a prompt, −1 to +1</text>')
-
-b.append(text((PX0 + PX1) / 2, PY1 + 60,
-              "pool value — mean self-report value score of the candidate answers "
-              "(0 to 1), averaged over the six prompts",
+b.append(text((PX0 + PX1) / 2, PY1 + 62,
+              "pool value — mean self-report value score of the candidate answers (0 to 1)",
               19, INK, "bold", anchor="middle"))
 
 # ------------------------------------------------- the agreement = 0 branch
 y0 = Y(0.0)
 b.append(f'<line x1="{PX0}" y1="{y0:.1f}" x2="{PX1}" y2="{y0:.1f}" '
          f'stroke="{INK}" stroke-width="3.4"/>')
-b.append(text(PX1 - 6, y0 - 12, "agreement = 0", 20, INK, "bold", anchor="end"))
-eq, _ = para(182, 392,
-             "agreement = 0. Here the selection term — agreement times spread — "
-             "is zero, so the pool value stops moving. This is one of the two "
-             "branches of the resting set: the analogue of Lande's line of "
-             "equilibria, a line rather than a point.",
-             18, INK, width=52)
-b.append(eq)
-
-# ---------------------------------------------------------------- colour key
-b.append(f'<line x1="352" y1="216" x2="392" y2="216" stroke="{FALLING}" stroke-width="4.5"/>')
-b.append(text(400, 222,
-              f"red = the run's pool value ends below where it started ({N_FALL} of 6)",
-              18, INK))
-b.append(f'<line x1="352" y1="248" x2="392" y2="248" stroke="{RISING}" stroke-width="4.5"/>')
-b.append(text(400, 254,
-              f"blue = it ends above ({N_RISE} of 6). Arrows run round 1 → 2 → 3; "
-              f"the ringed marker is round 1.",
-              18, INK))
+b.append(text(PX1 - 8, y0 - 14, "agreement = 0", 20, INK, "bold", anchor="end"))
+b.append(text(182, y0 + 28,
+              "agreement = 0: the selection term — agreement times spread — is zero",
+              18, INK, halo=True))
+b.append(text(182, y0 + 50,
+              "here, so the pool value stops moving. Lande's line of equilibria, branch one.",
+              18, INK, halo=True))
 
 # ---------------------------------------------------------------- trajectories
-# Draw rising runs first so the two big falls sit on top.
-order = sorted(SEEDS, key=lambda s: (NET[s] >= 0, -abs(NET[s])), reverse=True)
+order = sorted(SEEDS, key=lambda s: (NET[s] < 0, abs(NET[s])))
 for seed in order:
     r = RUNS[seed]
     col = COLOR[seed]
     lw = 4.2 if HEAVY[seed] else 2.6
-    pts = [(i, r["pool_mean"][i], r["rho"][i], r["sigma"][i])
+    pts = [(r["pool_mean"][i], r["rho"][i], r["sigma"][i])
            for i in range(len(r["rho"])) if r["rho"][i] is not None]
     for k in range(len(pts) - 1):
-        _, v1, a1, s1 = pts[k]
-        _, v2, a2, s2 = pts[k + 1]
+        v1, a1, s1 = pts[k]
+        v2, a2, s2 = pts[k + 1]
         dash = ' stroke-dasharray="8 6"' if (s1 < DEGENERATE_SPREAD
                                              or s2 < DEGENERATE_SPREAD) else ""
         b.append(f'<line x1="{X(v1):.1f}" y1="{Y(a1):.1f}" x2="{X(v2):.1f}" '
                  f'y2="{Y(a2):.1f}" stroke="{col}" stroke-width="{lw}"{dash} '
                  f'stroke-linecap="round"/>')
     for k in range(len(pts) - 1):
-        _, v1, a1, _ = pts[k]
-        _, v2, a2, _ = pts[k + 1]
+        v1, a1, _ = pts[k]
+        v2, a2, _ = pts[k + 1]
         b.append(mid_arrow(X(v1), Y(a1), X(v2), Y(a2), col))
-    for k, (i, v, a, sg) in enumerate(pts):
+    for k, (v, a, sg) in enumerate(pts):
         b.append(marker(X(v), Y(a), col, sg < DEGENERATE_SPREAD, first=(k == 0)))
 
 # ---------------------------------------------------------------- run labels
+P = {s: [(X(RUNS[s]["pool_mean"][i]), Y(RUNS[s]["rho"][i]))
+         for i in range(len(RUNS[s]["rho"])) if RUNS[s]["rho"][i] is not None]
+     for s in SEEDS}
+
+
 def run_label(x, y, seed, extra=None, anchor="start"):
-    o = [text(x, y, f"seed {seed}", 19, COLOR[seed], "bold", anchor=anchor)]
+    o = [text(x, y, f"seed {seed}", 19, COLOR[seed], "bold", anchor=anchor,
+              halo=True)]
     verb = "falls" if NET[seed] < 0 else "rises"
-    o.append(text(x, y + 22, f"value {verb} {abs(NET[seed]):.3f}", 18, INK,
-                  anchor=anchor))
+    o.append(text(x, y + 23, f"value {verb} {abs(NET[seed]):.3f}", 18, INK,
+                  anchor=anchor, halo=True))
     if extra:
-        o.append(text(x, y + 44, extra, 18, INK, anchor=anchor))
+        o.append(text(x, y + 46, extra, 18, INK, anchor=anchor, halo=True))
     return "\n".join(o)
 
 
-def leader(x1, y1, x2, y2):
-    return (f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" '
-            f'stroke="{GRAY}" stroke-width="1.4"/>')
+b.append(run_label(186, 262, 45))
+b.append(leader(240, 274, P[45][2][0] + 2, P[45][2][1] - 9))
 
+b.append(run_label(382, 340, 41))
+b.append(leader(378, 348, P[41][2][0] + 10, P[41][2][1] + 1))
 
-b.append(run_label(185, 306, 45))
-b.append(leader(258, 292, X(0.296), Y(0.600) + 12))
+b.append(run_label(668, 384, 44, anchor="end"))
+b.append(leader(674, 396, P[44][1][0] - 10, P[44][1][1] + 1))
 
-b.append(run_label(432, 292, 41))
-b.append(leader(428, 296, X(0.375) + 11, Y(0.500)))
+b.append(run_label(790, 312, 42))
+b.append(leader(786, 324, P[42][1][0] + 10, P[42][1][1] + 1))
 
-b.append(run_label(812, 332, 44, anchor="end"))
-b.append(leader(818, 336, X(0.599) - 11, Y(0.359) + 2))
+b.append(run_label(690, 448, 46, extra="hugs the agreement = 0 line", anchor="end"))
+b.append(leader(696, 466, P[46][0][0] - 12, P[46][0][1] - 5))
 
-b.append(run_label(952, 268, 42))
-b.append(leader(948, 272, X(0.644) + 10, Y(0.541) + 4))
+b.append(run_label(852, 730, 43,
+                   extra=f"but its spread here is only {RUNS[43]['sigma'][1]:.3f}",
+                   anchor="end"))
+b.append(leader(858, 744, P[43][1][0] - 12, P[43][1][1] - 12))
 
-b.append(run_label(1000, 646, 43,
-                   extra="but its spread here is only 0.118", anchor="end"))
-b.append(leader(1006, 660, X(0.729) - 12, Y(-0.676) - 22))
+b.append(text(426, 698, f"spread still {RUNS[45]['sigma'][1]:.3f} here", 18, INK,
+              anchor="end", halo=True))
+b.append(leader(432, 694, P[45][1][0] - 11, P[45][1][1] - 1))
 
-b.append(run_label(858, 502, 46, anchor="end"))
-b.append(leader(864, 498, X(0.616) - 10, Y(0.070) - 4))
-
-# The two annotations the counterexample argument needs, placed on the points.
-b.append(text(506, 652, "spread still 0.338 here", 18, INK, anchor="end"))
-b.append(leader(512, 646, X(0.439) - 11, Y(-0.464) - 2))
-
-b.append(text(1102, 748, "seed 42's round-3 agreement of −0.825 comes",
-              18, GRAY, anchor="end"))
-b.append(text(1102, 770, "from the one prompt (of six) that still had",
-              18, GRAY, anchor="end"))
-b.append(text(1102, 792, "two candidates scoring differently",
-              18, GRAY, anchor="end"))
-b.append(leader(1108, 776, X(0.746) - 10, Y(-0.825)))
-
-# ---------------------------------------------------------------- marker key
-b.append(marker(203, 496, GRAY, False))
-kt, _ = para(226, 490,
-             "solid: the pool still varied (spread 0.10 or more), so the "
-             "agreement number is a real measurement",
-             18, INK, width=42)
-b.append(kt)
-b.append(marker(203, 566, GRAY, True))
-kt2, _ = para(226, 560,
-              "hollow, dashed: spread below 0.10. An agreement estimated on a "
-              "pool with almost no variation is not a measurement, and the "
-              "segment into it is dashed for the same reason.",
-              18, GRAY, width=42)
-b.append(kt2)
-
-# ---------------------------------------------------------------- spread = 0 rug
-RUG_Y = 942
-b.append(text(178, 872,
-              "spread = 0 — the other branch of the resting set. "
-              "By round 4 every run's candidate pool has no variation left at all,", 18, INK))
-b.append(text(178, 894,
-              "so there is no correlation to compute and the run has no agreement "
-              "coordinate. No line is drawn into this strip, because the", 18, INK))
-b.append(text(178, 916,
-              "path leaves the plane. Final pool value only, on the same value axis "
-              "as the plot above.", 18, INK))
-b.append(f'<rect x="{PX0}" y="{RUG_Y-26}" width="{PX1-PX0}" height="52" rx="6" '
-         f'fill="#f4f4f2" stroke="{GRAY}" stroke-width="1.2" opacity="0.9"/>')
-b.append(f'<line x1="{PX0}" y1="{RUG_Y}" x2="{PX1}" y2="{RUG_Y}" '
-         f'stroke="{GRAY}" stroke-width="1.6" stroke-dasharray="5 4"/>')
-
-placed = []
-for seed in sorted(SEEDS, key=lambda s: RUNS[s]["pool_mean"][-1]):
-    v = RUNS[seed]["pool_mean"][-1]
-    x = X(v)
-    row = 0
-    while any(abs(x - px) < 118 and row == pr for px, pr in placed):
-        row += 1
-    placed.append((x, row))
-    col = COLOR[seed]
-    b.append(f'<rect x="{x-6:.1f}" y="{RUG_Y-6}" width="12" height="12" '
-             f'fill="white" stroke="{col}" stroke-width="2.8"/>')
-    ly = 992 + row * 46
-    b.append(leader(x, RUG_Y + 8, x, ly - 34))
-    b.append(text(x, ly - 14, f"seed {seed}", 18, col, "bold", anchor="middle"))
-    b.append(text(x, ly + 8, f"{v:.3f}", 18, INK, anchor="middle"))
+n42, tot42 = RUNS[42]["n_rho_prompts"][2], RUNS[42]["n_prompts"][2]
+b.append(text(880, 806, f"seed 42's round-3 agreement of {sgn(RUNS[42]['rho'][2])} rests on",
+              18, GRAY, anchor="end", halo=True))
+b.append(text(880, 828, f"the {n42} prompt of {tot42} that still had two candidates",
+              18, GRAY, anchor="end", halo=True))
+b.append(text(880, 850, "scoring differently — see the hollow marker", 18, GRAY,
+              anchor="end", halo=True))
+b.append(leader(886, 830, P[42][2][0] - 10, P[42][2][1] - 6))
 
 # ======================================================================
-# Bottom row: the spread collapse, the counterexamples, the limits
+# Right column: how to read the plot, then the spread collapse
 # ======================================================================
-BROW = 1090
+b.append(f'<line x1="{RC}" y1="256" x2="{RC+42}" y2="256" stroke="{FALLING}" '
+         f'stroke-width="4.5"/>')
+k1, _ = para(RC + 54, 262,
+             f"red = the run's pool value ends below where it started "
+             f"({N_FALL} of 6)", 18, INK, width=34)
+b.append(k1)
+b.append(f'<line x1="{RC}" y1="330" x2="{RC+42}" y2="330" stroke="{RISING}" '
+         f'stroke-width="4.5"/>')
+k2, _ = para(RC + 54, 336, f"blue = it ends above ({N_RISE} of 6)", 18, INK,
+             width=34)
+b.append(k2)
+k3, _ = para(RC, 396,
+             "Arrows run round 1 to 2 to 3. The ringed marker is round 1. The "
+             "two thick lines are the runs that move more than 0.10.",
+             18, GRAY, width=40)
+b.append(k3)
 
-# ---- (a) candidate spread by round -----------------------------------
-b.append(text(60, BROW,
-              "Candidate spread by round — how the runs reach the "
-              "spread = 0 branch", 20, INK, "bold"))
-sp, _ = para(60, BROW + 26,
-             "Within-prompt standard deviation of the candidates' value "
-             "scores, averaged over the six prompts.",
-             18, GRAY, width=52)
+b.append(marker(RC + 12, 492, GRAY, False))
+k4, _ = para(RC + 40, 486,
+             "solid: the pool still varied that round (spread 0.10 or more), so "
+             "the agreement number is a measurement",
+             18, INK, width=35)
+b.append(k4)
+b.append(marker(RC + 12, 580, GRAY, True))
+k5, _ = para(RC + 40, 574,
+             "hollow, dashed: spread below 0.10. Agreement estimated on a pool "
+             "with almost no variation is not a measurement, and the segment "
+             "leading into it is dashed for the same reason.",
+             18, GRAY, width=35)
+b.append(k5)
+
+# ---- candidate spread by round ---------------------------------------
+b.append(text(RC, 726, "Candidate spread by round", 19, INK, "bold"))
+sp, _ = para(RC, 750,
+             "Within-prompt standard deviation of the candidates' value scores, "
+             "averaged over the six prompts.",
+             17, GRAY, width=42)
 b.append(sp)
 
-SX0, SX1 = 118, 470
-SY0, SY1 = BROW + 88, BROW + 236
+SX0, SX1 = 1085, 1350
+SY0, SY1 = 826, 930
 SMAX = 0.45
 
 
 def SX(rd):
-    return SX0 + (rd - 1) / 3 * (SX1 - SX0)
+    return SX0 + (rd - 1) / (LAST_ROUND - 1) * (SX1 - SX0)
 
 
 def SY(sg):
     return SY1 - sg / SMAX * (SY1 - SY0)
 
 
-b.append(f'<rect x="{SX0-24}" y="{SY(DEGENERATE_SPREAD):.1f}" '
+b.append(f'<rect x="{SX0-30}" y="{SY(DEGENERATE_SPREAD):.1f}" '
          f'width="{SX1-SX0+58}" height="{SY1-SY(DEGENERATE_SPREAD):.1f}" '
-         f'fill="{GRAY}" opacity="0.13"/>')
-b.append(f'<line x1="{SX0-24}" y1="{SY1}" x2="{SX1+34}" y2="{SY1}" '
-         f'stroke="{GRAY}" stroke-width="1.4"/>')
-for sg in [0.0, 0.1, 0.2, 0.3, 0.4]:
-    b.append(text(SX0 - 32, SY(sg) + 6, f"{sg:.1f}", 18, GRAY, anchor="end"))
-    if sg > 0:
-        b.append(f'<line x1="{SX0-24}" y1="{SY(sg):.1f}" x2="{SX1+34}" '
-                 f'y2="{SY(sg):.1f}" stroke="{GRAY}" stroke-width="1" opacity="0.25"/>')
-for rd in (1, 2, 3, 4):
+         f'fill="{GRAY}" opacity="0.14"/>')
+for sg in [0.0, 0.2, 0.4]:
+    b.append(text(SX0 - 38, SY(sg) + 6, f"{sg:.1f}", 17, GRAY, anchor="end"))
+    b.append(f'<line x1="{SX0-30}" y1="{SY(sg):.1f}" x2="{SX1+28}" y2="{SY(sg):.1f}" '
+             f'stroke="{GRAY}" stroke-width="{1.4 if sg == 0 else 1}" '
+             f'opacity="{1.0 if sg == 0 else 0.3}"/>')
+for rd in range(1, LAST_ROUND + 1):
     b.append(text(SX(rd), SY1 + 28, str(rd), 18, GRAY, anchor="middle"))
 b.append(text((SX0 + SX1) / 2, SY1 + 54, "round", 18, INK, anchor="middle"))
 
@@ -517,92 +498,123 @@ for seed in order:
     sg = RUNS[seed]["sigma"]
     pts = " ".join(f"{SX(i+1):.1f},{SY(v):.1f}" for i, v in enumerate(sg))
     b.append(f'<polyline points="{pts}" fill="none" stroke="{COLOR[seed]}" '
-             f'stroke-width="{3.4 if HEAVY[seed] else 2.2}" opacity="0.92" '
+             f'stroke-width="{3.6 if HEAVY[seed] else 2.2}" opacity="0.92" '
              f'stroke-linecap="round"/>')
     for i, v in enumerate(sg):
-        b.append(f'<circle cx="{SX(i+1):.1f}" cy="{SY(v):.1f}" r="4" '
-                 f'fill="{COLOR[seed]}" stroke="white" stroke-width="1.4"/>')
+        b.append(f'<circle cx="{SX(i+1):.1f}" cy="{SY(v):.1f}" r="4.2" '
+                 f'fill="{COLOR[seed]}" stroke="white" stroke-width="1.5"/>')
 
-b.append(text(SX0 - 20, SY(0.05) + 6,
-              "spread below 0.10", 18, GRAY))
-b.append(text(SX1 + 44, SY(0.0) + 6, "all six", 18, INK, "bold"))
-b.append(text(SX1 + 44, SY(0.0) + 28, "at exactly 0", 18, INK, "bold"))
-b.append(text(60, SY1 + 92,
-              "Seeds 43 and 44 reach zero spread a round earlier, at round 3.",
-              18, INK))
+sn, _ = para(RC, 1016,
+             f"Every run reaches exactly 0 by round {LAST_ROUND}; seeds "
+             + " and ".join(str(s) for s in EARLY_ZERO) +
+             " a round earlier. Inside the shaded band the selection term is "
+             "effectively zero whatever the agreement is.",
+             18, INK, width=40)
+b.append(sn)
 
-# ---- (b) the counterexamples -----------------------------------------
-CX, CW = 620, 400
-b.append(box(CX, BROW - 34, CW, 322, DOC_FILL, RED, 2.5))
-b.append(text(CX + 22, BROW + 2, "The pattern is not clean — look here",
-              20, RED, "bold"))
-t1, ny = para(CX + 22, BROW + 34,
-              "Seed 43 sits further below the agreement = 0 line at round 2 "
-              "than either falling run (− 0.676, against −0.464 for seed 45 and "
-              "−0.558 for seed 41) and its value still rises 0.035. The push is "
-              "agreement times spread, and seed 43's spread at round 2 is 0.118 "
-              "against seed 45's 0.338.",
-              18, INK, width=41)
+# ---------------------------------------------------------------- spread = 0 rug
+rug, _ = para(178, 928,
+              f"spread = 0 — branch two of the resting set. By round {LAST_ROUND} no run's "
+              "candidate pool has any variation left, so there is no correlation to compute "
+              "and the run has no agreement coordinate at all. Nothing is drawn from the plot "
+              "into this strip, because the path leaves the plane. Final pool value only, on "
+              "the same value axis as the plot above.",
+              18, INK, width=90)
+b.append(rug)
+
+RUG_Y = 1050
+b.append(f'<rect x="{PX0}" y="{RUG_Y-26}" width="{PX1-PX0}" height="52" rx="6" '
+         f'fill="#f4f4f2" stroke="{GRAY}" stroke-width="1.2"/>')
+b.append(f'<line x1="{PX0}" y1="{RUG_Y}" x2="{PX1}" y2="{RUG_Y}" stroke="{GRAY}" '
+         f'stroke-width="1.6" stroke-dasharray="5 4"/>')
+
+by_x = sorted(SEEDS, key=lambda s: RUNS[s]["pool_mean"][-1])
+label_x, prev = {}, -1e9
+for seed in by_x:
+    got = max(X(RUNS[seed]["pool_mean"][-1]), prev + 98)
+    label_x[seed] = got
+    prev = got
+for seed in by_x:
+    x, lx = X(RUNS[seed]["pool_mean"][-1]), label_x[seed]
+    col = COLOR[seed]
+    b.append(f'<rect x="{x-6:.1f}" y="{RUG_Y-6}" width="12" height="12" '
+             f'fill="white" stroke="{col}" stroke-width="2.8"/>')
+    b.append(leader(x, RUG_Y + 9, lx, RUG_Y + 32))
+    b.append(text(lx, RUG_Y + 54, f"seed {seed}", 18, col, "bold", anchor="middle"))
+    b.append(text(lx, RUG_Y + 76, f"{RUNS[seed]['pool_mean'][-1]:.3f}", 18, INK,
+                  anchor="middle"))
+
+# ======================================================================
+# Bottom: the counterexamples, and what actually separates the runs
+# ======================================================================
+BY = 1178
+b.append(box(60, BY, 1330, 322, DOC_FILL, RED, 2.5))
+b.append(text(84, BY + 40, "The pattern is not clean — read these two runs too",
+              21, RED, "bold"))
+t1, ny = para(84, BY + 76,
+              f"Seed 43 sits further below the agreement = 0 line at round 2 than "
+              f"either falling run ({sgn(RUNS[43]['rho'][1])}, against "
+              f"{sgn(RUNS[45]['rho'][1])} for seed 45 and {sgn(RUNS[41]['rho'][1])} "
+              f"for seed 41), and its value still rises {abs(NET[43]):.3f}. The push "
+              f"is agreement times spread, and seed 43's spread at round 2 is "
+              f"{RUNS[43]['sigma'][1]:.3f} against seed 45's {RUNS[45]['sigma'][1]:.3f}.",
+              18, INK, width=66)
 b.append(t1)
-t2, ny = para(CX + 22, ny + 16,
-              "Seed 44 keeps positive agreement in both measured rounds "
-              "(+0.125, +0.359) and its value still ends 0.056 lower. Depth "
-              "below the line does not sort the outcomes on its own.",
-              18, INK, width=41)
+t2, _ = para(84, ny + 18,
+             f"Seed 44 holds positive agreement in both measured rounds "
+             f"({sgn(RUNS[44]['rho'][0])} and {sgn(RUNS[44]['rho'][1])}) and its "
+             f"value still ends {abs(NET[44]):.3f} lower, so {N_FALL} of the 6 runs "
+             f"end below where they started, not 2. Depth below the line does not "
+             f"sort the outcomes on its own, and no boundary or separatrix is drawn "
+             f"on the plot: none has been measured, and six runs could not support one.",
+             18, INK, width=66)
 b.append(t2)
 
-# ---- (c) what is and is not claimed ----------------------------------
-DX, DW = 1050, 340
-b.append(box(DX, BROW - 34, DW, 322, KEY_FILL, GREEN, 2.5))
-b.append(text(DX + 22, BROW + 2, "What separates them", 20, GREEN, "bold"))
-lines = []
-for seed in sorted(SEEDS, key=lambda s: CUM_GAP[s]):
-    sign = "−" if CUM_GAP[seed] < 0 else "+"
-    lines.append((seed, f"{sign}{abs(CUM_GAP[seed]):.3f}"))
-yy = BROW + 34
-b.append(text(DX + 22, yy, "run", 18, GRAY))
-b.append(text(DX + DW - 22, yy, "selection differential", 18, GRAY, anchor="end"))
-yy += 26
-for seed, s in lines:
-    b.append(text(DX + 22, yy, f"seed {seed}", 18, COLOR[seed], "bold"))
-    b.append(text(DX + DW - 22, yy, s, 18, INK, anchor="end"))
-    yy += 26
-t3, _ = para(DX + 22, yy + 12,
-             "Sum over rounds 1 to 3 of the measured kept-minus-pool value gap. "
-             "Seeds 41 and 45 are the only two that are negative, and they are "
-             "the two that lose the most value. No boundary, separatrix or "
-             "nullcline is drawn on the plot: none has been measured, and six "
-             "runs could not support one.",
-             18, INK, width=37)
-b.append(t3)
+b.append(text(748, BY + 76, "What separates them: the realised selection differential",
+              19, INK, "bold"))
+sd, _ = para(748, BY + 104,
+             "Sum over rounds 1 to 3 of the measured kept-minus-pool value gap — the "
+             "agreement-times-spread product the loop actually realised. Only seeds 41 "
+             "and 45 come out negative, and they are the two that lose the most value.",
+             17, GRAY, width=68)
+b.append(sd)
+cols = sorted(SEEDS, key=lambda s: CUM_GAP[s])
+for i, seed in enumerate(cols):
+    cx = 800 + i * 102
+    b.append(text(cx, BY + 224, f"seed {seed}", 18, COLOR[seed], "bold",
+                  anchor="middle"))
+    b.append(text(cx, BY + 252, sgn(CUM_GAP[seed]), 19, INK, anchor="middle"))
+    b.append(text(cx, BY + 286, f"value {sgn(NET[seed])}", 17, GRAY,
+                  anchor="middle"))
 
 # ---------------------------------------------------------------- footer
-FY = 1330
+FY = 1560
 src = RUNS[41]["source"]
 f1, fy2 = para(60, FY,
-               "Data: experiments/ablation_unit_law.json, key rho_trajectories, the six entries "
-               "neutral_self:41 through neutral_self:46 — the neutral-prompt, self-judging condition "
-               "of the judge ablation, in which the organism scores its own candidates so the judge "
-               f"co-evolves with them. Every number here is {src}, "
-               "experiments/em_selfaware_loop/output/head2head_neutralstyle_selfonly.json and "
-               "..._s43_46.json, and checked against the committed analysis file.",
-               17, GRAY, width=168)
+               "Data: experiments/ablation_unit_law.json, key rho_trajectories, entries "
+               "neutral_self:41 through neutral_self:46 — the neutral-prompt, self-judging "
+               "condition of the judge ablation, in which the organism scores its own candidates, "
+               f"so the judge co-evolves with them. Every number plotted here is {src} in "
+               "experiments/em_selfaware_loop/output/ and checked against that file.",
+               17, GRAY, width=146)
 b.append(f1)
-f2, _ = para(60, fy2 + 8,
-             "Agreement is the Pearson correlation, within one prompt, between the judge's score for a "
-             "candidate and that candidate's self-report value score, averaged over the prompts that had "
-             "at least three candidates and non-zero variation in both scores. Spread is the within-prompt "
-             "population standard deviation of those value scores, averaged over all six prompts. Pool value "
-             "is the mean value score over all candidates and prompts. Framing follows "
-             "docs/reports/lit_coevolving_judge_2026-07-28.md.",
-             17, GRAY, width=168)
+f2, _ = para(60, fy2 + 10,
+             "Agreement: the Pearson correlation, within one prompt, between the judge's score for "
+             "a candidate answer and that candidate's self-report value score, averaged over the "
+             "prompts that had at least three candidates and non-zero variation in both scores. "
+             "Spread: the within-prompt population standard deviation of those value scores, "
+             "averaged over all six prompts. Pool value: the mean value score over all candidates "
+             "and prompts. Framing follows docs/reports/lit_coevolving_judge_2026-07-28.md.",
+             17, GRAY, width=146)
 b.append(f2)
 
 with open(OUT, "w") as fh:
     fh.write(svg_doc(W, H, "\n".join(b)))
+
 print("wrote", OUT)
 for s in SEEDS:
     r = RUNS[s]
-    print(f"  seed {s}: net value {NET[s]:+.3f}  cumulative gap {CUM_GAP[s]:+.4f}  "
-          f"spread {['%.3f' % x for x in r['sigma']]}  "
+    print(f"  seed {s}: net value {sgn(NET[s])}  cumulative gap {sgn(CUM_GAP[s], 4)}  "
+          f"agreement {[None if v is None else round(v, 3) for v in r['rho']]}  "
+          f"spread {[round(v, 3) for v in r['sigma']]}  "
           f"prompts behind agreement {r['n_rho_prompts']}")

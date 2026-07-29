@@ -1,0 +1,344 @@
+{
+  "description": "First off-target transmission column. For each off-target axis, splits its per-round movement into the part loading on the selection differential (selection-mediated spillover, predictable from the candidate pool) and the part loading on the pool-offset supply term (transmission-mediated spillover, the Price equation's second term). All rows come from risk-axis selection runs.",
+  "join": {
+    "attempted": 280,
+    "joined": 280,
+    "value_mismatch": 0,
+    "short_series": 0,
+    "no_series": 0,
+    "tolerance": 0.02,
+    "note": "rows are joined on (organism, cond, seed, round) and then verified by requiring the on-target value stored in the off-target file to match the unified corpus; failures are dropped and counted"
+  },
+  "n_rows": 280,
+  "n_runs": 59,
+  "duplicate_source_rows": 0,
+  "pooled": {
+    "ev_belief_bias": {
+      "axis": "ev_belief_bias",
+      "n": 280,
+      "n_runs": 59,
+      "axis_sd_of_round_change": 0.05332071233154398,
+      "gap_coefficient": 0.14097046571699087,
+      "gap_ci": [
+        0.08851661769614606,
+        0.22199971494174855
+      ],
+      "supply_coefficient": 0.06930085920344321,
+      "supply_ci": [
+        0.02060576960436654,
+        0.11696514912536403
+      ],
+      "gap_minus_supply": 0.07166960651354766,
+      "gap_minus_supply_ci": [
+        0.0035485103463812353,
+        0.16951410586008087
+      ],
+      "measurement_variance_in_supply": 0.006619575750751559,
+      "noise_share_of_supply_variance": 0.5014885587500849,
+      "gap_coefficient_corrected": 0.13374261464080703,
+      "supply_coefficient_corrected": 0.14053960963051607,
+      "gap_minus_supply_corrected": -0.006796994989709038,
+      "gap_minus_supply_corrected_ci": [
+        -0.14958334353011757,
+        0.11683969769984617
+      ],
+      "channels_differ_naive": true,
+      "channels_differ_corrected": false,
+      "reduced_form_on_ontarget_drift": 0.10843230601842924,
+      "reduced_form_ci": [
+        0.06486785540825886,
+        0.14831262904068473
+      ],
+      "reduced_form_r2": 0.12097974943363898,
+      "gap_coefficient_in_axis_sds": 2.6438218762053975
+    },
+    "ev_numeric_est": {
+      "axis": "ev_numeric_est",
+      "n": 247,
+      "n_runs": 57,
+      "axis_sd_of_round_change": 0.07527182822382189,
+      "gap_coefficient": -0.023105923509210972,
+      "gap_ci": [
+        -0.08995914820878999,
+        -0.0010256692060132658
+      ],
+      "supply_coefficient": 0.0015808387015829666,
+      "supply_ci": [
+        -0.0123987820589319,
+        0.033961718140310224
+      ],
+      "gap_minus_supply": -0.02468676221079394,
+      "gap_minus_supply_ci": [
+        -0.11977203206518545,
+        0.008658203282577801
+      ],
+      "measurement_variance_in_supply": 0.006597118035040005,
+      "noise_share_of_supply_variance": 0.4725630947802618,
+      "gap_coefficient_corrected": -0.02327008278288228,
+      "supply_coefficient_corrected": 0.0030333792691404717,
+      "gap_minus_supply_corrected": -0.026303462052022754,
+      "gap_minus_supply_corrected_ci": [
+        -0.16601155222352992,
+        0.023383201656216913
+      ],
+      "channels_differ_naive": false,
+      "channels_differ_corrected": false,
+      "reduced_form_on_ontarget_drift": -0.008801317214114852,
+      "reduced_form_ci": [
+        -0.01693517048594247,
+        -0.0014979957979022653
+      ],
+      "reduced_form_r2": 0.0003838070860210374,
+      "gap_coefficient_in_axis_sds": -0.30696641830599847
+    },
+    "stated_tolerance": {
+      "axis": "stated_tolerance",
+      "n": 200,
+      "n_runs": 39,
+      "axis_sd_of_round_change": 0.012853913429468134,
+      "gap_coefficient": 0.0340169572547119,
+      "gap_ci": [
+        0.0227869767150426,
+        0.05236191818494641
+      ],
+      "supply_coefficient": 0.019366820927671675,
+      "supply_ci": [
+        0.001634692799350881,
+        0.03427703320835721
+      ],
+      "gap_minus_supply": 0.014650136327040222,
+      "gap_minus_supply_ci": [
+        -0.002367338062680531,
+        0.03707183361452955
+      ],
+      "measurement_variance_in_supply": 0.006691141458639298,
+      "noise_share_of_supply_variance": 0.4577158996042338,
+      "gap_coefficient_corrected": 0.032012906531381356,
+      "supply_coefficient_corrected": 0.036217360494139345,
+      "gap_minus_supply_corrected": -0.004204453962757988,
+      "gap_minus_supply_corrected_ci": [
+        -0.04237309951220717,
+        0.02998680245128764
+      ],
+      "channels_differ_naive": false,
+      "channels_differ_corrected": false,
+      "reduced_form_on_ontarget_drift": 0.02570687517060388,
+      "reduced_form_ci": [
+        0.014296677827772651,
+        0.035552432429361076
+      ],
+      "reduced_form_r2": 0.12385617405181748,
+      "gap_coefficient_in_axis_sds": 2.6464280657691845
+    }
+  },
+  "by_organism": {
+    "OLMo": {
+      "ev_belief_bias": {
+        "axis": "ev_belief_bias",
+        "n": 216,
+        "n_runs": 43,
+        "axis_sd_of_round_change": 0.05646876989362244,
+        "gap_coefficient": 0.14583018091930725,
+        "gap_ci": [
+          0.08787387014245579,
+          0.24098309154922318
+        ],
+        "supply_coefficient": 0.08130981293712926,
+        "supply_ci": [
+          0.025742525770016657,
+          0.1353223440101006
+        ],
+        "gap_minus_supply": 0.06452036798217799,
+        "gap_minus_supply_ci": [
+          -0.014702638514268866,
+          0.17727373093849708
+        ],
+        "measurement_variance_in_supply": 0.006682140376488648,
+        "noise_share_of_supply_variance": 0.4545879599384995,
+        "gap_coefficient_corrected": 0.13770954311283168,
+        "supply_coefficient_corrected": 0.1509464062539844,
+        "gap_minus_supply_corrected": -0.013236863141152716,
+        "gap_minus_supply_corrected_ci": [
+          -0.17154373897566005,
+          0.12692024003294194
+        ],
+        "channels_differ_naive": false,
+        "channels_differ_corrected": false,
+        "reduced_form_on_ontarget_drift": 0.1262690227640738,
+        "reduced_form_ci": [
+          0.07596583603375648,
+          0.16855747346464994
+        ],
+        "reduced_form_r2": 0.1519228534755579,
+        "gap_coefficient_in_axis_sds": 2.582492609526053
+      },
+      "ev_numeric_est": {
+        "axis": "ev_numeric_est",
+        "n": 216,
+        "n_runs": 43,
+        "axis_sd_of_round_change": 0.007523897957996427,
+        "gap_coefficient": -0.004212059850339822,
+        "gap_ci": [
+          -0.009517511671381287,
+          0.0013076557841908026
+        ],
+        "supply_coefficient": -0.008459505904418053,
+        "supply_ci": [
+          -0.014611490468043872,
+          -0.0029196984926434144
+        ],
+        "gap_minus_supply": 0.004247446054078232,
+        "gap_minus_supply_ci": [
+          -0.0028499004950500754,
+          0.012045642821868595
+        ],
+        "measurement_variance_in_supply": 0.006682140376488648,
+        "noise_share_of_supply_variance": 0.4545879599384995,
+        "gap_coefficient_corrected": -0.0033671854005038844,
+        "supply_coefficient_corrected": -0.015704525306725548,
+        "gap_minus_supply_corrected": 0.012337339906221663,
+        "gap_minus_supply_corrected_ci": [
+          0.0015662759746510359,
+          0.030927566743007402
+        ],
+        "channels_differ_naive": false,
+        "channels_differ_corrected": true,
+        "reduced_form_on_ontarget_drift": -0.007842184014456684,
+        "reduced_form_ci": [
+          -0.013047274824514319,
+          -0.00358111427396506
+        ],
+        "reduced_form_r2": 0.033009153583267614,
+        "gap_coefficient_in_axis_sds": -0.5598241594788282
+      },
+      "stated_tolerance": {
+        "axis": "stated_tolerance",
+        "n": 200,
+        "n_runs": 39,
+        "axis_sd_of_round_change": 0.012853913429468134,
+        "gap_coefficient": 0.0340169572547119,
+        "gap_ci": [
+          0.0227869767150426,
+          0.05236191818494641
+        ],
+        "supply_coefficient": 0.019366820927671675,
+        "supply_ci": [
+          0.001634692799350881,
+          0.03427703320835721
+        ],
+        "gap_minus_supply": 0.014650136327040222,
+        "gap_minus_supply_ci": [
+          -0.002367338062680531,
+          0.03707183361452955
+        ],
+        "measurement_variance_in_supply": 0.006691141458639298,
+        "noise_share_of_supply_variance": 0.4577158996042338,
+        "gap_coefficient_corrected": 0.032012906531381356,
+        "supply_coefficient_corrected": 0.036217360494139345,
+        "gap_minus_supply_corrected": -0.004204453962757988,
+        "gap_minus_supply_corrected_ci": [
+          -0.04237309951220717,
+          0.02998680245128764
+        ],
+        "channels_differ_naive": false,
+        "channels_differ_corrected": false,
+        "reduced_form_on_ontarget_drift": 0.02570687517060388,
+        "reduced_form_ci": [
+          0.014296677827772651,
+          0.035552432429361076
+        ],
+        "reduced_form_r2": 0.12385617405181748,
+        "gap_coefficient_in_axis_sds": 2.6464280657691845
+      }
+    },
+    "Qwen": {
+      "ev_belief_bias": {
+        "axis": "ev_belief_bias",
+        "n": 64,
+        "n_runs": 16,
+        "axis_sd_of_round_change": 0.0412897387950312,
+        "gap_coefficient": 0.09699428841668983,
+        "gap_ci": [
+          -0.022140357240356283,
+          0.35206895918978176
+        ],
+        "supply_coefficient": -0.0045561999337030935,
+        "supply_ci": [
+          -0.08966398270204619,
+          0.06969677673301584
+        ],
+        "gap_minus_supply": 0.10155048835039293,
+        "gap_minus_supply_ci": [
+          -0.024091439346794013,
+          0.34921686271506336
+        ],
+        "measurement_variance_in_supply": 0.006408420138888888,
+        "noise_share_of_supply_variance": 0.7950582373125002,
+        "gap_coefficient_corrected": 0.09613451653255135,
+        "supply_coefficient_corrected": -0.02238743754671266,
+        "gap_minus_supply_corrected": 0.11852195407926401,
+        "gap_minus_supply_corrected_ci": [
+          -1.6246757421935578,
+          1.8157580835089726
+        ],
+        "channels_differ_naive": false,
+        "channels_differ_corrected": false,
+        "reduced_form_on_ontarget_drift": 0.03871627448776452,
+        "reduced_form_ci": [
+          -0.015798451484154735,
+          0.10484422226607036
+        ],
+        "reduced_form_r2": 0.0224678348179439,
+        "gap_coefficient_in_axis_sds": 2.349113635670713
+      },
+      "ev_numeric_est": {
+        "axis": "ev_numeric_est",
+        "n": 31,
+        "n_runs": 14,
+        "axis_sd_of_round_change": 0.21126971677409534,
+        "gap_coefficient": -0.23800541849676118,
+        "gap_ci": [
+          -0.8058268746613723,
+          0.0
+        ],
+        "supply_coefficient": 0.21089476157326592,
+        "supply_ci": [
+          0.0,
+          1.5222775022919512
+        ],
+        "gap_minus_supply": -0.4489001800700271,
+        "gap_minus_supply_ci": [
+          -2.0045485910261003,
+          0.0
+        ],
+        "measurement_variance_in_supply": 0.006004704301075268,
+        "noise_share_of_supply_variance": 0.7520351300820636,
+        "gap_coefficient_corrected": -0.08396880338886002,
+        "supply_coefficient_corrected": 0.9090387866353872,
+        "gap_minus_supply_corrected": -0.9930075900242472,
+        "gap_minus_supply_corrected_ci": [
+          -10.039333078365443,
+          8.582952190731717
+        ],
+        "channels_differ_naive": false,
+        "channels_differ_corrected": false,
+        "reduced_form_on_ontarget_drift": 0.1312427901855493,
+        "reduced_form_ci": [
+          0.0,
+          0.7847036575050808
+        ],
+        "reduced_form_r2": 0.004027025226357006,
+        "gap_coefficient_in_axis_sds": -1.1265477235966268
+      },
+      "stated_tolerance": {
+        "axis": "stated_tolerance",
+        "n": 0,
+        "insufficient": true
+      }
+    }
+  },
+  "settings": {
+    "bootstrap_draws": 4000,
+    "clustering": "whole runs, keyed by (organism, cond, seed)"
+  }
+}

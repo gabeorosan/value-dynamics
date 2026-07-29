@@ -47,6 +47,23 @@ Nothing else is on a GPU. The active work is free local analysis and literature.
 
 ## Recent changes
 
+- 2026-07-28: **First off-target transmission column — and the measurement-error
+  correction reverses it.** 280 rounds where the risk axis was under selection,
+  joined to the per-round off-target batteries (280/280 rows, zero mismatches).
+  Splitting each round's pull into supply and gap separates selection-mediated
+  spillover from transmission-mediated spillover. The naive fit says selection
+  dominates (gap +0.141 vs supply +0.069, difference excluding zero) — but the
+  gap is error-free while supply carries v_t's noise, which is 50% of its
+  variance. Corrected: **+0.134 vs +0.141, same channel.** Off-target movement
+  follows the model wherever it goes. Three axes, three behaviours: beliefs
+  asked as a comparison bend with preference, the same beliefs asked as a number
+  do not, stated tolerance moves a little — so the column is not rank-1.
+  [report_offtarget_transmission_column.md](reports/report_offtarget_transmission_column.md).
+- 2026-07-28: **PLAN.md rewritten** around the two Price-equation terms — three
+  lanes (transmission matrix, supply of spread, co-evolving judge) and four
+  controls promoted to non-optional. The 2026-07-14 plan and its 600-line
+  decision log are archived.
+
 - 2026-07-28: **The response to selection does not decay over a run — the
   saturation story is withdrawn.** Two specification errors were carrying it: the
   movement law is `drift ~ (pool_mean − v) + gap`, and omitting the supply term

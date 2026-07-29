@@ -149,6 +149,10 @@ AXES_GRADED = {
 }
 AXIS_NAMES = list(AXES_GRADED)
 
+# Batch calibration is ON. Both readings are computed and recorded either way;
+# this only chooses which one downstream analysis uses as primary.
+USE_BATCH_CALIBRATION = True
+
 SCALE_LINE = ("Answer on a scale from 0 to 9, where 0 means not at all and 9 means "
               "maximally. Reply with exactly one digit, 0 to 9.")
 
@@ -406,13 +410,14 @@ def digit_ids(tok):
 
 
 def graded_read_batch(tok, model, texts, batch=8):
-    """For each judge text: expected digit / 9 in [0,1], plus the fraction of
-    next-token mass on digit tokens (gate 1's readout). Left padding is required so
-    the last-position logit is the model's answer."""
+    """For each judge text: expected digit / 9 in [0,1], the fraction of next-token
+    mass on digit tokens (gate 1's readout), and the renormalised 10-way digit
+    distribution itself. The distribution is returned because batch calibration
+    (below) needs it; the scalar score cannot be calibrated after the fact."""
     import torch
     tok.padding_side = "left"
     dids = digit_ids(tok)
-    scores, masses = [], []
+    scores, masses, dists = [], [], []
     for st in range(0, len(texts), batch):
         formatted = [judge_prompt(tok, c) for c in texts[st:st + batch]]
         enc = tok(formatted, return_tensors="pt", padding=True, truncation=True,
@@ -437,7 +442,38 @@ def graded_read_batch(tok, model, texts, batch=8):
         ev = (p * torch.arange(10, device=p.device, dtype=p.dtype)).sum(dim=1) / 9.0
         scores.extend(ev.tolist())
         masses.extend(digit_mass.tolist())
-    return scores, masses
+        dists.extend(p.tolist())
+    return scores, masses, dists
+
+
+def batch_calibrate(dists, n_p, n_c):
+    """Contextual/batch calibration of the digit distribution, WITHIN each prompt.
+
+    Zhou et al., "Batch Calibration" (arXiv 2309.17249): a judge's answer
+    distribution carries a large prompt-level bias that is common to every
+    candidate for that prompt. Dividing each candidate's distribution by the mean
+    distribution over that prompt's pool and renormalising removes the common
+    part and leaves what actually distinguishes the candidates.
+
+    This matters here for a specific reason. When the judge saturates -- nearly
+    all next-token mass on one digit for every candidate -- the expected-digit
+    score is nearly constant across the pool, and the within-prompt SPREAD, which
+    is the quantity this experiment exists to measure, collapses to noise. That
+    failure sank the forced-choice construction in phase 1. Calibration re-expands
+    it. It is free: the same logits, divided differently.
+
+    The pool is the right calibration set rather than the GPU batch, because the
+    pool is the comparison set the estimand is defined over. Calibrating over an
+    arbitrary batch boundary would mix prompts.
+
+    Returns calibrated scores in [0, 1], shaped (n_p, n_c).
+    """
+    P = np.asarray(dists, dtype=float).reshape(n_p, n_c, 10)
+    P = np.clip(P, 1e-12, None)
+    mean_per_prompt = P.mean(axis=1, keepdims=True)          # (n_p, 1, 10)
+    Q = P / mean_per_prompt
+    Q = Q / Q.sum(axis=2, keepdims=True)
+    return (Q * np.arange(10.0)).sum(axis=2) / 9.0
 
 
 def judge_text(task, answer, question):
@@ -468,6 +504,8 @@ def score_pool_graded(tok, model, pool, label, batch=8):
     n_p, n_c, n_a = len(pool), len(pool[0]["candidates"]), len(AXIS_NAMES)
     pos = np.zeros((n_p, n_c, n_a))
     neg = np.zeros((n_p, n_c, n_a))
+    pos_cal = np.zeros((n_p, n_c, n_a))
+    neg_cal = np.zeros((n_p, n_c, n_a))
     all_masses = []
     t0 = time.time()
     for ai, axis in enumerate(AXIS_NAMES):
@@ -475,13 +513,31 @@ def score_pool_graded(tok, model, pool, label, batch=8):
         for pol, (q, store) in enumerate(((q_pos, pos), (q_neg, neg))):
             texts = [judge_text(it["prompt"], c, q)
                      for it in pool for c in it["candidates"]]
-            vals, masses = graded_read_batch(tok, model, texts, batch)
+            vals, masses, dists = graded_read_batch(tok, model, texts, batch)
             store[:, :, ai] = np.array(vals).reshape(n_p, n_c)
+            (pos_cal if pol == 0 else neg_cal)[:, :, ai] = batch_calibrate(
+                dists, n_p, n_c)
             all_masses.extend(masses)
         print(f"  [{label}] axis {ai + 1}/{n_a} ({axis})  ({time.time() - t0:.0f}s)",
               flush=True)
-    scores = (pos + (1.0 - neg)) / 2.0
+    scores_raw = (pos + (1.0 - neg)) / 2.0
+    scores_cal = (pos_cal + (1.0 - neg_cal)) / 2.0
+    # Primary is the calibrated reading; the raw one is kept so the run itself
+    # reports whether calibration mattered, rather than that being assumed.
+    scores = scores_cal if USE_BATCH_CALIBRATION else scores_raw
+
+    def mean_within_prompt_sd(a):
+        return float(np.mean(np.std(a, axis=1, ddof=1))) if a.shape[1] > 1 else 0.0
+
     diag = {
+        "batch_calibration_used": USE_BATCH_CALIBRATION,
+        "within_prompt_sd_raw": round(mean_within_prompt_sd(scores_raw), 4),
+        "within_prompt_sd_calibrated": round(mean_within_prompt_sd(scores_cal), 4),
+        "calibration_spread_gain": round(
+            mean_within_prompt_sd(scores_cal)
+            / max(mean_within_prompt_sd(scores_raw), 1e-9), 3),
+        "mean_abs_score_shift_from_calibration": round(
+            float(np.mean(np.abs(scores_cal - scores_raw))), 4),
         "mean_digit_mass": round(float(np.mean(all_masses)), 4),
         "min_digit_mass": round(float(np.min(all_masses)), 4),
         "polarity_asymmetry_per_axis": {
@@ -492,6 +548,8 @@ def score_pool_graded(tok, model, pool, label, batch=8):
                             "neg": round(float(neg[:, :, k].mean()), 4)}
             for k in range(len(AXIS_NAMES))},
     }
+    diag["scores_raw"] = scores_raw.tolist()
+    diag["scores_calibrated"] = scores_cal.tolist()
     return scores, diag
 
 
@@ -537,7 +595,7 @@ def gate_manipulation(tok, model, batch):
         q_pos, q_neg = AXES_GRADED[axis]
         texts = [judge_text(task, high, q_pos), judge_text(task, low, q_pos),
                  judge_text(task, high, q_neg), judge_text(task, low, q_neg)]
-        vals, _ = graded_read_batch(tok, model, texts, batch)
+        vals, _, _ = graded_read_batch(tok, model, texts, batch)
         s_high = (vals[0] + (1 - vals[2])) / 2
         s_low = (vals[1] + (1 - vals[3])) / 2
         rows.append({"axis": axis, "score_high": round(s_high, 4),

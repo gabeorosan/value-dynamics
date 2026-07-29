@@ -47,6 +47,31 @@ Nothing else is on a GPU. The active work is free local analysis and literature.
 
 ## Recent changes
 
+- 2026-07-28: **Phase 1b gains batch calibration before Saturday's launch.**
+  Zhou et al. (arXiv 2309.17249) is the named remedy for the yes-saturation that
+  sank phase 1, it is free, and it applies within each prompt's pool — the
+  comparison set the estimand is defined over. On synthetic saturated
+  distributions it recovers within-prompt spread from 0.0001 to 0.1372 while
+  preserving candidate ordering, tracks the latent signal within prompt at
+  r = 0.997 against 0.762 raw, and returns exactly zero spread for identical
+  candidates. Both readings are recorded, so the run reports whether calibration
+  mattered instead of that being assumed.
+  `experiments/value_covariance/test_batch_calibration.py`; phase-1b smoke test
+  still passes.
+- 2026-07-28: **The writeup's six-run agreement sentence is falsified by seed
+  45** — it amplified (+0.167) with round-2 agreement −0.464, so "remained
+  nonnegative in the four that amplified" is wrong. Two earlier reads, one of
+  them mine, had the collapse set backwards by using the candidate pool mean
+  instead of the measured value. Replacement sentence proposed in the 07-28
+  addendum to [writeup_proposed_edits_2026-07-27.md](writeup_proposed_edits_2026-07-27.md).
+- 2026-07-28: **Two figure drafts landed**, both of which caught real errors.
+  `docs/figures/auto/transmission-triangulation/` (the three-way coefficient
+  estimate, showing the censored one as the outlier) found that the long-quoted
+  "+0.074 against +0.023" censoring pair mixed aggregations — +0.074 is the
+  per-run mean and correct, +0.023 matches nothing. `docs/figures/auto/
+  coevolving-judge-phase-plane/` (the six self-judging runs in the value–agreement
+  plane) is what prompted the six-run recheck above.
+
 - 2026-07-28: **First off-target transmission column — and the measurement-error
   correction reverses it.** 280 rounds where the risk axis was under selection,
   joined to the per-round off-target batteries (280/280 rows, zero mismatches).

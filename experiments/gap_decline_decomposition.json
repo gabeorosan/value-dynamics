@@ -1,0 +1,257 @@
+{
+  "description": "Decomposes the round-over-round decline in the selection gap into agreement (the judge losing grip on the value axis) and spread (the pool losing variety), and then asks how much of the spread decline is forced by binary scoring, where within-prompt SD is capped at sqrt(q(1-q)) and must vanish as the pool mean approaches a rail.",
+  "n_rows": 340,
+  "n_binary_axis_rows": 280,
+  "per_round_all_axes": {
+    "round1": {
+      "n": 78,
+      "n_runs": 74,
+      "mean_abs_gap": 0.09940897435897436,
+      "mean_sigma": 0.34639358974358975,
+      "mean_abs_rho": 0.33990985915492955,
+      "mean_binary_ceiling": 0.44724966385933396,
+      "mean_residual_spread": 0.7643756241171625,
+      "n_zero_spread": 3,
+      "fraction_zero_spread": 0.038461538461538464,
+      "mean_pool_mean": 0.5267128205128205,
+      "mean_distance_to_nearest_rail": 0.3243641025641026
+    },
+    "round2": {
+      "n": 78,
+      "n_runs": 74,
+      "mean_abs_gap": 0.07158333333333332,
+      "mean_sigma": 0.2893423076923077,
+      "mean_abs_rho": 0.3169691176470588,
+      "mean_binary_ceiling": 0.4078769019076349,
+      "mean_residual_spread": 0.693128995087075,
+      "n_zero_spread": 6,
+      "fraction_zero_spread": 0.07692307692307693,
+      "mean_pool_mean": 0.5369410256410257,
+      "mean_distance_to_nearest_rail": 0.2740384615384615
+    },
+    "round3": {
+      "n": 70,
+      "n_runs": 70,
+      "mean_abs_gap": 0.07001285714285713,
+      "mean_sigma": 0.27072857142857143,
+      "mean_abs_rho": 0.297780701754386,
+      "mean_binary_ceiling": 0.38657617980190995,
+      "mean_residual_spread": 0.672887781818377,
+      "n_zero_spread": 9,
+      "fraction_zero_spread": 0.12857142857142856,
+      "mean_pool_mean": 0.5124714285714287,
+      "mean_distance_to_nearest_rail": 0.26707714285714285
+    },
+    "round4": {
+      "n": 70,
+      "n_runs": 70,
+      "mean_abs_gap": 0.06980428571428571,
+      "mean_sigma": 0.2523414285714286,
+      "mean_abs_rho": 0.3170781818181818,
+      "mean_binary_ceiling": 0.373631622285895,
+      "mean_residual_spread": 0.648937971211394,
+      "n_zero_spread": 11,
+      "fraction_zero_spread": 0.15714285714285714,
+      "mean_pool_mean": 0.52512,
+      "mean_distance_to_nearest_rail": 0.2507485714285714
+    }
+  },
+  "per_round_binary_axes_only": {
+    "round1": {
+      "n": 59,
+      "n_runs": 59,
+      "mean_abs_gap": 0.08663389830508472,
+      "mean_sigma": 0.36766779661016946,
+      "mean_abs_rho": 0.25996296296296295,
+      "mean_binary_ceiling": 0.44657678893392666,
+      "mean_residual_spread": 0.814226163628709,
+      "n_zero_spread": 1,
+      "fraction_zero_spread": 0.01694915254237288,
+      "mean_pool_mean": 0.5011745762711864,
+      "mean_distance_to_nearest_rail": 0.3238661016949153
+    },
+    "round2": {
+      "n": 59,
+      "n_runs": 59,
+      "mean_abs_gap": 0.07086271186440676,
+      "mean_sigma": 0.33691186440677967,
+      "mean_abs_rho": 0.2224,
+      "mean_binary_ceiling": 0.40813748961624097,
+      "mean_residual_spread": 0.8104364070213637,
+      "n_zero_spread": 4,
+      "fraction_zero_spread": 0.06779661016949153,
+      "mean_pool_mean": 0.5169491525423728,
+      "mean_distance_to_nearest_rail": 0.2848372881355932
+    },
+    "round3": {
+      "n": 59,
+      "n_runs": 59,
+      "mean_abs_gap": 0.07651016949152542,
+      "mean_sigma": 0.31113559322033896,
+      "mean_abs_rho": 0.24089000000000002,
+      "mean_binary_ceiling": 0.3883662332264055,
+      "mean_residual_spread": 0.7768688241145958,
+      "n_zero_spread": 5,
+      "fraction_zero_spread": 0.0847457627118644,
+      "mean_pool_mean": 0.5218864406779661,
+      "mean_distance_to_nearest_rail": 0.2723610169491525
+    },
+    "round4": {
+      "n": 59,
+      "n_runs": 59,
+      "mean_abs_gap": 0.07598813559322035,
+      "mean_sigma": 0.28955254237288136,
+      "mean_abs_rho": 0.27205416666666665,
+      "mean_binary_ceiling": 0.3723343738700034,
+      "mean_residual_spread": 0.7510603058020742,
+      "n_zero_spread": 7,
+      "fraction_zero_spread": 0.11864406779661017,
+      "mean_pool_mean": 0.5358745762711864,
+      "mean_distance_to_nearest_rail": 0.25367457627118645
+    }
+  },
+  "mean_residual_spread_ci": {
+    "round1": [
+      0.7857454038275778,
+      0.8422042732172885
+    ],
+    "round2": [
+      0.7768687112571173,
+      0.8407988477061569
+    ],
+    "round3": [
+      0.7376622606336052,
+      0.8130667517348485
+    ],
+    "round4": [
+      0.7043592105048888,
+      0.796275255467647
+    ]
+  },
+  "mean_sigma_ci": {
+    "round1": [
+      0.34290673728813553,
+      0.39046101694915253
+    ],
+    "round2": [
+      0.30246669491525424,
+      0.3675255508474576
+    ],
+    "round3": [
+      0.2731518220338984,
+      0.3462731779661017
+    ],
+    "round4": [
+      0.24943313559322033,
+      0.32783088983050845
+    ]
+  },
+  "erosion_versus_collapse": {
+    "round1": {
+      "n": 59,
+      "mean_abs_gap_all_rows": 0.08663389830508472,
+      "mean_abs_gap_excluding_zero_spread": 0.08812758620689654,
+      "fraction_zero_spread": 0.01694915254237288
+    },
+    "round2": {
+      "n": 59,
+      "mean_abs_gap_all_rows": 0.07086271186440676,
+      "mean_abs_gap_excluding_zero_spread": 0.07601636363636363,
+      "fraction_zero_spread": 0.06779661016949153
+    },
+    "round3": {
+      "n": 59,
+      "mean_abs_gap_all_rows": 0.07651016949152542,
+      "mean_abs_gap_excluding_zero_spread": 0.08359444444444443,
+      "fraction_zero_spread": 0.0847457627118644
+    },
+    "round4": {
+      "n": 59,
+      "mean_abs_gap_all_rows": 0.07598813559322035,
+      "mean_abs_gap_excluding_zero_spread": 0.08621730769230772,
+      "fraction_zero_spread": 0.11864406779661017
+    },
+    "reading": "If the mean gap falls across rounds while the mean gap AMONG POOLS THAT STILL HAVE SPREAD does not, then the supply of selectable variation is not eroding smoothly -- individual runs are hitting exactly zero and dragging the average down. That is a failure process, not a decay process, and it has a different fix."
+  },
+  "log_decomposition_round1_to_round4": {
+    "first_round": 1,
+    "last_round": 4,
+    "n_runs_usable": 50,
+    "n_runs_excluded_for_zero_rho_sigma_or_gap": 20,
+    "mean_delta_log": {
+      "gap": 0.15796229654720992,
+      "rho": 0.2627775288444807,
+      "sigma": -0.3309345871944448,
+      "ceiling": -0.11354000405446742,
+      "residual": -0.21739458313997734
+    },
+    "ci": {
+      "gap": [
+        -0.19978882698345068,
+        0.5133334777080207
+      ],
+      "rho": [
+        -0.1279802510041061,
+        0.6761080343183181
+      ],
+      "sigma": [
+        -0.49453332391562715,
+        -0.17971603893455182
+      ],
+      "ceiling": [
+        -0.1952212543885288,
+        -0.0359164566551375
+      ],
+      "residual": [
+        -0.3406306584367927,
+        -0.10624305477161432
+      ]
+    },
+    "model_error_gap_minus_rho_minus_sigma": 0.22611935489717402,
+    "identity_check_sigma_minus_ceiling_minus_residual": -5.551115123125783e-17,
+    "share_of_sigma_decline_forced_by_the_rail": 0.34308896213303797
+  },
+  "log_decomposition_binary_axes_only": {
+    "first_round": 1,
+    "last_round": 4,
+    "n_runs_usable": 43,
+    "n_runs_excluded_for_zero_rho_sigma_or_gap": 16,
+    "mean_delta_log": {
+      "gap": 0.3989703865614565,
+      "rho": 0.4086864718775458,
+      "sigma": -0.1780210808420496,
+      "ceiling": -0.08289457389360409,
+      "residual": -0.09512650694844549
+    },
+    "ci": {
+      "gap": [
+        0.04056904276967379,
+        0.7433309921596676
+      ],
+      "rho": [
+        -0.009045458649500739,
+        0.846588107764152
+      ],
+      "sigma": [
+        -0.3012566642919245,
+        -0.0652944374956699
+      ],
+      "ceiling": [
+        -0.15583024704234935,
+        -0.010952005480715449
+      ],
+      "residual": [
+        -0.17744148387617192,
+        -0.025054681926392385
+      ]
+    },
+    "model_error_gap_minus_rho_minus_sigma": 0.1683049955259603,
+    "identity_check_sigma_minus_ceiling_minus_residual": -1.3877787807814457e-17,
+    "share_of_sigma_decline_forced_by_the_rail": 0.46564470624213805
+  },
+  "settings": {
+    "bootstrap_draws": 4000,
+    "clustering": "whole runs, keyed by (cond, seed, source)",
+    "residual_spread": "sigma / sqrt(q(1-q)), the fraction of the binary ceiling actually used"
+  }
+}

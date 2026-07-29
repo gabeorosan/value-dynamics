@@ -46,16 +46,35 @@ reset.** Colab has a usable T4 today.
 
 | Job | Where | Status |
 |---|---|---|
-| Value-covariance **phase 1b** (graded 0–9 logprob scoring, batch calibration, four pre-registered gates) | **Colab T4, RUNNING** since 2026-07-29 | Notebook `Untitled70.ipynb`, self-contained (clones the public repo, no Drive). **Generator + judge A = Qwen/Qwen3.5-4B (2026-02); judge B = mistralai/Ministral-3-3B-Instruct-2512 (Apache 2.0).** Writes `/content/phase1b.json`, checkpointed after every stage. |
+| Value-covariance **phase 1b** (graded 0–9 logprob scoring, batch calibration, four pre-registered gates) | **Colab T4, RUNNING** since 2026-07-29 | Notebook `Untitled70.ipynb`, self-contained (clones the public repo, no Drive). **Generator + judge A = `Qwen/Qwen3.5-4B`; judge B = `google/gemma-4-E2B-it`.** Writes `/content/phase1b.json`, checkpointed after every stage. |
 
-**Model choice (user directive 2026-07-29: use current models, ideally 2026).**
-The first launch used Qwen3-4B with Phi-3-mini as judge B; Phi-3 is a 2024 model
-and a weak judge, so it was stopped. Both replacements were pre-flighted on CPU
-with `experiments/value_covariance/check_judge_models.py` before any GPU time:
-digits 0–9 resolve to single tokens on both, Qwen3.5-4B's thinking block renders
-already closed, and Ministral's template has no thinking block at all. Judge B is
-deliberately from a different vendor — a Qwen judge B scored against a Qwen judge
-A passes the cross-judge agreement gate on shared bias.
+**Model selection (user directive 2026-07-29: use current models; my picks were
+anchored on stale knowledge).** Two launches were stopped before this one. The
+first used Qwen3-4B with Phi-3-mini as judge B — a 2024 model. The second used
+`mistralai/Ministral-3-3B-Instruct-2512`, which **cannot load at all**: its
+config declares `model_type: mistral3`, which maps to `None` under
+`AutoModelForCausalLM` and needs `AutoModelForImageTextToText`. It is also 79%
+FP8 weights, and on Turing transformers dequantizes silently rather than
+erroring — so a logprob-calibration instrument would have run on FP8-precision
+weights with nothing in the log. Both confirmed on the Colab transformers, not
+inferred.
+
+`experiments/value_covariance/check_judge_models.py` now catches both (it was
+tokenizer-only, which is why it cleared Ministral). A class named
+`...ForConditionalGeneration` is **not** by itself disqualifying — Qwen3.5 and
+Gemma 4 are both registered for causal LM — so the auto mapping has to be looked
+up rather than guessed.
+
+Judge B is out-of-family on purpose: a Qwen judge B scored against a Qwen judge A
+passes the cross-judge agreement gate on shared bias. Gemma 4 is Apache-2.0 and
+**ungated**, unlike Gemma 2 and 3. Its tech report §2.5 states the architecture
+bounds activation ranges to fit fp16, which is the T4's exact constraint. Survey
+and evidence: [lit_small_model_frontier_2026-07-29.md](reports/lit_small_model_frontier_2026-07-29.md).
+
+**Carried caution:** VERDI (arXiv 2605.11334) reports Qwen3.5-4B logprobs as
+anti-calibrated (AUROC 0.373/0.494) — on answer-token confidence, not digit-scale
+rating, so not directly our readout, but this whole instrument is logprob-based
+and the four gates are what stand between us and that.
 
 The Kaggle copy stays queued for the 08-01 reset as a second, independent run.
 

@@ -1,4 +1,4 @@
-# The supply of selectable variation does not erode. It fails.
+# The gap decline is an accounting artefact of rail-saturated pools
 
 **Analysis date** 2026-07-28 · **Script**
 `scripts/analysis_gap_decline_decomposition.py` · **Result**
@@ -40,19 +40,31 @@ The quantity that separates the third from the second is **residual spread**,
 
 **Among pools that still have any spread, the gap does not shrink.** It is 0.088
 at round 1 and 0.086 at round 4. The entire decline in the pooled average comes
-from the third column: the share of pools with *exactly* zero within-prompt
-spread rises sevenfold, and those pools contribute a gap of exactly zero to the
-mean.
+from the third column, and it does so exactly: mean|gap| over all pools equals
+(1 − zero-spread share) × mean|gap| over pools with spread, to 1e-12 at every
+round. The pooled series is not measuring erosion. It is measuring how many
+pools have dropped out.
 
-This is a failure process, not a decay process. Selectable variation is not
-draining away gradually across the population of runs; individual pools go
-uniform, discretely, and once they do that prompt contributes nothing ever again.
+## And the pools that drop out are all at the top rail
 
-The distinction matters because the two have different fixes. A decay process
-would call for slowing the decay — more temperature, more candidates, a weaker
-selector. A failure process calls for detecting and preventing collapse in the
-pools that are about to go uniform, and says nothing needs to change in the ones
-that are not.
+This is where the finding gets narrower than it first looks, and the narrowing
+matters more than the original framing.
+
+**All 17 zero-spread pools sit at pool mean exactly 1.0** — every candidate
+scores 1, so there is nothing to select between. They occur in **7 of 59 runs**,
+all from conditions built to drive a value to the rail: `invade_base` (6 rounds),
+`invade_self` (5), `oracle_hold` (4), `h2h_invade_self` (2). Once a run reaches
+zero spread it **never regains it** — 7 runs hit zero, 0 recovered.
+
+So "the supply fails" is true but it is not a discovery about self-training
+dynamics. It is runs reaching the top of a **binary** value scale, where the
+arithmetic ceiling √(q(1−q)) is exactly zero, in conditions designed to get them
+there. The absorbing behaviour is what a binary axis at q = 1 has to do.
+
+What survives as a claim about loops is narrower and worth keeping: **the gap
+among unsaturated pools is flat across four rounds**, so there is no gradual
+erosion of selectable variation in runs that have not railed. The pooled decline
+that motivated this whole question was arithmetic.
 
 ## Within the runs that survive, spread does fall — and half of it is arithmetic
 
@@ -89,7 +101,9 @@ other half is a property of the measurement rather than of the model.
 ## One split is an identity and one is not
 
 `σ = residual × √(q(1−q))` is true by construction; its check comes out at
-−1.4 × 10⁻¹⁷. `gap = ρσ` is a *model*, fitted at R² 0.80 over 367 rounds, so the
+−1.4 × 10⁻¹⁷. `gap = ρσ` is a *model* — R² 0.812 over the 290 scored rounds of
+this corpus (`factorization.pooled.r2_product`), or 0.801 over the 367 rounds of
+the combined corpus, which is the figure the writeup quotes — so the
 agreement-plus-spread split leaves a residue — +0.168 in log units here. That is
 the model's own error showing up, not a computational failure, and it is
 reported rather than absorbed.
@@ -102,10 +116,11 @@ reported rather than absorbed.
   ends, which is a selected subset — deliberately, since the collapsed runs are
   characterised separately in the table above, but it means the paired numbers
   describe survivors only.
-- **This does not identify what makes a pool collapse.** It says collapse rather
-  than erosion is the mechanism, and that it is not the judge losing grip. Which
-  prompts collapse, and whether collapse is predictable a round ahead, are open
-  and answerable on the same data.
+- **Collapse here is rail saturation, and only 7 runs show it.** Whether pools
+  can also go uniform *away* from a rail — genuine mode collapse rather than
+  arithmetic — is not answered, because this corpus contains no instance of it.
+  A graded axis would be the place to look, since it has no reachable ceiling at
+  which every candidate must score alike.
 - The rail share is specific to binary scoring. On a graded axis the arithmetic
   ceiling is different and much weaker, which is one more reason the graded
   instrument queued for the 08-01 Kaggle reset matters — it should remove roughly

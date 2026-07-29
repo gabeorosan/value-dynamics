@@ -47,14 +47,16 @@ Nothing else is on a GPU. The active work is free local analysis and literature.
 
 ## Recent changes
 
-- 2026-07-28: **The supply of selectable variation does not erode — it fails.**
-  Among pools that still have any spread the selection gap is flat across four
-  rounds (0.088 → 0.086); the whole pooled decline comes from the share of pools
-  at *exactly* zero spread rising 1.7% → 11.9%. Agreement does not fall, so the
-  "judge drifts onto something else" story gets no support. Spread does fall
-  ~16% within surviving runs, and **roughly half of that is forced by binary
-  scoring** — a binary pool near a rail arithmetically cannot spread — which the
-  graded instrument queued for Saturday should remove by construction.
+- 2026-07-28: **The pooled gap decline is an accounting artefact.** Among pools
+  that still have spread the gap is flat across four rounds (0.088 → 0.086); the
+  whole pooled decline is the share of pools at *exactly* zero spread rising
+  1.7% → 11.9%, and the accounting is exact to 1e-12. **Narrowed the same day
+  after a figure draft checked where those pools sit: all 17 are at pool mean
+  exactly 1.0, in 7 of 59 runs, all from rail-driving conditions, and none ever
+  recovers.** So the collapse is binary-scale saturation, not a dynamics
+  discovery. What stands: no gradual erosion in runs that have not railed, and
+  agreement never falls. Spread does fall ~16% within surviving runs, roughly
+  half of it forced by the binary ceiling.
   [report_gap_decline_decomposition.md](reports/report_gap_decline_decomposition.md).
 
 - 2026-07-28: **Phase 1b gains batch calibration before Saturday's launch.**

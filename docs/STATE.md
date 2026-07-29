@@ -46,7 +46,22 @@ reset.** Colab has a usable T4 today.
 
 | Job | Where | Status |
 |---|---|---|
-| Value-covariance **phase 1b** (graded 0–9 logprob scoring, batch calibration, four pre-registered gates) | **Colab T4, RUNNING** since 2026-07-29 | Notebook `Untitled70.ipynb`, self-contained (clones the public repo, no Drive). **Generator + judge A = `Qwen/Qwen3.5-4B`; judge B = `google/gemma-4-E2B-it`.** Writes `/content/phase1b.json`, checkpointed after every stage. |
+| Value-covariance **phase 1b** (graded 0–9 logprob scoring, four pre-registered gates) | **Colab T4, RUNNING** (relaunched 2026-07-29 ~11:25 PDT) | Notebook `Untitled70.ipynb`, self-contained, no Drive. Generator + judge A `Qwen/Qwen3.5-4B`, judge B `google/gemma-4-E2B-it`, `BATCH_B=2`. Writes `/content/phase1b_gemma.json`. Expect ~2h. |
+
+**The previous attempt died exactly where the pre-flight said it would, for a
+second reason nobody was looking at.** The pre-flight correctly identified that
+`mistralai/Ministral-3-3B-Instruct-2512` cannot load (`model_type: mistral3`
+maps to `None` under `AutoModelForCausalLM`; also FP8, which Turing dequantizes
+silently). Setting `JUDGE_B=google/gemma-4-E2B-it` did not fix it: `JUDGE_B` is
+a *path* spec, and `resolve_judge_b` only understood local directories, so a hub
+id matched nothing, fell through to a hardcoded `JUDGE_B_FALLBACK` of Ministral,
+and printed one line about it. The run generated pools for an hour, scored them
+with judge A, and died at judge B. The recorded `config.judge_b` said gemma while
+the loader used Ministral, which is what made it confusing after the fact.
+Fixed in code: an `owner/name` spec is honoured as a hub id, only an unusable
+path falls back, and the fallback default is no longer Ministral. **Lesson worth
+keeping: a resolver that silently substitutes for an explicit request is worse
+than one that raises.**
 
 **Model selection (user directive 2026-07-29: use current models; my picks were
 anchored on stale knowledge).** Two launches were stopped before this one. The

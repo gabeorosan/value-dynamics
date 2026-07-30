@@ -31,6 +31,13 @@ corpus rather than asserting it:
 > **1,248 of 1,248 rows are binary-scored. Maximum deviation from the identity:
 > 1.11 × 10⁻¹⁶.**
 
+And the state space is smaller than that even. **Every one of the 1,248 rows has
+n = 6 candidates**, so a prompt's pool can only occupy **seven** compositions —
+q ∈ {0, 1/6, 2/6, 3/6, 4/6, 5/6, 1} — holding 189 / 195 / 204 / 247 / 234 / 132 /
+47 prompt-rounds respectively. The whole "distribution of candidate spread" in
+this corpus is a seven-point lattice, and the 18.9% of rounds with exactly zero
+spread are simply the two end points (189 + 47 = 236 pools).
+
 **Spread carries no information beyond the pool mean.** It is not a second state
 variable. It cannot be screened for independently, cannot be intervened on
 without moving the mean, and cannot covary with anything the mean does not.
@@ -85,6 +92,12 @@ The pool mean barely moves on average — because runs go in both directions —
 its *distance from 0.5* rises monotonically. Pools polarise. And since spread is
 a fixed function of that distance, spread falls mechanically: 0.430 → 0.365.
 
+On the seven-point lattice the migration is legible directly. From round 1 to
+round 4: **−33 pools at three-of-six and −22 at two-of-six, against +21 at
+zero-of-six, +34 at five-of-six and +10 at six-of-six.** Unanimous pools go from
+**14.4% to 24.4%**. Selection moves probability mass off the middle of the
+lattice and onto its ends, which is the depletion, stated as a count.
+
 So the fuel does not get consumed by some separate process. **The loop's fuel is
 distance from the middle of the scale, and selection spends it by construction.**
 Nothing else is needed to explain why the gap shrinks while the response to it
@@ -104,7 +117,13 @@ holds.
 3. **The 18.9% of prompt-rounds with exactly zero spread** are pools sitting at
    0 or 1. They contribute nothing to selection and are identifiable in advance
    from the same screening pass.
-4. **A previously-reported quantity should be restated.** The angular geometry
+4. **Selection differentials are quantised too, which bounds measurement
+   resolution.** With six candidates scored 0/1 and two kept, the kept mean can
+   only be 0, 0.5 or 1 and the pool mean only a sixth, so the per-round gap takes
+   a small number of distinct values. Any analysis treating the gap as a
+   continuous regressor is working on a coarse lattice, and the resolution
+   improves with candidate count and with graded scores — not with more runs.
+5. **A previously-reported quantity should be restated.** The angular geometry
    result should be described as recovering a known identity on binary data, not
    as an empirical finding about candidate geometry.
 

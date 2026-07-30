@@ -95,6 +95,18 @@ The Kaggle copy stays queued for the 08-01 reset as a second, independent run.
 
 ## Recent changes
 
+- 2026-07-29: **No Goodhart signature over four rounds** — the judge's score of
+  the organism's own candidates and the value those candidates carry rise
+  together (divergence +0.0014 [−0.0125, +0.0178]). On OLMo the real value moves
+  *faster* than the judge's score of it (−0.0141 [−0.0228, −0.0064], excluding
+  zero in the anti-Goodhart direction). So the levelling-off is exhaustion of
+  selectable variation, not selection buying proxy score with real value — which
+  matches the saturation result from the other side. An estimand error had to be
+  fixed first and it inverted the reading: pooling runs pushed up with runs
+  pushed down makes the gold slope cancel to ~0, which reads as textbook
+  Goodhart and is an artefact.
+  [report_proxy_gold_divergence.md](reports/report_proxy_gold_divergence.md).
+
 - 2026-07-29: **A stability criterion for self-training loops, and its first
   measurement — these loops are self-limiting.** The Lande-Kirkpatrick Fisherian
   runaway model maps onto this loop almost exactly, and the quantity it needs is

@@ -1,0 +1,349 @@
+{
+  "description": "Gao-style proxy-versus-gold divergence for the selection loop. Separates overoptimisation (judge score keeps climbing while the held-out value flattens) from replicator exhaustion (both flatten together). Frozen non-oracle judges only.",
+  "excluded_judges": [
+    "schedule",
+    "score oracle",
+    "self"
+  ],
+  "n_rounds": 72,
+  "n_runs": 18,
+  "groups": {
+    "frozen non-oracle judges (signed)": {
+      "group": "frozen non-oracle judges (signed)",
+      "n_rounds": 64,
+      "n_runs": 16,
+      "slope_proxy_pool": 0.018751929660146893,
+      "slope_proxy_pool_ci": {
+        "ci_lo": 0.012329600787152697,
+        "ci_hi": 0.024973691098196783,
+        "se": 0.003223623886273891
+      },
+      "slope_proxy_kept": 0.01960659600535542,
+      "slope_proxy_kept_ci": {
+        "ci_lo": 0.012605819034415605,
+        "ci_hi": 0.027044651265507477,
+        "se": 0.003670987455595743
+      },
+      "slope_gold_pool": -0.005902777777777781,
+      "slope_gold_pool_ci": {
+        "ci_lo": -0.020920138888888887,
+        "ci_hi": 0.010590277777777771,
+        "se": 0.008138477364785538
+      },
+      "slope_gold_kept": 0.01484375,
+      "slope_gold_kept_ci": {
+        "ci_lo": -0.0007812499999999992,
+        "ci_hi": 0.03229166666666666,
+        "se": 0.00837307346593979
+      },
+      "slope_gold_pool_aligned": 0.017361111111111098,
+      "slope_gold_pool_aligned_ci": {
+        "ci_lo": 0.002951388888888882,
+        "ci_hi": 0.0306423611111111,
+        "se": 0.007137750580956766
+      },
+      "slope_gold_kept_aligned": 0.0013020833333333315,
+      "slope_gold_kept_aligned_ci": {
+        "ci_lo": -0.015625,
+        "ci_hi": 0.02057291666666667,
+        "se": 0.009145733067460403
+      },
+      "slope_v_aligned": 0.03519444892504139,
+      "slope_v_aligned_ci": {
+        "ci_lo": 0.013913729173268054,
+        "ci_hi": 0.05603675291269879,
+        "se": 0.010773602718863823
+      },
+      "divergence_proxy_minus_gold": 0.0013908185490357945,
+      "divergence_ci": {
+        "ci_lo": -0.012457492748416281,
+        "ci_hi": 0.01777218079300531,
+        "se": 0.007711825139439559
+      },
+      "verdict": "no separation",
+      "by_round_means": {
+        "round1": {
+          "n": 16,
+          "proxy_pool": 0.4861548093368705,
+          "gold_pool": 0.3836805555555555,
+          "gold_pool_aligned": -0.20486111111111108,
+          "v_before": 0.42240487184318354
+        },
+        "round2": {
+          "n": 16,
+          "proxy_pool": 0.5044408340792714,
+          "gold_pool": 0.3524305555555556,
+          "gold_pool_aligned": -0.15625,
+          "v_before": 0.3324790019762846
+        },
+        "round3": {
+          "n": 16,
+          "proxy_pool": 0.5226776062523151,
+          "gold_pool": 0.3324652777777778,
+          "gold_pool_aligned": -0.1779513888888889,
+          "v_before": 0.3031023550724638
+        },
+        "round4": {
+          "n": 16,
+          "proxy_pool": 0.542582317479679,
+          "gold_pool": 0.3706597222222222,
+          "gold_pool_aligned": -0.13975694444444448,
+          "v_before": 0.34635416666666663
+        }
+      }
+    },
+    "signed, round-1 gap >= 0.02": {
+      "group": "signed, round-1 gap >= 0.02",
+      "n_rounds": 44,
+      "n_runs": 11,
+      "slope_proxy_pool": 0.022028856636913438,
+      "slope_proxy_pool_ci": {
+        "ci_lo": 0.013971349470594198,
+        "ci_hi": 0.02962218982395823,
+        "se": 0.004020429642379863
+      },
+      "slope_proxy_kept": 0.021460259179437214,
+      "slope_proxy_kept_ci": {
+        "ci_lo": 0.012834876047913996,
+        "ci_hi": 0.03037368349945186,
+        "se": 0.004561824909049272
+      },
+      "slope_gold_pool": -0.003409090909090912,
+      "slope_gold_pool_ci": {
+        "ci_lo": -0.024498106060606067,
+        "ci_hi": 0.019823232323232305,
+        "se": 0.011393015241505731
+      },
+      "slope_gold_kept": 0.0178030303030303,
+      "slope_gold_kept_ci": {
+        "ci_lo": -0.0026515151515151512,
+        "ci_hi": 0.04129734848484852,
+        "se": 0.01123680422474647
+      },
+      "slope_gold_pool_aligned": 0.021843434343434335,
+      "slope_gold_pool_aligned_ci": {
+        "ci_lo": 0.0018907828282828207,
+        "ci_hi": 0.03876578282828283,
+        "se": 0.009423140749925934
+      },
+      "slope_gold_kept_aligned": -0.00037878787878787846,
+      "slope_gold_kept_aligned_ci": {
+        "ci_lo": -0.02196969696969697,
+        "ci_hi": 0.025,
+        "se": 0.012231696018517629
+      },
+      "slope_v_aligned": 0.04773118190749823,
+      "slope_v_aligned_ci": {
+        "ci_lo": 0.024986851978451147,
+        "ci_hi": 0.06920357367467195,
+        "se": 0.01132510313061364
+      },
+      "divergence_proxy_minus_gold": 0.0001854222934791032,
+      "divergence_ci": {
+        "ci_lo": -0.017740387573809052,
+        "ci_hi": 0.02312133403562242,
+        "se": 0.010510611963976202
+      },
+      "verdict": "no separation",
+      "by_round_means": {
+        "round1": {
+          "n": 11,
+          "proxy_pool": 0.47812552712079365,
+          "gold_pool": 0.3762626262626263,
+          "gold_pool_aligned": -0.2121212121212121,
+          "v_before": 0.4090007502292035
+        },
+        "round2": {
+          "n": 11,
+          "proxy_pool": 0.4976577208386372,
+          "gold_pool": 0.31944444444444453,
+          "gold_pool_aligned": -0.13762626262626262,
+          "v_before": 0.31077075098814233
+        },
+        "round3": {
+          "n": 11,
+          "proxy_pool": 0.5207879455017012,
+          "gold_pool": 0.3042929292929293,
+          "gold_pool_aligned": -0.1578282828282828,
+          "v_before": 0.2811264822134388
+        },
+        "round4": {
+          "n": 11,
+          "proxy_pool": 0.5438449743561503,
+          "gold_pool": 0.36994949494949486,
+          "gold_pool_aligned": -0.1325757575757576,
+          "v_before": 0.34469696969696967
+        }
+      }
+    },
+    "signed, OLMo": {
+      "group": "signed, OLMo",
+      "n_rounds": 32,
+      "n_runs": 8,
+      "slope_proxy_pool": 0.021317697455050515,
+      "slope_proxy_pool_ci": {
+        "ci_lo": 0.013324044483766789,
+        "ci_hi": 0.0285138406502382,
+        "se": 0.003833988309704031
+      },
+      "slope_proxy_kept": 0.018278497162964414,
+      "slope_proxy_kept_ci": {
+        "ci_lo": 0.011171914399305928,
+        "ci_hi": 0.026531250919136558,
+        "se": 0.003975763916134094
+      },
+      "slope_gold_pool": -0.01944444444444444,
+      "slope_gold_pool_ci": {
+        "ci_lo": -0.03749999999999999,
+        "ci_hi": 0.0069487847222222425,
+        "se": 0.011857887055817539
+      },
+      "slope_gold_kept": 0.010416666666666666,
+      "slope_gold_kept_ci": {
+        "ci_lo": -0.015625,
+        "ci_hi": 0.0421875,
+        "se": 0.01490750608318039
+      },
+      "slope_gold_pool_aligned": 0.03541666666666666,
+      "slope_gold_pool_aligned_ci": {
+        "ci_lo": 0.025173611111111098,
+        "ci_hi": 0.046354166666666655,
+        "se": 0.005474006318506972
+      },
+      "slope_gold_kept_aligned": 0.015625,
+      "slope_gold_kept_aligned_ci": {
+        "ci_lo": -0.009895833333333335,
+        "ci_hi": 0.045846354166666714,
+        "se": 0.014349513764538531
+      },
+      "slope_v_aligned": 0.06101389785008278,
+      "slope_v_aligned_ci": {
+        "ci_lo": 0.04481457613514327,
+        "ci_hi": 0.07891378908305725,
+        "se": 0.008852742948318976
+      },
+      "divergence_proxy_minus_gold": -0.014098969211616144,
+      "divergence_ci": {
+        "ci_lo": -0.022828460718020912,
+        "ci_hi": -0.0063665786130316865,
+        "se": 0.00417141112214091
+      },
+      "verdict": "gold rises relative to proxy",
+      "by_round_means": {
+        "round1": {
+          "n": 8,
+          "proxy_pool": 0.44904383469419273,
+          "gold_pool": 0.22569444444444442,
+          "gold_pool_aligned": -0.13194444444444442,
+          "v_before": 0.2406430770197003
+        },
+        "round2": {
+          "n": 8,
+          "proxy_pool": 0.4706596100303513,
+          "gold_pool": 0.1597222222222222,
+          "gold_pool_aligned": -0.07986111111111109,
+          "v_before": 0.13891633728590252
+        },
+        "round3": {
+          "n": 8,
+          "proxy_pool": 0.48865664611104065,
+          "gold_pool": 0.1267361111111111,
+          "gold_pool_aligned": -0.0642361111111111,
+          "v_before": 0.11662137681159421
+        },
+        "round4": {
+          "n": 8,
+          "proxy_pool": 0.5141038141841313,
+          "gold_pool": 0.171875,
+          "gold_pool_aligned": -0.019097222222222224,
+          "v_before": 0.13541666666666666
+        }
+      }
+    },
+    "signed, Qwen": {
+      "group": "signed, Qwen",
+      "n_rounds": 32,
+      "n_runs": 8,
+      "slope_proxy_pool": 0.016186161865243277,
+      "slope_proxy_pool_ci": {
+        "ci_lo": 0.00623097225751104,
+        "ci_hi": 0.026533771843384162,
+        "se": 0.0051929478608072855
+      },
+      "slope_proxy_kept": 0.020934694847746425,
+      "slope_proxy_kept_ci": {
+        "ci_lo": 0.008441483661408698,
+        "ci_hi": 0.03351391660798435,
+        "se": 0.0063885581052988616
+      },
+      "slope_gold_pool": 0.007638888888888878,
+      "slope_gold_pool_ci": {
+        "ci_lo": -0.010590277777777773,
+        "ci_hi": 0.02725694444444442,
+        "se": 0.009681425317985227
+      },
+      "slope_gold_kept": 0.01927083333333333,
+      "slope_gold_kept_ci": {
+        "ci_lo": 0.005208333333333341,
+        "ci_hi": 0.034895833333333334,
+        "se": 0.007602977473206167
+      },
+      "slope_gold_pool_aligned": -0.0006944444444444552,
+      "slope_gold_pool_aligned_ci": {
+        "ci_lo": -0.021006944444444446,
+        "ci_hi": 0.01753472222222221,
+        "se": 0.009905074310766142
+      },
+      "slope_gold_kept_aligned": -0.013020833333333332,
+      "slope_gold_kept_aligned_ci": {
+        "ci_lo": -0.031249999999999993,
+        "ci_hi": 0.0046875000000000016,
+        "se": 0.009211460470186575
+      },
+      "slope_v_aligned": 0.009375000000000005,
+      "slope_v_aligned_ci": {
+        "ci_lo": -0.02044270833333332,
+        "ci_hi": 0.038802083333333334,
+        "se": 0.01532080453022753
+      },
+      "divergence_proxy_minus_gold": 0.016880606309687733,
+      "divergence_ci": {
+        "ci_lo": -0.006995214675432555,
+        "ci_hi": 0.044118787969861475,
+        "se": 0.013198401578464535
+      },
+      "verdict": "no separation",
+      "by_round_means": {
+        "round1": {
+          "n": 8,
+          "proxy_pool": 0.5232657839795484,
+          "gold_pool": 0.5416666666666666,
+          "gold_pool_aligned": -0.2777777777777778,
+          "v_before": 0.6041666666666666
+        },
+        "round2": {
+          "n": 8,
+          "proxy_pool": 0.5382220581281916,
+          "gold_pool": 0.545138888888889,
+          "gold_pool_aligned": -0.23263888888888892,
+          "v_before": 0.5260416666666667
+        },
+        "round3": {
+          "n": 8,
+          "proxy_pool": 0.5566985663935897,
+          "gold_pool": 0.5381944444444445,
+          "gold_pool_aligned": -0.2916666666666667,
+          "v_before": 0.48958333333333337
+        },
+        "round4": {
+          "n": 8,
+          "proxy_pool": 0.5710608207752266,
+          "gold_pool": 0.5694444444444444,
+          "gold_pool_aligned": -0.2604166666666667,
+          "v_before": 0.5572916666666667
+        }
+      }
+    }
+  },
+  "threat": "judge scores are comparable across rounds only up to the frozen judge's own calibration drift on a changing candidate distribution; a rising proxy could in principle be that rather than genuinely better-scoring candidates"
+}

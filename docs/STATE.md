@@ -95,6 +95,21 @@ The Kaggle copy stays queued for the 08-01 reset as a second, independent run.
 
 ## Recent changes
 
+- 2026-07-29: **Spread is not a state variable — on a binary axis it is the pool
+  mean in disguise.** `σ = √(n/(n−1))·√(q(1−q))` exactly; verified on all 1,248
+  corpus rows, max deviation 1.11e-16, and 100% of rows are binary-scored. So
+  spread cannot be screened, intervened on, or made to covary independently of
+  the mean — which is the exact algebra behind three results previously found
+  separately. The writeup's two dials are one dial plus a pool mean.
+  **The depletion mechanism is now explicit:** the pool mean's distance from 0.5
+  rises monotonically 0.200 → 0.268 over four rounds, so spread falls
+  mechanically 0.430 → 0.365. The loop's fuel is distance from the middle of the
+  scale and selection spends it by construction. What is free — the pool mean —
+  is **prompt 0.456 / run 0.502 / round 0.002**, and prompts are stable across
+  entirely different runs at **split-half r = +0.920**, which makes per-prompt
+  screening a real pre-loop tool. Makes graded scoring a prerequisite rather
+  than a refinement. [report_spread_supply.md](reports/report_spread_supply.md).
+
 - 2026-07-29: **No Goodhart signature over four rounds** — the judge's score of
   the organism's own candidates and the value those candidates carry rise
   together (divergence +0.0014 [−0.0125, +0.0178]). On OLMo the real value moves

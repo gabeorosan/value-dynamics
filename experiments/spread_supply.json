@@ -1,0 +1,113 @@
+{
+  "description": "Variance decomposition of within-prompt candidate spread -- the fuel selection runs on -- into prompt, run and round components, on raw spread and on the share of the binomial ceiling actually realised.",
+  "n_rows": 1248,
+  "n_runs": 26,
+  "n_prompts": 48,
+  "zero_spread_share": 0.1891025641025641,
+  "binary_share_of_rows": 1.0,
+  "binary_identity_check": {
+    "rows_checked": 1248,
+    "max_absolute_deviation": 1.1102230246251565e-16,
+    "holds": true,
+    "meaning": "on a binary axis the within-prompt spread is a deterministic function of the pool mean, so it is not an independent state variable"
+  },
+  "decomposition": {
+    "pool_mean": {
+      "n_rows": 1248,
+      "n_prompts": 48,
+      "n_runs": 26,
+      "n_rounds": 4,
+      "total_variance": 0.08127812191814596,
+      "prompt_share": 0.4561130301532717,
+      "run_share": 0.5023386777539918,
+      "round_share": 0.0019950514298453766,
+      "residual_share_after_prompt_and_run": 0.45229731566366543
+    },
+    "raw_spread": {
+      "n_rows": 1248,
+      "n_prompts": 48,
+      "n_runs": 26,
+      "n_rounds": 4,
+      "total_variance": 0.039336642282011565,
+      "prompt_share": 0.259745164120477,
+      "run_share": 0.2769315888753912,
+      "round_share": 0.014381805413863843,
+      "residual_share_after_prompt_and_run": 0.6510622953247059
+    }
+  },
+  "prompt_stability_across_runs": {
+    "pool_mean": {
+      "split_half_correlation_mean": 0.9198284955586824,
+      "ci_lo": 0.8868296424375418,
+      "ci_hi": 0.9479576825489499,
+      "n_splits": 200
+    },
+    "raw_spread": {
+      "split_half_correlation_mean": 0.7462151657854806,
+      "ci_lo": 0.6253712747856063,
+      "ci_hi": 0.8299703731787262,
+      "n_splits": 200
+    }
+  },
+  "by_round": {
+    "pool_mean": {
+      "round1": {
+        "n": 312,
+        "mean": 0.4236111111111111
+      },
+      "round2": {
+        "n": 312,
+        "mean": 0.4193376068376068
+      },
+      "round3": {
+        "n": 312,
+        "mean": 0.42628205128205127
+      },
+      "round4": {
+        "n": 312,
+        "mean": 0.4519230769230769
+      }
+    },
+    "raw_spread": {
+      "round1": {
+        "n": 312,
+        "mean": 0.4303466118337793
+      },
+      "round2": {
+        "n": 312,
+        "mean": 0.40282037813200333
+      },
+      "round3": {
+        "n": 312,
+        "mean": 0.38863294496847955
+      },
+      "round4": {
+        "n": 312,
+        "mean": 0.3646324051425725
+      }
+    },
+    "distance_of_pool_mean_from_half": {
+      "round1": {
+        "n": 312,
+        "mean": 0.20032051282051283
+      },
+      "round2": {
+        "n": 312,
+        "mean": 0.23664529914529916
+      },
+      "round3": {
+        "n": 312,
+        "mean": 0.25641025641025644
+      },
+      "round4": {
+        "n": 312,
+        "mean": 0.26816239316239315
+      }
+    }
+  },
+  "conventions": {
+    "ceiling": "sqrt(q(1-q)) with q the prompt's own pool mean",
+    "ceiling_floor": 0.05,
+    "prompt_identity": "the logged task text where available, else the item index, which is stable within a source because the prompt list is fixed"
+  }
+}

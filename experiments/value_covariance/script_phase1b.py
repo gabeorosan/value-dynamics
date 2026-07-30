@@ -65,8 +65,12 @@ import numpy as np
 # ----------------------------------------------------------------------------
 # Config
 # ----------------------------------------------------------------------------
-GEN_MODEL = os.environ.get("GEN_MODEL", "Qwen/Qwen3-4B")
-JUDGE_A = os.environ.get("JUDGE_A", "Qwen/Qwen3-4B")
+# NOTE: a Kaggle *script* kernel receives no environment variables, so these
+# defaults ARE the Kaggle configuration. They were Qwen3-4B and gemma-2-2b-it,
+# both 2025 models, which would have run silently on 2026-08-01. Keep them
+# current; env vars remain available for local and Colab overrides.
+GEN_MODEL = os.environ.get("GEN_MODEL", "Qwen/Qwen3.5-4B")
+JUDGE_A = os.environ.get("JUDGE_A", "Qwen/Qwen3.5-4B")
 # Judge B must be a DIFFERENT family and must load under Kaggle's preinstalled
 # transformers. Gemma-2-2b-it is attached as a Kaggle model source (no HF auth).
 # Judge B must be a DIFFERENT family from judge A, or the cross-judge agreement
@@ -76,7 +80,9 @@ JUDGE_A = os.environ.get("JUDGE_A", "Qwen/Qwen3-4B")
 # nothing else). The old fallback, Qwen2.5-3B, shared a vendor with judge A and
 # would have made the gate permissive.
 JUDGE_B = os.environ.get(
-    "JUDGE_B", "/kaggle/input/gemma-2/transformers/gemma-2-2b-it/2")
+    # a hub id, honoured directly by resolve_judge_b; Kaggle kernels run with
+    # internet enabled so nothing needs mounting
+    "JUDGE_B", "google/gemma-4-E2B-it")
 JUDGE_B_FALLBACK = os.environ.get(
     # NOT Ministral: model_type "mistral3" maps to None under
     # AutoModelForCausalLM, and the repo is FP8, which Turing

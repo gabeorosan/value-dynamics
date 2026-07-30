@@ -7,7 +7,9 @@ disagree, this file wins. The 2026-07-14 plan and its full decision log are in
 [archive/PLAN_archive_2026-07-28.md](archive/PLAN_archive_2026-07-28.md).
 
 *Rewritten 2026-07-28 around the two terms of the Price equation, after five
-literature reviews and three analyses landed on the same day.*
+literature reviews and three analyses landed on the same day. Lanes 2 and 3
+updated 2026-07-29: lane 2's central question turned out to be answerable by
+arithmetic, and lane 3 now has a measurable stability criterion.*
 
 ## The reframing
 
@@ -111,10 +113,35 @@ The saturation analysis relocated the bottleneck: transmission holds, spread
 collapses. Song et al. found the same collapse and attributed it to diversity
 loss. This lane asks what governs the supply.
 
-- **The decisive cheap measurement is the proxy-minus-gold divergence plot**
-  (Gao §3.5). A *widening* judge-score-minus-value gap is the unique signature
-  of overoptimisation; coverage exhaustion flattens both curves together. The
-  frozen-judge rescoring machinery already exists.
+**RESOLVED 2026-07-29, and more completely than expected.** Two results closed
+most of this lane:
+
+- **The proxy-minus-gold measurement is done, and there is no overoptimisation
+  at this horizon.** Divergence +0.0014 [-0.0125, +0.0178]; on OLMo the value
+  moves *faster* than the judge's score of it, -0.0141 [-0.0228, -0.0064].
+  Coverage exhaustion, not Goodhart.
+  (reports/report_proxy_gold_divergence.md)
+- **Spread is not a state variable at all on a binary axis.** It is the pool mean
+  pushed through `sigma = sqrt(n/(n-1))*sqrt(q(1-q))`, exactly, on all 1,248
+  corpus rows. With n = 6 everywhere the whole state space is a seven-point
+  lattice, and the depletion is selection moving mass off the middle of that
+  lattice onto its ends (unanimous pools 14.4% -> 24.4% over four rounds). The
+  fuel is distance from the middle of the scale and selection spends it by
+  construction. (reports/report_spread_supply.md)
+
+**What that leaves for this lane**, all of it now downstream of graded scoring:
+
+- **Graded scores are a PREREQUISITE, not a refinement.** Until candidate scores
+  are graded, the second moment does not exist independently and no question of
+  the form "does spread do anything beyond the mean" is answerable. Phase 1b is
+  the gate.
+- **Prompt screening is a real pre-loop tool and is nearly free.** Per-prompt
+  pool means are stable across entirely different runs at split-half r = +0.920.
+  One generation pass ranks prompts by available selectable variation and the
+  ranking transfers across organisms and judges. Worth building as a utility.
+- **Raise the candidate count.** The gap is quantised: with 6 binary candidates
+  and keep-2 the kept mean can only be 0, 0.5 or 1. Resolution improves with
+  candidate count and graded scores, not with more runs.
 - Diversity per round, measured on the candidate text rather than on the value
   scores, so "spread collapsed" can be distinguished from "the value axis
   saturated while the text still varies".
@@ -128,8 +155,27 @@ loss. This lane asks what governs the supply.
 Every result above holds the judge frozen. The bifurcation question needs it to
 move, and Fisherian runaway supplies the formal condition.
 
+**There is now a criterion, measured.** Mapping Lande-Kirkpatrick onto the loop
+gives a per-round loop gain `G = 1 + c*h^2*sigma`, where `c = drho/dv` is the
+judge-drift coupling a frozen-judge design sets to zero by construction. Above 1
+is runaway, below 1 settles. Measured: **G = 0.922 [0.86, 0.98]** — these loops
+are self-limiting, movement erodes the judge's agreement. Families split, with
+Qwen at 0.820 [0.70, 0.94] and OLMo at **0.974 [0.90, 1.05]**, on the boundary,
+and OLMo is where this project's two runaways happened. The predicted geometric
+decay holds at rounds 2-3 and fails at round 4, so read it only for early
+direction. (reports/report_judge_coupling_stability.md)
+
 **Do not answer this by adding seeds.** The matched ablation needs roughly 52
 seeds per arm at the observed effect size, which is out of budget. Instead:
+
+- **Manipulate `c` directly.** The criterion says the sign of `c` separates
+  runaway from settling, so build a judge whose agreement *rises* as the value
+  moves — a judge retrained on the kept text each round is the obvious one — and
+  check whether the gain crosses 1 and the run behaviour crosses with it. One
+  quantity, a pre-registered direction, far cheaper than powering the
+  frozen-versus-evolving contrast.
+- **Report `G` for every future run.** It costs nothing: sigma and rho are
+  already logged every round and `h^2` is measured.
 
 - **Sweep starting values, not seeds.** Fit `v_final = I + s·v_0` over a range
   of starting values; `s > 1` *is* the bifurcation, and it locates the
@@ -157,6 +203,12 @@ uninterpretable without it.
   field's main critique rather than being housekeeping.
 - **Oracle exclusion** from any agreement-persistence statement. Oracle
   agreement is ±1 by construction and including those runs changes the answer.
+- **A fixed anchor set of candidates, re-scored every round.** Added 2026-07-29.
+  The proxy-gold result's one unremovable threat is frozen-judge calibration
+  drift on a changing candidate distribution — a rising proxy could be the judge,
+  not the candidates. Re-scoring an unchanging held-aside pool each round makes
+  the proxy series calibration-free. Cheap, and it should be standard in every
+  future loop.
 
 ## Compute
 

@@ -426,22 +426,24 @@ def strip_thinking(text):
     return t.strip()
 
 
+# Reasoning-block markers, by family. A prompt whose reasoning block is left
+# OPEN makes the next-token read measure the noise tail of the reasoning opener
+# instead of an answer -- that killed three phase-1 runs on Qwen. But the fix
+# must use the model's OWN markers: the previous version appended Qwen's
+# "<think></think>" to any template that did not already contain "</think>",
+# which on 2026-07-29 injected Qwen tokens into a gemma-4 prompt immediately
+# before the answer position. gemma-4 then ordered 0.0 of the 14 manipulation
+# pairs correctly -- perfectly inverted rather than random, which is the
+# signature of a corrupted prompt rather than a judge that cannot judge.
+THINK_MARKERS = [("<think>", "</think>"), ("<|think|>", "<|/think|>")]
+
+
 def judge_prompt(tok, msg):
     """Render a judge turn whose NEXT TOKEN is the answer.
 
-    Qwen3 opens its assistant turn with <think>; left open, the next-token read
-    measures the noise tail of the reasoning opener rather than an answer. That
-    was the root cause of three failed phase-1 runs, so a reasoning model's block
-    is force-closed.
-
-    But the closer must NOT be appended to a judge that has no reasoning block.
-    An earlier version appended `<think></think>` unconditionally, which injects
-    tokens a non-reasoning model never emits and silently corrupts its read. That
-    hit whichever model was configured as judge B -- gemma-2 on Kaggle -- and it
-    is exactly the kind of instrument fault this experiment exists to avoid.
-
-    So the block is appended only when the tokenizer's own chat template shows the
-    model uses one.
+    Closes a reasoning block only if this model's template actually opened one,
+    and only with that model's own closer. A template that opens nothing is left
+    exactly as rendered.
     """
     try:
         text = tok.apply_chat_template([{"role": "user", "content": msg}], tokenize=False,
@@ -449,10 +451,9 @@ def judge_prompt(tok, msg):
     except TypeError:
         text = tok.apply_chat_template([{"role": "user", "content": msg}], tokenize=False,
                                        add_generation_prompt=True)
-    template = (getattr(tok, "chat_template", None) or "")
-    uses_thinking = "think" in str(template).lower() or "<think>" in text
-    if uses_thinking and "</think>" not in text:
-        text = text + "<think>\n\n</think>\n\n"
+    for opener, closer in THINK_MARKERS:
+        if opener in text and closer not in text:
+            return text + closer + "\n\n"
     return text
 
 

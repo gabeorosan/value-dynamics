@@ -95,6 +95,20 @@ The Kaggle copy stays queued for the 08-01 reset as a second, independent run.
 
 ## Recent changes
 
+- 2026-07-31: **Phase 1b DID complete on 2026-07-29 and returned
+  `INSTRUMENT_FAILURE` — and the cause is a bug in our own prompt builder, not
+  the judges.** Judge A (Qwen3.5-4B) passed gate 2 at **1.0 ordered, mean margin
+  0.605**, so graded 0–9 logprob scoring works. Judge B (gemma-4-E2B-it) scored
+  **0.0 ordered** — perfectly inverted rather than random, the signature of a
+  corrupted prompt. `judge_prompt` appended Qwen's `<think></think>` to any
+  template not already containing `</think>`; gemma-4 uses `<|think|>` and emits
+  no marker at all, so the script injected **foreign tokens immediately before
+  the answer position**. Fixed to close a reasoning block only when that model's
+  own template opened one. **Every past run with a non-Qwen judge B was
+  corrupted the same way**, including the gemma-2-2b-it arms.
+  The VM has since been recycled, so `/content/p1b.json` is gone; the gate
+  numbers above survive in the notebook output.
+
 - 2026-07-29: **Spread is not a state variable — on a binary axis it is the pool
   mean in disguise.** `σ = √(n/(n−1))·√(q(1−q))` exactly; verified on all 1,248
   corpus rows, max deviation 1.11e-16, and 100% of rows are binary-scored. So

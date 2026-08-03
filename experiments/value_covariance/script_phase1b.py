@@ -62,6 +62,41 @@ import time
 
 import numpy as np
 
+# ---------------------------------------------------------------------------
+# Kaggle ships a pinned transformers that predates the models this experiment
+# uses: the 2026-07-31 launch died in 30 seconds on KeyError: 'qwen3_5'. The
+# probe runs in a SUBPROCESS so this process never imports transformers before
+# a possible upgrade -- an in-process check would cache the stale module and the
+# upgrade would not take effect without re-exec. No-ops when the installed
+# version already knows the architectures, so local and Colab runs are
+# untouched.
+# ---------------------------------------------------------------------------
+def _ensure_transformers(model_types=("qwen3_5", "gemma4")):
+    import subprocess
+    import sys
+    probe = (
+        "from transformers.models.auto.configuration_auto import "
+        "CONFIG_MAPPING_NAMES as M; import sys; "
+        f"sys.exit(0 if all(t in M for t in {model_types!r}) else 1)"
+    )
+    try:
+        rc = subprocess.run([sys.executable, "-c", probe],
+                            capture_output=True).returncode
+    except Exception:                                          # noqa: BLE001
+        rc = 1
+    if rc == 0:
+        return
+    print(f"  transformers does not recognise all of {model_types}; upgrading",
+          flush=True)
+    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-U",
+                    "transformers"], check=False)
+    rc2 = subprocess.run([sys.executable, "-c", probe],
+                         capture_output=True).returncode
+    print(f"  after upgrade, architectures recognised: {rc2 == 0}", flush=True)
+
+
+_ensure_transformers()
+
 # ----------------------------------------------------------------------------
 # Config
 # ----------------------------------------------------------------------------

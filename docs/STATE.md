@@ -46,10 +46,9 @@ reset.** Colab has a usable T4 today.
 
 | Job | Where | Status |
 |---|---|---|
-| Value-covariance **phase 1b** (graded 0–9 logprob scoring, four pre-registered gates) | **Colab T4, RUNNING** (relaunched 2026-07-29 ~11:25 PDT) | Notebook `Untitled70.ipynb`, self-contained, no Drive. Generator + judge A `Qwen/Qwen3.5-4B`, judge B `google/gemma-4-E2B-it`, `BATCH_B=2`. Writes `/content/phase1b_gemma.json`. Expect ~2h. |
+| Value-covariance **phase 1b**, full size | **Kaggle 2×T4, RUNNING** — `hirokenzan/vd-valcov1b-20260802-2116` | Launched 2026-07-31 with the corrected script: current models by default (Qwen3.5-4B / gemma-4-E2B-it), the judge-prompt fix, per-pool resume. Monitor with `experiments/value_covariance/launch.sh phase1b`, which pulls the output when it completes. |
 
-**The previous attempt died exactly where the pre-flight said it would, for a
-second reason nobody was looking at.** The pre-flight correctly identified that
+**Colab history, kept because the failures were informative.** The first attempt died exactly where the pre-flight said it would, for a second reason nobody was looking at. The pre-flight correctly identified that
 `mistralai/Ministral-3-3B-Instruct-2512` cannot load (`model_type: mistral3`
 maps to `None` under `AutoModelForCausalLM`; also FP8, which Turing dequantizes
 silently). Setting `JUDGE_B=google/gemma-4-E2B-it` did not fix it: `JUDGE_B` is

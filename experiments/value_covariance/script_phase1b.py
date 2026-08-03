@@ -71,7 +71,7 @@ import numpy as np
 # version already knows the architectures, so local and Colab runs are
 # untouched.
 # ---------------------------------------------------------------------------
-def _ensure_transformers(model_types=("qwen3_5", "gemma4")):
+def _ensure_transformers(model_types=("qwen3_5", "granite")):
     import subprocess
     import sys
     probe = (
@@ -110,19 +110,21 @@ JUDGE_A = os.environ.get("JUDGE_A", "Qwen/Qwen3.5-4B")
 # transformers. Gemma-2-2b-it is attached as a Kaggle model source (no HF auth).
 # Judge B must be a DIFFERENT family from judge A, or the cross-judge agreement
 # gate passes on shared bias rather than on a real second reading. The Kaggle
-# path mounts gemma-2 locally; everywhere else the default is Mistral's
 # Ministral-3-3B (Apache 2.0, no auth, ~6 GB in fp16 so it fits a T4 alongside
 # nothing else). The old fallback, Qwen2.5-3B, shared a vendor with judge A and
 # would have made the gate permissive.
 JUDGE_B = os.environ.get(
     # a hub id, honoured directly by resolve_judge_b; Kaggle kernels run with
     # internet enabled so nothing needs mounting
-    "JUDGE_B", "google/gemma-4-E2B-it")
+    # gemma-4-E2B-it produced all-nan logits in fp16 on a Turing T4 on
+    # 2026-07-31 despite its tech report claiming fp16-bounded activations.
+    # granite is plain dense and was the survey's lowest-load-risk fallback.
+    "JUDGE_B", "ibm-granite/granite-4.1-3b")
 JUDGE_B_FALLBACK = os.environ.get(
     # NOT Ministral: model_type "mistral3" maps to None under
     # AutoModelForCausalLM, and the repo is FP8, which Turing
     # dequantizes silently. See check_judge_models.py.
-    "JUDGE_B_FALLBACK", "google/gemma-4-E2B-it")
+    "JUDGE_B_FALLBACK", "ibm-granite/granite-4.1-3b")
 N_CAND = int(os.environ.get("N_CAND", "8"))
 # Truncates the prompt set. Exists so the instrument gates -- which do not
 # need the full set -- can be checked in a window short enough to survive a

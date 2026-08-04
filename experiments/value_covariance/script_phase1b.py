@@ -125,7 +125,7 @@ JUDGE_B_FALLBACK = os.environ.get(
     # AutoModelForCausalLM, and the repo is FP8, which Turing
     # dequantizes silently. See check_judge_models.py.
     "JUDGE_B_FALLBACK", "ibm-granite/granite-4.1-3b")
-N_CAND = int(os.environ.get("N_CAND", "8"))
+N_CAND = int(os.environ.get("N_CAND", "12"))
 # Truncates the prompt set. Exists so the instrument gates -- which do not
 # need the full set -- can be checked in a window short enough to survive a
 # free-Colab runtime, with the full-size covariance run going to Kaggle.
@@ -134,7 +134,7 @@ N_PROMPTS = int(os.environ.get("N_PROMPTS", "0"))
 GEN_TEMP = float(os.environ.get("GEN_TEMP", "1.0"))
 # 200 truncated every candidate inside <think> on 2026-07-24. Keep the margin.
 MAX_NEW = int(os.environ.get("MAX_NEW", "420"))
-KEEP = int(os.environ.get("KEEP", "4"))
+KEEP = int(os.environ.get("KEEP", "6"))
 BATCH = int(os.environ.get("BATCH", "8"))
 BATCH_B = int(os.environ.get("BATCH_B", "2"))   # gemma's 256k vocab OOMs at 8
 OUT = os.environ.get("OUT", "/kaggle/working/value_covariance_phase1b.json")

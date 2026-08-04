@@ -94,6 +94,22 @@ The Kaggle copy stays queued for the 08-01 reset as a second, independent run.
 
 ## Recent changes
 
+- 2026-08-04: **Off-target selection differentials are predictable from the
+  candidate covariance** — `S_b = (P_ab/P_aa)·S_a` at **slope 0.684 [0.442,
+  0.959], r 0.427 [0.292, 0.550]**, cross-pool and cross-method (judge B is a
+  different model family), at **30 selection events**. Phase 1b's own 0.855/0.852
+  rested on six; blocking the prompts raises it fivefold and the effect survives
+  much weaker. Measures the SELECTION channel only — no training happens, so it
+  says nothing about transmission.
+  [report_offtarget_prediction_blocked.md](reports/report_offtarget_prediction_blocked.md).
+- 2026-08-04: **Both judges now pass the instrument gates.** granite-4.1-3b as
+  judge B: digit mass 1.0, gate 2 at 1.0 ordered / margin 0.417. **MTMM passes
+  6/6** — mean same-axis cross-judge correlation 0.391 against mean off-diagonal
+  0.132, and the diagonal beats its row's largest off-diagonal in every row. The
+  six axes are distinguishable traits, not one halo factor. Registered gate 4
+  still fails (needs r ≥ 0.4 on risk, got 0.345), so the run's verdict remains
+  INSTRUMENT_FAILURE.
+
 - 2026-07-31: **Phase 1b DID complete on 2026-07-29 and returned
   `INSTRUMENT_FAILURE` — and the cause is a bug in our own prompt builder, not
   the judges.** Judge A (Qwen3.5-4B) passed gate 2 at **1.0 ordered, mean margin

@@ -1,0 +1,110 @@
+{
+  "description": "Blocked re-test of the multivariate-selection prediction S_b = (P_ab/P_aa) * S_a, raising the effective sample size from 6 selection events to blocks x axes, with a cluster bootstrap over selection events. Cross-pool and cross-method throughout.",
+  "source": "experiments/value_covariance/output_1b_granite/value_covariance_phase1b.json",
+  "n_blocks": 5,
+  "prompts_per_block": [
+    6,
+    6,
+    6,
+    6,
+    6
+  ],
+  "keep": 4,
+  "axes": [
+    "risk_tolerance",
+    "candor_uncertainty",
+    "deference_to_asker",
+    "caution_reversibility",
+    "directness",
+    "scope_expansion"
+  ],
+  "whole_sample_fit_as_phase1b_reported_it": {
+    "slope": 1.0557375190508915,
+    "intercept": -0.0012364791021919714,
+    "correlation": 0.7746189185050849,
+    "mae": 0.007385711485776198,
+    "sign_agreement": 0.9,
+    "n_pairs": 30
+  },
+  "blocked_fit": {
+    "slope": 0.6837241890663317,
+    "intercept": -0.0021489127015569664,
+    "correlation": 0.4266287680597874,
+    "mae": 0.018180199084028542,
+    "sign_agreement": 0.66,
+    "n_pairs": 150
+  },
+  "blocked_bootstrap_over_selection_events": {
+    "slope": {
+      "ci_lo": 0.4416903924491217,
+      "ci_hi": 0.9588155387353358,
+      "se": 0.1310394700214898
+    },
+    "correlation": {
+      "ci_lo": 0.2923913239499532,
+      "ci_hi": 0.5495256247337234,
+      "se": 0.06634377412949286
+    },
+    "sign_agreement": {
+      "ci_lo": 0.5866666666666667,
+      "ci_hi": 0.7266666666666667,
+      "se": 0.036082749642467604
+    },
+    "n_clusters": 30
+  },
+  "per_selected_axis": {
+    "risk_tolerance": {
+      "slope": 0.9900154334132918,
+      "intercept": -0.0007737816179905852,
+      "correlation": 0.6444538086756154,
+      "mae": 0.014845703744837622,
+      "sign_agreement": 0.8,
+      "n_pairs": 25
+    },
+    "candor_uncertainty": {
+      "slope": 0.5698760745716286,
+      "intercept": 0.004366382659178416,
+      "correlation": 0.4469732939711939,
+      "mae": 0.01602641233292963,
+      "sign_agreement": 0.6,
+      "n_pairs": 25
+    },
+    "deference_to_asker": {
+      "slope": 0.5064824513076994,
+      "intercept": -0.0036355082426160704,
+      "correlation": 0.3138540731103358,
+      "mae": 0.021099370792349803,
+      "sign_agreement": 0.72,
+      "n_pairs": 25
+    },
+    "caution_reversibility": {
+      "slope": 0.8110108642748207,
+      "intercept": 0.0008977694693939761,
+      "correlation": 0.5609716063625817,
+      "mae": 0.016185301670450406,
+      "sign_agreement": 0.64,
+      "n_pairs": 25
+    },
+    "directness": {
+      "slope": 0.35503555784924323,
+      "intercept": -0.015967098261965518,
+      "correlation": 0.15119742898431862,
+      "mae": 0.023076173103400998,
+      "sign_agreement": 0.6,
+      "n_pairs": 25
+    },
+    "scope_expansion": {
+      "slope": 0.5858185317207597,
+      "intercept": 0.0018582623016532252,
+      "correlation": 0.4024845876554667,
+      "mae": 0.01784823286020279,
+      "sign_agreement": 0.6,
+      "n_pairs": 25
+    }
+  },
+  "separations_preserved": {
+    "cross_pool": "covariance from pool A; selection and outcome on pool B",
+    "cross_method": "covariance and selection from judge A; observed differential from judge B",
+    "off_diagonal_only": "b != a; the on-axis differential is the input"
+  }
+}
